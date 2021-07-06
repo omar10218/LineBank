@@ -1,0 +1,83 @@
+<table style="padding-left: 20px;">
+  <br>
+  <mat-card class="matCard">
+    <mat-card-content>
+      <tr>
+        <th>代碼類別：</th>
+        <td>
+          <mat-form-field color="accent">
+            <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()">
+              <mat-option *ngFor="let code of sysCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <td style="width: 10px;">
+        </td>
+        <th>Filter：</th>
+        <td>
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event)" value="{{selectedValue}}" />
+          </mat-form-field>
+        </td>
+      </tr>
+    </mat-card-content>
+  </mat-card>
+</table>
+
+<mat-table [dataSource]="mappingCodeSource" matSort (matSortChange)="changeSort($event)">
+  <ng-container matColumnDef="code_TYPE">
+    <mat-header-cell *matHeaderCellDef>類別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.code_TYPE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="code_NO">
+    <mat-header-cell *matHeaderCellDef>代碼</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.code_NO }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="code_DESC">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>描述</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.code_DESC }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="code_SORT">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>排序</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.code_SORT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="code_TAG">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>備註</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.code_TAG }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="code_FLAG">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>是否停用</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.code_FLAG }}</mat-cell>
+  </ng-container>
+
+  <!-- actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>
+      <button mat-icon-button color="primary" (click)="addNew()">
+        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+      </button>
+    </mat-header-cell>
+
+    <mat-cell *matCellDef="let row; let i=index;">
+      <button mat-icon-button color="accent" (click)="startEdit(i,
+          row.code_TYPE, row.code_NO, row.code_DESC, row.code_SORT, row.code_TAG, row.code_FLAG)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row
+    *matHeaderRowDef="['code_TYPE', 'code_NO', 'code_DESC', 'code_SORT', 'code_TAG', 'code_FLAG', 'actions']">
+  </mat-header-row>
+  <mat-row
+    *matRowDef="let mappingCodeRow; columns: ['code_TYPE', 'code_NO', 'code_DESC', 'code_SORT', 'code_TAG', 'code_FLAG', 'actions']">
+  </mat-row>
+</mat-table>
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

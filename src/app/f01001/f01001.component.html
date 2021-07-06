@@ -1,0 +1,49 @@
+
+<table>
+  <tr>
+    <td>
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-paginator #paginator
+               [length]="totalCount"
+               [pageIndex]="0"
+               [pageSize]="10"
+               [pageSizeOptions]="[5, 10, 15, 50, 100]"
+               [showFirstLastButtons]="true">
+      </mat-paginator>
+    </td>
+  </tr>
+</table>
+
+<mat-table [dataSource]="cusinfoDataSource" matSort (matSortChange)="changeSort($event)">
+  <ng-container matColumnDef="applno">
+    <mat-header-cell *matHeaderCellDef>收件編號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.applno }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="cu_cname">
+    <mat-header-cell *matHeaderCellDef>客戶姓名</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.cu_cname }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="cu_id">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>身分證字號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.cu_id }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="cu_urgent">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>是否急件</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.cu_urgent }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="management">
+    <mat-header-cell *matHeaderCellDef>
+      <u>管理</u>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-raised-button color="primary"  (click) = "getLockCase(row.applno)">取件</button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['applno', 'cu_cname', 'cu_id', 'cu_urgent', 'management']"></mat-header-row>
+  <mat-row *matRowDef="let caseListRow; columns: ['applno', 'cu_cname', 'cu_id', 'cu_urgent', 'management']"></mat-row>
+</mat-table>
+
