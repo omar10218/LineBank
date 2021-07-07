@@ -50,6 +50,7 @@ import { F03004Component } from './f03004/f03004.component';
 import { F03004confirmComponent } from './f03004/f03004confirm/f03004confirm.component';
 import { F03004addComponent } from './f03004/f03004add/f03004add.component';
 import { F03004editComponent } from './f03004/f03004edit/f03004edit.component';
+import { F03008Component } from './f03008/f03008.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { F03004editComponent } from './f03004/f03004edit/f03004edit.component';
     F03004confirmComponent,
     F03004addComponent,
     F03004editComponent,
+    F03008Component,
   ],
   imports: [
     BrowserModule,

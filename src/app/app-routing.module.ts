@@ -23,6 +23,7 @@ import { F03004Component } from './f03004/f03004.component';
 import { F03005Component } from './f03005/f03005.component';
 import { F03006Component } from './f03006/f03006.component';
 import { F03007Component } from './f03007/f03007.component';
+import { F03008Component } from './f03008/f03008.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
@@ -143,6 +144,10 @@ const routes: Routes = [
       {
         path: 'F03007',
         component: F03007Component
+      },
+      {
+        path: 'F03008',
+        component: F03008Component
       },
     ]
   }
