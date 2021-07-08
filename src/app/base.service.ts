@@ -36,6 +36,10 @@ export class BaseService {
     return this.postHttpClient(targetUrl);
   }
 
+  public getLine(url: string){
+    return this.postHttpClient(url);
+  }
+
   protected formDataApiFor_NET(baseUrl: string, formdata: FormData) {
     return this.httpClient.post<any>(baseUrl, formdata, this.httpOptions);
   }
