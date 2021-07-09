@@ -52,6 +52,11 @@ import { F03004addComponent } from './f03004/f03004add/f03004add.component';
 import { F03004editComponent } from './f03004/f03004edit/f03004edit.component';
 import { F03008Component } from './f03008/f03008.component';
 import { F03003confirmComponent } from './f03003/f03003confirm/f03003confirm.component';
+import { F03002child1Component } from './f03002/f03002child1/f03002child1.component';
+import { F03002child2Component } from './f03002/f03002child2/f03002child2.component';
+import { F03002child201Component } from './f03002/f03002child2/f03002child201/f03002child201.component';
+import { F03002child202Component } from './f03002/f03002child2/f03002child202/f03002child202.component';
+import { F03002child203Component } from './f03002/f03002child2/f03002child203/f03002child203.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +99,11 @@ import { F03003confirmComponent } from './f03003/f03003confirm/f03003confirm.com
     F03004editComponent,
     F03008Component,
     F03003confirmComponent,
+    F03002child1Component,
+    F03002child2Component,
+    F03002child201Component,
+    F03002child202Component,
+    F03002child203Component,
   ],
   imports: [
     BrowserModule,
