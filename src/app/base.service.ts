@@ -10,24 +10,22 @@ export class BaseService {
 
   constructor(protected httpClient: HttpClient) { }
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': environment.allowOrigin,
-      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
-      'Access-Control-Max-Age': '86400'
-    })
-  };
+  public getToken(): string {
+    console.log(localStorage.getItem('token'));
+    return localStorage.getItem('token');
+  }
+
 
   protected postHttpClient(baseUrl: string) {
-    return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, this.httpOptions);
+    return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, null);
   }
 
   protected getHttpClient(baseUrl: string) {
-    return this.httpClient.get<any>(environment.allowOrigin + '/' + baseUrl, this.httpOptions);
+    return this.httpClient.get<any>(environment.allowOrigin + '/' + baseUrl);
   }
 
   protected postFormData(baseUrl: string, formdata: FormData) {
-    return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formdata, this.httpOptions);
+    return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formdata);
   }
 
   public getSysTypeCode(codeType: string): Observable<any> {
@@ -41,7 +39,7 @@ export class BaseService {
   }
 
   protected formDataApiFor_NET(baseUrl: string, formdata: FormData) {
-    return this.httpClient.post<any>(baseUrl, formdata, this.httpOptions);
+    return this.httpClient.post<any>(baseUrl, formdata);
   }
 
   //================下方是提供新增或編輯用的function========================================

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MenuListModule } from './menu-list/menu-list.module';
@@ -57,6 +57,7 @@ import { F03002child2Component } from './f03002/f03002child2/f03002child2.compon
 import { F03002child201Component } from './f03002/f03002child2/f03002child201/f03002child201.component';
 import { F03002child202Component } from './f03002/f03002child2/f03002child202/f03002child202.component';
 import { F03002child203Component } from './f03002/f03002child2/f03002child203/f03002child203.component';
+import { TokenInterceptor } from './token.interceptor';
 
 @NgModule({
   declarations: [
@@ -120,7 +121,12 @@ import { F03002child203Component } from './f03002/f03002child2/f03002child203/f0
   providers: [
     BnNgIdleService,
     { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: MatDialogRef, useValue: {} }
+    { provide: MatDialogRef, useValue: {} },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
