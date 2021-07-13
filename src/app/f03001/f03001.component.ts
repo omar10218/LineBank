@@ -25,7 +25,7 @@ interface sysAPI {
 @Component({
   selector: 'app-f03001',
   templateUrl: './f03001.component.html',
-  styleUrls: ['./f03001.component.css']
+  styleUrls: ['./f03001.component.css', '../../assets/css/f03.css']
 })
 export class F03001Component implements OnInit {
 
@@ -41,7 +41,7 @@ export class F03001Component implements OnInit {
 
   BUS_TYPECode_Selected: string = '';
   BUS_TYPECode: any[] = [];
-  BusType: sysCode[] = [];
+  BusType: sysCode[] = [{ value: '小額信貸', viewValue: '小額信貸' }];
   ParmType: sysCode[] = [];
   ParmDim: sysCode[] = [];
   ParmClass: sysCode[] = [];
@@ -77,13 +77,13 @@ export class F03001Component implements OnInit {
   ngOnInit(): void {
     //呼叫下拉選單值
     //業務別
-    this.f03001Service.tttt('BUS_TYPE').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codE_NO'];
-        const desc = jsonObj['codE_DESC'];
-        this.BusType.push({ value: codeNo, viewValue: desc })
-      }
-    })
+    // this.f03001Service.tttt('BUS_TYPE').subscribe(data => {
+    //   for (const jsonObj of data.rspBody) {
+    //     const codeNo = jsonObj['codE_NO'];
+    //     const desc = jsonObj['codE_DESC'];
+    //     this.BusType.push({ value: codeNo, viewValue: desc })
+    //   }
+    // })
 
   }
 

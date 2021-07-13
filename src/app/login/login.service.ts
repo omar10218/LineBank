@@ -16,26 +16,33 @@ export class LoginService extends BaseService {
   Condition: sysCode[] = null;
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  private async checkEmpNoPromise(empNo: String) {
-    const baseURL = 'FunctionList?strEmpID=' + empNo;
-    return await this.postHttpClient(baseURL).toPromise();
+  private async checkEmpNoPromise(empNo: string, empPwd: string): Promise<Observable<any>> {
+    console.log(empNo+","+empPwd);
+    const formData = new FormData();
+    formData.append("username", empNo);
+    formData.append("password", empPwd);
+    //const baseURL = 'FunctionList?strEmpID=' + empNo;
+    const baseURL = 'login';
+    return await this.postFormData(baseURL,formData).toPromise();
   }
 
-  public async initData(empNo: String): Promise<boolean> {
+  public async initData(empNo: string, empPwd: string): Promise<boolean> {
     let isOk: boolean = false;
-    const data = await this.checkEmpNoPromise(empNo).then((data) => {
-      isOk = (data.rspCode === '0000' && data.rspMsg === '成功');
-    })
-    .catch((error) => {
-      console.log("Promise rejected with " + JSON.stringify(error));
+    await this.checkEmpNoPromise(empNo, empPwd).then((data: any) => {
+      if (data.rspCode == '0000' ) {
+        isOk = true;
+      } 
+      console.log(data);
     });
+    console.log(isOk);
+    // await this.checkEmpNoPromise(empNo, empPwd).then((data) => {
+    //   console.log(data);
+    // })
+    // .catch((error) => {
+    //   console.log("Promise rejected with " + JSON.stringify(error));
+    // });
     return isOk;
   }
-
-
-
-
-
 
   private async getRuleCodeOption(value: string): Promise<Observable<any>> {
     let formData = new FormData();
