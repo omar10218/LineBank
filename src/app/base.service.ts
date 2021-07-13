@@ -11,10 +11,8 @@ export class BaseService {
   constructor(protected httpClient: HttpClient) { }
 
   public getToken(): string {
-    console.log(localStorage.getItem('token'));
     return localStorage.getItem('token');
   }
-
 
   protected postHttpClient(baseUrl: string) {
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, null);

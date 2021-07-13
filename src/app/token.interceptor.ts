@@ -12,10 +12,10 @@ import { environment } from 'src/environments/environment';
 export class TokenInterceptor implements HttpInterceptor {
   constructor(public baseService: BaseService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('into intercept')
+    let authStr = request.url.indexOf('login') != -1 ? '' : 'Bearer ' + this.baseService.getToken();
     request = request.clone({
       setHeaders: {
-        Authorization: `Bearer ${this.baseService.getToken()}`,
+        'Authorization': authStr,
         'Access-Control-Allow-Origin': environment.allowOrigin,
         'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
         'Access-Control-Max-Age': '86400',

@@ -17,31 +17,21 @@ export class LoginService extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   private async checkEmpNoPromise(empNo: string, empPwd: string): Promise<Observable<any>> {
-    console.log(empNo+","+empPwd);
     const formData = new FormData();
     formData.append("username", empNo);
     formData.append("password", empPwd);
-    //const baseURL = 'FunctionList?strEmpID=' + empNo;
     const baseURL = 'login';
     return await this.postFormData(baseURL,formData).toPromise();
   }
 
   public async initData(empNo: string, empPwd: string): Promise<boolean> {
     let isOk: boolean = false;
+    let tokenStr: string = '';
     await this.checkEmpNoPromise(empNo, empPwd).then((data: any) => {
-      if (data.rspCode == '0000' ) {
-        localStorage.setItem("token", data.token);
-        isOk = true;
-      } 
-      console.log(data);
+      if (data.rspCode == '0000') { tokenStr = data.token; }
+      isOk = data.rspCode == '0000';
     });
-    console.log(isOk);
-    // await this.checkEmpNoPromise(empNo, empPwd).then((data) => {
-    //   console.log(data);
-    // })
-    // .catch((error) => {
-    //   console.log("Promise rejected with " + JSON.stringify(error));
-    // });
+    localStorage.setItem("token", tokenStr);
     return isOk;
   }
 
