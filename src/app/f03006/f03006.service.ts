@@ -14,6 +14,10 @@ export class F03006Service extends BaseService {
     return this.postHttpClient(baseUrl);
   }
 
+  getSurrogateCode(baseUrl: string): Observable<any> {
+    return this.postHttpClient(baseUrl);
+  }
+
   getEmployeeList(baseUrl: string, pageIndex: number, pageSize: number, formData: FormData): Observable<any> {
     let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
     return this.postFormData(targetUrl, formData);
