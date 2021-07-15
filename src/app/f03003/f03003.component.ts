@@ -51,25 +51,46 @@ export class F03003Component implements OnInit {
   }
 
   async changeSelect() {
-    const baseUrl = 'productSetting?name=' + this.selectedValue;
+    // const baseUrl = 'productSetting?name=' + this.selectedValue;
+    // this.f03003Service.getLine(baseUrl).subscribe(data => {
+    //   console.log(data.items[0]);
+    //   for (let i = 0; i < this.backgroundSearch.length; i++) { this.backgroundSearch[i].check = false; }
+    //   for (let i = 0; i < this.backgroundClass.length; i++) { this.backgroundClass[i].check = false; }
+    //   for (let i = 0; i < this.persons.length; i++) { this.persons[i].check = false; }
+    //   if (data.items[0].BLACKSEARCH == "Y") { this.backgroundSearch[0].check = true };
+    //   if (data.items[0].HISTORY == "Y") { this.backgroundSearch[1].check = true };
+    //   if (data.items[0].STAKEHOLDER == "Y") { this.backgroundSearch[2].check = true };
+    //   if (data.items[0].AML == "Y") { this.backgroundSearch[3].check = true };
+    //   if (data.items[0].JCIC == "Y") { this.backgroundSearch[4].check = true };
+    //   if (data.items[0].PROCESS == "Y") { this.backgroundClass[0].check = true };
+    //   if (data.items[0].RATING == "Y") { this.backgroundClass[1].check = true };
+    //   if (data.items[0].COMPARISON == "Y") { this.backgroundClass[2].check = true };
+    //   if (data.items[0].ASSIGNMENT_CASE == "Y") { this.backgroundClass[3].check = true };
+    //   if (data.items[0].REVIEW_ASSIGNMENT == "Y") { this.backgroundClass[4].check = true };
+    //   if (data.items[0].CREDIT == "Y") { this.persons[0].check = true };
+    //   if (data.items[0].AUDIT_NOR == "Y") { this.persons[1].check = true };
+    //   if (data.items[0].AUDIT_SUP == "Y") { this.persons[2].check = true };
+    // });
+
+    const baseUrl = 'f03003?name=' + this.selectedValue;
     this.f03003Service.getLine(baseUrl).subscribe(data => {
-      console.log(data.items[0]);
+      console.log(data[0]);
       for (let i = 0; i < this.backgroundSearch.length; i++) { this.backgroundSearch[i].check = false; }
       for (let i = 0; i < this.backgroundClass.length; i++) { this.backgroundClass[i].check = false; }
       for (let i = 0; i < this.persons.length; i++) { this.persons[i].check = false; }
-      if (data.items[0].BLACKSEARCH == "Y") { this.backgroundSearch[0].check = true };
-      if (data.items[0].HISTORY == "Y") { this.backgroundSearch[1].check = true };
-      if (data.items[0].STAKEHOLDER == "Y") { this.backgroundSearch[2].check = true };
-      if (data.items[0].AML == "Y") { this.backgroundSearch[3].check = true };
-      if (data.items[0].JCIC == "Y") { this.backgroundSearch[4].check = true };
-      if (data.items[0].PROCESS == "Y") { this.backgroundClass[0].check = true };
-      if (data.items[0].RATING == "Y") { this.backgroundClass[1].check = true };
-      if (data.items[0].COMPARISON == "Y") { this.backgroundClass[2].check = true };
-      if (data.items[0].ASSIGNMENT_CASE == "Y") { this.backgroundClass[3].check = true };
-      if (data.items[0].REVIEW_ASSIGNMENT == "Y") { this.backgroundClass[4].check = true };
-      if (data.items[0].CREDIT == "Y") { this.persons[0].check = true };
-      if (data.items[0].AUDIT_NOR == "Y") { this.persons[1].check = true };
-      if (data.items[0].AUDIT_SUP == "Y") { this.persons[2].check = true };
+      if (data[0].blacksearch == "Y") { this.backgroundSearch[0].check = true };
+      if (data[0].history == "Y") { this.backgroundSearch[1].check = true };
+      if (data[0].stakeholder == "Y") { this.backgroundSearch[2].check = true };
+      if (data[0].aml == "Y") { this.backgroundSearch[3].check = true };
+      if (data[0].jcic == "Y") { this.backgroundSearch[4].check = true };
+      if (data[0].process == "Y") { this.backgroundClass[0].check = true };
+      if (data[0].rating == "Y") { this.backgroundClass[1].check = true };
+      if (data[0].comparison == "Y") { this.backgroundClass[2].check = true };
+      if (data[0].assignmentCase == "Y") { this.backgroundClass[3].check = true };
+      if (data[0].reviewAssignment == "Y") { this.backgroundClass[4].check = true };
+      if (data[0].credit == "Y") { this.persons[0].check = true };
+      if (data[0].auditNor == "Y") { this.persons[1].check = true };
+      if (data[0].auditSup == "Y") { this.persons[2].check = true };
     });
   }
 
@@ -89,7 +110,7 @@ export class F03003Component implements OnInit {
     formData.append("name", this.selectedValue);
     formData.append("setY", valArrayY.toString());
     formData.append("setN", valArrayN.toString());
-    const baseUrl = 'setProductSetting';
+    const baseUrl = 'f03003Set';
     this.f03003Service.setProduct(baseUrl, formData).subscribe(data => {
       const childernDialogRef = this.dialog.open(F03003confirmComponent, {
         data: { msgStr: data.Success }

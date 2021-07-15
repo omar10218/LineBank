@@ -24,7 +24,7 @@ export class F03004Component implements OnInit, AfterViewInit  {
   selectedValue: string;
   constructor(private f03004Service: F03004Service, public dialog: MatDialog) { }
   ngOnInit(): void {
-    const baseUrl = 'SystemCodeSet/Option';
+    const baseUrl = 'f03003Option';
     this.f03004Service.getSysTypeCode(baseUrl).subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
@@ -62,7 +62,7 @@ export class F03004Component implements OnInit, AfterViewInit  {
   }
 
   getMappingCode() {
-    const baseUrl = 'SystemCodeSet/Search';
+    const baseUrl = 'f03003Search';
     this.f03004Service.getMappingCodeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, this.selectedValue)
     .subscribe(data => {
       this.totalCount = data.rspBody.size;
@@ -91,10 +91,10 @@ export class F03004Component implements OnInit, AfterViewInit  {
     } else {
       const dialogRef = this.dialog.open(F03004addComponent, {
         data: {
-                code_TYPE: this.selectedValue,
-                code_NO : '' , code_DESC: '',
-                code_SORT: '', code_TAG: '',
-                code_FLAG: 'N'
+                codeType: this.selectedValue,
+                codeNo : '' , codeDesc: '',
+                codeSort: '', codeTag: '',
+                codeFlag: 'N'
               }
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -104,12 +104,12 @@ export class F03004Component implements OnInit, AfterViewInit  {
   }
 
   startEdit(i: number,
-    code_TYPE: string, code_NO: string, code_DESC: string,
-    code_SORT: string, code_TAG: string, code_FLAG: string) {
+    codeType: string, codeNo: string, codeDesc: string,
+    codeSort: string, codeTag: string, codeFlag: string) {
       const dialogRef = this.dialog.open(F03004editComponent, {
         data: {
-               code_TYPE: code_TYPE, code_NO : code_NO , code_DESC: code_DESC,
-               code_SORT: code_SORT, code_TAG: code_TAG, code_FLAG: code_FLAG
+          codeType: codeType, codeNo : codeNo , code_DESC: codeDesc,
+          codeSort: codeSort, codeTag: codeTag, codeFlag: codeFlag
               }
       });
       dialogRef.afterClosed().subscribe(result => {

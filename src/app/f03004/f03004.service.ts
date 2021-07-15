@@ -21,12 +21,12 @@ export class F03004Service extends BaseService {
 
   addOrEditSystemCodeSet(baseUrl: string, data: any): any {
     const formdata: FormData = new FormData();
-    formdata.append('CODE_TYPE', data.code_TYPE);
-    formdata.append('CODE_NO', data.code_NO);
-    formdata.append('CODE_DESC', data.code_DESC);
-    formdata.append('CODE_SORT', data.code_SORT);
-    formdata.append('CODE_TAG', data.code_TAG);
-    formdata.append('CODE_FLAG', data.code_FLAG);
+    formdata.append('codeType', data.codeType);
+    formdata.append('codeNo', data.codeNo);
+    formdata.append('codeDesc', data.codeDesc);
+    formdata.append('codeSort', data.codeSort);
+    formdata.append('codeTag', data.codeTag);
+    formdata.append('codeFlag', data.codeFlag);
     return this.saveOrEditMsgString(baseUrl, formdata);
   }
 
