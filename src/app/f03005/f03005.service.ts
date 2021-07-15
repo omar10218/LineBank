@@ -17,12 +17,12 @@ export class F03005Service extends BaseService {
 
   addOrEditAdrCodeSet(baseUrl: string, data: any): any {
     const formdata: FormData = new FormData();
-    formdata.append('REASON_KIND', data.reason_KIND);
-    formdata.append('AD_TYPE', data.ad_TYPE);
-    formdata.append('REASON_CODE', data.reason_CODE);
-    formdata.append('REASON_DESC', data.reason_DESC);
-    formdata.append('REASON_SORT', data.reason_SORT);
-    formdata.append('REASON_FLAG', data.reason_FLAG);
+    formdata.append('reasonKind', data.reasonKind);
+    formdata.append('adType', data.adType);
+    formdata.append('reasonCode', data.reasonCode);
+    formdata.append('reasonDesc', data.reasonDesc);
+    formdata.append('reasonSort', data.reasonSort);
+    formdata.append('reasonFlag', data.reasonFlag);
     return this.saveOrEditMsgString(baseUrl, formdata);
   }
 }

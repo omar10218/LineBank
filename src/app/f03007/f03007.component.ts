@@ -29,11 +29,12 @@ export class F03007Component implements OnInit, AfterViewInit {
   constructor(private f03007Service: F03007Service, public dialog: MatDialog,) { }
   ngAfterViewInit() {}
   ngOnInit(): void {
-    const baseUrl = 'FunctionRoleSet/option';
+    const baseUrl = 'f03/f03007';
     this.f03007Service.getRoleOption(baseUrl).subscribe(data => {
+      console.log(data);
       for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['role_NO'];
-        const desc = jsonObj['role_NAME'];
+        const codeNo = jsonObj['roleNo'];
+        const desc = jsonObj['roleName'];
         this.sysCode.push({value: codeNo, viewValue: desc})
       }
     });
@@ -47,7 +48,7 @@ export class F03007Component implements OnInit, AfterViewInit {
     const formData: FormData = new FormData();
     formData.append("roleNo", this.selectedValue);
     formData.append("fnNo", valArray.toString());
-    const baseUrl = 'FunctionRoleSet/save';
+    const baseUrl = 'f03/f03007action2';
      this.f03007Service.saveRoleFunction(baseUrl, formData).subscribe(data => {
       const childernDialogRef = this.dialog.open(F03007confirmComponent, {
         data: { msgStr: (data.rspCode === '0000' && data.rspMsg === '成功') ? '儲存成功！' : '儲存失敗！' }
@@ -68,21 +69,22 @@ export class F03007Component implements OnInit, AfterViewInit {
   }
 
   private async getRoleFunction() {
-    const baseUrl = 'FunctionRoleSet/search';
+    const baseUrl = 'f03/f03007action1';
     this.f03007Service.getRoleFunction(baseUrl, this.selectedValue).subscribe(data => {
+      console.log(data);
       if (this.chkArray.length > 0) {
         let i: number = 0;
         for (const jsonObj of data.rspBody) {
-          const chkValue = jsonObj['fn_NO'];
-          const isChk = jsonObj['is_CHK'];
+          const chkValue = jsonObj['FN_NO'];
+          const isChk = jsonObj['IS_CHK'];
           this.chkArray[i] = {value: chkValue, completed: isChk == 'Y'};
           i++;
         }
 
       } else {
         for (const jsonObj of data.rspBody) {
-          const chkValue = jsonObj['fn_NO'];
-          const isChk = jsonObj['is_CHK'];
+          const chkValue = jsonObj['FN_NO'];
+          const isChk = jsonObj['IS_CHK'];
           this.chkArray.push({value: chkValue, completed: isChk == 'Y'});
         }
       }

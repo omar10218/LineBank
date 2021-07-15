@@ -32,29 +32,29 @@
 </table>
 
 <mat-table [dataSource]="adrCodeSource" matSort (matSortChange)="changeSort($event)">
-  <ng-container matColumnDef="reason_KIND">
+  <ng-container matColumnDef="reasonKind">
     <mat-header-cell *matHeaderCellDef>原因碼類別</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.reason_KIND }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.reasonKind }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="ad_TYPE">
+  <ng-container matColumnDef="adType">
     <mat-header-cell *matHeaderCellDef>補件類別</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.ad_TYPE }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.adType }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="reason_CODE">
+  <ng-container matColumnDef="reasonCode">
     <mat-header-cell *matHeaderCellDef mat-sort-header>原因碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.reason_CODE }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.reasonCode }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="reason_DESC">
+  <ng-container matColumnDef="reasonDesc">
     <mat-header-cell *matHeaderCellDef mat-sort-header>原因碼說明</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.reason_DESC }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.reasonDesc }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="reason_SORT">
+  <ng-container matColumnDef="reasonSort">
     <mat-header-cell *matHeaderCellDef mat-sort-header>排序</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.reason_SORT }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.reasonSort }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="reason_FLAG">
+  <ng-container matColumnDef="reasonFlag">
     <mat-header-cell *matHeaderCellDef mat-sort-header>是否停用</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.reason_FLAG }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.reasonFlag }}</mat-cell>
   </ng-container>
 
   <!-- actions -->
@@ -67,17 +67,17 @@
 
     <mat-cell *matCellDef="let row; let i=index;">
       <button mat-icon-button color="accent" (click)="startEdit(i,
-          row.reason_KIND, row.ad_TYPE, row.reason_CODE, row.reason_DESC, row.reason_SORT, row.reason_FLAG)">
+          row.reasonKind, row.adType, row.reasonCode, row.reasonDesc, row.reasonSort, row.reasonFlag)">
         <mat-icon aria-label="Edit">edit</mat-icon>
       </button>
     </mat-cell>
   </ng-container>
 
   <mat-header-row
-    *matHeaderRowDef="['reason_KIND', 'ad_TYPE', 'reason_CODE', 'reason_DESC', 'reason_SORT', 'reason_FLAG', 'actions']">
+    *matHeaderRowDef="['reasonKind', 'adType', 'reasonCode', 'reasonDesc', 'reasonSort', 'reasonFlag', 'actions']">
   </mat-header-row>
   <mat-row
-    *matRowDef="let mappingCodeRow; columns: ['reason_KIND', 'ad_TYPE', 'reason_CODE', 'reason_DESC', 'reason_SORT', 'reason_FLAG', 'actions']">
+    *matRowDef="let mappingCodeRow; columns: ['reasonKind', 'adType', 'reasonCode', 'reasonDesc', 'reasonSort', 'reasonFlag', 'actions']">
   </mat-row>
 </mat-table>
 <tr>
