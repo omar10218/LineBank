@@ -7,7 +7,10 @@ import { AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { F01001Service } from './f01001.service';
 
-
+interface sysCode {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-f01001',
   templateUrl: './f01001.component.html',
@@ -18,7 +21,8 @@ export class F01001Component implements AfterViewInit  {
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;
-
+  empValue: string;
+  empOption: sysCode[] = [{value: '001', viewValue: '陳小明'}, {value: '002', viewValue: '王小華'}];
   currentSort: Sort;
 
   cusinfoDataSource = new MatTableDataSource<any>();
@@ -37,10 +41,10 @@ export class F01001Component implements AfterViewInit  {
       active: '',
       direction: ''
     };
-    this.getCaseList();
+    this.getCaseList('001');
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
-      this.getCaseList();
+      this.getCaseList('001');
     });
   }
 
@@ -58,14 +62,24 @@ export class F01001Component implements AfterViewInit  {
       sortInfo.active = 'created';
     }
     this.currentSort = sortInfo;
-    this.getCaseList();
+    this.getCaseList('001');
   }
 
-  getCaseList() {
-    this.f01001Service.getCaseList(this.currentPage.pageIndex, this.currentPage.pageSize).subscribe(data => {
+  getCaseList(empno: string) {
+    this.f01001Service.getCaseList(this.currentPage.pageIndex, this.currentPage.pageSize, empno).subscribe(data => {
       this.totalCount = data.size;
       this.cusinfoDataSource.data = data.items;
     });
+  }
+
+  changeSelect() {
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+    this.paginator.firstPage();
+    this.getCaseList(this.empValue);
   }
 
   // getIssuees() {

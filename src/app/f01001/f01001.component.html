@@ -1,6 +1,15 @@
 
 <table>
   <tr>
+    <td style="padding-left: 20px;">
+      <mat-form-field color="accent">
+        <mat-select placeholder="職務代理人" [(ngModel)]="empValue" name="ynCode" (ngModelChange)="changeSelect()">
+          <mat-option *ngFor="let emp of empOption" [value]="emp.value">
+            {{emp.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
     <td>
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
@@ -19,6 +28,14 @@
 </table>
 
 <mat-table [dataSource]="cusinfoDataSource" matSort (matSortChange)="changeSort($event)">
+  <ng-container matColumnDef="management">
+    <mat-header-cell *matHeaderCellDef>
+      <u>管理</u>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-raised-button color="primary"  (click) = "getLockCase(row.applno)">取件</button>
+    </mat-cell>
+  </ng-container>
   <ng-container matColumnDef="applno">
     <mat-header-cell *matHeaderCellDef>收件編號</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.applno }}</mat-cell>
@@ -35,15 +52,8 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header>是否急件</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.cu_urgent }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="management">
-    <mat-header-cell *matHeaderCellDef>
-      <u>管理</u>
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <button mat-raised-button color="primary"  (click) = "getLockCase(row.applno)">取件</button>
-    </mat-cell>
-  </ng-container>
-  <mat-header-row *matHeaderRowDef="['applno', 'cu_cname', 'cu_id', 'cu_urgent', 'management']"></mat-header-row>
-  <mat-row *matRowDef="let caseListRow; columns: ['applno', 'cu_cname', 'cu_id', 'cu_urgent', 'management']"></mat-row>
+
+  <mat-header-row *matHeaderRowDef="['management', 'applno', 'cu_cname', 'cu_id', 'cu_urgent']"></mat-header-row>
+  <mat-row *matRowDef="let caseListRow; columns: ['management', 'applno', 'cu_cname', 'cu_id', 'cu_urgent']"></mat-row>
 </mat-table>
 
