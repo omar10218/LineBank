@@ -24,7 +24,7 @@ export class F03004Component implements OnInit, AfterViewInit  {
   selectedValue: string;
   constructor(private f03004Service: F03004Service, public dialog: MatDialog) { }
   ngOnInit(): void {
-    const baseUrl = 'f03003Option';
+    const baseUrl = 'f03004Option';
     this.f03004Service.getSysTypeCode(baseUrl).subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
@@ -62,7 +62,7 @@ export class F03004Component implements OnInit, AfterViewInit  {
   }
 
   getMappingCode() {
-    const baseUrl = 'f03003Search';
+    const baseUrl = 'f03004Search';
     this.f03004Service.getMappingCodeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, this.selectedValue)
     .subscribe(data => {
       this.totalCount = data.rspBody.size;
