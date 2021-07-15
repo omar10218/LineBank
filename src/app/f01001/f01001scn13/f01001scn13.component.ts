@@ -43,8 +43,8 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
 
   getApplno(): String {
     return this.applno;
-  } 
-  
+  }
+
   getSearch(): String {
     return this.search;
   }
