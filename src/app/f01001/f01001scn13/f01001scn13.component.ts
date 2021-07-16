@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { F01001scn13Service } from './f01001scn13.service';
 import { ShowComponent } from './show/show.component';
 import { MaxSizeValidator } from '@angular-material-components/file-input';
+import { WebAddr } from './webaddr.model';
 
 @Component({
   selector: 'app-f01001scn13',
@@ -55,6 +56,10 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
   currentPage: PageEvent;
   currentSort: Sort;
   webInfoSource = new MatTableDataSource<any>();
+  webAddrOption: WebAddr[];
+  webAddrValue: string;
+  webAddrUrl: string;
+  webInfoContent: string;
 
   ngAfterViewInit() {
     this.getWebInfo();
@@ -77,6 +82,7 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
     this.f01001scn13Service.getWebInfo().subscribe(data => {
       this.totalCount = data.size;
       this.webInfoSource.data = data.items;
+      this.webAddrOption = data.webAddr;
     });
 
   }
@@ -100,5 +106,33 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
     } else {
       alert('請至少選擇1個檔案!');
     }
+  }
+
+  changeSelect() {
+    this.webAddrUrl = this.webAddrValue.split('=')[1];
+  }
+
+  getOptionDesc(codeVal: string): string {
+    for (const data of this.webAddrOption) {
+      if (data.codeNo == codeVal) {
+        return data.codeDesc;
+        break;
+      }
+    }
+    return codeVal;
+  }
+
+  startEdit(i: number, rowid: string, webCode: string, webUrl:string, msgContent: string) {
+    this.webAddrUrl = webUrl;
+    this.webAddrValue = webCode + '=' + webUrl;
+    this.webInfoContent = msgContent;
+    console.log(rowid);
+  }
+
+  deleteItem(i: number, rowid: string) {
+    if (confirm('確定要刪除?')) {
+
+    }
+    console.log(rowid);
   }
 }
