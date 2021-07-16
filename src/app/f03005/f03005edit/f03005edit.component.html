@@ -5,7 +5,7 @@
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="原因碼類別" [(ngModel)]="data.reason_KIND" name="reason_KIND" disabled >
+          <input matInput #input class="form-control" placeholder="原因碼類別" [(ngModel)]="data.reasonKind" name="reasonKind" disabled >
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
@@ -13,7 +13,7 @@
       <!--Textarea for demo purposes-->
       <div class="form" *ngIf="data.reason_KIND == 'R'">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="補件類別" [(ngModel)]="data.ad_TYPE" name="ad_TYPE" disabled >
+          <input matInput #input class="form-control" placeholder="補件類別" [(ngModel)]="data.adType" name="adType" disabled >
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
@@ -21,26 +21,26 @@
       <!--Contains mat-hint for characters count and has maxLengt set-->
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #inputstate class="form-control" placeholder="原因碼" [(ngModel)]="data.reason_CODE" name="reason_CODE" disabled >
+          <input matInput #inputstate class="form-control" placeholder="原因碼" [(ngModel)]="data.reasonCode" name="reasonCode" disabled >
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
   
       <div class="form">
           <mat-form-field color="accent">
-            <input matInput placeholder="原因碼說明" [(ngModel)]="data.reason_DESC" name="reason_DESC">
+            <input matInput placeholder="原因碼說明" [(ngModel)]="data.reasonDesc" name="reasonDesc">
           </mat-form-field>
       </div>
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput placeholder="排序" [(ngModel)]="data.reason_SORT" name="reason_SORT">
+          <input matInput placeholder="排序" [(ngModel)]="data.reasonSort" name="reasonSort">
         </mat-form-field>
       </div>
   
       <div class="form">
         <mat-form-field color="accent">
-          <mat-select placeholder="是否停用" [(ngModel)]="data.reason_FLAG" name="reason_FLAG" >
+          <mat-select placeholder="是否停用" [(ngModel)]="data.reasonFlag" name="reasonFlag" >
             <mat-option *ngFor="let yn of ynCode" [value]="yn.value">
               {{yn.viewValue}}
             </mat-option>

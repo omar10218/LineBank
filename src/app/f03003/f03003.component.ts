@@ -72,7 +72,7 @@ export class F03003Component implements OnInit {
     //   if (data.items[0].AUDIT_SUP == "Y") { this.persons[2].check = true };
     // });
 
-    const baseUrl = 'f03003?name=' + this.selectedValue;
+    const baseUrl = 'f03/f03003?name=' + this.selectedValue;
     this.f03003Service.getLine(baseUrl).subscribe(data => {
       console.log(data[0]);
       for (let i = 0; i < this.backgroundSearch.length; i++) { this.backgroundSearch[i].check = false; }
@@ -110,7 +110,7 @@ export class F03003Component implements OnInit {
     formData.append("name", this.selectedValue);
     formData.append("setY", valArrayY.toString());
     formData.append("setN", valArrayN.toString());
-    const baseUrl = 'f03003Set';
+    const baseUrl = 'f03/f03003action1';
     this.f03003Service.setProduct(baseUrl, formData).subscribe(data => {
       const childernDialogRef = this.dialog.open(F03003confirmComponent, {
         data: { msgStr: data.Success }

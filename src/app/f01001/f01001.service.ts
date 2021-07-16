@@ -8,9 +8,9 @@ import { BaseService } from '../base.service';
 })
 export class F01001Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
-  getCaseList(pageIndex: number, pageSize: number): Observable<any> {
-    const baseUrl = 'getCaseList';
-    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
+  getCaseList(pageIndex: number, pageSize: number, empno: string): Observable<any> {
+    const baseUrl = 'f01/f01001scn1';
+    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}&emp_no=${empno}`;
     return this.postHttpClient(targetUrl);
   }
 }

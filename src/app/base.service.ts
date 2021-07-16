@@ -27,7 +27,7 @@ export class BaseService {
   }
 
   public getSysTypeCode(codeType: string): Observable<any> {
-    const baseUrl = 'getMappingCodeOption';
+    const baseUrl = 'f03/f03005';
     let targetUrl = `${baseUrl}?codeType=${codeType}`;
     return this.postHttpClient(targetUrl);
   }

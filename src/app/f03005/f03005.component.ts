@@ -25,15 +25,15 @@ export class F03005Component implements OnInit {
   ngOnInit(): void { 
     this.f03005Service.getSysTypeCode('ADR_TYPE').subscribe(data => {
       for (const jsonObj of data) {
-        const codeNo = jsonObj['code_NO'];
-        const desc = jsonObj['code_DESC'];
+        const codeNo = jsonObj['codeNo'];
+        const desc = jsonObj['codeDesc'];
         this.adrType.push({value: codeNo, viewValue: desc})
       }
     });
     this.f03005Service.getSysTypeCode('AD_TYPE').subscribe(data => {
       for (const jsonObj of data) {
-        const codeNo = jsonObj['code_NO'];
-        const desc = jsonObj['code_DESC'];
+        const codeNo = jsonObj['codeNo'];
+        const desc = jsonObj['codeDesc'];
         this.adType.push({value: codeNo, viewValue: desc})
       }
     });
@@ -78,9 +78,10 @@ export class F03005Component implements OnInit {
   }
 
   getAdrCode() {
-    const baseUrl = 'getAdrCode';
+    const baseUrl = 'f03/f03005action1';
     const adrVal = this.selectedAdrValue != null ? this.selectedAdrValue : '';
     const adVal = this.selectedAdValue != null ? this.selectedAdValue : '';
+    console.log(adrVal+","+adVal)
     this.f03005Service.getAdrCodeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, adrVal, adVal).subscribe(data => {
       this.totalCount = data.size;
       this.adrCodeSource.data = data.items;
@@ -97,12 +98,12 @@ export class F03005Component implements OnInit {
     } else {
       const dialogRef = this.dialog.open(F03005addComponent, {
         data: {
-          reason_KIND: this.selectedAdrValue,
-          ad_TYPE: this.selectedAdValue,
-          reason_CODE : '',
-          reason_DESC: '',
-          reason_SORT: '',
-          reason_FLAG: 'N'
+          reasonKind: this.selectedAdrValue,
+          adType: this.selectedAdValue,
+          reasonCode : '',
+          reasonDesc: '',
+          reasonSort: '',
+          reasonFlag: 'N'
         }
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -112,16 +113,16 @@ export class F03005Component implements OnInit {
   }
 
   startEdit(i: number,
-    reason_KIND: string, ad_TYPE: string, reason_CODE: string,
-    reason_DESC: string, reason_SORT: string, reason_FLAG: string) {
+    reasonKind: string, adType: string, reasonCode: string,
+    reasonDesc: string, reasonSort: string, reasonFlag: string) {
       const dialogRef = this.dialog.open(F03005editComponent, {
         data: {
-          reason_KIND: reason_KIND,
-          ad_TYPE : ad_TYPE,
-          reason_CODE: reason_CODE,
-          reason_DESC: reason_DESC,
-          reason_SORT: reason_SORT,
-          reason_FLAG: reason_FLAG
+          reasonKind: reasonKind,
+          adType : adType,
+          reasonCode: reasonCode,
+          reasonDesc: reasonDesc,
+          reasonSort: reasonSort,
+          reasonFlag: reasonFlag
         }
       });
       dialogRef.afterClosed().subscribe(result => {
