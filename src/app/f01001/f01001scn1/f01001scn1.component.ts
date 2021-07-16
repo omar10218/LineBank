@@ -1,5 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,7 +7,6 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./f01001scn1.component.css']
 })
 export class F01001scn1Component implements OnInit {
-
   constructor(private route: ActivatedRoute, private router: Router) { }
   private applno: string;
   private search: string;
@@ -17,6 +15,11 @@ export class F01001scn1Component implements OnInit {
       this.applno = params['applno'];
       this.search = params['search'];
     });
+  }
+
+  ngAfterViewInit() {
+    let element: HTMLElement = document.getElementById('firstBtn') as HTMLElement;
+    element.click();
   }
 
   getApplno(): String {
