@@ -55,7 +55,7 @@
         </mat-form-field>
       </div>
 
-      <div class="form">
+      <!-- <div class="form">
         <mat-form-field color="accent">
           <mat-select placeholder="代理人" [(ngModel)]="data.SURROGATE_NO" name="SURROGATE_NO" >
             <mat-option *ngFor="let obj of data.SURROGATE" [value]="obj.value">
@@ -63,7 +63,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
+      </div> -->
 
       <div mat-dialog-actions>
         <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>

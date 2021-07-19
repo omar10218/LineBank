@@ -39,7 +39,7 @@
             </mat-select>
           </mat-form-field>
         </td>
-        <th>代理人：</th>
+        <!-- <th>代理人：</th>
         <td>
           <mat-form-field color="accent">
             <mat-select [(ngModel)]="surrogateValue" name="surrogateCode" (ngModelChange)="changeSelect()">
@@ -48,7 +48,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </td>
+        </td> -->
       </tr>
     </mat-card-content>
   </mat-card>
@@ -79,10 +79,10 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header>群組</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ getOptionDesc(groupCode, row.GROUP_NO) }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="SURROGATE_NO">
+  <!-- <ng-container matColumnDef="SURROGATE_NO">
     <mat-header-cell *matHeaderCellDef mat-sort-header>代理人</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ getOptionDesc(surrogateCode, row.SURROGATE_NO) }}</mat-cell>
-  </ng-container>
+  </ng-container> -->
   <ng-container matColumnDef="ROLE_NO">
     <mat-header-cell *matHeaderCellDef mat-sort-header>角色</mat-header-cell>
     <mat-cell *matCellDef="let row">

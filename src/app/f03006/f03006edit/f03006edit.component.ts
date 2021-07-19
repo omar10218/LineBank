@@ -38,7 +38,7 @@ export class F03006editComponent {
 
   public async stopEdit(): Promise<void> {
     let msgStr: string = "";
-    let baseUrl = 'EmployeeSet/Edit';
+    let baseUrl = 'f03/f03006action6';
     msgStr = await this.f03006Service.addOrEditSystemCodeSet(baseUrl, this.data);
     const childernDialogRef = this.dialog.open(F03006confirmComponent, {
       data: { msgStr: msgStr }

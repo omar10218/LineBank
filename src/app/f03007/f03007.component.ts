@@ -45,6 +45,7 @@ export class F03007Component implements OnInit, AfterViewInit {
     for (const obj of this.chkArray) {
       if (obj.completed) { valArray.push(obj.value); }
     }
+    console.log(valArray);
     const formData: FormData = new FormData();
     formData.append("roleNo", this.selectedValue);
     formData.append("fnNo", valArray.toString());

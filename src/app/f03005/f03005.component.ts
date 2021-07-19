@@ -83,6 +83,7 @@ export class F03005Component implements OnInit {
     const adVal = this.selectedAdValue != null ? this.selectedAdValue : '';
     console.log(adrVal+","+adVal)
     this.f03005Service.getAdrCodeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, adrVal, adVal).subscribe(data => {
+      console.log(data);
       this.totalCount = data.size;
       this.adrCodeSource.data = data.items;
     });

@@ -29,38 +29,38 @@ export class F03006Component implements OnInit, AfterViewInit {
   unitValue: string;
   empNoValue: string;
   groupValue: string;
-  surrogateValue: string;
+  //surrogateValue: string;
   sysCode: sysCode[] = [];
   unitCode: sysCode[] = [];
   groupCode: sysCode[] = [];
-  surrogateCode: sysCode[] = [];
+  //surrogateCode: sysCode[] = [];
   ynCode: sysCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
   constructor(private f03006Service: F03006Service, public dialog: MatDialog) { }
   ngOnInit(): void {
     this.f03006Service.getSysTypeCode('GEN_UNIT').subscribe(data => {
       for (const jsonObj of data) {
-        const codeNo = jsonObj['code_NO'];
-        const desc = jsonObj['code_DESC'];
+        const codeNo = jsonObj['codeNo'];
+        const desc = jsonObj['codeDesc'];
         this.unitCode.push({value: codeNo, viewValue: desc})
       }
     });
-    const baseUrl = 'EmployeeSet/gmOption';
+    const baseUrl = 'f03/f03006action1';
     this.f03006Service.getGroupCode(baseUrl).subscribe(data => {
       for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['GROUP_NO'];
-        const desc = jsonObj['GROUP_NAME'];
+        const codeNo = jsonObj['groupNo'];
+        const desc = jsonObj['groupName'];
         this.groupCode.push({value: codeNo, viewValue: desc})
       }
     });
-    const surrogateUrl = 'EmployeeSet/gmOption';
-    this.f03006Service.getSurrogateCode(surrogateUrl).subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['SURROGATE_NO'];
-        const desc = jsonObj['SURROGATE_NAME'];
-        this.surrogateCode.push({value: codeNo, viewValue: desc})
-      }
-    });
-    const roleUrl = 'EmployeeSet/getRole';
+    // const surrogateUrl = 'EmployeeSet/gmOption';
+    // this.f03006Service.getSurrogateCode(surrogateUrl).subscribe(data => {
+    //   for (const jsonObj of data.rspBody) {
+    //     const codeNo = jsonObj['SURROGATE_NO'];
+    //     const desc = jsonObj['SURROGATE_NAME'];
+    //     this.surrogateCode.push({value: codeNo, viewValue: desc})
+    //   }
+    // });
+    const roleUrl = 'f03/f03006action2';
     this.f03006Service.getEmployeeRole(roleUrl).subscribe(data => {
       this.empRoleSource.data = data.rspBody;
     });
@@ -96,8 +96,8 @@ export class F03006Component implements OnInit, AfterViewInit {
     formData.append('onJob', this.ynValue != null ?　this.ynValue : '');
     formData.append('unit', this.unitValue != null ?　this.unitValue : '');
     formData.append('group', this.groupValue != null ?　this.groupValue : '');
-    formData.append('surrogate', this.surrogateValue != null ?　this.surrogateValue : '');
-    const baseUrl = 'EmployeeSet/search';
+    //formData.append('surrogate', this.surrogateValue != null ?　this.surrogateValue : '');
+    const baseUrl = 'f03/f03006action3';
     this.f03006Service.getEmployeeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, formData)
     .subscribe(data => {
       this.totalCount = data.rspBody.size;
@@ -136,7 +136,7 @@ export class F03006Component implements OnInit, AfterViewInit {
     let selfRole = roleArray != null ? roleArray : '';
     for (const jsonObj of this.empRoleSource.data) {
       let isChk: boolean = false;
-      const chkValue = jsonObj['role_NO'];
+      const chkValue = jsonObj['roleNo'];
       for (const str of selfRole.split(',')) {
         isChk = (str == chkValue);
         if (isChk) { break; }
@@ -145,7 +145,7 @@ export class F03006Component implements OnInit, AfterViewInit {
     }
 
     const dialogRef = this.dialog.open(F03006roleComponent, {
-      data: { CHECKBOX: this.chkArray, SOURCE: this.empRoleSource.data, EMPNO: empNo }
+      data: { CHECKBOX: this.chkArray, SOURCE: this.empRoleSource.data, empNo: empNo }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && result.event == 'success') { this.refreshTable(); }
@@ -161,7 +161,7 @@ export class F03006Component implements OnInit, AfterViewInit {
           EMAIL: '',
           PROMOTION_UNIT: '',
           GROUP_NO: '',
-          SURROGATE_NO: ''
+          //SURROGATE_NO: ''
         }
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -171,16 +171,18 @@ export class F03006Component implements OnInit, AfterViewInit {
 
   startEdit(i: number,
     EMP_NO: string, EMP_NAME: string, ON_JOB: string,
-    EMAIL: string, PROMOTION_UNIT: string, GROUP_NO: string, SURROGATE_NO: string) {
+    EMAIL: string, PROMOTION_UNIT: string, GROUP_NO: string
+    //, SURROGATE_NO: string
+    ) {
       const dialogRef = this.dialog.open(F03006editComponent, {
         data: {
           EMP_NO: EMP_NO, EMP_NAME : EMP_NAME , ON_JOB: ON_JOB, EMAIL: EMAIL,
           PROMOTION_UNIT: PROMOTION_UNIT != null ? PROMOTION_UNIT : '',
           GROUP_NO: GROUP_NO != null ? GROUP_NO : '',
-          SURROGATE_NO: SURROGATE_NO != null ? SURROGATE_NO : '',
+          //SURROGATE_NO: SURROGATE_NO != null ? SURROGATE_NO : '',
           UNIT: this.unitCode,
           GROUP: this.groupCode,
-          SURROGATE: this.surrogateCode
+          //SURROGATE: this.surrogateCode
         }
       });
       dialogRef.afterClosed().subscribe(result => {
