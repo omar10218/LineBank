@@ -1,14 +1,41 @@
-  <mat-card class="zone zone-picker">
-    <mat-form-field>
-      <ngx-mat-file-input [formControl]="fileControl" [accept]="accept" placeholder="請選擇檔案"></ngx-mat-file-input>
-    </mat-form-field>
-    <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
-      <button mat-stroked-button style="margin-left: 10px;" (click)="uploadFileToCE()"><mat-icon matSuffix>backup</mat-icon></button>
-    </ng-container>
-    <ng-template #elseTemplate>
-      <button mat-stroked-button style="margin-left: 10px;" (click)="uploadFileToCE()" disabled="true"><mat-icon matSuffix>backup</mat-icon></button>
-    </ng-template>
-  </mat-card>
+<br>
+
+<table>
+  <tr>
+    <td style="width: 30%;">
+      <mat-form-field color="accent">
+        <mat-select [(ngModel)]="webAddrValue" placeholder="第三方外部網站" (ngModelChange)="changeSelect()">
+          <mat-option *ngFor="let webAddr of webAddrOption" [value]="webAddr.codeNo + '=' + webAddr.codeTag">
+            {{webAddr.codeDesc}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td style="width: 70%;">
+      <mat-form-field color="accent" style="width: 80%;">
+        <input matInput [(ngModel)]="webAddrUrl" placeholder="網址" readonly>
+      </mat-form-field>
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 30%;">
+      <mat-form-field>
+        <ngx-mat-file-input [formControl]="fileControl" [accept]="accept" placeholder="請選擇檔案"></ngx-mat-file-input>
+      </mat-form-field>
+      <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
+        <button mat-stroked-button style="margin-left: 10px;" (click)="uploadFileToCE()"><mat-icon matSuffix>backup</mat-icon></button>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <button mat-stroked-button style="margin-left: 10px;" (click)="uploadFileToCE()" disabled="true"><mat-icon matSuffix>backup</mat-icon></button>
+      </ng-template>
+    </td>
+    <td style="width: 70%;">
+      <mat-form-field color="accent" style="width: 80%;">
+        <input matInput [(ngModel)]="webInfoContent" placeholder="內容">
+      </mat-form-field>
+    </td>
+  </tr>
+</table>
 
 <table>
   <tr>
@@ -31,15 +58,15 @@
   </ng-container>
   <ng-container matColumnDef="web">
     <mat-header-cell *matHeaderCellDef>代碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.web }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ getOptionDesc(row.web) }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="web_addr">
+  <ng-container matColumnDef="webAddr">
     <mat-header-cell *matHeaderCellDef>網址</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.web_addr }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.webAddr }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="message_content">
+  <ng-container matColumnDef="messageContent">
     <mat-header-cell *matHeaderCellDef>說明</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.message_content }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.messageContent }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="daytime">
     <mat-header-cell *matHeaderCellDef>時間</mat-header-cell>
@@ -54,11 +81,25 @@
       <u>顯示圖片</u>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <button mat-icon-button color="primary" (click)="openView(row.web_img)">
+      <button mat-icon-button color="primary" (click)="openView(row.webImg)">
         <mat-icon aria-label="">image</mat-icon>
       </button>
     </mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="['applno', 'web', 'web_addr', 'message_content', 'daytime', 'empno', 'image']"></mat-header-row>
-  <mat-row *matRowDef="let webInfoRow; columns: ['applno', 'web', 'web_addr', 'message_content', 'daytime', 'empno', 'image']"></mat-row>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+    <mat-cell *matCellDef="let row; let i=index;">
+      <button mat-icon-button color="accent" (click)="startEdit(i, row.rowid, row.web, row.webAddr, row.messageContent)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="accent" (click)="deleteItem(i, row.rowid)">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['applno', 'web', 'webAddr', 'messageContent', 'daytime', 'empno', 'image', 'actions']"></mat-header-row>
+  <mat-row *matRowDef="let webInfoRow; columns: ['applno', 'web', 'webAddr', 'messageContent', 'daytime', 'empno', 'image', 'actions']"></mat-row>
 </mat-table>

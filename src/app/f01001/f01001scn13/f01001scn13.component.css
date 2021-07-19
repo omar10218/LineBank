@@ -10,11 +10,11 @@ table{
   max-width: 5%;
 }
 
-.mat-column-web_addr {
+.mat-column-webAddr {
   max-width: 35%;
 }
 
-.mat-column-message_content {
+.mat-column-messageContent {
   max-width: 20%;
 }
 
