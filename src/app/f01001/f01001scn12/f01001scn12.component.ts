@@ -134,7 +134,7 @@ this.reView();
 
   //新增
   public async Add(): Promise<void> {
-
+    this.GetGet_YINCOME_MINCOMETable()
       let formData = new FormData();
       formData.append('POST_FLAG',this.POST_FLAG_Selected);
       formData.append('CU_ID',this.CU_ID);
