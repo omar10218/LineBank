@@ -26,7 +26,7 @@ export class F03006addComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<F03006addComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public f03006Service: F03006Service, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.f03006Service.getSysTypeCode('GEN_UNIT').subscribe(data => {
+    this.f03006Service.getSysTypeCode('GEN_UNIT','f03/f03006').subscribe(data => {
       for (const jsonObj of data) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];

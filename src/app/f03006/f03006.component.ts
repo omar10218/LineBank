@@ -37,7 +37,7 @@ export class F03006Component implements OnInit, AfterViewInit {
   ynCode: sysCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
   constructor(private f03006Service: F03006Service, public dialog: MatDialog) { }
   ngOnInit(): void {
-    this.f03006Service.getSysTypeCode('GEN_UNIT').subscribe(data => {
+    this.f03006Service.getSysTypeCode('GEN_UNIT','f03/f03006').subscribe(data => {
       for (const jsonObj of data) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];

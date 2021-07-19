@@ -26,8 +26,7 @@ export class BaseService {
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formdata);
   }
 
-  public getSysTypeCode(codeType: string): Observable<any> {
-    const baseUrl = 'f03/f03005';
+  public getSysTypeCode(codeType: string ,baseUrl: string): Observable<any> {
     let targetUrl = `${baseUrl}?codeType=${codeType}`;
     return this.postHttpClient(targetUrl);
   }
