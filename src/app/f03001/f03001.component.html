@@ -14,7 +14,7 @@
             <th nowrap="nowrap">業務別</th>
             <td>
               <mat-form-field color="accent">
-                <mat-select [(ngModel)]="BUS_TYPECode_Selected" name="x">
+                <mat-select [(ngModel)]="BUS_TYPECode_Selected" name="BUS_TYPECode">
                   <mat-option *ngFor="let busType of BusType" [value]="busType.viewValue">
                     {{busType.viewValue}}
                   </mat-option>
