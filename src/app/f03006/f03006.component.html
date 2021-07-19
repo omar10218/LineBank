@@ -39,7 +39,7 @@
             </mat-select>
           </mat-form-field>
         </td>
-        <!-- <th>代理人：</th>
+        <th>代理人：</th>
         <td>
           <mat-form-field color="accent">
             <mat-select [(ngModel)]="surrogateValue" name="surrogateCode" (ngModelChange)="changeSelect()">
@@ -48,7 +48,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        </td> -->
+        </td>
       </tr>
     </mat-card-content>
   </mat-card>
@@ -79,10 +79,10 @@
     <mat-header-cell *matHeaderCellDef mat-sort-header>群組</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ getOptionDesc(groupCode, row.GROUP_NO) }}</mat-cell>
   </ng-container>
-  <!-- <ng-container matColumnDef="SURROGATE_NO">
+  <ng-container matColumnDef="SURROGATE_NO">
     <mat-header-cell *matHeaderCellDef mat-sort-header>代理人</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ getOptionDesc(surrogateCode, row.SURROGATE_NO) }}</mat-cell>
-  </ng-container> -->
+  </ng-container>
   <ng-container matColumnDef="ROLE_NO">
     <mat-header-cell *matHeaderCellDef mat-sort-header>角色</mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -100,16 +100,16 @@
 
     <mat-cell *matCellDef="let row; let i=index;">
       <button mat-icon-button color="accent" (click)="startEdit(i,
-          row.EMP_NO, row.EMP_NAME, row.ON_JOB, row.EMAIL, row.PROMOTION_UNIT, row.GROUP_NO)">
+          row.EMP_NO, row.EMP_NAME, row.ON_JOB, row.EMAIL, row.PROMOTION_UNIT, row.GROUP_NO, row.SURROGATE_NO)">
         <mat-icon aria-label="Edit">edit</mat-icon>
       </button>
     </mat-cell>
   </ng-container>
   <mat-header-row
-    *matHeaderRowDef="['EMP_NO', 'EMP_NAME', 'ON_JOB', 'EMAIL', 'PROMOTION_UNIT', 'GROUP_NO', 'ROLE_NO', 'actions']">
+    *matHeaderRowDef="['EMP_NO', 'EMP_NAME', 'ON_JOB', 'EMAIL', 'PROMOTION_UNIT', 'GROUP_NO', 'SURROGATE_NO', 'ROLE_NO', 'actions']">
   </mat-header-row>
   <mat-row
-    *matRowDef="let mappingCodeRow; columns: ['EMP_NO', 'EMP_NAME', 'ON_JOB', 'EMAIL', 'PROMOTION_UNIT', 'GROUP_NO', 'ROLE_NO', 'actions']">
+    *matRowDef="let mappingCodeRow; columns: ['EMP_NO', 'EMP_NAME', 'ON_JOB', 'EMAIL', 'PROMOTION_UNIT', 'GROUP_NO', 'SURROGATE_NO', 'ROLE_NO', 'actions']">
   </mat-row>
 </mat-table>
 <tr>

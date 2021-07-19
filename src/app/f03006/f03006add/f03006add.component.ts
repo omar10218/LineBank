@@ -21,6 +21,7 @@ interface sysCode {
 export class F03006addComponent implements OnInit {
 
   ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
+  surrogateCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
   unitCode: sysCode[] = [];
   groupCode: sysCode[] = [];
   constructor(public dialogRef: MatDialogRef<F03006addComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public f03006Service: F03006Service, public dialog: MatDialog) { }

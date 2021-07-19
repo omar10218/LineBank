@@ -16,6 +16,7 @@ interface ynCode {
 })
 export class F03006editComponent {
   ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
+  surrogateCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
   constructor(public dialogRef: MatDialogRef<F03006editComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03006Service: F03006Service) { }
 
   formControl = new FormControl('', [

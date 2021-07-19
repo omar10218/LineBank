@@ -31,6 +31,7 @@ export class F03006Service extends BaseService {
     formdata.append('email', data.EMAIL);
     formdata.append('promotionUnit', data.PROMOTION_UNIT);
     formdata.append('groupNo', data.GROUP_NO);
+    formdata.append('surrogateNo', data.SURROGATE_NO);
     return this.saveOrEditMsgString(baseUrl, formdata);
   }
 
