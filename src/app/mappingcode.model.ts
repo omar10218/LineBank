@@ -1,4 +1,4 @@
-export class WebAddr {
+export class MappingCode {
 
   private _codeType: string;
   private _codeNo: string;

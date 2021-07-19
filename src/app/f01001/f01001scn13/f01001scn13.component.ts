@@ -10,7 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { F01001scn13Service } from './f01001scn13.service';
 import { ShowComponent } from './show/show.component';
 import { MaxSizeValidator } from '@angular-material-components/file-input';
-import { WebAddr } from './webaddr.model';
+import { MappingCode } from 'src/app/mappingcode.model';
+
 
 @Component({
   selector: 'app-f01001scn13',
@@ -56,7 +57,7 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
   currentPage: PageEvent;
   currentSort: Sort;
   webInfoSource = new MatTableDataSource<any>();
-  webAddrOption: WebAddr[];
+  webAddrOption: MappingCode[];
   webAddrValue: string;
   webAddrUrl: string;
   webInfoContent: string;
