@@ -18,4 +18,8 @@ export class MenuListComponent {
       window.location.reload();
     });
   }
+
+  goHome(){
+    this.router.navigate(['./home']);
+  }
 }
