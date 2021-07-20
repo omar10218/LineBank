@@ -1,1 +1,23 @@
-<p>f03008 works!</p>
+
+<p>
+	Start editing to see some magic happen :)
+</p>
+<div>上傳excel 未串到後端</div>
+
+<input type="file" (change)="onFileChange($event)" />
+
+
+<br><br>
+<div class="jumbotron json_container">
+  <h5>Output:</h5><br>
+  {{JSONObject.string}}
+</div>
+
+
+
+<div id="output"></div>
+<br>
+<div *ngIf="willDownload">
+	<a id="download"> Download JSON File </a>
+</div>
+
