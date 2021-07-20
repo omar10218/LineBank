@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <img src="assets\images\LineBank.png" width="10%">
+    <img src="assets\images\LineBank.png" width="10%" (click)="goHome()">
     <button mat-button [matMenuTriggerFor]="aboveMenu" *ngFor="let menu of getMenu()">
       {{menu.getTitle()}}
       <mat-menu #aboveMenu="matMenu" yPosition="below">
@@ -8,6 +8,7 @@
       </mat-menu>
     </button>
     <span class="example-spacer"></span>
+    使用者：{{empNo}}
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="User">
       <mat-icon>account_box</mat-icon>
       <mat-menu #menu="matMenu">

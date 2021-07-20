@@ -23,14 +23,14 @@ export class F03005Component implements OnInit {
   selectedAdValue: string;
   constructor(private f03005Service: F03005Service, public dialog: MatDialog) { }
   ngOnInit(): void { 
-    this.f03005Service.getSysTypeCode('ADR_TYPE').subscribe(data => {
+    this.f03005Service.getSysTypeCode('ADR_TYPE','f03/f03005').subscribe(data => {
       for (const jsonObj of data) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.adrType.push({value: codeNo, viewValue: desc})
       }
     });
-    this.f03005Service.getSysTypeCode('AD_TYPE').subscribe(data => {
+    this.f03005Service.getSysTypeCode('AD_TYPE','f03/f03005').subscribe(data => {
       for (const jsonObj of data) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
@@ -83,6 +83,7 @@ export class F03005Component implements OnInit {
     const adVal = this.selectedAdValue != null ? this.selectedAdValue : '';
     console.log(adrVal+","+adVal)
     this.f03005Service.getAdrCodeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, adrVal, adVal).subscribe(data => {
+      console.log(data);
       this.totalCount = data.size;
       this.adrCodeSource.data = data.items;
     });

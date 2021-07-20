@@ -14,9 +14,9 @@ export class F03006Service extends BaseService {
     return this.postHttpClient(baseUrl);
   }
 
-  getSurrogateCode(baseUrl: string): Observable<any> {
-    return this.postHttpClient(baseUrl);
-  }
+  // getSurrogateCode(baseUrl: string): Observable<any> {
+  //   return this.postHttpClient(baseUrl);
+  // }
 
   getEmployeeList(baseUrl: string, pageIndex: number, pageSize: number, formData: FormData): Observable<any> {
     let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
@@ -25,12 +25,13 @@ export class F03006Service extends BaseService {
 
   addOrEditSystemCodeSet(baseUrl: string, data: any): any {
     const formdata: FormData = new FormData();
-    formdata.append('EMP_NO', data.EMP_NO);
-    formdata.append('EMP_NAME', data.EMP_NAME);
-    formdata.append('ON_JOB', data.ON_JOB);
-    formdata.append('EMAIL', data.EMAIL);
-    formdata.append('PROMOTION_UNIT', data.PROMOTION_UNIT);
-    formdata.append('GROUP_NO', data.GROUP_NO);
+    formdata.append('empNo', data.EMP_NO);
+    formdata.append('empName', data.EMP_NAME);
+    formdata.append('onJob', data.ON_JOB);
+    formdata.append('email', data.EMAIL);
+    formdata.append('promotionUnit', data.PROMOTION_UNIT);
+    formdata.append('groupNo', data.GROUP_NO);
+    formdata.append('surrogateNo', data.SURROGATE_NO);
     return this.saveOrEditMsgString(baseUrl, formdata);
   }
 

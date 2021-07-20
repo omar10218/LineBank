@@ -38,7 +38,7 @@
       <div class="form">
         <mat-form-field color="accent">
           <mat-select placeholder="推廣單位" [(ngModel)]="data.PROMOTION_UNIT" name="PROMOTION_UNIT" >
-            <mat-option *ngFor="let obj of data.UNIT" [value]="obj.value">
+            <mat-option *ngFor="let obj of unitCode" [value]="obj.value">
               {{obj.viewValue}}
             </mat-option>
           </mat-select>
@@ -48,7 +48,7 @@
       <div class="form">
         <mat-form-field color="accent">
           <mat-select placeholder="群組" [(ngModel)]="data.GROUP_NO" name="GROUP_NO" >
-            <mat-option *ngFor="let obj of data.GROUP" [value]="obj.value">
+            <mat-option *ngFor="let obj of groupCode" [value]="obj.value">
               {{obj.viewValue}}
             </mat-option>
           </mat-select>
@@ -58,8 +58,8 @@
       <div class="form">
         <mat-form-field color="accent">
           <mat-select placeholder="代理人" [(ngModel)]="data.SURROGATE_NO" name="SURROGATE_NO" >
-            <mat-option *ngFor="let obj of data.SURROGATE" [value]="obj.value">
-              {{obj.viewValue}}
+            <mat-option *ngFor="let su of surrogateCode" [value]="su.value">
+              {{su.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>

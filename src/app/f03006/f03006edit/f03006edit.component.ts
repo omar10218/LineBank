@@ -16,6 +16,7 @@ interface ynCode {
 })
 export class F03006editComponent {
   ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
+  surrogateCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
   constructor(public dialogRef: MatDialogRef<F03006editComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03006Service: F03006Service) { }
 
   formControl = new FormControl('', [
@@ -38,7 +39,7 @@ export class F03006editComponent {
 
   public async stopEdit(): Promise<void> {
     let msgStr: string = "";
-    let baseUrl = 'EmployeeSet/Edit';
+    let baseUrl = 'f03/f03006action6';
     msgStr = await this.f03006Service.addOrEditSystemCodeSet(baseUrl, this.data);
     const childernDialogRef = this.dialog.open(F03006confirmComponent, {
       data: { msgStr: msgStr }

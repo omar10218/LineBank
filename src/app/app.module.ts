@@ -61,6 +61,19 @@ import { TokenInterceptor } from './token.interceptor';
 import { F01001scn13addComponent } from './f01001/f01001scn13/f01001scn13add/f01001scn13add.component';
 import { F01001scn13editComponent } from './f01001/f01001scn13/f01001scn13edit/f01001scn13edit.component';
 import { F01001scn13deleteComponent } from './f01001/f01001scn13/f01001scn13delete/f01001scn13delete.component';
+import { F02001scn0Component } from './f02001/f02001scn0/f02001scn0.component';
+import { F02001scn1Component } from './f02001/f02001scn1/f02001scn1.component';
+import { F02001scn2Component } from './f02001/f02001scn2/f02001scn2.component';
+import { F02001scn3Component } from './f02001/f02001scn3/f02001scn3.component';
+import { F02001scn4Component } from './f02001/f02001scn4/f02001scn4.component';
+import { F02001scn5Component } from './f02001/f02001scn5/f02001scn5.component';
+import { F02001scn6Component } from './f02001/f02001scn6/f02001scn6.component';
+import { F02001scn7Component } from './f02001/f02001scn7/f02001scn7.component';
+import { F02001scn8Component } from './f02001/f02001scn8/f02001scn8.component';
+import { F02001scn9Component } from './f02001/f02001scn9/f02001scn9.component';
+import { F02001scn10Component } from './f02001/f02001scn10/f02001scn10.component';
+import { F02001scn11Component } from './f02001/f02001scn11/f02001scn11.component';
+import { F02001scn12Component } from './f02001/f02001scn12/f02001scn12.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +124,19 @@ import { F01001scn13deleteComponent } from './f01001/f01001scn13/f01001scn13dele
     F01001scn13addComponent,
     F01001scn13editComponent,
     F01001scn13deleteComponent,
+    F02001scn0Component,
+    F02001scn1Component,
+    F02001scn2Component,
+    F02001scn3Component,
+    F02001scn4Component,
+    F02001scn5Component,
+    F02001scn6Component,
+    F02001scn7Component,
+    F02001scn8Component,
+    F02001scn9Component,
+    F02001scn10Component,
+    F02001scn11Component,
+    F02001scn12Component,
   ],
   imports: [
     BrowserModule,
