@@ -11,6 +11,9 @@ import { F01001scn13Service } from './f01001scn13.service';
 import { ShowComponent } from './show/show.component';
 import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { MappingCode } from 'src/app/mappingcode.model';
+import { F01001scn13addComponent } from './f01001scn13add/f01001scn13add.component';
+import { F01001scn13editComponent } from './f01001scn13edit/f01001scn13edit.component';
+import { F01001scn13deleteComponent } from './f01001scn13delete/f01001scn13delete.component';
 
 
 @Component({
@@ -19,27 +22,13 @@ import { MappingCode } from 'src/app/mappingcode.model';
   styleUrls: ['./f01001scn13.component.css']
 })
 export class F01001scn13Component implements OnInit, AfterViewInit {
-  accept: string = "image/*";
-
-  fileControl: FormControl;
-  public files: any;
-  maxSize: number = 16;
-  constructor(private route: ActivatedRoute, private router: Router, private f01001scn13Service: F01001scn13Service, public dialog: MatDialog) {
-    this.fileControl = new FormControl(this.files, [
-      Validators.required,
-      MaxSizeValidator(this.maxSize * 1024)
-    ])
-  }
+  constructor(private route: ActivatedRoute, private router: Router, private f01001scn13Service: F01001scn13Service, public dialog: MatDialog) { }
   private applno: string;
   private search: string;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
-    });
-
-    this.fileControl.valueChanges.subscribe((files: any) => {
-        this.files = files;
     });
   }
 
@@ -58,9 +47,6 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
   currentSort: Sort;
   webInfoSource = new MatTableDataSource<any>();
   webAddrOption: MappingCode[];
-  webAddrValue: string;
-  webAddrUrl: string;
-  webInfoContent: string;
 
   ngAfterViewInit() {
     this.getWebInfo();
@@ -95,24 +81,6 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
     });
   }
 
-  uploadFileToCE() {
-    if (this.files != null) {
-
-      const formdata = new FormData();
-      formdata.append('file', this.files);
-      this.f01001scn13Service.uploadFileToCE(formdata).subscribe(data => {
-
-      });
-
-    } else {
-      alert('請至少選擇1個檔案!');
-    }
-  }
-
-  changeSelect() {
-    this.webAddrUrl = this.webAddrValue.split('=')[1];
-  }
-
   getOptionDesc(codeVal: string): string {
     for (const data of this.webAddrOption) {
       if (data.codeNo == codeVal) {
@@ -123,17 +91,54 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
     return codeVal;
   }
 
-  startEdit(i: number, rowid: string, webCode: string, webUrl:string, msgContent: string) {
-    this.webAddrUrl = webUrl;
-    this.webAddrValue = webCode + '=' + webUrl;
-    this.webInfoContent = msgContent;
-    console.log(rowid);
+  addNew() {
+    const dialogRef = this.dialog.open(F01001scn13addComponent, {
+      data: {
+        applno: this.applno,
+        search: this.search,
+        webAddrOption: this.webAddrOption
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
   }
 
-  deleteItem(i: number, rowid: string) {
-    if (confirm('確定要刪除?')) {
+  startEdit(i: number, rowid: string, webCode: string, webUrl:string, msgContent: string, webImg: string) {
+    const dialogRef = this.dialog.open(F01001scn13editComponent, {
+      data: {
+        webAddrValue: webCode + '=' + webUrl,
+        webAddrOption: this.webAddrOption,
+        webAddrUrl : webUrl,
+        search: this.search,
+        webInfoContent: msgContent,
+        base64: webImg,
+        rowId: rowid
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
+  }
 
-    }
-    console.log(rowid);
+  deleteItem(i: number, rowid: string, webCode: string, webUrl:string, msgContent: string, webImg: string) {
+    const dialogRef = this.dialog.open(F01001scn13deleteComponent, {
+      data: {
+        webAddrValue: webCode + '=' + webUrl,
+        webAddrOption: this.webAddrOption,
+        webAddrUrl : webUrl,
+        search: this.search,
+        webInfoContent: msgContent,
+        base64: webImg,
+        rowId: rowid
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
+  }
+
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
   }
 }

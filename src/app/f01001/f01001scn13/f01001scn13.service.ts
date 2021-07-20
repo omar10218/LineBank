@@ -14,8 +14,7 @@ export class F01001scn13Service extends BaseService {
     return this.postHttpClient(baseUrl);
   }
 
-  uploadFileToCE(formdata: FormData): Observable<any> {
-    const baseUrl = 'uploadFileToCE';
+  uploadFile(baseUrl: string, formdata: FormData): Observable<any> {
     return this.postFormData(baseUrl, formdata);
   }
 }

@@ -13,7 +13,7 @@ interface ynCode {
   templateUrl: './f03005add.component.html',
   styleUrls: ['./f03005add.component.css']
 })
-export class F03005addComponent{
+export class F03005addComponent {
   ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
   constructor(public dialogRef: MatDialogRef<F03005addComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public f03005Service: F03005Service, public dialog: MatDialog) { }
 

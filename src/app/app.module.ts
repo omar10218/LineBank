@@ -58,6 +58,9 @@ import { F03002child201Component } from './f03002/f03002child2/f03002child201/f0
 import { F03002child202Component } from './f03002/f03002child2/f03002child202/f03002child202.component';
 import { F03002child203Component } from './f03002/f03002child2/f03002child203/f03002child203.component';
 import { TokenInterceptor } from './token.interceptor';
+import { F01001scn13addComponent } from './f01001/f01001scn13/f01001scn13add/f01001scn13add.component';
+import { F01001scn13editComponent } from './f01001/f01001scn13/f01001scn13edit/f01001scn13edit.component';
+import { F01001scn13deleteComponent } from './f01001/f01001scn13/f01001scn13delete/f01001scn13delete.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +108,9 @@ import { TokenInterceptor } from './token.interceptor';
     F03002child201Component,
     F03002child202Component,
     F03002child203Component,
+    F01001scn13addComponent,
+    F01001scn13editComponent,
+    F01001scn13deleteComponent,
   ],
   imports: [
     BrowserModule,

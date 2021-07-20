@@ -1,0 +1,50 @@
+<div class="container">
+  <h2 mat-dialog-title>網頁資訊-刪除</h2>
+  <table>
+    <tr>
+      <td style="width: 30%;">
+        <mat-form-field color="accent">
+          <mat-select [(ngModel)]="data.webAddrValue" placeholder="第三方外部網站" disabled>
+            <mat-option *ngFor="let webAddr of data.webAddrOption" [value]="webAddr.codeNo + '=' + webAddr.codeTag">
+              {{webAddr.codeDesc}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td style="width: 70%;">
+        <mat-form-field color="accent" style="width: 80%;">
+          <input matInput [(ngModel)]="data.webAddrUrl" placeholder="網址" readonly>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 30%; font-weight: bolder; font-size: large;">
+        確定要刪除此網頁資訊？
+      </td>
+      <td style="width: 70%;">
+        <mat-form-field color="accent" style="width: 80%;">
+          <input matInput [(ngModel)]="data.webInfoContent" placeholder="內容" readonly>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+
+  <tr>
+    <ng-container *ngIf="data.search == 'N'; else elseTemplate">
+      <button mat-stroked-button style="margin-left: 10px;" (click)="deleteFile()" color="accent"><mat-icon matSuffix>delete</mat-icon></button>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <button mat-stroked-button style="margin-left: 10px;" (click)="deleteFile()" color="accent"disabled="true"><mat-icon matSuffix>delete</mat-icon></button>
+    </ng-template>
+  </tr>
+
+  <br>
+
+  <tr>
+    <td>
+      <div *ngIf="imageSrc" style="float: left; margin: 5px; text-align:center" class="inboxContainer">
+        <img [src]="imageSrc" alt='Item image' *ngIf="imageSrc">
+      </div>
+    </td>
+  </tr>
+</div>
