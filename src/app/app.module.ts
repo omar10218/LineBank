@@ -74,6 +74,7 @@ import { F02001scn9Component } from './f02001/f02001scn9/f02001scn9.component';
 import { F02001scn10Component } from './f02001/f02001scn10/f02001scn10.component';
 import { F02001scn11Component } from './f02001/f02001scn11/f02001scn11.component';
 import { F02001scn12Component } from './f02001/f02001scn12/f02001scn12.component';
+import { F01001scn13confirmComponent } from './f01001/f01001scn13/f01001scn13confirm/f01001scn13confirm.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +138,7 @@ import { F02001scn12Component } from './f02001/f02001scn12/f02001scn12.component
     F02001scn10Component,
     F02001scn11Component,
     F02001scn12Component,
+    F01001scn13confirmComponent,
   ],
   imports: [
     BrowserModule,

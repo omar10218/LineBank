@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F01001scn13Service } from '../f01001scn13.service';
+import { F01001scn13confirmComponent } from '../f01001scn13confirm/f01001scn13confirm.component';
 
 @Component({
   templateUrl: './f01001scn13edit.component.html',
@@ -50,37 +51,43 @@ export class F01001scn13editComponent implements OnInit {
     }
   }
 
-  uploadFile() {
+  async uploadFile() {
+    let msgStr: string = "";
+    let codeStr: string = "";
+    const formdata = new FormData();
     const baseUrl = 'f01/f01001scn13action2';
     if (this.files != null) {
       var mimeType = this.files.type;
       if (mimeType.match(/image\/*/) == null) {
 			  this.msg = "檔案非圖片類型!";
+        return;
+
       } else {
-        const formdata = new FormData();
         formdata.append('web', this.data.webAddrValue.split('=')[0]);
         formdata.append('webAddr', this.data.webAddrUrl);
         formdata.append('messageContent', this.data.webInfoContent);
         formdata.append('empno', '9901890');
         formdata.append('rowid', this.data.rowId);
         formdata.append('file', this.files);
-        this.f01001scn13Service.uploadFile(baseUrl, formdata).subscribe(data => {
-
-        });
       }
     } else {
-      // 走這邊就是更新內容文字
-      this.msg ='編輯有可能只改文字內容沒有更換檔案!';
-      const formdata = new FormData();
       formdata.append('web', this.data.webAddrValue.split('=')[0]);
       formdata.append('webAddr', this.data.webAddrUrl);
       formdata.append('messageContent', this.data.webInfoContent);
       formdata.append('empno', '9901890');
       formdata.append('rowid', this.rowId);
-      this.f01001scn13Service.uploadFile(baseUrl, formdata).subscribe(data => {
-
-      });
     }
+
+    await this.f01001scn13Service.f01001scn13Action(baseUrl, formdata).then((data: any) => {
+      codeStr = data.rspCode;
+      msgStr = data.rspMsg;
+    });
+
+    const childernDialogRef = this.dialog.open(F01001scn13confirmComponent, {
+      data: { msgStr: msgStr }
+    });
+
+    if (msgStr === '修改成功' && codeStr === '0000') { this.dialogRef.close({ event:'success' }); }
   }
 
 }
