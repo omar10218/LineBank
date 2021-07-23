@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { BnNgIdleService } from 'bn-ng-idle';
+import Crypto from "crypto-js";
 
 
 
@@ -13,12 +14,23 @@ import { BnNgIdleService } from 'bn-ng-idle';
 export class LoginComponent {
   no = '';
   pwd = '';
+  public key: string;
+  public iv: string;
   private bnIdle: BnNgIdleService = null;
   constructor(private router: Router, private loginService: LoginService) { }
 
   async onClickMe(): Promise<void>  {
     this.bnIdle = new BnNgIdleService();
-    if (await this.loginService.initData(this.no,'11111111')) {
+
+    //密碼加密
+    this.key = Crypto.enc.Utf8.parse('o08YQii9QF5MuzYj');//密钥
+    let res = Crypto.DES.encrypt(JSON.stringify(this.pwd), this.key, {
+      mode: Crypto.mode.ECB,
+      padding: Crypto.pad.Pkcs7
+    }).ciphertext.toString();
+    console.log(res);
+
+    if (await this.loginService.initData(this.no,res)) {
       localStorage.setItem("empNo", this.no);
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.bnIdle.startWatching(60*30).subscribe((isTimedOut: boolean) => {
