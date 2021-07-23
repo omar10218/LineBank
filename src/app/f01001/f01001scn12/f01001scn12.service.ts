@@ -14,11 +14,12 @@ interface sysCode {
 })
 export class F01001scn12Service extends BaseService {
   Condition!: sysCode[] ;
-
-;
-
-
   constructor(protected httpClient: HttpClient) { super(httpClient); }
+
+  getInComeFunction(baseUrl: string, pageIndex: number, pageSize: number, applno: string): Observable<any> {
+    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}&applno=${applno}`;
+    return this.postHttpClient(targetUrl);
+  }
 
   private async getRuleCodeOption(value: string): Promise<Observable<any>> {
     let formData = new FormData();

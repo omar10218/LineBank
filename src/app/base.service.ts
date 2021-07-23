@@ -47,10 +47,11 @@ export class BaseService {
 
   private async getMsgStr(rspCode: string, rspMsg: string): Promise<string> {
     let msgStr: string = "";
-    if (rspCode === '0000' && rspMsg === '成功') { msgStr = '儲存成功！'; }
-    if (rspCode === '9999' && rspMsg === '失敗') { msgStr = '儲存失敗！'; }
-    if (rspCode === '0001' && rspMsg === '資料重複無法新增') { msgStr = '資料重複無法新增'; }
-    return msgStr;
+
+    // if (rspCode === '0000' && rspMsg === '成功') { msgStr = '儲存成功！'; }
+    // if (rspCode === '9999' && rspMsg === '失敗') { msgStr = '儲存失敗！'; }
+    // if (rspCode === '0001' && rspMsg === '資料重複無法新增') { msgStr = '資料重複無法新增'; }
+    return rspMsg;
   }
 
   public async saveOrEditMsgString(baseUrl: string, formdata: FormData): Promise<string> {
