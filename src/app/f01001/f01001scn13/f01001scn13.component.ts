@@ -74,9 +74,9 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
     formdata.append('per_page', `${this.currentPage.pageSize}`);
     formdata.append('applno', this.applno);
     this.f01001scn13Service.getWebInfo(formdata).subscribe(data => {
-      this.totalCount = data.size;
-      this.webInfoSource.data = data.items;
-      this.webAddrOption = data.webAddr;
+      this.totalCount = data.rspBody.size;
+      this.webInfoSource.data = data.rspBody.items;
+      this.webAddrOption = data.rspBody.webAddr;
     });
   }
 
