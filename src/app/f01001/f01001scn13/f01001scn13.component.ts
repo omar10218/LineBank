@@ -25,11 +25,24 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private router: Router, private f01001scn13Service: F01001scn13Service, public dialog: MatDialog) { }
   private applno: string;
   private search: string;
+  currentPage: PageEvent;
+  currentSort: Sort;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
     });
+
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+
+    this.currentSort = {
+      active: '',
+      direction: ''
+    };
   }
 
   getApplno(): String {
@@ -43,22 +56,12 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent;
-  currentSort: Sort;
   webInfoSource = new MatTableDataSource<any>();
   webAddrOption: MappingCode[];
 
   ngAfterViewInit() {
     this.getWebInfo();
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
+
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
       this.getWebInfo();
@@ -66,12 +69,15 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
   }
 
   getWebInfo() {
-    this.f01001scn13Service.getWebInfo().subscribe(data => {
+    const formdata: FormData = new FormData();
+    formdata.append('page', `${this.currentPage.pageIndex + 1}`);
+    formdata.append('per_page', `${this.currentPage.pageSize}`);
+    formdata.append('applno', this.applno);
+    this.f01001scn13Service.getWebInfo(formdata).subscribe(data => {
       this.totalCount = data.size;
       this.webInfoSource.data = data.items;
       this.webAddrOption = data.webAddr;
     });
-
   }
 
   openView(web_img: any) {
@@ -140,5 +146,6 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
 
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
+    this.paginator.firstPage();
   }
 }

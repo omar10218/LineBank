@@ -9,12 +9,12 @@ import { BaseService } from 'src/app/base.service';
 })
 export class F01001scn13Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
-  getWebInfo(): Observable<any> {
+  getWebInfo(formdata: FormData): Observable<any> {
     const baseUrl = 'f01/f01001scn13';
-    return this.postHttpClient(baseUrl);
+    return this.postFormData(baseUrl, formdata);
   }
 
-  uploadFile(baseUrl: string, formdata: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formdata);
+  public async f01001scn13Action(baseUrl: string, formdata: FormData): Promise<Observable<any>> {
+    return await this.postFormData(baseUrl, formdata).toPromise();
   }
 }

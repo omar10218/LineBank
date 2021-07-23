@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F01001scn13Service } from '../f01001scn13.service';
+import { F01001scn13confirmComponent } from '../f01001scn13confirm/f01001scn13confirm.component';
 
 @Component({
   templateUrl: './f01001scn13add.component.html',
@@ -51,7 +52,7 @@ export class F01001scn13addComponent implements OnInit {
     }
   }
 
-  uploadFile() {
+  async uploadFile() {
     if (this.files != null) {
       var mimeType = this.files.type;
       if (mimeType.match(/image\/*/) == null) {
@@ -65,9 +66,19 @@ export class F01001scn13addComponent implements OnInit {
         formdata.append('empno', '9901890');
         formdata.append('file', this.files);
         const baseUrl = 'f01/f01001scn13action1';
-        this.f01001scn13Service.uploadFile(baseUrl, formdata).subscribe(data => {
+        let msgStr: string = "";
+        let codeStr: string = "";
 
+        await this.f01001scn13Service.f01001scn13Action(baseUrl, formdata).then((data: any) => {
+          codeStr = data.rspCode;
+          msgStr = data.rspMsg;
         });
+
+        const childernDialogRef = this.dialog.open(F01001scn13confirmComponent, {
+          data: { msgStr: msgStr }
+        });
+
+        if (msgStr === '新增成功' && codeStr === '0000') { this.dialogRef.close({ event:'success' }); }
       }
     } else {
       this.msg ='請至少選擇1個圖檔!';
