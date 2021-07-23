@@ -1,5 +1,5 @@
 <br>
-<mat-table [dataSource]="ruleParamConditionSource" matSortDisableClear>
+<mat-table [dataSource]="applIncomeSource" matSortDisableClear>
   <ng-container matColumnDef="postFlag">
     <mat-header-cell mat-header-cell *matHeaderCellDef> 客戶類別</mat-header-cell>
     <mat-cell mat-cell *matCellDef="let row"> {{row.postFlag}}</mat-cell>
@@ -14,7 +14,7 @@
   </ng-container>
   <ng-container matColumnDef="incomeType">
     <mat-header-cell mat-header-cell *matHeaderCellDef> 收入項目</mat-header-cell>
-    <mat-cell mat-cell *matCellDef="let row"> {{row.incomeType}}</mat-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{getOptionDesc(row.incomeType)}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="num">
     <mat-header-cell mat-header-cell *matHeaderCellDef> 金額</mat-header-cell>
@@ -33,23 +33,50 @@
     <mat-cell mat-cell *matCellDef="let row"> {{row.mincome}}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="actions">
-    <!-- <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell> -->
-    <mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="primary" (click)="addNew()">
-        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-      </button>
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row; let i=index;">
-      <button mat-icon-button color="accent" (click)="startEdit()">
-        <mat-icon aria-label="Edit">edit</mat-icon>
-      </button>
 
-      <button mat-icon-button color="accent" (click)="deleteItem()">
-        <mat-icon aria-label="Delete">delete</mat-icon>
-      </button>
-    </mat-cell>
+
+  <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
+    <ng-container matColumnDef="actions">
+      <!-- <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell> -->
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addNew()">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
   </ng-container>
+  <ng-template #elseTemplate>
+    <ng-container matColumnDef="actions">
+      <!-- <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell> -->
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addNew()" disabled>
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)" disabled>
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)" disabled>
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+  </ng-template>
+
+
+
+
 
   <mat-header-row
     *matHeaderRowDef="['postFlag','cuId','cuCname', 'incomeType', 'num', 'mincomeExp','yincome','mincome','actions']">

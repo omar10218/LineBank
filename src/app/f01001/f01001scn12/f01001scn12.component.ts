@@ -5,6 +5,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MappingCode } from 'src/app/mappingcode.model';
+import { MatDialog } from '@angular/material/dialog';
+import { F01001scn12addComponent } from './f01001scn12add/f01001scn12add.component';
+import { F01001scn12editComponent } from './f01001scn12edit/f01001scn12edit.component';
+import { F01001scn12deleteComponent } from './f01001scn12delete/f01001scn12delete.component';
 
 interface sysCode {
   value: string;
@@ -17,21 +21,27 @@ interface sysCode {
   styleUrls: ['./f01001scn12.component.css']
 })
 export class F01001scn12Component implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router, private f01001scn12Service: F01001scn12Service) { }
+  constructor(private route: ActivatedRoute, private router: Router, private f01001scn12Service: F01001scn12Service, public dialog: MatDialog) { }
   private applno: string;
   private search: string;
+  currentPage: PageEvent;
+  currentSort: Sort;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
     });
-    console.log(this.applno);
-    const baseUrl = 'f01/f01001scn12';
-    this.f01001scn12Service.getInComeFunction(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, this.applno).subscribe(data => {
-      console.log(data);
-      this.totalCount = data.rspBody.size;
-      this.ruleParamConditionSource.data = data.rspBody.items;
-    });
+
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+
+    this.currentSort = {
+      active: '',
+      direction: ''
+    };
   }
 
   getApplno(): String {
@@ -45,38 +55,96 @@ export class F01001scn12Component implements OnInit {
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent = {
-    pageIndex: 0,
-    pageSize: 10,
-    length: null
-  };
-  currentSort: Sort;
-  ruleParamConditionSource = new MatTableDataSource<any>();
+  applIncomeSource = new MatTableDataSource<any>();
+  incomeTypeOption: MappingCode[];
+
   ngAfterViewInit() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
+    this.getInComeList();
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
       this.getInComeList();
     });
   }
 
-  getInComeList(){
-
+  getInComeList() {
+    const formdata: FormData = new FormData();
+    formdata.append('page', `${this.currentPage.pageIndex + 1}`);
+    formdata.append('per_page', `${this.currentPage.pageSize}`);
+    formdata.append('applno', this.applno);
+    this.f01001scn12Service.getInComeFunction(formdata).subscribe(data => {
+      this.totalCount = data.rspBody.size;
+      this.applIncomeSource.data = data.rspBody.items;
+      this.incomeTypeOption = data.rspBody.incomeType;
+    });
   }
 
- 
+  getOptionDesc(codeVal: string): string {
+    for (const data of this.incomeTypeOption) {
+      if (data.codeNo == codeVal) {
+        return data.codeDesc;
+        break;
+      }
+    }
+    return codeVal;
+  }
 
-  
-  
+  addNew() {
+    const dialogRef = this.dialog.open(F01001scn12addComponent, {
+      data: {
+        applno: this.applno,
+        search: this.search,
+        incomeTypeOption: this.incomeTypeOption
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
+  }
 
- 
+  startEdit(i: number, incomeType: string, cuId: string, cuCname: string, num: string, mincomeExp: string) {
+    const dialogRef = this.dialog.open(F01001scn12editComponent, {
+      data: {
+        applno: this.applno,
+        search: this.search,
+        incomeTypeOption: this.incomeTypeOption,
+        incomeType: incomeType,
+        cuId: cuId,
+        cuCname : cuCname,
+        num: num,
+        mincomeExp: mincomeExp
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
+  }
+
+  deleteItem(i: number, incomeType: string, cuId: string, cuCname: string, num: string, mincomeExp: string) {
+    const dialogRef = this.dialog.open(F01001scn12deleteComponent, {
+      data: {
+        applno: this.applno,
+        search: this.search,
+        incomeTypeOption: this.incomeTypeOption,
+        incomeType: incomeType,
+        cuId: cuId,
+        cuCname : cuCname,
+        num: num,
+        mincomeExp: mincomeExp
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
+  }
+
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
+    this.paginator.firstPage();
+  }
+
+
+
+
+
 
 }
