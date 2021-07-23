@@ -74,23 +74,23 @@ export class F03003Component implements OnInit {
 
     const baseUrl = 'f03/f03003?name=' + this.selectedValue;
     this.f03003Service.getLine(baseUrl).subscribe(data => {
-      console.log(data[0]);
+      console.log(data.rspBody[0]);
       for (let i = 0; i < this.backgroundSearch.length; i++) { this.backgroundSearch[i].check = false; }
       for (let i = 0; i < this.backgroundClass.length; i++) { this.backgroundClass[i].check = false; }
       for (let i = 0; i < this.persons.length; i++) { this.persons[i].check = false; }
-      if (data[0].blacksearch == "Y") { this.backgroundSearch[0].check = true };
-      if (data[0].history == "Y") { this.backgroundSearch[1].check = true };
-      if (data[0].stakeholder == "Y") { this.backgroundSearch[2].check = true };
-      if (data[0].aml == "Y") { this.backgroundSearch[3].check = true };
-      if (data[0].jcic == "Y") { this.backgroundSearch[4].check = true };
-      if (data[0].process == "Y") { this.backgroundClass[0].check = true };
-      if (data[0].rating == "Y") { this.backgroundClass[1].check = true };
-      if (data[0].comparison == "Y") { this.backgroundClass[2].check = true };
-      if (data[0].assignmentCase == "Y") { this.backgroundClass[3].check = true };
-      if (data[0].reviewAssignment == "Y") { this.backgroundClass[4].check = true };
-      if (data[0].credit == "Y") { this.persons[0].check = true };
-      if (data[0].auditNor == "Y") { this.persons[1].check = true };
-      if (data[0].auditSup == "Y") { this.persons[2].check = true };
+      if (data.rspBody[0].blacksearch == "Y") { this.backgroundSearch[0].check = true };
+      if (data.rspBody[0].history == "Y") { this.backgroundSearch[1].check = true };
+      if (data.rspBody[0].stakeholder == "Y") { this.backgroundSearch[2].check = true };
+      if (data.rspBody[0].aml == "Y") { this.backgroundSearch[3].check = true };
+      if (data.rspBody[0].jcic == "Y") { this.backgroundSearch[4].check = true };
+      if (data.rspBody[0].process == "Y") { this.backgroundClass[0].check = true };
+      if (data.rspBody[0].rating == "Y") { this.backgroundClass[1].check = true };
+      if (data.rspBody[0].comparison == "Y") { this.backgroundClass[2].check = true };
+      if (data.rspBody[0].assignmentCase == "Y") { this.backgroundClass[3].check = true };
+      if (data.rspBody[0].reviewAssignment == "Y") { this.backgroundClass[4].check = true };
+      if (data.rspBody[0].credit == "Y") { this.persons[0].check = true };
+      if (data.rspBody[0].auditNor == "Y") { this.persons[1].check = true };
+      if (data.rspBody[0].auditSup == "Y") { this.persons[2].check = true };
     });
   }
 
@@ -113,8 +113,8 @@ export class F03003Component implements OnInit {
     const baseUrl = 'f03/f03003action1';
     this.f03003Service.setProduct(baseUrl, formData).subscribe(data => {
       const childernDialogRef = this.dialog.open(F03003confirmComponent, {
-        data: { msgStr: data.Success }
-      }); 
+        data: { msgStr: data.rspMsg }
+      });
     });
   }
 }

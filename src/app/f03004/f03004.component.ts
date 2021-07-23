@@ -108,7 +108,7 @@ export class F03004Component implements OnInit, AfterViewInit  {
     codeSort: string, codeTag: string, codeFlag: string) {
       const dialogRef = this.dialog.open(F03004editComponent, {
         data: {
-          codeType: codeType, codeNo : codeNo , code_DESC: codeDesc,
+          codeType: codeType, codeNo : codeNo , codeDesc: codeDesc,
           codeSort: codeSort, codeTag: codeTag, codeFlag: codeFlag
               }
       });

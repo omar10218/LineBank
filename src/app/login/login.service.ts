@@ -28,7 +28,7 @@ export class LoginService extends BaseService {
     let isOk: boolean = false;
     let tokenStr: string = '';
     await this.checkEmpNoPromise(empNo, empPwd).then((data: any) => {
-      if (data.rspCode == '0000') { tokenStr = data.token; }
+      if (data.rspCode == '0000') { tokenStr = data.rspBody.token; }
       isOk = data.rspCode == '0000';
     });
     localStorage.setItem("token", tokenStr);
