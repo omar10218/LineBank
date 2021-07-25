@@ -24,14 +24,14 @@ export class F03005Component implements OnInit {
   constructor(private f03005Service: F03005Service, public dialog: MatDialog) { }
   ngOnInit(): void { 
     this.f03005Service.getSysTypeCode('ADR_TYPE','f03/f03005').subscribe(data => {
-      for (const jsonObj of data) {
+      for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.adrType.push({value: codeNo, viewValue: desc})
       }
     });
     this.f03005Service.getSysTypeCode('AD_TYPE','f03/f03005').subscribe(data => {
-      for (const jsonObj of data) {
+      for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.adType.push({value: codeNo, viewValue: desc})
@@ -81,11 +81,9 @@ export class F03005Component implements OnInit {
     const baseUrl = 'f03/f03005action1';
     const adrVal = this.selectedAdrValue != null ? this.selectedAdrValue : '';
     const adVal = this.selectedAdValue != null ? this.selectedAdValue : '';
-    console.log(adrVal+","+adVal)
     this.f03005Service.getAdrCodeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, adrVal, adVal).subscribe(data => {
-      console.log(data);
-      this.totalCount = data.size;
-      this.adrCodeSource.data = data.items;
+      this.totalCount = data.rspBody.size;
+      this.adrCodeSource.data = data.rspBody.items;
     });
   }
 

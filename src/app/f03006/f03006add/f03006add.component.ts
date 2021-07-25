@@ -28,7 +28,7 @@ export class F03006addComponent implements OnInit {
 
   ngOnInit(): void {
     this.f03006Service.getSysTypeCode('GEN_UNIT','f03/f03006').subscribe(data => {
-      for (const jsonObj of data) {
+      for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.unitCode.push({value: codeNo, viewValue: desc})
@@ -36,7 +36,6 @@ export class F03006addComponent implements OnInit {
     });
     const baseUrl = 'f03/f03006action1';
     this.f03006Service.getGroupCode(baseUrl).subscribe(data => {
-      console.log(data);
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['groupNo'];
         const desc = jsonObj['groupName'];

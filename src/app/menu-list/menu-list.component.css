@@ -4,3 +4,8 @@
 .mat-icon {
   font-size: 35px;
 }
+
+.mat-toolbar.mat-primary {
+  background:	#FFE4CA;
+  color: #000000;
+}
