@@ -49,6 +49,8 @@ export class LoginComponent {
   }
 
   private routerGoUrl(): void {
+    localStorage.clear();
+    sessionStorage.clear();
     this.bnIdle.stopTimer();
     this.router.navigate(['./logOut']);
     alert('閒置過久已登出');
