@@ -1,1 +1,18 @@
-<p>f01001scn6 works! {{ getApplno() }}</p>
+<th>行外查詢 {{ getApplno() }}</th>
+<div style="margin-top: 15px; margin-left: 5px;">
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE1"  [queryParams]="{ applno: getApplno(), search: getSearch() }">個人JCIC資訊</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE2"  [queryParams]="{ applno: getApplno(), search: getSearch() }">票信紀錄</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE3"  [queryParams]="{ applno: getApplno(), search: getSearch() }">自然人姓名、身分證補發、通報、補充註記</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE4"  [queryParams]="{ applno: getApplno(), search: getSearch() }">信用異常紀錄</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE5"  [queryParams]="{ applno: getApplno(), search: getSearch() }">信用卡正附卡資訊</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE6"  [queryParams]="{ applno: getApplno(), search: getSearch() }">最近三個月內非Z類產品被查詢紀錄</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE7"  [queryParams]="{ applno: getApplno(), search: getSearch() }">日非Z類產品被查詢紀錄</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE8"  [queryParams]="{ applno: getApplno(), search: getSearch() }">三個月當事人申請查詢紀錄</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE9"  [queryParams]="{ applno: getApplno(), search: getSearch() }">信用卡戶基本資訊彙整</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE10"  [queryParams]="{ applno: getApplno(), search: getSearch() }">信用卡戶帳款及循環比率資訊</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE11"  [queryParams]="{ applno: getApplno(), search: getSearch() }">99年版授信、擔保品及還款紀錄資訊-科目別</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE12"  [queryParams]="{ applno: getApplno(), search: getSearch() }">新式國民身分證領補換驗證紀錄</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE13"  [queryParams]="{ applno: getApplno(), search: getSearch() }">B29</button>
+    <button mat-raised-button color="primary" routerLink="./F01001SCN6PAGE14"  [queryParams]="{ applno: getApplno(), search: getSearch() }">K33</button>
+  </div>
+  <router-outlet></router-outlet>

@@ -12,6 +12,20 @@ import { F01001scn3Component } from './f01001/f01001scn3/f01001scn3.component';
 import { F01001scn4Component } from './f01001/f01001scn4/f01001scn4.component';
 import { F01001scn5Component } from './f01001/f01001scn5/f01001scn5.component';
 import { F01001scn6Component } from './f01001/f01001scn6/f01001scn6.component';
+import { F01001scn6page1Component } from './f01001/f01001scn6/f01001scn6page1/f01001scn6page1.component';
+import { F01001scn6page10Component } from './f01001/f01001scn6/f01001scn6page10/f01001scn6page10.component';
+import { F01001scn6page11Component } from './f01001/f01001scn6/f01001scn6page11/f01001scn6page11.component';
+import { F01001scn6page12Component } from './f01001/f01001scn6/f01001scn6page12/f01001scn6page12.component';
+import { F01001scn6page13Component } from './f01001/f01001scn6/f01001scn6page13/f01001scn6page13.component';
+import { F01001scn6page14Component } from './f01001/f01001scn6/f01001scn6page14/f01001scn6page14.component';
+import { F01001scn6page2Component } from './f01001/f01001scn6/f01001scn6page2/f01001scn6page2.component';
+import { F01001scn6page3Component } from './f01001/f01001scn6/f01001scn6page3/f01001scn6page3.component';
+import { F01001scn6page4Component } from './f01001/f01001scn6/f01001scn6page4/f01001scn6page4.component';
+import { F01001scn6page5Component } from './f01001/f01001scn6/f01001scn6page5/f01001scn6page5.component';
+import { F01001scn6page6Component } from './f01001/f01001scn6/f01001scn6page6/f01001scn6page6.component';
+import { F01001scn6page7Component } from './f01001/f01001scn6/f01001scn6page7/f01001scn6page7.component';
+import { F01001scn6page8Component } from './f01001/f01001scn6/f01001scn6page8/f01001scn6page8.component';
+import { F01001scn6page9Component } from './f01001/f01001scn6/f01001scn6page9/f01001scn6page9.component';
 import { F01001scn7Component } from './f01001/f01001scn7/f01001scn7.component';
 import { F01001scn8Component } from './f01001/f01001scn8/f01001scn8.component';
 import { F01001scn9Component } from './f01001/f01001scn9/f01001scn9.component';
@@ -94,7 +108,69 @@ const routes: Routes = [
           },
           {
             path: 'F01001SCN6',
-            component: F01001scn6Component
+            component: F01001scn6Component,
+            children: [
+              {
+                path: '',
+                component: F01001scn6page1Component
+              },
+              {
+                path: 'F01001SCN6PAGE1',
+                component: F01001scn6page1Component
+              },
+              {
+                path: 'F01001SCN6PAGE2',
+                component: F01001scn6page2Component
+              },
+              {
+                path: 'F01001SCN6PAGE3',
+                component: F01001scn6page3Component
+              },
+              {
+                path: 'F01001SCN6PAGE4',
+                component: F01001scn6page4Component
+              },
+              {
+                path: 'F01001SCN6PAGE5',
+                component: F01001scn6page5Component
+              },
+              {
+                path: 'F01001SCN6PAGE6',
+                component: F01001scn6page6Component
+              },
+              {
+                path: 'F01001SCN6PAGE7',
+                component: F01001scn6page7Component
+              },
+              {
+                path: 'F01001SCN6PAGE8',
+                component: F01001scn6page8Component
+              },
+              {
+                path: 'F01001SCN6PAGE9',
+                component: F01001scn6page9Component
+              },
+              {
+                path: 'F01001SCN6PAGE10',
+                component: F01001scn6page10Component
+              },
+              {
+                path: 'F01001SCN6PAGE11',
+                component: F01001scn6page11Component
+              },
+              {
+                path: 'F01001SCN6PAGE12',
+                component: F01001scn6page12Component
+              },
+              {
+                path: 'F01001SCN6PAGE13',
+                component: F01001scn6page13Component
+              },
+              {
+                path: 'F01001SCN6PAGE14',
+                component: F01001scn6page14Component
+              }
+            ]
           },
           {
             path: 'F01001SCN7',

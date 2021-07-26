@@ -80,6 +80,19 @@ import { F01001scn12editComponent } from './f01001/f01001scn12/f01001scn12edit/f
 import { F01001scn12deleteComponent } from './f01001/f01001scn12/f01001scn12delete/f01001scn12delete.component';
 import { F01001scn12confirmComponent } from './f01001/f01001scn12/f01001scn12confirm/f01001scn12confirm.component';
 import { F01001scn6page1Component } from './f01001/f01001scn6/f01001scn6page1/f01001scn6page1.component';
+import { F01001scn6page2Component } from './f01001/f01001scn6/f01001scn6page2/f01001scn6page2.component';
+import { F01001scn6page3Component } from './f01001/f01001scn6/f01001scn6page3/f01001scn6page3.component';
+import { F01001scn6page4Component } from './f01001/f01001scn6/f01001scn6page4/f01001scn6page4.component';
+import { F01001scn6page5Component } from './f01001/f01001scn6/f01001scn6page5/f01001scn6page5.component';
+import { F01001scn6page6Component } from './f01001/f01001scn6/f01001scn6page6/f01001scn6page6.component';
+import { F01001scn6page7Component } from './f01001/f01001scn6/f01001scn6page7/f01001scn6page7.component';
+import { F01001scn6page8Component } from './f01001/f01001scn6/f01001scn6page8/f01001scn6page8.component';
+import { F01001scn6page9Component } from './f01001/f01001scn6/f01001scn6page9/f01001scn6page9.component';
+import { F01001scn6page10Component } from './f01001/f01001scn6/f01001scn6page10/f01001scn6page10.component';
+import { F01001scn6page11Component } from './f01001/f01001scn6/f01001scn6page11/f01001scn6page11.component';
+import { F01001scn6page12Component } from './f01001/f01001scn6/f01001scn6page12/f01001scn6page12.component';
+import { F01001scn6page13Component } from './f01001/f01001scn6/f01001scn6page13/f01001scn6page13.component';
+import { F01001scn6page14Component } from './f01001/f01001scn6/f01001scn6page14/f01001scn6page14.component';
 
 
 @NgModule({
@@ -150,6 +163,19 @@ import { F01001scn6page1Component } from './f01001/f01001scn6/f01001scn6page1/f0
     F01001scn12deleteComponent,
     F01001scn12confirmComponent,
     F01001scn6page1Component,
+    F01001scn6page2Component,
+    F01001scn6page3Component,
+    F01001scn6page4Component,
+    F01001scn6page5Component,
+    F01001scn6page6Component,
+    F01001scn6page7Component,
+    F01001scn6page8Component,
+    F01001scn6page9Component,
+    F01001scn6page10Component,
+    F01001scn6page11Component,
+    F01001scn6page12Component,
+    F01001scn6page13Component,
+    F01001scn6page14Component,
   ],
   imports: [
     BrowserModule,
