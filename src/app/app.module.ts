@@ -79,6 +79,7 @@ import { F01001scn13confirmComponent } from './f01001/f01001scn13/f01001scn13con
 import { F01001scn12editComponent } from './f01001/f01001scn12/f01001scn12edit/f01001scn12edit.component';
 import { F01001scn12deleteComponent } from './f01001/f01001scn12/f01001scn12delete/f01001scn12delete.component';
 import { F01001scn12confirmComponent } from './f01001/f01001scn12/f01001scn12confirm/f01001scn12confirm.component';
+import { F01001scn6page1Component } from './f01001/f01001scn6/f01001scn6page1/f01001scn6page1.component';
 
 
 @NgModule({
@@ -148,6 +149,7 @@ import { F01001scn12confirmComponent } from './f01001/f01001scn12/f01001scn12con
     F01001scn12editComponent,
     F01001scn12deleteComponent,
     F01001scn12confirmComponent,
+    F01001scn6page1Component,
   ],
   imports: [
     BrowserModule,
