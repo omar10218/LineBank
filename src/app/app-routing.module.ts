@@ -18,9 +18,36 @@ import { F01001scn6page11Component } from './f01001/f01001scn6/f01001scn6page11/
 import { F01001scn6page12Component } from './f01001/f01001scn6/f01001scn6page12/f01001scn6page12.component';
 import { F01001scn6page13Component } from './f01001/f01001scn6/f01001scn6page13/f01001scn6page13.component';
 import { F01001scn6page14Component } from './f01001/f01001scn6/f01001scn6page14/f01001scn6page14.component';
+import { F01001scn6page15Component } from './f01001/f01001scn6/f01001scn6page15/f01001scn6page15.component';
+import { F01001scn6page16Component } from './f01001/f01001scn6/f01001scn6page16/f01001scn6page16.component';
+import { F01001scn6page17Component } from './f01001/f01001scn6/f01001scn6page17/f01001scn6page17.component';
+import { F01001scn6page18Component } from './f01001/f01001scn6/f01001scn6page18/f01001scn6page18.component';
+import { F01001scn6page19Component } from './f01001/f01001scn6/f01001scn6page19/f01001scn6page19.component';
 import { F01001scn6page2Component } from './f01001/f01001scn6/f01001scn6page2/f01001scn6page2.component';
+import { F01001scn6page20Component } from './f01001/f01001scn6/f01001scn6page20/f01001scn6page20.component';
+import { F01001scn6page21Component } from './f01001/f01001scn6/f01001scn6page21/f01001scn6page21.component';
+import { F01001scn6page22Component } from './f01001/f01001scn6/f01001scn6page22/f01001scn6page22.component';
+import { F01001scn6page23Component } from './f01001/f01001scn6/f01001scn6page23/f01001scn6page23.component';
+import { F01001scn6page24Component } from './f01001/f01001scn6/f01001scn6page24/f01001scn6page24.component';
+import { F01001scn6page25Component } from './f01001/f01001scn6/f01001scn6page25/f01001scn6page25.component';
+import { F01001scn6page26Component } from './f01001/f01001scn6/f01001scn6page26/f01001scn6page26.component';
+import { F01001scn6page27Component } from './f01001/f01001scn6/f01001scn6page27/f01001scn6page27.component';
+import { F01001scn6page28Component } from './f01001/f01001scn6/f01001scn6page28/f01001scn6page28.component';
+import { F01001scn6page29Component } from './f01001/f01001scn6/f01001scn6page29/f01001scn6page29.component';
 import { F01001scn6page3Component } from './f01001/f01001scn6/f01001scn6page3/f01001scn6page3.component';
+import { F01001scn6page30Component } from './f01001/f01001scn6/f01001scn6page30/f01001scn6page30.component';
+import { F01001scn6page31Component } from './f01001/f01001scn6/f01001scn6page31/f01001scn6page31.component';
+import { F01001scn6page32Component } from './f01001/f01001scn6/f01001scn6page32/f01001scn6page32.component';
+import { F01001scn6page33Component } from './f01001/f01001scn6/f01001scn6page33/f01001scn6page33.component';
+import { F01001scn6page34Component } from './f01001/f01001scn6/f01001scn6page34/f01001scn6page34.component';
+import { F01001scn6page35Component } from './f01001/f01001scn6/f01001scn6page35/f01001scn6page35.component';
+import { F01001scn6page36Component } from './f01001/f01001scn6/f01001scn6page36/f01001scn6page36.component';
+import { F01001scn6page37Component } from './f01001/f01001scn6/f01001scn6page37/f01001scn6page37.component';
+import { F01001scn6page38Component } from './f01001/f01001scn6/f01001scn6page38/f01001scn6page38.component';
+import { F01001scn6page39Component } from './f01001/f01001scn6/f01001scn6page39/f01001scn6page39.component';
 import { F01001scn6page4Component } from './f01001/f01001scn6/f01001scn6page4/f01001scn6page4.component';
+import { F01001scn6page40Component } from './f01001/f01001scn6/f01001scn6page40/f01001scn6page40.component';
+import { F01001scn6page41Component } from './f01001/f01001scn6/f01001scn6page41/f01001scn6page41.component';
 import { F01001scn6page5Component } from './f01001/f01001scn6/f01001scn6page5/f01001scn6page5.component';
 import { F01001scn6page6Component } from './f01001/f01001scn6/f01001scn6page6/f01001scn6page6.component';
 import { F01001scn6page7Component } from './f01001/f01001scn6/f01001scn6page7/f01001scn6page7.component';
@@ -169,6 +196,114 @@ const routes: Routes = [
               {
                 path: 'F01001SCN6PAGE14',
                 component: F01001scn6page14Component
+              },
+              {
+                path: 'F01001SCN6PAGE15',
+                component: F01001scn6page15Component
+              },
+              {
+                path: 'F01001SCN6PAGE16',
+                component: F01001scn6page16Component
+              },
+              {
+                path: 'F01001SCN6PAGE17',
+                component: F01001scn6page17Component
+              },
+              {
+                path: 'F01001SCN6PAGE18',
+                component: F01001scn6page18Component
+              },
+              {
+                path: 'F01001SCN6PAGE19',
+                component: F01001scn6page19Component
+              },
+              {
+                path: 'F01001SCN6PAGE20',
+                component: F01001scn6page20Component
+              },
+              {
+                path: 'F01001SCN6PAGE21',
+                component: F01001scn6page21Component
+              },
+              {
+                path: 'F01001SCN6PAGE22',
+                component: F01001scn6page22Component
+              },
+              {
+                path: 'F01001SCN6PAGE23',
+                component: F01001scn6page23Component
+              },
+              {
+                path: 'F01001SCN6PAGE24',
+                component: F01001scn6page24Component
+              },
+              {
+                path: 'F01001SCN6PAGE25',
+                component: F01001scn6page25Component
+              },
+              {
+                path: 'F01001SCN6PAGE26',
+                component: F01001scn6page26Component
+              },
+              {
+                path: 'F01001SCN6PAGE27',
+                component: F01001scn6page27Component
+              },
+              {
+                path: 'F01001SCN6PAGE28',
+                component: F01001scn6page28Component
+              },
+              {
+                path: 'F01001SCN6PAGE29',
+                component: F01001scn6page29Component
+              },
+              {
+                path: 'F01001SCN6PAGE30',
+                component: F01001scn6page30Component
+              },
+              {
+                path: 'F01001SCN6PAGE31',
+                component: F01001scn6page31Component
+              },
+              {
+                path: 'F01001SCN6PAGE32',
+                component: F01001scn6page32Component
+              },
+              {
+                path: 'F01001SCN6PAGE33',
+                component: F01001scn6page33Component
+              },
+              {
+                path: 'F01001SCN6PAGE34',
+                component: F01001scn6page34Component
+              },
+              {
+                path: 'F01001SCN6PAGE35',
+                component: F01001scn6page35Component
+              },
+              {
+                path: 'F01001SCN6PAGE36',
+                component: F01001scn6page36Component
+              },
+              {
+                path: 'F01001SCN6PAGE37',
+                component: F01001scn6page37Component
+              },
+              {
+                path: 'F01001SCN6PAGE38',
+                component: F01001scn6page38Component
+              },
+              {
+                path: 'F01001SCN6PAGE39',
+                component: F01001scn6page39Component
+              },
+              {
+                path: 'F01001SCN6PAGE40',
+                component: F01001scn6page40Component
+              },
+              {
+                path: 'F01001SCN6PAGE41',
+                component: F01001scn6page41Component
               }
             ]
           },
