@@ -1,1 +1,118 @@
 <th class="f01_th">KRM048</th>
+<br>
+<mat-table [dataSource]="KRM048Source" matSortDisableClear>
+  <ng-container matColumnDef="IDN_BAN">
+    <mat-header-cell *matHeaderCellDef>繳款人ID</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IDN_BAN }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BILL_DATE">
+    <mat-header-cell *matHeaderCellDef>資料基準日</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BILL_DATE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ISSUE">
+    <mat-header-cell *matHeaderCellDef>發卡機構代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ISSUE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ISSUE_NAME">
+    <mat-header-cell *matHeaderCellDef>發卡機構名稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ISSUE_NAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BILL_MARK">
+    <mat-header-cell *matHeaderCellDef>帳單別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BILL_MARK }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CARD_TYPE">
+    <mat-header-cell *matHeaderCellDef>信用卡別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CARD_TYPE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PERM_LIMIT">
+    <mat-header-cell *matHeaderCellDef>永久額度</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PERM_LIMIT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="TEMP_LIMIT">
+    <mat-header-cell *matHeaderCellDef>臨時額度</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.TEMP_LIMIT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CASH_LIMIT">
+    <mat-header-cell *matHeaderCellDef>預借現金額度</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CASH_LIMIT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PAYABLE">
+    <mat-header-cell *matHeaderCellDef>本期應付帳款(金額)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PAYABLE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CASH_LENT">
+    <mat-header-cell *matHeaderCellDef>本期預借現金</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CASH_LENT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="LAST_PAYA">
+    <mat-header-cell *matHeaderCellDef>上期應付帳款(金額)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.LAST_PAYA }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="REVOL_BAL">
+    <mat-header-cell *matHeaderCellDef>上期循環信用</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REVOL_BAL }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PAY_STAT">
+    <mat-header-cell *matHeaderCellDef>上期繳款狀況代號(金額)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PAY_STAT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PAY_CODE">
+    <mat-header-cell *matHeaderCellDef>上期繳款狀況代號(時間)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PAY_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="REVOL_RATE">
+    <mat-header-cell *matHeaderCellDef>上期循環比率</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REVOL_RATE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PRE_OWED">
+    <mat-header-cell *matHeaderCellDef>未到期分期償還待付金額</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PRE_OWED }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="DEBT_CODE">
+    <mat-header-cell *matHeaderCellDef>債權狀態註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.DEBT_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CLOSE_CODE">
+    <mat-header-cell *matHeaderCellDef>債權結案註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CLOSE_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CLEAR_DATE">
+    <mat-header-cell *matHeaderCellDef>不良債權結案日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CLEAR_DATE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="M_W">
+    <mat-header-cell *matHeaderCellDef>週/月報別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.M_W }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PRE_SPENT">
+    <mat-header-cell *matHeaderCellDef>消費分期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PRE_SPENT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PRE_CASHED">
+    <mat-header-cell *matHeaderCellDef>預借現金分期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PRE_CASHED }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PRE_BILLED">
+    <mat-header-cell *matHeaderCellDef>帳單分期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PRE_BILLED }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="RENEWED">
+    <mat-header-cell *matHeaderCellDef>週報已更新註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.RENEWED }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="FCUR_CODE">
+    <mat-header-cell *matHeaderCellDef>雙幣卡外幣別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.FCUR_CODE }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['IDN_BAN', 'BILL_DATE', 'ISSUE', 'ISSUE_NAME','BILL_MARK','CARD_TYPE','PERM_LIMIT','TEMP_LIMIT','CASH_LIMIT','PAYABLE','CASH_LENT','REVOL_BAL','PAY_STAT','PAY_CODE','REVOL_RATE','PRE_OWED','DEBT_CODE','CLOSE_CODE','CLEAR_DATE','M_W','PRE_SPENT','PRE_CASHED','PRE_BILLED','RENEWED','FCUR_CODE' ]"></mat-header-row>
+  <mat-row *matRowDef="let KRM048SourceRow; columns: ['IDN_BAN', 'BILL_DATE', 'ISSUE', 'ISSUE_NAME','BILL_MARK','CARD_TYPE','PERM_LIMIT','TEMP_LIMIT','CASH_LIMIT','PAYABLE','CASH_LENT','REVOL_BAL','PAY_STAT','PAY_CODE','REVOL_RATE','PRE_OWED','DEBT_CODE','CLOSE_CODE','CLEAR_DATE','M_W','PRE_SPENT','PRE_CASHED','PRE_BILLED','RENEWED','FCUR_CODE' ]"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

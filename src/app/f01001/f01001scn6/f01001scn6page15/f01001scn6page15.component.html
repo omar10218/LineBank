@@ -1,1 +1,68 @@
 <th class="f01_th">BAM101</th>
+<br>
+<mat-table [dataSource]="BAM101Source" matSortDisableClear>
+  <ng-container matColumnDef="DATA_YYY">
+    <mat-header-cell *matHeaderCellDef>資料年度</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.DATA_YYY }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="DATA_MM">
+    <mat-header-cell *matHeaderCellDef>資料月份</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.DATA_MM }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="WECDU_AMT">
+    <mat-header-cell *matHeaderCellDef>短期放款金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.WECDU_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="HIGZ_AMT">
+    <mat-header-cell *matHeaderCellDef>中期放款金額(千元) </mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.HIGZ_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="MNSTRK_AMT">
+    <mat-header-cell *matHeaderCellDef>擔保放款金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.MNSTRK_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="J_AMT">
+    <mat-header-cell *matHeaderCellDef>應收信用狀金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.J_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PQX_AMT">
+    <mat-header-cell *matHeaderCellDef>押匯承兌金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PQX_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="F_AMT">
+    <mat-header-cell *matHeaderCellDef>本票保證金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.F_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="L_AMT">
+    <mat-header-cell *matHeaderCellDef>保證款項金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.L_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NORMAL_LOAN_AMT">
+    <mat-header-cell *matHeaderCellDef>不含逾催呆總餘額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NORMAL_LOAN_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PASS_DUE_AMT">
+    <mat-header-cell *matHeaderCellDef>逾期金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PASS_DUE_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="COLLECTION_AMT">
+    <mat-header-cell *matHeaderCellDef>催收金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.COLLECTION_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BAD_DEBT">
+    <mat-header-cell *matHeaderCellDef>呆帳金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BAD_DEBT }}</mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="['DATA_YYY', 'DATA_MM','WECDU_AMT','MNSTRK_AMT','J_AMT','PQX_AMT','F_AMT','L_AMT','NORMAL_LOAN_AMT','PASS_DUE_AMT','COLLECTION_AMT','BAD_DEBT' ]"></mat-header-row>
+  <mat-row *matRowDef="let BAM101SourceRow; columns: ['DATA_YYY', 'DATA_MM','WECDU_AMT', 'MNSTRK_AMT','J_AMT','PQX_AMT','F_AMT','L_AMT','NORMAL_LOAN_AMT','PASS_DUE_AMT','COLLECTION_AMT','BAD_DEBT']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>
