@@ -19,12 +19,14 @@ export class F01001scn6Component implements OnInit {
   private applno: string;
   private search: string;
   private cuid: string;
+
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
       this.cuid = params['cuid'];
     });
+    this.dateValue = '20210727';
   }
 
   getApplno(): String {
@@ -39,7 +41,11 @@ export class F01001scn6Component implements OnInit {
     return this.cuid;
   }
 
+  getDate() :string{
+    return this.dateValue;
+  }
+
   changeDate() {
-   console.log("123456="+this.dateValue);
+   this.router.navigate(['./F01001SCN1/F01001SCN6'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue} });
   }
 }

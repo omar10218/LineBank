@@ -138,10 +138,6 @@ const routes: Routes = [
             component: F01001scn6Component,
             children: [
               {
-                path: '',
-                component: F01001scn6page1Component
-              },
-              {
                 path: 'F01001SCN6PAGE1',
                 component: F01001scn6page1Component
               },
