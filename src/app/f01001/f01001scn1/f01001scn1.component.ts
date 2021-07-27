@@ -10,10 +10,12 @@ export class F01001scn1Component implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) { }
   private applno: string;
   private search: string;
+  private cuid: string;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
+      this.cuid = params['cuid'];
     });
   }
 
@@ -28,5 +30,9 @@ export class F01001scn1Component implements OnInit {
 
   getSearch() :string {
     return this.search;
+  }
+
+  getCuid(): string {
+    return this.cuid;
   }
 }

@@ -7,7 +7,7 @@
   </ng-container>
   <ng-container matColumnDef="IS_WANTED">
     <mat-header-cell *matHeaderCellDef>通報案件紀錄</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IS_WANTED) }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.IS_WANTED }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="IS_NOTE">
     <mat-header-cell *matHeaderCellDef>是否有補充註記</mat-header-cell>
@@ -25,7 +25,7 @@
     <mat-header-cell *matHeaderCellDef>在台無戶籍人士身分證號對照索引註記</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.FOREIGNER_MARK }}</mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="['IS_LOST', 'IS_WANTED', 'IS_NOTE', 'NOTELIST', 'WANTEDLIST', 'FOREIGNER_MARK]"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="['IS_LOST', 'IS_WANTED', 'IS_NOTE', 'NOTELIST', 'WANTEDLIST', 'FOREIGNER_MARK']"></mat-header-row>
   <mat-row *matRowDef="let AAS003SourceRow; columns: ['IS_LOST', 'IS_WANTED', 'IS_NOTE', 'NOTELIST', 'WANTEDLIST', 'FOREIGNER_MARK']"></mat-row>
 </mat-table>
 

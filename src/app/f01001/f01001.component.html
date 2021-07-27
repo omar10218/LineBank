@@ -33,7 +33,7 @@
       <u>管理</u>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <button mat-raised-button color="primary"  (click) = "getLockCase(row.applno)">取件</button>
+      <button mat-raised-button color="primary"  (click) = "getLockCase(row.applno, row.cu_id)">取件</button>
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="applno">
