@@ -1,1 +1,22 @@
 <th class="f01_th">KRI002</th>
+<br>
+<mat-table [dataSource]="KRI002Source" matSortDisableClear>
+  <ng-container matColumnDef="HI_BILL_DATE">
+    <mat-header-cell *matHeaderCellDef>帳單日迄至</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.HI_BILL_DATE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="LO_BILL_DATE">
+    <mat-header-cell *matHeaderCellDef>帳單日起自</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.LO_BILL_DATE }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['HI_BILL_DATE', 'LO_BILL_DATE']"></mat-header-row>
+  <mat-row *matRowDef="let KRI002SourceRow; columns: ['HI_BILL_DATE', 'LO_BILL_DATE']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

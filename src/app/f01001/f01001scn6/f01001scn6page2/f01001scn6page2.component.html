@@ -1,1 +1,26 @@
 <th class="f01_th">APS001</th>
+<br>
+<mat-table [dataSource]="APS001Source" matSortDisableClear>
+  <ng-container matColumnDef="RGY_ADDRESS">
+    <mat-header-cell *matHeaderCellDef>戶籍地址</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.RGY_ADDRESS }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ENG_NAME">
+    <mat-header-cell *matHeaderCellDef>英文姓名</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ENG_NAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BIRTHDAY">
+    <mat-header-cell *matHeaderCellDef>出生日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BIRTHDAY }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['RGY_ADDRESS', 'ENG_NAME', 'BIRTHDAY']"></mat-header-row>
+  <mat-row *matRowDef="let APS001SourceRow; columns: ['RGY_ADDRESS', 'ENG_NAME', 'BIRTHDAY']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

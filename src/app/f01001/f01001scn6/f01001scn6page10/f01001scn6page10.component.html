@@ -1,1 +1,62 @@
 <th class="f01_th">BAM032</th>
+<br>
+<mat-table [dataSource]="BAM032Source" matSortDisableClear>
+  <ng-container matColumnDef="TRAN_DATE">
+    <mat-header-cell *matHeaderCellDef>交易日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.TRAN_DATE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BANK_CODE">
+    <mat-header-cell *matHeaderCellDef>行庫代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BANK_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BANK_NAME">
+    <mat-header-cell *matHeaderCellDef>行庫名稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BANK_NAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PAY_AMT">
+    <mat-header-cell *matHeaderCellDef>餘額增加金額（千元）</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PAY_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BAL_AMT">
+    <mat-header-cell *matHeaderCellDef>最新授信餘額（千元）</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BAL_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ACCOUNT_CODE">
+    <mat-header-cell *matHeaderCellDef>授信科目</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ACCOUNT_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ACCOUNT_CODE2">
+    <mat-header-cell *matHeaderCellDef>科目別註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ACCOUNT_CODE2 }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ACCOUNT_NAME">
+    <mat-header-cell *matHeaderCellDef>授信科目名稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ACCOUNT_NAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PURPOSE_CODE">
+    <mat-header-cell *matHeaderCellDef>用途別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PURPOSE_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PAY_CODE">
+    <mat-header-cell *matHeaderCellDef>本筆交易後之還款紀錄</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PAY_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CONSUMER_FLAG">
+    <mat-header-cell *matHeaderCellDef>個人消費性貸款註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CONSUMER_FLAG }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="FILLER">
+    <mat-header-cell *matHeaderCellDef>保留欄位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.FILLER }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['TRAN_DATE', 'BANK_CODE', 'BANK_NAME', 'PAY_AMT', 'BAL_AMT', 'ACCOUNT_CODE', 'ACCOUNT_CODE2', 'ACCOUNT_NAME', 'PURPOSE_CODE', 'PAY_CODE', 'CONSUMER_FLAG', 'FILLER']"></mat-header-row>
+  <mat-row *matRowDef="let BAM032SourceRow; columns: ['TRAN_DATE', 'BANK_CODE', 'BANK_NAME', 'PAY_AMT', 'BAL_AMT', 'ACCOUNT_CODE', 'ACCOUNT_CODE2', 'ACCOUNT_NAME', 'PURPOSE_CODE', 'PAY_CODE', 'CONSUMER_FLAG', 'FILLER']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

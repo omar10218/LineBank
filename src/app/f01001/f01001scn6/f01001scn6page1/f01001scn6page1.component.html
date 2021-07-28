@@ -1,6 +1,14 @@
 <th class="f01_th">AAS003</th>
 <br>
 <mat-table [dataSource]="AAS003Source" matSortDisableClear>
+  <ng-container matColumnDef="IDN">
+    <mat-header-cell *matHeaderCellDef>身分證號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IDN }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PNAME">
+    <mat-header-cell *matHeaderCellDef>中文姓名</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PNAME }}</mat-cell>
+  </ng-container>
   <ng-container matColumnDef="IS_LOST">
     <mat-header-cell *matHeaderCellDef>身分證註銷或一年內掛失紀錄</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.IS_LOST }}</mat-cell>
@@ -25,8 +33,8 @@
     <mat-header-cell *matHeaderCellDef>在台無戶籍人士身分證號對照索引註記</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.FOREIGNER_MARK }}</mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="['IS_LOST', 'IS_WANTED', 'IS_NOTE', 'NOTELIST', 'WANTEDLIST', 'FOREIGNER_MARK']"></mat-header-row>
-  <mat-row *matRowDef="let AAS003SourceRow; columns: ['IS_LOST', 'IS_WANTED', 'IS_NOTE', 'NOTELIST', 'WANTEDLIST', 'FOREIGNER_MARK']"></mat-row>
+  <mat-header-row *matHeaderRowDef="['IDN', 'PNAME', 'IS_LOST', 'IS_WANTED', 'IS_NOTE', 'NOTELIST', 'WANTEDLIST', 'FOREIGNER_MARK']"></mat-header-row>
+  <mat-row *matRowDef="let AAS003SourceRow; columns: ['IDN', 'PNAME', 'IS_LOST', 'IS_WANTED', 'IS_NOTE', 'NOTELIST', 'WANTEDLIST', 'FOREIGNER_MARK']"></mat-row>
 </mat-table>
 
 <tr>
