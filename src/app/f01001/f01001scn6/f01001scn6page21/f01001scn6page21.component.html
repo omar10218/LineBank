@@ -1,1 +1,50 @@
 <th class="f01_th">BAM502</th>
+<br>
+<mat-table [dataSource]="BAM502Source" matSortDisableClear>
+  <ng-container matColumnDef="MARK">
+    <mat-header-cell *matHeaderCellDef>信用保險註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.MARK }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BANK_CODE">
+    <mat-header-cell *matHeaderCellDef>行庫代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BANK_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BANK_NAME">
+    <mat-header-cell *matHeaderCellDef>行庫名稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BANK_NAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ACCOUNT_CODE">
+    <mat-header-cell *matHeaderCellDef>科目別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ACCOUNT_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ACCOUNT_CODE2">
+    <mat-header-cell *matHeaderCellDef>科目別註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ACCOUNT_CODE2 }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PURPOSE_CODE">
+    <mat-header-cell *matHeaderCellDef>用途別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PURPOSE_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="LOAN_AMT">
+    <mat-header-cell *matHeaderCellDef>未逾期金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.LOAN_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PASS_DUE_AMT">
+    <mat-header-cell *matHeaderCellDef>逾期金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PASS_DUE_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="FILLER">
+    <mat-header-cell *matHeaderCellDef>保留欄位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.FILLER }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['MARK','BANK_CODE','BANK_NAME','ACCOUNT_CODE','ACCOUNT_CODE2','PURPOSE_CODE','LOAN_AMT','PASS_DUE_AMT','FILLER']"></mat-header-row>
+  <mat-row *matRowDef="let BAM502SourceRow; columns: ['MARK','BANK_CODE','BANK_NAME','ACCOUNT_CODE','ACCOUNT_CODE2','PURPOSE_CODE','LOAN_AMT','PASS_DUE_AMT','FILLER']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

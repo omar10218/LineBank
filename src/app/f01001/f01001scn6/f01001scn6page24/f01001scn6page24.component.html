@@ -1,1 +1,42 @@
 <th class="f01_th">BAM062</th>
+<br>
+<mat-table [dataSource]="BAM062Source" matSortDisableClear>
+  <ng-container matColumnDef="MAIN_CODE">
+    <mat-header-cell *matHeaderCellDef>行庫代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.MAIN_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BANK_NAME">
+    <mat-header-cell *matHeaderCellDef>行庫名稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BANK_NAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="DATA_TYPE">
+    <mat-header-cell *matHeaderCellDef>資料種類</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.DATA_TYPE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="DATA_YYYMM">
+    <mat-header-cell *matHeaderCellDef>年收入資料年月</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.DATA_YYYMM }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="SALARY">
+    <mat-header-cell *matHeaderCellDef>年收入</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.SALARY }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="UPD_YYYMM">
+    <mat-header-cell *matHeaderCellDef>資料更新年月</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.UPD_YYYMM }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="FILLER">
+    <mat-header-cell *matHeaderCellDef>保留欄位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.FILLER }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['MAIN_CODE','BANK_NAME','DATA_TYPE','DATA_YYYMM','SALARY','UPD_YYYMM','FILLER']"></mat-header-row>
+  <mat-row *matRowDef="let BAM062SourceRow; columns: ['MAIN_CODE','BANK_NAME','DATA_TYPE','DATA_YYYMM','SALARY','UPD_YYYMM','FILLER']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

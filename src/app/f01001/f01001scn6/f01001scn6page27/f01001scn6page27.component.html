@@ -1,2 +1,10 @@
 <th class="f01_th">KRI001</th>
-
+<br>
+<mat-table [dataSource]="KRI001Source" matSortDisableClear>
+  <ng-container matColumnDef="DATA_DATE">
+    <mat-header-cell *matHeaderCellDef>資料處理日期 YYYMMDD</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.DATA_DATE }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['DATA_DATE']"></mat-header-row>
+  <mat-row *matRowDef="let KRI001SourceRow; columns: ['DATA_DATE']"></mat-row>
+</mat-table>

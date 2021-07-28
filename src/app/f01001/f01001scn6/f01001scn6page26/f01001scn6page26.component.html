@@ -1,1 +1,86 @@
 <th class="f01_th">DAM001</th>
+<br>
+<mat-table [dataSource]="DAM001Source" matSortDisableClear>
+  <ng-container matColumnDef="CURRENCY_CODE">
+    <mat-header-cell *matHeaderCellDef>幣別  (對照表)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CURRENCY_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BOUNCE_AMT">
+    <mat-header-cell *matHeaderCellDef>主體退票未清償註記總金額 (千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BOUNCE_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BOUNCE_CNT">
+    <mat-header-cell *matHeaderCellDef>主體退票未清償註記總張數</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BOUNCE_CNT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="LATEST_BOUNCE">
+    <mat-header-cell *matHeaderCellDef>主體最近一次退票日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.LATEST_BOUNCE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="WRITEOFF_AMT">
+    <mat-header-cell *matHeaderCellDef>主體退票已清償註記總金額 (千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.WRITEOFF_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="WRITEOFF_CNT">
+    <mat-header-cell *matHeaderCellDef>主體退票已清償註記票總張數</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.WRITEOFF_CNT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="LATEST_WRITEOFF">
+    <mat-header-cell *matHeaderCellDef>主體最近一次已清償註記註銷日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.LATEST_WRITEOFF }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="IDN_BOUNCE_AMT">
+    <mat-header-cell *matHeaderCellDef>連帶退票未清償註記總金額 (千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IDN_BOUNCE_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="IDN_BOUNCE_CNT">
+    <mat-header-cell *matHeaderCellDef>連帶退票未清償註記總張數</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IDN_BOUNCE_CNT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="IDN_LATEST_BOUNCE">
+    <mat-header-cell *matHeaderCellDef>連帶最近一次退票日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IDN_LATEST_BOUNCE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="IDN_WRITEOFF_AMT">
+    <mat-header-cell *matHeaderCellDef>連帶退票已清償註記總金額 (千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IDN_WRITEOFF_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="IDN_WRITEOFF_CNT">
+    <mat-header-cell *matHeaderCellDef>連帶退票已清償註記票總張數</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IDN_WRITEOFF_CNT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="IDN_LATEST_WRITEOFF">
+    <mat-header-cell *matHeaderCellDef>連帶最近一次已清償註記註銷日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IDN_LATEST_WRITEOFF }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="FILLER">
+    <mat-header-cell *matHeaderCellDef>保留欄位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.FILLER }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['CURRENCY_CODE', 'BOUNCE_AMT', 'BOUNCE_CNT', 'LATEST_BOUNCE', 'WRITEOFF_AMT', 'WRITEOFF_CNT', 'LATEST_WRITEOFF', 'IDN_BOUNCE_AMT', 'IDN_BOUNCE_CNT', 'IDN_LATEST_BOUNCE', 'IDN_WRITEOFF_AMT', 'IDN_WRITEOFF_CNT', 'IDN_LATEST_WRITEOFF', 'FILLER']"></mat-header-row>
+  <mat-row *matRowDef="let DAM001SourceRow; columns: ['CURRENCY_CODE', 'BOUNCE_AMT', 'BOUNCE_CNT', 'LATEST_BOUNCE', 'WRITEOFF_AMT', 'WRITEOFF_CNT', 'LATEST_WRITEOFF', 'IDN_BOUNCE_AMT', 'IDN_BOUNCE_CNT', 'IDN_LATEST_BOUNCE', 'IDN_WRITEOFF_AMT', 'IDN_WRITEOFF_CNT', 'IDN_LATEST_WRITEOFF', 'FILLER']"></mat-row>
+  <tr>
+    <td>
+      <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+      </mat-paginator>
+    </td>
+  </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mat-table>

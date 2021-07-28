@@ -1,1 +1,42 @@
 <th class="f01_th">BAM501</th>
+<br>
+<mat-table [dataSource]="BAM501Source" matSortDisableClear>
+  <ng-container matColumnDef="MAIN_CODE">
+    <mat-header-cell *matHeaderCellDef>行庫代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.MAIN_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BANK_NAME">
+    <mat-header-cell *matHeaderCellDef>行庫名稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BANK_NAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="B_AMT">
+    <mat-header-cell *matHeaderCellDef>無擔保放款</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.B_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Y_AMT">
+    <mat-header-cell *matHeaderCellDef>現金卡放款</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.Y_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="C1_AMT">
+    <mat-header-cell *matHeaderCellDef>信用卡循環信用</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.C1_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="C2_AMT">
+    <mat-header-cell *matHeaderCellDef>未到期待付款</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.C2_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="FILLER">
+    <mat-header-cell *matHeaderCellDef>保留欄位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.FILLER }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['MAIN_CODE', 'BANK_NAME', 'B_AMT', 'Y_AMT', 'C1_AMT', 'C2_AMT', 'FILLER']"></mat-header-row>
+  <mat-row *matRowDef="let BAM501SourceRow; columns: ['MAIN_CODE', 'BANK_NAME', 'B_AMT', 'Y_AMT', 'C1_AMT', 'C2_AMT', 'FILLER']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>
