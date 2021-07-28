@@ -45,14 +45,6 @@
     <mat-header-cell *matHeaderCellDef>寄單地址</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.MADDR }}</mat-cell>
   </ng-container>
-
-  <mat-header-row *matHeaderRowDef="['IDN_BAN', 'DATA_DATE', 'ISSUE', 'ISSUE_NAME', 'CNAME', 'ENAME', 'BIRTH',
-  'EDU_CODE', 'EDU_NAME', 'RADDR', 'MADDR']"></mat-header-row>
- <mat-row *matRowDef="let KRM043SourceRow; columns: ['IDN_BAN', 'DATA_DATE', 'ISSUE','ISSUE_NAME', 'CNAME', 'ENAME', 'BIRTH',
- 'EDU_CODE', 'EDU_NAME', 'RADDR', 'MADDR']"></mat-row>
- </mat-table>
-
- <mat-table [dataSource]="KRM043Source" matSortDisableClear>
   <ng-container matColumnDef="H_CODE">
     <mat-header-cell *matHeaderCellDef>有無自有住宅/營業場所</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.H_CODE }}</mat-cell>
@@ -94,10 +86,12 @@
     <mat-cell *matCellDef="let row">{{ row.SENIOR }}</mat-cell>
   </ng-container>
 
-<mat-header-row *matHeaderRowDef="['H_CODE','H_TEL', 'O_TEL', 'M_TEL', 'ONAME', 'TITLE',
+  <mat-header-row *matHeaderRowDef="['IDN_BAN', 'DATA_DATE', 'ISSUE', 'ISSUE_NAME', 'CNAME', 'ENAME', 'BIRTH',
+  'EDU_CODE', 'EDU_NAME', 'RADDR', 'MADDR', 'H_CODE','H_TEL', 'O_TEL', 'M_TEL', 'ONAME', 'TITLE',
   'PROS_CODE', 'PROS_NAME', 'SALARY', 'SENIOR']"></mat-header-row>
-<mat-row *matRowDef="let KRM043SourceRow; columns: ['H_CODE','H_TEL', 'O_TEL', 'M_TEL',
- 'ONAME', 'TITLE','PROS_CODE', 'PROS_NAME', 'SALARY', 'SENIOR']"></mat-row>
+  <mat-row *matRowDef="let KRM043SourceRow; columns: ['IDN_BAN', 'DATA_DATE', 'ISSUE','ISSUE_NAME', 'CNAME', 'ENAME', 'BIRTH',
+ 'EDU_CODE', 'EDU_NAME', 'RADDR', 'MADDR', 'H_CODE','H_TEL', 'O_TEL', 'M_TEL', 'ONAME', 'TITLE',
+ 'PROS_CODE', 'PROS_NAME', 'SALARY', 'SENIOR']"></mat-row>
 </mat-table>
 
 <tr>
