@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { F01001Component } from './f01001/f01001.component';
 import { F01001scn1Component } from './f01001/f01001scn1/f01001scn1.component';
 import { F01001scn10Component } from './f01001/f01001scn10/f01001scn10.component';
+import { F01001scn10page1Component } from './f01001/f01001scn10/f01001scn10page1/f01001scn10page1.component';
+import { F01001scn10page2Component } from './f01001/f01001scn10/f01001scn10page2/f01001scn10page2.component';
+import { F01001scn10page3Component } from './f01001/f01001scn10/f01001scn10page3/f01001scn10page3.component';
 import { F01001scn11Component } from './f01001/f01001scn11/f01001scn11.component';
 import { F01001scn12Component } from './f01001/f01001scn12/f01001scn12.component';
 import { F01001scn13Component } from './f01001/f01001scn13/f01001scn13.component';
@@ -317,7 +320,21 @@ const routes: Routes = [
           },
           {
             path: 'F01001SCN10',
-            component: F01001scn10Component
+            component: F01001scn10Component,
+            children: [
+              {
+                path: 'F01001SCN10PAGE1',
+                component: F01001scn10page1Component
+              },
+              {
+                path: 'F01001SCN10PAGE2',
+                component: F01001scn10page2Component
+              },
+              {
+                path: 'F01001SCN10PAGE3',
+                component: F01001scn10page3Component
+              }
+            ]
           },
           {
             path: 'F01001SCN11',

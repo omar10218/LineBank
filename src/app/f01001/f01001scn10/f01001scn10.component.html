@@ -1,1 +1,7 @@
-<p>f01001scn10 works! {{ getApplno() }}</p>
+<p>決策結果 {{ getApplno() }}</p>
+<div style="margin-top: 5px; margin-left: 5px; width: 100%;">
+  <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN10PAGE1"  [queryParams]="{ applno: getApplno(), search: getSearch() }">徵信階段</button>
+  <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN10PAGE2"  [queryParams]="{ applno: getApplno(), search: getSearch() }">授信階段</button>
+  <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN10PAGE3"  [queryParams]="{ applno: getApplno(), search: getSearch() }">產生合約前回查</button>
+</div>
+<router-outlet></router-outlet>
