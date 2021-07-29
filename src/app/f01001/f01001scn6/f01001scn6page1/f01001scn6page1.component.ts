@@ -52,15 +52,10 @@ export class F01001scn6page1Component implements OnInit, AfterViewInit {
   }
 
   getAAS003() {
-    console.log("案件編號="+this.applno);
-    console.log("代碼=AAS003");
-    console.log("ID="+this.cuid);
-    console.log("日期="+this.queryDate);
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
     formdata.append('cuid', this.cuid);
     formdata.append('code', 'AAS003');
-    //queryDate之後從父模組來，目前先寫死(父模組日期取抓資料庫匯入下拉選單)
     formdata.append('queryDate', this.queryDate);
     formdata.append('page', `${this.currentPage.pageIndex + 1}`);
     formdata.append('per_page', `${this.currentPage.pageSize}`);

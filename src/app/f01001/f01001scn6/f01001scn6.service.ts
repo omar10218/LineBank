@@ -10,7 +10,11 @@ export class F01001scn6Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getJCICSearch(formData: FormData): Observable<any> {
-    const baseUrl = 'f01/f01001scn6';
+    const baseUrl = 'f01/f01001scn6action';
+    return this.postFormData(baseUrl, formData);
+  }
+
+  getDate(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
 }

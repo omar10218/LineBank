@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { F01001scn6Service } from './f01001scn6.service';
 interface dateCode {
   value: string;
   viewValue: string;
@@ -12,10 +13,10 @@ interface dateCode {
 })
 export class F01001scn6Component implements OnInit {
 
-  dateCode: dateCode[] = [{value: '20210101', viewValue: '20210101'}, {value: '20210727', viewValue: '20210727'}];
+  dateCode: dateCode[] = [];
   dateValue: string;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, private f01001scn6Service: F01001scn6Service) { }
   private applno: string;
   private search: string;
   private cuid: string;
@@ -26,7 +27,17 @@ export class F01001scn6Component implements OnInit {
       this.search = params['search'];
       this.cuid = params['cuid'];
     });
-    this.dateValue = '20210727';
+    const url = 'f01/f01001scn6';
+    const formdata: FormData = new FormData();
+    formdata.append('applno', this.applno);
+    formdata.append('cuid', this.cuid);
+    formdata.append('code', 'MASTER');
+    this.f01001scn6Service.getDate(url, formdata).subscribe(data => {
+      for (let i = 0; i < data.rspBody.items.length; i++) {
+        this.dateCode.push({value: data.rspBody.items[i].QUERYDATE , viewValue: data.rspBody.items[i].QUERYDATE })
+      }
+      this.dateValue = data.rspBody.items[0].QUERYDATE
+    });
   }
 
   getApplno(): String {

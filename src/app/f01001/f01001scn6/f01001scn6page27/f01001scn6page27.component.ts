@@ -14,6 +14,7 @@ export class F01001scn6page27Component implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private f01001scn6Service: F01001scn6Service) { }
   private applno: string;
   private cuid: string;
+  private queryDate: string;
   currentPage: PageEvent;
   currentSort: Sort;
 
@@ -21,6 +22,7 @@ export class F01001scn6page27Component implements OnInit, AfterViewInit {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.cuid = params['cuid'];
+      this.queryDate = params['queryDate'];
     });
 
     this.currentPage = {
@@ -52,7 +54,7 @@ export class F01001scn6page27Component implements OnInit, AfterViewInit {
     formdata.append('applno', this.applno);
     formdata.append('cuid', this.cuid);
     formdata.append('code', 'KRI001');
-    formdata.append('queryDate', '20210109');
+    formdata.append('queryDate', this.queryDate);
     formdata.append('page', `${this.currentPage.pageIndex + 1}`);
     formdata.append('per_page', `${this.currentPage.pageSize}`);
     this.f01001scn6Service.getJCICSearch(formdata).subscribe(data => {
