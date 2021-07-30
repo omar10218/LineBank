@@ -1,1 +1,43 @@
-<p>f03009 works!</p>
+<div class="container">
+  <th class="f03_th">照會模組設定</th>
+  <table style="padding-left: 20px;">
+      <br>
+      <mat-card class="matCard">
+          <mat-card-content>
+              <tr>
+                  <th>照會模組：</th>
+                  <td>
+                      <mat-form-field color="accent">
+                          <mat-select [(ngModel)]="selectedValue" name="sysCode" (selectionChange)="changeSelect()">
+                              <mat-option *ngFor="let code of sysCode" [value]="code.value">
+                                  {{code.viewValue}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </td>
+                  <td>
+                      <button mat-raised-button color="primary" (click)="save()">儲存</button>
+                  </td>
+              </tr>
+          </mat-card-content>
+      </mat-card>
+  </table>
+  <br>
+  <div style="padding-left: 20px;">
+      <table>
+
+      <mat-card class="matCard">
+          <mat-card-content>
+              <th>照會項目</th>
+              <tr>
+                  <td *ngFor="let search of backgroundSearch">
+                      <mat-checkbox [(ngModel)]="search.check">
+                          {{search.name}}
+                      </mat-checkbox>&nbsp;&nbsp;
+                  </td>
+              </tr>
+          </mat-card-content>
+      </mat-card>
+  </table>
+  </div>
+</div>
