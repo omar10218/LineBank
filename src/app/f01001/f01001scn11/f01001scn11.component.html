@@ -1,1 +1,37 @@
 <p>f01001scn11 works! {{ getApplno() }}</p>
+<mat-card class="matCard">
+  <mat-card-content>
+    <tr>
+      <th>系統徵信比對：</th>
+      <td>
+        <mat-form-field color="accent">
+          <mat-select [(ngModel)]="scklvValue" name="scklvCode" (ngModelChange)="changeSelect()">
+            <mat-option *ngFor="let code of scklvCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <th>案件等級：</th>
+      <td>
+        <mat-form-field color="accent">
+          <mat-select [(ngModel)]="calvValue" name="calvCode" (ngModelChange)="changeSelect()">
+            <mat-option *ngFor="let code of calvCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <th>照會模組：</th>
+      <td>
+        <mat-form-field color="accent">
+          <mat-select [(ngModel)]="tvNoValue" name="tvNoCode" (ngModelChange)="changeSelect()">
+            <mat-option *ngFor="let code of tvNoCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </mat-card-content>
+</mat-card>
