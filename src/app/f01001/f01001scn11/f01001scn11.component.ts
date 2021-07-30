@@ -1,24 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
+import { F01001scn11Service } from './f01001scn11.service';
 
 @Component({
   selector: 'app-f01001scn11',
   templateUrl: './f01001scn11.component.html',
-  styleUrls: ['./f01001scn11.component.css']
+  styleUrls: ['./f01001scn11.component.css','../../../assets/css/f01.css']
 })
 export class F01001scn11Component implements OnInit {
-
-  scklvValue: string;
-  calvValue: string;
-  tvNoValue: string;
-  scklvCode: sysCode[] = [];
-  calvCode: sysCode[] = [];
-  tvNoCode: sysCode[] = [];
-
   constructor(private route: ActivatedRoute, private router: Router) { }
   private applno: string;
   private search: string;
@@ -35,9 +24,5 @@ export class F01001scn11Component implements OnInit {
 
   getSearch() :string {
     return this.search;
-  }
-
-  changeSelect() {
-
   }
 }

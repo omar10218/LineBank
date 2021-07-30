@@ -126,6 +126,8 @@ import { F01001scn10page1Component } from './f01001/f01001scn10/f01001scn10page1
 import { F01001scn10page2Component } from './f01001/f01001scn10/f01001scn10page2/f01001scn10page2.component';
 import { F01001scn10page3Component } from './f01001/f01001scn10/f01001scn10page3/f01001scn10page3.component';
 import { F03010Component } from './f03010/f03010.component';
+import { F03011Component } from './f03011/f03011.component';
+import { F03011confirmComponent } from './f03011/f03011confirm/f03011confirm.component';
 
 
 @NgModule({
@@ -242,6 +244,8 @@ import { F03010Component } from './f03010/f03010.component';
     F01001scn10page2Component,
     F01001scn10page3Component,
     F03010Component,
+    F03011Component,
+    F03011confirmComponent,
   ],
   imports: [
     BrowserModule,
