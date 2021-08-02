@@ -8,16 +8,13 @@ import { BaseService } from '../base.service';
 })
 export class F03009Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
-  getRoleOption(baseUrl: string): Observable<any> {
-    return this.postHttpClient(baseUrl);
-  }
 
-  getRoleFunction(baseUrl: string, roleNo: String): Observable<any> {
-    let targetUrl = `${baseUrl}?roleNo=${roleNo}`;
+  getTvFunction(baseUrl: string, tvNo: String): Observable<any> {
+    let targetUrl = `${baseUrl}?tvNo=${tvNo}`;
     return this.postHttpClient(targetUrl);
   }
 
-  saveRoleFunction(baseUrl: string, formData: FormData): Observable<any> {
+  saveTvFunction(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
 }

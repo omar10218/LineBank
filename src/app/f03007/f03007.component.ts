@@ -54,7 +54,6 @@ export class F03007Component implements OnInit, AfterViewInit {
         data: { msgStr: data.rspMsg }
       });
     });
-
   }
 
   setAll(completed: boolean) {
