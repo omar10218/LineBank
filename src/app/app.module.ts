@@ -130,6 +130,9 @@ import { F03011Component } from './f03011/f03011.component';
 import { F03011confirmComponent } from './f03011/f03011confirm/f03011confirm.component';
 import { F03010confirmComponent } from './f03010/f03010confirm/f03010confirm.component';
 import { F03010editComponent } from './f03010/f03010edit/f03010edit.component';
+import { F03012Component } from './f03012/f03012.component';
+import { F03012confirmComponent } from './f03012/f03012confirm/f03012confirm.component';
+import { F03012editComponent } from './f03012/f03012edit/f03012edit.component';
 
 
 @NgModule({
@@ -250,6 +253,9 @@ import { F03010editComponent } from './f03010/f03010edit/f03010edit.component';
     F03011confirmComponent,
     F03010confirmComponent,
     F03010editComponent,
+    F03012Component,
+    F03012confirmComponent,
+    F03012editComponent,
   ],
   imports: [
     BrowserModule,
