@@ -1,74 +1,86 @@
 <div class="container">
   <th class="f03_th">照會話術</th>
-  <div>
-    <button mat-raised-button color="primary" (click)="Add()">新增</button>
-    <button mat-raised-button color="primary" (click)="Clear()">清除資料</button>
-    <button mat-raised-button color="primary" (click)="Save()">儲存</button>
-  </div>
+  <form [formGroup]="setCalloutSpeakingForm" style="padding-left: 20px;">
+    <table style="padding-left: 20px;">
+      <div class="f03_div">
+        <button mat-raised-button color="primary" (click)="add()">新增</button>
+      </div>
+      <br>
+      <mat-card class="matCard">
+        <mat-card-content>
+          <tr>
+            <th nowrap="nowrap">話術簡稱</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #inputstate class="form-control" formControlName="speakingAbbreviation">
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap">暫停使用</th>
+            <td>
+              <mat-form-field color="accent">
+                <mat-select formControlName="stopFlag">
+                  <mat-option *ngFor="let stopFlag of stopFlagCode" [value]="stopFlag.viewValue">
+                    {{stopFlag.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" valign="middle">話術內容</th>
+            <td colspan="4">
+              <textarea style="width: 1000PX;height:200px;" formControlName="speakingContent"></textarea>
+            </td>
+          </tr>
+        </mat-card-content>
+      </mat-card>
+    </table>
+  </form>
 </div>
-
-<form>
-  <table>
-    <mat-card class="matCard">
-      <mat-card-content>
-        <tr>
-          <th nowrap="nowrap">話術簡稱</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #inputstate class="form-control" [(ngModel)]="SPEAKING_ABBREVIATION"
-                name="SPEAKING_ABBREVIATION">
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap">暫停使用</th>
-          <td>
-            <mat-form-field color="accent">
-              <mat-select [(ngModel)]="STOP_FLAG_Selected" name="x">
-                <mat-option *ngFor="let stop_FLAG of STOP_FLAG" [value]="stop_FLAG.viewValue">
-                  {{stop_FLAG.viewValue}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" valign="middle">話術內容</th>
-          <td colspan="4">
-            <textarea style="width: 500PX;height:200px;" [(ngModel)]="SPEAKING_CONTENT"
-              name="PolicyConditionValue"></textarea>
-          </td>
-        </tr>
-      </mat-card-content>
-    </mat-card>
-  </table>
-</form>
-
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-  <ng-container matColumnDef="Edid_Delete">
-    <th mat-header-cell *matHeaderCellDef> 按鈕 </th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-button color="primary" (click)="Edit(element)">修改</button>
-      <button mat-button color="primary" (click)="Delete(element)">刪除</button>
-    </td>
+<br>
+<mat-table [dataSource]="calloutSpeakingSource" matSortDisableClear>
+  <ng-container matColumnDef="speakingAbbreviation">
+    <mat-header-cell *matHeaderCellDef>話術簡稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.speakingAbbreviation }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="speakingContent">
+    <mat-header-cell *matHeaderCellDef>話術內容</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.speakingContent }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="stopFlag">
+    <mat-header-cell *matHeaderCellDef>暫停使用</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.stopFlag }}</mat-cell>
+  </ng-container>
+  
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-icon-button color="accent" (click)="startEdit(
+        row.speakingAbbreviation, row.speakingContent, row.stopFlag)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+    </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="SPEAKING_ABBREVIATION">
-    <th mat-header-cell *matHeaderCellDef> 話術簡稱 </th>
-    <td mat-cell *matCellDef="let element"> {{element.SPEAKING_ABBREVIATION}} </td>
+  <ng-container matColumnDef="actions2">
+    <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-icon-button color="accent" (click)="delete(
+        row.speakingAbbreviation)">
+        <mat-icon aria-label="delete">delete</mat-icon>
+      </button>
+    </mat-cell>
   </ng-container>
 
-
-  <ng-container matColumnDef="SPEAKING_CONTENT">
-    <th mat-header-cell *matHeaderCellDef> 話術內容 </th>
-    <td mat-cell *matCellDef="let element"> {{element.SPEAKING_CONTENT}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="STOP_FLAG">
-    <th mat-header-cell *matHeaderCellDef> 暫停使用 </th>
-    <td mat-cell *matCellDef="let element"> {{element.STOP_FLAG}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="['Edid_Delete','SPEAKING_ABBREVIATION', 'SPEAKING_CONTENT', 'STOP_FLAG']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['Edid_Delete','SPEAKING_ABBREVIATION', 'SPEAKING_CONTENT', 'STOP_FLAG'];">
-  </tr>
-</table>
+  <mat-header-row *matHeaderRowDef="['speakingAbbreviation', 'speakingContent', 'stopFlag', 'actions', 'actions2']; sticky: true">
+  </mat-header-row>
+  <mat-row *matRowDef="let ruleParmRow; columns: ['speakingAbbreviation', 'speakingContent', 'stopFlag', 'actions', 'actions2']">
+  </mat-row>
+</mat-table>
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

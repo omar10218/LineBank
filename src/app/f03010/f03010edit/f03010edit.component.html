@@ -1,0 +1,35 @@
+<div class="container">
+  <h2 mat-dialog-title>話術維護-編輯</h2>
+  <form class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
+    <div class="form">
+      <th nowrap="nowrap">話術簡稱</th>
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" [(ngModel)]="data.speakingAbbreviation" name="speakingAbbreviation"
+          disabled>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">話術內容</th>
+      <mat-form-field color="accent">
+        <textarea style="width: 500PX;height:200px;" [(ngModel)]="data.speakingContent"
+          name="speakingContent"></textarea>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">暫停使用</th>
+      <mat-form-field color="accent">
+        <mat-select [(ngModel)]="data.stopFlag" name="stopFlag">
+          <mat-option *ngFor="let stopFlag of stopFlagCode" [value]="stopFlag.value">
+            {{stopFlag.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="save()">Save</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>
