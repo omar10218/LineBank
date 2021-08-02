@@ -7,6 +7,11 @@ import { F01001scn10page1Component } from './f01001/f01001scn10/f01001scn10page1
 import { F01001scn10page2Component } from './f01001/f01001scn10/f01001scn10page2/f01001scn10page2.component';
 import { F01001scn10page3Component } from './f01001/f01001scn10/f01001scn10page3/f01001scn10page3.component';
 import { F01001scn11Component } from './f01001/f01001scn11/f01001scn11.component';
+import { F01001scn11page1Component } from './f01001/f01001scn11/f01001scn11page1/f01001scn11page1.component';
+import { F01001scn11page2Component } from './f01001/f01001scn11/f01001scn11page2/f01001scn11page2.component';
+import { F01001scn11page3Component } from './f01001/f01001scn11/f01001scn11page3/f01001scn11page3.component';
+import { F01001scn11page4Component } from './f01001/f01001scn11/f01001scn11page4/f01001scn11page4.component';
+import { F01001scn11page5Component } from './f01001/f01001scn11/f01001scn11page5/f01001scn11page5.component';
 import { F01001scn12Component } from './f01001/f01001scn12/f01001scn12.component';
 import { F01001scn13Component } from './f01001/f01001scn13/f01001scn13.component';
 
@@ -341,7 +346,29 @@ const routes: Routes = [
           },
           {
             path: 'F01001SCN11',
-            component: F01001scn11Component
+            component: F01001scn11Component,
+            children: [
+              {
+                path: 'F01001SCN11PAGE1',
+                component: F01001scn11page1Component
+              },
+              {
+                path: 'F01001SCN11PAGE2',
+                component: F01001scn11page2Component
+              },
+              {
+                path: 'F01001SCN11PAGE3',
+                component: F01001scn11page3Component
+              },
+              {
+                path: 'F01001SCN11PAGE4',
+                component: F01001scn11page4Component
+              },
+              {
+                path: 'F01001SCN11PAGE5',
+                component: F01001scn11page5Component
+              },
+            ]
           },
           {
             path: 'F01001SCN12',
