@@ -112,7 +112,7 @@ export class F03010Component implements OnInit {
       data: {
           speakingAbbreviation: speakingAbbreviation, 
           speakingContent : speakingContent , 
-          stopFlag: stopFlag
+          stopFlag1: stopFlag
         }
       });
       dialogRef.afterClosed().subscribe(result => {
