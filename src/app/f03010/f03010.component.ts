@@ -90,6 +90,7 @@ export class F03010Component implements OnInit {
     }
     setTimeout(() => {
       const DialogRef = this.dialog.open(F03010confirmComponent, { data: { msgStr: msg } });
+      window.location.reload();
     }, 1500);
   }
 
@@ -116,6 +117,7 @@ export class F03010Component implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result != null && result.event == 'success') { this.refreshTable(); }
+        window.location.reload();
       });
   }
   
@@ -133,6 +135,7 @@ export class F03010Component implements OnInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(F03010confirmComponent, { data: { msgStr: msg } });
+      window.location.reload();
     }, 1500);
   }
 

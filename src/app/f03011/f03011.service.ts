@@ -12,4 +12,17 @@ export class F03011Service extends BaseService {
   saveDssCallout(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
+
+  getDssCallout(baseUrl: string, pageIndex: number, pageSize: number): Observable<any> {
+    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
+    return this.postHttpClient(targetUrl);
+  }
+
+  update(baseUrl: string, data: any): any {
+    const formdata: FormData = new FormData();
+    formdata.append('tvNo', data.tvNo);
+    formdata.append('scklv', data.scklv);
+    formdata.append('calv', data.calv);
+    return this.saveOrEditMsgString(baseUrl, formdata);
+  }
 }

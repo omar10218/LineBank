@@ -138,6 +138,7 @@ import { F01001scn11page2Component } from './f01001/f01001scn11/f01001scn11page2
 import { F01001scn11page3Component } from './f01001/f01001scn11/f01001scn11page3/f01001scn11page3.component';
 import { F01001scn11page4Component } from './f01001/f01001scn11/f01001scn11page4/f01001scn11page4.component';
 import { F01001scn11page5Component } from './f01001/f01001scn11/f01001scn11page5/f01001scn11page5.component';
+import { F03011editComponent } from './f03011/f03011edit/f03011edit.component';
 
 
 @NgModule({
@@ -266,6 +267,7 @@ import { F01001scn11page5Component } from './f01001/f01001scn11/f01001scn11page5
     F01001scn11page3Component,
     F01001scn11page4Component,
     F01001scn11page5Component,
+    F03011editComponent,
   ],
   imports: [
     BrowserModule,
