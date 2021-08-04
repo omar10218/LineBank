@@ -8,4 +8,9 @@ import { BaseService } from 'src/app/base.service';
 })
 export class F01001scn11Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
+
+  getCompare(formData: FormData): Observable<any> {
+    const baseUrl = 'f01/f01001scn11action';
+    return this.postFormData(baseUrl, formData);
+  }
 }
