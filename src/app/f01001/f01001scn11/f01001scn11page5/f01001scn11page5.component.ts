@@ -30,7 +30,6 @@ export class F01001scn11page5Component implements OnInit {
     pAddrVsRAddrFuzzy6 : ['', []],
     pAddrVsRAddrFuzzy12 : ['', []],
     pAddrVsMAddrFuzzy6 : ['', []],
-    pAddrVsMAddrFuzzy12 : ['', []],
     cAddrVsRAddr6 : ['', []],
     cAddrVsMAddr6 : ['', []],
     cAddrVsRAddrFuzzy6 : ['', []],
