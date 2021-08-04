@@ -1,1 +1,97 @@
-<p>f01001scn10page3 works!</p>
+<th class="f01_th">DSS3</th>
+<th>查詢日期：</th>
+<td>
+  <mat-form-field color="accent">
+    <mat-select [(ngModel)]="dateValue" name="ynCode" (ngModelChange)="changeDate()">
+      <mat-option *ngFor="let date of dateCode" [value]="date.value">
+        {{date.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</td>
+<br>
+<!-- <mat-table [dataSource]="DSS3Source" matSortDisableClear>
+  <ng-container matColumnDef="SYSFLOWCD">
+    <mat-header-cell *matHeaderCellDef>系統流程</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.SYSFLOWCD }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="RESLTCD">
+    <mat-header-cell *matHeaderCellDef>決策結果</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.RESLTCD }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="UNDW_CD_CNT">
+    <mat-header-cell *matHeaderCellDef>徵審代碼數量</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.UNDW_CD_CNT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="UNDW_CD_LIST">
+    <mat-header-cell *matHeaderCellDef>徵審代碼清單</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.UNDW_CD_LIST }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="SPARE_ARRAY1">
+    <mat-header-cell *matHeaderCellDef>SPARE</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.SPARE_ARRAY1 }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="SPARE_ARRAY2">
+    <mat-header-cell *matHeaderCellDef>SPARE</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.SPARE_ARRAY2 }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['SYSFLOWCD', 'RESLTCD', 'UNDW_CD_CNT', 'UNDW_CD_LIST', 'SPARE_ARRAY1', 'SPARE_ARRAY2']"></mat-header-row>
+  <mat-row *matRowDef="let DSS3SourceRow; columns: ['SYSFLOWCD', 'RESLTCD', 'UNDW_CD_CNT', 'UNDW_CD_LIST', 'SPARE_ARRAY1', 'SPARE_ARRAY2']"></mat-row>
+</mat-table>
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr> -->
+
+
+<form [formGroup]="dss3Form" style="padding-left: 20px;">
+  <table>
+    <mat-card class="matCard">
+      <mat-card-content>
+        <tr>
+          <th nowrap="nowrap" align="left">系統流程</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="SYSFLOWCD" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">決策結果</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="RESLTCD" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">徵審代碼數量</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="UNDW_CD_CNT" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">徵審代碼清單</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="UNDW_CD_LIST" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">SPARE - 數值格式</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="SPARE_ARRAY1" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">SPARE - 文字格式</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="SPARE_ARRAY2" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+      </mat-card-content>
+    </mat-card>
+  </table>
+</form>
