@@ -1,15 +1,60 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { F01001scn11Service } from '../f01001scn11.service';
 
 @Component({
   selector: 'app-f01001scn11page2',
   templateUrl: './f01001scn11page2.component.html',
-  styleUrls: ['./f01001scn11page2.component.css']
+  styleUrls: ['./f01001scn11page2.component.css','../../../../assets/css/f01.css']
 })
 export class F01001scn11page2Component implements OnInit {
 
-  constructor() { }
+  private applno: string;
+  compare_UNIDForm: FormGroup = this.fb.group({
+    GPS_1	: ['', []],//			GPS - 時點1比對次數
+    GPS_2	: ['', []],//			GPS - 時點2比對次數
+    IP_ADDR_1	: ['', []],//			IP address - 時點1比對次數
+    IP_ADDR_2	: ['', []],//			IP address - 時點2比對次數
+    PHONE_MODEL_1	: ['', []],//			手機型號 - 時點1比對次數
+    PHONE_MODEL_2	: ['', []],//			手機型號 - 時點2比對次數
+    DEVICE_ID_1	: ['', []],//			Device ID - 時點1比對次數
+    DEVICE_ID_2	: ['', []],//			Device ID - 時點2比對次數
+    EMAIL	: ['', []],//			eMail比對次數
+    MOBILE	: ['', []],//			行動電話比對次數
+    P_TEL	: ['', []],//			戶籍電話比對次數
+    C_TEL	: ['', []],//			通訊電話比對次數
+    P_ADDR	: ['', []],//			戶籍地址完整比對次數
+    P_ADDR_FUZZY	: ['', []],//			戶籍地址模糊比對次數
+    C_ADDR	: ['', []],//			通訊地址完整比對次數
+    C_ADDR_FUZZY	: ['', []],//			通訊地址模糊比對次數
+    M_ADDR	: ['', []],//			寄卡地址完整比對次數
+    SEND_ADDR_FUZZY	: ['', []],//			寄卡地址模糊比對次數
+    CP_NAME	: ['', []],//			公司名稱比對次數
+    CP_TEL	: ['', []],//			公司電話比對次數
+    CP_ADDR	: ['', []],//			公司地址完整比對次數
+    CP_ADDR_FUZZY	: ['', []],//			公司地址模糊比對次數
+
+  });
+
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private f01001scn11Service: F01001scn11Service) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.applno = params['applno'];
+    });
+    console.log(this.applno);
+    this.getCOMPARE_UNID();
   }
+  getCOMPARE_UNID() {
+    const formdata: FormData = new FormData();
+    formdata.append('applno', this.applno);
+    formdata.append('cuid', 'COMPARE_UNID');
+    this.f01001scn11Service.getCompare(formdata).subscribe(data => {
+      console.log(data);
+      //自行放入formgroup ex. this.bam061Form.patchValue({ education : data.xxx.xxx});
+    });
+  }
+
 
 }
