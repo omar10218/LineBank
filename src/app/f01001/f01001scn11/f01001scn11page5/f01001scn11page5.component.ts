@@ -55,13 +55,13 @@ export class F01001scn11page5Component implements OnInit {
       this.applno = params['applno'];
     });
     console.log(this.applno);
-    this.getBAM61();
+    this.getBAM061();
   }
 
-  getBAM61() {
+  getBAM061() {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
-    formdata.append('cuid', 'BAM061');
+    formdata.append('cuid', 'EL_BAM061_COMPARE');
     this.f01001scn11Service.getCompare(formdata).subscribe(data => {
       console.log(data);
       //自行放入formgroup ex. this.bam061Form.patchValue({ education : data.xxx.xxx});
