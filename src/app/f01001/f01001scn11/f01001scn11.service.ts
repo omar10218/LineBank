@@ -10,7 +10,7 @@ export class F01001scn11Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getCompare(formData: FormData): Observable<any> {
-    const baseUrl = 'f01/f01001scn11action';
+    const baseUrl = 'f01/f01001scn11';
     return this.postFormData(baseUrl, formData);
   }
 }

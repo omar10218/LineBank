@@ -1,23 +1,23 @@
-<th class="f01_th">BAM043報送資料比對檔</th>
-<form [formGroup]="bam043Form" style="padding-left: 20px;">
+<th class="f01_th">KRM043報送資料比對檔</th>
+<form [formGroup]="krm043Form" style="padding-left: 20px;">
     <table>
         <mat-card class="matCard">
             <mat-card-content>
                 <tr>
                     <th nowrap="nowrap">行動電話最近6個月內：</th>
-                    <td>
+                    <td class="td_mobileVsMTel6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="mobileVsMTel6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">行動電話最近12個月內：</th>
-                    <td>
+                    <td class="td_mobileVsMTel12">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="mobileVsMTel12" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">戶籍電話VS居住電話最近6個月內：</th>
-                    <td>
+                    <td class="td_pTelVsHTel6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="pTelVsHTel6" readonly>
                       </mat-form-field>
@@ -25,19 +25,19 @@
                 </tr>
                 <tr>
                     <th nowrap="nowrap">戶籍電話VS居住電話最近12個月內：</th>
-                    <td>
+                    <td class="td_pTelVsHTel12">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="pTelVsHTel12" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">戶籍電話VS任職機構電話最近6個月內：</th>
-                    <td>
+                    <td class="td_pTelVsOTel6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="pTelVsOTel6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">戶籍電話VS任職機構電話最近12個月內：</th>
-                    <td>
+                    <t class="td_pTelVsOTel12"d>
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="pTelVsOTel12" readonly>
                       </mat-form-field>
@@ -45,19 +45,19 @@
                 </tr>
                 <tr>
                     <th nowrap="nowrap">通訊電話VS居住電話最近6個月內：</th>
-                    <td>
+                    <td class="td_cTelVsHTel6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cTelVsHTel6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">通訊電話VS居住電話最近12個月內：</th>
-                    <td>
+                    <td class="td_cTelVsHTel12">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cTelVsHTel12" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">通訊電話VS任職機構電話最近6個月內</th>
-                    <td>
+                    <td class="td_cTelVsOTel6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cTelVsOTel6" readonly>
                       </mat-form-field>
@@ -65,19 +65,19 @@
                 </tr>
                 <tr>
                     <th nowrap="nowrap">通訊電話VS任職機構電話最近12個月內：</th>
-                    <td>
+                    <td class="td_cTelVsOTel12">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cTelVsOTel12" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">戶籍地址VS戶籍地址最近6個月內100%不一致：</th>
-                    <td>
+                    <td class="td_pAddrVsRAddr6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="pAddrVsRAddr6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">戶籍地址VS戶籍地址最近12個月內100%不一致：</th>
-                    <td>
+                    <td class="td_pAddrVsRAddr12">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="pAddrVsRAddr12" readonly>
                       </mat-form-field>
@@ -85,19 +85,19 @@
                 </tr>
                 <tr>
                     <th nowrap="nowrap">戶籍地址VS寄單地址最近6個月內100%不一致：</th>
-                    <td>
+                    <td class="td_pAddrVsMAddr6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="pAddrVsMAddr6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">戶籍地址VS寄單地址最近12個月內100%不一致：</th>
-                    <td>
+                    <td class="td_pAddrVsMAddr12">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="pAddrVsMAddr12" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">戶籍地址VS戶籍地址最近6個月內模糊查詢：</th>
-                    <td>
+                    <td class="td_pAddrVsRAddrFuzzy6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="pAddrVsRAddrFuzzy6" readonly>
                       </mat-form-field>
@@ -105,19 +105,19 @@
                 </tr>
                 <tr>
                     <th nowrap="nowrap">戶籍地址VS戶籍地址最近12個月內模糊查詢：</th>
-                    <td>
+                    <td class="td_pAddrVsRAddrFuzzy12">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="pAddrVsRAddrFuzzy12" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">戶籍地址VS寄單地址最近6個月內模糊查詢：</th>
-                    <td>
+                    <td class="td_pAddrVsMAddrFuzzy6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="pAddrVsMAddrFuzzy6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">通訊地址VS戶籍地址最近6個月內100%不一致：</th>
-                    <td>
+                    <td class="td_cAddrVsRAddr6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cAddrVsRAddr6" readonly>
                       </mat-form-field>
@@ -125,19 +125,19 @@
                 </tr>
                 <tr> 
                     <th nowrap="nowrap">通訊地址VS寄單地址最近6個月內100%不一致：</th>
-                    <td>
+                    <td class="td_cAddrVsMAddr6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cAddrVsMAddr6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">通訊地址VS戶籍地址最近6個月內模糊查詢：</th>
-                    <td>
+                    <td class="td_cAddrVsRAddrFuzzy6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cAddrVsRAddrFuzzy6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">通訊地址VS寄單地址最近6個月內模糊查詢：</th>
-                    <td>
+                    <td class="td_cAddrVsMAddrFuzzy6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cAddrVsMAddrFuzzy6" readonly>
                       </mat-form-field>
@@ -145,19 +145,19 @@
                 </tr>
                 <tr>   
                     <th nowrap="nowrap">寄卡地址VS戶籍地址最近6個月內100%不一致：</th>
-                    <td>
+                    <td class="td_cardAddrVsRAddr6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cardAddrVsRAddr6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">寄卡地址VS寄單地址最近6個月內100%不一致：</th>
-                    <td>
+                    <td class="td_cardAddrVsMAddr6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cardAddrVsMAddr6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">寄卡地址VS戶籍地址最近6個月內模糊查詢：</th>
-                    <td>
+                    <td class="td_cardAddrVsRAddrFuzzy6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cardAddrVsRAddrFuzzy6" readonly>
                       </mat-form-field>
@@ -165,19 +165,19 @@
                 </tr>
                 <tr>
                     <th nowrap="nowrap">寄卡地址VS寄單地址最近6個月內模糊查詢：</th>
-                    <td>
+                    <td class="td_cardAddrVsMAddrFuzzy6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cardAddrVsMAddrFuzzy6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">任職機構不一致：</th>
-                    <td>
+                    <td class="td_cpName">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cpName" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">公司電話與居住電話不一致：</th>
-                    <td>
+                    <tdd class="td_cpTelVsHTel">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cpTelVsHTel" readonly>
                       </mat-form-field>
@@ -185,19 +185,19 @@
                 </tr>
                 <tr>      
                     <th nowrap="nowrap">公司電話與任職電話不一致：</th>
-                    <td>
+                    <td class="td_cpTelVsOTel">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cpTelVsOTel" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">公司地址VS戶籍地址最近6個月內100%不一致：</th>
-                    <td>
+                    <td class="td_cpAddrVsRAddr6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cpAddrVsRAddr6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">公司地址VS寄單地址最近6個月內100%不一致：</th>
-                    <td>
+                    <td class="td_cpAddrVsMAddr6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cpAddrVsMAddr6" readonly>
                       </mat-form-field>
@@ -205,19 +205,19 @@
                 </tr>
                 <tr>      
                     <th nowrap="nowrap">公司地址VS戶籍地址最近6個月內模糊查詢：</th>
-                    <td>
+                    <td class="td_cpAddrVsRAddrFuzzy6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cpAddrVsRAddrFuzzy6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">公司地址VS寄單地址最近6個月內模糊查詢：</th>
-                    <td>
+                    <td class="td_cpAddrVsMAddrFuzzy6">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cpAddrVsMAddrFuzzy6" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">行業別level 1 100%不一致：</th>
-                    <td>
+                    <td class="td_cpTypeLevel1">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cpTypeLevel1" readonly>
                       </mat-form-field>
@@ -225,13 +225,13 @@
                 </tr>
                 <tr>
                     <th nowrap="nowrap">行業別level 1&2 100%不一致：</th>
-                    <td>
+                    <td class="td_cpTypeLevel1and2">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="cpTypeLevel1and2" readonly>
                       </mat-form-field>
                     </td>
                     <th nowrap="nowrap">教育程度不一致：</th>
-                    <td>
+                    <td class="td_education">
                       <mat-form-field color="accent">
                         <input matInput #input formControlName="education" readonly>
                       </mat-form-field>
