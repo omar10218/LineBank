@@ -19,6 +19,10 @@ export class F03011editComponent implements OnInit {
   calvCode: sysCode[] = [];
   tvNoCode: sysCode[] = [];
 
+  oldscklv: string;
+  oldcalv: string;
+  oldtvNo: string;
+
   constructor(public dialogRef: MatDialogRef<F03011editComponent>,private f03011Service: F03011Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   formControl = new FormControl('', [
@@ -55,12 +59,15 @@ export class F03011editComponent implements OnInit {
         this.tvNoCode.push({value: codeNo, viewValue: desc})
       }
     });
+    this.oldtvNo = this.data.tvNo;
+    this.oldscklv = this.data.scklv;
+    this.oldcalv = this.data.calv;
   }
 
   public async save(): Promise<void> {
     let msgStr: string = "";
     let baseUrl = 'f03/f03011action2';
-    msgStr = await this.f03011Service.update(baseUrl, this.data);
+    msgStr = await this.f03011Service.update(baseUrl, this.data, this.oldtvNo, this.oldscklv, this.oldcalv);
     const childernDialogRef = this.dialog.open(F03011confirmComponent, {
       data: { msgStr: msgStr }
     });
