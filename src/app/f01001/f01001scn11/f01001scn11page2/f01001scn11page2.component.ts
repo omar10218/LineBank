@@ -49,7 +49,7 @@ export class F01001scn11page2Component implements OnInit {
   getCOMPARE_UNID() {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
-    formdata.append('cuid', 'COMPARE_UNID');
+    formdata.append('code', 'EL_HISTORY_COMPARE_UNID');
     this.f01001scn11Service.getCompare(formdata).subscribe(data => {
       console.log(data);
       //自行放入formgroup ex. this.bam061Form.patchValue({ education : data.xxx.xxx});
