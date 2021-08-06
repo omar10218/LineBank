@@ -61,7 +61,6 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.getWebInfo();
-
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
       this.getWebInfo();

@@ -1,0 +1,39 @@
+<div class="container">
+    <h2 mat-dialog-title>DSS照會-編輯</h2>
+    <form class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
+      <div class="form">
+        <th nowrap="nowrap">照會模組</th>
+        <mat-form-field color="accent">
+            <mat-select [(ngModel)]="data.tvNo" name="tvNo">
+              <mat-option *ngFor="let code of tvNoCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="form">
+        <th nowrap="nowrap">系統徵信比</th>
+        <mat-form-field color="accent">
+            <mat-select [(ngModel)]="data.scklv" name="scklv">
+              <mat-option *ngFor="let code of scklvCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="form">
+        <th nowrap="nowrap">案件等級</th>
+        <mat-form-field color="accent">
+          <mat-select [(ngModel)]="data.calv" name="calv">
+            <mat-option *ngFor="let code of calvCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="save()">Save</button>
+        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+      </div>
+    </form>
+  </div>

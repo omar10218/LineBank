@@ -1,0 +1,66 @@
+<th class="f01_th">BAM029</th>
+<br>
+<mat-table [dataSource]="BAM029Source" matSortDisableClear>
+  <ng-container matColumnDef="PAY_LOAN_DATE">
+    <mat-header-cell *matHeaderCellDef>新增核准額度日期/清償日期/到期或解約日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PAY_LOAN_DATE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BANK_CODE">
+    <mat-header-cell *matHeaderCellDef>行庫代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BANK_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BANK_NAME">
+    <mat-header-cell *matHeaderCellDef>行庫名稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BANK_NAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="XACT_CODE">
+    <mat-header-cell *matHeaderCellDef>交易別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.XACT_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ACCOUNT_CODE">
+    <mat-header-cell *matHeaderCellDef>授信科目</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ACCOUNT_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ACCOUNT_CODE2">
+    <mat-header-cell *matHeaderCellDef>科目別註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ACCOUNT_CODE2 }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="LASTMON_LOAN_AMT">
+    <mat-header-cell *matHeaderCellDef>清償時最新授信月底餘額-未逾期金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.LASTMON_LOAN_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="LASTMON_PASS_DUE_AMT">
+    <mat-header-cell *matHeaderCellDef>清償時最新授信月底餘額-逾期金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.LASTMON_PASS_DUE_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NEW_CONTRACT_AMT">
+    <mat-header-cell *matHeaderCellDef>訂約金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NEW_CONTRACT_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NEW_LOAN_AMT">
+    <mat-header-cell *matHeaderCellDef>當日動撥金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NEW_LOAN_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NEW_PAY_LOAN_AMT">
+    <mat-header-cell *matHeaderCellDef>清償金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NEW_PAY_LOAN_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NEW_DBR22_AMT">
+    <mat-header-cell *matHeaderCellDef>應計入DBR22倍規範之金額(千元)</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NEW_DBR22_AMT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="FILLER">
+    <mat-header-cell *matHeaderCellDef>保留欄位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.FILLER }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['PAY_LOAN_DATE', 'BANK_CODE', 'BANK_NAME', 'XACT_CODE', 'ACCOUNT_CODE', 'ACCOUNT_CODE2', 'LASTMON_LOAN_AMT', 'LASTMON_PASS_DUE_AMT', 'NEW_CONTRACT_AMT', 'NEW_LOAN_AMT', 'NEW_PAY_LOAN_AMT' , 'NEW_DBR22_AMT' , 'FILLER']"></mat-header-row>
+  <mat-row *matRowDef="let BAM029SourceRow; columns: ['PAY_LOAN_DATE', 'BANK_CODE', 'BANK_NAME', 'XACT_CODE', 'ACCOUNT_CODE', 'ACCOUNT_CODE2', 'LASTMON_LOAN_AMT', 'LASTMON_PASS_DUE_AMT', 'NEW_CONTRACT_AMT', 'NEW_LOAN_AMT', 'NEW_PAY_LOAN_AMT' , 'NEW_DBR22_AMT' , 'FILLER']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

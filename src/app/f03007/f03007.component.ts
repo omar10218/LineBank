@@ -45,17 +45,15 @@ export class F03007Component implements OnInit, AfterViewInit {
     for (const obj of this.chkArray) {
       if (obj.completed) { valArray.push(obj.value); }
     }
-    console.log(valArray);
     const formData: FormData = new FormData();
     formData.append("roleNo", this.selectedValue);
     formData.append("fnNo", valArray.toString());
     const baseUrl = 'f03/f03007action2';
      this.f03007Service.saveRoleFunction(baseUrl, formData).subscribe(data => {
       const childernDialogRef = this.dialog.open(F03007confirmComponent, {
-        data: { msgStr: (data.rspCode === '0000' && data.rspMsg === '成功') ? '儲存成功！' : '儲存失敗！' }
+        data: { msgStr: data.rspMsg }
       });
     });
-
   }
 
   setAll(completed: boolean) {

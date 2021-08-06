@@ -1,0 +1,18 @@
+<th class="f01_th">BAI001</th>
+<br>
+<mat-table [dataSource]="BAI001Source" matSortDisableClear>
+  <ng-container matColumnDef="DATA_DATE">
+    <mat-header-cell *matHeaderCellDef>資料日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.DATA_DATE }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['DATA_DATE']"></mat-header-row>
+  <mat-row *matRowDef="let BAI001SourceRow; columns: ['DATA_DATE']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

@@ -76,6 +76,70 @@ import { F02001scn11Component } from './f02001/f02001scn11/f02001scn11.component
 import { F02001scn12Component } from './f02001/f02001scn12/f02001scn12.component';
 import { F01001scn12addComponent } from './f01001/f01001scn12/f01001scn12add/f01001scn12add.component';
 import { F01001scn13confirmComponent } from './f01001/f01001scn13/f01001scn13confirm/f01001scn13confirm.component';
+import { F01001scn12editComponent } from './f01001/f01001scn12/f01001scn12edit/f01001scn12edit.component';
+import { F01001scn12deleteComponent } from './f01001/f01001scn12/f01001scn12delete/f01001scn12delete.component';
+import { F01001scn12confirmComponent } from './f01001/f01001scn12/f01001scn12confirm/f01001scn12confirm.component';
+import { F01001scn6page1Component } from './f01001/f01001scn6/f01001scn6page1/f01001scn6page1.component';
+import { F01001scn6page2Component } from './f01001/f01001scn6/f01001scn6page2/f01001scn6page2.component';
+import { F01001scn6page3Component } from './f01001/f01001scn6/f01001scn6page3/f01001scn6page3.component';
+import { F01001scn6page4Component } from './f01001/f01001scn6/f01001scn6page4/f01001scn6page4.component';
+import { F01001scn6page5Component } from './f01001/f01001scn6/f01001scn6page5/f01001scn6page5.component';
+import { F01001scn6page6Component } from './f01001/f01001scn6/f01001scn6page6/f01001scn6page6.component';
+import { F01001scn6page7Component } from './f01001/f01001scn6/f01001scn6page7/f01001scn6page7.component';
+import { F01001scn6page8Component } from './f01001/f01001scn6/f01001scn6page8/f01001scn6page8.component';
+import { F01001scn6page9Component } from './f01001/f01001scn6/f01001scn6page9/f01001scn6page9.component';
+import { F01001scn6page10Component } from './f01001/f01001scn6/f01001scn6page10/f01001scn6page10.component';
+import { F01001scn6page11Component } from './f01001/f01001scn6/f01001scn6page11/f01001scn6page11.component';
+import { F01001scn6page12Component } from './f01001/f01001scn6/f01001scn6page12/f01001scn6page12.component';
+import { F01001scn6page13Component } from './f01001/f01001scn6/f01001scn6page13/f01001scn6page13.component';
+import { F01001scn6page14Component } from './f01001/f01001scn6/f01001scn6page14/f01001scn6page14.component';
+import { F01001scn6page15Component } from './f01001/f01001scn6/f01001scn6page15/f01001scn6page15.component';
+import { F01001scn6page16Component } from './f01001/f01001scn6/f01001scn6page16/f01001scn6page16.component';
+import { F01001scn6page17Component } from './f01001/f01001scn6/f01001scn6page17/f01001scn6page17.component';
+import { F01001scn6page18Component } from './f01001/f01001scn6/f01001scn6page18/f01001scn6page18.component';
+import { F01001scn6page19Component } from './f01001/f01001scn6/f01001scn6page19/f01001scn6page19.component';
+import { F01001scn6page20Component } from './f01001/f01001scn6/f01001scn6page20/f01001scn6page20.component';
+import { F01001scn6page21Component } from './f01001/f01001scn6/f01001scn6page21/f01001scn6page21.component';
+import { F01001scn6page22Component } from './f01001/f01001scn6/f01001scn6page22/f01001scn6page22.component';
+import { F01001scn6page23Component } from './f01001/f01001scn6/f01001scn6page23/f01001scn6page23.component';
+import { F01001scn6page24Component } from './f01001/f01001scn6/f01001scn6page24/f01001scn6page24.component';
+import { F01001scn6page25Component } from './f01001/f01001scn6/f01001scn6page25/f01001scn6page25.component';
+import { F01001scn6page26Component } from './f01001/f01001scn6/f01001scn6page26/f01001scn6page26.component';
+import { F01001scn6page27Component } from './f01001/f01001scn6/f01001scn6page27/f01001scn6page27.component';
+import { F01001scn6page28Component } from './f01001/f01001scn6/f01001scn6page28/f01001scn6page28.component';
+import { F01001scn6page29Component } from './f01001/f01001scn6/f01001scn6page29/f01001scn6page29.component';
+import { F01001scn6page30Component } from './f01001/f01001scn6/f01001scn6page30/f01001scn6page30.component';
+import { F01001scn6page31Component } from './f01001/f01001scn6/f01001scn6page31/f01001scn6page31.component';
+import { F01001scn6page32Component } from './f01001/f01001scn6/f01001scn6page32/f01001scn6page32.component';
+import { F01001scn6page33Component } from './f01001/f01001scn6/f01001scn6page33/f01001scn6page33.component';
+import { F01001scn6page34Component } from './f01001/f01001scn6/f01001scn6page34/f01001scn6page34.component';
+import { F01001scn6page35Component } from './f01001/f01001scn6/f01001scn6page35/f01001scn6page35.component';
+import { F01001scn6page36Component } from './f01001/f01001scn6/f01001scn6page36/f01001scn6page36.component';
+import { F01001scn6page37Component } from './f01001/f01001scn6/f01001scn6page37/f01001scn6page37.component';
+import { F01001scn6page38Component } from './f01001/f01001scn6/f01001scn6page38/f01001scn6page38.component';
+import { F01001scn6page39Component } from './f01001/f01001scn6/f01001scn6page39/f01001scn6page39.component';
+import { F01001scn6page40Component } from './f01001/f01001scn6/f01001scn6page40/f01001scn6page40.component';
+import { F01001scn6page41Component } from './f01001/f01001scn6/f01001scn6page41/f01001scn6page41.component';
+import { F03009Component } from './f03009/f03009.component';
+import { F03009confirmComponent } from './f03009/f03009confirm/f03009confirm.component';
+import { F01001scn10page1Component } from './f01001/f01001scn10/f01001scn10page1/f01001scn10page1.component';
+import { F01001scn10page2Component } from './f01001/f01001scn10/f01001scn10page2/f01001scn10page2.component';
+import { F01001scn10page3Component } from './f01001/f01001scn10/f01001scn10page3/f01001scn10page3.component';
+import { F03010Component } from './f03010/f03010.component';
+import { F03011Component } from './f03011/f03011.component';
+import { F03011confirmComponent } from './f03011/f03011confirm/f03011confirm.component';
+import { F03010confirmComponent } from './f03010/f03010confirm/f03010confirm.component';
+import { F03012Component } from './f03012/f03012.component';
+import { F03012confirmComponent } from './f03012/f03012confirm/f03012confirm.component';
+import { F03012editComponent } from './f03012/f03012edit/f03012edit.component';
+import { F01001scn11page1Component } from './f01001/f01001scn11/f01001scn11page1/f01001scn11page1.component';
+import { F01001scn11page2Component } from './f01001/f01001scn11/f01001scn11page2/f01001scn11page2.component';
+import { F01001scn11page3Component } from './f01001/f01001scn11/f01001scn11page3/f01001scn11page3.component';
+import { F01001scn11page4Component } from './f01001/f01001scn11/f01001scn11page4/f01001scn11page4.component';
+import { F01001scn11page5Component } from './f01001/f01001scn11/f01001scn11page5/f01001scn11page5.component';
+import { F03011editComponent } from './f03011/f03011edit/f03011edit.component';
+import { F03010editComponent } from './f03010/f03010edit/f03010edit.component';
+
 
 @NgModule({
   declarations: [
@@ -141,6 +205,69 @@ import { F01001scn13confirmComponent } from './f01001/f01001scn13/f01001scn13con
     F02001scn12Component,
     F01001scn12addComponent,
     F01001scn13confirmComponent,
+    F01001scn12editComponent,
+    F01001scn12deleteComponent,
+    F01001scn12confirmComponent,
+    F01001scn6page1Component,
+    F01001scn6page2Component,
+    F01001scn6page3Component,
+    F01001scn6page4Component,
+    F01001scn6page5Component,
+    F01001scn6page6Component,
+    F01001scn6page7Component,
+    F01001scn6page8Component,
+    F01001scn6page9Component,
+    F01001scn6page10Component,
+    F01001scn6page11Component,
+    F01001scn6page12Component,
+    F01001scn6page13Component,
+    F01001scn6page14Component,
+    F01001scn6page15Component,
+    F01001scn6page16Component,
+    F01001scn6page17Component,
+    F01001scn6page18Component,
+    F01001scn6page19Component,
+    F01001scn6page20Component,
+    F01001scn6page21Component,
+    F01001scn6page22Component,
+    F01001scn6page23Component,
+    F01001scn6page24Component,
+    F01001scn6page25Component,
+    F01001scn6page26Component,
+    F01001scn6page27Component,
+    F01001scn6page28Component,
+    F01001scn6page29Component,
+    F01001scn6page30Component,
+    F01001scn6page31Component,
+    F01001scn6page32Component,
+    F01001scn6page33Component,
+    F01001scn6page34Component,
+    F01001scn6page35Component,
+    F01001scn6page36Component,
+    F01001scn6page37Component,
+    F01001scn6page38Component,
+    F01001scn6page39Component,
+    F01001scn6page40Component,
+    F01001scn6page41Component,
+    F03009Component,
+    F03009confirmComponent,
+    F01001scn10page1Component,
+    F01001scn10page2Component,
+    F01001scn10page3Component,
+    F03010Component,
+    F03011Component,
+    F03011confirmComponent,
+    F03010confirmComponent,
+    F03012Component,
+    F03012confirmComponent,
+    F03012editComponent,
+    F01001scn11page1Component,
+    F01001scn11page2Component,
+    F01001scn11page3Component,
+    F01001scn11page4Component,
+    F01001scn11page5Component,
+    F03011editComponent,
+    F03010editComponent,
   ],
   imports: [
     BrowserModule,

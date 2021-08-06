@@ -1,0 +1,22 @@
+<th class="f01_th">BAS006</th>
+<br>
+<mat-table [dataSource]="BAS006Source" matSortDisableClear>
+  <ng-container matColumnDef="CREDIT_AD_FLAG">
+    <mat-header-cell *matHeaderCellDef>新增額度/撥款清償提示資訊</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CREDIT_AD_FLAG }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BA_YYYMM">
+    <mat-header-cell *matHeaderCellDef>授信最新月份</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BA_YYYMM }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['CREDIT_AD_FLAG', 'BA_YYYMM']"></mat-header-row>
+  <mat-row *matRowDef="let BAS006SourceRow; columns: ['CREDIT_AD_FLAG', 'BA_YYYMM']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

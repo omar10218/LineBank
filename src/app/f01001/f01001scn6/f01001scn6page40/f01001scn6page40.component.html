@@ -1,0 +1,55 @@
+<th class="f01_th">STM025</th>
+<br>
+<mat-table [dataSource]="STM025Source" matSortDisableClear>
+  <ng-container matColumnDef="JCIC_QUERY_DATE">
+    <mat-header-cell *matHeaderCellDef>JCIC查詢日期 </mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.JCIC_QUERY_DATE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="APPLY_WAY">
+    <mat-header-cell *matHeaderCellDef>申請方式</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.APPLY_WAY }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="IS_SELF">
+    <mat-header-cell *matHeaderCellDef>是否本人親臨</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IS_SELF }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="REASON1">
+    <mat-header-cell *matHeaderCellDef>申請原因代碼1</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REASON1 }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="REASON_NAME1">
+    <mat-header-cell *matHeaderCellDef>申請原因1</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REASON_NAME1 }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="REASON2">
+    <mat-header-cell *matHeaderCellDef>申請原因代碼2</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REASON2 }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="REASON_NAME2">
+    <mat-header-cell *matHeaderCellDef>申請原因2</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REASON_NAME2 }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="APPLICANT">
+    <mat-header-cell *matHeaderCellDef>受託人身分證號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.APPLICANT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NAME">
+    <mat-header-cell *matHeaderCellDef>受託人姓名</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="FILLER">
+    <mat-header-cell *matHeaderCellDef>預留欄位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.FILLER }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['JCIC_QUERY_DATE', 'APPLY_WAY', 'IS_SELF', 'REASON1', 'REASON_NAME1','REASON2', 'REASON_NAME2', 'APPLICANT', 'NAME', 'FILLER']"></mat-header-row>
+  <mat-row *matRowDef="let STM025SourceRow; columns: ['JCIC_QUERY_DATE', 'APPLY_WAY', 'IS_SELF', 'REASON1', 'REASON_NAME1','REASON2', 'REASON_NAME2', 'APPLICANT', 'NAME', 'FILLER']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

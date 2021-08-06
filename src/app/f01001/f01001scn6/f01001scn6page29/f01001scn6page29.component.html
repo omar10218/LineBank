@@ -1,0 +1,122 @@
+<th class="f01_th">KRM046</th>
+<br>
+<mat-table [dataSource]="KRM046Source" matSortDisableClear>
+  <ng-container matColumnDef="IDN_BAN">
+    <mat-header-cell *matHeaderCellDef>受查戶IDN_BAN</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IDN_BAN }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="DISP_GROUP">
+    <mat-header-cell *matHeaderCellDef>類別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.DISP_GROUP }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ISSUE">
+    <mat-header-cell *matHeaderCellDef>發卡機構代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ISSUE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ISSUE_NAME">
+    <mat-header-cell *matHeaderCellDef>發卡機構名稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ISSUE_NAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CARD_BRAND">
+    <mat-header-cell *matHeaderCellDef>卡名代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CARD_BRAND }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CARD_TYPE">
+    <mat-header-cell *matHeaderCellDef>標章代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CARD_TYPE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="START_DATE">
+    <mat-header-cell *matHeaderCellDef>發卡日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.START_DATE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="LIMIT">
+    <mat-header-cell *matHeaderCellDef>額度（千元）</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.LIMIT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="YN_SHARE_LIMIT">
+    <mat-header-cell *matHeaderCellDef>是否綜合額度</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.YN_SHARE_LIMIT }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="YN_PHYSICAL">
+    <mat-header-cell *matHeaderCellDef>是否實體卡</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.YN_PHYSICAL }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ACT_MARK">
+    <mat-header-cell *matHeaderCellDef>開卡註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ACT_MARK }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="STOP_DATE">
+    <mat-header-cell *matHeaderCellDef>停用日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.STOP_DATE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="STOP_CODE">
+    <mat-header-cell *matHeaderCellDef>停用種類代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.STOP_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="AB_CODE">
+    <mat-header-cell *matHeaderCellDef>停用原因代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.AB_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CLOSE_CODE">
+    <mat-header-cell *matHeaderCellDef>結案代碼</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CLOSE_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BILL_MARK">
+    <mat-header-cell *matHeaderCellDef>帳單別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BILL_MARK }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="M_IDN_BAN">
+    <mat-header-cell *matHeaderCellDef>正卡人/繳款人IDN_BAN</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.M_IDN_BAN }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="M_CNAME">
+    <mat-header-cell *matHeaderCellDef>正卡人/繳款人戶名</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.M_CNAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="RELA">
+    <mat-header-cell *matHeaderCellDef>受查戶與正卡人/繳款人關係代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.RELA }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="RELA_NAME">
+    <mat-header-cell *matHeaderCellDef>受查戶與正卡人/繳款人關係名稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.RELA_NAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="RISK">
+    <mat-header-cell *matHeaderCellDef>風險損失金額（千元）</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.RISK }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CLEAR_DATE">
+    <mat-header-cell *matHeaderCellDef>欠款結清日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CLEAR_DATE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="GUAR_ID">
+    <mat-header-cell *matHeaderCellDef>保證人IDN_BAN</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.GUAR_ID }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="GUAR_CNAME">
+    <mat-header-cell *matHeaderCellDef>保證人中文戶名</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.GUAR_CNAME }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="YN_AMC_CLEAR">
+    <mat-header-cell *matHeaderCellDef>欠款結清日期來自資產管理公司函告</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.YN_AMC_CLEAR }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="REMARK">
+    <mat-header-cell *matHeaderCellDef>註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REMARK }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="FCUR_CODE">
+    <mat-header-cell *matHeaderCellDef>雙幣卡外幣別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.FCUR_CODE }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['IDN_BAN', 'DISP_GROUP', 'ISSUE', 'ISSUE_NAME', 'CARD_BRAND', 'CARD_TYPE','START_DATE','LIMIT','YN_SHARE_LIMIT','YN_PHYSICAL','ACT_MARK','STOP_DATE','STOP_CODE','AB_CODE','CLOSE_CODE','BILL_MARK','M_IDN_BAN','M_CNAME','RELA','RELA_NAME','RISK','CLEAR_DATE','GUAR_ID','GUAR_CNAME','YN_AMC_CLEAR','REMARK','FCUR_CODE']"></mat-header-row>
+  <mat-row *matRowDef="let KRM046SourceRow; columns: ['IDN_BAN', 'DISP_GROUP', 'ISSUE', 'ISSUE_NAME', 'CARD_BRAND', 'CARD_TYPE','START_DATE','LIMIT','YN_SHARE_LIMIT','YN_PHYSICAL','ACT_MARK','STOP_DATE','STOP_CODE','AB_CODE','CLOSE_CODE','BILL_MARK','M_IDN_BAN','M_CNAME','RELA','RELA_NAME','RISK','CLEAR_DATE','GUAR_ID','GUAR_CNAME','YN_AMC_CLEAR','REMARK','FCUR_CODE']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

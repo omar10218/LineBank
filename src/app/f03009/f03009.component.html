@@ -1,0 +1,48 @@
+<div class="container">
+  <th class="f03_th">照會模組設定</th>
+  <table style="padding-left: 20px;">
+      <br>
+      <mat-card class="matCard">
+          <mat-card-content>
+              <tr>
+                  <th>照會模組：</th>
+                  <td>
+                      <mat-form-field color="accent">
+                          <mat-select [(ngModel)]="selectedValue" name="tvnoCode" (selectionChange)="changeSelect()">
+                              <mat-option *ngFor="let code of tvnoCode" [value]="code.viewValue">
+                                  {{code.viewValue}}
+                              </mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                  </td>
+                  <td>
+                      <button mat-raised-button color="primary" (click)="save()">儲存</button>
+                  </td>
+              </tr>
+          </mat-card-content>
+      </mat-card>
+  </table>
+
+  <mat-table [dataSource]="mdnoSource">
+    <ng-container matColumnDef="IS_CHK">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index;">
+          <mat-checkbox [(ngModel)]="chkArray[i].completed" color="primary"></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+    <ng-container matColumnDef="CODE_DESC">
+      <mat-header-cell *matHeaderCellDef>照會名稱</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.CODE_DESC }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="CODE_NO">
+        <mat-header-cell *matHeaderCellDef>照會代碼</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.CODE_NO }}</mat-cell>
+      </ng-container>
+    <mat-header-row *matHeaderRowDef="['IS_CHK', 'CODE_NO', 'CODE_DESC']"></mat-header-row>
+    <mat-row *matRowDef="let mappingCodeRow; columns: ['IS_CHK', 'CODE_NO', 'CODE_DESC']"></mat-row>
+  </mat-table>
+</div>
+
+

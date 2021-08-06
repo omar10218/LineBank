@@ -100,9 +100,9 @@ export class F01001Component implements AfterViewInit  {
   //     });
   // }
 
-  getLockCase(param: String) {
+  getLockCase(param: String, cuid: String) {
     // CALL API 鎖定流程上的案件並取得案件資料
-    this.router.navigate(['./F01001SCN1'], { queryParams: { applno: param , search: 'N'} });
+    this.router.navigate(['./F01001SCN1'], { queryParams: { applno: param , search: 'N' , cuid: cuid} });
   }
 
   applyFilter(filterValue: string) {

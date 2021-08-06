@@ -1,0 +1,35 @@
+<th class="f01_th">VAM020</th>
+<br>
+<mat-table [dataSource]="VAM020Source" matSortDisableClear>
+  <ng-container matColumnDef="OLD_IDN">
+    <mat-header-cell *matHeaderCellDef>原身分證號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.OLD_IDN }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NEW_IDN">
+    <mat-header-cell *matHeaderCellDef>新身分證號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NEW_IDN }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NAME">
+    <mat-header-cell *matHeaderCellDef>中文姓名</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IS_NOTE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="OP_DATE">
+    <mat-header-cell *matHeaderCellDef>本中心處理日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.OP_DATE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="TYPE">
+    <mat-header-cell *matHeaderCellDef>比對代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.TYPE }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['OLD_IDN', 'NEW_IDN', 'NAME', 'OP_DATE', 'TYPE']"></mat-header-row>
+  <mat-row *matRowDef="let VAM020SourceRow; columns: ['OLD_IDN', 'NEW_IDN', 'NAME', 'OP_DATE', 'TYPE']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>
