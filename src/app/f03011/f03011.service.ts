@@ -18,11 +18,14 @@ export class F03011Service extends BaseService {
     return this.postHttpClient(targetUrl);
   }
 
-  update(baseUrl: string, data: any): any {
+  update(baseUrl: string, data: any, oldtvNo: string, oldscklv:string, oldcalv:string): any {
     const formdata: FormData = new FormData();
     formdata.append('tvNo', data.tvNo);
     formdata.append('scklv', data.scklv);
     formdata.append('calv', data.calv);
+    formdata.append('oldtvNo', oldtvNo);
+    formdata.append('oldscklv', oldscklv);
+    formdata.append('oldcalv', oldcalv);
     return this.saveOrEditMsgString(baseUrl, formdata);
   }
 }

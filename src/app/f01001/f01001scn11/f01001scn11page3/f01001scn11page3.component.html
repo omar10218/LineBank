@@ -1,190 +1,24 @@
 <th class="f01_th">歷史申請書比對(同一NID)檔</th>
-<form [formGroup]="historySameIDForm" style="padding-left: 20px;">
-    <table>
-        <mat-card class="matCard">
-            <mat-card-content>
-                <tr>
-                    <th nowrap="nowrap">GPS-時點1：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="gps1" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">GPS-時點2：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="gps2" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">IP address-時點1：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="ipAddr1" readonly>
-                      </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <th nowrap="nowrap">IP address-時點2：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="ipAddr2" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">手機型號-時點1：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="phoneModel1" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">手機型號-時點2：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="phoneModel2" readonly>
-                      </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <th nowrap="nowrap">Device ID-時點1：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="deviceID1" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">Device ID-時點2：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="deviceID2" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">E-mail</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="email" readonly>
-                      </mat-form-field>
-                    </td>    
-                </tr>
-                <tr>
-                    <th nowrap="nowrap">行動電話：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="mTel" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">戶籍電話：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="pTel" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">通訊電話：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="cTel" readonly>
-                      </mat-form-field>
-                    </td>   
-                </tr>
-                <tr>
-                    <th nowrap="nowrap">戶籍地址完整比對：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="pAddr" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">戶籍地址模糊比對：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="pAddrFuzzy" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">通訊地址完整比對：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="cAddr" readonly>
-                      </mat-form-field>
-                    </td>  
-                </tr>
-                <tr>
-                    <th nowrap="nowrap">通訊地址模糊比對：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="cAddrFuzzy" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">寄卡地址完整比對：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="mAddr" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">寄卡地址模糊比對：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="mAddrFuzzy" readonly>
-                      </mat-form-field>
-                    </td>
-                </tr>
-                <tr> 
-                    <th nowrap="nowrap">公司名稱：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="cpName" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">公司電話：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="cpTel" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">公司地址完整比對：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="cpAddr" readonly>
-                      </mat-form-field>
-                    </td>
-                </tr>
-                <tr>   
-                    <th nowrap="nowrap">公司地址模糊比對：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="cpAddrFuzzy" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">行職業代碼：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="cpType" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">行職業代碼LEVEL1：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="cpTypeLevel1" readonly>
-                      </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <th nowrap="nowrap">行職業代碼LEVEL1&2：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="cpTypeLevel1and2" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">職業代碼：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="cpTitle" readonly>
-                      </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap">教育程度：</th>
-                    <td>
-                      <mat-form-field color="accent">
-                        <input matInput #input formControlName="education" readonly>
-                      </mat-form-field>
-                    </td>
-                </tr>
-            </mat-card-content>
-        </mat-card>
-    </table>
-</form>
-
+<table>
+  <mat-card class="matCard">
+    <mat-card-content>
+      <ng-container *ngFor="let compare of compare;let i = index">
+        <ng-container *ngIf="i % 3 == 0">
+          <tr>
+        </ng-container>
+        <ng-container *ngIf="compare.result == 'Y'; else elseTemplate">
+          <th nowrap="nowrap">{{getOptionDesc(compare.compareColumn)}}：</th>
+          <td style="color: red;">
+            {{compare.count}}
+          </td>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <th nowrap="nowrap">{{getOptionDesc(compare.compareColumn)}}：</th>
+          <td>
+            {{compare.count}}
+          </td>
+        </ng-template>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</table>
