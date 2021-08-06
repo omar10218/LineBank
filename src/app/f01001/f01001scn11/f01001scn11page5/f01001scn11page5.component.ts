@@ -63,9 +63,9 @@ export class F01001scn11page5Component implements OnInit {
     formdata.append('applno', this.applno);
     formdata.append('code', 'EL_BAM061_COMPARE');
     this.f01001scn11Service.getCompare(formdata).subscribe(data => {
-      console.log(data.rspBody.compare);
+      console.log(data.rspBody.compare)
       let td_mobileVsMTel6 = document.querySelectorAll(".td_mobileVsMTel6") as NodeListOf<HTMLElement>;
-      this.bam061Form.patchValue({ mobileVsMTel6: data.rspBody.items[0].MOBILE_VS_M_TEL_6_MONTH });  if ( data.rspBody.items[0].MOBILE_VS_M_TEL_6_MONTH == 1 ) { td_mobileVsMTel6.item(0).style.color = "red"; } 
+      this.bam061Form.patchValue({ mobileVsMTel6: data.rspBody.items[0].MOBILE_VS_M_TEL_6_MONTH });  if ( data.rspBody.compare[0].compareColumn == 'MOBILE_VS_M_TEL_6_MONTH' && data.rspBody.compare[0].setValue < data.rspBody.items[0].MOBILE_VS_M_TEL_6_MONTH  ) { td_mobileVsMTel6.item(0).style.color = "red"; } 
       let td_mobileVsMTel12 = document.querySelectorAll(".td_mobileVsMTel12") as NodeListOf<HTMLElement>;
       this.bam061Form.patchValue({ mobileVsMTel12: data.rspBody.items[0].MOBILE_VS_M_TEL_12_MONTH });
       let td_pTelVsHTel6 = document.querySelectorAll(".td_pTelVsHTel6") as NodeListOf<HTMLElement>;
