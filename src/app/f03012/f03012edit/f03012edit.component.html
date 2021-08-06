@@ -1,1 +1,35 @@
-<p>f03012edit works!</p>
+<div class="container">
+    <h2 mat-dialog-title>資料比對編輯</h2>
+    <form class="mat-dialog-content" #formControl="ngForm">
+        <div class="form">
+            <th nowrap="nowrap">比對table</th>
+            <mat-form-field color="accent">
+                <mat-select [(ngModel)]="data.compareTable" name="compareTable">
+                    <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
+                        {{code.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form">
+            <th nowrap="nowrap">比對欄位</th>
+            <mat-form-field color="accent">
+                <mat-select [(ngModel)]="data.compareColumn" name="compareColumn">
+                    <mat-option *ngFor="let code of compareColumnCode" [value]="code.value">
+                        {{code.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form">
+            <mat-form-field color="accent">
+                <th nowrap="nowrap">設定值</th>
+                <input matInput [(ngModel)]="data.setValue" name="setValue" required>
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+            <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="save()">儲存</button>
+            <button mat-button (click)="onNoClick()" tabindex="-1">取消</button>
+        </div>
+    </form>
+</div>
