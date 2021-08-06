@@ -1,10 +1,32 @@
 <th class="f01_th">COMPARE本案申請書資訊合理性比對檔</th>
   <form [formGroup]="compareForm" style="padding-left: 20px;">
-    <!-- <input type="button" value="新增" (click)="test()" > -->
+    <!-- <input type="button" value="test" (click)="test()" > -->
     <table>
       <mat-card class="matCard">
-        <mat-card-content>
 
+        <mat-card-content>
+          <ng-container *ngFor="let compare of compare;let i = index">
+            <ng-container *ngIf="i%3==0">
+              <tr>
+            </ng-container>
+            <ng-container *ngIf="compare.result == 'Y'; else elseTemplate">
+              <th nowrap="nowrap">{{getOptionDesc(compare.compareColumn)}}：</th>
+              <td style="color: red;">
+                {{compare.count}}
+              </td>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <th nowrap="nowrap">{{getOptionDesc(compare.compareColumn)}}：</th>
+              <td>
+                {{compare.count}}
+              </td>
+            </ng-template>
+          </ng-container>
+        </mat-card-content>
+
+
+
+        <!-- <mat-card-content>
           <tr>
             <th nowrap="nowrap">IP地址</th>
             <td>
@@ -53,8 +75,8 @@
           </mat-form-field>
         </td>
       </tr>
+        </mat-card-content> -->
 
-        </mat-card-content>
       </mat-card>
     </table>
   </form>

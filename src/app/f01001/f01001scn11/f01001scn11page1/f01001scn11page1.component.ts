@@ -2,10 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { F01001scn11Service } from '../f01001scn11.service';
+import { MappingCode } from 'src/app/mappingcode.model';
 
 interface sysCode {
   value: number;
   valuebool: boolean;
+}
+interface Code {
+  compareColumn: string;
+  result: string;
+  count: string;
 }
 
 @Component({
@@ -17,6 +23,8 @@ export class F01001scn11page1Component implements OnInit {
 
 
   private applno: string;
+  mappingOption: MappingCode[];
+  compare: Code[] = [];
 
   compareForm: FormGroup = this.fb.group({
     IP_ADDR : ['', []],
@@ -40,13 +48,24 @@ export class F01001scn11page1Component implements OnInit {
   getCOMPARE() {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
-    formdata.append('code', 'EL_APPLY_COMPARE');
+     formdata.append('code', 'EL_APPLY_COMPARE');
     this.f01001scn11Service.getCompare(formdata).subscribe(data => {
-      console.log(data);
-      //自行放入formgroup ex. this.bam061Form.patchValue({ education : data.xxx.xxx});
+      console.log(data.rspBody);
+      this.mappingOption = data.rspBody.table;
+      this.compare = data.rspBody.compare;
     });
   }
-  // test() {
-  //   alert(this.test1);
-  // }
+
+
+  getOptionDesc(codeVal: string): string {
+    for (const data of this.mappingOption) {
+      if (data.codeNo == codeVal) {
+        return data.codeDesc;
+        break;
+      }
+    }
+    return codeVal;
+  }
+
+
 }

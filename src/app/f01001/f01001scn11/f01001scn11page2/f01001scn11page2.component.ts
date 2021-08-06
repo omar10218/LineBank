@@ -2,6 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { F01001scn11Service } from '../f01001scn11.service';
+import { MappingCode } from 'src/app/mappingcode.model';
+
+interface sysCode {
+  value: number;
+  valuebool: boolean;
+}
+interface Code {
+  compareColumn: string;
+  result: string;
+  count: string;
+}
 
 @Component({
   selector: 'app-f01001scn11page2',
@@ -11,6 +22,9 @@ import { F01001scn11Service } from '../f01001scn11.service';
 export class F01001scn11page2Component implements OnInit {
 
   private applno: string;
+  mappingOption: MappingCode[];
+  compare: Code[] = [];
+
   compare_UNIDForm: FormGroup = this.fb.group({
     GPS_1	: ['', []],//			GPS - 時點1比對次數
     GPS_2	: ['', []],//			GPS - 時點2比對次數
@@ -44,17 +58,28 @@ export class F01001scn11page2Component implements OnInit {
       this.applno = params['applno'];
     });
     console.log(this.applno);
-    this.getCOMPARE_UNID();
+    this.getCOMPARE();
   }
-  getCOMPARE_UNID() {
+  getCOMPARE() {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
     formdata.append('code', 'EL_HISTORY_COMPARE_UNID');
     this.f01001scn11Service.getCompare(formdata).subscribe(data => {
-      console.log(data);
-      //自行放入formgroup ex. this.bam061Form.patchValue({ education : data.xxx.xxx});
+      console.log(data.rspBody);
+      this.mappingOption = data.rspBody.table;
+      this.compare = data.rspBody.compare;
     });
   }
 
+
+  getOptionDesc(codeVal: string): string {
+    for (const data of this.mappingOption) {
+      if (data.codeNo == codeVal) {
+        return data.codeDesc;
+        break;
+      }
+    }
+    return codeVal;
+  }
 
 }
