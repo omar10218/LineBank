@@ -1,8 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { F01001scn10Service } from './../f01001scn10.service';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -18,10 +15,6 @@ interface dateCode {
   styleUrls: ['./f01001scn10page3.component.css', '../../../../assets/css/f01.css']
 })
 export class F01001scn10page3Component implements OnInit {
-
-
-
-
   dss3Form: FormGroup = this.fb.group({
     SYSFLOWCD: ['', []],
     RESLTCD: ['', []],
@@ -31,15 +24,8 @@ export class F01001scn10page3Component implements OnInit {
     SPARE_ARRAY2: ['', []],
   });
 
-
-
-
-
-
-  //日期
   dateCode: dateCode[] = [];
   dateValue: string;
-
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private f01001scn10Service: F01001scn10Service) { }
   private applno: string;
   private cuid: string;
@@ -64,10 +50,9 @@ export class F01001scn10page3Component implements OnInit {
         this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
       }
       this.dateValue = data.rspBody.items[0].QUERYDATE
+      this.getDSS3(this.dateValue);
     });
-    this.getDSS3(this.dateValue);
   }
-
 
   getDSS3(dateValue: string) {
     const formdata: FormData = new FormData();
@@ -75,16 +60,14 @@ export class F01001scn10page3Component implements OnInit {
     formdata.append('cuid', this.cuid);
     formdata.append('code', 'DSS3');
     formdata.append('queryDate', dateValue);
-    // formdata.append('page', `${this.currentPage.pageIndex + 1}`);
-    // formdata.append('per_page', `${this.currentPage.pageSize}`);
     this.f01001scn10Service.getDSSSearch(formdata).subscribe(data => {
-      console.log('1234567890' + data.rspBody);
-      this.dss3Form.patchValue({ SYSFLOWCD: data.rspBody.SYSFLOWCD })
-      this.dss3Form.patchValue({ RESLTCD: data.rspBody.RESLTCD })
-      this.dss3Form.patchValue({ UNDW_CD_CNT: data.rspBody.UNDW_CD_CNT })
-      this.dss3Form.patchValue({ UNDW_CD_LIST: data.rspBody.UNDW_CD_LIST })
-      this.dss3Form.patchValue({ SPARE_ARRAY1: data.rspBody.SPARE_ARRAY1 })
-      this.dss3Form.patchValue({ SPARE_ARRAY2: data.rspBody.SPARE_ARRAY2 })
+      this.dss3Form.patchValue({ SYSFLOWCD: data.rspBody.items[0].SYSFLOWCD })
+      this.dss3Form.patchValue({ RESLTCD: data.rspBody.items[0].RESLTCD })
+      this.dss3Form.patchValue({ UNDW_CD_CNT: data.rspBody.items[0].UNDW_CD_CNT })
+      this.dss3Form.patchValue({ UNDW_CD_LIST: data.rspBody.items[0].UNDW_CD_LIST })
+      this.dss3Form.patchValue({ SPARE_ARRAY1: data.rspBody.items[0].SPARE_ARRAY1 })
+      this.dss3Form.patchValue({ SPARE_ARRAY2: data.rspBody.items[0].SPARE_ARRAY2 })
+      console.log('1234567890' + data.rspBody.items[0].SYSFLOWCD);
     });
   }
 

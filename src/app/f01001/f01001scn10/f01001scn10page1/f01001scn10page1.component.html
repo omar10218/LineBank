@@ -10,328 +10,525 @@
   </mat-form-field>
 </td>
 <br>
-<mat-table [dataSource]="DSS1Source" matSortDisableClear>
-  <ng-container matColumnDef="SYSFLOWCD">
-    <mat-header-cell *matHeaderCellDef>系統流程</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.SYSFLOWCD }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="RESLTCD">
-    <mat-header-cell *matHeaderCellDef>決策結果</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.RESLTCD }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="CALV">
-    <mat-header-cell *matHeaderCellDef>案件等級</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.CALV }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="OCUPATN_CUST_GP">
-    <mat-header-cell *matHeaderCellDef>行職業代碼分群(客戶填寫) 代碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.OCUPATN_CUST_GP }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="OCUPATN_CUST_GP_DESC">
-    <mat-header-cell *matHeaderCellDef>行職業代碼分群(客戶填寫) 中文</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.OCUPATN_CUST_GP_DESC }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="OCUPATN_CUST_STGP1">
-    <mat-header-cell *matHeaderCellDef>策略客群1(客戶填寫) 代碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.OCUPATN_CUST_STGP1 }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="OCUPATN_CUST_STGP1_DESC">
-    <mat-header-cell *matHeaderCellDef>策略客群1(客戶填寫) 中文</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.OCUPATN_CUST_STGP1_DESC }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="OCUPATN_CUST_STGP2">
-    <mat-header-cell *matHeaderCellDef>策略客群2(客戶填寫) 代碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.OCUPATN_CUST_STGP2 }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="GOODBEHAV">
-    <mat-header-cell *matHeaderCellDef>往來優質特徵註記 代碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.GOODBEHAV }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="GOODBEHAV_DESC">
-    <mat-header-cell *matHeaderCellDef>往來優質特徵註記 中文</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.GOODBEHAV_DESC }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="RISKMDSUB_A0">
-    <mat-header-cell *matHeaderCellDef>試算風險模型子模型 代碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.RISKMDSUB_A0 }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="RISKMDSUB_A0_DESC">
-    <mat-header-cell *matHeaderCellDef>試算風險模型子模型 中文</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.RISKMDSUB_A0_DESC }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="RISKMDSCORE_A0">
-    <mat-header-cell *matHeaderCellDef>試算風險模型分數</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.RISKMDSCORE_A0 }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="RISKMDGRADE_A0">
-    <mat-header-cell *matHeaderCellDef>試算風險模型等級</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.RISKMDGRADE_A0 }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="RISKMDGRADE_A0_GP">
-    <mat-header-cell *matHeaderCellDef>試算風險模型等級分群</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.RISKMDGRADE_A0_GP }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="RISKMDGRADE_A0_ADJ">
-    <mat-header-cell *matHeaderCellDef>試算風險模型等級(策略調整後)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.RISKMDGRADE_A0_ADJ }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="RISKMDGRADE_A0_GP_ADJ">
-    <mat-header-cell *matHeaderCellDef>試算風險模型等級分群(策略調整後)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.RISKMDGRADE_A0_GP_ADJ }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="UNDW_CD_CNT">
-    <mat-header-cell *matHeaderCellDef>徵審代碼數量</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.UNDW_CD_CNT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="UNDW_CD_LIST">
-    <mat-header-cell *matHeaderCellDef>徵審代碼清單(多個)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.UNDW_CD_LIST }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="SPECILCASE">
-    <mat-header-cell *matHeaderCellDef>特殊案件貼標</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.SPECILCASE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="SPECILCASE_DESC">
-    <mat-header-cell *matHeaderCellDef>特殊案件貼標 中文</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.SPECILCASE_DESC }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="L0CAP">
-    <mat-header-cell *matHeaderCellDef>LEVEL0 集團授信總額度CAP</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.L0CAP }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="L1CAP_NID">
-    <mat-header-cell *matHeaderCellDef>LEVEL1 個人授信總額度CAP</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.L1CAP_NID }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="L2CAP_NID_UNSEC">
-    <mat-header-cell *matHeaderCellDef>LEVEL2 個人授信無擔總額度CAP 9</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.L2CAP_NID_UNSEC }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="L3CAP_NID_UNSEC_RL">
-    <mat-header-cell *matHeaderCellDef>LEVEL3 個人授信無擔產品_循環信貸總額度CAP</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.L3CAP_NID_UNSEC_RL }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="L3CAP_NID_UNSEC_IL">
-    <mat-header-cell *matHeaderCellDef>LEVEL3 個人授信無擔產品_分期信貸總額度CAP</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.L3CAP_NID_UNSEC_IL }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="L2CAP_NID_SEC">
-    <mat-header-cell *matHeaderCellDef>LEVEL2 個人授信有擔總額度CAP</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.L2CAP_NID_SEC }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="L3CAP_NID_SEC_MORTG">
-    <mat-header-cell *matHeaderCellDef>LEVEL3 個人授信有擔產品_房貸總額度CAP</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.L3CAP_NID_SEC_MORTG }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="L1CAP_CMPY">
-    <mat-header-cell *matHeaderCellDef>LEVEL1 公司授信總額度CAP</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.L1CAP_CMPY }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="DISB_BTCR_YN">
-    <mat-header-cell *matHeaderCellDef>結帳日至還款日之間客戶如不繳款是否可以撥款</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.DISB_BTCR_YN }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_MDUL">
-    <mat-header-cell *matHeaderCellDef>試算授信策略模板分類</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_MDUL }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_MDUL_DESC">
-    <mat-header-cell *matHeaderCellDef>試算授信策略模板分類 中文</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_MDUL_DESC }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_MDUL_ATVDT">
-    <mat-header-cell *matHeaderCellDef>授信策略模板生效日期時間</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_MDUL_ATVDT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_RATE_ATVDT">
-    <mat-header-cell *matHeaderCellDef>利率模板生效日期時間</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_RATE_ATVDT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP_APRFRJ">
-    <mat-header-cell *matHeaderCellDef>試算授信策略_准駁</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP_APRFRJ }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP1_LIMIT">
-    <mat-header-cell *matHeaderCellDef>試算授信策略_額度/金額</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP1_LIMIT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP1_SRATE_TYPE">
-    <mat-header-cell *matHeaderCellDef>策略利率類型</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP1_SRATE_TYPE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP1_SRATE_CNT">
-    <mat-header-cell *matHeaderCellDef>加碼利率(多階) 數量</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP1_SRATE_CNT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP1_SRATE_LIST">
-    <mat-header-cell *matHeaderCellDef>加碼利率(多階) 清單</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP1_SRATE_LIST }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP1_MINPAYRT">
-    <mat-header-cell *matHeaderCellDef>試算授信策略_每月最低還款比例</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP1_MINPAYRT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP1_PERIOD_MIN">
-    <mat-header-cell *matHeaderCellDef>試算授信策略_期數最小值</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP1_PERIOD_MIN }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP1_PERIOD_MAX">
-    <mat-header-cell *matHeaderCellDef>試算授信策略_期數最大值</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP1_PERIOD_MAX }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP1_ORIGINFEE">
-    <mat-header-cell *matHeaderCellDef>試算產品條件_開辦費(首次簽約用)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP1_ORIGINFEE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP1_LOANEXTFEE">
-    <mat-header-cell *matHeaderCellDef>試算產品條件_帳戶管理費(續約用)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP1_LOANEXTFEE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP1_MUEX">
-    <mat-header-cell *matHeaderCellDef>試算授信策略_MUE倍數</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP1_MUEX }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="LIMIT_TMP1_MUE">
-    <mat-header-cell *matHeaderCellDef>限額_MUE</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.LIMIT_TMP1_MUE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="LIMIT_TMP1_DBR">
-    <mat-header-cell *matHeaderCellDef>限額_DBR22</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.LIMIT_TMP1_DBR }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="LIMIT_TMP1_LAW32">
-    <mat-header-cell *matHeaderCellDef>限額_本行利害關係人(銀行法第32條)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.LIMIT_TMP1_LAW32 }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="LIMIT_TMP1_LAW33_UNS">
-    <mat-header-cell *matHeaderCellDef>限額_同一自然人無擔保授信限額(銀行法第33條)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.LIMIT_TMP1_LAW33_UNS }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="LIMIT_TMP1_PROD_MAX">
-    <mat-header-cell *matHeaderCellDef>限額_產品/專案額度上限</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.LIMIT_TMP1_PROD_MAX }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="LIMIT_TMP1_PROD_MIN">
-    <mat-header-cell *matHeaderCellDef>限額_產品/專案額度下限</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.LIMIT_TMP1_PROD_MIN }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="LIMIT_TMP1_CUSTAPPLY">
-    <mat-header-cell *matHeaderCellDef>限額_客戶申請金額</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.LIMIT_TMP1_CUSTAPPLY }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="LIMIT_TMP1_DTI">
-    <mat-header-cell *matHeaderCellDef>限額_月付收支比</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.LIMIT_TMP1_DTI }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_OPTION_CNT">
-    <mat-header-cell *matHeaderCellDef>建議方案數量</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_OPTION_CNT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_OPTION_LIST">
-    <mat-header-cell *matHeaderCellDef>建議方案(多個)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_OPTION_LIST }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP2_PRDT">
-    <mat-header-cell *matHeaderCellDef>方案2_產品</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP2_PRDT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP2_LIMIT">
-    <mat-header-cell *matHeaderCellDef>方案2_額度/金額</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP2_LIMIT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP2_SRATE_TYPE">
-    <mat-header-cell *matHeaderCellDef>方案2_策略利率類型</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP2_SRATE_TYPE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP2_SRATE_CNT">
-    <mat-header-cell *matHeaderCellDef>方案2_加碼利率(多階) 數量</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP2_SRATE_CNT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP2_SRATE_LIST">
-    <mat-header-cell *matHeaderCellDef>方案2_加碼利率(多階) 清單</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP2_SRATE_LIST }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP2_MINPAYRT">
-    <mat-header-cell *matHeaderCellDef>方案2_每月最低還款比例(僅限循環信貸)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP2_MINPAYRT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP2_PERIOD_MIN">
-    <mat-header-cell *matHeaderCellDef>方案2_期數最小值</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP2_PERIOD_MIN }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP2_PERIOD_MAX">
-    <mat-header-cell *matHeaderCellDef>方案2_期數最大值</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP2_PERIOD_MAX }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP2_ORIGINFEE">
-    <mat-header-cell *matHeaderCellDef>方案2_產品條件_開辦費(首次簽約用)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP2_ORIGINFEE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP2_LOANEXTFEE">
-    <mat-header-cell *matHeaderCellDef>方案2_產品條件_帳戶管理費(續約用)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP2_LOANEXTFEE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP3_PRDT">
-    <mat-header-cell *matHeaderCellDef>方案3_產品</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP3_PRDT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP3_LIMIT">
-    <mat-header-cell *matHeaderCellDef>方案3_額度/金額</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP3_LIMIT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP3_SRATE_TYPE">
-    <mat-header-cell *matHeaderCellDef>方案3_策略利率類型</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP3_SRATE_TYPE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP3_SRATE_CNT">
-    <mat-header-cell *matHeaderCellDef>方案3_加碼利率(多階) 數量</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP3_SRATE_CNT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP3_SRATE_LIST">
-    <mat-header-cell *matHeaderCellDef>方案3_加碼利率(多階) 清單</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP3_SRATE_LIST }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP3_MINPAYRT">
-    <mat-header-cell *matHeaderCellDef>方案3_每月最低還款比例(僅限循環信貸)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP3_MINPAYRT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP3_PERIOD_MIN">
-    <mat-header-cell *matHeaderCellDef>方案3_期數最小值</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP3_PERIOD_MIN }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP3_PERIOD_MAX">
-    <mat-header-cell *matHeaderCellDef>方案3_期數最大值</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP3_PERIOD_MAX }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP3_ORIGINFEE">
-    <mat-header-cell *matHeaderCellDef>方案3_產品條件_開辦費(首次簽約用)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP3_ORIGINFEE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="STRGY_TMP3_LOANEXTFEE">
-    <mat-header-cell *matHeaderCellDef>方案3_產品條件_帳戶管理費(續約用)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.STRGY_TMP3_LOANEXTFEE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="SPARE_ARRAY1">
-    <mat-header-cell *matHeaderCellDef>SPARE - 可輸入小數點之數值格式</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.SPARE_ARRAY1 }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="SPARE_ARRAY2">
-    <mat-header-cell *matHeaderCellDef>SPARE - 文字格式</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.SPARE_ARRAY2 }}</mat-cell>
-  </ng-container>
-  <mat-header-row *matHeaderRowDef="['SYSFLOWCD', 'RESLTCD', 'CALV', 'OCUPATN_CUST_GP', 'OCUPATN_CUST_GP_DESC', 'OCUPATN_CUST_STGP1', 'OCUPATN_CUST_STGP1_DESC', 'OCUPATN_CUST_STGP2', 'GOODBEHAV', 'GOODBEHAV_DESC', 'RISKMDSUB_A0', 'RISKMDSUB_A0_DESC', 'RISKMDSCORE_A0', 'RISKMDGRADE_A0', 'RISKMDGRADE_A0_GP', 'RISKMDGRADE_A0_ADJ', 'RISKMDGRADE_A0_GP_ADJ', 'UNDW_CD_CNT', 'UNDW_CD_LIST', 'SPECILCASE', 'SPECILCASE_DESC', 'L0CAP'
-  , 'L1CAP_NID', 'L2CAP_NID_UNSEC', 'L3CAP_NID_UNSEC_RL', 'L3CAP_NID_UNSEC_IL', 'L2CAP_NID_SEC', 'L3CAP_NID_SEC_MORTG', 'L1CAP_CMPY', 'DISB_BTCR_YN', 'STRGY_MDUL', 'STRGY_MDUL_DESC', 'STRGY_MDUL_ATVDT', 'STRGY_RATE_ATVDT', 'STRGY_TMP_APRFRJ', 'STRGY_TMP1_LIMIT', 'STRGY_TMP1_SRATE_TYPE', 'STRGY_TMP1_SRATE_CNT', 'STRGY_TMP1_SRATE_LIST', 'STRGY_TMP1_MINPAYRT', 'STRGY_TMP1_PERIOD_MIN', 'STRGY_TMP1_PERIOD_MAX'
-  , 'STRGY_TMP1_ORIGINFEE', 'STRGY_TMP1_LOANEXTFEE', 'STRGY_TMP1_MUEX', 'LIMIT_TMP1_MUE', 'LIMIT_TMP1_DBR', 'LIMIT_TMP1_LAW32', 'LIMIT_TMP1_LAW33_UNS', 'LIMIT_TMP1_PROD_MAX', 'LIMIT_TMP1_PROD_MIN', 'LIMIT_TMP1_CUSTAPPLY', 'LIMIT_TMP1_DTI', 'STRGY_OPTION_CNT', 'STRGY_OPTION_LIST', 'STRGY_TMP2_PRDT', 'STRGY_TMP2_LIMIT', 'STRGY_TMP2_SRATE_TYPE', 'STRGY_TMP2_SRATE_CNT', 'STRGY_TMP2_SRATE_LIST', 'STRGY_TMP2_MINPAYRT', 'STRGY_TMP2_PERIOD_MIN', 'STRGY_TMP2_PERIOD_MAX'
-  , 'STRGY_TMP2_ORIGINFEE', 'STRGY_TMP2_LOANEXTFEE', 'STRGY_TMP3_PRDT', 'STRGY_TMP3_LIMIT', 'STRGY_TMP3_SRATE_TYPE', 'STRGY_TMP3_SRATE_CNT', 'STRGY_TMP3_SRATE_LIST', 'STRGY_TMP3_MINPAYRT', 'STRGY_TMP3_PERIOD_MIN', 'STRGY_TMP3_PERIOD_MAX', 'STRGY_TMP3_ORIGINFEE', 'STRGY_TMP3_LOANEXTFEE', 'SPARE_ARRAY1', 'SPARE_ARRAY2']"></mat-header-row>
-  <mat-row *matRowDef="let DSS1SourceRow; columns: ['SYSFLOWCD', 'RESLTCD', 'CALV', 'OCUPATN_CUST_GP', 'OCUPATN_CUST_GP_DESC', 'OCUPATN_CUST_STGP1', 'OCUPATN_CUST_STGP1_DESC', 'OCUPATN_CUST_STGP2', 'GOODBEHAV', 'GOODBEHAV_DESC', 'RISKMDSUB_A0', 'RISKMDSUB_A0_DESC', 'RISKMDSCORE_A0', 'RISKMDGRADE_A0', 'RISKMDGRADE_A0_GP', 'RISKMDGRADE_A0_ADJ', 'RISKMDGRADE_A0_GP_ADJ', 'UNDW_CD_CNT', 'UNDW_CD_LIST', 'SPECILCASE', 'SPECILCASE_DESC', 'L0CAP'
-  , 'L1CAP_NID', 'L2CAP_NID_UNSEC', 'L3CAP_NID_UNSEC_RL', 'L3CAP_NID_UNSEC_IL', 'L2CAP_NID_SEC', 'L3CAP_NID_SEC_MORTG', 'L1CAP_CMPY', 'DISB_BTCR_YN', 'STRGY_MDUL', 'STRGY_MDUL_DESC', 'STRGY_MDUL_ATVDT', 'STRGY_RATE_ATVDT', 'STRGY_TMP_APRFRJ', 'STRGY_TMP1_LIMIT', 'STRGY_TMP1_SRATE_TYPE', 'STRGY_TMP1_SRATE_CNT', 'STRGY_TMP1_SRATE_LIST', 'STRGY_TMP1_MINPAYRT', 'STRGY_TMP1_PERIOD_MIN', 'STRGY_TMP1_PERIOD_MAX'
-  , 'STRGY_TMP1_ORIGINFEE', 'STRGY_TMP1_LOANEXTFEE', 'STRGY_TMP1_MUEX', 'LIMIT_TMP1_MUE', 'LIMIT_TMP1_DBR', 'LIMIT_TMP1_LAW32', 'LIMIT_TMP1_LAW33_UNS', 'LIMIT_TMP1_PROD_MAX', 'LIMIT_TMP1_PROD_MIN', 'LIMIT_TMP1_CUSTAPPLY', 'LIMIT_TMP1_DTI', 'STRGY_OPTION_CNT', 'STRGY_OPTION_LIST', 'STRGY_TMP2_PRDT', 'STRGY_TMP2_LIMIT', 'STRGY_TMP2_SRATE_TYPE', 'STRGY_TMP2_SRATE_CNT', 'STRGY_TMP2_SRATE_LIST', 'STRGY_TMP2_MINPAYRT', 'STRGY_TMP2_PERIOD_MIN', 'STRGY_TMP2_PERIOD_MAX'
-  , 'STRGY_TMP2_ORIGINFEE', 'STRGY_TMP2_LOANEXTFEE', 'STRGY_TMP3_PRDT', 'STRGY_TMP3_LIMIT', 'STRGY_TMP3_SRATE_TYPE', 'STRGY_TMP3_SRATE_CNT', 'STRGY_TMP3_SRATE_LIST', 'STRGY_TMP3_MINPAYRT', 'STRGY_TMP3_PERIOD_MIN', 'STRGY_TMP3_PERIOD_MAX', 'STRGY_TMP3_ORIGINFEE', 'STRGY_TMP3_LOANEXTFEE', 'SPARE_ARRAY1', 'SPARE_ARRAY2']"></mat-row>
-</mat-table>
-<tr>
-  <td>
-    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-    </mat-paginator>
-  </td>
-</tr>
+<form [formGroup]="dss1Form" style="padding-left: 20px;">
+  <table>
+    <mat-card class="matCard">
+      <mat-card-content>
+        <tr>
+          <th nowrap="nowrap" align="left">系統流程</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="SYSFLOWCD" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">決策結果</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="RESLTCD" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">案件等級</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="CALV" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">行職業代碼分群(客戶填寫) 代碼</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="OCUPATN_CUST_GP" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">行職業代碼分群(客戶填寫) 中文</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="OCUPATN_CUST_GP_DESC" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">策略客群1(客戶填寫) 代碼</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="OCUPATN_CUST_STGP1" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">策略客群1(客戶填寫) 中文</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="OCUPATN_CUST_STGP1_DESC" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">策略客群2(客戶填寫) 代碼</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="OCUPATN_CUST_STGP2" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">往來優質特徵註記 代碼</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="GOODBEHAV" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">往來優質特徵註記 中文</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="GOODBEHAV_DESC" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算風險模型子模型 代碼</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="RISKMDSUB_A0" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算風險模型子模型 中文</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="RISKMDSUB_A0_DESC" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">試算風險模型分數</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="RISKMDSCORE_A0" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算風險模型等級</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="RISKMDGRADE_A0" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算風險模型等級分群</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="RISKMDGRADE_A0_GP" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">試算風險模型等級(策略調整後)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="RISKMDGRADE_A0_ADJ" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算風險模型等級分群(策略調整後)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="RISKMDGRADE_A0_GP_ADJ" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">徵審代碼數量</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="UNDW_CD_CNT" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">徵審代碼清單(多個)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="UNDW_CD_LIST" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">特殊案件貼標</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="SPECILCASE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">特殊案件貼標 中文</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="SPECILCASE_DESC" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">LEVEL0 集團授信總額度CAP</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="L0CAP" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">LEVEL1 個人授信總額度CAP</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="L1CAP_NID" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">LEVEL2 個人授信無擔總額度CAP 9</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="L2CAP_NID_UNSEC" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">LEVEL3 個人授信無擔產品_循環信貸總額度CAP</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="L3CAP_NID_UNSEC_RL" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">LEVEL3 個人授信無擔產品_分期信貸總額度CAP</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="L3CAP_NID_UNSEC_IL" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">LEVEL2 個人授信有擔總額度CAP</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="L2CAP_NID_SEC" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">LEVEL3 個人授信有擔產品_房貸總額度CAP</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="L3CAP_NID_SEC_MORTG" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">LEVEL1 公司授信總額度CAP</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="L1CAP_CMPY" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">結帳日至還款日之間客戶如不繳款是否可以撥款</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="DISB_BTCR_YN" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">試算授信策略模板分類</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_MDUL" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算授信策略模板分類 中文</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_MDUL_DESC" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">授信策略模板生效日期時間</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_MDUL_ATVDT" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">利率模板生效日期時間</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_RATE_ATVDT" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算授信策略_准駁</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP_APRFRJ" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算授信策略_額度/金額</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP1_LIMIT" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">策略利率類型</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP1_SRATE_TYPE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">加碼利率(多階) 數量</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP1_SRATE_CNT" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">加碼利率(多階) 清單</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP1_SRATE_LIST" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">試算授信策略_每月最低還款比例</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP1_MINPAYRT" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算授信策略_期數最小值</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP1_PERIOD_MIN" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算授信策略_期數最大值</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP1_PERIOD_MAX" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">試算產品條件_開辦費(首次簽約用)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP1_ORIGINFEE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算產品條件_帳戶管理費(續約用)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP1_LOANEXTFEE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">試算授信策略_MUE倍數</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP1_MUEX" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">限額_MUE</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="LIMIT_TMP1_MUE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">限額_DBR22</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="LIMIT_TMP1_DBR" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">限額_本行利害關係人(銀行法第32條)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="LIMIT_TMP1_LAW32" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">限額_同一自然人無擔保授信限額(銀行法第33條)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="LIMIT_TMP1_LAW33_UNS" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">限額_產品/專案額度上限</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="LIMIT_TMP1_PROD_MAX" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">限額_產品/專案額度下限</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="LIMIT_TMP1_PROD_MIN" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">限額_客戶申請金額</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="LIMIT_TMP1_CUSTAPPLY" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">限額_月付收支比</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="LIMIT_TMP1_DTI" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">建議方案數量</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_OPTION_CNT" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">建議方案(多個)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_OPTION_LIST" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案2_產品</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP2_PRDT" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案2_額度/金額</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP2_LIMIT" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">方案2_策略利率類型</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP2_SRATE_TYPE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案2_加碼利率(多階) 數量</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP2_SRATE_CNT" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案2_加碼利率(多階) 清單</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP2_SRATE_LIST" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">方案2_每月最低還款比例(僅限循環信貸)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP2_MINPAYRT" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案2_期數最小值</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP2_PERIOD_MIN" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案2_期數最大值</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP2_PERIOD_MAX" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">方案2_產品條件_開辦費(首次簽約用)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP2_ORIGINFEE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案2_產品條件_帳戶管理費(續約用)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP2_LOANEXTFEE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案3_產品</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP3_PRDT" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">方案3_額度/金額</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP3_LIMIT" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案3_策略利率類型</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP3_SRATE_TYPE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案3_加碼利率(多階) 數量</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP3_SRATE_CNT" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">方案3_加碼利率(多階) 清單</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP3_SRATE_LIST" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案3_每月最低還款比例(僅限循環信貸)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP3_MINPAYRT" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案3_期數最小值</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP3_PERIOD_MIN" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">方案3_期數最大值</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP3_PERIOD_MAX" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案3_產品條件_開辦費(首次簽約用)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP3_ORIGINFEE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">方案3_產品條件_帳戶管理費(續約用)</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="STRGY_TMP3_LOANEXTFEE" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">SPARE - 數值格式</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="SPARE_ARRAY1" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">SPARE - 文字格式</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="SPARE_ARRAY2" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+      </mat-card-content>
+    </mat-card>
+  </table>
+</form>
