@@ -139,6 +139,9 @@ import { F01001scn11page4Component } from './f01001/f01001scn11/f01001scn11page4
 import { F01001scn11page5Component } from './f01001/f01001scn11/f01001scn11page5/f01001scn11page5.component';
 import { F03011editComponent } from './f03011/f03011edit/f03011edit.component';
 import { F03010editComponent } from './f03010/f03010edit/f03010edit.component';
+import { F01001scn9page1Component } from './f01001/f01001scn9/f01001scn9page1/f01001scn9page1.component';
+import { F01001scn9page2Component } from './f01001/f01001scn9/f01001scn9page2/f01001scn9page2.component';
+import { F01001scn9page3Component } from './f01001/f01001scn9/f01001scn9page3/f01001scn9page3.component';
 
 
 @NgModule({
@@ -268,6 +271,9 @@ import { F03010editComponent } from './f03010/f03010edit/f03010edit.component';
     F01001scn11page5Component,
     F03011editComponent,
     F03010editComponent,
+    F01001scn9page1Component,
+    F01001scn9page2Component,
+    F01001scn9page3Component,
   ],
   imports: [
     BrowserModule,

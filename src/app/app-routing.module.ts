@@ -64,6 +64,9 @@ import { F01001scn6page9Component } from './f01001/f01001scn6/f01001scn6page9/f0
 import { F01001scn7Component } from './f01001/f01001scn7/f01001scn7.component';
 import { F01001scn8Component } from './f01001/f01001scn8/f01001scn8.component';
 import { F01001scn9Component } from './f01001/f01001scn9/f01001scn9.component';
+import { F01001scn9page1Component } from './f01001/f01001scn9/f01001scn9page1/f01001scn9page1.component';
+import { F01001scn9page2Component } from './f01001/f01001scn9/f01001scn9page2/f01001scn9page2.component';
+import { F01001scn9page3Component } from './f01001/f01001scn9/f01001scn9page3/f01001scn9page3.component';
 import { F02001Component } from './f02001/f02001.component';
 import { F02001scn0Component } from './f02001/f02001scn0/f02001scn0.component';
 import { F02001scn1Component } from './f02001/f02001scn1/f02001scn1.component';
@@ -325,7 +328,21 @@ const routes: Routes = [
           },
           {
             path: 'F01001SCN9',
-            component: F01001scn9Component
+            component: F01001scn9Component,
+            children: [
+              {
+                path: 'F01001SCN9PAGE1',
+                component: F01001scn9page1Component
+              },
+              {
+                path: 'F01001SCN9PAGE2',
+                component: F01001scn9page2Component
+              },
+              {
+                path: 'F01001SCN9PAGE3',
+                component: F01001scn9page3Component
+              }
+            ]
           },
           {
             path: 'F01001SCN10',
