@@ -1,10 +1,51 @@
-<th class="f01_th">KRI001</th>
+<th class="f01_th">其他補充註記資訊 (非屬消債條例及銀行公會債務協商之註記資訊)</th>
 <br>
-<mat-table [dataSource]="KRI001Source" matSortDisableClear>
+<mat-table [dataSource]="VAM108Source" matSortDisableClear>
+  <ng-container matColumnDef="IDN_BAN">
+    <mat-header-cell *matHeaderCellDef>統編/身分證號 </mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IDN_BAN }}</mat-cell>
+  </ng-container>
   <ng-container matColumnDef="DATA_DATE">
-    <mat-header-cell *matHeaderCellDef>資料處理日期 YYYMMDD</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>訊息登錄日期</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.DATA_DATE }}</mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="['DATA_DATE']"></mat-header-row>
-  <mat-row *matRowDef="let KRI001SourceRow; columns: ['DATA_DATE']"></mat-row>
+  <ng-container matColumnDef="MAINCODE">
+    <mat-header-cell *matHeaderCellDef>訊息種類大項代碼</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.MAINCODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="MAINNOTE">
+    <mat-header-cell *matHeaderCellDef>訊息種類大項 </mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.MAINNOTE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="SUBCODE">
+    <mat-header-cell *matHeaderCellDef>訊息種類細項第一位代碼</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.SUBCODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="SUBNOTE">
+    <mat-header-cell *matHeaderCellDef>訊息種類細項</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.SUBNOTE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NOTE">
+    <mat-header-cell *matHeaderCellDef>訊息內容</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NOTE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NEW_SUBCODE">
+    <mat-header-cell *matHeaderCellDef>訊息種類細項代碼</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NEW_SUBCODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="FILLER">
+    <mat-header-cell *matHeaderCellDef>保留欄位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.FILLER }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['IDN_BAN', 'DATA_DATE', 'MAINCODE', 'MAINNOTE', 'SUBCODE','SUBNOTE','NOTE','NEW_SUBCODE','FILLER']"></mat-header-row>
+  <mat-row *matRowDef="let VAM108SourceRow; columns: ['IDN_BAN', 'DATA_DATE', 'MAINCODE', 'MAINNOTE', 'SUBCODE','SUBNOTE','NOTE','NEW_SUBCODE','FILLER']"></mat-row>
 </mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>
+

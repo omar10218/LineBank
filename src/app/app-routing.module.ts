@@ -45,17 +45,7 @@ import { F01001scn6page29Component } from './f01001/f01001scn6/f01001scn6page29/
 import { F01001scn6page3Component } from './f01001/f01001scn6/f01001scn6page3/f01001scn6page3.component';
 import { F01001scn6page30Component } from './f01001/f01001scn6/f01001scn6page30/f01001scn6page30.component';
 import { F01001scn6page31Component } from './f01001/f01001scn6/f01001scn6page31/f01001scn6page31.component';
-import { F01001scn6page32Component } from './f01001/f01001scn6/f01001scn6page32/f01001scn6page32.component';
-import { F01001scn6page33Component } from './f01001/f01001scn6/f01001scn6page33/f01001scn6page33.component';
-import { F01001scn6page34Component } from './f01001/f01001scn6/f01001scn6page34/f01001scn6page34.component';
-import { F01001scn6page35Component } from './f01001/f01001scn6/f01001scn6page35/f01001scn6page35.component';
-import { F01001scn6page36Component } from './f01001/f01001scn6/f01001scn6page36/f01001scn6page36.component';
-import { F01001scn6page37Component } from './f01001/f01001scn6/f01001scn6page37/f01001scn6page37.component';
-import { F01001scn6page38Component } from './f01001/f01001scn6/f01001scn6page38/f01001scn6page38.component';
-import { F01001scn6page39Component } from './f01001/f01001scn6/f01001scn6page39/f01001scn6page39.component';
 import { F01001scn6page4Component } from './f01001/f01001scn6/f01001scn6page4/f01001scn6page4.component';
-import { F01001scn6page40Component } from './f01001/f01001scn6/f01001scn6page40/f01001scn6page40.component';
-import { F01001scn6page41Component } from './f01001/f01001scn6/f01001scn6page41/f01001scn6page41.component';
 import { F01001scn6page5Component } from './f01001/f01001scn6/f01001scn6page5/f01001scn6page5.component';
 import { F01001scn6page6Component } from './f01001/f01001scn6/f01001scn6page6/f01001scn6page6.component';
 import { F01001scn6page7Component } from './f01001/f01001scn6/f01001scn6page7/f01001scn6page7.component';
@@ -275,46 +265,6 @@ const routes: Routes = [
               {
                 path: 'F01001SCN6PAGE31',
                 component: F01001scn6page31Component
-              },
-              {
-                path: 'F01001SCN6PAGE32',
-                component: F01001scn6page32Component
-              },
-              {
-                path: 'F01001SCN6PAGE33',
-                component: F01001scn6page33Component
-              },
-              {
-                path: 'F01001SCN6PAGE34',
-                component: F01001scn6page34Component
-              },
-              {
-                path: 'F01001SCN6PAGE35',
-                component: F01001scn6page35Component
-              },
-              {
-                path: 'F01001SCN6PAGE36',
-                component: F01001scn6page36Component
-              },
-              {
-                path: 'F01001SCN6PAGE37',
-                component: F01001scn6page37Component
-              },
-              {
-                path: 'F01001SCN6PAGE38',
-                component: F01001scn6page38Component
-              },
-              {
-                path: 'F01001SCN6PAGE39',
-                component: F01001scn6page39Component
-              },
-              {
-                path: 'F01001SCN6PAGE40',
-                component: F01001scn6page40Component
-              },
-              {
-                path: 'F01001SCN6PAGE41',
-                component: F01001scn6page41Component
               }
             ]
           },

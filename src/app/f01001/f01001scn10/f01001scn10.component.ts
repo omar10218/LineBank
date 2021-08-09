@@ -38,6 +38,7 @@ export class F01001scn10Component implements OnInit {
     //   }
     //   this.dateValue = data.rspBody.items[0].QUERYDATE
     // });
+    this.router.navigate(['./F01001SCN1/F01001SCN10/F01001SCN10PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid } });
   }
 
   getApplno(): String {

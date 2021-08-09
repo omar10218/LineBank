@@ -10,7 +10,19 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './f01001scn6page1.component.html',
   styleUrls: ['./f01001scn6page1.component.css','../../../../assets/css/f01.css']
 })
-export class F01001scn6page1Component implements OnInit, AfterViewInit {
+export class F01001scn6page1Component implements OnInit {
+
+  AAS003: [] = [];
+  APS001: [] = [];
+  ACI001: [] = [];
+  BAI001: [] = [];
+  BAI004: [] = [];
+  BAS006: [] = [];
+  BAS008: [] = [];
+  JAS002: [] = [];
+  KRI001: [] = [];
+  STS007: [] = [];
+  VAM020: [] = [];
 
   constructor(private route: ActivatedRoute, private f01001scn6Service: F01001scn6Service) { }
   private applno: string;
@@ -26,42 +38,23 @@ export class F01001scn6page1Component implements OnInit, AfterViewInit {
       this.queryDate = params['queryDate'];
     });
 
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
-  }
-
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  AAS003Source = new MatTableDataSource<any>();
-
-  ngAfterViewInit() {
-    this.getAAS003();
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getAAS003();
-    });
-  }
-
-  getAAS003() {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
     formdata.append('cuid', this.cuid);
-    formdata.append('code', 'AAS003');
+    formdata.append('code', 'AAS003,APS001,ACI001,BAI001,BAI004,BAS006,BAS008,KRI001,JAS002,VAM020,STS007');
     formdata.append('queryDate', this.queryDate);
-    formdata.append('page', `${this.currentPage.pageIndex + 1}`);
-    formdata.append('per_page', `${this.currentPage.pageSize}`);
-    this.f01001scn6Service.getJCICSearch(formdata).subscribe(data => {
-      this.totalCount = data.rspBody.size;
-      this.AAS003Source.data = data.rspBody.items;
+    this.f01001scn6Service.getMASTERJCICSearch(formdata).subscribe(data => {
+      this.AAS003 = data.rspBody[0].AAS003;
+      this.APS001 = data.rspBody[0].APS001;
+      this.ACI001 = data.rspBody[0].ACI001;
+      this.BAI001 = data.rspBody[0].BAI001;
+      this.BAI004 = data.rspBody[0].BAI004;
+      this.BAS006 = data.rspBody[0].BAS006;
+      this.BAS008 = data.rspBody[0].BAS008;
+      this.JAS002 = data.rspBody[0].JAS002;
+      this.KRI001 = data.rspBody[0].KRI001;
+      this.STS007 = data.rspBody[0].STS007;
+      this.VAM020 = data.rspBody[0].VAM020;
     });
   }
 }

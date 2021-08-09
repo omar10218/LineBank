@@ -25,12 +25,14 @@ export class F01001scn13Component implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private router: Router, private f01001scn13Service: F01001scn13Service, public dialog: MatDialog) { }
   private applno: string;
   private search: string;
+  private cuid: string;
   currentPage: PageEvent;
   currentSort: Sort;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
+      this.cuid = params['cuid'];
     });
 
     this.currentPage = {

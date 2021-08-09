@@ -17,4 +17,9 @@ export class F01001scn6Service extends BaseService {
   getDate(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
+
+  getMASTERJCICSearch(formData: FormData): Observable<any> {
+    const baseUrl = 'f01/f01001scn6action1';
+    return this.postFormData(baseUrl, formData);
+  }
 }

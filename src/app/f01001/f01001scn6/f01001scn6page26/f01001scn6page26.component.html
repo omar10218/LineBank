@@ -1,86 +1,50 @@
-<th class="f01_th">DAM001</th>
+<th class="f01_th">銀行公會消金案件債務協商補充註記</th>
 <br>
-<mat-table [dataSource]="DAM001Source" matSortDisableClear>
-  <ng-container matColumnDef="CURRENCY_CODE">
-    <mat-header-cell *matHeaderCellDef>幣別  (對照表)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.CURRENCY_CODE }}</mat-cell>
+<mat-table [dataSource]="VAM107Source" matSortDisableClear>
+  <ng-container matColumnDef="IDN_BAN">
+    <mat-header-cell *matHeaderCellDef>統編/身分證號 </mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.IDN_BAN }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="BOUNCE_AMT">
-    <mat-header-cell *matHeaderCellDef>主體退票未清償註記總金額 (千元)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.BOUNCE_AMT }}</mat-cell>
+  <ng-container matColumnDef="DATA_DATE">
+    <mat-header-cell *matHeaderCellDef>訊息登錄日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.DATA_DATE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="BOUNCE_CNT">
-    <mat-header-cell *matHeaderCellDef>主體退票未清償註記總張數</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.BOUNCE_CNT }}</mat-cell>
+  <ng-container matColumnDef="MAINCODE">
+    <mat-header-cell *matHeaderCellDef>訊息種類大項代碼</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.MAINCODE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="LATEST_BOUNCE">
-    <mat-header-cell *matHeaderCellDef>主體最近一次退票日期</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.LATEST_BOUNCE }}</mat-cell>
+  <ng-container matColumnDef="MAINNOTE">
+    <mat-header-cell *matHeaderCellDef>訊息種類大項 </mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.MAINNOTE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="WRITEOFF_AMT">
-    <mat-header-cell *matHeaderCellDef>主體退票已清償註記總金額 (千元)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.WRITEOFF_AMT }}</mat-cell>
+  <ng-container matColumnDef="SUBCODE">
+    <mat-header-cell *matHeaderCellDef>訊息種類細項第一位代碼</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.SUBCODE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="WRITEOFF_CNT">
-    <mat-header-cell *matHeaderCellDef>主體退票已清償註記票總張數</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.WRITEOFF_CNT }}</mat-cell>
+  <ng-container matColumnDef="SUBNOTE">
+    <mat-header-cell *matHeaderCellDef>訊息種類細項</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.SUBNOTE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="LATEST_WRITEOFF">
-    <mat-header-cell *matHeaderCellDef>主體最近一次已清償註記註銷日期</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.LATEST_WRITEOFF }}</mat-cell>
+  <ng-container matColumnDef="NOTE">
+    <mat-header-cell *matHeaderCellDef>訊息內容</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NOTE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="IDN_BOUNCE_AMT">
-    <mat-header-cell *matHeaderCellDef>連帶退票未清償註記總金額 (千元)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IDN_BOUNCE_AMT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="IDN_BOUNCE_CNT">
-    <mat-header-cell *matHeaderCellDef>連帶退票未清償註記總張數</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IDN_BOUNCE_CNT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="IDN_LATEST_BOUNCE">
-    <mat-header-cell *matHeaderCellDef>連帶最近一次退票日期</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IDN_LATEST_BOUNCE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="IDN_WRITEOFF_AMT">
-    <mat-header-cell *matHeaderCellDef>連帶退票已清償註記總金額 (千元)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IDN_WRITEOFF_AMT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="IDN_WRITEOFF_CNT">
-    <mat-header-cell *matHeaderCellDef>連帶退票已清償註記票總張數</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IDN_WRITEOFF_CNT }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="IDN_LATEST_WRITEOFF">
-    <mat-header-cell *matHeaderCellDef>連帶最近一次已清償註記註銷日期</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IDN_LATEST_WRITEOFF }}</mat-cell>
+  <ng-container matColumnDef="NEW_SUBCODE">
+    <mat-header-cell *matHeaderCellDef>訊息種類細項代碼</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NEW_SUBCODE }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="FILLER">
     <mat-header-cell *matHeaderCellDef>保留欄位</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.FILLER }}</mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="['CURRENCY_CODE', 'BOUNCE_AMT', 'BOUNCE_CNT', 'LATEST_BOUNCE', 'WRITEOFF_AMT', 'WRITEOFF_CNT', 'LATEST_WRITEOFF', 'IDN_BOUNCE_AMT', 'IDN_BOUNCE_CNT', 'IDN_LATEST_BOUNCE', 'IDN_WRITEOFF_AMT', 'IDN_WRITEOFF_CNT', 'IDN_LATEST_WRITEOFF', 'FILLER']"></mat-header-row>
-  <mat-row *matRowDef="let DAM001SourceRow; columns: ['CURRENCY_CODE', 'BOUNCE_AMT', 'BOUNCE_CNT', 'LATEST_BOUNCE', 'WRITEOFF_AMT', 'WRITEOFF_CNT', 'LATEST_WRITEOFF', 'IDN_BOUNCE_AMT', 'IDN_BOUNCE_CNT', 'IDN_LATEST_BOUNCE', 'IDN_WRITEOFF_AMT', 'IDN_WRITEOFF_CNT', 'IDN_LATEST_WRITEOFF', 'FILLER']"></mat-row>
-  <tr>
-    <td>
-      <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-      </mat-paginator>
-    </td>
-  </tr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <mat-header-row *matHeaderRowDef="['IDN_BAN', 'DATA_DATE', 'MAINCODE', 'MAINNOTE', 'SUBCODE','SUBNOTE','NOTE','NEW_SUBCODE','FILLER']"></mat-header-row>
+ <mat-row *matRowDef="let VAM107SourceRow; columns: ['IDN_BAN', 'DATA_DATE', 'MAINCODE', 'MAINNOTE', 'SUBCODE','SUBNOTE','NOTE','NEW_SUBCODE','FILLER']"></mat-row>
 </mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>
