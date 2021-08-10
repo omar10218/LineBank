@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { BnNgIdleService } from 'bn-ng-idle';
-import Crypto from "crypto-js";
+import {JSEncrypt} from 'jsencrypt/lib';
+import { sha256 } from 'js-sha256';
 
 
 
@@ -12,6 +13,10 @@ import Crypto from "crypto-js";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+
+  jsEncrypt: JSEncrypt = new JSEncrypt({});
+  hash: string;
+
   no = '';
   pwd = '';
   public key: string;
@@ -22,15 +27,21 @@ export class LoginComponent {
   async onClickMe(): Promise<void>  {
     this.bnIdle = new BnNgIdleService();
 
-    //密碼加密
-    this.key = Crypto.enc.Utf8.parse('o08YQii9QF5MuzYj');//密钥
-    let res = Crypto.DES.encrypt(JSON.stringify(this.pwd), this.key, {
-      mode: Crypto.mode.ECB,
-      padding: Crypto.pad.Pkcs7
-    }).ciphertext.toString();
-    console.log(res);
+    //------------------------------------------------------------------
+    // let publicKey = this.jsEncrypt.getKey().getPublicBaseKeyB64();
+    // let privateKey = this.jsEncrypt.getKey().getPrivateBaseKeyB64();
+    // console.log("pub=====>"+publicKey);
+    // console.log("pri=====>"+privateKey);
+    // this.jsEncrypt.setPublicKey(publicKey);
+    // this.hash = sha256('19830330');
+    // const enc = this.jsEncrypt.encrypt("19830330");
+    // console.log("enc=====>"+enc);
+    // this.jsEncrypt.setPrivateKey(privateKey);
+    // const dec = this.jsEncrypt.decrypt(enc.toString());
+    // console.log("dec=====>"+dec);
+    //------------------------------------------------------------------
 
-    if (await this.loginService.initData(this.no,res)) {
+    if (await this.loginService.initData(this.no,this.pwd)) {
       localStorage.setItem("empNo", this.no);
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.bnIdle.startWatching(60*10).subscribe((isTimedOut: boolean) => {
