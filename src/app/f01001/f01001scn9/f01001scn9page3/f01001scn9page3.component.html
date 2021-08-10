@@ -1,1 +1,123 @@
-<p>f01001scn9page3 works!</p>
+<form [formGroup]="coreCustInfoForm" style="padding-left: 20px;">
+    <table>
+      <mat-card class="matCard">
+        <mat-card-content>
+          <tr>
+            <th nowrap="nowrap" align="left">收件編號</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="APPLNO" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">帳戶類型</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="ACC_TYPE" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">帳戶數 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="ACC_NUM" readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" align="left">最嚴重目前帳戶狀態 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="ACC_STATUS" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">轉催日期 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="TRANS_PRESS_DATE" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">轉呆日期 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="TRANS_BD_DATE" readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" align="left">行內協議成立日期 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="IB_AGGRE_EST_DATE" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">前置協商/調解申請日期 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="NEGO_APPLY_DATE" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">前置協商/調解成立日期 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="NEGO_EST_DATE" readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" align="left">更生成立日期 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="REFRESH_DATE" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">清算成立日期 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="LIQUIDATION_DATE" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">分期信貸 - 放款帳號1</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="INSTALL_ACC_1" readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" align="left">分期信貸 - 放款帳號2</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="INSTALL_ACC_2" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">分期信貸 - 合計列 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="INSTALL_TOTAL" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">循環信貸 - 放款帳號 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="REVOLVING_ACC" readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" align="left">房貸帳戶資訊 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="HOME_LOAN_INFO" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">信用卡帳戶資訊 </th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="CREDIT_INFO" readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+        </mat-card-content>
+      </mat-card>
+    </table>
+  </form>
+  

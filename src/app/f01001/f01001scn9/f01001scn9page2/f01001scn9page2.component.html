@@ -1,1 +1,29 @@
-<p>f01001scn9page2 works!</p>
+<form [formGroup]="coreCustInfoForm" style="padding-left: 20px;">
+    <table>
+      <mat-card class="matCard">
+        <mat-card-content>
+          <tr>
+            <th nowrap="nowrap" align="left">收件編號</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="APPLNO" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">活期存款</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="DEMAND_DEPOSIT" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">定期存款</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="TIME_DEPOSIT" readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+        </mat-card-content>
+      </mat-card>
+    </table>
+  </form>
+  

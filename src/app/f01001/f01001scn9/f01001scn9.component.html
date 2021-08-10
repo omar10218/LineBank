@@ -1,1 +1,7 @@
-<p>f01001scn9 works! {{ getApplno() }}</p>
+<div style="margin-top: 5px; margin-left: 5px; width: 100%;">
+    <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN9PAGE1"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">核心系統客戶資料 </button>
+    <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN9PAGE2"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">本行存款往來 </button>
+    <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN9PAGE3"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">本行消金產品(放款及信用卡)往來 </button>
+  </div>
+  <router-outlet></router-outlet>
+  
