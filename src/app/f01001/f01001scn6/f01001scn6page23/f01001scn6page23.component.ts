@@ -39,26 +39,26 @@ export class F01001scn6page23Component implements OnInit, AfterViewInit {
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  BAM505Source = new MatTableDataSource<any>();
+  KRM048Source = new MatTableDataSource<any>();
 
   ngAfterViewInit(): void {
-    this.getBAM505();
+    this.getKRM048();
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
-      this.getBAM505();
+      this.getKRM048();
     });
   }
-  getBAM505() {
+  getKRM048() {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
     formdata.append('cuid', this.cuid);
-    formdata.append('code', 'BAM505');
+    formdata.append('code', 'KRM048');
     formdata.append('queryDate', this.queryDate);
     formdata.append('page', `${this.currentPage.pageIndex + 1}`);
     formdata.append('per_page', `${this.currentPage.pageSize}`);
     this.f01001scn6Service.getJCICSearch(formdata).subscribe(data => {
       this.totalCount = data.rspBody.size;
-      this.BAM505Source.data = data.rspBody.items;
+      this.KRM048Source.data = data.rspBody.items;
     });
   }
 }

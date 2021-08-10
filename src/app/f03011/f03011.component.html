@@ -9,6 +9,16 @@
         <mat-card class="matCard">
             <mat-card-content>
                 <tr>
+                    <th>照會模組：</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <mat-select formControlName="tvNo">
+                                <mat-option *ngFor="let code of tvNoCode" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
                     <th>系統徵信比對：</th>
                     <td>
                         <mat-form-field color="accent">
@@ -28,20 +38,56 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                    </td>
-                    <th>照會模組：</th>
-                    <td>
-                        <mat-form-field color="accent">
-                            <mat-select formControlName="tvNo">
-                                <mat-option *ngFor="let code of tvNoCode" [value]="code.value">
-                                    {{code.viewValue}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </td>
+                    </td>   
                 </tr>
             </mat-card-content>
         </mat-card>
     </table>
     </form>
 </div>
+<br>
+<mat-table [dataSource]="dssCalloutSource" matSortDisableClear>
+  <ng-container matColumnDef="tvNo">
+    <mat-header-cell *matHeaderCellDef>照會模組</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ getOptiontvNo(row.tvNo) }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="scklv">
+    <mat-header-cell *matHeaderCellDef>系統徵信比對</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ getOptionscklv(row.scklv) }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="calv">
+    <mat-header-cell *matHeaderCellDef>案件等級</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ getOptioncalv(row.calv) }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-icon-button color="accent" (click)="startEdit(
+        row.tvNo, row.scklv, row.calv)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions2">
+    <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-icon-button color="accent" (click)="delete(
+        row.tvNo, row.scklv, row.calv)">
+        <mat-icon aria-label="delete">delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['tvNo', 'scklv', 'calv', 'actions', 'actions2']"></mat-header-row>
+  <mat-row *matRowDef="let webInfoRow; columns: ['tvNo', 'scklv', 'calv', 'actions', 'actions2']"></mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

@@ -1,1 +1,87 @@
-<p>f03012 works!</p>
+<th class="f01_th">資料比對設定維護</th>
+<br>
+<div>
+  <button type="submit" mat-raised-button color="primary" (click)="add()">新增</button>
+  <button type="submit" mat-raised-button color="primary">清除資料</button>
+</div>
+<br>
+<form [formGroup]="compareTableSetForm" style="padding-left: 20px;">
+<mat-card class="matCard">
+  <mat-card-content>
+    <tr>
+      <th>比對table:</th>
+      <td>
+        <mat-form-field color="accent">
+          <mat-select formControlName="compareTable" [(ngModel)]="selectedValue1" name="compareTableCode" (ngModelChange)="changeSelect()">
+            <mat-option *ngFor="let code of compareTableCode"[value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+           </mat-select>
+        </mat-form-field>
+      </td>
+      <th>比對欄位:</th>
+      <td>
+        <mat-form-field color="accent">
+          <mat-select formControlName="compareColumn" [(ngModel)]="selectedValue2" name="compareColumnCode" >
+            <mat-option *ngFor="let code of compareColumnCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+           </mat-select>
+        </mat-form-field>
+      </td>
+      <th>設定值></th>
+      <td>
+        <mat-form-field color="accent">
+          <input formControlName="setValue" matInput [(ngModel)]="setValue" >
+        </mat-form-field>
+      </td>
+    </tr>
+  </mat-card-content>
+</mat-card>
+</form>
+<!-- list -->
+<mat-table [dataSource]="compareDataSetSource">
+  <ng-container matColumnDef="COMPARE_TABLE">
+    <mat-header-cell *matHeaderCellDef>比對table</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.compareTable }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="COMPARE_COLUMN">
+    <mat-header-cell *matHeaderCellDef>比對欄位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.compareColumn }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="SET_VALUE">
+    <mat-header-cell *matHeaderCellDef>設定值</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.setValue }}</mat-cell>
+  </ng-container>
+  <!-- update -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-icon-button color="accent" (click)="edit(
+        row.compareTable, row.compareColumn, row.setValue)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container> -->
+  <!-- delete -->
+   <ng-container matColumnDef="actions2">
+    <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-icon-button color="accent" (click)="delete(
+        row.compareTable, row.compareColumn, row.setValue)">
+        <mat-icon aria-label="delete">delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['COMPARE_TABLE', 'COMPARE_COLUMN', 'SET_VALUE', 'actions', 'actions2']"></mat-header-row>
+  <mat-row *matRowDef="let compareDataSetSourceRow; columns: ['COMPARE_TABLE', 'COMPARE_COLUMN', 'SET_VALUE', 'actions', 'actions2']"></mat-row>
+</mat-table>
+  
+  
+  <tr>
+    <td>
+      <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

@@ -1,97 +1,68 @@
-<th class="f01_th">KRM043</th>
+<th class="f01_th">通報案件紀錄資訊-案件通報</th>
 <br>
-<mat-table [dataSource]="KRM043Source" matSortDisableClear>
-  <ng-container matColumnDef="IDN_BAN">
-    <mat-header-cell *matHeaderCellDef>身分證號/統編</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IDN_BAN }}</mat-cell>
+<mat-table [dataSource]="VAM201Source" matSortDisableClear>
+  <ng-container matColumnDef="TYPE">
+    <mat-header-cell *matHeaderCellDef>通報種類</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.TYPE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="DATA_DATE">
-    <mat-header-cell *matHeaderCellDef>資料日期</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.DATA_DATE }}</mat-cell>
+  <ng-container matColumnDef="CRI_PLACE">
+    <mat-header-cell *matHeaderCellDef>通報單位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CRI_PLACE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="ISSUE">
-    <mat-header-cell *matHeaderCellDef>報送機構代號</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.ISSUE }}</mat-cell>
+  <ng-container matColumnDef="CRI_DATE">
+    <mat-header-cell *matHeaderCellDef>發生日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CRI_DATE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="ISSUE_NAME">
-    <mat-header-cell *matHeaderCellDef>報送機構名稱</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.ISSUE_NAME }}</mat-cell>
+  <ng-container matColumnDef="DOC_DATE">
+    <mat-header-cell *matHeaderCellDef>通報日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.DOC_DATE }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="CNAME">
-    <mat-header-cell *matHeaderCellDef>中文姓名/戶名</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>中文戶名</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.CNAME }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="ENAME">
-    <mat-header-cell *matHeaderCellDef>英文姓名/戶名</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.ENAME }}</mat-cell>
+  <ng-container matColumnDef="INVOICE_NO">
+    <mat-header-cell *matHeaderCellDef>單據號碼/ 人頭帳號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.INVOICE_NO }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="BIRTH">
-    <mat-header-cell *matHeaderCellDef>出生/設立日期</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.BIRTH }}</mat-cell>
+  <ng-container matColumnDef="REMARK_1">
+    <mat-header-cell *matHeaderCellDef>說明１</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REMARK_1 }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="EDU_CODE">
-    <mat-header-cell *matHeaderCellDef>教育程度代碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.EDU_CODE }}</mat-cell>
+  <ng-container matColumnDef="REMARK_2">
+    <mat-header-cell *matHeaderCellDef>說明２</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REMARK_2 }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="EDU_NAME">
-    <mat-header-cell *matHeaderCellDef>教育程度名稱</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IDN_BAN }}</mat-cell>
+  <ng-container matColumnDef="REMARK_3">
+    <mat-header-cell *matHeaderCellDef>說明３</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REMARK_3 }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="RADDR">
-    <mat-header-cell *matHeaderCellDef>戶籍地址</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.RADDR }}</mat-cell>
+  <ng-container matColumnDef="REMARK_4">
+    <mat-header-cell *matHeaderCellDef>說明４</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REMARK_4 }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="MADDR">
-    <mat-header-cell *matHeaderCellDef>寄單地址</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.MADDR }}</mat-cell>
+  <ng-container matColumnDef="DOC_NAME">
+    <mat-header-cell *matHeaderCellDef>通報單位中文名稱</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.DOC_NAME }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="H_CODE">
-    <mat-header-cell *matHeaderCellDef>有無自有住宅/營業場所</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.H_CODE }}</mat-cell>
+  <ng-container matColumnDef="REL_CODE">
+    <mat-header-cell *matHeaderCellDef>警示帳戶解除代碼</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REL_CODE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="H_TEL">
-    <mat-header-cell *matHeaderCellDef>居住/營業電話</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.H_TEL }}</mat-cell>
+  <ng-container matColumnDef="REL_REASON">
+    <mat-header-cell *matHeaderCellDef>警示帳戶解除原因</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REL_REASON }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="O_TEL">
-    <mat-header-cell *matHeaderCellDef>任職電話</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.O_TEL }}</mat-cell>
+  <ng-container matColumnDef="REL_DATE">
+    <mat-header-cell *matHeaderCellDef>警示帳戶解除日期</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.REL_DATE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="M_TEL">
-    <mat-header-cell *matHeaderCellDef>行動電話</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.M_TEL }}</mat-cell>
+  <ng-container matColumnDef="FILLER">
+    <mat-header-cell *matHeaderCellDef>保留欄位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.FILLER }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="ONAME">
-    <mat-header-cell *matHeaderCellDef>任職機構</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.ONAME }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="TITLE">
-    <mat-header-cell *matHeaderCellDef>職稱</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.TITLE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="PROS_CODE">
-    <mat-header-cell *matHeaderCellDef>職業類別代碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.PROS_CODE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="PROS_NAME">
-    <mat-header-cell *matHeaderCellDef>職業類別名稱</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.PROS_NAME }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="SALARY">
-    <mat-header-cell *matHeaderCellDef>年薪/營業額(千元)</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.SALARY }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="SENIOR">
-    <mat-header-cell *matHeaderCellDef>服務年資/營業年數</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.SENIOR }}</mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="['IDN_BAN', 'DATA_DATE', 'ISSUE', 'ISSUE_NAME', 'CNAME', 'ENAME', 'BIRTH',
-  'EDU_CODE', 'EDU_NAME', 'RADDR', 'MADDR', 'H_CODE','H_TEL', 'O_TEL', 'M_TEL', 'ONAME', 'TITLE',
-  'PROS_CODE', 'PROS_NAME', 'SALARY', 'SENIOR']"></mat-header-row>
-  <mat-row *matRowDef="let KRM043SourceRow; columns: ['IDN_BAN', 'DATA_DATE', 'ISSUE','ISSUE_NAME', 'CNAME', 'ENAME', 'BIRTH',
- 'EDU_CODE', 'EDU_NAME', 'RADDR', 'MADDR', 'H_CODE','H_TEL', 'O_TEL', 'M_TEL', 'ONAME', 'TITLE',
- 'PROS_CODE', 'PROS_NAME', 'SALARY', 'SENIOR']"></mat-row>
+  <mat-header-row *matHeaderRowDef="['TYPE', 'CRI_PLACE', 'CRI_DATE', 'DOC_DATE', 'CNAME', 'INVOICE_NO', 'REMARK_1', 'REMARK_2', 'REMARK_3', 'REMARK_4', 'DOC_NAME', 'REL_CODE', 'REL_REASON', 'REL_DATE', 'FILLER']"></mat-header-row>
+  <mat-row *matRowDef="let VAM201SourceRow; columns: ['TYPE', 'CRI_PLACE', 'CRI_DATE', 'DOC_DATE', 'CNAME', 'INVOICE_NO', 'REMARK_1', 'REMARK_2', 'REMARK_3', 'REMARK_4', 'DOC_NAME', 'REL_CODE', 'REL_REASON', 'REL_DATE', 'FILLER']"></mat-row>
 </mat-table>
 
 <tr>

@@ -1,46 +1,150 @@
-<th class="f01_th">AAS003</th>
-<br>
-<mat-table [dataSource]="AAS003Source" matSortDisableClear>
-  <ng-container matColumnDef="IDN">
-    <mat-header-cell *matHeaderCellDef>身分證號</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IDN }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="PNAME">
-    <mat-header-cell *matHeaderCellDef>中文姓名</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.PNAME }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="IS_LOST">
-    <mat-header-cell *matHeaderCellDef>身分證註銷或一年內掛失紀錄</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IS_LOST }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="IS_WANTED">
-    <mat-header-cell *matHeaderCellDef>通報案件紀錄</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IS_WANTED }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="IS_NOTE">
-    <mat-header-cell *matHeaderCellDef>是否有補充註記</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.IS_NOTE }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="NOTELIST">
-    <mat-header-cell *matHeaderCellDef>補充註記</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.NOTELIST }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="WANTEDLIST">
-    <mat-header-cell *matHeaderCellDef>通報案件紀錄</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.WANTEDLIST }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="FOREIGNER_MARK">
-    <mat-header-cell *matHeaderCellDef>在台無戶籍人士身分證號對照索引註記</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.FOREIGNER_MARK }}</mat-cell>
-  </ng-container>
-  <mat-header-row *matHeaderRowDef="['IDN', 'PNAME', 'IS_LOST', 'IS_WANTED', 'IS_NOTE', 'NOTELIST', 'WANTEDLIST', 'FOREIGNER_MARK']"></mat-header-row>
-  <mat-row *matRowDef="let AAS003SourceRow; columns: ['IDN', 'PNAME', 'IS_LOST', 'IS_WANTED', 'IS_NOTE', 'NOTELIST', 'WANTEDLIST', 'FOREIGNER_MARK']"></mat-row>
-</mat-table>
-
-<tr>
-  <td>
-    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-    </mat-paginator>
-  </td>
-</tr>
+<th class="f01_th">AAS003 自然人姓名,身分證補發,通報,補充註記</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>身分證號</th>
+    <th>中文姓名</th>
+    <th>身分證註銷或一年內掛失紀錄</th>
+    <th>通報案件紀錄</th>
+    <th>是否有補充註記</th>
+    <th>補充註記</th>
+    <th>通報案件紀錄</th>
+    <th>在台無戶籍人士身分證號對照索引註記</th>
+  </tr>
+  <tr class="tbContext" *ngFor="let AAS003 of AAS003">
+    <td>{{AAS003.IDN}}</td>
+    <td>{{AAS003.PNAME}}</td>
+    <td>{{AAS003.IS_LOST}}</td>
+    <td>{{AAS003.IS_WANTED}}</td>
+    <td>{{AAS003.IS_NOTE}}</td>
+    <td>{{AAS003.NOTELIST}}</td>
+    <td>{{AAS003.WANTEDLIST}}</td>
+    <td>{{AAS003.FOREIGNER_MARK}}</td>
+  </tr>
+</table>
+<th class="f01_th">APS001 自然人個人資料</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>戶籍地址</th>
+    <th>英文姓名</th>
+    <th>出生日期</th>
+  </tr>
+  <tr class="tbContext" *ngFor="let APS001 of APS001">
+    <td>{{APS001.RGY_ADDRESS}}</td>
+    <td>{{APS001.ENG_NAME}}</td>
+    <td>{{APS001.BIRTHDAY}}</td>
+  </tr>
+</table>
+<th class="f01_th">ACI001 企業資料日期</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>資料日期 YYYMMDD</th>
+  </tr>
+  <tr class="tbContext" *ngFor="let ACI001 of ACI001">
+    <td>{{ACI001.DATA_DATE}}</td>
+  </tr>
+</table>
+<th class="f01_th">BAI001 授信資料日期</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>資料日期YYYMMDD</th>
+  </tr>
+  <tr class="tbContext" *ngFor="let BAI001 of BAI001">
+    <td>{{BAI001.DATA_DATE}}</td>
+  </tr>
+</table>
+<th class="f01_th">BAI004 現金卡資料日期</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>資料日期YYYMMDD</th>
+  </tr>
+  <tr class="tbContext" *ngFor="let BAI004 of BAI004">
+    <td>{{BAI004.DATA_DATE}}</td>
+  </tr>
+</table>
+<th class="f01_th">BAS006 新增額度及每筆撥款清償提示資訊</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>新增額度/撥款清償提示資訊 Y:有新增或清償資訊, N:無新增或清償資訊</th>
+    <th>授信最新月份</th>
+  </tr>
+  <tr class="tbContext" *ngFor="let BAS006 of BAS006">
+    <td>{{BAS006.CREDIT_AD_FLAG}}</td>
+    <td>{{BAS006.BA_YYYMM}}</td>
+  </tr>
+</table>
+<th class="f01_th">BAS008 每日授信餘額變動資訊-交易日期擷取區間</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>每日授信餘額變動資訊-交易起日 民國年月日</th>
+    <th>每日授信餘額變動資訊-交易迄日 民國年月日</th>
+    <th>保留欄位</th>
+  </tr>
+  <tr class="tbContext" *ngFor="let BAS008 of BAS008">
+    <td>{{BAS008.STA_DATE}}</td>
+    <td>{{BAS008.END_DATE}}</td>
+    <td>{{BAS008.FILLER}}</td>
+  </tr>
+</table>
+<th class="f01_th">KRI001 資料處理日期</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>資料處理日期YYYMMDD</th>
+  </tr>
+  <tr class="tbContext" *ngFor="let KRI001 of KRI001">
+    <td>{{KRI001.DATA_DATE}}</td>
+  </tr>
+</table>
+<th class="f01_th">JAS002 信用異常紀錄 (B, D, K)</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>授信異常</th>
+    <th>最近授信異常日期</th>
+    <th>退票異常</th>
+    <th>最近退票異常日期</th>
+    <th>拒絕往來記錄</th>
+    <th>拒絕往來日期 拒絕往來記錄N本欄位有日期為該戶拒往已解除本欄位日期為拒絕往來日期</th>
+    <th>強制停卡異常</th>
+    <th>最近強制停卡日期</th>
+  </tr>
+  <tr class="tbContext" *ngFor="let JAS002 of JAS002">
+    <td>{{JAS002.EVER_DELINQUENT}}</td>
+    <td>{{JAS002.DELINQUENT_DATE}}</td>
+    <td>{{JAS002.EVER_BAD_CHECK}}</td>
+    <td>{{JAS002.BAD_CHECK_DATE}}</td>
+    <td>{{JAS002.EVER_REJECT}}</td>
+    <td>{{JAS002.REJECT_DATE}}</td>
+    <td>{{JAS002.EVER_STOP_CARD}}</td>
+    <td>{{JAS002.STOP_CARD_DATE}}</td>
+  </tr>
+</table>
+<th class="f01_th">VAM020 身分證號更改紀錄 (表頭)</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>原身分證號</th>
+    <th>新身分證號</th>
+    <th>中文姓名</th>
+    <th>本中心處理日期</th>
+    <th>比對代號 (1:原身分證號 2:新身分證號)</th>
+  </tr>
+  <tr class="tbContext" *ngFor="let VAM020 of VAM020">
+    <td>{{VAM020.OLD_IDN}}</td>
+    <td>{{VAM020.NEW_IDN }}</td>
+    <td>{{VAM020.NAME}}</td>
+    <td>{{VAM020.OP_DATE}}</td>
+    <td>{{VAM020.TYPE}}</td>
+  </tr>
+</table>
+<th class="f01_th">STS007 被查詢總次數(查詢理由新業務原業務統計)</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>新業務申請次數</th>
+    <th>原業務往來次數</th>
+    <th>原業務往來及新業務申請次數</th>
+  </tr>
+  <tr class="tbContext" *ngFor="let STS007 of STS007">
+    <td>{{STS007.NEW_CNT}}</td>
+    <td>{{STS007.OLD_CNT}}</td>
+    <td>{{STS007.OLD_NEW_CNT}}</td>
+  </tr>
+</table>
+<br><br>

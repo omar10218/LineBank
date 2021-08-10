@@ -1,1 +1,24 @@
-<p>f01001scn11page3 works!</p>
+<th class="f01_th">歷史申請書比對(同一NID)檔</th>
+<table style="padding-left: 20px;">
+  <mat-card class="matCard">
+    <mat-card-content>
+      <ng-container *ngFor="let compare of compare;let i = index">
+        <ng-container *ngIf="i % 3 == 0">
+          <tr>
+        </ng-container>
+        <ng-container *ngIf="compare.result == 'Y'; else elseTemplate">
+          <th nowrap="nowrap">{{getOptionDesc(compare.compareColumn)}}：</th>
+          <td style="color: red;">
+            {{compare.count}}
+          </td>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <th nowrap="nowrap">{{getOptionDesc(compare.compareColumn)}}：</th>
+          <td>
+            {{compare.count}}
+          </td>
+        </ng-template>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</table>

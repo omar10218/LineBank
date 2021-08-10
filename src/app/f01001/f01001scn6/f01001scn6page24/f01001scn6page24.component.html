@@ -1,36 +1,32 @@
-<th class="f01_th">BAM062</th>
+<th class="f01_th">學生身分報送紀錄</th>
 <br>
-<mat-table [dataSource]="BAM062Source" matSortDisableClear>
-  <ng-container matColumnDef="MAIN_CODE">
-    <mat-header-cell *matHeaderCellDef>行庫代號</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.MAIN_CODE }}</mat-cell>
+<mat-table [dataSource]="KCM012Source" matSortDisableClear>
+  <ng-container matColumnDef="BANK">
+    <mat-header-cell *matHeaderCellDef>報送機構代號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.BANK }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="BANK_NAME">
-    <mat-header-cell *matHeaderCellDef>行庫名稱</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>報送機構名稱</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.BANK_NAME }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="DATA_TYPE">
-    <mat-header-cell *matHeaderCellDef>資料種類</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.DATA_TYPE }}</mat-cell>
+  <ng-container matColumnDef="TYPE">
+    <mat-header-cell *matHeaderCellDef>資料類別</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.TYPE }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="DATA_YYYMM">
-    <mat-header-cell *matHeaderCellDef>年收入資料年月</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.DATA_YYYMM }}</mat-cell>
+  <ng-container matColumnDef="YN">
+    <mat-header-cell *matHeaderCellDef>是否已報送為非學生身分</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.YN }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="SALARY">
-    <mat-header-cell *matHeaderCellDef>年收入</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.SALARY }}</mat-cell>
+  <ng-container matColumnDef="YYYMM1">
+    <mat-header-cell *matHeaderCellDef>學生身分起始報送年月</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.YYYMM1 }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="UPD_YYYMM">
-    <mat-header-cell *matHeaderCellDef>資料更新年月</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.UPD_YYYMM }}</mat-cell>
+  <ng-container matColumnDef="YYYMM2">
+    <mat-header-cell *matHeaderCellDef>非學生身分起始報送年月</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.YYYMM2 }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="FILLER">
-    <mat-header-cell *matHeaderCellDef>保留欄位</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.FILLER }}</mat-cell>
-  </ng-container>
-  <mat-header-row *matHeaderRowDef="['MAIN_CODE','BANK_NAME','DATA_TYPE','DATA_YYYMM','SALARY','UPD_YYYMM','FILLER']"></mat-header-row>
-  <mat-row *matRowDef="let BAM062SourceRow; columns: ['MAIN_CODE','BANK_NAME','DATA_TYPE','DATA_YYYMM','SALARY','UPD_YYYMM','FILLER']"></mat-row>
+  <mat-header-row *matHeaderRowDef="['BANK', 'BANK_NAME','TYPE','YN','YYYMM1','YYYMM2'  ]"></mat-header-row>
+  <mat-row *matRowDef="let KCM012SourceRow; columns: ['BANK', 'BANK_NAME','TYPE','YN' ,'YYYMM1','YYYMM2' ]"></mat-row>
 </mat-table>
 
 <tr>
