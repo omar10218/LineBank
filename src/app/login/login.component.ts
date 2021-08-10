@@ -16,6 +16,7 @@ export class LoginComponent {
 
   jsEncrypt: JSEncrypt = new JSEncrypt({});
   hash: string;
+  hide = true;
 
   no = '';
   pwd = '';
