@@ -132,7 +132,7 @@ import { F03010editComponent } from './f03010/f03010edit/f03010edit.component';
 import { F01001scn9page1Component } from './f01001/f01001scn9/f01001scn9page1/f01001scn9page1.component';
 import { F01001scn9page2Component } from './f01001/f01001scn9/f01001scn9page2/f01001scn9page2.component';
 import { F01001scn9page3Component } from './f01001/f01001scn9/f01001scn9page3/f01001scn9page3.component';
-
+import { F01002Component } from './f01002/f01002.component';
 
 @NgModule({
   declarations: [
@@ -183,6 +183,7 @@ import { F01001scn9page3Component } from './f01001/f01001scn9/f01001scn9page3/f0
     F01001scn13addComponent,
     F01001scn13editComponent,
     F01001scn13deleteComponent,
+    F01002Component,
     F02001scn0Component,
     F02001scn1Component,
     F02001scn2Component,

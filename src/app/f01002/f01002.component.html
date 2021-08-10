@@ -1,0 +1,59 @@
+<div class="container">
+  <th class="f03_th">錯誤件處理</th>
+    <table style="padding-left: 20px;">
+      <div class="f03_div">
+        <button mat-raised-button color="primary" (click)="newSearch()">重查</button>
+        <button mat-raised-button color="primary" (click)="Decline()">婉拒</button>
+      </div>
+      <br>
+      <mat-card class="matCard">
+        <mat-card-content>
+          <tr>
+            <th nowrap="nowrap">錯誤關卡</th>
+            <td>
+              <mat-form-field color="accent">
+                <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()">
+                  <mat-option *ngFor="let code of sysCode" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+        </mat-card-content>
+      </mat-card>
+    </table>
+  <!-- </form> -->
+</div>
+<br>
+<mat-table [dataSource]="roleFunctionSource" matSortDisableClear>
+
+  <ng-container matColumnDef="IS_CHK">
+    <mat-header-cell *matHeaderCellDef>
+      <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row; let i = index;">
+      <mat-checkbox [(ngModel)]="chkArray[i].completed" color="primary"></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="swcApplno">
+    <mat-header-cell *matHeaderCellDef>案件編號</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.applno }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="swcID">
+    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.cuid }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="[ 'IS_CHK','swcApplno', 'swcID']; sticky: true">
+  </mat-header-row>
+  <mat-row *matRowDef="let ruleParmRow; columns: [ 'IS_CHK','swcApplno', 'swcID']">
+  </mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

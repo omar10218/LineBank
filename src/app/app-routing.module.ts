@@ -57,6 +57,7 @@ import { F01001scn9Component } from './f01001/f01001scn9/f01001scn9.component';
 import { F01001scn9page1Component } from './f01001/f01001scn9/f01001scn9page1/f01001scn9page1.component';
 import { F01001scn9page2Component } from './f01001/f01001scn9/f01001scn9page2/f01001scn9page2.component';
 import { F01001scn9page3Component } from './f01001/f01001scn9/f01001scn9page3/f01001scn9page3.component';
+import { F01002Component } from './f01002/f01002.component';
 import { F02001Component } from './f02001/f02001.component';
 import { F02001scn0Component } from './f02001/f02001scn0/f02001scn0.component';
 import { F02001scn1Component } from './f02001/f02001scn1/f02001scn1.component';
@@ -347,6 +348,10 @@ const routes: Routes = [
             component: F01001scn13Component
           }
         ]
+      },
+      {
+        path: 'F01002',
+        component: F01002Component
       },
       {
         path: 'F02001',
