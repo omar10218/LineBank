@@ -14,6 +14,10 @@ import { F01001scn11page4Component } from './f01001/f01001scn11/f01001scn11page4
 import { F01001scn11page5Component } from './f01001/f01001scn11/f01001scn11page5/f01001scn11page5.component';
 import { F01001scn12Component } from './f01001/f01001scn12/f01001scn12.component';
 import { F01001scn13Component } from './f01001/f01001scn13/f01001scn13.component';
+import { F01001scn14Component } from './f01001/f01001scn14/f01001scn14.component';
+import { F01001scn14page1Component } from './f01001/f01001scn14/f01001scn14page1/f01001scn14page1.component';
+import { F01001scn14page2Component } from './f01001/f01001scn14/f01001scn14page2/f01001scn14page2.component';
+import { F01001scn14page3Component } from './f01001/f01001scn14/f01001scn14page3/f01001scn14page3.component';
 
 import { F01001scn2Component } from './f01001/f01001scn2/f01001scn2.component';
 import { F01001scn3Component } from './f01001/f01001scn3/f01001scn3.component';
@@ -347,6 +351,24 @@ const routes: Routes = [
           {
             path: 'F01001SCN13',
             component: F01001scn13Component
+          },
+          {
+            path: 'F01001SCN14',
+            component: F01001scn14Component,
+            children: [
+              {
+                path: 'F01001SCN14PAGE1',
+                component: F01001scn14page1Component
+              },
+              {
+                path: 'F01001SCN14PAGE2',
+                component: F01001scn14page2Component
+              },
+              {
+                path: 'F01001SCN14PAGE3',
+                component: F01001scn14page3Component
+              },
+            ]
           }
         ]
       },
