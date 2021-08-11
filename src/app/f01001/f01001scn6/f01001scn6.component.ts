@@ -15,6 +15,7 @@ export class F01001scn6Component implements OnInit {
 
   dateCode: dateCode[] = [];
   dateValue: string;
+  toggle = true;
 
   constructor(private route: ActivatedRoute, private router: Router, private f01001scn6Service: F01001scn6Service) { }
   private applno: string;

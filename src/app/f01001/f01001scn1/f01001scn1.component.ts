@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-f01001scn1',
   templateUrl: './f01001scn1.component.html',
-  styleUrls: ['./f01001scn1.component.css']
+  styleUrls: ['./f01001scn1.component.css','../../../assets/css/f01.css']
 })
 export class F01001scn1Component implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) { }

@@ -1,8 +1,8 @@
 <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
-    <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN11PAGE1"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">本案申請書資訊合理性</button>
-    <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN11PAGE2"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">歷史申請書比對(不同NID)</button>
-    <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN11PAGE3"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">歷史申請書比對(同一NID)</button>
-    <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN11PAGE4"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">KRM043報送資料比對</button>
-    <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN11PAGE5"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">BAM061報送資料比對</button>
+    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN11PAGE1"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">本案申請書資訊合理性</button>
+    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN11PAGE2"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">歷史申請書比對(不同NID)</button>
+    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN11PAGE3"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">歷史申請書比對(同一NID)</button>
+    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN11PAGE4"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">KRM043報送資料比對</button>
+    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./F01001SCN11PAGE5"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">BAM061報送資料比對</button>
 </div>
 <router-outlet></router-outlet>
