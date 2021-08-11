@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-f01001scn1',
-  templateUrl: './f01001scn1.component.html',
-  styleUrls: ['./f01001scn1.component.css','../../../assets/css/f01.css']
+  selector: 'app-f01001scn14',
+  templateUrl: './f01001scn14.component.html',
+  styleUrls: ['./f01001scn14.component.css','../../../assets/css/f01.css']
 })
-export class F01001scn1Component implements OnInit {
+export class F01001scn14Component implements OnInit {
+
   constructor(private route: ActivatedRoute, private router: Router) { }
   private applno: string;
   private search: string;
@@ -17,11 +18,7 @@ export class F01001scn1Component implements OnInit {
       this.search = params['search'];
       this.cuid = params['cuid'];
     });
-  }
-
-  ngAfterViewInit() {
-    let element: HTMLElement = document.getElementById('firstBtn') as HTMLElement;
-    element.click();
+    this.router.navigate(['./F01001SCN1/F01001SCN14/F01001SCN14PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid } });
   }
 
   getApplno(): String {
@@ -32,7 +29,8 @@ export class F01001scn1Component implements OnInit {
     return this.search;
   }
 
-  getCuid(): string {
+  getCuid() :string {
     return this.cuid;
   }
+
 }

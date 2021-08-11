@@ -133,6 +133,14 @@ import { F01001scn9page1Component } from './f01001/f01001scn9/f01001scn9page1/f0
 import { F01001scn9page2Component } from './f01001/f01001scn9/f01001scn9page2/f01001scn9page2.component';
 import { F01001scn9page3Component } from './f01001/f01001scn9/f01001scn9page3/f01001scn9page3.component';
 import { F01002Component } from './f01002/f01002.component';
+import { F04001Component } from './f04001/f04001.component';
+import { F01001scn8addComponent } from './f01001/f01001scn8/f01001scn8add/f01001scn8add.component';
+import { F01001scn8editComponent } from './f01001/f01001scn8/f01001scn8edit/f01001scn8edit.component';
+import { F01001scn8confirmComponent } from './f01001/f01001scn8/f01001scn8confirm/f01001scn8confirm.component';
+import { F01001scn14Component } from './f01001/f01001scn14/f01001scn14.component';
+import { F01001scn14page1Component } from './f01001/f01001scn14/f01001scn14page1/f01001scn14page1.component';
+import { F01001scn14page2Component } from './f01001/f01001scn14/f01001scn14page2/f01001scn14page2.component';
+import { F01001scn14page3Component } from './f01001/f01001scn14/f01001scn14page3/f01001scn14page3.component';
 
 @NgModule({
   declarations: [
@@ -255,6 +263,14 @@ import { F01002Component } from './f01002/f01002.component';
     F01001scn9page1Component,
     F01001scn9page2Component,
     F01001scn9page3Component,
+    F04001Component,
+    F01001scn8addComponent,
+    F01001scn8editComponent,
+    F01001scn8confirmComponent,
+    F01001scn14Component,
+    F01001scn14page1Component,
+    F01001scn14page2Component,
+    F01001scn14page3Component,
   ],
   imports: [
     BrowserModule,

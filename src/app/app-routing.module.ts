@@ -14,6 +14,10 @@ import { F01001scn11page4Component } from './f01001/f01001scn11/f01001scn11page4
 import { F01001scn11page5Component } from './f01001/f01001scn11/f01001scn11page5/f01001scn11page5.component';
 import { F01001scn12Component } from './f01001/f01001scn12/f01001scn12.component';
 import { F01001scn13Component } from './f01001/f01001scn13/f01001scn13.component';
+import { F01001scn14Component } from './f01001/f01001scn14/f01001scn14.component';
+import { F01001scn14page1Component } from './f01001/f01001scn14/f01001scn14page1/f01001scn14page1.component';
+import { F01001scn14page2Component } from './f01001/f01001scn14/f01001scn14page2/f01001scn14page2.component';
+import { F01001scn14page3Component } from './f01001/f01001scn14/f01001scn14page3/f01001scn14page3.component';
 
 import { F01001scn2Component } from './f01001/f01001scn2/f01001scn2.component';
 import { F01001scn3Component } from './f01001/f01001scn3/f01001scn3.component';
@@ -84,6 +88,7 @@ import { F03009Component } from './f03009/f03009.component';
 import { F03010Component } from './f03010/f03010.component';
 import { F03011Component } from './f03011/f03011.component';
 import { F03012Component } from './f03012/f03012.component';
+import { F04001Component } from './f04001/f04001.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
@@ -346,6 +351,24 @@ const routes: Routes = [
           {
             path: 'F01001SCN13',
             component: F01001scn13Component
+          },
+          {
+            path: 'F01001SCN14',
+            component: F01001scn14Component,
+            children: [
+              {
+                path: 'F01001SCN14PAGE1',
+                component: F01001scn14page1Component
+              },
+              {
+                path: 'F01001SCN14PAGE2',
+                component: F01001scn14page2Component
+              },
+              {
+                path: 'F01001SCN14PAGE3',
+                component: F01001scn14page3Component
+              },
+            ]
           }
         ]
       },
@@ -458,6 +481,10 @@ const routes: Routes = [
       {
         path: 'F03012',
         component: F03012Component
+      },
+      {
+        path: 'F04001',
+        component: F04001Component
       },
     ]
   }
