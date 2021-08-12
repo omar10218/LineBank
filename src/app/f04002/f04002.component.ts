@@ -70,7 +70,7 @@ export class F04002Component implements OnInit {
       if (obj.completed) { valArray.push(obj.value); }
     }
     console.log(valArray);
-    const baseUrl = 'f04/f04002fn1';
+    const baseUrl = 'f04/f04002fn2';
      this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl,this.selectedValue, valArray, 'A').subscribe(data => {
       const childernDialogRef = this.dialog.open(F04002confirmComponent, {
         data: { msgStr: data.rspMsg }
