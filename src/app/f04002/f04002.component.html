@@ -40,13 +40,13 @@
     <mat-header-cell *matHeaderCellDef>案件編號</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.applno }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="swcID">
+  <!-- <ng-container matColumnDef="swcID">
     <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.cuid }}</mat-cell>
-  </ng-container>
-  <mat-header-row *matHeaderRowDef="[ 'IS_CHK','swcApplno', 'swcID']; sticky: true">
+  </ng-container> -->
+  <mat-header-row *matHeaderRowDef="[ 'IS_CHK','swcApplno']; sticky: true">
   </mat-header-row>
-  <mat-row *matRowDef="let ruleParmRow; columns: [ 'IS_CHK','swcApplno', 'swcID']">
+  <mat-row *matRowDef="let ruleParmRow; columns: [ 'IS_CHK','swcApplno']">
   </mat-row>
 </mat-table>
 
