@@ -54,7 +54,7 @@ export class F04002Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.f04002Service.getSysTypeCode('STEP_ERROR','f03/f03009').subscribe(data => {
+    this.f04002Service.getSysTypeCode('STEP_ERROR','f04/f04002').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
@@ -89,7 +89,7 @@ export class F04002Component implements OnInit {
       if (obj.completed) { valArray.push(obj.value); }
     }
     console.log(valArray);
-    const baseUrl = 'f04/f04002fn1';
+    const baseUrl = 'f04/f04002fn2';
      this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl,this.selectedValue, valArray, 'P').subscribe(data => {
       const childernDialogRef = this.dialog.open(F04002confirmComponent, {
         data: { msgStr: data.rspMsg }
@@ -117,7 +117,7 @@ export class F04002Component implements OnInit {
     console.log(this.currentPage.pageIndex)
     console.log(this.currentPage.pageSize)
 
-    const baseUrl = 'f04/f04002';
+    const baseUrl = 'f04/f04002fn1';
     this.f04002Service.getSTEP_ERRORFunction(baseUrl, this.selectedValue,this.currentPage.pageIndex, this.currentPage.pageSize).subscribe(data => {
        console.log(data);
       if (this.chkArray.length > 0) {
