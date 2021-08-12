@@ -34,18 +34,6 @@
           </td>
         </tr>
         <tr>
-          <th nowrap="nowrap" align="left">戶籍電話區域碼</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="P_TEL_CODE" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">戶籍電話</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="P_TEL" readonly>
-            </mat-form-field>
-          </td>
           <th nowrap="nowrap" align="left">戶籍地址區域碼</th>
           <td>
             <mat-form-field color="accent">
@@ -53,8 +41,8 @@
             </mat-form-field>
           </td>
           <th nowrap="nowrap" align="left">戶籍地址</th>
-          <td>
-            <mat-form-field color="accent">
+          <td colspan="5">
+            <mat-form-field color="accent" style="width:100%">
               <input matInput #input formControlName="P_ADDR" readonly>
             </mat-form-field>
           </td>
@@ -67,9 +55,23 @@
             </mat-form-field>
           </td>
           <th nowrap="nowrap" align="left">通訊地址</th>
+          <td colspan="5">
+            <mat-form-field color="accent" style="width:100%">
+              <input matInput #input formControlName="H_ADDR" readonly>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap" align="left">戶籍電話區域碼</th>
           <td>
             <mat-form-field color="accent">
-              <input matInput #input formControlName="H_ADDR" readonly>
+              <input matInput #input formControlName="P_TEL_CODE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">戶籍電話</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #input formControlName="P_TEL" readonly>
             </mat-form-field>
           </td>
           <th nowrap="nowrap" align="left">現居狀況</th>
@@ -145,11 +147,13 @@
             </mat-form-field>
           </td>
           <th nowrap="nowrap" align="left">公司地址</th>
-          <td>
-            <mat-form-field color="accent">
+          <td colspan="5">
+            <mat-form-field color="accent" style="width:100%">
               <input matInput #input formControlName="CP_ADDR" readonly>
             </mat-form-field>
           </td>
+        </tr>
+        <tr>
           <th nowrap="nowrap" align="left">公司職稱</th>
           <td>
             <mat-form-field color="accent">
@@ -160,6 +164,16 @@
           <td>
             <mat-form-field color="accent">
               <input matInput #input formControlName="CP_TYPE" readonly>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap" align="left">徵信認定職行業</th>
+          <td>
+            <mat-form-field color="accent">
+              <mat-select formControlName="CP_TYPE_CREDIT">
+                <mat-option *ngFor="let code of cpTypeCreditCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </td>
         </tr>
