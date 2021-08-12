@@ -18,7 +18,7 @@ export class F01001scn11Component implements OnInit {
       this.search = params['search'];
       this.cuid = params['cuid'];
     });
-    this.router.navigate(['./F01001SCN1/F01001SCN11/F01001SCN11PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid } });
+    this.router.navigate(['./F01001SCN1/F01001SCN11/F01001SCN11PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search } });
   }
 
   getApplno(): String {
