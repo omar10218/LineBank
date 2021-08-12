@@ -42,4 +42,10 @@ export class F01001scn14page2Component implements OnInit {
     return this.applno;
   }
 
+  getHost(): String {
+    var origin = window.location.origin;
+    var host = origin.substring(0, origin.lastIndexOf(":"));
+    console.log(host)
+    return host;
+  }
 }
