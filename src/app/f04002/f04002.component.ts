@@ -40,7 +40,7 @@ export class F04002Component implements OnInit {
   ngAfterViewInit() {
     this.currentPage = {
       pageIndex: 0,
-      pageSize: 10,
+      pageSize: 5,
       length: null
     };
     this.currentSort = {
@@ -118,11 +118,11 @@ export class F04002Component implements OnInit {
     console.log(this.currentPage.pageSize)
 
     const baseUrl = 'f04/f04002fn1';
-    this.f04002Service.getSTEP_ERRORFunction(baseUrl, this.selectedValue,this.currentPage.pageIndex, this.currentPage.pageSize).subscribe(data => {
+    this.f04002Service.getSTEP_ERRORFunction(baseUrl, this.selectedValue,this.currentPage.pageIndex+1, this.currentPage.pageSize).subscribe(data => {
        console.log(data);
       if (this.chkArray.length > 0) {
         let i: number = 0;
-        for (const jsonObj of data.rspBody) {
+        for (const jsonObj of data.rspBody.items) {
           const chkValue = jsonObj['applno'];
           const isChk = jsonObj['IS_CHK'];
           this.chkArray[i] = {value: chkValue, completed: isChk == 'N'};
@@ -130,13 +130,13 @@ export class F04002Component implements OnInit {
         }
 
       } else {
-        for (const jsonObj of data.rspBody) {
+        for (const jsonObj of data.rspBody.items) {
           const chkValue = jsonObj['applno'];
           const isChk = jsonObj['IS_CHK'];
           this.chkArray.push({value: chkValue, completed: isChk == 'N'});
         }
       }
-       this.roleFunctionSource.data = data.rspBody;
+       this.roleFunctionSource.data = data.rspBody.items;
        this.totalCount = data.rspBody.size;
        this.isAllCheck = false;
     });
