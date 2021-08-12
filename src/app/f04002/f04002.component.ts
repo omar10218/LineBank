@@ -90,7 +90,7 @@ export class F04002Component implements OnInit {
     }
     console.log(valArray);
     const baseUrl = 'f04/f04002fn1';
-     this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl,this.selectedValue, valArray, 'D').subscribe(data => {
+     this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl,this.selectedValue, valArray, 'P').subscribe(data => {
       const childernDialogRef = this.dialog.open(F04002confirmComponent, {
         data: { msgStr: data.rspMsg }
       });
