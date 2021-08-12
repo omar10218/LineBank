@@ -67,7 +67,6 @@ export class F01001scn10page3Component implements OnInit {
       this.dss3Form.patchValue({ UNDW_CD_LIST: data.rspBody.items[0].UNDW_CD_LIST })
       this.dss3Form.patchValue({ SPARE_ARRAY1: data.rspBody.items[0].SPARE_ARRAY1 })
       this.dss3Form.patchValue({ SPARE_ARRAY2: data.rspBody.items[0].SPARE_ARRAY2 })
-      console.log('1234567890' + data.rspBody.items[0].SYSFLOWCD);
     });
   }
 

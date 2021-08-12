@@ -23,6 +23,8 @@ interface sysCode {
 export class F03012Component implements OnInit {
   selectedValue1: string;
   selectedValue2: string;
+  //下拉
+  selectedColumn: sysCode[] = [];
   setValue: string;
   compareTableCode: sysCode[] = [];
   compareColumnCode: sysCode[] = [];
@@ -44,8 +46,18 @@ export class F03012Component implements OnInit {
           const desc = jsonObj['codeDesc'];
           this.compareTableCode.push({ value: codeNo, viewValue: desc })
         }
+        for (let i = 0; i < this.compareTableCode.length; i++) {
+          this.f03012Service.getSysTypeCode(this.compareTableCode[i].value, 'f03/f03012')
+            .subscribe(data => {
+              for (const jsonObj of data.rspBody) {
+                const codeNo = jsonObj['codeNo'];
+                const desc = jsonObj['codeDesc'];
+                this.compareColumnCode.push({ value: codeNo, viewValue: desc })
+              }
+            });
+        }
       });
-
+console.log(this.compareTableCode)
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
@@ -64,31 +76,36 @@ export class F03012Component implements OnInit {
       this.getComePareDataSetList();
     });
   }
+
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   compareDataSetSource = new MatTableDataSource<any>();
   compareTableOption: MappingCode[];
-  compareColnumOption: MappingCode[];
+  compareColumnOption: MappingCode[];
+
   getComePareDataSetList() {
     const baseUrl = 'f03/f03012scn1';
     this.f03012Service.getComePareDataSetList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize).subscribe(data => {
       this.totalCount = data.rspBody.size;
       this.compareDataSetSource.data = data.rspBody.items;
+      this.compareTableOption = data.rspBody.compareTable;
+      this.compareColumnOption = data.rspBody.comparColumn;
     });
   }
+
   changeSelect() {
-    this.compareColumnCode = [];
-    console.log(this.selectedValue1)
+    this.selectedColumn = [];
     this.f03012Service.getSysTypeCode(this.selectedValue1, 'f03/f03012')
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];
           const desc = jsonObj['codeDesc'];
-          this.compareColumnCode.push({ value: codeNo, viewValue: desc })
+          this.selectedColumn.push({ value: codeNo, viewValue: desc })
         }
       });
   }
+  
   formControl = new FormControl('', [
     Validators.required
     // Validators.email,
@@ -158,10 +175,10 @@ export class F03012Component implements OnInit {
     return codeVal;
   }
 
-  getOptionCompareColnum(codeVal: string): string {
-    for (const data of this.compareColnumOption) {
-      if (data.codeNo == codeVal) {
-        return data.codeDesc;
+  getOptionCompareColumn(codeVal: string): string {
+    for (const data of this.compareColumnCode) {
+      if (data.value == codeVal) {
+        return data.viewValue;
         break;
       }
     }

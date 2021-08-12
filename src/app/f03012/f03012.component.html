@@ -22,8 +22,8 @@
       <th>比對欄位:</th>
       <td>
         <mat-form-field color="accent">
-          <mat-select formControlName="compareColumn" [(ngModel)]="selectedValue2" name="compareColumnCode" >
-            <mat-option *ngFor="let code of compareColumnCode" [value]="code.value">
+          <mat-select formControlName="compareColumn" [(ngModel)]="selectedValue2" name="selectedColumn" >
+            <mat-option *ngFor="let code of selectedColumn" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
            </mat-select>
@@ -43,11 +43,11 @@
 <mat-table [dataSource]="compareDataSetSource">
   <ng-container matColumnDef="COMPARE_TABLE">
     <mat-header-cell *matHeaderCellDef>比對table</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.compareTable }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ getOptionCompareTable(row.compareTable) }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="COMPARE_COLUMN">
     <mat-header-cell *matHeaderCellDef>比對欄位</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.compareColumn }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ getOptionCompareColumn(row.compareColumn) }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="SET_VALUE">
     <mat-header-cell *matHeaderCellDef>設定值</mat-header-cell>

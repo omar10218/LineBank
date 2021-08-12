@@ -18,12 +18,16 @@ export class F03012editComponent implements OnInit {
   selectedValue1: string;
   selectedValue2: string;
   setValue: string;
+  selectedColumn: sysCode[] = [];
+
   compareTableCode: sysCode[] = [];
   compareColumnCode: sysCode[] = [];
 
+  oldCompareTable: string;
+  oldCompareColumn: string;
+  oldSetValue: string;
+
   constructor(public dialogRef: MatDialogRef<F03012editComponent>, private f03012Service: F03012Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-
 
   formControl = new FormControl('', [
     Validators.required
@@ -53,23 +57,32 @@ export class F03012editComponent implements OnInit {
           this.compareColumnCode.push({ value: codeNo, viewValue: desc })
         }
       });
+    this.oldCompareTable = this.data.compareTable;
+    this.oldCompareColumn = this.data.compareColumn;
+    this.oldSetValue = this.data.setValue;
   }
 
   public async save(): Promise<void> {
     let msgStr: string = "";
     let baseUrl = 'f03/f03012action2';
-    msgStr = await this.f03012Service.update(baseUrl, this.data);
+    msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValue);
     const childernDialogRef = this.dialog.open(F03012confirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
   }
 
-
-
-
-
-
+  changeSelect() {
+    this.compareColumnCode = [];
+    this.f03012Service.getSysTypeCode(this.data.compareTable, 'f03/f03012')
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody) {
+          const codeNo = jsonObj['codeNo'];
+          const desc = jsonObj['codeDesc'];
+          this.compareColumnCode.push({ value: codeNo, viewValue: desc })
+        }
+      });
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

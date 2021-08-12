@@ -17,12 +17,15 @@ export class F03012Service extends BaseService {
   saveComePareDataSetList(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
-
-  update(baseUrl: string, data: any): any {
+  
+  update(baseUrl: string, data: any, oldCompareTable: string, oldCompareColumn:string, oldSetValue:string): any {
     const formdata: FormData = new FormData();
     formdata.append('compareTable', data.compareTable);
     formdata.append('compareColumn', data.compareColumn);
     formdata.append('setValue', data.setValue);
+    formdata.append('oldCompareTable', oldCompareTable);
+    formdata.append('oldCompareColumn', oldCompareColumn);
+    formdata.append('oldSetValue', oldSetValue);
     return this.saveOrEditMsgString(baseUrl, formdata);
   }
 
