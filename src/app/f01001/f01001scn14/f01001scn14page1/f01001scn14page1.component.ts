@@ -22,6 +22,7 @@ export class F01001scn14page1Component implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.cuid = params['cuid'];
+      
     });
 
     const url = 'f01/f01001scn14';
@@ -30,9 +31,11 @@ export class F01001scn14page1Component implements OnInit {
     formdata.append('cuid', this.cuid);
     this.imageForm.patchValue({ APPLNO: this.applno })
   }
-  getApplno(): String {
-    var url = "http://localhost:8080/LineBankViewone/v1virdem/ImagePage2.jsp?applno=" +  this.applno;
-    return url;
+  getHost(): String {
+    var origin = window.location.origin;
+    var host = origin.substring(0, origin.lastIndexOf(":"));
+    console.log(host)
+    return host;
   }
 
 }
