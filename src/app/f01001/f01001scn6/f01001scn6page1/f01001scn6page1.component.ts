@@ -3,12 +3,12 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/cor
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-f01001scn6page1',
   templateUrl: './f01001scn6page1.component.html',
-  styleUrls: ['./f01001scn6page1.component.css','../../../../assets/css/f01.css']
+  styleUrls: ['./f01001scn6page1.component.css', '../../../../assets/css/f01.css']
 })
 export class F01001scn6page1Component implements OnInit {
 
@@ -24,7 +24,14 @@ export class F01001scn6page1Component implements OnInit {
   STS007: [] = [];
   VAM020: [] = [];
 
-  constructor(private route: ActivatedRoute, private f01001scn6Service: F01001scn6Service) { }
+  constructor(private route: ActivatedRoute, private f01001scn6Service: F01001scn6Service, private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.getJcicMultiple();
+        // when onSameUrlNavigation: 'reload'，會重新觸發 router event
+      }
+    });
+  }
   private applno: string;
   private cuid: string;
   private queryDate: string;
@@ -37,7 +44,10 @@ export class F01001scn6page1Component implements OnInit {
       this.cuid = params['cuid'];
       this.queryDate = params['queryDate'];
     });
+    this.getJcicMultiple();
+  }
 
+  getJcicMultiple() {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
     formdata.append('cuid', this.cuid);

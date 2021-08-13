@@ -13,6 +13,9 @@ interface dateCode {
   styleUrls: ['./f01001scn5.component.css','../../../assets/css/f01.css']
 })
 export class F01001scn5Component implements OnInit {
+
+  cpTypeCreditCode: dateCode[] = [{ value: '1', viewValue: '測試1號' }, { value: '2', viewValue: '測試2號' }]; ;
+
   customerInfoForm: FormGroup = this.fb.group({
     EMAIL: ['', []],
     BIRTHDAY: ['', []],
@@ -53,6 +56,7 @@ export class F01001scn5Component implements OnInit {
     H_TEL_CODE: ['', []],
     H_TEL: ['', []],
     APPLY_TIME: ['', []],
+    CP_TYPE_CREDIT: ['', []]
   });
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private f01001scn5Service: F01001scn5Service) { }
   private applno: string;
@@ -65,7 +69,7 @@ export class F01001scn5Component implements OnInit {
       this.cuid = params['cuid'];
     });
     this.getCustomerInfo();
-    
+
   }
 
   getCustomerInfo(){
@@ -113,9 +117,10 @@ export class F01001scn5Component implements OnInit {
       this.customerInfoForm.patchValue({ H_TEL_CODE: data.rspBody.items[0].hTelCode })
       this.customerInfoForm.patchValue({ H_TEL: data.rspBody.items[0].hTel })
       this.customerInfoForm.patchValue({ APPLY_TIME: data.rspBody.items[0].applyTime })
+      this.customerInfoForm.patchValue({ CP_TYPE_CREDIT: data.rspBody.items[0].cpTypeCredit })
     });
   }
-  
+
   edit(){
   }
 }
