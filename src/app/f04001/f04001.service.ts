@@ -9,11 +9,14 @@ import { BaseService } from '../base.service';
 export class F04001Service extends BaseService {
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
-  
-  getSysTypeCode(baseUrl: string): Observable<any> {
-    return this.postHttpClient(baseUrl);
+
+  saveFlowStep(baseUrl: string, step: string, formData: string[]): Observable<any> {
+    let targetUrl = `${baseUrl}?&step=${step}&applno=${formData}`;
+    return this.postHttpClient(targetUrl);
   }
-  saveFlowStep(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
+  getLockApplno(baseUrl: string, pageIndex: number, pageSize: number, step: string): Observable<any> {
+    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}&step=${step}`;
+    return this.postHttpClient(targetUrl);
   }
+
 }
