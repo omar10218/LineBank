@@ -10,8 +10,9 @@ export class F04001Service extends BaseService {
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  saveFlowStep(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
+  saveFlowStep(baseUrl: string, step: string, formData: string[]): Observable<any> {
+    let targetUrl = `${baseUrl}?&step=${step}&applno=${formData}`;
+    return this.postHttpClient(targetUrl);
   }
   getLockApplno(baseUrl: string, pageIndex: number, pageSize: number, step: string): Observable<any> {
     let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}&step=${step}`;

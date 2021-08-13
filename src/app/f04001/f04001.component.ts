@@ -5,6 +5,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { F04001Service } from './f04001.service';
+import { F04001confirmComponent } from './f04001confirm/f04001confirm.component';
 
 interface sysCode {
   value: string;
@@ -43,19 +44,19 @@ export class F04001Component implements OnInit {
     });
   }
   ngAfterViewInit() {
-    // this.currentPage = {
-    //   pageIndex: 0,
-    //   pageSize: 10,
-    //   length: null
-    // };
-    // this.currentSort = {
-    //   active: '',
-    //   direction: ''
-    // };
-    // this.paginator.page.subscribe((page: PageEvent) => {
-    //   this.currentPage = page;
-    //   this.getLockApplno();
-    // });
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+    this.currentSort = {
+      active: '',
+      direction: ''
+    };
+    this.paginator.page.subscribe((page: PageEvent) => {
+      this.currentPage = page;
+      this.getLockApplno();
+    });
   }
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
@@ -72,37 +73,52 @@ export class F04001Component implements OnInit {
 
 
   unlock() {
-    console.log(this.selectedValue)
+    console.log(this.chkArray)
     var valArray: string[] = new Array;
     for (const obj of this.chkArray) {
       if (obj.completed) { valArray.push(obj.value); }
     }
+    console.log(valArray)
     const formData: FormData = new FormData();
-    formData.append("step", this.selectedValue);
-    formData.append("applno", this.selectedValue);
     const baseUrl = 'f04/f04001fn2';
-    this.f04001Service.saveFlowStep(baseUrl, formData).subscribe(data => {
-      
+    this.f04001Service.saveFlowStep(baseUrl, this.selectedValue,valArray).subscribe(data => {
+      const childernDialogRef = this.dialog.open(F04001confirmComponent, {
+        data: { msgStr: data.rspMsg }
+      });
+      if(data.rspMsg=='推關成功'){
+        this.getLockApplno();
+      }
     });
+
   }
 
-  changeSelect() {
-    // this.isAllCheck = false;
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.paginator.firstPage();
-    this.getLockApplno();
+  async changeSelect() {
+    this.isAllCheck = false;
+    await this.getLockApplno();
   }
 
-  getLockApplno() {
+  private async getLockApplno() {
     const baseUrl = 'f04/f04001fn1';
     this.f04001Service.getLockApplno(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, this.selectedValue)
     .subscribe(data => {
+      if (this.chkArray.length > 0) {
+        let i: number = 0;
+        for (const jsonObj of data.rspBody.items) {
+          const chkValue = jsonObj['applno'];
+          const isChk = jsonObj['IS_CHK'];
+          this.chkArray[i] = {value: chkValue, completed: isChk == 'N'};
+          i++;
+        }
+      } else {
+        for (const jsonObj of data.rspBody.items) {
+          const chkValue = jsonObj['applno'];
+          const isChk = jsonObj['IS_CHK'];
+          this.chkArray.push({value: chkValue, completed: isChk == 'N'});
+        }
+      }
       this.totalCount = data.rspBody.size;
       this.applnoSource.data = data.rspBody.items;
+      this.isAllCheck = false;
     });
   }
 }

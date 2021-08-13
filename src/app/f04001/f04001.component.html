@@ -28,10 +28,9 @@
         <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox>
       </mat-header-cell>
       <mat-cell *matCellDef="let row; let i = index;">
-        <mat-checkbox [(ngModel)]="chkArray[i]" color="primary"></mat-checkbox>
+        <mat-checkbox [(ngModel)]="chkArray[i].completed" color="primary"></mat-checkbox>
       </mat-cell>
     </ng-container>
-
     <ng-container matColumnDef="APPLNO">
       <mat-header-cell *matHeaderCellDef>收件編號</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row.applno }}</mat-cell>
