@@ -20,7 +20,7 @@ interface checkBox {
 @Component({
   selector: 'app-f04001',
   templateUrl: './f04001.component.html',
-  styleUrls: ['./f04001.component.css', '../../assets/css/f03.css']
+  styleUrls: ['./f04001.component.css', '../../assets/css/f04.css']
 })
 
 export class F04001Component implements OnInit {
@@ -34,8 +34,7 @@ export class F04001Component implements OnInit {
 
   ngOnInit(): void {
     const baseUrl = 'f04/f04001';
-    this.f04001Service.getSysTypeCode('FLOW_STEP',baseUrl).subscribe(data => {
-      console.log(data)
+    this.f04001Service.getSysTypeCode('FLOW_STEP', baseUrl).subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
@@ -65,31 +64,32 @@ export class F04001Component implements OnInit {
   currentSort: Sort;
 
   setAll(completed: boolean) {
-    console.log(this.chkArray)
     for (const obj of this.chkArray) {
       obj.completed = completed;
     }
   }
 
-
   unlock() {
-    console.log(this.chkArray)
+    const truthy = this.chkArray.filter(el => el.completed)
+    if (truthy.length) {
+      truthy
+    } else {
+      return alert('請至少勾選一項')
+    }
     var valArray: string[] = new Array;
-    for (const obj of this.chkArray) {
+    for (const obj of truthy) {
       if (obj.completed) { valArray.push(obj.value); }
     }
-    console.log(valArray)
-    const formData: FormData = new FormData();
     const baseUrl = 'f04/f04001fn2';
-    this.f04001Service.saveFlowStep(baseUrl, this.selectedValue,valArray).subscribe(data => {
-      const childernDialogRef = this.dialog.open(F04001confirmComponent, {
-        data: { msgStr: data.rspMsg }
+    this.f04001Service.saveFlowStep(baseUrl, this.selectedValue, valArray)
+      .subscribe(data => {
+        const childernDialogRef = this.dialog.open(F04001confirmComponent, {
+          data: { msgStr: data.rspMsg }
+        });
+        if (data.rspMsg == '解鎖成功') {
+          this.getLockApplno();
+        }
       });
-      if(data.rspMsg=='推關成功'){
-        this.getLockApplno();
-      }
-    });
-
   }
 
   async changeSelect() {
@@ -100,25 +100,25 @@ export class F04001Component implements OnInit {
   private async getLockApplno() {
     const baseUrl = 'f04/f04001fn1';
     this.f04001Service.getLockApplno(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, this.selectedValue)
-    .subscribe(data => {
-      if (this.chkArray.length > 0) {
-        let i: number = 0;
-        for (const jsonObj of data.rspBody.items) {
-          const chkValue = jsonObj['applno'];
-          const isChk = jsonObj['IS_CHK'];
-          this.chkArray[i] = {value: chkValue, completed: isChk == 'N'};
-          i++;
+      .subscribe(data => {
+        if (this.chkArray.length > 0) {
+          let i: number = 0;
+          for (const jsonObj of data.rspBody.items) {
+            const chkValue = jsonObj['applno'];
+            const isChk = jsonObj['IS_CHK'];
+            this.chkArray[i] = { value: chkValue, completed: isChk == 'N' };
+            i++;
+          }
+        } else {
+          for (const jsonObj of data.rspBody.items) {
+            const chkValue = jsonObj['applno'];
+            const isChk = jsonObj['IS_CHK'];
+            this.chkArray.push({ value: chkValue, completed: isChk == 'N' });
+          }
         }
-      } else {
-        for (const jsonObj of data.rspBody.items) {
-          const chkValue = jsonObj['applno'];
-          const isChk = jsonObj['IS_CHK'];
-          this.chkArray.push({value: chkValue, completed: isChk == 'N'});
-        }
-      }
-      this.totalCount = data.rspBody.size;
-      this.applnoSource.data = data.rspBody.items;
-      this.isAllCheck = false;
-    });
+        this.totalCount = data.rspBody.size;
+        this.applnoSource.data = data.rspBody.items;
+        this.isAllCheck = false;
+      });
   }
 }
