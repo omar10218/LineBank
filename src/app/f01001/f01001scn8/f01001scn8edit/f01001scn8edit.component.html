@@ -1,1 +1,65 @@
-<p>f01001scn8edit works!</p>
+<div class="container">
+  <h2 mat-dialog-title>徵信照會-編輯</h2>
+  <form class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
+
+    <div class="form">
+      <th nowrap="nowrap">電話種類</th>
+      <mat-form-field color="accent">
+        <mat-select [(ngModel)]="data.con_TEL" name="stopFlag">
+          <mat-option *ngFor="let code of CON_TEL_Code" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">電話</th>
+      <mat-form-field color="accent">
+        <textarea matInput  [(ngModel)]="data.phone"
+          name="PHONE"></textarea>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">對象種類</th>
+      <mat-form-field color="accent">
+        <mat-select [(ngModel)]="data.con_TARGET" name="stopFlag">
+          <mat-option *ngFor="let code of CON_TARGET_Code" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">對象註記</th>
+      <mat-form-field color="accent">
+        <textarea matInput  [(ngModel)]="data.cust_TYPE"
+          name="CUST_TYPE"></textarea>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">註記種類</th>
+      <mat-form-field color="accent">
+        <mat-select [(ngModel)]="data.con_MEMO" name="stopFlag">
+          <mat-option *ngFor="let code of CON_MEMO_Code" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">註記</th>
+      <mat-form-field color="accent">
+        <textarea matInput  [(ngModel)]="data.note"
+          name="NOTE"></textarea>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="save()">Save</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>

@@ -1,1 +1,130 @@
-<p>f01001scn8 works! {{ getApplno() }}</p>
+<!-- <div>
+  <button type="submit" mat-raised-button color="primary" (click)="test()">test</button>
+</div> -->
+<br>
+<form [formGroup]="compareTableSetForm" style="padding-left: 20px;">
+  <table>
+    <mat-card class="matCard">
+      <mat-card-content>
+        <tr>
+          <th nowrap="nowrap">電話</th>
+          <td>
+            <mat-form-field color="accent">
+              <mat-select formControlName="CON_TEL_Selected" [(ngModel)]="CON_TEL_Selected" name="x">
+                <mat-option *ngFor="let con_TEL of CON_TEL_Code" [value]="con_TEL.value">
+                  {{con_TEL.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #inputstate class="form-control" formControlName="CON_TEL_Value" [(ngModel)]="CON_TEL_Value" name="CON_TEL_Value" >
+            </mat-form-field>
+        </td>
+        <td>
+          <button type="submit" mat-raised-button color="primary" (click)="Add()">新增</button>
+        </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap">對象</th>
+          <td>
+            <mat-form-field color="accent">
+              <mat-select formControlName="CON_TARGET_Selected" [(ngModel)]="CON_TARGET_Selected" name="x">
+                <mat-option *ngFor="let con_TARGET of CON_TARGET_Code" [value]="con_TARGET.value">
+                  {{con_TARGET.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #inputstate class="form-control" formControlName="CON_TARGET_Value" [(ngModel)]="CON_TARGET_Value" name="CON_TARGET_Value" >
+            </mat-form-field>
+        </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap">註記</th>
+          <td>
+            <mat-form-field color="accent">
+              <mat-select formControlName="CON_MEMO_Selected" [(ngModel)]="CON_MEMO_Selected" name="x">
+                <mat-option *ngFor="let con_MEMO of CON_MEMO_Code" [value]="con_MEMO.value">
+                  {{con_MEMO.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #inputstate class="form-control" formControlName="CON_MEMO_Value" [(ngModel)]="CON_MEMO_Value" name="CON_MEMO_Value" >
+            </mat-form-field>
+        </td>
+        </tr>
+      </mat-card-content>
+    </mat-card>
+  </table>
+</form>
+<br>
+<mat-table [dataSource]="CALLOUTSource" matSortDisableClear >
+
+  <ng-container matColumnDef="CON_TEL">
+    <mat-header-cell *matHeaderCellDef>電話種類</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CON_TEL_View }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="PHONE">
+    <mat-header-cell *matHeaderCellDef>電話</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.PHONE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CON_TARGET">
+    <mat-header-cell *matHeaderCellDef>對象種類</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CON_TARGET_View }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CUST_TYPE">
+    <mat-header-cell *matHeaderCellDef>對象註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CUST_TYPE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CON_MEMO">
+    <mat-header-cell *matHeaderCellDef>註記種類</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CON_MEMO_View }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NOTE">
+    <mat-header-cell *matHeaderCellDef>註記</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NOTE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-icon-button color="accent" (click)="startEdit(
+        row.CON_TEL,row.PHONE,row.CON_TARGET,row.CUST_TYPE,row.CON_MEMO,row.NOTE,row.ID )">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="actions2">
+    <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-icon-button color="accent" (click)="delete(
+        row.ID)">
+        <mat-icon aria-label="delete">delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="[ 'CON_TEL', 'PHONE', 'CON_TARGET', 'CUST_TYPE', 'CON_MEMO', 'NOTE','actions','actions2']; sticky: true">
+  </mat-header-row>
+  <mat-row *matRowDef="let ruleParmRow; columns: [  'CON_TEL', 'PHONE', 'CON_TARGET', 'CUST_TYPE', 'CON_MEMO', 'NOTE','actions','actions2']">
+  </mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>
+
+<div *ngFor="let speaking of speakingData" style="padding-left: 20px;">
+  <button type="submit" style="float:left" mat-raised-button  (click)="ShowspeakingContenta(speaking.speakingContent)">{{speaking.speakingAbbreviation}}</button>
+</div>

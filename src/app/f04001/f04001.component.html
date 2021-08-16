@@ -1,1 +1,48 @@
-<p>f04001 works!</p>
+<th class="f01_th">流程解除鎖定作業</th>
+<br>
+<div>
+    <button type="submit" mat-raised-button color="primary" (click)="unlock()">解除鎖定</button>
+</div>
+<br>
+  <mat-card class="matCard">
+    <mat-card-content>
+      <tr>
+        <th>Flow Step</th>
+        <td>
+          <mat-form-field color="accent">
+            <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()" >
+              <mat-option *ngFor="let code of sysCode"[value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+             </mat-select>
+          </mat-form-field>
+        </td> 
+      </tr>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-table [dataSource]="applnoSource">
+    
+    <ng-container matColumnDef="IS_CHK">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)"ngModel required>全選</mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index;">
+        <mat-checkbox [(ngModel)]="chkArray[i].completed" color="primary"></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="APPLNO">
+      <mat-header-cell *matHeaderCellDef>收件編號</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.applno }}</mat-cell>
+    </ng-container>
+    
+    <mat-header-row *matHeaderRowDef="['IS_CHK','APPLNO']"></mat-header-row>
+    <mat-row *matRowDef="let mappingCodeRow; columns: ['IS_CHK','APPLNO']"></mat-row>
+  </mat-table>
+  <tr>
+    <td>
+      <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+      </mat-paginator>
+    </td>
+  </tr>

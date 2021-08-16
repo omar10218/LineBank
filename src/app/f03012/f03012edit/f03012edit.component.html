@@ -4,7 +4,7 @@
         <div class="form">
             <th nowrap="nowrap">比對table</th>
             <mat-form-field color="accent">
-                <mat-select [(ngModel)]="data.compareTable" name="compareTable">
+                <mat-select [(ngModel)]="data.compareTable" name="compareTable" (ngModelChange)="changeSelect()">
                     <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
                         {{code.viewValue}}
                     </mat-option>

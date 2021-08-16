@@ -59,6 +59,6 @@ export class F01001scn6Component implements OnInit {
   }
 
   changeDate() {
-   this.router.navigate(['./F01001SCN1/F01001SCN6/F01001SCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue} });
+    this.router.navigate(['./F01001SCN1/F01001SCN6/F01001SCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue} });
   }
 }

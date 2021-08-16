@@ -20,6 +20,7 @@ import { F01001scn14page2Component } from './f01001/f01001scn14/f01001scn14page2
 import { F01001scn14page3Component } from './f01001/f01001scn14/f01001scn14page3/f01001scn14page3.component';
 
 import { F01001scn2Component } from './f01001/f01001scn2/f01001scn2.component';
+import { F01001scn2page1Component } from './f01001/f01001scn2/f01001scn2page1/f01001scn2page1.component';
 import { F01001scn3Component } from './f01001/f01001scn3/f01001scn3.component';
 import { F01001scn4Component } from './f01001/f01001scn4/f01001scn4.component';
 import { F01001scn5Component } from './f01001/f01001scn5/f01001scn5.component';
@@ -89,6 +90,7 @@ import { F03010Component } from './f03010/f03010.component';
 import { F03011Component } from './f03011/f03011.component';
 import { F03012Component } from './f03012/f03012.component';
 import { F04001Component } from './f04001/f04001.component';
+import { F04002Component } from './f04002/f04002.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
@@ -130,7 +132,13 @@ const routes: Routes = [
         children: [
           {
             path: 'F01001SCN2',
-            component: F01001scn2Component
+            component: F01001scn2Component,
+            children: [
+              {
+                path: 'F01001SCN2PAGE1',
+                component: F01001scn2page1Component
+              }
+            ]
           },
           {
             path: 'F01001SCN3',
@@ -485,6 +493,10 @@ const routes: Routes = [
       {
         path: 'F04001',
         component: F04001Component
+      },
+      {
+        path: 'F04002',
+        component: F04002Component
       },
     ]
   }
