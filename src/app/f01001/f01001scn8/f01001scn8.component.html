@@ -1,6 +1,6 @@
-<div>
+<!-- <div>
   <button type="submit" mat-raised-button color="primary" (click)="test()">test</button>
-</div>
+</div> -->
 <br>
 <form [formGroup]="compareTableSetForm" style="padding-left: 20px;">
   <table>
@@ -124,3 +124,7 @@
     </mat-paginator>
   </td>
 </tr>
+
+<div *ngFor="let speaking of speakingData" style="padding-left: 20px;">
+  <button type="submit" style="float:left" mat-raised-button  (click)="ShowspeakingContenta(speaking.speakingContent)">{{speaking.speakingAbbreviation}}</button>
+</div>

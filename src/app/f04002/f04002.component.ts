@@ -70,15 +70,18 @@ export class F04002Component implements OnInit {
       if (obj.completed) { valArray.push(obj.value); }
     }
     console.log(valArray);
-    const baseUrl = 'f04/f04002fn2';
-     this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl,this.selectedValue, valArray, 'A').subscribe(data => {
-      const childernDialogRef = this.dialog.open(F04002confirmComponent, {
-        data: { msgStr: data.rspMsg }
-      });
-      if(data.rspMsg=='推關成功'){
-        this.getSTEP_ERRORFunction();
-      }
-    });
+    if(valArray.length<1){alert('請選擇案件');}
+    else{
+      const baseUrl = 'f04/f04002fn2';
+      this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl,this.selectedValue, valArray, 'A').subscribe(data => {
+       const childernDialogRef = this.dialog.open(F04002confirmComponent, {
+         data: { msgStr: data.rspMsg }
+       });
+       if(data.rspMsg=='推關成功'){
+         this.getSTEP_ERRORFunction();
+       }
+     });
+    }
 
   }
 
@@ -89,15 +92,18 @@ export class F04002Component implements OnInit {
       if (obj.completed) { valArray.push(obj.value); }
     }
     console.log(valArray);
-    const baseUrl = 'f04/f04002fn2';
-     this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl,this.selectedValue, valArray, 'P').subscribe(data => {
-      const childernDialogRef = this.dialog.open(F04002confirmComponent, {
-        data: { msgStr: data.rspMsg }
-      });
-      if(data.rspMsg=='推關成功'){
-        this.getSTEP_ERRORFunction();
-      }
-    });
+    if(valArray.length<1){alert('請選擇案件');}
+    else{
+      const baseUrl = 'f04/f04002fn2';
+      this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl,this.selectedValue, valArray, 'P').subscribe(data => {
+       const childernDialogRef = this.dialog.open(F04002confirmComponent, {
+         data: { msgStr: data.rspMsg }
+       });
+       if(data.rspMsg=='推關成功'){
+         this.getSTEP_ERRORFunction();
+       }
+     });
+    }
   }
 
 

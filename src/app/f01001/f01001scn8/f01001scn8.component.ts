@@ -50,6 +50,7 @@ export class F01001scn8Component implements OnInit {
 
   CALLOUTSource = new MatTableDataSource<any>();
   rspBodyList: CALLOUTCode[] = [] ;
+  speakingData:any;
   rspBodyData:any;
   AddData:any;
   EditData:any;
@@ -239,6 +240,7 @@ export class F01001scn8Component implements OnInit {
        console.log(data);
        this.rspBodyData=data.rspBody;
        this.rspBodyList= data.rspBody.list;
+       this.speakingData=data.rspBody.speaking;
        if(this.rspBodyList.length>0){
         for (let i = 0; i < this.rspBodyList.length; i++) {
           this.rspBodyList[i].CON_TEL_View= this.getSelectView('CON_TEL',this.rspBodyList[i].CON_TEL);
@@ -282,6 +284,11 @@ export class F01001scn8Component implements OnInit {
    }
     //console.log(this.result);
     return result;
+  }
+
+  ShowspeakingContenta(speakingContent:string): void {
+    const DialogRef = this.dialog.open(F01001scn8confirmComponent, { data: { msgStr: speakingContent } });
+    // alert(speakingContent);
   }
 
 }
