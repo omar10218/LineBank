@@ -25,7 +25,7 @@
     
     <ng-container matColumnDef="IS_CHK">
       <mat-header-cell *matHeaderCellDef>
-        <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)"ngModel required>全選</mat-checkbox>
       </mat-header-cell>
       <mat-cell *matCellDef="let row; let i = index;">
         <mat-checkbox [(ngModel)]="chkArray[i].completed" color="primary"></mat-checkbox>
