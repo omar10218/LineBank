@@ -30,3 +30,11 @@ table {
 	background-color: #FFE4CA !important;
 	text-align: center;
 }
+
+.hide{
+	background-color: #FFE4CA;
+}
+
+.nohide{
+	background-color: white;
+}
