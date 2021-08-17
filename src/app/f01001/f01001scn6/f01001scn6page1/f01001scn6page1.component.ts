@@ -199,10 +199,11 @@ export class F01001scn6page1Component implements OnInit {
 
    exist() {
     for (let index = 0; index < this.list.length; index++) {
-      console.log("長度=======>"+this.list.length);
-      console.log("內容=======>"+this.list[index]);
-      if ( this.list[index] == "KRI002" ) { this.hideKRI002 = !this.hideKRI002; console.log("KRI002====>"); }
-      if ( this.list[index] == "BAM011" ) { this.hideBAM011 = !this.hideBAM011; console.log("BAM011====>"); }
+      if ( this.list[index] == "KRI002" ) { this.hideKRI002 = !this.hideKRI002; }
+      if ( this.list[index] == "BAM011" ) { this.hideBAM011 = !this.hideBAM011; }
+      if ( this.list[index] == "AAS003" ) { this.hideAAS003 = !this.hideAAS003; }
+      if ( this.list[index] == "APS001" ) { this.hideAPS001 = !this.hideAPS001; }
+      if ( this.list[index] == "ACI001" ) { this.hideACI001 = !this.hideACI001; }
     }
    }
 
