@@ -44,6 +44,7 @@ export class F01001scn6page1Component implements OnInit {
       if (event instanceof NavigationEnd) {
         this.getJcicMultiple();
         this.setBooleanTrue();
+        this.list = [];
 
         this.currentPage = {
           pageIndex: 0,
