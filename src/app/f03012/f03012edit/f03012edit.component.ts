@@ -73,7 +73,7 @@ export class F03012editComponent implements OnInit {
   }
 
   changeSelect() {
-    this.compareColumnCode = [];
+    this.data.compareColumn = '';
     this.f03012Service.getSysTypeCode(this.data.compareTable, 'f03/f03012')
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
