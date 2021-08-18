@@ -1,16 +1,16 @@
-<button mat-raised-button [ngClass]="hideKRI002 ? 'hide' : 'nohide'" (click)="test('KRI002')"
+<button mat-raised-button [ngClass]="hideKRI002 ? 'nohide' : 'hide'" (click)="show('KRI002')"
   style="margin-top: 15px; margin-left: 5px;">KRI002</button>
-<button mat-raised-button [ngClass]="hideBAM011 ? 'hide' : 'nohide'" (click)="test('BAM011')"
+<button mat-raised-button [ngClass]="hideBAM011 ? 'nohide' : 'hide'" (click)="show('BAM011')"
   style="margin-top: 15px; margin-left: 5px;">BAM011</button>
-<button mat-raised-button [ngClass]="hideAAS003 ? 'hide' : 'nohide'" (click)="test('AAS003')"
+<button mat-raised-button [ngClass]="hideAAS003 ? 'nohide' : 'hide'" (click)="show('AAS003')"
   style="margin-top: 15px; margin-left: 5px;">AAS003</button>
-<button mat-raised-button [ngClass]="hideAPS001 ? 'hide' : 'nohide'" (click)="test('APS001')"
+<button mat-raised-button [ngClass]="hideAPS001 ? 'nohide' : 'hide'" (click)="show('APS001')"
   style="margin-top: 15px; margin-left: 5px;">APS001</button>
-<button mat-raised-button [ngClass]="hideACI001 ? 'hide' : 'nohide'" (click)="test('ACI001')"
+<button mat-raised-button [ngClass]="hideACI001 ? 'nohide' : 'hide'" (click)="show('ACI001')"
   style="margin-top: 15px; margin-left: 5px;">ACI001</button>
 <br><br>
 
-<div *ngIf="hideKRI002">
+<div [(hidden)]="hideKRI002">
   <th class="f01_th">信用卡結帳日期擷取範圍</th>
   <br>
   <mat-table [dataSource]="KRI002Source" matSortDisableClear>
@@ -35,7 +35,7 @@
   </tr>
 </div>
 
-<div *ngIf="hideBAM011">
+<div [(hidden)]="hideBAM011">
   <th class="f01_th">最新延遲繳款及繳清延遲繳款資訊</th>
   <br>
   <mat-table [dataSource]="BAM011Source" matSortDisableClear>
@@ -84,7 +84,7 @@
   </tr>
 </div>
 
-<div *ngIf="hideAAS003">
+<div [(hidden)]="hideAAS003">
   <th class="f01_th">AAS003 自然人姓名,身分證補發,通報,補充註記</th>
   <table class="form1">
     <tr class="tbTitle">
@@ -110,7 +110,7 @@
   </table>
 </div>
 
-<div *ngIf="hideAPS001">
+<div [(hidden)]="hideAPS001">
   <th class="f01_th">APS001 自然人個人資料</th>
   <table class="form1">
     <tr class="tbTitle">
@@ -126,7 +126,7 @@
   </table>
 </div>
 
-<div *ngIf="hideACI001">
+<div [(hidden)]="hideACI001">
   <th class="f01_th">ACI001 企業資料日期</th>
   <table class="form1">
     <tr class="tbTitle">
@@ -138,7 +138,7 @@
   </table>
 </div>
 
-<div *ngIf="hideBAI001">
+<div [(hidden)]="hideBAI001">
   <th class="f01_th">BAI001 授信資料日期</th>
   <table class="form1">
     <tr class="tbTitle">
@@ -150,7 +150,7 @@
   </table>
 </div>
 
-<div *ngIf="hideBAI004">
+<div [(hidden)]="hideBAI004">
   <th class="f01_th">BAI004 現金卡資料日期</th>
   <table class="form1">
     <tr class="tbTitle">
@@ -162,7 +162,7 @@
   </table>
 </div>
 
-<div *ngIf="hideBAS006">
+<div [(hidden)]="hideBAS006">
   <th class="f01_th">BAS006 新增額度及每筆撥款清償提示資訊</th>
   <table class="form1">
     <tr class="tbTitle">
@@ -176,7 +176,7 @@
   </table>
 </div>
 
-<div *ngIf="hideBAS008">
+<div [(hidden)]="hideBAS008">
   <th class="f01_th">BAS008 每日授信餘額變動資訊-交易日期擷取區間</th>
   <table class="form1">
     <tr class="tbTitle">
@@ -192,7 +192,7 @@
   </table>
 </div>
 
-<div *ngIf="hideKRI001">
+<div [(hidden)]="hideKRI001">
   <th class="f01_th">KRI001 資料處理日期</th>
   <table class="form1">
     <tr class="tbTitle">
@@ -204,7 +204,7 @@
   </table>
 </div>
 
-<div *ngIf="hideJAS002">
+<div [(hidden)]="hideJAS002">
   <th class="f01_th">JAS002 信用異常紀錄 (B, D, K)</th>
   <table class="form1">
     <tr class="tbTitle">
@@ -230,7 +230,7 @@
   </table>
 </div>
 
-<div *ngIf="hideVAM020">
+<div [(hidden)]="hideVAM020">
   <th class="f01_th">VAM020 身分證號更改紀錄 (表頭)</th>
   <table class="form1">
     <tr class="tbTitle">
@@ -250,7 +250,7 @@
   </table>
 </div>
 
-<div *ngIf="hideSTS007">
+<div [(hidden)]="hideSTS007">
   <th class="f01_th">STS007 被查詢總次數(查詢理由新業務原業務統計)</th>
   <table class="form1">
     <tr class="tbTitle">

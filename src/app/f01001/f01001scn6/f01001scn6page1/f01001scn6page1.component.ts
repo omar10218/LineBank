@@ -10,7 +10,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
   templateUrl: './f01001scn6page1.component.html',
   styleUrls: ['./f01001scn6page1.component.css', '../../../../assets/css/f01.css']
 })
-export class F01001scn6page1Component implements OnInit {
+export class F01001scn6page1Component implements OnInit, AfterViewInit  {
 
   AAS003: [] = [];
   APS001: [] = [];
@@ -25,25 +25,25 @@ export class F01001scn6page1Component implements OnInit {
   VAM020: [] = [];
   list: any[] = [];
 
-  hideKRI002 = true;
-  hideBAM011 = true;
-  hideAAS003 = true;
-  hideAPS001 = true;
-  hideACI001 = true;
-  hideBAI001 = true;
-  hideBAI004 = true;
-  hideBAS006 = true;
-  hideBAS008 = true;
-  hideKRI001 = true;
-  hideJAS002 = true;
-  hideVAM020 = true;
-  hideSTS007 = true;
+  hideKRI002 = false;
+  hideBAM011 = false;
+  hideAAS003 = false;
+  hideAPS001 = false;
+  hideACI001 = false;
+  hideBAI001 = false;
+  hideBAI004 = false;
+  hideBAS006 = false;
+  hideBAS008 = false;
+  hideKRI001 = false;
+  hideJAS002 = false;
+  hideVAM020 = false;
+  hideSTS007 = false;
 
   constructor(private route: ActivatedRoute, private f01001scn6Service: F01001scn6Service, private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.getJcicMultiple();
-        this.setBooleanTrue();
+        this.setBooleanFalse();
         this.list = [];
 
         this.currentPage = {
@@ -77,18 +77,8 @@ export class F01001scn6page1Component implements OnInit {
       this.queryDate = params['queryDate'];
     });
     this.getJcicMultiple();
-    this.setBooleanTrue();
-  }
+    this.setBooleanFalse();
 
-  totalCount: any;
-  totalCount2: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('paginator2', { static: true }) paginator2: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  KRI002Source = new MatTableDataSource<any>();
-  BAM011Source = new MatTableDataSource<any>();
-
-  ngAfterViewInit() {
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
@@ -100,18 +90,31 @@ export class F01001scn6page1Component implements OnInit {
       pageSize: 10,
       length: null
     };
-     
+  }
+
+  totalCount: any;
+  totalCount2: any;
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  @ViewChild('paginator2', { static: true }) paginator2: MatPaginator;
+  KRI002Source = new MatTableDataSource<any>();
+  BAM011Source = new MatTableDataSource<any>();
+
+  ngAfterViewInit() {
+    
+    console.log("我進來了") 
+
     this.getKRI002();
-    // this.paginator.page.subscribe((page: PageEvent) => {
-    //   this.currentPage = page;
-    //   this.getKRI002();
-    // });
+    this.paginator.page.subscribe((page: PageEvent) => {
+      this.currentPage = page;
+      this.getKRI002();
+    });
     
     this.getBAM011();
-    // this.paginator2.page.subscribe((page: PageEvent) => {
-    //   this.currentPage2 = page;
-    //   this.getBAM011();
-    // });
+    this.paginator2.page.subscribe((page: PageEvent) => {
+      this.currentPage2 = page;
+      this.getBAM011();
+    });
   }
 
   getJcicMultiple() {
@@ -181,7 +184,7 @@ export class F01001scn6page1Component implements OnInit {
    this.hideSTS007 = true;
   }
 
-  setBooleanFalse(who: string) {
+  setBooleanFalse() {
     this.hideKRI002 = false;
     this.hideBAM011 = false;
     this.hideAAS003 = false;
@@ -207,7 +210,7 @@ export class F01001scn6page1Component implements OnInit {
     }
    }
 
-  test(who: string){
+  show(who: string){
     if ( this.list.indexOf(who) !== -1) {
       const index: number = this.list.indexOf(who);
       this.list.splice( index , 1 ) ;
@@ -216,9 +219,12 @@ export class F01001scn6page1Component implements OnInit {
     }
 
     if ( this.list.length == 0 ) {
-      this.setBooleanTrue();
+      this.setBooleanFalse();
+    } else if ( this.list.length == 5 ) {
+      this.setBooleanFalse();
+      this.list = [];
     } else {
-      this.setBooleanFalse(who);
+      this.setBooleanTrue();
       this.exist();
       // if ( who == "KRI002") { this.hideKRI002 = !this.hideKRI002; this.getKRI002(); }
       // if ( who == "BAM011") { this.hideBAM011 = !this.hideBAM011; this.getBAM011(); }
