@@ -145,6 +145,9 @@ import { F04002Component } from './f04002/f04002.component';
 import { F04002confirmComponent } from './f04002/f04002confirm/f04002confirm.component';
 import { F01001scn2page1Component } from './f01001/f01001scn2/f01001scn2page1/f01001scn2page1.component';
 import { F04001confirmComponent } from './f04001/f04001confirm/f04001confirm.component';
+import { F01003Component } from './f01003/f01003.component';
+import { F01004Component } from './f01004/f01004.component';
+import { F01005Component } from './f01005/f01005.component';
 
 @NgModule({
   declarations: [
@@ -279,6 +282,9 @@ import { F04001confirmComponent } from './f04001/f04001confirm/f04001confirm.com
     F04002confirmComponent,
     F01001scn2page1Component,
     F04001confirmComponent,
+    F01003Component,
+    F01004Component,
+    F01005Component,
   ],
   imports: [
     BrowserModule,

@@ -184,6 +184,12 @@ console.log(this.compareTableCode)
     }
     return codeVal;
   }
+
+  clear(){
+    this.selectedValue1 = '';
+    this.selectedValue2 = '';
+    this.setValue = '';
+  }
 }
 
 
