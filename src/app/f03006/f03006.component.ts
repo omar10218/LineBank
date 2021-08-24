@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -49,7 +50,7 @@ export class F03006Component implements OnInit, AfterViewInit {
   levelEndDateValue: Date;
   levelEndDateString: string;
 
-  constructor(private f03006Service: F03006Service, public dialog: MatDialog) { }
+  constructor(private f03006Service: F03006Service, public dialog: MatDialog, private pipe: DatePipe) { }
   ngOnInit(): void {
 
     const baseUrl = 'f03/f03006';
@@ -126,20 +127,24 @@ export class F03006Component implements OnInit, AfterViewInit {
 
   getEmployeeList() {
     let formData = new FormData();
-    formData.append('EmpNo', this.empNoValue != null ?　this.empNoValue : '');
-    formData.append('EmpName', this.empNameValue != null ?　this.empNameValue : '');
-    formData.append('EmpId', this.empIDValue != null ?　this.empIDValue : '');
-    formData.append('AgentEmp', this.agent_empValue != null ?　this.agent_empValue : '');
-    formData.append('Email', this.emailValue != null ?　this.emailValue : '');
-    formData.append('OnJob', this.on_jobValue != null ?　this.on_jobValue : '');
-    formData.append('AssignStop', this.assign_stopValue != null ?　this.assign_stopValue : '');
-    formData.append('AssignProjectno', this.projectValue != null ?　this.projectValue : '');
+    formData.append('empNo', this.empNoValue != null ?　this.empNoValue : '');
+    formData.append('empName', this.empNameValue != null ?　this.empNameValue : '');
+    formData.append('empId', this.empIDValue != null ?　this.empIDValue : '');
+    formData.append('agentEmp', this.agent_empValue != null ?　this.agent_empValue : '');
+    formData.append('email', this.emailValue != null ?　this.emailValue : '');
+    formData.append('onJob', this.on_jobValue != null ?　this.on_jobValue : '');
+    formData.append('assignStop', this.assign_stopValue != null ?　this.assign_stopValue : '');
+    formData.append('assignProjectno', this.projectValue != null ?　this.projectValue : '');
     formData.append('leaveStartdateType', this.levelStartDateTypeValue != null ?　this.levelStartDateTypeValue : '');
     formData.append('leaveEnddateType', this.levelEndDateTypeValue != null ?　this.levelEndDateTypeValue : '');
-    formData.append('leaveStartdate', this.levelStartDateString != null ? this.levelStartDateString : '');
-    formData.append('leaveEnddate', this.levelEndDateString != null ?this.levelEndDateString : '');
-
-    console.log(formData);
+    if (  this.levelStartDateString != null &&  this.levelStartDateString != '' ) {
+      formData.append('leaveStartdate', this.pipe.transform( new Date(this.levelStartDateString) , 'yyyyMMdd' ) );
+    }
+    if (  this.levelEndDateString != null &&  this.levelEndDateString != '' ) {
+      formData.append('leaveEnddate', this.pipe.transform( new Date(this.levelEndDateString) , 'yyyyMMdd' ) );
+    }
+    // formData.append('leaveStartdate',  != null ? this.levelStartDateString : '');
+    // formData.append('leaveEnddate', this.levelEndDateString != null ?this.levelEndDateString : '');
     const baseUrl = 'f03/f03006action1';
     this.f03006Service.getEmployeeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize,formData)
       .subscribe(data => {

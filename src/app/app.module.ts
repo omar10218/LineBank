@@ -150,6 +150,7 @@ import { F01004Component } from './f01004/f01004.component';
 import { F01005Component } from './f01005/f01005.component';
 // import { GoogleMapsModule } from '@angular/google-maps';
 import { F01001scn9page4Component } from './f01001/f01001scn9/f01001scn9page4/f01001scn9page4.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -310,7 +311,8 @@ import { F01001scn9page4Component } from './f01001/f01001scn9/f01001scn9page4/f0
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

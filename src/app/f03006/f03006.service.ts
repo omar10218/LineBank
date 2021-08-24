@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -7,7 +8,7 @@ import { BaseService } from '../base.service';
   providedIn: 'root'
 })
 export class F03006Service extends BaseService {
-  constructor(protected httpClient: HttpClient) { super(httpClient); }
+  constructor(protected httpClient: HttpClient, private pipe: DatePipe) { super(httpClient); }
   dialogData: any;
 
   getEmployeeList(baseUrl: string, pageIndex: number, pageSize: number, formData: FormData): Observable<any> {
@@ -32,8 +33,8 @@ export class F03006Service extends BaseService {
     formdata.append('assignProjectno', data.ASSIGN_PROJECTNO)
     formdata.append('leaveStartdateType', data.LEAVE_STARTDATE_TYPE);
     formdata.append('leaveEnddateType', data.LEAVE_ENDDATE_TYPE);
-    formdata.append('leaveStartdate', data.LEAVE_STARTDATE);
-    formdata.append('leaveEnddate', data.LEAVE_ENDDATE);
+    formdata.append('leaveStartdate',  this.pipe.transform( new Date(data.LEAVE_STARTDATE) , 'yyyyMMdd' ) );
+    formdata.append('leaveEnddate', this.pipe.transform( new Date(data.LEAVE_ENDDATE) , 'yyyyMMdd' ) );
     return this.saveOrEditMsgString(baseUrl, formdata);
   }
 
