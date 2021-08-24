@@ -1,59 +1,82 @@
-
 <table>
-  <tr>
-    <td style="padding-left: 20px;">
-      <mat-form-field color="accent">
-        <mat-select placeholder="職務代理人" [(ngModel)]="empValue" name="ynCode" (ngModelChange)="changeSelect()">
-          <mat-option *ngFor="let emp of empOption" [value]="emp.value">
-            {{emp.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </td>
-    <td>
-      <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
-      </mat-form-field>
-    </td>
-    <td>
-      <mat-paginator #paginator
-               [length]="totalCount"
-               [pageIndex]="0"
-               [pageSize]="10"
-               [pageSizeOptions]="[5, 10, 15, 50, 100]"
-               [showFirstLastButtons]="true">
-      </mat-paginator>
-    </td>
-  </tr>
+    <tr>
+        <td>
+            <mat-form-field color="accent">
+                <input matInput [(ngModel)]="swcApplno" (blur)="changeSelect()" placeholder="收件編號">
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field color="accent">
+                <input matInput [(ngModel)]="swcID" (blur)="changeSelect()" placeholder="身分證號">
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+            </mat-paginator>
+        </td>
+    </tr>
 </table>
 
 <mat-table [dataSource]="cusinfoDataSource" matSort (matSortChange)="changeSort($event)">
-  <ng-container matColumnDef="management">
-    <mat-header-cell *matHeaderCellDef>
-      <u>管理</u>
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <button mat-raised-button color="primary"  (click) = "getLockCase(row.applno, row.cu_id)">取件</button>
-    </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="applno">
-    <mat-header-cell *matHeaderCellDef>收件編號</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.applno }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="cu_cname">
-    <mat-header-cell *matHeaderCellDef>客戶姓名</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.cu_cname }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="cu_id">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>身分證字號</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.cu_id }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="cu_urgent">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>是否急件</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.cu_urgent }}</mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="management">
+        <mat-header-cell *matHeaderCellDef>
+            <u>取件</u>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <button mat-raised-button color="primary" (click)="getLockCase(row.swcApplno, row.cu_id)">取件</button>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="swcFlowType">
+        <mat-header-cell *matHeaderCellDef>流程別</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.swcFlowType }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="swcReadyForReview">
+        <mat-header-cell *matHeaderCellDef>是否重查完成</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.swcReadyForReview }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="swcApplno">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>收件編號</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.swcApplno }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="swcID">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>身分證號</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.swcID }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="swcName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.swcName }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="swcCompany">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>公司名稱</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.swcCompany }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="swcResult">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>審核結果</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.swcResult }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="note">
+        <mat-header-cell *matHeaderCellDef><u>案件註記</u></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <mat-form-field>
+                <input matInput #name="ngModel" name="note" placeholder="請輸入註記" [(ngModel)]="row.note">
+            </mat-form-field>
+        </mat-cell>
+    </ng-container>
 
-  <mat-header-row *matHeaderRowDef="['management', 'applno', 'cu_cname', 'cu_id', 'cu_urgent']"></mat-header-row>
-  <mat-row *matRowDef="let caseListRow; columns: ['management', 'applno', 'cu_cname', 'cu_id', 'cu_urgent']"></mat-row>
+    <ng-container matColumnDef="saveNote">
+        <mat-header-cell *matHeaderCellDef>
+            <u>儲存</u>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <button mat-raised-button color="primary" (click)="saveNote(row.swcApplno, row.note)">儲存</button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row
+        *matHeaderRowDef="['management', 'swcFlowType', 'swcReadyForReview', 'swcApplno', 'swcID','swcName','swcCompany','swcResult','note', 'saveNote']">
+    </mat-header-row>
+    <mat-row
+        *matRowDef="let caseListRow; columns: ['management', 'swcFlowType', 'swcReadyForReview', 'swcApplno', 'swcID','swcName','swcCompany','swcResult','note', 'saveNote']">
+    </mat-row>
 </mat-table>
-
