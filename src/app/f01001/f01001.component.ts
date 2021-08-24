@@ -14,7 +14,7 @@ interface sysCode {
 @Component({
   selector: 'app-f01001',
   templateUrl: './f01001.component.html',
-  styleUrls: ['./f01001.component.css']
+  styleUrls: ['./f01001.component.css','../../assets/css/f01.css']
 })
 export class F01001Component implements OnInit, AfterViewInit  {
   totalCount: any;

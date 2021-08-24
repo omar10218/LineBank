@@ -10,7 +10,7 @@ import { F01002Service } from './f01002.service';
 @Component({
   selector: 'app-f01002',
   templateUrl: './f01002.component.html',
-  styleUrls: ['./f01002.component.css']
+  styleUrls: ['./f01002.component.css','../../assets/css/f01.css']
 })
 export class F01002Component implements OnInit,AfterViewInit  {
   totalCount: any;

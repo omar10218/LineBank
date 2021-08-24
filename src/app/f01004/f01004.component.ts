@@ -9,7 +9,7 @@ import { F01004Service } from './f01004.service';
 @Component({
   selector: 'app-f01004',
   templateUrl: './f01004.component.html',
-  styleUrls: ['./f01004.component.css']
+  styleUrls: ['./f01004.component.css','../../assets/css/f01.css']
 })
 export class F01004Component implements OnInit,AfterViewInit {
   totalCount: any;

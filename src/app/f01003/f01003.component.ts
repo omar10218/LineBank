@@ -10,7 +10,7 @@ import { F01003Service } from './f01003.service';
 @Component({
   selector: 'app-f01003',
   templateUrl: './f01003.component.html',
-  styleUrls: ['./f01003.component.css']
+  styleUrls: ['./f01003.component.css','../../assets/css/f01.css']
 })
 export class F01003Component implements OnInit, AfterViewInit {
   totalCount: any;
@@ -39,7 +39,7 @@ export class F01003Component implements OnInit, AfterViewInit {
       direction: ''
     };
   }
-  
+
   ngAfterViewInit(): void {
     this.getCaseList(this.empNo, this.swcID, this.swcApplno);
     this.paginator.page.subscribe((page: PageEvent) => {
