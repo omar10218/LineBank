@@ -21,52 +21,86 @@ interface checkBox {
 @Component({
   selector: 'app-f03006',
   templateUrl: './f03006.component.html',
-  styleUrls: ['./f03006.component.css','../../assets/css/f03.css']
+  styleUrls: ['./f03006.component.css', '../../assets/css/f03.css']
 })
 export class F03006Component implements OnInit, AfterViewInit {
 
-  ynValue: string;
-  unitValue: string;
+  agent_empCode: sysCode[] = [];//代理人
+  levelStartDateTypeCode: sysCode[] = [];//日期種類起
+  levelEndDateTypeCode: sysCode[] = [];//日期種類迄
+  //levelTypeCode: sysCode[] = [];//日期種類
+  projectCode: sysCode[] = [];//派件專案代碼
+  roleCode: sysCode[] = [];//角色
+  on_jobCode: sysCode[] = [];//是否在職
+  assign_stopCode: sysCode[] = [];//是否停派
+
   empNoValue: string;
-  groupValue: string;
-  surrogateValue: string;
-  sysCode: sysCode[] = [];
-  unitCode: sysCode[] = [];
-  groupCode: sysCode[] = [];
-  surrogateCode: sysCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
-  ynCode: sysCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
+  empNameValue: string;
+  empIDValue: string;
+  agent_empValue: string;
+  emailValue: string;
+  on_jobValue: string = "Y";
+  assign_stopValue: string;
+  projectValue: string;
+  levelStartDateTypeValue: string;
+  levelEndDateTypeValue: string;
+  levelStartDateValue: Date;
+  levelStartDateString: string;
+  levelEndDateValue: Date;
+  levelEndDateString: string;
+
   constructor(private f03006Service: F03006Service, public dialog: MatDialog) { }
   ngOnInit(): void {
-    this.f03006Service.getSysTypeCode('GEN_UNIT','f03/f03006').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.unitCode.push({value: codeNo, viewValue: desc})
-      }
-    });
-    const baseUrl = 'f03/f03006action1';
-    this.f03006Service.getGroupCode(baseUrl).subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['groupNo'];
-        const desc = jsonObj['groupName'];
-        this.groupCode.push({value: codeNo, viewValue: desc})
-      }
-    });
-    // const surrogateUrl = 'EmployeeSet/gmOption';
-    // this.f03006Service.getSurrogateCode(surrogateUrl).subscribe(data => {
-    //   for (const jsonObj of data.rspBody) {
-    //     const codeNo = jsonObj['SURROGATE_NO'];
-    //     const desc = jsonObj['SURROGATE_NAME'];
-    //     this.surrogateCode.push({value: codeNo, viewValue: desc})
-    //   }
-    // });
-    const roleUrl = 'f03/f03006action2';
-    this.f03006Service.getEmployeeRole(roleUrl).subscribe(data => {
-      this.empRoleSource.data = data.rspBody;
-    });
+
+    const baseUrl = 'f03/f03006';
+    this.f03006Service.getEmployeeSysTypeCode(baseUrl)
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.empList) {
+          const codeNo = jsonObj['empNo'];
+          const desc = jsonObj['empNo'];
+          this.agent_empCode.push({ value: codeNo, viewValue: desc })
+        }
+
+        for (const jsonObj of data.rspBody.levelTypeList) {
+          const codeNo = jsonObj['codeNo'];
+          const desc = jsonObj['codeDesc'];
+          this.levelStartDateTypeCode.push({ value: codeNo, viewValue: desc })
+          this.levelEndDateTypeCode.push({ value: codeNo, viewValue: desc })
+        }
+
+
+        for (const jsonObj of data.rspBody.projectList) {
+          const codeNo = jsonObj['codeNo'];
+          const desc = jsonObj['codeDesc'];
+          this.projectCode.push({ value: codeNo, viewValue: desc })
+        }
+
+
+        for (const jsonObj of data.rspBody.roleList) {
+          const codeNo = jsonObj['codeNo'];
+          const desc = jsonObj['codeDesc'];
+          this.roleCode.push({ value: codeNo, viewValue: desc })
+        }
+
+        this.assign_stopCode.push({ value: "", viewValue: "請選擇" })
+        for (const jsonObj of data.rspBody.ynList) {
+          const codeNo = jsonObj['codeNo'];
+          const desc = jsonObj['codeNo'];
+          this.on_jobCode.push({ value: codeNo, viewValue: desc })
+          this.assign_stopCode.push({ value: codeNo, viewValue: desc })
+        }
+
+        this.empRoleSource.data = data.rspBody.roleList;
+        console.log("我是data_______________");
+        console.log(data);
+        console.log(this.projectCode);
+        console.log("我是data_______________");
+
+      });
+
   }
 
-//============================================================
+
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
@@ -92,18 +126,55 @@ export class F03006Component implements OnInit, AfterViewInit {
 
   getEmployeeList() {
     let formData = new FormData();
-    formData.append('empNo', this.empNoValue != null ?　this.empNoValue : '');
-    formData.append('onJob', this.ynValue != null ?　this.ynValue : '');
-    formData.append('unit', this.unitValue != null ?　this.unitValue : '');
-    formData.append('group', this.groupValue != null ?　this.groupValue : '');
-    formData.append('surrogate', this.surrogateValue != null ?　this.surrogateValue : '');
-    const baseUrl = 'f03/f03006action3';
-    this.f03006Service.getEmployeeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, formData)
-    .subscribe(data => {
-      console.log(data);
-      this.totalCount = data.rspBody.size;
-      this.employeeSource.data = data.rspBody.items;
-    });
+    formData.append('EmpNo', this.empNoValue != null ?　this.empNoValue : '');
+    formData.append('EmpName', this.empNameValue != null ?　this.empNameValue : '');
+    formData.append('EmpId', this.empIDValue != null ?　this.empIDValue : '');
+    formData.append('AgentEmp', this.agent_empValue != null ?　this.agent_empValue : '');
+    formData.append('Email', this.emailValue != null ?　this.emailValue : '');
+    formData.append('OnJob', this.on_jobValue != null ?　this.on_jobValue : '');
+    formData.append('AssignStop', this.assign_stopValue != null ?　this.assign_stopValue : '');
+    formData.append('AssignProjectno', this.projectValue != null ?　this.projectValue : '');
+    formData.append('leaveStartdateType', this.levelStartDateTypeValue != null ?　this.levelStartDateTypeValue : '');
+    formData.append('leaveEnddateType', this.levelEndDateTypeValue != null ?　this.levelEndDateTypeValue : '');
+    formData.append('leaveStartdate', this.levelStartDateString != null ? this.levelStartDateString : '');
+    formData.append('leaveEnddate', this.levelEndDateString != null ?this.levelEndDateString : '');
+
+    console.log(formData);
+    const baseUrl = 'f03/f03006action1';
+    this.f03006Service.getEmployeeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize,formData)
+      .subscribe(data => {
+        console.log(data);
+        this.totalCount = data.rspBody.size;
+        this.employeeSource.data = data.rspBody.items;
+      });
+  }
+
+  Clear() {
+    this.empNoValue= '';
+    this.empNameValue= '';
+    this.empIDValue= '';
+    this.agent_empValue= '';
+    this.emailValue= '';
+    this.on_jobValue = "Y";
+    this.assign_stopValue= '';
+    this.projectValue= '';
+    this.levelStartDateTypeValue= '';
+    this.levelEndDateTypeValue= '';
+    this.levelStartDateValue=undefined;
+    this.levelStartDateString= '';
+    this.levelEndDateValue=undefined;
+    this.levelEndDateString= '';
+
+  }
+
+  getDateString(date: Date) :string{
+    const d = date.getUTCDate();
+    const day = (d < 10) ? '0' + d : d;
+    const m = date.getUTCMonth() + 1;
+    const month = (m < 10) ? '0' + m : m;
+    const year = date.getUTCFullYear();
+    const loctime = `${year}-${month}-${day}`;
+    return( `${year}${month}${day}`);
   }
 
   changeSort(sortInfo: Sort) {
@@ -133,6 +204,7 @@ export class F03006Component implements OnInit, AfterViewInit {
 
   chkArray: checkBox[] = null;
   setRoleNo(empNo: string, roleArray: string) {
+    console.log(empNo, roleArray);
     this.chkArray = [];
     let selfRole = roleArray != null ? roleArray : '';
     for (const jsonObj of this.empRoleSource.data) {
@@ -142,7 +214,7 @@ export class F03006Component implements OnInit, AfterViewInit {
         isChk = (str == chkValue);
         if (isChk) { break; }
       }
-      this.chkArray.push({value: chkValue, completed: isChk});
+      this.chkArray.push({ value: chkValue, completed: isChk });
     }
 
     const dialogRef = this.dialog.open(F03006roleComponent, {
@@ -154,41 +226,80 @@ export class F03006Component implements OnInit, AfterViewInit {
   }
 
   addNew() {
-      const dialogRef = this.dialog.open(F03006addComponent, {
-        data: {
-          EMP_NO: '',
-          EMP_NAME : '' ,
-          ON_JOB: 'Y',
-          EMAIL: '',
-          PROMOTION_UNIT: '',
-          GROUP_NO: '',
-          SURROGATE_NO: 'Y'
-        }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { this.refreshTable(); }
-      });
+    const dialogRef = this.dialog.open(F03006addComponent, {
+      data: {
+        EMP_NO: '',
+        EMP_NAME: '',
+        EMP_ID: '',
+        ON_JOB: 'Y',
+        AGENT_EMP: '',
+        EMAIL: '',
+        ASSIGN_STOP: '',
+        ASSIGN_PROJECTNO: '',
+        LEAVE_STARTDATE: '',
+        LEAVE_STARTDATE_TYPE: '',
+        LEAVE_ENDDATE: '',
+        LEAVE_ENDDATE_TYPE: '',
+        agent_empCode: this.agent_empCode,//代理人
+        levelStartDateTypeCode: this.levelStartDateTypeCode,//日期種類起
+        levelEndDateTypeCode: this.levelEndDateTypeCode,//日期種類迄
+        projectCode: this.projectCode,//派件專案代碼
+        roleCode: this.roleCode,//角色
+        on_jobCode: this.on_jobCode,//是否在職
+        assign_stopCode: this.assign_stopCode//是否停派
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
   }
 
   startEdit(i: number,
-    EMP_NO: string, EMP_NAME: string, ON_JOB: string,
-    EMAIL: string, PROMOTION_UNIT: string, GROUP_NO: string
-    , SURROGATE_NO: string
-    ) {
-      console.log(SURROGATE_NO);
-      const dialogRef = this.dialog.open(F03006editComponent, {
-        data: {
-          EMP_NO: EMP_NO, EMP_NAME : EMP_NAME , ON_JOB: ON_JOB, EMAIL: EMAIL,
-          PROMOTION_UNIT: PROMOTION_UNIT != null ? PROMOTION_UNIT : '',
-          GROUP_NO: GROUP_NO != null ? GROUP_NO : '',
-          SURROGATE_NO: SURROGATE_NO,
-          UNIT: this.unitCode,
-          GROUP: this.groupCode
-        }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { this.refreshTable(); }
-      });
+    EMP_NO: string, EMP_NAME: string, EMP_ID: string, ON_JOB: string,
+    AGENT_EMP: string, EMAIL: string, LEAVE_STARTDATE: string, LEAVE_ENDDATE: string,
+    LEAVE_STARTDATE_TYPE: string , LEAVE_ENDDATE_TYPE:string,
+    ASSIGN_STOP: string,ASSIGN_PROJECTNO: string
+  ) {
+
+    const dialogRef = this.dialog.open(F03006editComponent, {
+      data: {
+
+        EMP_NO: EMP_NO,
+        EMP_NAME: EMP_NAME,
+        EMP_ID: EMP_ID,
+        ON_JOB: ON_JOB,
+        AGENT_EMP: AGENT_EMP,
+        EMAIL: EMAIL,
+        ASSIGN_STOP: ASSIGN_STOP,
+        ASSIGN_PROJECTNO: ASSIGN_PROJECTNO,
+        LEAVE_STARTDATE: LEAVE_STARTDATE,
+        LEAVE_STARTDATE_TYPE: LEAVE_STARTDATE_TYPE,
+        LEAVE_ENDDATE: LEAVE_ENDDATE,
+        LEAVE_ENDDATE_TYPE: LEAVE_ENDDATE_TYPE,
+        agent_empCode: this.agent_empCode,//代理人
+        levelStartDateTypeCode: this.levelStartDateTypeCode,//日期種類起
+        levelEndDateTypeCode: this.levelEndDateTypeCode,//日期種類迄
+        projectCode: this.projectCode,//派件專案代碼
+        roleCode: this.roleCode,//角色
+        on_jobCode: this.on_jobCode,//是否在職
+        assign_stopCode: this.assign_stopCode//是否停派
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
+  }
+
+  getlevelDateData(StartDate:string,StartDateType:string,EndDate:string,EndDateType:string):string {
+    let data='';
+    if(StartDate !=null){data=StartDate;}
+    if(StartDate !=null&& StartDateType!=null){data+=this.getOptionDesc(this.levelStartDateTypeCode,StartDateType);}
+    if(EndDate !=null&&StartDate!=null){data+='~';}
+    if(EndDate !=null){data+=EndDate;}
+    if(EndDate !=null&& EndDateType!=null){data+=this.getOptionDesc(this.levelEndDateTypeCode,EndDateType);}
+
+    return(data);
+
   }
 
   private refreshTable() {

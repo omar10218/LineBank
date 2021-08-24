@@ -38,9 +38,9 @@ export class F03006roleComponent {
     formData.append("empNo", this.data.empNo);
     formData.append("roleNo", valArray.toString());
     let msgStr = '';
-    const baseUrl = 'f03/f03006action5';
+    const baseUrl = 'f03/f03006action4';
      this.f03006Service.saveEmployeeRole(baseUrl, formData).subscribe(data => {
-      msgStr = (data.rspCode === '0000' && data.rspMsg === '成功') ? '儲存成功！' : '儲存失敗！';
+      msgStr = (data.rspCode === '0000' && data.rspMsg === '儲存成功!') ? '儲存成功！' : '儲存失敗！';
       const childernDialogRef = this.dialog.open(F03006confirmComponent, {
         data: { msgStr: msgStr }
       });

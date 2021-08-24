@@ -5,7 +5,7 @@
 
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="員工編號" [(ngModel)]="data.EMP_NO" name="EMP_NO" disabled >
+          <input disabled="disabled" matInput #input class="form-control" placeholder="員工編號" [(ngModel)]="data.EMP_NO" name="EMP_NO" required >
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
@@ -18,12 +18,29 @@
         </mat-form-field>
       </div>
 
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="員工ID" [(ngModel)]="data.EMP_ID" name="EMP_ID" required >
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
       <!--Contains mat-hint for characters count and has maxLengt set-->
       <div class="form">
         <mat-form-field color="accent">
           <mat-select placeholder="是否在職" [(ngModel)]="data.ON_JOB" name="ON_JOB" required>
-            <mat-option *ngFor="let yn of ynCode" [value]="yn.value">
+            <mat-option *ngFor="let yn of data.on_jobCode" [value]="yn.value">
               {{yn.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <mat-select placeholder="代理人" [(ngModel)]="data.AGENT_EMP" name="AGENT_EMP" >
+            <mat-option *ngFor="let su of data.agent_empCode" [value]="su.value">
+              {{su.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -37,8 +54,8 @@
 
       <div class="form">
         <mat-form-field color="accent">
-          <mat-select placeholder="推廣單位" [(ngModel)]="data.PROMOTION_UNIT" name="PROMOTION_UNIT" >
-            <mat-option *ngFor="let obj of data.UNIT" [value]="obj.value">
+          <mat-select placeholder="是否停派" [(ngModel)]="data.ASSIGN_STOP" name="ASSIGN_STOP" >
+            <mat-option *ngFor="let obj of data.assign_stopCode" [value]="obj.value">
               {{obj.viewValue}}
             </mat-option>
           </mat-select>
@@ -47,19 +64,47 @@
 
       <div class="form">
         <mat-form-field color="accent">
-          <mat-select placeholder="群組" [(ngModel)]="data.GROUP_NO" name="GROUP_NO" >
-            <mat-option *ngFor="let obj of data.GROUP" [value]="obj.value">
+          <mat-select placeholder="派件專案代碼" [(ngModel)]="data.ASSIGN_PROJECTNO" name="ASSIGN_PROJECTNO" >
+            <mat-option *ngFor="let obj of data.projectCode" [value]="obj.value">
               {{obj.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>請假起日</mat-label>
+          <input matInput [matDatepicker]="levelStartDateValue" [(ngModel)]="data.LEAVE_STARTDATE" name="LEAVE_STARTDATE">
+          <mat-datepicker-toggle matSuffix [for]="levelStartDateValue"></mat-datepicker-toggle>
+          <mat-datepicker #levelStartDateValue></mat-datepicker>
+        </mat-form-field>
+      </div>
+
       <div class="form">
         <mat-form-field color="accent">
-          <mat-select placeholder="代理人" [(ngModel)]="data.SURROGATE_NO" name="SURROGATE_NO" >
-            <mat-option *ngFor="let su of surrogateCode" [value]="su.value">
-              {{su.viewValue}}
+          <mat-select placeholder="請架起日類型" [(ngModel)]="data.LEAVE_STARTDATE_TYPE" name="LEAVE_STARTDATE_TYPE" >
+            <mat-option *ngFor="let obj of data.levelStartDateTypeCode" [value]="obj.value">
+              {{obj.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-label>請假迄日</mat-label>
+          <input matInput [matDatepicker]="levelEndDateValue" [(ngModel)]="data.LEAVE_ENDDATE" name="LEAVE_ENDDATE">
+          <mat-datepicker-toggle matSuffix [for]="levelEndDateValue"></mat-datepicker-toggle>
+          <mat-datepicker #levelEndDateValue></mat-datepicker>
+        </mat-form-field>
+      </td>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <mat-select placeholder="請假迄日類型" [(ngModel)]="data.LEAVE_ENDDATE_TYPE" name="LEAVE_ENDDATE_TYPE" >
+            <mat-option *ngFor="let obj of data.levelEndDateTypeCode" [value]="obj.value">
+              {{obj.viewValue}}
             </mat-option>
           </mat-select>
         </mat-form-field>

@@ -20,28 +20,15 @@ interface sysCode {
 })
 export class F03006addComponent implements OnInit {
 
-  ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
-  surrogateCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
-  unitCode: sysCode[] = [];
-  groupCode: sysCode[] = [];
+  // ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
+  // surrogateCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
+  // unitCode: sysCode[] = [];
+  // groupCode: sysCode[] = [];
+  levelStartDateValue: Date;
+  levelEndDateValue: Date;
   constructor(public dialogRef: MatDialogRef<F03006addComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public f03006Service: F03006Service, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.f03006Service.getSysTypeCode('GEN_UNIT','f03/f03006').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.unitCode.push({value: codeNo, viewValue: desc})
-      }
-    });
-    const baseUrl = 'f03/f03006action1';
-    this.f03006Service.getGroupCode(baseUrl).subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['groupNo'];
-        const desc = jsonObj['groupName'];
-        this.groupCode.push({value: codeNo, viewValue: desc})
-      }
-    });
   }
 
   formControl = new FormControl('', [
@@ -64,11 +51,11 @@ export class F03006addComponent implements OnInit {
 
   public async confirmAdd(): Promise<void> {
     let msgStr: string = "";
-    let baseUrl = 'f03/f03006action4';
-    msgStr = await this.f03006Service.addOrEditSystemCodeSet(baseUrl, this.data);
+    let baseUrl = 'f03/f03006action2';
+    msgStr = await this.f03006Service.addorEditSystemCodeSet(baseUrl, this.data);
     const childernDialogRef = this.dialog.open(F03006confirmComponent, {
       data: { msgStr: msgStr }
     });
-    if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }
-  }
+    if (msgStr === '新增成功!') { this.dialogRef.close({ event:'success' }); }
+   }
 }
