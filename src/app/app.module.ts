@@ -148,6 +148,8 @@ import { F04001confirmComponent } from './f04001/f04001confirm/f04001confirm.com
 import { F01003Component } from './f01003/f01003.component';
 import { F01004Component } from './f01004/f01004.component';
 import { F01005Component } from './f01005/f01005.component';
+// import { GoogleMapsModule } from '@angular/google-maps';
+import { F01001scn9page4Component } from './f01001/f01001scn9/f01001scn9page4/f01001scn9page4.component';
 
 @NgModule({
   declarations: [
@@ -285,6 +287,7 @@ import { F01005Component } from './f01005/f01005.component';
     F01003Component,
     F01004Component,
     F01005Component,
+    F01001scn9page4Component,
   ],
   imports: [
     BrowserModule,
@@ -296,7 +299,8 @@ import { F01005Component } from './f01005/f01005.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    // GoogleMapsModule
   ],
   providers: [
     BnNgIdleService,

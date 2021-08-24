@@ -62,6 +62,7 @@ import { F01001scn9Component } from './f01001/f01001scn9/f01001scn9.component';
 import { F01001scn9page1Component } from './f01001/f01001scn9/f01001scn9page1/f01001scn9page1.component';
 import { F01001scn9page2Component } from './f01001/f01001scn9/f01001scn9page2/f01001scn9page2.component';
 import { F01001scn9page3Component } from './f01001/f01001scn9/f01001scn9page3/f01001scn9page3.component';
+import { F01001scn9page4Component } from './f01001/f01001scn9/f01001scn9page4/f01001scn9page4.component';
 import { F01002Component } from './f01002/f01002.component';
 import { F01003Component } from './f01003/f01003.component';
 import { F01004Component } from './f01004/f01004.component';
@@ -308,6 +309,10 @@ const routes: Routes = [
               {
                 path: 'F01001SCN9PAGE3',
                 component: F01001scn9page3Component
+              },
+              {
+                path: 'F01001SCN9PAGE4',
+                component: F01001scn9page4Component
               }
             ]
           },
