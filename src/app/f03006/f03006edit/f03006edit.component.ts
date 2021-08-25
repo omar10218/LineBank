@@ -4,10 +4,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { F03006Service } from '../f03006.service';
 import { F03006confirmComponent } from '../f03006confirm/f03006confirm.component';
 
-// interface ynCode {
-//   value: string;
-//   viewValue: string;
-// }
+interface sysCode {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-f03006edit',
@@ -15,13 +15,17 @@ import { F03006confirmComponent } from '../f03006confirm/f03006confirm.component
   styleUrls: ['./f03006edit.component.css']
 })
 export class F03006editComponent {
+
+  dateType: sysCode[];
   levelStartDateValue: Date;
   levelEndDateValue: Date;
 
   constructor(public dialogRef: MatDialogRef<F03006editComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03006Service: F03006Service) { }
 
   ngOnInit(): void {
-
+    this.dateType = this.data.levelStartDateTypeCode;
+    this.changeDATE_TYPE('Start');
+    this.changeDATE_TYPE('End');
     this.data.agent_empCode=[];
     const baseUrl = 'f03/f03006action5';
     let targetUrl = `${baseUrl}?empNo=${this.data.EMP_NO}`;
@@ -46,6 +50,15 @@ export class F03006editComponent {
     return this.formControl.hasError('required') ? 'Required field' :
     this.formControl.hasError('email') ? 'Not a valid email' :
     '';
+  }
+
+  changeDATE_TYPE(key: string) {
+    if (key == 'Start') {
+      this.data.levelStartDateTypeCode= this.data.LEAVE_STARTDATE == null ?　[] : this.dateType;
+    }
+    else {
+      this.data.levelEndDateTypeCode= this.data.LEAVE_ENDDATE == null ?　[] : this.dateType;
+    }
   }
 
   submit() {
