@@ -150,6 +150,10 @@ import { F01004Component } from './f01004/f01004.component';
 import { F01005Component } from './f01005/f01005.component';
 // import { GoogleMapsModule } from '@angular/google-maps';
 import { F01001scn9page4Component } from './f01001/f01001scn9/f01001scn9page4/f01001scn9page4.component';
+import { DatePipe } from '@angular/common';
+import { F03011addComponent } from './f03011/f03011add/f03011add.component';
+import { F03010addComponent } from './f03010/f03010add/f03010add.component';
+import { F03012addComponent } from './f03012/f03012add/f03012add.component';
 
 @NgModule({
   declarations: [
@@ -288,6 +292,9 @@ import { F01001scn9page4Component } from './f01001/f01001scn9/f01001scn9page4/f0
     F01004Component,
     F01005Component,
     F01001scn9page4Component,
+    F03011addComponent,
+    F03010addComponent,
+    F03012addComponent,
   ],
   imports: [
     BrowserModule,
@@ -310,7 +317,8 @@ import { F01001scn9page4Component } from './f01001/f01001scn9/f01001scn9page4/f0
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

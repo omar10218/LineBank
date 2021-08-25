@@ -1,0 +1,46 @@
+<th class="f03_th">資料比對設定維護--新增</th>
+<br>
+<form [formGroup]="compareTableSetForm" style="padding-left: 20px;">
+  <div class="f03_div">
+    <button type="submit" mat-raised-button color="primary" (click)="add()">新增</button>
+    <button type="submit" mat-raised-button color="primary" (click)="clear()">清除資料</button>
+  </div>
+  <br>
+  <mat-card class="matCard">
+    <mat-card-content>
+      <tr>
+        <th>比對table:</th>
+        <td>
+          <mat-form-field color="accent">
+            <mat-select formControlName="compareTable" [(ngModel)]="selectedValue1" name="compareTableCode"
+              (ngModelChange)="changeSelect()">
+              <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <th>比對欄位:</th>
+        <td>
+          <mat-form-field color="accent">
+            <mat-select formControlName="compareColumn" [(ngModel)]="selectedValue2" name="selectedColumn">
+              <mat-option *ngFor="let code of selectedColumn" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <th>設定值></th>
+        <td>
+          <mat-form-field color="accent">
+            <input formControlName="setValue" matInput [(ngModel)]="setValue">
+          </mat-form-field>
+        </td>
+      </tr>
+    </mat-card-content>
+  </mat-card>
+</form>

@@ -84,7 +84,7 @@
         <td>
           <mat-form-field appearance="fill">
             <mat-label>請假起日</mat-label>
-            <input matInput [matDatepicker]="levelStartDateValue" [(ngModel)]="levelStartDateString" name="levelStartDateString">
+            <input (dateChange)="changeSelect()" matInput [matDatepicker]="levelStartDateValue" [(ngModel)]="levelStartDateString" name="levelStartDateString">
             <mat-datepicker-toggle matSuffix [for]="levelStartDateValue" >
             </mat-datepicker-toggle>
             <mat-datepicker #levelStartDateValue></mat-datepicker>
@@ -107,7 +107,7 @@
         <td>
           <mat-form-field appearance="fill">
             <mat-label>請假迄日</mat-label>
-            <input matInput [matDatepicker]="levelEndDateValue" [(ngModel)]="levelEndDateString" name="levelEndDateString">
+            <input (dateChange)="changeSelect()" matInput [matDatepicker]="levelEndDateValue" [(ngModel)]="levelEndDateString" name="levelEndDateString">
             <mat-datepicker-toggle matSuffix [for]="levelEndDateValue"></mat-datepicker-toggle>
             <mat-datepicker #levelEndDateValue></mat-datepicker>
           </mat-form-field>

@@ -24,14 +24,13 @@ export class F03007Component implements OnInit, AfterViewInit {
   isAllCheck: boolean = false;
   sysCode: sysCode[] = [];
   chkArray: checkBox[] = [];
-  selectedValue: string;
+  selectedValue: string = 'default';
   roleFunctionSource = new MatTableDataSource<any>();
   constructor(private f03007Service: F03007Service, public dialog: MatDialog,) { }
   ngAfterViewInit() { }
   ngOnInit(): void {
     const baseUrl = 'f03/f03007';
     this.f03007Service.getRoleOption(baseUrl).subscribe(data => {
-      console.log(data);
       for (const jsonObj of data.rspBody.list) {
         const codeNo = jsonObj['roleNo'];
         const desc = jsonObj['roleName'];
@@ -45,7 +44,7 @@ export class F03007Component implements OnInit, AfterViewInit {
   }
 
   save() {
-    if (this.selectedValue = 'undefined') {
+    if (this.selectedValue == 'default') {
       alert('請選擇角色!!!!');
       return false;
     }

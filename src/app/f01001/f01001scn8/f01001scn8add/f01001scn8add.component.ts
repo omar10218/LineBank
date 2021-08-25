@@ -1,5 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { F01001scn8Service } from '../f01001scn8.service';
+import { F01001scn8confirmComponent } from '../f01001scn8confirm/f01001scn8confirm.component';
+
+interface sysCode {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-f01001scn8add',
@@ -8,10 +15,72 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class F01001scn8addComponent implements OnInit {
 
+  stopFlagCode: sysCode[] = [{ value: 'Y', viewValue: 'Y' }, { value: 'N', viewValue: 'N' }];
 
-  constructor(public dialogRef: MatDialogRef<F01001scn8addComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  //CON_TEL_Code: sysCode[] = [{ value: '001', viewValue: 'CBK-住家電話' }, { value: '002', viewValue: 'CBK-行動電話' }];
+  CON_TEL_Code: sysCode[] = [];
+  CON_TEL_Selected: string;
+  //CON_TEL_Value:string;
+  //CON_TARGET_Code: sysCode[] = [{ value: '001', viewValue: '對象1' }, { value: '002', viewValue: '對象2' }];
+  CON_TARGET_Code: sysCode[] = [];
+  CON_TARGET_Selected: string;
+  //CON_TARGET_Value:string;
+  //CON_MEMO_Code: sysCode[] = [{ value: '001', viewValue: '註記1' }, { value: '002', viewValue: '註記2' }];
+  CON_MEMO_Code: sysCode[] = [];
+  CON_MEMO_Selected: string;
+  //CON_MEMO_Value:string;
+
+  constructor(public dialogRef: MatDialogRef<F01001scn8addComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f01001scn8Service: F01001scn8Service) { }
 
   ngOnInit(): void {
+    this.f01001scn8Service.getSysTypeCode('CON_TEL', 'f01/f01001scn8')
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody) {
+          const codeNo = jsonObj['codeNo'];
+          const desc = jsonObj['codeDesc'];
+          this.CON_TEL_Code.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    this.f01001scn8Service.getSysTypeCode('CON_TARGET', 'f01/f01001scn8')
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody) {
+          const codeNo = jsonObj['codeNo'];
+          const desc = jsonObj['codeDesc'];
+          this.CON_TARGET_Code.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    this.f01001scn8Service.getSysTypeCode('CON_MEMO', 'f01/f01001scn8')
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody) {
+          const codeNo = jsonObj['codeNo'];
+          const desc = jsonObj['codeDesc'];
+          this.CON_MEMO_Code.push({ value: codeNo, viewValue: desc })
+        }
+      });
+  }
+
+  submit() {
+  }
+
+  async save() {
+    let msgStr: string = "";
+    let codeStr: string = "";
+    const baseUrl = 'f01/f01001scn8action1';
+    await this.f01001scn8Service.AddCALLOUT(baseUrl, this.data).then((data: any) => {
+      codeStr = data.rspCode;
+      msgStr = data.rspMsg;
+
+    });
+
+    const childernDialogRef = this.dialog.open(F01001scn8confirmComponent, {
+      data: { msgStr: msgStr }
+    });
+
+    if (msgStr === '新增成功!' && codeStr === '0000') { this.dialogRef.close({ event: 'success' }); }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

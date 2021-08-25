@@ -6,6 +6,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MappingCode } from '../mappingcode.model';
 import { F03011Service } from './f03011.service';
+import { F03011addComponent } from './f03011add/f03011add.component';
 import { F03011confirmComponent } from './f03011confirm/f03011confirm.component';
 import { F03011editComponent } from './f03011edit/f03011edit.component';
 interface sysCode {
@@ -20,44 +21,14 @@ interface sysCode {
 })
 export class F03011Component implements OnInit, AfterViewInit {
 
-  scklvCode: sysCode[] = [];
-  calvCode: sysCode[] = [];
-  tvNoCode: sysCode[] = [];
   currentPage: PageEvent;
   currentSort: Sort;
 
-  dssCalloutForm: FormGroup = this.fb.group({
-    scklv: ['', [Validators.required]],
-    calv: ['', [Validators.required]],
-    tvNo: ['', [Validators.required]]
-  });
   submitted = false;
 
   constructor(private fb: FormBuilder, private f03011Service: F03011Service, public dialog: MatDialog) { }
-  
-  ngOnInit(): void {
-    this.f03011Service.getSysTypeCode('SCKLV','f03/f03011').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.scklvCode.push({value: codeNo, viewValue: desc})
-      }
-    });
-    this.f03011Service.getSysTypeCode('CALV','f03/f03011').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.calvCode.push({value: codeNo, viewValue: desc})
-      }
-    });
-    this.f03011Service.getSysTypeCode('TV_NO','f03/f03011').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.tvNoCode.push({value: codeNo, viewValue: desc})
-      }
-    });
 
+  ngOnInit(): void {
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
@@ -102,27 +73,6 @@ export class F03011Component implements OnInit, AfterViewInit {
     // Validators.email,
   ]);
 
-  save() {
-    let msg = '';
-    this.submitted = true;
-    if (!this.dssCalloutForm.valid) {
-      msg = '資料格式有誤，請修正!';
-    } else {
-      const url = 'f03/f03011action1';
-      const formdata: FormData = new FormData();
-      formdata.append('scklv', this.dssCalloutForm.value.scklv);
-      formdata.append('calv', this.dssCalloutForm.value.calv);
-      formdata.append('tvNo', this.dssCalloutForm.value.tvNo);
-      this.f03011Service.saveDssCallout( url, formdata).subscribe(data => {
-        msg = data.rspMsg;
-      });
-    }
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(F03011confirmComponent, { data: { msgStr: msg } });
-      window.location.reload();
-    }, 1500);
-  }
-
   getOptionscklv(codeVal: string): string {
     for (const data of this.scklvOption) {
       if (data.codeNo == codeVal) {
@@ -153,13 +103,24 @@ export class F03011Component implements OnInit, AfterViewInit {
     return codeVal;
   }
 
+  add(){
+    const dialogRef = this.dialog.open(F03011addComponent, {
+      minHeight: '100vh',
+      width: '50%',
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != null && result.event == 'success') { this.refreshTable(); }
+        window.location.reload();
+      });
+  }
+
   startEdit(tvNo: string, scklv: string, calv: string) {
     const dialogRef = this.dialog.open(F03011editComponent, {
       minHeight: '100vh',
-      width: '50%',  
+      width: '50%',
       data: {
-        tvNo: tvNo, 
-        scklv : scklv , 
+        tvNo: tvNo,
+        scklv : scklv ,
         calv: calv
         }
       });
