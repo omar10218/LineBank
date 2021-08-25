@@ -7,6 +7,7 @@
         <td>
           <mat-form-field color="accent">
             <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()">
+              <mat-option value="default">請選擇</mat-option>
               <mat-option *ngFor="let code of sysCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
