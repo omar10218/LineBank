@@ -9,6 +9,7 @@ import { F01001scn8confirmComponent } from './f01001scn8confirm/f01001scn8confir
 import { F01001scn8editComponent } from './f01001scn8edit/f01001scn8edit.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
+import { F01001scn8addComponent } from './f01001scn8add/f01001scn8add.component';
 
 interface sysCode {
   value: string;
@@ -56,14 +57,7 @@ export class F01001scn8Component implements OnInit {
   EditData:any;
 
   submitted = false;
-  compareTableSetForm: FormGroup = this.fb.group({
-    CON_TEL_Selected: ['', [Validators.required]],
-    CON_TEL_Value: ['', [Validators.required]],
-    CON_TARGET_Selected: ['', [Validators.required]],
-    CON_TARGET_Value: ['', [Validators.required]],
-    CON_MEMO_Selected: ['', [Validators.required]],
-    CON_MEMO_Value: ['', [Validators.required]]
-  });
+
 
   // result:any;
 
@@ -135,30 +129,23 @@ export class F01001scn8Component implements OnInit {
 
 
   Add() {
-    let msg = '';
-    this.submitted = true;
-    if (!this.compareTableSetForm.valid) {
-      msg = '資料格式有誤，請修正!';
-    } else {
-      const url = 'f01/f01001scn8action1';
-      const formdata: FormData = new FormData();
-      formdata.append('applno', this.applno);
-      formdata.append('conTel', this.compareTableSetForm.value.CON_TEL_Selected);
-      formdata.append('phone', this.compareTableSetForm.value.CON_TEL_Value);
-      formdata.append('conTarget', this.compareTableSetForm.value.CON_TARGET_Selected);
-      formdata.append('custType', this.compareTableSetForm.value.CON_TARGET_Value);
-      formdata.append('conMemo', this.compareTableSetForm.value.CON_MEMO_Selected);
-      formdata.append('note', this.compareTableSetForm.value.CON_MEMO_Value);
-
-      this.f01001scn8Service.AddCALLOUT(url, formdata).subscribe(data => {
-        msg = data.rspMsg;
+    const dialogRef = this.dialog.open(F01001scn8addComponent, {
+      minHeight: '100vh',
+      width: '50%',
+      data: {
+        applno: this.applno,
+        con_TEL: '',
+        phone : '' ,
+        con_TARGET: '',
+        cust_TYPE: '',
+        con_MEMO: '',
+        note: '',
+        ID: ''
+        }
       });
-    }
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(F01001scn8confirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == '新增成功!') { this.refreshTable(); this.reText(); }
-    }, 1500);
-
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != null && result.event == 'success') { this.refreshTable(); }
+      });
   }
 
   startEdit(CON_TEL: string,PHONE: string,CON_TARGET: string,CUST_TYPE: string,CON_MEMO: string,NOTE: string,ID: string) {
@@ -199,36 +186,6 @@ export class F01001scn8Component implements OnInit {
 
   test(): void {
 
-  }
-  reText(): void {
-     this.compareTableSetForm.value.CON_TEL_Selected=undefined;
-      this.compareTableSetForm.value.CON_TEL_Value=undefined;
-      this.compareTableSetForm.value.CON_TARGET_Selected=undefined;
-      this.compareTableSetForm.value.CON_TARGET_Value=undefined;
-      this.compareTableSetForm.value.CON_MEMO_Selected=undefined;
-      this.compareTableSetForm.value.CON_MEMO_Value=undefined;
-      this.CON_TEL_Selected=undefined;
-      this.CON_TEL_Value=undefined;
-
-      this.CON_TARGET_Selected=undefined;
-      this.CON_TARGET_Value=undefined;
-
-      this.CON_MEMO_Selected=undefined;
-      this.CON_MEMO_Value=undefined;
-    // this.compareTableSetForm.value.CON_TEL_Selected='';
-    //   this.compareTableSetForm.value.CON_TEL_Value='';
-    //   this.compareTableSetForm.value.CON_TARGET_Selected='';
-    //   this.compareTableSetForm.value.CON_TARGET_Value='';
-    //   this.compareTableSetForm.value.CON_MEMO_Selected='';
-    //   this.compareTableSetForm.value.CON_MEMO_Value='';
-    //   this.CON_TEL_Selected='';
-    //   this.CON_TEL_Value='';
-
-    //   this.CON_TARGET_Selected='';
-    //   this.CON_TARGET_Value='';
-
-    //   this.CON_MEMO_Selected='';
-    //   this.CON_MEMO_Value='';
   }
 
   private async getCALLOUTFunction() {

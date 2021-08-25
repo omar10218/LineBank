@@ -5,6 +5,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { F03010Service } from './f03010.service';
+import { F03010addComponent } from './f03010add/f03010add.component';
 import { F03010confirmComponent } from './f03010confirm/f03010confirm.component';
 import { F03010editComponent } from './f03010edit/f03010edit.component';
 
@@ -19,15 +20,6 @@ interface sysCode {
   styleUrls: ['./f03010.component.css', '../../assets/css/f03.css']
 })
 export class F03010Component implements OnInit {
-  
-  stopFlagCode: sysCode[] = [{ value: 'Y', viewValue: 'Y' }, { value: 'N', viewValue: 'N' }];
-
-  setCalloutSpeakingForm: FormGroup = this.fb.group({
-    speakingAbbreviation: ['', [Validators.required]],
-    stopFlag: ['Y', [Validators.required]],
-    speakingContent: ['', [Validators.required]]
-  });
-  submitted = false;
 
   constructor(private fb: FormBuilder, private f03010Service: F03010Service, public dialog: MatDialog) { }
 
@@ -68,30 +60,15 @@ export class F03010Component implements OnInit {
     });
   }
 
-  formControl = new FormControl('', [
-    Validators.required
-    // Validators.email,
-  ]);
-
   add() {
-    let msg = '';
-    this.submitted = true;
-    if (!this.setCalloutSpeakingForm.valid) {
-      msg = '資料格式有誤，請修正!';
-    } else {
-      const url = 'f03/f03010action1';
-      const formdata: FormData = new FormData();
-      formdata.append('speakingAbbreviation', this.setCalloutSpeakingForm.value.speakingAbbreviation);
-      formdata.append('stopFlag', this.setCalloutSpeakingForm.value.stopFlag);
-      formdata.append('speakingContent', this.setCalloutSpeakingForm.value.speakingContent);
-      this.f03010Service.saveDssCallout( url, formdata).subscribe(data => {
-        msg = data.rspMsg;
+    const dialogRef = this.dialog.open(F03010addComponent, {
+      minHeight: '100vh',
+      width: '50%',
       });
-    }
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(F03010confirmComponent, { data: { msgStr: msg } });
-      window.location.reload();
-    }, 1500);
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != null && result.event == 'success') { this.refreshTable(); }
+        window.location.reload();
+      });
   }
 
   getSpeaking() {
@@ -105,14 +82,14 @@ export class F03010Component implements OnInit {
   }
 
   startEdit(speakingAbbreviation: string, speakingContent: string, stopFlag: string) {
-    console.log(speakingAbbreviation,speakingContent,stopFlag)  
+    console.log(speakingAbbreviation,speakingContent,stopFlag)
     const dialogRef = this.dialog.open(F03010editComponent, {
       minHeight: '100vh',
-      width: '50%',  
+      width: '50%',
       data: {
-          speakingAbbreviation: speakingAbbreviation, 
-          speakingContent : speakingContent , 
-          stopFlag1: stopFlag
+          speakingAbbreviation: speakingAbbreviation,
+          speakingContent : speakingContent ,
+          stopFlag: stopFlag
         }
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -120,7 +97,7 @@ export class F03010Component implements OnInit {
         window.location.reload();
       });
   }
-  
+
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }

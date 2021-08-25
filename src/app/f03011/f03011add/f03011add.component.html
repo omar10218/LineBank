@@ -1,0 +1,51 @@
+<div class="container">
+  <th class="f03_th">DSS照會模組</th>
+  <form [formGroup]="dssCalloutForm" style="padding-left: 20px;">
+    <table style="padding-left: 20px;">
+      <div class="f03_div">
+        <button type="submit" mat-raised-button color="primary" (click)="save()">儲存</button>
+      </div>
+      <br>
+      <mat-card class="matCard">
+        <mat-card-content>
+          <tr>
+            <th>照會模組：</th>
+            <td>
+              <mat-form-field color="accent">
+                <mat-select formControlName="tvNo">
+                  <mat-option *ngFor="let code of tvNoCode" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <th>系統徵信比對：</th>
+            <td>
+              <mat-form-field color="accent">
+                <mat-select formControlName="scklv">
+                  <mat-option *ngFor="let code of scklvCode" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <th>案件等級：</th>
+            <td>
+              <mat-form-field color="accent">
+                <mat-select formControlName="calv">
+                  <mat-option *ngFor="let code of calvCode" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+        </mat-card-content>
+      </mat-card>
+    </table>
+  </form>
+</div>

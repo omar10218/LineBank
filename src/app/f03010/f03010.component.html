@@ -1,41 +1,5 @@
 <div class="container">
   <th class="f03_th">照會話術</th>
-  <form [formGroup]="setCalloutSpeakingForm" style="padding-left: 20px;">
-    <table style="padding-left: 20px;">
-      <div class="f03_div">
-        <button mat-raised-button color="primary" (click)="add()">新增</button>
-      </div>
-      <br>
-      <mat-card class="matCard">
-        <mat-card-content>
-          <tr>
-            <th nowrap="nowrap">話術簡稱</th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput #inputstate class="form-control" formControlName="speakingAbbreviation">
-              </mat-form-field>
-            </td>
-            <th nowrap="nowrap">暫停使用</th>
-            <td>
-              <mat-form-field color="accent">
-                <mat-select formControlName="stopFlag">
-                  <mat-option *ngFor="let stopFlag of stopFlagCode" [value]="stopFlag.viewValue">
-                    {{stopFlag.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <th nowrap="nowrap" valign="middle">話術內容</th>
-            <td colspan="4">
-              <textarea style="width: 1000PX;height:200px;" formControlName="speakingContent"></textarea>
-            </td>
-          </tr>
-        </mat-card-content>
-      </mat-card>
-    </table>
-  </form>
 </div>
 <br>
 <mat-table [dataSource]="calloutSpeakingSource" matSortDisableClear>
@@ -45,13 +9,14 @@
   </ng-container>
   <ng-container matColumnDef="speakingContent">
     <mat-header-cell *matHeaderCellDef>話術內容</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.speakingContent }}</mat-cell>
+    <mat-cell *matCellDef="let row" title="{{ row.speakingContent }}">{{ (row.speakingContent.length > 20) ? ((row.speakingContent).slice(0,
+      20) + '...') : row.speakingContent}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="stopFlag">
     <mat-header-cell *matHeaderCellDef>暫停使用</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.stopFlag }}</mat-cell>
   </ng-container>
-  
+
   <ng-container matColumnDef="actions">
     <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -63,6 +28,11 @@
   </ng-container>
 
   <ng-container matColumnDef="actions2">
+    <mat-header-cell *matHeaderCellDef>
+      <button mat-icon-button color="primary" (click)="add()">
+        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+      </button>
+    </mat-header-cell>
     <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
     <mat-cell *matCellDef="let row">
       <button mat-icon-button color="accent" (click)="delete(
