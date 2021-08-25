@@ -14,46 +14,42 @@ interface sysCode {
 @Component({
   selector: 'app-f01001',
   templateUrl: './f01001.component.html',
-  styleUrls: ['./f01001.component.css']
+  styleUrls: ['./f01001.component.css','../../assets/css/f01.css']
 })
-export class F01001Component implements AfterViewInit  {
+export class F01001Component implements OnInit, AfterViewInit  {
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;
-  empValue: string;
-  empOption: sysCode[] = [{value: '001', viewValue: '陳小明'}, {value: '002', viewValue: '王小華'}];
   currentSort: Sort;
+  empNo: string = localStorage.getItem("empNo");
+  swcID: string;
+  swcApplno: string;
+  note: string;
 
   cusinfoDataSource = new MatTableDataSource<any>();
-  constructor(private httpClient: HttpClient, private router: Router, private f01001Service: F01001Service) {}
-
-  ngAfterViewInit() {
-
-    // this.paginator.lastPage = () => this.yourMethodToTrigger();
-
+  constructor(private router: Router, private f01001Service: F01001Service) {}
+  ngOnInit(): void {
+    this.swcApplno = '';
+    this.swcID = '';
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
       length: null
     };
+
     this.currentSort = {
       active: '',
       direction: ''
     };
-    this.getCaseList('001');
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getCaseList('001');
-    });
   }
 
-  yourMethodToTrigger() {
-    console.log('Triggered!');
-    console.log(this.totalCount);
-    console.log(this.currentPage.pageIndex);
-    console.log(this.currentPage.pageIndex + 1);
-    console.log(this.currentPage.pageSize);
+  ngAfterViewInit() {
+    this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+    this.paginator.page.subscribe((page: PageEvent) => {
+      this.currentPage = page;
+      this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+    });
   }
 
   changeSort(sortInfo: Sort) {
@@ -62,13 +58,14 @@ export class F01001Component implements AfterViewInit  {
       sortInfo.active = 'created';
     }
     this.currentSort = sortInfo;
-    this.getCaseList('001');
+    // this.getCaseList('001');
   }
 
-  getCaseList(empno: string) {
-    this.f01001Service.getCaseList(this.currentPage.pageIndex, this.currentPage.pageSize, empno).subscribe(data => {
-      this.totalCount = data.size;
-      this.cusinfoDataSource.data = data.items;
+  getCaseList(empNo: string, swcID: string, swcApplno: string) {
+    this.f01001Service.getCaseList(this.currentPage.pageIndex, this.currentPage.pageSize
+      , empNo, swcID, swcApplno).subscribe(data => {
+        this.totalCount = data.rspBody.size;
+        this.cusinfoDataSource.data = data.rspBody.items;
     });
   }
 
@@ -79,36 +76,15 @@ export class F01001Component implements AfterViewInit  {
       length: null
     };
     this.paginator.firstPage();
-    this.getCaseList(this.empValue);
+    this.getCaseList(this.empNo, this.swcID, this.swcApplno);
   }
 
-  // getIssuees() {
-  //   const baseUrl = 'https://api.github.com/search/issues?q=repo:angular/components';
-  //   let targetUrl = `${baseUrl}&page=${this.currentPage.pageIndex + 1}&per_page=${this.currentPage.pageSize}`;
-  //   if (this.currentSort.direction) {
-  //     targetUrl = `${targetUrl}&&sort=${this.currentSort.active}&order=${this.currentSort.direction}`;
-  //   }
-  //   this.httpClient
-  //     .get<any>(targetUrl)
-  //     .subscribe(data => {
-  //       this.totalCount = 1000;
-  //       this.emailsDataSource.data = data.items;
-  //       // 從後端進行排序時，不用指定sort
-  //       // this.emailsDataSource.sort = this.sortTable;
-  //       // 從後端取得資料時，就不用指定data srouce的paginator了
-  //       // this.emailsDataSource.paginator = this.paginator;
-  //     });
-  // }
 
   getLockCase(param: String, cuid: String) {
-    // CALL API 鎖定流程上的案件並取得案件資料
     this.router.navigate(['./F01001SCN1'], { queryParams: { applno: param , search: 'N' , cuid: cuid} });
   }
 
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.cusinfoDataSource.filter = filterValue;
-  }
+  saveNote(swcApplno: string, note: string){
 
+  }
 }

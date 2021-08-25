@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { F03006Service } from '../f03006.service';
 import { F03006confirmComponent } from '../f03006confirm/f03006confirm.component';
 
-interface ynCode {
+interface sysCode {
   value: string;
   viewValue: string;
 }
@@ -15,9 +15,31 @@ interface ynCode {
   styleUrls: ['./f03006edit.component.css']
 })
 export class F03006editComponent {
-  ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
-  surrogateCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
+
+  dateType: sysCode[];
+  levelStartDateValue: Date;
+  levelEndDateValue: Date;
+
   constructor(public dialogRef: MatDialogRef<F03006editComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03006Service: F03006Service) { }
+
+  ngOnInit(): void {
+    this.dateType = this.data.levelStartDateTypeCode;
+    this.changeDATE_TYPE('Start');
+    this.changeDATE_TYPE('End');
+    this.data.agent_empCode=[];
+    const baseUrl = 'f03/f03006action5';
+    let targetUrl = `${baseUrl}?empNo=${this.data.EMP_NO}`;
+    this.f03006Service.getEmployeeSysTypeCode(targetUrl)
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody) {
+          const codeNo = jsonObj['EMPNO'];
+          const desc = jsonObj['EMPNO'];
+          this.data.agent_empCode.push({ value: codeNo, viewValue: desc })
+        }
+         console.log(data);
+      });
+
+  }
 
   formControl = new FormControl('', [
     Validators.required
@@ -30,6 +52,15 @@ export class F03006editComponent {
     '';
   }
 
+  changeDATE_TYPE(key: string) {
+    if (key == 'Start') {
+      this.data.levelStartDateTypeCode= this.data.LEAVE_STARTDATE == null ?　[] : this.dateType;
+    }
+    else {
+      this.data.levelEndDateTypeCode= this.data.LEAVE_ENDDATE == null ?　[] : this.dateType;
+    }
+  }
+
   submit() {
   }
 
@@ -38,12 +69,18 @@ export class F03006editComponent {
   }
 
   public async stopEdit(): Promise<void> {
+    console.log("我是修改")
+    console.log(this.data)
+    console.log(this.data.LEAVE_STARTDATE)
+    console.log(this.data.LEAVE_ENDDATE)
+    console.log("我是修改")
     let msgStr: string = "";
-    let baseUrl = 'f03/f03006action6';
-    msgStr = await this.f03006Service.addOrEditSystemCodeSet(baseUrl, this.data);
+    let baseUrl = 'f03/f03006action3';
+    msgStr = await this.f03006Service.addorEditSystemCodeSet(baseUrl, this.data);
+    console.log(msgStr);
     const childernDialogRef = this.dialog.open(F03006confirmComponent, {
       data: { msgStr: msgStr }
     });
-    if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }
+    if (msgStr === '更新成功!') { this.dialogRef.close({ event:'success' }); }
   }
 }

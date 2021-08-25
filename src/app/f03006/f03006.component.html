@@ -1,3 +1,6 @@
+<div class="f03_div" style="padding-left: 20px; padding-top: 20px;" >
+  <button mat-raised-button color="primary" (click)="Clear()">清除資料</button>
+</div>
 <table style="padding-left: 20px;">
   <br>
   <mat-card class="matCard">
@@ -6,34 +9,29 @@
         <th>員工編號：</th>
         <td>
           <mat-form-field color="accent">
-            <input matInput [(ngModel)]="empNoValue" (blur)="changeSelect()">
+            <input  matInput [(ngModel)]="empNoValue" (blur)="changeSelect()">
           </mat-form-field>
         </td>
+        <th>員工姓名：</th>
+        <td>
+          <mat-form-field color="accent">
+            <input matInput [(ngModel)]="empNameValue" (blur)="changeSelect()">
+          </mat-form-field>
+        </td>
+        <th>員工ID：</th>
+        <td>
+          <mat-form-field color="accent">
+            <input matInput [(ngModel)]="empIDValue" (blur)="changeSelect()">
+          </mat-form-field>
+        </td>
+
+      </tr>
+      <tr>
         <th>是否在職：</th>
         <td>
           <mat-form-field color="accent">
-            <mat-select [(ngModel)]="ynValue" name="ynCode" (ngModelChange)="changeSelect()">
-              <mat-option *ngFor="let code of ynCode" [value]="code.value">
-                {{code.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-        <th>推廣單位：</th>
-        <td>
-          <mat-form-field color="accent">
-            <mat-select [(ngModel)]="unitValue" name="unitCode" (ngModelChange)="changeSelect()">
-              <mat-option *ngFor="let code of unitCode" [value]="code.value">
-                {{code.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-        <th>群組：</th>
-        <td>
-          <mat-form-field color="accent">
-            <mat-select [(ngModel)]="groupValue" name="groupCode" (ngModelChange)="changeSelect()">
-              <mat-option *ngFor="let code of groupCode" [value]="code.value">
+            <mat-select [(ngModel)]="on_jobValue" name="on_jobCode" (ngModelChange)="changeSelect()">
+              <mat-option *ngFor="let code of on_jobCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
@@ -42,14 +40,93 @@
         <th>代理人：</th>
         <td>
           <mat-form-field color="accent">
-            <mat-select [(ngModel)]="surrogateValue" name="surrogateCode" (ngModelChange)="changeSelect()">
-              <mat-option *ngFor="let code of surrogateCode" [value]="code.value">
+            <mat-select [(ngModel)]="agent_empValue" name="agent_empCode" (ngModelChange)="changeSelect()">
+              <mat-option *ngFor="let code of agent_empCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </td>
+        <th>E_MAIL：</th>
+        <td>
+          <mat-form-field color="accent">
+            <input matInput [(ngModel)]="emailValue" (blur)="changeSelect()">
+          </mat-form-field>
+        </td>
+
       </tr>
+      <tr>
+        <th>是否停派：</th>
+        <td>
+          <mat-form-field color="accent">
+            <mat-select [(ngModel)]="assign_stopValue" name="assign_stopCode" (ngModelChange)="changeSelect()">
+              <mat-option *ngFor="let code of assign_stopCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        <th>派件專案代碼：</th>
+        <td>
+          <mat-form-field color="accent">
+            <mat-select [(ngModel)]="projectValue" name="projectCode" (ngModelChange)="changeSelect()">
+              <mat-option *ngFor="let code of projectCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+
+      </tr>
+      <tr>
+
+        <th>請假設定：</th>
+        <td>
+          <mat-form-field appearance="fill">
+            <mat-label>請假起日</mat-label>
+            <input (dateChange)="changeSelect()" matInput [matDatepicker]="levelStartDateValue" [(ngModel)]="levelStartDateString" name="levelStartDateString">
+            <mat-datepicker-toggle matSuffix [for]="levelStartDateValue" >
+            </mat-datepicker-toggle>
+            <mat-datepicker #levelStartDateValue></mat-datepicker>
+          </mat-form-field>
+        </td>
+
+
+        <td>
+          <mat-form-field color="accent" width:100px;>
+            <mat-label>請假起日種類</mat-label>
+            <mat-select [(ngModel)]="levelStartDateTypeValue" name="levelStartDateTypeCode"
+              (ngModelChange)="changeSelect()">
+              <mat-option *ngFor="let code of levelStartDateTypeCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field appearance="fill">
+            <mat-label>請假迄日</mat-label>
+            <input (dateChange)="changeSelect()" matInput [matDatepicker]="levelEndDateValue" [(ngModel)]="levelEndDateString" name="levelEndDateString">
+            <mat-datepicker-toggle matSuffix [for]="levelEndDateValue"></mat-datepicker-toggle>
+            <mat-datepicker #levelEndDateValue></mat-datepicker>
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field color="accent" width:100px;>
+            <mat-label>請假迄日種類</mat-label>
+            <mat-select [(ngModel)]="levelEndDateTypeValue" name="levelEndDateTypeCode"
+              (ngModelChange)="changeSelect()">
+              <mat-option *ngFor="let code of levelEndDateTypeCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+
+      </tr>
+
     </mat-card-content>
   </mat-card>
 </table>
@@ -63,26 +140,35 @@
     <mat-header-cell *matHeaderCellDef>員工姓名</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.EMP_NAME }}</mat-cell>
   </ng-container>
+  <ng-container matColumnDef="EMP_ID">
+    <mat-header-cell *matHeaderCellDef>員工ID</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.EMP_ID }}</mat-cell>
+  </ng-container>
   <ng-container matColumnDef="ON_JOB">
     <mat-header-cell *matHeaderCellDef mat-sort-header>是否在職</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ getOptionDesc(ynCode, row.ON_JOB) }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ getOptionDesc(on_jobCode, row.ON_JOB) }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="AGENT_EMP">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>代理人</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ getOptionDesc(agent_empCode, row.AGENT_EMP) }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="EMAIL">
     <mat-header-cell *matHeaderCellDef mat-sort-header>電子信箱</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.EMAIL }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="PROMOTION_UNIT">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>推廣單位</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ getOptionDesc(unitCode, row.PROMOTION_UNIT) }}</mat-cell>
+  <ng-container matColumnDef="LEAVE_STARTDATE_LEAVE_ENDDATE">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>請假設定</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{getlevelDateData(row.LEAVE_STARTDATE| date:"yyyy-MM-dd",row.LEAVE_STARTDATE_TYPE,row.LEAVE_ENDDATE| date:"yyyy-MM-dd",row.LEAVE_ENDDATE_TYPE)}}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="GROUP_NO">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>群組</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ getOptionDesc(groupCode, row.GROUP_NO) }}</mat-cell>
+  <ng-container matColumnDef="ASSIGN_STOP">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>是否停派</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ getOptionDesc(assign_stopCode, row.ASSIGN_STOP) }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="SURROGATE_NO">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>代理人</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ getOptionDesc(surrogateCode, row.SURROGATE_NO) }}</mat-cell>
+  <ng-container matColumnDef="ASSIGN_PROJECTNO">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>派件專案代碼</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ getOptionDesc(projectCode, row.ASSIGN_PROJECTNO) }}</mat-cell>
   </ng-container>
+
   <ng-container matColumnDef="ROLE_NO">
     <mat-header-cell *matHeaderCellDef mat-sort-header>角色</mat-header-cell>
     <mat-cell *matCellDef="let row">
@@ -99,19 +185,23 @@
     </mat-header-cell>
 
     <mat-cell *matCellDef="let row; let i=index;">
-      <button mat-icon-button color="accent" (click)="startEdit(i,
-          row.EMP_NO, row.EMP_NAME, row.ON_JOB, row.EMAIL, row.PROMOTION_UNIT, row.GROUP_NO, row.SURROGATE_NO)">
+      <button mat-icon-button color="accent"
+        (click)="startEdit(i,
+          row.EMP_NO, row.EMP_NAME,row.EMP_ID, row.ON_JOB,row.AGENT_EMP, row.EMAIL, row.LEAVE_STARTDATE,row.LEAVE_ENDDATE,row.LEAVE_STARTDATE_TYPE,row.LEAVE_ENDDATE_TYPE, row.ASSIGN_STOP,row.ASSIGN_PROJECTNO)">
         <mat-icon aria-label="Edit">edit</mat-icon>
       </button>
     </mat-cell>
   </ng-container>
   <mat-header-row
-    *matHeaderRowDef="['EMP_NO', 'EMP_NAME', 'ON_JOB', 'EMAIL', 'PROMOTION_UNIT', 'GROUP_NO', 'SURROGATE_NO', 'ROLE_NO', 'actions']">
+    *matHeaderRowDef="['EMP_NO', 'EMP_NAME','EMP_ID', 'ON_JOB','AGENT_EMP', 'EMAIL', 'LEAVE_STARTDATE_LEAVE_ENDDATE', 'ASSIGN_STOP','ASSIGN_PROJECTNO', 'ROLE_NO', 'actions']">
   </mat-header-row>
   <mat-row
-    *matRowDef="let mappingCodeRow; columns: ['EMP_NO', 'EMP_NAME', 'ON_JOB', 'EMAIL', 'PROMOTION_UNIT', 'GROUP_NO', 'SURROGATE_NO', 'ROLE_NO', 'actions']">
+    *matRowDef="let mappingCodeRow; columns: ['EMP_NO', 'EMP_NAME','EMP_ID', 'ON_JOB','AGENT_EMP', 'EMAIL', 'LEAVE_STARTDATE_LEAVE_ENDDATE', 'ASSIGN_STOP','ASSIGN_PROJECTNO', 'ROLE_NO', 'actions']">
   </mat-row>
 </mat-table>
+
+
+
 <tr>
   <td>
     <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"

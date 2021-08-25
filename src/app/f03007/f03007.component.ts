@@ -17,30 +17,38 @@ interface checkBox {
 @Component({
   selector: 'app-f03007',
   templateUrl: './f03007.component.html',
-  styleUrls: ['./f03007.component.css','../../assets/css/f03.css']
+  styleUrls: ['./f03007.component.css', '../../assets/css/f03.css']
 })
 export class F03007Component implements OnInit, AfterViewInit {
 
   isAllCheck: boolean = false;
   sysCode: sysCode[] = [];
   chkArray: checkBox[] = [];
-  selectedValue: string;
+  selectedValue: string = 'default';
   roleFunctionSource = new MatTableDataSource<any>();
   constructor(private f03007Service: F03007Service, public dialog: MatDialog,) { }
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
   ngOnInit(): void {
     const baseUrl = 'f03/f03007';
     this.f03007Service.getRoleOption(baseUrl).subscribe(data => {
-      console.log(data);
-      for (const jsonObj of data.rspBody) {
+      for (const jsonObj of data.rspBody.list) {
         const codeNo = jsonObj['roleNo'];
         const desc = jsonObj['roleName'];
-        this.sysCode.push({value: codeNo, viewValue: desc})
+        this.sysCode.push({ value: codeNo, viewValue: desc })
       }
+      for (const jsonObj of data.rspBody.functionList) {
+        this.chkArray.push({ value: jsonObj['FN_NO'], completed: false })
+      }
+      this.roleFunctionSource.data = data.rspBody.functionList;
     });
   }
 
   save() {
+    if (this.selectedValue == 'default') {
+      alert('請選擇角色!!!!');
+      return false;
+    }
+
     var valArray: string[] = new Array;
     for (const obj of this.chkArray) {
       if (obj.completed) { valArray.push(obj.value); }
@@ -49,7 +57,7 @@ export class F03007Component implements OnInit, AfterViewInit {
     formData.append("roleNo", this.selectedValue);
     formData.append("fnNo", valArray.toString());
     const baseUrl = 'f03/f03007action2';
-     this.f03007Service.saveRoleFunction(baseUrl, formData).subscribe(data => {
+    this.f03007Service.saveRoleFunction(baseUrl, formData).subscribe(data => {
       const childernDialogRef = this.dialog.open(F03007confirmComponent, {
         data: { msgStr: data.rspMsg }
       });
@@ -76,7 +84,7 @@ export class F03007Component implements OnInit, AfterViewInit {
         for (const jsonObj of data.rspBody) {
           const chkValue = jsonObj['FN_NO'];
           const isChk = jsonObj['IS_CHK'];
-          this.chkArray[i] = {value: chkValue, completed: isChk == 'Y'};
+          this.chkArray[i] = { value: chkValue, completed: isChk == 'Y' };
           i++;
         }
 
@@ -84,7 +92,7 @@ export class F03007Component implements OnInit, AfterViewInit {
         for (const jsonObj of data.rspBody) {
           const chkValue = jsonObj['FN_NO'];
           const isChk = jsonObj['IS_CHK'];
-          this.chkArray.push({value: chkValue, completed: isChk == 'Y'});
+          this.chkArray.push({ value: chkValue, completed: isChk == 'Y' });
         }
       }
       this.roleFunctionSource.data = data.rspBody;
