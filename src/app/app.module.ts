@@ -154,6 +154,8 @@ import { DatePipe } from '@angular/common';
 import { F03011addComponent } from './f03011/f03011add/f03011add.component';
 import { F03010addComponent } from './f03010/f03010add/f03010add.component';
 import { F03012addComponent } from './f03012/f03012add/f03012add.component';
+import { F03008editComponent } from './f03008/f03008edit/f03008edit.component';
+import { F03008uploadComponent } from './f03008/f03008upload/f03008upload.component';
 
 @NgModule({
   declarations: [
@@ -295,6 +297,8 @@ import { F03012addComponent } from './f03012/f03012add/f03012add.component';
     F03011addComponent,
     F03010addComponent,
     F03012addComponent,
+    F03008editComponent,
+    F03008uploadComponent,
   ],
   imports: [
     BrowserModule,
