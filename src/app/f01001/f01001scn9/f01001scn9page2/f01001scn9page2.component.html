@@ -3,16 +3,36 @@
       <mat-card class="matCard">
         <mat-card-content>
           <tr>
-            <th nowrap="nowrap" align="left">活期存款</th>
+            <th nowrap="nowrap" align="left">帳戶類別</th>
             <td>
               <mat-form-field color="accent">
-                <input matInput #input formControlName="DEMAND_DEPOSIT" readonly>
+                <input matInput #input formControlName="ACC_TYPE" readonly>
               </mat-form-field>
             </td>
-            <th nowrap="nowrap" align="left">定期存款</th>
+            <th nowrap="nowrap" align="left">帳戶狀態</th>
             <td>
               <mat-form-field color="accent">
-                <input matInput #input formControlName="TIME_DEPOSIT" readonly>
+                <input matInput #input formControlName="ACC_STATUS" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">開立帳戶日期</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="ACC_OPEN_DATE" readonly>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" align="left">終止日期</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="ACC_EXP_DATE" readonly>
+              </mat-form-field>
+            </td>
+            <th nowrap="nowrap" align="left">迄今往來天數</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #input formControlName="ACTIVATE_DAY" readonly>
               </mat-form-field>
             </td>
           </tr>

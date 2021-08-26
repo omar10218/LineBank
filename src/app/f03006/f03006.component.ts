@@ -8,6 +8,7 @@ import { F03006Service } from './f03006.service';
 import { F03006addComponent } from './f03006add/f03006add.component';
 import { F03006editComponent } from './f03006edit/f03006edit.component';
 import { F03006roleComponent } from './f03006role/f03006role.component';
+import { F03006confirmComponent } from './f03006confirm/f03006confirm.component';
 
 interface sysCode {
   value: string;
@@ -150,6 +151,12 @@ export class F03006Component implements OnInit, AfterViewInit {
       .subscribe(data => {
         console.log(data);
         this.totalCount = data.rspBody.size;
+        console.log(this.totalCount);
+        if(this.totalCount==0){
+          const childernDialogRef = this.dialog.open(F03006confirmComponent, {
+            data: { msgStr: "查無資料!" }
+          });
+        }
         this.employeeSource.data = data.rspBody.items;
       });
   }

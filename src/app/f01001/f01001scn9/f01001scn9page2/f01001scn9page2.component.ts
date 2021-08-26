@@ -17,8 +17,11 @@ interface dateCode {
 export class F01001scn9page2Component implements OnInit {
   coreCustInfoForm: FormGroup = this.fb.group({
     APPLNO: ['', []],
-    DEMAND_DEPOSIT: ['', []],
-    TIME_DEPOSIT: ['', []]
+    ACC_TYPE: ['', []],
+    ACC_STATUS: ['', []],
+    ACC_OPEN_DATE: ['', []],
+    ACC_EXP_DATE: ['', []],
+    ACTIVATE_DAY: ['', []]
   });
 
   dateCode: dateCode[] = [];
@@ -57,8 +60,11 @@ export class F01001scn9page2Component implements OnInit {
     formdata.append('code', 'DEPOSIT');
     this.f01001scn9Service.getCoreCusInfo(formdata).subscribe(data => {
       this.coreCustInfoForm.patchValue({ APPLNO: data.rspBody.items[0].APPLNO })
-      this.coreCustInfoForm.patchValue({ DEMAND_DEPOSIT: data.rspBody.items[0].DEMAND_DEPOSIT })
-      this.coreCustInfoForm.patchValue({ TIME_DEPOSIT: data.rspBody.items[0].TIME_DEPOSIT })
+      this.coreCustInfoForm.patchValue({ ACC_TYPE: data.rspBody.items[0].ACC_TYPE })
+      this.coreCustInfoForm.patchValue({ ACC_STATUS: data.rspBody.items[0].ACC_STATUS })
+      this.coreCustInfoForm.patchValue({ ACC_OPEN_DATE: data.rspBody.items[0].ACC_OPEN_DATE })
+      this.coreCustInfoForm.patchValue({ ACC_EXP_DATE: data.rspBody.items[0].ACC_EXP_DATE })
+      this.coreCustInfoForm.patchValue({ ACTIVATE_DAY: data.rspBody.items[0].ACTIVATE_DAY })
     });
   }
 
