@@ -54,10 +54,10 @@ export class F01001scn9page3Component implements OnInit {
     @ViewChild('sortTable', { static: true }) sortTable: MatSort;
 
     ngAfterViewInit() {
-      this.getCoreCusInfo('DEPOSIT', this.INSTALLMENT_ACCSource);
+      this.getCoreCusInfo('INSTALLMENT_ACC', this.INSTALLMENT_ACCSource);
       this.paginator.page.subscribe((page: PageEvent) => {
         this.currentPage = page;
-        this.getCoreCusInfo('DEPOSIT', this.INSTALLMENT_ACCSource);
+        this.getCoreCusInfo('INSTALLMENT_ACC', this.INSTALLMENT_ACCSource);
       });
 
       this.getCoreCusInfo('DM_DEP_TRANS_DETAIL', this.REVOLVING_ACCSource);
@@ -66,16 +66,16 @@ export class F01001scn9page3Component implements OnInit {
         this.getCoreCusInfo('DM_DEP_TRANS_DETAIL', this.REVOLVING_ACCSource);
       });
 
-      this.getCoreCusInfo('TIME_DEP_TRANS_DETAIL', this.INST_TRANS_DETAILSource);
+      this.getCoreCusInfo('INST_TRANS_DETAIL', this.INST_TRANS_DETAILSource);
       this.paginator.page.subscribe((page: PageEvent) => {
         this.currentPage = page;
-        this.getCoreCusInfo('TIME_DEP_TRANS_DETAIL', this.INST_TRANS_DETAILSource);
+        this.getCoreCusInfo('INST_TRANS_DETAIL', this.INST_TRANS_DETAILSource);
       });
 
-      this.getCoreCusInfo('DEPOSIT_STATIS_DATA', this.REV_TRANS_DETAILSource);
+      this.getCoreCusInfo('REV_TRANS_DETAIL', this.REV_TRANS_DETAILSource);
       this.paginator.page.subscribe((page: PageEvent) => {
         this.currentPage = page;
-        this.getCoreCusInfo('DEPOSIT_STATIS_DATA', this.REV_TRANS_DETAILSource);
+        this.getCoreCusInfo('REV_TRANS_DETAIL', this.REV_TRANS_DETAILSource);
       });
 
       this.getCoreCusInfo('APPR_STATIS_DATA', this.APPR_STATIS_DATASource);
