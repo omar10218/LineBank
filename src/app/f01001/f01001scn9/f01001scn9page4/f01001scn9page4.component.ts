@@ -43,35 +43,24 @@ export class F01001scn9page4Component implements OnInit {
     @ViewChild('sortTable', { static: true }) sortTable: MatSort;
 
     ngAfterViewInit() {
-      this.getDcTransDetil();
+      this.getCoreCusInfo('DC_TRANS_DETAIL', this.dcTransDetailSource);
       this.paginator.page.subscribe((page: PageEvent) => {
         this.currentPage = page;
-        this.getDcTransDetil();
+        this.getCoreCusInfo('DC_TRANS_DETAIL', this.dcTransDetailSource);
       });
     }
-    
-    getDcTransDetil() {
-      const formdata: FormData = new FormData();
-      formdata.append('applno', this.applno);
-      formdata.append('cuid', this.cuid);
-      formdata.append('code', 'DC_TRANS_DETAIL');
-      console.log("測試1")
-      this.getCoreCusInfo();
-    }
 
-  getCoreCusInfo() {
+  getCoreCusInfo(code: string, source: MatTableDataSource<any>) {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
     formdata.append('cuid', this.cuid);
-    formdata.append('code', 'DC_TRANS_DETAIL');
+    formdata.append('code', code);
+    formdata.append('page', `${this.currentPage.pageIndex + 1}`);
+    formdata.append('per_page', `${this.currentPage.pageSize}`);
     this.f01001scn9Service.getCoreCusInfo(formdata).subscribe(data => {
       this.totalCount = data.rspBody.size;
-      this.dcTransDetailSource.data = data.rspBody.items;
+      source.data = data.rspBody.items;
     });
-  }
-
-  getSearch(): string {
-    return this.search;
   }
 }
 function ngAfterViewInit() {
