@@ -61,7 +61,6 @@
       <mat-header-row *matHeaderRowDef="['PROD_TYPE', 'CT_CFM_DATE', 'CT_EXP_DATE', 'NUM_OF_INST', 'LOAN_ACC', 'ACC_STATUS', 'RATE', 'APPR_AMOUNT', 'LOAN_BAL', 'PERCENTAGE', 'CLOSED_DATE', 'TRANS_MONTHS', 'CT_MONTHS_REMAIN', 'MULTI_LEVEL_RATE_DES']"></mat-header-row>
       <mat-row *matRowDef="let INSTALLMENT_ACCSourceRow; columns: ['PROD_TYPE', 'CT_CFM_DATE', 'CT_EXP_DATE', 'NUM_OF_INST', 'LOAN_ACC', 'ACC_STATUS', 'RATE', 'APPR_AMOUNT', 'LOAN_BAL', 'PERCENTAGE', 'CLOSED_DATE', 'TRANS_MONTHS', 'CT_MONTHS_REMAIN', 'MULTI_LEVEL_RATE_DES']"></mat-row>
     </mat-table>
-  
     <tr>
       <td>
         <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="5"

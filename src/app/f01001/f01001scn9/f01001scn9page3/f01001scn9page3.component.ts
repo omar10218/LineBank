@@ -60,10 +60,10 @@ export class F01001scn9page3Component implements OnInit {
         this.getCoreCusInfo('INSTALLMENT_ACC', this.INSTALLMENT_ACCSource);
       });
 
-      this.getCoreCusInfo('DM_DEP_TRANS_DETAIL', this.REVOLVING_ACCSource);
+      this.getCoreCusInfo('REVOLVING_ACC', this.REVOLVING_ACCSource);
       this.paginator.page.subscribe((page: PageEvent) => {
         this.currentPage = page;
-        this.getCoreCusInfo('DM_DEP_TRANS_DETAIL', this.REVOLVING_ACCSource);
+        this.getCoreCusInfo('REVOLVING_ACC', this.REVOLVING_ACCSource);
       });
 
       this.getCoreCusInfo('INST_TRANS_DETAIL', this.INST_TRANS_DETAILSource);
