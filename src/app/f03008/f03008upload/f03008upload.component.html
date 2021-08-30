@@ -1,1 +1,16 @@
-<p>f03008upload works!</p>
+<div class="container">
+  <h2 mat-dialog-title>貸後管理異常名單維護-上傳Excel</h2>
+
+  <form class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
+
+    <div mat-dialog-actions>
+      <!-- <button mat-button [type]="submit" [disabled]="!formControl.valid" (click)="confirmAdd()">選擇檔案</button> -->
+      <input type="file" (change)="onFileChange($event)" />
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button [type]="submit" [disabled]="!JsonBool" (click)="confirmAdd()">Save</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>

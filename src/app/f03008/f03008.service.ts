@@ -10,14 +10,20 @@ export class F03008Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
   dialogData: any;
 
-  getAdrCodeList(baseUrl: string, pageIndex: number, pageSize: number, adrType: string, adType: string): Observable<any> {
-    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}&adrType=${adrType}&adType=${adType}`;
+  getAbnormalList(baseUrl: string, abnormalNid: string, pageIndex: number, pageSize: number): Observable<any> {
+    let targetUrl = `${baseUrl}?abnormalNid=${abnormalNid}&page=${pageIndex + 1}&per_page=${pageSize}`;
     return this.postHttpClient(targetUrl);
   }
 
-  addOrEditAdrCodeSet(baseUrl: string, data: any): any {
+  addOrEditAdrCodeSet(baseUrl: string, empNo: string, formData: FormData): any {
+    baseUrl = `${baseUrl}?empNo=${empNo}`;
+    return this.saveOrEditMsgString(baseUrl, formData);
 
-    return this.saveOrEditMsgString(baseUrl, data);
+  }
+
+  Delete(baseUrl: string, abnormalNid: string): any {
+    baseUrl = `${baseUrl}?abnormalNid=${abnormalNid}`;
+    return this.postHttpClient(baseUrl);
 
   }
 

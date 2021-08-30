@@ -1,1 +1,59 @@
-<p>f03008edit works!</p>
+<div class="container">
+  <h2 mat-dialog-title>組織人員維護-編輯</h2>
+
+  <form class="mat-dialog-content"  (ngSubmit)="submit()"  #formControl="ngForm">
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input disabled="disabled" matInput #input class="form-control" placeholder="異常ID" [(ngModel)]="data.abnormalNid" name="abnormalNid" required >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-select placeholder="是否比對" [(ngModel)]="data.onCheck" name="onCheck" required>
+          <mat-option *ngFor="let yn of YNselect" [value]="yn.value">
+            {{yn.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input disabled="disabled" matInput #input class="form-control" placeholder="上傳員編" [(ngModel)]="data.transferEmpno" name="transferEmpno" required >
+      </mat-form-field>
+    </div>
+
+    <td>
+      <mat-form-field appearance="fill">
+        <mat-label>上傳時間</mat-label>
+        <input disabled matInput [matDatepicker]="transferDate" [(ngModel)]="data.transferDate" name="transferDate">
+        <mat-datepicker-toggle matSuffix [for]="transferDate"></mat-datepicker-toggle>
+        <mat-datepicker #transferDate></mat-datepicker>
+      </mat-form-field>
+    </td>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input disabled="disabled" matInput #input class="form-control" placeholder="異動員編" [(ngModel)]="data.changeEmpno" name="changeEmpno" required >
+      </mat-form-field>
+    </div>
+
+    <td>
+      <mat-form-field appearance="fill">
+        <mat-label>異動時間</mat-label>
+        <input disabled matInput [matDatepicker]="changeDate" [(ngModel)]="data.changeDate" name="changeDate">
+        <mat-datepicker-toggle matSuffix [for]="changeDate"></mat-datepicker-toggle>
+        <mat-datepicker #changeDate></mat-datepicker>
+      </mat-form-field>
+    </td>
+
+
+    <div mat-dialog-actions>
+      <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>
+
