@@ -30,11 +30,15 @@ export class F03006Service extends BaseService {
     formdata.append('agentEmp', data.AGENT_EMP);
     formdata.append('email', data.EMAIL);
     formdata.append('assignStop', data.ASSIGN_STOP);
-    formdata.append('assignProjectno', data.ASSIGN_PROJECTNO)
-    formdata.append('leaveStartdateType', data.LEAVE_STARTDATE_TYPE);
-    formdata.append('leaveEnddateType', data.LEAVE_ENDDATE_TYPE);
-    formdata.append('leaveStartdate',  this.pipe.transform( new Date(data.LEAVE_STARTDATE) , 'yyyyMMdd' ) );
-    formdata.append('leaveEnddate', this.pipe.transform( new Date(data.LEAVE_ENDDATE) , 'yyyyMMdd' ) );
+    formdata.append('assignProjectno', data.ASSIGN_PROJECTNO) 
+    if ( data.LEAVE_STARTDATE != null ) {
+      formdata.append('leaveStartdateType', data.LEAVE_STARTDATE_TYPE);
+      formdata.append('leaveStartdate',  this.pipe.transform( new Date(data.LEAVE_STARTDATE) , 'yyyyMMdd' ) );
+    }
+    if ( data.LEAVE_ENDDATE != null ) {
+      formdata.append('leaveEnddateType', data.LEAVE_ENDDATE_TYPE);
+      formdata.append('leaveEnddate', this.pipe.transform( new Date(data.LEAVE_ENDDATE) , 'yyyyMMdd' ) );
+    }
     return this.saveOrEditMsgString(baseUrl, formdata);
   }
 

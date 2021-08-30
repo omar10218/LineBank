@@ -18,13 +18,11 @@ export class F03008Service extends BaseService {
   addOrEditAdrCodeSet(baseUrl: string, empNo: string, formData: FormData): any {
     baseUrl = `${baseUrl}?empNo=${empNo}`;
     return this.saveOrEditMsgString(baseUrl, formData);
-
   }
 
-  Delete(baseUrl: string, abnormalNid: string): any {
+  delete(baseUrl: string, abnormalNid: string): Observable<any> {
     baseUrl = `${baseUrl}?abnormalNid=${abnormalNid}`;
     return this.postHttpClient(baseUrl);
-
   }
 
 

@@ -37,6 +37,7 @@ export class F03008Component implements OnInit {
       active: '',
       direction: ''
     };
+    this.getAbnormalList();
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
       this.getAbnormalList();
@@ -55,16 +56,13 @@ export class F03008Component implements OnInit {
     const baseUrl = 'f03/f03008action1';
     this.f03008Service.getAbnormalList(baseUrl, this.ABNORMAL_NID, this.currentPage.pageIndex, this.currentPage.pageSize)
       .subscribe(data => {
-        console.log(data);
         this.totalCount = data.rspBody.size;
-        console.log(this.totalCount);
         if (this.totalCount == 0) {
           const childernDialogRef = this.dialog.open(F03008confirmComponent, {
             data: { msgStr: "查無資料!" }
           });
         }
         this.dataSource.data = data.rspBody.items;
-        console.log(this.dataSource.data);
       });
   }
 
@@ -100,13 +98,12 @@ export class F03008Component implements OnInit {
   }
 
   public async delete(abnormalNid:string): Promise<void> {
-    let msgStr: string = "";
     let baseUrl = 'f03/f03008action4';
-    msgStr = await this.f03008Service.Delete(baseUrl ,abnormalNid);
-    const childernDialogRef = this.dialog.open(F03008confirmComponent, {
-      data: { msgStr: msgStr }
+    this.f03008Service.delete(baseUrl ,abnormalNid).subscribe(data => {
+      const childernDialogRef = this.dialog.open(F03008confirmComponent, {
+        data: { msgStr: data.rspMsg }
+      });
     });
-
   }
 
 

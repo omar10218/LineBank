@@ -93,11 +93,6 @@ export class F03006Component implements OnInit, AfterViewInit {
         }
 
         this.empRoleSource.data = data.rspBody.roleList;
-        console.log("我是data_______________");
-        console.log(data);
-        console.log(this.projectCode);
-        console.log("我是data_______________");
-
       });
 
   }
