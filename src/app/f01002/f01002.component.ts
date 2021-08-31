@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -6,13 +6,16 @@ import { AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { F01002Service } from './f01002.service';
 
-
+interface sysCode {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-f01002',
   templateUrl: './f01002.component.html',
   styleUrls: ['./f01002.component.css','../../assets/css/f01.css']
 })
-export class F01002Component implements OnInit,AfterViewInit  {
+export class F01002Component implements OnInit, AfterViewInit {
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
@@ -21,11 +24,31 @@ export class F01002Component implements OnInit,AfterViewInit  {
   empNo: string = localStorage.getItem("empNo");
   swcID: string;
   swcApplno: string;
+  caseType: string;
   note: string;
-
+  caseTypeCode: sysCode[] = [];
+  empNoCode: sysCode[] = [];
   cusinfoDataSource = new MatTableDataSource<any>();
-  constructor( private router: Router, private f01002Service: F01002Service) {}
+
+  constructor(private router: Router, private f01002Service: F01002Service) { }
   ngOnInit(): void {
+    this.f01002Service.getSysTypeCode('CASE_TYPE', 'sys/getMappingCode').subscribe(data => {
+      for (const jsonObj of data.rspBody) {
+        const codeNo = jsonObj['codeNo'];
+        const desc = jsonObj['codeDesc'];
+        this.caseTypeCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    this.f01002Service.getEmpNo(this.empNo).subscribe(data => {
+      console.log(data)
+      for (const jsonObj of data.rspBody) {
+        const empNo = jsonObj['empNo'];
+        const empName = jsonObj['empName'];
+        this.empNoCode.push({ value: empNo, viewValue: empName })
+      }
+    });
+
     this.swcApplno = '';
     this.swcID = '';
     this.currentPage = {
@@ -49,7 +72,6 @@ export class F01002Component implements OnInit,AfterViewInit  {
   }
 
   changeSort(sortInfo: Sort) {
-    // 因為API排序欄位是created，因此在這邊做調整
     if (sortInfo.active === 'created_at') {
       sortInfo.active = 'created';
     }
@@ -60,12 +82,13 @@ export class F01002Component implements OnInit,AfterViewInit  {
   getCaseList(empNo: string, swcID: string, swcApplno: string) {
     this.f01002Service.getCaseList(this.currentPage.pageIndex, this.currentPage.pageSize
       , empNo, swcID, swcApplno).subscribe(data => {
-      this.totalCount = data.rspBody.size;
-      this.cusinfoDataSource.data = data.rspBody.items;
-    });
+        this.totalCount = data.rspBody.size;
+        this.cusinfoDataSource.data = data.rspBody.items;
+        this.cusinfoDataSource.sort = this.sortTable;
+      });
   }
 
-  changeSelect() {
+  select() {
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
@@ -75,10 +98,20 @@ export class F01002Component implements OnInit,AfterViewInit  {
     this.getCaseList(this.empNo, this.swcID, this.swcApplno);
   }
 
-  getLockCase(param: String, cuid: String) {
-    this.router.navigate(['./F01001SCN1'], { queryParams: { applno: param , search: 'N' , cuid: cuid} });
+  getLockCase(swcApplno: string) {
+    this.f01002Service.getLockCase(swcApplno).subscribe(data => {
+      if (data.rspMsg == '案件鎖定成功') {
+        this.router.navigate(['./F01001SCN1'], { queryParams: { applno: swcApplno, search: 'N' } });
+      }
+    });
   }
 
-  saveNote(swcApplno: string, note: string){
+  saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
+    this.f01002Service.saveCaseMemo(swcApplno, swcCaseMemo).subscribe(data => {
+      if (data.rspMsg == 'success') {
+        this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+        window.location.reload();
+      }
+    });
   }
 }
