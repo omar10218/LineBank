@@ -1,0 +1,235 @@
+
+  <div>
+    <th class="f01_th">產品資訊</th>
+    <mat-table [dataSource]="DEPOSITSource" matSortDisableClear>
+      <ng-container matColumnDef="ACC_TYPE">
+        <mat-header-cell *matHeaderCellDef>帳戶類別</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_TYPE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACC_STATUS">
+        <mat-header-cell *matHeaderCellDef>帳戶狀態</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_STATUS }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACC_OPEN_DATE">
+        <mat-header-cell *matHeaderCellDef>開立帳戶日期</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_OPEN_DATE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACC_EXP_DATE">
+        <mat-header-cell *matHeaderCellDef>終止日期</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_EXP_DATE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACTIVATE_DAY">
+        <mat-header-cell *matHeaderCellDef>迄今往來天數</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACTIVATE_DAY }}</mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="['ACC_TYPE', 'ACC_STATUS', 'ACC_OPEN_DATE', 'ACC_EXP_DATE', 'ACTIVATE_DAY']"></mat-header-row>
+      <mat-row *matRowDef="let DEPOSITSourceRow; columns: ['ACC_TYPE', 'ACC_STATUS', 'ACC_OPEN_DATE', 'ACC_EXP_DATE', 'ACTIVATE_DAY']"></mat-row>
+    </mat-table>
+  
+    <tr>
+      <td>
+        <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+        </mat-paginator>
+      </td>
+    </tr>
+  </div>
+  <br>
+  <div>
+    <th class="f01_th">活期存款帳戶交易明細</th>
+    <mat-table [dataSource]="DM_DEP_TRANS_DETAILSource" matSortDisableClear>
+      <ng-container matColumnDef="TRANS_DATE">
+        <mat-header-cell *matHeaderCellDef>交易日期時間(由最早開始排列)</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.TRANS_DATE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACC_NAME">
+        <mat-header-cell *matHeaderCellDef>帳戶名稱</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_NAME }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACC_NO">
+        <mat-header-cell *matHeaderCellDef>帳戶</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_NO }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACC_STATUS">
+        <mat-header-cell *matHeaderCellDef>帳戶狀態</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_STATUS }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="TRANS_TYPE">
+        <mat-header-cell *matHeaderCellDef>交易類型</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.TRANS_TYPE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="MCC">
+        <mat-header-cell *matHeaderCellDef>MCC</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.MCC }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="TRANS_BANK">
+        <mat-header-cell *matHeaderCellDef>交易名稱/銀行</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.TRANS_BANK }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="TRANS_ACC_NO">
+        <mat-header-cell *matHeaderCellDef>帳戶號碼</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.TRANS_ACC_NO }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="WITHDRAWAL">
+        <mat-header-cell *matHeaderCellDef>提出</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.WITHDRAWAL }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="DEPOSIT">
+        <mat-header-cell *matHeaderCellDef>存入</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.DEPOSIT }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="TRANS_FEE">
+        <mat-header-cell *matHeaderCellDef>手續費</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.TRANS_FEE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="BALANCE">
+        <mat-header-cell *matHeaderCellDef>餘額</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.BALANCE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="REMARK">
+        <mat-header-cell *matHeaderCellDef>備註欄位</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.REMARK }}</mat-cell>
+      </ng-container>
+      <mat-header-row
+        *matHeaderRowDef="['TRANS_DATE', 'ACC_NAME', 'ACC_NO', 'ACC_STATUS', 'TRANS_TYPE', 'MCC', 'TRANS_BANK', 'TRANS_ACC_NO', 'WITHDRAWAL', 'DEPOSIT', 'TRANS_FEE', 'BALANCE', 'REMARK']">
+      </mat-header-row>
+      <mat-row
+        *matRowDef="let DM_DEP_TRANS_DETAILSourceRow; columns: ['TRANS_DATE', 'ACC_NAME', 'ACC_NO', 'ACC_STATUS', 'TRANS_TYPE', 'MCC', 'TRANS_BANK', 'TRANS_ACC_NO', 'WITHDRAWAL', 'DEPOSIT', 'TRANS_FEE', 'BALANCE', 'REMARK']">
+      </mat-row>
+    </mat-table>
+    <tr>
+      <td>
+        <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+        </mat-paginator>
+      </td>
+    </tr>
+  </div>
+  <br>
+  <div>
+    <th class="f01_th">定存帳戶交易明細</th>
+    <mat-table [dataSource]="TIME_DEP_TRANS_DETAILSource" matSortDisableClear>
+      <ng-container matColumnDef="ACC_TYPE">
+        <mat-header-cell *matHeaderCellDef>帳戶類型</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_TYPE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="TRANS_DATE">
+        <mat-header-cell *matHeaderCellDef>交易日期時間(由最早開始排列)</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.TRANS_DATE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACC_NAME">
+        <mat-header-cell *matHeaderCellDef>帳戶名稱</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_NAME }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACC_NO">
+        <mat-header-cell *matHeaderCellDef>帳號</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_NO }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACC_STATUS">
+        <mat-header-cell *matHeaderCellDef>帳戶狀態</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_STATUS }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="TARGET_AMOUNT">
+        <mat-header-cell *matHeaderCellDef>目標金額</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.TARGET_AMOUNT }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="TARGET_MONTHS">
+        <mat-header-cell *matHeaderCellDef>預計期數</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.TARGET_MONTHS }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="REACH_MONTHS">
+        <mat-header-cell *matHeaderCellDef>達成期數</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.REACH_MONTHS }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="RATE">
+        <mat-header-cell *matHeaderCellDef>利率</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.RATE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="TRANS_TYPE">
+        <mat-header-cell *matHeaderCellDef>交易類型 </mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.TRANS_TYPE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="AMOUNT">
+        <mat-header-cell *matHeaderCellDef>存入</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.AMOUNT }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="TT_AMOUNT">
+        <mat-header-cell *matHeaderCellDef>累計存入金額</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.TT_AMOUNT }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACHIEVEMENT">
+        <mat-header-cell *matHeaderCellDef>存款達成率</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACHIEVEMENT }}</mat-cell>
+      </ng-container>
+      <mat-header-row
+        *matHeaderRowDef="['ACC_TYPE', 'TRANS_DATE', 'ACC_NAME', 'ACC_NO', 'ACC_STATUS', 'TARGET_AMOUNT', 'TARGET_MONTHS', 'REACH_MONTHS', 'RATE', 'TRANS_TYPE', 'AMOUNT', 'TT_AMOUNT', 'ACHIEVEMENT']">
+      </mat-header-row>
+      <mat-row
+        *matRowDef="let TIME_DEP_TRANS_DETAILSourceRow; columns: ['ACC_TYPE', 'TRANS_DATE', 'ACC_NAME', 'ACC_NO', 'ACC_STATUS', 'TARGET_AMOUNT', 'TARGET_MONTHS', 'REACH_MONTHS', 'RATE', 'TRANS_TYPE', 'AMOUNT', 'TT_AMOUNT', 'ACHIEVEMENT']">
+      </mat-row>
+    </mat-table>
+    <tr>
+      <td>
+        <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+        </mat-paginator>
+      </td>
+    </tr>
+  </div>
+  <br>
+  <div>
+    <th class="f01_th">本行存款統計數據</th>
+    <mat-table [dataSource]="DEPOSIT_STATIS_DATASource" matSortDisableClear>
+      <ng-container matColumnDef="ACC_TYPE">
+        <mat-header-cell *matHeaderCellDef>帳戶類型</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_TYPE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACC_NAME">
+        <mat-header-cell *matHeaderCellDef>帳戶名稱</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACC_NAME }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ACTIVE_ACC_NUM">
+        <mat-header-cell *matHeaderCellDef>有效帳戶數</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ACTIVE_ACC_NUM }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="BALANCE">
+        <mat-header-cell *matHeaderCellDef>目前餘額</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.BALANCE }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="LAST_MON_BAL">
+        <mat-header-cell *matHeaderCellDef>上月底餘額</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.LAST_MON_BAL }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="AVE_BAL_MON_3">
+        <mat-header-cell *matHeaderCellDef>近三個月月底餘額平均</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.AVE_BAL_MON_3 }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="AVE_BAL_MON_6">
+        <mat-header-cell *matHeaderCellDef>近六個月月底餘額平均</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.AVE_BAL_MON_6 }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="AMT_VARI_LAST_MONTH">
+        <mat-header-cell *matHeaderCellDef>目前餘額較上月底變動幅度</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.AMT_VARI_LAST_MONTH }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="AMT_VARI_3RD_MONTH">
+        <mat-header-cell *matHeaderCellDef>目前餘額較前第三個月底變動幅度</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.AMT_VARI_3RD_MONTH }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="AMT_VARI_6TH_MONTH">
+        <mat-header-cell *matHeaderCellDef>目前餘額較前第六個月底變動幅度</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.AMT_VARI_6TH_MONTH }}</mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="['ACC_TYPE', 'ACC_NAME', 'ACTIVE_ACC_NUM', 'BALANCE', 'LAST_MON_BAL', 'AVE_BAL_MON_3', 'AVE_BAL_MON_6', 'AMT_VARI_LAST_MONTH', 'AMT_VARI_3RD_MONTH', 'AMT_VARI_6TH_MONTH']"></mat-header-row>
+      <mat-row *matRowDef="let DEPOSIT_STATIS_DATASourceRow; columns: ['ACC_TYPE', 'ACC_NAME', 'ACTIVE_ACC_NUM', 'BALANCE', 'LAST_MON_BAL', 'AVE_BAL_MON_3', 'AVE_BAL_MON_6', 'AMT_VARI_LAST_MONTH', 'AMT_VARI_3RD_MONTH', 'AMT_VARI_6TH_MONTH']"></mat-row>
+    </mat-table>
+  
+    <tr>
+      <td>
+        <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+        </mat-paginator>
+      </td>
+    </tr>
+  </div>
+  <br>

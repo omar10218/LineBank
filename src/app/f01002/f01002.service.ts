@@ -19,7 +19,7 @@ export class F01002Service extends BaseService {
     return this.postHttpClient(targetUrl);
   }
   getLockCase(swcApplno: string){
-    const baseUrl = 'f01/f01001fn1';
+    const baseUrl = 'f01/f01002fn1';
     let targetUrl = `${baseUrl}?swcApplno=${swcApplno}`;
     return this.postHttpClient(targetUrl);
   }

@@ -1,16 +1,16 @@
-import { F01001scn6Service } from './../f01001scn6.service';
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { PageEvent, MatPaginator } from '@angular/material/paginator';
+import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { F01002scn6Service } from '../f01001scn6.service';
 
 @Component({
-  selector: 'app-f01001scn6page1',
-  templateUrl: './f01001scn6page1.component.html',
-  styleUrls: ['./f01001scn6page1.component.css', '../../../../assets/css/f01.css']
+  selector: 'app-f01002scn6page1',
+  templateUrl: './f01002scn6page1.component.html',
+  styleUrls: ['./f01002scn6page1.component.css', '../../../../assets/css/f01.css']
 })
-export class F01001scn6page1Component implements OnInit, AfterViewInit  {
+export class F01002scn6page1Component implements OnInit, AfterViewInit {
 
   AAS003: [] = [];
   APS001: [] = [];
@@ -39,7 +39,7 @@ export class F01001scn6page1Component implements OnInit, AfterViewInit  {
   hideVAM020 = false;
   hideSTS007 = false;
 
-  constructor(private route: ActivatedRoute, private f01001scn6Service: F01001scn6Service, private router: Router) {
+  constructor(private route: ActivatedRoute, private f01002scn6Service: F01002scn6Service, private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.getJcicMultiple();
@@ -106,7 +106,7 @@ export class F01001scn6page1Component implements OnInit, AfterViewInit  {
       this.currentPage = page;
       this.getKRI002();
     });
-    
+
     this.getBAM011();
     this.paginator2.page.subscribe((page: PageEvent) => {
       this.currentPage2 = page;
@@ -120,7 +120,7 @@ export class F01001scn6page1Component implements OnInit, AfterViewInit  {
     formdata.append('cuid', this.cuid);
     formdata.append('code', 'AAS003,APS001,ACI001,BAI001,BAI004,BAS006,BAS008,KRI001,JAS002,VAM020,STS007');
     formdata.append('queryDate', this.queryDate);
-    this.f01001scn6Service.getMASTERJCICSearch(formdata).subscribe(data => {
+    this.f01002scn6Service.getMASTERJCICSearch(formdata).subscribe(data => {
       this.AAS003 = data.rspBody[0].AAS003;
       this.APS001 = data.rspBody[0].APS001;
       this.ACI001 = data.rspBody[0].ACI001;
@@ -144,13 +144,13 @@ export class F01001scn6page1Component implements OnInit, AfterViewInit  {
     formdata.append('queryDate', this.queryDate);
     formdata.append('page', `${this.currentPage.pageIndex + 1}`);
     formdata.append('per_page', `${this.currentPage.pageSize}`);
-    this.f01001scn6Service.getJCICSearch(formdata).subscribe(data => {
+    this.f01002scn6Service.getJCICSearch(formdata).subscribe(data => {
       this.totalCount = data.rspBody.size;
       this.KRI002Source.data = data.rspBody.items;
     });
   }
 
-  getBAM011(){
+  getBAM011() {
     this.BAM011Source.data = null;
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
@@ -159,26 +159,26 @@ export class F01001scn6page1Component implements OnInit, AfterViewInit  {
     formdata.append('queryDate', this.queryDate);
     formdata.append('page', `${this.currentPage.pageIndex + 1}`);
     formdata.append('per_page', `${this.currentPage.pageSize}`);
-    this.f01001scn6Service.getJCICSearch(formdata).subscribe(data => {
+    this.f01002scn6Service.getJCICSearch(formdata).subscribe(data => {
       this.totalCount2 = data.rspBody.size;
       this.BAM011Source.data = data.rspBody.items;
     });
   }
 
   setBooleanTrue() {
-   this.hideKRI002 = true;
-   this.hideBAM011 = true;
-   this.hideAAS003 = true;
-   this.hideAPS001 = true;
-   this.hideACI001 = true;
-   this.hideBAI001 = true;
-   this.hideBAI004 = true;
-   this.hideBAS006 = true;
-   this.hideBAS008 = true;
-   this.hideKRI001 = true;
-   this.hideJAS002 = true;
-   this.hideVAM020 = true;
-   this.hideSTS007 = true;
+    this.hideKRI002 = true;
+    this.hideBAM011 = true;
+    this.hideAAS003 = true;
+    this.hideAPS001 = true;
+    this.hideACI001 = true;
+    this.hideBAI001 = true;
+    this.hideBAI004 = true;
+    this.hideBAS006 = true;
+    this.hideBAS008 = true;
+    this.hideKRI001 = true;
+    this.hideJAS002 = true;
+    this.hideVAM020 = true;
+    this.hideSTS007 = true;
   }
 
   setBooleanFalse() {
@@ -195,29 +195,29 @@ export class F01001scn6page1Component implements OnInit, AfterViewInit  {
     this.hideJAS002 = false;
     this.hideVAM020 = false;
     this.hideSTS007 = false;
-   }
+  }
 
-   exist() {
+  exist() {
     for (let index = 0; index < this.list.length; index++) {
-      if ( this.list[index] == "KRI002" ) { this.hideKRI002 = !this.hideKRI002; }
-      if ( this.list[index] == "BAM011" ) { this.hideBAM011 = !this.hideBAM011; }
-      if ( this.list[index] == "AAS003" ) { this.hideAAS003 = !this.hideAAS003; }
-      if ( this.list[index] == "APS001" ) { this.hideAPS001 = !this.hideAPS001; }
-      if ( this.list[index] == "ACI001" ) { this.hideACI001 = !this.hideACI001; }
+      if (this.list[index] == "KRI002") { this.hideKRI002 = !this.hideKRI002; }
+      if (this.list[index] == "BAM011") { this.hideBAM011 = !this.hideBAM011; }
+      if (this.list[index] == "AAS003") { this.hideAAS003 = !this.hideAAS003; }
+      if (this.list[index] == "APS001") { this.hideAPS001 = !this.hideAPS001; }
+      if (this.list[index] == "ACI001") { this.hideACI001 = !this.hideACI001; }
     }
-   }
+  }
 
-  show(who: string){
-    if ( this.list.indexOf(who) !== -1) {
+  show(who: string) {
+    if (this.list.indexOf(who) !== -1) {
       const index: number = this.list.indexOf(who);
-      this.list.splice( index , 1 ) ;
+      this.list.splice(index, 1);
     } else {
       this.list.push(who);
     }
 
-    if ( this.list.length == 0 ) {
+    if (this.list.length == 0) {
       this.setBooleanFalse();
-    } else if ( this.list.length == 5 ) {
+    } else if (this.list.length == 5) {
       this.setBooleanFalse();
       this.list = [];
     } else {
