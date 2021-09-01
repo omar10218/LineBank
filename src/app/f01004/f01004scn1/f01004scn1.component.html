@@ -1,0 +1,27 @@
+<div style="margin-top: 15px; margin-left: 5px;">
+    <button mat-raised-button color="primary" class="resultBtn">重查</button>
+    <button mat-raised-button color="primary" class="resultBtn">重算</button>
+    <button mat-raised-button color="primary" class="resultBtn">案件完成</button>
+    <button mat-raised-button color="primary" class="resultBtn">補件</button>
+    <button mat-raised-button color="primary" class="resultBtn">暫存</button>
+    <button mat-raised-button color="primary" class="resultBtn">發送簡訊</button>
+    <button mat-raised-button color="primary" class="resultBtn">發送Email</button>
+    <button mat-raised-button color="primary" class="resultBtn">退件</button>
+  </div>
+  <br>
+  <div style="margin-top: 15px; margin-left: 5px;">
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN2"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }" id="firstBtn">審核資料</button>
+    <!-- <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN3"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">信用諮詢</button> -->
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN4"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">案件歷程</button>
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN5"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">客戶資料</button>
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN6"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">行外資料</button>
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN7"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">AML/FDS/CSS</button>
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN8"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">徵信照會</button>
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN9"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">核心資訊</button>
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN10" [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">決策結果</button>
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN11" [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">資料比對</button>
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN12" [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">財務試算</button>
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN13" [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">網頁資訊</button>
+    <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./F01004SCN14" [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid() }">本案影像</button>
+  </div>
+  <router-outlet></router-outlet>

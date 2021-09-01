@@ -1,0 +1,52 @@
+<br>
+<form style="padding-left: 20px;">
+  <th>AML資訊</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>ALM代碼</th>
+    <th>ALM說明</th>
+    <th>日期時間</th>
+  </tr>
+  <tr  class="tbContext" *ngFor="let item of AMLSource">
+    <td>{{item.AML}}</td>
+    <td>{{item.CODE_DESC}}</td>
+    <td>{{item.AML_DATE}}</td>
+  </tr>
+</table>
+</form>
+
+<br>
+<form style="padding-left: 20px;">
+  <th>FDS資訊</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>FDS代碼</th>
+    <th>FDS說明</th>
+    <th>日期時間</th>
+  </tr>
+  <tr  class="tbContext" *ngFor="let item of FDSSource">
+    <td>{{item.FDS}}</td>
+    <td>{{item.CODE_DESC}}</td>
+    <td>{{item.FDS_DATE}}</td>
+  </tr>
+</table>
+</form>
+
+<br>
+<form style="padding-left: 20px;">
+  <th>CSS資訊</th>
+<table class="form1">
+  <tr class="tbTitle">
+    <th>Score分數</th>
+    <th>Score等級</th>
+    <th>日期時間</th>
+  </tr>
+  <tr  class="tbContext" *ngFor="let item of CSSSource">
+    <td>{{item.cssScore}}</td>
+    <td>{{item.cssGrade}}</td>
+    <td>{{item.cssDate | date:'yyyy-MM-dd hh:mm:ss' }}</td>
+  </tr>
+</table>
+</form>
+<br><br>
+
