@@ -10,7 +10,7 @@ interface dateCode {
 @Component({
   selector: 'app-f01002scn10page3',
   templateUrl: './f01002scn10page3.component.html',
-  styleUrls: ['./f01002scn10page3.component.css']
+  styleUrls: ['./f01002scn10page3.component.css', '../../../../assets/css/f01.css']
 })
 export class F01002scn10page3Component implements OnInit {
 

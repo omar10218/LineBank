@@ -3,7 +3,7 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { F01002scn6Service } from '../f01001scn6.service';
+import { F01002scn6Service } from '../f01002scn6.service';
 
 @Component({
   selector: 'app-f01002scn6page1',

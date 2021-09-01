@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { F01002scn6Service } from './f01001scn6.service';
+import { F01002scn6Service } from './f01002scn6.service';
 interface dateCode {
   value: string;
   viewValue: string;
