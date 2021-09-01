@@ -2,7 +2,7 @@ import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { F01002scn13Service } from '../f01001scn13.service';
+import { F01002scn13Service } from '../f01002scn13.service';
 import { F01002scn13confirmComponent } from '../f01002scn13confirm/f01002scn13confirm.component';
 
 @Component({

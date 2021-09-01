@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MappingCode } from 'src/app/mappingcode.model';
-import { F01002scn11Service } from '../f01001scn11.service';
+import { F01002scn11Service } from '../f01002scn11.service';
 interface sysCode {
   value: number;
   valuebool: boolean;

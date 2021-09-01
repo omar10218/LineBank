@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShowComponent } from 'src/app/f01002/f01002scn13/show/show.component';
 import { MappingCode } from 'src/app/mappingcode.model';
-import { F01002scn13Service } from './f01001scn13.service';
+import { F01002scn13Service } from './f01002scn13.service';
 import { F01002scn13addComponent } from './f01002scn13add/f01002scn13add.component';
 import { F01002scn13deleteComponent } from './f01002scn13delete/f01002scn13delete.component';
 import { F01002scn13editComponent } from './f01002scn13edit/f01002scn13edit.component';
