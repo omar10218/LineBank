@@ -105,7 +105,7 @@ export class F01002Component implements OnInit, AfterViewInit {
   getLockCase(swcApplno: string) {
     this.f01002Service.getLockCase(swcApplno).subscribe(data => {
       if (data.rspMsg == '案件鎖定成功') {
-        this.router.navigate(['./F01001SCN1'], { queryParams: { applno: swcApplno, search: 'N' } });
+        this.router.navigate(['./F01002SCN1'], { queryParams: { applno: swcApplno, search: 'N' } });
       }
     });
   }
