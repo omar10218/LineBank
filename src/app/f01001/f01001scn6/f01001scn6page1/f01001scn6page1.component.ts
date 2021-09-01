@@ -101,9 +101,6 @@ export class F01001scn6page1Component implements OnInit, AfterViewInit  {
   BAM011Source = new MatTableDataSource<any>();
 
   ngAfterViewInit() {
-    
-    console.log("我進來了") 
-
     this.getKRI002();
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;

@@ -69,11 +69,16 @@ export class F03006editComponent {
   }
 
   public async stopEdit(): Promise<void> {
-    console.log("我是修改")
-    console.log(this.data)
-    console.log(this.data.LEAVE_STARTDATE)
-    console.log(this.data.LEAVE_ENDDATE)
-    console.log("我是修改")
+    if ( this.data.LEAVE_STARTDATE != null ) {
+      if ( this.data.LEAVE_STARTDATE_TYPE == null ) {
+        return alert('請填寫請假類型!!');
+      }
+    } 
+    if ( this.data.LEAVE_ENDDATE != null ) {
+      if ( this.data.LEAVE_ENDDATE_TYPE == null ) {
+        return alert('請填寫請假類型!!');
+      }
+    }
     let msgStr: string = "";
     let baseUrl = 'f03/f03006action3';
     msgStr = await this.f03006Service.addorEditSystemCodeSet(baseUrl, this.data);

@@ -1,8 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import * as XLSX from 'xlsx';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F03008Service } from './f03008.service';
-import { BaseService } from '../base.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { F03008uploadComponent } from './f03008upload/f03008upload.component';
+import { F03008editComponent } from './f03008edit/f03008edit.component';
+import { MatDialog } from '@angular/material/dialog';
+import { F03008confirmComponent } from './f03008confirm/f03008confirm.component';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+
 
 @Component({
   selector: 'app-f03008',
@@ -10,78 +16,116 @@ import { BaseService } from '../base.service';
   styleUrls: ['./f03008.component.css', '../../assets/css/f03.css']
 })
 export class F03008Component implements OnInit {
-  [x: string]: any;
+  totalCount: any;
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  currentPage: PageEvent;
+  currentSort: Sort;
   dialogRef: any;
+  empNo: string = localStorage.getItem("empNo");
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public f03008service: F03008Service) { }
+  ABNORMAL_NID: string = '';
+  dataSource = new MatTableDataSource<any>();
 
+  ngAfterViewInit() {
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+    this.currentSort = {
+      active: '',
+      direction: ''
+    };
+    this.getAbnormalList();
+    this.paginator.page.subscribe((page: PageEvent) => {
+      this.currentPage = page;
+      this.getAbnormalList();
+    });
+  }
 
-
-  name = 'This is XLSX TO JSON CONVERTER';
-  willDownload = false;
+  constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03008Service: F03008Service) { }
 
 
   ngOnInit(): void {
-
-  }
-
-  arrayBuffer: any;
-  file!: File;
-  JSONObject = {
-    object: {},
-    string: ''
-  };
-
-
-  submit() {
   }
 
 
-
-  //上傳excel 未串到後端
-  onFileChange(ev:any) {
-    let workBook:any = null;
-    let jsonData = null;
-    const reader = new FileReader();
-    const file = ev.target.files[0];
-    reader.onload = (event) => {
-      const data = reader.result;
-      workBook = XLSX.read(data, { type: 'binary' });
-      jsonData = workBook.SheetNames.reduce((initial:any, name:any) => {
-        const sheet = workBook.Sheets[name];
-        initial[name] = XLSX.utils.sheet_to_json(sheet);
-        return initial;
-      }, {});
-      //const dataString = JSON.stringify(jsonData);
-
-      //NEW
-      this.JSONObject.object = jsonData; //Data in JSON Format
-      this.JSONObject.string = JSON.stringify(jsonData); //Data in String Format
-
-
-      // const output:any = document.getElementById('output');
-      // output.innerHTML = dataString.slice(0, 300).concat("...");
-
-      //NEW
-      this.setDownload(this.JSONObject.string);
-
-      //console.log('JSON object:', this.JSONObject.object);
-    }
-    reader.readAsBinaryString(file);
+  getAbnormalList() {
+    console.log(this.ABNORMAL_NID);
+    const baseUrl = 'f03/f03008action1';
+    this.f03008Service.getAbnormalList(baseUrl, this.ABNORMAL_NID, this.currentPage.pageIndex, this.currentPage.pageSize)
+      .subscribe(data => {
+        this.totalCount = data.rspBody.size;
+        if (this.totalCount == 0) {
+          const childernDialogRef = this.dialog.open(F03008confirmComponent, {
+            data: { msgStr: "查無資料!" }
+          });
+        }
+        this.dataSource.data = data.rspBody.items;
+      });
   }
 
-  setDownload(data:any) {
-    this.willDownload = true;
-    setTimeout(() => {
-      const el:any = document.querySelector("#download");
-      el.setAttribute("href", `data:text/json;charset=utf-8,${encodeURIComponent(data)}`);
-      el.setAttribute("download", 'xlsxtojson.json');
-    }, 1000)
+  uploadNew() {
+    const dialogRef = this.dialog.open(F03008uploadComponent, {
+      data: {
+        ABNORMAL_NID: '',
+        ABNORMAL_NAME: '',
+        ON_CHECK: 'Y',
+        TRANSFER_EMPNO: '',
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
+  }
+
+  startEdit(abnormalNid:string,onCheck:string,transferEmpno:string,transferDate:string,
+    changeEmpno:string,changeDate:string,) {
+    const dialogRef = this.dialog.open(F03008editComponent, {
+      data: {
+        abnormalNid: abnormalNid,
+        onCheck: onCheck,
+        transferEmpno: transferEmpno,
+        transferDate: transferDate,
+        changeEmpno: changeEmpno,
+        changeDate: changeDate,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result == 1) { this.refreshTable(); }
+    });
+  }
+
+  public async delete(abnormalNid:string): Promise<void> {
+    let baseUrl = 'f03/f03008action4';
+    this.f03008Service.delete(baseUrl ,abnormalNid).subscribe(data => {
+      const childernDialogRef = this.dialog.open(F03008confirmComponent, {
+        data: { msgStr: data.rspMsg }
+      });
+    });
   }
 
 
 
 
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
+  }
 
+  changeSort(sortInfo: Sort) {
+    this.currentSort = sortInfo;
+    this.getAbnormalList();
+  }
+
+  search() {
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+    this.paginator.firstPage();
+    this.getAbnormalList();
+  }
 
 }

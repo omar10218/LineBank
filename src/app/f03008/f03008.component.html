@@ -1,23 +1,88 @@
+<!-- <div class="f03_div" style="padding-left: 20px; padding-top: 20px;" >
+  <button mat-raised-button color="primary" (click)="search()">查詢</button>
+  <button mat-raised-button color="primary" (click)="search()">上傳excel</button>
+</div> -->
+<table style="padding-left: 20px;">
+  <br>
+  <mat-card class="matCard">
+    <mat-card-content>
+      <tr>
+        <th>ID：</th>
+        <td>
+          <mat-form-field color="accent">
+            <input  matInput [(ngModel)]="ABNORMAL_NID" (blur)="search()" >
+          </mat-form-field>
+        </td>
+      </tr>
+    </mat-card-content>
+  </mat-card>
+</table>
 
-<p>
-	Start editing to see some magic happen :)
-</p>
-<div>上傳excel 未串到後端</div>
 
-<input type="file" (change)="onFileChange($event)" />
+<mat-table [dataSource]="dataSource" matSort (matSortChange)="changeSort($event)">
+
+  <ng-container matColumnDef="actions1">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>動作</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+    <button mat-raised-button color="primary" (click)="delete(row.abnormalNid)">刪除</button>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="abnormalNid">
+    <mat-header-cell *matHeaderCellDef>異常ID</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.abnormalNid }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="onCheck">
+    <mat-header-cell *matHeaderCellDef>啟用比對</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.onCheck }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="transferEmpno">
+    <mat-header-cell *matHeaderCellDef>上傳員編</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.transferEmpno }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="transferDate">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>上傳時間</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{  row.transferDate| date:"yyyy-MM-dd" }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="changeEmpno">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>異動員編</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.changeEmpno }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="changeDate">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>異動時間</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.changeDate | date:"yyyy-MM-dd"}}</mat-cell>
+  </ng-container>
 
 
-<br><br>
-<div class="jumbotron json_container">
-  <h5>Output:</h5><br>
-  {{JSONObject.string}}
-</div>
 
+  <!-- actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>
+      <button mat-icon-button color="primary" (click)="uploadNew()">
+        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+      </button>
+    </mat-header-cell>
 
+    <mat-cell *matCellDef="let row; let i=index;">
+      <button mat-icon-button color="accent"
+        (click)="startEdit(
+          row.abnormalNid, row.onCheck,row.transferEmpno, row.transferDate,row.changeEmpno, row.changeDate)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row
+    *matHeaderRowDef="['actions1','abnormalNid', 'onCheck','transferEmpno', 'transferDate','changeEmpno', 'changeDate','actions']">
+  </mat-header-row>
+  <mat-row
+    *matRowDef="let mappingCodeRow; columns: ['actions1','abnormalNid', 'onCheck','transferEmpno', 'transferDate','changeEmpno', 'changeDate','actions']">
+  </mat-row>
+</mat-table>
 
-<div id="output"></div>
-<br>
-<div *ngIf="willDownload">
-	<a id="download"> Download JSON File </a>
-</div>
-
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>

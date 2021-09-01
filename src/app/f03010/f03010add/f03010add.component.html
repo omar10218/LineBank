@@ -1,0 +1,41 @@
+<div class="container">
+  <th class="f03_th">照會話術</th>
+  <form [formGroup]="setCalloutSpeakingForm" style="padding-left: 20px;">
+    <table style="padding-left: 20px;">
+      <div class="f03_div">
+        <button mat-raised-button color="primary" (click)="add()">新增</button>
+      </div>
+      <br>
+      <mat-card class="matCard">
+        <mat-card-content>
+          <tr>
+            <th nowrap="nowrap">話術簡稱</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #inputstate class="form-control" formControlName="speakingAbbreviation">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap">暫停使用</th>
+            <td>
+              <mat-form-field color="accent">
+                <mat-select formControlName="stopFlag">
+                  <mat-option *ngFor="let stopFlag of stopFlagCode" [value]="stopFlag.viewValue">
+                    {{stopFlag.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <th nowrap="nowrap" valign="middle">話術內容</th>
+            <td colspan="4">
+              <textarea style="width: 500PX;height:200px;" formControlName="speakingContent"></textarea>
+            </td>
+          </tr>
+        </mat-card-content>
+      </mat-card>
+    </table>
+  </form>
+</div>

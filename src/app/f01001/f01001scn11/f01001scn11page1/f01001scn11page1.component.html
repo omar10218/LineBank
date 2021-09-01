@@ -1,9 +1,13 @@
 <th class="f01_th">COMPARE本案申請書資訊合理性比對</th>
+<ng-container *ngIf="compare.length == 0; else elseTemplate">
+  <br><br>
+  <th style="padding-left: 20px;color: red;">查無比對資料</th>
+</ng-container>
+<ng-template #elseTemplate>
   <form [formGroup]="compareForm" style="padding-left: 20px;">
     <!-- <input type="button" value="test" (click)="test()" > -->
     <table>
       <mat-card class="matCard">
-
         <mat-card-content>
           <ng-container *ngFor="let compare of compare;let i = index">
             <ng-container *ngIf="i%3==0">
@@ -23,9 +27,6 @@
             </ng-template>
           </ng-container>
         </mat-card-content>
-
-
-
         <!-- <mat-card-content>
           <tr>
             <th nowrap="nowrap">IP地址</th>
@@ -76,7 +77,7 @@
         </td>
       </tr>
         </mat-card-content> -->
-
       </mat-card>
     </table>
   </form>
+</ng-template>

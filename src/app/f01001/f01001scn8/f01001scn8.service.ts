@@ -32,8 +32,17 @@ export class F01001scn8Service extends BaseService {
     return await this.postFormData(baseUrl, formdata).toPromise();
   }
 
-  AddCALLOUT(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl,formData);
+  AddCALLOUT(baseUrl: string, data: any): Promise<Observable<any>> {
+    const formdata: FormData = new FormData();
+    formdata.append('applno', data.applno)
+    formdata.append('conTel', data.con_TEL);
+    formdata.append('phone', data.phone);
+    formdata.append('conTarget', data.con_TARGET);
+    formdata.append('custType', data.cust_TYPE);
+    formdata.append('conMemo', data.con_MEMO);
+    formdata.append('note', data.note);
+
+    return this.postFormData(baseUrl,formdata).toPromise();
   }
 
   DeleteCALLOUT(baseUrl: string, ID: string): Observable<any> {

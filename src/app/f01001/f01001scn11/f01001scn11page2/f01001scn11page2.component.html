@@ -1,8 +1,12 @@
 <th class="f01_th">COMPARE_UNID 歷史申請書比對 (不同NID)</th>
+<ng-container *ngIf="compare.length == 0; else elseTemplate">
+  <br><br>
+  <th style="padding-left: 20px;color: red;">查無比對資料</th>
+</ng-container>
+<ng-template #elseTemplate>
   <form [formGroup]="compare_UNIDForm" style="padding-left: 20px;">
     <table>
       <mat-card class="matCard">
-
         <mat-card-content>
           <ng-container *ngFor="let compare of compare;let i = index">
             <ng-container *ngIf="i%3==0">
@@ -173,7 +177,7 @@
         </td>
       </tr>
         </mat-card-content> -->
-
       </mat-card>
     </table>
   </form>
+</ng-template>

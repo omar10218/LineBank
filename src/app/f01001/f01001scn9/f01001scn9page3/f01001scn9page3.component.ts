@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { F01001scn9Service } from './../f01001scn9.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
-//日期
-interface dateCode {
-  value: string;
-  viewValue: string;
-}
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-f01001scn9page3',
@@ -15,86 +12,123 @@ interface dateCode {
   styleUrls: ['./f01001scn9page3.component.css', '../../../../assets/css/f01.css']
 })
 export class F01001scn9page3Component implements OnInit {
-  coreCustInfoForm: FormGroup = this.fb.group({
-    APPLNO: ['', []],
-    ACC_TYPE: ['', []],
-    ACC_NUM: ['', []],
-    ACC_STATUS: ['', []],
-    TRANS_PRESS_DATE: ['', []],
-    TRANS_BD_DATE: ['', []],
-    IB_AGGRE_EST_DATE: ['', []],
-    NEGO_APPLY_DATE: ['', []],
-    NEGO_EST_DATE: ['', []],
-    REFRESH_DATE: ['', []],
-    LIQUIDATION_DATE: ['', []],
-    INSTALL_ACC_1: ['', []],
-    INSTALL_ACC_2: ['', []],
-    INSTALL_TOTAL: ['', []],
-    REVOLVING_ACC: ['', []],
-    HOME_LOAN_INFO: ['', []],
-    CREDIT_INFO: ['', []]
 
-  });
-
-  dateCode: dateCode[] = [];
-  dateValue: string;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private f01001scn9Service: F01001scn9Service) { }
   private applno: string;
   private cuid: string;
-  private queryDate: string;
   private search: string;
-
+  currentPage: PageEvent;
+  currentSort: Sort;
+  INSTALLMENT_ACCSource = new MatTableDataSource<any>();
+  REVOLVING_ACCSource = new MatTableDataSource<any>();
+  INST_TRANS_DETAILSource = new MatTableDataSource<any>();
+  REV_TRANS_DETAILSource = new MatTableDataSource<any>();
+  APPR_STATIS_DATASource = new MatTableDataSource<any>();
+  OVERDUE_STATIS_DATASource = new MatTableDataSource<any>();
+  CON_PROD_STATIS_DATASource = new MatTableDataSource<any>();
+  UNCLOSED_STATIS_DATASource = new MatTableDataSource<any>();
+  CLOSED_STATIS_DATASource = new MatTableDataSource<any>();
+  INSTAL_APPL_INFOSource = new MatTableDataSource<any>();
+  
+  
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.cuid = params['cuid'];
-      this.search = params['search'];
     });
 
-    const url = 'f01/f01001scn9';
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    formdata.append('code', 'CON_PRODUCT');
-    this.f01001scn9Service.getDate(url, formdata).subscribe(data => {
-      for (let i = 0; i < data.rspBody.items.length; i++) {
-        this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
-      }
-      this.dateValue = data.rspBody.items[0].QUERYDATE
-      this.getCoreCusInfo(this.dateValue);
-    });
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 5,
+      length: null
+    };
+
+    this.currentSort = {
+      active: '',
+      direction: ''
+    };
   }
 
-  getCoreCusInfo(dateValue: string) {
+    totalCount: any;
+    @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+    @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+
+    ngAfterViewInit() {
+      this.getCoreCusInfo('INSTALLMENT_ACC', this.INSTALLMENT_ACCSource);
+      this.paginator.page.subscribe((page: PageEvent) => {
+        this.currentPage = page;
+        this.getCoreCusInfo('INSTALLMENT_ACC', this.INSTALLMENT_ACCSource);
+      });
+
+      this.getCoreCusInfo('REVOLVING_ACC', this.REVOLVING_ACCSource);
+      this.paginator.page.subscribe((page: PageEvent) => {
+        this.currentPage = page;
+        this.getCoreCusInfo('REVOLVING_ACC', this.REVOLVING_ACCSource);
+      });
+
+      this.getCoreCusInfo('INST_TRANS_DETAIL', this.INST_TRANS_DETAILSource);
+      this.paginator.page.subscribe((page: PageEvent) => {
+        this.currentPage = page;
+        this.getCoreCusInfo('INST_TRANS_DETAIL', this.INST_TRANS_DETAILSource);
+      });
+
+      this.getCoreCusInfo('REV_TRANS_DETAIL', this.REV_TRANS_DETAILSource);
+      this.paginator.page.subscribe((page: PageEvent) => {
+        this.currentPage = page;
+        this.getCoreCusInfo('REV_TRANS_DETAIL', this.REV_TRANS_DETAILSource);
+      });
+
+      this.getCoreCusInfo('APPR_STATIS_DATA', this.APPR_STATIS_DATASource);
+      this.paginator.page.subscribe((page: PageEvent) => {
+        this.currentPage = page;
+        this.getCoreCusInfo('APPR_STATIS_DATA', this.APPR_STATIS_DATASource);
+      });
+
+      this.getCoreCusInfo('OVERDUE_STATIS_DATA', this.OVERDUE_STATIS_DATASource);
+      this.paginator.page.subscribe((page: PageEvent) => {
+        this.currentPage = page;
+        this.getCoreCusInfo('OVERDUE_STATIS_DATA', this.OVERDUE_STATIS_DATASource);
+      });
+
+      this.getCoreCusInfo('CON_PROD_STATIS_DATA', this.CON_PROD_STATIS_DATASource);
+      this.paginator.page.subscribe((page: PageEvent) => {
+        this.currentPage = page;
+        this.getCoreCusInfo('CON_PROD_STATIS_DATA', this.CON_PROD_STATIS_DATASource);
+      });
+
+      this.getCoreCusInfo('UNCLOSED_STATIS_DATA', this.UNCLOSED_STATIS_DATASource);
+      this.paginator.page.subscribe((page: PageEvent) => {
+        this.currentPage = page;
+        this.getCoreCusInfo('UNCLOSED_STATIS_DATA', this.UNCLOSED_STATIS_DATASource);
+      });
+
+      this.getCoreCusInfo('CLOSED_STATIS_DATA', this.CLOSED_STATIS_DATASource);
+      this.paginator.page.subscribe((page: PageEvent) => {
+        this.currentPage = page;
+        this.getCoreCusInfo('CLOSED_STATIS_DATA', this.CLOSED_STATIS_DATASource);
+      });
+
+      this.getCoreCusInfo('INSTAL_APPL_INFO', this.INSTAL_APPL_INFOSource);
+      this.paginator.page.subscribe((page: PageEvent) => {
+        this.currentPage = page;
+        this.getCoreCusInfo('INSTAL_APPL_INFO', this.INSTAL_APPL_INFOSource);
+      });
+    }
+
+  getCoreCusInfo(code: string, source: MatTableDataSource<any>) {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
     formdata.append('cuid', this.cuid);
-    formdata.append('code', 'CON_PRODUCT');
+    formdata.append('code', code);
+    formdata.append('page', `${this.currentPage.pageIndex + 1}`);
+    formdata.append('per_page', `${this.currentPage.pageSize}`);
     this.f01001scn9Service.getCoreCusInfo(formdata).subscribe(data => {
-      this.coreCustInfoForm.patchValue({ APPLNO: data.rspBody.items[0].APPLNO })
-      this.coreCustInfoForm.patchValue({ ACC_TYPE: data.rspBody.items[0].ACC_TYPE })
-      this.coreCustInfoForm.patchValue({ ACC_NUM: data.rspBody.items[0].ACC_NUM })
-      this.coreCustInfoForm.patchValue({ ACC_STATUS: data.rspBody.items[0].ACC_STATUS })
-      this.coreCustInfoForm.patchValue({ TRANS_PRESS_DATE: data.rspBody.items[0].TRANS_PRESS_DATE })
-      this.coreCustInfoForm.patchValue({ TRANS_BD_DATE: data.rspBody.items[0].TRANS_BD_DATE })
-      this.coreCustInfoForm.patchValue({ IB_AGGRE_EST_DATE: data.rspBody.items[0].IB_AGGRE_EST_DATE })
-      this.coreCustInfoForm.patchValue({ NEGO_APPLY_DATE: data.rspBody.items[0].NEGO_APPLY_DATE })
-      this.coreCustInfoForm.patchValue({ NEGO_EST_DATE: data.rspBody.items[0].NEGO_EST_DATE })
-      this.coreCustInfoForm.patchValue({ REFRESH_DATE: data.rspBody.items[0].REFRESH_DATE })
-      this.coreCustInfoForm.patchValue({ LIQUIDATION_DATE: data.rspBody.items[0].LIQUIDATION_DATE })
-      this.coreCustInfoForm.patchValue({ INSTALL_ACC_1: data.rspBody.items[0].INSTALL_ACC_1 })
-      this.coreCustInfoForm.patchValue({ INSTALL_ACC_2: data.rspBody.items[0].INSTALL_ACC_2 })
-      this.coreCustInfoForm.patchValue({ INSTALL_TOTAL: data.rspBody.items[0].INSTALL_TOTAL })
-      this.coreCustInfoForm.patchValue({ REVOLVING_ACC: data.rspBody.items[0].REVOLVING_ACC })
-      this.coreCustInfoForm.patchValue({ HOME_LOAN_INFO: data.rspBody.items[0].HOME_LOAN_INFO })
-      this.coreCustInfoForm.patchValue({ CREDIT_INFO: data.rspBody.items[0].CREDIT_INFO })
+      this.totalCount = data.rspBody.size;
+      source.data = data.rspBody.items;
     });
-  }
-
-  getSearch(): string {
-    return this.search;
-  }
-  changeDate() {
-    this.getCoreCusInfo(this.dateValue);
   }
 }
+function ngAfterViewInit() {
+  throw new Error('Function not implemented.');
+}
+
