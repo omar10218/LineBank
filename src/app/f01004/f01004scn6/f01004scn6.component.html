@@ -1,0 +1,13 @@
+<th style="padding-left: 20px;">查詢日期：</th>
+<td>
+  <mat-form-field color="accent">
+    <mat-select [(ngModel)]="dateValue" name="ynCode" (ngModelChange)="changeDate()">
+      <mat-option *ngFor="let date of dateCode" [value]="date.value">
+        {{date.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</td>
+<br>
+<router-outlet></router-outlet>
+

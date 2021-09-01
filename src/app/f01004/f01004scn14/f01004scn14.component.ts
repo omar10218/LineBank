@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-f01002scn11',
-  templateUrl: './f01002scn11.component.html',
-  styleUrls: ['./f01002scn11.component.css','../../../assets/css/f01.css']
+  selector: 'app-f01004scn14',
+  templateUrl: './f01004scn14.component.html',
+  styleUrls: ['./f01004scn14.component.css']
 })
-export class F01002scn11Component implements OnInit {
+export class F01004scn14Component implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router) { }
   private applno: string;
@@ -19,7 +19,7 @@ export class F01002scn11Component implements OnInit {
       this.search = params['search'];
       this.cuid = params['cuid'];
     });
-    this.router.navigate(['./F01002SCN1/F01002SCN11/F01002SCN11PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search } });
+    this.router.navigate(['./F01004SCN1/F01004SCN14/F01004SCN14PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search } });
   }
 
   getApplno(): String {

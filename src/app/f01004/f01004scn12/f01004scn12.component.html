@@ -1,0 +1,98 @@
+<br>
+<mat-table [dataSource]="applIncomeSource" matSortDisableClear>
+  <ng-container matColumnDef="postFlag">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> 客戶類別</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{row.postFlag}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="cuId">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> 身份證字號</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{row.cuId}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="cuCname">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> 姓名</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{row.cuCname}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="incomeType">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> 收入項目</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{getOptionDesc(row.incomeType)}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="num">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> 金額</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{row.num}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="mincomeExp">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> 月收入例外</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{row.mincomeExp}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="yincome">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> 年所得</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{row.yincome}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="mincome">
+    <mat-header-cell mat-header-cell *matHeaderCellDef> 月平均收入</mat-header-cell>
+    <mat-cell mat-cell *matCellDef="let row"> {{row.mincome}}</mat-cell>
+  </ng-container>
+
+
+
+  <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
+    <ng-container matColumnDef="actions">
+      <!-- <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell> -->
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addNew()">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <ng-container matColumnDef="actions">
+      <!-- <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell> -->
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addNew()" disabled>
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)" disabled>
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)" disabled>
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+  </ng-template>
+
+
+
+
+
+  <mat-header-row
+    *matHeaderRowDef="['postFlag','cuId','cuCname', 'incomeType', 'num', 'mincomeExp','yincome','mincome','actions']">
+  </mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: ['postFlag','cuId','cuCname', 'incomeType', 'num', 'mincomeExp','yincome','mincome','actions']">
+  </mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>
+
+
+

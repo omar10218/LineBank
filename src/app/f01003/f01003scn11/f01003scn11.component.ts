@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-f01003scn11',
   templateUrl: './f01003scn11.component.html',
-  styleUrls: ['./f01003scn11.component.css']
+  styleUrls: ['./f01003scn11.component.css','../../../assets/css/f01.css']
 })
 export class F01003scn11Component implements OnInit {
 
