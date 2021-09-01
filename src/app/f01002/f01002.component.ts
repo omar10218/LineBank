@@ -5,6 +5,8 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { F01002Service } from './f01002.service';
+import { MatDialog } from '@angular/material/dialog';
+import { F01002confirmComponent } from './f01002confirm/f01002confirm.component';
 
 interface sysCode {
   value: string;
@@ -29,8 +31,9 @@ export class F01002Component implements OnInit, AfterViewInit {
   caseTypeCode: sysCode[] = [];
   empNoCode: sysCode[] = [];
   cusinfoDataSource = new MatTableDataSource<any>();
+  clicked = false;
 
-  constructor(private router: Router, private f01002Service: F01002Service) { }
+  constructor(private router: Router, private f01002Service: F01002Service, public dialog: MatDialog) { }
   ngOnInit(): void {
     this.f01002Service.getSysTypeCode('CASE_TYPE', 'sys/getMappingCode').subscribe(data => {
       for (const jsonObj of data.rspBody) {
@@ -85,6 +88,7 @@ export class F01002Component implements OnInit, AfterViewInit {
         this.totalCount = data.rspBody.size;
         this.cusinfoDataSource.data = data.rspBody.items;
         this.cusinfoDataSource.sort = this.sortTable;
+        console.log(this.cusinfoDataSource.data)
       });
   }
 
@@ -101,7 +105,7 @@ export class F01002Component implements OnInit, AfterViewInit {
   getLockCase(swcApplno: string) {
     this.f01002Service.getLockCase(swcApplno).subscribe(data => {
       if (data.rspMsg == '案件鎖定成功') {
-        this.router.navigate(['./F01002SCN1'], { queryParams: { applno: swcApplno, search: 'N' } });
+        this.router.navigate(['./F01001SCN1'], { queryParams: { applno: swcApplno, search: 'N' } });
       }
     });
   }
@@ -113,5 +117,15 @@ export class F01002Component implements OnInit, AfterViewInit {
         window.location.reload();
       }
     });
+  }
+
+  openNotifyMsg(swcApplno: string){
+    const dialogRef = this.dialog.open(F01002confirmComponent, {
+      minHeight: '50vh',
+      width: '30%',
+      data: {
+        swcApplno: swcApplno
+        }
+      });
   }
 }
