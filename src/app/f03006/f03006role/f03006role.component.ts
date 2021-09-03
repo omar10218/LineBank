@@ -3,11 +3,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { F03006Service } from '../f03006.service';
 import { F03006confirmComponent } from '../f03006confirm/f03006confirm.component';
 
+//角色checkBox框架
 interface checkBox {
   value: string;
   completed: boolean;
 }
 
+//Nick 組織人員維護-儲存角色設定
 @Component({
   selector: 'app-f03006role',
   templateUrl: './f03006role.component.html',
@@ -18,17 +20,19 @@ export class F03006roleComponent {
 
   submit() {
   }
-
+  //載入選項
   setAll(completed: boolean) {
     for (const obj of this.data.CHECKBOX) {
       obj.completed = completed;
     }
   }
 
+  //取消
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  //儲存角色設定
   public async confirmAdd(): Promise<void> {
     var valArray: string[] = new Array;
     for (const obj of this.data.CHECKBOX) {

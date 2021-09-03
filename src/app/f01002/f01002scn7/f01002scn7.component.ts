@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { F01002scn7Service } from './f01002scn7.service';
 
+//Nick AML/FDS/CSS
 @Component({
   selector: 'app-f01002scn7',
   templateUrl: './f01002scn7.component.html',
@@ -21,16 +22,16 @@ export class F01002scn7Component implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.search = params['search'];
+      this.applno = params['applno'];//收編
+      this.search = params['search']; //判斷徵信/查詢
     });
     this.getCALLOUTFunction();
   }
-
+//取收編
   getApplno(): String {
     return this.applno;
   }
-
+ //判斷徵信/查詢
   getSearch() :string {
     return this.search;
   }
