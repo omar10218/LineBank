@@ -21,16 +21,15 @@ export class F03010editComponent implements OnInit {
 
   formControl = new FormControl('', [
     Validators.required
-    // Validators.email,
   ]);
 
   getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Required field' : '';
+    return this.formControl.hasError('required') ? '此欄位必填' : '';
   }
-  
+
   submit() {
   }
-  
+
   ngOnInit(): void {
   }
 

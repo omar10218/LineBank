@@ -13,7 +13,7 @@
         <th nowrap="nowrap">話術內容</th>
         <mat-form-field color="accent">
           <textarea matInput style="width: 1000PX;height:200px;" [(ngModel)]="data.speakingContent"
-            name="speakingContent"></textarea>
+            name="speakingContent" required></textarea>
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
@@ -33,4 +33,3 @@
       </div>
     </form>
   </div>
-  

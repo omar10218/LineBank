@@ -132,11 +132,14 @@ export class F01002scn8Component implements OnInit {
         cust_TYPE: '',
         con_MEMO: '',
         note: '',
-        ID: ''
+        ID: '',
+        CON_TEL_Code:this.CON_TEL_Code,
+        CON_TARGET_Code:this.CON_TARGET_Code,
+        CON_MEMO_Code:this.CON_MEMO_Code
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.refreshTable(); }
+      if (result != null && result == '1') { this.refreshTable(); }
     });
   }
 
@@ -151,11 +154,14 @@ export class F01002scn8Component implements OnInit {
         cust_TYPE: CUST_TYPE,
         con_MEMO: CON_MEMO,
         note: NOTE,
-        ID: ID
+        ID: ID,
+        CON_TEL_Code:this.CON_TEL_Code,
+        CON_TARGET_Code:this.CON_TARGET_Code,
+        CON_MEMO_Code:this.CON_MEMO_Code
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.refreshTable(); }
+      if (result != null && result == '1') { this.refreshTable(); }
     });
   }
 

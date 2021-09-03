@@ -64,10 +64,15 @@ export class F03010Component implements OnInit {
     const dialogRef = this.dialog.open(F03010addComponent, {
       minHeight: '100vh',
       width: '50%',
+      data: {
+        speakingAbbreviation: '',
+        speakingContent : '' ,
+        stopFlag: 'Y'
+      },
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result != null && result.event == 'success') { this.refreshTable(); }
-        window.location.reload();
+        //window.location.reload();
       });
   }
 
@@ -94,7 +99,7 @@ export class F03010Component implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result != null && result.event == 'success') { this.refreshTable(); }
-        window.location.reload();
+        //window.location.reload();
       });
   }
 
@@ -112,7 +117,8 @@ export class F03010Component implements OnInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(F03010confirmComponent, { data: { msgStr: msg } });
-      window.location.reload();
+      //window.location.reload();
+      this.refreshTable();
     }, 1500);
   }
 

@@ -27,7 +27,6 @@ export class F01002scn8editComponent implements OnInit {
 
   formControl = new FormControl('', [
     Validators.required
-    // Validators.email,
   ]);
 
   getErrorMessage() {
@@ -38,31 +37,7 @@ export class F01002scn8editComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.f01002scn8Service.getSysTypeCode('CON_TEL', 'f01/f01002scn8')
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
-          this.CON_TEL_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-    this.f01002scn8Service.getSysTypeCode('CON_TARGET', 'f01/f01002scn8')
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
-          this.CON_TARGET_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-    this.f01002scn8Service.getSysTypeCode('CON_MEMO', 'f01/f01002scn8')
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
-          this.CON_MEMO_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-  }
+   }
 
   async save() {
     let msgStr: string = "";
@@ -76,7 +51,7 @@ export class F01002scn8editComponent implements OnInit {
     const childernDialogRef = this.dialog.open(F01002scn8confirmComponent, {
       data: { msgStr: msgStr }
     });
-    if (msgStr === '編輯成功' && codeStr === '0000') { this.dialogRef.close({ event: 'success' }); }
+    if (msgStr === '編輯成功' && codeStr === '0000') {this.dialogRef.close({ event: 'success' }); }
   }
 
   onNoClick(): void {
