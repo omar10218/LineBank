@@ -34,11 +34,13 @@ export class F01002scn6Component implements OnInit {
     formdata.append('cuid', this.cuid);
     formdata.append('code', 'MASTER');
     this.f01002scn6Service.getDate(url, formdata).subscribe(data => {
-      for (let i = 0; i < data.rspBody.items.length; i++) {
-        this.dateCode.push({value: data.rspBody.items[i].QUERYDATE , viewValue: data.rspBody.items[i].QUERYDATE })
+      if ( data.rspBody.items.length > 0 ) {
+        for (let i = 0; i < data.rspBody.items.length; i++) {
+          this.dateCode.push({value: data.rspBody.items[i].QUERYDATE , viewValue: data.rspBody.items[i].QUERYDATE })
+        }
+        this.dateValue = data.rspBody.items[0].QUERYDATE
+        this.router.navigate(['./F01002SCN1/F01002SCN6/F01002SCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue} });
       }
-      this.dateValue = data.rspBody.items[0].QUERYDATE
-      this.router.navigate(['./F01002SCN1/F01002SCN6/F01002SCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue} });
     });
   }
 
