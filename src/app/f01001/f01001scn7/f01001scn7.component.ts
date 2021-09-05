@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { F01001scn7Service } from './f01001scn7.service';
 import { MatTableDataSource } from '@angular/material/table';
 
+//Nick AML/FDS/CSS
 @Component({
   selector: 'app-f01001scn7',
   templateUrl: './f01001scn7.component.html',
@@ -22,16 +23,18 @@ export class F01001scn7Component implements OnInit {
   private search: string;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.search = params['search'];
+      this.applno = params['applno'];//收編
+      this.search = params['search'];//判斷徵信/查詢
     });
     this.getCALLOUTFunction();
   }
 
+  //取收編
   getApplno(): String {
     return this.applno;
   }
 
+  //判斷徵信/查詢
   getSearch() :string {
     return this.search;
   }
@@ -41,9 +44,9 @@ export class F01001scn7Component implements OnInit {
     const baseUrl = 'f01/f01001scn7';
     this.f01001scn7Service.getAML_FDS_CSS(baseUrl,this.applno).subscribe(data => {
        console.log(data);
-       this.AMLSource=data.rspBody.amlList;
-       this.FDSSource= data.rspBody.fdsList;
-       this.CSSSource= data.rspBody.cssList;
+       this.AMLSource=data.rspBody.amlList;//alm資料
+       this.FDSSource= data.rspBody.fdsList;//FDS資料
+       this.CSSSource= data.rspBody.cssList;//CSS資料
 
     });
   }

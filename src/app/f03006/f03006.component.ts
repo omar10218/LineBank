@@ -10,16 +10,19 @@ import { F03006editComponent } from './f03006edit/f03006edit.component';
 import { F03006roleComponent } from './f03006role/f03006role.component';
 import { F03006confirmComponent } from './f03006confirm/f03006confirm.component';
 
+//下拉選單框架
 interface sysCode {
   value: string;
   viewValue: string;
 }
 
+//角色checkBox框架
 interface checkBox {
   value: string;
   completed: boolean;
 }
 
+//Nick 組織人員維護
 @Component({
   selector: 'app-f03006',
   templateUrl: './f03006.component.html',
@@ -36,25 +39,25 @@ export class F03006Component implements OnInit, AfterViewInit {
   on_jobCode: sysCode[] = [];//是否在職
   assign_stopCode: sysCode[] = [];//是否停派
 
-  empNoValue: string;
-  empNameValue: string;
-  empIDValue: string;
-  agent_empValue: string;
-  emailValue: string;
-  on_jobValue: string = "Y";
-  assign_stopValue: string;
-  projectValue: string;
-  levelStartDateTypeValue: string;
-  levelEndDateTypeValue: string;
-  levelStartDateValue: Date;
-  levelStartDateString: string;
-  levelEndDateValue: Date;
-  levelEndDateString: string;
+  empNoValue: string;//員工編號
+  empNameValue: string;//員工姓名
+  empIDValue: string;//員工ID
+  agent_empValue: string;//代理人
+  emailValue: string;//email
+  on_jobValue: string = "Y"; //是否在職預設Y
+  assign_stopValue: string;//是否停派
+  projectValue: string;//派艦專案代碼
+  levelStartDateTypeValue: string;//請假起日
+  levelEndDateTypeValue: string;//請假起日類型
+  levelStartDateValue: Date;//請假起日類型值
+  levelStartDateString: string;//請假迄日
+  levelEndDateValue: Date;//請假迄日類型
+  levelEndDateString: string;//請假迄日類型值
 
   constructor(private f03006Service: F03006Service, public dialog: MatDialog, private pipe: DatePipe) { }
   ngOnInit(): void {
 
-    const baseUrl = 'f03/f03006';
+    const baseUrl = 'f03/f03006';//代理人
     this.f03006Service.getEmployeeSysTypeCode(baseUrl)
       .subscribe(data => {
         for (const jsonObj of data.rspBody.empList) {
@@ -63,7 +66,7 @@ export class F03006Component implements OnInit, AfterViewInit {
           this.agent_empCode.push({ value: codeNo, viewValue: desc })
         }
 
-        for (const jsonObj of data.rspBody.levelTypeList) {
+        for (const jsonObj of data.rspBody.levelTypeList) {//日期種類起訖
           const codeNo = jsonObj['codeNo'];
           const desc = jsonObj['codeDesc'];
           this.levelStartDateTypeCode.push({ value: codeNo, viewValue: desc })
@@ -71,20 +74,20 @@ export class F03006Component implements OnInit, AfterViewInit {
         }
 
 
-        for (const jsonObj of data.rspBody.projectList) {
+        for (const jsonObj of data.rspBody.projectList) {//派件專案代碼
           const codeNo = jsonObj['codeNo'];
           const desc = jsonObj['codeDesc'];
           this.projectCode.push({ value: codeNo, viewValue: desc })
         }
 
 
-        for (const jsonObj of data.rspBody.roleList) {
+        for (const jsonObj of data.rspBody.roleList) {//角色
           const codeNo = jsonObj['codeNo'];
           const desc = jsonObj['codeDesc'];
           this.roleCode.push({ value: codeNo, viewValue: desc })
         }
 
-        this.assign_stopCode.push({ value: "", viewValue: "請選擇" })
+        this.assign_stopCode.push({ value: "", viewValue: "請選擇" })//是否停派//是否在職
         for (const jsonObj of data.rspBody.ynList) {
           const codeNo = jsonObj['codeNo'];
           const desc = jsonObj['codeNo'];
@@ -92,19 +95,22 @@ export class F03006Component implements OnInit, AfterViewInit {
           this.assign_stopCode.push({ value: codeNo, viewValue: desc })
         }
 
-        this.empRoleSource.data = data.rspBody.roleList;
+        this.empRoleSource.data = data.rspBody.roleList;//角色Table
       });
 
   }
 
 
-  totalCount: any;
+  totalCount: any;//表單資料筆數設定
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;
   currentSort: Sort;
-  employeeSource = new MatTableDataSource<any>();
-  empRoleSource = new MatTableDataSource<any>();
+
+  employeeSource = new MatTableDataSource<any>();//組織人員維護Table
+  empRoleSource = new MatTableDataSource<any>();//角色Table
+
+  //表單資料筆數設定
   ngAfterViewInit() {
     this.currentPage = {
       pageIndex: 0,
@@ -121,26 +127,25 @@ export class F03006Component implements OnInit, AfterViewInit {
     });
   }
 
+  //取得表單資料
   getEmployeeList() {
     let formData = new FormData();
-    formData.append('empNo', this.empNoValue != null ?　this.empNoValue : '');
-    formData.append('empName', this.empNameValue != null ?　this.empNameValue : '');
-    formData.append('empId', this.empIDValue != null ?　this.empIDValue : '');
-    formData.append('agentEmp', this.agent_empValue != null ?　this.agent_empValue : '');
-    formData.append('email', this.emailValue != null ?　this.emailValue : '');
-    formData.append('onJob', this.on_jobValue != null ?　this.on_jobValue : '');
-    formData.append('assignStop', this.assign_stopValue != null ?　this.assign_stopValue : '');
-    formData.append('assignProjectno', this.projectValue != null ?　this.projectValue : '');
-    formData.append('leaveStartdateType', this.levelStartDateTypeValue != null ?　this.levelStartDateTypeValue : '');
-    formData.append('leaveEnddateType', this.levelEndDateTypeValue != null ?　this.levelEndDateTypeValue : '');
-    if (  this.levelStartDateString != null &&  this.levelStartDateString != '' ) {
+    formData.append('empNo', this.empNoValue != null ?　this.empNoValue : '');//員工編號
+    formData.append('empName', this.empNameValue != null ?　this.empNameValue : '');//員工姓名
+    formData.append('empId', this.empIDValue != null ?　this.empIDValue : '');//員工ID
+    formData.append('agentEmp', this.agent_empValue != null ?　this.agent_empValue : '');//代理人
+    formData.append('email', this.emailValue != null ?　this.emailValue : '');//email
+    formData.append('onJob', this.on_jobValue != null ?　this.on_jobValue : '');//是否在職
+    formData.append('assignStop', this.assign_stopValue != null ?　this.assign_stopValue : '');//是否停派
+    formData.append('assignProjectno', this.projectValue != null ?　this.projectValue : '');//派件專案代碼
+    formData.append('leaveStartdateType', this.levelStartDateTypeValue != null ?　this.levelStartDateTypeValue : '');//請假起日類型
+    formData.append('leaveEnddateType', this.levelEndDateTypeValue != null ?　this.levelEndDateTypeValue : '');//請假迄日類型
+    if (  this.levelStartDateString != null &&  this.levelStartDateString != '' ) {//請假起日
       formData.append('leaveStartdate', this.pipe.transform( new Date(this.levelStartDateString) , 'yyyyMMdd' ) );
     }
-    if (  this.levelEndDateString != null &&  this.levelEndDateString != '' ) {
+    if (  this.levelEndDateString != null &&  this.levelEndDateString != '' ) {//請假迄日
       formData.append('leaveEnddate', this.pipe.transform( new Date(this.levelEndDateString) , 'yyyyMMdd' ) );
     }
-    // formData.append('leaveStartdate',  != null ? this.levelStartDateString : '');
-    // formData.append('leaveEnddate', this.levelEndDateString != null ?this.levelEndDateString : '');
     const baseUrl = 'f03/f03006action1';
     this.f03006Service.getEmployeeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize,formData)
       .subscribe(data => {
@@ -156,39 +161,32 @@ export class F03006Component implements OnInit, AfterViewInit {
       });
   }
 
+  //清除資料
   Clear() {
-    this.empNoValue= '';
-    this.empNameValue= '';
-    this.empIDValue= '';
-    this.agent_empValue= '';
-    this.emailValue= '';
-    this.on_jobValue = "Y";
-    this.assign_stopValue= '';
-    this.projectValue= '';
-    this.levelStartDateTypeValue= '';
-    this.levelEndDateTypeValue= '';
-    this.levelStartDateValue=undefined;
-    this.levelStartDateString= '';
-    this.levelEndDateValue=undefined;
-    this.levelEndDateString= '';
+    this.empNoValue= '';//員工編號
+    this.empNameValue= '';//員工姓名
+    this.empIDValue= '';//員工ID
+    this.agent_empValue= '';//代理人
+    this.emailValue= '';//email
+    this.on_jobValue = "Y";//是否在職
+    this.assign_stopValue= '';//是否停派
+    this.projectValue= '';//派件專案代碼
+    this.levelStartDateTypeValue= '';//請假起日類型
+    this.levelEndDateTypeValue= '';//請假迄日類型
+    this.levelStartDateValue=undefined;//請假起日
+    this.levelStartDateString= '';//請假起日
+    this.levelEndDateValue=undefined;//請假迄日
+    this.levelEndDateString= '';//請假迄日
 
   }
 
-  getDateString(date: Date) :string{
-    const d = date.getUTCDate();
-    const day = (d < 10) ? '0' + d : d;
-    const m = date.getUTCMonth() + 1;
-    const month = (m < 10) ? '0' + m : m;
-    const year = date.getUTCFullYear();
-    const loctime = `${year}-${month}-${day}`;
-    return( `${year}${month}${day}`);
-  }
-
+  //切換頁籤
   changeSort(sortInfo: Sort) {
     this.currentSort = sortInfo;
     this.getEmployeeList();
   }
 
+  //切換查詢選項
   changeSelect() {
     this.currentPage = {
       pageIndex: 0,
@@ -199,6 +197,7 @@ export class F03006Component implements OnInit, AfterViewInit {
     this.getEmployeeList();
   }
 
+  //取得下拉選單中文
   getOptionDesc(option: sysCode[], codeVal: string): string {
     for (const data of option) {
       if (data.value == codeVal) {
@@ -209,6 +208,7 @@ export class F03006Component implements OnInit, AfterViewInit {
     return codeVal;
   }
 
+  //設定角色
   chkArray: checkBox[] = null;
   setRoleNo(empNo: string, roleArray: string) {
     console.log(empNo, roleArray);
@@ -232,21 +232,22 @@ export class F03006Component implements OnInit, AfterViewInit {
     });
   }
 
+  //新增
   addNew() {
     const dialogRef = this.dialog.open(F03006addComponent, {
       data: {
-        EMP_NO: '',
-        EMP_NAME: '',
-        EMP_ID: '',
-        ON_JOB: 'Y',
-        AGENT_EMP: '',
-        EMAIL: '',
-        ASSIGN_STOP: '',
-        ASSIGN_PROJECTNO: '',
-        LEAVE_STARTDATE: '',
-        LEAVE_STARTDATE_TYPE: '',
-        LEAVE_ENDDATE: '',
-        LEAVE_ENDDATE_TYPE: '',
+        EMP_NO: '',//員工編號
+        EMP_NAME: '',//員工姓名
+        EMP_ID: '',//員工ID
+        ON_JOB: 'Y',//是否在職
+        AGENT_EMP: '',//代理人
+        EMAIL: '',//email
+        ASSIGN_STOP: '',//是否停派
+        ASSIGN_PROJECTNO: '',//派件專案代碼
+        LEAVE_STARTDATE: '',//請假起日
+        LEAVE_STARTDATE_TYPE: '',//請假起日類型
+        LEAVE_ENDDATE: '',//請假迄日
+        LEAVE_ENDDATE_TYPE: '',//請假迄日類型
         agent_empCode: this.agent_empCode,//代理人
         levelStartDateTypeCode: this.levelStartDateTypeCode,//日期種類起
         levelEndDateTypeCode: this.levelEndDateTypeCode,//日期種類迄
@@ -261,6 +262,7 @@ export class F03006Component implements OnInit, AfterViewInit {
     });
   }
 
+  //修改
   startEdit(i: number,
     EMP_NO: string, EMP_NAME: string, EMP_ID: string, ON_JOB: string,
     AGENT_EMP: string, EMAIL: string, LEAVE_STARTDATE: string, LEAVE_ENDDATE: string,
@@ -271,18 +273,18 @@ export class F03006Component implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(F03006editComponent, {
       data: {
 
-        EMP_NO: EMP_NO,
-        EMP_NAME: EMP_NAME,
-        EMP_ID: EMP_ID,
-        ON_JOB: ON_JOB,
-        AGENT_EMP: AGENT_EMP,
-        EMAIL: EMAIL,
-        ASSIGN_STOP: ASSIGN_STOP,
-        ASSIGN_PROJECTNO: ASSIGN_PROJECTNO,
-        LEAVE_STARTDATE: LEAVE_STARTDATE,
-        LEAVE_STARTDATE_TYPE: LEAVE_STARTDATE_TYPE,
-        LEAVE_ENDDATE: LEAVE_ENDDATE,
-        LEAVE_ENDDATE_TYPE: LEAVE_ENDDATE_TYPE,
+        EMP_NO: EMP_NO,//員工編號
+        EMP_NAME: EMP_NAME,//員工姓名
+        EMP_ID: EMP_ID,//員工ID
+        ON_JOB: ON_JOB,//是否在職
+        AGENT_EMP: AGENT_EMP,//代理人
+        EMAIL: EMAIL,//email
+        ASSIGN_STOP: ASSIGN_STOP,//是否停派
+        ASSIGN_PROJECTNO: ASSIGN_PROJECTNO,//派件專案代碼
+        LEAVE_STARTDATE: LEAVE_STARTDATE,//請假起日
+        LEAVE_STARTDATE_TYPE: LEAVE_STARTDATE_TYPE,//請假起日類型
+        LEAVE_ENDDATE: LEAVE_ENDDATE,//請假迄日
+        LEAVE_ENDDATE_TYPE: LEAVE_ENDDATE_TYPE,//請假迄日類型
         agent_empCode: this.agent_empCode,//代理人
         levelStartDateTypeCode: this.levelStartDateTypeCode,//日期種類起
         levelEndDateTypeCode: this.levelEndDateTypeCode,//日期種類迄
@@ -297,6 +299,7 @@ export class F03006Component implements OnInit, AfterViewInit {
     });
   }
 
+  //前端顯示日日期用
   getlevelDateData(StartDate:string,StartDateType:string,EndDate:string,EndDateType:string):string {
     let data='';
     if(StartDate !=null){data=StartDate;}
@@ -309,6 +312,7 @@ export class F03006Component implements OnInit, AfterViewInit {
 
   }
 
+  //刷新頁面
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }

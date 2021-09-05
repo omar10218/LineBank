@@ -1,7 +1,7 @@
 <div class="container">
     <h2 mat-dialog-title>組織人員維護-編輯</h2>
 
-    <form class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
+    <form class="mat-dialog-content"  #formControl="ngForm">
 
       <div class="form">
         <mat-form-field color="accent">
@@ -111,7 +111,7 @@
       </div>
 
       <div mat-dialog-actions>
-        <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
+        <button mat-button  [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
         <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
       </div>
     </form>

@@ -9,11 +9,13 @@ import { F01002scn8Service } from './f01002scn8.service';
 import { F01002scn8addComponent } from './f01002scn8add/f01002scn8add.component';
 import { F01002scn8confirmComponent } from './f01002scn8confirm/f01002scn8confirm.component';
 import { F01002scn8editComponent } from './f01002scn8edit/f01002scn8edit.component';
+//下拉選單框架
 interface sysCode {
   value: string;
   viewValue: string;
 }
 
+//徵信照會table框架
 interface CALLOUTCode {
   APPLNO: string;
   CALLOUT_DATE: string;
@@ -29,7 +31,7 @@ interface CALLOUTCode {
   CON_TARGET_View: string;
   CON_TEL_View: string;
 }
-
+//Nick 徵信照會
 @Component({
   selector: 'app-f01002scn8',
   templateUrl: './f01002scn8.component.html',
@@ -37,25 +39,21 @@ interface CALLOUTCode {
 })
 export class F01002scn8Component implements OnInit {
 
-  CON_TEL_Code: sysCode[] = [];
-  CON_TEL_Selected: string;
-  CON_TEL_Value: string;
-  CON_TARGET_Code: sysCode[] = [];
-  CON_TARGET_Selected: string;
-  CON_TARGET_Value: string;
-  CON_MEMO_Code: sysCode[] = [];
-  CON_MEMO_Selected: string;
-  CON_MEMO_Value: string;
+  CON_TEL_Code: sysCode[] = [];//電話種類下拉選單
+  CON_TEL_Selected: string;//電話種類
+  CON_TEL_Value: string;//電話種類
+  CON_TARGET_Code: sysCode[] = [];//對象種類下拉選單
+  CON_TARGET_Selected: string;//對象種類
+  CON_TARGET_Value: string;//對象種類
+  CON_MEMO_Code: sysCode[] = [];//註記種類下拉選單
+  CON_MEMO_Selected: string;//註記種
+  CON_MEMO_Value: string;//註記種
 
-  CALLOUTSource = new MatTableDataSource<any>();
-  rspBodyList: CALLOUTCode[] = [];
-  speakingData: any;
-  rspBodyData: any;
-  AddData: any;
-  EditData: any;
-
-  submitted = false;
-  currentPage: PageEvent;
+  CALLOUTSource = new MatTableDataSource<any>();//table資料
+  rspBodyList: CALLOUTCode[] = [];//table資料
+  speakingData: any;//table資料
+  rspBodyData: any;//table資料
+  currentPage: PageEvent; //表單資料筆數設定
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, public dialog: MatDialog, private f01002scn8Service: F01002scn8Service) { }
   private applno: string;
@@ -67,14 +65,15 @@ export class F01002scn8Component implements OnInit {
       this.search = params['search'];
     });
 
+    //表單資料筆數設定
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
       length: null
     };
 
-    //this.CALLOUTSource.data=this.dataList;
-    this.f01002scn8Service.getSysTypeCode('CON_TEL', 'f01/f01002scn8')
+    //取下拉選單資料
+    this.f01002scn8Service.getSysTypeCode('CON_TEL', 'f01/f01002scn8')//電話種類下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];
@@ -82,7 +81,7 @@ export class F01002scn8Component implements OnInit {
           this.CON_TEL_Code.push({ value: codeNo, viewValue: desc })
         }
       });
-    this.f01002scn8Service.getSysTypeCode('CON_TARGET', 'f01/f01002scn8')
+    this.f01002scn8Service.getSysTypeCode('CON_TARGET', 'f01/f01002scn8')//對象種類下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];
@@ -90,7 +89,7 @@ export class F01002scn8Component implements OnInit {
           this.CON_TARGET_Code.push({ value: codeNo, viewValue: desc })
         }
       });
-    this.f01002scn8Service.getSysTypeCode('CON_MEMO', 'f01/f01002scn8')
+    this.f01002scn8Service.getSysTypeCode('CON_MEMO', 'f01/f01002scn8')//註記種類下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];
@@ -99,7 +98,7 @@ export class F01002scn8Component implements OnInit {
         }
       });
   }
-
+  //表單資料筆數設定
   ngAfterViewInit() {
     this.getCALLOUTFunction();
     this.paginator.page.subscribe((page: PageEvent) => {
@@ -108,63 +107,70 @@ export class F01002scn8Component implements OnInit {
     });
   }
 
+  //取收件編號
   getApplno(): String {
     return this.applno;
   }
 
+  //確認徵審或查詢
   getSearch(): string {
     return this.search;
   }
 
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  totalCount: any;//表單資料筆數設定
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;//表單資料筆數設定
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;//表單資料筆數設定
 
+  //新增
   Add() {
     const dialogRef = this.dialog.open(F01002scn8addComponent, {
       minHeight: '100vh',
       width: '50%',
       data: {
-        applno: this.applno,
-        con_TEL: '',
-        phone: '',
-        con_TARGET: '',
-        cust_TYPE: '',
-        con_MEMO: '',
-        note: '',
-        ID: '',
-        CON_TEL_Code:this.CON_TEL_Code,
-        CON_TARGET_Code:this.CON_TARGET_Code,
-        CON_MEMO_Code:this.CON_MEMO_Code
+        applno: this.applno,//收件編號
+        con_TEL: '',//電話種類
+        phone: '',//電話
+        con_TARGET: '',//對象種類
+        cust_TYPE: '',//對象註記
+        con_MEMO: '',//註記種類
+        note: '',//註記
+        ID: '',//java用row ID
+        CON_TEL_Code: this.CON_TEL_Code,//電話種類下拉選單
+        CON_TARGET_Code: this.CON_TARGET_Code,//對象種類下拉選單
+        CON_MEMO_Code: this.CON_MEMO_Code//註記種類下拉選單
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
       if (result != null && result == '1') { this.refreshTable(); }
     });
   }
 
+  //編輯
   startEdit(CON_TEL: string, PHONE: string, CON_TARGET: string, CUST_TYPE: string, CON_MEMO: string, NOTE: string, ID: string) {
     const dialogRef = this.dialog.open(F01002scn8editComponent, {
       minHeight: '100vh',
       width: '50%',
       data: {
-        con_TEL: CON_TEL,
-        phone: PHONE,
-        con_TARGET: CON_TARGET,
-        cust_TYPE: CUST_TYPE,
-        con_MEMO: CON_MEMO,
-        note: NOTE,
-        ID: ID,
-        CON_TEL_Code:this.CON_TEL_Code,
-        CON_TARGET_Code:this.CON_TARGET_Code,
-        CON_MEMO_Code:this.CON_MEMO_Code
+        con_TEL: CON_TEL,//電話種類
+        phone: PHONE,//電話
+        con_TARGET: CON_TARGET,//對象種類
+        cust_TYPE: CUST_TYPE,//對象註記
+        con_MEMO: CON_MEMO,//註記種類
+        note: NOTE,//註記
+        ID: ID,//java用row ID
+        CON_TEL_Code: this.CON_TEL_Code,//電話種類下拉選單
+        CON_TARGET_Code: this.CON_TARGET_Code,//對象種類下拉選單
+        CON_MEMO_Code: this.CON_MEMO_Code//註記種類下拉選單
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
       if (result != null && result == '1') { this.refreshTable(); }
     });
   }
 
+  //刪除
   delete(ID: string) {
     let msg = '';
     const url = 'f01/f01002scn8action3';
@@ -177,14 +183,12 @@ export class F01002scn8Component implements OnInit {
     }, 1500);
   }
 
+  //刷新Table
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
 
-  test(): void {
-
-  }
-
+  //取Table
   private async getCALLOUTFunction() {
     const baseUrl = 'f01/f01002scn8scn1';
     this.f01002scn8Service.getCALLOUT(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, this.applno).subscribe(data => {
@@ -203,10 +207,11 @@ export class F01002scn8Component implements OnInit {
     });
   }
 
+  //下拉選單資料轉換
   getSelectView(key: string, value: string): string {
     var result = "";
     switch (key) {
-      case "CON_TEL": {
+      case "CON_TEL": {//電話種類下拉選單
         for (const data of this.rspBodyData.conTel) {
           if (data.codeNo == value) {
             result = data.codeDesc;
@@ -214,7 +219,7 @@ export class F01002scn8Component implements OnInit {
         }
         break;
       }
-      case "CON_TARGET": {
+      case "CON_TARGET": {//對象種類下拉選單
         for (const data of this.rspBodyData.conTarget) {
           if (data.codeNo == value) {
             result = data.codeDesc;
@@ -222,7 +227,7 @@ export class F01002scn8Component implements OnInit {
         }
         break;
       }
-      default: {
+      default: {//註記種類下拉選單
         for (const data of this.rspBodyData.conMemo) {
           if (data.codeNo == value) {
             result = data.codeDesc;
@@ -231,7 +236,6 @@ export class F01002scn8Component implements OnInit {
         break;
       }
     }
-    //console.log(this.result);
     return result;
   }
 
@@ -239,4 +243,5 @@ export class F01002scn8Component implements OnInit {
     const DialogRef = this.dialog.open(F01002scn8confirmComponent, { data: { msgStr: speakingContent } });
     // alert(speakingContent);
   }
+
 }

@@ -9,16 +9,13 @@ import { BaseService } from 'src/app/base.service';
 export class F01001scn8Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  saveDssCallout(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
-  }
-
+//取Table資料
   getCALLOUT(baseUrl: string, pageIndex: number, pageSize: number,applno: string){
     let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}&applno=${applno}`;
     return this.postHttpClient(targetUrl);
   }
 
-
+//修改
   public async EditCALLOUT(baseUrl: string, data: any): Promise<Observable<any>> {
     const formdata: FormData = new FormData();
     baseUrl = `${baseUrl}?rowID=${data.ID}`;
@@ -31,7 +28,7 @@ export class F01001scn8Service extends BaseService {
 
     return await this.postFormData(baseUrl, formdata).toPromise();
   }
-
+//新增
   AddCALLOUT(baseUrl: string, data: any): Promise<Observable<any>> {
     const formdata: FormData = new FormData();
     formdata.append('applno', data.applno)
@@ -44,7 +41,7 @@ export class F01001scn8Service extends BaseService {
 
     return this.postFormData(baseUrl,formdata).toPromise();
   }
-
+//刪除
   DeleteCALLOUT(baseUrl: string, ID: string): Observable<any> {
     baseUrl = `${baseUrl}?rowID=${ID}`;
     return this.postHttpClient(baseUrl);
