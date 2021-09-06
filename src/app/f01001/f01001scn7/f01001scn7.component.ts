@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { F01001scn7Service } from './f01001scn7.service';
 import { MatTableDataSource } from '@angular/material/table';
 
+//20210906 新增RPM資訊,SRP同一關係人 alvin.lee
 //Nick AML/FDS/CSS
 @Component({
   selector: 'app-f01001scn7',
@@ -11,11 +12,12 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class F01001scn7Component implements OnInit {
 
-   CALLOUTSource = new MatTableDataSource<any>();
-  AMLSource:any;
-  FDSSource:any;
-  CSSSource:any;
-
+  CALLOUTSource = new MatTableDataSource<any>();
+  AMLSource: any;
+  FDSSource: any;
+  CSSSource: any;
+  RPMSource: any;
+  SRPSource: any;
 
 
   constructor(private route: ActivatedRoute, private router: Router, private f01001scn7Service: F01001scn7Service) { }
@@ -35,19 +37,19 @@ export class F01001scn7Component implements OnInit {
   }
 
   //判斷徵信/查詢
-  getSearch() :string {
+  getSearch(): string {
     return this.search;
   }
 
-
   private async getCALLOUTFunction() {
     const baseUrl = 'f01/f01001scn7';
-    this.f01001scn7Service.getAML_FDS_CSS(baseUrl,this.applno).subscribe(data => {
-       console.log(data);
-       this.AMLSource=data.rspBody.amlList;//alm資料
-       this.FDSSource= data.rspBody.fdsList;//FDS資料
-       this.CSSSource= data.rspBody.cssList;//CSS資料
-
+    this.f01001scn7Service.getAML_FDS_CSS(baseUrl, this.applno).subscribe(data => {
+      console.log(data);
+      this.AMLSource = data.rspBody.amlList;//alm資料
+      this.FDSSource = data.rspBody.fdsList;//FDS資料
+      this.CSSSource = data.rspBody.cssList;//CSS資料
+      this.RPMSource = data.rspBody.rpmList;//RPM資料
+      this.SRPSource = data.rspBody.srpList;//SRP同一關係人
     });
   }
 
