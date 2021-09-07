@@ -1,51 +1,91 @@
 <br>
 <form style="padding-left: 20px;">
   <th>AML資訊</th>
-<table class="form1">
-  <tr class="tbTitle">
-    <th>ALM代碼</th>
-    <th>ALM說明</th>
-    <th>日期時間</th>
-  </tr>
-  <tr  class="tbContext" *ngFor="let item of AMLSource">
-    <td>{{item.AML}}</td>
-    <td>{{item.CODE_DESC}}</td>
-    <td>{{item.AML_DATE}}</td>
-  </tr>
-</table>
+  <table class="form1">
+    <tr class="tbTitle">
+      <th>ALM代碼</th>
+      <th>ALM說明</th>
+      <th>日期時間</th>
+    </tr>
+    <tr class="tbContext" *ngFor="let item of AMLSource">
+      <td>{{item.AML}}</td>
+      <td>{{item.CODE_DESC}}</td>
+      <td>{{item.AML_DATE}}</td>
+    </tr>
+  </table>
 </form>
 
 <br>
 <form style="padding-left: 20px;">
   <th>FDS資訊</th>
-<table class="form1">
-  <tr class="tbTitle">
-    <th>FDS代碼</th>
-    <th>FDS說明</th>
-    <th>日期時間</th>
-  </tr>
-  <tr  class="tbContext" *ngFor="let item of FDSSource">
-    <td>{{item.FDS}}</td>
-    <td>{{item.CODE_DESC}}</td>
-    <td>{{item.FDS_DATE}}</td>
-  </tr>
-</table>
+  <table class="form1">
+    <tr class="tbTitle">
+      <th>FDS代碼</th>
+      <th>FDS說明</th>
+      <th>日期時間</th>
+    </tr>
+    <tr class="tbContext" *ngFor="let item of FDSSource">
+      <td>{{item.FDS}}</td>
+      <td>{{item.CODE_DESC}}</td>
+      <td>{{item.FDS_DATE}}</td>
+    </tr>
+  </table>
 </form>
 
 <br>
 <form style="padding-left: 20px;">
   <th>CSS資訊</th>
-<table class="form1">
-  <tr class="tbTitle">
-    <th>Score分數</th>
-    <th>Score等級</th>
-    <th>日期時間</th>
-  </tr>
-  <tr  class="tbContext" *ngFor="let item of CSSSource">
-    <td>{{item.cssScore}}</td>
-    <td>{{item.cssGrade}}</td>
-    <td>{{item.cssDate | date:'yyyy-MM-dd hh:mm:ss' }}</td>
-  </tr>
-</table>
+  <table class="form1">
+    <tr class="tbTitle">
+      <th>Score分數</th>
+      <th>Score等級</th>
+      <th>日期時間</th>
+    </tr>
+    <tr class="tbContext" *ngFor="let item of CSSSource">
+      <td>{{item.cssScore}}</td>
+      <td>{{item.cssGrade}}</td>
+      <td>{{item.cssDate | date:'yyyy-MM-dd hh:mm:ss' }}</td>
+    </tr>
+  </table>
 </form>
-<br><br>
+<br>
+<form style="padding-left: 20px;">
+  <th>RPM資訊</th>
+  <table class="form1">
+    <tr class="tbTitle">
+      <th>是否為利關人</th>
+      <th>關係類型描述</th>
+      <th>查詢日期時間</th>
+    </tr>
+    <tr class="tbContext" *ngFor="let item of RPMSource">
+      <td>{{item.isRpm}}</td>
+      <td>{{item.rpmTypeDescribe}}</td>
+      <td>{{item.rpmDate | date:'yyyy-MM-dd hh:mm:ss' }}</td>
+    </tr>
+  </table>
+</form>
+<form style="padding-left: 20px;">
+  <th>同一關係人</th>
+  <table class="form1">
+    <tr class="tbTitle">
+      <th>關係</th>
+      <th>姓名</th>
+      <th>身分證字號</th>
+      <th>公司名稱</th>
+      <th>公司統編</th>
+      <th>公司內職稱</th>
+      <th>公司備註</th>
+      <th>查詢日期時間</th>
+    </tr>
+    <tr class="tbContext" *ngFor="let item of SRPSource">
+      <td>{{item.srpRelation}}</td>
+      <td>{{item.srpName}}</td>
+      <td>{{item.srpId}}</td>
+      <td>{{item.srpCompany}}</td>
+      <td>{{item.srpCompanyId}}</td>
+      <td>{{item.srpCompanyTitle}}</td>
+      <td>{{item.srpCompanyContent}}</td>
+      <td>{{item.srpDate | date:'yyyy-MM-dd hh:mm:ss' }}</td>
+    </tr>
+  </table>
+</form>

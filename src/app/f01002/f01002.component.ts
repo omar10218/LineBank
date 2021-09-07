@@ -8,52 +8,60 @@ import { F01002Service } from './f01002.service';
 import { MatDialog } from '@angular/material/dialog';
 import { F01002confirmComponent } from './f01002confirm/f01002confirm.component';
 
+//20210906 alvin.lee
+
+// 下拉選單
 interface sysCode {
   value: string;
   viewValue: string;
 }
+
 @Component({
   selector: 'app-f01002',
   templateUrl: './f01002.component.html',
-  styleUrls: ['./f01002.component.css','../../assets/css/f01.css']
+  styleUrls: ['./f01002.component.css', '../../assets/css/f01.css']
 })
+
 export class F01002Component implements OnInit, AfterViewInit {
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent;
-  currentSort: Sort;
-  empNo: string = localStorage.getItem("empNo");
-  swcID: string;
-  swcApplno: string;
-  caseType: string;
-  note: string;
-  caseTypeCode: sysCode[] = [];
-  empNoCode: sysCode[] = [];
-  cusinfoDataSource = new MatTableDataSource<any>();
-  clicked = false;
-
+  currentPage: PageEvent;                             // 分頁
+  currentSort: Sort;                                  // 排序
+  empNo: string = localStorage.getItem("empNo");      // 當前員編
+  swcID: string;                                      // 身分證字號
+  swcApplno: string;                                  // 案件編號
+  caseType: string;                                   // 案件分類
+  caseTypeCode: sysCode[] = [];                       // 案件分類下拉
+  agentEmpNo: string;                                 // 代理人
+  agentEmpNoCode: sysCode[] = [];                     // 代理人下拉
+  cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單
   constructor(private router: Router, private f01002Service: F01002Service, public dialog: MatDialog) { }
   ngOnInit(): void {
+    // 查詢案件分類
     this.f01002Service.getSysTypeCode('CASE_TYPE', 'sys/getMappingCode').subscribe(data => {
+      this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.caseTypeCode.push({ value: codeNo, viewValue: desc })
       }
     });
-
+    // 查詢代理人
     this.f01002Service.getEmpNo(this.empNo).subscribe(data => {
-      console.log(data)
+      this.agentEmpNoCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
         const empNo = jsonObj['empNo'];
         const empName = jsonObj['empName'];
-        this.empNoCode.push({ value: empNo, viewValue: empName })
+        this.agentEmpNoCode.push({ value: empNo, viewValue: empName })
       }
     });
 
+    this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcID = '';
+    this.caseType = '';
+
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
@@ -74,42 +82,45 @@ export class F01002Component implements OnInit, AfterViewInit {
     });
   }
 
+  // 排序
   changeSort(sortInfo: Sort) {
-    if (sortInfo.active === 'created_at') {
-      sortInfo.active = 'created';
-    }
     this.currentSort = sortInfo;
     this.getCaseList(this.empNo, this.swcID, this.swcApplno);
   }
 
+  // 查詢案件清單
   getCaseList(empNo: string, swcID: string, swcApplno: string) {
     this.f01002Service.getCaseList(this.currentPage.pageIndex, this.currentPage.pageSize
       , empNo, swcID, swcApplno).subscribe(data => {
         this.totalCount = data.rspBody.size;
         this.cusinfoDataSource.data = data.rspBody.items;
         this.cusinfoDataSource.sort = this.sortTable;
-        console.log(this.cusinfoDataSource.data)
       });
   }
 
+  //代入條件查詢
   select() {
+    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') 
+    { return alert('請至少選擇一項') }
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
       length: null
     };
     this.paginator.firstPage();
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+    this.getCaseList(this.agentEmpNo, this.swcID, this.swcApplno);
   }
 
+  // 案件子頁籤
   getLockCase(swcApplno: string) {
     this.f01002Service.getLockCase(swcApplno).subscribe(data => {
       if (data.rspMsg == '案件鎖定成功') {
-        this.router.navigate(['./F01001SCN1'], { queryParams: { applno: swcApplno, search: 'N' } });
+        this.router.navigate(['./F01002SCN1'], { queryParams: { applno: swcApplno, search: 'N' } });
       }
     });
   }
 
+  // 儲存案件註記
   saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
     this.f01002Service.saveCaseMemo(swcApplno, swcCaseMemo).subscribe(data => {
       if (data.rspMsg == 'success') {
@@ -119,13 +130,25 @@ export class F01002Component implements OnInit, AfterViewInit {
     });
   }
 
-  openNotifyMsg(swcApplno: string){
+  // 打開通知彈窗
+  openNotifyMsg(swcApplno: string) {
     const dialogRef = this.dialog.open(F01002confirmComponent, {
       minHeight: '50vh',
       width: '30%',
       data: {
         swcApplno: swcApplno
-        }
-      });
+      }
+    });
+  }
+
+  // 將案件類型轉成中文
+  getOptionCaseType(codeVal: string): string {
+    for (const data of this.caseTypeCode) {
+      if (data.value == codeVal) {
+        return data.viewValue;
+        break;
+      }
+    }
+    return codeVal;
   }
 }

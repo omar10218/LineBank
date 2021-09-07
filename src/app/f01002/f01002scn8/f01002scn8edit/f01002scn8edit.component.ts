@@ -8,6 +8,7 @@ interface sysCode {
   viewValue: string;
 }
 
+//Nick  徵信照會 編輯
 @Component({
   selector: 'app-f01002scn8edit',
   templateUrl: './f01002scn8edit.component.html',
@@ -15,55 +16,31 @@ interface sysCode {
 })
 export class F01002scn8editComponent implements OnInit {
 
-  stopFlagCode: sysCode[] = [{ value: 'Y', viewValue: 'Y' }, { value: 'N', viewValue: 'N' }];
-  CON_TEL_Code: sysCode[] = [];
-  CON_TEL_Selected: string;
-  CON_TARGET_Code: sysCode[] = [];
-  CON_TARGET_Selected: string;
-  CON_MEMO_Code: sysCode[] = [];
-  CON_MEMO_Selected: string;
+  CON_TEL_Code: sysCode[] = []; //電話種類下拉選單
+  CON_TEL_Selected: string;//電話種類
+  CON_TARGET_Code: sysCode[] = [];//對象種類下拉選單
+  CON_TARGET_Selected: string;//對象種類
+  CON_MEMO_Code: sysCode[] = [];//註記種類下拉選單
+  CON_MEMO_Selected: string;//註記種類
 
   constructor(public dialogRef: MatDialogRef<F01002scn8editComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f01002scn8Service: F01002scn8Service) { }
 
+  //欄位驗證
   formControl = new FormControl('', [
     Validators.required
-    // Validators.email,
   ]);
 
+  //取得欄位驗證訊息
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Required field' : '';
   }
 
-  submit() {
-  }
+
 
   ngOnInit(): void {
-    this.f01002scn8Service.getSysTypeCode('CON_TEL', 'f01/f01002scn8')
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
-          this.CON_TEL_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-    this.f01002scn8Service.getSysTypeCode('CON_TARGET', 'f01/f01002scn8')
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
-          this.CON_TARGET_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-    this.f01002scn8Service.getSysTypeCode('CON_MEMO', 'f01/f01002scn8')
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
-          this.CON_MEMO_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-  }
+   }
 
+   //儲存
   async save() {
     let msgStr: string = "";
     let codeStr: string = "";
@@ -76,9 +53,10 @@ export class F01002scn8editComponent implements OnInit {
     const childernDialogRef = this.dialog.open(F01002scn8confirmComponent, {
       data: { msgStr: msgStr }
     });
-    if (msgStr === '編輯成功' && codeStr === '0000') { this.dialogRef.close({ event: 'success' }); }
+    if (msgStr === '編輯成功' && codeStr === '0000') {this.dialogRef.close({ event: 'success' }); }
   }
 
+  //取消
   onNoClick(): void {
     this.dialogRef.close();
   }

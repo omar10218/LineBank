@@ -9,11 +9,13 @@ import { F03010addComponent } from './f03010add/f03010add.component';
 import { F03010confirmComponent } from './f03010confirm/f03010confirm.component';
 import { F03010editComponent } from './f03010edit/f03010edit.component';
 
+//下拉選單框架
 interface sysCode {
   value: string;
   viewValue: string;
 }
 
+//Nick 照會話術
 @Component({
   selector: 'app-f03010',
   templateUrl: './f03010.component.html',
@@ -41,8 +43,9 @@ export class F03010Component implements OnInit {
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;
   currentSort: Sort;
-  calloutSpeakingSource = new MatTableDataSource<any>();
+  calloutSpeakingSource = new MatTableDataSource<any>();//Tabele資料
 
+  //表單資料筆數調整
   ngAfterViewInit() {
     this.getSpeaking();
     this.currentPage = {
@@ -60,17 +63,23 @@ export class F03010Component implements OnInit {
     });
   }
 
+  //新增
   add() {
     const dialogRef = this.dialog.open(F03010addComponent, {
       minHeight: '100vh',
       width: '50%',
+      data: {
+        speakingAbbreviation: '',//話術簡稱
+        speakingContent : '' ,//話術內容
+        stopFlag: 'Y'//暫停使用
+      },
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { this.refreshTable(); }
-        window.location.reload();
+        if (result != null && result == '1') { this.refreshTable(); }
       });
   }
 
+  //取話術Table
   getSpeaking() {
     const baseUrl = "f03/f03010";
     this.f03010Service.getSpeaking(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize)
@@ -81,27 +90,29 @@ export class F03010Component implements OnInit {
     });
   }
 
+  //修改
   startEdit(speakingAbbreviation: string, speakingContent: string, stopFlag: string) {
     console.log(speakingAbbreviation,speakingContent,stopFlag)
     const dialogRef = this.dialog.open(F03010editComponent, {
       minHeight: '100vh',
       width: '50%',
       data: {
-          speakingAbbreviation: speakingAbbreviation,
-          speakingContent : speakingContent ,
-          stopFlag: stopFlag
+          speakingAbbreviation: speakingAbbreviation,//話術簡稱
+          speakingContent : speakingContent ,//話術內容
+          stopFlag: stopFlag//暫停使用
         }
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { this.refreshTable(); }
-        window.location.reload();
+        if (result != null && result == '1') { this.refreshTable(); }
       });
   }
 
+  //刷新表單
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
 
+  //刪除
   delete(speakingAbbreviation: string) {
     let msg = '';
     const url = 'f03/f03010action3';
@@ -112,7 +123,7 @@ export class F03010Component implements OnInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(F03010confirmComponent, { data: { msgStr: msg } });
-      window.location.reload();
+      this.refreshTable();
     }, 1500);
   }
 
