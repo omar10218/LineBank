@@ -75,7 +75,7 @@ export class F01004Component implements OnInit,AfterViewInit {
   }
 
   getLockCase(param: String, cuid: String) {
-    this.router.navigate(['./F01004SCN1'], { queryParams: { applno: param , search: 'N' , cuid: cuid} });
+    this.router.navigate(['./F01004/F01004SCN1'], { queryParams: { applno: param , search: 'N' , cuid: cuid} });
   }
 
   saveNote(swcApplno: string, note: string){

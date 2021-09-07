@@ -100,7 +100,7 @@ export class F01002Component implements OnInit, AfterViewInit {
 
   //代入條件查詢
   select() {
-    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') 
+    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '')
     { return alert('請至少選擇一項') }
     this.currentPage = {
       pageIndex: 0,
@@ -115,7 +115,7 @@ export class F01002Component implements OnInit, AfterViewInit {
   getLockCase(swcApplno: string) {
     this.f01002Service.getLockCase(swcApplno).subscribe(data => {
       if (data.rspMsg == '案件鎖定成功') {
-        this.router.navigate(['./F01002SCN1'], { queryParams: { applno: swcApplno, search: 'N' } });
+        this.router.navigate(['./F01002/F01002SCN1'], { queryParams: { applno: swcApplno, search: 'N' } });
       }
     });
   }
