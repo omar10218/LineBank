@@ -10,8 +10,8 @@ export class F03005Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
   dialogData: any;
 
-  getAdrCodeList(baseUrl: string, pageIndex: number, pageSize: number, adrType: string, adType: string): Observable<any> {
-    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}&adrType=${adrType}&adType=${adType}`;
+  getAdrCodeList(baseUrl: string, pageIndex: number, pageSize: number, adrType: string, upReasonCode: string, level: string): Observable<any> {
+    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}&reasonKind=${adrType}&upReasonCode=${upReasonCode}&level=${level}`;
     return this.postHttpClient(targetUrl);
   }
 
