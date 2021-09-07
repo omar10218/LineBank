@@ -17,24 +17,21 @@ interface sysCode {
   styleUrls: ['./f03005.component.css','../../assets/css/f03.css']
 })
 export class F03005Component implements OnInit {
-  adrType: sysCode[] = [];
-  adType: sysCode[] = [];
-  selectedAdrValue: string;
-  selectedAdValue: string;
+
+  adrType: sysCode[] = [];  //最上層下拉
+  secondType: sysCode[] = [];  //第二層下拉
+  thirdType: sysCode[] = [];  //第三層下拉
+  selectedAdrValue: string;  //最上層
+  selectedSecondValue: string;  //第二層選擇
+  selectedThirdValue: string;  //第三層選擇
+
   constructor(private f03005Service: F03005Service, public dialog: MatDialog) { }
-  ngOnInit(): void { 
-    this.f03005Service.getSysTypeCode('ADR_TYPE','f03/f03005').subscribe(data => {
+  ngOnInit(): void {
+    this.f03005Service.getSysTypeCode('ADR_CODE','f03/f03005').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.adrType.push({value: codeNo, viewValue: desc})
-      }
-    });
-    this.f03005Service.getSysTypeCode('AD_TYPE','f03/f03005').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.adType.push({value: codeNo, viewValue: desc})
       }
     });
   }
@@ -57,33 +54,71 @@ export class F03005Component implements OnInit {
     };
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
-      this.getAdrCode();
+      this.getAdrCode( null , null );
     });
   }
 
   changeSort(sortInfo: Sort) {
     this.currentSort = sortInfo;
-    this.getAdrCode();
+    this.getAdrCode( null , null );
   }
 
   changeSelect() {
-    if (this.selectedAdrValue != 'R') { this.selectedAdValue = ''; }
+    this.secondType = [];
+    this.thirdType = [];
+    this.selectedSecondValue = "";
+    this.selectedThirdValue = "";
+
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
       length: null
     };
     this.paginator.firstPage();
-    this.getAdrCode();
+    this.getAdrCode( "Z01" , "1" );
   }
 
-  getAdrCode() {
+  changeSelectSecond() {
+    this.thirdType = [];
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+    this.paginator.firstPage();
+    this.getAdrCode( this.selectedSecondValue , "2" );
+  }
+
+  changeSelectThird() {
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+    this.paginator.firstPage();
+    this.getAdrCode( this.selectedThirdValue , "3" );
+  }
+
+  getAdrCode( selectType: string , level: string ) {
     const baseUrl = 'f03/f03005action1';
     const adrVal = this.selectedAdrValue != null ? this.selectedAdrValue : '';
-    const adVal = this.selectedAdValue != null ? this.selectedAdValue : '';
-    this.f03005Service.getAdrCodeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, adrVal, adVal).subscribe(data => {
+    const select = selectType != null ? selectType : '';
+    this.f03005Service.getAdrCodeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, adrVal, select, level).subscribe(data => {
       this.totalCount = data.rspBody.size;
       this.adrCodeSource.data = data.rspBody.items;
+      if ( data.rspBody.items.length > 0 ) {
+        if ( data.rspBody.items[0].upReasonCode == 'Z01' ) {
+          for (let i = 0; i < data.rspBody.items.length; i++) {
+            this.secondType.push({value: data.rspBody.items[i].reasonCode, viewValue: data.rspBody.items[i].reasonDesc});
+          }
+        }
+        if ( data.rspBody.items[0].reasonLevel == '2' && data.rspBody.items[0].reasonKind == 'FM' ) {
+          this.thirdType = [];
+          for (let i = 0; i < data.rspBody.items.length; i++) {
+            this.thirdType.push({value: data.rspBody.items[i].reasonCode, viewValue: data.rspBody.items[i].reasonDesc});
+          }
+        }
+      }
     });
   }
 
@@ -91,14 +126,14 @@ export class F03005Component implements OnInit {
     if (this.selectedAdrValue == null) {
       alert('請選擇：原因碼類別');
 
-    } else if (this.selectedAdrValue == 'R' && (this.selectedAdValue == null || this.selectedAdValue == '')) {
+    } else if (this.selectedAdrValue == 'R' && (this.selectedSecondValue == null || this.selectedSecondValue == '')) {
       alert('請選擇：補件類別');
 
     } else {
       const dialogRef = this.dialog.open(F03005addComponent, {
         data: {
           reasonKind: this.selectedAdrValue,
-          adType: this.selectedAdValue,
+          adrVal: this.selectedSecondValue,
           reasonCode : '',
           reasonDesc: '',
           reasonSort: '',

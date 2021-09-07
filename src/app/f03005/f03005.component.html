@@ -13,19 +13,30 @@
             </mat-select>
           </mat-form-field>
         </td>
-        <th>補件類別：</th>
+        <th>第二層：</th>
         <td>
           <mat-form-field color="accent">
-            <mat-select [(ngModel)]="selectedAdValue" name="adType" (ngModelChange)="changeSelect()"
-              [disabled]="selectedAdrValue != 'R' ? true : null">
-              <mat-option *ngFor="let code of adType" [value]="code.value">
+            <mat-select [(ngModel)]="selectedSecondValue" name="secondType" (ngModelChange)="changeSelectSecond()">
+              <mat-option *ngFor="let code of secondType" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </td>
-        <td style="width: 10px;">
-        </td>
+        <ng-container *ngIf=" selectedAdrValue == 'FM' ">
+          <th>第三層：</th>
+          <td>
+            <mat-form-field color="accent">
+              <mat-select [(ngModel)]="selectedThirdValue" name="thirdType" (ngModelChange)="changeSelectThird()">
+                <mat-option *ngFor="let code of thirdType" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          </ng-container>
+          <td style="width: 10px;">
+          </td>
       </tr>
     </mat-card-content>
   </mat-card>
@@ -36,9 +47,9 @@
     <mat-header-cell *matHeaderCellDef>原因碼類別</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.reasonKind }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="adType">
-    <mat-header-cell *matHeaderCellDef>補件類別</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.adType }}</mat-cell>
+  <ng-container matColumnDef="upReasonCode">
+    <mat-header-cell *matHeaderCellDef>上層原因碼</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.upReasonCode }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="reasonCode">
     <mat-header-cell *matHeaderCellDef mat-sort-header>原因碼</mat-header-cell>
@@ -67,17 +78,17 @@
 
     <mat-cell *matCellDef="let row; let i=index;">
       <button mat-icon-button color="accent" (click)="startEdit(i,
-          row.reasonKind, row.adType, row.reasonCode, row.reasonDesc, row.reasonSort, row.reasonFlag)">
+          row.reasonKind, row.upReasonCode, row.reasonCode, row.reasonDesc, row.reasonSort, row.reasonFlag)">
         <mat-icon aria-label="Edit">edit</mat-icon>
       </button>
     </mat-cell>
   </ng-container>
 
   <mat-header-row
-    *matHeaderRowDef="['reasonKind', 'adType', 'reasonCode', 'reasonDesc', 'reasonSort', 'reasonFlag', 'actions']">
+    *matHeaderRowDef="['reasonKind', 'upReasonCode', 'reasonCode', 'reasonDesc', 'reasonSort', 'reasonFlag', 'actions']">
   </mat-header-row>
   <mat-row
-    *matRowDef="let mappingCodeRow; columns: ['reasonKind', 'adType', 'reasonCode', 'reasonDesc', 'reasonSort', 'reasonFlag', 'actions']">
+    *matRowDef="let mappingCodeRow; columns: ['reasonKind', 'upReasonCode', 'reasonCode', 'reasonDesc', 'reasonSort', 'reasonFlag', 'actions']">
   </mat-row>
 </mat-table>
 <tr>
