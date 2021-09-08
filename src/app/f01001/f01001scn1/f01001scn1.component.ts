@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class F01001scn1Component implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) { }
+  private creditLevel: string = 'APPLCreditL4';
   private applno: string;
   private search: string;
   private cuid: string;
@@ -34,5 +35,9 @@ export class F01001scn1Component implements OnInit {
 
   getCuid(): string {
     return this.cuid;
+  }
+
+  getLevel(): string {
+    return this.creditLevel;
   }
 }

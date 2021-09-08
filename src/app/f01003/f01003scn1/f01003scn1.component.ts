@@ -7,9 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./f01003scn1.component.css', '../../../assets/css/f01.css']
 })
 export class F01003scn1Component implements OnInit {
-
   constructor(private route: ActivatedRoute, private router: Router) { }
-
+  private creditLevel: string = 'APPLCreditL2';
   private applno: string;
   private search: string;
   private cuid: string;
@@ -36,5 +35,9 @@ export class F01003scn1Component implements OnInit {
 
   getCuid(): string {
     return this.cuid;
+  }
+
+  getLevel(): string {
+    return this.creditLevel;
   }
 }

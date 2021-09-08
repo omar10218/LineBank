@@ -1,0 +1,28 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { BaseService } from '../../base.service';
+
+interface sysCode {
+  codE_NO: string;
+  codE_DESC: string;
+
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class Childscn12Service extends BaseService {
+  Condition!: sysCode[] ;
+  constructor(protected httpClient: HttpClient) { super(httpClient); }
+
+  getInComeFunction(formdata: FormData): Observable<any> {
+    const baseUrl = 'f01/f01002scn12';
+    return this.postFormData(baseUrl, formdata);
+  }
+
+  public async childscn12Action(baseUrl: string, formdata: FormData): Promise<Observable<any>> {
+    return await this.postFormData(baseUrl, formdata).toPromise();
+  }
+
+}
