@@ -14,7 +14,7 @@ interface sysCode {
 @Component({
   selector: 'app-f03005',
   templateUrl: './f03005.component.html',
-  styleUrls: ['./f03005.component.css','../../assets/css/f03.css']
+  styleUrls: ['./f03005.component.css', '../../assets/css/f03.css']
 })
 export class F03005Component implements OnInit {
 
@@ -27,15 +27,15 @@ export class F03005Component implements OnInit {
 
   constructor(private f03005Service: F03005Service, public dialog: MatDialog) { }
   ngOnInit(): void {
-    this.f03005Service.getSysTypeCode('ADR_CODE','f03/f03005').subscribe(data => {
+    this.f03005Service.getSysTypeCode('ADR_CODE', 'f03/f03005').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
-        this.adrType.push({value: codeNo, viewValue: desc})
+        this.adrType.push({ value: codeNo, viewValue: desc })
       }
     });
   }
-//============================================================
+  //============================================================
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
@@ -54,13 +54,13 @@ export class F03005Component implements OnInit {
     };
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
-      this.getAdrCode( null , null );
+      this.getAdrCode(null, null);
     });
   }
 
   changeSort(sortInfo: Sort) {
     this.currentSort = sortInfo;
-    this.getAdrCode( null , null );
+    this.getAdrCode(null, null);
   }
 
   changeSelect() {
@@ -75,18 +75,19 @@ export class F03005Component implements OnInit {
       length: null
     };
     this.paginator.firstPage();
-    this.getAdrCode( "Z01" , "1" );
+    this.getAdrCode("Z01", "1");
   }
 
   changeSelectSecond() {
     this.thirdType = [];
+    this.selectedThirdValue = "";
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
       length: null
     };
     this.paginator.firstPage();
-    this.getAdrCode( this.selectedSecondValue , "2" );
+    this.getAdrCode(this.selectedSecondValue, "2");
   }
 
   changeSelectThird() {
@@ -96,26 +97,26 @@ export class F03005Component implements OnInit {
       length: null
     };
     this.paginator.firstPage();
-    this.getAdrCode( this.selectedThirdValue , "3" );
+    this.getAdrCode(this.selectedThirdValue, "3");
   }
 
-  getAdrCode( selectType: string , level: string ) {
+  getAdrCode(selectType: string, level: string) {
     const baseUrl = 'f03/f03005action1';
     const adrVal = this.selectedAdrValue != null ? this.selectedAdrValue : '';
     const select = selectType != null ? selectType : '';
     this.f03005Service.getAdrCodeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, adrVal, select, level).subscribe(data => {
       this.totalCount = data.rspBody.size;
       this.adrCodeSource.data = data.rspBody.items;
-      if ( data.rspBody.items.length > 0 ) {
-        if ( data.rspBody.items[0].upReasonCode == 'Z01' ) {
+      if (data.rspBody.items.length > 0) {
+        if (data.rspBody.items[0].upReasonCode == 'Z01') {
           for (let i = 0; i < data.rspBody.items.length; i++) {
-            this.secondType.push({value: data.rspBody.items[i].reasonCode, viewValue: data.rspBody.items[i].reasonDesc});
+            this.secondType.push({ value: data.rspBody.items[i].reasonCode, viewValue: data.rspBody.items[i].reasonDesc });
           }
         }
-        if ( data.rspBody.items[0].reasonLevel == '2' && data.rspBody.items[0].reasonKind == 'FM' ) {
+        if (data.rspBody.items[0].reasonLevel == '2' && data.rspBody.items[0].reasonKind == 'FM') {
           this.thirdType = [];
           for (let i = 0; i < data.rspBody.items.length; i++) {
-            this.thirdType.push({value: data.rspBody.items[i].reasonCode, viewValue: data.rspBody.items[i].reasonDesc});
+            this.thirdType.push({ value: data.rspBody.items[i].reasonCode, viewValue: data.rspBody.items[i].reasonDesc });
           }
         }
       }
@@ -123,45 +124,68 @@ export class F03005Component implements OnInit {
   }
 
   addNew() {
-    if (this.selectedAdrValue == null) {
+    if (this.selectedAdrValue == null || this.selectedAdrValue == '') {
       alert('請選擇：原因碼類別');
-
-    } else if (this.selectedAdrValue == 'R' && (this.selectedSecondValue == null || this.selectedSecondValue == '')) {
-      alert('請選擇：補件類別');
-
+    } else if (this.selectedSecondValue == '' && this.selectedThirdValue == '') {
+      this.openInsertWindow('Z01', '1');
+    } else if (this.selectedSecondValue != '' && this.selectedThirdValue == '') {
+      this.openInsertWindow(this.selectedSecondValue, '2');
     } else {
-      const dialogRef = this.dialog.open(F03005addComponent, {
-        data: {
-          reasonKind: this.selectedAdrValue,
-          adrVal: this.selectedSecondValue,
-          reasonCode : '',
-          reasonDesc: '',
-          reasonSort: '',
-          reasonFlag: 'N'
-        }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { this.refreshTable(); }
-      });
+      this.openInsertWindow(this.selectedThirdValue, '3');
     }
   }
 
+  openInsertWindow(upReasonCode: string, reasonLevel: string) {
+    const dialogRef = this.dialog.open(F03005addComponent, {
+      data: {
+        reasonKind: this.selectedAdrValue,
+        upReasonCode: upReasonCode,
+        reasonCode: '',
+        reasonDesc: '',
+        reasonSort: '',
+        reasonFlag: 'N',
+        reasonLevel: reasonLevel
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') {
+        if (reasonLevel == '1') { this.secondType = []; this.thirdType = []; this.selectedSecondValue = ""; this.selectedThirdValue = ""; }
+        if (reasonLevel == '2') { this.thirdType = []; this.selectedThirdValue = ""; }
+        this.getAdrCode(upReasonCode, reasonLevel)
+      }
+    });
+  }
+
   startEdit(i: number,
-    reasonKind: string, adType: string, reasonCode: string,
+    reasonKind: string, upReasonCode: string, reasonCode: string,
     reasonDesc: string, reasonSort: string, reasonFlag: string) {
-      const dialogRef = this.dialog.open(F03005editComponent, {
-        data: {
-          reasonKind: reasonKind,
-          adType : adType,
-          reasonCode: reasonCode,
-          reasonDesc: reasonDesc,
-          reasonSort: reasonSort,
-          reasonFlag: reasonFlag
-        }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { this.refreshTable(); }
-      });
+    let reasonLevel: string = '';
+    if (this.selectedSecondValue == '' && this.selectedThirdValue == '') {
+      reasonLevel = '1';
+    } else if (this.selectedSecondValue != '' && this.selectedThirdValue == '') {
+      reasonLevel = '2';
+    } else {
+      reasonLevel = '3';
+    }
+
+    const dialogRef = this.dialog.open(F03005editComponent, {
+      data: {
+        reasonKind: reasonKind,
+        upReasonCode: upReasonCode,
+        reasonCode: reasonCode,
+        reasonDesc: reasonDesc,
+        reasonSort: reasonSort,
+        reasonFlag: reasonFlag,
+        reasonLevel: reasonLevel
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') {
+        if (reasonLevel == '1') { this.secondType = []; this.thirdType = []; this.selectedSecondValue = ""; this.selectedThirdValue = ""; }
+        if (reasonLevel == '2') { this.thirdType = []; this.selectedThirdValue = ""; }
+        this.getAdrCode(upReasonCode, reasonLevel)
+      }
+    });
   }
 
   private refreshTable() {

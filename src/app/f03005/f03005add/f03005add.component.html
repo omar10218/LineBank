@@ -1,23 +1,23 @@
 <div class="container">
     <h2 mat-dialog-title>原因碼維護-新增</h2>
-  
+
     <form class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
-  
+
       <div class="form">
         <mat-form-field color="accent">
           <input matInput #input class="form-control" placeholder="原因碼類別" [(ngModel)]="data.reasonKind" name="reasonKind" disabled >
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
-  
+
       <!--Textarea for demo purposes-->
-      <div class="form" *ngIf="data.reason_KIND == 'R'">
+      <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="補件類別" [(ngModel)]="data.adType" name="adType" disabled >
+          <input matInput #input class="form-control" placeholder="上層原因碼" [(ngModel)]="data.upReasonCode" name="upReasonCode" disabled >
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
-  
+
       <!--Contains mat-hint for characters count and has maxLengt set-->
       <div class="form">
         <mat-form-field color="accent">
@@ -25,19 +25,20 @@
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
-  
+
       <div class="form">
           <mat-form-field color="accent">
             <input matInput placeholder="原因碼說明" [(ngModel)]="data.reasonDesc" name="reasonDesc" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
       </div>
-  
+
       <div class="form">
         <mat-form-field color="accent">
           <input matInput placeholder="排序" [(ngModel)]="data.reasonSort" name="reasonSort">
         </mat-form-field>
       </div>
-  
+
       <div class="form">
         <mat-form-field color="accent">
           <mat-select [(ngModel)]="data.reasonFlag" name="reasonFlag" placeholder="是否停用" >
@@ -47,11 +48,10 @@
           </mat-select>
         </mat-form-field>
       </div>
-  
+
       <div mat-dialog-actions>
         <button mat-button [type]="submit" [disabled]="!formControl.valid" (click)="confirmAdd()">Save</button>
         <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
       </div>
     </form>
   </div>
-  

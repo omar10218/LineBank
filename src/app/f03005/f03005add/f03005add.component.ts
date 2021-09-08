@@ -42,7 +42,7 @@ export class F03005addComponent {
     const childernDialogRef = this.dialog.open(F03005confirmComponent, {
       data: { msgStr: msgStr }
     });
-    if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }
+    if (msgStr === '新增成功!') { this.dialogRef.close({ event:'success' }); }
   }
 
 }
