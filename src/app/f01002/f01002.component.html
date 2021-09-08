@@ -44,101 +44,103 @@
         </div>
     </table>
 </div>
-<cdk-virtual-scroll-viewport itemSize="48" headerHeight="56" style="height: 370px; margin-left: 10px;">
-    <ng-container *ngIf="this.totalCount == 0; else elseTemplate">
-        <br><br>
-        <th style="padding-left: 20px;color: red;">查無案件</th>
-    </ng-container>
-    <ng-template #elseTemplate>
-        <mat-table [dataSource]="cusinfoDataSource" matSort #sortTable="matSort" (matSortChange)="changeSort($event)"
-            matSortActive="swcZ21PassDate" matSortDirection="asc">
-            <ng-container matColumnDef="swcApplno" sticky>
-                <mat-header-cell *matHeaderCellDef mat-sort-header>收件編號</mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <button mat-raised-button color="primary" *ngIf="row.swcReadyForReview=='N'" [disabled]="true">{{
-                        row.swcApplno }}</button>
-                    <button mat-raised-button color="primary" *ngIf="row.swcReadyForReview=='Y'" (click)="getLockCase(row.swcApplno)">{{
-                        row.swcApplno }}</button>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcFlowType">
-                <mat-header-cell *matHeaderCellDef>流程別</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ getOptionCaseType(row.swcFlowType) }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcReadyForReview">
-                <mat-header-cell *matHeaderCellDef>是否重查完成</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.swcReadyForReview }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcZ21PassDate">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>進件時間</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.swcZ21PassDate |date: 'yyyy-MM-ddHH:mm:ss'}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcID">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>身分證號</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.swcID }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcName">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.swcName }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcCompany">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>公司名稱</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.swcCompany }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcCreditLimit">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>申請金額/額度</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.swcCreditLimit }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcCusGroupTag">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>客群標籤</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.swcCusGroupTag }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcRiskLevelGroup">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>風險等級分群</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.swcRiskLevelGroup }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcEnterCount">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>累積進件</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.swcEnterCount }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcResult">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>審核結果</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.swcResult }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcNotifyMsg">
-                <mat-header-cell *matHeaderCellDef>通知</mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <button mat-raised-button color="primary" *ngIf="row.swcNotifyMsg==''" [disabled]="true">通知</button>
-                    <button mat-raised-button color="primary" *ngIf="row.swcNotifyMsg!=''"
-                        (click)="openNotifyMsg(row.swcApplno)">通知</button>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="swcCaseMemo">
-                <mat-header-cell *matHeaderCellDef><u>案件註記</u></mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <mat-form-field>
-                        <input matInput #name="ngModel" name="note" placeholder="請輸入註記" [(ngModel)]="row.swcCaseMemo">
-                    </mat-form-field>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="saveNote">
-                <mat-header-cell *matHeaderCellDef>
-                    <u>儲存</u>
-                </mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <button mat-raised-button color="primary"
-                        (click)="saveCaseMemo(row.swcApplno, row.swcCaseMemo)">儲存</button>
-                </mat-cell>
-            </ng-container>
 
-            <mat-header-row *matHeaderRowDef="['swcApplno', 'swcFlowType', 'swcReadyForReview', 'swcZ21PassDate', 'swcID', 'swcName', 
-                'swcCompany', 'swcCreditLimit', 'swcCusGroupTag', 'swcRiskLevelGroup', 'swcEnterCount', 'swcResult', 
-                'swcNotifyMsg', 'swcCaseMemo', 'saveNote']; sticky: true">
-            </mat-header-row>
-            <mat-row *matRowDef="let caseListRow; columns: ['swcApplno', 'swcFlowType', 'swcReadyForReview', 'swcZ21PassDate', 'swcID', 
-                'swcName', 'swcCompany', 'swcCreditLimit', 'swcCusGroupTag', 'swcRiskLevelGroup', 'swcEnterCount', 'swcResult', 
-                'swcNotifyMsg', 'swcCaseMemo', 'saveNote']">
-            </mat-row>
-        </mat-table>
-    </ng-template>
-</cdk-virtual-scroll-viewport>
+    <cdk-virtual-scroll-viewport itemSize="48" headerHeight="56" style="margin-left: 10px;flex: 1;">
+        <ng-container *ngIf="this.totalCount == 0; else elseTemplate">
+            <br><br>
+            <th style="padding-left: 20px;color: red;">查無案件</th>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <mat-table [dataSource]="cusinfoDataSource" matSort #sortTable="matSort" (matSortChange)="changeSort($event)"
+                matSortActive="swcZ21PassDate" matSortDirection="asc">
+                <ng-container matColumnDef="swcApplno" sticky>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>收件編號</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button mat-raised-button color="primary" *ngIf="row.swcReadyForReview=='N'" [disabled]="true">{{
+                            row.swcApplno }}</button>
+                        <button mat-raised-button color="primary" *ngIf="row.swcReadyForReview=='Y'" (click)="getLockCase(row.swcApplno)">{{
+                            row.swcApplno }}</button>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcFlowType">
+                    <mat-header-cell *matHeaderCellDef>流程別</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ getOptionCaseType(row.swcFlowType) }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcReadyForReview">
+                    <mat-header-cell *matHeaderCellDef>是否重查完成</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.swcReadyForReview }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcZ21PassDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>進件時間</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.swcZ21PassDate |date: 'yyyy-MM-ddHH:mm:ss'}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>身分證號</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.swcID }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.swcName }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcCompany">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>公司名稱</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.swcCompany }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcCreditLimit">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>申請金額/額度</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.swcCreditLimit }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcCusGroupTag">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>客群標籤</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.swcCusGroupTag }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcRiskLevelGroup">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>風險等級分群</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.swcRiskLevelGroup }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcEnterCount">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>累積進件</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.swcEnterCount }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcResult">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>審核結果</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.swcResult }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcNotifyMsg">
+                    <mat-header-cell *matHeaderCellDef>通知</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button mat-raised-button color="primary" *ngIf="row.swcNotifyMsg==''" [disabled]="true">通知</button>
+                        <button mat-raised-button color="primary" *ngIf="row.swcNotifyMsg!=''"
+                            (click)="openNotifyMsg(row.swcApplno)">通知</button>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="swcCaseMemo">
+                    <mat-header-cell *matHeaderCellDef><u>案件註記</u></mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <mat-form-field>
+                            <input matInput #name="ngModel" name="note" placeholder="請輸入註記" [(ngModel)]="row.swcCaseMemo">
+                        </mat-form-field>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="saveNote">
+                    <mat-header-cell *matHeaderCellDef>
+                        <u>儲存</u>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button mat-raised-button color="primary"
+                            (click)="saveCaseMemo(row.swcApplno, row.swcCaseMemo)">儲存</button>
+                    </mat-cell>
+                </ng-container>
+    
+                <mat-header-row *matHeaderRowDef="['swcApplno', 'swcFlowType', 'swcReadyForReview', 'swcZ21PassDate', 'swcID', 'swcName', 
+                    'swcCompany', 'swcCreditLimit', 'swcCusGroupTag', 'swcRiskLevelGroup', 'swcEnterCount', 'swcResult', 
+                    'swcNotifyMsg', 'swcCaseMemo', 'saveNote']; sticky: true">
+                </mat-header-row>
+                <mat-row *matRowDef="let caseListRow; columns: ['swcApplno', 'swcFlowType', 'swcReadyForReview', 'swcZ21PassDate', 'swcID', 
+                    'swcName', 'swcCompany', 'swcCreditLimit', 'swcCusGroupTag', 'swcRiskLevelGroup', 'swcEnterCount', 'swcResult', 
+                    'swcNotifyMsg', 'swcCaseMemo', 'saveNote']">
+                </mat-row>
+            </mat-table>
+        </ng-template>
+    </cdk-virtual-scroll-viewport>
+

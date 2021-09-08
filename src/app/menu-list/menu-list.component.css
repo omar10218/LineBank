@@ -9,3 +9,8 @@
   background:	#FFE4CA;
   color: #000000;
 }
+:host{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
