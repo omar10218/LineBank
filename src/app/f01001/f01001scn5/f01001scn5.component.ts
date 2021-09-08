@@ -3,10 +3,14 @@ import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { F01001scn5Service } from './f01001scn5.service';
+
+//20210906 客戶資訊 alvin.lee
+
 interface dateCode {
   value: string;
   viewValue: string;
 }
+
 @Component({
   selector: 'app-f01001scn5',
   templateUrl: './f01001scn5.component.html',
@@ -58,10 +62,12 @@ export class F01001scn5Component implements OnInit {
     APPLY_TIME: ['', []],
     CP_TYPE_CREDIT: ['', []]
   });
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private f01001scn5Service: F01001scn5Service) { }
-  private applno: string;
+
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private f01001scn5Service: F01001scn5Service) { }
+  private applno: string;//案編
   private search: string;
-  private cuid: string;
+  private cuid: string;//客編
+
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
@@ -69,9 +75,9 @@ export class F01001scn5Component implements OnInit {
       this.cuid = params['cuid'];
     });
     this.getCustomerInfo();
-
   }
 
+  //取資料
   getCustomerInfo(){
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
