@@ -1,7 +1,8 @@
+import { F01004scn1Component } from './../f01004/f01004scn1/f01004scn1.component';
+import { F01004Component } from './../f01004/f01004.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { F01004Component } from './../f01004/f01004.component';
-import { F01004scn1Component } from './../f01004/f01004scn1/f01004scn1.component';
+
 
 const routes: Routes = [
   {

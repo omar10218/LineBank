@@ -20,18 +20,19 @@ export class Childscn10Component implements OnInit {
   private applno: string;
   private search: string;
   private cuid: string;
-
+  private routerCase: string;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
       this.cuid = params['cuid'];
+      this.routerCase = params['routerCase'];
     });
     const url = 'f01/childscn10';
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
     formdata.append('cuid', this.cuid);
-    this.router.navigate(['./ChildSCN1/ChildSCN10/ChildSCN10PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search } });
+    this.router.navigate(['.'+this.routerCase+'/CHILDSCN10/CHILDSCN10PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search } });
   }
 
   getApplno(): String {

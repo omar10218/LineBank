@@ -12,11 +12,13 @@ export class F01002scn1Component implements OnInit {
   private applno: string;
   private search: string;
   private cuid: string;
+  private routerCase: string;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
       this.cuid = params['cuid'];
+      this.routerCase = params['routerCase'];
     });
   }
 
@@ -39,5 +41,9 @@ export class F01002scn1Component implements OnInit {
 
   getLevel(): string {
     return this.creditLevel;
+  }
+
+  getRouterCase(): string {
+    return this.routerCase;
   }
 }
