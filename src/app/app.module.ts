@@ -75,6 +75,7 @@ import { F03012addComponent } from './f03012/f03012add/f03012add.component';
 import { F03008editComponent } from './f03008/f03008edit/f03008edit.component';
 import { F03008uploadComponent } from './f03008/f03008upload/f03008upload.component';
 import { AppRoutingModule } from './routing/app-routing.module';
+import { F03013Component } from './f03013/f03013.component';
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import { AppRoutingModule } from './routing/app-routing.module';
     F03010addComponent,
     F03012addComponent,
     F03008editComponent,
-    F03008uploadComponent
+    F03008uploadComponent,
+    F03013Component
   ],
   imports: [
     BrowserModule,
