@@ -32,7 +32,7 @@ export class Childscn9Component implements OnInit {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
     formdata.append('cuid', this.cuid);
-    this.router.navigate(['./'+this.routerCase+'/ChildSCN9/ChildSCN9PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase } });
+    this.router.navigate(['./'+this.routerCase+'/CHILDSCN9/CHILDSCN9PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase } });
   }
 
   getApplno(): String {

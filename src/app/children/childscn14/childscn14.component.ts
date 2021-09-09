@@ -20,7 +20,7 @@ export class Childscn14Component implements OnInit {
       this.cuid = params['cuid'];
       this.routerCase = params['routerCase'];
     });
-    this.router.navigate(['./'+this.routerCase+'/ChildSCN14/ChildSCN14PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search, routerCase: this.routerCase } });
+    this.router.navigate(['./'+this.routerCase+'/CHILDSCN14/CHILDSCN14PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search, routerCase: this.routerCase } });
   }
 
   getApplno(): String {
