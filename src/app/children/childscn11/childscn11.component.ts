@@ -20,7 +20,7 @@ export class Childscn11Component implements OnInit {
       this.cuid = params['cuid'];
       this.routerCase = params['routerCase'];
     });
-    this.router.navigate(['./'+this.routerCase+'/ChildSCN11/ChildSCN11PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search } });
+    this.router.navigate(['./'+this.routerCase+'/ChildSCN11/ChildSCN11PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search, routerCase: this.routerCase } });
   }
 
   getApplno(): String {
@@ -33,5 +33,9 @@ export class Childscn11Component implements OnInit {
 
   getCuid() :string {
     return this.cuid;
+  }
+
+  getRouterCase(): string {
+    return this.routerCase;
   }
 }

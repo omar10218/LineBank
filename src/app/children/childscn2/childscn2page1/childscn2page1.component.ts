@@ -16,7 +16,6 @@ export class Childscn2page1Component implements OnInit {
   constructor(private route: ActivatedRoute, private childscn2Service: Childscn2Service) { }
   private applno: string;
   private cuid: string;
-  private routerCase: string;
   currentPage: PageEvent;
   currentSort: Sort;
 
@@ -24,7 +23,6 @@ export class Childscn2page1Component implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.cuid = params['cuid'];
-      this.routerCase = params['routerCase'];
     });
 
     this.currentPage = {

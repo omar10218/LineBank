@@ -40,7 +40,7 @@ export class Childscn6Component implements OnInit {
           this.dateCode.push({value: data.rspBody.items[i].QUERYDATE , viewValue: data.rspBody.items[i].QUERYDATE })
         }
         this.dateValue = data.rspBody.items[0].QUERYDATE
-        this.router.navigate(['./'+this.routerCase+'/ChildSCN6/ChildSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue} });
+        this.router.navigate(['./'+this.routerCase+'/ChildSCN6/ChildSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase} });
       }
     });
   }
@@ -62,6 +62,10 @@ export class Childscn6Component implements OnInit {
   }
 
   changeDate() {
-    this.router.navigate(['./'+this.routerCase+'/ChildSCN6/ChildSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue} });
+    this.router.navigate(['./'+this.routerCase+'/ChildSCN6/ChildSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase } });
+  }
+
+  getRouterCase(): string {
+    return this.routerCase;
   }
 }

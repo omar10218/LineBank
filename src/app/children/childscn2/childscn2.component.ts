@@ -21,7 +21,7 @@ export class Childscn2Component implements OnInit {
       this.routerCase = params['routerCase'];
 
     });
-    this.router.navigate(['./'+this.routerCase+'/CHILDSCN2/CHILDSCN2PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search } });
+    this.router.navigate(['./'+this.routerCase+'/CHILDSCN2/CHILDSCN2PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase } });
   }
 
   getApplno(): String {

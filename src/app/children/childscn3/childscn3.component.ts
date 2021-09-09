@@ -11,12 +11,10 @@ export class Childscn3Component implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) { }
   private applno: string;
   private search: string;
-  private routerCase: string;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
-      this.routerCase = params['routerCase'];
     });
   }
 
@@ -27,9 +25,4 @@ export class Childscn3Component implements OnInit {
   getSearch() :string {
     return this.search;
   }
-
-  getRouterCase(): string {
-    return this.routerCase;
-  }
-
 }
