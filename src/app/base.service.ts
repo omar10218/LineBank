@@ -39,6 +39,10 @@ export class BaseService {
     return this.httpClient.post<any>(baseUrl, formdata);
   }
 
+  protected postJsonObject(baseUrl: string, json: JSON) {
+    return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, json);
+  }
+
   //================下方是提供新增或編輯用的function========================================
 
   private async saveOrEditWithFormData(baseUrl: string, formdata: FormData) {

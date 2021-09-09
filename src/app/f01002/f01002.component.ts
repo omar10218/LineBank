@@ -90,12 +90,19 @@ export class F01002Component implements OnInit, AfterViewInit {
 
   // 查詢案件清單
   getCaseList(empNo: string, swcID: string, swcApplno: string) {
-    this.f01002Service.getCaseList(this.currentPage.pageIndex, this.currentPage.pageSize
-      , empNo, swcID, swcApplno).subscribe(data => {
-        this.totalCount = data.rspBody.size;
-        this.cusinfoDataSource.data = data.rspBody.items;
-        this.cusinfoDataSource.sort = this.sortTable;
-      });
+
+    let jsonObject : any = {};
+
+    jsonObject['page'] = this.currentPage.pageIndex + 1;
+    jsonObject['per_page'] = this.currentPage.pageSize;
+    jsonObject['empno'] = empNo;
+    jsonObject['swcID'] = swcID;
+    jsonObject['swcApplno'] = swcApplno;
+
+    this.f01002Service.getCaseList(jsonObject).subscribe(data => {
+      this.totalCount = data.rspBody.size;
+      this.cusinfoDataSource.data = data.rspBody.items;
+    });
   }
 
   //代入條件查詢
