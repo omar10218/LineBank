@@ -17,7 +17,7 @@ export class Childscn12Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getInComeFunction(formdata: FormData): Observable<any> {
-    const baseUrl = 'f01/f01002scn12';
+    const baseUrl = 'f01/childscn12';
     return this.postFormData(baseUrl, formdata);
   }
 

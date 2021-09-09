@@ -36,4 +36,7 @@ export class Childscn2Component implements OnInit {
     return this.cuid;
   }
 
+  getRouterCase(): string {
+    return this.routerCase;
+  }
 }

@@ -10,7 +10,7 @@ export class Childscn9Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getCoreCusInfo(formData: FormData): Observable<any>  {
-    const baseUrl = 'f01/f01002scn9action';
+    const baseUrl = 'f01/childscn9action';
     return this.postFormData(baseUrl, formData);
   }
 

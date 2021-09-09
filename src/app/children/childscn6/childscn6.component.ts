@@ -21,12 +21,13 @@ export class Childscn6Component implements OnInit {
   private applno: string;
   private search: string;
   private cuid: string;
-
+  private routerCase: string;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
       this.cuid = params['cuid'];
+      this.routerCase = params['routerCase'];
     });
     const url = 'f01/childscn6';
     const formdata: FormData = new FormData();
@@ -39,7 +40,7 @@ export class Childscn6Component implements OnInit {
           this.dateCode.push({value: data.rspBody.items[i].QUERYDATE , viewValue: data.rspBody.items[i].QUERYDATE })
         }
         this.dateValue = data.rspBody.items[0].QUERYDATE
-        this.router.navigate(['./ChildSCN1/ChildSCN6/ChildSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue} });
+        this.router.navigate(['./'+this.routerCase+'/ChildSCN6/ChildSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue} });
       }
     });
   }
@@ -61,6 +62,6 @@ export class Childscn6Component implements OnInit {
   }
 
   changeDate() {
-    this.router.navigate(['./ChildSCN1/ChildSCN6/ChildSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue} });
+    this.router.navigate(['./'+this.routerCase+'/ChildSCN6/ChildSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue} });
   }
 }

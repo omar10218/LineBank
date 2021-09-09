@@ -12,14 +12,15 @@ export class Childscn11Component implements OnInit {
   private applno: string;
   private search: string;
   private cuid: string;
-
+  private routerCase: string;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
       this.cuid = params['cuid'];
+      this.routerCase = params['routerCase'];
     });
-    this.router.navigate(['./ChildSCN1/ChildSCN11/ChildSCN11PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search } });
+    this.router.navigate(['./'+this.routerCase+'/ChildSCN11/ChildSCN11PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search } });
   }
 
   getApplno(): String {

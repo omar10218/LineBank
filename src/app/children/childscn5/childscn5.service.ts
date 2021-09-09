@@ -11,7 +11,7 @@ export class Childscn5Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getCustomerInfoSearch(formData: FormData): Observable<any>  {
-    const baseUrl = 'f01/f01002scn5';
+    const baseUrl = 'f01/childscn5';
     return this.postFormData(baseUrl, formData);
   }
 

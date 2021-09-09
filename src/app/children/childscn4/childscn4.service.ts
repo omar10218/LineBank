@@ -11,7 +11,7 @@ export class Childscn4Service extends BaseService{
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getCaseStep(formdata: FormData): Observable<any> {
-    const baseUrl = 'f01/f01002scn4';
+    const baseUrl = 'f01/childscn4';
     return this.postFormData(baseUrl, formdata);
   }
 }

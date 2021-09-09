@@ -10,7 +10,7 @@ export class Childscn11Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getCompare(formData: FormData): Observable<any> {
-    const baseUrl = 'f01/f01002scn11';
+    const baseUrl = 'f01/childscn11';
     return this.postFormData(baseUrl, formData);
   }
 }

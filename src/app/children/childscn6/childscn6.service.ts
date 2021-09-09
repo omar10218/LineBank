@@ -10,7 +10,7 @@ export class Childscn6Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getJCICSearch(formData: FormData): Observable<any> {
-    const baseUrl = 'f01/f01002scn6action';
+    const baseUrl = 'f01/childscn6action';
     return this.postFormData(baseUrl, formData);
   }
 
@@ -19,7 +19,7 @@ export class Childscn6Service extends BaseService {
   }
 
   getMASTERJCICSearch(formData: FormData): Observable<any> {
-    const baseUrl = 'f01/f01002scn6action1';
+    const baseUrl = 'f01/childscn6action1';
     return this.postFormData(baseUrl, formData);
   }
 }
