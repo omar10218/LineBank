@@ -10,11 +10,17 @@ import { F03012Service } from './f03012.service';
 import { F03012addComponent } from './f03012add/f03012add.component';
 import { F03012confirmComponent } from './f03012confirm/f03012confirm.component';
 import { F03012editComponent } from './f03012edit/f03012edit.component';
+import {ThemePalette} from '@angular/material/core';
 
 interface sysCode {
   value: string;
   viewValue: string;
 }
+interface checkBox {
+  value: string;
+  completed: boolean;
+}
+
 @Component({
   selector: 'app-f03012',
   templateUrl: './f03012.component.html',
@@ -23,11 +29,20 @@ interface sysCode {
 
 export class F03012Component implements OnInit {
 
+  isAllCheck: boolean = false;
+  chkArray: checkBox[] = [];
+  selectedValue: string;
+  selectedValue1:string;
+  sysCode: sysCode[] = [];
   selectedColumn: sysCode[] = [];
   compareTableCode: sysCode[] = [];
   compareColumnCode: sysCode[] = [];
   currentPage: PageEvent;
   currentSort: Sort;
+  allComplete: boolean = false;
+
+
+
   constructor(private f03012Service: F03012Service, public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -62,6 +77,7 @@ export class F03012Component implements OnInit {
       direction: ''
     };
   }
+  mappingCodeSource = new MatTableDataSource<any>();
   ngAfterViewInit(): void {
     this.getComePareDataSetList();
     this.paginator.page.subscribe((page: PageEvent) => {
@@ -79,7 +95,8 @@ export class F03012Component implements OnInit {
 
   getComePareDataSetList() {
     const baseUrl = 'f03/f03012scn1';
-    this.f03012Service.getComePareDataSetList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize).subscribe(data => {
+    this.f03012Service.getComePareDataSetList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize)
+    .subscribe(data => {
       this.totalCount = data.rspBody.size;
       this.compareDataSetSource.data = data.rspBody.items;
       this.compareTableOption = data.rspBody.compareTable;
@@ -87,16 +104,23 @@ export class F03012Component implements OnInit {
     });
   }
 
-  delete(compareTable: string, compareColumn: string, setValue: string) {
+  delete(compareTable: string, compareColumn: string, setValueHight: string, setValueLow: string) {
     let msg = '';
     const url = 'f03/f03012action3';
     const formdata: FormData = new FormData();
     formdata.append('compareTable', compareTable);
     formdata.append('compareColumn', compareColumn);
-    formdata.append('setValue', setValue);
+    // formdata.append('setValue', setValue);
+    formdata.append('setValueHight', setValueHight);
+    formdata.append('setValueLow', setValueLow);
     this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
       msg = data.rspMsg;
     });
+    // var valArray: string[] = new Array;
+    // for (const obj of this.chkArray) {
+    //   if (obj.completed) { valArray.push(obj.value); }
+    // };
+
     setTimeout(() => {
       const DialogRef = this.dialog.open(F03012confirmComponent, { data: { msgStr: msg } });
       window.location.reload();
@@ -112,6 +136,7 @@ export class F03012Component implements OnInit {
         window.location.reload();
       });
   }
+
 
   edit(compareTable: string, compareColumn: string, setValue: string) {
     const dialogRef = this.dialog.open(F03012editComponent, {
@@ -151,6 +176,43 @@ export class F03012Component implements OnInit {
     }
     return codeVal;
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.mappingCodeSource.filter = filterValue.trim().toLowerCase();
+  }
+  changeSelect(){
+    this.selectedColumn=[];
+    this.f03012Service.getSysTypeCode(this.selectedValue1,'f03/f03012')
+    .subscribe(data => {
+      for(const jsonObj of data.rpsBody){
+        const codeNo = jsonObj['codeNo'];
+        const desc = jsonObj['codeDesc'];
+        this.selectedColumn.push({value:codeNo, viewValue:desc})
+      }
+    })
+  }
+  queryByCompareTable(compareTable:string){
+    let msg= '';
+    const url = 'f03/f03012action4'
+    const formdata:FormData =new FormData();
+    formdata.append('compareTable',compareTable);
+
+    this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
+      msg = data.rspMsg;
+    });
+    setTimeout(() => {
+      const DialogRef = this.dialog.open(F03012confirmComponent, { data: { msgStr: msg } });
+      window.location.reload();
+    }, 1500);
+
+  }
+  setAll(completed: boolean) {
+
+    for (const obj of this.chkArray) {
+      obj.completed = completed;
+    }
+  }
+
 
 }
 
