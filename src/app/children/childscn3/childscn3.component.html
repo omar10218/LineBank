@@ -1,9 +1,11 @@
 
+<br>
 <div>
-  <button type="button"  >儲存</button>
+  <button type="button" (click)="seve()" >儲存</button>
   &nbsp;&nbsp;
   <button type="button" >發送Fraud Team</button>
 </div>
+<br>
 <form  width='100%' >
   <table bordercolor="#000000" cellspacing="0" cellpadding="2" style="border-collapse:collapse;width: 1200px;">
   <tr>
@@ -11,29 +13,11 @@
     <th  width='40%'>第一層(可複選)</th>
     <th  width='40%'>第二層(可複選)</th>
   </tr>
-  <tr>
-    <td>1</td>
-    <td><label><input type="checkbox">FDS</label></td>
-    <td class="td3"></td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td><label><input type="checkbox">資料比對異常</label></td>
-    <td class="td3">
-      <label><input type="checkbox">IP 比對重複</label><br>
-      <label><input type="checkbox">行動電話比對重複</label><br>
-      <label><input type="checkbox">戶籍電話比對重複</label><br>
-      <label><input type="checkbox">戶籍地址比對重複</label><br>
-    </td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td><label><input type="checkbox">財力證明異常</label></td>
-    <td class="td3">
-      <label><input type="checkbox">憑扣清單</label><br>
-      <label><input type="checkbox">薪轉</label><br>
-      <label><input type="checkbox">薪資單</label><br>
-      <label><input type="checkbox">勞保明細</label><br>
+  <tr *ngFor="let item of data ;let i = index">
+    <td>{{i+1}}</td> <!--NO-->
+    <td><input type="checkbox"  [(ngModel)]="item.check" name={{item.REASON_DESC}} value={{item.REASON_DESC}} (click)="chkArray1($event.target.checked,item.REASON_DESC,item.REASON_CODE) ;" >{{item.REASON_DESC}}</td>   <!--第一層(可複選)-->
+    <td class="td3" >
+      <div *ngFor="let it of item.child"><input type="checkbox" (click)="chkArray2($event.target.checked,it.REASON_CODE);" [disabled]="item.check ? false : true"  [(ngModel)]="it.check" name={{it.REASON_DESC}}  class={{item.REASON_CODE}} >{{it.REASON_DESC}}</div> <!--第二層(可複選)-->
     </td>
   </tr>
 </table>
