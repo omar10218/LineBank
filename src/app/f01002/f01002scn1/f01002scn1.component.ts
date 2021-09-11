@@ -13,12 +13,14 @@ export class F01002scn1Component implements OnInit {
   private search: string;
   private cuid: string;
   private routerCase: string;
+  fds: string
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
       this.cuid = params['cuid'];
       this.routerCase = params['routerCase'];
+      this.fds = params['fds'];
     });
   }
 
@@ -45,5 +47,9 @@ export class F01002scn1Component implements OnInit {
 
   getRouterCase(): string {
     return this.routerCase;
+  }
+
+  getFds(): string {
+    return this.fds;
   }
 }
