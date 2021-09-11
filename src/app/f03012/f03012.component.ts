@@ -62,6 +62,10 @@ export class F03012Component implements OnInit {
               const desc = jsonObj['codeDesc'];
               this.compareColumnCode.push({ value: codeNo, viewValue: desc })
             }
+            for (const jsonObj of data.rspBody.functionList) {
+              this.chkArray.push({ value: jsonObj['FN_NO'], completed: false })
+            }
+            this.compareDataSetSource.data = data.rspBody.functionList;
           });
       }
     });
@@ -212,6 +216,7 @@ export class F03012Component implements OnInit {
       obj.completed = completed;
     }
   }
+
 
 
 }
