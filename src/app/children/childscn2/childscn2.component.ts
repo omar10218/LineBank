@@ -13,15 +13,16 @@ export class Childscn2Component implements OnInit {
   private search: string;
   private cuid: string;
   private routerCase: string;
+  private fds: string
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = params['applno'];
       this.search = params['search'];
       this.cuid = params['cuid'];
       this.routerCase = params['routerCase'];
-
+      this.fds = params['fds'];
     });
-    this.router.navigate(['./'+this.routerCase+'/CHILDSCN2/CHILDSCN2PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase } });
+    this.router.navigate(['./'+this.routerCase+'/CHILDSCN2/CHILDSCN2PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase , fds: this.fds } });
   }
 
   getApplno(): String {
@@ -38,5 +39,9 @@ export class Childscn2Component implements OnInit {
 
   getRouterCase(): string {
     return this.routerCase;
+  }
+
+  getFds(): string {
+    return this.fds;
   }
 }
