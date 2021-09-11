@@ -100,7 +100,9 @@
           <!-- 格式3 特殊文字框 -->
           <tr *ngIf="reasonData.REASON_DESC=='其他'" >
             <td >{{reasonData.sort}}</td>
-            <td ><input type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC}} value={{reasonData.REASON_DESC}} (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}</td>
+            <td >
+              <input type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC+reasonData.REASON_LEVEL}} value={{reasonData.REASON_DESC}} (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
+            </td>
             <td class="td3">
               <textarea [(ngModel)]="delayOtherTwo" name="delayOtherTwo" [disabled]= "reasonData.checkbox ? false : true" rows="10"></textarea>
             </td>
