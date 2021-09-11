@@ -36,6 +36,7 @@ export class F01002Component implements OnInit, AfterViewInit {
   agentEmpNo: string;                                 // 代理人
   agentEmpNoCode: sysCode[] = [];                     // 代理人下拉
   cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單
+  fds: string = "";                                   // fds
   constructor(private router: Router, private f01002Service: F01002Service, public dialog: MatDialog) { }
   ngOnInit(): void {
     // 查詢案件分類
@@ -119,10 +120,13 @@ export class F01002Component implements OnInit, AfterViewInit {
   }
 
   // 案件子頁籤
-  getLockCase(swcApplno: string) {
+  getLockCase(swcApplno: string) { 
     this.f01002Service.getLockCase(swcApplno).subscribe(data => {
+      if ( data.rspBody != null ) {
+        this.fds = data.rspBody[0].fds
+      } 
       if (data.rspMsg == '案件鎖定成功') {
-        this.router.navigate(['./F01002/F01002SCN1'], { queryParams: { applno: swcApplno, search: 'N' , routerCase: 'F01002/F01002SCN1' } });
+        this.router.navigate(['./F01002/F01002SCN1'], { queryParams: { applno: swcApplno, search: 'N' , routerCase: 'F01002/F01002SCN1' , fds: this.fds } });
       }
     });
   }

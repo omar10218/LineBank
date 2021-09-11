@@ -46,6 +46,8 @@ import { Childscn14Component } from './childscn14/childscn14.component';
 import { Childscn14page1Component } from './childscn14/childscn14page1/childscn14page1.component';
 import { Childscn14page2Component } from './childscn14/childscn14page2/childscn14page2.component';
 import { Childscn14page3Component } from './childscn14/childscn14page3/childscn14page3.component';
+import { Childscn15Component } from './childscn15/childscn15.component';
+import { Childscn15confirmComponent } from './childscn15/childscn15confirm/childscn15confirm.component';
 
 
 @NgModule({
@@ -91,7 +93,9 @@ import { Childscn14page3Component } from './childscn14/childscn14page3/childscn1
     Childscn14Component,
     Childscn14page1Component,
     Childscn14page2Component,
-    Childscn14page3Component
+    Childscn14page3Component,
+    Childscn15Component,
+    Childscn15confirmComponent
 
   ],
   imports: [
