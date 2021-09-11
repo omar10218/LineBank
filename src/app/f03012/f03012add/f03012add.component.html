@@ -33,11 +33,27 @@
           </mat-form-field>
         </td>
       </tr>
-      <tr>
+      <!-- <tr>
         <th>設定值></th>
         <td>
           <mat-form-field color="accent">
             <input formControlName="setValue" matInput [(ngModel)]="setValue">
+          </mat-form-field>
+        </td>
+      </tr> -->
+      <tr>
+        <th>設定最低門檻</th>
+        <td>
+          <mat-form-field color="accent">
+            <input formControlName="setValueLow" matInput [(ngModel)]="setValueLow">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <th>設定最高門檻</th>
+        <td>
+          <mat-form-field color="accent">
+            <input formControlName="setValueHight" matInput [(ngModel)]="setValueHight">
           </mat-form-field>
         </td>
       </tr>
