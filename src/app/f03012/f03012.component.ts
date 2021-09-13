@@ -119,7 +119,6 @@ export class F03012Component implements OnInit {
     // formdata.append('setValue', setValue);
     formdata.append('setValueHight', setValueHight);
     formdata.append('setValueLow', setValueLow);
-    console.log(setValueLow);
     this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
       msg = data.rspMsg;
     });
@@ -145,14 +144,17 @@ export class F03012Component implements OnInit {
   }
 
 
-  edit(compareTable: string, compareColumn: string, setValue: string) {
+  edit(compareTable: string, compareColumn: string, compareType:string, setValueHight:string, setValueLow:string) {
     const dialogRef = this.dialog.open(F03012editComponent, {
       minHeight: '100vh',
       width: '50%',
       data: {
         compareTable: compareTable,
         compareColumn: compareColumn,
-        setValue: setValue
+        compareType:compareType,
+        setValueHight:setValueHight,
+        setValueLow:setValueLow,
+        // setValue: setValue
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -223,6 +225,7 @@ export class F03012Component implements OnInit {
     for (const obj of this.chkArray) {
       obj.completed = completed;
     }
+
   }
   async allCheck() {
     this.isAllCheck = false;

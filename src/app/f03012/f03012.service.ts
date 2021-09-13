@@ -21,14 +21,16 @@ export class F03012Service extends BaseService {
     let targetUrl = `${baseUrl}?roleNo=${roleNo}`;
     return this.postHttpClient(targetUrl);
   }
-  update(baseUrl: string, data: any, oldCompareTable: string, oldCompareColumn:string, oldSetValue:string): any {
+  update(baseUrl: string, data: any, oldCompareTable: string, oldCompareColumn:string, setValueLow:string,setValueHight:string,compareType:string,): any {
     const formdata: FormData = new FormData();
     formdata.append('compareTable', data.compareTable);
     formdata.append('compareColumn', data.compareColumn);
     formdata.append('setValue', data.setValue);
     formdata.append('oldCompareTable', oldCompareTable);
     formdata.append('oldCompareColumn', oldCompareColumn);
-    formdata.append('oldSetValue', oldSetValue);
+    formdata.append('setValueLow', setValueLow);
+    formdata.append('setValueHight', setValueHight);
+    formdata.append('compareType', compareType);
     return this.saveOrEditMsgString(baseUrl, formdata);
   }
 
