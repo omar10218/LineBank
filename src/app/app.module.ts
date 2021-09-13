@@ -76,6 +76,10 @@ import { F03008editComponent } from './f03008/f03008edit/f03008edit.component';
 import { F03008uploadComponent } from './f03008/f03008upload/f03008upload.component';
 import { AppRoutingModule } from './routing/app-routing.module';
 import { F03013Component } from './f03013/f03013.component';
+import { F03014Component } from './f03014/f03014.component';
+import { F03014confirmComponent } from './f03014/f03014confirm/f03014confirm.component';
+import { F03014editComponent } from './f03014/f03014edit/f03014edit.component';
+import { F03014uploadComponent } from './f03014/f03014upload/f03014upload.component';
 
 @NgModule({
   declarations: [
@@ -142,7 +146,11 @@ import { F03013Component } from './f03013/f03013.component';
     F03012addComponent,
     F03008editComponent,
     F03008uploadComponent,
-    F03013Component
+    F03013Component,
+    F03014Component,
+    F03014confirmComponent,
+    F03014editComponent,
+    F03014uploadComponent
   ],
   imports: [
     BrowserModule,

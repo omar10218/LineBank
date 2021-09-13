@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { F03013Component } from '../f03013/f03013.component';
+import { F03014Component } from '../f03014/f03014.component';
 import { F01005Component } from './../f01005/f01005.component';
 import { F02001Component } from './../f02001/f02001.component';
 import { F02001scn0Component } from './../f02001/f02001scn0/f02001scn0.component';
@@ -190,6 +191,10 @@ const routes: Routes = [
       {
         path: 'F03013',
         component: F03013Component
+      },
+      {
+        path: 'F03014',
+        component: F03014Component
       },
       {
         path: 'F04001',
