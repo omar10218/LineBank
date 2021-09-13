@@ -16,12 +16,12 @@ export class F03013Service extends BaseService{
   }
   queryIsWorkDay(year: number, month: number){
     const baseUrl = 'f03/f03013action1';
-    let targetUrl = `${baseUrl}?year=${year}?month=${month}`;
+    let targetUrl = `${baseUrl}?year=${year}&month=${month}`;
     return this.postHttpClient(targetUrl);
   }
   updateWorkingDate(wDate: number, isWork: number){
     const baseUrl = 'f03/f03013action2';
-    let targetUrl = `${baseUrl}?wDate=${wDate}?isWork=${isWork}`;
+    let targetUrl = `${baseUrl}?wDate=${wDate}&isWork=${isWork}`;
     return this.postHttpClient(targetUrl);
   }
 }
