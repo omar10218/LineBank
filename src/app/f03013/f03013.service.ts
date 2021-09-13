@@ -9,19 +9,19 @@ export class F03013Service extends BaseService{
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  createCalendar(year: string){
+  createCalendar(year: number){
     const baseUrl = 'f03/f03013';
     let targetUrl = `${baseUrl}?year=${year}`;
     return this.postHttpClient(targetUrl);
   }
-  queryIsWorkDay(year: string, month: string){
+  queryIsWorkDay(year: number, month: number){
     const baseUrl = 'f03/f03013action1';
-    let targetUrl = `${baseUrl}?year=${year}?month=${month}`;
+    let targetUrl = `${baseUrl}?year=${year}&month=${month}`;
     return this.postHttpClient(targetUrl);
   }
-  updateWorkingDate(wDate: string, isWork: string){
+  updateWorkingDate(wDate: number, isWork: number){
     const baseUrl = 'f03/f03013action2';
-    let targetUrl = `${baseUrl}?wDate=${wDate}?isWork=${isWork}`;
+    let targetUrl = `${baseUrl}?wDate=${wDate}&isWork=${isWork}`;
     return this.postHttpClient(targetUrl);
   }
 }

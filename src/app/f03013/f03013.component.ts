@@ -11,11 +11,11 @@ import { F03013Service } from './f03013.service';
 })
 
 export class F03013Component implements OnInit {
-  selectedValue: string;
-  yearValue: string;
-  monthValue: string;
-  yearCode = [];
-  monthCode = [];
+  selectedValue: number;    //欲創建年度行事曆
+  yearValue: number;        //查詢年份
+  monthValue: number;       //查詢月份
+  yearCode = [];            //年份下拉
+  monthCode = [];           //月份下拉
   totalCount: any;
   workingDateDataSource = new MatTableDataSource<any>();
   constructor(private f03013Service: F03013Service) { }
@@ -35,6 +35,7 @@ export class F03013Component implements OnInit {
     }
     var yes = confirm('建立該年度行事曆,會刪除原設定,請確認');
     if (yes) {
+      alert(this.selectedValue)
       this.f03013Service.createCalendar(this.selectedValue).subscribe(data => {
         if (data.rspMsg == 'success') {
           alert('新增' + this.selectedValue + '年度行事曆成功!')
@@ -82,7 +83,7 @@ export class F03013Component implements OnInit {
   }
 
   // 修改工作日
-  updateWorkingDate(wDate: string, isWork: string) {
+  updateWorkingDate(wDate: number, isWork: number) {
     this.f03013Service.updateWorkingDate(wDate, isWork).subscribe(data => {
       if (data.rspMsg == 'success') {
         this.queryIsWorkDay();//?
