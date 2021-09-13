@@ -39,7 +39,7 @@
     <mat-cell *matCellDef="let row; let i = index;">
       <mat-checkbox [(ngModel)]="chkArray[i]" color="primary"></mat-checkbox>
     </mat-cell>
-  </ng-container> -->
+  </ng-container>
   <ng-container matColumnDef="COMPARE_TABLE">
     <mat-header-cell *matHeaderCellDef>比對table</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ getOptionCompareTable(row.compareTable) }}</mat-cell>

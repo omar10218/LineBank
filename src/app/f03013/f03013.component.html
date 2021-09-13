@@ -64,18 +64,18 @@
             <u>修改</u>
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-            <button mat-raised-button color="primary" (click)="updateWorkingDate(row.WDATE, row.IS_WORK)">修改</button>
+            <button mat-raised-button color="primary" (click)="updateWorkingDate(row.wdate, row.isWork)">修改</button>
         </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="WDATE">
+    <ng-container matColumnDef="wdate">
         <mat-header-cell *matHeaderCellDef>日期</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.WDATE }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.wdate|date: 'yyyy-MM-dd' }}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="IS_WORK">
+    <ng-container matColumnDef="isWork">
         <mat-header-cell *matHeaderCellDef>是否工作日</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.IS_WORK }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.isWork }}</mat-cell>
     </ng-container>
-    <mat-header-row *matHeaderRowDef="['updateWorkingDate', 'WDATE', 'IS_WORK']"></mat-header-row>
-    <mat-row *matRowDef="let workingDateRow; columns: ['updateWorkingDate', 'WDATE', 'IS_WORK']"></mat-row>
+    <mat-header-row *matHeaderRowDef="['updateWorkingDate', 'wdate', 'isWork']"></mat-header-row>
+    <mat-row *matRowDef="let workingDateRow; columns: ['updateWorkingDate', 'wdate', 'isWork']"></mat-row>
 
 </mat-table>

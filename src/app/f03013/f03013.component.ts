@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { F03013Service } from './f03013.service';
-
 //20210911 alvin.lee
 
 @Component({
@@ -11,17 +10,14 @@ import { F03013Service } from './f03013.service';
 })
 
 export class F03013Component implements OnInit {
-  selectedValue: string;
-  yearValue: string;
-  monthValue: string;
-  yearCode = [];
-  monthCode = [];
+  selectedValue: number;    //欲創建年度行事曆
+  yearValue: number;        //查詢年份
+  monthValue: number;       //查詢月份
+  yearCode = [];            //年份下拉
+  monthCode = [];           //月份下拉
   totalCount: any;
   workingDateDataSource = new MatTableDataSource<any>();
   constructor(private f03013Service: F03013Service) { }
-  elements: any = [
-    { WDATE: '20210910', IS_WORK: 'Y' }, { WDATE: '20210911', IS_WORK: 'Y' }, { WDATE: '20210912', IS_WORK: 'N' }
-  ]
 
   ngOnInit(): void {
     this.getYearRange();
@@ -35,8 +31,9 @@ export class F03013Component implements OnInit {
     }
     var yes = confirm('建立該年度行事曆,會刪除原設定,請確認');
     if (yes) {
+      alert(this.selectedValue)
       this.f03013Service.createCalendar(this.selectedValue).subscribe(data => {
-        if (data.rspMsg == 'success') {
+        if (data.rspMsg == '成功') {
           alert('新增' + this.selectedValue + '年度行事曆成功!')
         }
       });
@@ -58,8 +55,8 @@ export class F03013Component implements OnInit {
     }
 
     this.f03013Service.queryIsWorkDay(this.yearValue, this.monthValue).subscribe(data => {
-      this.totalCount = data.rspBody.size;
-      this.workingDateDataSource.data = data.rspBody.items;
+      this.totalCount = data.rspBody.length;
+      this.workingDateDataSource.data = data.rspBody;
       if (this.totalCount == '0') { alert('請先初始化' + this.yearValue + '年度行事曆') }
     });
   }
