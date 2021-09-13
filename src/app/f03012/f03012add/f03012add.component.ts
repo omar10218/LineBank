@@ -21,6 +21,7 @@ export class F03012addComponent implements OnInit {
   //下拉
   selectedColumn: sysCode[] = [];
   setValueHight: string;
+  compareType: string;
   setValueLow: string;
   compareTableCode: sysCode[] = [];
   compareColumnCode: sysCode[] = [];
@@ -83,6 +84,7 @@ export class F03012addComponent implements OnInit {
       const formdata: FormData = new FormData();
       formdata.append('compareTable', this.compareTableSetForm.value.compareTable);
       formdata.append('compareColumn', this.compareTableSetForm.value.compareColumn);
+      formdata.append('compareType', this.compareTableSetForm.value.compareType);
       formdata.append('setValueHight', this.compareTableSetForm.value.setValueHight);
       formdata.append('setValueLow', this.compareTableSetForm.value.setValueLow);
       // formdata.append('setValue', this.compareTableSetForm.value.setValue);
@@ -102,6 +104,7 @@ export class F03012addComponent implements OnInit {
   clear(){
     this.selectedValue1 = '';
     this.selectedValue2 = '';
+    this.compareType = '';
     this.setValueHight = '';
     this.setValueLow = '';
   }
