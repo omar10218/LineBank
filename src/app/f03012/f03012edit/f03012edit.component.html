@@ -27,6 +27,18 @@
                 <input matInput [(ngModel)]="data.setValue" name="setValue" required>
             </mat-form-field>
         </div>
+        <div class="form">
+            <mat-form-field color="accent">
+                <th nowrap="nowrap">設定最低門檻</th>
+                <input matInput [(ngModel)]="data.setValueLow" name="setValueLow" required>
+            </mat-form-field>
+        </div>
+        <div class="form">
+            <mat-form-field color="accent">
+                <th nowrap="nowrap">設定最低高檻</th>
+                <input matInput [(ngModel)]="data.setValueHight" name="setValueHight" required>
+            </mat-form-field>
+        </div>
         <div mat-dialog-actions>
             <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="save()">儲存</button>
             <button mat-button (click)="onNoClick()" tabindex="-1">取消</button>

@@ -26,6 +26,8 @@ export class F03012editComponent implements OnInit {
   oldCompareTable: string;
   oldCompareColumn: string;
   oldSetValue: string;
+  setValueLow: string;
+  setValueHight: string;
 
   constructor(public dialogRef: MatDialogRef<F03012editComponent>, private f03012Service: F03012Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -60,12 +62,14 @@ export class F03012editComponent implements OnInit {
     this.oldCompareTable = this.data.compareTable;
     this.oldCompareColumn = this.data.compareColumn;
     this.oldSetValue = this.data.setValue;
+    this.setValueLow = this.data.setValueLow;
+    this.setValueHight = this.data.setValueHight;
   }
 
   public async save(): Promise<void> {
     let msgStr: string = "";
     let baseUrl = 'f03/f03012action2';
-    msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValue);
+    msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValue,);
     const childernDialogRef = this.dialog.open(F03012confirmComponent, {
       data: { msgStr: msgStr }
     });

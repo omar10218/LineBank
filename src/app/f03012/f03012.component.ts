@@ -37,6 +37,7 @@ export class F03012Component implements OnInit {
   selectedColumn: sysCode[] = [];
   compareTableCode: sysCode[] = [];
   compareColumnCode: sysCode[] = [];
+  compareType: sysCode[] = [];
   currentPage: PageEvent;
   currentSort: Sort;
   allComplete: boolean = false;
@@ -108,15 +109,17 @@ export class F03012Component implements OnInit {
     });
   }
 
-  delete(compareTable: string, compareColumn: string, setValueHight: string, setValueLow: string) {
+  delete(compareTable: string, compareColumn: string, compareType: string,setValueHight: string, setValueLow: string) {
     let msg = '';
     const url = 'f03/f03012action3';
     const formdata: FormData = new FormData();
     formdata.append('compareTable', compareTable);
     formdata.append('compareColumn', compareColumn);
+    formdata.append('compareType', compareType);
     // formdata.append('setValue', setValue);
     formdata.append('setValueHight', setValueHight);
     formdata.append('setValueLow', setValueLow);
+    console.log(setValueLow);
     this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
       msg = data.rspMsg;
     });

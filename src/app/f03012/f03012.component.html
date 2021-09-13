@@ -1,4 +1,4 @@
-<th class="f03_th">資料比對設定維護test<th class="f03_th">資料比對設定維護</th>
+<th class="f03_th">資料比對警示門檻值設定</th>
 <br>
 <!-- list -->
 <mat-card class="matCard">
@@ -69,7 +69,7 @@
     <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
     <mat-cell *matCellDef="let row">
       <button mat-icon-button color="accent" (click)="edit(
-        row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight )">
+        row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight, row.compareType )">
         <mat-icon aria-label="Edit">edit</mat-icon>
       </button>
     </mat-cell>
@@ -84,13 +84,13 @@
     <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
     <mat-cell *matCellDef="let row">
       <button mat-icon-button color="accent" (click)="delete(
-        row.compareTable, row.compareColumn, row.setValue)">
+        row.compareTable, row.compareColumn, row.compareType, row.setValueHight, row.setValueLow)">
         <mat-icon aria-label="delete">delete</mat-icon>
       </button>
     </mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="[ 'IS_CHK', 'COMPARE_TABLE', 'COMPARE_COLUMN', 'SET_VALUE_LOW','SET_VALUE_HIGHT', 'actions', 'actions2']"></mat-header-row>
-  <mat-row *matRowDef="let compareDataSetSourceRow; columns: ['IS_CHK', 'COMPARE_TABLE', 'COMPARE_COLUMN', 'SET_VALUE_LOW','SET_VALUE_HIGHT', 'actions', 'actions2']"></mat-row>
+  <mat-header-row *matHeaderRowDef="[ 'IS_CHK', 'COMPARE_TABLE', 'COMPARE_COLUMN','COMPARE_TYPE', 'SET_VALUE_LOW','SET_VALUE_HIGHT', 'actions', 'actions2']"></mat-header-row>
+  <mat-row *matRowDef="let compareDataSetSourceRow; columns: ['IS_CHK', 'COMPARE_TABLE', 'COMPARE_COLUMN','COMPARE_TYPE', 'SET_VALUE_LOW','SET_VALUE_HIGHT', 'actions', 'actions2']"></mat-row>
 </mat-table>
 
 
