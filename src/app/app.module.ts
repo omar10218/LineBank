@@ -84,6 +84,8 @@ import { F03015Component } from './f03015/f03015.component';
 import { F03015confirmComponent } from './f03015/f03015confirm/f03015confirm.component';
 import { F03015editComponent } from './f03015/f03015edit/f03015edit.component';
 import { F03015uploadComponent } from './f03015/f03015upload/f03015upload.component';
+import { F03016Component } from './f03016/f03016.component';
+import { F03016confirmComponent } from './f03016/f03016confirm/f03016confirm.component';
 
 @NgModule({
   declarations: [
@@ -158,7 +160,9 @@ import { F03015uploadComponent } from './f03015/f03015upload/f03015upload.compon
     F03015Component,
     F03015confirmComponent,
     F03015editComponent,
-    F03015uploadComponent
+    F03015uploadComponent,
+    F03016Component,
+    F03016confirmComponent
   ],
   imports: [
     BrowserModule,
