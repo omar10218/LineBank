@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { F03013Service } from './f03013.service';
-
 //20210911 alvin.lee
 
 @Component({
@@ -19,9 +18,6 @@ export class F03013Component implements OnInit {
   totalCount: any;
   workingDateDataSource = new MatTableDataSource<any>();
   constructor(private f03013Service: F03013Service) { }
-  elements: any = [
-    { WDATE: '20210910', IS_WORK: 'Y' }, { WDATE: '20210911', IS_WORK: 'Y' }, { WDATE: '20210912', IS_WORK: 'N' }
-  ]
 
   ngOnInit(): void {
     this.getYearRange();
@@ -37,7 +33,7 @@ export class F03013Component implements OnInit {
     if (yes) {
       alert(this.selectedValue)
       this.f03013Service.createCalendar(this.selectedValue).subscribe(data => {
-        if (data.rspMsg == 'success') {
+        if (data.rspMsg == '成功') {
           alert('新增' + this.selectedValue + '年度行事曆成功!')
         }
       });
@@ -59,8 +55,8 @@ export class F03013Component implements OnInit {
     }
 
     this.f03013Service.queryIsWorkDay(this.yearValue, this.monthValue).subscribe(data => {
-      this.totalCount = data.rspBody.size;
-      this.workingDateDataSource.data = data.rspBody.items;
+      this.totalCount = data.rspBody.length;
+      this.workingDateDataSource.data = data.rspBody;
       if (this.totalCount == '0') { alert('請先初始化' + this.yearValue + '年度行事曆') }
     });
   }
@@ -83,7 +79,7 @@ export class F03013Component implements OnInit {
   }
 
   // 修改工作日
-  updateWorkingDate(wDate: number, isWork: number) {
+  updateWorkingDate(wDate: string, isWork: string) {
     this.f03013Service.updateWorkingDate(wDate, isWork).subscribe(data => {
       if (data.rspMsg == 'success') {
         this.queryIsWorkDay();//?

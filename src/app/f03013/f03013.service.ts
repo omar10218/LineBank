@@ -19,7 +19,7 @@ export class F03013Service extends BaseService{
     let targetUrl = `${baseUrl}?year=${year}&month=${month}`;
     return this.postHttpClient(targetUrl);
   }
-  updateWorkingDate(wDate: number, isWork: number){
+  updateWorkingDate(wDate: string, isWork: string){
     const baseUrl = 'f03/f03013action2';
     let targetUrl = `${baseUrl}?wDate=${wDate}&isWork=${isWork}`;
     return this.postHttpClient(targetUrl);
