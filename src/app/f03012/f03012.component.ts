@@ -119,6 +119,7 @@ export class F03012Component implements OnInit {
     // formdata.append('setValue', setValue);
     formdata.append('setValueHight', setValueHight);
     formdata.append('setValueLow', setValueLow);
+    console.log(setValueLow);
     this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
       msg = data.rspMsg;
     });
