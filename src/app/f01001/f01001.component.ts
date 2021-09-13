@@ -62,8 +62,15 @@ export class F01001Component implements OnInit, AfterViewInit  {
   }
 
   getCaseList(empNo: string, swcID: string, swcApplno: string) {
-    this.f01001Service.getCaseList(this.currentPage.pageIndex, this.currentPage.pageSize
-      , empNo, swcID, swcApplno).subscribe(data => {
+    let jsonObject : any = {};
+
+    jsonObject['page'] = this.currentPage.pageIndex + 1;
+    jsonObject['per_page'] = this.currentPage.pageSize;
+    jsonObject['swcL4EmpNo'] = empNo;
+    jsonObject['swcID'] = swcID;
+    jsonObject['swcApplno'] = swcApplno;
+
+    this.f01001Service.getCaseList(jsonObject).subscribe(data => {
         this.totalCount = data.rspBody.size;
         this.cusinfoDataSource.data = data.rspBody.items;
     });

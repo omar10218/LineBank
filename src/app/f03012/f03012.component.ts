@@ -31,7 +31,7 @@ export class F03012Component implements OnInit {
 
   isAllCheck: boolean = false;
   chkArray: checkBox[] = [];
-  selectedValue: string;
+  selectedValue: string = 'default';
   selectedValue1:string;
   sysCode: sysCode[] = [];
   selectedColumn: sysCode[] = [];
@@ -54,20 +54,20 @@ export class F03012Component implements OnInit {
         const desc = jsonObj['codeDesc'];
         this.compareTableCode.push({ value: codeNo, viewValue: desc })
       }
-      for (let i = 0; i < this.compareTableCode.length; i++) {
-        this.f03012Service.getSysTypeCode(this.compareTableCode[i].value, 'f03/f03012')
-          .subscribe(data => {
-            for (const jsonObj of data.rspBody) {
-              const codeNo = jsonObj['codeNo'];
-              const desc = jsonObj['codeDesc'];
-              this.compareColumnCode.push({ value: codeNo, viewValue: desc })
-            }
-            for (const jsonObj of data.rspBody.functionList) {
-              this.chkArray.push({ value: jsonObj['FN_NO'], completed: false })
-            }
-            this.compareDataSetSource.data = data.rspBody.functionList;
-          });
-      }
+      // for (const jsonObj of data.rspBody.functionList) {
+      //   this.chkArray.push({ value: jsonObj['FN_NO'], completed: false })
+      // }
+      // this.mappingCodeSource.data = data.rspBody.functionList;
+      // for (let i = 0; i < this.compareTableCode.length; i++) {
+      //   this.f03012Service.getSysTypeCode(this.compareTableCode[i].value, 'f03/f03012')
+      //     .subscribe(data => {
+      //       for (const jsonObj of data.rspBody) {
+      //         const codeNo = jsonObj['codeNo'];
+      //         const desc = jsonObj['codeDesc'];
+      //         this.compareColumnCode.push({ value: codeNo, viewValue: desc })
+      //       }
+      //     });
+      // }
     });
 
     this.currentPage = {
@@ -194,20 +194,25 @@ export class F03012Component implements OnInit {
         this.selectedColumn.push({value:codeNo, viewValue:desc})
       }
     })
+
   }
   queryByCompareTable(compareTable:string){
     let msg= '';
     const url = 'f03/f03012action4'
     const formdata:FormData =new FormData();
+    console.log(compareTable)
     formdata.append('compareTable',compareTable);
 
     this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
-      msg = data.rspMsg;
+      // msg = data.rspMsg;
+      this.totalCount = data.rspBody.size;
+      this.compareDataSetSource.data = data.rspBody.items;
+      console.log(data)
     });
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(F03012confirmComponent, { data: { msgStr: msg } });
-      window.location.reload();
-    }, 1500);
+    // setTimeout(() => {
+    //   const DialogRef = this.dialog.open(F03012confirmComponent, { data: { msgStr: msg } });
+    //   window.location.reload();
+    // }, 1500);
 
   }
   setAll(completed: boolean) {
@@ -216,7 +221,34 @@ export class F03012Component implements OnInit {
       obj.completed = completed;
     }
   }
+  async allCheck() {
+    this.isAllCheck = false;
+    await this.getRoleFunction();
+  }
 
+  private async getRoleFunction() {
+    const baseUrl = 'f03/f03012';
+    this.f03012Service.getRoleFunction(baseUrl, this.selectedValue).subscribe(data => {
+      console.log(data);
+      if (this.chkArray.length > 0) {
+        let i: number = 0;
+        for (const jsonObj of data.rspBody) {
+          const codeNo = jsonObj['codeNo'];
+          const isChk = jsonObj['IS_CHK'];
+          this.chkArray[i] = { value:codeNo, completed: isChk == 'Y' };
+          i++;
+        }
+
+      } else {
+        for (const jsonObj of data.rspBody) {
+          const codeNo = jsonObj['codeNo'];
+          const isChk = jsonObj['IS_CHK'];
+          this.chkArray.push({ value:codeNo, completed: isChk == 'Y' });
+        }
+      }
+      this.mappingCodeSource.data = data.rspBody;
+    });
+  }
 
 
 }

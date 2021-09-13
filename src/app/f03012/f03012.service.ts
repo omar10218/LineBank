@@ -17,7 +17,10 @@ export class F03012Service extends BaseService {
   saveComePareDataSetList(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
-  
+  getRoleFunction(baseUrl: string, roleNo: String): Observable<any> {
+    let targetUrl = `${baseUrl}?roleNo=${roleNo}`;
+    return this.postHttpClient(targetUrl);
+  }
   update(baseUrl: string, data: any, oldCompareTable: string, oldCompareColumn:string, oldSetValue:string): any {
     const formdata: FormData = new FormData();
     formdata.append('compareTable', data.compareTable);
