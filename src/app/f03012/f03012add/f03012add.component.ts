@@ -86,9 +86,11 @@ export class F03012addComponent implements OnInit {
       formdata.append('setValueHight', this.compareTableSetForm.value.setValueHight);
       formdata.append('setValueLow', this.compareTableSetForm.value.setValueLow);
       // formdata.append('setValue', this.compareTableSetForm.value.setValue);
-      console.log(formdata)
+      console.log(formdata);
+      console.log(url);
       this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
         msg = data.rspMsg;
+        console.log(msg);
       });
     // }
     // setTimeout(() => {
