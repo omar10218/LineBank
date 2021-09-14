@@ -23,8 +23,20 @@
         </div>
         <div class="form">
             <mat-form-field color="accent">
-                <th nowrap="nowrap">設定值</th>
-                <input matInput [(ngModel)]="data.setValue" name="setValue" required>
+                <th nowrap="nowrap">比對方式</th>
+                <input matInput [(ngModel)]="data.compareType" name="compareType" required>
+            </mat-form-field>
+        </div>
+        <div class="form">
+            <mat-form-field color="accent">
+                <th nowrap="nowrap">設定最低門檻</th>
+                <input matInput [(ngModel)]="data.setValueLow" name="setValueLow" required>
+            </mat-form-field>
+        </div>
+        <div class="form">
+            <mat-form-field color="accent">
+                <th nowrap="nowrap">設定最低高檻</th>
+                <input matInput [(ngModel)]="data.setValueHight" name="setValueHight" required>
             </mat-form-field>
         </div>
         <div mat-dialog-actions>

@@ -23,6 +23,7 @@ th{
   font-size: 15px;
 }
 
-mat-form-field{
+.mat-form-field{
   width: 90%;
 }
+

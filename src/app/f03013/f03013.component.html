@@ -1,1 +1,81 @@
-<p>f03013 works!</p>
+<table style="padding-left: 20px;">
+    <br>
+    <mat-card class="matCard">
+        <mat-card-content>
+            <tr>
+                <td>
+                    <b>年分:</b>
+                </td>
+                <td>
+                    <mat-form-field color="accent">
+                        <mat-select [(ngModel)]="selectedValue" name="yearCode">
+                            <mat-option class="option" [value]="item" *ngFor="let item of yearCode">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <button type="submit" mat-raised-button color="primary" (click)="createCalendar()">建立年度行事曆</button>
+                </td>
+            </tr>
+            
+        </mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card class="matCard">
+        <mat-card-content>
+            <tr>
+                <td>
+                    <b>年份:</b>
+                </td>
+                <td>
+                    <mat-form-field color="accent">
+                        <mat-select [(ngModel)]="yearValue" name="yearCode">
+                            <mat-option class="option" [value]="item" *ngFor="let item of yearCode">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <b>月份:</b>
+                </td>
+                <td>
+                    <mat-form-field color="accent">
+                        <mat-select [(ngModel)]="monthValue" name="monthCode">
+                            <mat-option class="option" [value]="item" *ngFor="let item of monthCode">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <button type="submit" mat-raised-button color="primary" (click)="queryIsWorkDay()">查詢</button>
+                </td>
+            </tr>
+        </mat-card-content>
+    </mat-card>
+</table>
+
+<mat-table [dataSource]="workingDateDataSource">
+    <ng-container matColumnDef="updateWorkingDate">
+        <mat-header-cell *matHeaderCellDef>
+            <u>修改</u>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <button mat-raised-button color="primary" (click)="updateWorkingDate(row.wdate, row.isWork)">修改</button>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="wdate">
+        <mat-header-cell *matHeaderCellDef>日期</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.wdate|date: 'yyyy-MM-dd' }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="isWork">
+        <mat-header-cell *matHeaderCellDef>是否工作日</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.isWork }}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="['updateWorkingDate', 'wdate', 'isWork']"></mat-header-row>
+    <mat-row *matRowDef="let workingDateRow; columns: ['updateWorkingDate', 'wdate', 'isWork']"></mat-row>
+
+</mat-table>

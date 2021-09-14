@@ -1,6 +1,6 @@
 <th class="f03_th">資料比對設定維護--新增</th>
 <br>
-<form [formGroup]="compareTableSetForm" style="padding-left: 20px;">
+<form [formGroup]="compareTableSetForm" style="padding-left: 20px;margin:10px">
   <div class="f03_div">
     <button type="submit" mat-raised-button color="primary" (click)="add()">新增</button>
     <button type="submit" mat-raised-button color="primary" (click)="clear()">清除資料</button>
@@ -33,16 +33,16 @@
           </mat-form-field>
         </td>
       </tr>
-      <!-- <tr>
-        <th>設定值></th>
+      <tr>
+        <th>比對欄位</th>
         <td>
           <mat-form-field color="accent">
-            <input formControlName="setValue" matInput [(ngModel)]="setValue">
+            <input formControlName="compareType" matInput [(ngModel)]="compareType">
           </mat-form-field>
         </td>
-      </tr> -->
+      </tr>
       <tr>
-        <th>設定最低門檻</th>
+        <th>設定最低門檻:</th>
         <td>
           <mat-form-field color="accent">
             <input formControlName="setValueLow" matInput [(ngModel)]="setValueLow">
@@ -50,7 +50,7 @@
         </td>
       </tr>
       <tr>
-        <th>設定最高門檻</th>
+        <th>設定最高門檻:</th>
         <td>
           <mat-form-field color="accent">
             <input formControlName="setValueHight" matInput [(ngModel)]="setValueHight">

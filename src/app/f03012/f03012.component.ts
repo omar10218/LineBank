@@ -37,6 +37,7 @@ export class F03012Component implements OnInit {
   selectedColumn: sysCode[] = [];
   compareTableCode: sysCode[] = [];
   compareColumnCode: sysCode[] = [];
+  compareType: sysCode[] = [];
   currentPage: PageEvent;
   currentSort: Sort;
   allComplete: boolean = false;
@@ -54,10 +55,10 @@ export class F03012Component implements OnInit {
         const desc = jsonObj['codeDesc'];
         this.compareTableCode.push({ value: codeNo, viewValue: desc })
       }
-      for (const jsonObj of data.rspBody.functionList) {
-        this.chkArray.push({ value: jsonObj['FN_NO'], completed: false })
-      }
-      this.mappingCodeSource.data = data.rspBody.functionList;
+      // for (const jsonObj of data.rspBody.functionList) {
+      //   this.chkArray.push({ value: jsonObj['FN_NO'], completed: false })
+      // }
+      // this.mappingCodeSource.data = data.rspBody.functionList;
       // for (let i = 0; i < this.compareTableCode.length; i++) {
       //   this.f03012Service.getSysTypeCode(this.compareTableCode[i].value, 'f03/f03012')
       //     .subscribe(data => {
@@ -108,12 +109,13 @@ export class F03012Component implements OnInit {
     });
   }
 
-  delete(compareTable: string, compareColumn: string, setValueHight: string, setValueLow: string) {
+  delete(compareTable: string, compareColumn: string, compareType: string,setValueHight: string, setValueLow: string) {
     let msg = '';
     const url = 'f03/f03012action3';
     const formdata: FormData = new FormData();
     formdata.append('compareTable', compareTable);
     formdata.append('compareColumn', compareColumn);
+    formdata.append('compareType', compareType);
     // formdata.append('setValue', setValue);
     formdata.append('setValueHight', setValueHight);
     formdata.append('setValueLow', setValueLow);
@@ -132,7 +134,7 @@ export class F03012Component implements OnInit {
   }
   add() {
     const dialogRef = this.dialog.open(F03012addComponent, {
-      minHeight: '100vh',
+      minHeight: '70vh',
       width: '50%',
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -142,14 +144,17 @@ export class F03012Component implements OnInit {
   }
 
 
-  edit(compareTable: string, compareColumn: string, setValue: string) {
+  edit(compareTable: string, compareColumn: string, compareType:string, setValueHight:string, setValueLow:string) {
     const dialogRef = this.dialog.open(F03012editComponent, {
-      minHeight: '100vh',
+      minHeight: '70vh',
       width: '50%',
       data: {
         compareTable: compareTable,
         compareColumn: compareColumn,
-        setValue: setValue
+        compareType:compareType,
+        setValueHight:setValueHight,
+        setValueLow:setValueLow,
+        // setValue: setValue
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -220,6 +225,7 @@ export class F03012Component implements OnInit {
     for (const obj of this.chkArray) {
       obj.completed = completed;
     }
+
   }
   async allCheck() {
     this.isAllCheck = false;
@@ -249,6 +255,8 @@ export class F03012Component implements OnInit {
       this.mappingCodeSource.data = data.rspBody;
     });
   }
+
+
 
 }
 
