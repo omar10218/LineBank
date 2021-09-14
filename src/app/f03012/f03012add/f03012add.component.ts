@@ -36,7 +36,7 @@ export class F03012addComponent implements OnInit {
   constructor(private fb: FormBuilder, private f03012Service: F03012Service, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.f03012Service.getSysTypeCode('COMPARE_TABLE', 'f03/f03012')
+    this.f03012Service.getSysTypeCode('COMPARE_TABLE')
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];
@@ -44,7 +44,7 @@ export class F03012addComponent implements OnInit {
           this.compareTableCode.push({ value: codeNo, viewValue: desc })
         }
         for (let i = 0; i < this.compareTableCode.length; i++) {
-          this.f03012Service.getSysTypeCode(this.compareTableCode[i].value, 'f03/f03012')
+          this.f03012Service.getSysTypeCode(this.compareTableCode[i].value)
             .subscribe(data => {
               for (const jsonObj of data.rspBody) {
                 const codeNo = jsonObj['codeNo'];
@@ -58,7 +58,7 @@ export class F03012addComponent implements OnInit {
 
   changeSelect() {
     this.selectedColumn = [];
-    this.f03012Service.getSysTypeCode(this.selectedValue1, 'f03/f03012')
+    this.f03012Service.getSysTypeCode(this.selectedValue1)
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];

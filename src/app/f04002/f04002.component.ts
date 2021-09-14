@@ -54,7 +54,7 @@ export class F04002Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.f04002Service.getSysTypeCode('STEP_ERROR','f04/f04002').subscribe(data => {
+    this.f04002Service.getSysTypeCode('STEP_ERROR').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
@@ -77,7 +77,7 @@ export class F04002Component implements OnInit {
        const childernDialogRef = this.dialog.open(F04002confirmComponent, {
          data: { msgStr: data.rspMsg }
        });
-       if(data.rspMsg=='推關成功'){
+       if(data.rspCode=='0000'){
          this.getSTEP_ERRORFunction();
        }
      });
@@ -99,13 +99,12 @@ export class F04002Component implements OnInit {
        const childernDialogRef = this.dialog.open(F04002confirmComponent, {
          data: { msgStr: data.rspMsg }
        });
-       if(data.rspMsg=='推關成功'){
+       if(data.rspCode=='0000'){
          this.getSTEP_ERRORFunction();
        }
      });
     }
   }
-
 
   setAll(completed: boolean) {
     for (const obj of this.chkArray) {

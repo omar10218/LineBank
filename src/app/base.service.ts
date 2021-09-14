@@ -26,8 +26,8 @@ export class BaseService {
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formdata);
   }
 
-  public getSysTypeCode(codeType: string ,baseUrl: string): Observable<any> {
-    let targetUrl = `${baseUrl}?codeType=${codeType}`;
+  public getSysTypeCode(codeType: string): Observable<any> {
+    let targetUrl = `sys/getMappingCode?codeType=${codeType}`;
     return this.postHttpClient(targetUrl);
   }
 

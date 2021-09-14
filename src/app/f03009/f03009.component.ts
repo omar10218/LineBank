@@ -30,7 +30,7 @@ export class F03009Component implements OnInit {
   constructor(public dialog: MatDialog, private f03009Service: F03009Service) { }
 
   ngOnInit(): void {
-    this.f03009Service.getSysTypeCode('TV_NO','f03/f03009').subscribe(data => {
+    this.f03009Service.getSysTypeCode('TV_NO').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];

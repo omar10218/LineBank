@@ -27,7 +27,7 @@ export class F03005Component implements OnInit {
 
   constructor(private f03005Service: F03005Service, public dialog: MatDialog) { }
   ngOnInit(): void {
-    this.f03005Service.getSysTypeCode('ADR_CODE', 'f03/f03005').subscribe(data => {
+    this.f03005Service.getSysTypeCode('ADR_CODE').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];

@@ -73,7 +73,7 @@ export class Childscn8Component implements OnInit {
     };
 
     //取下拉選單資料
-    this.childscn8Service.getSysTypeCode('CON_TEL', 'f01/childscn8')//電話種類下拉選單
+    this.childscn8Service.getSysTypeCode('CON_TEL')//電話種類下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];
@@ -81,7 +81,7 @@ export class Childscn8Component implements OnInit {
           this.CON_TEL_Code.push({ value: codeNo, viewValue: desc })
         }
       });
-    this.childscn8Service.getSysTypeCode('CON_TARGET', 'f01/childscn8')//對象種類下拉選單
+    this.childscn8Service.getSysTypeCode('CON_TARGET')//對象種類下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];
@@ -89,7 +89,7 @@ export class Childscn8Component implements OnInit {
           this.CON_TARGET_Code.push({ value: codeNo, viewValue: desc })
         }
       });
-    this.childscn8Service.getSysTypeCode('CON_MEMO', 'f01/childscn8')//註記種類下拉選單
+    this.childscn8Service.getSysTypeCode('CON_MEMO')//註記種類下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];

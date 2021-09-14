@@ -40,7 +40,7 @@ export class F01002Component implements OnInit, AfterViewInit {
   constructor(private router: Router, private f01002Service: F01002Service, public dialog: MatDialog) { }
   ngOnInit(): void {
     // 查詢案件分類
-    this.f01002Service.getSysTypeCode('CASE_TYPE', 'sys/getMappingCode').subscribe(data => {
+    this.f01002Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
       this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
@@ -120,11 +120,11 @@ export class F01002Component implements OnInit, AfterViewInit {
   }
 
   // 案件子頁籤
-  getLockCase(swcApplno: string) { 
+  getLockCase(swcApplno: string) {
     this.f01002Service.getLockCase(swcApplno).subscribe(data => {
       if ( data.rspBody != null ) {
         this.fds = data.rspBody[0].fds
-      } 
+      }
       if (data.rspMsg == '案件鎖定成功') {
         this.router.navigate(['./F01002/F01002SCN1'], { queryParams: { applno: swcApplno, search: 'N' , routerCase: 'F01002/F01002SCN1' , fds: this.fds } });
       }

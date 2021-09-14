@@ -47,7 +47,7 @@ export class F03012Component implements OnInit {
 
   ngOnInit(): void {
 
-    this.f03012Service.getSysTypeCode('COMPARE_TABLE', 'f03/f03012')
+    this.f03012Service.getSysTypeCode('COMPARE_TABLE')
     .subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
@@ -186,8 +186,8 @@ export class F03012Component implements OnInit {
   }
   changeSelect(){
     this.selectedColumn=[];
-    this.f03012Service.getSysTypeCode(this.selectedValue1,'f03/f03012')
-    .subscribe(data => {  
+    this.f03012Service.getSysTypeCode(this.selectedValue1)
+    .subscribe(data => {
       for(const jsonObj of data.rpsBody){
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];

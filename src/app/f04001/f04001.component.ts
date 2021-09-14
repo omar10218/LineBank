@@ -33,8 +33,8 @@ export class F04001Component implements OnInit {
   constructor(private f04001Service: F04001Service, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    const baseUrl = 'f04/f04001';
-    this.f04001Service.getSysTypeCode('FLOW_STEP', baseUrl).subscribe(data => {
+
+    this.f04001Service.getSysTypeCode('FLOW_STEP').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
@@ -86,7 +86,7 @@ export class F04001Component implements OnInit {
         const childernDialogRef = this.dialog.open(F04001confirmComponent, {
           data: { msgStr: data.rspMsg }
         });
-        if (data.rspMsg == '解鎖成功') {
+        if (data.rspCode == '0000') {
           this.getLockApplno();
         }
       });

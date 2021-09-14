@@ -29,21 +29,21 @@ export class F03011addComponent implements OnInit {
   constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<F03011addComponent>,private f03011Service: F03011Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this.f03011Service.getSysTypeCode('SCKLV','f03/f03011').subscribe(data => {
+    this.f03011Service.getSysTypeCode('SCKLV').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.scklvCode.push({value: codeNo, viewValue: desc})
       }
     });
-    this.f03011Service.getSysTypeCode('CALV','f03/f03011').subscribe(data => {
+    this.f03011Service.getSysTypeCode('CALV').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.calvCode.push({value: codeNo, viewValue: desc})
       }
     });
-    this.f03011Service.getSysTypeCode('TV_NO','f03/f03011').subscribe(data => {
+    this.f03011Service.getSysTypeCode('TV_NO').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];

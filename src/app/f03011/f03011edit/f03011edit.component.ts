@@ -33,26 +33,26 @@ export class F03011editComponent implements OnInit {
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Required field' : '';
   }
-  
+
   submit() {
   }
 
   ngOnInit(): void {
-    this.f03011Service.getSysTypeCode('SCKLV','f03/f03011').subscribe(data => {
+    this.f03011Service.getSysTypeCode('SCKLV').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.scklvCode.push({value: codeNo, viewValue: desc})
       }
     });
-    this.f03011Service.getSysTypeCode('CALV','f03/f03011').subscribe(data => {
+    this.f03011Service.getSysTypeCode('CALV').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.calvCode.push({value: codeNo, viewValue: desc})
       }
     });
-    this.f03011Service.getSysTypeCode('TV_NO','f03/f03011').subscribe(data => {
+    this.f03011Service.getSysTypeCode('TV_NO').subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];

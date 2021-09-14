@@ -41,7 +41,7 @@ export class F03012editComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.data.compareColumn)
     console.log(this.data.setValue)
-    this.f03012Service.getSysTypeCode('COMPARE_TABLE', 'f03/f03012')
+    this.f03012Service.getSysTypeCode('COMPARE_TABLE')
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];
@@ -49,7 +49,7 @@ export class F03012editComponent implements OnInit {
           this.compareTableCode.push({ value: codeNo, viewValue: desc })
         }
       });
-    this.f03012Service.getSysTypeCode(this.data.compareTable, 'f03/f03012')
+    this.f03012Service.getSysTypeCode(this.data.compareTable)
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];
@@ -74,7 +74,7 @@ export class F03012editComponent implements OnInit {
 
   changeSelect() {
     this.data.compareColumn = '';
-    this.f03012Service.getSysTypeCode(this.data.compareTable, 'f03/f03012')
+    this.f03012Service.getSysTypeCode(this.data.compareTable)
       .subscribe(data => {
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj['codeNo'];
