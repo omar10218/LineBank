@@ -16,10 +16,9 @@ export class F03013Component implements OnInit {
   monthValue: number;       //查詢月份
   yearCode = [];            //年份下拉
   monthCode = [];           //月份下拉
-  totalCount: any;
-  pipe = new DatePipe('en-US')
+  // pipe = new DatePipe('en-US');
   workingDateDataSource = new MatTableDataSource<any>();
-  constructor(private f03013Service: F03013Service) { }
+  constructor(private f03013Service: F03013Service, private pipe: DatePipe) { }
 
   ngOnInit(): void {
     this.getYearRange();
@@ -56,9 +55,8 @@ export class F03013Component implements OnInit {
     }
 
     this.f03013Service.queryIsWorkDay(this.yearValue, this.monthValue).subscribe(data => {
-      this.totalCount = data.rspBody.length;
       this.workingDateDataSource.data = data.rspBody;
-      if (this.totalCount == '0') { alert('請先初始化' + this.yearValue + '年度行事曆') }
+      if (data.rspBody.length == '0') { alert('請先初始化' + this.yearValue + '年度行事曆') }
     });
   }
   // 取得年份下拉,當前年度前後5年
@@ -81,17 +79,13 @@ export class F03013Component implements OnInit {
 
   // 修改工作日
   updateWorkingDate(wDate: string, isWork: string) {
-    this.f03013Service.updateWorkingDate(this.pipe.transform(new Date(wDate)), isWork).subscribe(data => {
+    console.log(wDate)
+    this.f03013Service.updateWorkingDate(this.pipe.transform(new Date(wDate), 'yyyy-MM-dd'), isWork).subscribe(data => {
       if (data.rspMsg == 'success') {
         this.queryIsWorkDay();
       }
     });
-
   }
-
-
-
-
 
 }
 
