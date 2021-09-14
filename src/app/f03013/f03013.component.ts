@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { F03013Service } from './f03013.service';
@@ -16,9 +17,9 @@ export class F03013Component implements OnInit {
   yearCode = [];            //年份下拉
   monthCode = [];           //月份下拉
   totalCount: any;
-
+  pipe = new DatePipe('en-US')
   workingDateDataSource = new MatTableDataSource<any>();
-  constructor(private f03013Service: F03013Service) {}
+  constructor(private f03013Service: F03013Service) { }
 
   ngOnInit(): void {
     this.getYearRange();
@@ -80,7 +81,7 @@ export class F03013Component implements OnInit {
 
   // 修改工作日
   updateWorkingDate(wDate: string, isWork: string) {
-    this.f03013Service.updateWorkingDate(wDate, isWork).subscribe(data => {
+    this.f03013Service.updateWorkingDate(this.pipe.transform(new Date(wDate)), isWork).subscribe(data => {
       if (data.rspMsg == 'success') {
         this.queryIsWorkDay();
       }
