@@ -10,7 +10,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-position: left 50% top 0%;
     background-size: 50%;
   }
-  
+
   .mat-cell,
 .mat-header-cell {
   word-wrap: initial;
@@ -25,3 +25,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-header-row {
   display: table-row;
 }
+

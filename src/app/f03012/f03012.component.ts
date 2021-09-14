@@ -134,7 +134,7 @@ export class F03012Component implements OnInit {
   }
   add() {
     const dialogRef = this.dialog.open(F03012addComponent, {
-      minHeight: '100vh',
+      minHeight: '70vh',
       width: '50%',
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -146,7 +146,7 @@ export class F03012Component implements OnInit {
 
   edit(compareTable: string, compareColumn: string, compareType:string, setValueHight:string, setValueLow:string) {
     const dialogRef = this.dialog.open(F03012editComponent, {
-      minHeight: '100vh',
+      minHeight: '70vh',
       width: '50%',
       data: {
         compareTable: compareTable,
