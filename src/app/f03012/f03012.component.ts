@@ -55,9 +55,9 @@ export class F03012Component implements OnInit {
         const desc = jsonObj['codeDesc'];
         this.compareTableCode.push({ value: codeNo, viewValue: desc })
       }
-      // for (const jsonObj of data.rspBody.functionList) {
-      //   this.chkArray.push({ value: jsonObj['FN_NO'], completed: false })
-      // }
+      for (const jsonObj of data.rspBody) {
+        this.chkArray.push({ value: jsonObj['codeNo'], completed: false })
+      }
       // this.mappingCodeSource.data = data.rspBody.functionList;
       // for (let i = 0; i < this.compareTableCode.length; i++) {
       //   this.f03012Service.getSysTypeCode(this.compareTableCode[i].value, 'f03/f03012')
