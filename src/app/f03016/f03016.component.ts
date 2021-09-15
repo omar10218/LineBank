@@ -1,13 +1,10 @@
 
-import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { F03016Service } from './f03016.service';;
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { MappingCode } from '../mappingcode.model';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 
 
 interface sysCode {
