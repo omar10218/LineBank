@@ -21,11 +21,20 @@ export class F03016Service extends BaseService {
   saveComePareDataSetList(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
-  update(baseUrl: string, data: any): any {
-    const formdata: FormData = new FormData();
-    formdata.append('DssJcicSet', data.DssJcicSet);
-    formdata.append('BasicLimit', data.BasicLimit);
-    formdata.append('IsJcic', data.IsJcic);
-    return this.saveOrEditMsgString(baseUrl, formdata);
+  update(baseUrl: string, jsonObject: any): any {
+
+    jsonObject['DssJcicSet'] =  jsonObject.DssJcicSet;
+    jsonObject['BasicLimit'] =  jsonObject.BasicLimit;
+    jsonObject['IsJcic'] =  jsonObject.IsJcic;
+    jsonObject['TransEmpNo'] =  jsonObject.TransEmpNo;
+
+    // const formdata: FormData = new FormData();
+    // formdata.append('DssJcicSet', jsonObject.DssJcicSet);
+    // formdata.append('BasicLimit', jsonObject.BasicLimit);
+    // formdata.append('IsJcic', jsonObject.IsJcic);
+    // formdata.append('TransEmpNo', jsonObject.transEmpNo);
+    // console.log(formdata);
+    return this.saveOrEditMsgString(baseUrl, jsonObject);
+
   }
 }
