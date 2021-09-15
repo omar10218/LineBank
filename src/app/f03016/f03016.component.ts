@@ -54,6 +54,7 @@ export class F03016Component implements OnInit {
     console.log(this.transEmpNo)
     const baseUrl = 'f03/f03016';
     this.getCustomerInfo();
+
   }
   //取得資料
   getCustomerInfo(){
