@@ -1,28 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
+import { ChildrenService } from '../children.service';
+import { Childscn2page1Component } from './childscn2page1/childscn2page1.component';
+
+enum Page {
+  Page1,
+}
 
 @Component({
   selector: 'app-childscn2',
   templateUrl: './childscn2.component.html',
   styleUrls: ['./childscn2.component.css','../../../assets/css/f01.css']
 })
-export class Childscn2Component implements OnInit {
+export class Childscn2Component implements OnInit, AfterViewInit {
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private componenFactoryResolver: ComponentFactoryResolver,
+    public childService: ChildrenService
+  ) { }
+
+  @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
   private applno: string;
   private search: string;
   private cuid: string;
   private routerCase: string;
   private fds: string
+  component = new Map<Page, any>(
+    [
+      [Page.Page1, Childscn2page1Component],
+    ]
+  );
+  nowPage = Page.Page1;
+  readonly Page = Page;
+
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.search = params['search'];
-      this.cuid = params['cuid'];
-      this.routerCase = params['routerCase'];
-      this.fds = params['fds'];
-    });
-    this.router.navigate(['./'+this.routerCase+'/CHILDSCN2/CHILDSCN2PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase , fds: this.fds } });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.search = caseParams.search;
+    this.cuid = caseParams.cuid;
+    this.fds = caseParams.fds;
+    // const url = window.location.href.split("/");
+    // this.router.navigate(['./'+url[4]+'/'+url[5]+'/CHILDSCN2/CHILDSCN2PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase , fds: this.fds } });
+  }
+
+  ngAfterViewInit() {
+    this.changePage(this.nowPage);
+  }
+
+  changePage( page: Page ): void {
+    this.nowPage = page;
+    const componentFactory = this.componenFactoryResolver.resolveComponentFactory( this.component.get(this.nowPage));
+    const viewContainerRef = this.appDynamic.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef = viewContainerRef.createComponent(componentFactory);
   }
 
   getApplno(): String {

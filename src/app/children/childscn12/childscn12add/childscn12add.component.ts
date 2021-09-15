@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn12Service } from '../childscn12.service';
-import { Childscn12confirmComponent } from '../childscn12confirm/childscn12confirm.component';
 interface ynCode {
   value: string;
   viewValue: string;
@@ -42,7 +42,7 @@ export class Childscn12addComponent implements OnInit {
       msgStr = data.rspMsg;
     });
 
-    const childernDialogRef = this.dialog.open(Childscn12confirmComponent, {
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '儲存成功' && codeStr === '0000') { this.dialogRef.close({ event: 'success' }); }

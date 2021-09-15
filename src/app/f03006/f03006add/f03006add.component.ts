@@ -1,13 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { OptionsCode } from 'src/app/interface/base';
 import { F03006Service } from '../f03006.service';
-import { F03006confirmComponent } from '../f03006confirm/f03006confirm.component';
-
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-f03006add',
@@ -16,7 +12,7 @@ interface sysCode {
 })
 export class F03006addComponent implements OnInit {
 
-  dateType: sysCode[];
+  dateType: OptionsCode[];
   // ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
   // surrogateCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
   // unitCode: sysCode[] = [];
@@ -62,7 +58,7 @@ export class F03006addComponent implements OnInit {
     let msgStr: string = "";
     let baseUrl = 'f03/f03006action2';
     msgStr = await this.f03006Service.addorEditSystemCodeSet(baseUrl, this.data);
-    const childernDialogRef = this.dialog.open(F03006confirmComponent, {
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '新增成功!') { this.dialogRef.close({ event: 'success' }); }

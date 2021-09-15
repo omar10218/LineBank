@@ -1,7 +1,9 @@
 <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN10PAGE1"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), queryDate: getDate(), routerCase: getRouterCase(), fds: getFds() }">徵信階段</button>
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN10PAGE2"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), queryDate: getDate(), routerCase: getRouterCase(), fds: getFds() }">授信階段</button>
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN10PAGE3"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), queryDate: getDate(), routerCase: getRouterCase(), fds: getFds() }">產生合約前回查</button>
-  </div>
-  <router-outlet></router-outlet>
-
+  <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page1)">徵信階段</button>
+  <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page2)">授信階段</button>
+  <button class="btn" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page3)">產生合約前回查</button>
+</div>
+<ng-container appDynamic></ng-container>

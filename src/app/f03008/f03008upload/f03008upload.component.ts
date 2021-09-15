@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F03008Service } from '../f03008.service';
 import * as XLSX from 'xlsx';
-import { F03008confirmComponent } from '../f03008confirm/f03008confirm.component';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 
 @Component({
   selector: 'app-f03008upload',
@@ -38,7 +38,7 @@ export class F03008uploadComponent implements OnInit {
     let msgStr: string = "";
     let baseUrl = 'f03/f03008action2';
     msgStr = await this.f03008Service.addOrEditAdrCodeSet(baseUrl, this.empNo, formdata);
-    const childernDialogRef = this.dialog.open(F03008confirmComponent, {
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '上傳成功!!') { this.dialogRef.close({ event: 'success' }); }
@@ -78,7 +78,7 @@ export class F03008uploadComponent implements OnInit {
         i += 1;
       }
       if (!this.JsonBool) {
-        const childernDialogRef = this.dialog.open(F03008confirmComponent, {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "EXCEL檔案格式不正確!"}
         });
       }else

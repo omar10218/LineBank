@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Childscn14Service } from '../childscn14.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ChildrenService } from '../../children.service';
 
 @Component({
   selector: 'app-childscn14page1',
@@ -11,25 +12,32 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class Childscn14page1Component implements OnInit {
 
+  constructor(
+    private sanitizer:DomSanitizer ,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private childscn14Service: Childscn14Service,
+    public childService: ChildrenService
+  ) { }
+
   imageForm: FormGroup = this.fb.group({
     APPLNO: ['', []]
   });
   src:SafeResourceUrl;
   dateValue: string;
-  constructor(private sanitizer:DomSanitizer , private fb: FormBuilder, private route: ActivatedRoute, private childscn14Service: Childscn14Service) { }
+
   private applno: string;
   private cuid: string;
 
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.cuid = params['cuid'];
-      var origin = window.location.origin;
-      var host = origin.substring(0, origin.lastIndexOf(":"));
-      console.log(host)
-      this.src = this.sanitizer.bypassSecurityTrustResourceUrl(host + ":8080/LineBankViewone/pages/ImagePage1.jsp?applno=" + this.applno);
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.cuid = caseParams.cuid;
+    var origin = window.location.origin;
+    var host = origin.substring(0, origin.lastIndexOf(":"));
+    console.log(host)
+    this.src = this.sanitizer.bypassSecurityTrustResourceUrl(host + ":8080/LineBankViewone/pages/ImagePage1.jsp?applno=" + this.applno);
 
     const url = 'f01/childscn14';
     const formdata: FormData = new FormData();

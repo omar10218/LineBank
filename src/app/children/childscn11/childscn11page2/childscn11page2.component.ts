@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MappingCode } from 'src/app/mappingcode.model';
+import { ChildrenService } from '../../children.service';
 import { Childscn11Service } from '../childscn11.service';
-interface sysCode {
-  value: number;
-  valuebool: boolean;
-}
 interface Code {
   compareColumn: string;
   result: string;
@@ -19,6 +16,13 @@ interface Code {
   styleUrls: ['./childscn11page2.component.css', '../../../../assets/css/f01.css']
 })
 export class Childscn11page2Component implements OnInit {
+
+  constructor(
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private childscn11Service: Childscn11Service,
+    public childService: ChildrenService
+  ) { }
 
   private applno: string;
   mappingOption: MappingCode[];
@@ -49,12 +53,9 @@ export class Childscn11page2Component implements OnInit {
     CP_ADDR_FUZZY: ['', []],//			公司地址模糊比對次數
   });
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private childscn11Service: Childscn11Service) { }
-
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
     this.getCOMPARE();
   }
 

@@ -3,13 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { OptionsCode } from '../interface/base';
 import { F03005Service } from './f03005.service';
 import { F03005addComponent } from './f03005add/f03005add.component';
 import { F03005editComponent } from './f03005edit/f03005edit.component';
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-f03005',
@@ -18,9 +15,9 @@ interface sysCode {
 })
 export class F03005Component implements OnInit {
 
-  adrType: sysCode[] = [];  //最上層下拉
-  secondType: sysCode[] = [];  //第二層下拉
-  thirdType: sysCode[] = [];  //第三層下拉
+  adrType: OptionsCode[] = [];  //最上層下拉
+  secondType: OptionsCode[] = [];  //第二層下拉
+  thirdType: OptionsCode[] = [];  //第三層下拉
   selectedAdrValue: string;  //最上層
   selectedSecondValue: string;  //第二層選擇
   selectedThirdValue: string;  //第三層選擇
@@ -28,9 +25,9 @@ export class F03005Component implements OnInit {
   constructor(private f03005Service: F03005Service, public dialog: MatDialog) { }
   ngOnInit(): void {
     this.f03005Service.getSysTypeCode('ADR_CODE').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
         this.adrType.push({ value: codeNo, viewValue: desc })
       }
     });

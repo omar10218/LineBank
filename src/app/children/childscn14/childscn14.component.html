@@ -1,7 +1,9 @@
 <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN14PAGE1"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">PAGE1</button>
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN14PAGE2"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">PAGE2</button>
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN14PAGE3"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">PAGE3</button>
-  </div>
-  <router-outlet></router-outlet>
-
+  <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page1)">PAGE1</button>
+  <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page2)">PAGE2</button>
+  <button class="btn" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page3)">PAGE3</button>
+</div>
+<ng-container appDynamic></ng-container>

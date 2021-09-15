@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from './../environments/environment';
+import { CommonRes, Mapping } from './interface/base';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class BaseService {
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formdata);
   }
 
-  public getSysTypeCode(codeType: string): Observable<any> {
+  public getSysTypeCode(codeType: string): Observable<Mapping> {
     let targetUrl = `sys/getMappingCode?codeType=${codeType}`;
     return this.postHttpClient(targetUrl);
   }
@@ -61,7 +62,7 @@ export class BaseService {
   public async saveOrEditMsgString(baseUrl: string, formdata: FormData): Promise<string> {
     let rspCode: any;
     let rspMsg: any;
-    await this.saveOrEditWithFormData(baseUrl, formdata).then((data) => {
+    await this.saveOrEditWithFormData(baseUrl, formdata).then((data: CommonRes) => {
       rspCode = data.rspCode;
       rspMsg = data.rspMsg;
     })

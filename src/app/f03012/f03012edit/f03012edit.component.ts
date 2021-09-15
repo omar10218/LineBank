@@ -2,13 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { OptionsCode } from 'src/app/interface/base';
 import { F03012Service } from '../f03012.service';
-import { F03012confirmComponent } from '../f03012confirm/f03012confirm.component';
 
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 @Component({
   selector: 'app-f03012edit',
   templateUrl: './f03012edit.component.html',
@@ -18,10 +15,10 @@ export class F03012editComponent implements OnInit {
   selectedValue1: string;
   selectedValue2: string;
   setValue: string;
-  selectedColumn: sysCode[] = [];
+  selectedColumn: OptionsCode[] = [];
 
-  compareTableCode: sysCode[] = [];
-  compareColumnCode: sysCode[] = [];
+  compareTableCode: OptionsCode[] = [];
+  compareColumnCode: OptionsCode[] = [];
 
   oldCompareTable: string;
   oldCompareColumn: string;
@@ -46,17 +43,17 @@ export class F03012editComponent implements OnInit {
     console.log(this.data.setValue)
     this.f03012Service.getSysTypeCode('COMPARE_TABLE')
       .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
           this.compareTableCode.push({ value: codeNo, viewValue: desc })
         }
       });
     this.f03012Service.getSysTypeCode(this.data.compareTable)
       .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
           this.compareColumnCode.push({ value: codeNo, viewValue: desc })
         }
       });
@@ -72,7 +69,7 @@ export class F03012editComponent implements OnInit {
     let msgStr: string = "";
     let baseUrl = 'f03/f03012action2';
     msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn,this.setValueLow, this.setValueHight ,this.compareType,);
-    const childernDialogRef = this.dialog.open(F03012confirmComponent, {
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
@@ -82,9 +79,9 @@ export class F03012editComponent implements OnInit {
     this.data.compareColumn = '';
     this.f03012Service.getSysTypeCode(this.data.compareTable)
       .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
           this.compareColumnCode.push({ value: codeNo, viewValue: desc })
         }
       });

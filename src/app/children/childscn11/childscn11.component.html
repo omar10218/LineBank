@@ -1,9 +1,14 @@
 <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN11PAGE1"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">本案申請書資訊合理性</button>
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN11PAGE2"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">歷史申請書比對(不同NID)</button>
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN11PAGE3"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">歷史申請書比對(同一NID)</button>
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN11PAGE4"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">KRM043報送資料比對</button>
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN11PAGE5"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">BAM061報送資料比對</button>
+  <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page1)">本案申請書資訊合理性</button>
+  <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page2)">歷史申請書比對(不同NID)</button>
+  <button class="btn" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page3)">歷史申請書比對(同一NID)</button>
+  <button class="btn" [class.active]="nowPage === Page.Page4" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page4)">KRM043報送資料比對</button>
+  <button class="btn" [class.active]="nowPage === Page.Page5" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page5)">BAM061報送資料比對</button>
 </div>
-<router-outlet></router-outlet>
-
+<!-- <router-outlet></router-outlet> -->
+<ng-container appDynamic></ng-container>

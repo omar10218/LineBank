@@ -1,21 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { OptionsCode } from '../interface/base';
 import { MappingCode } from '../mappingcode.model';
 import { F03012Service } from './f03012.service';
 import { F03012addComponent } from './f03012add/f03012add.component';
-import { F03012confirmComponent } from './f03012confirm/f03012confirm.component';
 import { F03012editComponent } from './f03012edit/f03012edit.component';
-import {ThemePalette} from '@angular/material/core';
 
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 interface checkBox {
   value: string;
   completed: boolean;
@@ -33,11 +27,11 @@ export class F03012Component implements OnInit {
   chkArray: checkBox[] = [];
   selectedValue: string = 'default';
   selectedValue1:string;
-  sysCode: sysCode[] = [];
-  selectedColumn: sysCode[] = [];
-  compareTableCode: sysCode[] = [];
-  compareColumnCode: sysCode[] = [];
-  compareType: sysCode[] = [];
+  sysCode: OptionsCode[] = [];
+  selectedColumn: OptionsCode[] = [];
+  compareTableCode: OptionsCode[] = [];
+  compareColumnCode: OptionsCode[] = [];
+  compareType: OptionsCode[] = [];
   currentPage: PageEvent;
   currentSort: Sort;
   allComplete: boolean = false;
@@ -50,9 +44,9 @@ export class F03012Component implements OnInit {
 
     this.f03012Service.getSysTypeCode('COMPARE_TABLE')
     .subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
         this.compareTableCode.push({ value: codeNo, viewValue: desc })
       }
       // for (const jsonObj of data.rspBody.functionList) {
@@ -128,7 +122,7 @@ export class F03012Component implements OnInit {
     // };
 
     setTimeout(() => {
-      const DialogRef = this.dialog.open(F03012confirmComponent, { data: { msgStr: msg } });
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       window.location.reload();
     }, 1500);
   }
@@ -193,9 +187,9 @@ export class F03012Component implements OnInit {
     this.selectedColumn=[];
     this.f03012Service.getSysTypeCode(this.selectedValue1)
     .subscribe(data => {
-      for(const jsonObj of data.rpsBody){
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
+      for(const jsonObj of data.rspBody.mappingList){
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
         this.selectedColumn.push({value:codeNo, viewValue:desc})
       }
     })
