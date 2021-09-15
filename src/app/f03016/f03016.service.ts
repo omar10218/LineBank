@@ -26,6 +26,7 @@ export class F03016Service extends BaseService {
     formdata.append('DssJcicSet', jsonObject.DssJcicSet);
     formdata.append('BasicLimit', jsonObject.BasicLimit);
     formdata.append('IsJcic', jsonObject.IsJcic);
+    formdata.append('TransEmpNo', jsonObject.transEmpNo);
     return this.saveOrEditMsgString(baseUrl, formdata);
   }
 }

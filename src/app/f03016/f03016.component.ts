@@ -29,7 +29,7 @@ export class F03016Component implements OnInit {
   columnName: string = '';
   originalValue:number = 0;
   currentValue:number = 0;
-  transEmpNo:number;
+  transEmpNo:string= localStorage.getItem("empNo");;
   transDate:string;
   ChangeSource:any;
 
@@ -78,6 +78,7 @@ export class F03016Component implements OnInit {
     jsonObject['DssJcicSet'] = this.DssJcicSet;
     jsonObject['BasicLimit'] = this.BasicLimit;
     jsonObject['IsJcic'] = this.IsJcic;
+    jsonObject['TransEmpNo'] = this.transEmpNo;
     console.log(jsonObject);
     let msgStr: string = "";
     let baseUrl = 'f03/f03016action1';
