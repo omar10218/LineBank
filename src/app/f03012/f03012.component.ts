@@ -49,7 +49,8 @@ export class F03012Component implements OnInit {
         const desc = jsonObj.codeDesc;
         this.compareTableCode.push({ value: codeNo, viewValue: desc })
       }
-      for (const jsonObj of data.rspBody) {
+
+      for (const jsonObj of data.rspBody.mappingList) {
         this.chkArray.push({ value: jsonObj['codeNo'], completed: false })
       }
       // this.mappingCodeSource.data = data.rspBody.functionList;

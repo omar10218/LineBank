@@ -27,7 +27,7 @@
   </table>
 </form>
 <!-- 動波設定 -->
-<form width='100%'>
+<form width='100%' [formGroup]="customerInfoForm">
   <table bordercolor="#000000" cellspacing="0" cellpadding="2" style="border-collapse:collapse;width: 1200px;">
     <tr>
       <th width='25%' textAlign="center" colspan=4>動波設定</th>
@@ -37,7 +37,7 @@
       <td class="td2" width='25%'>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>金額設定</mat-label>
-          <input matInput placeholder="輸入金額" value="" formControlName="BASIC_LIMIT">
+          <input matInput placeholder="輸入金額" [(ngModel)]="BasicLimit" formControlName="BASIC_LIMIT">
         </mat-form-field>
       </td>
       <td width='25%'></td>
@@ -51,16 +51,8 @@
           <mat-radio-button [value]="'Y'">是</mat-radio-button>
           <mat-radio-button [value]="'N'">否</mat-radio-button>
         </mat-radio-group>
-        <label id="example-radio-group-label">Pick your favorite season</label>
-<mat-radio-group
-  aria-labelledby="example-radio-group-label"
-  class="example-radio-group"
-  [(ngModel)]="favoriteSeason">
-  <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
-    {{season}}
-  </mat-radio-button>
-</mat-radio-group>
-<div>Your favorite season is: {{favoriteSeason}}</div>
+
+
         {{IsJcic}}
       </td>
       <td width='25%'></td>
@@ -73,7 +65,7 @@
 
 <br>
 <br>
-<form width='100%'>
+<form width='100%'[formGroup]="customerInfoForm">
   <table bordercolor="#000000" cellspacing="0" cellpadding="2" style="border-collapse:collapse;width: 1200px;">
     <tr>
       <th width='20%' textAlign="center" colspan=5>異動紀錄</th>
@@ -85,12 +77,12 @@
       <th width='20%'style="background-color: #4DFFFF;">處理員編</th>
       <th width='20%'style="background-color: #4DFFFF;">異動時間</th>
     </tr>
-    <tr>
-      <td class="td2" width='20%'></td>
-      <td class="td2" width='20%'></td>
-      <td class="td2" width='20%'></td>
-      <td class="td2" width='20%'></td>
-      <td class="td2" width='20%'></td>
+    <tr  *ngFor="let data of ChangeSource">
+      <td class="td2" width='20%' >{{data.columnName}}</td>
+      <td class="td2" width='20%'>{{data.originalValue}}</td>
+      <td class="td2" width='20%'>{{data.currentValue}}</td>
+      <td class="td2" width='20%'>{{data.transEmpNo}}</td>
+      <td class="td2" width='20%'>{{data.transDate}}</td>
 
     </tr>
 
