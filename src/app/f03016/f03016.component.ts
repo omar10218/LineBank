@@ -51,10 +51,11 @@ export class F03016Component implements OnInit {
   constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<F03016Service>,private f03016Service: F03016Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
+    console.log(this.transEmpNo)
     const baseUrl = 'f03/f03016';
     this.getCustomerInfo();
   }
-  //
+  //取得資料
   getCustomerInfo(){
     const formdata: FormData = new FormData();
     this.f03016Service.getCustomerInfoSearch(formdata).subscribe(data => {
@@ -79,6 +80,7 @@ export class F03016Component implements OnInit {
     jsonObject['BasicLimit'] = this.BasicLimit;
     jsonObject['IsJcic'] = this.IsJcic;
     jsonObject['TransEmpNo'] = this.transEmpNo;
+    console.log(this.transEmpNo)
     console.log(jsonObject);
     let msgStr: string = "";
     let baseUrl = 'f03/f03016action1';
@@ -89,6 +91,7 @@ export class F03016Component implements OnInit {
       data: { msgStr: msgStr }
     });
     if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
+    this.ChangeSource.append(jsonObject)
   }
 
   ngAfterViewInit(): void {

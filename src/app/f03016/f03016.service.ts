@@ -22,11 +22,19 @@ export class F03016Service extends BaseService {
     return this.postFormData(baseUrl, formData);
   }
   update(baseUrl: string, jsonObject: any): any {
-    const formdata: FormData = new FormData();
-    formdata.append('DssJcicSet', jsonObject.DssJcicSet);
-    formdata.append('BasicLimit', jsonObject.BasicLimit);
-    formdata.append('IsJcic', jsonObject.IsJcic);
-    formdata.append('TransEmpNo', jsonObject.transEmpNo);
-    return this.saveOrEditMsgString(baseUrl, formdata);
+
+    jsonObject['DssJcicSet'] =  jsonObject.DssJcicSet;
+    jsonObject['BasicLimit'] =  jsonObject.BasicLimit;
+    jsonObject['IsJcic'] =  jsonObject.IsJcic;
+    jsonObject['TransEmpNo'] =  jsonObject.TransEmpNo;
+
+    // const formdata: FormData = new FormData();
+    // formdata.append('DssJcicSet', jsonObject.DssJcicSet);
+    // formdata.append('BasicLimit', jsonObject.BasicLimit);
+    // formdata.append('IsJcic', jsonObject.IsJcic);
+    // formdata.append('TransEmpNo', jsonObject.transEmpNo);
+    // console.log(formdata);
+    return this.saveOrEditMsgString(baseUrl, jsonObject);
+
   }
 }
