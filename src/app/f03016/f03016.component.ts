@@ -1,12 +1,8 @@
-import { F03016confirmComponent } from './f03016confirm/f03016confirm.component';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { F03016Service } from './f03016.service';;
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { MappingCode } from '../mappingcode.model';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 
 
 interface sysCode {
@@ -93,7 +89,7 @@ export class F03016Component implements OnInit {
         IsJcic: this.IsJcic,
     });
 
-    const childernDialogRef = this.dialog.open(F03016confirmComponent, {
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
