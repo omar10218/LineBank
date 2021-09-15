@@ -5,15 +5,12 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { OptionsCode } from 'src/app/interface/base';
+import { ChildrenService } from '../children.service';
 import { Childscn8Service } from './childscn8.service';
 import { Childscn8addComponent } from './childscn8add/childscn8add.component';
-import { Childscn8confirmComponent } from './childscn8confirm/childscn8confirm.component';
 import { Childscn8editComponent } from './childscn8edit/childscn8edit.component';
-//下拉選單框架
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 //徵信照會table框架
 interface CALLOUTCode {
@@ -39,13 +36,22 @@ interface CALLOUTCode {
 })
 export class Childscn8Component implements OnInit {
 
-  CON_TEL_Code: sysCode[] = [];//電話種類下拉選單
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    public dialog: MatDialog,
+    private childscn8Service: Childscn8Service,
+    public childService: ChildrenService
+  ) { }
+
+  CON_TEL_Code: OptionsCode[] = [];//電話種類下拉選單
   CON_TEL_Selected: string;//電話種類
   CON_TEL_Value: string;//電話種類
-  CON_TARGET_Code: sysCode[] = [];//對象種類下拉選單
+  CON_TARGET_Code: OptionsCode[] = [];//對象種類下拉選單
   CON_TARGET_Selected: string;//對象種類
   CON_TARGET_Value: string;//對象種類
-  CON_MEMO_Code: sysCode[] = [];//註記種類下拉選單
+  CON_MEMO_Code: OptionsCode[] = [];//註記種類下拉選單
   CON_MEMO_Selected: string;//註記種
   CON_MEMO_Value: string;//註記種
 
@@ -55,15 +61,13 @@ export class Childscn8Component implements OnInit {
   rspBodyData: any;//table資料
   currentPage: PageEvent; //表單資料筆數設定
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, public dialog: MatDialog, private childscn8Service: Childscn8Service) { }
   private applno: string;
   private search: string;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.search = params['search'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.search = caseParams.search;
 
     //表單資料筆數設定
     this.currentPage = {
@@ -73,27 +77,27 @@ export class Childscn8Component implements OnInit {
     };
 
     //取下拉選單資料
-    this.childscn8Service.getSysTypeCode('CON_TEL', 'f01/childscn8')//電話種類下拉選單
+    this.childscn8Service.getSysTypeCode('CON_TEL')//電話種類下拉選單
       .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
           this.CON_TEL_Code.push({ value: codeNo, viewValue: desc })
         }
       });
-    this.childscn8Service.getSysTypeCode('CON_TARGET', 'f01/childscn8')//對象種類下拉選單
+    this.childscn8Service.getSysTypeCode('CON_TARGET')//對象種類下拉選單
       .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
           this.CON_TARGET_Code.push({ value: codeNo, viewValue: desc })
         }
       });
-    this.childscn8Service.getSysTypeCode('CON_MEMO', 'f01/childscn8')//註記種類下拉選單
+    this.childscn8Service.getSysTypeCode('CON_MEMO')//註記種類下拉選單
       .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
           this.CON_MEMO_Code.push({ value: codeNo, viewValue: desc })
         }
       });
@@ -107,13 +111,7 @@ export class Childscn8Component implements OnInit {
     });
   }
 
-  //取收件編號
-  getApplno(): String {
-    return this.applno;
-  }
-
-  //確認徵審或查詢
-  getSearch(): string {
+  getSearch() {
     return this.search;
   }
 
@@ -178,7 +176,7 @@ export class Childscn8Component implements OnInit {
       msg = data.rspMsg;
     });
     setTimeout(() => {
-      const DialogRef = this.dialog.open(Childscn8confirmComponent, { data: { msgStr: msg } });
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       if (msg != null && msg == '刪除成功') { this.refreshTable(); }
     }, 1500);
   }
@@ -240,7 +238,7 @@ export class Childscn8Component implements OnInit {
   }
 
   ShowspeakingContenta(speakingContent: string): void {
-    const DialogRef = this.dialog.open(Childscn8confirmComponent, { data: { msgStr: speakingContent } });
+    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: speakingContent } });
     // alert(speakingContent);
   }
 

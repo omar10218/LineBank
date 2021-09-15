@@ -3,6 +3,7 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { ChildrenService } from '../../children.service';
 import { Childscn2Service } from '../childscn2.service';
 
 
@@ -13,17 +14,21 @@ import { Childscn2Service } from '../childscn2.service';
 })
 export class Childscn2page1Component implements OnInit {
 
-  constructor(private route: ActivatedRoute, private childscn2Service: Childscn2Service) { }
+  constructor(
+    private route: ActivatedRoute,
+    private childscn2Service: Childscn2Service,
+    public childService: ChildrenService
+  ) { }
+
   private applno: string;
   private cuid: string;
   currentPage: PageEvent;
   currentSort: Sort;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.cuid = params['cuid'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.cuid = caseParams.cuid;
 
     this.currentPage = {
       pageIndex: 0,

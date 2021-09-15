@@ -1,13 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { OptionsCode } from '../interface/base';
 import { F03007Service } from './f03007.service';
-import { F03007confirmComponent } from './f03007confirm/f03007confirm.component';
-
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 interface checkBox {
   value: string;
@@ -22,7 +18,7 @@ interface checkBox {
 export class F03007Component implements OnInit, AfterViewInit {
 
   isAllCheck: boolean = false;
-  sysCode: sysCode[] = [];
+  sysCode: OptionsCode[] = [];
   chkArray: checkBox[] = [];
   selectedValue: string = 'default';
   roleFunctionSource = new MatTableDataSource<any>();
@@ -58,7 +54,7 @@ export class F03007Component implements OnInit, AfterViewInit {
     formData.append("fnNo", valArray.toString());
     const baseUrl = 'f03/f03007action2';
     this.f03007Service.saveRoleFunction(baseUrl, formData).subscribe(data => {
-      const childernDialogRef = this.dialog.open(F03007confirmComponent, {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
     });

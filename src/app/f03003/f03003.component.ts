@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { OptionsCode } from '../interface/base';
 import { F03003Service } from './f03003.service';
-import { F03003confirmComponent } from './f03003confirm/f03003confirm.component';
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 interface productImfor {
   name: string;
@@ -22,7 +19,7 @@ interface productImfor {
 export class F03003Component implements OnInit {
 
   selectedValue: string;
-  sysCode: sysCode[] = [{ value: 'Staging', viewValue: '分期型信貸' }, { value: 'Cyclic', viewValue: '循環型信貸' }];
+  sysCode: OptionsCode[] = [{ value: 'Staging', viewValue: '分期型信貸' }, { value: 'Cyclic', viewValue: '循環型信貸' }];
   backgroundSearch: productImfor[] = [
     { name: "黑名單查詢", code: "BLACKSEARCH", check: false },
     { name: "歷史資料", code: "HISTORY", check: false },
@@ -112,7 +109,7 @@ export class F03003Component implements OnInit {
     formData.append("setN", valArrayN.toString());
     const baseUrl = 'f03/f03003action1';
     this.f03003Service.setProduct(baseUrl, formData).subscribe(data => {
-      const childernDialogRef = this.dialog.open(F03003confirmComponent, {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
     });

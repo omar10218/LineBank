@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Childscn15Service } from './childscn15.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { Childscn15confirmComponent } from './childscn15confirm/childscn15confirm.component';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { ChildrenService } from '../children.service';
 
 // Nick 偽冒案件處理
 @Component({
@@ -13,6 +14,13 @@ import { Childscn15confirmComponent } from './childscn15confirm/childscn15confir
 })
 export class Childscn15Component implements OnInit {
 
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private childscn15Service: Childscn15Service,
+    public dialog: MatDialog,
+    public childService: ChildrenService
+  ) { }
 
   manageHigh: string = "";//fm高度偽冒風險
   manageOther: string = "";//fm其他
@@ -31,15 +39,14 @@ export class Childscn15Component implements OnInit {
   // "level2": []
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private childscn15Service: Childscn15Service, public dialog: MatDialog) { }
+
   private applno: string;
   private search: string;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.search = params['search'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.search = caseParams.search;
 
     const baseUrl = 'f01/childscn15';
     this.childscn15Service.getReason(baseUrl, this.applno).subscribe(data => {
@@ -136,7 +143,7 @@ export class Childscn15Component implements OnInit {
 
     //有資料才儲存
     if (fmString == "" && fdString == "") {
-      const childernDialogRef = this.dialog.open(Childscn15confirmComponent, {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請選擇資料!' }
       });
     }
@@ -156,7 +163,7 @@ export class Childscn15Component implements OnInit {
       this.childscn15Service.saveReason(baseUrl, this.applno, formdata).then((data: any) => {
         codeStr = data.rspCode;
         msgStr = data.rspMsg;
-        const childernDialogRef = this.dialog.open(Childscn15confirmComponent, {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
         });
       });

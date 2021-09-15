@@ -14,7 +14,6 @@ import { Childscn6page1Component } from './childscn6/childscn6page1/childscn6pag
 import { Childscn7Component } from './childscn7/childscn7.component';
 import { Childscn8Component } from './childscn8/childscn8.component';
 import { Childscn8addComponent } from './childscn8/childscn8add/childscn8add.component';
-import { Childscn8confirmComponent } from './childscn8/childscn8confirm/childscn8confirm.component';
 import { Childscn8editComponent } from './childscn8/childscn8edit/childscn8edit.component';
 import { Childscn9Component } from './childscn9/childscn9.component';
 import { Childscn9page1Component } from './childscn9/childscn9page1/childscn9page1.component';
@@ -33,12 +32,10 @@ import { Childscn11page4Component } from './childscn11/childscn11page4/childscn1
 import { Childscn11page5Component } from './childscn11/childscn11page5/childscn11page5.component';
 import { Childscn12Component } from './childscn12/childscn12.component';
 import { Childscn12addComponent } from './childscn12/childscn12add/childscn12add.component';
-import { Childscn12confirmComponent } from './childscn12/childscn12confirm/childscn12confirm.component';
 import { Childscn12deleteComponent } from './childscn12/childscn12delete/childscn12delete.component';
 import { Childscn12editComponent } from './childscn12/childscn12edit/childscn12edit.component';
 import { Childscn13Component } from './childscn13/childscn13.component';
 import { Childscn13addComponent } from './childscn13/childscn13add/childscn13add.component';
-import { Childscn13confirmComponent } from './childscn13/childscn13confirm/childscn13confirm.component';
 import { Childscn13deleteComponent } from './childscn13/childscn13delete/childscn13delete.component';
 import { Childscn13editComponent } from './childscn13/childscn13edit/childscn13edit.component';
 import { Childscn13showComponent } from './childscn13/childscn13show/childscn13show.component';
@@ -47,7 +44,7 @@ import { Childscn14page1Component } from './childscn14/childscn14page1/childscn1
 import { Childscn14page2Component } from './childscn14/childscn14page2/childscn14page2.component';
 import { Childscn14page3Component } from './childscn14/childscn14page3/childscn14page3.component';
 import { Childscn15Component } from './childscn15/childscn15.component';
-import { Childscn15confirmComponent } from './childscn15/childscn15confirm/childscn15confirm.component';
+import { CommonLibModule } from '../common-lib/common-lib.module';
 
 
 @NgModule({
@@ -62,7 +59,6 @@ import { Childscn15confirmComponent } from './childscn15/childscn15confirm/child
     Childscn7Component,
     Childscn8Component,
     Childscn8addComponent,
-    Childscn8confirmComponent,
     Childscn8editComponent,
     Childscn9Component,
     Childscn9page1Component,
@@ -81,12 +77,10 @@ import { Childscn15confirmComponent } from './childscn15/childscn15confirm/child
     Childscn11page5Component,
     Childscn12Component,
     Childscn12addComponent,
-    Childscn12confirmComponent,
     Childscn12deleteComponent,
     Childscn12editComponent,
     Childscn13Component,
     Childscn13addComponent,
-    Childscn13confirmComponent,
     Childscn13deleteComponent,
     Childscn13editComponent,
     Childscn13showComponent,
@@ -94,16 +88,15 @@ import { Childscn15confirmComponent } from './childscn15/childscn15confirm/child
     Childscn14page1Component,
     Childscn14page2Component,
     Childscn14page3Component,
-    Childscn15Component,
-    Childscn15confirmComponent
-
+    Childscn15Component
   ],
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    ChildrenRoutingModule
+    ChildrenRoutingModule,
+    CommonLibModule
   ]
 })
 export class ChildrenModule { }

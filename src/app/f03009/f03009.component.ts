@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { OptionsCode } from '../interface/base';
 import { F03009Service } from './f03009.service';
-import { F03009confirmComponent } from './f03009confirm/f03009confirm.component';
-
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 interface checkBox {
   value: string;
@@ -22,7 +18,7 @@ interface checkBox {
 export class F03009Component implements OnInit {
 
   isAllCheck: boolean = false;
-  tvnoCode: sysCode[] = [];
+  tvnoCode: OptionsCode[] = [];
   chkArray: checkBox[] = [];
   selectedValue: string;
   mdnoSource = new MatTableDataSource<any>();
@@ -30,10 +26,10 @@ export class F03009Component implements OnInit {
   constructor(public dialog: MatDialog, private f03009Service: F03009Service) { }
 
   ngOnInit(): void {
-    this.f03009Service.getSysTypeCode('TV_NO','f03/f03009').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
+    this.f03009Service.getSysTypeCode('TV_NO').subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
         this.tvnoCode.push({value: codeNo, viewValue: desc})
       }
     });
@@ -77,7 +73,7 @@ export class F03009Component implements OnInit {
     formData.append("mdNo", valArray.toString());
     const baseUrl = 'f03/f03009action2';
      this.f03009Service.saveTvFunction(baseUrl, formData).subscribe(data => {
-      const childernDialogRef = this.dialog.open(F03009confirmComponent, {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
     });

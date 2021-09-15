@@ -1,23 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OptionsCode } from 'src/app/interface/base';
+import { ChildrenService } from '../children.service';
 import { Childscn3Service } from './childscn3.service';
 
 interface checkBox {
   value: string;
   completed: boolean;
 }
-
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 interface ANNOUNCE_REASON {
   ANNOUNCE_REASON1: string;
   ANNOUNCE_REASON2: string;
 }
-
-
-
 
 @Component({
   selector: 'app-childscn3',
@@ -25,7 +19,14 @@ interface ANNOUNCE_REASON {
   styleUrls: ['./childscn3.component.css']
 })
 export class Childscn3Component implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router, private childsc3Service: Childscn3Service) { }
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private childsc3Service: Childscn3Service,
+    public childService: ChildrenService
+  ) { }
+
   private applno: string;
   private search: string;
   chkArray: checkBox[] = [];
@@ -35,13 +36,12 @@ export class Childscn3Component implements OnInit {
   l1 : ANNOUNCE_REASON[]=[];
   jsonObject :any = {};
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];//案件代碼
-      this.search = params['search'];
-      this.getTable()//抓取資料表
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.search = caseParams.search;
+    this.getTable()//抓取資料表
   }
-  getOptionDesc(option: sysCode[], codeVal: string): string //代碼跑名稱
+  getOptionDesc(option: OptionsCode[], codeVal: string): string //代碼跑名稱
    {
     for (const data of option) {
       if (data.value == codeVal) {

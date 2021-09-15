@@ -1,8 +1,11 @@
 <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN9PAGE1"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">核心系統客戶資料 </button>
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN9PAGE2"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">本行存款往來 </button>
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN9PAGE3"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">本行消金產品(放款及信用卡)往來 </button>
-    <button class = "btn" routerLinkActive="active" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button routerLink="./CHILDSCN9PAGE4"  [queryParams]="{ applno: getApplno(), search: getSearch(), cuid: getCuid(), routerCase: getRouterCase(), fds: getFds() }">本行Debit card交易明細 </button>
-  </div>
-  <router-outlet></router-outlet>
-
+  <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page1)">核心系統客戶資料 </button>
+  <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page2)">本行存款往來 </button>
+  <button class="btn" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page3)">本行消金產品(放款及信用卡)往來 </button>
+  <button class="btn" [class.active]="nowPage === Page.Page4" style="margin-bottom: 5px; margin-left: 5px;"
+    mat-stroked-button (click)="changePage(Page.Page4)">本行Debit card交易明細 </button>
+</div>
+<ng-container appDynamic></ng-container>

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Childscn6page1Component } from './childscn6page1/childscn6page1.component';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Childscn6Service } from './childscn6.service';
+import { ChildrenService } from '../children.service';
+import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
 interface dateCode {
   value: string;
   viewValue: string;
@@ -13,24 +16,29 @@ interface dateCode {
 })
 export class Childscn6Component implements OnInit {
 
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private childscn6Service: Childscn6Service,
+    private componenFactoryResolver: ComponentFactoryResolver,
+    public childService: ChildrenService
+  ) { }
+
+  @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
   dateCode: dateCode[] = [];
   dateValue: string;
   toggle = true;
-
-  constructor(private route: ActivatedRoute, private router: Router, private childscn6Service: Childscn6Service) { }
   private applno: string;
   private search: string;
   private cuid: string;
   private routerCase: string;
   private fds: string
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.search = params['search'];
-      this.cuid = params['cuid'];
-      this.routerCase = params['routerCase'];
-      this.fds = params['fds'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.search = caseParams.search;
+    this.cuid = caseParams.cuid;
+    this.fds = caseParams.fds;
     const url = 'f01/childscn6';
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
@@ -42,32 +50,32 @@ export class Childscn6Component implements OnInit {
           this.dateCode.push({value: data.rspBody.items[i].QUERYDATE , viewValue: data.rspBody.items[i].QUERYDATE })
         }
         this.dateValue = data.rspBody.items[0].QUERYDATE
-        this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase, fds: this.fds} });
+        this.childService.setData({
+          applno: this.applno,
+          cuid: this.cuid,
+          search: this.search,
+          fds: this.fds,
+          queryDate: this.dateValue
+        });
+        //this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase, fds: this.fds} });
       }
     });
   }
 
-  getApplno(): String {
-    return this.applno;
-  }
-
-  getSearch() :string {
-    return this.search;
-  }
-
-  getCuid() :string {
-    return this.cuid;
-  }
-
-  getDate() :string{
-    return this.dateValue;
+  ngAfterViewInit() {
+    this.resetPage();
   }
 
   changeDate() {
-    this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase } });
+    this.resetPage();
+    //this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase } });
   }
 
-  getRouterCase(): string {
-    return this.routerCase;
+  resetPage() {
+    const componentFactory = this.componenFactoryResolver.resolveComponentFactory( Childscn6page1Component);
+    const viewContainerRef = this.appDynamic.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef = viewContainerRef.createComponent(componentFactory);
   }
+
 }

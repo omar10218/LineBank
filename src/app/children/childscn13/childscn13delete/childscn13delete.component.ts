@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn13Service } from '../childscn13.service';
-import { Childscn13confirmComponent } from '../childscn13confirm/childscn13confirm.component';
 
 @Component({
   selector: 'app-childscn13delete',
@@ -31,7 +31,7 @@ export class Childscn13deleteComponent implements OnInit {
       codeStr = data.rspCode;
       msgStr = data.rspMsg;
     });
-    const childernDialogRef = this.dialog.open(Childscn13confirmComponent, {
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '刪除成功' && codeStr === '0000') { this.dialogRef.close({ event:'success' }); }

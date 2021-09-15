@@ -4,6 +4,7 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { ChildrenService } from '../../children.service';
 import { Childscn9Service } from '../childscn9.service';
 
 @Component({
@@ -13,7 +14,13 @@ import { Childscn9Service } from '../childscn9.service';
 })
 export class Childscn9page3Component implements OnInit {
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private childscn9Service: Childscn9Service) { }
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private childscn9Service: Childscn9Service,
+    public childService: ChildrenService
+  ) { }
+
   private applno: string;
   private cuid: string;
   private search: string;
@@ -31,10 +38,9 @@ export class Childscn9page3Component implements OnInit {
   INSTAL_APPL_INFOSource = new MatTableDataSource<any>();
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.cuid = params['cuid'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.cuid = caseParams.cuid;
 
     this.currentPage = {
       pageIndex: 0,

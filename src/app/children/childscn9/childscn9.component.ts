@@ -1,9 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
+import { OptionsCode } from 'src/app/interface/base';
+import { ChildrenService } from '../children.service';
 import { Childscn9Service } from './childscn9.service';
-interface dateCode {
-  value: string;
-  viewValue: string;
+import { Childscn9page1Component } from './childscn9page1/childscn9page1.component';
+import { Childscn9page2Component } from './childscn9page2/childscn9page2.component';
+import { Childscn9page3Component } from './childscn9page3/childscn9page3.component';
+import { Childscn9page4Component } from './childscn9page4/childscn9page4.component';
+
+enum Page {
+  Page1,
+  Page2,
+  Page3,
+  Page4
 }
 
 @Component({
@@ -13,51 +23,56 @@ interface dateCode {
 })
 export class Childscn9Component implements OnInit {
 
-  dateCode: dateCode[] = [];
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private childscn9Service: Childscn9Service,
+    private componenFactoryResolver: ComponentFactoryResolver,
+    public childService: ChildrenService
+  ) { }
+
+  @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
+  dateCode: OptionsCode[] = [];
   dateValue: string;
 
-  constructor(private route: ActivatedRoute, private router: Router, private childscn9Service: Childscn9Service) { }
   private applno: string;
   private search: string;
   private cuid: string;
   private routerCase: string;
   private fds: string
+  component = new Map<Page, any>(
+    [
+      [Page.Page1, Childscn9page1Component],
+      [Page.Page2, Childscn9page2Component],
+      [Page.Page3, Childscn9page3Component],
+      [Page.Page4, Childscn9page4Component]
+    ]
+  );
+  nowPage = Page.Page1;
+  readonly Page = Page;
+
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.search = params['search'];
-      this.cuid = params['cuid'];
-      this.routerCase = params['routerCase'];
-      this.fds = params['fds'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.search = caseParams.search;
+    this.cuid = caseParams.cuid;
+    this.fds = caseParams.fds;
     const url = 'f01/childscn9';
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
     formdata.append('cuid', this.cuid);
-    this.router.navigate(['./'+this.routerCase+'/CHILDSCN9/CHILDSCN9PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });
+    //this.router.navigate(['./'+this.routerCase+'/CHILDSCN9/CHILDSCN9PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });
   }
 
-  getApplno(): String {
-    return this.applno;
+  ngAfterViewInit() {
+    this.changePage(this.nowPage);
   }
 
-  getSearch(): string {
-    return this.search;
-  }
-
-  getCuid(): string {
-    return this.cuid;
-  }
-
-  getDate(): string {
-    return this.dateValue;
-  }
-
-  getRouterCase(): string {
-    return this.routerCase;
-  }
-
-  getFds(): string{
-    return this.fds;
+  changePage( page: Page ): void {
+    this.nowPage = page;
+    const componentFactory = this.componenFactoryResolver.resolveComponentFactory( this.component.get(this.nowPage));
+    const viewContainerRef = this.appDynamic.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef = viewContainerRef.createComponent(componentFactory);
   }
 }

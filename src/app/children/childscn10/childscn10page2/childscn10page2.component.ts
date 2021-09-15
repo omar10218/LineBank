@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { OptionsCode } from 'src/app/interface/base';
+import { ChildrenService } from '../../children.service';
 import { Childscn10Service } from '../childscn10.service';
-interface dateCode {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-childscn10page2',
@@ -13,6 +11,13 @@ interface dateCode {
   styleUrls: ['./childscn10page2.component.css', '../../../../assets/css/f01.css']
 })
 export class Childscn10page2Component implements OnInit {
+
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private childscn10Service: Childscn10Service,
+    public childService: ChildrenService
+  ) { }
 
   dss2Form: FormGroup = this.fb.group({
     SYSFLOWCD: ['', []],
@@ -92,22 +97,22 @@ export class Childscn10page2Component implements OnInit {
     SPARE_ARRAY2: ['', []],
   });
 
-  dateCode: dateCode[] = [];
+  dateCode: OptionsCode[] = [];
   dateValue: string;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private childscn10Service: Childscn10Service) { }
   private applno: string;
   private cuid: string;
   private queryDate: string;
   private search: string;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.cuid = params['cuid'];
-      this.search = params['search'];
-      this.queryDate = params['queryDate'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.cuid = caseParams.cuid;
+    this.search = caseParams.search;
+    // this.route.queryParams.subscribe(params => {
+    //   this.queryDate = params['queryDate'];
+    // });
 
     const url = 'f01/childscn10';
     const formdata: FormData = new FormData();

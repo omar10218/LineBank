@@ -4,13 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { OptionsCode } from '../interface/base';
 import { F04001Service } from './f04001.service';
-import { F04001confirmComponent } from './f04001confirm/f04001confirm.component';
-
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 interface checkBox {
   value: string;
@@ -26,18 +22,18 @@ interface checkBox {
 export class F04001Component implements OnInit {
 
   isAllCheck: boolean = false;
-  sysCode: sysCode[] = [];
+  sysCode: OptionsCode[] = [];
   selectedValue: string;
   chkArray: checkBox[] = [];
   applnoSource = new MatTableDataSource<any>();
   constructor(private f04001Service: F04001Service, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    const baseUrl = 'f04/f04001';
-    this.f04001Service.getSysTypeCode('FLOW_STEP', baseUrl).subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
+
+    this.f04001Service.getSysTypeCode('FLOW_STEP').subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
         this.sysCode.push({ value: codeNo, viewValue: desc })
       }
     });
@@ -83,10 +79,10 @@ export class F04001Component implements OnInit {
     const baseUrl = 'f04/f04001fn2';
     this.f04001Service.saveFlowStep(baseUrl, this.selectedValue, valArray)
       .subscribe(data => {
-        const childernDialogRef = this.dialog.open(F04001confirmComponent, {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: data.rspMsg }
         });
-        if (data.rspMsg == '解鎖成功') {
+        if (data.rspCode == '0000') {
           this.getLockApplno();
         }
       });

@@ -7,10 +7,6 @@ import { AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { F01001Service } from './f01001.service';
 
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 @Component({
   selector: 'app-f01001',
   templateUrl: './f01001.component.html',

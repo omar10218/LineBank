@@ -1,11 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn8Service } from '../childscn8.service';
-import { Childscn8confirmComponent } from '../childscn8confirm/childscn8confirm.component';
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 //Nick 徵信照會 新增
 @Component({
@@ -33,7 +29,7 @@ export class Childscn8addComponent implements OnInit {
       codeStr = data.rspCode;
       msgStr = data.rspMsg;
     });
-    const childernDialogRef = this.dialog.open(Childscn8confirmComponent, {
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '新增成功!' && codeStr === '0000') { this.dialogRef.close({ event: 'success' }); }

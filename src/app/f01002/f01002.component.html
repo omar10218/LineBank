@@ -59,7 +59,7 @@
                     <mat-cell *matCellDef="let row">
                         <button mat-raised-button color="primary" *ngIf="row.swcReadyForReview=='N'" [disabled]="true">{{
                             row.swcApplno }}</button>
-                        <button mat-raised-button color="primary" *ngIf="row.swcReadyForReview=='Y'" (click)="getLockCase(row.swcApplno)">{{
+                        <button mat-raised-button color="primary" *ngIf="row.swcReadyForReview=='Y'" (click)="getLockCase(row.swcApplno, row.swcID)">{{
                             row.swcApplno }}</button>
                     </mat-cell>
                 </ng-container>
@@ -132,13 +132,13 @@
                             (click)="saveCaseMemo(row.swcApplno, row.swcCaseMemo)">儲存</button>
                     </mat-cell>
                 </ng-container>
-    
-                <mat-header-row *matHeaderRowDef="['swcApplno', 'swcFlowType', 'swcReadyForReview', 'swcZ21PassDate', 'swcID', 'swcName', 
-                    'swcCompany', 'swcCreditLimit', 'swcCusGroupTag', 'swcRiskLevelGroup', 'swcEnterCount', 'swcResult', 
+
+                <mat-header-row *matHeaderRowDef="['swcApplno', 'swcFlowType', 'swcReadyForReview', 'swcZ21PassDate', 'swcID', 'swcName',
+                    'swcCompany', 'swcCreditLimit', 'swcCusGroupTag', 'swcRiskLevelGroup', 'swcEnterCount', 'swcResult',
                     'swcNotifyMsg', 'swcCaseMemo', 'saveNote']; sticky: true">
                 </mat-header-row>
-                <mat-row *matRowDef="let caseListRow; columns: ['swcApplno', 'swcFlowType', 'swcReadyForReview', 'swcZ21PassDate', 'swcID', 
-                    'swcName', 'swcCompany', 'swcCreditLimit', 'swcCusGroupTag', 'swcRiskLevelGroup', 'swcEnterCount', 'swcResult', 
+                <mat-row *matRowDef="let caseListRow; columns: ['swcApplno', 'swcFlowType', 'swcReadyForReview', 'swcZ21PassDate', 'swcID',
+                    'swcName', 'swcCompany', 'swcCreditLimit', 'swcCusGroupTag', 'swcRiskLevelGroup', 'swcEnterCount', 'swcResult',
                     'swcNotifyMsg', 'swcCaseMemo', 'saveNote']">
                 </mat-row>
             </mat-table>

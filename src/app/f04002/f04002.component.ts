@@ -3,12 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { OptionsCode } from '../interface/base';
 import { F04002Service } from './f04002.service';
-import { F04002confirmComponent } from './f04002confirm/f04002confirm.component';
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 interface checkBox {
   value: string;
@@ -22,7 +19,7 @@ interface checkBox {
 })
 export class F04002Component implements OnInit {
 
-  sysCode: sysCode[] = [];
+  sysCode: OptionsCode[] = [];
   selectedValue: string;
   isAllCheck: boolean = false;
   roleFunctionSource = new MatTableDataSource<any>();
@@ -54,10 +51,10 @@ export class F04002Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.f04002Service.getSysTypeCode('STEP_ERROR','f04/f04002').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
+    this.f04002Service.getSysTypeCode('STEP_ERROR').subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
         this.sysCode.push({value: codeNo, viewValue: desc})
       }
     });
@@ -74,10 +71,10 @@ export class F04002Component implements OnInit {
     else{
       const baseUrl = 'f04/f04002fn2';
       this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl,this.selectedValue, valArray, 'A').subscribe(data => {
-       const childernDialogRef = this.dialog.open(F04002confirmComponent, {
+       const childernDialogRef = this.dialog.open(ConfirmComponent, {
          data: { msgStr: data.rspMsg }
        });
-       if(data.rspMsg=='推關成功'){
+       if(data.rspCode=='0000'){
          this.getSTEP_ERRORFunction();
        }
      });
@@ -96,16 +93,15 @@ export class F04002Component implements OnInit {
     else{
       const baseUrl = 'f04/f04002fn2';
       this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl,this.selectedValue, valArray, 'P').subscribe(data => {
-       const childernDialogRef = this.dialog.open(F04002confirmComponent, {
+       const childernDialogRef = this.dialog.open(ConfirmComponent, {
          data: { msgStr: data.rspMsg }
        });
-       if(data.rspMsg=='推關成功'){
+       if(data.rspCode=='0000'){
          this.getSTEP_ERRORFunction();
        }
      });
     }
   }
-
 
   setAll(completed: boolean) {
     for (const obj of this.chkArray) {

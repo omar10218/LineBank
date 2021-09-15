@@ -1,13 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { OptionsCode } from 'src/app/interface/base';
 import { F03008Service } from '../f03008.service';
-import { F03008confirmComponent } from '../f03008confirm/f03008confirm.component';
-
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-f03008edit',
@@ -18,7 +13,7 @@ export class F03008editComponent   {
 
   constructor(public dialogRef: MatDialogRef<F03008editComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03008Service: F03008Service) { }
 
-  YNselect:sysCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
+  YNselect: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
   empNo: string = localStorage.getItem("empNo");
 
   ngOnInit(): void {
@@ -43,7 +38,7 @@ export class F03008editComponent   {
     let msgStr: string = "";
     let baseUrl = 'f03/f03008action3';
     msgStr = await this.f03008Service.addOrEditAdrCodeSet(baseUrl, this.empNo, formdata);
-    const childernDialogRef = this.dialog.open(F03008confirmComponent, {
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '編輯成功!!') { this.dialogRef.close({ event: 'success' }); }

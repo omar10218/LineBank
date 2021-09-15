@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F03005Service } from '../f03005.service';
-import { F03005confirmComponent } from '../f03005confirm/f03005confirm.component';
 
 interface ynCode {
   value: string;
@@ -39,7 +39,7 @@ export class F03005addComponent {
     let msgStr: string = "";
     let baseUrl = 'f03/f03005action2';
     msgStr = await this.f03005Service.addOrEditAdrCodeSet(baseUrl, this.data);
-    const childernDialogRef = this.dialog.open(F03005confirmComponent, {
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '新增成功!') { this.dialogRef.close({ event:'success' }); }

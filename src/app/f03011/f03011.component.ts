@@ -4,15 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { MappingCode } from '../mappingcode.model';
 import { F03011Service } from './f03011.service';
 import { F03011addComponent } from './f03011add/f03011add.component';
-import { F03011confirmComponent } from './f03011confirm/f03011confirm.component';
 import { F03011editComponent } from './f03011edit/f03011edit.component';
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-f03011',
@@ -145,7 +141,7 @@ export class F03011Component implements OnInit, AfterViewInit {
       msg = data.rspMsg;
     });
     setTimeout(() => {
-      const DialogRef = this.dialog.open(F03011confirmComponent, { data: { msgStr: msg } });
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       window.location.reload();
     }, 1500);
   }

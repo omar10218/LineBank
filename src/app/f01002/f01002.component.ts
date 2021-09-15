@@ -6,15 +6,9 @@ import { AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { F01002Service } from './f01002.service';
 import { MatDialog } from '@angular/material/dialog';
-import { F01002confirmComponent } from './f01002confirm/f01002confirm.component';
-
-//20210906 alvin.lee
-
-// 下拉選單
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
+import { ChildrenService } from '../children/children.service';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { OptionsCode } from '../interface/base';
 
 @Component({
   selector: 'app-f01002',
@@ -32,19 +26,26 @@ export class F01002Component implements OnInit, AfterViewInit {
   swcID: string;                                      // 身分證字號
   swcApplno: string;                                  // 案件編號
   caseType: string;                                   // 案件分類
-  caseTypeCode: sysCode[] = [];                       // 案件分類下拉
+  caseTypeCode: OptionsCode[] = [];                       // 案件分類下拉
   agentEmpNo: string;                                 // 代理人
-  agentEmpNoCode: sysCode[] = [];                     // 代理人下拉
+  agentEmpNoCode: OptionsCode[] = [];                     // 代理人下拉
   cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單
   fds: string = "";                                   // fds
-  constructor(private router: Router, private f01002Service: F01002Service, public dialog: MatDialog) { }
+
+  constructor(
+    private router: Router,
+    private f01002Service: F01002Service,
+    public dialog: MatDialog,
+    public childService: ChildrenService
+  ) { }
+
   ngOnInit(): void {
     // 查詢案件分類
-    this.f01002Service.getSysTypeCode('CASE_TYPE', 'sys/getMappingCode').subscribe(data => {
+    this.f01002Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
       this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
         this.caseTypeCode.push({ value: codeNo, viewValue: desc })
       }
     });
@@ -92,7 +93,7 @@ export class F01002Component implements OnInit, AfterViewInit {
   // 查詢案件清單
   getCaseList(empNo: string, swcID: string, swcApplno: string) {
 
-    let jsonObject : any = {};
+    let jsonObject: any = {};
 
     jsonObject['page'] = this.currentPage.pageIndex + 1;
     jsonObject['per_page'] = this.currentPage.pageSize;
@@ -108,8 +109,7 @@ export class F01002Component implements OnInit, AfterViewInit {
 
   //代入條件查詢
   select() {
-    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '')
-    { return alert('請至少選擇一項') }
+    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') { return alert('請至少選擇一項') }
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
@@ -120,13 +120,20 @@ export class F01002Component implements OnInit, AfterViewInit {
   }
 
   // 案件子頁籤
-  getLockCase(swcApplno: string) { 
+  getLockCase(swcApplno: string, swcID: string) {
     this.f01002Service.getLockCase(swcApplno).subscribe(data => {
-      if ( data.rspBody != null ) {
+      if (data.rspBody != null) {
         this.fds = data.rspBody[0].fds
-      } 
+      }
       if (data.rspMsg == '案件鎖定成功') {
-        this.router.navigate(['./F01002/F01002SCN1'], { queryParams: { applno: swcApplno, search: 'N' , routerCase: 'F01002/F01002SCN1' , fds: this.fds } });
+        this.childService.setData({
+           applno: swcApplno,
+           cuid: swcID,
+           search: 'N',
+           fds: this.fds,
+           queryDate: ''
+        });
+        this.router.navigate(['./F01002/F01002SCN1']);
       }
     });
   }
@@ -143,7 +150,7 @@ export class F01002Component implements OnInit, AfterViewInit {
 
   // 打開通知彈窗
   openNotifyMsg(swcApplno: string) {
-    const dialogRef = this.dialog.open(F01002confirmComponent, {
+    const dialogRef = this.dialog.open(ConfirmComponent, {
       minHeight: '50vh',
       width: '30%',
       data: {

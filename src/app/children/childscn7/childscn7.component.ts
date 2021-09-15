@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Childscn7Service } from './childscn7.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { ChildrenService } from '../children.service';
 
 //20210906 新增RPM資訊,SRP同一關係人 alvin.lee
 //Nick AML/FDS/CSS
@@ -12,6 +13,13 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class Childscn7Component implements OnInit {
 
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private childscn7Service: Childscn7Service,
+    public childService: ChildrenService
+  ) { }
+
   CALLOUTSource = new MatTableDataSource<any>();
   AMLSource: any;
   FDSSource: any;
@@ -19,28 +27,14 @@ export class Childscn7Component implements OnInit {
   RPMSource: any;
   SRPSource: any;
 
-
-  constructor(private route: ActivatedRoute, private router: Router, private childscn7Service: Childscn7Service) { }
   private applno: string;
   private search: string;
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];//收編
-      this.search = params['search'];//判斷徵信/查詢
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.search = caseParams.search;
     this.getCALLOUTFunction();
   }
-
-  //取收編
-  getApplno(): String {
-    return this.applno;
-  }
-
-  //判斷徵信/查詢
-  getSearch(): string {
-    return this.search;
-  }
-
 
   private async getCALLOUTFunction() {
     const baseUrl = 'f01/childscn7';
