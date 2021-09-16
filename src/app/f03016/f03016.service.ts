@@ -9,10 +9,9 @@ export class F03016Service extends BaseService {
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getTableDataSetList( ): Observable<any> {
-    const baseUrl ='f03/f03016'
-    // let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
-    return this.postHttpClient(baseUrl);
+  getTableDataSetList(baseUrl: string, pageIndex: number, pageSize: number ): Observable<any> {
+    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
+    return this.postHttpClient(targetUrl);
   }
   getCustomerInfoSearch(formData: FormData): Observable<any>  {
     const baseUrl = 'f03/f03016';
