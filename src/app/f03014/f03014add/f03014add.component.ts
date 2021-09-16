@@ -42,6 +42,7 @@ export class F03014addComponent implements OnInit {
   }
   seve()
   {
+
     const url = 'f03/f03014action02';
     let formData = new FormData();
     formData.append('custNid',this.custNid);
@@ -49,8 +50,8 @@ export class F03014addComponent implements OnInit {
     formData.append('content1',this.content1);
     formData.append('content2',this.content2);
     formData.append('remark',this.remark);
-    formData.append('effectiveDate',this.Efficient.toString());
-    formData.append('expirationDate',this.Invalidation.toString());
+    formData.append('effectiveDate',this.Efficient);
+    formData.append('expirationDate',this.Invalidation);
     formData.append('useFlag',this.usingValue);
     formData.append('currentTimeValue',this.currentTimeValue);
     this.f03014Service.Add(url,formData).subscribe(data=>{

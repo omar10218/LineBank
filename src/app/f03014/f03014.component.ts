@@ -23,8 +23,8 @@ export class F03014Component implements OnInit {
   NameValue:string;//客戶名字
   IdentityValue:string;//身分字號
   NarrateValue:string;//簡述
-  Efficient:Date;//生效
-  Invalidation:Date;//失效
+  Efficient:string;//生效
+  Invalidation:string;//失效
   daytest:string;//三個月後的日期
   constructor(private pipe: DatePipe,private f03014Service: F03014Service,public dialog: MatDialog) { }
   ngOnInit(): void //最開始處理的地方
@@ -34,14 +34,15 @@ export class F03014Component implements OnInit {
   }
 
   Inquire()//查詢
-  {
+  { console.log(this.IdentityValue)
+    console.log(this.Efficient)
     const url = 'f03/f03014action01';
     var formData = new FormData();
     formData.append('custNid',this.IdentityValue);
     formData.append('custName',this.NameValue);
     formData.append('content1',this.NarrateValue);
-    formData.append('effectiveDate',this.Efficient.toString());
-    formData.append('expirationDate',this.Invalidation.toString());
+    formData.append('effectiveDate',this.Efficient);
+    formData.append('expirationDate',this.Invalidation);
     formData.append('useFlag',this.usingValue);
     this.f03014Service.selectCustomer(url,formData).subscribe(data=>
       {

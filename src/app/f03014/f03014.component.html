@@ -19,8 +19,7 @@
         <td>客戶姓名</td>
         <td><input [(ngModel)]="NameValue" name="NameValue" type="text"></td>
         <td>客戶身分證字號</td>
-        <!-- <td><input [(ngModel)]="IdentityValue" name="IdentityValue" onkeyup="value=value.replace(/[^/w/.//]/ig,'')" type="text"></td> -->
-        <td><input type="text" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10"></td>
+        <td><input type="text"  [(ngModel)]="IdentityValue" name="IdentityValue" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10"></td>
         <td>簡述1</td>
         <td><input [(ngModel)]="NarrateValue" name="NarrateValue" type="text"></td>
       </tr>
