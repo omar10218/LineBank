@@ -1,9 +1,5 @@
 <br>
-<div>
-  <button type="button" (click)="save()">儲存</button>
-  &nbsp;&nbsp;
-  <button type="button">關閉</button>
-</div>
+
 <!-- 產生合約前回查值設定 -->
 <br>
 <form width='100%' [formGroup]="customerInfoForm" >
@@ -62,7 +58,11 @@
 
   </table>
 </form>
-
+<div style="width:20vh;margin:10px auto">
+  <button type="button" (click)="save()">儲存</button>
+  &nbsp;&nbsp;
+  <button type="button">關閉</button>
+</div>
 <br>
 <br>
 <form width='100%'[formGroup]="customerInfoForm">
@@ -86,7 +86,7 @@
 
     </tr>
   </table>
-  <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-          [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true" >
+  <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="20"
+          [pageSizeOptions]="[5, 10, 15, 50, 100]"  >
         </mat-paginator>
 </form>
