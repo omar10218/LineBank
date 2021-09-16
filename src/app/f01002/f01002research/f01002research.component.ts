@@ -26,7 +26,7 @@ export class F01002researchComponent implements OnInit {
     const caseParams = this.childService.getData();
     this.applno = caseParams.applno;
     this.swcID = caseParams.cuid;
-    this.custID = "";  //待確認
+    this.custID = "123456";  //待確認
     this.empNo = localStorage.getItem("empNo");
   }
 
