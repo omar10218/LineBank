@@ -5,7 +5,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { F03016Service } from './f03016.service';;
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
-
+import { ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 
 interface sysCode {
   value: string;
@@ -19,8 +21,8 @@ interface sysCode {
 })
 export class F03016Component implements OnInit {
 
-
-
+  selectedValue: string;
+  totalCount: any;
   compareTableCode: sysCode[] = [];
   DssJcicSet:number ;
   BasicLimit:number ;
@@ -32,7 +34,10 @@ export class F03016Component implements OnInit {
   transEmpNo:string= localStorage.getItem("empNo");;
   transDate:string;
   ChangeSource:any;
-
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  currentPage: PageEvent;
+  currentSort: Sort;
   customerInfoForm: FormGroup = this.fb.group({
     DSS_JCIC_SET: ['', []],
     BASIC_LIMIT: ['', []],
@@ -54,6 +59,9 @@ export class F03016Component implements OnInit {
     console.log(this.transEmpNo)
     const baseUrl = 'f03/f03016';
     this.getCustomerInfo();
+    this.getMappingCode();
+    this.changeSelect();
+
 
   }
   //取得資料
@@ -61,11 +69,10 @@ export class F03016Component implements OnInit {
     const formdata: FormData = new FormData();
     this.f03016Service.getCustomerInfoSearch(formdata).subscribe(data => {
       console.log(data)
-      this.ChangeSource=data.rspBody.tlList
-      console.log(this.ChangeSource)
       this.DssJcicSet = data.rspBody.ipList[0].dssJcicSet;
       this.BasicLimit = data.rspBody.ipList[0].basicLimit;
       this.IsJcic = data.rspBody.ipList[0].isJcic;
+      this.ChangeSource=data.rspBody.tlList
 
       this.columnName = data.rspBody.tlList[0].columnName;
       this.originalValue = data.rspBody.tlList[0].originalValue;
@@ -74,7 +81,26 @@ export class F03016Component implements OnInit {
       this.transDate = data.rspBody.tlList[0].transDate;
     });
   }
+  getMappingCode() {
+    console.log('234')
+    const baseUrl = 'f03/f03016action1';
+    this.f03016Service.getTableDataSetList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize)
+    .subscribe(data => {
+      console.log(data)
+      this.totalCount = data.rspBody.tlList.size;
+      this.customerInfoForm.controls = data.rspBody.tlList;
 
+    });
+  }
+  changeSelect() {
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+    this.paginator.firstPage();
+    this.getMappingCode();
+  }
   public async save(): Promise<void> {
     let jsonObject : any = {};
     jsonObject['DssJcicSet'] = this.DssJcicSet;
@@ -96,6 +122,11 @@ export class F03016Component implements OnInit {
   }
 
   ngAfterViewInit(): void {
-
+    console.log(this.customerInfoForm)
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
   }
 }
