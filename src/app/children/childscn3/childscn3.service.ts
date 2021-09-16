@@ -10,7 +10,7 @@ export class Childscn3Service extends BaseService{
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  test(baseUrl: string, applno: string) {
+  gettable(baseUrl: string, applno: string) {
     let targetUrl = `${baseUrl}?applno=${applno}`;
     return this.postHttpClient(targetUrl);
   }
@@ -18,4 +18,5 @@ export class Childscn3Service extends BaseService{
   let targetUrl = baseUrl;
   return this.postJsonObject(targetUrl,json);
   }
+
 }
