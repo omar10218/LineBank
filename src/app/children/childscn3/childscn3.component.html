@@ -1,9 +1,8 @@
-
 <br>
 <div>
-  <button type="button" (click)="seve()" >儲存</button>
+  <button type="button" (click)="seve()" [disabled]="i == 'N' ? false:true" >儲存</button>
   &nbsp;&nbsp;
-  <button type="button" >發送Fraud Team</button>
+  <button type="button" (click)="seveFraud()"[disabled]="i == 'N' ? false:true" >發送Fraud Team</button>
 </div>
 <br>
 <form  width='100%' >
@@ -15,11 +14,10 @@
   </tr>
   <tr *ngFor="let item of data ;let i = index">
     <td>{{i+1}}</td> <!--NO-->
-    <td><input type="checkbox"  [(ngModel)]="item.check" name={{item.REASON_DESC}} value={{item.REASON_DESC}} (click)="chkArray1($event.target.checked,item.REASON_DESC,item.REASON_CODE) ;" >{{item.REASON_DESC}}</td>   <!--第一層(可複選)-->
+    <td><input type="checkbox"  [(ngModel)]="item.check" name={{item.reasonDesc}} value={{item.reasonDesc}} (click)="chkArray1($event.target.checked,item.reasonDesc,item.reasonCode) ;" >{{item.reasonDesc}}</td>   <!--第一層(可複選)-->
     <td class="td3" >
-      <div *ngFor="let it of item.child"><input type="checkbox" (click)="chkArray2($event.target.checked,it.REASON_CODE);" [disabled]="item.check ? false : true"  [(ngModel)]="it.check" name={{it.REASON_DESC}}  class={{item.REASON_CODE}} >{{it.REASON_DESC}}</div> <!--第二層(可複選)-->
+      <div *ngFor="let it of item.child"><input type="checkbox" [disabled]="item.check ? false : true"  [(ngModel)]="it.check" name={{it.reasonDesc}}  class={{item.reasonCode}} >{{it.reasonDesc}}</div> <!--第二層(可複選)-->
     </td>
   </tr>
 </table>
 </form>
-

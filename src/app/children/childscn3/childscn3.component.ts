@@ -9,9 +9,12 @@ interface checkBox {
   completed: boolean;
 }
 interface ANNOUNCE_REASON {
-  ANNOUNCE_REASON1: string;
-  ANNOUNCE_REASON2: string;
+  announceReason1: string;
+  announceReason2: string;
 }
+
+
+//Jay 偽案通報
 
 @Component({
   selector: 'app-childscn3',
@@ -31,15 +34,23 @@ export class Childscn3Component implements OnInit {
   private search: string;
   chkArray: checkBox[] = [];
   level1: string[] = [];//裝第一層checkbox
-  level2: string[] = [];//裝第二層checkbox
   data: any;//裝一開始的資料表
   l1 : ANNOUNCE_REASON[]=[];
   jsonObject :any = {};
+  i:string;
+  no:string;//會員帳號
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.applno = params['applno'];//案件代碼
+      this.search = params['search'];
+      this.no =  localStorage.getItem("empNo");
+      this.getTable()//一進去畫面就抓取資料表
+    });
     const caseParams = this.childService.getData();
     this.applno = caseParams.applno;
     this.search = caseParams.search;
     this.getTable()//抓取資料表
+
   }
   getOptionDesc(option: OptionsCode[], codeVal: string): string //代碼跑名稱
    {
@@ -60,11 +71,10 @@ export class Childscn3Component implements OnInit {
     }
     else {
       this.level1.splice(this.level1.indexOf(id), 1)
-      this.level2 =[]
       for (var fdL1 of this.data) {
-        if (fdL1.REASON_CODE == id) {
-          for (var fdL2 of fdL1.child) {
-
+        if (fdL1.reasonCode == id) {
+          for (var fdL2 of fdL1.child)
+          {
             fdL2.check = false;
           }
         }
@@ -72,37 +82,35 @@ export class Childscn3Component implements OnInit {
     }
 
   }
-  chkArray2(check: boolean, value: string)//第二層checkbox
-   {
-    if (check) {
-      this.level2.push(value)
-    }
-    else {
-      this.level2.splice(this.level2.indexOf(value), 1)
-    }
 
+  seveFraud()//發送Fraud Team
+  {
+    const url = 'f01/childscn3action2';
+    this.jsonObject['applno'] = this.applno;
+    this.jsonObject['announceEmpno'] = this.no;
+    this.childsc3Service.oneseve(url,this.jsonObject).subscribe(data=>
+      {
+        console.log(data)
+      })
   }
-  // myGeeks(value:string)
-  // {
-  //   // var g = document.getElementById("")
-  //   alert(value)
-  // }
   seve()//儲存
   {
     this.l1 =[];
-    for(var i of this.level1)
+    for(var i of this.data)
     {
-      for(var k of this.level2)
+      if(i.check ==true)
       {
-        this.l1.push({ANNOUNCE_REASON1:i,ANNOUNCE_REASON2:k})
+        for(var k of i.child)
+        {
+          if(k.check==true)
+          this.l1.push({announceReason1:i.reasonCode,announceReason2:k.reasonCode})
+        }
       }
-
     }
+    console.log(this.l1);
     this.jsonObject['applno'] = this.applno;
     this.jsonObject['result'] = this.l1;
-    const url = 'f01/childScn4';
-    alert('OK');
-    console.log(this.jsonObject);
+    const url = 'f01/childscn3action1';
     this.childsc3Service.oneseve(url,this.jsonObject).subscribe(data=>
       {
         console.log(data);
@@ -110,11 +118,14 @@ export class Childscn3Component implements OnInit {
 
   }
 
-  getTable() {
-    const url = 'f01/childScn3';
+  getTable()//抓取資料表
+   {
+    const url = 'f01/childscn3';
     const applno = this.applno;
-    this.childsc3Service.test(url, applno).subscribe(data => {
-      this.data = data.rspBody;
+    this.childsc3Service.gettable(url, applno).subscribe(data => {
+      this.data = data.rspBody.list;
+      this.i = data.rspBody.fraudIsLocked;
+      console.log(this.i)
     })
   }
 }
