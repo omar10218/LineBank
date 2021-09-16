@@ -57,7 +57,6 @@ export class F03016Component implements OnInit {
   constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<F03016Service>, private f03016Service: F03016Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    console.log(this.transEmpNo)
 
   }
   //取得資料
@@ -65,7 +64,6 @@ export class F03016Component implements OnInit {
     // const formdata: FormData = new FormData();
     const baseUrl = 'f03/f03016';
     this.f03016Service.getImpertmentParameter(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize).subscribe(data => {
-      console.log(data)
       this.DssJcicSet = data.rspBody.ipList[0].dssJcicSet;
       this.BasicLimit = data.rspBody.ipList[0].basicLimit;
       this.IsJcic = data.rspBody.ipList[0].isJcic;
@@ -86,23 +84,26 @@ export class F03016Component implements OnInit {
     jsonObject['BasicLimit'] = this.BasicLimit;
     jsonObject['IsJcic'] = this.IsJcic;
     jsonObject['TransEmpNo'] = this.transEmpNo;
-    console.log(this.transEmpNo)
-    console.log(jsonObject);
     let msgStr: string = "";
     let baseUrl = 'f03/f03016action1';
 
     msgStr = await this.f03016Service.update(baseUrl, jsonObject);
-    console.log(msgStr);
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
-    });
-    if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
-    // this.ChangeSource.append(jsonObject)
-    this.getImpertmentParameterInfo();
+    if(msgStr=='success'){
+      msgStr='儲存成功！'
+      this.dialog.open(ConfirmComponent,{
+        data:{msgStr:msgStr}
+      });
+      // this.dialogRef.close({event:'success'});
+      this.getImpertmentParameterInfo();
+    }
+    // const childernDialogRef = this.dialog.open(ConfirmComponent, {
+    //   data: { msgStr: msgStr }
+    // });
+    // if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
+
   }
 
   ngAfterViewInit(): void {
-    console.log(this.customerInfoForm)
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
