@@ -41,7 +41,7 @@ export class F03012Component implements OnInit {
   constructor(private f03012Service: F03012Service, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-
+console.log(this.chkArray)
     this.f03012Service.getSysTypeCode('COMPARE_TABLE')
     .subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {

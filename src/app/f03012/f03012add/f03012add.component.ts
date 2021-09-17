@@ -25,6 +25,7 @@ export class F03012addComponent implements OnInit {
   compareTableSetForm: FormGroup = this.fb.group({
     compareTable: ['', [Validators.required]],
     compareColumn: ['', [Validators.required]],
+    compareType: ['', [Validators.required]],
     setValueHight: ['', [Validators.required]],
     setValueLow: ['', [Validators.required]]
   });
@@ -87,7 +88,9 @@ export class F03012addComponent implements OnInit {
       console.log(url);
       this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
         msg = data.rspMsg;
-        console.log(msg);
+        console.log(formdata);
+      console.log(url);
+        console.log(data);
       });
     // }
     // setTimeout(() => {
@@ -103,5 +106,7 @@ export class F03012addComponent implements OnInit {
     this.setValueHight = '';
     this.setValueLow = '';
   }
+  ngAfterViewInit(): void {
 
+  }
 }

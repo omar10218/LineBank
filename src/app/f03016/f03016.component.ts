@@ -8,7 +8,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
 
 interface sysCode {
   value: string;
@@ -36,10 +35,8 @@ export class F03016Component implements OnInit {
   transDate: string;
   ChangeSource: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;
-  currentSort: Sort;
-  customerInfoForm: FormGroup = this.fb.group({
+  formData: FormGroup = this.fb.group({
     DSS_JCIC_SET: ['', []],
     BASIC_LIMIT: ['', []],
     IS_JCIC: ['', []],
@@ -61,7 +58,6 @@ export class F03016Component implements OnInit {
   }
   //取得資料
   getImpertmentParameterInfo() {
-    // const formdata: FormData = new FormData();
     const baseUrl = 'f03/f03016';
     this.f03016Service.getImpertmentParameter(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize).subscribe(data => {
       this.DssJcicSet = data.rspBody.ipList[0].dssJcicSet;
@@ -74,10 +70,11 @@ export class F03016Component implements OnInit {
       this.currentValue = data.rspBody.tlList[0].currentValue;
       this.transEmpNo = data.rspBody.tlList[0].transEmpNo;
       this.transDate = data.rspBody.tlList[0].transDate;
+      this.totalCount = data.rspBody.size;
 
     });
   }
-// 儲存資料
+  // 儲存資料
   public async save(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['DssJcicSet'] = this.DssJcicSet;
@@ -88,19 +85,13 @@ export class F03016Component implements OnInit {
     let baseUrl = 'f03/f03016action1';
 
     msgStr = await this.f03016Service.update(baseUrl, jsonObject);
-    if(msgStr=='success'){
-      msgStr='儲存成功！'
-      this.dialog.open(ConfirmComponent,{
-        data:{msgStr:msgStr}
+    if (msgStr == 'success') {
+      msgStr = '儲存成功！'
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
       });
-      // this.dialogRef.close({event:'success'});
       this.getImpertmentParameterInfo();
     }
-    // const childernDialogRef = this.dialog.open(ConfirmComponent, {
-    //   data: { msgStr: msgStr }
-    // });
-    // if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
-
   }
 
   ngAfterViewInit(): void {
@@ -113,7 +104,6 @@ export class F03016Component implements OnInit {
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
       this.getImpertmentParameterInfo();
-
     });
   }
 }
