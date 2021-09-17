@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ChildrenService } from '../../children.service';
 import { Childscn14Service } from '../childscn14.service';
 interface dateCode {
   value: string;
@@ -14,21 +15,27 @@ interface dateCode {
 })
 export class Childscn14page2Component implements OnInit {
 
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private childscn14Service: Childscn14Service,
+    public childService: ChildrenService
+  ) { }
+
   imageForm: FormGroup = this.fb.group({
     APPLNO: ['', []]
   });
   dateCode: dateCode[] = [];
   dateValue: string;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private childscn14Service: Childscn14Service) { }
+
   private applno: string;
   private cuid: string;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.cuid = params['cuid'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.cuid = caseParams.cuid;
 
     const url = 'f01/childscn14';
     const formdata: FormData = new FormData();

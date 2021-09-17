@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MappingCode } from 'src/app/mappingcode.model';
+import { ChildrenService } from '../children.service';
 import { Childscn13Service } from './childscn13.service';
 import { Childscn13addComponent } from './childscn13add/childscn13add.component';
 import { Childscn13deleteComponent } from './childscn13delete/childscn13delete.component';
@@ -19,7 +20,14 @@ import { Childscn13showComponent } from './childscn13show/childscn13show.compone
 })
 export class Childscn13Component implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router, private childscn13Service: Childscn13Service, public dialog: MatDialog) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private childscn13Service: Childscn13Service,
+    public dialog: MatDialog,
+    public childService: ChildrenService
+  ) { }
+
   private applno: string;
   private search: string;
   private cuid: string;
@@ -27,11 +35,10 @@ export class Childscn13Component implements OnInit {
   currentSort: Sort;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.search = params['search'];
-      this.cuid = params['cuid'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.search = caseParams.search;
+    this.cuid = caseParams.cuid;
 
     this.currentPage = {
       pageIndex: 0,

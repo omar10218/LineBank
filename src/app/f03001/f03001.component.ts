@@ -2,14 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { F03001Service } from './f03001.service';
 import { dataList } from './data-list.const';
-
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
-
-
-
+import { OptionsCode } from '../interface/base';
 interface sysTable {
   BUS_TYPECode: string;
   PRJ_CODE: string;
@@ -41,11 +34,11 @@ export class F03001Component implements OnInit {
 
   BUS_TYPECode_Selected: string = '';
   BUS_TYPECode: any[] = [];
-  BusType: sysCode[] = [{ value: '小額信貸', viewValue: '小額信貸' }];
-  ParmType: sysCode[] = [];
-  ParmDim: sysCode[] = [];
-  ParmClass: sysCode[] = [];
-  Condition: sysCode[] = [];
+  BusType: OptionsCode[] = [{ value: '小額信貸', viewValue: '小額信貸' }];
+  ParmType: OptionsCode[] = [];
+  ParmDim: OptionsCode[] = [];
+  ParmClass: OptionsCode[] = [];
+  Condition: OptionsCode[] = [];
   RuleCode: sysAPI = {
     codE_NO: '',
     codE_DESC: ''
@@ -57,13 +50,13 @@ export class F03001Component implements OnInit {
   //專案起始日期
   PRJ_START_DATE!: Date
   //產品性質
-  PRD_TYPE: sysCode[] = [{ value: '001', viewValue: '001_產品性質' }, { value: '002', viewValue: '002_產品性質' }, { value: '003', viewValue: '003_產品性質' }];
+  PRD_TYPE: OptionsCode[] = [{ value: '001', viewValue: '001_產品性質' }, { value: '002', viewValue: '002_產品性質' }, { value: '003', viewValue: '003_產品性質' }];
   //是否啟用
-  Enable: sysCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
+  Enable: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
   //專案起始日期
   PRJ_END_DATE!: Date
   //專案群組
-  PRJ_ITEM: sysCode[] = [{ value: '1', viewValue: '1_群組1' }, { value: '2', viewValue: '2_群組2' }];
+  PRJ_ITEM: OptionsCode[] = [{ value: '1', viewValue: '1_群組1' }, { value: '2', viewValue: '2_群組2' }];
   //BT專案代號
   BTPRJ_CODE!: string
 

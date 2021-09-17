@@ -8,11 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { F03004addComponent } from './f03004add/f03004add.component';
 import { F03004editComponent } from './f03004edit/f03004edit.component';
 import { F03004Service } from './f03004.service';
-
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
+import { OptionsCode } from '../interface/base';
 
 @Component({
   selector: 'app-f03004',
@@ -20,7 +16,7 @@ interface sysCode {
   styleUrls: ['./f03004.component.css','../../assets/css/f03.css']
 })
 export class F03004Component implements OnInit, AfterViewInit  {
-  sysCode: sysCode[] = [];
+  sysCode: OptionsCode[] = [];
   selectedValue: string;
   constructor(private f03004Service: F03004Service, public dialog: MatDialog) { }
   ngOnInit(): void {
@@ -67,6 +63,7 @@ export class F03004Component implements OnInit, AfterViewInit  {
     .subscribe(data => {
       this.totalCount = data.rspBody.size;
       this.mappingCodeSource.data = data.rspBody.items;
+      console.log(this.mappingCodeSource.data)
     });
   }
 

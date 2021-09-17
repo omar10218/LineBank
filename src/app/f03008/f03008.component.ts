@@ -5,9 +5,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { F03008uploadComponent } from './f03008upload/f03008upload.component';
 import { F03008editComponent } from './f03008edit/f03008edit.component';
 import { MatDialog } from '@angular/material/dialog';
-import { F03008confirmComponent } from './f03008confirm/f03008confirm.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 
 
 @Component({
@@ -58,7 +58,7 @@ export class F03008Component implements OnInit {
       .subscribe(data => {
         this.totalCount = data.rspBody.size;
         if (this.totalCount == 0) {
-          const childernDialogRef = this.dialog.open(F03008confirmComponent, {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "查無資料!" }
           });
         }
@@ -100,7 +100,7 @@ export class F03008Component implements OnInit {
   public async delete(abnormalNid:string): Promise<void> {
     let baseUrl = 'f03/f03008action4';
     this.f03008Service.delete(baseUrl ,abnormalNid).subscribe(data => {
-      const childernDialogRef = this.dialog.open(F03008confirmComponent, {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
     });

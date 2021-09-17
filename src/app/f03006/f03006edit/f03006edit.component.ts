@@ -1,14 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { OptionsCode } from 'src/app/interface/base';
 import { F03006Service } from '../f03006.service';
-import { F03006confirmComponent } from '../f03006confirm/f03006confirm.component';
-
-//下拉選單初始設定
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 //Nick 組織人員維護 編輯
 @Component({
@@ -18,7 +13,7 @@ interface sysCode {
 })
 export class F03006editComponent {
 
-  dateType: sysCode[];//日期型態下拉選單
+  dateType: OptionsCode[];//日期型態下拉選單
   levelStartDateValue: Date;
   levelEndDateValue: Date;
 
@@ -34,12 +29,11 @@ export class F03006editComponent {
     let targetUrl = `${baseUrl}?empNo=${this.data.EMP_NO}`;//員工編號
     this.f03006Service.getEmployeeSysTypeCode(targetUrl)
       .subscribe(data => {
-        for (const jsonObj of data.rspBody) {
-          const codeNo = jsonObj['EMPNO'];
-          const desc = jsonObj['EMPNO'];
+        for (const jsonObj of data.rspBody.empList) {
+          const codeNo = jsonObj.empNo;
+          const desc = jsonObj.empNo;
           this.data.agent_empCode.push({ value: codeNo, viewValue: desc })//取同等級代理人
         }
-         console.log(data);
       });
 
   }
@@ -86,8 +80,8 @@ export class F03006editComponent {
     let msgStr: string = "";
     let baseUrl = 'f03/f03006action3';
     msgStr = await this.f03006Service.addorEditSystemCodeSet(baseUrl, this.data);
-    console.log(msgStr);
-    const childernDialogRef = this.dialog.open(F03006confirmComponent, {
+    console.log(msgStr)
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '更新成功!') { this.dialogRef.close({ event:'success' }); }

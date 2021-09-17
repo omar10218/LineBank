@@ -1,1 +1,52 @@
-<p>f03014 works!</p>
+<br>
+<form>
+  <tr>
+    <div>
+      <td><button>查詢</button></td>
+      <td><button (click)="Inquire()">查詢資料</button></td>
+      <td><button (click)="AddTable()">新增</button></td>
+      <td><button>儲存資料</button></td>
+      <td><button>清除資料</button></td>
+      <td><button>上傳Excel</button></td>
+      <td><button>匯出Excel</button></td>
+      <td><button>離開</button></td>
+    </div>
+  </tr>
+  <br>
+  <tr>
+    <table cellspacing="0" cellpadding="2" style="width: 1000px;">
+      <tr>
+        <td>客戶姓名</td>
+        <td><input [(ngModel)]="NameValue" name="NameValue" type="text"></td>
+        <td>客戶身分證字號</td>
+        <td><input type="text"  [(ngModel)]="IdentityValue" name="IdentityValue" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10"></td>
+        <td>簡述1</td>
+        <td><input [(ngModel)]="NarrateValue" name="NarrateValue" type="text"></td>
+      </tr>
+      <tr>
+        <td>生效日</td>
+        <td>
+          <mat-form-field>
+            <input type="date" [(ngModel)]="Efficient" name="Efficient" matInput placeholder=""
+              (change)="InvalidationMax()" />
+          </mat-form-field>
+        </td>
+        <td>失效日</td>
+        <td>
+          <mat-form-field>
+            <input type="date" [(ngModel)]="Invalidation" name="Invalidation" min={{Efficient}} max={{daytest}} matInput
+              placeholder="" />
+          </mat-form-field>
+        </td>
+        <td>使用中</td>
+        <td>
+          <mat-select [(ngModel)]="usingValue" name="usingValue" placeholder="請選擇">
+            <mat-option *ngFor="let item of usingType" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </td>
+      </tr>
+    </table>
+  </tr>
+</form>

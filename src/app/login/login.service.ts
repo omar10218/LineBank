@@ -2,18 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseService } from '../base.service';
-
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
+import { OptionsCode } from '../interface/base';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService extends BaseService {
-  RuleCode: sysCode[] = null;
-  Condition: sysCode[] = null;
+  RuleCode: OptionsCode[] = null;
+  Condition: OptionsCode[] = null;
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   private async checkEmpNoPromise(empNo: string, empPwd: string): Promise<Observable<any>> {
@@ -42,7 +38,7 @@ export class LoginService extends BaseService {
     return await this.formDataApiFor_NET(baseUrl, formData).toPromise();
   }
 
-  public async getRuleCode(value: string): Promise<sysCode[]> {
+  public async getRuleCode(value: string): Promise<OptionsCode[]> {
     this.RuleCode = [];
     await this.getRuleCodeOption(value).then((data: any) => {
       for (const jsonObj of data.rspBody) {
@@ -60,7 +56,7 @@ export class LoginService extends BaseService {
     return await this.formDataApiFor_NET(baseUrl, formData).toPromise();
   }
 
-  public async getCondition(): Promise<sysCode[]> {
+  public async getCondition(): Promise<OptionsCode[]> {
     this.Condition = [];
     await this.getConditionOption().then((data: any) => {
       for (const jsonObj of data.rspBody) {

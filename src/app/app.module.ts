@@ -18,20 +18,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F03005Component } from './f03005/f03005.component';
 import { F03006Component } from './f03006/f03006.component';
 import { F03007Component } from './f03007/f03007.component';
-import { F03007confirmComponent } from './f03007/f03007confirm/f03007confirm.component';
-import { F03006confirmComponent } from './f03006/f03006confirm/f03006confirm.component';
 import { F03006addComponent } from './f03006/f03006add/f03006add.component';
 import { F03006editComponent } from './f03006/f03006edit/f03006edit.component';
 import { F03005editComponent } from './f03005/f03005edit/f03005edit.component';
 import { F03005addComponent } from './f03005/f03005add/f03005add.component';
-import { F03005confirmComponent } from './f03005/f03005confirm/f03005confirm.component';
 import { F03006roleComponent } from './f03006/f03006role/f03006role.component';
 import { F03004Component } from './f03004/f03004.component';
-import { F03004confirmComponent } from './f03004/f03004confirm/f03004confirm.component';
 import { F03004addComponent } from './f03004/f03004add/f03004add.component';
 import { F03004editComponent } from './f03004/f03004edit/f03004edit.component';
 import { F03008Component } from './f03008/f03008.component';
-import { F03003confirmComponent } from './f03003/f03003confirm/f03003confirm.component';
 import { F03002child1Component } from './f03002/f03002child1/f03002child1.component';
 import { F03002child2Component } from './f03002/f03002child2/f03002child2.component';
 import { F03002child201Component } from './f03002/f03002child2/f03002child201/f03002child201.component';
@@ -52,23 +47,17 @@ import { F02001scn10Component } from './f02001/f02001scn10/f02001scn10.component
 import { F02001scn11Component } from './f02001/f02001scn11/f02001scn11.component';
 import { F02001scn12Component } from './f02001/f02001scn12/f02001scn12.component';
 import { F03009Component } from './f03009/f03009.component';
-import { F03009confirmComponent } from './f03009/f03009confirm/f03009confirm.component';
 import { F03010Component } from './f03010/f03010.component';
 import { F03011Component } from './f03011/f03011.component';
-import { F03011confirmComponent } from './f03011/f03011confirm/f03011confirm.component';
-import { F03010confirmComponent } from './f03010/f03010confirm/f03010confirm.component';
 import { F03012Component } from './f03012/f03012.component';
-import { F03012confirmComponent } from './f03012/f03012confirm/f03012confirm.component';
 import { F03012editComponent } from './f03012/f03012edit/f03012edit.component';
 import { F03011editComponent } from './f03011/f03011edit/f03011edit.component';
 import { F03010editComponent } from './f03010/f03010edit/f03010edit.component';
 import { F04001Component } from './f04001/f04001.component';
 import { F04002Component } from './f04002/f04002.component';
-import { F04002confirmComponent } from './f04002/f04002confirm/f04002confirm.component';
-import { F04001confirmComponent } from './f04001/f04001confirm/f04001confirm.component';
 import { F01005Component } from './f01005/f01005.component';
 // import { GoogleMapsModule } from '@angular/google-maps';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import { F03011addComponent } from './f03011/f03011add/f03011add.component';
 import { F03010addComponent } from './f03010/f03010add/f03010add.component';
 import { F03012addComponent } from './f03012/f03012add/f03012add.component';
@@ -77,15 +66,13 @@ import { F03008uploadComponent } from './f03008/f03008upload/f03008upload.compon
 import { AppRoutingModule } from './routing/app-routing.module';
 import { F03013Component } from './f03013/f03013.component';
 import { F03014Component } from './f03014/f03014.component';
-import { F03014confirmComponent } from './f03014/f03014confirm/f03014confirm.component';
 import { F03014editComponent } from './f03014/f03014edit/f03014edit.component';
 import { F03014uploadComponent } from './f03014/f03014upload/f03014upload.component';
 import { F03015Component } from './f03015/f03015.component';
-import { F03015confirmComponent } from './f03015/f03015confirm/f03015confirm.component';
 import { F03015editComponent } from './f03015/f03015edit/f03015edit.component';
 import { F03015uploadComponent } from './f03015/f03015upload/f03015upload.component';
 import { F03016Component } from './f03016/f03016.component';
-import { F03016confirmComponent } from './f03016/f03016confirm/f03016confirm.component';
+import { F03014addComponent } from './f03014/f03014add/f03014add.component';
 
 @NgModule({
   declarations: [
@@ -99,20 +86,15 @@ import { F03016confirmComponent } from './f03016/f03016confirm/f03016confirm.com
     F03005Component,
     F03006Component,
     F03007Component,
-    F03007confirmComponent,
-    F03006confirmComponent,
     F03006addComponent,
     F03006editComponent,
     F03005editComponent,
     F03005addComponent,
-    F03005confirmComponent,
     F03006roleComponent,
     F03004Component,
-    F03004confirmComponent,
     F03004addComponent,
     F03004editComponent,
     F03008Component,
-    F03003confirmComponent,
     F03002child1Component,
     F03002child2Component,
     F03002child201Component,
@@ -132,20 +114,14 @@ import { F03016confirmComponent } from './f03016/f03016confirm/f03016confirm.com
     F02001scn11Component,
     F02001scn12Component,
     F03009Component,
-    F03009confirmComponent,
     F03010Component,
     F03011Component,
-    F03011confirmComponent,
-    F03010confirmComponent,
     F03012Component,
-    F03012confirmComponent,
     F03012editComponent,
     F03011editComponent,
     F03010editComponent,
     F04001Component,
     F04002Component,
-    F04002confirmComponent,
-    F04001confirmComponent,
     F01005Component,
     F03011addComponent,
     F03010addComponent,
@@ -154,15 +130,13 @@ import { F03016confirmComponent } from './f03016/f03016confirm/f03016confirm.com
     F03008uploadComponent,
     F03013Component,
     F03014Component,
-    F03014confirmComponent,
     F03014editComponent,
     F03014uploadComponent,
     F03015Component,
-    F03015confirmComponent,
     F03015editComponent,
     F03015uploadComponent,
     F03016Component,
-    F03016confirmComponent
+    F03014addComponent,
   ],
   imports: [
     BrowserModule,
@@ -175,6 +149,7 @@ import { F03016confirmComponent } from './f03016/f03016confirm/f03016confirm.com
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
+    CommonModule
     // GoogleMapsModule
   ],
   providers: [

@@ -1,12 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { OptionsCode } from 'src/app/interface/base';
 import { F03011Service } from '../f03011.service';
-import { F03011confirmComponent } from '../f03011confirm/f03011confirm.component';
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-f03011edit',
@@ -15,9 +12,9 @@ interface sysCode {
 })
 export class F03011editComponent implements OnInit {
 
-  scklvCode: sysCode[] = [];
-  calvCode: sysCode[] = [];
-  tvNoCode: sysCode[] = [];
+  scklvCode: OptionsCode[] = [];
+  calvCode: OptionsCode[] = [];
+  tvNoCode: OptionsCode[] = [];
 
   oldscklv: string;
   oldcalv: string;
@@ -39,23 +36,23 @@ export class F03011editComponent implements OnInit {
 
   ngOnInit(): void {
     this.f03011Service.getSysTypeCode('SCKLV').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
         this.scklvCode.push({value: codeNo, viewValue: desc})
       }
     });
     this.f03011Service.getSysTypeCode('CALV').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
         this.calvCode.push({value: codeNo, viewValue: desc})
       }
     });
     this.f03011Service.getSysTypeCode('TV_NO').subscribe(data => {
-      for (const jsonObj of data.rspBody) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
         this.tvNoCode.push({value: codeNo, viewValue: desc})
       }
     });
@@ -68,7 +65,7 @@ export class F03011editComponent implements OnInit {
     let msgStr: string = "";
     let baseUrl = 'f03/f03011action2';
     msgStr = await this.f03011Service.update(baseUrl, this.data, this.oldtvNo, this.oldscklv, this.oldcalv);
-    const childernDialogRef = this.dialog.open(F03011confirmComponent, {
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
     if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }

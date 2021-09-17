@@ -1,1 +1,98 @@
-<p>f03016 works!</p>
+<br>
+<!-- 產生合約前回查值設定 -->
+<br>
+<form width='100%' [formGroup]="formData">
+  <table bordercolor="#000000" cellspacing="0" cellpadding="2"
+    style="border-collapse:collapse;width: 1200px;margin:0 auto;">
+    <tr>
+      <th width='25%' textAlign="center" colspan=4>產生合約前回查值設定</th>
+    </tr>
+    <tr>
+      <td width='25%'>DSS3落人再送JCIC時間設定</td>
+      <td class="td2" width='25%'>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>天數設定</mat-label>
+          <input matInput placeholder="輸入數字" [(ngModel)]="DssJcicSet" formControlName="DSS_JCIC_SET"
+            oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
+        </mat-form-field>
+      </td>
+      <td width='25%'></td>
+      <td class="td2" width='25%'></td>
+
+    </tr>
+
+  </table>
+</form>
+<!-- 動撥設定 -->
+<form width='100%' [formGroup]="formData">
+  <table bordercolor="#000000" cellspacing="0" cellpadding="2"
+    style="border-collapse:collapse;width: 1200px;margin:0 auto;">
+    <tr>
+      <th width='25%' textAlign="center" colspan=4>動撥設定</th>
+    </tr>
+    <tr>
+      <td width='25%'>基本門檻</td>
+      <td class="td2" width='25%'>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>金額設定</mat-label>
+          <input matInput placeholder="輸入金額" [(ngModel)]="BasicLimit" formControlName="BASIC_LIMIT">
+        </mat-form-field>
+      </td>
+      <td width='25%'></td>
+      <td class="td2" width='25%'></td>
+
+    </tr>
+    <tr>
+      <td width='25%'>是否查詢JCIC</td>
+      <td class="td2" width='25%' style="text-align:left">
+        <mat-radio-group aria-label="Select an option" formControlName="IS_JCIC" [(ngModel)]="IsJcic">
+          <mat-radio-button [value]="'Y'">是</mat-radio-button>
+          <mat-radio-button [value]="'N'">否</mat-radio-button>
+        </mat-radio-group>
+
+
+        {{IsJcic}}
+      </td>
+      <td width='25%'></td>
+      <td class="td2" width='25%'></td>
+
+    </tr>
+
+  </table>
+  <div style="width:20vh;margin:10px auto;">
+    <button type="button" (click)="save()">儲存</button>
+    &nbsp;&nbsp;
+    <button type="button">關閉</button>
+  </div>
+</form>
+
+<br>
+<br>
+<form width='100%' [formGroup]="formData">
+  <table bordercolor="#000000" cellspacing="0" cellpadding="2"
+    style="border-collapse:collapse;width: 1200px;margin:0 auto;">
+    <tr>
+      <th width='20%' textAlign="center" colspan=5>異動紀錄</th>
+    </tr>
+    <tr>
+      <th width='20%' style="background-color: #4DFFFF;">欄位</th>
+      <th width='20%' style="background-color: #4DFFFF;">原欄位值</th>
+      <th width='20%' style="background-color: #4DFFFF;">新欄位值</th>
+      <th width='20%' style="background-color: #4DFFFF;">處理員編</th>
+      <th width='20%' style="background-color: #4DFFFF;">異動時間</th>
+    </tr>
+    <tr *ngFor="let data of ChangeSource">
+      <td class="td2" width='20%'>{{data.columnName}}</td>
+      <td class="td2" width='20%'>{{data.originalValue}}</td>
+      <td class="td2" width='20%'>{{data.currentValue}}</td>
+      <td class="td2" width='20%'>{{data.transEmpNo}}</td>
+      <td class="td2" width='20%'>{{data.transDate| date: 'yyyy/MM/dd HH:mm:ss'}}</td>
+
+    </tr>
+  </table>
+  <tr>
+    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </tr>
+</form>

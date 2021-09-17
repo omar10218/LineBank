@@ -8,13 +8,8 @@ import { F03006Service } from './f03006.service';
 import { F03006addComponent } from './f03006add/f03006add.component';
 import { F03006editComponent } from './f03006edit/f03006edit.component';
 import { F03006roleComponent } from './f03006role/f03006role.component';
-import { F03006confirmComponent } from './f03006confirm/f03006confirm.component';
-
-//下拉選單框架
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
+import { RoleItem, OptionsCode } from '../interface/base';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 
 //角色checkBox框架
 interface checkBox {
@@ -30,14 +25,14 @@ interface checkBox {
 })
 export class F03006Component implements OnInit, AfterViewInit {
 
-  agent_empCode: sysCode[] = [];//代理人
-  levelStartDateTypeCode: sysCode[] = [];//日期種類起
-  levelEndDateTypeCode: sysCode[] = [];//日期種類迄
+  agent_empCode: OptionsCode[] = [];//代理人
+  levelStartDateTypeCode: OptionsCode[] = [];//日期種類起
+  levelEndDateTypeCode: OptionsCode[] = [];//日期種類迄
   //levelTypeCode: sysCode[] = [];//日期種類
-  projectCode: sysCode[] = [];//派件專案代碼
-  roleCode: sysCode[] = [];//角色
-  on_jobCode: sysCode[] = [];//是否在職
-  assign_stopCode: sysCode[] = [];//是否停派
+  projectCode: OptionsCode[] = [];//派件專案代碼
+  roleCode: OptionsCode[] = [];//角色
+  on_jobCode: OptionsCode[] = [];//是否在職
+  assign_stopCode: OptionsCode[] = [];//是否停派
 
   empNoValue: string;//員工編號
   empNameValue: string;//員工姓名
@@ -54,6 +49,15 @@ export class F03006Component implements OnInit, AfterViewInit {
   levelEndDateValue: Date;//請假迄日類型
   levelEndDateString: string;//請假迄日類型值
 
+  totalCount: any;//表單資料筆數設定
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  currentPage: PageEvent;
+  currentSort: Sort;
+
+  employeeSource = new MatTableDataSource<any>();//組織人員維護Table
+  empRoleSource = new MatTableDataSource<RoleItem>();//角色Table
+
   constructor(private f03006Service: F03006Service, public dialog: MatDialog, private pipe: DatePipe) { }
   ngOnInit(): void {
 
@@ -61,36 +65,35 @@ export class F03006Component implements OnInit, AfterViewInit {
     this.f03006Service.getEmployeeSysTypeCode(baseUrl)
       .subscribe(data => {
         for (const jsonObj of data.rspBody.empList) {
-          const codeNo = jsonObj['empNo'];
-          const desc = jsonObj['empNo'];
+          const codeNo = jsonObj.empNo;
+          const desc = jsonObj.empNo;
           this.agent_empCode.push({ value: codeNo, viewValue: desc })
         }
 
         for (const jsonObj of data.rspBody.levelTypeList) {//日期種類起訖
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
           this.levelStartDateTypeCode.push({ value: codeNo, viewValue: desc })
           this.levelEndDateTypeCode.push({ value: codeNo, viewValue: desc })
         }
 
 
         for (const jsonObj of data.rspBody.projectList) {//派件專案代碼
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
           this.projectCode.push({ value: codeNo, viewValue: desc })
         }
 
-
-        for (const jsonObj of data.rspBody.roleList) {//角色
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeDesc'];
-          this.roleCode.push({ value: codeNo, viewValue: desc })
-        }
+        // for (const jsonObj of data.rspBody.roleList) {//角色
+        //   const codeNo = jsonObj.codeNo;
+        //   const desc = jsonObj.codeDesc;
+        //   this.roleCode.push({ value: codeNo, viewValue: desc })
+        // }
 
         this.assign_stopCode.push({ value: "", viewValue: "請選擇" })//是否停派//是否在職
         for (const jsonObj of data.rspBody.ynList) {
-          const codeNo = jsonObj['codeNo'];
-          const desc = jsonObj['codeNo'];
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
           this.on_jobCode.push({ value: codeNo, viewValue: desc })
           this.assign_stopCode.push({ value: codeNo, viewValue: desc })
         }
@@ -99,16 +102,6 @@ export class F03006Component implements OnInit, AfterViewInit {
       });
 
   }
-
-
-  totalCount: any;//表單資料筆數設定
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent;
-  currentSort: Sort;
-
-  employeeSource = new MatTableDataSource<any>();//組織人員維護Table
-  empRoleSource = new MatTableDataSource<any>();//角色Table
 
   //表單資料筆數設定
   ngAfterViewInit() {
@@ -153,7 +146,7 @@ export class F03006Component implements OnInit, AfterViewInit {
         this.totalCount = data.rspBody.size;
         console.log(this.totalCount);
         if(this.totalCount==0){
-          const childernDialogRef = this.dialog.open(F03006confirmComponent, {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "查無資料!" }
           });
         }
@@ -198,7 +191,7 @@ export class F03006Component implements OnInit, AfterViewInit {
   }
 
   //取得下拉選單中文
-  getOptionDesc(option: sysCode[], codeVal: string): string {
+  getOptionDesc(option: OptionsCode[], codeVal: string): string {
     for (const data of option) {
       if (data.value == codeVal) {
         return data.viewValue;
@@ -216,7 +209,7 @@ export class F03006Component implements OnInit, AfterViewInit {
     let selfRole = roleArray != null ? roleArray : '';
     for (const jsonObj of this.empRoleSource.data) {
       let isChk: boolean = false;
-      const chkValue = jsonObj['roleNo'];
+      const chkValue = jsonObj.roleNo;
       for (const str of selfRole.split(',')) {
         isChk = (str == chkValue);
         if (isChk) { break; }

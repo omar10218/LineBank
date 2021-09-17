@@ -1,19 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F03010Service } from './f03010.service';
 import { F03010addComponent } from './f03010add/f03010add.component';
-import { F03010confirmComponent } from './f03010confirm/f03010confirm.component';
 import { F03010editComponent } from './f03010edit/f03010edit.component';
-
-//下拉選單框架
-interface sysCode {
-  value: string;
-  viewValue: string;
-}
 
 //Nick 照會話術
 @Component({
@@ -122,7 +116,7 @@ export class F03010Component implements OnInit {
       msg = data.rspMsg;
     });
     setTimeout(() => {
-      const DialogRef = this.dialog.open(F03010confirmComponent, { data: { msgStr: msg } });
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       this.refreshTable();
     }, 1500);
   }

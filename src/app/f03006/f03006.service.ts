@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseService } from '../base.service';
+import { map } from 'rxjs/operators';
+import { Employee } from '../interface/base';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +20,9 @@ export class F03006Service extends BaseService {
   }
 
   //取得初始下拉選單及角色資訊
-  getEmployeeSysTypeCode(baseUrl: string): Observable<any> {
+  getEmployeeSysTypeCode(baseUrl: string): Observable<Employee> {
     let targetUrl = baseUrl;
-    return this.postHttpClient(targetUrl);
+    return this.postHttpClient(targetUrl).pipe(map(res => res));
   }
 
   //新增修改

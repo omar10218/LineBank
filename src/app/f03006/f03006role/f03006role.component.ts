@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F03006Service } from '../f03006.service';
-import { F03006confirmComponent } from '../f03006confirm/f03006confirm.component';
 
 //角色checkBox框架
 interface checkBox {
@@ -45,7 +45,7 @@ export class F03006roleComponent {
     const baseUrl = 'f03/f03006action4';
      this.f03006Service.saveEmployeeRole(baseUrl, formData).subscribe(data => {
       msgStr = (data.rspCode === '0000' && data.rspMsg === '儲存成功!') ? '儲存成功！' : '儲存失敗！';
-      const childernDialogRef = this.dialog.open(F03006confirmComponent, {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
       if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }

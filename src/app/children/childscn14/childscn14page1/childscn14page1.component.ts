@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Childscn14Service } from '../childscn14.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ChildrenService } from '../../children.service';
 
 @Component({
   selector: 'app-childscn14page1',
@@ -11,12 +12,20 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class Childscn14page1Component implements OnInit {
 
+  constructor(
+    private sanitizer:DomSanitizer ,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private childscn14Service: Childscn14Service,
+    public childService: ChildrenService
+  ) { }
+
   imageForm: FormGroup = this.fb.group({
     APPLNO: ['', []]
   });
   src:SafeResourceUrl;
   dateValue: string;
-  constructor(private sanitizer:DomSanitizer , private fb: FormBuilder, private route: ActivatedRoute, private childscn14Service: Childscn14Service) { }
+
   private applno: string;
   private cuid: string;
 

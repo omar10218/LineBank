@@ -3,6 +3,7 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ChildrenService } from '../../children.service';
 import { Childscn6Service } from '../childscn6.service';
 
 @Component({
@@ -11,6 +12,36 @@ import { Childscn6Service } from '../childscn6.service';
   styleUrls: ['./childscn6page1.component.css', '../../../../assets/css/f01.css']
 })
 export class Childscn6page1Component implements OnInit, AfterViewInit {
+
+  constructor(
+    private route: ActivatedRoute,
+    private childscn6Service: Childscn6Service,
+    private router: Router,
+    public childService: ChildrenService
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.getJcicMultiple();
+        this.setBooleanFalse();
+        this.list = [];
+
+        this.currentPage = {
+          pageIndex: 0,
+          pageSize: 10,
+          length: null
+        };
+        this.getKRI002();
+
+        this.currentPage2 = {
+          pageIndex: 0,
+          pageSize: 10,
+          length: null
+        };
+        this.getBAM011();
+        // when onSameUrlNavigation: 'reload'，會重新觸發 router event
+      }
+    });
+  }
 
   AAS003: [] = [];
   APS001: [] = [];
@@ -39,30 +70,6 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   hideVAM020 = false;
   hideSTS007 = false;
 
-  constructor(private route: ActivatedRoute, private childscn6Service: Childscn6Service, private router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.getJcicMultiple();
-        this.setBooleanFalse();
-        this.list = [];
-
-        this.currentPage = {
-          pageIndex: 0,
-          pageSize: 10,
-          length: null
-        };
-        this.getKRI002();
-
-        this.currentPage2 = {
-          pageIndex: 0,
-          pageSize: 10,
-          length: null
-        };
-        this.getBAM011();
-        // when onSameUrlNavigation: 'reload'，會重新觸發 router event
-      }
-    });
-  }
   private applno: string;
   private cuid: string;
   private queryDate: string;
@@ -71,11 +78,10 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   currentSort: Sort;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.cuid = params['cuid'];
-      this.queryDate = params['queryDate'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.cuid = caseParams.cuid;
+    this.queryDate = caseParams.queryDate;
     this.getJcicMultiple();
     this.setBooleanFalse();
 

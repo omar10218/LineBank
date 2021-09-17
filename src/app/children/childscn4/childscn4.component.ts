@@ -4,6 +4,7 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ChildrenService } from '../children.service';
 import { Childscn4Service } from './childscn4.service';
 
 
@@ -14,7 +15,14 @@ import { Childscn4Service } from './childscn4.service';
 })
 export class Childscn4Component implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router, private childscn4Service: Childscn4Service, public dialog: MatDialog) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private childscn4Service: Childscn4Service,
+    public dialog: MatDialog,
+    public childService: ChildrenService
+  ) { }
+
   private applno: string;
   private search: string;
   currentPage: PageEvent;
@@ -22,10 +30,9 @@ export class Childscn4Component implements OnInit {
   caseStepSource = new MatTableDataSource<any>();
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.search = params['search'];
-    });
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.search = caseParams.search;
 
     this.currentPage = {
       pageIndex: 0,
