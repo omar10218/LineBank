@@ -78,19 +78,20 @@ export class F03012addComponent implements OnInit {
     // } else {
       const url = 'f03/f03012action1';
       const formdata: FormData = new FormData();
-      formdata.append('compareTable', this.compareTableSetForm.value.compareTable);
-      formdata.append('compareColumn', this.compareTableSetForm.value.compareColumn);
-      formdata.append('compareType', this.compareTableSetForm.value.compareType);
-      formdata.append('setValueHight', this.compareTableSetForm.value.setValueHight);
-      formdata.append('setValueLow', this.compareTableSetForm.value.setValueLow);
+      formdata.append('elCompareDataSet[0].compareTable', this.compareTableSetForm.value.compareTable);
+      formdata.append('elCompareDataSet[0].compareColumn', this.compareTableSetForm.value.compareColumn);
+      formdata.append('elCompareDataSet[0].compareType', this.compareTableSetForm.value.compareType);
+      formdata.append('elCompareDataSet[0].setValueHight', this.compareTableSetForm.value.setValueHight);
+      formdata.append('elCompareDataSet[0].setValueLow', this.compareTableSetForm.value.setValueLow);
       // formdata.append('setValue', this.compareTableSetForm.value.setValue);
       console.log(formdata);
       console.log(url);
       this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
-        msg = data.rspMsg;
-        console.log(formdata);
-      console.log(url);
-        console.log(data);
+       alert(msg = data.rspMsg)
+       window.location.reload();
+      //   console.log(formdata);
+      // console.log(url);
+      //   console.log(data);
       });
     // }
     // setTimeout(() => {

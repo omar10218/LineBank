@@ -41,7 +41,6 @@ export class F03012Component implements OnInit {
   constructor(private f03012Service: F03012Service, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-console.log(this.chkArray)
     this.f03012Service.getSysTypeCode('COMPARE_TABLE')
     .subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
@@ -50,9 +49,10 @@ console.log(this.chkArray)
         this.compareTableCode.push({ value: codeNo, viewValue: desc })
       }
 
-      for (const jsonObj of data.rspBody.mappingList) {
-        this.chkArray.push({ value: jsonObj['codeNo'], completed: false })
-      }
+      // for (const jsonObj of data.rspBody.mappingList) {
+      //   this.chkArray.push({ value: jsonObj['codeNo'], completed: false })
+      // }
+      console.log(this.chkArray)
       // this.mappingCodeSource.data = data.rspBody.functionList;
       // for (let i = 0; i < this.compareTableCode.length; i++) {
       //   this.f03012Service.getSysTypeCode(this.compareTableCode[i].value, 'f03/f03012')
@@ -97,6 +97,7 @@ console.log(this.chkArray)
     const baseUrl = 'f03/f03012scn1';
     this.f03012Service.getComePareDataSetList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize)
     .subscribe(data => {
+      console.log(data);
       this.totalCount = data.rspBody.size;
       this.compareDataSetSource.data = data.rspBody.items;
       this.compareTableOption = data.rspBody.compareTable;
@@ -205,9 +206,9 @@ console.log(this.chkArray)
 
     this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
       // msg = data.rspMsg;
-      this.totalCount = data.rspBody.size;
-      this.compareDataSetSource.data = data.rspBody.items;
       console.log(data)
+      this.totalCount = data.rspBody.items.length;
+      this.compareDataSetSource = data.rspBody.items;
     });
     // setTimeout(() => {
     //   const DialogRef = this.dialog.open(F03012confirmComponent, { data: { msgStr: msg } });
