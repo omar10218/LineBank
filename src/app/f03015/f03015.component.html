@@ -1,1 +1,142 @@
-<p>f03015 works!</p>
+<div class="container" >
+    <th class="f03_th">Proxy Income 維護</th>
+    <form [formGroup]="proxyIncomeForm" style="padding-left: 20px;">
+        <div class="f03_div">
+            <button mat-raised-button color="primary" (click)="doSearch()">查詢</button>
+            <button mat-raised-button color="primary" (click)="getProxyIncomeData()">查詢資料</button>
+            <button mat-raised-button color="primary" (click)="insert(true)">新增</button>
+            <!-- <button mat-raised-button color="primary" (click)="save()">儲存資料</button> -->
+            <button mat-raised-button color="primary" (click)="clear()">清除資料</button>
+            <button mat-raised-button color="primary" (click)="uploadExcel()">上傳Excel</button>
+            <button mat-raised-button color="primary" (click)="exportExcel()">匯出Excel</button>
+        </div>
+        <table [hidden] = 'isHidden'>
+            <br>
+            <mat-card class="matCard">
+                <mat-card-content>
+                    <tr>
+                        <th>行職業代碼</th>
+                        <td>
+                            <mat-form-field color="accent">
+                                <mat-select [(ngModel)]="inducCodeValue" formControlName="INDUC_CODE">
+                                    <mat-option *ngFor="let code of inducCode" [value]="code.value">
+                                        {{code.viewValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <th>行業Level1</th>
+                        <td>
+                            <mat-form-field color="accent">
+                                <mat-select [(ngModel)]="inducLevel1Value" formControlName="INDUC_LEVEL1">
+                                    <mat-option *ngFor="let code of inducLevel1" [value]="code.value">
+                                        {{code.viewValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <th>行業Level2</th>
+                        <td>
+                            <mat-form-field color="accent">
+                                <mat-select [(ngModel)]="inducLevel2Value" formControlName="INDUC_LEVEL2">
+                                    <mat-option *ngFor="let code of inducLevel2" [value]="code.value">
+                                        {{code.viewValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <th>職稱碼</th>
+                        <td>
+                            <mat-form-field color="accent">
+                                <mat-select [(ngModel)]="jobCodeValue" formControlName="JOB_CODE">
+                                    <mat-option *ngFor="let code of jobCode" [value]="code.value">
+                                        {{code.viewValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </mat-card-content>
+            </mat-card>
+        </table>
+    </form>
+</div>
+<mat-table [dataSource]="proxyIncomeDataSource" matSort (matSortChange)="changeSort($event)">
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <button mat-raised-button color="success"
+                (click)="update(true, row)">編輯</button>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <button mat-raised-button color="success"
+                (click)="delete(row.ID)">刪除</button>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="INDUC_CODE">
+        <mat-header-cell *matHeaderCellDef>行職業代碼</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.INDUC_CODE }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="INDUC_LEVEL1">
+        <mat-header-cell *matHeaderCellDef>行業Level1</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.INDUC_LEVEL1 }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="INDUC_LEVEL1_DESC">
+        <mat-header-cell *matHeaderCellDef>行業Level1敘述</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.INDUC_LEVEL1_DESC }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="INDUC_LEVEL2">
+        <mat-header-cell *matHeaderCellDef>行業Level2</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.INDUC_LEVEL2 }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="INDUC_LEVEL2_DESC">
+        <mat-header-cell *matHeaderCellDef>行業Level2敘述</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.INDUC_LEVEL2_DESC }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="JOB_CODE">
+        <mat-header-cell *matHeaderCellDef>職業碼</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.JOB_CODE }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="JOB_DESC">
+        <mat-header-cell *matHeaderCellDef>職業碼敘述</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.JOB_DESC }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="TEN_PERCENT_SALARY">
+        <mat-header-cell *matHeaderCellDef>第10百分位薪資</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.TEN_PERCENT_SALARY }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="MID_SALARY">
+        <mat-header-cell *matHeaderCellDef>中位數薪資</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.MID_SALARY }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="NINETY_PERCENT_SALARY">
+        <mat-header-cell *matHeaderCellDef>第90百分位薪資</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.NINETY_PERCENT_SALARY }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="CHANGE_DATE">
+        <mat-header-cell *matHeaderCellDef>異動日期</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.CHANGE_DATE | date:'yyyy-MM-dd' }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="ROWID">
+        <mat-header-cell *matHeaderCellDef>ROWID</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.ID }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row
+        *matHeaderRowDef="['edit','delete', 'INDUC_CODE','INDUC_LEVEL1','INDUC_LEVEL1_DESC','INDUC_LEVEL2','INDUC_LEVEL2_DESC','JOB_CODE','JOB_DESC','TEN_PERCENT_SALARY','MID_SALARY','NINETY_PERCENT_SALARY','CHANGE_DATE']; sticky: true">
+    </mat-header-row>
+    <mat-row
+        *matRowDef="let ruleParmRow; columns: [ 'edit','delete','INDUC_CODE','INDUC_LEVEL1','INDUC_LEVEL1_DESC','INDUC_LEVEL2','INDUC_LEVEL2_DESC','JOB_CODE','JOB_DESC','TEN_PERCENT_SALARY','MID_SALARY','NINETY_PERCENT_SALARY','CHANGE_DATE']">
+    </mat-row>
+</mat-table>
+
+<tr>
+    <td>
+        <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+        </mat-paginator>
+    </td>
+</tr>

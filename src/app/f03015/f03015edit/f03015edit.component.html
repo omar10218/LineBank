@@ -1,1 +1,98 @@
-<p>f03015edit works!</p>
+<div class="container">
+    <div [(hidden)]="insert">
+        <h2 mat-dialog-title>新增</h2>
+    </div>
+    <div [(hidden)]="update">
+        <h2 mat-dialog-title>編輯</h2>
+    </div>
+
+    <form [formGroup]="insertForm" class="mat-dialog-content" (ngSubmit)="submit()">
+        <table>
+            <tr>
+                <td>
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <mat-select placeholder="行職業代碼" formControlName="INDUC_CODE" required>
+                                <mat-option *ngFor="let code of inducCode" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </td>
+                <td>
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <mat-select placeholder="行業Level1" formControlName="INDUC_LEVEL1" required>
+                                <mat-option *ngFor="let code of inducLevel1" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </td>
+                <td>
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <mat-select placeholder="行業Level2" formControlName="INDUC_LEVEL2" required>
+                                <mat-option *ngFor="let code of inducLevel2" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <mat-select placeholder="職業碼" formControlName="JOB_CODE" required>
+                                <mat-option *ngFor="let code of jobCode" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </td>
+                <td>
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <input matInput #input class="form-control" placeholder="第10百分位薪資"
+                                formControlName="TEN_PERCENT_SALARY" required>
+                            <mat-error *ngIf="formControl.invalid">{{getErrorMessage('TEN_PERCENT_SALARY')}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </td>
+                <td>
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <input matInput #input class="form-control" placeholder="中位數薪資"
+                                formControlName="MID_SALARY" required>
+                            <mat-error *ngIf="formControl.invalid">{{getErrorMessage('MID_SALARY')}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form">
+                        <mat-form-field color="accent">
+                            <input matInput #input class="form-control" placeholder="第90百分位薪資"
+                                formControlName="NINETY_PERCENT_SALARY" required>
+                            <mat-error *ngIf="formControl.invalid">{{getErrorMessage('NINETY_PERCENT_SALARY')}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form" mat-dialog-actions>
+                        <button mat-raised-button color="primary" [type]="submit" (click)="insert == true ? updateData() : confirmAdd() ">儲存</button>
+                        <button mat-button (click)="onNoClick()" tabindex="-1">取消</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

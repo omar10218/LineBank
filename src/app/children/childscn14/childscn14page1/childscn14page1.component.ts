@@ -27,8 +27,7 @@ export class Childscn14page1Component implements OnInit {
       this.cuid = params['cuid'];
       var origin = window.location.origin;
       var host = origin.substring(0, origin.lastIndexOf(":"));
-      console.log(host)
-      this.src = this.sanitizer.bypassSecurityTrustResourceUrl(host + ":8080/LineBankViewone/pages/ImagePage1.jsp?applno=" + this.applno);
+      this.src = this.sanitizer.bypassSecurityTrustResourceUrl(host + ":8080/LineBankViewone/pages/ImagePage2.jsp?applno=" + this.applno);
     });
 
     const url = 'f01/childscn14';
