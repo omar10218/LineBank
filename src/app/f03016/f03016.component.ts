@@ -112,6 +112,7 @@ export class F03016Component implements OnInit {
     this.getImpertmentParameterInfo();
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
+      this.getImpertmentParameterInfo();
 
     });
   }
