@@ -26,15 +26,24 @@ export class F03015Service extends BaseService{
 
     return this.postJsonObject(targetUrl, jsonObject);
   }
+
+  downloadExcel(baseUrl: string, jsonObject:JSON): Observable<any> {
+    // const baseUrl = 'f03/f03015';
+    let targetUrl = `${baseUrl}`;
+
+    return this.postGetFile(targetUrl, jsonObject);
+  }
+
+
   insert(baseUrl: string, jsonObject:JSON): Observable<any> {
     // const baseUrl = 'f03/f03015';
     let targetUrl = `${baseUrl}`;
 
     return this.postJsonObject(targetUrl, jsonObject);
   }
-  
+
   download(baseUrl: string, file: string | undefined): Observable<Blob> {
-    // return this.http.get(`${environment.baseUrl}/files/${file}`, {  
+    // return this.http.get(`${environment.baseUrl}/files/${file}`, {
     return this.httpClient.get(baseUrl, {
       responseType: 'blob'
     });
