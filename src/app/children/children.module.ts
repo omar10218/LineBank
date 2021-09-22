@@ -45,6 +45,7 @@ import { Childscn14page2Component } from './childscn14/childscn14page2/childscn1
 import { Childscn14page3Component } from './childscn14/childscn14page3/childscn14page3.component';
 import { Childscn15Component } from './childscn15/childscn15.component';
 import { CommonLibModule } from '../common-lib/common-lib.module';
+import { Childscn16Component } from './childscn16/childscn16.component';
 
 
 @NgModule({
@@ -88,7 +89,8 @@ import { CommonLibModule } from '../common-lib/common-lib.module';
     Childscn14page1Component,
     Childscn14page2Component,
     Childscn14page3Component,
-    Childscn15Component
+    Childscn15Component,
+    Childscn16Component
   ],
   imports: [
     CommonModule,

@@ -9,31 +9,20 @@ export class F03016Service extends BaseService {
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getTableDataSetList(baseUrl: string, pageIndex: number, pageSize: number ): Observable<any> {
+  getImpertmentParameter(baseUrl: string, pageIndex: number, pageSize: number): Observable<any> {
     let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
     return this.postHttpClient(targetUrl);
   }
-  getCustomerInfoSearch(formData: FormData): Observable<any>  {
-    const baseUrl = 'f03/f03016';
-    return this.postFormData(baseUrl, formData);
-  }
-  saveComePareDataSetList(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
-  }
+
   update(baseUrl: string, jsonObject: any): any {
 
-    jsonObject['DssJcicSet'] =  jsonObject.DssJcicSet;
-    jsonObject['BasicLimit'] =  jsonObject.BasicLimit;
-    jsonObject['IsJcic'] =  jsonObject.IsJcic;
-    jsonObject['TransEmpNo'] =  jsonObject.TransEmpNo;
+    jsonObject['DssJcicSet'] = jsonObject.DssJcicSet;
+    jsonObject['BasicLimit'] = jsonObject.BasicLimit;
+    jsonObject['IsJcic'] = jsonObject.IsJcic;
+    jsonObject['TransEmpNo'] = jsonObject.TransEmpNo;
 
-    // const formdata: FormData = new FormData();
-    // formdata.append('DssJcicSet', jsonObject.DssJcicSet);
-    // formdata.append('BasicLimit', jsonObject.BasicLimit);
-    // formdata.append('IsJcic', jsonObject.IsJcic);
-    // formdata.append('TransEmpNo', jsonObject.transEmpNo);
-    // console.log(formdata);
     return this.saveOrEditMsgString(baseUrl, jsonObject);
 
   }
 }
+

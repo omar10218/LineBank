@@ -39,6 +39,9 @@ export class Childscn6Component implements OnInit {
     this.search = caseParams.search;
     this.cuid = caseParams.cuid;
     this.fds = caseParams.fds;
+  }
+
+  ngAfterViewInit() {
     const url = 'f01/childscn6';
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
@@ -57,17 +60,22 @@ export class Childscn6Component implements OnInit {
           fds: this.fds,
           queryDate: this.dateValue
         });
+        this.resetPage();
         //this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase, fds: this.fds} });
       }
     });
   }
 
-  ngAfterViewInit() {
-    this.resetPage();
-  }
-
   changeDate() {
     this.resetPage();
+    this.childService.setData({
+      applno: this.applno,
+      cuid: this.cuid,
+      search: this.search,
+      fds: this.fds,
+      queryDate: this.dateValue
+    });
+
     //this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase } });
   }
 

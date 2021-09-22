@@ -63,6 +63,7 @@ export class F03004Component implements OnInit, AfterViewInit  {
     .subscribe(data => {
       this.totalCount = data.rspBody.size;
       this.mappingCodeSource.data = data.rspBody.items;
+      console.log(this.mappingCodeSource.data)
     });
   }
 
