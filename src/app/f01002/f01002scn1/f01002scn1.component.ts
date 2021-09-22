@@ -1,3 +1,4 @@
+import { F01002blocklistComponent } from './../f01002blocklist/f01002blocklist.component';
 import { F01002researchComponent } from './../f01002research/f01002research.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
@@ -46,6 +47,15 @@ export class F01002scn1Component implements OnInit {
 
   reSearch() {
     const dialogRef = this.dialog.open(F01002researchComponent,{
+      data:{
+        applno: this.applno,
+        cuid: this.cuid
+      }
+    });
+  }
+
+  blockList() {
+    const dialogRef = this.dialog.open(F01002blocklistComponent,{
       data:{
         applno: this.applno,
         cuid: this.cuid
