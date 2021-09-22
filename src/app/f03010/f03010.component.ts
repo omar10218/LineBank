@@ -17,7 +17,18 @@ import { F03010editComponent } from './f03010edit/f03010edit.component';
 })
 export class F03010Component implements OnInit {
 
-  constructor(private fb: FormBuilder, private f03010Service: F03010Service, public dialog: MatDialog) { }
+  constructor(
+    private fb: FormBuilder,
+    private f03010Service: F03010Service,
+    public dialog: MatDialog
+  ) { }
+
+  totalCount: any;
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  currentPage: PageEvent;
+  currentSort: Sort;
+  calloutSpeakingSource = new MatTableDataSource<any>();//Tabele資料
 
   ngOnInit(): void {
     this.currentPage = {
@@ -31,13 +42,6 @@ export class F03010Component implements OnInit {
       direction: ''
     };
   }
-
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent;
-  currentSort: Sort;
-  calloutSpeakingSource = new MatTableDataSource<any>();//Tabele資料
 
   //表單資料筆數調整
   ngAfterViewInit() {
@@ -76,9 +80,11 @@ export class F03010Component implements OnInit {
   //取話術Table
   getSpeaking() {
     const baseUrl = "f03/f03010";
-    this.f03010Service.getSpeaking(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize)
+    let jsonObject: any = {};
+    jsonObject['page'] = this.currentPage.pageIndex + 1;
+    jsonObject['per_page'] = this.currentPage.pageSize
+    this.f03010Service.Speaking(baseUrl, jsonObject)
     .subscribe(data => {
-      console.log(data);
       this.totalCount = data.rspBody.size;
       this.calloutSpeakingSource.data = data.rspBody.items;
     });
@@ -109,10 +115,10 @@ export class F03010Component implements OnInit {
   //刪除
   delete(speakingAbbreviation: string) {
     let msg = '';
-    const url = 'f03/f03010action3';
-    const formdata: FormData = new FormData();
-    formdata.append('speakingAbbreviation', speakingAbbreviation);
-    this.f03010Service.saveDssCallout( url, formdata).subscribe(data => {
+    const baseUrl = 'f03/f03010action3';
+    let jsonObject: any = {};
+    jsonObject['speakingAbbreviation'] = speakingAbbreviation;
+    this.f03010Service.Speaking( baseUrl, jsonObject).subscribe(data => {
       msg = data.rspMsg;
     });
     setTimeout(() => {

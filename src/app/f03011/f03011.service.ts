@@ -9,23 +9,18 @@ import { BaseService } from 'src/app/base.service';
 export class F03011Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  saveDssCallout(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
-  }
-
-  getDssCallout(baseUrl: string, pageIndex: number, pageSize: number): Observable<any> {
-    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
-    return this.postHttpClient(targetUrl);
+  dssCallout(baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
   }
 
   update(baseUrl: string, data: any, oldtvNo: string, oldscklv:string, oldcalv:string): any {
-    const formdata: FormData = new FormData();
-    formdata.append('tvNo', data.tvNo);
-    formdata.append('scklv', data.scklv);
-    formdata.append('calv', data.calv);
-    formdata.append('oldtvNo', oldtvNo);
-    formdata.append('oldscklv', oldscklv);
-    formdata.append('oldcalv', oldcalv);
-    return this.saveOrEditMsgString(baseUrl, formdata);
+    let jsonObject: any = {};
+    jsonObject['tvNo'] = data.tvNo;
+    jsonObject['scklv'] = data.scklv;
+    jsonObject['calv'] = data.calv;
+    jsonObject['oldtvNo'] = oldtvNo;
+    jsonObject['oldscklv'] = oldscklv;
+    jsonObject['oldcalv'] = oldcalv;
+    return this.saveOrEditMsgJson(baseUrl, jsonObject);
   }
 }

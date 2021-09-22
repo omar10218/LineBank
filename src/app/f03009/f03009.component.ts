@@ -17,13 +17,16 @@ interface checkBox {
 })
 export class F03009Component implements OnInit {
 
+  constructor(
+    public dialog: MatDialog,
+    private f03009Service: F03009Service
+  ) { }
+
   isAllCheck: boolean = false;
   tvnoCode: OptionsCode[] = [];
   chkArray: checkBox[] = [];
   selectedValue: string;
   mdnoSource = new MatTableDataSource<any>();
-
-  constructor(public dialog: MatDialog, private f03009Service: F03009Service) { }
 
   ngOnInit(): void {
     this.f03009Service.getSysTypeCode('TV_NO').subscribe(data => {
@@ -42,7 +45,9 @@ export class F03009Component implements OnInit {
 
   private async getTvFunction() {
     const baseUrl = 'f03/f03009action1';
-    this.f03009Service.getTvFunction(baseUrl, this.selectedValue).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['tvNo'] = this.selectedValue;
+    this.f03009Service.TvFunction(baseUrl, jsonObject).subscribe(data => {
       if (this.chkArray.length > 0) {
         let i: number = 0;
         for (const jsonObj of data.rspBody) {
@@ -68,11 +73,11 @@ export class F03009Component implements OnInit {
     for (const obj of this.chkArray) {
       if (obj.completed) { valArray.push(obj.value); }
     }
-    const formData: FormData = new FormData();
-    formData.append("tvNo", this.selectedValue);
-    formData.append("mdNo", valArray.toString());
     const baseUrl = 'f03/f03009action2';
-     this.f03009Service.saveTvFunction(baseUrl, formData).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['tvNo'] = this.selectedValue;
+    jsonObject['mdNo'] = valArray.toString();
+    this.f03009Service.TvFunction(baseUrl, jsonObject).subscribe(data => {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });

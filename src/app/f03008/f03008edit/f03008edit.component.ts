@@ -11,7 +11,12 @@ import { F03008Service } from '../f03008.service';
 })
 export class F03008editComponent   {
 
-  constructor(public dialogRef: MatDialogRef<F03008editComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03008Service: F03008Service) { }
+  constructor(
+    public dialogRef: MatDialogRef<F03008editComponent>,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public f03008Service: F03008Service
+  ) { }
 
   YNselect: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
   empNo: string = localStorage.getItem("empNo");
@@ -30,14 +35,13 @@ export class F03008editComponent   {
   // }
 
   public async stopEdit(): Promise<void> {
-    const formdata: FormData = new FormData();
-    formdata.append('onCheck', this.data.onCheck);
-    formdata.append('abnormalNid', this.data.abnormalNid);
-    console.log(this.empNo)
-    console.log(formdata)
+    let jsonObject: any = {};
+    jsonObject['empNo'] = this.empNo;
+    jsonObject['abnormalNid'] = this.data.abnormalNid;
+    jsonObject['onCheck'] = this.data.onCheck;
     let msgStr: string = "";
     let baseUrl = 'f03/f03008action3';
-    msgStr = await this.f03008Service.addOrEditAdrCodeSet(baseUrl, this.empNo, formdata);
+    msgStr = await this.f03008Service.addOrEditAdrCodeSet(baseUrl, jsonObject);
     const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
