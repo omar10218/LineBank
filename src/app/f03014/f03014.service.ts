@@ -17,10 +17,10 @@ export class F03014Service extends BaseService {
     return this.postFormData(baseUrl, formData);
   }
   //新增
-  Add(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
-  }
-  test(baseUrl: string, json: JSON): Observable<any> {
+  // Add(baseUrl: string, formData: FormData): Observable<any> {
+  //   return this.postFormData(baseUrl, formData);
+  // }
+  Add(baseUrl: string, json: JSON): Observable<any> {
     return this.postJsonObject(baseUrl, json);
   }
   //更新

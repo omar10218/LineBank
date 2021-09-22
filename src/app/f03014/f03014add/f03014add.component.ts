@@ -67,7 +67,7 @@ export class F03014addComponent implements OnInit {
     // formData.append('useFlag',this.usingValue);
     // formData.append('changeDate',this.currentTimeValue);
     this.Custlist.push(this.jsonObject)
-    this.f03014Service.test(url,this.Custlist).subscribe(data=>{
+    this.f03014Service.Add(url,this.Custlist).subscribe(data=>{
       console.log(data)
 
     })
