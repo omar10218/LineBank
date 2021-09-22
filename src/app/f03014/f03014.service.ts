@@ -14,12 +14,17 @@ export class F03014Service extends BaseService {
 
   //查詢
   selectCustomer(baseUrl: string, formData: FormData): Observable<any> {
-    return this.formDataApiFor_NET(baseUrl, formData);
+    return this.postFormData(baseUrl, formData);
   }
   //新增
-  Add(baseUrl: string, formData: FormData): Observable<any> {
-    console.log('123')
-    console.log(formData)
-    return this.formDataApiFor_NET(baseUrl, formData);
+  // Add(baseUrl: string, formData: FormData): Observable<any> {
+  //   return this.postFormData(baseUrl, formData);
+  // }
+  Add(baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
+  }
+  //更新
+  update(baseUrl: string, formData: FormData): Observable<any> {
+    return this.postFormData(baseUrl, formData);
   }
 }

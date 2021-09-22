@@ -90,7 +90,7 @@ export class Childscn3Component implements OnInit {
     this.jsonObject['announceEmpno'] = this.no;
     this.childsc3Service.oneseve(url,this.jsonObject).subscribe(data=>
       {
-        console.log(data)
+
       })
   }
   seve()//儲存
@@ -107,13 +107,12 @@ export class Childscn3Component implements OnInit {
         }
       }
     }
-    console.log(this.l1);
     this.jsonObject['applno'] = this.applno;
     this.jsonObject['result'] = this.l1;
     const url = 'f01/childscn3action1';
     this.childsc3Service.oneseve(url,this.jsonObject).subscribe(data=>
       {
-        console.log(data);
+
       })
 
   }
@@ -125,7 +124,6 @@ export class Childscn3Component implements OnInit {
     this.childsc3Service.gettable(url, applno).subscribe(data => {
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;
-      console.log(this.i)
     })
   }
 }

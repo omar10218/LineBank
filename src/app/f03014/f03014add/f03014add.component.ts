@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { F03014Service } from '../f03014.service';
+import * as XLSX from 'xlsx';
+
 interface sysCode {
   value: string;
   viewValue: string;
@@ -26,6 +28,8 @@ export class F03014addComponent implements OnInit {
   Efficient:string;//生效
   Invalidation:string;//失效
   daytest:string;//三個月後的日期
+  jsonObject :any = {};
+  Custlist:any=[];
   constructor(private pipe: DatePipe,private f03014Service: F03014Service) { }
 
   ngOnInit(): void {
@@ -42,21 +46,32 @@ export class F03014addComponent implements OnInit {
   }
   seve()
   {
-
     const url = 'f03/f03014action02';
-    let formData = new FormData();
-    formData.append('custNid',this.custNid);
-    formData.append('custName',this.custName);
-    formData.append('content1',this.content1);
-    formData.append('content2',this.content2);
-    formData.append('remark',this.remark);
-    formData.append('effectiveDate',this.Efficient);
-    formData.append('expirationDate',this.Invalidation);
-    formData.append('useFlag',this.usingValue);
-    formData.append('currentTimeValue',this.currentTimeValue);
-    this.f03014Service.Add(url,formData).subscribe(data=>{
+    this.jsonObject['custNid']=this.custNid;
+    this.jsonObject['custName']=this.custName;
+    this.jsonObject['content1']=this.content1;
+    this.jsonObject['content2']=this.content2;
+    this.jsonObject['remark']=this.remark;
+    this.jsonObject['effectiveDate']=this.Efficient;
+    this.jsonObject['expirationDate']=this.Invalidation;
+    this.jsonObject['useFlag']=this.usingValue;
+    this.jsonObject['changeDate']=this.currentTimeValue;
+    // let formData = new FormData();
+    // formData.append('custNid',this.custNid);
+    // formData.append('custName',this.custName);
+    // formData.append('content1',this.content1);
+    // formData.append('content2',this.content2);
+    // formData.append('remark',this.remark);
+    // formData.append('effectiveDate',this.Efficient);
+    // formData.append('expirationDate',this.Invalidation);
+    // formData.append('useFlag',this.usingValue);
+    // formData.append('changeDate',this.currentTimeValue);
+    this.Custlist.push(this.jsonObject)
+    this.f03014Service.Add(url,this.Custlist).subscribe(data=>{
+      console.log(data)
 
     })
   }
+
 
 }
