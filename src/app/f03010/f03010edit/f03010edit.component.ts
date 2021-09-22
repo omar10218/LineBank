@@ -13,10 +13,15 @@ import { F03010Service } from '../f03010.service';
 })
 export class F03010editComponent implements OnInit {
 
+  constructor(
+    public dialogRef: MatDialogRef<F03010editComponent>,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public f03010Service: F03010Service
+  ) { }
+
   //暫停使用下拉選單
   stopFlagCode: OptionsCode[] = [{ value: 'Y', viewValue: 'Y' }, { value: 'N', viewValue: 'N' }];
-
-  constructor(public dialogRef: MatDialogRef<F03010editComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03010Service: F03010Service) { }
 
   //欄位驗證
   formControl = new FormControl('', [

@@ -14,10 +14,16 @@ import { OptionsCode } from 'src/app/interface/base';
 })
 export class F03010addComponent implements OnInit {
 
+  constructor(
+    public dialogRef: MatDialogRef<F03010addComponent>,
+    private fb: FormBuilder,
+    private f03010Service: F03010Service,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
+
   //暫停使用下拉選單
   stopFlagCode: OptionsCode[] = [{ value: 'Y', viewValue: 'Y' }, { value: 'N', viewValue: 'N' }];
-
-  constructor(public dialogRef: MatDialogRef<F03010addComponent>,private fb: FormBuilder, private f03010Service: F03010Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
   }
@@ -34,12 +40,12 @@ export class F03010addComponent implements OnInit {
   //新增
   add() {
     let msg = '';
-      const url = 'f03/f03010action1';
-      const formdata: FormData = new FormData();
-      formdata.append('speakingAbbreviation', this.data.speakingAbbreviation);
-      formdata.append('stopFlag',this.data.stopFlag);
-      formdata.append('speakingContent', this.data.speakingContent);
-      this.f03010Service.saveDssCallout( url, formdata).subscribe(data => {
+      const baseUrl = 'f03/f03010action1';
+      let jsonObject: any = {};
+      jsonObject['speakingAbbreviation'] = this.data.speakingAbbreviation;
+      jsonObject['stopFlag'] = this.data.stopFlag;
+      jsonObject['speakingContent'] = this.data.speakingContent;
+      this.f03010Service.Speaking( baseUrl, jsonObject).subscribe(data => {
         msg = data.rspMsg;
       });
     // }

@@ -12,12 +12,7 @@ export class F03007Service extends BaseService {
     return this.postHttpClient(baseUrl);
   }
 
-  getRoleFunction(baseUrl: string, roleNo: String): Observable<any> {
-    let targetUrl = `${baseUrl}?roleNo=${roleNo}`;
-    return this.postHttpClient(targetUrl);
-  }
-
-  saveRoleFunction(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
+  roleFunction(baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
   }
 }

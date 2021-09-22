@@ -16,6 +16,13 @@ import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
   styleUrls: ['./f03008.component.css', '../../assets/css/f03.css']
 })
 export class F03008Component implements OnInit {
+
+  constructor(
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public f03008Service: F03008Service
+  ) { }
+
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
@@ -44,17 +51,17 @@ export class F03008Component implements OnInit {
     });
   }
 
-  constructor(public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03008Service: F03008Service) { }
-
-
   ngOnInit(): void {
   }
 
 
   getAbnormalList() {
-    console.log(this.ABNORMAL_NID);
     const baseUrl = 'f03/f03008action1';
-    this.f03008Service.getAbnormalList(baseUrl, this.ABNORMAL_NID, this.currentPage.pageIndex, this.currentPage.pageSize)
+    let jsonObject: any = {};
+    jsonObject['abnormalNid'] = this.ABNORMAL_NID;
+    jsonObject['page'] = this.currentPage.pageIndex + 1;
+    jsonObject['per_page'] = this.currentPage.pageSize;
+    this.f03008Service.elAbnormalNid(baseUrl, jsonObject)
       .subscribe(data => {
         this.totalCount = data.rspBody.size;
         if (this.totalCount == 0) {
@@ -97,12 +104,15 @@ export class F03008Component implements OnInit {
     });
   }
 
-  public async delete(abnormalNid:string): Promise<void> {
+  public async delete(abnormalNid: string): Promise<void> {
     let baseUrl = 'f03/f03008action4';
-    this.f03008Service.delete(baseUrl ,abnormalNid).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['abnormalNid'] = abnormalNid;
+    this.f03008Service.elAbnormalNid(baseUrl, jsonObject).subscribe(data => {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
+      this.refreshTable();
     });
   }
 

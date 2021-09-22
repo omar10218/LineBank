@@ -9,12 +9,7 @@ import { BaseService } from '../base.service';
 export class F03009Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getTvFunction(baseUrl: string, tvNo: String): Observable<any> {
-    let targetUrl = `${baseUrl}?tvNo=${tvNo}`;
-    return this.postHttpClient(targetUrl);
-  }
-
-  saveTvFunction(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
+  TvFunction(baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
   }
 }

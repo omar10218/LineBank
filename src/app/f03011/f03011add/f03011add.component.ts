@@ -12,18 +12,23 @@ import { F03011Service } from '../f03011.service';
 })
 export class F03011addComponent implements OnInit {
 
+  constructor(
+    private fb: FormBuilder,
+    public dialogRef: MatDialogRef<F03011addComponent>,
+    private f03011Service: F03011Service,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
+
   scklvCode: OptionsCode[] = [];
   calvCode: OptionsCode[] = [];
   tvNoCode: OptionsCode[] = [];
-
   dssCalloutForm: FormGroup = this.fb.group({
     scklv: ['', [Validators.required]],
     calv: ['', [Validators.required]],
     tvNo: ['', [Validators.required]]
   });
   submitted = false;
-
-  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<F03011addComponent>,private f03011Service: F03011Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
     this.f03011Service.getSysTypeCode('SCKLV').subscribe(data => {
@@ -60,12 +65,12 @@ export class F03011addComponent implements OnInit {
     if (!this.dssCalloutForm.valid) {
       msg = '資料格式有誤，請修正!';
     } else {
-      const url = 'f03/f03011action1';
-      const formdata: FormData = new FormData();
-      formdata.append('scklv', this.dssCalloutForm.value.scklv);
-      formdata.append('calv', this.dssCalloutForm.value.calv);
-      formdata.append('tvNo', this.dssCalloutForm.value.tvNo);
-      this.f03011Service.saveDssCallout( url, formdata).subscribe(data => {
+      const baseUrl = 'f03/f03011action1';
+      let jsonObject: any = {};
+      jsonObject['scklv'] = this.dssCalloutForm.value.scklv;
+      jsonObject['calv'] = this.dssCalloutForm.value.calv;
+      jsonObject['tvNo'] = this.dssCalloutForm.value.tvNo;
+      this.f03011Service.dssCallout( baseUrl, jsonObject).subscribe(data => {
         msg = data.rspMsg;
       });
     }
