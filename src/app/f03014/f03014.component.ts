@@ -121,7 +121,7 @@ export class F03014Component implements OnInit {
   }
   execlExport()//匯出
   {
-    const url = 'f03/f03014action01';
+    const url = 'f03/f03014action04';
     var formData = new FormData();
     formData.append('custNid', this.IdentityValue != null ? this.IdentityValue : '');
     formData.append('custName', this.NameValue != null ? this.NameValue : '');
@@ -145,7 +145,7 @@ export class F03014Component implements OnInit {
         {wpx:250},
       ]};
       //資料塞入順序
-      const header = ["CUST_NID","CUST_NAME","CONTENT1","CONTENT2","REMARK","EFFECTIVE_DATE","EXPIRATION_DATE","USE_FLAG","CHANGE_DATE","ROW_ID"]
+      const header = ["客戶身分證字號","客戶姓名","簡述1","簡述2","備註資訊","生效日","失效日","使用中","更新日期"]
 
       const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data.rspBody,{header:header});//創建Excel 塞入資料和順序型態
       ws['!cols'] = options['!cols'];//定義欄位寬度

@@ -54,7 +54,7 @@ export class F03014uploadComponent implements OnInit {
 
     if (this.inputdata.length > 1) {
 
-      let formData = new FormData();
+      // let formData = new FormData();
       for (var i = 0; i < this.inputdata.length; i++) {
         this.jsonObject ={};
         this.jsonObject['custNid'] = this.inputdata[i]['客戶身分證字號'];
@@ -68,23 +68,23 @@ export class F03014uploadComponent implements OnInit {
         this.jsonObject['changeDate'] = this.inputdata[i]['更新日期時間'];
 
 
-        formData.append('custNid', this.inputdata[i]['客戶身分證字號']);
-        formData.append('custName', this.inputdata[i]['客戶姓名']);
-        formData.append('content1', this.inputdata[i]['簡述1']);
-        formData.append('content2', this.inputdata[i]['簡述2']);
-        formData.append('remark', this.inputdata[i]['備註資訊']);
-        formData.append('effectiveDate', this.inputdata[i]['生效日']);
-        formData.append('expirationDate', this.inputdata[i]['失效日']);
-        formData.append('useFlag', this.inputdata[i]['使用中']);
-        formData.append('changeDate', this.inputdata[i]['更新日期時間']);
-        this.Custlist.push(this.jsonObject)
+        // formData.append('custNid', this.inputdata[i]['客戶身分證字號']);
+        // formData.append('custName', this.inputdata[i]['客戶姓名']);
+        // formData.append('content1', this.inputdata[i]['簡述1']);
+        // formData.append('content2', this.inputdata[i]['簡述2']);
+        // formData.append('remark', this.inputdata[i]['備註資訊']);
+        // formData.append('effectiveDate', this.inputdata[i]['生效日']);
+        // formData.append('expirationDate', this.inputdata[i]['失效日']);
+        // formData.append('useFlag', this.inputdata[i]['使用中']);
+        // formData.append('changeDate', this.inputdata[i]['更新日期時間']);
+         this.Custlist.push(this.jsonObject)
       }
-      this.f03014Service.Add(url, formData).subscribe(data => {
-        let k = i
-        this.rspMsg = '第' + k + '筆' + data.rspMsg;
-        console.log(this.Custlist);
-      }
-      )
+      // this.f03014Service.Add(url, formData).subscribe(data => {
+      //   let k = i
+      //   this.rspMsg = '第' + k + '筆' + data.rspMsg;
+      //   console.log(this.Custlist);
+      // }
+      // )
     }
     else {
       this.jsonObject['custNid'] = this.inputdata[0]['客戶身分證字號'];
@@ -96,28 +96,30 @@ export class F03014uploadComponent implements OnInit {
       this.jsonObject['expirationDate'] = this.inputdata[0]['失效日'];
       this.jsonObject['useFlag'] = this.inputdata[0]['使用中'];
       this.jsonObject['changeDate'] = this.inputdata[0]['更新日期時間'];
+      this.Custlist.push(this.jsonObject)
 
-      let formData = new FormData();
-      formData.append('custNid', this.inputdata[0]['客戶身分證字號']);
-      formData.append('custName', this.inputdata[0]['客戶姓名']);
-      formData.append('content1', this.inputdata[0]['簡述1']);
-      formData.append('content2', this.inputdata[0]['簡述2']);
-      formData.append('remark', this.inputdata[0]['備註資訊']);
-      formData.append('effectiveDate', this.inputdata[0]['生效日']);
-      formData.append('expirationDate', this.inputdata[0]['失效日']);
-      formData.append('useFlag', this.inputdata[0]['使用中']);
-      formData.append('changeDate', this.inputdata[0]['更新日期時間']);
-      this.f03014Service.Add(url, formData).subscribe(data => {
-        this.rspMsg = data.rspMsg;
+      // let formData = new FormData();
+      // formData.append('custNid', this.inputdata[0]['客戶身分證字號']);
+      // formData.append('custName', this.inputdata[0]['客戶姓名']);
+      // formData.append('content1', this.inputdata[0]['簡述1']);
+      // formData.append('content2', this.inputdata[0]['簡述2']);
+      // formData.append('remark', this.inputdata[0]['備註資訊']);
+      // formData.append('effectiveDate', this.inputdata[0]['生效日']);
+      // formData.append('expirationDate', this.inputdata[0]['失效日']);
+      // formData.append('useFlag', this.inputdata[0]['使用中']);
+      // formData.append('changeDate', this.inputdata[0]['更新日期時間']);
+      // this.f03014Service.Add(url, formData).subscribe(data => {
+      //   this.rspMsg = data.rspMsg;
 
-      })
+      // })
 
     }
   }
   seve()
   {
     const url = 'f03/f03014action02';
-    this.f03014Service.test(url, this.Custlist).subscribe(data => {
+    console.log(this.Custlist)
+    this.f03014Service.Add(url, this.Custlist).subscribe(data => {
      console.log(data);
     }
     )
