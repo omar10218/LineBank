@@ -16,14 +16,6 @@
         </mat-form-field>
       </td>
 
-      <!-- <td style="width: 10px;">
-      </td> -->
-      <!-- <th>Filter：</th>
-      <td>
-        <mat-form-field>
-          <input matInput (keyup)="applyFilter($event)" value="{{selectedValue}}" />
-        </mat-form-field>
-      </td> -->
     </tr>
   </mat-card-content>
 </mat-card>
@@ -32,14 +24,14 @@
 </section>
 <!-- 資料比對設定檔 -->
 <mat-table [dataSource]="compareDataSetSource"   >
-  <ng-container matColumnDef="IS_CHK">
+  <!-- <ng-container matColumnDef="IS_CHK">
     <mat-header-cell *matHeaderCellDef>
       <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox>
     </mat-header-cell>
     <mat-cell *matCellDef="let row; let i = index;">
-      <mat-checkbox [(ngModel)]="chkArray[i]" color="primary"></mat-checkbox>
+      <mat-checkbox [(ngModel)]="chkArray[i].completed"></mat-checkbox>
     </mat-cell>
-  </ng-container>
+  </ng-container> -->
   <ng-container matColumnDef="COMPARE_TABLE">
     <mat-header-cell *matHeaderCellDef>比對table</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ getOptionCompareTable(row.compareTable) }}</mat-cell>
@@ -52,10 +44,6 @@
     <mat-header-cell *matHeaderCellDef>比對方式</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ getOptionCompareColumn(row.compareType) }}</mat-cell>
   </ng-container>
-  <!-- <ng-container matColumnDef="SET_VALUE">
-    <mat-header-cell *matHeaderCellDef>設定值</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.setValue }}</mat-cell>
-  </ng-container> -->
   <ng-container matColumnDef="SET_VALUE_LOW">
     <mat-header-cell *matHeaderCellDef>設定最低門檻</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.setValueLow }}</mat-cell>
@@ -89,10 +77,9 @@
       </button>
     </mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="[ 'IS_CHK', 'COMPARE_TABLE', 'COMPARE_COLUMN','COMPARE_TYPE', 'SET_VALUE_LOW','SET_VALUE_HIGHT', 'actions', 'actions2']"></mat-header-row>
-  <mat-row *matRowDef="let compareDataSetSourceRow; columns: ['IS_CHK', 'COMPARE_TABLE', 'COMPARE_COLUMN','COMPARE_TYPE', 'SET_VALUE_LOW','SET_VALUE_HIGHT', 'actions', 'actions2']"></mat-row>
+  <mat-header-row *matHeaderRowDef="[  'COMPARE_TABLE', 'COMPARE_COLUMN','COMPARE_TYPE', 'SET_VALUE_LOW','SET_VALUE_HIGHT', 'actions', 'actions2']"></mat-header-row>
+  <mat-row *matRowDef="let compareDataSetSourceRow; columns: [ 'COMPARE_TABLE', 'COMPARE_COLUMN','COMPARE_TYPE', 'SET_VALUE_LOW','SET_VALUE_HIGHT', 'actions', 'actions2']"></mat-row>
 </mat-table>
-
 
 
   <tr>
