@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -33,7 +34,11 @@ export class F03015Component implements OnInit {
   jobCodeValue: string; //職業碼選擇
   isHidden: boolean;
 
-  constructor(public dialogRef: MatDialogRef<F03015confirmComponent>, private f03015Service: F03015Service, public dialog: MatDialog, private fb: FormBuilder, private datePipe: DatePipe, @Inject(MAT_DIALOG_DATA) public data: any,) { }
+  myDate:any = new Date();
+  constructor(public dialogRef: MatDialogRef<F03015confirmComponent>, private f03015Service: F03015Service, public dialog: MatDialog, private fb: FormBuilder, private datePipe: DatePipe, @Inject(MAT_DIALOG_DATA) public data: any,) {
+     this.myDate  = this.datePipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
+
+   }
   proxyIncomeForm: FormGroup = this.fb.group({
     INDUC_CODE: [this.data.inducCodeValue, [Validators.maxLength(30)]],
     INDUC_LEVEL1: [this.data.inducLevel1Value, [Validators.maxLength(30)]],
@@ -236,6 +241,7 @@ export class F03015Component implements OnInit {
     } else {
       let jsonObject: any = {};
       let formData = new FormData();
+      let blob:Blob;
       formData.append('inducCode', this.inducCodeValue != null ? this.inducCodeValue : '');
       jsonObject['page'] = this.currentPage.pageIndex + 1;
       jsonObject['per_page'] = this.currentPage.pageSize;
@@ -244,8 +250,15 @@ export class F03015Component implements OnInit {
       jsonObject['inducLevel2'] = this.inducLevel2Value;
       jsonObject['jobCode'] = this.jobCodeValue;
 
-      this.f03015Service.getReturn('f03/f03015action5', jsonObject,).subscribe(data => {
-        console.log(data)
+
+      let opton =  { responseType: 'blob' as 'json' };
+      this.f03015Service.downloadExcel('f03/f03015action5', jsonObject).subscribe(data => {
+        blob = new Blob([data], { type: 'application/xlsx' });
+        let downloadURL = window.URL.createObjectURL(blob);
+        let link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = "ProxyIncome_" +  this.myDate  + ".xlsx"; //瀏覽器下載時的檔案名稱
+        link.click();
         // const blob = new Blob([data], { type: 'application/octet-stream' });
         // const url= window.URL.createObjectURL(blob);
         // window.open(url);
