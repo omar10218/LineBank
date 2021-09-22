@@ -2,16 +2,17 @@
 <form>
   <tr>
     <div>
-      <td><button>查詢</button></td>
+      <td><button (click)="test()">查詢</button></td>
       <td><button (click)="Inquire()">查詢資料</button></td>
       <td><button (click)="AddTable()">新增</button></td>
       <td><button>儲存資料</button></td>
       <td><button>清除資料</button></td>
-      <td><button>上傳Excel</button></td>
-      <td><button>匯出Excel</button></td>
+      <td><button (click)="openup()">上傳Excel</button></td>
+      <td><button (click)="execlExport()">匯出Excel</button></td>
       <td><button>離開</button></td>
     </div>
   </tr>
+
   <br>
   <tr>
     <table cellspacing="0" cellpadding="2" style="width: 1000px;">
@@ -50,3 +51,60 @@
     </table>
   </tr>
 </form>
+<div *ngIf="i>0">
+  <mat-table [dataSource]="ruleParamCondition">
+    <ng-container matColumnDef="tool">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row;let i=index;">
+        <button mat-icon-button color="primary"
+          (click)="EditTable(i, [row.ROW_ID,row.CUST_NAME,row.CUST_NID,row.CONTENT1,row.CONTENT2,row.REMARK,row.EFFECTIVE_DATE,row.EXPIRATION_DATE,row.USE_FLAG,row.CHANGE_DATE])">
+          <mat-icon aria-label="編輯">edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="CUST_NAME">
+      <mat-header-cell *matHeaderCellDef>客戶姓名</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.CUST_NAME }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="CUST_NID">
+      <mat-header-cell *matHeaderCellDef>客戶身分證字號</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.CUST_NID }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="CONTENT1">
+      <mat-header-cell *matHeaderCellDef>簡述1</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.CONTENT1 }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="CONTENT2">
+      <mat-header-cell *matHeaderCellDef>簡述2</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.CONTENT2 }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="REMARK">
+      <mat-header-cell *matHeaderCellDef>備註資訊</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.REMARK }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="EFFECTIVE_DATE">
+      <mat-header-cell *matHeaderCellDef>生效日</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.EFFECTIVE_DATE|date: 'yyyy-MM-dd'}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="EXPIRATION_DATE">
+      <mat-header-cell *matHeaderCellDef>失效日</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row.EXPIRATION_DATE|date: 'yyyy-MM-dd' }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="USE_FLAG">
+      <mat-header-cell *matHeaderCellDef>使用中</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ getOptionDesc(usingType, row.USE_FLAG) }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="CHANGE_DATE">
+      <mat-header-cell *matHeaderCellDef>更新日期時間</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.CHANGE_DATE|date: 'yyyy-MM-dd-HH:mm:ss' }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row
+      *matHeaderRowDef="['tool','CUST_NAME','CUST_NID','CONTENT1','CONTENT2','REMARK','EFFECTIVE_DATE','EXPIRATION_DATE','USE_FLAG','CHANGE_DATE']">
+    </mat-header-row>
+    <mat-row
+      *matRowDef="let emailRow; columns: ['tool','CUST_NAME','CUST_NID','CONTENT1','CONTENT2','REMARK','EFFECTIVE_DATE','EXPIRATION_DATE','USE_FLAG','CHANGE_DATE']">
+    </mat-row>
+  </mat-table>
+</div>

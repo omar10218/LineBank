@@ -1,1 +1,27 @@
-<p>f03014upload works!</p>
+<form >
+  <table >
+    <tr>
+      <td>上傳檔案</td>
+      <input type="file" name="file" id="file" (change)="openup($event)" style="display: none;">
+      <input type="text" disabled="disable"  >
+      <td><input type="button" value="開啟檔案" onclick="file.click()" ></td>
+      <td><input type="button" value="上傳" (click)="seve()" ></td>
+    </tr>
+    <tr>
+      <td>上傳異常訊息</td>
+      <td colspan="2">
+        <input type="text" style="height:200px;width:250px;" [(ngModel)]="rspMsg" name="rspMsg" value={{rspMsg}} disabled>
+      </td>
+    </tr>
+  </table>
+</form>
+<script>
+  openup($event)
+  {
+    const file = $event.target.files[0];
+    if(!file)
+    {
+      return;
+    }
+  }
+</script>

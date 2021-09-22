@@ -1,1 +1,62 @@
-<p>f03014edit works!</p>
+
+<form>
+  <table>
+    <tr>
+      <td>客戶身分證字號</td>
+      <td><input type="text"[(ngModel)]="IdentityValue" name="IdentityValue"  onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10" ></td>
+    </tr>
+    <tr>
+      <td>客戶姓名</td>
+      <td><input type="text" maxlength="20" [(ngModel)]="NameValue" name="NameValue"></td>
+    </tr>
+    <tr>
+      <td>簡述一</td>
+      <td><input type="text" maxlength="10" [(ngModel)]="NarrateValue1" name="NarrateValue1"></td>
+    </tr>
+    <tr>
+      <td>簡述二</td>
+      <td><input type="text" maxlength="30" [(ngModel)]="NarrateValue2" name="NarrateValue2"></td>
+    </tr>
+    <tr>
+      <td>備註資訊</td>
+      <td><input type="text" maxlength="100" [(ngModel)]="remakrValue" name="remakrValue"></td>
+    </tr>
+    <tr>
+      <td>生效日</td>
+        <td>
+          <mat-form-field>
+            <input type="date" [(ngModel)]="Efficient" name="Efficient" matInput placeholder=""
+              (change)="InvalidationMax()" />
+          </mat-form-field>
+        </td>
+    </tr>
+    <tr>
+      <td>失效日</td>
+      <td>
+        <mat-form-field>
+          <input type="date" [(ngModel)]="Invalidation" name="Invalidation" min={{Efficient}} max={{daytest}} matInput
+            placeholder="" />
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>使用中</td>
+      <td>
+        <mat-select [(ngModel)]="usingValue" name="usingValue" placeholder="請選擇">
+          <mat-option *ngFor="let item of data.usingType" [value]="item.value">
+            {{item.viewValue}}
+          </mat-option>
+        </mat-select>
+      </td>
+    </tr>
+    <tr>
+      <td>異動時間</td>
+      <td><input type="text" value={{ChangeDateValue}} disabled></td>
+    </tr>
+    <tr>
+      <td>
+        <button type="button"  (click)="seve();" class="btn btn-primary">儲存資料</button>
+      </td>
+    </tr>
+  </table>
+</form>
