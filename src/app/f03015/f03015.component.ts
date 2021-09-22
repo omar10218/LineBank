@@ -170,7 +170,7 @@ export class F03015Component implements OnInit {
       await this.f03015Service.getReturn('f03/f03015', jsonObject).subscribe(data => {
         this.totalCount = data.rspBody.size;
         console.log(data)
-        this.proxyIncomeDataSource = data.rspBody;
+        this.proxyIncomeDataSource = data.rspBody.items;
       });
     }
   }

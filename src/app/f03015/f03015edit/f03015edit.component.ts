@@ -15,7 +15,7 @@ interface sysCode {
   styleUrls: ['./f03015edit.component.css']
 })
 export class F03015editComponent implements OnInit {
-  //凍結＆解凍
+  //proxyIncome 維護
   constructor(public dialogRef: MatDialogRef<F03015confirmComponent>, public f03015Service: F03015Service, public dialog: MatDialog, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) { }
   inducCode: sysCode[] = [];  //行職業代碼下拉
   inducLevel1: sysCode[] = [];  //行職業level1下拉
@@ -116,8 +116,8 @@ export class F03015editComponent implements OnInit {
       let jsonObject: any = {};
 
       jsonObject['inducCode'] = this.insertForm.value.INDUC_CODE;
-      jsonObject['inducLevel'] = this.insertForm.value.INDUC_LEVEL1;
-      jsonObject['inducLeve2'] = this.insertForm.value.INDUC_LEVEL2;
+      jsonObject['inducLevel1'] = this.insertForm.value.INDUC_LEVEL1;
+      jsonObject['inducLevel2'] = this.insertForm.value.INDUC_LEVEL2;
       jsonObject['jobCode'] = this.insertForm.value.JOB_CODE;
       jsonObject['tenPercentSalary'] = this.insertForm.value.TEN_PERCENT_SALARY;
       jsonObject['midSalary'] = this.insertForm.value.MID_SALARY;
