@@ -159,5 +159,14 @@ export class F03014Component implements OnInit {
     )
 
   }
+  Clear()//清空查詢資料
+  {
+      this.usingValue="";//使用中
+      this.NameValue="";//客戶名字
+      this.IdentityValue="";//身分字號
+      this.NarrateValue="";//簡述
+      this.Efficient="";//生效
+      this.Invalidation="";//失效
+  }
 
 }

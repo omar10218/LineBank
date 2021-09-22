@@ -79,10 +79,10 @@ export class F03014uploadComponent implements OnInit {
         // formData.append('changeDate', this.inputdata[i]['更新日期時間']);
          this.Custlist.push(this.jsonObject)
       }
-      // this.f03014Service.Add(url, formData).subscribe(data => {
+      // this.f03014Service.Add(url, this.Custlist).subscribe(data => {
       //   let k = i
       //   this.rspMsg = '第' + k + '筆' + data.rspMsg;
-      //   console.log(this.Custlist);
+      //   console.log(data);
       // }
       // )
     }
@@ -120,6 +120,7 @@ export class F03014uploadComponent implements OnInit {
     const url = 'f03/f03014action02';
     console.log(this.Custlist)
     this.f03014Service.Add(url, this.Custlist).subscribe(data => {
+      this.rspMsg = data.rspMsg
      console.log(data);
     }
     )
