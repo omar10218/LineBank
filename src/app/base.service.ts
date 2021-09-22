@@ -50,6 +50,11 @@ export class BaseService {
     return await this.postFormData(baseUrl, formdata).toPromise();
   }
 
+  //Json使用
+  private async saveOrEditWithJson(baseUrl: string, json: JSON) {
+    return await this.postJsonObject(baseUrl, json).toPromise();
+  }
+
   private async getMsgStr(rspCode: string, rspMsg: string): Promise<string> {
     let msgStr: string = "";
 
@@ -63,6 +68,20 @@ export class BaseService {
     let rspCode: any;
     let rspMsg: any;
     await this.saveOrEditWithFormData(baseUrl, formdata).then((data: CommonRes) => {
+      rspCode = data.rspCode;
+      rspMsg = data.rspMsg;
+    })
+    .catch((error) => {
+      console.log("Promise rejected with " + JSON.stringify(error));
+    });
+    return await this.getMsgStr(rspCode, rspMsg);
+  }
+
+  //Json使用
+  public async saveOrEditMsgJson(baseUrl: string, json: JSON): Promise<string> {
+    let rspCode: any;
+    let rspMsg: any;
+    await this.saveOrEditWithJson(baseUrl, json).then((data: CommonRes) => {
       rspCode = data.rspCode;
       rspMsg = data.rspMsg;
     })
