@@ -10,7 +10,8 @@ import { F03015Service } from '../f03015/f03015.service';
 import { F03015confirmComponent } from './f03015confirm/f03015confirm.component';
 import { F03015editComponent } from './f03015edit/f03015edit.component';
 import { F03015uploadComponent } from './f03015upload/f03015upload.component';
-
+import * as XLSX from 'xlsx';
+// import { saveAs } from 'file-saver';
 interface sysCode {
   value: string;
   viewValue: string;
@@ -151,8 +152,8 @@ export class F03015Component implements OnInit {
   doSearch() { this.isHidden = false; }
 
   async getProxyIncomeData() {
-    if ((this.inducCodeValue == undefined && this.inducLevel1Value == undefined && this.inducLevel2Value == undefined && this.jobCodeValue == undefined) || 
-    (this.inducCodeValue == '' && this.inducLevel1Value == '' && this.inducLevel2Value == '' && this.jobCodeValue == '')){
+    if ((this.inducCodeValue == undefined && this.inducLevel1Value == undefined && this.inducLevel2Value == undefined && this.jobCodeValue == undefined) ||
+      (this.inducCodeValue == '' && this.inducLevel1Value == '' && this.inducLevel2Value == '' && this.jobCodeValue == '')) {
       const cconfirmDialogRef = this.dialog.open(F03015confirmComponent, {
         data: { msgStr: "請點選查詢並至少選擇一項查詢條件" }
       });
@@ -216,13 +217,50 @@ export class F03015Component implements OnInit {
 
   }
 
-
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
 
-  exportExcel() {
+  // downloadFile(filename: string): void {
+  //   this.f03015Service
+  //     .download('f03/f03015action5',filename)
+  //     .subscribe(blob => saveAs(blob, filename));
+  // }
 
+  exportExcel() {
+    if ((this.inducCodeValue == undefined && this.inducLevel1Value == undefined && this.inducLevel2Value == undefined && this.jobCodeValue == undefined) ||
+      (this.inducCodeValue == '' && this.inducLevel1Value == '' && this.inducLevel2Value == '' && this.jobCodeValue == '')) {
+      const cconfirmDialogRef = this.dialog.open(F03015confirmComponent, {
+        data: { msgStr: "請點選查詢並至少選擇一項查詢條件" }
+      });
+    } else {
+      let jsonObject: any = {};
+      let formData = new FormData();
+      formData.append('inducCode', this.inducCodeValue != null ? this.inducCodeValue : '');
+      jsonObject['page'] = this.currentPage.pageIndex + 1;
+      jsonObject['per_page'] = this.currentPage.pageSize;
+      jsonObject['inducCode'] = this.inducCodeValue;
+      jsonObject['inducLevel1'] = this.inducLevel1Value;
+      jsonObject['inducLevel2'] = this.inducLevel2Value;
+      jsonObject['jobCode'] = this.jobCodeValue;
+
+      this.f03015Service.getReturn('f03/f03015action5', jsonObject,).subscribe(data => {
+        console.log(data)
+        // const blob = new Blob([data], { type: 'application/octet-stream' });
+        // const url= window.URL.createObjectURL(blob);
+        // window.open(url);
+
+
+      //   const deleteDialogRef = this.dialog.open(F03015confirmComponent, {
+      //     data: { msgStr: data.rspMsg }
+      //   });
+      //   if (data.rspCode == '0000') {
+      //     deleteDialogRef.afterClosed().subscribe(result => {
+      //       this.getProxyIncomeData();
+      //     });
+      //   }
+      });
+    }
   }
 
   async delete(rowId: string) {
@@ -233,12 +271,12 @@ export class F03015Component implements OnInit {
       const deleteDialogRef = this.dialog.open(F03015confirmComponent, {
         data: { msgStr: data.rspMsg }
       });
-      if(data.rspCode == '0000') {
+      if (data.rspCode == '0000') {
         deleteDialogRef.afterClosed().subscribe(result => {
           this.getProxyIncomeData();
         });
       }
     });
-    
+
   }
 }

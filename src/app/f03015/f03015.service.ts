@@ -16,6 +16,10 @@ export class F03015Service extends BaseService{
   //   return this.postHttpClient(targetUrl);
   // }
 
+  selectCustomer(baseUrl: string, formData: FormData): Observable<any> {
+    return this.postFormData(baseUrl, formData);
+  }
+
   getReturn(baseUrl: string, jsonObject:JSON): Observable<any> {
     // const baseUrl = 'f03/f03015';
     let targetUrl = `${baseUrl}`;
@@ -29,4 +33,10 @@ export class F03015Service extends BaseService{
     return this.postJsonObject(targetUrl, jsonObject);
   }
   
+  download(baseUrl: string, file: string | undefined): Observable<Blob> {
+    // return this.http.get(`${environment.baseUrl}/files/${file}`, {  
+    return this.httpClient.get(baseUrl, {
+      responseType: 'blob'
+    });
+  }
 }
