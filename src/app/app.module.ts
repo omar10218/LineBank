@@ -1,3 +1,4 @@
+//import { NgZorroAntdModule } from './ngzorro/ng-zorro-antd.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -73,6 +74,7 @@ import { F03015editComponent } from './f03015/f03015edit/f03015edit.component';
 import { F03015uploadComponent } from './f03015/f03015upload/f03015upload.component';
 import { F03016Component } from './f03016/f03016.component';
 import { F03014addComponent } from './f03014/f03014add/f03014add.component';
+import { F01006Component } from './f01006/f01006.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +139,7 @@ import { F03014addComponent } from './f03014/f03014add/f03014add.component';
     F03015uploadComponent,
     F03016Component,
     F03014addComponent,
+    F01006Component,
   ],
   imports: [
     BrowserModule,
@@ -149,7 +152,8 @@ import { F03014addComponent } from './f03014/f03014add/f03014add.component';
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
-    CommonModule
+    CommonModule,
+    //NgZorroAntdModule
     // GoogleMapsModule
   ],
   providers: [
