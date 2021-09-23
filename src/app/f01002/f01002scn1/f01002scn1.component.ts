@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChildrenService } from 'src/app/children/children.service';
+import { F01002rescanComponent } from '../f01002rescan/f01002rescan.component';
 
 @Component({
   selector: 'app-f01002scn1',
@@ -45,6 +46,15 @@ export class F01002scn1Component implements OnInit {
     element.click();
   }
 
+  reScan() {
+    const dialogRef = this.dialog.open(F01002rescanComponent,{
+      data:{
+        applno: this.applno,
+        cuid: this.cuid
+      }
+    });
+  }
+  
   reSearch() {
     const dialogRef = this.dialog.open(F01002researchComponent,{
       data:{
