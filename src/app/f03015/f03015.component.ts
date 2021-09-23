@@ -52,7 +52,7 @@ export class F03015Component implements OnInit {
     Validators.required
   ]);
   ngOnInit(): void {
-    this.isHidden = true;
+    this.isHidden = false;
     this.f03015Service.getSysTypeCode('INDUC_CODE').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
@@ -108,7 +108,7 @@ export class F03015Component implements OnInit {
     this.currentSort = sortInfo;
   }
 
-  doSearch() { this.isHidden = false; }
+  // doSearch() { this.isHidden = false; }
 
   async getProxyIncomeData() {
     if ((this.inducCodeValue == undefined && this.inducLevel1Value == undefined && this.inducLevel2Value == undefined && this.jobCodeValue == undefined) ||
