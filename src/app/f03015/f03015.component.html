@@ -1,5 +1,6 @@
 <div class="container" >
     <th class="f03_th">Proxy Income 維護</th>
+</div>
     <form [formGroup]="proxyIncomeForm" style="padding-left: 20px;">
         <div class="f03_div">
             <button mat-raised-button color="primary" (click)="doSearch()">查詢</button>
@@ -60,7 +61,6 @@
             </mat-card>
         </table>
     </form>
-</div>
 <mat-table [dataSource]="proxyIncomeDataSource" matSort (matSortChange)="changeSort($event)">
     <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
