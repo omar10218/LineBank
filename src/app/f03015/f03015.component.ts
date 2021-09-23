@@ -20,7 +20,7 @@ interface sysCode {
 @Component({
   selector: 'app-f03015',
   templateUrl: './f03015.component.html',
-  styleUrls: ['./f03015.component.css']
+  styleUrls: ['./f03015.component.css', '../../assets/css/f03.css']
 })
 export class F03015Component implements OnInit {
 
@@ -34,11 +34,11 @@ export class F03015Component implements OnInit {
   jobCodeValue: string; //職業碼選擇
   isHidden: boolean;
 
-  myDate:any = new Date();
+  myDate: any = new Date();
   constructor(public dialogRef: MatDialogRef<F03015confirmComponent>, private f03015Service: F03015Service, public dialog: MatDialog, private fb: FormBuilder, private datePipe: DatePipe, @Inject(MAT_DIALOG_DATA) public data: any,) {
-     this.myDate  = this.datePipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
+    this.myDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
 
-   }
+  }
   proxyIncomeForm: FormGroup = this.fb.group({
     INDUC_CODE: [this.data.inducCodeValue, [Validators.maxLength(30)]],
     INDUC_LEVEL1: [this.data.inducLevel1Value, [Validators.maxLength(30)]],
@@ -52,7 +52,7 @@ export class F03015Component implements OnInit {
     Validators.required
   ]);
   ngOnInit(): void {
-    this.isHidden = true;
+    this.isHidden = false;
     this.f03015Service.getSysTypeCode('INDUC_CODE').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
@@ -99,13 +99,16 @@ export class F03015Component implements OnInit {
       active: '',
       direction: ''
     };
+    this.paginator.page.subscribe((page: PageEvent) => {
+      this.currentPage = page;
+    });
   }
 
   changeSort(sortInfo: Sort) {
     this.currentSort = sortInfo;
   }
 
-  doSearch() { this.isHidden = false; }
+  // doSearch() { this.isHidden = false; }
 
   async getProxyIncomeData() {
     if ((this.inducCodeValue == undefined && this.inducLevel1Value == undefined && this.inducLevel2Value == undefined && this.jobCodeValue == undefined) ||
@@ -168,8 +171,8 @@ export class F03015Component implements OnInit {
     this.inducLevel2Value = '';
     this.jobCodeValue = '';
 
-    this.paginator._changePageSize(this.paginator.pageSize);
-    this.paginator.firstPage();
+    this.proxyIncomeDataSource = new MatTableDataSource;
+
   }
 
   //上傳EXCEL
@@ -201,7 +204,7 @@ export class F03015Component implements OnInit {
     } else {
       let jsonObject: any = {};
       let formData = new FormData();
-      let blob:Blob;
+      let blob: Blob;
       formData.append('inducCode', this.inducCodeValue != null ? this.inducCodeValue : '');
       jsonObject['page'] = this.currentPage.pageIndex + 1;
       jsonObject['per_page'] = this.currentPage.pageSize;
@@ -215,7 +218,7 @@ export class F03015Component implements OnInit {
         let downloadURL = window.URL.createObjectURL(blob);
         let link = document.createElement('a');
         link.href = downloadURL;
-        link.download = "ProxyIncome_" +  this.myDate  + ".xlsx"; //瀏覽器下載時的檔案名稱
+        link.download = "ProxyIncome_" + this.myDate + ".xlsx"; //瀏覽器下載時的檔案名稱
         link.click();
 
       });

@@ -1,7 +1,7 @@
 <div class="container">
     <h2 mat-dialog-title>上傳Excel</h2>
 
-    <form class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
+    <form [formGroup]="uploadForm" class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
 
         <table>
             <mat-card class="matCard">
@@ -15,10 +15,11 @@
                             </div>
                         </td>
                     </tr>
+                    <br>
                     <tr>
                         <th>上傳異常訊息</th>
                         <td>
-                            <textarea matInput name="ERROR_MESSAGE"></textarea>
+                            <textarea matInput formControlName="ERROR_MESSAGE" readonly></textarea>
                         </td>
                     </tr>
                 </mat-card-content>

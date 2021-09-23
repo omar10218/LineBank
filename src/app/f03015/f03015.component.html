@@ -1,79 +1,77 @@
-<div class="container" >
+<div class="container">
     <th class="f03_th">Proxy Income 維護</th>
-    <form [formGroup]="proxyIncomeForm" style="padding-left: 20px;">
-        <div class="f03_div">
-            <button mat-raised-button color="primary" (click)="doSearch()">查詢</button>
-            <button mat-raised-button color="primary" (click)="getProxyIncomeData()">查詢資料</button>
-            <button mat-raised-button color="primary" (click)="insert(true)">新增</button>
-            <!-- <button mat-raised-button color="primary" (click)="save()">儲存資料</button> -->
-            <button mat-raised-button color="primary" (click)="clear()">清除資料</button>
-            <button mat-raised-button color="primary" (click)="uploadExcel()">上傳Excel</button>
-            <button mat-raised-button color="primary" (click)="exportExcel()">匯出Excel</button>
-        </div>
-        <table [hidden] = 'isHidden'>
-            <br>
-            <mat-card class="matCard">
-                <mat-card-content>
-                    <tr>
-                        <th>行職業代碼</th>
-                        <td>
-                            <mat-form-field color="accent">
-                                <mat-select [(ngModel)]="inducCodeValue" formControlName="INDUC_CODE">
-                                    <mat-option *ngFor="let code of inducCode" [value]="code.value">
-                                        {{code.viewValue}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </td>
-                        <th>行業Level1</th>
-                        <td>
-                            <mat-form-field color="accent">
-                                <mat-select [(ngModel)]="inducLevel1Value" formControlName="INDUC_LEVEL1">
-                                    <mat-option *ngFor="let code of inducLevel1" [value]="code.value">
-                                        {{code.viewValue}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </td>
-                        <th>行業Level2</th>
-                        <td>
-                            <mat-form-field color="accent">
-                                <mat-select [(ngModel)]="inducLevel2Value" formControlName="INDUC_LEVEL2">
-                                    <mat-option *ngFor="let code of inducLevel2" [value]="code.value">
-                                        {{code.viewValue}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </td>
-                        <th>職稱碼</th>
-                        <td>
-                            <mat-form-field color="accent">
-                                <mat-select [(ngModel)]="jobCodeValue" formControlName="JOB_CODE">
-                                    <mat-option *ngFor="let code of jobCode" [value]="code.value">
-                                        {{code.viewValue}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                </mat-card-content>
-            </mat-card>
-        </table>
-    </form>
 </div>
+<form [formGroup]="proxyIncomeForm" style="padding-left: 20px;">
+    <div class="f03_div">
+        <!-- <button mat-raised-button color="primary" (click)="doSearch()">查詢</button> -->
+        <button mat-raised-button color="primary" (click)="getProxyIncomeData()">查詢資料</button>
+        <button mat-raised-button color="primary" (click)="insert(true)">新增</button>
+        <button mat-raised-button color="primary" (click)="clear()">清除資料</button>
+        <button mat-raised-button color="primary" (click)="uploadExcel()">上傳Excel</button>
+        <button mat-raised-button color="primary" (click)="exportExcel()">匯出Excel</button>
+    </div>
+    <table [hidden]='isHidden'>
+        <br>
+        <mat-card class="matCard">
+            <mat-card-content>
+                <tr>
+                    <th>行職業代碼</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <mat-select [(ngModel)]="inducCodeValue" formControlName="INDUC_CODE">
+                                <mat-option *ngFor="let code of inducCode" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <th>行業Level1</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <mat-select [(ngModel)]="inducLevel1Value" formControlName="INDUC_LEVEL1">
+                                <mat-option *ngFor="let code of inducLevel1" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <th>行業Level2</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <mat-select [(ngModel)]="inducLevel2Value" formControlName="INDUC_LEVEL2">
+                                <mat-option *ngFor="let code of inducLevel2" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <th>職稱碼</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <mat-select [(ngModel)]="jobCodeValue" formControlName="JOB_CODE">
+                                <mat-option *ngFor="let code of jobCode" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </mat-card-content>
+        </mat-card>
+    </table>
+</form>
+<br>
 <mat-table [dataSource]="proxyIncomeDataSource" matSort (matSortChange)="changeSort($event)">
     <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let row">
-            <button mat-raised-button color="success"
-                (click)="update(true, row)">編輯</button>
+            <button mat-raised-button color="success" (click)="update(true, row)">編輯</button>
         </mat-cell>
     </ng-container>
     <ng-container matColumnDef="delete">
         <mat-header-cell *matHeaderCellDef> </mat-header-cell>
         <mat-cell *matCellDef="let row">
-            <button mat-raised-button color="success"
-                (click)="delete(row.ID)">刪除</button>
+            <button mat-raised-button color="success" (click)="delete(row.ID)">刪除</button>
         </mat-cell>
     </ng-container>
     <ng-container matColumnDef="INDUC_CODE">

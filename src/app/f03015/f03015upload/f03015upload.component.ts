@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F03015Service } from '../f03015.service';
 
@@ -10,58 +11,54 @@ import { F03015Service } from '../f03015.service';
 })
 export class F03015uploadComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<F03015uploadComponent>,private f03015Service: F03015Service,public dialog: MatDialog,) { }
-  @ViewChild('inputFile') inputFile: ElementRef;
+  constructor(public dialogRef: MatDialogRef<F03015uploadComponent>,private fb: FormBuilder, private f03015Service: F03015Service, public dialog: MatDialog,@Inject(MAT_DIALOG_DATA) public data: any) { }
   isExcelFile: boolean;
-  spinnerEnabled = false;
   fileToUpload: File | null = null;
   ngOnInit(): void {
   }
+  
+  uploadForm: FormGroup = this.fb.group({
+    ERROR_MESSAGE: [this.data.errorMessage]
+  });
 
   public async confirmAdd(): Promise<void> {
     const formdata: FormData = new FormData();
-    formdata.append('myFile', this.fileToUpload);
-    console.log(formdata)
+    formdata.append('file', this.fileToUpload);
     let msgStr: string = "";
     let baseUrl = 'f03/f03015action4';
-    await this.f03015Service.uploadExcel(baseUrl, formdata);
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: "傳送" }
+    // const childernDialogRef = this.dialog.open(ConfirmComponent, {
+    //   data: { msgStr: "傳送" }
+    // });
+    // if (msgStr === '上傳成功!!') { this.dialogRef.close({ event: 'success' }); }
+
+    this.f03015Service.uploadExcel(baseUrl, this.fileToUpload).subscribe(data => {
+      console.log(data)
+      this.uploadForm.patchValue({ ERROR_MESSAGE: "test" });
+      // const childernDialogRef = this.dialog.open(ConfirmComponent, {
+      //     data: { msgStr: data.msg }
+      //   });
+    // }, error => {
+    //   console.log(error);
     });
-    if (msgStr === '上傳成功!!') { this.dialogRef.close({ event: 'success' }); }
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-  }
-  uploadFileToActivity() {
-    // this.f03015service.postFile(this.fileToUpload).subscribe(data => {
-    //   // do something, if upload success
-    //   }, error => {
-    //     console.log(error);
-    //   });
-  }
   submit() {
   }
+
+  //檢查上傳檔案格式
   onChange(evt) {
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isExcelFile = !!target.files[0].name.match(/(.xls|.xlsx)/);
-    if (target.files.length > 1) {
-      this.inputFile.nativeElement.value = '';
-    }
     if (this.isExcelFile) {
       this.fileToUpload = target.files.item(0);
-      console.log("我是EXCEL")
-      console.log(this.fileToUpload.size)
-      const reader: FileReader = new FileReader();
-      reader.onload = (e: any) => {
-      };
-
-      reader.readAsBinaryString(target.files[0]);
+    } else {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "非excel檔，請檢查檔案格式重新上傳" }
+      });
     }
   }
 }
