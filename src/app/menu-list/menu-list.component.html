@@ -3,19 +3,8 @@
     <img src="assets\images\LineBank.png" width="14%" (click)="goHome()">
     <button mat-button [matMenuTriggerFor]="aboveMenu" *ngFor="let menu of getMenu()"
       style="margin: 0px 10px; text-align: center;">
-      <!-- <ng-container *ngIf="menu.getTitle() == '徵審功能' " style="display: block;"> -->
       <mat-icon style="display: block ;">{{menu.getIcon()}}</mat-icon>
       {{menu.getTitle()}}
-      <!-- <ng-container *ngIf="menu.getTitle() == '查詢功能' ">
-      </ng-container>
-        <mat-icon>search</mat-icon>{{menu.getTitle()}}
-      </ng-container>
-      <ng-container *ngIf="menu.getTitle() == '維護功能' ">
-        <mat-icon>autorenew</mat-icon>{{menu.getTitle()}}
-      </ng-container>
-      <ng-container *ngIf="menu.getTitle() == '管理功能' ">
-        <mat-icon>equalizer</mat-icon>{{menu.getTitle()}}
-      </ng-container> -->
       <mat-menu #aboveMenu="matMenu" yPosition="below">
         <button mat-menu-item *ngFor="let map of menu.getMenuList() | keyvalue: returnZero" [routerLink]="map.value">
           {{map.key}}
