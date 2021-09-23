@@ -54,7 +54,9 @@ export class F03015uploadComponent implements OnInit {
       this.inputFile.nativeElement.value = '';
     }
     if (this.isExcelFile) {
+      this.fileToUpload = target.files.item(0);
       console.log("我是EXCEL")
+      console.log(this.fileToUpload.size)
       const reader: FileReader = new FileReader();
       reader.onload = (e: any) => {
       };

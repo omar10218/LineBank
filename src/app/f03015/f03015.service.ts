@@ -27,8 +27,10 @@ export class F03015Service extends BaseService {
   }
 
   uploadExcel(baseUrl: string, formdata: any) {
-
+    console.log(baseUrl)
+    return this.postFormData(baseUrl, formdata);
   }
+
   insert(baseUrl: string, jsonObject: JSON): Observable<any> {
     let targetUrl = `${baseUrl}`;
 
