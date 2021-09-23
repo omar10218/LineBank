@@ -2,11 +2,9 @@
     <h2 mat-dialog-title>上傳Excel</h2>
 
     <form [formGroup]="uploadForm" class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
-
         <table>
             <mat-card class="matCard">
                 <mat-card-content>
-
                     <tr>
                         <th>上傳檔案</th>
                         <td>
@@ -19,7 +17,7 @@
                     <tr>
                         <th>上傳異常訊息</th>
                         <td>
-                            <textarea matInput formControlName="ERROR_MESSAGE" readonly></textarea>
+                            <textarea matInput formControlName="ERROR_MESSAGE" readonly style="color:red"></textarea>
                         </td>
                     </tr>
                 </mat-card-content>
@@ -28,8 +26,8 @@
 
 
         <div mat-dialog-actions>
-            <button mat-button [type]="submit" (click)="confirmAdd()">儲存</button>
-            <button mat-button (click)="onNoClick()" tabindex="-1">取消</button>
+            <button mat-raised-button [type]="submit" color="primary" (click)="confirmAdd()">儲存</button>
+            <button mat-raised-button (click)="onNoClick()" color="warn" tabindex="-1">取消</button>
         </div>
     </form>
 </div>

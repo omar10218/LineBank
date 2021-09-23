@@ -7,7 +7,7 @@ import { F03015Service } from '../f03015.service';
 @Component({
   selector: 'app-f03015upload',
   templateUrl: './f03015upload.component.html',
-  styleUrls: ['./f03015upload.component.css']
+  styleUrls: ['./f03015upload.component.css','../../../assets/css/f03.css']
 })
 export class F03015uploadComponent implements OnInit {
 
@@ -16,7 +16,7 @@ export class F03015uploadComponent implements OnInit {
   fileToUpload: File | null = null;
   ngOnInit(): void {
   }
-  
+
   uploadForm: FormGroup = this.fb.group({
     ERROR_MESSAGE: [this.data.errorMessage]
   });
@@ -33,7 +33,7 @@ export class F03015uploadComponent implements OnInit {
 
     this.f03015Service.uploadExcel(baseUrl, this.fileToUpload).subscribe(data => {
       console.log(data)
-      this.uploadForm.patchValue({ ERROR_MESSAGE: "test" });
+      this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
       // const childernDialogRef = this.dialog.open(ConfirmComponent, {
       //     data: { msgStr: data.msg }
       //   });
