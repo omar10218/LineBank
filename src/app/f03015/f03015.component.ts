@@ -99,60 +99,11 @@ export class F03015Component implements OnInit {
       active: '',
       direction: ''
     };
-    // this.paginator.page.subscribe((page: PageEvent) => {
-    //   this.currentPage = page;
-    //   this.getAdrCode(null, null);
-    // });
   }
 
   changeSort(sortInfo: Sort) {
     this.currentSort = sortInfo;
   }
-
-  // inducCodeSelect() {
-  //   this.inducCode = [];
-  //   // this.inducCode = [];
-  //   this.inducCodeValue = "";
-  //   // this.inducCodedValue = "";
-
-  //   this.currentPage = {
-  //     pageIndex: 0,
-  //     pageSize: 10,
-  //     length: null
-  //   };
-  //   this.paginator.firstPage();
-  //   // this.getAdrCode("Z01", "1");
-  // }
-
-  // inducLevel1Select() {
-  //   this.inducLevel1 = [];
-  //   this.inducLevel1Value = "";
-  //   this.currentPage = {
-  //     pageIndex: 0,
-  //     pageSize: 10,
-  //     length: null
-  //   };
-  //   this.paginator.firstPage();
-  //   // this.getAdrCode(this.selectedSecondValue, "2");
-  // }
-
-  // inducLevel2Select() {
-  //   this.currentPage = {
-  //     pageIndex: 0,
-  //     pageSize: 10,
-  //     length: null
-  //   };
-  //   this.paginator.firstPage();
-  // }
-
-  // jobCodeSelect() {
-  //   this.currentPage = {
-  //     pageIndex: 0,
-  //     pageSize: 10,
-  //     length: null
-  //   };
-  //   this.paginator.firstPage();
-  // }
 
   doSearch() { this.isHidden = false; }
 
@@ -181,6 +132,7 @@ export class F03015Component implements OnInit {
     }
   }
 
+  //新增
   insert(isInsert: boolean) {
     console.log(isInsert)
     const dialogRef = this.dialog.open(F03015editComponent, {
@@ -195,6 +147,7 @@ export class F03015Component implements OnInit {
     });
   }
 
+  //編輯
   update(isUpdate: boolean, row: any) {
     const dialogRef = this.dialog.open(F03015editComponent, {
       data: {
@@ -208,6 +161,7 @@ export class F03015Component implements OnInit {
     });
   }
 
+  //清除資料
   clear() {
     this.inducCodeValue = '';
     this.inducLevel1Value = '';
@@ -218,20 +172,26 @@ export class F03015Component implements OnInit {
     this.paginator.firstPage();
   }
 
+  //上傳EXCEL
   uploadExcel() {
-
+    const dialogRef = this.dialog.open(F03015uploadComponent, {
+      data: {
+        ABNORMAL_NID: '',
+        ABNORMAL_NAME: '',
+        ON_CHECK: 'Y',
+        TRANSFER_EMPNO: '',
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
   }
 
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
 
-  // downloadFile(filename: string): void {
-  //   this.f03015Service
-  //     .download('f03/f03015action5',filename)
-  //     .subscribe(blob => saveAs(blob, filename));
-  // }
-
+  //匯出EXCEL
   exportExcel() {
     if ((this.inducCodeValue == undefined && this.inducLevel1Value == undefined && this.inducLevel2Value == undefined && this.jobCodeValue == undefined) ||
       (this.inducCodeValue == '' && this.inducLevel1Value == '' && this.inducLevel2Value == '' && this.jobCodeValue == '')) {
@@ -250,8 +210,6 @@ export class F03015Component implements OnInit {
       jsonObject['inducLevel2'] = this.inducLevel2Value;
       jsonObject['jobCode'] = this.jobCodeValue;
 
-
-      let opton =  { responseType: 'blob' as 'json' };
       this.f03015Service.downloadExcel('f03/f03015action5', jsonObject).subscribe(data => {
         blob = new Blob([data], { type: 'application/xlsx' });
         let downloadURL = window.URL.createObjectURL(blob);
@@ -259,23 +217,12 @@ export class F03015Component implements OnInit {
         link.href = downloadURL;
         link.download = "ProxyIncome_" +  this.myDate  + ".xlsx"; //瀏覽器下載時的檔案名稱
         link.click();
-        // const blob = new Blob([data], { type: 'application/octet-stream' });
-        // const url= window.URL.createObjectURL(blob);
-        // window.open(url);
 
-
-      //   const deleteDialogRef = this.dialog.open(F03015confirmComponent, {
-      //     data: { msgStr: data.rspMsg }
-      //   });
-      //   if (data.rspCode == '0000') {
-      //     deleteDialogRef.afterClosed().subscribe(result => {
-      //       this.getProxyIncomeData();
-      //     });
-      //   }
       });
     }
   }
 
+  //刪除
   async delete(rowId: string) {
     let jsonObject: any = {};
     jsonObject['rowID'] = rowId;
