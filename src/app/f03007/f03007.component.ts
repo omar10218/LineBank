@@ -17,12 +17,17 @@ interface checkBox {
 })
 export class F03007Component implements OnInit, AfterViewInit {
 
+  constructor(
+    private f03007Service: F03007Service,
+    public dialog: MatDialog
+  ) { }
+
   isAllCheck: boolean = false;
   sysCode: OptionsCode[] = [];
   chkArray: checkBox[] = [];
   selectedValue: string = 'default';
   roleFunctionSource = new MatTableDataSource<any>();
-  constructor(private f03007Service: F03007Service, public dialog: MatDialog,) { }
+
   ngAfterViewInit() { }
   ngOnInit(): void {
     const baseUrl = 'f03/f03007';
@@ -44,16 +49,15 @@ export class F03007Component implements OnInit, AfterViewInit {
       alert('請選擇角色!!!!');
       return false;
     }
-
     var valArray: string[] = new Array;
     for (const obj of this.chkArray) {
       if (obj.completed) { valArray.push(obj.value); }
     }
-    const formData: FormData = new FormData();
-    formData.append("roleNo", this.selectedValue);
-    formData.append("fnNo", valArray.toString());
+    let jsonObject: any = {};
+    jsonObject['roleNo'] = this.selectedValue;
+    jsonObject['fnNo'] = valArray.toString();
     const baseUrl = 'f03/f03007action2';
-    this.f03007Service.saveRoleFunction(baseUrl, formData).subscribe(data => {
+    this.f03007Service.roleFunction(baseUrl, jsonObject).subscribe(data => {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
@@ -73,8 +77,9 @@ export class F03007Component implements OnInit, AfterViewInit {
 
   private async getRoleFunction() {
     const baseUrl = 'f03/f03007action1';
-    this.f03007Service.getRoleFunction(baseUrl, this.selectedValue).subscribe(data => {
-      console.log(data);
+    let jsonObject: any = {};
+    jsonObject['roleNo'] = this.selectedValue;
+    this.f03007Service.roleFunction(baseUrl, jsonObject).subscribe(data => {
       if (this.chkArray.length > 0) {
         let i: number = 0;
         for (const jsonObj of data.rspBody) {

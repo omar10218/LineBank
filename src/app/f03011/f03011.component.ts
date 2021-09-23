@@ -17,12 +17,22 @@ import { F03011editComponent } from './f03011edit/f03011edit.component';
 })
 export class F03011Component implements OnInit, AfterViewInit {
 
+  constructor(
+    private fb: FormBuilder,
+    private f03011Service: F03011Service,
+    public dialog: MatDialog
+  ) { }
+
   currentPage: PageEvent;
   currentSort: Sort;
-
   submitted = false;
-
-  constructor(private fb: FormBuilder, private f03011Service: F03011Service, public dialog: MatDialog) { }
+  totalCount: any;
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  dssCalloutSource = new MatTableDataSource<any>();
+  tvnoOption: MappingCode[];
+  calvOption: MappingCode[];
+  scklvOption: MappingCode[];
 
   ngOnInit(): void {
     this.currentPage = {
@@ -37,14 +47,6 @@ export class F03011Component implements OnInit, AfterViewInit {
     };
   }
 
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  dssCalloutSource = new MatTableDataSource<any>();
-  tvnoOption: MappingCode[];
-  calvOption: MappingCode[];
-  scklvOption: MappingCode[];
-
   ngAfterViewInit(): void {
     this.getDssCallout();
     this.paginator.page.subscribe((page: PageEvent) => {
@@ -55,7 +57,10 @@ export class F03011Component implements OnInit, AfterViewInit {
 
   getDssCallout() {
     const baseUrl = 'f03/f03011scn1';
-    this.f03011Service.getDssCallout(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['page'] = this.currentPage.pageIndex + 1;
+    jsonObject['per_page'] = this.currentPage.pageSize;
+    this.f03011Service.dssCallout(baseUrl, jsonObject).subscribe(data => {
       this.totalCount = data.rspBody.size;
       this.dssCalloutSource.data = data.rspBody.items;
       this.tvnoOption = data.rspBody.tvno;
@@ -132,12 +137,12 @@ export class F03011Component implements OnInit, AfterViewInit {
 
   delete(tvNo: string, scklv: string, calv: string) {
     let msg = '';
-    const url = 'f03/f03011action3';
-    const formdata: FormData = new FormData();
-    formdata.append('scklv', scklv);
-    formdata.append('calv', calv);
-    formdata.append('tvNo', tvNo);
-    this.f03011Service.saveDssCallout( url, formdata).subscribe(data => {
+    const baseUrl = 'f03/f03011action3';
+    let jsonObject: any = {};
+    jsonObject['scklv'] = scklv;
+    jsonObject['calv'] = calv;
+    jsonObject['tvNo'] = tvNo;
+    this.f03011Service.dssCallout( baseUrl, jsonObject).subscribe(data => {
       msg = data.rspMsg;
     });
     setTimeout(() => {

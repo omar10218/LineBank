@@ -25,6 +25,12 @@ interface checkBox {
 })
 export class F03006Component implements OnInit, AfterViewInit {
 
+  constructor(
+    private f03006Service: F03006Service,
+    public dialog: MatDialog,
+    private pipe: DatePipe
+  ) { }
+
   agent_empCode: OptionsCode[] = [];//代理人
   levelStartDateTypeCode: OptionsCode[] = [];//日期種類起
   levelEndDateTypeCode: OptionsCode[] = [];//日期種類迄
@@ -58,9 +64,7 @@ export class F03006Component implements OnInit, AfterViewInit {
   employeeSource = new MatTableDataSource<any>();//組織人員維護Table
   empRoleSource = new MatTableDataSource<RoleItem>();//角色Table
 
-  constructor(private f03006Service: F03006Service, public dialog: MatDialog, private pipe: DatePipe) { }
   ngOnInit(): void {
-
     const baseUrl = 'f03/f03006';//代理人
     this.f03006Service.getEmployeeSysTypeCode(baseUrl)
       .subscribe(data => {
@@ -76,7 +80,6 @@ export class F03006Component implements OnInit, AfterViewInit {
           this.levelStartDateTypeCode.push({ value: codeNo, viewValue: desc })
           this.levelEndDateTypeCode.push({ value: codeNo, viewValue: desc })
         }
-
 
         for (const jsonObj of data.rspBody.projectList) {//派件專案代碼
           const codeNo = jsonObj.codeNo;

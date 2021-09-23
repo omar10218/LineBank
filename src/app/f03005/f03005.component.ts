@@ -15,14 +15,24 @@ import { F03005editComponent } from './f03005edit/f03005edit.component';
 })
 export class F03005Component implements OnInit {
 
+  constructor(
+    private f03005Service: F03005Service,
+    public dialog: MatDialog
+  ) { }
+
   adrType: OptionsCode[] = [];  //最上層下拉
   secondType: OptionsCode[] = [];  //第二層下拉
   thirdType: OptionsCode[] = [];  //第三層下拉
   selectedAdrValue: string;  //最上層
   selectedSecondValue: string;  //第二層選擇
   selectedThirdValue: string;  //第三層選擇
+  totalCount: any;
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  currentPage: PageEvent;
+  currentSort: Sort;
+  adrCodeSource = new MatTableDataSource<any>();
 
-  constructor(private f03005Service: F03005Service, public dialog: MatDialog) { }
   ngOnInit(): void {
     this.f03005Service.getSysTypeCode('ADR_CODE').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
@@ -32,13 +42,7 @@ export class F03005Component implements OnInit {
       }
     });
   }
-  //============================================================
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent;
-  currentSort: Sort;
-  adrCodeSource = new MatTableDataSource<any>();
+
   ngAfterViewInit() {
     this.currentPage = {
       pageIndex: 0,
@@ -99,9 +103,13 @@ export class F03005Component implements OnInit {
 
   getAdrCode(selectType: string, level: string) {
     const baseUrl = 'f03/f03005action1';
-    const adrVal = this.selectedAdrValue != null ? this.selectedAdrValue : '';
-    const select = selectType != null ? selectType : '';
-    this.f03005Service.getAdrCodeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, adrVal, select, level).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['reasonKind'] = this.selectedAdrValue != null ? this.selectedAdrValue : '';
+    jsonObject['upReasonCode'] = selectType != null ? selectType : '';
+    jsonObject['level'] = level;
+    jsonObject['page'] = this.currentPage.pageIndex + 1;
+    jsonObject['per_page'] = this.currentPage.pageSize;
+    this.f03005Service.getAdrCodeList(baseUrl, jsonObject).subscribe(data => {
       this.totalCount = data.rspBody.size;
       this.adrCodeSource.data = data.rspBody.items;
       if (data.rspBody.items.length > 0) {

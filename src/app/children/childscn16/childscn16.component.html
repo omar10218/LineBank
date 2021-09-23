@@ -1,1 +1,29 @@
-<p>childscn16 works!</p>
+<br>
+<table cellspacing="0" cellpadding="2">
+  <tr>
+    <th></th>
+    <th>案件編號</th>
+    <th>客戶編號</th>
+    <th>申請人ID</th>
+    <th>產品代碼</th>
+    <th>審核結果</th>
+    <th>原因碼</th>
+    <th>徵信員</th>
+    <th>授信員</th>
+    <th>准入時間</th>
+    <th>徵審核決時間</th>
+  </tr>
+  <tr *ngFor="let item of data">
+    <td><button (click)="Inquire(item.applnoOld)">查詢</button></td>
+    <td>{{item.applnoOld}}</td>
+    <td>{{item.custId}}</td>
+    <td>{{item.nationalId}}</td>
+    <td>{{item.prodCode}}</td>
+    <td>{{item.creditResult}}</td>
+    <td>{{item.reasonCode}}</td>
+    <td>{{item.l3empno}}</td>
+    <td>{{item.l4empno}}</td>
+    <td>{{item.applyTime|date: 'yyyy-MM-dd'}}</td>
+    <td>{{item.creditTime|date: 'yyyy-MM-dd hh：mm：ss'}}</td>
+  </tr>
+</table>

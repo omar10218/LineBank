@@ -11,6 +11,13 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 })
 export class F03008uploadComponent implements OnInit {
 
+  constructor(
+    public dialogRef: MatDialogRef<F03008uploadComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public f03008Service: F03008Service,
+    public dialog: MatDialog
+  ) { }
+
   JSONObject = {
     object: {},
     string: ''
@@ -23,21 +30,18 @@ export class F03008uploadComponent implements OnInit {
   abnormalName: string[]=new Array;
   onCheck: string[]=new Array;
 
-  constructor(public dialogRef: MatDialogRef<F03008uploadComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public f03008Service: F03008Service, public dialog: MatDialog) { }
-
   ngOnInit(): void {
   }
 
   public async confirmAdd(): Promise<void> {
-    const formdata: FormData = new FormData();
-    formdata.append('abnormalNid', this.ListToString(this.abnormalNid));
-    formdata.append('abnormalName', this.ListToString(this.abnormalName));
-    formdata.append('onCheck', this.ListToString(this.onCheck));
-    console.log(this.empNo)
-    console.log(formdata)
+    let jsonObject: any = {};
+    jsonObject['empNo'] = this.empNo;
+    jsonObject['abnormalNid'] = this.ListToString(this.abnormalNid);
+    jsonObject['abnormalName'] = this.ListToString(this.abnormalName);
+    jsonObject['onCheck'] = this.ListToString(this.onCheck);
     let msgStr: string = "";
     let baseUrl = 'f03/f03008action2';
-    msgStr = await this.f03008Service.addOrEditAdrCodeSet(baseUrl, this.empNo, formdata);
+    msgStr = await this.f03008Service.addOrEditAdrCodeSet(baseUrl, jsonObject);
     const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
