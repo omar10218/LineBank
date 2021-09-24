@@ -44,6 +44,7 @@ export class BaseService {
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, json);
   }
 
+  //for file download
   protected postGetFile(baseUrl: string, json: JSON) {
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, json, { responseType: 'blob' as 'json' });
   }

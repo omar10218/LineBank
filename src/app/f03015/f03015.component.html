@@ -65,13 +65,13 @@
     <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let row">
-            <button mat-raised-button color="success" (click)="update(true, row)">編輯</button>
+            <button mat-raised-button color="primary" (click)="update(true, row)">編輯</button>
         </mat-cell>
     </ng-container>
     <ng-container matColumnDef="delete">
         <mat-header-cell *matHeaderCellDef> </mat-header-cell>
         <mat-cell *matCellDef="let row">
-            <button mat-raised-button color="success" (click)="delete(row.ID)">刪除</button>
+            <button mat-raised-button color="warn" (click)="delete(row.ID)">刪除</button>
         </mat-cell>
     </ng-container>
     <ng-container matColumnDef="INDUC_CODE">

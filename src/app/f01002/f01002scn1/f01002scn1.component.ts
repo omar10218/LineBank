@@ -54,7 +54,7 @@ export class F01002scn1Component implements OnInit {
       }
     });
   }
-  
+
   reSearch() {
     const dialogRef = this.dialog.open(F01002researchComponent,{
       data:{

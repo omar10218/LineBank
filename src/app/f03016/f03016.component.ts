@@ -9,6 +9,7 @@ import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
+
 interface sysCode {
   value: string;
   viewValue: string;
@@ -60,11 +61,11 @@ export class F03016Component implements OnInit {
   getImpertmentParameterInfo() {
     const baseUrl = 'f03/f03016';
     this.f03016Service.getImpertmentParameter(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize).subscribe(data => {
+      console.log(data)
       this.DssJcicSet = data.rspBody.ipList[0].dssJcicSet;
       this.BasicLimit = data.rspBody.ipList[0].basicLimit;
       this.IsJcic = data.rspBody.ipList[0].isJcic;
       this.ChangeSource = data.rspBody.tlList
-
       this.columnName = data.rspBody.tlList[0].columnName;
       this.originalValue = data.rspBody.tlList[0].originalValue;
       this.currentValue = data.rspBody.tlList[0].currentValue;
@@ -74,6 +75,7 @@ export class F03016Component implements OnInit {
 
     });
   }
+
   // 儲存資料
   public async save(): Promise<void> {
     let jsonObject: any = {};
@@ -85,14 +87,24 @@ export class F03016Component implements OnInit {
     let baseUrl = 'f03/f03016action1';
 
     msgStr = await this.f03016Service.update(baseUrl, jsonObject);
+    console.log(baseUrl);
     if (msgStr == 'success') {
       msgStr = '儲存成功！'
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
+    //   this.DssJcicSet=0;
+    // this.BasicLimit=0;
       this.getImpertmentParameterInfo();
     }
+
+
   }
+  // clear(){
+  //   document.getElementById("dss_jcic_set").innerHTML  ="";
+  //   document.getElementById("basic_limit").innerHTML  ="";
+
+  // }
 
   ngAfterViewInit(): void {
     this.currentPage = {

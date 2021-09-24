@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { F03014Service } from '../f03014.service';
-import * as XLSX from 'xlsx';
+
 
 interface sysCode {
   value: string;

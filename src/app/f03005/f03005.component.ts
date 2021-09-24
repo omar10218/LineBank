@@ -197,4 +197,16 @@ export class F03005Component implements OnInit {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
 
+  Clear() {
+    this.selectedAdrValue = '';
+    this.selectedSecondValue = '';
+    this.selectedThirdValue = '';
+    this.adrCodeSource.data = null;
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+  }
+
 }
