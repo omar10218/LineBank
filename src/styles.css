@@ -39,32 +39,31 @@ body {
 html {
 	height: 100%;
 	background: transparent;
-	/* -webkit-overflow-scrolling: touch; */
-	/* background-attachment: fixed; */
-	/* overflow:   scroll; */
-	/* overflow: -moz-hidden-unscrollable; */
-	/* background-color: black; */
+
 }
 .line_bank_h1{
-  font-size: 30px;
-}
-.line_bank_h2{
   font-size: 25px;
 }
-.line_bank_h3{
+.line_bank_h2{
   font-size: 20px;
 }
-.line_bank_h4{
+.line_bank_h3{
   font-size: 18px;
+}
+.line_bank_h4{
+  font-size: 15px;
 }
 .line_bank_bankground_color{
   background-color: #FDF1DB;
 }
-.line_bank_form_header_color{
+
+.line_bank_form_header_title{
+  text-align: center;
+  font-weight:500;
+  color:#2E4765;
   background-color: #BFECD0;
-}
-.line_bank_form_header_title_color{
-  background-color: #98CCFE;
+  padding:10px 0;
+  border-radius: 10px 10px 0 0;
 }
 .line_bank_card {
 	position: relative;
@@ -73,7 +72,7 @@ html {
 	background: white;
 	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
 	border-radius: 10px;
-	padding: 20px ;
+	padding: 10px ;
 }
 .line_bank_card_no_padding {
 	position: relative;
@@ -83,25 +82,27 @@ html {
 	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
 	border-radius: 10px;
 }
-/* button{
+.line_bank_function_btn{
 background-color:white;
-min-width: 50px;
+max-width: 5%;
+text-align:center;
 font-size:15px;
 color:#24C875;
 border-radius: 10px;
 border:none;
 cursor: pointer;
-padding:5px 10px;
+padding:10px;
 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
 }
-button:hover{
+.line_bank_function_btn:hover{
 background-color:#24C875;
 font-size:15px;
-min-width: 50px;
+text-align:center;
+max-width: 5%;
 color:#ffffff;
 border-radius: 10px;
 border:none;
 cursor: pointer;
-padding:5px 10px;
+padding:10px;
 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
-} */
+}
