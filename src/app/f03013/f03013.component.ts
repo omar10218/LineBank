@@ -3,7 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { F03013Service } from './f03013.service';
 //20210911 alvin.lee
-
+interface sysCode {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-f03013',
   templateUrl: './f03013.component.html',
@@ -14,8 +17,8 @@ export class F03013Component implements OnInit {
   selectedValue: number;    //欲創建年度行事曆
   yearValue: number;        //查詢年份
   monthValue: number;       //查詢月份
-  yearCode = [];            //年份下拉
-  monthCode = [];           //月份下拉
+  yearCode: sysCode[] = []; //年份下拉
+  monthCode:sysCode[] = []; //月份下拉
   // pipe = new DatePipe('en-US');
   workingDateDataSource = new MatTableDataSource<any>();
   constructor(private f03013Service: F03013Service, private pipe: DatePipe) { }
@@ -59,24 +62,28 @@ export class F03013Component implements OnInit {
       if (data.rspBody.length == '0') { alert('請先初始化' + this.yearValue + '年度行事曆') }
     });
   }
-  // 取得年份下拉,當前年度前後5年
+  // 取得年份下拉
   getYearRange() {
-    const today = new Date();
-    let yearRange = 5;
-    let startYear = today.getFullYear() - yearRange;//起始年份
-    let endYear = today.getFullYear() + yearRange;//結束年份
-    for (let i = startYear; i <= endYear; i++) {
-      this.yearCode.push(i);
-    }
+    this.f03013Service.getSysTypeCode('YEAR').subscribe(data => {
+      console.log(data)
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj['codeNo'];
+        const desc = jsonObj['codeDesc'];
+        this.yearCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
   }
 
   // 取得月份下拉
   getMonthRange() {
-    for (let i = 1; i <= 12; i++) {
-      this.monthCode.push(i);
-    }
+    this.f03013Service.getSysTypeCode('MONTH').subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj['codeNo'];
+        const desc = jsonObj['codeDesc'];
+        this.monthCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
   }
-
   // 修改工作日
   updateWorkingDate(wDate: string, isWork: string) {
     console.log(wDate)

@@ -9,8 +9,8 @@
                 <td>
                     <mat-form-field color="accent">
                         <mat-select [(ngModel)]="selectedValue" name="yearCode">
-                            <mat-option class="option" [value]="item" *ngFor="let item of yearCode">
-                                {{item}}
+                            <mat-option class="option" [value]="code.value" *ngFor="let code of yearCode">
+                                {{code.viewValue}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -32,8 +32,8 @@
                 <td>
                     <mat-form-field color="accent">
                         <mat-select [(ngModel)]="yearValue" name="yearCode">
-                            <mat-option class="option" [value]="item" *ngFor="let item of yearCode">
-                                {{item}}
+                            <mat-option class="option" [value]="code.value" *ngFor="let code of yearCode">
+                                {{code.viewValue}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -44,8 +44,8 @@
                 <td>
                     <mat-form-field color="accent">
                         <mat-select [(ngModel)]="monthValue" name="monthCode">
-                            <mat-option class="option" [value]="item" *ngFor="let item of monthCode">
-                                {{item}}
+                            <mat-option class="option" [value]="code.value" *ngFor="let code of monthCode">
+                                {{code.viewValue}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
