@@ -27,4 +27,11 @@ export class F03014Service extends BaseService {
   update(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
+  downloadExcel(baseUrl: string, jsonObject:JSON): Observable<any> {
+
+    return this.postGetFile(baseUrl, jsonObject);
+  }
+  postExcel(baseUrl: string, formData: FormData): Observable<any> {
+    return this.postFormData(baseUrl, formData);
+  }
 }

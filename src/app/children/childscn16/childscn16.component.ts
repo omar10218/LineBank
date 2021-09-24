@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChildrenService } from '../children.service';
 import { Childscn16Service } from './childscn16.service';
 import { DatePipe } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import {Childscn2Component} from'../childscn2/childscn2.component'
+import { Childscn2Component } from '../childscn2/childscn2.component'
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+
 @Component({
   selector: 'app-childscn16',
   templateUrl: './childscn16.component.html',
@@ -20,25 +23,40 @@ export class Childscn16Component implements OnInit {
   applno: string;
   jsonObject: any = {};
   data: any;//裝一開始的資料表
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  currentPage: PageEvent;
+  currentSort: Sort;
+  totalCount: any;
   ruleParamCondition = new MatTableDataSource<any>();
   ngOnInit(): void {
     const caseParams = this.childService.getData();
     this.applno = caseParams.applno;
-    this.test();
+    this.initial();
   }
-  Inquire(id:string)
-  {
+  ngAfterViewInit() {
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+    this.currentSort = {
+      active: '',
+      direction: ''
+    };
+
+  }
+  Inquire(id: string) {
     const dialogRef = this.dialog.open(Childscn2Component, {
 
     });
 
   }
-  test()
-  {
+  initial() {
     let url = 'f01/childscn16';
     this.jsonObject['applno'] = this.applno;
-    this.childscn16Service.selectCustomer(url,this.jsonObject).subscribe(data=>{
-      this.data = data.rspBody;
+    this.childscn16Service.selectCustomer(url, this.jsonObject).subscribe(data => {
+      this.ruleParamCondition = data.rspBody;
       console.log(this.data);
     })
   }

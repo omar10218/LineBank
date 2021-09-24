@@ -63,7 +63,6 @@ export class F03004Component implements OnInit, AfterViewInit  {
     .subscribe(data => {
       this.totalCount = data.rspBody.size;
       this.mappingCodeSource.data = data.rspBody.items;
-      console.log(this.mappingCodeSource.data)
     });
   }
 
@@ -112,6 +111,16 @@ export class F03004Component implements OnInit, AfterViewInit  {
       dialogRef.afterClosed().subscribe(result => {
         if (result != null && result.event == 'success') { this.refreshTable(); }
       });
+  }
+
+  Clear() {
+    this.selectedValue = "";
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+    this.mappingCodeSource.data = null;
   }
 
   private refreshTable() {

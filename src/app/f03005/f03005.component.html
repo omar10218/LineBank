@@ -1,3 +1,10 @@
+<div class="container">
+  <th class="f03_th">原因碼維護</th>
+</div>
+<div class="f03_div" style="padding-left: 20px; padding-top: 20px;">
+  <button mat-raised-button color="primary" (click)="addNew()">新增</button>
+  <button mat-raised-button color="primary" (click)="Clear()">清除資料</button>
+</div>
 <table style="padding-left: 20px;">
   <br>
   <mat-card class="matCard">
@@ -34,9 +41,9 @@
               </mat-select>
             </mat-form-field>
           </td>
-          </ng-container>
-          <td style="width: 10px;">
-          </td>
+        </ng-container>
+        <td style="width: 10px;">
+        </td>
       </tr>
     </mat-card-content>
   </mat-card>
@@ -70,12 +77,7 @@
 
   <!-- actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="primary" (click)="addNew()">
-        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-      </button>
-    </mat-header-cell>
-
+    <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
     <mat-cell *matCellDef="let row; let i=index;">
       <button mat-icon-button color="accent" (click)="startEdit(i,
           row.reasonKind, row.upReasonCode, row.reasonCode, row.reasonDesc, row.reasonSort, row.reasonFlag)">

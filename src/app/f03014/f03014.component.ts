@@ -1,14 +1,15 @@
 
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { F03014Service } from './f03014.service';
 import { F03014addComponent } from './f03014add/f03014add.component'
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { F03014editComponent } from './f03014edit/f03014edit.component'
 import { F03014uploadComponent } from './f03014upload/f03014upload.component'
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
-import * as XLSX from 'xlsx';
 
 interface sysCode {
   value: string;
@@ -32,15 +33,32 @@ export class F03014Component implements OnInit {
   Invalidation: string;//失效
   daytest: string;//三個月後的日期
   i = 0;
-
+  myDate:any = new Date();
   ruleParamCondition = new MatTableDataSource<any>();
-  constructor(private pipe: DatePipe, private f03014Service: F03014Service, public dialog: MatDialog) { }
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  currentPage: PageEvent;
+  currentSort: Sort;
+  constructor(private pipe: DatePipe, private f03014Service: F03014Service, public dialog: MatDialog,
+   ) {   this.myDate  = this.pipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
+  }
   ngOnInit(): void //最開始處理的地方
   {
     this.usingType.push({ value: '1', viewValue: 'Y' });
     this.usingType.push({ value: '2', viewValue: 'N' });
   }
-  test() {
+  ngAfterViewInit() {
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+    this.currentSort = {
+      active: '',
+      direction: ''
+    };
+  }
+  variable() {
     this.i = 0;
   }
   Inquire()//查詢
@@ -121,44 +139,65 @@ export class F03014Component implements OnInit {
   }
   execlExport()//匯出
   {
-    const url = 'f03/f03014action04';
-    var formData = new FormData();
-    formData.append('custNid', this.IdentityValue != null ? this.IdentityValue : '');
-    formData.append('custName', this.NameValue != null ? this.NameValue : '');
-    formData.append('content1', this.NarrateValue != null ? this.NarrateValue : '');
-    formData.append('effectiveDate', this.Efficient != null ? this.Efficient : '');
-    formData.append('expirationDate', this.Invalidation != null ? this.Invalidation : '');
-    formData.append('useFlag', this.usingValue != null ? this.usingValue : '');
-    this.f03014Service.selectCustomer(url, formData,).subscribe(data => {
-    //   this.downloadFile(data.rspBody)
+    const url = 'f03/f03014action06';
+    let jsonObject: any = {};
+    let blob:Blob;
+    jsonObject['custNid'] = this.IdentityValue;
+    jsonObject['custName'] = this.NameValue;
+    jsonObject['content1'] = this.NarrateValue;
+    jsonObject['effectiveDate'] = this.Efficient;
+    jsonObject['expirationDate'] = this.Invalidation;
+    jsonObject['useFlag'] = this.usingValue;
+    let opton =  { responseType: 'blob' as 'json' };
+    this.f03014Service.downloadExcel(url,jsonObject).subscribe(data=>{
       console.log(data)
-      //設定欄位寬度
-      const options = {'!cols':[
-        {wpx:100},
-        {wpx:100},
-        {wpx:100},
-        {wpx:100},
-        {wpx:100},
-        {wpx:250},
-        {wpx:250},
-        {wpx:100},
-        {wpx:250},
-      ]};
-      //資料塞入順序
-      const header = ["客戶身分證字號","客戶姓名","簡述1","簡述2","備註資訊","生效日","失效日","使用中","更新日期"]
+      blob = new Blob([data], { type: ' application/xlsx' });
+      let downloadURL = window.URL.createObjectURL(blob);
+      let link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = "客戶身分名單註記" +  this.myDate  + ".xlsx"; //瀏覽器下載時的檔案名稱
+      link.click();
 
-      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data.rspBody,{header:header});//創建Excel 塞入資料和順序型態
-      ws['!cols'] = options['!cols'];//定義欄位寬度
+    })
 
-      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    // var formData = new FormData();
+    // formData.append('custNid', this.IdentityValue != null ? this.IdentityValue : '');
+    // formData.append('custName', this.NameValue != null ? this.NameValue : '');
+    // formData.append('content1', this.NarrateValue != null ? this.NarrateValue : '');
+    // formData.append('effectiveDate', this.Efficient != null ? this.Efficient : '');
+    // formData.append('expirationDate', this.Invalidation != null ? this.Invalidation : '');
+    // formData.append('useFlag', this.usingValue != null ? this.usingValue : '');
+    // this.f03014Service.selectCustomer(url, formData,).subscribe(data => {
+    // //   this.downloadFile(data.rspBody)
+    //   console.log(data)
+    //   //設定欄位寬度
+    //   const options = {'!cols':[
+    //     {wpx:100},
+    //     {wpx:100},
+    //     {wpx:100},
+    //     {wpx:100},
+    //     {wpx:100},
+    //     {wpx:250},
+    //     {wpx:250},
+    //     {wpx:100},
+    //     {wpx:250},
+    //   ]};
+    //   //資料塞入順序
+    //   const header = ["客戶身分證字號","客戶姓名","簡述1","簡述2","備註資訊","生效日","失效日","使用中","更新日期"]
 
-      XLSX.utils.book_append_sheet(wb, ws, '客戶');
+    //   const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data.rspBody,{header:header});//創建Excel 塞入資料和順序型態
+    //   ws['!cols'] = options['!cols'];//定義欄位寬度
 
-      XLSX.writeFile(wb, '客戶身分名單註記.xlsx');//檔案名稱
-    }
-    )
+    //   const wb: XLSX.WorkBook = XLSX.utils.book_new();
+
+    //   XLSX.utils.book_append_sheet(wb, ws, '客戶');
+
+    //   XLSX.writeFile(wb, '客戶身分名單註記.xlsx');//檔案名稱
+    // }
+    // )
 
   }
+
   Clear()//清空查詢資料
   {
       this.usingValue="";//使用中

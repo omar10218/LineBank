@@ -173,7 +173,12 @@ export class F03006Component implements OnInit, AfterViewInit {
     this.levelStartDateString= '';//請假起日
     this.levelEndDateValue=undefined;//請假迄日
     this.levelEndDateString= '';//請假迄日
-
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
+    this.employeeSource.data = null;
   }
 
   //切換頁籤

@@ -1,7 +1,12 @@
-<!-- <div class="f03_div" style="padding-left: 20px; padding-top: 20px;" >
+<div class="container">
+  <th class="f03_th">貸貨管理異常名單</th>
+</div>
+<br>
+<div class="f03_div" style="padding-left: 20px; padding-top: 20px;">
+  <button mat-raised-button color="primary" (click)="uploadNew()">新增</button>
   <button mat-raised-button color="primary" (click)="search()">查詢</button>
-  <button mat-raised-button color="primary" (click)="search()">上傳excel</button>
-</div> -->
+</div>
+<br>
 <table style="padding-left: 20px;">
   <br>
   <mat-card class="matCard">
@@ -10,7 +15,7 @@
         <th>ID：</th>
         <td>
           <mat-form-field color="accent">
-            <input  matInput [(ngModel)]="ABNORMAL_NID" (blur)="search()" >
+            <input  matInput [(ngModel)]="ABNORMAL_NID">
           </mat-form-field>
         </td>
       </tr>
@@ -20,14 +25,6 @@
 
 
 <mat-table [dataSource]="dataSource" matSort (matSortChange)="changeSort($event)">
-
-  <ng-container matColumnDef="actions1">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>動作</mat-header-cell>
-    <mat-cell *matCellDef="let row">
-    <button mat-raised-button color="primary" (click)="delete(row.abnormalNid)">刪除</button>
-    </mat-cell>
-  </ng-container>
-
   <ng-container matColumnDef="abnormalNid">
     <mat-header-cell *matHeaderCellDef>異常ID</mat-header-cell>
     <mat-cell *matCellDef="let row">{{ row.abnormalNid }}</mat-cell>
@@ -53,16 +50,9 @@
     <mat-cell *matCellDef="let row">{{ row.changeDate | date:"yyyy-MM-dd"}}</mat-cell>
   </ng-container>
 
-
-
   <!-- actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="primary" (click)="uploadNew()">
-        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-      </button>
-    </mat-header-cell>
-
+    <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
     <mat-cell *matCellDef="let row; let i=index;">
       <button mat-icon-button color="accent"
         (click)="startEdit(
@@ -71,11 +61,18 @@
       </button>
     </mat-cell>
   </ng-container>
+  <ng-container matColumnDef="actions1">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>刪除</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+    <button mat-raised-button color="primary" (click)="delete(row.abnormalNid)">刪除</button>
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row
-    *matHeaderRowDef="['actions1','abnormalNid', 'onCheck','transferEmpno', 'transferDate','changeEmpno', 'changeDate','actions']">
+    *matHeaderRowDef="['abnormalNid', 'onCheck','transferEmpno', 'transferDate','changeEmpno', 'changeDate','actions','actions1']">
   </mat-header-row>
   <mat-row
-    *matRowDef="let mappingCodeRow; columns: ['actions1','abnormalNid', 'onCheck','transferEmpno', 'transferDate','changeEmpno', 'changeDate','actions']">
+    *matRowDef="let mappingCodeRow; columns: ['abnormalNid', 'onCheck','transferEmpno', 'transferDate','changeEmpno', 'changeDate','actions','actions1']">
   </mat-row>
 </mat-table>
 
