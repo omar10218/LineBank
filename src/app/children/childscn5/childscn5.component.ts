@@ -85,7 +85,8 @@ export class Childscn5Component implements OnInit {
     formdata.append('cuid', this.cuid);
     formdata.append('code', 'CUSTOMER_INFO');
     this.childscn5Service.getCustomerInfoSearch(formdata).subscribe(data => {
-      this.customerInfoForm.patchValue({ EMAIL: data.rspBody.items[0].email })
+      console.log(data.rspBody)
+      this.customerInfoForm.patchValue({ EMAIL: data.rspBody.items[0].cuEmail })
       this.customerInfoForm.patchValue({ BIRTHDAY: data.rspBody.items[0].birthday })
       this.customerInfoForm.patchValue({ EDUCATION: data.rspBody.items[0].education })
       this.customerInfoForm.patchValue({ MOBILE: data.rspBody.items[0].mobile })

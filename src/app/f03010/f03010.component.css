@@ -11,3 +11,6 @@ td {
   border: 1px solid black;
 }
 
+.mat-grid-tile .mat-figure{
+  display: none;
+}

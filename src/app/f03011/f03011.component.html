@@ -1,6 +1,9 @@
 <div class="container">
     <th class="f03_th">DSS照會模組</th>
 </div>
+<div class="f03_div" style="padding-left: 20px; padding-top: 20px;">
+  <button mat-raised-button color="primary" (click)="add()">新增</button>
+</div>
 <br>
 <mat-table [dataSource]="dssCalloutSource" matSortDisableClear>
   <ng-container matColumnDef="tvNo">
@@ -27,11 +30,6 @@
   </ng-container>
 
   <ng-container matColumnDef="actions2">
-    <mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="primary" (click)="add()">
-        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-      </button>
-    </mat-header-cell>
     <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
     <mat-cell *matCellDef="let row">
       <button mat-icon-button color="accent" (click)="delete(

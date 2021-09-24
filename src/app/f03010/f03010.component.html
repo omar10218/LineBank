@@ -1,48 +1,45 @@
 <div class="container">
+  <th class="f03_th">照會話術</th>
 </div>
 <br>
-<div class="linebank_h1">
-照會話術
+<div class="f03_div" style="padding-left: 20px; padding-top: 20px;">
+  <button mat-raised-button color="primary" (click)="add()">新增</button>
 </div>
+<br>
 <table mat-table [dataSource]="calloutSpeakingSource" matSortDisableClear>
   <ng-container matColumnDef="speakingAbbreviation">
-      <th mat-header-cell *matHeaderCellDef>話術簡稱</th>
-      <td mat-cell *matCellDef="let row">{{ row.speakingAbbreviation }}</td>
+    <th mat-header-cell *matHeaderCellDef>話術簡稱</th>
+    <td mat-cell *matCellDef="let row">{{ row.speakingAbbreviation }}</td>
   </ng-container>
   <ng-container matColumnDef="speakingContent">
-      <th mat-header-cell *matHeaderCellDef>話術內容</th>
-      <td mat-cell *matCellDef="let row" title="{{ row.speakingContent }}">{{ (row.speakingContent.length > 20) ?
-        ((row.speakingContent).slice(0,
-        20) + '...') : row.speakingContent}}</td>
+    <th mat-header-cell *matHeaderCellDef>話術內容</th>
+    <td mat-cell *matCellDef="let row" title="{{ row.speakingContent }}">{{ (row.speakingContent.length > 20) ?
+      ((row.speakingContent).slice(0,
+      20) + '...') : row.speakingContent}}</td>
   </ng-container>
   <ng-container matColumnDef="stopFlag">
-      <th mat-header-cell *matHeaderCellDef>暫停使用</th>
-      <td mat-cell *matCellDef="let row">{{ row.stopFlag }}</td>
+    <th mat-header-cell *matHeaderCellDef>暫停使用</th>
+    <td mat-cell *matCellDef="let row">{{ row.stopFlag }}</td>
   </ng-container>
 
   <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>編輯</th>
-      <td mat-cell *matCellDef="let row">
-        <button mat-icon-button color="accent" (click)="startEdit(
+    <th mat-header-cell *matHeaderCellDef>編輯</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-icon-button color="accent" (click)="startEdit(
         row.speakingAbbreviation, row.speakingContent, row.stopFlag)">
-          <mat-icon aria-label="Edit">edit</mat-icon>
-        </button>
-      </td>
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="actions2">
-      <th mat-header-cell *matHeaderCellDef>
-        <button mat-icon-button color="primary" (click)="add()">
-          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-        </button>
-      </th>
-      <th mat-header-cell *matHeaderCellDef>刪除</th>
-      <td mat-cell *matCellDef="let row">
-        <button mat-icon-button color="accent" (click)="delete(
+    <th mat-header-cell *matHeaderCellDef>刪除</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-icon-button color="accent" (click)="delete(
         row.speakingAbbreviation)">
-          <mat-icon aria-label="delete">delete</mat-icon>
-        </button>
-      </td>
+        <mat-icon aria-label="delete">delete</mat-icon>
+      </button>
+    </td>
   </ng-container>
 
   <tr mat-header-row
@@ -59,10 +56,14 @@
     </mat-paginator>
   </td>
 </tr>
-
-<mat-grid-list cols="3" rowHeight="2:0.5">
-  <mat-grid-tile>1</mat-grid-tile>
-  <mat-grid-tile>2</mat-grid-tile>
-  <mat-grid-tile>3</mat-grid-tile>
-  <mat-grid-tile>4</mat-grid-tile>
-</mat-grid-list>
+<div class="line_bank_card_no_padding">
+  <mat-grid-list cols="5" rowHeight="2:0.5">
+    <mat-grid-tile><div>姓名<input style="display: block;" value="123" readonly></div></mat-grid-tile>
+    <mat-grid-tile>2</mat-grid-tile>
+    <mat-grid-tile>3</mat-grid-tile>
+    <mat-grid-tile>4</mat-grid-tile>
+    <mat-grid-tile>5</mat-grid-tile>
+    <mat-grid-tile>6</mat-grid-tile>
+    <mat-grid-tile colspan='4'>7</mat-grid-tile>
+  </mat-grid-list>
+</div>
