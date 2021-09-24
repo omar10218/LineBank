@@ -219,6 +219,7 @@ export class F03012Component implements OnInit {
   setAll(completed: boolean) {
 
     for (const obj of this.chkArray) {
+      console.log(this.chkArray);
       obj.completed = completed;
     }
 

@@ -1,6 +1,33 @@
 <br>
 <!-- 產生合約前回查值設定 -->
 <br>
+<!-- <div class="line_bank_card_no_padding" >
+  <div class="line_bank_form_header_title line_bank_h1">
+        這是標題
+  </div>
+  <div style="width:90vw;overflow-x: auto;">
+    12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi
+  </div>
+
+
+
+
+    <div class="line_bank_function_btn">
+    這是測試存存
+  </div>
+
+  <br><div class="line_bank_card_no_padding">
+    <mat-grid-list cols="5" rowHeight="2:0.5">
+      <mat-grid-tile><div>姓名<input style="display: block;" value="123" readonly></div></mat-grid-tile>
+      <mat-grid-tile>2</mat-grid-tile>
+      <mat-grid-tile>3</mat-grid-tile>
+      <mat-grid-tile>4</mat-grid-tile>
+      <mat-grid-tile>5</mat-grid-tile>
+      <mat-grid-tile>6</mat-grid-tile>
+      <mat-grid-tile colspan='4'>7</mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div> -->
 <form width='100%' [formGroup]="formData">
   <table bordercolor="#000000" cellspacing="0" cellpadding="2"
     style="border-collapse:collapse;width: 1200px;margin:0 auto;">
@@ -12,12 +39,18 @@
       <td class="td2" width='25%'>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>天數設定</mat-label>
-          <input matInput placeholder="輸入數字" [(ngModel)]="DssJcicSet" formControlName="DSS_JCIC_SET"
+          <input matInput placeholder="輸入數字" [(ngModel)]="DssJcicSet" formControlName="DSS_JCIC_SET" id="dss_jcic_set"
             oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
         </mat-form-field>
       </td>
-      <td width='25%'></td>
-      <td class="td2" width='25%'></td>
+      <td width='25%'>DSS3落人後email提醒天數</td>
+
+      <td class="td2" width='25%'> <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>天數設定</mat-label>
+        <input matInput placeholder="輸入天數" [(ngModel)]="DssMailDay" formControlName="DSS_MAIL_DAY" id="dss_mail_day"
+          oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
+      </mat-form-field>
+      </td>
 
     </tr>
 
@@ -35,7 +68,7 @@
       <td class="td2" width='25%'>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>金額設定</mat-label>
-          <input matInput placeholder="輸入金額" [(ngModel)]="BasicLimit" formControlName="BASIC_LIMIT">
+          <input matInput placeholder="輸入金額" [(ngModel)]="BasicLimit" formControlName="BASIC_LIMIT" id="basic_limit">
         </mat-form-field>
       </td>
       <td width='25%'></td>
@@ -59,8 +92,34 @@
     </tr>
 
   </table>
+  <table bordercolor="#000000" cellspacing="0" cellpadding="2"
+    style="border-collapse:collapse;width: 1200px;margin:0 auto;">
+    <tr>
+      <th width='25%' textAlign="center" colspan=4>CSS PASS設定</th>
+    </tr>
+    <tr>
+      <td width='25%'>PASS期間</td>
+      <td class="td2" width='25%'>
+        <mat-form-field appearance="fill" style="width:300px">
+          <mat-label>選取日期期間</mat-label>
+          <mat-date-range-input [rangePicker]="picker" >
+            <input matStartDate placeholder="開始時間" formControlName="CSS_PASS_START">
+            <input matEndDate placeholder="結束時間" formControlName="CSS_PASS_END">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+
+      </td>
+      <td width='25%'></td>
+      <td class="td2" width='25%'></td>
+
+    </tr>
+
+
+  </table>
   <div style="width:20vh;margin:10px auto;">
-    <button type="button" (click)="save()">儲存</button>
+    <button type="reset" (click)="save()">儲存</button>
     &nbsp;&nbsp;
     <button type="button">關閉</button>
   </div>

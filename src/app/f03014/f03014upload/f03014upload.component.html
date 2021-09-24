@@ -2,8 +2,8 @@
   <table >
     <tr>
       <td>上傳檔案</td>
-      <input type="file" name="file" id="file" (change)="openup($event)" style="display: none;">
-      <input type="text" disabled="disable"  >
+      <input type="file" name="file" id="file" (change)="openup($event.target.files)" style="display: none;">
+      <input type="text" disabled="disable"  [(ngModel)]="Filename" name="Filename" >
       <td><input type="button" value="開啟檔案" onclick="file.click()" ></td>
       <td><input type="button" value="上傳" (click)="seve()" ></td>
     </tr>

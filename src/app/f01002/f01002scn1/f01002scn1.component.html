@@ -1,5 +1,18 @@
-<div style="margin-top: 15px; margin-left: 5px;">
-  <button mat-raised-button color="primary" class="resultBtn" (click)="reSearch()">重查</button>
+<br>
+<div class="line_bank_card_no_padding">
+  <mat-grid-list cols="9" rowHeight="2:0.5">
+    <mat-grid-tile><span (click)="reSearch()">重查</span></mat-grid-tile>
+    <mat-grid-tile><span>重算</span></mat-grid-tile>
+    <mat-grid-tile><span>案件完成</span></mat-grid-tile>
+    <mat-grid-tile><span (click)="reScan()">補件</span></mat-grid-tile>
+    <mat-grid-tile><span>暫存</span></mat-grid-tile>
+    <mat-grid-tile><span>發送簡訊</span></mat-grid-tile>
+    <mat-grid-tile><span>發送Email</span></mat-grid-tile>
+    <mat-grid-tile><span>退件</span></mat-grid-tile>
+    <mat-grid-tile><span>提報黑名單</span></mat-grid-tile>
+  </mat-grid-list>
+
+  <!-- <button mat-raised-button color="primary" class="resultBtn" (click)="reSearch()">重查</button>
   <button mat-raised-button color="primary" class="resultBtn">重算</button>
   <button mat-raised-button color="primary" class="resultBtn">案件完成</button>
   <button mat-raised-button color="primary" class="resultBtn" (click)="reScan()">補件</button>
@@ -7,10 +20,66 @@
   <button mat-raised-button color="primary" class="resultBtn">發送簡訊</button>
   <button mat-raised-button color="primary" class="resultBtn">發送Email</button>
   <button mat-raised-button color="primary" class="resultBtn">退件</button>
-  <button mat-raised-button color="primary" class="resultBtn" (click)="blockList()">提報黑名單</button>
+  <button mat-raised-button color="primary" class="resultBtn" (click)="blockList()">提報黑名單</button> -->
 </div>
 <br>
-<div style="margin-top: 15px; margin-left: 5px;">
+<mat-grid-list cols="9" rowHeight="2:1">
+  <mat-grid-tile colspan='8'>
+    <div style="width:100%;height:35px;padding:20px 0;overflow-x: auto;background-color:#D6D6D6">
+      <div style="display:inline-flex">
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN2" id="firstBtn"
+         class="file_btn">審核資料</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN3"
+         class="file_btn">偽案通報</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN4"
+         class="file_btn">案件歷程</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN5"
+         class="file_btn">客戶資料</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN6"
+         class="file_btn">行外資料</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN7"
+         class="file_btn">AML/FDS/CSS</button>
+        <ng-container *ngIf="fds == 'D'">
+          <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN15"
+           class="file_btn">偽冒案件處理</button>
+        </ng-container>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN8"
+         class="file_btn">徵信照會</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN9"
+         class="file_btn">核心資訊</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN10"
+         class="file_btn">決策結果</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN11"
+         class="file_btn">資料比對</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN12"
+         class="file_btn">財務試算</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN13"
+         class="file_btn">網頁資訊</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN14"
+         class="file_btn">本案影像</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN16"
+         class="file_btn">歷史資料</button>
+        <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN17"
+         class="file_btn">申覆資料</button>
+      </div>
+
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div style="width:90%;height:35px;padding:20px 0;overflow-x: auto;background-color:#D6D6D6">
+      <button mat-raised-button color="primary" routerLinkActive="activeFirst"
+         class="arrow_btn"><mat-icon  aria-label="arrow back ios">arrow back ios</mat-icon></button>
+         <button mat-raised-button color="primary" routerLinkActive="activeFirst"
+         class="arrow_btn"><mat-icon  aria-label="arrow forward ios
+         ">arrow forward ios</mat-icon></button>
+    </div>
+    </mat-grid-tile>
+
+</mat-grid-list>
+
+
+
+<!-- <div style="margin-top: 15px; margin-left: 5px;">
   <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN2"
     id="firstBtn">審核資料</button>
   <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN3">偽案通報</button>
@@ -32,5 +101,6 @@
   <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN14">本案影像</button>
   <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN16">歷史資料</button>
   <button mat-raised-button color="primary" routerLinkActive="activeFirst" routerLink="./CHILDSCN17">申覆資料</button>
-</div>
+</div> -->
+
 <router-outlet></router-outlet>
