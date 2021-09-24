@@ -2,7 +2,7 @@
 <form>
   <tr>
     <div>
-      <td><button (click)="test()">查詢</button></td>
+      <td><button (click)="variable()">查詢</button></td>
       <td><button (click)="Inquire()">查詢資料</button></td>
       <td><button (click)="AddTable()">新增</button></td>
       <td><button>儲存資料</button></td>
@@ -20,7 +20,8 @@
         <td>客戶姓名</td>
         <td><input [(ngModel)]="NameValue" name="NameValue" type="text"></td>
         <td>客戶身分證字號</td>
-        <td><input type="text"  [(ngModel)]="IdentityValue" name="IdentityValue" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10"></td>
+        <td><input type="text" [(ngModel)]="IdentityValue" name="IdentityValue"
+            onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10"></td>
         <td>簡述1</td>
         <td><input [(ngModel)]="NarrateValue" name="NarrateValue" type="text"></td>
       </tr>
@@ -107,4 +108,11 @@
       *matRowDef="let emailRow; columns: ['tool','CUST_NAME','CUST_NID','CONTENT1','CONTENT2','REMARK','EFFECTIVE_DATE','EXPIRATION_DATE','USE_FLAG','CHANGE_DATE']">
     </mat-row>
   </mat-table>
+  <tr>
+    <td>
+      <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+      </mat-paginator>
+    </td>
+  </tr>
 </div>
