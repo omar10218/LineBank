@@ -8,6 +8,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -59,7 +60,7 @@ export class F03016Component implements OnInit {
   });
 
 
-  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<F03016Service>, private f03016Service: F03016Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<F03016Service>, private f03016Service: F03016Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private pipe: DatePipe) { }
 
   ngOnInit(): void {
 
@@ -92,8 +93,8 @@ export class F03016Component implements OnInit {
     jsonObject['DssJcicSet'] = this.DssJcicSet;
     jsonObject['DssMailDay'] = this.DssMailDay;
     jsonObject['BasicLimit'] = this.BasicLimit;
-    jsonObject['CssPassStart'] = this.CssPassStart;
-    jsonObject['CssPassEnd'] = this.CssPassEnd;
+    jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
+    jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
     jsonObject['IsJcic'] = this.IsJcic;
     jsonObject['TransEmpNo'] = this.transEmpNo;
     let msgStr: string = "";
