@@ -1,3 +1,13 @@
 .resultBtn{
     background: #3378ff;
 }
+.file_btn{
+  margin: 0px 10px;
+background-color: #CCCCCC;
+border-radius: 5px;
+}
+.arrow_btn{
+  margin: 0px 1px;
+background-color: #CCCCCC;
+border-radius: 5px;
+}

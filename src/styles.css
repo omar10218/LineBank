@@ -56,7 +56,9 @@ html {
 .line_bank_bankground_color{
   background-color: #FDF1DB;
 }
-
+.line_bank_form_header_title_color{
+  background-color: #98CCFE;
+}
 .line_bank_form_header_title{
   text-align: center;
   font-weight:500;
