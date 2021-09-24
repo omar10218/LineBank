@@ -17,7 +17,10 @@ export class F03016Service extends BaseService {
   update(baseUrl: string, jsonObject: any): any {
 
     jsonObject['DssJcicSet'] = jsonObject.DssJcicSet;
+    jsonObject['DssMailDay'] = jsonObject.DssMailDay;
     jsonObject['BasicLimit'] = jsonObject.BasicLimit;
+    jsonObject['CssPassStart'] = jsonObject.CssPassStart;
+    jsonObject['CssPassEnd'] = jsonObject.CssPassEnd;
     jsonObject['IsJcic'] = jsonObject.IsJcic;
     jsonObject['TransEmpNo'] = jsonObject.TransEmpNo;
 

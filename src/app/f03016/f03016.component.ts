@@ -10,6 +10,7 @@ import { ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 
+
 interface sysCode {
   value: string;
   viewValue: string;
@@ -26,7 +27,10 @@ export class F03016Component implements OnInit {
   totalCount: any;
   compareTableCode: sysCode[] = [];
   DssJcicSet: number;
+  DssMailDay: number;
   BasicLimit: number;
+  CssPassStart: string;
+  CssPassEnd: string;
   IsJcic: string = '';
   TableName: string = '';
   columnName: string = '';
@@ -40,7 +44,10 @@ export class F03016Component implements OnInit {
   formData: FormGroup = this.fb.group({
     DSS_JCIC_SET: ['', []],
     BASIC_LIMIT: ['', []],
+    DSS_MAIL_DAY: ['', []],
     IS_JCIC: ['', []],
+    CSS_PASS_START: ['', []],
+    CSS_PASS_END: ['', []],
 
     TABLE_NAME: ['', []],
     COLUMN_NAME: ['', []],
@@ -63,8 +70,11 @@ export class F03016Component implements OnInit {
     this.f03016Service.getImpertmentParameter(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize).subscribe(data => {
       console.log(data)
       this.DssJcicSet = data.rspBody.ipList[0].dssJcicSet;
+      this.DssMailDay = data.rspBody.ipList[0].dssMailDay;
       this.BasicLimit = data.rspBody.ipList[0].basicLimit;
       this.IsJcic = data.rspBody.ipList[0].isJcic;
+      this.CssPassStart = data.rspBody.ipList[0].cssPassStart;
+      this.CssPassEnd = data.rspBody.ipList[0].cssPassEnd;
       this.ChangeSource = data.rspBody.tlList
       this.columnName = data.rspBody.tlList[0].columnName;
       this.originalValue = data.rspBody.tlList[0].originalValue;
@@ -72,7 +82,7 @@ export class F03016Component implements OnInit {
       this.transEmpNo = data.rspBody.tlList[0].transEmpNo;
       this.transDate = data.rspBody.tlList[0].transDate;
       this.totalCount = data.rspBody.size;
-
+      // this.clear();
     });
   }
 
@@ -80,7 +90,10 @@ export class F03016Component implements OnInit {
   public async save(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['DssJcicSet'] = this.DssJcicSet;
+    jsonObject['DssMailDay'] = this.DssMailDay;
     jsonObject['BasicLimit'] = this.BasicLimit;
+    jsonObject['CssPassStart'] = this.CssPassStart;
+    jsonObject['CssPassEnd'] = this.CssPassEnd;
     jsonObject['IsJcic'] = this.IsJcic;
     jsonObject['TransEmpNo'] = this.transEmpNo;
     let msgStr: string = "";
@@ -93,16 +106,17 @@ export class F03016Component implements OnInit {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
-    //   this.DssJcicSet=0;
-    // this.BasicLimit=0;
       this.getImpertmentParameterInfo();
+
     }
+
 
 
   }
   // clear(){
-  //   document.getElementById("dss_jcic_set").innerHTML  ="";
-  //   document.getElementById("basic_limit").innerHTML  ="";
+  //   this.DssJcicSet = null;
+  //   this.BasicLimit = null;
+
 
   // }
 
