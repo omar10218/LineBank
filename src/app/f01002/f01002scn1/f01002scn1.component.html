@@ -1,5 +1,18 @@
-<div style="margin-top: 15px; margin-left: 5px;">
-  <button mat-raised-button color="primary" class="resultBtn" (click)="reSearch()">重查</button>
+<br>
+<div class="line_bank_card_no_padding">
+  <mat-grid-list cols="9" rowHeight="2:0.5">
+    <mat-grid-tile><span (click)="reSearch()">重查</span></mat-grid-tile>
+    <mat-grid-tile><span>重算</span></mat-grid-tile>
+    <mat-grid-tile><span>案件完成</span></mat-grid-tile>
+    <mat-grid-tile><span (click)="reScan()">補件</span></mat-grid-tile>
+    <mat-grid-tile><span>暫存</span></mat-grid-tile>
+    <mat-grid-tile><span>發送簡訊</span></mat-grid-tile>
+    <mat-grid-tile><span>發送Email</span></mat-grid-tile>
+    <mat-grid-tile><span>退件</span></mat-grid-tile>
+    <mat-grid-tile><span>提報黑名單</span></mat-grid-tile>
+  </mat-grid-list>
+
+  <!-- <button mat-raised-button color="primary" class="resultBtn" (click)="reSearch()">重查</button>
   <button mat-raised-button color="primary" class="resultBtn">重算</button>
   <button mat-raised-button color="primary" class="resultBtn">案件完成</button>
   <button mat-raised-button color="primary" class="resultBtn" (click)="reScan()">補件</button>
@@ -7,10 +20,9 @@
   <button mat-raised-button color="primary" class="resultBtn">發送簡訊</button>
   <button mat-raised-button color="primary" class="resultBtn">發送Email</button>
   <button mat-raised-button color="primary" class="resultBtn">退件</button>
-  <button mat-raised-button color="primary" class="resultBtn" (click)="blockList()">提報黑名單</button>
+  <button mat-raised-button color="primary" class="resultBtn" (click)="blockList()">提報黑名單</button> -->
 </div>
 <br>
-
 <mat-grid-list cols="9" rowHeight="2:1">
   <mat-grid-tile colspan='8'>
     <div style="width:100%;height:35px;padding:20px 0;overflow-x: auto;background-color:#D6D6D6">
