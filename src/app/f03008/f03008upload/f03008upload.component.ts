@@ -3,11 +3,12 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { F03008Service } from '../f03008.service';
 import * as XLSX from 'xlsx';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-f03008upload',
   templateUrl: './f03008upload.component.html',
-  styleUrls: ['./f03008upload.component.css']
+  styleUrls: ['./f03008upload.component.css','../../../assets/css/f03.css']
 })
 export class F03008uploadComponent implements OnInit {
 
@@ -15,37 +16,32 @@ export class F03008uploadComponent implements OnInit {
     public dialogRef: MatDialogRef<F03008uploadComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public f03008Service: F03008Service,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private fb: FormBuilder
   ) { }
 
-  JSONObject = {
-    object: {},
-    string: ''
-  };
+  uploadForm: FormGroup = this.fb.group({
+    ERROR_MESSAGE: [this.data.errorMessage]
+  });
+
+  isExcelFile: boolean;
+  fileToUpload: File | null = null;
+
   empNo: string = localStorage.getItem("empNo");
   JsonBool = false;
   ExcelSource : any;
-  //excelList: string[]=new Array;
-  abnormalNid: string[]=new Array;
-  abnormalName: string[]=new Array;
-  onCheck: string[]=new Array;
 
   ngOnInit(): void {
   }
 
   public async confirmAdd(): Promise<void> {
-    let jsonObject: any = {};
-    jsonObject['empNo'] = this.empNo;
-    jsonObject['abnormalNid'] = this.ListToString(this.abnormalNid);
-    jsonObject['abnormalName'] = this.ListToString(this.abnormalName);
-    jsonObject['onCheck'] = this.ListToString(this.onCheck);
+    const formdata: FormData = new FormData();
+    formdata.append('file', this.fileToUpload);
     let msgStr: string = "";
     let baseUrl = 'f03/f03008action2';
-    msgStr = await this.f03008Service.addOrEditAdrCodeSet(baseUrl, jsonObject);
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
+    this.f03008Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
+      this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
     });
-    if (msgStr === '上傳成功!!') { this.dialogRef.close({ event: 'success' }); }
   }
 
   onNoClick(): void {
@@ -55,63 +51,16 @@ export class F03008uploadComponent implements OnInit {
   submit() {
   }
 
-  //取Excel
-  onFileChange(ev: any) {
-    this.ExcelSource=null;
-    this.JsonBool = false;
-    let workBook: any = null;
-    let jsonData = null;
-    const reader = new FileReader();
-    const file = ev.target.files[0];
-    reader.onload = (event) => {
-      const data = reader.result;
-      workBook = XLSX.read(data, { type: 'binary' });
-      jsonData = workBook.SheetNames.reduce((initial: any, name: any) => {
-        const sheet = workBook.Sheets[name];
-        initial[name] = XLSX.utils.sheet_to_json(sheet);
-        return initial;
-      }, {});
-
-      this.ExcelSource=this.first(jsonData);//只取第一個分頁資料
-      console.log(this.ExcelSource);
-      let i = 0;
-
-      for (var key in this.ExcelSource[0]) {
-        this.JsonBool = (i == 0) ? (key == "ABNORMAL_NID") ? true : false : this.JsonBool
-        this.JsonBool = (i == 1) ? (key == "ABNORMAL_NAME") ? this.JsonBool : false : this.JsonBool
-        i += 1;
-      }
-      if (!this.JsonBool) {
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "EXCEL檔案格式不正確!"}
-        });
-      }else
-      {
-        for (const jsonObj of this.ExcelSource) {
-          const ABNORMAL_NID = jsonObj['ABNORMAL_NID'];
-          const ABNORMAL_NAME = jsonObj['ABNORMAL_NAME'];
-          this.abnormalNid.push(ABNORMAL_NID)
-          this.abnormalName.push(ABNORMAL_NAME)
-          this.onCheck.push('Y')
-        }
-        // this.ListToString(this.abnormalNid);
-        //console.log(this.excelList);
-      }
-    }
-    reader.readAsBinaryString(file);
-  }
-
-  //只取第一筆
-  first(obj:object):any{
-    for(var key in obj)
-    {
-      return obj[key];
+  //檢查上傳檔案格式
+  onChange(evt) {
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    this.isExcelFile = !!target.files[0].name.match(/(.xls|.xlsx)/);
+    if (this.isExcelFile) {
+      this.fileToUpload = target.files.item(0);
+    } else {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "非excel檔，請檢查檔案格式重新上傳" }
+      });
     }
   }
-
-    ListToString(x:string[]):string{
-      return x.toString();
-    }
-
-
 }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { BaseService } from '../base.service';
 
 @Injectable({
@@ -16,6 +17,13 @@ export class F03008Service extends BaseService {
 
   addOrEditAdrCodeSet(baseUrl: string, jsonObject: JSON): any {
     return this.saveOrEditMsgJson(baseUrl, jsonObject);
+  }
+
+  uploadExcel(baseUrl: string, fileToUpload: File, empNo: string): Observable<any> {
+    baseUrl = baseUrl+`?empNo=${empNo}`;
+    const formData: FormData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formData);
   }
 }
 
