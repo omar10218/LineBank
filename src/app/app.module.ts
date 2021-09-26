@@ -75,6 +75,7 @@ import { F03015uploadComponent } from './f03015/f03015upload/f03015upload.compon
 import { F03016Component } from './f03016/f03016.component';
 import { F03014addComponent } from './f03014/f03014add/f03014add.component';
 import { F01006Component } from './f01006/f01006.component';
+import { F01006restartComponent } from './f01006/f01006restart/f01006restart.component';
 
 @NgModule({
   declarations: [
@@ -140,6 +141,7 @@ import { F01006Component } from './f01006/f01006.component';
     F03016Component,
     F03014addComponent,
     F01006Component,
+    F01006restartComponent,
   ],
   imports: [
     BrowserModule,
