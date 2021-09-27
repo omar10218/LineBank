@@ -79,7 +79,8 @@ import { F01006restartComponent } from './f01006/f01006restart/f01006restart.com
 import { F03008deleteComponent } from './f03008/f03008delete/f03008delete.component';
 import { F03011deleteComponent } from './f03011/f03011delete/f03011delete.component';
 import { F03010deleteComponent } from './f03010/f03010delete/f03010delete.component';
-
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -150,6 +151,8 @@ import { F03010deleteComponent } from './f03010/f03010delete/f03010delete.compon
     F03010deleteComponent,
   ],
   imports: [
+    NzIconModule,
+    NzButtonModule,
     BrowserModule,
     MenuListModule,
     FormsModule,

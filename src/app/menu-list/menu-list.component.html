@@ -2,26 +2,34 @@
   <mat-toolbar-row>
     <img src="assets\images\LineBank.png" width="14%" (click)="goHome()">
     <button mat-button [matMenuTriggerFor]="aboveMenu" *ngFor="let menu of getMenu()"
-      style="margin: 0px 10px; text-align: center;">
-      <mat-icon style="display: block ;">{{menu.getIcon()}}</mat-icon>
+      style="margin: 0px 20px; text-align: center;">
+      <mat-icon style="display:inline-block;position:relative;bottom:7px">{{menu.getIcon()}}</mat-icon>
       {{menu.getTitle()}}
-      <mat-menu #aboveMenu="matMenu" yPosition="below">
+      <mat-menu #aboveMenu="matMenu" yPosition="below" style="font-size:25px">
         <button mat-menu-item *ngFor="let map of menu.getMenuList() | keyvalue: returnZero" [routerLink]="map.value">
           {{map.key}}
         </button>
       </mat-menu>
     </button>
     <span class="example-spacer"></span>
-    <button [matMenuTriggerFor]="menu" aria-label="User">
-      使用者：{{empNo}}
-      <mat-icon>account_box</mat-icon>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="logOut()">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>登出</span>
-        </button>
-      </mat-menu>
-    </button>
+
+    <nz-card nzHoverable style="width:15%;height:75%;position:relative" [nzCover]="coverTemplate">
+      <nz-card-meta nzDescription="{{empNo}}" style="position:absolute;top:25px;left:70px"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" class="user-avatar"></nz-avatar>
+
+        <mat-icon [matMenuTriggerFor]="menu" aria-label="User" style="position: absolute; top:16px;right:20px">xxwmore_horiz</mat-icon>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="logOut()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>登出</span>
+          </button>
+        </mat-menu>
+
+    </ng-template>
+
+
   </mat-toolbar-row>
 </mat-toolbar>
 <router-outlet></router-outlet>

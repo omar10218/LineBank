@@ -1,3 +1,6 @@
+::ng-deep.mat-grid-tile .mat-figure{
+  width:100px;
+}
 .resultBtn{
     background: #3378ff;
 }
@@ -14,7 +17,7 @@ border-radius: 5px;
 
 span {
   position: relative;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 span::before {
@@ -33,4 +36,16 @@ span::before {
 
 span:hover::before {
   transform: translate(-50%, 0) scaleX(1);
+}
+/* :host {
+  background: #f5f5f5;
+  overflow: hidden;
+  padding: 24px;
+  display: block;
+} */
+
+::ng-deep .ant-tabs>.ant-tabs-nav, .ant-tabs>div>.ant-tabs-nav{
+  background: #f5f5f5;
+  overflow: hidden;
+  padding: 10px;
 }

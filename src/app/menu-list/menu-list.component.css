@@ -2,7 +2,7 @@
   flex: 1 1 auto;
 }
 .mat-icon {
-  font-size: 35px;
+  font-size: 30px;
 }
 
 .mat-toolbar.mat-primary {
@@ -23,4 +23,12 @@
 .mat-icon {
   width: auto;
 }
+.user-avatar{
 
+  width:45px;
+  height:45px;
+  position: relative;
+  top:10px;
+  left:16px;
+
+}
