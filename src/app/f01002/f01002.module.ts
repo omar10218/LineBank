@@ -1,3 +1,5 @@
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { ChildrenModule } from './../children/children.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
@@ -23,7 +25,9 @@ import { F01002blocklistComponent } from './f01002blocklist/f01002blocklist.comp
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    F01002RoutingModule
+    F01002RoutingModule,
+    NzTabsModule,
+    ChildrenModule
   ]
 })
 export class F01002Module { }
