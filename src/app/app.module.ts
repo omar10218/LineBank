@@ -76,6 +76,9 @@ import { F03016Component } from './f03016/f03016.component';
 import { F03014addComponent } from './f03014/f03014add/f03014add.component';
 import { F01006Component } from './f01006/f01006.component';
 import { F01006restartComponent } from './f01006/f01006restart/f01006restart.component';
+import { F03008deleteComponent } from './f03008/f03008delete/f03008delete.component';
+import { F03011deleteComponent } from './f03011/f03011delete/f03011delete.component';
+import { F03010deleteComponent } from './f03010/f03010delete/f03010delete.component';
 
 @NgModule({
   declarations: [
@@ -142,6 +145,9 @@ import { F01006restartComponent } from './f01006/f01006restart/f01006restart.com
     F03014addComponent,
     F01006Component,
     F01006restartComponent,
+    F03008deleteComponent,
+    F03011deleteComponent,
+    F03010deleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -155,7 +161,6 @@ import { F01006restartComponent } from './f01006/f01006restart/f01006restart.com
     MaterialModule,
     FlexLayoutModule,
     CommonModule,
-    //NgZorroAntdModule
     // GoogleMapsModule
   ],
   providers: [
