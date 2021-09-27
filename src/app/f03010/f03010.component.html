@@ -6,7 +6,7 @@
   <button mat-raised-button color="primary" (click)="add()">新增</button>
 </div>
 <br>
-<table mat-table [dataSource]="calloutSpeakingSource" matSortDisableClear>
+<!-- <table mat-table [dataSource]="calloutSpeakingSource" matSortDisableClear>
   <ng-container matColumnDef="speakingAbbreviation">
     <th mat-header-cell *matHeaderCellDef>話術簡稱</th>
     <td mat-cell *matCellDef="let row">{{ row.speakingAbbreviation }}</td>
@@ -55,10 +55,42 @@
       [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
     </mat-paginator>
   </td>
-</tr>
+</tr> -->
+<div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="listOfData" [nzFrontPagination]="false" [nzSimple]="true" [nzLoading]="loading"
+    [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+    <thead>
+      <tr>
+        <th>話術簡稱</th>
+        <th>話術內容</th>
+        <th>暫停使用</th>
+        <th>編輯</th>
+        <th>刪除</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of listOfData">
+        <td>{{ data.speakingAbbreviation }}</td>
+        <td>{{ data.speakingContent }}</td>
+        <td>{{ data.stopFlag }}</td>
+        <td><button mat-icon-button color="accent" (click)="startEdit(
+        data.speakingAbbreviation, data.speakingContent, data.stopFlag)">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button></td>
+        <td> <button mat-icon-button color="accent" (click)="delete(
+        data.speakingAbbreviation)">
+            <mat-icon aria-label="delete">delete</mat-icon>
+          </button></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
 <div class="line_bank_card_no_padding">
   <mat-grid-list cols="5" rowHeight="2:0.5">
-    <mat-grid-tile><div>姓名<input style="display: block;" value="123" readonly></div></mat-grid-tile>
+    <mat-grid-tile>
+      <div>姓名<input style="display: block;" value="123" readonly></div>
+    </mat-grid-tile>
     <mat-grid-tile>2</mat-grid-tile>
     <mat-grid-tile>3</mat-grid-tile>
     <mat-grid-tile>4</mat-grid-tile>

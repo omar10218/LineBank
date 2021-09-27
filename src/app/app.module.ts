@@ -81,6 +81,7 @@ import { F03011deleteComponent } from './f03011/f03011delete/f03011delete.compon
 import { F03010deleteComponent } from './f03010/f03010delete/f03010delete.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NgZorroAntdModule } from './ngzorro/ng-zorro-antd.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -151,8 +152,6 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     F03010deleteComponent,
   ],
   imports: [
-    NzIconModule,
-    NzButtonModule,
     BrowserModule,
     MenuListModule,
     FormsModule,
@@ -164,6 +163,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     MaterialModule,
     FlexLayoutModule,
     CommonModule,
+    NgZorroAntdModule
     // GoogleMapsModule
   ],
   providers: [

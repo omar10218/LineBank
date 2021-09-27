@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F03010Service } from './f03010.service';
 import { F03010addComponent } from './f03010add/f03010add.component';
@@ -23,42 +25,14 @@ export class F03010Component implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent;
-  currentSort: Sort;
-  calloutSpeakingSource = new MatTableDataSource<any>();//Tabele資料
+  listOfData: readonly Data[] = [];
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
 
   ngOnInit(): void {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
-  }
-
-  //表單資料筆數調整
-  ngAfterViewInit() {
-    this.getSpeaking();
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getSpeaking();
-    });
+    this.getSpeaking(this.pageIndex, this.pageSize);
   }
 
   //新增
@@ -78,16 +52,23 @@ export class F03010Component implements OnInit {
   }
 
   //取話術Table
-  getSpeaking() {
+  getSpeaking(pageIndex: number, pageSize: number) {
+    console.log("pageIndex="+pageIndex+",pageSize"+pageSize)
     const baseUrl = "f03/f03010";
     let jsonObject: any = {};
-    jsonObject['page'] = this.currentPage.pageIndex + 1;
-    jsonObject['per_page'] = this.currentPage.pageSize
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize
     this.f03010Service.Speaking(baseUrl, jsonObject)
     .subscribe(data => {
-      this.totalCount = data.rspBody.size;
-      this.calloutSpeakingSource.data = data.rspBody.items;
+      this.listOfData = data.rspBody.items;
+      this.total = data.rspBody.size;
+      this.loading = false;
     });
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getSpeaking(pageIndex, pageSize);
   }
 
   //修改
@@ -109,7 +90,7 @@ export class F03010Component implements OnInit {
 
   //刷新表單
   private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
+    //this.paginator._changePageSize(this.paginator.pageSize);
   }
 
   //刪除
