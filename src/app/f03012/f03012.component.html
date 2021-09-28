@@ -8,7 +8,7 @@
       <td>
         <mat-form-field color="accent">
           <mat-select formControlName="compareTable" [(ngModel)]="selectedValue1" name="compareTableCode"
-          (ngModelChange)="changeSelect()" (selectionChange)="queryByCompareTable($event.value)">
+           (selectionChange)="queryByCompareTable($event.value)">
             <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
               {{code.viewValue}}
             </mat-option>

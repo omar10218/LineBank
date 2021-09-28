@@ -28,7 +28,7 @@ export class F03012Component implements OnInit {
   selectedValue: string = 'default';
   selectedValue1:string;
   sysCode: OptionsCode[] = [];
-  selectedColumn: OptionsCode[] = [];
+  // selectedColumn: OptionsCode[] = [];
   compareTableCode: OptionsCode[] = [];
   compareColumnCode: OptionsCode[] = [];
   compareType: OptionsCode[] = [];
@@ -185,18 +185,19 @@ export class F03012Component implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.mappingCodeSource.filter = filterValue.trim().toLowerCase();
   }
-  changeSelect(){
-    this.selectedColumn=[];
-    this.f03012Service.getSysTypeCode(this.selectedValue1)
-    .subscribe(data => {
-      for(const jsonObj of data.rspBody.mappingList){
-        const codeNo = jsonObj.codeNo;
-        const desc = jsonObj.codeDesc;
-        this.selectedColumn.push({value:codeNo, viewValue:desc})
-      }
-    })
+  // changeSelect(){
+  //   console.log(2)
+  //   this.selectedColumn=[];
+  //   this.f03012Service.getSysTypeCode(this.selectedValue1)
+  //   .subscribe(data => {
+  //     for(const jsonObj of data.rspBody.mappingList){
+  //       const codeNo = jsonObj.codeNo;
+  //       const desc = jsonObj.codeDesc;
+  //       this.selectedColumn.push({value:codeNo, viewValue:desc})
+  //     }
+  //   })
 
-  }
+  // }
   queryByCompareTable(compareTable:string){
     let msg= '';
     const url = 'f03/f03012action4'
@@ -207,8 +208,9 @@ export class F03012Component implements OnInit {
     this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
       // msg = data.rspMsg;
       console.log(data)
-      this.totalCount = data.rspBody.items.length;
-      this.compareDataSetSource = data.rspBody.items;
+      const items = data.rspBody.items.filter(item => item.compareType !== null && item.setValueHight !== null && item.setValueLow !== null)
+      this.totalCount = items.length;
+      this.compareDataSetSource = items;
     });
     // setTimeout(() => {
     //   const DialogRef = this.dialog.open(F03012confirmComponent, { data: { msgStr: msg } });
