@@ -16,14 +16,11 @@ export class Childscn9page2Component implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
     private childscn9Service: Childscn9Service,
-    public childService: ChildrenService
   ) { }
 
   private applno: string;
   private cuid: string;
-  private search: string;
   currentPage: PageEvent;
   currentSort: Sort;
   DEPOSITSource = new MatTableDataSource<any>();
@@ -32,9 +29,8 @@ export class Childscn9page2Component implements OnInit {
   DEPOSIT_STATIS_DATASource = new MatTableDataSource<any>();
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.cuid = caseParams.cuid;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
 
     this.currentPage = {
       pageIndex: 0,

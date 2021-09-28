@@ -24,10 +24,7 @@ enum Page {
 export class Childscn11Component implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private componenFactoryResolver: ComponentFactoryResolver,
-    public childService: ChildrenService
+    private componenFactoryResolver: ComponentFactoryResolver
   ) { }
 
   @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
@@ -49,11 +46,10 @@ export class Childscn11Component implements OnInit {
   readonly Page = Page;
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.search = caseParams.search;
-    this.cuid = caseParams.cuid;
-    this.fds = caseParams.fds;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
+    this.search = sessionStorage.getItem('search');
+    this.fds = sessionStorage.getItem('fds');
     // this.router.navigate(['./'+this.routerCase+'/CHILDSCN11/CHILDSCN11PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });
   }
 

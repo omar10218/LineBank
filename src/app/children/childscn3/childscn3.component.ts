@@ -26,8 +26,7 @@ export class Childscn3Component implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private childsc3Service: Childscn3Service,
-    public childService: ChildrenService
+    private childsc3Service: Childscn3Service
   ) { }
 
   private applno: string;
@@ -35,25 +34,20 @@ export class Childscn3Component implements OnInit {
   chkArray: checkBox[] = [];
   level1: string[] = [];//裝第一層checkbox
   data: any;//裝一開始的資料表
-  l1 : ANNOUNCE_REASON[]=[];
-  jsonObject :any = {};
-  i:string;
-  no:string;//會員帳號
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];//案件代碼
-      this.search = params['search'];
-      this.no =  localStorage.getItem("empNo");
-      this.getTable()//一進去畫面就抓取資料表
-    });
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.search = caseParams.search;
-    this.getTable()//抓取資料表
+  l1: ANNOUNCE_REASON[] = [];
+  jsonObject: any = {};
+  i: string;
+  no: string;//會員帳號
 
+  ngOnInit(): void {
+    this.applno = sessionStorage.getItem('applno');
+    this.search = sessionStorage.getItem('search');
+    this.no = localStorage.getItem("empNo");
+    this.getTable()//抓取資料表
   }
+
   getOptionDesc(option: OptionsCode[], codeVal: string): string //代碼跑名稱
-   {
+  {
     for (const data of option) {
       if (data.value == codeVal) {
         return data.viewValue;
@@ -73,8 +67,7 @@ export class Childscn3Component implements OnInit {
       this.level1.splice(this.level1.indexOf(id), 1)
       for (var fdL1 of this.data) {
         if (fdL1.reasonCode == id) {
-          for (var fdL2 of fdL1.child)
-          {
+          for (var fdL2 of fdL1.child) {
             fdL2.check = false;
           }
         }
@@ -88,37 +81,33 @@ export class Childscn3Component implements OnInit {
     const url = 'f01/childscn3action2';
     this.jsonObject['applno'] = this.applno;
     this.jsonObject['announceEmpno'] = this.no;
-    this.childsc3Service.oneseve(url,this.jsonObject).subscribe(data=>
-      {
+    this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
 
-      })
+    })
   }
+
   seve()//儲存
   {
-    this.l1 =[];
-    for(var i of this.data)
-    {
-      if(i.check ==true)
-      {
-        for(var k of i.child)
-        {
-          if(k.check==true)
-          this.l1.push({announceReason1:i.reasonCode,announceReason2:k.reasonCode})
+    this.l1 = [];
+    for (var i of this.data) {
+      if (i.check == true) {
+        for (var k of i.child) {
+          if (k.check == true)
+            this.l1.push({ announceReason1: i.reasonCode, announceReason2: k.reasonCode })
         }
       }
     }
     this.jsonObject['applno'] = this.applno;
     this.jsonObject['result'] = this.l1;
     const url = 'f01/childscn3action1';
-    this.childsc3Service.oneseve(url,this.jsonObject).subscribe(data=>
-      {
+    this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
 
-      })
+    })
 
   }
 
   getTable()//抓取資料表
-   {
+  {
     const url = 'f01/childscn3';
     const applno = this.applno;
     this.childsc3Service.gettable(url, applno).subscribe(data => {

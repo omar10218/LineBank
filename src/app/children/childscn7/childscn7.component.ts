@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Childscn7Service } from './childscn7.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { ChildrenService } from '../children.service';
 
 //20210906 新增RPM資訊,SRP同一關係人 alvin.lee
 //Nick AML/FDS/CSS
@@ -14,10 +12,7 @@ import { ChildrenService } from '../children.service';
 export class Childscn7Component implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private childscn7Service: Childscn7Service,
-    public childService: ChildrenService
   ) { }
 
   CALLOUTSource = new MatTableDataSource<any>();
@@ -28,11 +23,8 @@ export class Childscn7Component implements OnInit {
   SRPSource: any;
 
   private applno: string;
-  private search: string;
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.search = caseParams.search;
+    this.applno = sessionStorage.getItem('applno');
     this.getCALLOUTFunction();
   }
 

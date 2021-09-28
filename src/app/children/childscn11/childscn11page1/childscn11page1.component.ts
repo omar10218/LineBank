@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { MappingCode } from 'src/app/mappingcode.model';
-import { ChildrenService } from '../../children.service';
 import { Childscn11Service } from '../childscn11.service';
 interface Code {
   compareColumn: string;
@@ -18,10 +16,8 @@ interface Code {
 export class Childscn11page1Component implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
     private fb: FormBuilder,
-    private childscn11Service: Childscn11Service,
-    public childService: ChildrenService
+    private childscn11Service: Childscn11Service
   ) { }
 
   private applno: string;
@@ -39,8 +35,7 @@ export class Childscn11page1Component implements OnInit {
   });
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
+    this.applno = sessionStorage.getItem('applno');
     this.getCOMPARE();
   }
 

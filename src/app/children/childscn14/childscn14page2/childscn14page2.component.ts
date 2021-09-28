@@ -33,9 +33,8 @@ export class Childscn14page2Component implements OnInit {
   private cuid: string;
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.cuid = caseParams.cuid;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
 
     const url = 'f01/childscn14';
     const formdata: FormData = new FormData();

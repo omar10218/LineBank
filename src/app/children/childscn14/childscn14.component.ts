@@ -1,7 +1,5 @@
 import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
-import { ChildrenService } from '../children.service';
 import { Childscn14page1Component } from './childscn14page1/childscn14page1.component';
 import { Childscn14page2Component } from './childscn14page2/childscn14page2.component';
 import { Childscn14page3Component } from './childscn14page3/childscn14page3.component';
@@ -20,10 +18,7 @@ enum Page {
 export class Childscn14Component implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private componenFactoryResolver: ComponentFactoryResolver,
-    public childService: ChildrenService
+    private componenFactoryResolver: ComponentFactoryResolver
   ) { }
 
   @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
@@ -43,11 +38,10 @@ export class Childscn14Component implements OnInit {
   readonly Page = Page;
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.search = caseParams.search;
-    this.cuid = caseParams.cuid;
-    this.fds = caseParams.fds;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
+    this.search = sessionStorage.getItem('search');
+    this.fds = sessionStorage.getItem('fds');
     //this.router.navigate(['./'+this.routerCase+'/CHILDSCN14/CHILDSCN14PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });
   }
 
