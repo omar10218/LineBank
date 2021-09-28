@@ -11,11 +11,16 @@ import { Childscn8Service } from '../childscn8.service';
 })
 export class Childscn8addComponent implements OnInit {
 
+  constructor(
+    public dialogRef: MatDialogRef<Childscn8addComponent>,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public childscn8Service: Childscn8Service
+  ) { }
+
   CON_TEL_Selected: string;//電話種類
   CON_TARGET_Selected: string;//對象種類
   CON_MEMO_Selected: string;//註記種類
-
-  constructor(public dialogRef: MatDialogRef<Childscn8addComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public childscn8Service: Childscn8Service) { }
 
   ngOnInit(): void {
   }

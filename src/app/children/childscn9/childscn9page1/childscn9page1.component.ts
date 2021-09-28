@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { ChildrenService } from '../../children.service';
 import { Childscn9Service } from '../childscn9.service';
 interface dateCode {
   value: string;
@@ -17,9 +15,7 @@ export class Childscn9page1Component implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
     private childscn9Service: Childscn9Service,
-    public childService: ChildrenService
   ) { }
 
   coreCustInfoForm: FormGroup = this.fb.group({
@@ -57,14 +53,12 @@ export class Childscn9page1Component implements OnInit {
 
   private applno: string;
   private cuid: string;
-  private queryDate: string;
   private search: string;
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.cuid = caseParams.cuid;
-    this.search = caseParams.search;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
+    this.search = sessionStorage.getItem('search');
     const url = 'f01/childscn9';
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);

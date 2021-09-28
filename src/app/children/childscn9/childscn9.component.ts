@@ -1,8 +1,6 @@
 import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
 import { OptionsCode } from 'src/app/interface/base';
-import { ChildrenService } from '../children.service';
 import { Childscn9Service } from './childscn9.service';
 import { Childscn9page1Component } from './childscn9page1/childscn9page1.component';
 import { Childscn9page2Component } from './childscn9page2/childscn9page2.component';
@@ -24,11 +22,8 @@ enum Page {
 export class Childscn9Component implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private childscn9Service: Childscn9Service,
     private componenFactoryResolver: ComponentFactoryResolver,
-    public childService: ChildrenService
   ) { }
 
   @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
@@ -36,10 +31,7 @@ export class Childscn9Component implements OnInit {
   dateValue: string;
 
   private applno: string;
-  private search: string;
   private cuid: string;
-  private routerCase: string;
-  private fds: string
   component = new Map<Page, any>(
     [
       [Page.Page1, Childscn9page1Component],
@@ -52,11 +44,8 @@ export class Childscn9Component implements OnInit {
   readonly Page = Page;
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.search = caseParams.search;
-    this.cuid = caseParams.cuid;
-    this.fds = caseParams.fds;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
     const url = 'f01/childscn9';
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);

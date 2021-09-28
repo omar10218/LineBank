@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ChildrenService } from '../children.service';
 import { Childscn5Service } from './childscn5.service';
 interface dateCode {
   value: string;
@@ -17,10 +15,7 @@ export class Childscn5Component implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
     private childscn5Service: Childscn5Service,
-    public childService: ChildrenService
   ) { }
 
   cpTypeCreditCode: dateCode[] = [{ value: '1', viewValue: '測試1號' }, { value: '2', viewValue: '測試2號' }]; ;
@@ -68,14 +63,11 @@ export class Childscn5Component implements OnInit {
   });
 
   private applno: string;
-  private search: string;
   private cuid: string;
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.search = caseParams.search;
-    this.cuid = caseParams.cuid;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
     this.getCustomerInfo();
   }
 

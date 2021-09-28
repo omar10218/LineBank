@@ -6,7 +6,6 @@ import { AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { F01002Service } from './f01002.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ChildrenService } from '../children/children.service';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { OptionsCode } from '../interface/base';
 
@@ -17,6 +16,13 @@ import { OptionsCode } from '../interface/base';
 })
 
 export class F01002Component implements OnInit, AfterViewInit {
+
+  constructor(
+    private router: Router,
+    private f01002Service: F01002Service,
+    public dialog: MatDialog,
+  ) { }
+
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
@@ -31,13 +37,6 @@ export class F01002Component implements OnInit, AfterViewInit {
   agentEmpNoCode: OptionsCode[] = [];                     // 代理人下拉
   cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單
   fds: string = "";                                   // fds
-
-  constructor(
-    private router: Router,
-    private f01002Service: F01002Service,
-    public dialog: MatDialog,
-    public childService: ChildrenService
-  ) { }
 
   ngOnInit(): void {
     // 查詢案件分類
@@ -126,13 +125,11 @@ export class F01002Component implements OnInit, AfterViewInit {
         this.fds = data.rspBody[0].fds
       }
       if (data.rspMsg == '案件鎖定成功') {
-        this.childService.setData({
-           applno: swcApplno,
-           cuid: swcID,
-           search: 'N',
-           fds: this.fds,
-           queryDate: ''
-        });
+        sessionStorage.setItem( 'applno', swcApplno );
+        sessionStorage.setItem( 'cuid', swcID );
+        sessionStorage.setItem( 'search', 'N' );
+        sessionStorage.setItem( 'fds', this.fds );
+        sessionStorage.setItem( 'queryDate', '' );
         this.router.navigate(['./F01002/F01002SCN1']);
       }
     });

@@ -14,7 +14,6 @@ import { Childscn6Service } from '../childscn6.service';
 export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   constructor(
-    private route: ActivatedRoute,
     private childscn6Service: Childscn6Service,
     private router: Router,
     public childService: ChildrenService
@@ -78,10 +77,10 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   currentSort: Sort;
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.cuid = caseParams.cuid;
-    this.queryDate = caseParams.queryDate;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
+    this.queryDate = sessionStorage.getItem('queryDate');
+
     this.getJcicMultiple();
     this.setBooleanFalse();
 

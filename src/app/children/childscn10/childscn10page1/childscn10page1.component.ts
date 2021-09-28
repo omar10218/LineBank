@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { OptionsCode } from 'src/app/interface/base';
-import { ChildrenService } from '../../children.service';
 import { Childscn10Service } from '../childscn10.service';
 
 @Component({
@@ -14,9 +12,7 @@ export class Childscn10page1Component implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private childscn10Service: Childscn10Service,
-    public childService: ChildrenService
+    private childscn10Service: Childscn10Service
   ) { }
 
   dss1Form: FormGroup = this.fb.group({
@@ -104,14 +100,12 @@ export class Childscn10page1Component implements OnInit {
 
   private applno: string;
   private cuid: string;
-  private queryDate: string;
   private search: string;
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.cuid = caseParams.cuid;
-    this.search = caseParams.search;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
+    this.search = sessionStorage.getItem('search');
     // this.route.queryParams.subscribe(params => {
     //   this.queryDate = params['queryDate'];
     // });

@@ -12,7 +12,6 @@ export class F01002researchComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<F01002researchComponent>,
-    public childService: ChildrenService,
     public f01002ReSearchService: F01002ReSrearchService
   ) { }
 
@@ -23,9 +22,8 @@ export class F01002researchComponent implements OnInit {
   searchArray: string[] = [];  //查詢項目
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.swcID = caseParams.cuid;
+    this.applno = sessionStorage.getItem('applno');
+    this.swcID = sessionStorage.getItem('cuid');
     this.custID = "123456";  //待確認
     this.empNo = localStorage.getItem("empNo");
   }

@@ -1,13 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
-import { ChildrenService } from '../children.service';
 import { Childscn8Service } from './childscn8.service';
 import { Childscn8addComponent } from './childscn8add/childscn8add.component';
 import { Childscn8editComponent } from './childscn8edit/childscn8edit.component';
@@ -38,12 +35,8 @@ interface CALLOUTCode {
 export class Childscn8Component implements OnInit {
 
   constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
     public dialog: MatDialog,
     private childscn8Service: Childscn8Service,
-    public childService: ChildrenService
   ) { }
 
   CON_TEL_Code: OptionsCode[] = [];//電話種類下拉選單
@@ -66,9 +59,8 @@ export class Childscn8Component implements OnInit {
   private search: string;
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.search = caseParams.search;
+    this.applno = sessionStorage.getItem('applno');
+    this.search = sessionStorage.getItem('search');
 
     //表單資料筆數設定
     this.currentPage = {
@@ -169,8 +161,8 @@ export class Childscn8Component implements OnInit {
     });
   }
 
-   //刪除
-   deleteItem(CON_TEL: string, PHONE: string, CON_TARGET: string, CUST_TYPE: string, CON_MEMO: string, NOTE: string, ID: string) {
+  //刪除
+  deleteItem(CON_TEL: string, PHONE: string, CON_TARGET: string, CUST_TYPE: string, CON_MEMO: string, NOTE: string, ID: string) {
     const dialogRef = this.dialog.open(Childscn8deleteComponent, {
       minHeight: '100vh',
       width: '50%',

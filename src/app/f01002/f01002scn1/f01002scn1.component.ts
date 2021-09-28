@@ -3,7 +3,6 @@ import { F01002researchComponent } from './../f01002research/f01002research.comp
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChildrenService } from 'src/app/children/children.service';
 import { F01002rescanComponent } from '../f01002rescan/f01002rescan.component';
 
 @Component({
@@ -14,9 +13,6 @@ import { F01002rescanComponent } from '../f01002rescan/f01002rescan.component';
 export class F01002scn1Component implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    public childService: ChildrenService,
     public dialog: MatDialog
   ) { }
 
@@ -26,19 +22,12 @@ export class F01002scn1Component implements OnInit {
   private cuid: string;
   private routerCase: string;
   fds: string
+
   ngOnInit(): void {
-    // this.route.queryParams.subscribe(params => {
-    //   this.applno = params['applno'];
-    //   this.search = params['search'];
-    //   this.cuid = params['cuid'];
-    //   this.routerCase = params['routerCase'];
-    //   this.fds = params['fds'];
-    // });
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.search = caseParams.search;
-    this.cuid = caseParams.cuid;
-    this.fds = caseParams.fds;
+    this.applno = sessionStorage.getItem('applno');
+    this.search = sessionStorage.getItem('search');
+    this.cuid = sessionStorage.getItem('cuid');
+    this.fds = sessionStorage.getItem('fds');
   }
 
   ngAfterViewInit() {

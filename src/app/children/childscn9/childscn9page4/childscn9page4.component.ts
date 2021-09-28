@@ -3,8 +3,6 @@ import { FormBuilder } from '@angular/forms';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
-import { ChildrenService } from '../../children.service';
 import { Childscn9Service } from '../childscn9.service';
 
 @Component({
@@ -16,22 +14,18 @@ export class Childscn9page4Component implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private childscn9Service: Childscn9Service,
-    public childService: ChildrenService
+    private childscn9Service: Childscn9Service
   ) { }
 
   private applno: string;
   private cuid: string;
-  private search: string;
   currentPage: PageEvent;
   currentSort: Sort;
   dcTransDetailSource = new MatTableDataSource<any>();
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.cuid = caseParams.cuid;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
 
     this.currentPage = {
       pageIndex: 0,

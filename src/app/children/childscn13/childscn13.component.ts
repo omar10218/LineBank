@@ -3,10 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
-
 import { MappingCode } from 'src/app/mappingcode.model';
-import { ChildrenService } from '../children.service';
 import { Childscn13Service } from './childscn13.service';
 import { Childscn13addComponent } from './childscn13add/childscn13add.component';
 import { Childscn13deleteComponent } from './childscn13delete/childscn13delete.component';
@@ -21,11 +18,8 @@ import { Childscn13showComponent } from './childscn13show/childscn13show.compone
 export class Childscn13Component implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     private childscn13Service: Childscn13Service,
-    public dialog: MatDialog,
-    public childService: ChildrenService
+    public dialog: MatDialog
   ) { }
 
   private applno: string;
@@ -35,10 +29,9 @@ export class Childscn13Component implements OnInit {
   currentSort: Sort;
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.search = caseParams.search;
-    this.cuid = caseParams.cuid;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
+    this.search = sessionStorage.getItem('search');
 
     this.currentPage = {
       pageIndex: 0,

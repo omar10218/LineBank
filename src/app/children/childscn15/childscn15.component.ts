@@ -44,9 +44,8 @@ export class Childscn15Component implements OnInit {
   private search: string;
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
-    this.search = caseParams.search;
+    this.applno = sessionStorage.getItem('applno');
+    this.search = sessionStorage.getItem('search');
 
     const baseUrl = 'f01/childscn15';
     this.childscn15Service.getReason(baseUrl, this.applno).subscribe(data => {
