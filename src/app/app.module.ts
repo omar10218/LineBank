@@ -79,9 +79,21 @@ import { F01006restartComponent } from './f01006/f01006restart/f01006restart.com
 import { F03008deleteComponent } from './f03008/f03008delete/f03008delete.component';
 import { F03011deleteComponent } from './f03011/f03011delete/f03011delete.component';
 import { F03010deleteComponent } from './f03010/f03010delete/f03010delete.component';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NgZorroAntdModule } from './ngzorro/ng-zorro-antd.module';
+import { MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+
+export const TW_FORMATS = {
+  parse: {
+    dateInput: 'YYYY/MM/DD'
+  },
+  display: {
+    dateInput: 'YYYY/MM/DD',
+    monthYearLabel: 'YYYY MMM',
+    dateA11yLabel: 'YYYY/MM/DD',
+    monthYearA11yLabel: 'YYYY MMM'
+  }
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -168,8 +180,9 @@ import { NgZorroAntdModule } from './ngzorro/ng-zorro-antd.module';
   ],
   providers: [
     BnNgIdleService,
+    { provide: MAT_DATE_LOCALE, useValue: 'zh-TW' },
+    { provide: MAT_DATE_FORMATS, useValue: TW_FORMATS },
     { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: MatDialogRef, useValue: {} },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
