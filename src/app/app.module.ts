@@ -184,6 +184,10 @@ export const TW_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: TW_FORMATS },
     { provide: MAT_DIALOG_DATA, useValue: {} },
     {
+      provide: MatDialogRef,
+      useValue: {}
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
