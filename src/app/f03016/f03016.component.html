@@ -2,7 +2,7 @@
 <!-- 產生合約前回查值設定 -->
 <br>
 
-<form width='100%' [formGroup]="formData">
+<div width='100%' >
   <table bordercolor="#000000" cellspacing="0" cellpadding="2"
     style="border-collapse:collapse;width: 1200px;margin:0 auto;">
     <tr>
@@ -13,7 +13,7 @@
       <td class="td2" width='25%'>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>天數設定</mat-label>
-          <input matInput placeholder="輸入數字" [(ngModel)]="DssJcicSet" formControlName="DSS_JCIC_SET" id="dss_jcic_set"
+          <input matInput placeholder="輸入數字" [(ngModel)]="DssJcicSet"  id="dss_jcic_set"
             oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
         </mat-form-field>
       </td>
@@ -21,7 +21,7 @@
 
       <td class="td2" width='25%'> <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>天數設定</mat-label>
-        <input matInput placeholder="輸入天數" [(ngModel)]="DssMailDay" formControlName="DSS_MAIL_DAY" id="dss_mail_day"
+        <input matInput placeholder="輸入天數" [(ngModel)]="DssMailDay"  id="dss_mail_day"
           oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
       </mat-form-field>
       </td>
@@ -29,9 +29,9 @@
     </tr>
 
   </table>
-</form>
+</div>
 <!-- 動撥設定 -->
-<form width='100%' [formGroup]="formData">
+<div width='100%'>
   <table bordercolor="#000000" cellspacing="0" cellpadding="2"
     style="border-collapse:collapse;width: 1200px;margin:0 auto;">
     <tr>
@@ -42,7 +42,7 @@
       <td class="td2" width='25%'>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>金額設定</mat-label>
-          <input matInput placeholder="輸入金額" [(ngModel)]="BasicLimit" formControlName="BASIC_LIMIT" id="basic_limit">
+          <input matInput placeholder="輸入金額" [(ngModel)]="BasicLimit"  id="basic_limit">
         </mat-form-field>
       </td>
       <td width='25%'></td>
@@ -52,7 +52,7 @@
     <tr>
       <td width='25%'>是否查詢JCIC</td>
       <td class="td2" width='25%' style="text-align:left">
-        <mat-radio-group aria-label="Select an option" formControlName="IS_JCIC" [(ngModel)]="IsJcic">
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="IsJcic">
           <mat-radio-button [value]="'Y'">是</mat-radio-button>
           <mat-radio-button [value]="'N'">否</mat-radio-button>
         </mat-radio-group>
@@ -74,16 +74,17 @@
     <tr>
       <td width='25%'>PASS期間</td>
       <td class="td2" width='25%'>
+
         <mat-form-field color="accent" appearance="fill">
           <mat-label>開始時間</mat-label>
-          <input matInput [matDatepicker]="picker1" formControlName="CSS_PASS_START" [(ngModel)]="CssPassStart">
+          <input matInput [matDatepicker]="picker1"  [(ngModel)]="CssPassStart">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field color="accent" appearance="fill">
           <mat-label>結束時間</mat-label>
-          <input matInput [matDatepicker]="picker2" formControlName="CSS_PASS_END" [(ngModel)]="CssPassEnd">
+          <input matInput [matDatepicker]="picker2"  [(ngModel)]="CssPassEnd">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2 color="primary"></mat-datepicker>
         </mat-form-field>
@@ -110,11 +111,11 @@
     &nbsp;&nbsp;
     <button type="button">關閉</button>
   </div>
-</form>
+</div>
 
 <br>
 <br>
-<form width='100%' [formGroup]="formData">
+<form width='100%' >
   <table bordercolor="#000000" cellspacing="0" cellpadding="2"
     style="border-collapse:collapse;width: 1200px;margin:0 auto;">
     <tr>
@@ -129,7 +130,7 @@
     </tr>
     <tr *ngFor="let data of ChangeSource">
       <td class="td2" width='20%'>{{data.columnName}}</td>
-      <td class="td2" width='20%'>{{data.originalValue| date: 'yyyy/MM/dd HH:mm:ss'}}</td>
+      <td class="td2" width='20%'>{{data.originalValue}}</td>
       <td class="td2" width='20%'>{{data.currentValue}}</td>
       <td class="td2" width='20%'>{{data.transEmpNo}}</td>
       <td class="td2" width='20%'>{{data.transDate| date: 'yyyy/MM/dd HH:mm:ss'}}</td>
