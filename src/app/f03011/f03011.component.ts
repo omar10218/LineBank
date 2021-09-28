@@ -8,6 +8,7 @@ import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { MappingCode } from '../mappingcode.model';
 import { F03011Service } from './f03011.service';
 import { F03011addComponent } from './f03011add/f03011add.component';
+import { F03011deleteComponent } from './f03011delete/f03011delete.component';
 import { F03011editComponent } from './f03011edit/f03011edit.component';
 
 @Component({
@@ -136,19 +137,20 @@ export class F03011Component implements OnInit, AfterViewInit {
   }
 
   delete(tvNo: string, scklv: string, calv: string) {
-    let msg = '';
-    const baseUrl = 'f03/f03011action3';
-    let jsonObject: any = {};
-    jsonObject['scklv'] = scklv;
-    jsonObject['calv'] = calv;
-    jsonObject['tvNo'] = tvNo;
-    this.f03011Service.dssCallout( baseUrl, jsonObject).subscribe(data => {
-      msg = data.rspMsg;
-    });
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      window.location.reload();
-    }, 1500);
+    const dialogRef = this.dialog.open(F03011deleteComponent, {
+      minHeight: '30%',
+      width: '70%',
+      data: {
+        tvNo: tvNo,
+        scklv : scklv ,
+        calv: calv
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != null && result.event == '刪除成功!') {
+          this.refreshTable();
+          window.location.reload();
+        }
+      });
   }
-
 }

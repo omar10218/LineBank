@@ -13,6 +13,10 @@ export class F03011Service extends BaseService {
     return this.postJsonObject(baseUrl, json);
   }
 
+  delDssCallout(baseUrl: string, json: JSON): Promise<Observable<any>> {
+    return this.postJsonObject(baseUrl, json).toPromise();
+  }
+
   update(baseUrl: string, data: any, oldtvNo: string, oldscklv:string, oldcalv:string): any {
     let jsonObject: any = {};
     jsonObject['tvNo'] = data.tvNo;

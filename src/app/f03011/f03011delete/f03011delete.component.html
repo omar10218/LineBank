@@ -1,1 +1,33 @@
-<p>f03011delete works!</p>
+<div class="container">
+  <h2 mat-dialog-title style="display: inline;">確定要刪除此筆DSS照會模組？</h2>
+  <span style="margin-left: 25px;"><button mat-raised-button color="accent" (click)="deleteAction()">刪除</button></span>
+  <span style="margin-left: 25px;"><button mat-raised-button color="accent" (click)="close()">關閉</button></span>
+  <table>
+    <br>
+    <mat-card class="matCard">
+      <mat-card-content>
+        <tr>
+          <th nowrap="nowrap">照會模組</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #inputstate class="form-control" type="text" [(ngModel)]="data.tvNo" disabled>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap">系統徵信比</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #inputstate class="form-control" type="text" [(ngModel)]="data.scklv" disabled>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap">案件等級</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #inputstate class="form-control" type="text" [(ngModel)]="data.calv" disabled>
+            </mat-form-field>
+          </td>
+        </tr>
+      </mat-card-content>
+    </mat-card>
+  </table>
+</div>
+

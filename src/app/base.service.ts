@@ -62,6 +62,10 @@ export class BaseService {
     return await this.postJsonObject(baseUrl, json).toPromise();
   }
 
+  public async delWithJson(baseUrl: string, json: JSON) {
+    return await this.postJsonObject(baseUrl, json).toPromise();
+  }
+
   private async getMsgStr(rspCode: string, rspMsg: string): Promise<string> {
     let msgStr: string = "";
 

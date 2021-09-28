@@ -9,6 +9,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F03010Service } from './f03010.service';
 import { F03010addComponent } from './f03010add/f03010add.component';
+import { F03010deleteComponent } from './f03010delete/f03010delete.component';
 import { F03010editComponent } from './f03010edit/f03010edit.component';
 
 //Nick 照會話術
@@ -94,18 +95,22 @@ export class F03010Component implements OnInit {
   }
 
   //刪除
-  delete(speakingAbbreviation: string) {
-    let msg = '';
-    const baseUrl = 'f03/f03010action3';
-    let jsonObject: any = {};
-    jsonObject['speakingAbbreviation'] = speakingAbbreviation;
-    this.f03010Service.Speaking( baseUrl, jsonObject).subscribe(data => {
-      msg = data.rspMsg;
-    });
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      this.refreshTable();
-    }, 1500);
+  delete(speakingAbbreviation: string, speakingContent: string, stopFlag: string) {
+    const dialogRef = this.dialog.open(F03010deleteComponent, {
+      minHeight: '30%',
+      width: '70%',
+      data: {
+        speakingAbbreviation: speakingAbbreviation,
+        speakingContent : speakingContent ,
+        stopFlag: stopFlag
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result != null && result.event == '刪除成功!') {
+          this.refreshTable();
+          window.location.reload();
+        }
+      });
   }
 
 }
