@@ -11,7 +11,6 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { DatePipe } from '@angular/common';
 
 
-
 interface sysCode {
   value: string;
   viewValue: string;
@@ -35,8 +34,8 @@ export class F03016Component implements OnInit {
   IsJcic: string = '';
   TableName: string = '';
   columnName: string = '';
-  originalValue: number = 0;
-  currentValue: number = 0;
+  originalValue:string;
+  currentValue: string;
   transEmpNo: string = localStorage.getItem("empNo");;
   transDate: string;
   ChangeSource: any;
@@ -74,8 +73,10 @@ export class F03016Component implements OnInit {
       this.DssMailDay = data.rspBody.ipList[0].dssMailDay;
       this.BasicLimit = data.rspBody.ipList[0].basicLimit;
       this.IsJcic = data.rspBody.ipList[0].isJcic;
-      this.CssPassStart = data.rspBody.ipList[0].cssPassStart;
-      this.CssPassEnd = data.rspBody.ipList[0].cssPassEnd;
+      this.CssPassStart = this.pipe.transform(new Date(data.rspBody.ipList[0].cssPassStart), 'yyyy-MM-dd');
+      console.log(this.CssPassStart);
+      this.CssPassEnd = this.pipe.transform(new Date(data.rspBody.ipList[0].cssPassEnd), 'yyyy-MM-dd');
+      console.log(this.CssPassEnd);
       this.ChangeSource = data.rspBody.tlList
       this.columnName = data.rspBody.tlList[0].columnName;
       this.originalValue = data.rspBody.tlList[0].originalValue;

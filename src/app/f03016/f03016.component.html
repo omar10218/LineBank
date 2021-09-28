@@ -1,33 +1,7 @@
 <br>
 <!-- 產生合約前回查值設定 -->
 <br>
-<!-- <div class="line_bank_card_no_padding" >
-  <div class="line_bank_form_header_title line_bank_h1">
-        這是標題
-  </div>
-  <div style="width:90vw;overflow-x: auto;">
-    12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi12321u32oi2je2ijwi
-  </div>
 
-
-
-
-    <div class="line_bank_function_btn">
-    這是測試存存
-  </div>
-
-  <br><div class="line_bank_card_no_padding">
-    <mat-grid-list cols="5" rowHeight="2:0.5">
-      <mat-grid-tile><div>姓名<input style="display: block;" value="123" readonly></div></mat-grid-tile>
-      <mat-grid-tile>2</mat-grid-tile>
-      <mat-grid-tile>3</mat-grid-tile>
-      <mat-grid-tile>4</mat-grid-tile>
-      <mat-grid-tile>5</mat-grid-tile>
-      <mat-grid-tile>6</mat-grid-tile>
-      <mat-grid-tile colspan='4'>7</mat-grid-tile>
-    </mat-grid-list>
-  </div>
-</div> -->
 <form width='100%' [formGroup]="formData">
   <table bordercolor="#000000" cellspacing="0" cellpadding="2"
     style="border-collapse:collapse;width: 1200px;margin:0 auto;">
@@ -100,7 +74,20 @@
     <tr>
       <td width='25%'>PASS期間</td>
       <td class="td2" width='25%'>
-        <mat-form-field appearance="fill" style="width:300px">
+        <mat-form-field color="accent" appearance="fill">
+          <mat-label>開始時間</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="CSS_PASS_START" [(ngModel)]="CssPassStart">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field color="accent" appearance="fill">
+          <mat-label>結束時間</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="CSS_PASS_END" [(ngModel)]="CssPassEnd">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2 color="primary"></mat-datepicker>
+        </mat-form-field>
+        <!-- <mat-form-field appearance="fill" style="width:300px">
           <mat-label>選取日期期間</mat-label>
           <mat-date-range-input [rangePicker]="picker" >
             <input matStartDate placeholder="開始時間" formControlName="CSS_PASS_START">
@@ -108,7 +95,7 @@
           </mat-date-range-input>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
+        </mat-form-field> -->
 
       </td>
       <td width='25%'></td>
@@ -142,7 +129,7 @@
     </tr>
     <tr *ngFor="let data of ChangeSource">
       <td class="td2" width='20%'>{{data.columnName}}</td>
-      <td class="td2" width='20%'>{{data.originalValue}}</td>
+      <td class="td2" width='20%'>{{data.originalValue| date: 'yyyy/MM/dd HH:mm:ss'}}</td>
       <td class="td2" width='20%'>{{data.currentValue}}</td>
       <td class="td2" width='20%'>{{data.transEmpNo}}</td>
       <td class="td2" width='20%'>{{data.transDate| date: 'yyyy/MM/dd HH:mm:ss'}}</td>

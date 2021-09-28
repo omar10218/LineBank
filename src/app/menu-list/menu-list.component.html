@@ -1,4 +1,5 @@
-<mat-toolbar class="line_bank_form_header_title_color">
+
+<mat-toolbar class="line_bank_form_header_title_color" style="position:fixed;z-index:50">
   <mat-toolbar-row>
     <img src="assets\images\LineBank.png" width="14%" (click)="goHome()">
     <button mat-button [matMenuTriggerFor]="aboveMenu" *ngFor="let menu of getMenu()"
