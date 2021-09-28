@@ -47,7 +47,7 @@ export class F03010Component implements OnInit {
       },
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result == '1') { this.refreshTable(); }
+        if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
       });
   }
 
@@ -84,7 +84,7 @@ export class F03010Component implements OnInit {
         }
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result == '1') { this.refreshTable(); }
+        if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
       });
   }
 

@@ -1,1 +1,66 @@
-<p>childscn8delete works!</p>
+<div class="container">
+  <h2 mat-dialog-title>確定要刪除此筆徵信照會？</h2>
+  <form class="mat-dialog-content"  #formControl="ngForm">
+
+    <div class="form">
+      <th nowrap="nowrap">電話種類</th>
+      <mat-form-field color="accent">
+        <mat-select disabled="disabled" [(ngModel)]="data.con_TEL" name="con_TEL">
+          <mat-option *ngFor="let code of data.CON_TEL_Code" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">電話</th>
+      <mat-form-field color="accent">
+        <textarea matInput disabled="disabled"  [(ngModel)]="data.phone"
+          name="PHONE"></textarea>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">對象種類</th>
+      <mat-form-field color="accent">
+        <mat-select disabled="disabled" [(ngModel)]="data.con_TARGET" name="con_TARGET">
+          <mat-option *ngFor="let code of data.CON_TARGET_Code" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">對象註記</th>
+      <mat-form-field color="accent">
+        <textarea disabled="disabled" matInput  [(ngModel)]="data.cust_TYPE"
+          name="CUST_TYPE"></textarea>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">註記種類</th>
+      <mat-form-field color="accent">
+        <mat-select disabled="disabled" [(ngModel)]="data.con_MEMO" name="con_MEMO">
+          <mat-option *ngFor="let code of data.CON_MEMO_Code" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">註記</th>
+      <mat-form-field color="accent">
+        <textarea disabled="disabled" matInput  [(ngModel)]="data.note"
+          name="NOTE"></textarea>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button  [mat-dialog-close]="1" (click)="deleteAction(data.ID)">delete</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>
+

@@ -47,9 +47,9 @@
     <ng-container matColumnDef="actions2">
       <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button color="accent" (click)="delete(
-        row.ID)">
-          <mat-icon aria-label="delete">delete</mat-icon>
+        <button mat-icon-button color="accent" (click)="deleteItem(
+          row.CON_TEL,row.PHONE,row.CON_TARGET,row.CUST_TYPE,row.CON_MEMO,row.NOTE,row.ID)">
+          <mat-icon aria-label="deleteItem">delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
@@ -67,9 +67,9 @@
     <ng-container matColumnDef="actions2">
       <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button mat-icon-button color="accent" (click)="delete(
-        row.ID)" disabled>
-          <mat-icon aria-label="delete">delete</mat-icon>
+        <button mat-icon-button color="accent" (click)="deleteItem(
+          row.CON_TEL,row.PHONE,row.CON_TARGET,row.CUST_TYPE,row.CON_MEMO,row.NOTE,row.ID)" disabled>
+          <mat-icon aria-label="deleteItem">delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>

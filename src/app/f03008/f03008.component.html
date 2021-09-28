@@ -64,7 +64,7 @@
   <ng-container matColumnDef="actions1">
     <mat-header-cell *matHeaderCellDef mat-sort-header>刪除</mat-header-cell>
     <mat-cell *matCellDef="let row">
-    <button mat-raised-button color="primary" (click)="delete(row.abnormalNid)">刪除</button>
+    <button mat-raised-button color="primary" (click)="deleteItem(row.abnormalNid, row.onCheck,row.transferEmpno, row.transferDate,row.changeEmpno, row.changeDate)">刪除</button>
     </mat-cell>
   </ng-container>
 

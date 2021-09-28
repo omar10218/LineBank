@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { F03008deleteComponent } from './f03008delete/f03008delete.component';
 
 
 @Component({
@@ -87,6 +88,7 @@ export class F03008Component implements OnInit {
     });
   }
 
+  //修改介面
   startEdit(abnormalNid:string,onCheck:string,transferEmpno:string,transferDate:string,
     changeEmpno:string,changeDate:string,) {
     const dialogRef = this.dialog.open(F03008editComponent, {
@@ -100,23 +102,27 @@ export class F03008Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if ( result != null && result.event == 'success' ) { this.refreshTable(); }
+      if ( result != null && (result.event == 'success' || result == '1') ) { this.refreshTable(); }
     });
   }
 
-  public async delete(abnormalNid: string): Promise<void> {
-    let baseUrl = 'f03/f03008action4';
-    let jsonObject: any = {};
-    jsonObject['abnormalNid'] = abnormalNid;
-    this.f03008Service.elAbnormalNid(baseUrl, jsonObject).subscribe(data => {
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: data.rspMsg }
-      });
-      this.refreshTable();
+  //刪除介面
+  deleteItem(abnormalNid:string,onCheck:string,transferEmpno:string,transferDate:string,
+    changeEmpno:string,changeDate:string,) {
+    const dialogRef = this.dialog.open(F03008deleteComponent, {
+      data: {
+        abnormalNid: abnormalNid,
+        onCheck: onCheck,
+        transferEmpno: transferEmpno,
+        transferDate: transferDate,
+        changeEmpno: changeEmpno,
+        changeDate: changeDate,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if ( result != null && (result.event == 'success' || result == '1') ) { this.refreshTable(); }
     });
   }
-
-
 
 
   private refreshTable() {

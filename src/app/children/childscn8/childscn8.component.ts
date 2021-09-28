@@ -11,6 +11,7 @@ import { ChildrenService } from '../children.service';
 import { Childscn8Service } from './childscn8.service';
 import { Childscn8addComponent } from './childscn8add/childscn8add.component';
 import { Childscn8editComponent } from './childscn8edit/childscn8edit.component';
+import { Childscn8deleteComponent } from './childscn8delete/childscn8delete.component';
 
 //徵信照會table框架
 interface CALLOUTCode {
@@ -140,7 +141,7 @@ export class Childscn8Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result)
-      if (result != null && result == '1') { this.refreshTable(); }
+      if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
     });
   }
 
@@ -164,22 +165,34 @@ export class Childscn8Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result)
-      if (result != null && result == '1') { this.refreshTable(); }
+      if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
     });
   }
 
-  //刪除
-  delete(ID: string) {
-    let msg = '';
-    const url = 'f01/childscn8action3';
-    this.childscn8Service.DeleteCALLOUT(url, ID).subscribe(data => {
-      msg = data.rspMsg;
+   //刪除
+   deleteItem(CON_TEL: string, PHONE: string, CON_TARGET: string, CUST_TYPE: string, CON_MEMO: string, NOTE: string, ID: string) {
+    const dialogRef = this.dialog.open(Childscn8deleteComponent, {
+      minHeight: '100vh',
+      width: '50%',
+      data: {
+        con_TEL: CON_TEL,//電話種類
+        phone: PHONE,//電話
+        con_TARGET: CON_TARGET,//對象種類
+        cust_TYPE: CUST_TYPE,//對象註記
+        con_MEMO: CON_MEMO,//註記種類
+        note: NOTE,//註記
+        ID: ID,//java用row ID
+        CON_TEL_Code: this.CON_TEL_Code,//電話種類下拉選單
+        CON_TARGET_Code: this.CON_TARGET_Code,//對象種類下拉選單
+        CON_MEMO_Code: this.CON_MEMO_Code//註記種類下拉選單
+      }
     });
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == '刪除成功') { this.refreshTable(); }
-    }, 1500);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
+      if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
+    });
   }
+
 
   //刷新Table
   private refreshTable() {
