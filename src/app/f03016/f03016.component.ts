@@ -73,9 +73,9 @@ export class F03016Component implements OnInit {
       this.DssMailDay = data.rspBody.ipList[0].dssMailDay;
       this.BasicLimit = data.rspBody.ipList[0].basicLimit;
       this.IsJcic = data.rspBody.ipList[0].isJcic;
-      this.CssPassStart = this.pipe.transform(new Date(data.rspBody.ipList[0].cssPassStart), 'yyyy-MM-dd');
+      this.CssPassStart = this.pipe.transform(new Date(data.rspBody.ipList[0].cssPassStart), 'yyyy/MM/dd');
       console.log(this.CssPassStart);
-      this.CssPassEnd = this.pipe.transform(new Date(data.rspBody.ipList[0].cssPassEnd), 'yyyy-MM-dd');
+      this.CssPassEnd = this.pipe.transform(new Date(data.rspBody.ipList[0].cssPassEnd), 'yyyy/MM/dd');
       console.log(this.CssPassEnd);
       this.ChangeSource = data.rspBody.tlList
       this.columnName = data.rspBody.tlList[0].columnName;

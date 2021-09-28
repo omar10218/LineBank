@@ -1,6 +1,23 @@
 ::ng-deep.mat-grid-tile .mat-figure{
   width:100px;
 }
+/* ::ng-deep.ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar {
+    display: none;
+}
+::ng-deep.ant-tabs-tab button{
+  background-color:#CCCCCC;
+  color:#272D3B;
+  border-color:#CCCCCC;
+}
+::ng-deep.ant-tabs-tab button:hover{
+  background-color:#CCCCCC;
+  color:#272D3B;
+  border-color:#CCCCCC;
+}
+::ng-deep.ant-tabs-tab-active button{
+  background-color: #fff;
+} */
+
 .resultBtn{
     background: #3378ff;
 }
