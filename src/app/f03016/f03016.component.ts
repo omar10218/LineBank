@@ -41,22 +41,7 @@ export class F03016Component implements OnInit {
   ChangeSource: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   currentPage: PageEvent;
-  formData: FormGroup = this.fb.group({
-    DSS_JCIC_SET: ['', []],
-    BASIC_LIMIT: ['', []],
-    DSS_MAIL_DAY: ['', []],
-    IS_JCIC: ['', []],
-    CSS_PASS_START: ['', []],
-    CSS_PASS_END: ['', []],
 
-    TABLE_NAME: ['', []],
-    COLUMN_NAME: ['', []],
-    ORIGINAL_VALUE: ['', []],
-    CURRENT_VALUE: ['', []],
-    TRANS_DATE: ['', []],
-    TRANS_EMP_NO: ['', []],
-
-  });
 
 
   constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<F03016Service>, private f03016Service: F03016Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private pipe: DatePipe) { }
@@ -73,10 +58,8 @@ export class F03016Component implements OnInit {
       this.DssMailDay = data.rspBody.ipList[0].dssMailDay;
       this.BasicLimit = data.rspBody.ipList[0].basicLimit;
       this.IsJcic = data.rspBody.ipList[0].isJcic;
-      this.CssPassStart = this.pipe.transform(new Date(data.rspBody.ipList[0].cssPassStart), 'yyyy/MM/dd');
-      console.log(this.CssPassStart);
-      this.CssPassEnd = this.pipe.transform(new Date(data.rspBody.ipList[0].cssPassEnd), 'yyyy/MM/dd');
-      console.log(this.CssPassEnd);
+      this.CssPassStart = data.rspBody.ipList[0].cssPassStart;
+      this.CssPassEnd = data.rspBody.ipList[0].cssPassEnd;
       this.ChangeSource = data.rspBody.tlList
       this.columnName = data.rspBody.tlList[0].columnName;
       this.originalValue = data.rspBody.tlList[0].originalValue;

@@ -3,12 +3,12 @@ mat-grid-tile {
 }
 
 th {
-  border: 1px solid black;
+  border: 1px solid rgb(130, 130, 130);
 }
 
 td {
   /* background-color: cornflowerblue; */
-  border: 1px solid black;
+  border: 1px solid rgb(130, 130, 130);
 }
 
 .mat-grid-tile .mat-figure{
