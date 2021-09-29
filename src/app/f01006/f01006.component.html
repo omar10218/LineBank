@@ -1,1 +1,88 @@
-<p>f01006 works!</p>
+<div sticky>
+    <table>
+        <div>
+            <tr>
+                <td>
+                    <mat-form-field color="accent">
+                        <input matInput [(ngModel)]="applno" placeholder="案件編號">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field color="accent">
+                        <input matInput [(ngModel)]="nationalId" placeholder="身分證號">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field color="accent">
+                        <input matInput [(ngModel)]="custId" placeholder="客戶編號">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <button type="submit" mat-raised-button color="primary" (click)="select()">查詢案件</button>
+                </td>
+            </tr>
+        </div>
+        <div>
+            <td>
+                <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+                </mat-paginator>
+            </td>
+        </div>
+    </table>
+</div>
+
+<cdk-virtual-scroll-viewport itemSize="48" headerHeight="56" style="margin-left: 10px;flex: 1;">
+    <ng-container *ngIf="this.totalCount == 0; else elseTemplate">
+        <br><br>
+        <th style="padding-left: 20px;color: red;">查無案件</th>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <mat-table [dataSource]="cusinfoDataSource" matSort #sortTable="matSort" (matSortChange)="changeSort($event)">
+            <ng-container matColumnDef="applno" sticky>
+                <mat-header-cell *matHeaderCellDef mat-sort-header>案件編號</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button mat-raised-button color="primary"
+                        (click)="getRestartCase(row.applno, row.nationalId, row.custId, row.name, row.limit, row.periods, row.rates)">
+                        {{row.applno}}
+                    </button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="nationalId">
+                <mat-header-cell *matHeaderCellDef>National ID</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ (row.nationalId) }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="custId">
+                <mat-header-cell *matHeaderCellDef>Customer ID</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.custId }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="limit">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>核准額度</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.limit }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rates">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>核准利率</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.rates }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="periods">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>申辦期數</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.periods }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="code">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>產品代號</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.code }}</mat-cell>
+            </ng-container>
+
+            <mat-header-row
+                *matHeaderRowDef="['applno', 'nationalId', 'custId', 'name', 'limit', 'rates','periods', 'code']; sticky: true">
+            </mat-header-row>
+            <mat-row
+                *matRowDef="let caseListRow; columns: ['applno', 'nationalId', 'custId', 'name', 'limit', 'rates','periods', 'code']">
+            </mat-row>
+        </mat-table>
+    </ng-template>
+</cdk-virtual-scroll-viewport>
