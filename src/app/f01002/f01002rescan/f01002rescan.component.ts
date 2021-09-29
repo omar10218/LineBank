@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { ChildrenService } from 'src/app/children/children.service';
 import { Childscn5Service } from 'src/app/children/childscn5/childscn5.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
@@ -28,7 +29,10 @@ export class F01002rescanComponent implements OnInit {
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<F01002rescanComponent>,
     private pipe: DatePipe,
-  ) { }
+    private nzI18nService: NzI18nService
+  ) { 
+    this.nzI18nService.setLocale(zh_TW)
+  }
 
   private applno: string; //案編
   private cuid: string;   //客編
@@ -46,6 +50,7 @@ export class F01002rescanComponent implements OnInit {
   realSmsTime: string;    //預計發送時間
   realSmsTimeValue: Date; //預計發送時間類型
   rescanDataSource = new MatTableDataSource<any>(); //補件資訊檔
+  mytime: Date | null = null;
 
   ngOnInit(): void {
 
@@ -110,12 +115,15 @@ export class F01002rescanComponent implements OnInit {
         return alert('不得有徵審人員修改字樣');
       }
     }
+    if(this.mytime == null){
+      return alert('請輸入時間');
+    }
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['messageContent'] = this.messageContent;
     jsonObject['empno'] = localStorage.getItem("empNo");
     jsonObject['mobile'] = this.mobile;
-    jsonObject['realSmstime'] = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd');
+    jsonObject['realSmstime'] = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd')+this.pipe.transform(this.mytime, ' HH:mm');
     let msgStr: string = "";
     msgStr = await this.f01002rescanService.addSms(jsonObject);
     if (msgStr == 'success') {
