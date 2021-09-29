@@ -1,1 +1,102 @@
-<p>f01006restart works!</p>
+<div>
+    <tr>
+        <td>
+            <button type="submit" mat-raised-button color="primary" (click)="restart()">啟動案件</button>
+        </td>
+    </tr>
+</div>
+<br>
+<div class="line_bank_bankground_color">
+    <br>
+    <form [formGroup]="restartForm" style="padding-left: 20px;">
+        <table>
+            <br>
+            <div class="line_bank_card">
+                <tr>
+                    <th nowrap="nowrap" align="left">案件編號</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <input matInput #input formControlName="applno" readonly>
+                        </mat-form-field>
+                    </td>
+                    <th nowrap="nowrap" align="left">身分證字號</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <input matInput #input formControlName="nationalId" readonly>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th nowrap="nowrap" align="left">客戶ID</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <input matInput #input formControlName="custId" readonly>
+                        </mat-form-field>
+                    </td>
+                    <th nowrap="nowrap" align="left">客戶姓名</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <input matInput #input formControlName="name" readonly>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th nowrap="nowrap" align="left">核准額度</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <input matInput #input formControlName="limit" readonly>
+                        </mat-form-field>
+                    </td>
+                    <th nowrap="nowrap" align="left">申辦期數</th>
+                    <td>
+                        <mat-form-field color="accent">
+                            <input matInput #input formControlName="periods" readonly>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th nowrap="nowrap" align="left">核准利率(固定利率)</th>
+                    <td colspan="5">
+                        <mat-form-field color="accent" style="width:100%">
+                            <input matInput #input formControlName="rates" readonly>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th nowrap="nowrap" align="left">核准利率(單階加減碼)</th>
+                    <td colspan="5">
+                        <mat-form-field color="accent" style="width:100%">
+                            <input matInput #input formControlName="rates_1" readonly>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th nowrap="nowrap" align="left">核准利率(多階)</th>
+                    <td colspan="5">
+                        <mat-form-field color="accent" style="width:100%">
+                            <input matInput #input formControlName="rates_2" readonly>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </div>
+        </table>
+    </form>
+</div>
+<div>
+    <tr>
+        <mat-form-field color="accent">
+            <mat-select [(ngModel)]="reason" name="reasonCode" placeholder="申覆原因">
+                <mat-option *ngFor="let code of reasonCode" [value]="code.value">
+                    {{code.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </tr>
+    <tr>
+        <mat-form-field color="accent">
+            <textarea matInput style="width: 1000PX;height:200px;" [(ngModel)]="restartContent"
+                name="restartContent" placeholder="申覆說明"></textarea>
+        </mat-form-field>
+    </tr>
+   
+</div>
