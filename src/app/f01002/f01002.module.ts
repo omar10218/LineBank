@@ -1,7 +1,7 @@
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { ChildrenModule } from './../children/children.module';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { F01002RoutingModule } from '../routing/f01002-routing.module';
@@ -12,6 +12,9 @@ import { F01002researchComponent } from './f01002research/f01002research.compone
 import { F01002rescanComponent } from './f01002rescan/f01002rescan.component';
 import { F01002blocklistComponent } from './f01002blocklist/f01002blocklist.component';
 import { NgZorroAntdModule } from '../ngzorro/ng-zorro-antd.module';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import zh from '@angular/common/locales/zh';
+registerLocaleData(zh);
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { NgZorroAntdModule } from '../ngzorro/ng-zorro-antd.module';
     ReactiveFormsModule,
     F01002RoutingModule,
     NgZorroAntdModule,
-    ChildrenModule
+    ChildrenModule,
+    TimepickerModule
   ]
 })
 export class F01002Module { }

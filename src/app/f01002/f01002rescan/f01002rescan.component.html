@@ -49,6 +49,7 @@
                             <mat-datepicker #realSmsTimeValue></mat-datepicker>
                         </mat-form-field>
                     </td>
+
                     <td>
                         <mat-form-field color="accent">
                             <input matInput [(ngModel)]="this.mobile" placeholder="發送手機">
@@ -73,10 +74,12 @@
                         <button type="submit" mat-raised-button color="primary" (click)="addSms()">發送簡訊</button>
                     </td>
                 </tr>
-                <!-- <div class="12hr-example">
-                    <input placeholder="12hr format (default settings)" aria-label="12hr format" [ngxTimepicker]="default" readonly>
-                    <ngx-material-timepicker #default></ngx-material-timepicker>
-               </div> -->
+                <tr>
+                    <td>
+                        <nz-time-picker [(ngModel)]="mytime" nzFormat="HH:mm" [nzMinuteStep]="5"
+                            [nzDisabled]="realSmsTime == null" [nzNowText]="' '"></nz-time-picker>
+                    </td>
+                </tr>
             </div>
         </mat-card-content>
     </mat-card>

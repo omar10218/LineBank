@@ -1,1 +1,27 @@
-<p>childscn17 works!</p>
+<br>
+<mat-dialog-content>
+    <mat-table [dataSource]="restartDataSource">
+        <ng-container matColumnDef="reasonDesc">
+            <mat-header-cell *matHeaderCellDef>申覆原因</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.REASON_DESC }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="restartContent">
+            <mat-header-cell *matHeaderCellDef>申覆說明</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.RESTART_CONTENT }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="restartEmpno">
+            <mat-header-cell *matHeaderCellDef>申覆人員</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.RESTART_EMPNO }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="restartDate">
+            <mat-header-cell *matHeaderCellDef>申覆時間</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.RESTART_DATE }}</mat-cell>
+        </ng-container>
+        <mat-header-row
+            *matHeaderRowDef="['reasonDesc', 'restartContent', 'restartEmpno', 'restartDate']; sticky: true">
+        </mat-header-row>
+        <mat-row
+            *matRowDef="let restartDataRow; columns: ['reasonDesc', 'restartContent', 'restartEmpno', 'restartDate']">
+        </mat-row>
+    </mat-table>
+</mat-dialog-content>
