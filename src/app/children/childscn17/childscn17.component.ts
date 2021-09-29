@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { ChildrenService } from '../children.service';
+import { Childscn17Service } from './childscn17.service';
+
+//20210929 alvin.lee 申覆資料檔
 
 @Component({
   selector: 'app-childscn17',
@@ -6,10 +11,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./childscn17.component.css']
 })
 export class Childscn17Component implements OnInit {
-
-  constructor() { }
+  applno: string;
+  restartDataSource = new MatTableDataSource<any>();
+  constructor(
+    public childService: ChildrenService,
+    private childscn17Service: Childscn17Service) { }
 
   ngOnInit(): void {
+    const caseParams = this.childService.getData();
+    this.applno = caseParams.applno;
+    this.getRestartList();
   }
+  
+  getRestartList() {
+    this.childscn17Service.getRestartList(this.applno).subscribe(data => {
+      this.restartDataSource = data.rspBody.items;
 
+    });
+  }
 }
