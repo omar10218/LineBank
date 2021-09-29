@@ -1,0 +1,12 @@
+input{
+    background-color:#E6E6E6;
+    border-radius: 10px;
+    height:30px;
+    width:100%;
+    border: 1px solid #E6E6E6;
+  }
+  .form-title{
+    color:#2E4765;
+    font-weight: 500;
+    display:block;
+  }
