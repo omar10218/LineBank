@@ -3,7 +3,7 @@
 }
 /* ::ng-deep.ant-tabs-top>.ant-tabs-nav .ant-tabs-ink-bar {
     display: none;
-}
+} */
 ::ng-deep.ant-tabs-tab button{
   background-color:#CCCCCC;
   color:#272D3B;
@@ -15,8 +15,9 @@
   border-color:#CCCCCC;
 }
 ::ng-deep.ant-tabs-tab-active button{
-  background-color: #fff;
-} */
+  background-color: #909090;
+  color:white;
+}
 
 .resultBtn{
     background: #3378ff;
@@ -50,6 +51,8 @@ span::before {
   transform: translate(-50%, 0) scaleX(0);
   transition: transform 0.3s ease-in-out;
 }
+
+
 
 span:hover::before {
   transform: translate(-50%, 0) scaleX(1);

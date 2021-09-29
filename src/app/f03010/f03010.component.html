@@ -1,101 +1,127 @@
-<div class="container">
-  <th class="f03_th">照會話術</th>
-</div>
-<br>
-<div class="f03_div" style="padding-left: 20px; padding-top: 20px;">
-  <button mat-raised-button color="primary" (click)="add()">新增</button>
-</div>
-<br>
-<!-- <table mat-table [dataSource]="calloutSpeakingSource" matSortDisableClear>
-  <ng-container matColumnDef="speakingAbbreviation">
-    <th mat-header-cell *matHeaderCellDef>話術簡稱</th>
-    <td mat-cell *matCellDef="let row">{{ row.speakingAbbreviation }}</td>
-  </ng-container>
-  <ng-container matColumnDef="speakingContent">
-    <th mat-header-cell *matHeaderCellDef>話術內容</th>
-    <td mat-cell *matCellDef="let row" title="{{ row.speakingContent }}">{{ (row.speakingContent.length > 20) ?
-      ((row.speakingContent).slice(0,
-      20) + '...') : row.speakingContent}}</td>
-  </ng-container>
-  <ng-container matColumnDef="stopFlag">
-    <th mat-header-cell *matHeaderCellDef>暫停使用</th>
-    <td mat-cell *matCellDef="let row">{{ row.stopFlag }}</td>
-  </ng-container>
+<div class="line_bank_bankground_color">
 
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>編輯</th>
-    <td mat-cell *matCellDef="let row">
-      <button mat-icon-button color="accent" (click)="startEdit(
-        row.speakingAbbreviation, row.speakingContent, row.stopFlag)">
-        <mat-icon aria-label="Edit">edit</mat-icon>
-      </button>
+
+  <div class="f03_div" style="padding-left: 20px; padding-top: 20px;">
+    <!-- <button mat-raised-button color="primary" (click)="add()">新增</button> -->
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="add()">新增話術</button>
+  </div>
+  <br>
+  <!-- <table mat-table [dataSource]="calloutSpeakingSource" matSortDisableClear>
+    <ng-container matColumnDef="speakingAbbreviation">
+      <th mat-header-cell *matHeaderCellDef>話術簡稱</th>
+      <td mat-cell *matCellDef="let row">{{ row.speakingAbbreviation }}</td>
+    </ng-container>
+    <ng-container matColumnDef="speakingContent">
+      <th mat-header-cell *matHeaderCellDef>話術內容</th>
+      <td mat-cell *matCellDef="let row" title="{{ row.speakingContent }}">{{ (row.speakingContent.length > 20) ?
+        ((row.speakingContent).slice(0,
+        20) + '...') : row.speakingContent}}</td>
+    </ng-container>
+    <ng-container matColumnDef="stopFlag">
+      <th mat-header-cell *matHeaderCellDef>暫停使用</th>
+      <td mat-cell *matCellDef="let row">{{ row.stopFlag }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>編輯</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button color="accent" (click)="startEdit(
+          row.speakingAbbreviation, row.speakingContent, row.stopFlag)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions2">
+      <th mat-header-cell *matHeaderCellDef>刪除</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button color="accent" (click)="delete(
+          row.speakingAbbreviation)">
+          <mat-icon aria-label="delete">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row
+      *matHeaderRowDef="['speakingAbbreviation', 'speakingContent', 'stopFlag', 'actions', 'actions2']; sticky: true">
+    </tr>
+    <tr mat-row
+      *matRowDef="let ruleParmRow; columns: ['speakingAbbreviation', 'speakingContent', 'stopFlag', 'actions', 'actions2']">
+    </tr>
+  </table>
+  <tr>
+    <td>
+      <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
+      </mat-paginator>
     </td>
-  </ng-container>
+  </tr> -->
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="listOfData" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)" #middleTable nzSize="small" nzTitle="照會話術設定">
+      <thead>
+        <tr>
+          <th class="table-header">話術簡稱</th>
+          <th class="table-header">話術內容</th>
+          <th class="table-header">暫停使用</th>
+          <th class="table-header">編輯</th>
+          <th class="table-header">刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of listOfData">
+          <td class="table-data">{{ data.speakingAbbreviation }}</td>
+          <td class="table-data">{{ data.speakingContent }}</td>
+          <td class="table-data">{{ data.stopFlag }}</td>
+          <td class="table-data">
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="startEdit(
+              data.speakingAbbreviation, data.speakingContent, data.stopFlag)">編輯</button>
+            <!-- <button mat-icon-button color="accent" (click)="startEdit(
+          data.speakingAbbreviation, data.speakingContent, data.stopFlag)">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button> -->
+          </td>
+          <td class="table-data">
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="delete(
+              data.speakingAbbreviation, data.speakingContent, data.stopFlag)">刪除</button>
+            <!-- <button mat-icon-button color="accent" (click)="delete(
+          data.speakingAbbreviation, data.speakingContent, data.stopFlag)">
+              <mat-icon aria-label="delete">delete</mat-icon>
+            </button> -->
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
 
-  <ng-container matColumnDef="actions2">
-    <th mat-header-cell *matHeaderCellDef>刪除</th>
-    <td mat-cell *matCellDef="let row">
-      <button mat-icon-button color="accent" (click)="delete(
-        row.speakingAbbreviation)">
-        <mat-icon aria-label="delete">delete</mat-icon>
-      </button>
-    </td>
-  </ng-container>
+  <!-- <div class="line_bank_card_no_padding" style="height:170px">
+    <div class="line_bank_form_header_title">照會話術設定結果</div>
+    <mat-grid-list cols="5" rowHeight="2:0.4" srowHeight="100px">
+      <mat-grid-tile>
+        <div><span class="form-title">姓名</span><input style="display: block;" value="123" readonly></div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div><span class="form-title">姓名</span><input style="display: block;" value="123" readonly></div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div><span class="form-title">姓名</span><input style="display: block;" value="123" readonly></div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div><span class="form-title">姓名</span><input style="display: block;" value="123" readonly></div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div><span class="form-title">姓名</span><input style="display: block;" value="123" readonly></div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div><span class="form-title">姓名</span><input style="display: block;" value="123" readonly></div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div><span class="form-title">姓名</span><input style="display: block;" value="123" readonly></div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="3">
 
-  <tr mat-header-row
-    *matHeaderRowDef="['speakingAbbreviation', 'speakingContent', 'stopFlag', 'actions', 'actions2']; sticky: true">
-  </tr>
-  <tr mat-row
-    *matRowDef="let ruleParmRow; columns: ['speakingAbbreviation', 'speakingContent', 'stopFlag', 'actions', 'actions2']">
-  </tr>
-</table>
-<tr>
-  <td>
-    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-    </mat-paginator>
-  </td>
-</tr> -->
-<div class="line_bank_card_no_padding">
-  <nz-table nzShowSizeChanger [nzData]="listOfData" [nzFrontPagination]="false" [nzSimple]="true" [nzLoading]="loading"
-    [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
-    <thead>
-      <tr>
-        <th>話術簡稱</th>
-        <th>話術內容</th>
-        <th>暫停使用</th>
-        <th>編輯</th>
-        <th>刪除</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of listOfData">
-        <td>{{ data.speakingAbbreviation }}</td>
-        <td>{{ data.speakingContent }}</td>
-        <td>{{ data.stopFlag }}</td>
-        <td><button mat-icon-button color="accent" (click)="startEdit(
-        data.speakingAbbreviation, data.speakingContent, data.stopFlag)">
-            <mat-icon aria-label="Edit">edit</mat-icon>
-          </button></td>
-        <td> <button mat-icon-button color="accent" (click)="delete(
-        data.speakingAbbreviation, data.speakingContent, data.stopFlag)">
-            <mat-icon aria-label="delete">delete</mat-icon>
-          </button></td>
-      </tr>
-    </tbody>
-  </nz-table>
-</div>
-
-<div class="line_bank_card_no_padding">
-  <mat-grid-list cols="5" rowHeight="2:0.5">
-    <mat-grid-tile>
-      <div>姓名<input style="display: block;" value="123" readonly></div>
-    </mat-grid-tile>
-    <mat-grid-tile>2</mat-grid-tile>
-    <mat-grid-tile>3</mat-grid-tile>
-    <mat-grid-tile>4</mat-grid-tile>
-    <mat-grid-tile>5</mat-grid-tile>
-    <mat-grid-tile>6</mat-grid-tile>
-    <mat-grid-tile colspan='4'>7</mat-grid-tile>
-  </mat-grid-list>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div> -->
 </div>

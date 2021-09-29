@@ -1,9 +1,10 @@
 mat-grid-tile {
-  background: lightblue;
+  background: white;
 }
 
 th {
   border: 1px solid rgb(130, 130, 130);
+
 }
 
 td {
@@ -13,4 +14,61 @@ td {
 
 .mat-grid-tile .mat-figure{
   display: none;
+}
+.table-header{
+  background-color:#ededed;
+  border: 1px solid #e8e8e8;
+  color:#848E9C;
+  margin-bottom: 1px;
+  font-size: 14px;
+}
+.table-data{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:black;
+  margin-bottom: 1px;
+  font-size: 14px;
+}
+input{
+  background-color:#E6E6E6;
+  border-radius: 10px;
+  height:30px;
+  width:200px;
+  border: 1px solid #E6E6E6;
+}
+.form-title{
+  color:#2E4765;
+  font-weight: 500;
+  display:block;
+}
+::ng-deep.ant-table.ant-table-small .ant-table-title{
+  color:#2E4765;
+  font-size:18px;
+  border-radius:5px 5px 0 0;
+  background-color:#BFECD0;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #DBDBDB;
+
+}
+.ant-btn-primary{
+  color:#24C875;
+  background:white;
+  border-color:#24C875;
+  border-radius:5px;
+
+}
+.ant-btn-primary:hover{
+  color:#ffffff;
+  background:#24C875;
+  border-color:#24C875;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+.ant-btn-primary:active{
+  color:#ffffff;
+  background:#24C875;
+  border-color:#24C875;
+  border-radius:5px;
+
 }

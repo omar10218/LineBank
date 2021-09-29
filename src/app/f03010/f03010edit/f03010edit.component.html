@@ -1,35 +1,70 @@
-<div class="container">
-    <h2 mat-dialog-title>話術維護-編輯</h2>
-    <form class="mat-dialog-content"  #formControl="ngForm">
-      <div class="form">
-        <th nowrap="nowrap">話術簡稱</th>
-        <mat-form-field color="accent">
-          <input matInput #input class="form-control" [(ngModel)]="data.speakingAbbreviation" name="speakingAbbreviation"
-            disabled>
-          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
+<div class="line_bank_card_no_padding" style="min-height:170px">
+  <div class="line_bank_form_header_title">話術維護-編輯</div>
+  <div class="container" style="padding:20px">
+    <form class="mat-dialog-content"  #formControl="ngForm" >
+      <div class="form" style="padding:20px">
+        <div><span class="form-title">話術簡稱</span><input matInput #input class="form-control" [(ngModel)]="data.speakingAbbreviation" name="speakingAbbreviation" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error></div>
+
       </div>
-      <div class="form">
-        <th nowrap="nowrap">話術內容</th>
-        <mat-form-field color="accent">
-          <textarea matInput style="width: 1000PX;height:200px;" [(ngModel)]="data.speakingContent"
-            name="speakingContent" required></textarea>
-          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
+      <div class="form" style="padding:20px">
+        <div><span class="form-title">話術內容</span><textarea matInput style="width: 100%;height:200px;background-color:#E6E6E6;border-radius:10px;border:none" [(ngModel)]="data.speakingContent"
+          name="speakingContent" required></textarea>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error></div>
+
       </div>
-      <div class="form">
-        <th nowrap="nowrap">暫停使用</th>
-        <mat-form-field color="accent">
-          <mat-select [(ngModel)]="data.stopFlag" name="stopFlag">
-            <mat-option *ngFor="let code of stopFlagCode" [value]="code.value">
-              {{code.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title">暫停使用</span>
+           <mat-select [(ngModel)]="data.stopFlag" name="stopFlag" style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+          <mat-option *ngFor="let code of stopFlagCode" [value]="code.value" >
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error></div>
+
       </div>
+
       <div mat-dialog-actions>
-        <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="save()">Save</button>
-        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="save()">儲存</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1">取消</button>
+        <!-- <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="add()">Save</button>
+        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button> -->
       </div>
     </form>
   </div>
+</div>
+<!-- <div class="container">
+  <form class="mat-dialog-content" #formControl="ngForm">
+    <div class="form">
+      <th nowrap="nowrap">話術簡稱</th>
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" [(ngModel)]="data.speakingAbbreviation" name="speakingAbbreviation"
+          disabled>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">話術內容</th>
+      <mat-form-field color="accent">
+        <textarea matInput style="width: 1000PX;height:200px;" [(ngModel)]="data.speakingContent" name="speakingContent"
+          required></textarea>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <th nowrap="nowrap">暫停使用</th>
+      <mat-form-field color="accent">
+        <mat-select [(ngModel)]="data.stopFlag" name="stopFlag">
+          <mat-option *ngFor="let code of stopFlagCode" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="save()">Save</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div> -->

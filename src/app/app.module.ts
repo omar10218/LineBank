@@ -81,7 +81,8 @@ import { F03011deleteComponent } from './f03011/f03011delete/f03011delete.compon
 import { F03010deleteComponent } from './f03010/f03010delete/f03010delete.component';
 import { NgZorroAntdModule } from './ngzorro/ng-zorro-antd.module';
 import { MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
-
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 export const TW_FORMATS = {
   parse: {
     dateInput: 'YYYY/MM/DD'
@@ -164,6 +165,7 @@ export const TW_FORMATS = {
     F03010deleteComponent,
   ],
   imports: [
+    NzIconModule,
     BrowserModule,
     MenuListModule,
     FormsModule,
@@ -175,7 +177,8 @@ export const TW_FORMATS = {
     MaterialModule,
     FlexLayoutModule,
     CommonModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    NzButtonModule,
     // GoogleMapsModule
   ],
   providers: [

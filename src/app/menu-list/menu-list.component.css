@@ -32,3 +32,6 @@
   left:16px;
 
 }
+::ng-deep .mat-grid-tile{
+  padding:none;
+}

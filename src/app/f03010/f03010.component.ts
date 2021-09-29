@@ -39,7 +39,7 @@ export class F03010Component implements OnInit {
   //新增
   add() {
     const dialogRef = this.dialog.open(F03010addComponent, {
-      minHeight: '100vh',
+      minHeight: '70vh',
       width: '50%',
       data: {
         speakingAbbreviation: '',//話術簡稱
@@ -76,7 +76,7 @@ export class F03010Component implements OnInit {
   startEdit(speakingAbbreviation: string, speakingContent: string, stopFlag: string) {
     console.log(speakingAbbreviation,speakingContent,stopFlag)
     const dialogRef = this.dialog.open(F03010editComponent, {
-      minHeight: '100vh',
+      minHeight: '70vh',
       width: '50%',
       data: {
           speakingAbbreviation: speakingAbbreviation,//話術簡稱
