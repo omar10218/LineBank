@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { Childscn1Component } from '../children/childscn1/childscn1.component';
 import { Childscn10Component } from '../children/childscn10/childscn10.component';
 import { Childscn10page1Component } from '../children/childscn10/childscn10page1/childscn10page1.component';
 import { Childscn10page2Component } from '../children/childscn10/childscn10page2/childscn10page2.component';
@@ -36,6 +37,10 @@ import { Childscn9page4Component } from '../children/childscn9/childscn9page4/ch
 
 
 const routes: Routes = [
+  {
+    path: 'CHILDSCN1',
+    component: Childscn1Component
+  },
   {
     path: 'CHILDSCN2',
     component: Childscn2Component,
