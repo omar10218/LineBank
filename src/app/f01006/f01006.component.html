@@ -1,4 +1,61 @@
-<div sticky>
+<div class="line_bank_bankground_color">
+    <div class="flex-container" style="padding-left: 20px;position: fixed;z-index:30">
+        <div class="form" style="padding:20px">
+            <div><span class="form-title">案件編號</span><input matInput #input class="form-control" [(ngModel)]="applno"
+                    name="applno" required>
+            </div>
+        </div>
+        <div class="form" style="padding:20px">
+            <div><span class="form-title">身分證號</span><input matInput #input class="form-control"
+                    [(ngModel)]="nationalId" name="nationalId" required>
+            </div>
+        </div>
+        <div class="form" style="padding:20px">
+            <div><span class="form-title">客戶編號</span><input matInput #input class="form-control" [(ngModel)]="custId"
+                    name="custId" required>
+            </div>
+        </div>
+        <div style="padding-left: 20px; padding-top: 20px;">
+            <button nz-button [nzSize]="'large'" nzType="primary" (click)="select()">查詢案件</button>
+        </div>
+    </div>
+    <div class="line_bank_card_no_padding" style='margin-top:50px ;z-index:30"'>
+        <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+            [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable
+            nzSize="small" nzTitle="案件申覆清單">
+            <thead>
+                <tr>
+                    <th class="table-header">案件編號</th>
+                    <th class="table-header">National ID</th>
+                    <th class="table-header">Customer ID</th>
+                    <th class="table-header">姓名</th>
+                    <th class="table-header">核准額度</th>
+                    <th class="table-header">核准利率</th>
+                    <th class="table-header">申辦期數</th>
+                    <th class="table-header">產品代號</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of cusinfoDataSource">
+                    <td class="table-data">
+                        <button nz-button [nzSize]="'middle'" nzType="link"
+                            (click)="getRestartCase(data.applno, data.nationalId, data.custId, data.name, data.limit, data.periods, data.rates)">
+                            {{data.applno}}
+                            </button>
+                    </td>
+                    <td class="table-data">{{ data.nationalId }}</td>
+                    <td class="table-data">{{ data.custId }}</td>
+                    <td class="table-data">{{ data.name }}</td>
+                    <td class="table-data">{{ data.limit }}</td>
+                    <td class="table-data">{{ data.rates }}</td>
+                    <td class="table-data">{{ data.periods }}</td>
+                    <td class="table-data">{{ data.code }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>
+<!-- <div sticky>
     <table>
         <div>
             <tr>
@@ -85,4 +142,4 @@
             </mat-row>
         </mat-table>
     </ng-template>
-</cdk-virtual-scroll-viewport>
+</cdk-virtual-scroll-viewport> -->
