@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OptionsCode } from 'src/app/interface/base';
 
 //20210928 alvin.lee 案件申覆
@@ -17,6 +17,7 @@ export class F01006restartComponent implements OnInit {
   restartContent: string;         //申覆說明
   constructor(
     private fb: FormBuilder,
+    public dialogRef: MatDialogRef<F01006restartComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
 
@@ -47,5 +48,9 @@ export class F01006restartComponent implements OnInit {
     jsonObject['reason'] = this.reason;
     jsonObject['restartContent'] = this.restartContent;
 
+  }
+
+  cancel(): void {
+    this.dialogRef.close();
   }
 }

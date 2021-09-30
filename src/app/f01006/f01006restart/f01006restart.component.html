@@ -1,102 +1,89 @@
-<div>
-    <tr>
-        <td>
-            <button type="submit" mat-raised-button color="primary" (click)="restart()">啟動案件</button>
-        </td>
-    </tr>
-</div>
-<br>
-<div class="line_bank_bankground_color">
-    <br>
-    <form [formGroup]="restartForm" style="padding-left: 20px;">
-        <table>
-            <br>
-            <div class="line_bank_card">
-                <tr>
-                    <th nowrap="nowrap" align="left">案件編號</th>
-                    <td>
-                        <mat-form-field color="accent">
-                            <input matInput #input formControlName="applno" readonly>
-                        </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap" align="left">身分證字號</th>
-                    <td>
-                        <mat-form-field color="accent">
-                            <input matInput #input formControlName="nationalId" readonly>
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <th nowrap="nowrap" align="left">客戶ID</th>
-                    <td>
-                        <mat-form-field color="accent">
-                            <input matInput #input formControlName="custId" readonly>
-                        </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap" align="left">客戶姓名</th>
-                    <td>
-                        <mat-form-field color="accent">
-                            <input matInput #input formControlName="name" readonly>
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <th nowrap="nowrap" align="left">核准額度</th>
-                    <td>
-                        <mat-form-field color="accent">
-                            <input matInput #input formControlName="limit" readonly>
-                        </mat-form-field>
-                    </td>
-                    <th nowrap="nowrap" align="left">申辦期數</th>
-                    <td>
-                        <mat-form-field color="accent">
-                            <input matInput #input formControlName="periods" readonly>
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <th nowrap="nowrap" align="left">核准利率(固定利率)</th>
-                    <td colspan="5">
-                        <mat-form-field color="accent" style="width:100%">
-                            <input matInput #input formControlName="rates" readonly>
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <th nowrap="nowrap" align="left">核准利率(單階加減碼)</th>
-                    <td colspan="5">
-                        <mat-form-field color="accent" style="width:100%">
-                            <input matInput #input formControlName="rates_1" readonly>
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <th nowrap="nowrap" align="left">核准利率(多階)</th>
-                    <td colspan="5">
-                        <mat-form-field color="accent" style="width:100%">
-                            <input matInput #input formControlName="rates_2" readonly>
-                        </mat-form-field>
-                    </td>
-                </tr>
+<div class="line_bank_card_no_padding" style="min-height:170px">
+    <div class="line_bank_form_header_title">申覆重啟</div>
+    <div class="container" style="padding:20px">
+        <form class="mat-dialog-content" #formControl="ngForm">
+            <div mat-dialog-actions>
+                <span><button nz-button [nzSize]="'middle'" nzType="primary"
+                        (click)="restart()">啟動案件</button></span>
+                <span><button nz-button [nzSize]="'middle'" nzType="primary"
+                        (click)="cancel()">關閉</button></span>
             </div>
-        </table>
-    </form>
-</div>
-<div>
-    <tr>
-        <mat-form-field color="accent">
-            <mat-select [(ngModel)]="reason" name="reasonCode" placeholder="申覆原因">
-                <mat-option *ngFor="let code of reasonCode" [value]="code.value">
-                    {{code.viewValue}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </tr>
-    <tr>
-        <mat-form-field color="accent">
-            <textarea matInput style="width: 1000PX;height:200px;" [(ngModel)]="restartContent"
-                name="restartContent" placeholder="申覆說明"></textarea>
-        </mat-form-field>
-    </tr>
-   
+            <br>
+            <form [formGroup]="restartForm" style="padding-left: 20px;">
+                <table>
+                    <tr>
+                        <td>
+                            <span class="form-title">案件編號</span>
+                            <input matInput #inputstate class="form-control" type="text" formControlName="applno"
+                                readonly disabled>
+                        </td>
+                        <td>
+                            <span class="form-title">身分證字號</span>
+                            <input matInput #inputstate class="form-control" type="text" formControlName="nationalId"
+                                readonly disabled>
+                        </td>
+                        <td>
+                            <span class="form-title">客戶ID</span>
+                            <input matInput #inputstate class="form-control" type="text" formControlName="custId"
+                                readonly disabled>
+                        </td>
+                        <td>
+                            <span class="form-title">客戶姓名</span>
+                            <input matInput #inputstate class="form-control" type="text" formControlName="name" readonly
+                                disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <span class="form-title">核准額度</span>
+                            <input matInput #inputstate class="form-control" type="text" formControlName="limit"
+                                readonly disabled>
+                        </td>
+                        <td colspan="2">
+                            <span class="form-title">申辦期數</span>
+                            <input matInput #inputstate class="form-control" type="text" formControlName="periods"
+                                readonly disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <span class="form-title">核准利率(固定利率)</span>
+                            <input matInput #inputstate class="form-control" type="text" formControlName="rates"
+                                readonly disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <span class="form-title">核准利率(單階加減碼)</span>
+                            <input matInput #inputstate class="form-control" type="text" formControlName="rates_1"
+                                readonly disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <span class="form-title">核准利率(多階)</span>
+                            <input matInput #inputstate class="form-control" type="text" formControlName="rates_2"
+                                readonly disabled>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div class="form" style="padding:20px">
+                <div><span class="form-title">申覆原因</span>
+                    <mat-select [(ngModel)]="reason" name="reasonCode"
+                        style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+                        <mat-option *ngFor="let code of reasonCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div class="form" style="padding:20px">
+                <div><span class="form-title">申覆說明</span><textarea matInput
+                        style="width: 100%;height:200px;background-color:#E6E6E6;border-radius:10px;border:none"
+                        [(ngModel)]="restartContent" name="restartContent" required></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
