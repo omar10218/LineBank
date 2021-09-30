@@ -13,19 +13,19 @@
     <div class="form" style="padding:20px">
       <div>
         <div class="form" style="padding:20px">
-          <span class="form-title">話術簡稱</span> <input matInput #inputstate class="form-control" type="text"
+          <span class="form-title-actions">話術簡稱</span> <input matInput #inputstate class="form-control" type="text"
           [(ngModel)]="data.speakingAbbreviation" disabled>
         </div>
       </div>
       <div class="form" style="padding:20px">
-        <div><span class="form-title">話術內容</span>
+        <div><span class="form-title-actions">話術內容</span>
           <textarea matInput
             style="width: 100%;height:200px;background-color:#E6E6E6;border-radius:10px;border:none"
             #inputstate class="form-control" type="text" [(ngModel)]="data.speakingContent" disabled></textarea>
         </div>
       </div>
       <div class="form" style="padding:20px">
-        <div><span class="form-title">暫停使用</span>
+        <div><span class="form-title-actions">暫停使用</span>
           <input matInput #inputstate class="form-control" [(ngModel)]="data.stopFlag" disabled>
         </div>
       </div>
