@@ -38,11 +38,11 @@
   </ng-container>
   <ng-container matColumnDef="COMPARE_COLUMN">
     <mat-header-cell *matHeaderCellDef>比對欄位</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ getOptionCompareColumn(row.compareColumn) }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.codeDesc }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="COMPARE_TYPE">
     <mat-header-cell *matHeaderCellDef>比對方式</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ getOptionCompareColumn(row.compareType) }}</mat-cell>
+    <mat-cell *matCellDef="let row">{{ row.compareType}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="SET_VALUE_LOW">
     <mat-header-cell *matHeaderCellDef>設定最低門檻</mat-header-cell>

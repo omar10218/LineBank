@@ -1,20 +1,18 @@
+/* 格線切版背景 */
 mat-grid-tile {
   background: white;
 }
-
-th {
-  border: 1px solid rgb(130, 130, 130);
-
+/* 表格標題樣式 */
+::ng-deep.ant-table.ant-table-small .ant-table-title{
+  color:#2E4765;
+  font-size:18px;
+  border-radius:5px 5px 0 0;
+  background-color:#BFECD0;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #DBDBDB;
 }
-
-td {
-  /* background-color: cornflowerblue; */
-  border: 1px solid rgb(130, 130, 130);
-}
-
-.mat-grid-tile .mat-figure{
-  display: none;
-}
+/* 表格表頭樣式 */
 .table-header{
   background-color:#ededed;
   border: 1px solid #e8e8e8;
@@ -22,6 +20,7 @@ td {
   margin-bottom: 1px;
   font-size: 14px;
 }
+/* 表格內容樣式 */
 .table-data{
   background-color:white;
   border: 1px solid #e8e8e8;
@@ -29,28 +28,23 @@ td {
   margin-bottom: 1px;
   font-size: 14px;
 }
+/* 表單輸入欄 */
 input{
   background-color:#E6E6E6;
   border-radius: 10px;
   height:30px;
-  width:200px;
+  width:100%;
   border: 1px solid #E6E6E6;
 }
+/* 表單標題 */
 .form-title{
   color:#2E4765;
-  font-weight: 500;
+  font-weight: bold;
+  margin-bottom:5px;
   display:block;
 }
-::ng-deep.ant-table.ant-table-small .ant-table-title{
-  color:#2E4765;
-  font-size:18px;
-  border-radius:5px 5px 0 0;
-  background-color:#BFECD0;
-  font-weight: 500;
-  text-align: center;
-  border: 1px solid #DBDBDB;
 
-}
+/* 功能按鈕樣式 */
 .ant-btn-primary{
   color:#24C875;
   background:white;
@@ -70,5 +64,4 @@ input{
   background:#24C875;
   border-color:#24C875;
   border-radius:5px;
-
 }

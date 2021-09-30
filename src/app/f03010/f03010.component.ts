@@ -97,8 +97,8 @@ export class F03010Component implements OnInit {
   //刪除
   delete(speakingAbbreviation: string, speakingContent: string, stopFlag: string) {
     const dialogRef = this.dialog.open(F03010deleteComponent, {
-      minHeight: '30%',
-      width: '70%',
+      minHeight: '70vh',
+      width: '50%',
       data: {
         speakingAbbreviation: speakingAbbreviation,
         speakingContent : speakingContent ,

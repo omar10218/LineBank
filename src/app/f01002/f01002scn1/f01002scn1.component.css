@@ -18,7 +18,11 @@
   background-color: #909090;
   color:white;
 }
-
+::ng-deep.ant-btn-primary{
+  background-color:#CCCCCC;
+  color:#272D3B;
+  border-color:#CCCCCC;
+}
 .resultBtn{
     background: #3378ff;
 }
@@ -36,7 +40,9 @@ border-radius: 5px;
 span {
   position: relative;
   font-size: 16px;
+  cursor: pointer;
 }
+
 
 span::before {
   content: '';
