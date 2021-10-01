@@ -8,8 +8,11 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ChildrenService } from '../children/children.service';
 import { F01006Service } from './f01006.service';
 import { F01006restartComponent } from './f01006restart/f01006restart.component';
+import zh from '@angular/common/locales/zh';
+import { registerLocaleData } from '@angular/common';
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
+registerLocaleData(zh);
 
-//20210928 alvin.lee 案件申覆
 
 @Component({
   selector: 'app-f01006',
@@ -30,7 +33,11 @@ export class F01006Component implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private f01006Service: F01006Service,
     public childService: ChildrenService,
-  ) { }
+    private nzI18nService: NzI18nService
+    ) {
+      this.nzI18nService.setLocale(zh_TW)
+    }
+
 
   //假資料
   elements: any = [
@@ -57,13 +64,13 @@ export class F01006Component implements OnInit, AfterViewInit {
     this.total = 2;
     this.cusinfoDataSource = this.elements;
     this.getCaseList(this.applno, this.nationalId, this.custId, this.pageIndex, this.pageSize);
-    
+
   }
-  
+
   //代入條件查詢
   select() {
     if (this.applno == '' && this.nationalId == '' && this.custId == '') { return alert('請至少選擇一項') }
-    
+
     this.getCaseList(this.applno, this.nationalId, this.custId,this.pageIndex, this.pageSize);
   }
 
@@ -109,6 +116,7 @@ export class F01006Component implements OnInit, AfterViewInit {
     jsonObject['nationalId'] = nationalId;
     jsonObject['custId'] = custId;
     this.loading = false;
+    //
     // this.f01006Service.getCaseList(jsonObject).subscribe(data => {
     //   this.total = data.rspBody.size;
     //   this.cusinfoDataSource = data.rspBody.items;

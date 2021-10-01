@@ -58,7 +58,7 @@ import { F04001Component } from './f04001/f04001.component';
 import { F04002Component } from './f04002/f04002.component';
 import { F01005Component } from './f01005/f01005.component';
 // import { GoogleMapsModule } from '@angular/google-maps';
-import { DatePipe, CommonModule } from '@angular/common';
+import { DatePipe, CommonModule, registerLocaleData } from '@angular/common';
 import { F03011addComponent } from './f03011/f03011add/f03011add.component';
 import { F03010addComponent } from './f03010/f03010add/f03010add.component';
 import { F03012addComponent } from './f03012/f03012add/f03012add.component';
@@ -83,6 +83,8 @@ import { NgZorroAntdModule } from './ngzorro/ng-zorro-antd.module';
 import { MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import zh from '@angular/common/locales/zh';
+registerLocaleData(zh);
 export const TW_FORMATS = {
   parse: {
     dateInput: 'YYYY/MM/DD'
