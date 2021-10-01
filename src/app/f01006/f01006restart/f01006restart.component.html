@@ -3,71 +3,52 @@
     <div class="container" style="padding:20px">
         <form class="mat-dialog-content" #formControl="ngForm">
             <div mat-dialog-actions>
-                <span><button nz-button [nzSize]="'middle'" nzType="primary"
-                        (click)="restart()">啟動案件</button></span>
-                <span><button nz-button [nzSize]="'middle'" nzType="primary"
-                        (click)="cancel()">關閉</button></span>
+                <span><button nz-button [nzSize]="'middle'" nzType="primary" (click)="restart()">啟動案件</button></span>
+                <span><button nz-button [nzSize]="'middle'" nzType="primary" (click)="cancel()">關閉</button></span>
             </div>
             <br>
-            <form [formGroup]="restartForm" style="padding-left: 20px;">
-                <table>
-                    <tr>
-                        <td>
-                            <span class="form-title">案件編號</span>
-                            <input matInput #inputstate class="form-control" type="text" formControlName="applno"
-                                readonly disabled>
-                        </td>
-                        <td>
-                            <span class="form-title">身分證字號</span>
-                            <input matInput #inputstate class="form-control" type="text" formControlName="nationalId"
-                                readonly disabled>
-                        </td>
-                        <td>
-                            <span class="form-title">客戶ID</span>
-                            <input matInput #inputstate class="form-control" type="text" formControlName="custId"
-                                readonly disabled>
-                        </td>
-                        <td>
-                            <span class="form-title">客戶姓名</span>
-                            <input matInput #inputstate class="form-control" type="text" formControlName="name" readonly
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <span class="form-title">核准額度</span>
-                            <input matInput #inputstate class="form-control" type="text" formControlName="limit"
-                                readonly disabled>
-                        </td>
-                        <td colspan="2">
-                            <span class="form-title">申辦期數</span>
-                            <input matInput #inputstate class="form-control" type="text" formControlName="periods"
-                                readonly disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            <span class="form-title">核准利率(固定利率)</span>
-                            <input matInput #inputstate class="form-control" type="text" formControlName="rates"
-                                readonly disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            <span class="form-title">核准利率(單階加減碼)</span>
-                            <input matInput #inputstate class="form-control" type="text" formControlName="rates_1"
-                                readonly disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            <span class="form-title">核准利率(多階)</span>
-                            <input matInput #inputstate class="form-control" type="text" formControlName="rates_2"
-                                readonly disabled>
-                        </td>
-                    </tr>
-                </table>
-            </form>
+            <div nz-row>
+                <div nz-col nzSpan="6">
+                    <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
+                            value="{{ data.applno }}" readonly></div>
+                </div>
+                <div nz-col nzSpan="6">
+                    <div style="padding:10px"><span class="form-title">身分證字號</span><input style="display: block;"
+                            value="{{ data.nationalId }}" readonly></div>
+                </div>
+                <div nz-col nzSpan="6">
+                    <div style="padding:10px"><span class="form-title">客戶ID</span><input style="display: block;"
+                            value="{{ data.custId }}" readonly></div>
+                </div>
+                <div nz-col nzSpan="6">
+                    <div style="padding:10px"><span class="form-title">客戶姓名</span><input style="display: block;"
+                            value="{{ data.name }}" readonly></div>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="12">
+                    <div style="padding:10px"><span class="form-title">核准額度</span><input style="display: block;"
+                            value="{{ data.limit }}" readonly></div>
+                </div>
+                <div nz-col nzSpan="12">
+                    <div style="padding:10px"><span class="form-title">申辦期數</span><input style="display: block;"
+                            value="{{ data.periods }}" readonly></div>
+                </div>
+            </div>
+            <div nz-row>
+                <div nz-col nzSpan="24">
+                    <div style="padding:10px"><span class="form-title">核准利率(固定利率)</span><input style="display: block;"
+                            value="{{ data.rates }}" readonly></div>
+                </div>
+                <div nz-col nzSpan="24">
+                    <div style="padding:10px"><span class="form-title">核准利率(單階加減碼)</span><input style="display: block;"
+                            value="{{ data.rates_1 }}" readonly></div>
+                </div>
+                <div nz-col nzSpan="24">
+                    <div style="padding:10px"><span class="form-title">核准利率(多階)</span><input style="display: block;"
+                            value="{{ data.rates_2 }}" readonly></div>
+                </div>
+            </div>
             <div class="form" style="padding:20px">
                 <div><span class="form-title">申覆原因</span>
                     <mat-select [(ngModel)]="reason" name="reasonCode"

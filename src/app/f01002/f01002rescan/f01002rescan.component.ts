@@ -10,6 +10,8 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01002rescanService } from './f01002rescan.service';
 //alvin.lee 20210915 補件/發簡訊
 
+
+
 interface sysCode {
   value: string;
   viewValue: string;
@@ -29,8 +31,8 @@ export class F01002rescanComponent implements OnInit {
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<F01002rescanComponent>,
     private pipe: DatePipe,
-    private nzI18nService: NzI18nService
-  ) { 
+    private nzI18nService: NzI18nService,
+  ) {
     this.nzI18nService.setLocale(zh_TW)
   }
 
@@ -55,9 +57,8 @@ export class F01002rescanComponent implements OnInit {
   ngOnInit(): void {
 
     //取案編,客編
-    const caseParams = this.childrenService.getData();
-    this.applno = caseParams.applno;
-    this.cuid = caseParams.cuid;
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
     this.queryCusMobile();
 
     //取sms樣板
@@ -115,15 +116,14 @@ export class F01002rescanComponent implements OnInit {
         return alert('不得有徵審人員修改字樣');
       }
     }
-    if(this.mytime == null){
-      return alert('請輸入時間');
-    }
+    if (this.realSmsTime == null) {return alert('請輸入日期');}
+    if (this.realSmsTime != null && this.mytime == null) {return alert('請輸入時間');}
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['messageContent'] = this.messageContent;
     jsonObject['empno'] = localStorage.getItem("empNo");
     jsonObject['mobile'] = this.mobile;
-    jsonObject['realSmstime'] = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd')+this.pipe.transform(this.mytime, ' HH:mm');
+    jsonObject['realSmstime'] = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd') + this.pipe.transform(this.mytime, ' HH:mm');
     let msgStr: string = "";
     msgStr = await this.f01002rescanService.addSms(jsonObject);
     if (msgStr == 'success') {
@@ -162,6 +162,8 @@ export class F01002rescanComponent implements OnInit {
       if (msg != null && msg == '刪除成功') { this.getRescanList(); }
     }, 1500);
   }
-
+  cancel(): void {
+    this.dialogRef.close();
+  }
 }
 

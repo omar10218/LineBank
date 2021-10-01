@@ -1,4 +1,93 @@
+<div style="width: 1000px;">
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="cancel()">離開</button>
+    <div class="line_bank_card_no_padding">
+
+        <div class="line_bank_form_header_title">補件及簡訊設定</div>
+        <div nz-col nzFlex="auto">
+            <div style="padding:10px;display: inline-block;"><span class="form-title">待補文件日期</span>
+                <nz-date-picker [(ngModel)]="restartDate"></nz-date-picker>
+            </div>
+            <div style="padding:10px; display: inline-block"><span class="form-title">補件原因</span>
+                <nz-select [(ngModel)]="rescanType">
+                    <nz-option *ngFor="let code of rescanTypeCode" [nzValue]="code.value" [nzLabel]="code.viewValue">
+                    </nz-option>
+                </nz-select>
+            </div>
+            <div style="padding:10px;display: inline-block;"><span class="form-title">補件項目</span>
+                <nz-select [(ngModel)]="rescanItem">
+                    <nz-option *ngFor="let code of rescanItemCode" [nzValue]="code.value" [nzLabel]="code.viewValue">
+                    </nz-option>
+                </nz-select>
+            </div>
+            <div style="padding:10px;display: inline-block;"><span class="form-title">徵審註記</span><input
+                    style="display: block;" [(ngModel)]="rescanContent"></div>
+
+            <div style="padding:10px;display: inline-block;"><span class="form-title">徵審註記</span><button nz-button
+                    [nzSize]="'large'" nzType="primary" (click)="rescan()">補件</button></div>
+        </div>
+        <div nz-col nzFlex="auto">
+            <div style="padding:10px;display: inline-block;"><span class="form-title">預計發送日期</span>
+                <nz-date-picker [(ngModel)]="realSmsTime"></nz-date-picker>
+            </div>
+
+            <div style="padding:10px;display: inline-block;"><span class="form-title">預計發送時間</span>
+                <nz-time-picker [(ngModel)]="mytime" nzFormat="HH:mm" [nzMinuteStep]="5"
+                    [nzDisabled]="realSmsTime == null" [nzNowText]="' '"></nz-time-picker>
+            </div>
+            <div style="padding:10px;display: inline-block;"><span class="form-title">發送手機</span>
+                <input style="display: block;" [(ngModel)]="this.mobile">
+            </div>
+            <div style="padding:10px;display: inline-block;"><span class="form-title">SMS樣板</span>
+                <nz-select [(ngModel)]="smsSet">
+                    <nz-option *ngFor="let code of smsSetCode" [nzValue]="code.value" [nzLabel]="code.viewValue">
+                    </nz-option>
+                </nz-select>
+            </div>
+            <div style="padding:10px;display: inline-block;"><span class="form-title">SMS內容</span><textarea matInput
+                    style="background-color:#E6E6E6;border-radius:10px;border:none"
+                    [(ngModel)]="messageContent" name="messageContent" required></textarea></div>
+            <div style="padding:10px;display: inline-block;"><span class="form-title">徵審註記</span><button nz-button
+                    [nzSize]="'large'" nzType="primary" (click)="addSms()">發送簡訊</button></div>
+        </div>
+
+    </div>
+</div>
 <br>
+<!-- <div nz-row>
+            <div nz-col nzSpan="5">
+                <div style="padding:10px"><span class="form-title">待補文件日期</span>
+                    <nz-date-picker [(ngModel)]="restartDate"></nz-date-picker>
+                </div>
+            </div>
+            <div nz-col nzSpan="5">
+                <div style="padding:10px"><span class="form-title">補件原因</span>
+                    <nz-select [(ngModel)]="rescanType">
+                        <nz-option *ngFor="let code of rescanTypeCode" [nzValue]="code.value"
+                            [nzLabel]="code.viewValue">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col nzSpan="5">
+                <div style="padding:10px"><span class="form-title">補件項目</span>
+                    <nz-select [(ngModel)]="rescanItem">
+                        <nz-option *ngFor="let code of rescanItemCode" [nzValue]="code.value"
+                            [nzLabel]="code.viewValue">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col nzSpan="5">
+                <div style="padding:10px"><span class="form-title">徵審註記</span><input style="display: block;"
+                        [(ngModel)]="rescanContent"></div>
+            </div>
+            <div nz-col nzSpan="4">
+                <div style="padding:10px"><span class="form-title"></span><button nz-button [nzSize]="'large'"
+                        nzType="primary" (click)="rescan()">補件</button></div>
+            </div>
+        </div> -->
+<!-- <br>
+        
 <table>
     <mat-card class="matCard">
         <mat-card-content>
@@ -42,13 +131,18 @@
                 </tr>
                 <tr>
                     <td>
-                        <mat-form-field appearance="fill">
+
+                        <nz-date-picker [(ngModel)]="realSmsTime"></nz-date-picker> -->
+
+
+
+<!-- <mat-form-field appearance="fill">
                             <mat-label>預計發送日期時間</mat-label>
                             <input matInput [matDatepicker]="realSmsTimeValue" [(ngModel)]="realSmsTime">
                             <mat-datepicker-toggle matSuffix [for]="realSmsTimeValue"></mat-datepicker-toggle>
                             <mat-datepicker #realSmsTimeValue></mat-datepicker>
-                        </mat-form-field>
-                    </td>
+                        </mat-form-field> -->
+<!-- </td>
 
                     <td>
                         <mat-form-field color="accent">
@@ -118,4 +212,4 @@
             *matRowDef="let rescanDataRow; columns: ['delRescan', 'rescanDate', 'rescanType', 'rescanItem', 'rescanContent']">
         </mat-row>
     </mat-table>
-</mat-dialog-content>
+</mat-dialog-content> -->
