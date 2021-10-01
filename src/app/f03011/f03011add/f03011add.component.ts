@@ -59,7 +59,12 @@ export class F03011addComponent implements OnInit {
     // Validators.email,
   ]);
 
-  save() {
+  //欄位驗證
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填' : '';
+  }
+
+  public async save(): Promise<void> {
     let msg = '';
     this.submitted = true;
     if (!this.dssCalloutForm.valid) {
@@ -70,14 +75,17 @@ export class F03011addComponent implements OnInit {
       jsonObject['scklv'] = this.dssCalloutForm.value.scklv;
       jsonObject['calv'] = this.dssCalloutForm.value.calv;
       jsonObject['tvNo'] = this.dssCalloutForm.value.tvNo;
-      this.f03011Service.dssCallout( baseUrl, jsonObject).subscribe(data => {
-        msg = data.rspMsg;
+      msg = await this.f03011Service.add( baseUrl, jsonObject);
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msg }
       });
+      if (msg === '新增成功!') { this.dialogRef.close({ event:'success' }); }
     }
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      window.location.reload();
-    }, 1500);
+  }
+
+  //取消
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

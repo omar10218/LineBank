@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { MappingCode } from '../mappingcode.model';
 import { F03011Service } from './f03011.service';
@@ -16,7 +18,7 @@ import { F03011editComponent } from './f03011edit/f03011edit.component';
   templateUrl: './f03011.component.html',
   styleUrls: ['./f03011.component.css','../../assets/css/f03.css']
 })
-export class F03011Component implements OnInit, AfterViewInit {
+export class F03011Component implements OnInit {
 
   constructor(
     private fb: FormBuilder,
@@ -24,50 +26,37 @@ export class F03011Component implements OnInit, AfterViewInit {
     public dialog: MatDialog
   ) { }
 
-  currentPage: PageEvent;
-  currentSort: Sort;
-  submitted = false;
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  dssCalloutSource = new MatTableDataSource<any>();
+  dssCalloutSource: readonly Data[] = [];
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
   tvnoOption: MappingCode[];
   calvOption: MappingCode[];
   scklvOption: MappingCode[];
 
   ngOnInit(): void {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
+    this.getDssCallout(this.pageIndex, this.pageSize);
   }
 
-  ngAfterViewInit(): void {
-    this.getDssCallout();
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getDssCallout();
-    });
-  }
-
-  getDssCallout() {
+  getDssCallout(pageIndex: number, pageSize: number) {
     const baseUrl = 'f03/f03011scn1';
     let jsonObject: any = {};
-    jsonObject['page'] = this.currentPage.pageIndex + 1;
-    jsonObject['per_page'] = this.currentPage.pageSize;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
     this.f03011Service.dssCallout(baseUrl, jsonObject).subscribe(data => {
-      this.totalCount = data.rspBody.size;
-      this.dssCalloutSource.data = data.rspBody.items;
+      this.total = data.rspBody.size;
+      this.dssCalloutSource = data.rspBody.items;
+      this.loading = false;
       this.tvnoOption = data.rspBody.tvno;
       this.calvOption = data.rspBody.calv;
       this.scklvOption = data.rspBody.scklv;
     });
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getDssCallout(pageIndex, pageSize);
   }
 
   formControl = new FormControl('', [
@@ -107,19 +96,18 @@ export class F03011Component implements OnInit, AfterViewInit {
 
   add(){
     const dialogRef = this.dialog.open(F03011addComponent, {
-      minHeight: '100vh',
-      width: '50%',
+      minHeight: '30%',
+      width: '70%',
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { this.refreshTable(); }
-        window.location.reload();
+        if (result != null && result.event == 'success') { window.location.reload(); }
       });
   }
 
   startEdit(tvNo: string, scklv: string, calv: string) {
     const dialogRef = this.dialog.open(F03011editComponent, {
-      minHeight: '100vh',
-      width: '50%',
+      minHeight: '30%',
+      width: '70%',
       data: {
         tvNo: tvNo,
         scklv : scklv ,
@@ -127,13 +115,12 @@ export class F03011Component implements OnInit, AfterViewInit {
         }
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { this.refreshTable(); }
-        window.location.reload();
+        if (result != null && result.event == 'success') { window.location.reload(); }
       });
   }
 
   private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
+    //this.paginator._changePageSize(this.paginator.pageSize);
   }
 
   delete(tvNo: string, scklv: string, calv: string) {
@@ -148,7 +135,6 @@ export class F03011Component implements OnInit, AfterViewInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result != null && result.event == '刪除成功!') {
-          this.refreshTable();
           window.location.reload();
         }
       });

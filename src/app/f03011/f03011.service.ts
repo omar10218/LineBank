@@ -17,6 +17,10 @@ export class F03011Service extends BaseService {
     return this.postJsonObject(baseUrl, json).toPromise();
   }
 
+  add(baseUrl: string, json: JSON): any{
+    return this.saveOrEditMsgJson(baseUrl, json);
+  }
+
   update(baseUrl: string, data: any, oldtvNo: string, oldscklv:string, oldcalv:string): any {
     let jsonObject: any = {};
     jsonObject['tvNo'] = data.tvNo;

@@ -1,52 +1,39 @@
-<div class="container">
-    <th class="f03_th">DSS照會模組</th>
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+  <div style="padding-left: 20px; padding-top: 20px;">
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="add()">新增</button>
+  </div>
+  <br>
+  <!-- 最外層卡片包覆 -->
+  <div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzData]="dssCalloutSource" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="DSS照會模組">
+      <thead>
+        <tr>
+          <th class="table-header">照會模組</th>
+          <th class="table-header">系統徵信比對</th>
+          <th class="table-header">案件等級</th>
+          <th class="table-header">編輯</th>
+          <th class="table-header">刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of dssCalloutSource">
+          <td class="table-data">{{ getOptiontvNo( data.tvNo )}}</td>
+          <td class="table-data">{{ getOptionscklv( data.scklv )}}</td>
+          <td class="table-data">{{ getOptioncalv( data.calv ) }}</td>
+          <td class="table-data">
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="startEdit(
+              data.tvNo, data.scklv, data.calv)">編輯</button>
+          </td>
+          <td class="table-data">
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="delete(
+              data.tvNo, data.scklv, data.calv)">刪除</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
 </div>
-<div class="f03_div" style="padding-left: 20px; padding-top: 20px;">
-  <button mat-raised-button color="primary" (click)="add()">新增</button>
-</div>
-<br>
-<mat-table [dataSource]="dssCalloutSource" matSortDisableClear>
-  <ng-container matColumnDef="tvNo">
-    <mat-header-cell *matHeaderCellDef>照會模組</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ getOptiontvNo(row.tvNo) }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="scklv">
-    <mat-header-cell *matHeaderCellDef>系統徵信比對</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ getOptionscklv(row.scklv) }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="calv">
-    <mat-header-cell *matHeaderCellDef>案件等級</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ getOptioncalv(row.calv) }}</mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <button mat-icon-button color="accent" (click)="startEdit(
-        row.tvNo, row.scklv, row.calv)">
-        <mat-icon aria-label="Edit">edit</mat-icon>
-      </button>
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="actions2">
-    <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <button mat-icon-button color="accent" (click)="delete(
-        row.tvNo, row.scklv, row.calv)">
-        <mat-icon aria-label="delete">delete</mat-icon>
-      </button>
-    </mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="['tvNo', 'scklv', 'calv', 'actions', 'actions2']"></mat-header-row>
-  <mat-row *matRowDef="let webInfoRow; columns: ['tvNo', 'scklv', 'calv', 'actions', 'actions2']"></mat-row>
-</mat-table>
-
-<tr>
-  <td>
-    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-    </mat-paginator>
-  </td>
-</tr>
