@@ -26,7 +26,10 @@
       </div>
       <div class="form" style="padding:20px">
         <div><span class="form-title-actions">暫停使用</span>
-          <input matInput #inputstate class="form-control" [(ngModel)]="data.stopFlag" disabled>
+          <nz-select [(ngModel)]="data.stopFlag"  name="stopFlag"  #inputstate>
+            <nz-option    nzDisabled ></nz-option>
+          </nz-select>
+          <!-- <input matInput #inputstate class="form-control" [(ngModel)]="data.stopFlag" disabled> -->
         </div>
       </div>
       <!-- <mat-card class="matCard">

@@ -22,11 +22,14 @@
       <div nz-col nzSpan="24">
         <div class="form">
           <div><span class="form-title">暫停使用</span>
-            <mat-select [(ngModel)]="data.stopFlag" name="stopFlag" class="input-select">
+            <nz-select [(ngModel)]="data.stopFlag"  name="stopFlag">
+              <nz-option nzValue="{{code.viewValue}}" *ngFor="let code of stopFlagCode" nzLabel="{{code.viewValue}}" ></nz-option>
+            </nz-select>
+            <!-- <mat-select [(ngModel)]="data.stopFlag" name="stopFlag" class="input-select">
               <mat-option *ngFor="let code of stopFlagCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
-            </mat-select>
+            </mat-select> -->
             <!-- <nz-dropdown-menu #menu="nzDropdownMenu" [(ngModel)]="data.stopFlag" name="stopFlag" style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
           <ul nz-menu *ngFor="let code of stopFlagCode" >
             <li nz-menu-item [value]="code.value">{{code.viewValue}}</li>
@@ -38,9 +41,9 @@
       </div>
       <div nz-col nzSpan="24">
         <div class="button-group">
-          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()" [disabled]="!formControl.valid"
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()" [disabled]="!formControl.valid" style="margin:0px 5px"
             [mat-dialog-close]="1" (click)="add()">儲存</button>
-          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1">取消</button>
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1" style="margin:0px 5px">取消</button>
 
         </div>
       </div>
