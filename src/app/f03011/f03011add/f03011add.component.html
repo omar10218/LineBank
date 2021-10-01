@@ -1,51 +1,50 @@
-<div class="container">
-  <th class="f03_th">DSS照會模組</th>
-  <form [formGroup]="dssCalloutForm" style="padding-left: 20px;">
-    <table style="padding-left: 20px;">
-      <div class="f03_div">
-        <button type="submit" mat-raised-button color="primary" (click)="save()">儲存</button>
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">DSS照會模組-新增</div>
+  <div nz-row>
+    <form [formGroup]="dssCalloutForm" class="mat-dialog-content" #formControl="ngForm">
+      <div nz-col nzSpan="24">
+        <div class="form">
+          <div><span class="form-title">照會模組</span>
+            <mat-select formControlName="tvNo" class="input-select">
+              <mat-option *ngFor="let code of tvNoCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
       </div>
-      <br>
-      <mat-card class="matCard">
-        <mat-card-content>
-          <tr>
-            <th>照會模組：</th>
-            <td>
-              <mat-form-field color="accent">
-                <mat-select formControlName="tvNo">
-                  <mat-option *ngFor="let code of tvNoCode" [value]="code.value">
-                    {{code.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <th>系統徵信比對：</th>
-            <td>
-              <mat-form-field color="accent">
-                <mat-select formControlName="scklv">
-                  <mat-option *ngFor="let code of scklvCode" [value]="code.value">
-                    {{code.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <th>案件等級：</th>
-            <td>
-              <mat-form-field color="accent">
-                <mat-select formControlName="calv">
-                  <mat-option *ngFor="let code of calvCode" [value]="code.value">
-                    {{code.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-          </tr>
-        </mat-card-content>
-      </mat-card>
-    </table>
-  </form>
+      <div nz-col nzSpan="24">
+        <div class="form">
+          <div><span class="form-title">系統徵信比對</span>
+            <mat-select formControlName="scklv" class="input-select">
+              <mat-option *ngFor="let code of scklvCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="24">
+        <div class="form">
+          <div><span class="form-title">案件等級</span>
+            <mat-select formControlName="calv" class="input-select">
+              <mat-option *ngFor="let code of calvCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="24">
+        <div class="button-group">
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" [disabled]="!formControl.valid"
+            [mat-dialog-close]="1">儲存</button>
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1">取消</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

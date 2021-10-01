@@ -8,7 +8,7 @@ import { F03011Service } from '../f03011.service';
 @Component({
   selector: 'app-f03011edit',
   templateUrl: './f03011edit.component.html',
-  styleUrls: ['./f03011edit.component.css']
+  styleUrls: ['./f03011edit.component.css', '../../../assets/css/f03.css']
 })
 export class F03011editComponent implements OnInit {
 
@@ -68,7 +68,7 @@ export class F03011editComponent implements OnInit {
     const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
-    if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }
+    if (msgStr === '更新成功!') { this.dialogRef.close({ event:'success'}); }
   }
 
   onNoClick(): void {

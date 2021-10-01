@@ -1,39 +1,45 @@
-<div class="container">
-    <h2 mat-dialog-title>DSS照會-編輯</h2>
-    <form class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
-      <div class="form">
-        <th nowrap="nowrap">照會模組</th>
-        <mat-form-field color="accent">
-            <mat-select [(ngModel)]="data.tvNo" name="tvNo">
-              <mat-option *ngFor="let code of tvNoCode" [value]="code.value">
-                {{code.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+<div class="line_bank_card_no_padding" style="min-height:170px">
+  <div class="line_bank_form_header_title">DSS照會-編輯</div>
+  <div class="container" style="padding:20px">
+    <form class="mat-dialog-content" #formControl="ngForm">
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">照會模組</span>
+          <mat-select [(ngModel)]="data.tvNo" name="tvNo"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of tvNoCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
       </div>
-      <div class="form">
-        <th nowrap="nowrap">系統徵信比</th>
-        <mat-form-field color="accent">
-            <mat-select [(ngModel)]="data.scklv" name="scklv">
-              <mat-option *ngFor="let code of scklvCode" [value]="code.value">
-                {{code.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">系統徵信比</span>
+          <mat-select [(ngModel)]="data.scklv" name="scklv"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of scklvCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
       </div>
-      <div class="form">
-        <th nowrap="nowrap">案件等級</th>
-        <mat-form-field color="accent">
-          <mat-select [(ngModel)]="data.calv" name="calv">
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">案件等級</span>
+          <mat-select [(ngModel)]="data.calv" name="calv"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
             <mat-option *ngFor="let code of calvCode" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
           </mat-select>
-        </mat-form-field>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
       </div>
       <div mat-dialog-actions>
-        <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="save()">Save</button>
-        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+          (click)="save()">儲存</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1">取消</button>
       </div>
     </form>
   </div>
+</div>
