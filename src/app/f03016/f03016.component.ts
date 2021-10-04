@@ -77,8 +77,13 @@ export class F03016Component implements OnInit {
     jsonObject['DssJcicSet'] = this.DssJcicSet;
     jsonObject['DssMailDay'] = this.DssMailDay;
     jsonObject['BasicLimit'] = this.BasicLimit;
-    jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
-    jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
+    if(this.CssPassStart<this.CssPassEnd){
+      jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
+      jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
+    }
+    else{
+     return alert('請輸入正確時間')
+    }
     jsonObject['IsJcic'] = this.IsJcic;
     jsonObject['TransEmpNo'] = this.transEmpNo;
     let msgStr: string = "";

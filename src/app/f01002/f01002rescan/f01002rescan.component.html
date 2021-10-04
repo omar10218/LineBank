@@ -1,7 +1,7 @@
 <div style="width: 1000px;">
   <button nz-button [nzSize]="'large'" nzType="primary" (click)="cancel()">離開</button>
   <div class="line_bank_card_no_padding">
-<!-- 補件 -->
+    <!-- 補件 -->
     <div class="line_bank_form_header_title">補件</div>
     <div nz-row>
       <div nz-col nzSpan="8">
@@ -28,56 +28,55 @@
           </nz-select>
         </div>
       </div>
-        <div nz-col nzSpan="24">
-          <div style="padding:10px;">
-            <span class="form-title">徵審註記</span>
-            <textarea matInput
-            style="width: 925px;height:100px;background-color:#E6E6E6;border-radius:10px;border:none"
+      <div nz-col nzSpan="24">
+        <div style="padding:10px;">
+          <span class="form-title">徵審註記</span>
+          <textarea matInput style="width: 925px;height:100px;background-color:#E6E6E6;border-radius:10px;border:none"
             [(ngModel)]="rescanContent" name="speakingContent" required></textarea>
 
-          </div>
         </div>
+      </div>
 
     </div>
     <div style="text-align:center;margin:10px auto">
       <button nz-button [nzSize]="'large'" nzType="primary" (click)="rescan()">補件</button>
     </div>
-<!-- SMS訊息 -->
-<div class="line_bank_form_header_title" style="border-radius:0px;">SMS訊息</div>
-<div nz-row>
-  <div nz-col nzSpan="5">
-    <div style="padding:10px"><span class="form-title">預計發送日期</span>
-      <nz-date-picker [(ngModel)]="realSmsTime"></nz-date-picker>
+    <!-- SMS訊息 -->
+    <div class="line_bank_form_header_title" style="border-radius:0px;">SMS訊息</div>
+    <div nz-row>
+      <div nz-col nzSpan="5">
+        <div style="padding:10px"><span class="form-title">預計發送日期</span>
+          <nz-date-picker [(ngModel)]="realSmsTime"></nz-date-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="5">
+        <div style="padding:10px"><span class="form-title">預計發送時間</span>
+          <nz-time-picker [(ngModel)]="mytime" nzFormat="HH:mm" [nzMinuteStep]="5" [nzDisabled]="realSmsTime == null"
+            [nzNowText]="' '"></nz-time-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="7">
+        <div style="padding:10px"><span class="form-title">發送手機</span>
+          <input style="display: block;" [(ngModel)]="this.mobile">
+        </div>
+      </div>
+      <div nz-col nzSpan="7">
+        <div style="padding:10px"><span class="form-title">SMS樣板</span>
+          <nz-select [(ngModel)]="smsSet">
+            <nz-option *ngFor="let code of smsSetCode" [nzValue]="code.value" [nzLabel]="code.viewValue">
+            </nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <div nz-col nzSpan="24">
+        <div style="padding:10px;"><span class="form-title">SMS內容</span><textarea matInput
+            style="background-color:#E6E6E6;border-radius:10px;border:none;width: 925px;height:100px;"
+            [(ngModel)]="messageContent" name="messageContent" required></textarea></div>
+      </div>
+      <div style="text-align:center;margin:10px auto">
+        <button nz-button [nzSize]="'large'" nzType="primary" (click)="addSms()">發送簡訊</button>
+      </div>
     </div>
-  </div>
-  <div nz-col nzSpan="5">
-    <div style="padding:10px"><span class="form-title">預計發送時間</span>
-      <nz-time-picker [(ngModel)]="mytime" nzFormat="HH:mm" [nzMinuteStep]="5" [nzDisabled]="realSmsTime == null"
-        [nzNowText]="' '"></nz-time-picker>
-    </div>
-  </div>
-  <div nz-col nzSpan="7">
-    <div style="padding:10px"><span class="form-title">發送手機</span>
-      <input style="display: block;" [(ngModel)]="this.mobile">
-    </div>
-  </div>
-  <div nz-col nzSpan="7">
-    <div style="padding:10px"><span class="form-title">SMS樣板</span>
-      <nz-select [(ngModel)]="smsSet" >
-        <nz-option *ngFor="let code of smsSetCode" [nzValue]="code.value" [nzLabel]="code.viewValue">
-        </nz-option>
-      </nz-select>
-    </div>
-  </div>
-  <div nz-col nzSpan="24">
-    <div style="padding:10px;"><span class="form-title">SMS內容</span><textarea matInput
-      style="background-color:#E6E6E6;border-radius:10px;border:none;width: 925px;height:100px;" [(ngModel)]="messageContent"
-      name="messageContent" required></textarea></div>
-  </div>
-  <div style="text-align:center;margin:10px auto">
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="addSms()">發送簡訊</button>
-  </div>
-</div>
     <!-- <div nz-col nzFlex="auto">
               <div style="padding:10px;display: inline-block;"><span class="form-title">待補文件日期</span>
                   <nz-date-picker [(ngModel)]="restartDate"></nz-date-picker>
@@ -107,8 +106,8 @@
                 <button nz-button [nzSize]="'large'" nzType="primary" (click)="rescan()">補件</button>
               </div>
           </div> -->
-    <div nz-col nzFlex="auto">
-      <!-- <div style="padding:10px;display: inline-block;"><span class="form-title">預計發送日期</span>
+
+    <!-- <div style="padding:10px;display: inline-block;"><span class="form-title">預計發送日期</span>
         <nz-date-picker [(ngModel)]="realSmsTime"></nz-date-picker>
       </div>
 
@@ -131,7 +130,68 @@
       <div style="padding:10px;display: inline-block;"><span class="form-title">徵審註記</span>
         <button nz-button [nzSize]="'large'" nzType="primary" (click)="addSms()">發送簡訊</button>
       </div> -->
-    </div>
+
+      <!-- [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)" -->
+      <nz-table nzShowSizeChanger [nzData]="rescanDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+       [nzTotal]="100" [nzPageSize]="100" nzSize="small" nzTitle="照會話術設定">
+      <thead>
+        <tr>
+          <th class="table-header">待補文件日期</th>
+          <th class="table-header">補件原因</th>
+          <th class="table-header">補件項目</th>
+          <th class="table-header">徵審註記</th>
+          <th class="table-header">刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rescanDataSource">
+          <td class="table-data">{{row.RESCAN_DATE|date: 'yyyy-MM-dd' }}</td>
+          <td class="table-data">{{ row.RESCAN_TYPE  }}</td>
+          <td class="table-data">{{ row.RESCAN_ITEM  }}</td>
+          <td class="table-data">{{ row.RESCAN_CONTENT }}</td>
+
+          <td class="table-data">
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="delRescan(row.ID)">刪除</button>
+
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+      <!-- <mat-dialog-content>
+        <mat-table [dataSource]="rescanDataSource">
+            <ng-container matColumnDef="delRescan">
+                <mat-header-cell *matHeaderCellDef>
+                    <u>刪除</u>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button mat-raised-button color="primary" (click)="delRescan(row.ID)">刪除</button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rescanDate">
+                <mat-header-cell *matHeaderCellDef>待補文件日期</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.RESCAN_DATE|date: 'yyyy-MM-dd' }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rescanType">
+                <mat-header-cell *matHeaderCellDef>補件原因</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.RESCAN_TYPE }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rescanItem">
+                <mat-header-cell *matHeaderCellDef>補件項目</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.RESCAN_ITEM }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rescanContent">
+                <mat-header-cell *matHeaderCellDef>徵審註記</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.RESCAN_CONTENT }}</mat-cell>
+            </ng-container>
+            <mat-header-row
+                *matHeaderRowDef="['delRescan', 'rescanDate', 'rescanType', 'rescanItem', 'rescanContent']; sticky: true">
+            </mat-header-row>
+            <mat-row
+                *matRowDef="let rescanDataRow; columns: ['delRescan', 'rescanDate', 'rescanType', 'rescanItem', 'rescanContent']">
+            </mat-row>
+        </mat-table>
+    </mat-dialog-content> -->
 
   </div>
 </div>
@@ -260,39 +320,5 @@
             </div>
         </mat-card-content>
     </mat-card>
-</table>
+</table> -->
 <br>
-<mat-dialog-content>
-    <mat-table [dataSource]="rescanDataSource">
-        <ng-container matColumnDef="delRescan">
-            <mat-header-cell *matHeaderCellDef>
-                <u>刪除</u>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-                <button mat-raised-button color="primary" (click)="delRescan(row.ID)">刪除</button>
-            </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="rescanDate">
-            <mat-header-cell *matHeaderCellDef>待補文件日期</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.RESCAN_DATE|date: 'yyyy-MM-dd' }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="rescanType">
-            <mat-header-cell *matHeaderCellDef>補件原因</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.RESCAN_TYPE }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="rescanItem">
-            <mat-header-cell *matHeaderCellDef>補件項目</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.RESCAN_ITEM }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="rescanContent">
-            <mat-header-cell *matHeaderCellDef>徵審註記</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.RESCAN_CONTENT }}</mat-cell>
-        </ng-container>
-        <mat-header-row
-            *matHeaderRowDef="['delRescan', 'rescanDate', 'rescanType', 'rescanItem', 'rescanContent']; sticky: true">
-        </mat-header-row>
-        <mat-row
-            *matRowDef="let rescanDataRow; columns: ['delRescan', 'rescanDate', 'rescanType', 'rescanItem', 'rescanContent']">
-        </mat-row>
-    </mat-table>
-</mat-dialog-content> -->

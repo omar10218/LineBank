@@ -23,6 +23,7 @@ nz-time-picker {
 .line_bank_card_no_padding {
   position: relative;
   margin:20px auto;
+  height:100%;
   width: 95%;
   background: white;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);

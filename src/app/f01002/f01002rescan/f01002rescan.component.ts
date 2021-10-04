@@ -147,6 +147,7 @@ export class F01002rescanComponent implements OnInit {
   //取該案件補件資訊
   getRescanList() {
     this.f01002rescanService.getRescanSearch().subscribe(data => {
+      console.log(data)
       this.rescanDataSource = data.rspBody.items;
     })
   };
