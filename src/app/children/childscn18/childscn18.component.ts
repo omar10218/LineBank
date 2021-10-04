@@ -1,18 +1,17 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ChildrenService } from 'src/app/children/children.service';
-import { F01002ReSrearchService } from './f01002research.service';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Childscn18Service } from './childscn18.service';
 
 @Component({
-  selector: 'app-f01002research',
-  templateUrl: './f01002research.component.html',
-  styleUrls: ['./f01002research.component.css', '../../../assets/css/f01.css']
+  selector: 'app-childscn18',
+  templateUrl: './childscn18.component.html',
+  styleUrls: ['./childscn18.component.css', '../../../assets/css/f01.css']
 })
-export class F01002researchComponent implements OnInit {
+export class Childscn18Component implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<F01002researchComponent>,
-    public f01002ReSearchService: F01002ReSrearchService
+    public dialogRef: MatDialogRef<Childscn18Component>,
+    public childscn18Service: Childscn18Service
   ) { }
 
   empNo: string;  //上傳員編
@@ -39,18 +38,17 @@ export class F01002researchComponent implements OnInit {
       const index: number = this.searchArray.indexOf( item );
       this.searchArray.splice(index, 1);
     }
-    console.log(this.searchArray);
   }
 
   reSearch() {
-    const url = "f01/f01002research";  //API
+    const url = "f01/childscn18action1";  //API
     let jsonObject: any = {};
     jsonObject['empNo'] = this.empNo;
     jsonObject['applno'] = this.applno;
     jsonObject['swcID'] = this.swcID;
     jsonObject['custID'] = this.custID;
     jsonObject['searchArray'] = this.searchArray.toString();
-    this.f01002ReSearchService.reSearch(url, jsonObject).subscribe(data => {
+    this.childscn18Service.reSearch(url, jsonObject).subscribe(data => {
       console.log(data.rspBody);
     });
 

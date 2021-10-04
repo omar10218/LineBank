@@ -49,6 +49,9 @@ import { Childscn16Component } from './childscn16/childscn16.component';
 import { Childscn17Component } from './childscn17/childscn17.component';
 import { Childscn8deleteComponent } from './childscn8/childscn8delete/childscn8delete.component';
 import { Childscn1Component } from './childscn1/childscn1.component';
+import { Childscn18Component } from './childscn18/childscn18.component';
+import { Childscn19Component } from './childscn19/childscn19.component';
+import { Childscn20Component } from './childscn20/childscn20.component';
 
 
 @NgModule({
@@ -96,7 +99,10 @@ import { Childscn1Component } from './childscn1/childscn1.component';
     Childscn16Component,
     Childscn17Component,
     Childscn8deleteComponent,
-    Childscn1Component
+    Childscn1Component,
+    Childscn18Component,
+    Childscn19Component,
+    Childscn20Component
   ],
   imports: [
     CommonModule,
