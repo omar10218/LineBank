@@ -1,3 +1,4 @@
+import { NgZorroAntdModule } from './../ngzorro/ng-zorro-antd.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
@@ -110,7 +111,8 @@ import { Childscn20Component } from './childscn20/childscn20.component';
     FormsModule,
     ReactiveFormsModule,
     ChildrenRoutingModule,
-    CommonLibModule
+    CommonLibModule,
+    NgZorroAntdModule
   ]
 })
 export class ChildrenModule { }
