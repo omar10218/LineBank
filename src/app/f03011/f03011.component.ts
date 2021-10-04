@@ -39,6 +39,12 @@ export class F03011Component implements OnInit {
     this.getDssCallout(this.pageIndex, this.pageSize);
   }
 
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
+  }
+
   getDssCallout(pageIndex: number, pageSize: number) {
     const baseUrl = 'f03/f03011scn1';
     let jsonObject: any = {};
@@ -100,7 +106,10 @@ export class F03011Component implements OnInit {
       width: '70%',
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { window.location.reload(); }
+        if (result != null && result.event == 'success') {
+          this.changePage();
+          this.getDssCallout(this.pageIndex, this.pageSize);
+        }
       });
   }
 
@@ -115,7 +124,10 @@ export class F03011Component implements OnInit {
         }
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { window.location.reload(); }
+        if (result != null && result.event == 'success') {
+          this.changePage();
+          this.getDssCallout(this.pageIndex, this.pageSize);
+        }
       });
   }
 
@@ -135,7 +147,8 @@ export class F03011Component implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result != null && result.event == '刪除成功!') {
-          window.location.reload();
+          this.changePage();
+          this.getDssCallout(this.pageIndex, this.pageSize);
         }
       });
   }

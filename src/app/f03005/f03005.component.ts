@@ -52,6 +52,12 @@ export class F03005Component implements OnInit {
     this.getAdrCode(null, null, this.pageIndex, this.pageSize);
   }
 
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
+  }
+
   changeSelect() {
     this.secondType = [];
     this.thirdType = [];
@@ -59,6 +65,7 @@ export class F03005Component implements OnInit {
     this.selectedThirdValue = "";
     this.selectedValue = "Z01";
     this.level = "1"
+    this.changePage();
     this.getAdrCode(this.selectedValue, this.level, this.pageIndex, this.pageSize);
   }
 
@@ -67,12 +74,14 @@ export class F03005Component implements OnInit {
     this.selectedThirdValue = "";
     this.selectedValue = this.selectedSecondValue;
     this.level = "2"
+    this.changePage();
     this.getAdrCode(this.selectedValue, this.level, this.pageIndex, this.pageSize);
   }
 
   changeSelectThird() {
     this.selectedValue = this.selectedThirdValue;
     this.level = "3"
+    this.changePage();
     this.getAdrCode(this.selectedValue, this.level, this.pageIndex, this.pageSize);
   }
 
@@ -118,6 +127,8 @@ export class F03005Component implements OnInit {
 
   openInsertWindow(upReasonCode: string, reasonLevel: string) {
     const dialogRef = this.dialog.open(F03005addComponent, {
+      minHeight: '70vh',
+      width: '50%',
       data: {
         reasonKind: this.selectedAdrValue,
         upReasonCode: upReasonCode,
@@ -150,6 +161,8 @@ export class F03005Component implements OnInit {
     }
 
     const dialogRef = this.dialog.open(F03005editComponent, {
+      minHeight: '70vh',
+      width: '50%',
       data: {
         reasonKind: reasonKind,
         upReasonCode: upReasonCode,

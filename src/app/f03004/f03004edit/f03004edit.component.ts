@@ -13,7 +13,7 @@ interface ynCode {
 @Component({
   selector: 'app-f03004edit',
   templateUrl: './f03004edit.component.html',
-  styleUrls: ['./f03004edit.component.css']
+  styleUrls: ['./f03004edit.component.css', '../../../assets/css/f03.css']
 })
 export class F03004editComponent {
 
@@ -45,6 +45,6 @@ export class F03004editComponent {
     const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
-    if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }
+    if (msgStr === '編輯成功!') { this.dialogRef.close({ event:'success' }); }
   }
 }
