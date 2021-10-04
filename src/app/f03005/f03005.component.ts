@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { OptionsCode } from '../interface/base';
 import { F03005Service } from './f03005.service';
 import { F03005addComponent } from './f03005add/f03005add.component';
@@ -20,18 +20,19 @@ export class F03005Component implements OnInit {
     public dialog: MatDialog
   ) { }
 
+  adrCodeSource: readonly Data[] = [];
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
   adrType: OptionsCode[] = [];  //最上層下拉
   secondType: OptionsCode[] = [];  //第二層下拉
   thirdType: OptionsCode[] = [];  //第三層下拉
   selectedAdrValue: string;  //最上層
   selectedSecondValue: string;  //第二層選擇
   selectedThirdValue: string;  //第三層選擇
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent;
-  currentSort: Sort;
-  adrCodeSource = new MatTableDataSource<any>();
+  level: string;
+  selectedValue: string;
 
   ngOnInit(): void {
     this.f03005Service.getSysTypeCode('ADR_CODE').subscribe(data => {
@@ -44,24 +45,11 @@ export class F03005Component implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getAdrCode(null, null);
-    });
+    this.getAdrCode(null, null, this.pageIndex, this.pageSize);
   }
 
   changeSort(sortInfo: Sort) {
-    this.currentSort = sortInfo;
-    this.getAdrCode(null, null);
+    this.getAdrCode(null, null, this.pageIndex, this.pageSize);
   }
 
   changeSelect() {
@@ -69,49 +57,37 @@ export class F03005Component implements OnInit {
     this.thirdType = [];
     this.selectedSecondValue = "";
     this.selectedThirdValue = "";
-
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.paginator.firstPage();
-    this.getAdrCode("Z01", "1");
+    this.selectedValue = "Z01";
+    this.level = "1"
+    this.getAdrCode(this.selectedValue, this.level, this.pageIndex, this.pageSize);
   }
 
   changeSelectSecond() {
     this.thirdType = [];
     this.selectedThirdValue = "";
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.paginator.firstPage();
-    this.getAdrCode(this.selectedSecondValue, "2");
+    this.selectedValue = this.selectedSecondValue;
+    this.level = "2"
+    this.getAdrCode(this.selectedValue, this.level, this.pageIndex, this.pageSize);
   }
 
   changeSelectThird() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.paginator.firstPage();
-    this.getAdrCode(this.selectedThirdValue, "3");
+    this.selectedValue = this.selectedThirdValue;
+    this.level = "3"
+    this.getAdrCode(this.selectedValue, this.level, this.pageIndex, this.pageSize);
   }
 
-  getAdrCode(selectType: string, level: string) {
+  getAdrCode(selectType: string, level: string, pageIndex: number, pageSize: number) {
     const baseUrl = 'f03/f03005action1';
     let jsonObject: any = {};
     jsonObject['reasonKind'] = this.selectedAdrValue != null ? this.selectedAdrValue : '';
     jsonObject['upReasonCode'] = selectType != null ? selectType : '';
     jsonObject['level'] = level;
-    jsonObject['page'] = this.currentPage.pageIndex + 1;
-    jsonObject['per_page'] = this.currentPage.pageSize;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
     this.f03005Service.getAdrCodeList(baseUrl, jsonObject).subscribe(data => {
-      this.totalCount = data.rspBody.size;
-      this.adrCodeSource.data = data.rspBody.items;
+      this.total = data.rspBody.size;
+      this.adrCodeSource = data.rspBody.items;
+      this.loading = false;
       if (data.rspBody.items.length > 0) {
         if (data.rspBody.items[0].upReasonCode == 'Z01') {
           for (let i = 0; i < data.rspBody.items.length; i++) {
@@ -156,12 +132,12 @@ export class F03005Component implements OnInit {
       if (result != null && result.event == 'success') {
         if (reasonLevel == '1') { this.secondType = []; this.thirdType = []; this.selectedSecondValue = ""; this.selectedThirdValue = ""; }
         if (reasonLevel == '2') { this.thirdType = []; this.selectedThirdValue = ""; }
-        this.getAdrCode(upReasonCode, reasonLevel)
+        this.getAdrCode(upReasonCode, reasonLevel, this.pageIndex, this.pageSize);
       }
     });
   }
 
-  startEdit(i: number,
+  startEdit(
     reasonKind: string, upReasonCode: string, reasonCode: string,
     reasonDesc: string, reasonSort: string, reasonFlag: string) {
     let reasonLevel: string = '';
@@ -188,25 +164,24 @@ export class F03005Component implements OnInit {
       if (result != null && result.event == 'success') {
         if (reasonLevel == '1') { this.secondType = []; this.thirdType = []; this.selectedSecondValue = ""; this.selectedThirdValue = ""; }
         if (reasonLevel == '2') { this.thirdType = []; this.selectedThirdValue = ""; }
-        this.getAdrCode(upReasonCode, reasonLevel)
+        this.getAdrCode(upReasonCode, reasonLevel, this.pageIndex, this.pageSize);
       }
     });
   }
 
   private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
+    //this.paginator._changePageSize(this.paginator.pageSize);
   }
 
   Clear() {
     this.selectedAdrValue = '';
     this.selectedSecondValue = '';
     this.selectedThirdValue = '';
-    this.adrCodeSource.data = null;
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
+    this.adrCodeSource = null;
   }
 
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getAdrCode(this.selectedValue, this.level, pageIndex, pageSize);
+  }
 }

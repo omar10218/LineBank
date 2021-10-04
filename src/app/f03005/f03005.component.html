@@ -1,102 +1,62 @@
-<div class="container">
-  <th class="f03_th">原因碼維護</th>
-</div>
-<div class="f03_div" style="padding-left: 20px; padding-top: 20px;">
-  <button mat-raised-button color="primary" (click)="addNew()">新增</button>
-  <button mat-raised-button color="primary" (click)="Clear()">清除資料</button>
-</div>
-<table style="padding-left: 20px;">
-  <br>
-  <mat-card class="matCard">
-    <mat-card-content>
-      <tr>
-        <th>原因碼類別：</th>
-        <td>
-          <mat-form-field color="accent">
-            <mat-select [(ngModel)]="selectedAdrValue" name="adrType" (ngModelChange)="changeSelect()">
-              <mat-option *ngFor="let code of adrType" [value]="code.value">
-                {{code.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-        <th>第二層：</th>
-        <td>
-          <mat-form-field color="accent">
-            <mat-select [(ngModel)]="selectedSecondValue" name="secondType" (ngModelChange)="changeSelectSecond()">
-              <mat-option *ngFor="let code of secondType" [value]="code.value">
-                {{code.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-        <ng-container *ngIf=" selectedAdrValue == 'FM' ">
-          <th>第三層：</th>
-          <td>
-            <mat-form-field color="accent">
-              <mat-select [(ngModel)]="selectedThirdValue" name="thirdType" (ngModelChange)="changeSelectThird()">
-                <mat-option *ngFor="let code of thirdType" [value]="code.value">
-                  {{code.viewValue}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+  <div style="padding-left: 20px; padding-top: 20px;">
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
+  </div>
+  <!-- 最外層卡片包覆 -->
+  <div class="line_bank_card_no_padding">
+    <div style="padding:10px"><span class="form-title">原因碼類別</span>
+      <nz-select [(ngModel)]="selectedAdrValue" name="adrType" (ngModelChange)="changeSelect()">
+        <nz-option nzValue="{{code.value}}" *ngFor="let code of adrType" nzLabel="{{code.viewValue}}"></nz-option>
+      </nz-select>
+    </div>
+    <div style="padding:10px"><span class="form-title">第二層</span>
+      <nz-select [(ngModel)]="selectedSecondValue" name="secondType" (ngModelChange)="changeSelectSecond()">
+        <nz-option nzValue="{{code.value}}" *ngFor="let code of secondType" nzLabel="{{code.viewValue}}"></nz-option>
+      </nz-select>
+    </div>
+    <ng-container *ngIf=" selectedAdrValue == 'FM' ">
+      <div style="padding:10px"><span class="form-title">第三層</span>
+        <nz-select [(ngModel)]="selectedThirdValue" name="thirdType" (ngModelChange)="changeSelectThird()">
+          <nz-option nzValue="{{code.value}}" *ngFor="let code of thirdType" nzLabel="{{code.viewValue}}"></nz-option>
+        </nz-select>
+      </div>
+    </ng-container>
+    <br>
+  </div>
+  <!-- 最外層卡片包覆 -->
+  <div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzData]="adrCodeSource" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="原因碼維護">
+      <thead>
+        <tr>
+          <th class="table-header">原因碼類別</th>
+          <th class="table-header">上層原因碼</th>
+          <th class="table-header">原因碼</th>
+          <th class="table-header">原因碼說明</th>
+          <th class="table-header">排序</th>
+          <th class="table-header">是否停用</th>
+          <th class="table-header">編輯</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of adrCodeSource">
+          <td class="table-data">{{ data.reasonKind }}</td>
+          <td class="table-data">{{ data.upReasonCode }}</td>
+          <td class="table-data">{{ data.reasonCode }}</td>
+          <td class="table-data">{{ data.reasonDesc }}</td>
+          <td class="table-data">{{ data.reasonSort }}</td>
+          <td class="table-data">{{ data.reasonFlag }}</td>
+          <td class="table-data">
+            <button nz-button [nzSize]="'middle'" nzType="primary"
+              (click)="startEdit(
+              data.reasonKind, data.upReasonCode, data.reasonCode, data.reasonDesc, data.reasonSort, data.reasonFlag)">編輯</button>
           </td>
-        </ng-container>
-        <td style="width: 10px;">
-        </td>
-      </tr>
-    </mat-card-content>
-  </mat-card>
-</table>
-
-<mat-table [dataSource]="adrCodeSource" matSort (matSortChange)="changeSort($event)">
-  <ng-container matColumnDef="reasonKind">
-    <mat-header-cell *matHeaderCellDef>原因碼類別</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.reasonKind }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="upReasonCode">
-    <mat-header-cell *matHeaderCellDef>上層原因碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.upReasonCode }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="reasonCode">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>原因碼</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.reasonCode }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="reasonDesc">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>原因碼說明</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.reasonDesc }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="reasonSort">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>排序</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.reasonSort }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="reasonFlag">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>是否停用</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.reasonFlag }}</mat-cell>
-  </ng-container>
-
-  <!-- actions -->
-  <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
-    <mat-cell *matCellDef="let row; let i=index;">
-      <button mat-icon-button color="accent" (click)="startEdit(i,
-          row.reasonKind, row.upReasonCode, row.reasonCode, row.reasonDesc, row.reasonSort, row.reasonFlag)">
-        <mat-icon aria-label="Edit">edit</mat-icon>
-      </button>
-    </mat-cell>
-  </ng-container>
-
-  <mat-header-row
-    *matHeaderRowDef="['reasonKind', 'upReasonCode', 'reasonCode', 'reasonDesc', 'reasonSort', 'reasonFlag', 'actions']">
-  </mat-header-row>
-  <mat-row
-    *matRowDef="let mappingCodeRow; columns: ['reasonKind', 'upReasonCode', 'reasonCode', 'reasonDesc', 'reasonSort', 'reasonFlag', 'actions']">
-  </mat-row>
-</mat-table>
-<tr>
-  <td>
-    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-    </mat-paginator>
-  </td>
-</tr>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

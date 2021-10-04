@@ -2,20 +2,34 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { OptionsCode } from 'src/app/interface/base';
 import { F03005Service } from '../f03005.service';
-interface ynCode {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-f03005edit',
   templateUrl: './f03005edit.component.html',
-  styleUrls: ['./f03005edit.component.css']
+  styleUrls: ['./f03005edit.component.css', '../../../assets/css/f03.css']
 })
 export class F03005editComponent {
-  ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
-  constructor(public dialogRef: MatDialogRef<F03005editComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03005Service: F03005Service) { }
+
+  constructor(
+    public dialogRef: MatDialogRef<F03005editComponent>,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public f03005Service: F03005Service
+  ) { }
+
+  ynCode: OptionsCode[] = [];
+
+  ngOnInit(): void {
+    this.f03005Service.getSysTypeCode('YN').subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.ynCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+  }
 
   formControl = new FormControl('', [
     Validators.required
@@ -26,9 +40,6 @@ export class F03005editComponent {
     return this.formControl.hasError('required') ? 'Required field' :
     this.formControl.hasError('email') ? 'Not a valid email' :
     '';
-  }
-
-  submit() {
   }
 
   onNoClick(): void {

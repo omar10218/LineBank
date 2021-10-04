@@ -1,21 +1,36 @@
+import { NgZorroAntdModule } from './../../ngzorro/ng-zorro-antd.module';
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F03005Service } from '../f03005.service';
+import { OptionsCode } from 'src/app/interface/base';
 
-interface ynCode {
-  value: string;
-  viewValue: string;
-}
 @Component({
   selector: 'app-f03005add',
   templateUrl: './f03005add.component.html',
-  styleUrls: ['./f03005add.component.css']
+  styleUrls: ['./f03005add.component.css', '../../../assets/css/f03.css']
 })
 export class F03005addComponent {
-  ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
-  constructor(public dialogRef: MatDialogRef<F03005addComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public f03005Service: F03005Service, public dialog: MatDialog) { }
+
+  constructor(
+    public dialogRef: MatDialogRef<F03005addComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public f03005Service: F03005Service,
+    public dialog: MatDialog
+  ) { }
+
+  ynCode: OptionsCode[] = [];
+
+  ngOnInit(): void {
+    this.f03005Service.getSysTypeCode('YN').subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.ynCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+  }
 
   formControl = new FormControl('', [
     Validators.required
