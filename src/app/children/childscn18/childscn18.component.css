@@ -30,3 +30,21 @@ table {
 	background-color: #FFE4CA !important;
 	text-align: center;
 }
+.form-title{
+  color:#2E4765;
+  font-weight: bold;
+  margin-bottom:5px;
+  display:block;
+}
+input{
+  background-color:#E6E6E6;
+  border-radius: 10px;
+  height:30px;
+  width:100%;
+  border: 1px solid #E6E6E6;
+}
+.checkbox_title{
+  color:#2E4765;
+  font-weight: bold;
+}
+

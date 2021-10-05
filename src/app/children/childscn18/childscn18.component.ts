@@ -26,7 +26,9 @@ export class Childscn18Component implements OnInit {
     this.custID = "123456";  //待確認
     this.empNo = localStorage.getItem("empNo");
   }
-
+  log(value: string[]): void {
+    console.log(value);
+  }
   close() {
     this.dialogRef.close();
   }

@@ -53,8 +53,8 @@ import { Childscn1Component } from './childscn1/childscn1.component';
 import { Childscn18Component } from './childscn18/childscn18.component';
 import { Childscn19Component } from './childscn19/childscn19.component';
 import { Childscn20Component } from './childscn20/childscn20.component';
-
-
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 @NgModule({
   declarations: [
     Childscn2Component,
