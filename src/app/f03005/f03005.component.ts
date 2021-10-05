@@ -129,6 +129,7 @@ export class F03005Component implements OnInit {
     const dialogRef = this.dialog.open(F03005addComponent, {
       minHeight: '70vh',
       width: '50%',
+      panelClass: 'mat-dialog-transparent',
       data: {
         reasonKind: this.selectedAdrValue,
         upReasonCode: upReasonCode,
@@ -163,6 +164,7 @@ export class F03005Component implements OnInit {
     const dialogRef = this.dialog.open(F03005editComponent, {
       minHeight: '70vh',
       width: '50%',
+      panelClass: 'mat-dialog-transparent',
       data: {
         reasonKind: reasonKind,
         upReasonCode: upReasonCode,

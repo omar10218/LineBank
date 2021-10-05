@@ -80,10 +80,7 @@ input{
 .form{
   padding:10px;
 }
-/* 隔線系統強制拓寬 */
-::ng-deep.ant-row{
-  display:block;
-}
+
 /* 輸入區樣式 */
 .input-textarea{
   width: 100%;

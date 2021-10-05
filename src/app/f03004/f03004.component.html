@@ -6,13 +6,23 @@
   </div>
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">
-    <div style="padding:10px"><span class="form-title">代碼類別</span>
-      <nz-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()">
-        <nz-option nzValue="{{code.value}}" *ngFor="let code of sysCode" nzLabel="{{code.viewValue}}"></nz-option>
-      </nz-select>
-    </div>
-    <div style="padding:10px"><span class="form-title">Filter</span>
-      <input matInput class="form-control" value="{{selectedValue}}" disabled/>
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        <div style="padding:10px"><span class="form-title">代碼類別</span>
+          <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of sysCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzSpan="6">
+        <div style="padding:10px"><span class="form-title">Filter</span>
+          <input matInput class="form-control" value="{{selectedValue}}" disabled />
+        </div>
+      </div>
+      <div nz-col nzSpan="12"></div>
     </div>
   </div>
   <!-- 最外層卡片包覆 -->

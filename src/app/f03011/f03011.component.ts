@@ -102,8 +102,9 @@ export class F03011Component implements OnInit {
 
   add(){
     const dialogRef = this.dialog.open(F03011addComponent, {
-      minHeight: '30%',
-      width: '70%',
+      minHeight: '70vh',
+      width: '50%',
+      panelClass: 'mat-dialog-transparent',
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result != null && result.event == 'success') {
@@ -115,8 +116,9 @@ export class F03011Component implements OnInit {
 
   startEdit(tvNo: string, scklv: string, calv: string) {
     const dialogRef = this.dialog.open(F03011editComponent, {
-      minHeight: '30%',
-      width: '70%',
+      minHeight: '70vh',
+      width: '50%',
+      panelClass: 'mat-dialog-transparent',
       data: {
         tvNo: tvNo,
         scklv : scklv ,

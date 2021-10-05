@@ -93,6 +93,7 @@ export class F03004Component implements OnInit, AfterViewInit {
       const dialogRef = this.dialog.open(F03004addComponent, {
         minHeight: '70vh',
         width: '50%',
+        panelClass: 'mat-dialog-transparent',
         data: {
           codeType: this.selectedValue,
           codeNo: '', codeDesc: '',
@@ -115,6 +116,7 @@ export class F03004Component implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(F03004editComponent, {
       minHeight: '70vh',
       width: '50%',
+      panelClass: 'mat-dialog-transparent',
       data: {
         codeType: codeType, codeNo: codeNo, codeDesc: codeDesc,
         codeSort: codeSort, codeTag: codeTag, codeFlag: codeFlag
