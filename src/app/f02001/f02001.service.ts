@@ -13,4 +13,9 @@ export class F02001Service extends BaseService {
     let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
     return this.postFormData(targetUrl, formData);
   }
+  inquiry(baseUrl: string,json:JSON)
+  {
+    let targetUrl = baseUrl;
+    return this.postJsonObject(targetUrl,json);
+  }
 }

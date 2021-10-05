@@ -1,8 +1,8 @@
 <div class="line_bank_bankground_color">
   <div style="padding-left: 20px; padding-top: 20px;">
     <!-- (click)="add()" -->
-    <button nz-button [nzSize]="'large'" nzType="primary">查詢資料</button>&nbsp;
-    <button nz-button [nzSize]="'large'" nzType="primary">清除資料</button>&nbsp;
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="Select()">查詢資料</button>&nbsp;
+    <button nz-button [nzSize]="'large'" nzType="primary"(click)="Clear()">清除資料</button>&nbsp;
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()" >離開</button>&nbsp;
   </div>
   <div class="line_bank_card_no_padding">

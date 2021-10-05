@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OptionsCode } from 'src/app/interface/base';
-import { ChildrenService } from '../children.service';
+
 import { Childscn3Service } from './childscn3.service';
 
 interface checkBox {
