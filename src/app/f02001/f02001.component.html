@@ -1,2 +1,179 @@
-<p>f02001 works!</p>
-<button mat-raised-button color="primary" (click)="search()">查詢</button>
+<div class="line_bank_bankground_color">
+  <div style="padding-left: 20px; padding-top: 20px;">
+    <!-- (click)="add()" -->
+    <button nz-button [nzSize]="'large'" nzType="primary">查詢資料</button>&nbsp;
+    <button nz-button [nzSize]="'large'" nzType="primary">清除資料</button>&nbsp;
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()" >離開</button>&nbsp;
+  </div>
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">照會話術設定結果</div>
+
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
+            [(ngModel)]="applno" value="" readonly>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">身分證字號</span><input style="display: block;" value=""
+            [(ngModel)]="national_ID" name="national_ID" readonly>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">客戶ID</span><input style="display: block;" value=""
+            [(ngModel)]="cust_ID" name="cust_ID" readonly>
+        </div>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">客戶姓名</span><input style="display: block;" value=""
+            [(ngModel)]="cust_CNAME" name="cust_CNAME" readonly>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">徵信員員編姓名</span><input style="display: block;" value=""
+            [(ngModel)]="l3EMPNO" name="l3EMPNO" readonly>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">審核結果</span>
+          <mat-select [(ngModel)]="credit_RESULT_Value" name="CREDIT_RESULT_Value" placeholder="請選擇">
+            <mat-option *ngFor="let item of credit_RESULT" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">案件狀態</span>
+          <mat-select [(ngModel)]="status_DESC_Value" name="status_DESC_Value" placeholder="請選擇">
+            <mat-option *ngFor="let item of status_DESC" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">客群標籤</span>
+          <mat-select [(ngModel)]="cust_FLAG_Value" name="cust_FLAG_Value" placeholder="請選擇">
+            <mat-option *ngFor="let item of cust_FLAG" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">分險等級分群</span>
+          <mat-select [(ngModel)]="risk_GRADE_Value" name="risk_GRADE_Value" placeholder="請選擇">
+            <mat-option *ngFor="let item of risk_GRADE" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">進件日期</span>
+          <nz-range-picker [(ngModel)]="apply_TIME" ></nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">上傳財力日期</span>
+           <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME" ></nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">簽約完成日期</span>
+          <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME" ></nz-range-picker>
+        </div>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">產品名稱</span><input style="display: block;" value=""
+            [(ngModel)]="product_NAME" name="product_NAME" readonly>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">專案名稱</span><input style="display: block;" value=""
+            [(ngModel)]="project_NAME" name="project_NAME" readonly>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">行銷代碼</span><input style="display: block;" value=""
+            [(ngModel)]="marketing_CODE" name="marketing_CODE" readonly>
+        </div>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">准駁日期時間</span>
+          <nz-range-picker [(ngModel)]="credit_TIME" ></nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title"></span>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title"></span>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="line_bank_card_no_padding">
+  <!-- 表格 -->
+  <nz-table #fixedTable   [nzData]="listOfData" [nzScroll]="{ x: '1100px' }" >
+    <thead>
+      <tr>
+        <th nzLeft></th>
+        <th nzLeft>案件編號</th>
+        <th nzLeft>身分證字號</th>
+        <th>客戶ID</th>
+        <th>客戶姓名</th>
+        <th>徵信員員編姓名</th>
+        <th>審核結果</th>
+        <th>案件狀態</th>
+        <th>客群標籤</th>
+        <th>風險等級分群</th>
+        <th>進件日期</th>
+        <th>上傳財力日期</th>
+        <th>簽約完成日期</th>
+        <th>產品名稱</th>
+        <th>專案名稱</th>
+        <th>行銷代碼</th>
+        <th nzRight>准駁日期時間</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of fixedTable.data">
+        <td nzLeft><button (click)="test(data.applno)">明細</button>></td>
+        <td nzLeft>{{ data.applno }}</td><!--案件編號-->
+        <td nzLeft>{{ data.national_ID }}</td><!--身分證字號-->
+        <td>{{ data.cust_ID }}</td> <!--客戶id-->
+        <td>{{ data.cu_CNAME }}</td>  <!--客戶姓名-->
+        <td>{{ data.cu_CP_NAME }}</td><!--公司名稱-->
+        <td>{{ data.l3empno }}</td><!--徵信員員編姓名-->
+        <td>{{ data.credit_RESULT }}</td><!--審核結果-->
+        <td>{{ data.cust_FLAG }}</td><!--客群標籤-->
+        <td>{{ data.risk_GRADE }}</td><!--風險等級分群-->
+        <td></td><!--累計進件數-->
+        <td>{{ data.status_DESC }}</td><!--案件狀態-->
+        <td>{{ data.apply_TIME }}</td><!--進件日期-->
+        <td>{{ data.proof_DOCUMENT_TIME }}</td><!--上傳財力日期-->
+        <td>{{ data.sign_UP_TIME }}</td><!--簽約完成日期-->
+        <td></td><!--申請金額/額度-->
+        <td>{{ data.approve_AMT }}</td><!--核准金額/額度-->
+        <td></td><!--合約金額/額度-->
+        <td></td><!--產品名稱-->
+        <td></td><!--專案名稱-->
+        <td></td><!--行銷代碼-->
+        <td nzRight>{{ data.credit_TIME }}</td><!--准駁日期時間-->
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

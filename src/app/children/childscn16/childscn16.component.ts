@@ -4,10 +4,11 @@ import { Childscn16Service } from './childscn16.service';
 import { DatePipe } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { Childscn2Component } from '../childscn2/childscn2.component'
+import { Childscn1Component } from '../childscn1/childscn1.component'
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 
+//Jay 歷史資料
 @Component({
   selector: 'app-childscn16',
   templateUrl: './childscn16.component.html',
@@ -30,8 +31,7 @@ export class Childscn16Component implements OnInit {
   totalCount: any;
   ruleParamCondition = new MatTableDataSource<any>();
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
+    this.applno = sessionStorage.getItem('applno');
     this.initial();
   }
   ngAfterViewInit() {
@@ -46,18 +46,19 @@ export class Childscn16Component implements OnInit {
     };
 
   }
-  Inquire(id: string) {
-    const dialogRef = this.dialog.open(Childscn2Component, {
+  Inquire(id: string) //查詢
+  {
+    const dialogRef = this.dialog.open(Childscn1Component, {
 
     });
 
   }
-  initial() {
+  initial()//初始查詢
+  {
     let url = 'f01/childscn16';
     this.jsonObject['applno'] = this.applno;
     this.childscn16Service.selectCustomer(url, this.jsonObject).subscribe(data => {
       this.ruleParamCondition = data.rspBody;
-      console.log(this.data);
     })
   }
 }

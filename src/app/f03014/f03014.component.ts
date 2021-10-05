@@ -10,14 +10,11 @@ import { F03014uploadComponent } from './f03014upload/f03014upload.component'
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
-
+//Jay 客戶身份名單註記
 interface sysCode {
   value: string;
   viewValue: string;
 }
-
-//Jay 客戶身份名單註記
-
 @Component({
   selector: 'app-f03014',
   templateUrl: './f03014.component.html',
