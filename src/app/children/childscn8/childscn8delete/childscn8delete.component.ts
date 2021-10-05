@@ -9,7 +9,7 @@ import { Childscn8Service } from '../childscn8.service';
 @Component({
   selector: 'app-childscn8delete',
   templateUrl: './childscn8delete.component.html',
-  styleUrls: ['./childscn8delete.component.css']
+  styleUrls: ['./childscn8delete.component.css', '.../../../assets/css/f03.css']
 })
 export class Childscn8deleteComponent implements OnInit {
 
@@ -27,6 +27,8 @@ export class Childscn8deleteComponent implements OnInit {
   CON_MEMO_Code: OptionsCode[] = [];//註記種類下拉選單
   CON_MEMO_Selected: string;//註記種類
 
+
+
   //欄位驗證
   formControl = new FormControl('', [
     Validators.required
@@ -40,18 +42,42 @@ export class Childscn8deleteComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  // //刪除
+  // async deleteAction(ID: string) {
+  //   let msg = '';
+  //   let codeStr: string = "";
+  //   const url = 'f01/childscn8action3';
+  //   await this.childscn8Service.DeleteCALLOUT(url, ID).subscribe(data => {
+  //     msg = data.rspMsg;
+  //     codeStr = data.rspCode;
+  //   });
+  //   setTimeout(() => {
+  //     const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
+  //     if (msg === '刪除成功' && codeStr === '0000') { this.dialogRef.close({ event: 'success' }); }
+  //   }, 1500);
+  // }
+
   //刪除
-  deleteAction(ID: string) {
-    let msg = '';
+  async deleteAction(ID: string) {
+    let msgStr: string = "";
     let codeStr: string = "";
-    const url = 'f01/childscn8action3';
-    this.childscn8Service.DeleteCALLOUT(url, ID).subscribe(data => {
-      msg = data.rspMsg;
+    const baseUrl = 'f01/childscn8action3';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.data.applno;
+    jsonObject['rowID'] = this.data.ID;
+    console.log('console.log(jsonObject);');
+    console.log(jsonObject);
+    await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
+      console.log('data');
+      console.log(data);
+      codeStr = data.rspCode;
+      msgStr = data.rspMsg;
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      if (msgStr === '刪除成功' && codeStr === '0000') { this.dialogRef.close({ event: 'success' }); }
     });
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg === '刪除成功' && codeStr === '0000') { this.dialogRef.close({ event: 'success' }); }
-    }, 1500);
   }
 
   //取消
