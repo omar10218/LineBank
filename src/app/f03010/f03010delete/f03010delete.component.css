@@ -1,5 +1,5 @@
 ::ng-deep.ant-select:not(.ant-select-customize-input) .ant-select-selector{
-  width:620px;
+  /* width:620px; */
   border:none;
   background-color:#e6e6e6;
   border-radius: 10px;

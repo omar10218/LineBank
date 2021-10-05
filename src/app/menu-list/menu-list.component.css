@@ -35,3 +35,7 @@
 ::ng-deep .mat-grid-tile{
   padding:none;
 }
+
+:host ::ng-deep .router + * {
+  flex: 1;
+}
