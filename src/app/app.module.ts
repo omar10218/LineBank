@@ -84,6 +84,9 @@ import { MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import zh from '@angular/common/locales/zh';
+import { F03017Component } from './f03017/f03017.component';
+import { F03017editComponent } from './f03017/f03017edit/f03017edit.component';
+import { F03017uploadComponent } from './f03017/f03017upload/f03017upload.component';
 registerLocaleData(zh);
 export const TW_FORMATS = {
   parse: {
@@ -165,6 +168,9 @@ export const TW_FORMATS = {
     F03008deleteComponent,
     F03011deleteComponent,
     F03010deleteComponent,
+    F03017Component,
+    F03017editComponent,
+    F03017uploadComponent,
   ],
   imports: [
     NzIconModule,
