@@ -1,102 +1,101 @@
-<form (ngSubmit)="submit()" #formControl="ngForm">
-  <div class="container">
-    <h2 mat-dialog-title style="display: inline;">徵信照會-新增</h2>
-    <span style="margin-left: 25px;"><button mat-raised-button color="accent" [type]="submit"
-        [disabled]="!formControl.valid" (click)="save()">儲存</button></span>
-    <span style="margin-left: 25px;"><button mat-raised-button color="accent" (click)="onNoClick()">關閉</button></span>
-    <table>
-      <br>
-      <mat-card class="matCard">
-        <mat-card-content>
+<div class="line_bank_card_no_padding" style="min-height:170px">
+  <div class="line_bank_form_header_title">徵信照會-新增</div>
+  <div class="container" style="padding:20px">
+    <form class="mat-dialog-content" #formControl="ngForm">
 
-          <tr>
-            <th nowrap="nowrap">聯絡方式</th>
-            <td >
-              <mat-radio-group fxLayout="column" [(ngModel)]="data.CON_TYPE" name="CON_TYPE">
-                <mat-radio-button *ngFor="let code of data.CON_TYPE_Code" [value]="code.value">
-                  <tr>
-                    <td>
-                      {{code.viewValue}}
-                    </td>
-                  </tr>
-                </mat-radio-button>
-              </mat-radio-group>
-            </td>
-
-            <th nowrap="nowrap">手機/市話</th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput #inputstate class="form-control" [(ngModel)]="data.PHONE" name="PHONE" required>
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </td>
-
-            <th nowrap="nowrap">電話狀況</th>
-            <td>
-              <mat-radio-group fxLayout="column" [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION">
-                <mat-radio-button *ngFor="let code of data.TEL_CONDITION_Code" [value]="code.value">
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">聯絡方式</span>
+          <mat-radio-group fxLayout="column" [(ngModel)]="data.CON_TYPE"  name="CON_TYPE" required >
+            <mat-radio-button *ngFor="let code of data.CON_TYPE_Code" [value]="code.value">
+              <tr>
+                <td>
                   {{code.viewValue}}
-                </mat-radio-button>
-              </mat-radio-group>
-            </td>
+                </td>
+              </tr>
+            </mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
 
-            <th nowrap="nowrap">電話驗證</th>
-            <td>
-              <mat-radio-group fxLayout="column" [(ngModel)]="data.TEL_CHECK" name="TEL_CHECK">
-                <mat-radio-button *ngFor="let code of data.TEL_CHECK_Code" [value]="code.value">
-                  {{code.viewValue}}
-                </mat-radio-button>
-              </mat-radio-group>
-            </td>
-          </tr>
-          <tr>
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">手機/市話</span>
+          <input matInput #input class="form-control" [(ngModel)]="data.PHONE" name="PHONE" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
 
-            <th nowrap="nowrap">設定下次照會時間</th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput [matDatepicker]="CALLOUT_DATE" [(ngModel)]="data.CALLOUT_DATE"
-                  name="CALLOUT_DATE">
-                <mat-datepicker-toggle matSuffix [for]="CALLOUT_DATE"></mat-datepicker-toggle>
-                <mat-datepicker #CALLOUT_DATE></mat-datepicker>
-              </mat-form-field>
-            </td>
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">電話狀況</span>
+          <mat-radio-group fxLayout="column" [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" required >
+            <mat-radio-button *ngFor="let code of data.TEL_CONDITION_Code" [value]="code.value">
+              {{code.viewValue}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
 
-            <th nowrap="nowrap">時</th>
-            <td>
-              <mat-form-field color="accent">
-                <mat-select [(ngModel)]="data.HOURS" name="HOURS" required>
-                  <mat-option *ngFor="let code of data.HOURS_Code" [value]="code.value">
-                    {{code.viewValue}}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </td>
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">電話驗證</span>
+          <mat-radio-group fxLayout="column" [(ngModel)]="data.TEL_CHECK" name="TEL_CHECK" required >
+            <mat-radio-button *ngFor="let code of data.TEL_CHECK_Code" [value]="code.value">
+              {{code.viewValue}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
 
-            <th nowrap="nowrap">分</th>
-            <td>
-              <mat-form-field color="accent">
-                <mat-select [(ngModel)]="data.MINUTES" name="MINUTES" required>
-                  <mat-option *ngFor="let code of data.MINUTES_Code" [value]="code.value">
-                    {{code.viewValue}}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </td>
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">設定下次照會時間</span>
+          <mat-form-field color="accent">
+            <input matInput [matDatepicker]="CALLOUT_DATE" [(ngModel)]="data.CALLOUT_DATE" required
+              name="CALLOUT_DATE">
+            <mat-datepicker-toggle matSuffix [for]="CALLOUT_DATE"></mat-datepicker-toggle>
+            <mat-datepicker #CALLOUT_DATE></mat-datepicker>
+          </mat-form-field>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
 
-          </tr>
-          <tr>
-            <th nowrap="nowrap">備註</th>
-            <td colspan="6">
-              <mat-form-field color="accent">
-                <input matInput #inputstate class="form-control" [(ngModel)]="data.CON_MEMO" name="CON_MEMO" required>
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </td>
-          </tr>
-        </mat-card-content>
-      </mat-card>
-    </table>
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">時</span>
+          <mat-select [(ngModel)]="data.HOURS" name="HOURS" required
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of data.HOURS_Code" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">分</span>
+          <mat-select [(ngModel)]="data.MINUTES" name="MINUTES" required
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of data.MINUTES_Code" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">備註</span>
+          <input matInput #input class="form-control" [(ngModel)]="data.CON_MEMO" name="CON_MEMO" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
+
+      <div mat-dialog-actions>
+        <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+          style="margin:0px 5px" (click)="save()">儲存</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+          style="margin:0px 5px">取消</button>
+      </div>
+    </form>
   </div>
-</form>
+</div>

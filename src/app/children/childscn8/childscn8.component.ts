@@ -162,8 +162,8 @@ export class Childscn8Component implements OnInit {
   //新增
   Add() {
     const dialogRef = this.dialog.open(Childscn8addComponent, {
-      minHeight: '30%',
-      width: '90%',
+      minHeight: '70vh',
+      width: '50%',
       data: {
         applno: this.applno,//收件編號
         CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
@@ -194,8 +194,8 @@ export class Childscn8Component implements OnInit {
     // console.log(this.datepipe.transform(CALLOUT_DATE, 'mm'));
 
     const dialogRef = this.dialog.open(Childscn8editComponent, {
-      minHeight: '30%',
-      width: '90%',
+      minHeight: '70vh',
+      width: '50%',
       data: {
         applno: this.applno,//收件編號
         CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
@@ -224,8 +224,8 @@ export class Childscn8Component implements OnInit {
   //刪除
   deleteItem(CON_TYPE: string, PHONE: string, TEL_CONDITION: string, TEL_CHECK: string, CON_MEMO: string, CALLOUT_DATE: string, ID: string) {
     const dialogRef = this.dialog.open(Childscn8deleteComponent, {
-      minHeight: '30%',
-      width: '90%',
+      minHeight: '70vh',
+      width: '50%',
       data: {
         applno: this.applno,//收件編號
         CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
@@ -309,7 +309,7 @@ export class Childscn8Component implements OnInit {
             calloutData.CHECK_NOTE = calloutItemsData.checkNote;//其他備註
             calloutData.REPLY_CONDITION = calloutItemsData.replyCondition;//回答狀況
             //回答狀況 載入時 多選另外處理
-            if(calloutItemsData.checkItem=="13" && calloutItemsData.replyCondition!=null){
+            if(calloutItemsData.checkItem=="14" && calloutItemsData.replyCondition!=null){
               let REPLY_CONDITION14=calloutItemsData.replyCondition.split(",");
               for(const data of REPLY_CONDITION14)
               {
@@ -317,7 +317,7 @@ export class Childscn8Component implements OnInit {
                   datacode.checked=data==datacode.value?true:datacode.checked;
                 }
               }
-            }else if (calloutItemsData.checkItem=="16" && calloutItemsData.replyCondition!=null ){
+            }else if (calloutItemsData.checkItem=="17" && calloutItemsData.replyCondition!=null ){
               let REPLY_CONDITION17=calloutItemsData.replyCondition.split(",");
               for(const data of REPLY_CONDITION17)
               {
