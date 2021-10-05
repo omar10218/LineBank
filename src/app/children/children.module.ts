@@ -1,3 +1,4 @@
+import { GoogleMapsModule } from '@angular/google-maps';
 import { NgZorroAntdModule } from './../ngzorro/ng-zorro-antd.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -55,6 +56,7 @@ import { Childscn19Component } from './childscn19/childscn19.component';
 import { Childscn20Component } from './childscn20/childscn20.component';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { ChildmapComponent } from './childmap/childmap.component';
 @NgModule({
   declarations: [
     Childscn2Component,
@@ -103,7 +105,8 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
     Childscn1Component,
     Childscn18Component,
     Childscn19Component,
-    Childscn20Component
+    Childscn20Component,
+    ChildmapComponent
   ],
   imports: [
     CommonModule,
@@ -112,7 +115,8 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
     ReactiveFormsModule,
     ChildrenRoutingModule,
     CommonLibModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    GoogleMapsModule
   ]
 })
 export class ChildrenModule { }

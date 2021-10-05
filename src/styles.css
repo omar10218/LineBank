@@ -73,6 +73,16 @@ html {
   padding:10px 0;
   border-radius: 10px 10px 0 0;
 }
+
+.line_bank_form_header_child_title{
+  text-align: center;
+  font-weight:500;
+  font-size: 14px;
+  color:#2E4765;
+  background-color:	#BEBEBE	;
+  padding:10px 0;
+}
+
 .line_bank_card {
 	position: relative;
   margin:10px auto;

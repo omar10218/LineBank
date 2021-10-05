@@ -57,7 +57,7 @@ import { F03010editComponent } from './f03010/f03010edit/f03010edit.component';
 import { F04001Component } from './f04001/f04001.component';
 import { F04002Component } from './f04002/f04002.component';
 import { F01005Component } from './f01005/f01005.component';
-// import { GoogleMapsModule } from '@angular/google-maps';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { DatePipe, CommonModule, registerLocaleData } from '@angular/common';
 import { F03011addComponent } from './f03011/f03011add/f03011add.component';
 import { F03010addComponent } from './f03010/f03010add/f03010add.component';
@@ -187,7 +187,7 @@ export const TW_FORMATS = {
     CommonModule,
     NgZorroAntdModule,
     NzButtonModule,
-    // GoogleMapsModule
+    GoogleMapsModule
   ],
   providers: [
     BnNgIdleService,
