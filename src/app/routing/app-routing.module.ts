@@ -37,6 +37,7 @@ import { HomeComponent } from './../home/home.component';
 import { LoginComponent } from './../login/login.component';
 import { MenuListComponent } from './../menu-list/menu-list.component';
 import { F01006Component } from '../f01006/f01006.component';
+import { F03017Component } from '../f03017/f03017.component';
 
 
 const routes: Routes = [
@@ -210,6 +211,10 @@ const routes: Routes = [
       {
         path: 'F03016',
         component: F03016Component
+      },
+      {
+        path: 'F03017',
+        component: F03017Component
       },
       {
         path: 'F04001',
