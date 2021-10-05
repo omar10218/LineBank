@@ -14,20 +14,19 @@ export class F03004Service extends BaseService {
     return this.postHttpClient(baseUrl);
   }
 
-  getMappingCodeList(baseUrl: string, pageIndex: number, pageSize: number, sysType: String): Observable<any> {
-    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}&CODE_TYPE=${sysType}`;
-    return this.postHttpClient(targetUrl);
+  getMappingCodeList(baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
   }
 
   addOrEditSystemCodeSet(baseUrl: string, data: any): any {
-    const formdata: FormData = new FormData();
-    formdata.append('codeType', data.codeType);
-    formdata.append('codeNo', data.codeNo);
-    formdata.append('codeDesc', data.codeDesc);
-    formdata.append('codeSort', data.codeSort);
-    formdata.append('codeTag', data.codeTag);
-    formdata.append('codeFlag', data.codeFlag);
-    return this.saveOrEditMsgString(baseUrl, formdata);
+    let jsonObeject: any = {};
+    jsonObeject['codeType'] = data.codeType;
+    jsonObeject['codeNo'] = data.codeNo;
+    jsonObeject['codeDesc'] = data.codeDesc;
+    jsonObeject['codeSort'] = data.codeSort;
+    jsonObeject['codeTag'] = data.codeTag;
+    jsonObeject['codeFlag'] = data.codeFlag;
+    return this.saveOrEditMsgJson(baseUrl, jsonObeject);
   }
 
 }

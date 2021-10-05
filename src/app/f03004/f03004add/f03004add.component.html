@@ -1,57 +1,59 @@
-<div class="container">
-    <h2 mat-dialog-title>系統代碼維護-新增</h2>
-  
-    <form class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
-  
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="類別" [(ngModel)]="data.codeType" name="codeType" disabled >
+<div class="line_bank_card_no_padding" style="min-height:170px">
+  <div class="line_bank_form_header_title">系統代碼維護-新增</div>
+  <div class="container" style="padding:20px">
+    <form class="mat-dialog-content" #formControl="ngForm">
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">類別</span>
+          <input matInput #input class="form-control" [(ngModel)]="data.codeType" name="codeType" disabled>
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
+        </div>
       </div>
-  
-      <!--Textarea for demo purposes-->
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="代碼" [(ngModel)]="data.codeNo" name="codeNo" required>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">代碼</span>
+          <input matInput #input class="form-control" [(ngModel)]="data.codeNo" name="codeNo" required>
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
+        </div>
       </div>
-  
-      <!--Contains mat-hint for characters count and has maxLengt set-->
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #inputstate class="form-control" placeholder="描述" [(ngModel)]="data.codeDesc" name="codeDesc" required >
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">描述</span>
+          <input matInput #input class="form-control" [(ngModel)]="data.codeDesc" name="codeDesc" required>
           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
+        </div>
       </div>
-  
-      <div class="form">
-          <mat-form-field color="accent">
-            <input matInput placeholder="排序" [(ngModel)]="data.codeSort" name="codeSort" required>
-          </mat-form-field>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">排序</span>
+          <input matInput #input class="form-control" [(ngModel)]="data.codeSort" name="codeSort" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
       </div>
-  
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput placeholder="備註" [(ngModel)]="data.codeTag" name="codeTag">
-        </mat-form-field>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">備註</span>
+          <input matInput #input class="form-control" [(ngModel)]="data.codeTag" name="codeTag">
+        </div>
       </div>
-  
-      <div class="form">
-        <mat-form-field color="accent">
-          <mat-select [(ngModel)]="data.codeFlag" name="codeFlag" placeholder="是否停用" >
-            <mat-option *ngFor="let yn of ynCode" [value]="yn.value">
-              {{yn.viewValue}}
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">暫停使用</span>
+          <mat-select [(ngModel)]="data.codeFlag" name="codeFlag"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of ynCode" [value]="code.value">
+              {{code.viewValue}}
             </mat-option>
           </mat-select>
-        </mat-form-field>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
       </div>
-  
+
       <div mat-dialog-actions>
-        <button mat-button [type]="submit" [disabled]="!formControl.valid" (click)="confirmAdd()">Save</button>
-        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+          style="margin:0px 5px" (click)="confirmAdd()">儲存</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+          style="margin:0px 5px">取消</button>
       </div>
     </form>
   </div>
-  
+</div>

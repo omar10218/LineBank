@@ -9,99 +9,146 @@ import { Childscn8Service } from './childscn8.service';
 import { Childscn8addComponent } from './childscn8add/childscn8add.component';
 import { Childscn8editComponent } from './childscn8edit/childscn8edit.component';
 import { Childscn8deleteComponent } from './childscn8delete/childscn8delete.component';
+import { DatePipe } from '@angular/common'
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+
 
 //徵信照會table框架
 interface CALLOUTCode {
   APPLNO: string;
-  CALLOUT_DATE: string;
-  CON_MEMO: string;
-  CON_TARGET: string;
-  CON_TEL: string;
-  CUST_TYPE: string;
-  ID: string;
-  NOTE: string;
+  CON_TYPE: string;
   PHONE: string;
-  ROWNUM_: string;
-  CON_MEMO_View: string;
-  CON_TARGET_View: string;
-  CON_TEL_View: string;
+  TEL_CONDITION: string;
+  TEL_CHECK: string;
+  CON_MEMO: string;
+  CALLOUT_DATE: string;
+  CON_TYPE_View: string;
+  TEL_CONDITION_View: string;
+  TEL_CHECK_View: string;
+}
+
+//照會項目table框架
+interface MDtable {
+  MD_NO?: OptionsCode;
+  CHECK_DATA?: string;
+  REPLY_CONDITION?: string;
+  CHECK_NOTE?: string;
+  CHECK_DATE?: string;
+  CHECK_EMPNO?: string;
+}
+
+//徵信照會checkbox框架
+interface checkboxCode {
+  value: string;
+  viewValue: string;
+  checked: boolean;
 }
 //Nick 徵信照會
 @Component({
   selector: 'app-childscn8',
   templateUrl: './childscn8.component.html',
-  styleUrls: ['./childscn8.component.css', '../../../assets/css/f01.css']
+  styleUrls: ['./childscn8.component.css', '../../../assets/css/f03.css']
 })
 export class Childscn8Component implements OnInit {
 
   constructor(
     public dialog: MatDialog,
     private childscn8Service: Childscn8Service,
+    public datepipe: DatePipe
   ) { }
 
-  CON_TEL_Code: OptionsCode[] = [];//電話種類下拉選單
-  CON_TEL_Selected: string;//電話種類
-  CON_TEL_Value: string;//電話種類
-  CON_TARGET_Code: OptionsCode[] = [];//對象種類下拉選單
-  CON_TARGET_Selected: string;//對象種類
-  CON_TARGET_Value: string;//對象種類
-  CON_MEMO_Code: OptionsCode[] = [];//註記種類下拉選單
-  CON_MEMO_Selected: string;//註記種
-  CON_MEMO_Value: string;//註記種
+  private applno: string;
+  private search: string;
+  private empNo: string;
+
+  listOfData: readonly Data[] = [];//表單資料筆數設定
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
+
+  CON_TYPE_Code: OptionsCode[] = [];//聯絡方式下拉選單
+  CON_TYPE: string;//聯絡方式
+  TEL_CONDITION_Code: OptionsCode[] = [];//電話狀況下拉選單
+  TEL_CONDITION: string;//電話狀況
+  TEL_CHECK_Code: OptionsCode[] = [];//電話種類下拉選單
+  TEL_CHECK: string;//電話種類
+  HOURS_Code: OptionsCode[] = [];//時下拉選單
+  HOURS: string;//時種類
+  MINUTES_Code: OptionsCode[] = [];//分下拉選單
+  MINUTES: string;//分種類
 
   CALLOUTSource = new MatTableDataSource<any>();//table資料
   rspBodyList: CALLOUTCode[] = [];//table資料
   speakingData: any;//table資料
   rspBodyData: any;//table資料
-  currentPage: PageEvent; //表單資料筆數設定
 
-  private applno: string;
-  private search: string;
+
+
+  //照會項目 複選額外處理
+  MDtable: MDtable[] = [];
+  REPLY_CONDITION14code: checkboxCode[]
+    = [{ value: 'A', viewValue: '生活費用', checked: false },
+    { value: 'B', viewValue: '修繕房屋、汽車', checked: false },
+    { value: 'C', viewValue: '購置汽車', checked: false },
+    { value: 'D', viewValue: '教育、旅遊費用', checked: false },
+    { value: 'E', viewValue: '結婚基金', checked: false },
+    { value: 'F', viewValue: '代償他行', checked: false },
+    { value: 'G', viewValue: '醫療費用', checked: false },
+    { value: 'H', viewValue: '投資理財', checked: false },
+    { value: 'I', viewValue: '非本人使用', checked: false },
+    { value: 'J', viewValue: '週轉金', checked: false },
+    { value: 'Z', viewValue: '其他:', checked: false },];
+  REPLY_CONDITION17code: checkboxCode[]
+    = [{ value: 'K', viewValue: '網路得知', checked: false },
+    { value: 'L', viewValue: 'LINE Corp. 推播', checked: false },
+    { value: 'M', viewValue: '電視報章雜誌廣告', checked: false },
+    { value: 'N', viewValue: '他人介紹', checked: false },
+    { value: 'O', viewValue: 'LINE BANK 開戶', checked: false },
+    { value: 'Z', viewValue: '其他:', checked: false },];
+
+
+
 
   ngOnInit(): void {
+    this.getCALLOUTFunction(this.pageIndex, this.pageSize);//載入頁面
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
+    this.empNo = localStorage.getItem("empNo");
 
-    //表單資料筆數設定
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
+    this.childscn8Service.getSysTypeCode('HOURS')//時下拉選單
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.HOURS_Code.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    this.childscn8Service.getSysTypeCode('MINUTES')//分下拉選單
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.MINUTES_Code.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    this.childscn8Service.getSysTypeCode('MD_NO')//項目
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          let mdno: OptionsCode = { value: codeNo, viewValue: desc }
+          this.MDtable.push({ MD_NO: mdno, CHECK_DATA: '', REPLY_CONDITION: '', CHECK_NOTE: '', CHECK_DATE: '', CHECK_EMPNO: '' })
+        }
+      });
 
-    //取下拉選單資料
-    this.childscn8Service.getSysTypeCode('CON_TEL')//電話種類下拉選單
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.CON_TEL_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-    this.childscn8Service.getSysTypeCode('CON_TARGET')//對象種類下拉選單
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.CON_TARGET_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-    this.childscn8Service.getSysTypeCode('CON_MEMO')//註記種類下拉選單
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.CON_MEMO_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
+    console.log(this.MDtable);
   }
-  //表單資料筆數設定
-  ngAfterViewInit() {
-    this.getCALLOUTFunction();
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getCALLOUTFunction();
-    });
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getCALLOUTFunction(pageIndex, pageSize);
   }
 
   getSearch() {
@@ -115,20 +162,24 @@ export class Childscn8Component implements OnInit {
   //新增
   Add() {
     const dialogRef = this.dialog.open(Childscn8addComponent, {
-      minHeight: '100vh',
-      width: '50%',
+      minHeight: '30%',
+      width: '90%',
       data: {
         applno: this.applno,//收件編號
-        con_TEL: '',//電話種類
-        phone: '',//電話
-        con_TARGET: '',//對象種類
-        cust_TYPE: '',//對象註記
-        con_MEMO: '',//註記種類
-        note: '',//註記
-        ID: '',//java用row ID
-        CON_TEL_Code: this.CON_TEL_Code,//電話種類下拉選單
-        CON_TARGET_Code: this.CON_TARGET_Code,//對象種類下拉選單
-        CON_MEMO_Code: this.CON_MEMO_Code//註記種類下拉選單
+        CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+        CON_TYPE: '',//聯絡方式
+        TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+        TEL_CONDITION: '',//電話狀況
+        TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+        TEL_CHECK: '',//電話種類
+        HOURS_Code: this.HOURS_Code,//時下拉選單
+        HOURS: '',//時種類
+        MINUTES_Code: this.MINUTES_Code,//分下拉選單
+        MINUTES: '',//分種類
+        PHONE: '',//手機/市話
+        CON_MEMO: '',//備註
+        CALLOUT_DATE: '',//設定下次照會時間
+
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -138,21 +189,30 @@ export class Childscn8Component implements OnInit {
   }
 
   //編輯
-  startEdit(CON_TEL: string, PHONE: string, CON_TARGET: string, CUST_TYPE: string, CON_MEMO: string, NOTE: string, ID: string) {
+  startEdit(CON_TYPE: string, PHONE: string, TEL_CONDITION: string, TEL_CHECK: string, CON_MEMO: string, CALLOUT_DATE: string, ID: string) {
+    // console.log(this.datepipe.transform(CALLOUT_DATE, 'HH'));
+    // console.log(this.datepipe.transform(CALLOUT_DATE, 'mm'));
+
     const dialogRef = this.dialog.open(Childscn8editComponent, {
-      minHeight: '100vh',
-      width: '50%',
+      minHeight: '30%',
+      width: '90%',
       data: {
-        con_TEL: CON_TEL,//電話種類
-        phone: PHONE,//電話
-        con_TARGET: CON_TARGET,//對象種類
-        cust_TYPE: CUST_TYPE,//對象註記
-        con_MEMO: CON_MEMO,//註記種類
-        note: NOTE,//註記
+        applno: this.applno,//收件編號
+        CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+        CON_TYPE: CON_TYPE,//聯絡方式
+        TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+        TEL_CONDITION: TEL_CONDITION,//電話狀況
+        TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+        TEL_CHECK: TEL_CHECK,//電話種類
+        HOURS_Code: this.HOURS_Code,//時下拉選單
+        HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
+        MINUTES_Code: this.MINUTES_Code,//分下拉選單
+        MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
+        PHONE: PHONE,//手機/市話
+        CON_MEMO: CON_MEMO,//備註
+        CALLOUT_DATE: CALLOUT_DATE,//設定下次照會時間
         ID: ID,//java用row ID
-        CON_TEL_Code: this.CON_TEL_Code,//電話種類下拉選單
-        CON_TARGET_Code: this.CON_TARGET_Code,//對象種類下拉選單
-        CON_MEMO_Code: this.CON_MEMO_Code//註記種類下拉選單
+
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -162,25 +222,29 @@ export class Childscn8Component implements OnInit {
   }
 
   //刪除
-  deleteItem(CON_TEL: string, PHONE: string, CON_TARGET: string, CUST_TYPE: string, CON_MEMO: string, NOTE: string, ID: string) {
+  deleteItem(CON_TYPE: string, PHONE: string, TEL_CONDITION: string, TEL_CHECK: string, CON_MEMO: string, CALLOUT_DATE: string, ID: string) {
     const dialogRef = this.dialog.open(Childscn8deleteComponent, {
-      minHeight: '100vh',
-      width: '50%',
+      minHeight: '30%',
+      width: '90%',
       data: {
-        con_TEL: CON_TEL,//電話種類
-        phone: PHONE,//電話
-        con_TARGET: CON_TARGET,//對象種類
-        cust_TYPE: CUST_TYPE,//對象註記
-        con_MEMO: CON_MEMO,//註記種類
-        note: NOTE,//註記
+        applno: this.applno,//收件編號
+        CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+        CON_TYPE: CON_TYPE,//聯絡方式
+        TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+        TEL_CONDITION: TEL_CONDITION,//電話狀況
+        TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+        TEL_CHECK: TEL_CHECK,//電話種類
+        HOURS_Code: this.HOURS_Code,//時下拉選單
+        HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
+        MINUTES_Code: this.MINUTES_Code,//分下拉選單
+        MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
+        PHONE: PHONE,//手機/市話
+        CON_MEMO: CON_MEMO,//備註
+        CALLOUT_DATE: CALLOUT_DATE,//設定下次照會時間
         ID: ID,//java用row ID
-        CON_TEL_Code: this.CON_TEL_Code,//電話種類下拉選單
-        CON_TARGET_Code: this.CON_TARGET_Code,//對象種類下拉選單
-        CON_MEMO_Code: this.CON_MEMO_Code//註記種類下拉選單
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
     });
   }
@@ -188,50 +252,112 @@ export class Childscn8Component implements OnInit {
 
   //刷新Table
   private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
+    this.getCALLOUTFunction(this.pageIndex, this.pageSize);
   }
 
   //取Table
-  private async getCALLOUTFunction() {
+  private async getCALLOUTFunction(pageIndex: number, pageSize: number) {
     const baseUrl = 'f01/childscn8scn1';
-    this.childscn8Service.getCALLOUT(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, this.applno).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize
+    jsonObject['applno'] = this.applno
+    this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
+      console.log('data');
+      console.log(data);
       this.rspBodyData = data.rspBody;
       this.rspBodyList = data.rspBody.list;
       this.speakingData = data.rspBody.speaking;
       if (this.rspBodyList.length > 0) {
         for (let i = 0; i < this.rspBodyList.length; i++) {
-          this.rspBodyList[i].CON_TEL_View = this.getSelectView('CON_TEL', this.rspBodyList[i].CON_TEL);
-          this.rspBodyList[i].CON_TARGET_View = this.getSelectView('CON_TARGET', this.rspBodyList[i].CON_TARGET);
-          this.rspBodyList[i].CON_MEMO_View = this.getSelectView('CON_MEMO', this.rspBodyList[i].CON_MEMO);
+          this.rspBodyList[i].CON_TYPE_View = this.getSelectView('CON_TYPE', this.rspBodyList[i].CON_TYPE);
+          this.rspBodyList[i].TEL_CONDITION_View = this.getSelectView('TEL_CONDITION', this.rspBodyList[i].TEL_CONDITION);
+          this.rspBodyList[i].TEL_CHECK_View = this.getSelectView('TEL_CHECK', this.rspBodyList[i].TEL_CHECK);
+        }
+      }
+      //取下拉選單資料
+      if (this.CON_TYPE_Code.length < 1) {
+        for (const jsonObj of data.rspBody.conType) {//聯絡方式下拉選單
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.CON_TYPE_Code.push({ value: codeNo, viewValue: desc })
+        }
+      }
+      if (this.TEL_CONDITION_Code.length < 1) {
+        for (const jsonObj of data.rspBody.telCondition) {//電話狀況下拉選單
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.TEL_CONDITION_Code.push({ value: codeNo, viewValue: desc })
+        }
+      }
+      if (this.TEL_CHECK_Code.length < 1) {
+        for (const jsonObj of data.rspBody.telCheck) {//電話種類下拉選單
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.TEL_CHECK_Code.push({ value: codeNo, viewValue: desc })
+        }
+      }
+
+      //照會項目
+      for (const calloutItemsData of data.rspBody.calloutItemsList) {
+        for (const calloutData of this.MDtable) {
+          if (calloutItemsData.checkItem == calloutData.MD_NO.value) {//比對項目代碼
+            calloutData.CHECK_DATA = calloutItemsData.checkData;//核對資瞭
+            calloutData.CHECK_DATE = calloutItemsData.checkDate.split("T")[0] + " " +//日期轉換
+              calloutItemsData.checkDate.split("T")[1].split(".")[0];
+            calloutData.CHECK_EMPNO = calloutItemsData.checkEmpno;//確認人員
+            calloutData.CHECK_NOTE = calloutItemsData.checkNote;//其他備註
+            calloutData.REPLY_CONDITION = calloutItemsData.replyCondition;//回答狀況
+            //回答狀況 載入時 多選另外處理
+            if(calloutItemsData.checkItem=="13" && calloutItemsData.replyCondition!=null){
+              let REPLY_CONDITION14=calloutItemsData.replyCondition.split(",");
+              for(const data of REPLY_CONDITION14)
+              {
+                for(const datacode of this.REPLY_CONDITION14code){
+                  datacode.checked=data==datacode.value?true:datacode.checked;
+                }
+              }
+            }else if (calloutItemsData.checkItem=="16" && calloutItemsData.replyCondition!=null ){
+              let REPLY_CONDITION17=calloutItemsData.replyCondition.split(",");
+              for(const data of REPLY_CONDITION17)
+              {
+                for(const datacode of this.REPLY_CONDITION17code){
+                  datacode.checked=data==datacode.value?true:datacode.checked;
+                }
+              }
+            }
+          }
         }
       }
       this.CALLOUTSource.data = this.rspBodyList;
       this.totalCount = data.rspBody.size;
+      console.log(this.CALLOUTSource.data) ;
     });
+    this.loading = false;
   }
 
   //下拉選單資料轉換
   getSelectView(key: string, value: string): string {
     var result = "";
     switch (key) {
-      case "CON_TEL": {//電話種類下拉選單
-        for (const data of this.rspBodyData.conTel) {
+      case "CON_TYPE": {//聯絡方式下拉選單
+        for (const data of this.rspBodyData.conType) {
           if (data.codeNo == value) {
             result = data.codeDesc;
           }
         }
         break;
       }
-      case "CON_TARGET": {//對象種類下拉選單
-        for (const data of this.rspBodyData.conTarget) {
+      case "TEL_CONDITION": {//電話狀況下拉選單
+        for (const data of this.rspBodyData.telCondition) {
           if (data.codeNo == value) {
             result = data.codeDesc;
           }
         }
         break;
       }
-      default: {//註記種類下拉選單
-        for (const data of this.rspBodyData.conMemo) {
+      default: {//電話驗證下拉選單
+        for (const data of this.rspBodyData.telCheck) {
           if (data.codeNo == value) {
             result = data.codeDesc;
           }
@@ -245,6 +371,72 @@ export class Childscn8Component implements OnInit {
   ShowspeakingContenta(speakingContent: string): void {
     const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: speakingContent } });
     // alert(speakingContent);
+  }
+
+  //照會項目儲存
+  async save() {
+
+    let msgStr: string = "";
+    let codeStr: string = "";
+    let checkItem = "";
+    let checkData = "";
+    let replyCondition = "";
+    let checkNote = "";
+
+         // 多選先做另外處理
+     this.MDtable[13].REPLY_CONDITION = "";//共20筆0開始
+     for (var data of this.REPLY_CONDITION14code) {//共20筆1開始
+       if (data.checked) { this.MDtable[13].REPLY_CONDITION += data.value + ","; }
+     }
+     this.MDtable[16].REPLY_CONDITION = "";//共20筆0開始
+     for (var data of this.REPLY_CONDITION17code) {//共20筆1開始
+       if (data.checked) { this.MDtable[16].REPLY_CONDITION += data.value + ","; }
+     }
+     //有資料則消除最後一筆分隔記號
+     this.MDtable[13].REPLY_CONDITION = this.MDtable[13].REPLY_CONDITION.length > 0 ?
+       this.MDtable[13].REPLY_CONDITION.slice(0, this.MDtable[13].REPLY_CONDITION.length - 1) :
+       this.MDtable[13].REPLY_CONDITION;
+
+     this.MDtable[16].REPLY_CONDITION = this.MDtable[16].REPLY_CONDITION.length > 0 ?
+       this.MDtable[16].REPLY_CONDITION.slice(0, this.MDtable[16].REPLY_CONDITION.length - 1) :
+       this.MDtable[16].REPLY_CONDITION;
+
+     console.log('this.MDtable[13].REPLY_CONDITION');
+     console.log(this.MDtable[13].REPLY_CONDITION);
+     console.log('this.MDtable[16].REPLY_CONDITION');
+     console.log(this.MDtable[16].REPLY_CONDITION);
+
+    for (const calloutData of this.MDtable) {
+      checkItem+=calloutData.MD_NO.value+",";
+      checkData+=(calloutData.CHECK_DATA!="" && calloutData.CHECK_DATA!=null)?calloutData.CHECK_DATA+",":"*,";
+      replyCondition+=(calloutData.REPLY_CONDITION!="" && calloutData.REPLY_CONDITION!=null)?calloutData.REPLY_CONDITION+"-":"*-";
+      checkNote+=(calloutData.CHECK_NOTE!="" && calloutData.CHECK_NOTE!=null)?calloutData.CHECK_NOTE+",":"*,";
+    }
+      //有資料則消除最後一筆分隔記號
+      checkItem = checkItem.length > 0 ?checkItem.slice(0, checkItem.length - 1) :checkItem;
+      checkData = checkData.length > 0 ?checkData.slice(0, checkData.length - 1) :checkData;
+      replyCondition = replyCondition.length > 0 ?replyCondition.slice(0, replyCondition.length - 1) :replyCondition;
+      checkNote = checkNote.length > 0 ?checkNote.slice(0, checkNote.length - 1) :checkNote;
+
+    const baseUrl = 'f01/childscn8action5';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['empNo'] = this.empNo;
+    jsonObject['checkItem'] = checkItem;
+    jsonObject['checkData'] = checkData;
+    jsonObject['replyCondition'] = replyCondition;
+    jsonObject['checkNote'] = checkNote;
+    console.log('console.log(jsonObject);');
+    console.log(jsonObject);
+    await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
+      console.log('data');
+      console.log(data);
+      codeStr = data.rspCode;
+      msgStr = data.rspMsg;
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+    });
   }
 
 }

@@ -1,66 +1,174 @@
-<div class="container">
-  <h2 mat-dialog-title>確定要刪除此筆徵信照會？</h2>
-  <form class="mat-dialog-content"  #formControl="ngForm">
-
-    <div class="form">
-      <th nowrap="nowrap">電話種類</th>
-      <mat-form-field color="accent">
-        <mat-select disabled="disabled" [(ngModel)]="data.con_TEL" name="con_TEL">
-          <mat-option *ngFor="let code of data.CON_TEL_Code" [value]="code.value">
-            {{code.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="form">
-      <th nowrap="nowrap">電話</th>
-      <mat-form-field color="accent">
-        <textarea matInput disabled="disabled"  [(ngModel)]="data.phone"
-          name="PHONE"></textarea>
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form">
-      <th nowrap="nowrap">對象種類</th>
-      <mat-form-field color="accent">
-        <mat-select disabled="disabled" [(ngModel)]="data.con_TARGET" name="con_TARGET">
-          <mat-option *ngFor="let code of data.CON_TARGET_Code" [value]="code.value">
-            {{code.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="form">
-      <th nowrap="nowrap">對象註記</th>
-      <mat-form-field color="accent">
-        <textarea disabled="disabled" matInput  [(ngModel)]="data.cust_TYPE"
-          name="CUST_TYPE"></textarea>
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form">
-      <th nowrap="nowrap">註記種類</th>
-      <mat-form-field color="accent">
-        <mat-select disabled="disabled" [(ngModel)]="data.con_MEMO" name="con_MEMO">
-          <mat-option *ngFor="let code of data.CON_MEMO_Code" [value]="code.value">
-            {{code.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="form">
-      <th nowrap="nowrap">註記</th>
-      <mat-form-field color="accent">
-        <textarea disabled="disabled" matInput  [(ngModel)]="data.note"
-          name="NOTE"></textarea>
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
-
-    <div mat-dialog-actions>
-      <button mat-button  [mat-dialog-close]="1" (click)="deleteAction(data.ID)">delete</button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
-    </div>
-  </form>
+<!-- <div class="container">
+  <h2 mat-dialog-title style="display: inline;">確定要刪除此筆徵信照會？</h2>
+  <span style="margin-left: 25px;"><button mat-raised-button color="accent" (click)="deleteAction(data.ID)">刪除</button></span>
+  <span style="margin-left: 25px;"><button mat-raised-button color="accent" (click)="onNoClick()">關閉</button></span>
+  <table>
+    <br>
+    <mat-card class="matCard">
+      <mat-card-content>
+        <tr>
+          <th nowrap="nowrap">電話種類</th>
+          <td>
+            <mat-form-field color="accent">
+              <mat-select disabled="disabled" [(ngModel)]="data.con_TEL" name="con_TEL">
+                <mat-option *ngFor="let code of data.CON_TEL_Code" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap">電話</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #inputstate class="form-control" [(ngModel)]="data.phone" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap">對象種類</th>
+          <td>
+            <mat-form-field color="accent">
+              <mat-select disabled="disabled" [(ngModel)]="data.con_TARGET" name="con_TARGET">
+                <mat-option *ngFor="let code of data.CON_TARGET_Code" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap">對象註記</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #inputstate class="form-control" [(ngModel)]="data.cust_TYPE" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <th nowrap="nowrap">註記種類</th>
+          <td>
+            <mat-form-field color="accent">
+              <mat-select disabled="disabled" [(ngModel)]="data.con_MEMO" name="con_MEMO">
+                <mat-option *ngFor="let code of data.CON_MEMO_Code" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <th nowrap="nowrap">註記</th>
+          <td>
+            <mat-form-field color="accent">
+              <input matInput #inputstate class="form-control" [(ngModel)]="data.note" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+      </mat-card-content>
+    </mat-card>
+  </table>
 </div>
+ -->
+
+ <form  #formControl="ngForm">
+  <div class="container">
+    <h2 mat-dialog-title style="display: inline;">確定要刪除此筆徵信照會？</h2>
+    <span style="margin-left: 25px;"><button mat-raised-button color="accent"
+         (click)="deleteAction(data.ID)">刪除</button></span>
+    <span style="margin-left: 25px;"><button mat-raised-button color="accent" (click)="onNoClick()">關閉</button></span>
+    <table>
+      <br>
+      <mat-card class="matCard">
+        <mat-card-content>
+
+          <tr>
+            <th nowrap="nowrap">聯絡方式</th>
+            <td style="width:200px;">
+              <mat-radio-group fxLayout="column" [(ngModel)]="data.CON_TYPE" name="CON_TYPE" disabled >
+                <mat-radio-button *ngFor="let code of data.CON_TYPE_Code" [value]="code.value">
+                  <tr>
+                    <td>
+                      {{code.viewValue}}
+                    </td>
+                  </tr>
+                </mat-radio-button>
+              </mat-radio-group>
+            </td>
+
+            <th nowrap="nowrap">手機/市話</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput #inputstate class="form-control" [(ngModel)]="data.PHONE" name="PHONE" disabled>
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </td>
+
+            <th nowrap="nowrap">電話狀況</th>
+            <td>
+              <mat-radio-group fxLayout="column" [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" disabled>
+                <mat-radio-button *ngFor="let code of data.TEL_CONDITION_Code" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </td>
+
+            <th nowrap="nowrap">電話驗證</th>
+            <td>
+              <mat-radio-group fxLayout="column" [(ngModel)]="data.TEL_CHECK" name="TEL_CHECK" disabled>
+                <mat-radio-button *ngFor="let code of data.TEL_CHECK_Code" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-radio-button>
+              </mat-radio-group>
+            </td>
+          </tr>
+
+          <tr>
+
+            <th nowrap="nowrap">設定下次照會時間</th>
+            <td>
+              <mat-form-field color="accent">
+                <input matInput [matDatepicker]="CALLOUT_DATE" [(ngModel)]="data.CALLOUT_DATE"
+                  name="CALLOUT_DATE" disabled >
+                <mat-datepicker-toggle matSuffix [for]="CALLOUT_DATE"></mat-datepicker-toggle>
+                <mat-datepicker #CALLOUT_DATE></mat-datepicker>
+              </mat-form-field>
+            </td>
+
+            <th nowrap="nowrap">時</th>
+            <td>
+              <mat-form-field color="accent">
+                <mat-select [(ngModel)]="data.HOURS" name="HOURS" disabled >
+                  <mat-option *ngFor="let code of data.HOURS_Code" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </td>
+
+            <th nowrap="nowrap">分</th>
+            <td>
+              <mat-form-field color="accent">
+                <mat-select [(ngModel)]="data.MINUTES" name="MINUTES" disabled >
+                  <mat-option *ngFor="let code of data.MINUTES_Code" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </td>
+
+          </tr>
+          <tr>
+            <th nowrap="nowrap">備註</th>
+            <td colspan="6">
+              <mat-form-field color="accent">
+                <input matInput #inputstate class="form-control" [(ngModel)]="data.CON_MEMO" name="CON_MEMO" disabled>
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </mat-card-content>
+      </mat-card>
+    </table>
+  </div>
+</form>
+
 

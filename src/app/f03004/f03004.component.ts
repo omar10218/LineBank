@@ -9,76 +9,81 @@ import { F03004addComponent } from './f03004add/f03004add.component';
 import { F03004editComponent } from './f03004edit/f03004edit.component';
 import { F03004Service } from './f03004.service';
 import { OptionsCode } from '../interface/base';
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-f03004',
   templateUrl: './f03004.component.html',
-  styleUrls: ['./f03004.component.css','../../assets/css/f03.css']
+  styleUrls: ['./f03004.component.css', '../../assets/css/f03.css']
 })
-export class F03004Component implements OnInit, AfterViewInit  {
+export class F03004Component implements OnInit, AfterViewInit {
+
+  constructor(
+    private f03004Service: F03004Service,
+    public dialog: MatDialog
+  ) { }
+
+  mappingCodeSource: Data[] = [];
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
   sysCode: OptionsCode[] = [];
   selectedValue: string;
-  constructor(private f03004Service: F03004Service, public dialog: MatDialog) { }
+
   ngOnInit(): void {
     const baseUrl = 'f03/f03004';
     this.f03004Service.getSysTypeCode(baseUrl).subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
-        this.sysCode.push({value: codeNo, viewValue: desc})
+        this.sysCode.push({ value: codeNo, viewValue: desc })
       }
     });
   }
-//============================================================
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent;
-  currentSort: Sort;
-  mappingCodeSource = new MatTableDataSource<any>();
+
   ngAfterViewInit() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getMappingCode();
-    });
+    this.getMappingCode(this.pageIndex, this.pageSize);
   }
 
   changeSort(sortInfo: Sort) {
-    this.currentSort = sortInfo;
-    this.getMappingCode();
+    this.getMappingCode(this.pageIndex, this.pageSize);
   }
 
-  getMappingCode() {
+  getMappingCode(pageIndex: number, pageSize: number) {
     const baseUrl = 'f03/f03004action1';
-    this.f03004Service.getMappingCodeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, this.selectedValue)
-    .subscribe(data => {
-      this.totalCount = data.rspBody.size;
-      this.mappingCodeSource.data = data.rspBody.items;
-    });
+    let jsonObject: any = {};
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    jsonObject['codeType'] = this.selectedValue;
+    this.f03004Service.getMappingCodeList(baseUrl, jsonObject)
+      .subscribe(data => {
+        this.loading = false;
+        this.total = data.rspBody.size;
+        this.mappingCodeSource = data.rspBody.items;
+      });
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.mappingCodeSource.filter = filterValue.trim().toLowerCase();
+  // applyFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.mappingCodeSource.filter = filterValue.trim().toLowerCase();
+  // }
+
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
   }
 
   changeSelect() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.paginator.firstPage();
-    this.getMappingCode();
+    this.changePage();
+    this.getMappingCode(this.pageIndex, this.pageSize);
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getMappingCode(pageIndex, pageSize);
   }
 
   addNew() {
@@ -86,45 +91,50 @@ export class F03004Component implements OnInit, AfterViewInit  {
       alert('請選擇：代碼類別');
     } else {
       const dialogRef = this.dialog.open(F03004addComponent, {
+        minHeight: '70vh',
+        width: '50%',
         data: {
-                codeType: this.selectedValue,
-                codeNo : '' , codeDesc: '',
-                codeSort: '', codeTag: '',
-                codeFlag: 'N'
-              }
+          codeType: this.selectedValue,
+          codeNo: '', codeDesc: '',
+          codeSort: '', codeTag: '',
+          codeFlag: 'N'
+        }
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { this.refreshTable(); }
+        if (result != null && result.event == 'success') {
+          this.changePage();
+          this.getMappingCode(this.pageIndex, this.pageSize);
+        }
       });
     }
   }
 
-  startEdit(i: number,
+  startEdit(
     codeType: string, codeNo: string, codeDesc: string,
     codeSort: string, codeTag: string, codeFlag: string) {
-      const dialogRef = this.dialog.open(F03004editComponent, {
-        data: {
-          codeType: codeType, codeNo : codeNo , codeDesc: codeDesc,
-          codeSort: codeSort, codeTag: codeTag, codeFlag: codeFlag
-              }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { this.refreshTable(); }
-      });
+    const dialogRef = this.dialog.open(F03004editComponent, {
+      minHeight: '70vh',
+      width: '50%',
+      data: {
+        codeType: codeType, codeNo: codeNo, codeDesc: codeDesc,
+        codeSort: codeSort, codeTag: codeTag, codeFlag: codeFlag
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') {
+        this.changePage();
+        this.getMappingCode(this.pageIndex, this.pageSize);
+      }
+    });
   }
 
   Clear() {
     this.selectedValue = "";
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.mappingCodeSource.data = null;
+    this.mappingCodeSource = null;
   }
 
   private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
+    //this.paginator._changePageSize(this.paginator.pageSize);
   }
 
 }

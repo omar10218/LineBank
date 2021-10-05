@@ -1,3 +1,4 @@
+import { NgZorroAntdModule } from './../ngzorro/ng-zorro-antd.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
@@ -111,8 +112,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
     ReactiveFormsModule,
     ChildrenRoutingModule,
     CommonLibModule,
-    NzGridModule,
-    NzCheckboxModule,
+    NgZorroAntdModule
   ]
 })
 export class ChildrenModule { }
