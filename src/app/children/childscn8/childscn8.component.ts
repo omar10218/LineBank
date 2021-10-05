@@ -309,7 +309,7 @@ export class Childscn8Component implements OnInit {
             calloutData.CHECK_NOTE = calloutItemsData.checkNote;//其他備註
             calloutData.REPLY_CONDITION = calloutItemsData.replyCondition;//回答狀況
             //回答狀況 載入時 多選另外處理
-            if(calloutItemsData.checkItem=="14" && calloutItemsData.replyCondition!=null){
+            if(calloutItemsData.checkItem=="13" && calloutItemsData.replyCondition!=null){
               let REPLY_CONDITION14=calloutItemsData.replyCondition.split(",");
               for(const data of REPLY_CONDITION14)
               {
@@ -317,7 +317,7 @@ export class Childscn8Component implements OnInit {
                   datacode.checked=data==datacode.value?true:datacode.checked;
                 }
               }
-            }else if (calloutItemsData.checkItem=="17" && calloutItemsData.replyCondition!=null ){
+            }else if (calloutItemsData.checkItem=="16" && calloutItemsData.replyCondition!=null ){
               let REPLY_CONDITION17=calloutItemsData.replyCondition.split(",");
               for(const data of REPLY_CONDITION17)
               {
