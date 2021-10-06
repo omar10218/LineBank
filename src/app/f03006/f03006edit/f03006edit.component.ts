@@ -9,7 +9,7 @@ import { F03006Service } from '../f03006.service';
 @Component({
   selector: 'app-f03006edit',
   templateUrl: './f03006edit.component.html',
-  styleUrls: ['./f03006edit.component.css']
+  styleUrls: ['./f03006edit.component.css', '.../../../assets/css/f03.css']
 })
 export class F03006editComponent {
 

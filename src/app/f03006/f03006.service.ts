@@ -15,7 +15,7 @@ export class F03006Service extends BaseService {
 
   //取得Table
   getEmployeeList(baseUrl: string, pageIndex: number, pageSize: number, formData: FormData): Observable<any> {
-    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
+    let targetUrl = `${baseUrl}?page=${pageIndex }&per_page=${pageSize}`;
     return this.postFormData(targetUrl, formData);
   }
 
@@ -36,11 +36,15 @@ export class F03006Service extends BaseService {
     formdata.append('email', data.EMAIL);
     formdata.append('assignStop', data.ASSIGN_STOP);
     formdata.append('assignProjectno', data.ASSIGN_PROJECTNO)
-    if ( data.LEAVE_STARTDATE != null ) {
+    console.log('data.LEAVE_STARTDATE');
+    console.log(data.LEAVE_STARTDATE);
+    console.log('data.LEAVE_ENDDATE');
+    console.log(data.LEAVE_ENDDATE);
+    if ( data.LEAVE_STARTDATE != null && data.LEAVE_STARTDATE != "" ) {
       formdata.append('leaveStartdateType', data.LEAVE_STARTDATE_TYPE);
       formdata.append('leaveStartdate',  this.pipe.transform( new Date(data.LEAVE_STARTDATE) , 'yyyyMMdd' ) );
     }
-    if ( data.LEAVE_ENDDATE != null ) {
+    if ( data.LEAVE_ENDDATE != null && data.LEAVE_ENDDATE_TYPE != "" ) {
       formdata.append('leaveEnddateType', data.LEAVE_ENDDATE_TYPE);
       formdata.append('leaveEnddate', this.pipe.transform( new Date(data.LEAVE_ENDDATE) , 'yyyyMMdd' ) );
     }

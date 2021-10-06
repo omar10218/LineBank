@@ -1,8 +1,6 @@
 import { DatePipe } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { F03006Service } from './f03006.service';
 import { F03006addComponent } from './f03006add/f03006add.component';
@@ -10,6 +8,8 @@ import { F03006editComponent } from './f03006edit/f03006edit.component';
 import { F03006roleComponent } from './f03006role/f03006role.component';
 import { RoleItem, OptionsCode } from '../interface/base';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 //角色checkBox框架
 interface checkBox {
@@ -23,18 +23,25 @@ interface checkBox {
   templateUrl: './f03006.component.html',
   styleUrls: ['./f03006.component.css', '../../assets/css/f03.css']
 })
-export class F03006Component implements OnInit, AfterViewInit {
+export class F03006Component implements OnInit {
 
   constructor(
     private f03006Service: F03006Service,
     public dialog: MatDialog,
-    private pipe: DatePipe
-  ) { }
+    private pipe: DatePipe,
+    private nzI18nService: NzI18nService,
+  ) {
+    this.nzI18nService.setLocale(zh_TW)
+  }
+
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
 
   agent_empCode: OptionsCode[] = [];//代理人
   levelStartDateTypeCode: OptionsCode[] = [];//日期種類起
   levelEndDateTypeCode: OptionsCode[] = [];//日期種類迄
-  //levelTypeCode: sysCode[] = [];//日期種類
   projectCode: OptionsCode[] = [];//派件專案代碼
   roleCode: OptionsCode[] = [];//角色
   on_jobCode: OptionsCode[] = [];//是否在職
@@ -55,16 +62,12 @@ export class F03006Component implements OnInit, AfterViewInit {
   levelEndDateValue: Date;//請假迄日類型
   levelEndDateString: string;//請假迄日類型值
 
-  totalCount: any;//表單資料筆數設定
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent;
-  currentSort: Sort;
-
   employeeSource = new MatTableDataSource<any>();//組織人員維護Table
   empRoleSource = new MatTableDataSource<RoleItem>();//角色Table
 
   ngOnInit(): void {
+    this.getEmployeeList(this.pageIndex, this.pageSize);
+
     const baseUrl = 'f03/f03006';//代理人
     this.f03006Service.getEmployeeSysTypeCode(baseUrl)
       .subscribe(data => {
@@ -87,12 +90,6 @@ export class F03006Component implements OnInit, AfterViewInit {
           this.projectCode.push({ value: codeNo, viewValue: desc })
         }
 
-        // for (const jsonObj of data.rspBody.roleList) {//角色
-        //   const codeNo = jsonObj.codeNo;
-        //   const desc = jsonObj.codeDesc;
-        //   this.roleCode.push({ value: codeNo, viewValue: desc })
-        // }
-
         this.assign_stopCode.push({ value: "", viewValue: "請選擇" })//是否停派//是否在職
         for (const jsonObj of data.rspBody.ynList) {
           const codeNo = jsonObj.codeNo;
@@ -106,25 +103,19 @@ export class F03006Component implements OnInit, AfterViewInit {
 
   }
 
-  //表單資料筆數設定
-  ngAfterViewInit() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getEmployeeList();
-    });
+    //切換查詢選項
+    changeSelect() {
+      this.getEmployeeList(this.pageIndex, this.pageSize);
+    }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getEmployeeList(pageIndex, pageSize);
+    console.log(pageSize);console.log(pageIndex);
   }
 
   //取得表單資料
-  getEmployeeList() {
+  getEmployeeList(pageIndex: number, pageSize: number) {
     let formData = new FormData();
     formData.append('empNo', this.empNoValue != null ?　this.empNoValue : '');//員工編號
     formData.append('empName', this.empNameValue != null ?　this.empNameValue : '');//員工姓名
@@ -143,18 +134,19 @@ export class F03006Component implements OnInit, AfterViewInit {
       formData.append('leaveEnddate', this.pipe.transform( new Date(this.levelEndDateString) , 'yyyyMMdd' ) );
     }
     const baseUrl = 'f03/f03006action1';
-    this.f03006Service.getEmployeeList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize,formData)
+    this.f03006Service.getEmployeeList(baseUrl, pageIndex, pageSize,formData)
       .subscribe(data => {
         console.log(data);
-        this.totalCount = data.rspBody.size;
-        console.log(this.totalCount);
-        if(this.totalCount==0){
+        this.total = data.rspBody.size;
+        console.log(this.total);
+        if(this.total==0){
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "查無資料!" }
           });
         }
         this.employeeSource.data = data.rspBody.items;
       });
+      this.loading = false;
   }
 
   //清除資料
@@ -173,30 +165,11 @@ export class F03006Component implements OnInit, AfterViewInit {
     this.levelStartDateString= '';//請假起日
     this.levelEndDateValue=undefined;//請假迄日
     this.levelEndDateString= '';//請假迄日
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
+
     this.employeeSource.data = null;
   }
 
-  //切換頁籤
-  changeSort(sortInfo: Sort) {
-    this.currentSort = sortInfo;
-    this.getEmployeeList();
-  }
 
-  //切換查詢選項
-  changeSelect() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.paginator.firstPage();
-    this.getEmployeeList();
-  }
 
   //取得下拉選單中文
   getOptionDesc(option: OptionsCode[], codeVal: string): string {
@@ -236,6 +209,8 @@ export class F03006Component implements OnInit, AfterViewInit {
   //新增
   addNew() {
     const dialogRef = this.dialog.open(F03006addComponent, {
+      minHeight: '70vh',
+      width: '50%',
       data: {
         EMP_NO: '',//員工編號
         EMP_NAME: '',//員工姓名
@@ -272,6 +247,8 @@ export class F03006Component implements OnInit, AfterViewInit {
   ) {
 
     const dialogRef = this.dialog.open(F03006editComponent, {
+      minHeight: '70vh',
+      width: '50%',
       data: {
 
         EMP_NO: EMP_NO,//員工編號
@@ -315,7 +292,7 @@ export class F03006Component implements OnInit, AfterViewInit {
 
   //刷新頁面
   private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
+    this.getEmployeeList(this.pageIndex, this.pageSize);
   }
 
 }

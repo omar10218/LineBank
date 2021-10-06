@@ -8,15 +8,11 @@ import { F03006Service } from '../f03006.service';
 @Component({
   selector: 'app-f03006add',
   templateUrl: './f03006add.component.html',
-  styleUrls: ['./f03006add.component.css']
+  styleUrls: ['./f03006add.component.css', '.../../../assets/css/f03.css']
 })
 export class F03006addComponent implements OnInit {
 
   dateType: OptionsCode[];
-  // ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
-  // surrogateCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
-  // unitCode: sysCode[] = [];
-  // groupCode: sysCode[] = [];
   levelStartDateValue: Date;
   levelEndDateValue: Date;
   constructor(public dialogRef: MatDialogRef<F03006addComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public f03006Service: F03006Service, public dialog: MatDialog) { }
@@ -29,7 +25,6 @@ export class F03006addComponent implements OnInit {
 
   formControl = new FormControl('', [
     Validators.required
-    // Validators.email,
   ]);
 
   getErrorMessage() {

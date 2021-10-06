@@ -1,4 +1,138 @@
-<div class="container">
+<div class="line_bank_card_no_padding" style="min-height:170px">
+  <div class="line_bank_form_header_title">組織人員維護-編輯</div>
+  <div class="container" style="padding:20px">
+    <form class="mat-dialog-content" #formControl="ngForm">
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">員工編號</span>
+          <input matInput #input class="form-control" [(ngModel)]="data.EMP_NO" name="EMP_NO" disabled>
+        </div>
+      </div>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">員工姓名</span>
+          <input matInput #input class="form-control" [(ngModel)]="data.EMP_NAME" name="EMP_NAME" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">員工ID</span>
+          <input matInput #input class="form-control" [(ngModel)]="data.EMP_ID" name="EMP_ID" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">是否在職</span>
+          <mat-select [(ngModel)]="data.ON_JOB" name="ON_JOB" required
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of data.on_jobCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">EMAIL</span>
+          <input matInput #input class="form-control" [(ngModel)]="data.EMAIL" name="EMAIL" required>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
+
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">是否停派</span>
+          <mat-select [(ngModel)]="data.ASSIGN_STOP" name="ASSIGN_STOP" required
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of data.assign_stopCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+        </div>
+      </div>
+
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">代理人</span>
+          <mat-select [(ngModel)]="data.AGENT_EMP" name="AGENT_EMP"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of data.agent_empCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">派件專案代碼</span>
+          <mat-select [(ngModel)]="data.ASSIGN_PROJECTNO" name="ASSIGN_PROJECTNO"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of data.projectCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">請假起日</span>
+          <mat-form-field color="accent">
+            <input (dateChange)="changeDATE_TYPE('Start')" matInput [matDatepicker]="levelStartDateValue" [(ngModel)]="data.LEAVE_STARTDATE"
+              name="LEAVE_STARTDATE">
+            <mat-datepicker-toggle matSuffix [for]="levelStartDateValue"></mat-datepicker-toggle>
+            <mat-datepicker #levelStartDateValue></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">請架起日類型</span>
+          <mat-select [(ngModel)]="data.LEAVE_STARTDATE_TYPE" name="LEAVE_STARTDATE_TYPE"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of data.levelStartDateTypeCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">請假迄日</span>
+          <mat-form-field color="accent">
+            <input (dateChange)="changeDATE_TYPE('End')" matInput [matDatepicker]="levelEndDateValue" [(ngModel)]="data.LEAVE_ENDDATE"
+              name="LEAVE_ENDDATE">
+            <mat-datepicker-toggle matSuffix [for]="levelEndDateValue"></mat-datepicker-toggle>
+            <mat-datepicker #levelEndDateValue></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form" style="padding:20px">
+        <div><span class="form-title-actions">請假迄日類型</span>
+          <mat-select [(ngModel)]="data.LEAVE_ENDDATE_TYPE" name="LEAVE_ENDDATE_TYPE"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of data.levelEndDateTypeCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div mat-dialog-actions>
+        <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+          style="margin:0px 5px" (click)="stopEdit()">儲存</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+          style="margin:0px 5px">取消</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- <div class="container">
     <h2 mat-dialog-title>組織人員維護-編輯</h2>
 
     <form class="mat-dialog-content"  #formControl="ngForm">
@@ -10,7 +144,6 @@
         </mat-form-field>
       </div>
 
-      <!--Textarea for demo purposes-->
       <div class="form">
         <mat-form-field color="accent">
           <input matInput #input class="form-control" placeholder="員工姓名" [(ngModel)]="data.EMP_NAME" name="EMP_NAME" required >
@@ -25,7 +158,6 @@
         </mat-form-field>
       </div>
 
-      <!--Contains mat-hint for characters count and has maxLengt set-->
       <div class="form">
         <mat-form-field color="accent">
           <mat-select placeholder="是否在職" [(ngModel)]="data.ON_JOB" name="ON_JOB" required>
@@ -115,4 +247,4 @@
         <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
       </div>
     </form>
-  </div>
+  </div> -->
