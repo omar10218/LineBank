@@ -206,7 +206,7 @@ export class F03006Component implements OnInit {
       data: { CHECKBOX: this.chkArray, SOURCE: this.empRoleSource.data, empNo: empNo }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.refreshTable(); }
+      if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
     });
   }
 
@@ -238,7 +238,7 @@ export class F03006Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.refreshTable(); }
+      if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
     });
   }
 
@@ -277,7 +277,7 @@ export class F03006Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.refreshTable(); }
+      if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
     });
   }
 
