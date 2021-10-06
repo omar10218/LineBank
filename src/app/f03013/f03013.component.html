@@ -1,81 +1,66 @@
-<table style="padding-left: 20px;">
-    <br>
-    <mat-card class="matCard">
-        <mat-card-content>
-            <tr>
-                <td>
-                    <b>年分:</b>
-                </td>
-                <td>
-                    <mat-form-field color="accent">
-                        <mat-select [(ngModel)]="selectedValue" name="yearCode">
-                            <mat-option class="option" [value]="code.value" *ngFor="let code of yearCode">
-                                {{code.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </td>
-                <td>
-                    <button type="submit" mat-raised-button color="primary" (click)="createCalendar()">建立年度行事曆</button>
-                </td>
-            </tr>
-
-        </mat-card-content>
-    </mat-card>
-    <br>
-    <mat-card class="matCard">
-        <mat-card-content>
-            <tr>
-                <td>
-                    <b>年份:</b>
-                </td>
-                <td>
-                    <mat-form-field color="accent">
-                        <mat-select [(ngModel)]="yearValue" name="yearCode">
-                            <mat-option class="option" [value]="code.value" *ngFor="let code of yearCode">
-                                {{code.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </td>
-                <td>
-                    <b>月份:</b>
-                </td>
-                <td>
-                    <mat-form-field color="accent">
-                        <mat-select [(ngModel)]="monthValue" name="monthCode">
-                            <mat-option class="option" [value]="code.value" *ngFor="let code of monthCode">
-                                {{code.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </td>
-                <td>
-                    <button type="submit" mat-raised-button color="primary" (click)="queryIsWorkDay()">查詢</button>
-                </td>
-            </tr>
-        </mat-card-content>
-    </mat-card>
-</table>
-
-<mat-table [dataSource]="workingDateDataSource">
-    <ng-container matColumnDef="updateWorkingDate">
-        <mat-header-cell *matHeaderCellDef>
-            <u>修改</u>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-            <button mat-raised-button color="primary" (click)="updateWorkingDate(row.wdate, row.isWork)">修改</button>
-        </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="wdate">
-        <mat-header-cell *matHeaderCellDef>日期</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.wdate|date: 'yyyy-MM-dd' }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="isWork">
-        <mat-header-cell *matHeaderCellDef>是否工作日</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.isWork }}</mat-cell>
-    </ng-container>
-    <mat-header-row *matHeaderRowDef="['updateWorkingDate', 'wdate', 'isWork']"></mat-header-row>
-    <mat-row *matRowDef="let workingDateRow; columns: ['updateWorkingDate', 'wdate', 'isWork']"></mat-row>
-
-</mat-table>
+<div class="line_bank_bankground_color" style="padding-top:20px">
+    <div class="line_bank_card_no_padding">
+        <div class="line_bank_form_header_title">工作日維護</div>
+        <div nz-row>
+            <div nz-col nzSpan="8">
+                <div style="padding:10px;"><span class="form-title">年分</span>
+                    <nz-select [(ngModel)]="selectedValue">
+                        <nz-option *ngFor="let code of yearCode" [nzValue]="code.value" [nzLabel]="code.viewValue">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col nzSpan="8">
+                <div style="padding:10px"><span class="form-title"></span><button nz-button
+                        [nzSize]="'large'" nzType="primary" (click)="createCalendar()">建立年度行事曆</button></div>
+                </div>
+            <div nz-col nzSpan="8">
+                
+            </div>
+        </div>
+        <div nz-row>
+            <div nz-col nzSpan="8">
+                <div style="padding:10px;"><span class="form-title">年分</span>
+                    <nz-select [(ngModel)]="yearValue">
+                        <nz-option *ngFor="let code of yearCode" [nzValue]="code.value" [nzLabel]="code.viewValue">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col nzSpan="8">
+                <div style="padding:10px;"><span class="form-title">月份</span>
+                    <nz-select [(ngModel)]="monthValue">
+                        <nz-option *ngFor="let code of monthCode" [nzValue]="code.value" [nzLabel]="code.viewValue">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div nz-col nzSpan="8">
+                <div style="padding:10px;"><span class="form-title"></span><button nz-button
+                        [nzSize]="'large'" nzType="primary" (click)="queryIsWorkDay()">查詢</button></div>
+            </div>
+        </div>
+    </div>
+    <div class="line_bank_card_no_padding" >
+        <nz-table nzShowSizeChanger [nzData]="workingDateDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+            #middleTable nzSize="small" nzTitle="工作日清單">
+            <thead>
+                <tr>
+                    <th class="table-header">修改</th>
+                    <th class="table-header">日期</th>
+                    <th class="table-header">是否工作日</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of workingDateDataSource">
+                    <td class="table-data">
+                        <button nz-button [nzSize]="'middle'"
+                            (click)="updateWorkingDate(data.wdate, data.isWork)">修改</button>
+                    </td>
+                    <td class="table-data">{{ data.wdate|date: 'yyyy/MM/dd' }}</td>
+                    <td class="table-data">{{ data.isWork }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

@@ -58,7 +58,7 @@ export class F03013Component implements OnInit {
     }
 
     this.f03013Service.queryIsWorkDay(this.yearValue, this.monthValue).subscribe(data => {
-      this.workingDateDataSource.data = data.rspBody;
+      this.workingDateDataSource = data.rspBody;
       if (data.rspBody.length == '0') { alert('請先初始化' + this.yearValue + '年度行事曆') }
     });
   }

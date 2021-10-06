@@ -1,1 +1,132 @@
-<p>childscn19 works!</p>
+<br>
+<div style="width: 800px;margin:0 auto">
+  <button nz-button [nzSize]="'large'" nzType="primary" (click)="cancel()">離開</button>
+  <div class="line_bank_card_no_padding">
+    <!-- 補件功能 -->
+    <div class="line_bank_form_header_title">補件</div>
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px 10px 10px 80px;">
+          <span class="form-title">待補文件日期</span>
+          <nz-date-picker [(ngModel)]="restartDate"></nz-date-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px;">
+          <span class="form-title">補件原因</span>
+          <mat-form-field color="accent">
+            <mat-select [(ngModel)]="rescanType" name="rescanTypeCode">
+              <mat-option class="option" *ngFor="let code of rescanTypeCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px;">
+          <span class="form-title">補件項目</span>
+          <mat-form-field color="accent">
+            <mat-select [(ngModel)]="rescanItem" name="rescanItemCode">
+              <mat-option class="option" *ngFor="let code of rescanItemCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div nz-col nzSpan="24">
+        <div style="padding:10px;">
+          <span class="form-title">徵審註記</span>
+          <textarea matInput style="width:100%;height:100px;background-color:#E6E6E6;border-radius:10px;border:none"
+            [(ngModel)]="rescanContent" name="speakingContent" required></textarea>
+        </div>
+      </div>
+    </div>
+    <!-- 補件資訊檔 -->
+    <nz-table nzShowSizeChanger [nzData]="rescanDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="補件資訊">
+      <thead>
+        <tr>
+          <th class="table-header">刪除</th>
+          <th class="table-header">待補文件日期</th>
+          <th class="table-header">補件原因</th>
+          <th class="table-header">補件項目</th>
+          <th class="table-header">徵審註記</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rescanDataSource">
+          <td class="table-data"><button nz-button [nzSize]="'small'" nzType="primary"
+              (click)="delRescan(data.ROWID)">刪除</button></td>
+          <td class="table-data">{{ data.RESTART_DATE|date: 'yyyy-MM-dd' }}</td>
+          <td class="table-data">{{ data.RESCAN_TYPE }}</td>
+          <td class="table-data">{{ data.RESCAN_ITEM }}</td>
+          <td class="table-data">{{ data.RESCAN_CONTENT }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div style="text-align:center;margin:10px auto">
+      <button nz-button [nzSize]="'large'" nzType="primary" (click)="rescan()">補件</button>
+    </div>
+    <!-- SMS功能 -->
+    <div class="line_bank_form_header_title" style="border-radius:0px;">SMS訊息</div>
+    <div nz-row>
+      <div nz-col nzSpan="5">
+        <div style="padding:10px"><span class="form-title">預計發送日期</span>
+          <nz-date-picker [(ngModel)]="realSmsTime"></nz-date-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="5">
+        <div style="padding:10px"><span class="form-title">預計發送時間</span>
+          <nz-time-picker [(ngModel)]="mytime" nzFormat="HH:mm" [nzMinuteStep]="5" [nzDisabled]="realSmsTime == null"
+            [nzNowText]="' '"></nz-time-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="7">
+        <div style="padding:10px"><span class="form-title">發送手機</span>
+          <input style="display: block;" [(ngModel)]="this.mobile">
+        </div>
+      </div>
+      <div nz-col nzSpan="7">
+        <div style="padding:10px"><span class="form-title">SMS樣板</span>
+          <mat-form-field color="accent">
+            <mat-select [(ngModel)]="smsSet" name="smsSetCode" (ngModelChange)="changeSelect(smsSet)">
+              <mat-option class="option" *ngFor="let code of smsSetCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div nz-col nzSpan="24">
+        <div style="padding:10px;"><span class="form-title">SMS內容</span><textarea matInput
+            style="background-color:#E6E6E6;border-radius:10px;border:none;width:100%;height:100px;"
+            [(ngModel)]="content" name="content" required></textarea></div>
+      </div>
+      <div style="text-align:center;margin:10px auto">
+        <button nz-button [nzSize]="'large'" nzType="primary" (click)="addSms()">發送簡訊</button>
+      </div>
+    </div>
+    <!-- 簡訊發送檔 -->
+    <nz-table nzShowSizeChanger [nzData]="smsDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="簡訊發送檔">
+      <thead>
+        <tr>
+          <th class="table-header">SMS通知手機號碼</th>
+          <th class="table-header">簡訊內容</th>
+          <th class="table-header">發送時間</th>
+          <th class="table-header">簡訊狀態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of smsDataSource">
+          <td class="table-data">{{ data.mobile }}</td>
+          <td class="table-data">{{ data.messageContent }}</td>
+          <td class="table-data">{{ data.realSmstime|date: 'yyyy-MM-dd' }}</td>
+          <td class="table-data">{{ data.smsStatus }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

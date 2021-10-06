@@ -36,9 +36,9 @@ export class F01002scn1Component implements OnInit {
   }
 
   reScan() {
-    const dialogRef = this.dialog.open(F01002rescanComponent,{
-      minHeight: '1200px',
-      width: '1000px',
+    const dialogRef = this.dialog.open(Childscn19Component,{
+      minHeight: '30%',
+      width: '70%',
       data:{
         applno: this.applno,
         cuid: this.cuid
