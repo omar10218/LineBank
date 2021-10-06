@@ -43,8 +43,8 @@ export class F03015editComponent implements OnInit {
     Validators.required
   ]);
 
-  submit() {
-  }
+  // submit() {
+  // }
 
   ngOnInit(): void {
     let isInsert = this.data.isInsert;
@@ -131,15 +131,17 @@ export class F03015editComponent implements OnInit {
   }
 
   public async updateData(): Promise<void>{
+    console.log(this.insertForm.value.INDUC_CODE)
     let msgStr: string = "";
     if (!this.insertForm.valid) {
+      console.log(this.insertForm.value.INDUC_CODE)
       msgStr = '資料格式有誤，請修正!';
       const childernDialogRef = this.dialog.open(F03015confirmComponent, {
         data: { msgStr: msgStr }
       });
     } else {
       let jsonObject: any = {};
-
+      console.log(this.insertForm.value.INDUC_CODE)
       jsonObject['inducCode'] = this.insertForm.value.INDUC_CODE;
       jsonObject['inducLevel1'] = this.insertForm.value.INDUC_LEVEL1;
       jsonObject['inducLevel2'] = this.insertForm.value.INDUC_LEVEL2;
@@ -149,7 +151,7 @@ export class F03015editComponent implements OnInit {
       jsonObject['ninetyPercentSalary'] = this.insertForm.value.NINETY_PERCENT_SALARY;
       jsonObject['rowID'] = this.insertForm.value.ROWID;
 
-      await this.f03015Service.getReturn('f03/f03015action4', jsonObject).subscribe(data => {
+      await this.f03015Service.getReturn('f03/f03015action3', jsonObject).subscribe(data => {
         this.dialog.open(F03015confirmComponent, { data: { msgStr: data.rspMsg } });
         if (data.rspCode === '0000') { this.dialogRef.close({ event:'success' }); }
       });
