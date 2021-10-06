@@ -110,8 +110,10 @@ export class F03006Component implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
+    this.pageSize=pageSize;
+    this.pageIndex=pageIndex;
     this.getEmployeeList(pageIndex, pageSize);
-    console.log(pageSize);console.log(pageIndex);
+    //console.log(pageSize);console.log(pageIndex);
   }
 
   //取得表單資料
@@ -199,6 +201,8 @@ export class F03006Component implements OnInit {
     }
 
     const dialogRef = this.dialog.open(F03006roleComponent, {
+      minHeight: '70vh',
+      width: '50%',
       data: { CHECKBOX: this.chkArray, SOURCE: this.empRoleSource.data, empNo: empNo }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -293,6 +297,8 @@ export class F03006Component implements OnInit {
   //刷新頁面
   private refreshTable() {
     this.getEmployeeList(this.pageIndex, this.pageSize);
+    // console.log(this.pageIndex)
+    // console.log(this.pageSize)
   }
 
 }
