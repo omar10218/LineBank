@@ -15,8 +15,16 @@ interface ynCode {
   styleUrls: ['./f03004add.component.css', '../../../assets/css/f03.css']
 })
 export class F03004addComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<F03004addComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public f03004Service: F03004Service,
+    public dialog: MatDialog
+  ) { }
+
   ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
-  constructor(public dialogRef: MatDialogRef<F03004addComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public f03004Service: F03004Service, public dialog: MatDialog) { }
+  hidden: string = "hidden";
 
   formControl = new FormControl('', [
     Validators.required
@@ -39,10 +47,15 @@ export class F03004addComponent {
   public async confirmAdd(): Promise<void> {
     let msgStr: string = "";
     let baseUrl = 'f03/f03004action2';
-    msgStr = await this.f03004Service.addOrEditSystemCodeSet(baseUrl, this.data);
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
-    });
-    if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }
+    if( isNaN( this.data.codeSort ) ) {
+      this.hidden = "";
+    } else {
+      msgStr = await this.f03004Service.addOrEditSystemCodeSet(baseUrl, this.data);
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }
+    }
+
   }
 }

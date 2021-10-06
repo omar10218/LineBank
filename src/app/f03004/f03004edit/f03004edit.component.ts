@@ -17,8 +17,15 @@ interface ynCode {
 })
 export class F03004editComponent {
 
+  constructor(
+    public dialogRef: MatDialogRef<F03004editComponent>,
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public f03004Service: F03004Service
+  ) { }
+
   ynCode: ynCode[] = [{value: 'Y', viewValue: '是'}, {value: 'N', viewValue: '否'}];
-  constructor(public dialogRef: MatDialogRef<F03004editComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03004Service: F03004Service) { }
+  hidden: string = "hidden";
 
   formControl = new FormControl('', [
     Validators.required
@@ -26,9 +33,7 @@ export class F03004editComponent {
   ]);
 
   getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Required field' :
-    this.formControl.hasError('email') ? 'Not a valid email' :
-    '';
+    return this.formControl.hasError('required') ? 'Required field' : '';
   }
 
   submit() {
@@ -41,10 +46,16 @@ export class F03004editComponent {
   public async stopEdit(): Promise<void> {
     let msgStr: string = "";
     let baseUrl = 'f03/f03004action3';
-    msgStr = await this.f03004Service.addOrEditSystemCodeSet(baseUrl, this.data);
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
-    });
-    if (msgStr === '編輯成功!') { this.dialogRef.close({ event:'success' }); }
+    if( isNaN( this.data.codeSort ) ) {
+      this.hidden = "";
+      return;
+    } else {
+      msgStr = await this.f03004Service.addOrEditSystemCodeSet(baseUrl, this.data);
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      if (msgStr === '編輯成功!') { this.dialogRef.close({ event:'success' }); }
+    }
+
   }
 }
