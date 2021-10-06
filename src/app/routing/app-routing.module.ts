@@ -38,6 +38,7 @@ import { LoginComponent } from './../login/login.component';
 import { MenuListComponent } from './../menu-list/menu-list.component';
 import { F01006Component } from '../f01006/f01006.component';
 import { F03017Component } from '../f03017/f03017.component';
+import { F02002Component } from '../f02002/f02002.component';
 
 
 const routes: Routes = [
@@ -147,6 +148,10 @@ const routes: Routes = [
             component: F02001scn12Component
           }
         ]
+      },
+      {
+        path: 'F02002',
+        component: F02002Component
       },
       {
         path: 'F03001',
