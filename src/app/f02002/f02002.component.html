@@ -31,7 +31,13 @@
     </div>
 
     <div nz-row>
-      <div nz-col nzSpan="8"></div>
+      <div nz-col nzSpan="8">
+        <div class="form" style="padding:20px">
+          <div><span class="form-title-actions">要求補件日期</span>
+            <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="date" (ngModelChange)="onChange()"></nz-range-picker>
+          </div>
+        </div>
+      </div>
       <div nz-col nzSpan="8">
         <div class="form" style="padding:20px">
           <div><span class="form-title-actions">要求補件人員員編</span>
@@ -72,7 +78,8 @@
       <tbody>
         <tr *ngFor="let data of rescanData">
           <td class="table-data">
-            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="detail( data.APPLNO, data.NATIONAL_ID, data.CUST_ID )">明細</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary"
+              (click)="detail( data.APPLNO, data.NATIONAL_ID, data.CUST_ID )">明細</button>
           </td>
           <td class="table-data">{{ data.APPLNO }}</td>
           <td class="table-data">{{ data.NATIONAL_ID }}</td>

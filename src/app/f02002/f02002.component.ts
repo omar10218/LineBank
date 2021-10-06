@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-f02002',
@@ -15,7 +16,8 @@ export class F02002Component implements OnInit {
 
   constructor(
     private f02002Service: F02002Service,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public datepipe: DatePipe
   ) { }
 
   applno: string = '';
@@ -23,6 +25,9 @@ export class F02002Component implements OnInit {
   custId: string = '';
   rescanEmpno: string = '';
   rescanEmpnoCode: OptionsCode[] = [];
+
+  date: null;
+  dateFormat = 'yyyy/MM/dd';
 
   rescanData: Data[] = [];
   total = 1;
@@ -33,7 +38,6 @@ export class F02002Component implements OnInit {
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
     this.f02002Service.getRescanEmpno( baseUrl ).subscribe(data => {
-      console.log( data );
       for (let i = 0; i < data.rspBody.length; i++) {
         this.rescanEmpnoCode.push( { value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO } );
       }
@@ -50,7 +54,6 @@ export class F02002Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.f02002Service.getData( baseUrl, jsonObject ).subscribe(data => {
-      console.log(data);
       this.loading = false;
       this.total = data.rspBody.size;
       this.rescanData = data.rspBody.items;
@@ -58,13 +61,13 @@ export class F02002Component implements OnInit {
   }
 
   search() {
-    // if ( this.applno == '' && this.nationalId == '' && this.custId == '' && this.rescanEmpno == '' ) {
-    //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
-    //     data: { msgStr: "請至少選擇一項" }
-    //   });
-    // } else {
+    if ( this.applno == '' && this.nationalId == '' && this.custId == '' && this.rescanEmpno == '' ) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請至少選擇一項" }
+      });
+    } else {
       this.getRescanData( this.pageIndex, this.pageSize );
-    // }
+    }
   }
 
   clear() {
@@ -81,5 +84,9 @@ export class F02002Component implements OnInit {
 
   detail( applno: string, nationalId: string, custId: string) {
 
+  }
+
+  onChange(): void {
+    console.log( this.date[1] );
   }
 }
