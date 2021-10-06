@@ -4,8 +4,7 @@
     <form class="mat-dialog-content" #formControl="ngForm">
       <div class="form" style="padding:20px">
         <div><span class="form-title-actions">話術簡稱</span><input matInput #input class="form-control"
-            [(ngModel)]="data.speakingAbbreviation" name="speakingAbbreviation" required>
-          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            [(ngModel)]="data.speakingAbbreviation" name="speakingAbbreviation" disabled>
         </div>
 
       </div>

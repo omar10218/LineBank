@@ -27,7 +27,7 @@ export class F03010addComponent implements OnInit {
 
   ngOnInit(): void {
   }
-//欄位驗證
+  //欄位驗證
   formControl = new FormControl('', [
     Validators.required
   ]);
@@ -37,22 +37,33 @@ export class F03010addComponent implements OnInit {
     return this.formControl.hasError('required') ? '此欄位必填' : '';
   }
 
-  //新增
-  add() {
-    let msg = '';
-      const baseUrl = 'f03/f03010action1';
-      let jsonObject: any = {};
-      jsonObject['speakingAbbreviation'] = this.data.speakingAbbreviation;
-      jsonObject['stopFlag'] = this.data.stopFlag;
-      jsonObject['speakingContent'] = this.data.speakingContent;
-      this.f03010Service.Speaking( baseUrl, jsonObject).subscribe(data => {
-        msg = data.rspMsg;
-      });
-    // }
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-    }, 1500);
+  //儲存
+  public async add(): Promise<void> {
+    let msgStr: string = "";
+    let baseUrl = 'f03/f03010action1';
+    msgStr = await this.f03010Service.saveSpeaking(baseUrl, this.data);
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
+      data: { msgStr: msgStr }
+    });
+    if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }
   }
+
+  // //新增
+  // add() {
+  //   let msg = '';
+  //     const baseUrl = 'f03/f03010action1';
+  //     let jsonObject: any = {};
+  //     jsonObject['speakingAbbreviation'] = this.data.speakingAbbreviation;
+  //     jsonObject['stopFlag'] = this.data.stopFlag;
+  //     jsonObject['speakingContent'] = this.data.speakingContent;
+  //     this.f03010Service.Speaking( baseUrl, jsonObject).subscribe(data => {
+  //       setTimeout(() => {
+  //         msg = data.rspMsg;
+  //         const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
+  //       }, 1500);
+  //     });
+
+  // }
 
   //取消
   onNoClick(): void {

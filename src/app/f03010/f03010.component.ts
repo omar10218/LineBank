@@ -1,12 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F03010Service } from './f03010.service';
 import { F03010addComponent } from './f03010add/f03010add.component';
 import { F03010deleteComponent } from './f03010delete/f03010delete.component';
@@ -69,7 +65,9 @@ export class F03010Component implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getSpeaking(pageIndex, pageSize);
+    this.pageSize=pageSize;
+    this.pageIndex=pageIndex;
+    this.getSpeaking(this.pageIndex, this.pageSize);
   }
 
   //修改
@@ -91,7 +89,7 @@ export class F03010Component implements OnInit {
 
   //刷新表單
   private refreshTable() {
-    //this.paginator._changePageSize(this.paginator.pageSize);
+    this.getSpeaking(this.pageIndex, this.pageSize);
   }
 
   //刪除
