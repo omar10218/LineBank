@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { ChildrenService } from 'src/app/children/children.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01002BlockListService } from './f01002blocklist.service';
@@ -63,26 +63,28 @@ export class F01002blocklistComponent implements OnInit {
     Validators.required
   ]);
 
-  blockListDataSource = new MatTableDataSource<any>();
+  blockListDataSource: readonly Data[] = [];
+  // blockListDataSource = new MatTableDataSource<any>();
   private applno: string;
   chkArray: checkBox[] = [];
   contentArray: checkBox[] = [];
   jsonObject: any = {};
   no: string;//會員帳號
+  total = 1;
+  loading = false;
+  pageSize = 10;
+  pageIndex = 1;
 
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];//案件代碼
+      this.applno = sessionStorage.getItem('applno');//案件代碼
       this.no = localStorage.getItem("empNo");
       this.selectBlockList()//一進去畫面就抓取資料表
     });
 
     //抓取資料表
-    this.no = localStorage.getItem("empNo");
     this.blockListForm.patchValue({ 'REPORT_UNIT': this.no })
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
     this.selectBlockList();
 
     //取Customer_info資料
