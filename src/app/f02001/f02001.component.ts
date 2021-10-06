@@ -62,8 +62,8 @@ export class F02001Component implements OnInit {
     this.jsonObject['l3EMPNO'] = this.l3EMPNO;//徵信員員編姓名
     // this.jsonObject['credit_RESULT'] = this.credit_RESULT_Value;審核結果
     // this.jsonObject['status_DESC'] = this.status_DESC_Value;案件狀態
-    // this.jsonObject['cust_FLAG'] = this.cust_FLAG_Value;客群標籤
-    // this.jsonObject['risk_GRADE_Value'] = this.risk_GRADE_Value;風險等級分群
+    // this.jsonObject['CUST_FLAG'] = this.cust_FLAG_Value;客群標籤
+    // this.jsonObject['RISK_GRADE'] = this.risk_GRADE_Value;風險等級分群
     this.jsonObject['apply_TIME'] = this.apply_TIME;//進件日期
     this.jsonObject['proof_DOCUMENT_TIME'] = this.proof_DOCUMENT_TIME;//上傳財力日期
     this.jsonObject['sign_UP_TIME'] = this.sign_UP_TIME;//簽約完成日期
