@@ -1,22 +1,36 @@
-<div class="container">
-    <h2 mat-dialog-title>組織人員維護-角色設定</h2>
-    <mat-table [dataSource]="data.SOURCE" class="mat-dialog-content">
-      <ng-container matColumnDef="isChk">
-       <mat-header-cell *matHeaderCellDef><mat-checkbox color="primary"(change)="setAll($event.checked)">全選</mat-checkbox></mat-header-cell>
-       <mat-cell *matCellDef="let row; let i = index;">
-         <mat-checkbox [(ngModel)]="data.CHECKBOX[i].completed" color="primary"></mat-checkbox>
-       </mat-cell>
-     </ng-container>
-     <ng-container matColumnDef="roleName">
-       <mat-header-cell *matHeaderCellDef>角色名稱</mat-header-cell>
-       <mat-cell *matCellDef="let row">{{ row.roleName }}</mat-cell>
-     </ng-container>
-     <mat-header-row *matHeaderRowDef="['isChk', 'roleName']"></mat-header-row>
-     <mat-row *matRowDef="let mappingCodeRow; columns: ['isChk', 'roleName']"></mat-row>
-    </mat-table>
-  
-    <div mat-dialog-actions>
-      <button mat-button [type]="submit" (click)="confirmAdd()">Save</button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
-    </div>
-  </div>
+
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title" >組織人員維護-角色設定  </div>
+
+      <nz-table [nzData]="data.SOURCE" [nzFrontPagination]="false" [nzSimple]="true">
+        <thead>
+          <tr>
+            <th  style="width:100px" class="table-header">
+              <div>
+                <mat-checkbox color="primary" (change)="setAll($event.checked)">全選</mat-checkbox>
+              </div>
+            </th>
+            <th  style="width:200px" class="table-header">角色名稱</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of data.SOURCE; let i = index;">
+            <td class="table-data">
+              <div nz-row>
+                <label nz-checkbox [(ngModel)]="data.CHECKBOX[i].completed" name={{data.CHECKBOX[i].completed}}></label>
+              </div>
+            </td>
+            <td class="table-data">{{ row.roleName }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <div mat-dialog-actions>
+        <button nz-button [nzSize]="'middle'" nzType="primary" [mat-dialog-close]="1" style="margin:0px 5px"
+          (click)="confirmAdd()">儲存</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+          style="margin:0px 5px">取消</button>
+      </div>
+
+</div>
+<br>
+<br>
