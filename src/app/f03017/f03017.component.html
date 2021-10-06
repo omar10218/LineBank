@@ -1,1 +1,120 @@
-<p>f03017 works!</p>
+<div class="container">
+  <th class="f03_th">黑單維護 </th>
+</div>
+
+<button nz-button nzType="primary" (click)="getBkIncomeData()">查詢資料</button>
+<button nz-button nzType="primary" (click)="insert(true)">新增</button>
+<button nz-button nzType="primary">清除資料</button>
+<button nz-button nzType="primary">上傳Excel</button>
+<button nz-button nzType="primary">離開</button>
+<br>
+
+
+<form style="padding-left: 20px;">
+  <div class="f03_div">
+    <!-- <button mat-raised-button color="primary" (click)="doSearch()">查詢</button> -->
+  </div>
+  <table>
+    <br>
+    <mat-card class="matCard">
+      <mat-card-content>
+        <tr>
+          <th>建檔項目</th>
+          <td>
+            <mat-form-field color="accent">
+              <mat-select [(ngModel)]="bkColumnValue" formControlName="bk_Column">
+                <mat-option *ngFor="let code of bkColumn" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <th>建檔內容</th>
+          <td>
+            <mat-form-field color="accent">
+              <mat-select [(ngModel)]="bkContentValue" formControlName="bk_Content">
+                <mat-option *ngFor="let code of bkContent" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+
+        </tr>
+      </mat-card-content>
+    </mat-card>
+  </table>
+</form>
+<br>
+<mat-table [dataSource]="bkIncomeDataSource" matSort (matSortChange)="changeSort($event)">
+  <ng-container matColumnDef="edit">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-raised-button color="primary">編輯</button>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="REPORT_UNIT">
+    <mat-header-cell *matHeaderCellDef>通報單位</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.INDUC_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BK_COLUMN">
+    <mat-header-cell *matHeaderCellDef>建檔項目欄位標題</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.INDUC_LEVEL1 }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BK_CONTENT">
+    <mat-header-cell *matHeaderCellDef>建檔項目欄位值內容</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.INDUC_LEVEL1_DESC }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="REPORT_REASON1">
+    <mat-header-cell *matHeaderCellDef>通報原因1</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.INDUC_LEVEL2 }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="REPORT_REASON2">
+    <mat-header-cell *matHeaderCellDef>通報原因2</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.INDUC_LEVEL2_DESC }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="REPORT_REASON3">
+    <mat-header-cell *matHeaderCellDef>通報原因3</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.JOB_CODE }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="REPORT_CONTENT">
+    <mat-header-cell *matHeaderCellDef>通報補充</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.JOB_DESC }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="USE_FLAG">
+    <mat-header-cell *matHeaderCellDef>使用中</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.TEN_PERCENT_SALARY }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CREATE_DATETIME">
+    <mat-header-cell *matHeaderCellDef>資料新增日期時間</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.MID_SALARY }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="NINETY_PERCENT_SALARY">
+    <mat-header-cell *matHeaderCellDef>異動日期時間</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.NINETY_PERCENT_SALARY }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="CHANGE_DATE">
+    <mat-header-cell *matHeaderCellDef>異動說明</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.CHANGE_DATE | date:'yyyy-MM-dd' }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="BK_EMPNO">
+    <mat-header-cell *matHeaderCellDef>日動人員</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.ID }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row
+    *matHeaderRowDef="['edit', 'REPORT_UNIT','BK_COLUMN','BK_CONTENT','REPORT_REASON1','REPORT_REASON2','REPORT_REASON3','REPORT_CONTENT','USE_FLAG','CREATE_DATETIME','NINETY_PERCENT_SALARY','CHANGE_DATE','BK_EMPNO']; sticky: true">
+  </mat-header-row>
+  <mat-row
+    *matRowDef="let ruleParmRow; columns: [ 'edit','REPORT_UNIT','BK_COLUMN','BK_CONTENT','REPORT_REASON1','REPORT_REASON2','REPORT_REASON3','REPORT_CONTENT','USE_FLAG','CREATE_DATETIME','NINETY_PERCENT_SALARY','CHANGE_DATE','BK_EMPNO']">
+  </mat-row>
+</mat-table>
+
+<tr>
+  <td>
+    <mat-paginator #paginator [length]="100" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 15, 50, 100]"
+      [showFirstLastButtons]="true">
+    </mat-paginator>
+  </td>
+</tr>
