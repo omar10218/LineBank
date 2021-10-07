@@ -1,9 +1,10 @@
+import { F01002scn1Component } from './../f01002/f01002scn1/f01002scn1.component';
 import { F02002Service } from './f02002.service';
 import { Component, OnInit } from '@angular/core';
 import { OptionsCode } from '../interface/base';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
-import { Data } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { DatePipe } from '@angular/common';
 
@@ -17,7 +18,8 @@ export class F02002Component implements OnInit {
   constructor(
     private f02002Service: F02002Service,
     public dialog: MatDialog,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private router: Router,
   ) { }
 
   applno: string = '';
@@ -39,8 +41,11 @@ export class F02002Component implements OnInit {
     const baseUrl = 'f02/f02002';
     this.f02002Service.getRescanEmpno( baseUrl ).subscribe(data => {
       for (let i = 0; i < data.rspBody.length; i++) {
-        this.rescanEmpnoCode.push( { value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO } );
+        if (data.rspBody[i].RESCANEMPNO != null) {
+          this.rescanEmpnoCode.push( { value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO } );
+        }
       }
+      this.loading = false;
     });
   }
 
@@ -53,20 +58,48 @@ export class F02002Component implements OnInit {
     jsonObject['rescanEmpno'] = this.rescanEmpno;
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
-    this.f02002Service.getData( baseUrl, jsonObject ).subscribe(data => {
+    if ( this.date != null ) {
+      jsonObject['startDate'] = this.datepipe.transform( new Date(this.date[0]).toString() , 'yyyyMMdd' );
+      jsonObject['endDate'] = this.datepipe.transform( new Date(this.date[1]).toString() , 'yyyyMMdd' );
+    } else {
+      jsonObject['startDate'] = '';
+      jsonObject['endDate'] = '';
+    }
+    this.f02002Service.f02002( baseUrl, jsonObject ).subscribe(data => {
       this.loading = false;
-      this.total = data.rspBody.size;
-      this.rescanData = data.rspBody.items;
+      if ( data.rspBody.size == 0 ) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查無資料" }
+        });
+      } else {
+        this.total = data.rspBody.size;
+        this.rescanData = data.rspBody.items;
+      }
     });
   }
 
   search() {
-    if ( this.applno == '' && this.nationalId == '' && this.custId == '' && this.rescanEmpno == '' ) {
+    var startDate, endDate;
+    if ( this.applno == '' && this.nationalId == '' && this.custId == '' && this.rescanEmpno == '' && this.date == null ) {
+      this.clear();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項" }
       });
     } else {
-      this.getRescanData( this.pageIndex, this.pageSize );
+      if ( this.date != null ) {
+        startDate = new Date( this.date[0] );
+        endDate =  new Date( this.date[1] );
+        if ( ( endDate - startDate ) / 1000 / 60 / 60 / 24 > 90 ) {
+          this.clear();
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "查詢區間最多三個月內!" }
+          });
+        } else {
+          this.getRescanData( this.pageIndex, this.pageSize );
+        }
+      } else {
+        this.getRescanData( this.pageIndex, this.pageSize );
+      }
     }
   }
 
@@ -75,18 +108,45 @@ export class F02002Component implements OnInit {
     this.nationalId = '';
     this.custId = '';
     this.rescanEmpno = '';
+    this.total = 1;
+    this.loading = false;
+    this.pageSize = 10;
+    this.pageIndex = 1;
+    this.rescanData = null;
+    this.date = null;
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
-    this.getRescanData(pageIndex, pageSize);
+    if ( this.applno == '' && this.nationalId == '' && this.custId == '' && this.rescanEmpno == '' ) {
+
+    } else {
+      const { pageSize, pageIndex } = params;
+      this.getRescanData(pageIndex, pageSize);
+    }
   }
 
   detail( applno: string, nationalId: string, custId: string) {
-
+    const url = 'f02/f02002action2';
+    let jsonObject: any = {};
+    jsonObject['applno'] = applno;
+    this.f02002Service.f02002( url, jsonObject).subscribe(data => {
+      sessionStorage.setItem( 'applno', applno );
+      sessionStorage.setItem( 'cuid', nationalId );
+      sessionStorage.setItem( 'search', 'Y' );
+      sessionStorage.setItem( 'fds', data.rspBody[0].fds );
+      sessionStorage.setItem( 'queryDate', '' );
+      //開啟徵審主畫面
+      this.router.navigate(['./F01002/F01002SCN1']);
+      // const childernDialogRef = this.dialog.open(F01002scn1Component, {
+      //   minHeight: '30%',
+      //   width: '70%',
+      // });
+    });
   }
 
-  onChange(): void {
-    console.log( this.date[1] );
+  dateNull() {
+    if ( this.date.length < 1 ) {
+      this.date = null;
+    }
   }
 }

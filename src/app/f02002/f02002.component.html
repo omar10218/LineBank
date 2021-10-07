@@ -34,7 +34,7 @@
       <div nz-col nzSpan="8">
         <div class="form" style="padding:20px">
           <div><span class="form-title-actions">要求補件日期</span>
-            <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="date" (ngModelChange)="onChange()"></nz-range-picker>
+            <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="date" (ngModelChange)="dateNull()"></nz-range-picker>
           </div>
         </div>
       </div>
@@ -59,7 +59,7 @@
     <!-- 表格 -->
     <nz-table nzShowSizeChanger [nzData]="rescanData" [nzFrontPagination]="false" [nzSimple]="true"
       [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="系統代碼維護">
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="補件資訊查詢">
       <thead>
         <tr>
           <th class="table-header"></th>
@@ -88,7 +88,7 @@
           <td class="table-data">{{ data.RESCAN_EMPNO }}</td>
           <td class="table-data">{{ data.RESCAN_TYPE }}</td>
           <td class="table-data">{{ data.RESCAN_ITEM }}</td>
-          <td class="table-data">{{ data.RESTART_DATE }}</td>
+          <td class="table-data">{{ data.RESTART_DATE | date: 'yyyy-MM-dd'}}</td>
           <td class="table-data">{{ data.IMAGE_DATE }}</td>
           <td class="table-data">待處理</td>
         </tr>

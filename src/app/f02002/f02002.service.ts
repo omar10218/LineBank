@@ -13,7 +13,7 @@ export class F02002Service extends BaseService {
     return this.postHttpClient(baseUrl);
   }
 
-  getData(baseUrl: string, json: JSON): Observable<any> {
+  f02002(baseUrl: string, json: JSON): Observable<any> {
     return this.postJsonObject(baseUrl, json);
   }
 }
