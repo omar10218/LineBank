@@ -67,7 +67,12 @@
         </div>
       </div>
 
-      <div class="form" style="padding:20px">
+      <div >
+        <div style="padding:10px"><span class="form-title">請假起日</span>
+          <nz-date-picker style="display:block"  [(ngModel)]="data.LEAVE_STARTDATE" name="LEAVE_STARTDATE" (ngModelChange)="changeDATE_TYPE('Start')" ></nz-date-picker>
+        </div>
+      </div>
+      <!-- <div class="form" style="padding:20px">
         <div><span class="form-title-actions">請假起日</span>
           <mat-form-field color="accent">
             <input (dateChange)="changeDATE_TYPE('Start')" matInput [matDatepicker]="levelStartDateValue" [(ngModel)]="data.LEAVE_STARTDATE"
@@ -76,7 +81,7 @@
             <mat-datepicker #levelStartDateValue></mat-datepicker>
           </mat-form-field>
         </div>
-      </div>
+      </div> -->
 
       <div class="form" style="padding:20px">
         <div><span class="form-title-actions">請架起日類型</span>
@@ -89,7 +94,13 @@
         </div>
       </div>
 
-      <div class="form" style="padding:20px">
+
+      <div >
+        <div style="padding:10px"><span class="form-title">請假迄日</span>
+          <nz-date-picker style="display:block"  [(ngModel)]="data.LEAVE_ENDDATE" name="LEAVE_ENDDATE" (ngModelChange)="changeDATE_TYPE('End')" ></nz-date-picker>
+        </div>
+      </div>
+      <!-- <div class="form" style="padding:20px">
         <div><span class="form-title-actions">請假迄日</span>
           <mat-form-field color="accent">
             <input (dateChange)="changeDATE_TYPE('End')" matInput [matDatepicker]="levelEndDateValue" [(ngModel)]="data.LEAVE_ENDDATE"
@@ -98,7 +109,7 @@
             <mat-datepicker #levelEndDateValue></mat-datepicker>
           </mat-form-field>
         </div>
-      </div>
+      </div> -->
 
       <div class="form" style="padding:20px">
         <div><span class="form-title-actions">請假迄日類型</span>
@@ -112,7 +123,7 @@
       </div>
 
       <div mat-dialog-actions>
-        <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+        <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
           style="margin:0px 5px" (click)="confirmAdd()">儲存</button>
         <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
           style="margin:0px 5px">取消</button>
