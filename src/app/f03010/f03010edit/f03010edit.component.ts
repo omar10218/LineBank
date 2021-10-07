@@ -38,13 +38,21 @@ export class F03010editComponent implements OnInit {
 
   //儲存
   public async save(): Promise<void> {
-    let msgStr: string = "";
-    let baseUrl = 'f03/f03010action2';
-    msgStr = await this.f03010Service.saveSpeaking(baseUrl, this.data);
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
-    });
-    if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }
+    //判斷字數
+    if (this.data.speakingContent.replace(/[^\x00-\xff]/g, "xx").length > 200) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "話術內容資料長度為100個中文字!" }
+      });
+    }
+    else {
+      let msgStr: string = "";
+      let baseUrl = 'f03/f03010action2';
+      msgStr = await this.f03010Service.saveSpeaking(baseUrl, this.data);
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
+    }
   }
 
   //取消

@@ -55,7 +55,7 @@ export class Childscn19Component implements OnInit {
 
   ngOnInit(): void {
 
-    //取案編,客編
+    //取案編,客編,客戶手機
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.queryCusMobile();
@@ -86,7 +86,6 @@ export class Childscn19Component implements OnInit {
         this.rescanTypeCode.push({ value: codeNo, viewValue: desc })
       }
     });
-
     this.getRescanList();         //取該案件補件資訊
     this.getSmsList(this.applno); //取該案件簡訊發送資訊
   }

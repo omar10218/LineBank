@@ -2,14 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Childscn2Service } from '../childscn2.service';
 
 
 @Component({
   selector: 'app-childscn2page1',
   templateUrl: './childscn2page1.component.html',
-  styleUrls: ['./childscn2page1.component.css','../../../../assets/css/f01.css']
+  styleUrls: ['./childscn2page1.component.css','../../../../assets/css/child.css']
 })
 export class Childscn2page1Component implements OnInit {
 
@@ -18,48 +19,35 @@ export class Childscn2page1Component implements OnInit {
     private childscn2Service: Childscn2Service
   ) { }
 
-  private applno: string;
-  private cuid: string;
-  currentPage: PageEvent;
-  currentSort: Sort;
+  transactionLogSource: Data[] = [];
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
 
   ngOnInit(): void {
-    this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
-
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
   }
-
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  transactionLogSource = new MatTableDataSource<any>();
 
   ngAfterViewInit() {
-    this.getTransLog();
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getTransLog();
+    this.getTransLog( this.pageIndex, this.pageSize );
+  }
+
+  getTransLog( pageIndex: number, pageSize: number ){
+    const baseUrl = "f01/childscn2";
+    let jsonObject: any = {};
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    this.childscn2Service.getTransLog(baseUrl, jsonObject)
+    .subscribe(data => {
+      this.loading = false;
+      this.total = data.rspBody.size;
+      this.transactionLogSource = data.rspBody.items;
     });
   }
 
-  getTransLog(){
-    const baseUrl = "f01/childscn2";
-    this.childscn2Service.getTransLog(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize)
-    .subscribe(data => {
-      console.log(data.rspBody);
-      this.totalCount = data.rspBody.size;
-      this.transactionLogSource.data = data.rspBody.items;
-    });
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getTransLog(pageIndex, pageSize);
   }
 
   formatDate(date: string) {

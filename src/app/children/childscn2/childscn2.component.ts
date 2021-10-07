@@ -10,7 +10,7 @@ enum Page {
 @Component({
   selector: 'app-childscn2',
   templateUrl: './childscn2.component.html',
-  styleUrls: ['./childscn2.component.css','../../../assets/css/f01.css']
+  styleUrls: ['./childscn2.component.css','../../../assets/css/child.css']
 })
 export class Childscn2Component implements OnInit, AfterViewInit {
 

@@ -3,12 +3,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { F03008Service } from '../f03008.service';
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 
 
 @Component({
   selector: 'app-f03008delete',
   templateUrl: './f03008delete.component.html',
-  styleUrls: ['./f03008delete.component.css']
+  styleUrls: ['./f03008delete.component.css', '../../../assets/css/f03.css']
 })
 export class F03008deleteComponent implements OnInit {
 
@@ -16,8 +17,11 @@ export class F03008deleteComponent implements OnInit {
     public dialogRef: MatDialogRef<F03008deleteComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public f03008Service: F03008Service
-  ) { }
+    public f03008Service: F03008Service,
+    private nzI18nService: NzI18nService,
+    ) {
+      this.nzI18nService.setLocale(zh_TW)
+    }
 
   YNselect: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
   empNo: string = localStorage.getItem("empNo");
@@ -40,14 +44,16 @@ export class F03008deleteComponent implements OnInit {
     let msgStr: string = "";
     jsonObject['abnormalNid'] = abnormalNid;
     this.f03008Service.elAbnormalNid(baseUrl, jsonObject).subscribe(data => {
+      msgStr = data.rspMsg;
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
       // this.refreshTable();
+      console.log("我是msgStr");
+      console.log(msgStr);
+      if (msgStr === '刪除成功!!') { this.dialogRef.close({ event: 'success' }); }
     });
-    console.log("我是msgStr");
-    console.log(msgStr);
-    if (msgStr === '編輯成功!!') { this.dialogRef.close({ event: 'success' }); }
+
   }
 
 

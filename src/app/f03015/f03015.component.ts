@@ -12,6 +12,7 @@ import { F03015confirmComponent } from './f03015confirm/f03015confirm.component'
 import { F03015editComponent } from './f03015edit/f03015edit.component';
 import { F03015uploadComponent } from './f03015upload/f03015upload.component';
 import * as XLSX from 'xlsx';
+import { Data } from '@angular/router';
 // import { saveAs } from 'file-saver';
 interface sysCode {
   value: string;
@@ -33,6 +34,10 @@ export class F03015Component implements OnInit {
   inducLevel2Value: string;  //行職業level2選擇
   jobCodeValue: string; //職業碼選擇
   isHidden: boolean;
+  total = 1;
+  loading = false;
+  pageSize = 10;
+  pageIndex = 1;
 
   myDate: any = new Date();
   constructor(public dialogRef: MatDialogRef<F03015confirmComponent>, private f03015Service: F03015Service, public dialog: MatDialog, private fb: FormBuilder, private datePipe: DatePipe, @Inject(MAT_DIALOG_DATA) public data: any,) {
@@ -89,7 +94,7 @@ export class F03015Component implements OnInit {
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;
   currentSort: Sort;
-  proxyIncomeDataSource = new MatTableDataSource<any>();
+  proxyIncomeDataSource: Data[] = [];
   ngAfterViewInit() {
     this.currentPage = {
       pageIndex: 0,
@@ -100,9 +105,6 @@ export class F03015Component implements OnInit {
       active: '',
       direction: ''
     };
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-    });
   }
 
   changeSort(sortInfo: Sort) {
@@ -127,8 +129,8 @@ export class F03015Component implements OnInit {
       jsonObject['inducLevel1'] = this.inducLevel1Value;
       jsonObject['inducLevel2'] = this.inducLevel2Value;
       jsonObject['jobCode'] = this.jobCodeValue;
-
       await this.f03015Service.getReturn('f03/f03015', jsonObject).subscribe(data => {
+        console.log(data)
         this.totalCount = data.rspBody.size;
         this.proxyIncomeDataSource = data.rspBody.items;
       });
@@ -137,7 +139,6 @@ export class F03015Component implements OnInit {
 
   //新增
   insert(isInsert: boolean) {
-    console.log(isInsert)
     const dialogRef = this.dialog.open(F03015editComponent, {
       data: {
         isInsert: isInsert,
@@ -160,7 +161,7 @@ export class F03015Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.refreshTable(); }
+      if (result != null && result.event == 'success') { this.getProxyIncomeData(); }
     });
   }
 
@@ -171,7 +172,7 @@ export class F03015Component implements OnInit {
     this.inducLevel2Value = '';
     this.jobCodeValue = '';
 
-    this.proxyIncomeDataSource = new MatTableDataSource;
+    this.proxyIncomeDataSource = null;
 
   }
 

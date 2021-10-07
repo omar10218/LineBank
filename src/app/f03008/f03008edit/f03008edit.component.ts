@@ -3,11 +3,12 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { F03008Service } from '../f03008.service';
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 
 @Component({
   selector: 'app-f03008edit',
   templateUrl: './f03008edit.component.html',
-  styleUrls: ['./f03008edit.component.css']
+  styleUrls: ['./f03008edit.component.css', '../../../assets/css/f03.css']
 })
 export class F03008editComponent   {
 
@@ -15,8 +16,11 @@ export class F03008editComponent   {
     public dialogRef: MatDialogRef<F03008editComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public f03008Service: F03008Service
-  ) { }
+    public f03008Service: F03008Service ,
+    private nzI18nService: NzI18nService,
+    ) {
+      this.nzI18nService.setLocale(zh_TW)
+    }
 
   YNselect: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
   empNo: string = localStorage.getItem("empNo");

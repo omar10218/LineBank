@@ -19,7 +19,7 @@ interface ANNOUNCE_REASON {
 @Component({
   selector: 'app-childscn3',
   templateUrl: './childscn3.component.html',
-  styleUrls: ['./childscn3.component.css']
+  styleUrls: ['./childscn3.component.css','../../../assets/css/child.css']
 })
 export class Childscn3Component implements OnInit {
 

@@ -1,73 +1,24 @@
-<!-- <form [formGroup]="dcTransDetailForm" style="padding-left: 20px;"> -->
-    <mat-table [dataSource]="dcTransDetailSource" matSortDisableClear>
-        <ng-container matColumnDef="TRANS_DATE">
-          <mat-header-cell *matHeaderCellDef>交易日期時間</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.TRANS_DATE }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="TRANS_STORE_CODE">
-          <mat-header-cell *matHeaderCellDef>交易特店代號</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.TRANS_STORE_CODE }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="MCC">
-            <mat-header-cell *matHeaderCellDef>MCC</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.MCC }}</mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="TRANS_AMOUNT">
-            <mat-header-cell *matHeaderCellDef>交易金額（台幣）</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{ row.TRANS_AMOUNT }}</mat-cell>
-          </ng-container>
-        <mat-header-row *matHeaderRowDef="['TRANS_DATE', 'TRANS_STORE_CODE', 'MCC', 'TRANS_AMOUNT']"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: ['TRANS_DATE', 'TRANS_STORE_CODE', 'MCC', 'TRANS_AMOUNT']"></mat-row>
-      </mat-table>
-    
+<!-- 本行Debit Card交易明細 -->
+<div class="line_bank_card_no_padding">
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzData]="dcTransDetailSource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" nzTitle="本行Debit Card交易明細">
+    <thead>
       <tr>
-        <td>
-            <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-                [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-            </mat-paginator>
-        </td>
+        <th class="table-header">交易日期時間</th>
+        <th class="table-header">交易特店代號</th>
+        <th class="table-header">MCC</th>
+        <th class="table-header">交易金額（台幣</th>
       </tr>
-    
-      <!-- <tr>
-        <td>
-          <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-            [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-          </mat-paginator>
-        </td>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of dcTransDetailSource">
+        <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd hh：mm：ss'}}</td>
+        <td class="table-data">{{ data.TRANS_STORE_CODE }}</td>
+        <td class="table-data">{{ data.MCC }}</td>
+        <td class="table-data">{{ data.TRANS_AMOUNT }}</td>
       </tr>
-        <table>
-          <mat-card class="matCard">
-            <mat-card-content>
-              <tr>
-                <th nowrap="nowrap" align="left">交易日期時間</th>
-                <td>
-                  <mat-form-field color="accent">
-                    <input matInput #input formControlName="TRANS_DATE" readonly>
-                  </mat-form-field>
-                </td>
-                <th nowrap="nowrap" align="left">交易特店代號</th>
-                <td>
-                  <mat-form-field color="accent">
-                    <input matInput #input formControlName="TRANS_STORE_CODE" readonly>
-                  </mat-form-field>
-                </td>
-                <th nowrap="nowrap" align="left">MCC</th>
-                <td>
-                  <mat-form-field color="accent">
-                    <input matInput #input formControlName="MCC" readonly>
-                  </mat-form-field>
-                </td>
-              </tr>
-              <tr>
-                <th nowrap="nowrap" align="left">交易金額（台幣）</th>
-                <td>
-                  <mat-form-field color="accent">
-                    <input matInput #input formControlName="TRANS_AMOUNT" readonly>
-                  </mat-form-field>
-                </td>
-              </tr> -->
-            <!-- </mat-card-content>
-          </mat-card>
-        </table> -->
-      <!-- </form> -->
-      
+    </tbody>
+  </nz-table>
+</div>

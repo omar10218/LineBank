@@ -9,9 +9,9 @@ import { BaseService } from 'src/app/base.service';
 export class Childscn9Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getCoreCusInfo(formData: FormData): Observable<any>  {
+  getCoreCusInfo(jsonObject: JSON): Observable<any>  {
     const baseUrl = 'f01/childscn9action';
-    return this.postFormData(baseUrl, formData);
+    return this.postJsonObject(baseUrl, jsonObject);
   }
 
   getDate(baseUrl: string, formData: FormData): Observable<any> {
