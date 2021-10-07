@@ -1,5 +1,5 @@
 <br>
-<div style="width: 800px;margin:0 auto">
+<div style="width: 800px;height:1300px;margin:0 auto">
   <button nz-button [nzSize]="'large'" nzType="primary" (click)="cancel()">離開</button>
   <div class="line_bank_card_no_padding">
     <!-- 補件功能 -->
@@ -14,25 +14,23 @@
       <div nz-col nzSpan="8">
         <div style="padding:10px;">
           <span class="form-title">補件原因</span>
-          <mat-form-field color="accent">
-            <mat-select [(ngModel)]="rescanType" name="rescanTypeCode">
+            <mat-select [(ngModel)]="rescanType" name="rescanTypeCode" 
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
               <mat-option class="option" *ngFor="let code of rescanTypeCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
-          </mat-form-field>
         </div>
       </div>
       <div nz-col nzSpan="8">
         <div style="padding:10px;">
           <span class="form-title">補件項目</span>
-          <mat-form-field color="accent">
-            <mat-select [(ngModel)]="rescanItem" name="rescanItemCode">
+            <mat-select [(ngModel)]="rescanItem" name="rescanItemCode"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
               <mat-option class="option" *ngFor="let code of rescanItemCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
-          </mat-form-field>
         </div>
       </div>
       <div nz-col nzSpan="24">
@@ -90,13 +88,12 @@
       </div>
       <div nz-col nzSpan="7">
         <div style="padding:10px"><span class="form-title">SMS樣板</span>
-          <mat-form-field color="accent">
-            <mat-select [(ngModel)]="smsSet" name="smsSetCode" (ngModelChange)="changeSelect(smsSet)">
+            <mat-select [(ngModel)]="smsSet" name="smsSetCode" (ngModelChange)="changeSelect(smsSet)"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
               <mat-option class="option" *ngFor="let code of smsSetCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
-          </mat-form-field>
         </div>
       </div>
       <div nz-col nzSpan="24">
@@ -128,5 +125,7 @@
         </tr>
       </tbody>
     </nz-table>
+    <br>
+    <br>
   </div>
 </div>
