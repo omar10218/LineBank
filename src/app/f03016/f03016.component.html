@@ -1,8 +1,102 @@
-<br>
-<!-- 產生合約前回查值設定 -->
-<br>
+<div class="line_bank_bankground_color">
 
-<div width='100%' >
+  <br>
+  <!-- 產生合約前回查值設定 -->
+  <br>
+  <div class="line_bank_card_no_padding" >
+    <div class="line_bank_form_header_title">產生合約前回查值設定</div>
+    <div nz-row style="margin:15px 0px">
+      <div nz-col nzSpan="12">
+        <div style="padding:10px">
+        <span class="form-title">DSS3落人再送JCIC時間設定 </span>
+        <input nz-input placeholder="輸入數字" [(ngModel)]="DssJcicSet"  id="dss_jcic_set"
+        oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" style="display: block;"  readonly>
+      </div>
+      </div>
+      <div nz-col nzSpan="12">
+        <div style="padding:10px">
+          <span class="form-title">DSS3落人後email提醒天數</span>
+          <input nz-input placeholder="輸入天數" [(ngModel)]="DssMailDay"  id="dss_mail_day"
+          oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" readonly>
+        </div>
+      </div>
+      </div>
+      <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">動撥設定 </div>
+      <div nz-row style="margin:15px 0px">
+      <div nz-col nzSpan="12">
+        <div style="padding:10px">
+          <span class="form-title">基本門檻
+          </span>
+         <input nz-input  placeholder="輸入金額" [(ngModel)]="BasicLimit"  id="basic_limit" style="display: block;"  readonly>
+        </div>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <div style="padding:10px">
+          <span class="form-title"  >是否查詢JCIC</span>
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="IsJcic" style="display: block;">
+            <mat-radio-button [value]="'Y'">是</mat-radio-button>
+            <mat-radio-button [value]="'N'">否</mat-radio-button>
+          </mat-radio-group>
+
+        </div>
+      </div>
+    </div>
+    <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">CSS PASS設定  </div>
+    <div nz-row style="margin:15px 0px">
+      <div nz-col nzSpan="12">
+        <div style="padding:10px">
+          <span class="form-title">PASS期間
+          </span>
+          <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" (ngModelChange)="onChange($event)"></nz-date-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="12">
+        <div style="padding:10px">
+          <span class="form-title">PASS期間
+          </span>
+          <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" (ngModelChange)="onChange($event)"></nz-date-picker>
+        </div>
+      </div>
+    </div>
+    <div style="width:10vw;height:10vh;margin:10px auto;">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
+      &nbsp;&nbsp;
+      <button nz-button [nzSize]="'middle'" >關閉</button>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="line_bank_card_no_padding" >
+    <nz-table nzShowSizeChanger [nzData]="ChangeSource" [nzFrontPagination]="false" [nzSimple]="true"
+        [nzLoading]="false" [nzTotal]="totalCount" [nzPageSize]="10" [nzPageIndex]="0"
+         nzSize="small" nzTitle="照會話術設定">
+        <thead>
+          <tr>
+            <th class="table-header">欄位	</th>
+            <th class="table-header">原欄位值	</th>
+            <th class="table-header">新欄位值	</th>
+            <th class="table-header">處理員編	</th>
+            <th class="table-header">異動時間 </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of ChangeSource">
+            <td class="table-data">{{data.columnName}}</td>
+            <td class="table-data">{{data.originalValue}}</td>
+            <td class="table-data">{{data.currentValue}}</td>
+              <td class="table-data">{{data.transEmpNo}}</td>
+              <td class="table-data">
+              {{data.transDate| date: 'yyyy/MM/dd HH:mm:ss'}}
+
+
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+  </div>
+</div>
+<!-- <div width='100%' >
   <table bordercolor="#000000" cellspacing="0" cellpadding="2"
     style="border-collapse:collapse;width: 1200px;margin:0 auto;">
     <tr>
@@ -30,7 +124,7 @@
 
   </table>
 </div>
-<!-- 動撥設定 -->
+
 <div width='100%'>
   <table bordercolor="#000000" cellspacing="0" cellpadding="2"
     style="border-collapse:collapse;width: 1200px;margin:0 auto;">
@@ -88,15 +182,7 @@
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2 color="primary"></mat-datepicker>
         </mat-form-field>
-        <!-- <mat-form-field appearance="fill" style="width:300px">
-          <mat-label>選取日期期間</mat-label>
-          <mat-date-range-input [rangePicker]="picker" >
-            <input matStartDate placeholder="開始時間" formControlName="CSS_PASS_START">
-            <input matEndDate placeholder="結束時間" formControlName="CSS_PASS_END">
-          </mat-date-range-input>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field> -->
+
 
       </td>
       <td width='25%'></td>
@@ -111,9 +197,9 @@
     &nbsp;&nbsp;
     <button type="button">關閉</button>
   </div>
-</div>
+</div> -->
 
-<br>
+<!-- <br>
 <br>
 <form width='100%' >
   <table bordercolor="#000000" cellspacing="0" cellpadding="2"
@@ -142,4 +228,4 @@
       [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
     </mat-paginator>
   </tr>
-</form>
+</form> -->

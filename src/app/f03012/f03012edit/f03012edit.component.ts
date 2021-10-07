@@ -20,9 +20,12 @@ export class F03012editComponent implements OnInit {
   compareTableCode: OptionsCode[] = [];
   compareColumnCode: OptionsCode[] = [];
 
+  compareColumn: string;
   oldCompareTable: string;
   oldCompareColumn: string;
-  oldSetValue: string;
+  oldSetValueLow: string;
+  oldSetValueHight: string;
+  oldCompareType:string;
   compareType:string;
   setValueLow: string;
   setValueHight: string;
@@ -39,8 +42,8 @@ export class F03012editComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data.compareColumn)
-    console.log(this.data.setValue)
+    console.log(this.data)
+    // console.log(this.data.setValue)
     this.f03012Service.getSysTypeCode('COMPARE_TABLE')
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -58,17 +61,23 @@ export class F03012editComponent implements OnInit {
         }
       });
     this.oldCompareTable = this.data.compareTable;
-    this.oldCompareColumn = this.data.compareColumn;
+    this.compareColumn = this.data.compareColumn;
+    this.oldCompareColumn = this.data.oldCompareColumn;
     // this.oldSetValue = this.data.setValue;
     this.compareType = this.data.compareType;
     this.setValueLow = this.data.setValueLow;
     this.setValueHight = this.data.setValueHight;
+    this.oldSetValueLow = this.data.oldSetValueLow;
+    this.oldSetValueHight = this.data.oldSetValueHight;
   }
 
   public async save(): Promise<void> {
     let msgStr: string = "";
     let baseUrl = 'f03/f03012action2';
-    msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn,this.setValueLow, this.setValueHight ,this.compareType,);
+    msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn,this.setValueLow, this.setValueHight ,this.compareType,this.oldCompareType);
+    console.log(this.data)
+    console.log(this.compareType)
+    console.log(this.setValueHight)
     const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
@@ -76,7 +85,7 @@ export class F03012editComponent implements OnInit {
   }
 
   changeSelect() {
-    this.data.compareColumn = '';
+    // this.data.compareColumn = '';
     this.f03012Service.getSysTypeCode(this.data.compareTable)
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -90,4 +99,7 @@ export class F03012editComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+
 }
+

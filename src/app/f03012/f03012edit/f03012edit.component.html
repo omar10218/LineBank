@@ -40,8 +40,8 @@
             </mat-form-field>
         </div>
         <div mat-dialog-actions>
-            <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="save()">儲存</button>
-            <button mat-button (click)="onNoClick()" tabindex="-1">取消</button>
+            <button mat-button [disabled]="!formControl.valid" [(click)="save()">儲存</button>
+            <button mat-button  tabindex="-1">取消</button>
         </div>
     </form>
 </div>

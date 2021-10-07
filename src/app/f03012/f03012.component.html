@@ -1,5 +1,7 @@
 <th class="f03_th">資料比對警示門檻值設定</th>
 <br>
+
+
 <!-- list -->
 <mat-card class="matCard">
   <mat-card-content>
@@ -8,17 +10,21 @@
       <td>
         <mat-form-field color="accent">
           <mat-select formControlName="compareTable" [(ngModel)]="selectedValue1" name="compareTableCode"
-           (selectionChange)="queryByCompareTable($event.value)">
-            <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
-              {{code.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </td>
+          (selectionChange)="queryByCompareTable($event.value)">
+          <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
 
-    </tr>
-  </mat-card-content>
+  </tr>
+</mat-card-content>
 </mat-card>
+<!-- submit -->
+<div>
+  <button (click)="submit()" >儲存勾選</button>
+</div>
 <section class="example-section">
 
 </section>
@@ -26,10 +32,10 @@
 <mat-table [dataSource]="compareDataSetSource"   >
   <ng-container matColumnDef="IS_CHK">
     <mat-header-cell *matHeaderCellDef>
-      <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox>
+      <!-- <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox> -->
     </mat-header-cell>
-    <mat-cell *matCellDef="let row; let i = index;">
-      <mat-checkbox [(ngModel)]="chkArray[i]"></mat-checkbox>
+    <mat-cell *matCellDef="let row; let i = index;" (click)="changeChkStatus(row.id)">
+      <mat-checkbox [(ngModel)]="row.isChk" (click)="$event.preventDefault()" [disabled] = "useFlag"></mat-checkbox>
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="COMPARE_TABLE">
@@ -42,15 +48,38 @@
   </ng-container>
   <ng-container matColumnDef="COMPARE_TYPE">
     <mat-header-cell *matHeaderCellDef>比對方式</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.compareType}}</mat-cell>
+
+    <mat-cell *matCellDef="let row" >
+      <div *ngIf = "row.isChk; else elseBlock">
+        <input [(ngModel)]="row.compareType">
+      </div>
+      <ng-template #elseBlock>
+        {{ row.compareType}}
+      </ng-template>
+    </mat-cell>
+
   </ng-container>
   <ng-container matColumnDef="SET_VALUE_LOW">
     <mat-header-cell *matHeaderCellDef>設定最低門檻</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.setValueLow }}</mat-cell>
+    <mat-cell *matCellDef="let row">
+      <div *ngIf = "row.isChk; else elseBlock">
+        <input [(ngModel)]="row.setValueLow">
+      </div>
+      <ng-template #elseBlock>
+        {{ row.setValueLow }}
+      </ng-template>
+    </mat-cell>
   </ng-container>
   <ng-container matColumnDef="SET_VALUE_HIGHT">
     <mat-header-cell *matHeaderCellDef>設定最高門檻</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.setValueHight }}</mat-cell>
+    <mat-cell *matCellDef="let row">
+      <div *ngIf = "row.isChk; else elseBlock">
+        <input [(ngModel)]="row.setValueHight">
+      </div>
+      <ng-template #elseBlock>
+        {{ row.setValueHight }}
+      </ng-template>
+    </mat-cell>
   </ng-container>
   <!-- update -->
   <ng-container matColumnDef="actions">
@@ -77,8 +106,8 @@
       </button>
     </mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="[ 'IS_CHK', 'COMPARE_TABLE', 'COMPARE_COLUMN','COMPARE_TYPE', 'SET_VALUE_LOW','SET_VALUE_HIGHT', 'actions', 'actions2']"></mat-header-row>
-  <mat-row *matRowDef="let compareDataSetSourceRow; columns: [ 'IS_CHK','COMPARE_TABLE', 'COMPARE_COLUMN','COMPARE_TYPE', 'SET_VALUE_LOW','SET_VALUE_HIGHT', 'actions', 'actions2']"></mat-row>
+  <mat-header-row *matHeaderRowDef="[ 'IS_CHK', 'COMPARE_TABLE', 'COMPARE_COLUMN','COMPARE_TYPE', 'SET_VALUE_LOW','SET_VALUE_HIGHT','actions','actions2']"></mat-header-row>
+  <mat-row *matRowDef="let compareDataSetSourceRow; columns: [ 'IS_CHK','COMPARE_TABLE', 'COMPARE_COLUMN','COMPARE_TYPE', 'SET_VALUE_LOW','SET_VALUE_HIGHT','actions','actions2']"></mat-row>
 </mat-table>
 
 
@@ -89,3 +118,4 @@
     </mat-paginator>
   </td>
 </tr>
+

@@ -54,6 +54,7 @@ export class F03015Component implements OnInit {
   ngOnInit(): void {
     this.isHidden = false;
     this.f03015Service.getSysTypeCode('INDUC_CODE').subscribe(data => {
+      console.log(data)
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
