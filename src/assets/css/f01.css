@@ -42,3 +42,25 @@ mat-card-content{
 background-color:  #FFE4CA;
 }
 
+/* 功能按鈕樣式 */
+.leave{
+  color:#24C875;
+  background:white;
+  border-color:#24C875;
+  border-radius:5px;
+
+}
+.leave{
+  color:#ffffff;
+  background:#24C875;
+  border-color:#24C875;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+.leave{
+  color:#ffffff;
+  background:#24C875;
+  border-color:#24C875;
+  border-radius:5px;
+}
+

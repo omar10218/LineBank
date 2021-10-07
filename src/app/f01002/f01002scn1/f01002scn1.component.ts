@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Childscn18Component } from 'src/app/children/childscn18/childscn18.component';
 import { F01002rescanComponent } from '../f01002rescan/f01002rescan.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-f01002scn1',
@@ -13,7 +14,8 @@ import { F01002rescanComponent } from '../f01002rescan/f01002rescan.component';
 export class F01002scn1Component implements OnInit {
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router,
   ) { }
 
   private creditLevel: string = 'APPLCreditL3';
@@ -62,5 +64,13 @@ export class F01002scn1Component implements OnInit {
         cuid: this.cuid
       }
     });
+  }
+
+  getSearch(): String {
+    return this.search;
+  }
+
+  leave () {
+    this.router.navigate(['./F02002']);
   }
 }
