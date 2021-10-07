@@ -1,183 +1,127 @@
+<!-- 核心系統客戶資料 -->
 <form [formGroup]="coreCustInfoForm" style="padding-left: 20px;">
-    <table>
-      <mat-card class="matCard">
-        <mat-card-content>
-          <tr>
-            <th nowrap="nowrap" align="left">年齡</th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput #input formControlName="AGE" readonly>
-              </mat-form-field>
-            </td>
-            <th nowrap="nowrap" align="left">星座</th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput #input formControlName="STAR_SIGN" readonly>
-              </mat-form-field>
-            </td>
-            <th nowrap="nowrap" align="left">生肖</th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput #input formControlName="CHI_ZODIAC" readonly>
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <th nowrap="nowrap" align="left">迄今往來</th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput #input formControlName="CONTACT_DATE" readonly>
-              </mat-form-field>
-            </td>
-            <th nowrap="nowrap" align="left">行內黑名單註記資訊</th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput #input formControlName="BLACK_MARK_INFO" readonly>
-              </mat-form-field>
-            </td>
-            <th nowrap="nowrap" align="left">Blocking code資訊</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="BLOCKING_CODE" readonly>
-                </mat-form-field>
-              </td>
-          </tr>
-          <tr>
-              <th nowrap="nowrap" align="left">事故案件紀錄</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="ACCIDENT_RECORD" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">姓名</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="NAME" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">生日</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="BIRTHDAY" readonly>
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr>
-              <th nowrap="nowrap" align="left">教育程度</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="EDUCATION" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">本行Main Account開戶日期</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="ACC_OPEN_DATE" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">Account type</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="ACC_TYPE" readonly>
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr>
-              <th nowrap="nowrap" align="left">Login ID</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="LOGIN_ID" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">eMail</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="EMAIL" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">客戶填寫年收入</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="SALARY_YEAR" readonly>
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr>
-              <th nowrap="nowrap" align="left">行職業代碼</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="CP_NO" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">公司名稱</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="CP_NAME" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">公司電話</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="CP_TEL" readonly>
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr>
-              <th nowrap="nowrap" align="left">公司地址</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="CP_ADDR" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">職稱</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="CP_TITLE" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">行動電話</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="MOBILE" readonly>
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr>
-              <th nowrap="nowrap" align="left">戶籍電話</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="P_TEL" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">通訊電話</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="H_TEL" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">戶籍地址</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="P_ADDR" readonly>
-                </mat-form-field>
-              </td>
-            </tr>
-            <tr>
-              <th nowrap="nowrap" align="left">通訊地址</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="H_ADDR" readonly>
-                </mat-form-field>
-              </td>
-              <th nowrap="nowrap" align="left">寄卡地址</th>
-              <td>
-                <mat-form-field color="accent">
-                  <input matInput #input formControlName="SEND_CARD_ADDR" readonly>
-                </mat-form-field>
-              </td>
-            </tr>
-        </mat-card-content>
-      </mat-card>
-    </table>
-  </form>
-  
+  <div class="line_bank_card_no_padding" style="min-height:170px">
+    <div class="line_bank_form_header_title">核心系統客戶資料</div>
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">年齡</span><input matInput #input class="form-control"
+            formControlName="AGE" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">星座</span><input matInput #input class="form-control"
+            formControlName="STAR_SIGN" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">生肖</span><input matInput #input class="form-control"
+            formControlName="CHI_ZODIAC" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">迄今往來</span><input matInput #input class="form-control"
+            formControlName="CONTACT_DATE" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">行內黑名單註記資訊</span><input matInput #input class="form-control"
+            formControlName="BLACK_MARK_INFO" readonly></div>
+      </div>
+    </div>
+
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">Blocking code資訊</span><input matInput #input class="form-control"
+          formControlName="BLOCKING_CODE" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">事故案件紀錄</span><input matInput #input class="form-control"
+          formControlName="ACCIDENT_RECORD" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">姓名</span><input matInput #input class="form-control"
+          formControlName="NAME" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">生日</span><input matInput #input class="form-control"
+          formControlName="BIRTHDAY" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">教育程度</span><input matInput #input class="form-control"
+          formControlName="EDUCATION" readonly></div>
+      </div>
+    </div>
+
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">本行Main Account開戶日期</span><input matInput #input class="form-control"
+          formControlName="ACC_OPEN_DATE"  readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">Account type</span><input matInput #input class="form-control"
+          formControlName="ACC_TYPE" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">Login ID</span><input matInput #input class="form-control"
+          formControlName="LOGIN_ID" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">eMail</span><input matInput #input class="form-control"
+          formControlName="EMAIL" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">客戶填寫年收入</span><input matInput #input class="form-control"
+          formControlName="SALARY_YEAR" readonly></div>
+      </div>
+    </div>
+
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">行職業代碼</span><input matInput #input class="form-control"
+          formControlName="CP_NO"  readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">公司名稱</span><input matInput #input class="form-control"
+          formControlName="CP_NAME" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">公司電話</span><input matInput #input class="form-control"
+          formControlName="CP_TEL" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">公司地址</span><input matInput #input class="form-control"
+          formControlName="CP_ADDR" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">職稱</span><input matInput #input class="form-control"
+          formControlName="CP_TITLE" readonly></div>
+      </div>
+    </div>
+
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">行動電話</span><input matInput #input class="form-control"
+          formControlName="MOBILE"  readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">戶籍電話</span><input matInput #input class="form-control"
+          formControlName="P_TEL" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">通訊電話</span><input matInput #input class="form-control"
+          formControlName="H_TEL" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">戶籍地址</span><input matInput #input class="form-control"
+          formControlName="P_ADDR" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">通訊地址</span><input matInput #input class="form-control"
+          formControlName="H_ADDR" readonly></div>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">寄卡地址</span><input matInput #input class="form-control"
+          formControlName="SEND_CARD_ADDR"  readonly></div>
+      </div>
+      
+    </div>
+  </div>
+</form>

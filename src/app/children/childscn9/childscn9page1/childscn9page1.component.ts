@@ -9,7 +9,7 @@ interface dateCode {
 @Component({
   selector: 'app-childscn9page1',
   templateUrl: './childscn9page1.component.html',
-  styleUrls: ['./childscn9page1.component.css', '../../../../assets/css/f01.css']
+  styleUrls: ['./childscn9page1.component.css', '../../../../assets/css/child.css']
 })
 export class Childscn9page1Component implements OnInit {
 
@@ -74,11 +74,12 @@ export class Childscn9page1Component implements OnInit {
   }
 
   getCoreCusInfo(dateValue: string) {
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    formdata.append('code', 'CORE_CUS_INFO');
-    this.childscn9Service.getCoreCusInfo(formdata).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['cuid'] = this.cuid;
+    jsonObject['code'] = 'CORE_CUS_INFO';
+
+    this.childscn9Service.getCoreCusInfo(jsonObject).subscribe(data => {
       this.coreCustInfoForm.patchValue({ APPLNO: data.rspBody.items[0].APPLNO })
       this.coreCustInfoForm.patchValue({ AGE: data.rspBody.items[0].AGE })
       this.coreCustInfoForm.patchValue({ STAR_SIGN: data.rspBody.items[0].STAR_SIGN })
@@ -106,7 +107,6 @@ export class Childscn9page1Component implements OnInit {
       this.coreCustInfoForm.patchValue({ P_ADDR: data.rspBody.items[0].P_ADDR })
       this.coreCustInfoForm.patchValue({ H_ADDR: data.rspBody.items[0].H_ADDR })
       this.coreCustInfoForm.patchValue({ SEND_CARD_ADDR: data.rspBody.items[0].SEND_CARD_ADDR })
-      console.log(data.rspBody.items[0].APPLNO)
     });
   }
 

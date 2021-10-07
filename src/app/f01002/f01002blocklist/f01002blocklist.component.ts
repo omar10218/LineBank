@@ -69,7 +69,6 @@ export class F01002blocklistComponent implements OnInit {
   ]);
 
   blockListDataSource: readonly Data[] = [];
-  // blockListDataSource = new MatTableDataSource<any>();
   private applno: string;
   chkArray: checkBox[] = [];
   contentArray: checkBox[] = [];
@@ -179,7 +178,6 @@ export class F01002blocklistComponent implements OnInit {
       this.blockListDataSource = data.rspBody.list;
       this.total = data.rspBody.size;
       this.loading = false;
-      console.log(this.total)
     })
   }
 
