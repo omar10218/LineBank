@@ -65,11 +65,13 @@ export class Childscn9page1Component implements OnInit {
     formdata.append('cuid', this.cuid);
     formdata.append('code', 'CORE_CUS_INFO');
     this.childscn9Service.getDate(url, formdata).subscribe(data => {
-      for (let i = 0; i < data.rspBody.items.length; i++) {
-        this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
+      if (data.rspBody.items.length > 0) {
+        for (let i = 0; i < data.rspBody.items.length; i++) {
+          this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
+        }
+        this.dateValue = data.rspBody.items[0].QUERYDATE
+        this.getCoreCusInfo(this.dateValue);
       }
-      this.dateValue = data.rspBody.items[0].QUERYDATE
-      this.getCoreCusInfo(this.dateValue);
     });
   }
 

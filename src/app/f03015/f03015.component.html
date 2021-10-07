@@ -65,31 +65,32 @@
             <!-- 表格 -->
             <nz-table nzShowSizeChanger [nzData]="proxyIncomeDataSource" [nzFrontPagination]="false" [nzSimple]="true"
                 [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-                nzTitle="Proxy Income 維護">
+                [nzScroll]="{ x: '800px', y: '240px' }" nzTitle="Proxy Income 維護">
                 <thead>
                     <tr>
-                        <th class="table-header">行職業代碼</th>
-                        <th class="table-header">行業Level1</th>
-                        <th class="table-header">行業Level1敘述</th>
-                        <th class="table-header">行業Level2</th>
-                        <th class="table-header">行業Level2敘述</th>
-                        <th class="table-header">職業碼</th>
-                        <th class="table-header">職業碼敘述</th>
-                        <th class="table-header">第10百分位薪資</th>
-                        <th class="table-header">中位數薪資</th>
-                        <th class="table-header">第90百分位薪資</th>
-                        <th class="table-header">異動日期</th>
+                        <th class="table-header" nzWidth="100px">行職業代碼</th>
+                        <th class="table-header" nzWidth="100px">行業Level1</th>
+                        <th class="table-header" nzWidth="100px">行業Level1敘述</th>
+                        <th class="table-header" nzWidth="100px">行業Level2</th>
+                        <th class="table-header" nzWidth="100px">行業Level2敘述</th>
+                        <th class="table-header" nzWidth="100px">職業碼</th>
+                        <th class="table-header" nzWidth="100px">職業碼敘述</th>
+                        <th class="table-header" nzWidth="100px">第10百分位薪資</th>
+                        <th class="table-header" nzWidth="100px">中位數薪資</th>
+                        <th class="table-header" nzWidth="100px">第90百分位薪資</th>
+                        <th class="table-header" nzWidth="100px">異動日期</th>
                         <th class="table-header" hidden>ROWID</th>
-                        <th class="table-header">First Creation GUID</th>
-                        <th class="table-header">First Creation Timestamp</th>
-                        <th class="table-header">Last Change GUID</th>
-                        <th class="table-header">Last Change Timestamps</th>
-                        <th class="table-header">First Creator ID</th>
-                        <th class="table-header">First Creator IP Address</th>
-                        <th class="table-header">First Create DataBase Timestamp</th>
-                        <th class="table-header">Last Modifier ID</th>
-                        <th class="table-header">Last Modifier IP Address</th>
-                        <th class="table-header">Last Modified DataBase Timestamp</th>
+                        <th class="table-header" nzWidth="100px">First Creation GUID</th>
+                        <th class="table-header" nzWidth="100px">First Creation Timestamp</th>
+                        <th class="table-header" nzWidth="100px">Last Change GUID</th>
+                        <th class="table-header" nzWidth="100px">Last Change Timestamps</th>
+                        <th class="table-header" nzWidth="100px">First Creator ID</th>
+                        <th class="table-header" nzWidth="100px">First Creator IP Address</th>
+                        <th class="table-header" nzWidth="100px">First Create DataBase Timestamp</th>
+                        <th class="table-header" nzWidth="100px">Last Modifier ID</th>
+                        <th class="table-header" nzWidth="100px">Last Modifier IP Address</th>
+                        <th class="table-header" nzWidth="100px">Last Modified DataBase Timestamp</th>
+                        <th nzRight></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -113,12 +114,11 @@
                         <td class="table-data">{{ data.FRST_CRTR_ID }}</td>
                         <td class="table-data">{{ data.FRST_CRTR_IP_ADDR }}</td>
                         <td class="table-data">{{ data.FRST_CRT_DB_TMSTMP }}</td>
-                        <td class="table-data">{{ data.LAST_MDFR_IP_ADDR }}</td>
                         <td class="table-data">{{ data.LAST_MDFR_ID }}</td>
                         <td class="table-data">{{ data.LAST_MDFR_IP_ADDR }}</td>
                         <td class="table-data">{{ data.LAST_MDFD_DB_TMSTMP }}</td>
-                        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="update(true, data)">編輯</button>
-                        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="delete(data.ID)">刪除</button>
+                        <td nzRight><button nz-button [nzSize]="'middle'" nzType="primary" (click)="update(true, data)">編輯</button>
+                        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="delete(data.ID)">刪除</button></td>
                     </tr>
                 </tbody>
             </nz-table>
