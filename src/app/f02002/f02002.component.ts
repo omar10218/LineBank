@@ -26,7 +26,7 @@ export class F02002Component implements OnInit {
   rescanEmpno: string = '';
   rescanEmpnoCode: OptionsCode[] = [];
 
-  date: null;
+  date: [Date, Date];
   dateFormat = 'yyyy/MM/dd';
 
   rescanData: Data[] = [];
