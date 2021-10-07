@@ -9,8 +9,7 @@ import { BaseService } from 'src/app/base.service';
 export class Childscn2Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getTransLog(baseUrl: string, pageIndex: number, pageSize: number){
-    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
-    return this.postHttpClient(targetUrl);
+  getTransLog(baseUrl: string, json: JSON){
+    return this.postJsonObject( baseUrl, json);
   }
 }
