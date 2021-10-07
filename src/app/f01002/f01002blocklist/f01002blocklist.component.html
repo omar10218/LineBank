@@ -2,9 +2,10 @@
     <div class="line_bank_bankground_color">
         <div class="line_bank_form_header_title">提報黑名單</div>
         <div nz-row>
-            <form class="mat-dialog-content" #formControl="ngForm" [formGroup]="blockListForm">
+            <form class="mat-dialog-content" #formControl="ngForm" [formGroup]="blockListForm" style="padding-left: 50px;">
                 <div nz-col nzSpan="24">
-                    <div><span class="form-title">通報單位</span>
+                    <div>
+                        <span class="form-title">通報單位</span>
                         <mat-form-field color="accent">
                             <input matInput #input class="form-control" value="{{ no }}" formControlName="REPORT_UNIT"
                                 readonly>
@@ -17,30 +18,28 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+                        <span class="form-title">通報原因2</span>
+                        <mat-form-field color="accent">
+                            <mat-select [(ngModel)]="reportReason2Value" formControlName="REPORT_REASON2">
+                                <mat-option *ngFor="let code of reportReason2" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
-
-                <div>
-                    <span class="form-title">通報原因2</span>
-                    <mat-form-field color="accent">
-                        <mat-select [(ngModel)]="reportReason2Value" formControlName="REPORT_REASON2">
-                            <mat-option *ngFor="let code of reportReason2" [value]="code.value">
-                                {{code.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <span class="form-title">通報原因3</span>
-                    <mat-form-field color="accent">
-                        <mat-select [(ngModel)]="reportReason3Value" formControlName="REPORT_REASON3">
-                            <mat-option *ngFor="let code of reportReason3" [value]="code.value">
-                                {{code.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
                 <div nz-col nzSpan="24">
-                    <div><span class="form-title">通報補充</span>
+                    <div>
+                        <span class="form-title">通報原因3</span>
+                        <mat-form-field color="accent">
+                            <mat-select [(ngModel)]="reportReason3Value" formControlName="REPORT_REASON3">
+                                <mat-option *ngFor="let code of reportReason3" [value]="code.value">
+                                    {{code.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <span class="form-title">通報補充</span>
                         <mat-form-field color="accent">
                             <input matInput #input class="form-control" formControlName="REPORT_CONTENT">
                         </mat-form-field>
@@ -61,38 +60,38 @@
                         <span class="form-title">建檔項目欄位值內容</span>
                     </div>
                 </div>
-                <div nz-col nzSpan="24">
+                <div nz-col nzSpan="24" style="height: 30px;">
                     <input type="checkbox" name="姓名" value=""
                         (click)="checkboxSelect($event.target.checked,'CU_CNAME',this.blockListForm.value.CU_CNAME)">姓名
-                    <mat-form-field color="accent">
+                    <mat-form-field color="accent" style="padding-left: 60px;">
                         <input matInput #input class="form-control" formControlName="CU_CNAME">
                     </mat-form-field>
                 </div>
-                <div nz-col nzSpan="24">
+                <div nz-col nzSpan="24" style="height: 30px;">
                     <input type="checkbox" name="身分證字號" value="身分證字號"
                         (click)="checkboxSelect($event.target.checked,'NATIONAL_ID',this.blockListForm.value.NATIONAL_ID)">身分證字號
-                    <mat-form-field color="accent">
+                    <mat-form-field color="accent" style="padding-left: 20px;">
                         <input matInput #input class="form-control" formControlName="NATIONAL_ID">
                     </mat-form-field>
                 </div>
-                <div nz-col nzSpan="24">
+                <div nz-col nzSpan="24" style="height: 30px;"> 
                     <input type="checkbox" name="住家電話" value="住家電話"
                         (click)="checkboxSelect($event.target.checked,'CU_H_TEL',this.blockListForm.value.CU_H_TEL)">住家電話
-                    <mat-form-field color="accent">
+                    <mat-form-field color="accent" style="padding-left: 30px;">
                         <input matInput #input class="form-control" formControlName="CU_H_TEL">
                     </mat-form-field>
                 </div>
-                <div nz-col nzSpan="24">
+                <div nz-col nzSpan="24" style="height: 30px;">
                     <input type="checkbox" name="公司電話" value="公司電話"
                         (click)="checkboxSelect($event.target.checked,'CU_CP_TEL',this.blockListForm.value.CU_CP_TEL)">公司電話
-                    <mat-form-field color="accent">
+                    <mat-form-field color="accent" style="padding-left: 30px;">
                         <input matInput #input class="form-control" formControlName="CU_CP_TEL">
                     </mat-form-field>
                 </div>
-                <div nz-col nzSpan="24">
+                <div nz-col nzSpan="24" style="height: 30px;">
                     <input type="checkbox" name="手機號碼" value="手機號碼"
                         (click)="checkboxSelect($event.target.checked,'CU_M_TEL',this.blockListForm.value.CU_M_TEL)">手機號碼
-                    <mat-form-field color="accent">
+                    <mat-form-field color="accent" style="padding-left: 30px;">
                         <input matInput #input class="form-control" formControlName="CU_M_TEL">
                     </mat-form-field>
                 </div>
@@ -107,8 +106,8 @@
         <div class="line_bank_card_no_padding">
             <!-- 表格 -->
             <nz-table nzShowSizeChanger [nzData]="blockListDataSource" [nzFrontPagination]="false" [nzSimple]="true"
-                [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-                nzTitle="黑名單">
+                (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total"
+                [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="黑名單">
                 <thead>
                     <tr>
                         <th class="table-header">通報單位</th>

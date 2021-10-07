@@ -10,9 +10,9 @@ export class F01002BlockListService extends BaseService{
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  gettable(baseUrl: string, applno: string) {
+  gettable(baseUrl: string, applno: string, json:JSON) {
     let targetUrl = `${baseUrl}?applno=${applno}`;
-    return this.postHttpClient(targetUrl);
+    return this.postJsonObject(targetUrl, json);
   }
   oneseve(baseUrl: string,json:JSON) {
   let targetUrl = baseUrl;

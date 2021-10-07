@@ -1,8 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Data, Router } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ChildrenService } from 'src/app/children/children.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01002BlockListService } from './f01002blocklist.service';
@@ -30,7 +33,9 @@ export class F01002blocklistComponent implements OnInit {
   reportReason2Value: string;  //通報原因2選擇
   reportReason3Value: string; //通報原因3選擇
   useFlagValue: string; //使用中選擇
-
+  currentPage: PageEvent;
+  currentSort: Sort;
+  
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -71,8 +76,8 @@ export class F01002blocklistComponent implements OnInit {
   jsonObject: any = {};
   no: string;//會員帳號
   total = 1;
-  loading = false;
-  pageSize = 10;
+  loading = true;
+  pageSize = 5;
   pageIndex = 1;
 
 
@@ -80,12 +85,12 @@ export class F01002blocklistComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.applno = sessionStorage.getItem('applno');//案件代碼
       this.no = localStorage.getItem("empNo");
-      this.selectBlockList()//一進去畫面就抓取資料表
+      this.selectBlockList(this.pageIndex, this.pageSize)//一進去畫面就抓取資料表
     });
 
     //抓取資料表
     this.blockListForm.patchValue({ 'REPORT_UNIT': this.no })
-    this.selectBlockList();
+    this.selectBlockList(this.pageIndex, this.pageSize);
 
     //取Customer_info資料
     this.selectCustInfo();
@@ -151,7 +156,8 @@ export class F01002blocklistComponent implements OnInit {
   selectCustInfo() {
     const url = 'f01/selectCustInfo';
     const applno = this.applno;
-    this.blockListService.gettable(url, applno).subscribe(data => {
+    let jsonObject: any = {};
+    this.blockListService.gettable(url, applno, jsonObject).subscribe(data => {
       this.blockListForm.patchValue({ 'CU_CNAME': data.rspBody.list[0].cuCname })
       this.blockListForm.patchValue({ 'NATIONAL_ID': data.rspBody.list[0].nationalId })
       this.blockListForm.patchValue({ 'CU_H_TEL': data.rspBody.list[0].cuHTel })
@@ -161,11 +167,26 @@ export class F01002blocklistComponent implements OnInit {
   }
 
   //查詢資料表  
-  selectBlockList() {
+  selectBlockList(pageIndex: number, pageSize: number) {
     const url = 'f01/blockListSelect';
     const applno = this.applno;
-    this.blockListService.gettable(url, applno).subscribe(data => {
+
+    let jsonObject: any = {};
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+
+    this.blockListService.gettable(url, applno, jsonObject).subscribe(data => {
       this.blockListDataSource = data.rspBody.list;
+      this.total = data.rspBody.size;
+      this.loading = false;
+      console.log(this.total)
     })
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.pageSize = pageSize;
+    this.pageIndex = pageIndex;
+    this.selectBlockList(this.pageIndex, this.pageSize);
   }
 }
