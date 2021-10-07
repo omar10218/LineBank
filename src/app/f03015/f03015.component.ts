@@ -130,7 +130,6 @@ export class F03015Component implements OnInit {
       jsonObject['inducLevel1'] = this.inducLevel1Value;
       jsonObject['inducLevel2'] = this.inducLevel2Value;
       jsonObject['jobCode'] = this.jobCodeValue;
-
       await this.f03015Service.getReturn('f03/f03015', jsonObject).subscribe(data => {
         this.totalCount = data.rspBody.size;
         this.proxyIncomeDataSource = data.rspBody.items;
@@ -162,7 +161,7 @@ export class F03015Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.refreshTable(); }
+      if (result != null && result.event == 'success') { this.getProxyIncomeData(); }
     });
   }
 
