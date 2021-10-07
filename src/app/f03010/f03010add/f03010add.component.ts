@@ -39,31 +39,24 @@ export class F03010addComponent implements OnInit {
 
   //儲存
   public async add(): Promise<void> {
-    let msgStr: string = "";
-    let baseUrl = 'f03/f03010action1';
-    msgStr = await this.f03010Service.saveSpeaking(baseUrl, this.data);
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
-    });
-    if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }
+    //判斷字數
+    if (this.data.speakingContent.replace(/[^\x00-\xff]/g, "xx").length > 200) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "話術內容資料長度為100個中文字!" }
+      });
+    }
+    else {
+      let msgStr: string = "";
+      let baseUrl = 'f03/f03010action1';
+      msgStr = await this.f03010Service.saveSpeaking(baseUrl, this.data);
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
+    }
   }
 
-  // //新增
-  // add() {
-  //   let msg = '';
-  //     const baseUrl = 'f03/f03010action1';
-  //     let jsonObject: any = {};
-  //     jsonObject['speakingAbbreviation'] = this.data.speakingAbbreviation;
-  //     jsonObject['stopFlag'] = this.data.stopFlag;
-  //     jsonObject['speakingContent'] = this.data.speakingContent;
-  //     this.f03010Service.Speaking( baseUrl, jsonObject).subscribe(data => {
-  //       setTimeout(() => {
-  //         msg = data.rspMsg;
-  //         const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-  //       }, 1500);
-  //     });
 
-  // }
 
   //取消
   onNoClick(): void {

@@ -33,6 +33,10 @@ export class F03015Component implements OnInit {
   inducLevel2Value: string;  //行職業level2選擇
   jobCodeValue: string; //職業碼選擇
   isHidden: boolean;
+  total = 1;
+  loading = false;
+  pageSize = 10;
+  pageIndex = 1;
 
   myDate: any = new Date();
   constructor(public dialogRef: MatDialogRef<F03015confirmComponent>, private f03015Service: F03015Service, public dialog: MatDialog, private fb: FormBuilder, private datePipe: DatePipe, @Inject(MAT_DIALOG_DATA) public data: any,) {
@@ -99,9 +103,9 @@ export class F03015Component implements OnInit {
       active: '',
       direction: ''
     };
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-    });
+    // this.paginator.page.subscribe((page: PageEvent) => {
+    //   this.currentPage = page;
+    // });
   }
 
   changeSort(sortInfo: Sort) {
@@ -136,7 +140,6 @@ export class F03015Component implements OnInit {
 
   //新增
   insert(isInsert: boolean) {
-    console.log(isInsert)
     const dialogRef = this.dialog.open(F03015editComponent, {
       data: {
         isInsert: isInsert,
@@ -170,7 +173,7 @@ export class F03015Component implements OnInit {
     this.inducLevel2Value = '';
     this.jobCodeValue = '';
 
-    this.proxyIncomeDataSource = new MatTableDataSource;
+    this.proxyIncomeDataSource = null;
 
   }
 
