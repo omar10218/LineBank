@@ -83,7 +83,6 @@ export class F03006Component implements OnInit {
           this.levelStartDateTypeCode.push({ value: codeNo, viewValue: desc })
           this.levelEndDateTypeCode.push({ value: codeNo, viewValue: desc })
         }
-
         for (const jsonObj of data.rspBody.projectList) {//派件專案代碼
           const codeNo = jsonObj.codeNo;
           const desc = jsonObj.codeDesc;
