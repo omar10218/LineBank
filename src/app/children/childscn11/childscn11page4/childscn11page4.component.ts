@@ -6,7 +6,7 @@ interface Code {
   result: string;
   count: string;
 }
-
+//Nick KRM043報送資料比對
 @Component({
   selector: 'app-childscn11page4',
   templateUrl: './childscn11page4.component.html',
@@ -26,7 +26,7 @@ export class Childscn11page4Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.getKRM043();
   }
-
+ //取資料
   getKRM043() {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
@@ -36,7 +36,7 @@ export class Childscn11page4Component implements OnInit {
       this.compare = data.rspBody.compare;
     });
   }
-
+  //取viewValue
   getOptionDesc(codeVal: string): string {
     for (const data of this.mappingOption) {
       if (data.codeNo == codeVal) {

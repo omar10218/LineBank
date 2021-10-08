@@ -7,7 +7,7 @@ interface Code {
   result: string;
   count: string;
 }
-
+//Nick COMPARE_UNID 歷史申請書比對 (不同NID)
 @Component({
   selector: 'app-childscn11page2',
   templateUrl: './childscn11page2.component.html',
@@ -53,7 +53,7 @@ export class Childscn11page2Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.getCOMPARE();
   }
-
+//取資料
   getCOMPARE() {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
@@ -63,7 +63,7 @@ export class Childscn11page2Component implements OnInit {
       this.compare = data.rspBody.compare;
     });
   }
-
+  //取viewValue
   getOptionDesc(codeVal: string): string {
     for (const data of this.mappingOption) {
       if (data.codeNo == codeVal) {
