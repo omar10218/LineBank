@@ -22,7 +22,7 @@ interface sysCode {
 @Component({
   selector: 'app-f01002blocklist',
   templateUrl: './f01002blocklist.component.html',
-  styleUrls: ['./f01002blocklist.component.css']
+  styleUrls: ['./f01002blocklist.component.css','../../../assets/css/f03.css']
 })
 export class F01002blocklistComponent implements OnInit {
   reportReason1: sysCode[] = [];  //通報原因1下拉
@@ -75,7 +75,7 @@ export class F01002blocklistComponent implements OnInit {
   jsonObject: any = {};
   no: string;//會員帳號
   total = 1;
-  loading = true;
+  loading = false;
   pageSize = 5;
   pageIndex = 1;
 
@@ -141,7 +141,7 @@ export class F01002blocklistComponent implements OnInit {
       this.jsonObject['BK_CONTENT'] = this.contentArray;
 
       const url = 'f01/blockListInsert';
-      this.blockListService.oneseve(url, this.jsonObject).subscribe(data => {
+      this.blockListService.onsave(url, this.jsonObject).subscribe(data => {
 
         if (data.rspMsg == "儲存成功") {
           this.dialog.open(ConfirmComponent, { data: { msgStr: "儲存成功" } });

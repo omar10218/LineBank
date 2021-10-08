@@ -1,107 +1,70 @@
-<div class="f03_div" style="padding-left: 20px; padding-top: 20px;">
-  <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
-    <button mat-raised-button color="primary" (click)="addNew()">新增</button>
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+  <div style="padding-left: 20px; padding-top: 20px;">
+    <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
   </ng-container>
   <ng-template #elseTemplate>
-    <button mat-raised-button color="primary" (click)="addNew()" disabled>新增</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" disabled>新增</button>
   </ng-template>
+  </div>
+
+   <!-- 最外層卡片包覆 -->
+   <div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzData]="applIncomeSource" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="財務試算">
+      <thead>
+        <tr>
+          <th class="table-header">客戶類別</th>
+          <th class="table-header">身份證字號</th>
+          <th class="table-header">姓名</th>
+          <th class="table-header">收入項目</th>
+          <th class="table-header">金額</th>
+          <th class="table-header">月收入例外</th>
+          <th class="table-header">年所得</th>
+          <th class="table-header">月平均收入</th>
+          <th class="table-header">編輯</th>
+          <th class="table-header">刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of applIncomeSource">
+          <td class="table-data">{{ data.postFlag }}</td>
+          <td class="table-data">{{ data.cuId }}</td>
+          <td class="table-data">{{ data.cuCname }}</td>
+          <td class="table-data">{{ getOptionDesc(data.incomeType) }}</td>
+          <td class="table-data">{{ data.num }}</td>
+          <td class="table-data">{{ data.mincomeExp }}</td>
+          <td class="table-data">{{ data.yincome }}</td>
+          <td class="table-data">{{ data.mincome }}</td>
+          <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
+            <td class="table-data">
+              <button nz-button [nzSize]="'middle'" nzType="primary"
+                (click)="startEdit(
+                data.incomeType, data.cuId, data.cuCname, data.num, data.mincomeExp)">編輯</button>
+            </td>
+            <td class="table-data">
+              <button nz-button [nzSize]="'middle'" nzType="primary"
+                (click)="deleteItem(
+                data.incomeType, data.cuId, data.cuCname, data.num, data.mincomeExp)">刪除</button>
+            </td>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <td class="table-data">
+              <button nz-button [nzSize]="'middle'" nzType="primary"
+                (click)="startEdit(
+                data.incomeType, data.cuId, data.cuCname, data.num, data.mincomeExp)" disabled>編輯</button>
+            </td>
+            <td class="table-data">
+              <button nz-button [nzSize]="'middle'" nzType="primary"
+                (click)="deleteItem(
+                data.incomeType, data.cuId, data.cuCname, data.num, data.mincomeExp)" disabled>刪除</button>
+            </td>
+          </ng-template>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
 </div>
-<br>
-<mat-table [dataSource]="applIncomeSource" matSortDisableClear>
-  <ng-container matColumnDef="postFlag">
-    <mat-header-cell mat-header-cell *matHeaderCellDef> 客戶類別</mat-header-cell>
-    <mat-cell mat-cell *matCellDef="let row"> {{row.postFlag}}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="cuId">
-    <mat-header-cell mat-header-cell *matHeaderCellDef> 身份證字號</mat-header-cell>
-    <mat-cell mat-cell *matCellDef="let row"> {{row.cuId}}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="cuCname">
-    <mat-header-cell mat-header-cell *matHeaderCellDef> 姓名</mat-header-cell>
-    <mat-cell mat-cell *matCellDef="let row"> {{row.cuCname}}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="incomeType">
-    <mat-header-cell mat-header-cell *matHeaderCellDef> 收入項目</mat-header-cell>
-    <mat-cell mat-cell *matCellDef="let row"> {{getOptionDesc(row.incomeType)}}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="num">
-    <mat-header-cell mat-header-cell *matHeaderCellDef> 金額</mat-header-cell>
-    <mat-cell mat-cell *matCellDef="let row"> {{row.num}}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="mincomeExp">
-    <mat-header-cell mat-header-cell *matHeaderCellDef> 月收入例外</mat-header-cell>
-    <mat-cell mat-cell *matCellDef="let row"> {{row.mincomeExp}}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="yincome">
-    <mat-header-cell mat-header-cell *matHeaderCellDef> 年所得</mat-header-cell>
-    <mat-cell mat-cell *matCellDef="let row"> {{row.yincome}}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="mincome">
-    <mat-header-cell mat-header-cell *matHeaderCellDef> 月平均收入</mat-header-cell>
-    <mat-cell mat-cell *matCellDef="let row"> {{row.mincome}}</mat-cell>
-  </ng-container>
-
-
-
-  <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
-    <ng-container matColumnDef="actions">
-      <!-- <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell> -->
-      <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
-      <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent"
-          (click)="startEdit(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)">
-          <mat-icon aria-label="Edit">edit</mat-icon>
-        </button>
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="actions2">
-      <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
-      <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent"
-          (click)="deleteItem(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)">
-          <mat-icon aria-label="Delete">delete</mat-icon>
-        </button>
-      </mat-cell>
-    </ng-container>
-  </ng-container>
-  <ng-template #elseTemplate>
-    <ng-container matColumnDef="actions">
-      <!-- <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell> -->
-      <mat-header-cell *matHeaderCellDef>編輯</mat-header-cell>
-      <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent"
-          (click)="startEdit(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)" disabled>
-          <mat-icon aria-label="Edit">edit</mat-icon>
-        </button>
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="actions2">
-      <mat-header-cell *matHeaderCellDef>刪除</mat-header-cell>
-      <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button color="accent"
-          (click)="deleteItem(i, row.incomeType, row.cuId, row.cuCname, row.num, row.mincomeExp)" disabled>
-          <mat-icon aria-label="Delete">delete</mat-icon>
-        </button>
-      </mat-cell>
-    </ng-container>
-  </ng-template>
-
-
-
-
-
-  <mat-header-row
-    *matHeaderRowDef="['postFlag','cuId','cuCname', 'incomeType', 'num', 'mincomeExp','yincome','mincome','actions','actions2']">
-  </mat-header-row>
-  <mat-row
-    *matRowDef="let row; columns: ['postFlag','cuId','cuCname', 'incomeType', 'num', 'mincomeExp','yincome','mincome','actions','actions2']">
-  </mat-row>
-</mat-table>
-
-<tr>
-  <td>
-    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-    </mat-paginator>
-  </td>
-</tr>

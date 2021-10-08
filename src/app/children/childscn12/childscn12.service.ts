@@ -16,13 +16,12 @@ export class Childscn12Service extends BaseService {
   Condition!: sysCode[] ;
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getInComeFunction(formdata: FormData): Observable<any> {
-    const baseUrl = 'f01/childscn12';
-    return this.postFormData(baseUrl, formdata);
+  getInComeFunction( baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
   }
 
-  public async childscn12Action(baseUrl: string, formdata: FormData): Promise<Observable<any>> {
-    return await this.postFormData(baseUrl, formdata).toPromise();
+  public async childscn12Action(baseUrl: string, json: JSON): Promise<Observable<any>> {
+    return await this.postJsonObject(baseUrl, json).toPromise();
   }
 
 }
