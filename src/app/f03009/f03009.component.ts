@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { OptionsCode } from '../interface/base';
 import { F03009Service } from './f03009.service';
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 
 interface checkBox {
   value: string;
@@ -19,8 +20,11 @@ export class F03009Component implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private f03009Service: F03009Service
-  ) { }
+    private f03009Service: F03009Service,
+    private nzI18nService: NzI18nService,
+  ) {
+    this.nzI18nService.setLocale(zh_TW)
+  }
 
   isAllCheck: boolean = false;
   tvnoCode: OptionsCode[] = [];
@@ -47,7 +51,10 @@ export class F03009Component implements OnInit {
     const baseUrl = 'f03/f03009action1';
     let jsonObject: any = {};
     jsonObject['tvNo'] = this.selectedValue;
+    console.log(this.selectedValue);
     this.f03009Service.TvFunction(baseUrl, jsonObject).subscribe(data => {
+      console.log(data);
+      console.log(this.chkArray);
       if (this.chkArray.length > 0) {
         let i: number = 0;
         for (const jsonObj of data.rspBody) {

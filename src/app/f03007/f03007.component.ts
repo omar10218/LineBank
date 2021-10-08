@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { OptionsCode } from '../interface/base';
 import { F03007Service } from './f03007.service';
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 
 interface checkBox {
   value: string;
@@ -19,8 +20,11 @@ export class F03007Component implements OnInit, AfterViewInit {
 
   constructor(
     private f03007Service: F03007Service,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog,
+    private nzI18nService: NzI18nService,
+  ) {
+    this.nzI18nService.setLocale(zh_TW)
+  }
 
   isAllCheck: boolean = false;
   sysCode: OptionsCode[] = [];
@@ -37,10 +41,10 @@ export class F03007Component implements OnInit, AfterViewInit {
         const desc = jsonObj['roleName'];
         this.sysCode.push({ value: codeNo, viewValue: desc })
       }
-      for (const jsonObj of data.rspBody.functionList) {
-        this.chkArray.push({ value: jsonObj['FN_NO'], completed: false })
-      }
-      this.roleFunctionSource.data = data.rspBody.functionList;
+      // for (const jsonObj of data.rspBody.functionList) {
+      //   this.chkArray.push({ value: jsonObj['FN_NO'], completed: false })
+      // }
+      // this.roleFunctionSource.data = data.rspBody.functionList;
     });
   }
 
