@@ -35,6 +35,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">排序</span>
               <input matInput #input class="form-control" [(ngModel)]="data.codeSort" name="codeSort" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               <p style="color: red;" [hidden]="hidden">請輸入數字</p>
             </div>
           </div>

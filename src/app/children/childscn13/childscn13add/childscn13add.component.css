@@ -4,21 +4,21 @@
     min-width: 1000px;
     min-height: 800px;
   }
-  
+
   .container > * {
     width: 100%;
   }
-  
+
   .form {
     display: flex;
     padding-top: 6px;
   }
-  
+
   .mat-form-field {
     font-size: 16px;
     flex-grow: 1;
   }
-  
+
   .inboxContainer {
     width: 1000px;
     height: 550px;
@@ -27,4 +27,8 @@
     position: absolute;
     overflow: auto;
   }
-  
+
+  :host {
+    display: block;
+    max-height: 65vh;
+  }

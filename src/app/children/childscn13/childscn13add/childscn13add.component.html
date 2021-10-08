@@ -1,60 +1,71 @@
-<div class="container">
-    <h2 mat-dialog-title>網頁資訊-新增</h2>
-    <table>
-      <tr>
-        <td style="width: 30%;">
-          <mat-form-field color="accent">
-            <mat-select [(ngModel)]="webAddrValue" placeholder="第三方外部網站" (ngModelChange)="changeSelect()">
-              <mat-option *ngFor="let webAddr of data.webAddrOption" [value]="webAddr.codeNo + '=' + webAddr.codeTag">
-                {{webAddr.codeDesc}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-        <td style="width: 70%;">
-          <mat-form-field color="accent" style="width: 80%;">
-            <input matInput [(ngModel)]="webAddrUrl" placeholder="網址" readonly>
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <td style="width: 30%;">
-          <mat-form-field>
-            <ngx-mat-file-input [formControl]="fileControl" [accept]="accept" placeholder="請選擇檔案" (change)="onAddImage($event)"></ngx-mat-file-input>
-          </mat-form-field>
-        </td>
-        <td style="width: 70%;">
-          <mat-form-field color="accent" style="width: 80%;">
-            <input matInput [(ngModel)]="webInfoContent" placeholder="內容">
-          </mat-form-field>
-        </td>
-      </tr>
-    </table>
-  
-    <tr>
-      <td>
-        <ng-container *ngIf="data.search == 'N'; else elseTemplate">
-          <button mat-stroked-button style="margin-left: 10px;" (click)="uploadFile()"><mat-icon matSuffix>backup</mat-icon></button>
-        </ng-container>
-        <ng-template #elseTemplate>
-          <button mat-stroked-button style="margin-left: 10px;" (click)="uploadFile()" disabled="true"><mat-icon matSuffix>backup</mat-icon></button>
-        </ng-template>
-      </td>
-      <td>
-        <div *ngIf="msg">
-          <h4 [innerHtml]='msg' style="color: red; margin-left: 5px;"></h4>
+<div class="line_bank_card_no_padding" style="min-height:170px">
+  <div class="line_bank_form_header_title">網頁資訊-新增</div>
+  <div class="container" style="padding:20px">
+    <form class="mat-dialog-content" #formControl="ngForm">
+
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:20px">
+            <div><span class="form-title-actions">第三方外部網站</span>
+              <mat-select [(ngModel)]="webAddrValue" name="webAddrValue" (ngModelChange)="changeSelect()" required
+                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+                <mat-option *ngFor="let webAddr of data.webAddrOption" [value]="webAddr.codeNo + '=' + webAddr.codeTag">
+                  {{webAddr.codeDesc}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+            </div>
+          </div>
         </div>
-      </td>
-    </tr>
-  
-    <br>
-  
-    <tr>
-      <td>
-        <div *ngIf="imageSrc" style="float: left; margin: 5px; text-align:center" class="inboxContainer">
-          <img [src]="imageSrc" alt='Item image' *ngIf="imageSrc">
+        <div nz-col nzFlex="2">
+          <div style="padding:20px">
+            <div><span class="form-title-actions">網址</span>
+              <input matInput #input class="form-control" type="text" [(ngModel)]="webAddrUrl" name="webAddrUrl"
+                readonly>
+              <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+            </div>
+          </div>
         </div>
-      </td>
-    </tr>
+      </div>
+
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:20px">
+            <div><span class="form-title-actions">請選擇檔案</span>
+              <mat-form-field>
+                <ngx-mat-file-input [formControl]="fileControl" [accept]="accept" (change)="onAddImage($event)">
+                </ngx-mat-file-input>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzFlex="2">
+          <div style="padding:20px">
+            <div><span class="form-title-actions">內容</span>
+              <input matInput #input class="form-control" type="text" [(ngModel)]="webInfoContent" name="webInfoContent"
+                required>
+              <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:20px">
+          <div mat-dialog-actions>
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="uploadFile()" [disabled]="!formControl.valid">
+              <mat-icon matSuffix>backup</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="msg">
+            <h4 [innerHtml]='msg' style="color: red; margin-left: 5px;"></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="imageSrc" class="inboxContainer">
+      <img [src]="imageSrc" alt='Item image' *ngIf="imageSrc">
+    </ng-container>
   </div>
-  
+</div>
