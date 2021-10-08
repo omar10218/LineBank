@@ -30,7 +30,7 @@ export class F02001Component implements OnInit {
   cust_FLAG_Value: string;//客群標籤值
   risk_GRADE: sysCode[] = [];//風險等級分群
   risk_GRADE_Value: string;//風險等級分群值
-  apply_TIME: string;//進件日期
+  apply_TIME: [Date,Date];//進件日期
   proof_DOCUMENT_TIME: string;//上傳財力日期
   sign_UP_TIME: string;//簽約完成日期
   product_NAME: string;//產品名稱
@@ -76,7 +76,16 @@ export class F02001Component implements OnInit {
     // this.jsonObject['status_DESC'] = this.status_DESC_Value;案件狀態
     // this.jsonObject['CUST_FLAG'] = this.cust_FLAG_Value;客群標籤
     // this.jsonObject['RISK_GRADE'] = this.risk_GRADE_Value;風險等級分群
-    this.jsonObject['apply_TIME'] = this.apply_TIME;//進件日期
+
+    // this.jsonObject['apply_TIME'] = this.apply_TIME;//進件日期
+    if(this.apply_TIME !=null)//進件日期
+    {
+      this.jsonObject['apply_TIME'] = this.pipe.transform (new Date(this.apply_TIME[0]).toString() , 'yyyy-MM-dd');
+    }
+    else
+    {
+      this.jsonObject['apply_TIME'] = '';
+    }
     this.jsonObject['proof_DOCUMENT_TIME'] = this.proof_DOCUMENT_TIME;//上傳財力日期
     this.jsonObject['sign_UP_TIME'] = this.sign_UP_TIME;//簽約完成日期
     this.jsonObject['product_NAME'] = this.product_NAME;//產品名稱
@@ -91,6 +100,7 @@ export class F02001Component implements OnInit {
       this.jsonObject['credit_TIME'] = '';
     }
 
+    console.log(this.jsonObject['apply_TIME'])
     this.f02001Service.inquiry(url,this.jsonObject).subscribe(data=>{
       this.ruleParamCondition = data.rspBody;
       console.log( this.ruleParamCondition)
@@ -107,7 +117,7 @@ export class F02001Component implements OnInit {
     this.status_DESC_Value='';
     this.cust_FLAG_Value='';
     this.risk_GRADE_Value='';
-    this.apply_TIME='';
+    this.apply_TIME=null;
     this.proof_DOCUMENT_TIME='';
     this.sign_UP_TIME='';
     this.product_NAME='';

@@ -12,7 +12,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 @Component({
   selector: 'app-childscn16',
   templateUrl: './childscn16.component.html',
-  styleUrls: ['./childscn16.component.css']
+  styleUrls: ['./childscn16.component.css','../../../assets/css/f03.css']
 })
 export class Childscn16Component implements OnInit {
 

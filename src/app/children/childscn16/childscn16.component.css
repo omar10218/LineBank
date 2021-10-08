@@ -1,5 +1,0 @@
-th,tr,td{text-align:left; border: 1.5px solid rgb(255, 255, 255);}
-th{background-color: #cc65ff;}
-td,tr{background-color: #99ff99;}
-/* table{bordercolor="#000000"  style="border-collapse:collapse;width: 1200px;"} */
-table{border-color: #000;border-collapse: collapse; width: 1200px;}

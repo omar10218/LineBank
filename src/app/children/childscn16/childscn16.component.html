@@ -20,7 +20,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of ruleParamCondition">
-          <td><button mat-icon-button color="primary" (click)="Inquire(data.applnoOld)">查詢</button></td>
+          <td><button nz-button [nzSize]="'middle'" nzType="primary" (click)="Inquire(data.applnoOld)">查詢</button></td>
           <td class="table-data">{{ data.applnoOld }}</td>
           <td class="table-data">{{ data.custId }}</td>
           <td class="table-data">{{ data.nationalId }}</td>
@@ -37,71 +37,3 @@
   </div>
 </div>
 
-<!-- <br>
-<div>
-  <mat-table [dataSource]="ruleParamCondition">
-    <ng-container matColumnDef="tool">
-      <mat-header-cell *matHeaderCellDef>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row;let i=index;">
-        <button mat-icon-button color="primary" (click)="Inquire(row.applnoOld)">查詢
-          <mat-icon aria-label="編輯">edit</mat-icon>
-        </button>
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="APPLNO_OLD">
-      <mat-header-cell *matHeaderCellDef>案件編號</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.applnoOld }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="CUST_ID">
-      <mat-header-cell *matHeaderCellDef>客戶編號</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.custId }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="NATIONAL_ID">
-      <mat-header-cell *matHeaderCellDef>申請人ID</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.nationalId }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="PROD_CODE">
-      <mat-header-cell *matHeaderCellDef>產品代碼</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.prodCode }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="CREDIT_RESULT">
-      <mat-header-cell *matHeaderCellDef>審核結果</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.creditResult }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="REASON_CODE">
-      <mat-header-cell *matHeaderCellDef>原因碼</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.reasonCode}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="L3EMPNO">
-      <mat-header-cell *matHeaderCellDef>徵信員</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.l3empno}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="L4EMPNO">
-      <mat-header-cell *matHeaderCellDef>授信員</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.l4empno }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="APPLY_TIME">
-      <mat-header-cell *matHeaderCellDef>准入時間</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.applyTime|date: 'yyyy-MM-dd' }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="CREDIT_TIME">
-      <mat-header-cell *matHeaderCellDef>徵審核決時間</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.creditTime|date: 'yyyy-MM-dd-HH:mm:ss' }}</mat-cell>
-    </ng-container>
-
-    <mat-header-row
-      *matHeaderRowDef="['tool','APPLNO_OLD','CUST_ID','NATIONAL_ID','PROD_CODE','CREDIT_RESULT','REASON_CODE','L3EMPNO','L4EMPNO','APPLY_TIME','CREDIT_TIME']">
-    </mat-header-row>
-    <mat-row
-      *matRowDef="let emailRow; columns: ['tool','APPLNO_OLD','CUST_ID','NATIONAL_ID','PROD_CODE','CREDIT_RESULT','REASON_CODE','L3EMPNO','L4EMPNO','APPLY_TIME','CREDIT_TIME']">
-    </mat-row>
-  </mat-table>
-  <tr>
-    <td>
-      <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-      </mat-paginator>
-    </td>
-  </tr> -->
-<!-- </div> -->
