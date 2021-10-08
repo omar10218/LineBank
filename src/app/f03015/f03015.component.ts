@@ -59,7 +59,6 @@ export class F03015Component implements OnInit {
   ngOnInit(): void {
     this.isHidden = false;
     this.f03015Service.getSysTypeCode('INDUC_CODE').subscribe(data => {
-      console.log(data)
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
@@ -106,7 +105,6 @@ export class F03015Component implements OnInit {
       direction: ''
     };
   }
-
   changeSort(sortInfo: Sort) {
     this.currentSort = sortInfo;
   }
@@ -130,7 +128,6 @@ export class F03015Component implements OnInit {
       jsonObject['inducLevel2'] = this.inducLevel2Value;
       jsonObject['jobCode'] = this.jobCodeValue;
       await this.f03015Service.getReturn('f03/f03015', jsonObject).subscribe(data => {
-        console.log(data)
         this.totalCount = data.rspBody.size;
         this.proxyIncomeDataSource = data.rspBody.items;
       });
