@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { F03014Service } from '../f03014.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 interface sysCode {
@@ -13,7 +14,7 @@ interface sysCode {
 @Component({
   selector: 'app-f03014add',
   templateUrl: './f03014add.component.html',
-  styleUrls: ['./f03014add.component.css']
+  styleUrls: ['./f03014add.component.css','../../../assets/css/f03.css']
 })
 
 export class F03014addComponent implements OnInit {
@@ -25,12 +26,13 @@ export class F03014addComponent implements OnInit {
   content1:string;//簡述一
   content2:string;//簡述二
   remark:string;//備註資訊
+
   Efficient:string;//生效
   Invalidation:string;//失效
   daytest:string;//三個月後的日期
   jsonObject :any = {};
   Custlist:any=[];
-  constructor(private pipe: DatePipe,private f03014Service: F03014Service) { }
+  constructor(private pipe: DatePipe,private f03014Service: F03014Service, public dialogRef: MatDialogRef<F03014addComponent>) { }
 
   ngOnInit(): void {
     this.usingType.push({value: '1', viewValue: 'Y'});
@@ -44,7 +46,7 @@ export class F03014addComponent implements OnInit {
     var j = a.setDate(a.getDate());
     this.daytest = this.pipe.transform( new Date(j+k) ,'yyyy-MM-dd')//三個月後的失效日期
   }
-  seve()
+  seve()//存檔
   {
     const url = 'f03/f03014action02';
     this.jsonObject['custNid']=this.custNid;
@@ -56,21 +58,25 @@ export class F03014addComponent implements OnInit {
     this.jsonObject['expirationDate']=this.Invalidation;
     this.jsonObject['useFlag']=this.usingValue;
     this.jsonObject['changeDate']=this.currentTimeValue;
-    // let formData = new FormData();
-    // formData.append('custNid',this.custNid);
-    // formData.append('custName',this.custName);
-    // formData.append('content1',this.content1);
-    // formData.append('content2',this.content2);
-    // formData.append('remark',this.remark);
-    // formData.append('effectiveDate',this.Efficient);
-    // formData.append('expirationDate',this.Invalidation);
-    // formData.append('useFlag',this.usingValue);
-    // formData.append('changeDate',this.currentTimeValue);
+
     this.Custlist.push(this.jsonObject)
     this.f03014Service.Add(url,this.Custlist).subscribe(data=>{
+      if(data.rspCode =='0000'&& data.rspMsg =='成功')
+      {
+        alert("新增成功")
+        this.onNoClick();
+      }
+      else
+      {
+        alert(data.rspMsg)
+      }
       console.log(data)
 
     })
+  }
+  onNoClick()//取消
+  {
+    this.dialogRef.close();
   }
 
 

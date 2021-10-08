@@ -6,7 +6,7 @@ import { F03014Service } from '../f03014.service';
 @Component({
   selector: 'app-f03014edit',
   templateUrl: './f03014edit.component.html',
-  styleUrls: ['./f03014edit.component.css']
+  styleUrls: ['./f03014edit.component.css','../../../assets/css/f03.css']
 })
 export class F03014editComponent implements OnInit {
   rid :string =this.data.rid;
@@ -28,6 +28,8 @@ export class F03014editComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    console.log()
+
   }
   InvalidationMax()//抓3個月間隔方法
   {
@@ -36,24 +38,50 @@ export class F03014editComponent implements OnInit {
     var j = a.setDate(a.getDate());
     this.daytest = this.pipe.transform( new Date(j+k) ,'yyyy-MM-dd')//三個月後的失效日期
   }
-  seve()
+  seve()//儲存
   {
+    let jsonObject: any = {};
     const url = 'f03/f03014action03';
-    let formData = new FormData();
-    formData.append('rowId',this.rid);
-    formData.append('custNid',this.IdentityValue);
-    formData.append('custName',this.NameValue);
-    formData.append('content1',this.NarrateValue1);
-    formData.append('content2',this.NarrateValue2);
-    formData.append('remark',this.remakrValue);
-    formData.append('effectiveDate',this.Efficient);
-    formData.append('expirationDate',this.Invalidation);
-    formData.append('useFlag',this.usingValue);
-    this.f03014Service.update(url,formData).subscribe(data=>{
+    // let formData = new FormData();
+    jsonObject['rowId'] = this.rid != null ? this.rid : '';
+    jsonObject['custNid'] = this.IdentityValue != null ? this.IdentityValue : '';
+    jsonObject['custName'] = this.NameValue != null ? this.NameValue : '';
+    jsonObject['content1'] = this.NarrateValue1 != null ? this.NarrateValue1 : '';
+    jsonObject['content2'] = this.NarrateValue2 != null ? this.NarrateValue2 : '';
+    jsonObject['remark'] = this.remakrValue != null ? this.remakrValue : '';
+    jsonObject['effectiveDate'] = this.Efficient != null ? this.Efficient : '';
+    jsonObject['expirationDate'] = this.Invalidation != null ? this.Invalidation : '';
+    jsonObject['useFlag'] = this.usingValue != null ? this.usingValue : '';
+    // formData.append('rowId',this.rid);
+    // formData.append('custNid',this.IdentityValue);
+    // formData.append('custName',this.NameValue);
+    // formData.append('content1',this.NarrateValue1);
+    // formData.append('content2',this.NarrateValue2);
+    // formData.append('remark',this.remakrValue);
+    // formData.append('effectiveDate',this.Efficient);
+    // formData.append('expirationDate',this.Invalidation);
+    // formData.append('useFlag',this.usingValue);
+    this.f03014Service.update(url,jsonObject).subscribe(data=>{
+      if(data.rspCode =='0000'&& data.rspMsg =='成功')
+      {
+        alert("儲存成功")
+        this.onNoClick();
+      }
+      else
+      {
+        alert(data.rspMsg)
+      }
       console.log(data)
 
     })
   }
+  onNoClick()//取消
+  {
+    console.log(this.data.EFFECTIVE_DATE)
+    console.log(this.pipe.transform( new Date(this.data.EFFECTIVE_DATE) , 'yyyy-MM-dd' ))
+    this.dialogRef.close();
+  }
+
 
 
 }

@@ -19,7 +19,7 @@ interface ANNOUNCE_REASON {
 @Component({
   selector: 'app-childscn3',
   templateUrl: './childscn3.component.html',
-  styleUrls: ['./childscn3.component.css','../../../assets/css/child.css']
+  styleUrls: ['./childscn3.component.css','../../../assets/css/f03.css']
 })
 export class Childscn3Component implements OnInit {
 
@@ -38,7 +38,10 @@ export class Childscn3Component implements OnInit {
   jsonObject: any = {};
   i: string;
   no: string;//會員帳號
-
+  total = 1;
+  loading = false;
+  pageSize = 10;
+  pageIndex = 1;
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
@@ -111,6 +114,7 @@ export class Childscn3Component implements OnInit {
     const url = 'f01/childscn3';
     const applno = this.applno;
     this.childsc3Service.gettable(url, applno).subscribe(data => {
+      console.log(data)
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;
     })

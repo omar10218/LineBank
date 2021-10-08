@@ -1,6 +1,10 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Data } from '@angular/router';
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
+
 import { F02001Service } from './f02001.service';
 // Jay 案件查詢
 interface sysCode {
@@ -32,14 +36,22 @@ export class F02001Component implements OnInit {
   product_NAME: string;//產品名稱
   project_NAME: string;//專案名稱
   marketing_CODE: string;//行銷代碼
-  credit_TIME: string;//准駁日期時間
+  credit_TIME: [Date,Date];//准駁日期時間
   jsonObject: any = {};
+  ruleParamCondition = new MatTableDataSource<any>();
   listOfData: readonly Data[] = [];
   total = 1;
   loading = false;
   pageSize = 10;
   pageIndex = 1;
-  constructor(private router: Router, private f02001Service: F02001Service) { }
+  constructor(private router: Router,
+    private f02001Service: F02001Service,
+    private pipe: DatePipe,
+    private nzI18nService: NzI18nService
+    )
+    {
+      this.nzI18nService.setLocale(zh_TW)
+    }
 
   ngOnInit(): void {
 
@@ -54,7 +66,7 @@ export class F02001Component implements OnInit {
   }
   Select()//查詢
   {
-    let url = "";
+    let url = "f02/f02001action1";
     this.jsonObject['applno'] = this.applno;//案件編號
     this.jsonObject['national_ID'] = this.national_ID;//身分證字號
     this.jsonObject['cust_ID'] = this.cust_ID;//客戶ID
@@ -70,9 +82,18 @@ export class F02001Component implements OnInit {
     this.jsonObject['product_NAME'] = this.product_NAME;//產品名稱
     this.jsonObject['project_NAME'] = this.project_NAME;//專案名稱
     this.jsonObject['marketing_CODE'] = this.marketing_CODE;//行銷代碼
-    this.jsonObject['credit_TIME'] = this.credit_TIME;//准駁日期時間
-    this.f02001Service.inquiry(url,this.jsonObject).subscribe(data=>{
+    if(this.credit_TIME !=null)//准駁日期時間
+    {
+      this.jsonObject['credit_TIME'] = this.pipe.transform (new Date(this.credit_TIME[0]).toString() , 'yyyy-MM-dd');
+    }
+    else
+    {
+      this.jsonObject['credit_TIME'] = '';
+    }
 
+    this.f02001Service.inquiry(url,this.jsonObject).subscribe(data=>{
+      this.ruleParamCondition = data.rspBody;
+      console.log( this.ruleParamCondition)
     })
   }
   Clear()//清除
@@ -92,8 +113,8 @@ export class F02001Component implements OnInit {
     this.product_NAME='';
     this.project_NAME='';
     this.marketing_CODE='';
-    this.credit_TIME='';
-
+    this.credit_TIME=null;
+    this.ruleParamCondition = null;
   }
 
 }
