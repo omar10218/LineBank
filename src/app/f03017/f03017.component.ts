@@ -73,11 +73,6 @@ export class F03017Component implements OnInit {
   bkIncomeDataSource = new MatTableDataSource<any>();
 
   ngAfterViewInit() {
-    // console.log(this.bkColumn)
-    // console.log(this.bkContent)
-    // console.log(this.bkIncomeForm)
-    // console.log(this.data.bkColumnValue)
-    // console.log(this.currentPage)
 
 
 
@@ -95,7 +90,6 @@ export class F03017Component implements OnInit {
   }
 
   async getBkIncomeData() {
-    console.log(this.bkColumnValue)
     if (typeof this.bkColumnValue == 'undefined'){return alert('請選擇建檔項目')}
 
       let jsonObject: any = {};
@@ -104,13 +98,10 @@ export class F03017Component implements OnInit {
       jsonObject['bkColumn'] = this.bkColumnValue;
       jsonObject['bkContent'] = this.bkContentValue;
 
-console.log(jsonObject)
 
       await this.f03017Service.getReturn('f03/f03017', jsonObject).subscribe(data => {
-        console.log(data)
         // this.total = data.rspBody.size;
         this.bkIncomeDataSource = data.rspBody.items;
-        console.log(this.bkIncomeDataSource)
       });
 this.loading = false;
   }
@@ -124,7 +115,6 @@ this.loading = false;
   // }
   //新增
   insert(isInsert: boolean) {
-    console.log(isInsert)
     const dialogRef = this.dialog.open(F03017editComponent, {
       data: {
         isInsert: isInsert,
@@ -185,7 +175,6 @@ this.loading = false;
     jsonObject['bkColumn']=bkColumn;
     jsonObject['bkContent']=bkContent;
     this.f03017Service.getImpertmentParameter(jsonObject).subscribe(data => {
-      console.log(data)
 
       // this.clear();
     });

@@ -35,7 +35,7 @@ export class F01002blocklistComponent implements OnInit {
   useFlagValue: string; //使用中選擇
   currentPage: PageEvent;
   currentSort: Sort;
-  
+
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -111,6 +111,9 @@ export class F01002blocklistComponent implements OnInit {
     if (check && value != null) {
       this.chkArray.push(data);
       this.contentArray.push(value);
+      console.log(data)
+      console.log(value)
+      console.log(check)
     } else {
       this.chkArray.forEach((element, index) => {
         if (element == data) {
@@ -139,7 +142,8 @@ export class F01002blocklistComponent implements OnInit {
       this.jsonObject['USE_FLAG'] = this.blockListForm.value.USE_FLAG;
       this.jsonObject['BK_COLUMN'] = this.chkArray;
       this.jsonObject['BK_CONTENT'] = this.contentArray;
-
+      console.log(this.jsonObject)
+alert(this.jsonObject)
       const url = 'f01/blockListInsert';
       this.blockListService.oneseve(url, this.jsonObject).subscribe(data => {
 
@@ -151,7 +155,7 @@ export class F01002blocklistComponent implements OnInit {
     }
   }
 
-  //查詢客戶資料 
+  //查詢客戶資料
   selectCustInfo() {
     const url = 'f01/selectCustInfo';
     const applno = this.applno;
@@ -165,7 +169,7 @@ export class F01002blocklistComponent implements OnInit {
     })
   }
 
-  //查詢資料表  
+  //查詢資料表
   selectBlockList(pageIndex: number, pageSize: number) {
     const url = 'f01/blockListSelect';
     const applno = this.applno;
