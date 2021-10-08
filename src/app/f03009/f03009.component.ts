@@ -6,6 +6,7 @@ import { OptionsCode } from '../interface/base';
 import { F03009Service } from './f03009.service';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 
+//Nick照會模組設定
 interface checkBox {
   value: string;
   completed: boolean;
@@ -75,7 +76,14 @@ export class F03009Component implements OnInit {
     });
   }
 
+  //儲存
   save() {
+    if (this.selectedValue == ''|| this.selectedValue == null) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請選擇模組!!!!' }
+      });
+      return false;
+    }
     var valArray: string[] = new Array;
     for (const obj of this.chkArray) {
       if (obj.completed) { valArray.push(obj.value); }

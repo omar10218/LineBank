@@ -50,7 +50,9 @@ export class F03007Component implements OnInit, AfterViewInit {
 
   save() {
     if (this.selectedValue == 'default') {
-      alert('請選擇角色!!!!');
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請選擇角色!!!!' }
+      });
       return false;
     }
     var valArray: string[] = new Array;

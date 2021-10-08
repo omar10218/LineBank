@@ -4,8 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Data } from '@angular/router';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
-
 import { F02001Service } from './f02001.service';
+
 // Jay 案件查詢
 interface sysCode {
   value: string;
@@ -57,12 +57,12 @@ export class F02001Component implements OnInit {
 
   }
 
-  search() {
-    this.router.navigate(['./F01001SCN1'], { queryParams: { applno: "201803127003", search: 'Y' } });
-  }
-  test()
+  // search() {
+  //   this.router.navigate(['./F01001SCN1'], { queryParams: { applno: "201803127003", search: 'Y' } });
+  // }
+  Detail()//明細
   {
-    console.log(this.apply_TIME)
+
   }
   Select()//查詢
   {
@@ -80,11 +80,14 @@ export class F02001Component implements OnInit {
     // this.jsonObject['apply_TIME'] = this.apply_TIME;//進件日期
     if(this.apply_TIME !=null)//進件日期
     {
-      this.jsonObject['apply_TIME'] = this.pipe.transform (new Date(this.apply_TIME[0]).toString() , 'yyyy-MM-dd');
+      this.jsonObject['apply_TIME_start'] = this.pipe.transform (new Date(this.apply_TIME[0]).toString() , 'yyyy-MM-dd');
+      this.jsonObject['apply_TIME_end'] = this.pipe.transform (new Date(this.apply_TIME[1]).toString() , 'yyyy-MM-dd');
+
     }
     else
     {
-      this.jsonObject['apply_TIME'] = '';
+      this.jsonObject['apply_TIME_start'] = '';
+      this.jsonObject['apply_TIME__end'] = '';
     }
     this.jsonObject['proof_DOCUMENT_TIME'] = this.proof_DOCUMENT_TIME;//上傳財力日期
     this.jsonObject['sign_UP_TIME'] = this.sign_UP_TIME;//簽約完成日期
@@ -100,10 +103,9 @@ export class F02001Component implements OnInit {
       this.jsonObject['credit_TIME'] = '';
     }
 
-    console.log(this.jsonObject['apply_TIME'])
+
     this.f02001Service.inquiry(url,this.jsonObject).subscribe(data=>{
-      this.ruleParamCondition = data.rspBody;
-      console.log( this.ruleParamCondition)
+      this.ruleParamCondition.data = data.rspBody;
     })
   }
   Clear()//清除
@@ -124,7 +126,10 @@ export class F02001Component implements OnInit {
     this.project_NAME='';
     this.marketing_CODE='';
     this.credit_TIME=null;
-    this.ruleParamCondition = null;
+    this.ruleParamCondition.data = null;
   }
+  leave()//離開
+  {
 
+  }
 }

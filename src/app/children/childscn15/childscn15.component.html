@@ -54,7 +54,8 @@
   </div> -->
 
   <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="save()">儲存</button>
+    <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()">儲存</button>
+    <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()" disabled >儲存</button>
   </div>
   <br>
 

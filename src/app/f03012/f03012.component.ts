@@ -9,7 +9,7 @@ import { MappingCode } from '../mappingcode.model';
 import { F03012Service } from './f03012.service';
 import { F03012addComponent } from './f03012add/f03012add.component';
 import { F03012editComponent } from './f03012edit/f03012edit.component';
-
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 interface checkBox {
   id: number;
   setValueHight: number;
@@ -39,10 +39,12 @@ export class F03012Component implements OnInit {
   compareTableCode: OptionsCode[] = [];
   compareColumnCode: OptionsCode[] = [];
   compareType: OptionsCode[] = [];
-  currentPage: PageEvent;
   currentSort: Sort;
   allComplete: boolean = false;
-
+  pageSize = 3;
+  pageIndex = 1;
+  total = 1;
+  loading = true;
   // 20211005 新增
   checked = []; //存取被選到的物件
   compareItems = []; //物件陣列
@@ -78,42 +80,28 @@ export class F03012Component implements OnInit {
       // }
     });
 
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
 
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
   }
   mappingCodeSource = new MatTableDataSource<any>();
   ngAfterViewInit(): void {
-    this.getComePareDataSetList();
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getComePareDataSetList();
-    });
+    this.getComePareDataSetList(this.pageIndex, this.pageSize);
+
   }
 
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  // compareDataSetSource = new MatTableDataSource<any>();
+
   compareDataSetSource = new MatTableDataSource<any>();
 
   compareTableOption: MappingCode[];
   compareColumnOption: MappingCode[];
 
-  getComePareDataSetList() {
+  getComePareDataSetList(pageIndex: number, pageSize: number) {
     const baseUrl = 'f03/f03012scn1';
-    this.f03012Service.getComePareDataSetList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize)
+    console.log(pageSize)
+    this.f03012Service.getComePareDataSetList(baseUrl, pageIndex, pageSize)
     .subscribe(data => {
       console.log(data);
-      this.totalCount = data.rspBody.size;
-      this.compareDataSetSource.data = data.rspBody.items;
+      this.total = data.rspBody.size;
+      this.compareDataSetSource.data= data.rspBody.items;
       this.compareTableOption = data.rspBody.compareTable;
       this.compareColumnOption = data.rspBody.comparColumn;
 
@@ -154,7 +142,7 @@ export class F03012Component implements OnInit {
       width: '50%',
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success') { this.refreshTable(); }
+        if (result != null && result.event == 'success')
         window.location.reload();
       });
   }
@@ -178,13 +166,13 @@ export class F03012Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.refreshTable(); }
+      if (result != null && result.event == 'success')
       window.location.reload();
     });
   }
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-  }
+  // private refreshTable() {
+  //   this.paginator._changePageSize(this.paginator.pageSize);
+  // }
 
   getOptionCompareTable(codeVal: string): string {
     for (const data of this.compareTableOption) {
@@ -234,7 +222,7 @@ export class F03012Component implements OnInit {
       console.log(data)
       // const items = data.rspBody.items.filter(item => item.compareType !== null && item.setValueHight !== null && item.setValueLow !== null)
       const items = data.rspBody.items
-      this.totalCount = items.length;
+      this.total = items.length;
       this.compareDataSetSource.data = items;
 
       this.useFlag = false;
@@ -344,7 +332,11 @@ export class F03012Component implements OnInit {
        window.location.reload();
     });
   }
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
 
+    this.getComePareDataSetList(pageSize,pageIndex);
+  }
 
 
 

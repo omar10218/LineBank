@@ -9,9 +9,9 @@ import { BaseService } from 'src/app/base.service';
 })
 export class Childscn13Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
-  getWebInfo(formdata: FormData): Observable<any> {
-    const baseUrl = 'f01/childscn13';
-    return this.postFormData(baseUrl, formdata);
+
+  getWebInfo( baseUrl: string, json: JSON ): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
   }
 
   public async childscn13Action(baseUrl: string, formdata: FormData): Promise<Observable<any>> {
