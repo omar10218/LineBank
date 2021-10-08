@@ -1,48 +1,42 @@
-<th class="f01_th">流程解除鎖定作業</th>
-<br>
-<div>
-    <button type="submit" mat-raised-button color="primary" (click)="unlock()">解除鎖定</button>
+<div class="line_bank_bankground_color">
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">流程解除鎖定作業</div>
+    <br>
+    <div style="padding:10px;">
+      <span class="form-title">案件關卡</span>
+    <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()"
+      style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+      <mat-option *ngFor="let code of sysCode" [value]="code.value">
+        {{code.viewValue}}
+      </mat-option>
+    </mat-select>
+  </div>
+    <br><br>
+    <nz-table nzShowSizeChanger [nzData]="applnoSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+    [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+    (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="流程解除鎖定案件"#middleTable>
+      <thead>
+        <tr>
+          <th class="table-header">
+            <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)" ngModel required>全選
+            </mat-checkbox>
+          </th>
+          <th class="table-header">收件編號</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of applnoSource; let i = index;">
+          <td class="table-data">
+            <mat-checkbox [(ngModel)]="chkArray[i].completed" color="primary"></mat-checkbox>
+          </td>
+          <td class="table-data">{{ data.applno }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div style="text-align:center;margin:10px auto">
+      <button nz-button [nzSize]="'large'" nzType="primary" (click)="unlock()">解除鎖定</button>
+    </div>
+    <br>
+  </div>
 </div>
 <br>
-  <mat-card class="matCard">
-    <mat-card-content>
-      <tr>
-        <th>Flow Step</th>
-        <td>
-          <mat-form-field color="accent">
-            <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()" >
-              <mat-option *ngFor="let code of sysCode"[value]="code.value">
-                {{code.viewValue}}
-              </mat-option>
-             </mat-select>
-          </mat-form-field>
-        </td> 
-      </tr>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-table [dataSource]="applnoSource">
-    
-    <ng-container matColumnDef="IS_CHK">
-      <mat-header-cell *matHeaderCellDef>
-        <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)"ngModel required>全選</mat-checkbox>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row; let i = index;">
-        <mat-checkbox [(ngModel)]="chkArray[i].completed" color="primary"></mat-checkbox>
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="APPLNO">
-      <mat-header-cell *matHeaderCellDef>收件編號</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.applno }}</mat-cell>
-    </ng-container>
-    
-    <mat-header-row *matHeaderRowDef="['IS_CHK','APPLNO']"></mat-header-row>
-    <mat-row *matRowDef="let mappingCodeRow; columns: ['IS_CHK','APPLNO']"></mat-row>
-  </mat-table>
-  <tr>
-    <td>
-      <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-      </mat-paginator>
-    </td>
-  </tr>

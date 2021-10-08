@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MappingCode } from 'src/app/mappingcode.model';
 import { Childscn12Service } from './childscn12.service';
 import { Childscn12addComponent } from './childscn12add/childscn12add.component';
@@ -12,7 +14,7 @@ import { Childscn12editComponent } from './childscn12edit/childscn12edit.compone
 @Component({
   selector: 'app-childscn12',
   templateUrl: './childscn12.component.html',
-  styleUrls: ['./childscn12.component.css']
+  styleUrls: ['./childscn12.component.css','../../../assets/css/child.css']
 })
 export class Childscn12Component implements OnInit {
 
@@ -23,59 +25,44 @@ export class Childscn12Component implements OnInit {
 
   private applno: string;
   private search: string;
-  private cuid: string;
-  currentPage: PageEvent;
-  currentSort: Sort;
+
+  applIncomeSource: readonly Data[] = [];
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
+  incomeTypeOption: MappingCode[];
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
     this.search = sessionStorage.getItem('search');
-
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
   }
 
-  getApplno(): String {
-    return this.applno;
+  ngAfterViewInit() {
+    this.getInComeList( this.pageIndex, this.pageSize );
+  }
+
+  getInComeList( pageIndex: number, pageSize: number ) {
+    const baseUrl = 'f01/childscn12';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    this.childscn12Service.getInComeFunction( baseUrl, jsonObject ).subscribe(data => {
+      this.loading = false;
+      this.total = data.rspBody.size;
+      this.applIncomeSource = data.rspBody.items;
+      this.incomeTypeOption = data.rspBody.incomeType;
+    });
   }
 
   getSearch(): string {
     return this.search;
   }
 
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  applIncomeSource = new MatTableDataSource<any>();
-  incomeTypeOption: MappingCode[];
-
-  ngAfterViewInit() {
-    this.getInComeList();
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getInComeList();
-    });
-  }
-
-  getInComeList() {
-    const formdata: FormData = new FormData();
-    formdata.append('page', `${this.currentPage.pageIndex + 1}`);
-    formdata.append('per_page', `${this.currentPage.pageSize}`);
-    formdata.append('applno', this.applno);
-    this.childscn12Service.getInComeFunction(formdata).subscribe(data => {
-      this.totalCount = data.rspBody.size;
-      this.applIncomeSource.data = data.rspBody.items;
-      this.incomeTypeOption = data.rspBody.incomeType;
-    });
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getInComeList( pageIndex, pageSize);
   }
 
   getOptionDesc(codeVal: string): string {
@@ -90,10 +77,18 @@ export class Childscn12Component implements OnInit {
 
   addNew() {
     const dialogRef = this.dialog.open(Childscn12addComponent, {
+      minHeight: '70vh',
+      width: '50%',
+      panelClass: 'mat-dialog-transparent',
       data: {
         applno: this.applno,
         search: this.search,
-        incomeTypeOption: this.incomeTypeOption
+        incomeTypeOption: this.incomeTypeOption,
+        incomeType: '',
+        cuId: '',
+        cuCname: '',
+        num: '',
+        mincomeExp: 'N'
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -101,8 +96,11 @@ export class Childscn12Component implements OnInit {
     });
   }
 
-  startEdit(i: number, incomeType: string, cuId: string, cuCname: string, num: string, mincomeExp: string) {
+  startEdit( incomeType: string, cuId: string, cuCname: string, num: string, mincomeExp: string) {
     const dialogRef = this.dialog.open(Childscn12editComponent, {
+      minHeight: '70vh',
+      width: '50%',
+      panelClass: 'mat-dialog-transparent',
       data: {
         applno: this.applno,
         search: this.search,
@@ -119,7 +117,7 @@ export class Childscn12Component implements OnInit {
     });
   }
 
-  deleteItem(i: number, incomeType: string, cuId: string, cuCname: string, num: string, mincomeExp: string) {
+  deleteItem( incomeType: string, cuId: string, cuCname: string, num: string, mincomeExp: string) {
     const dialogRef = this.dialog.open(Childscn12deleteComponent, {
       data: {
         applno: this.applno,
@@ -138,7 +136,13 @@ export class Childscn12Component implements OnInit {
   }
 
   private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-    this.paginator.firstPage();
+    this.changePage();
+    this.getInComeList( this.pageIndex, this.pageSize );
+  }
+
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
   }
 }

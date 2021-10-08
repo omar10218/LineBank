@@ -54,7 +54,7 @@
             <tbody>
                 <tr *ngFor="let data of workingDateDataSource">
                     <td class="table-data">
-                        <button nz-button [nzSize]="'middle'"
+                        <button nz-button nzType="primary" [nzSize]="'middle'"
                             (click)="updateWorkingDate(data.wdate, data.isWork)">修改</button>
                     </td>
                     <td class="table-data">{{ data.wdate|date: 'yyyy/MM/dd' }}</td>

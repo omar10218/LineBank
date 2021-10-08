@@ -1,118 +1,92 @@
 <br>
-<form>
-  <tr>
-    <div>
-      <td><button (click)="variable()">查詢</button></td>
-      <td><button (click)="Inquire()">查詢資料</button></td>
-      <td><button (click)="AddTable()">新增</button></td>
-      <td><button>儲存資料</button></td>
-      <td><button (click)="Clear()">清除資料</button></td>
-      <td><button (click)="openup()">上傳Excel</button></td>
-      <td><button (click)="execlExport()">匯出Excel</button></td>
-      <td><button>離開</button></td>
-    </div>
-  </tr>
-
+<div class="line_bank_bankground_color">
+  <div style="padding-left: 20px; padding-top: 20px;">
+    <!-- <button mat-raised-button color="primary" (click)="doSearch()">查詢</button> -->
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Inquire()">查詢資料</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="AddTable()">新增</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="openup()">上傳Excel</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+      (click)="execlExport()">匯出Excel</button>
+  </div>
   <br>
-  <tr>
-    <table cellspacing="0" cellpadding="2" style="width: 1000px;">
-      <tr>
-        <td>客戶姓名</td>
-        <td><input [(ngModel)]="NameValue" name="NameValue" type="text"></td>
-        <td>客戶身分證字號</td>
-        <td><input type="text" [(ngModel)]="IdentityValue" name="IdentityValue"
-            onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10"></td>
-        <td>簡述1</td>
-        <td><input [(ngModel)]="NarrateValue" name="NarrateValue" type="text"></td>
-      </tr>
-      <tr>
-        <td>生效日</td>
-        <td>
-          <mat-form-field>
-            <input type="date" [(ngModel)]="Efficient" name="Efficient" matInput placeholder=""
-              (change)="InvalidationMax()" />
-          </mat-form-field>
-        </td>
-        <td>失效日</td>
-        <td>
-          <mat-form-field>
-            <input type="date" [(ngModel)]="Invalidation" name="Invalidation" min={{Efficient}} max={{daytest}} matInput
-              placeholder="" />
-          </mat-form-field>
-        </td>
-        <td>使用中</td>
-        <td>
-          <mat-select [(ngModel)]="usingValue" name="usingValue" placeholder="請選擇">
-            <mat-option *ngFor="let item of usingType" [value]="item.value">
-              {{item.viewValue}}
-            </mat-option>
-          </mat-select>
-        </td>
-      </tr>
-    </table>
-  </tr>
-</form>
-<div *ngIf="i>0">
-  <mat-table [dataSource]="ruleParamCondition">
-    <ng-container matColumnDef="tool">
-      <mat-header-cell *matHeaderCellDef>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row;let i=index;">
-        <button mat-icon-button color="primary"
-          (click)="EditTable(i, [row.ROW_ID,row.CUST_NAME,row.CUST_NID,row.CONTENT1,row.CONTENT2,row.REMARK,row.EFFECTIVE_DATE,row.EXPIRATION_DATE,row.USE_FLAG,row.CHANGE_DATE])">
-          <mat-icon aria-label="編輯">edit</mat-icon>
-        </button>
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="CUST_NAME">
-      <mat-header-cell *matHeaderCellDef>客戶姓名</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.CUST_NAME }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="CUST_NID">
-      <mat-header-cell *matHeaderCellDef>客戶身分證字號</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.CUST_NID }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="CONTENT1">
-      <mat-header-cell *matHeaderCellDef>簡述1</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.CONTENT1 }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="CONTENT2">
-      <mat-header-cell *matHeaderCellDef>簡述2</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.CONTENT2 }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="REMARK">
-      <mat-header-cell *matHeaderCellDef>備註資訊</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.REMARK }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="EFFECTIVE_DATE">
-      <mat-header-cell *matHeaderCellDef>生效日</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.EFFECTIVE_DATE|date: 'yyyy-MM-dd'}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="EXPIRATION_DATE">
-      <mat-header-cell *matHeaderCellDef>失效日</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ row.EXPIRATION_DATE|date: 'yyyy-MM-dd' }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="USE_FLAG">
-      <mat-header-cell *matHeaderCellDef>使用中</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{ getOptionDesc(usingType, row.USE_FLAG) }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="CHANGE_DATE">
-      <mat-header-cell *matHeaderCellDef>更新日期時間</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.CHANGE_DATE|date: 'yyyy-MM-dd-HH:mm:ss' }}</mat-cell>
-    </ng-container>
+  <div class="line_bank_card_no_padding">
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">客戶姓名</span><input style="display: block;"
+            [(ngModel)]="NameValue" name="NameValue" value="">
+          </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">客戶身分證字號</span><input style="display: block;"
+            [(ngModel)]="IdentityValue" name="IdentityValue" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')"
+            maxlength="10" value="">
+          </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">簡述一</span><input style="display: block;"
+            [(ngModel)]="NarrateValue" name="NarrateValue" value="">
+          </div>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        <!-- (ngModelChange)="dateNull()" -->
 
-    <mat-header-row
-      *matHeaderRowDef="['tool','CUST_NAME','CUST_NID','CONTENT1','CONTENT2','REMARK','EFFECTIVE_DATE','EXPIRATION_DATE','USE_FLAG','CHANGE_DATE']">
-    </mat-header-row>
-    <mat-row
-      *matRowDef="let emailRow; columns: ['tool','CUST_NAME','CUST_NID','CONTENT1','CONTENT2','REMARK','EFFECTIVE_DATE','EXPIRATION_DATE','USE_FLAG','CHANGE_DATE']">
-    </mat-row>
-  </mat-table>
-  <tr>
-    <td>
-      <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-      </mat-paginator>
-    </td>
-  </tr>
+        <div style="padding:10px"><span class="form-title">生效日</span><nz-range-picker [(ngModel)]="Efficient" name="Efficient " [nzDisabledDate]="disabledDate"></nz-range-picker>
+          </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">失效日</span><nz-range-picker [(ngModel)]="Invalidation" name="Invalidation " [nzDisabledDate]="disabledDate1"></nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">使用中</span> <mat-select [(ngModel)]="usingValue" name="usingValue"
+          style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+          <mat-option *ngFor="let code of usingType" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">客戶身份名單註記</div>
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small">
+      <thead>
+        <tr>
+          <th class="table-header"></th>
+          <th class="table-header">客戶姓名</th>
+          <th class="table-header">客戶身分證字號</th>
+          <th class="table-header">簡述1</th>
+          <th class="table-header">簡述2</th>
+          <th class="table-header">備註資訊</th>
+          <th class="table-header">生效日</th>
+          <th class="table-header">失效日</th>
+          <th class="table-header">使用中</th>
+          <th class="table-header">更新日期時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of ruleParamCondition.data;let i=index;">
+          <td><button nz-button [nzSize]="'middle'" nzType="primary"
+              (click)="EditTable(i, [row.ROW_ID,row.CUST_NAME,row.CUST_NID,row.CONTENT1,row.CONTENT2,row.REMARK,row.EFFECTIVE_DATE,row.EXPIRATION_DATE,row.USE_FLAG,row.CHANGE_DATE])">編輯</button>
+          </td>
+          <td class="table-data">{{ row.CUST_NAME }}</td>
+          <td class="table-data">{{ row.CUST_NID }}</td>
+          <td class="table-data">{{ row.CONTENT1 }}</td>
+          <td class="table-data">{{ row.CONTENT2 }}</td>
+          <td class="table-data">{{ row.REMARK }}</td>
+          <td class="table-data">{{ row.EFFECTIVE_DATE |date: 'yyyy-MM-dd' }}</td>
+          <td class="table-data">{{ row.EXPIRATION_DATE |date: 'yyyy-MM-dd' }}</td>
+          <td class="table-data">{{ getOptionDesc(usingType, row.USE_FLAG) }}</td>
+          <td class="table-data">{{ row.CHANGE_DATE|date: 'yyyy-MM-dd' }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
 </div>

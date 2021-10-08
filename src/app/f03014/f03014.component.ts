@@ -1,3 +1,4 @@
+import { Data } from '@angular/router';
 
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -9,7 +10,7 @@ import { F03014editComponent } from './f03014edit/f03014edit.component'
 import { F03014uploadComponent } from './f03014upload/f03014upload.component'
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 //Jay 客戶身份名單註記
 interface sysCode {
   value: string;
@@ -18,7 +19,7 @@ interface sysCode {
 @Component({
   selector: 'app-f03014',
   templateUrl: './f03014.component.html',
-  styleUrls: ['./f03014.component.css']
+  styleUrls: ['./f03014.component.css','../../assets/css/f03.css']
 })
 export class F03014Component implements OnInit {
   usingType: sysCode[] = [];
@@ -26,18 +27,30 @@ export class F03014Component implements OnInit {
   NameValue: string;//客戶名字
   IdentityValue: string;//身分字號
   NarrateValue: string;//簡述
-  Efficient: string;//生效
-  Invalidation: string;//失效
+  Efficient: [Date,Date];//生效
+  Invalidation: [Date,Date];//失效
   daytest: string;//三個月後的日期
+  date: [Date, Date];
+  dateFormat = 'yyyy/MM/dd';
+
+
   i = 0;
   myDate:any = new Date();
+  total = 1;
+  loading = false;
+  pageSize = 10;
+  pageIndex = 1;
   ruleParamCondition = new MatTableDataSource<any>();
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;
   currentSort: Sort;
-  constructor(private pipe: DatePipe, private f03014Service: F03014Service, public dialog: MatDialog,
-   ) {   this.myDate  = this.pipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
+  constructor(private pipe: DatePipe,
+     private f03014Service: F03014Service,
+      public dialog: MatDialog,
+      private nzI18nService: NzI18nService,
+   ) {   this.nzI18nService.setLocale(zh_TW),
+    this.myDate  = this.pipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
   }
   ngOnInit(): void //最開始處理的地方
   {
@@ -60,31 +73,53 @@ export class F03014Component implements OnInit {
   }
   Inquire()//查詢
   {
+
+    let jsonObject: any = {};
     this.i = 1;
     const url = 'f03/f03014action01';
-    var formData = new FormData();
-    formData.append('custNid', this.IdentityValue != null ? this.IdentityValue : '');
-    formData.append('custName', this.NameValue != null ? this.NameValue : '');
-    formData.append('content1', this.NarrateValue != null ? this.NarrateValue : '');
-    formData.append('effectiveDate', this.Efficient != null ? this.Efficient : '');
-    formData.append('expirationDate', this.Invalidation != null ? this.Invalidation : '');
-    formData.append('useFlag', this.usingValue != null ? this.usingValue : '');
-    this.f03014Service.selectCustomer(url, formData).subscribe(data => {
+    jsonObject['custNid'] = this.IdentityValue != null ? this.IdentityValue : '';
+    jsonObject['custName'] = this.NameValue != null ? this.NameValue : '';
+    jsonObject['content1'] = this.NarrateValue != null ? this.NarrateValue : '';
+
+    if(this.Efficient != null)
+    {
+      jsonObject['effectiveDate_start'] = this.pipe.transform (new Date(this.Efficient[0]).toString() , 'yyyy-MM-dd');
+      jsonObject['effectiveDate_end'] =  this.pipe.transform (new Date(this.Efficient[1]).toString() , 'yyyy-MM-dd');
+    }
+    else
+    {
+      jsonObject['effectiveDate_start'] ='';
+      jsonObject['effectiveDate_end'] = '';
+    }
+
+    if(this.Invalidation != null)
+    {
+      jsonObject['expirationDate_start'] =this.pipe.transform (new Date(this.Invalidation[0]).toString() , 'yyyy-MM-dd');
+      jsonObject['expirationDate_end'] =  this.pipe.transform (new Date(this.Invalidation[1]).toString() , 'yyyy-MM-dd');
+    }
+    else
+    {
+      jsonObject['expirationDate_start'] ='';
+      jsonObject['expirationDate_end'] = '';
+    }
+
+    // jsonObject['expirationDate_start'] = this.Invalidation[0] != null ? this.Invalidation[0] : '';
+    // jsonObject['expirationDate_end'] =  this.Invalidation[1] != null ? this.Invalidation[1] : '';
+
+    jsonObject['useFlag'] = this.usingValue != null ? this.usingValue : '';
+
+
+    this.f03014Service.selectCustomer(url, jsonObject).subscribe(data => {
+      console.log(data)
+
       this.ruleParamCondition.data = data.rspBody;
-      console.log(data.rspBody)
 
 
     }
     )
 
   }
-  InvalidationMax()//抓3個月間隔
-  {
-    var a = new Date(this.Efficient);
-    var k = 90 * 24 * 60 * 60 * 1000;
-    var j = a.setDate(a.getDate());
-    this.daytest = this.pipe.transform(new Date(j + k), 'yyyy-MM-dd')//三個月後的失效日期
-  }
+
   getOptionDesc(option: sysCode[], codeVal: string): string {
     for (const data of option) {
       if (data.value == codeVal) {
@@ -105,6 +140,7 @@ export class F03014Component implements OnInit {
   }
   EditTable(i: number, parmArry: string[])//編輯
   {
+    console.log(parmArry)
     const dialogRef = this.dialog.open(F03014editComponent, {
       data: {
         rid: parmArry[0],
@@ -157,42 +193,6 @@ export class F03014Component implements OnInit {
 
     })
 
-    // var formData = new FormData();
-    // formData.append('custNid', this.IdentityValue != null ? this.IdentityValue : '');
-    // formData.append('custName', this.NameValue != null ? this.NameValue : '');
-    // formData.append('content1', this.NarrateValue != null ? this.NarrateValue : '');
-    // formData.append('effectiveDate', this.Efficient != null ? this.Efficient : '');
-    // formData.append('expirationDate', this.Invalidation != null ? this.Invalidation : '');
-    // formData.append('useFlag', this.usingValue != null ? this.usingValue : '');
-    // this.f03014Service.selectCustomer(url, formData,).subscribe(data => {
-    // //   this.downloadFile(data.rspBody)
-    //   console.log(data)
-    //   //設定欄位寬度
-    //   const options = {'!cols':[
-    //     {wpx:100},
-    //     {wpx:100},
-    //     {wpx:100},
-    //     {wpx:100},
-    //     {wpx:100},
-    //     {wpx:250},
-    //     {wpx:250},
-    //     {wpx:100},
-    //     {wpx:250},
-    //   ]};
-    //   //資料塞入順序
-    //   const header = ["客戶身分證字號","客戶姓名","簡述1","簡述2","備註資訊","生效日","失效日","使用中","更新日期"]
-
-    //   const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data.rspBody,{header:header});//創建Excel 塞入資料和順序型態
-    //   ws['!cols'] = options['!cols'];//定義欄位寬度
-
-    //   const wb: XLSX.WorkBook = XLSX.utils.book_new();
-
-    //   XLSX.utils.book_append_sheet(wb, ws, '客戶');
-
-    //   XLSX.writeFile(wb, '客戶身分名單註記.xlsx');//檔案名稱
-    // }
-    // )
-
   }
 
   Clear()//清空查詢資料
@@ -201,8 +201,22 @@ export class F03014Component implements OnInit {
       this.NameValue="";//客戶名字
       this.IdentityValue="";//身分字號
       this.NarrateValue="";//簡述
-      this.Efficient="";//生效
-      this.Invalidation="";//失效
+      this.Efficient=null;//生效
+      this.Invalidation=null;//失效
+      this.ruleParamCondition.data = null;
   }
-
+  disabledDate(time)
+  {
+    let curDate = (new Date()).getTime();
+    let three = 90*24*3600*1000;
+    let threeMonths = curDate + three;
+    return time.getTime()>threeMonths
+  }
+  disabledDate1(time)
+  {
+    let curDate = (new Date()).getTime();
+    let three = 90*24*3600*1000;
+    let threeMonths = curDate + three;
+    return time.getTime()<Date.now()||time.getTime()>threeMonths
+  }
 }

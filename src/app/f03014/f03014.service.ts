@@ -13,8 +13,8 @@ export class F03014Service extends BaseService {
   dialogData: any;
 
   //查詢
-  selectCustomer(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
+  selectCustomer(baseUrl: string,  json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
   }
   //新增
   // Add(baseUrl: string, formData: FormData): Observable<any> {
@@ -24,8 +24,8 @@ export class F03014Service extends BaseService {
     return this.postJsonObject(baseUrl, json);
   }
   //更新
-  update(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
+  update(baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
   }
   downloadExcel(baseUrl: string, jsonObject:JSON): Observable<any> {
 

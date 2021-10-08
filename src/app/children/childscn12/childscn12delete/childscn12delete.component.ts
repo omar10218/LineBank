@@ -10,7 +10,7 @@ interface ynCode {
 @Component({
   selector: 'app-childscn12delete',
   templateUrl: './childscn12delete.component.html',
-  styleUrls: ['./childscn12delete.component.css']
+  styleUrls: ['./childscn12delete.component.css','../../../../assets/css/child.css']
 })
 export class Childscn12deleteComponent implements OnInit {
 
@@ -21,13 +21,13 @@ export class Childscn12deleteComponent implements OnInit {
   }
 
   async deleteAction() {
-    const formdata = new FormData();
-    formdata.append('applno', this.data.applno);
-    formdata.append('incomeType', this.data.incomeType);
     let msgStr: string = "";
     let codeStr: string = "";
     const baseUrl = 'f01/childscn12action2';
-    await this.childscn12Service.childscn12Action(baseUrl, formdata).then((data: any) => {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.data.applno;
+    jsonObject['incomeType'] = this.data.incomeType;
+    await this.childscn12Service.childscn12Action(baseUrl, jsonObject).then((data: any) => {
       codeStr = data.rspCode;
       msgStr = data.rspMsg;
     });
@@ -35,5 +35,9 @@ export class Childscn12deleteComponent implements OnInit {
       data: { msgStr: msgStr }
     });
     if (msgStr === '刪除成功' && codeStr === '0000') { this.dialogRef.close({ event:'success' }); }
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }
