@@ -6,7 +6,7 @@ import { Childscn13Service } from '../childscn13.service';
 @Component({
   selector: 'app-childscn13delete',
   templateUrl: './childscn13delete.component.html',
-  styleUrls: ['./childscn13delete.component.css']
+  styleUrls: ['./childscn13delete.component.css','../../../../assets/css/child.css']
 })
 export class Childscn13deleteComponent implements OnInit {
 
@@ -35,5 +35,9 @@ export class Childscn13deleteComponent implements OnInit {
       data: { msgStr: msgStr }
     });
     if (msgStr === '刪除成功' && codeStr === '0000') { this.dialogRef.close({ event:'success' }); }
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }

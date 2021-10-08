@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MappingCode } from 'src/app/mappingcode.model';
 import { Childscn13Service } from './childscn13.service';
 import { Childscn13addComponent } from './childscn13add/childscn13add.component';
@@ -13,7 +15,7 @@ import { Childscn13showComponent } from './childscn13show/childscn13show.compone
 @Component({
   selector: 'app-childscn13',
   templateUrl: './childscn13.component.html',
-  styleUrls: ['./childscn13.component.css']
+  styleUrls: ['./childscn13.component.css','../../../assets/css/child.css']
 })
 export class Childscn13Component implements OnInit {
 
@@ -25,24 +27,18 @@ export class Childscn13Component implements OnInit {
   private applno: string;
   private search: string;
   private cuid: string;
-  currentPage: PageEvent;
-  currentSort: Sort;
+
+  webInfoSource: readonly Data[] = [];
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
+  webAddrOption: MappingCode[];
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.search = sessionStorage.getItem('search');
-
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
   }
 
   getApplno(): String {
@@ -53,30 +49,28 @@ export class Childscn13Component implements OnInit {
     return this.search;
   }
 
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  webInfoSource = new MatTableDataSource<any>();
-  webAddrOption: MappingCode[];
-
   ngAfterViewInit() {
-    this.getWebInfo();
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getWebInfo();
+    this.getWebInfo( this.pageIndex, this.pageSize );
+  }
+
+  getWebInfo( pageIndex: number, pageSize: number ) {
+    const baseurl = 'f01/childscn13';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    this.childscn13Service.getWebInfo( baseurl, jsonObject ).subscribe(data => {
+      console.log(data.rspBody.items)
+      this.loading = false;
+      this.total = data.rspBody.size;
+      this.webInfoSource = data.rspBody.items;
+      this.webAddrOption = data.rspBody.webAddr;
     });
   }
 
-  getWebInfo() {
-    const formdata: FormData = new FormData();
-    formdata.append('page', `${this.currentPage.pageIndex + 1}`);
-    formdata.append('per_page', `${this.currentPage.pageSize}`);
-    formdata.append('applno', this.applno);
-    this.childscn13Service.getWebInfo(formdata).subscribe(data => {
-      this.totalCount = data.rspBody.size;
-      this.webInfoSource.data = data.rspBody.items;
-      this.webAddrOption = data.rspBody.webAddr;
-    });
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getWebInfo( pageIndex, pageSize);
   }
 
   openView(web_img: any) {
@@ -109,7 +103,7 @@ export class Childscn13Component implements OnInit {
     });
   }
 
-  startEdit(i: number, rowid: string, webCode: string, webUrl: string, msgContent: string, webImg: string) {
+  startEdit( rowid: string, webCode: string, webUrl: string, msgContent: string, webImg: string) {
     const dialogRef = this.dialog.open(Childscn13editComponent, {
       data: {
         webAddrValue: webCode + '=' + webUrl,
@@ -126,7 +120,7 @@ export class Childscn13Component implements OnInit {
     });
   }
 
-  deleteItem(i: number, rowid: string, webCode: string, webUrl: string, msgContent: string, webImg: string) {
+  deleteItem( rowid: string, webCode: string, webUrl: string, msgContent: string, webImg: string) {
     const dialogRef = this.dialog.open(Childscn13deleteComponent, {
       data: {
         webAddrValue: webCode + '=' + webUrl,
@@ -144,7 +138,13 @@ export class Childscn13Component implements OnInit {
   }
 
   private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
-    this.paginator.firstPage();
+    this.changePage();
+    this.getWebInfo( this.pageIndex, this.pageSize );
+  }
+
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
   }
 }

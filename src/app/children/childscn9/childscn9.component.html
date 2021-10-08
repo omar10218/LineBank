@@ -1,11 +1,11 @@
-<div style="margin-top: 5px; margin-left: 5px; width: 100%;">
-  <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page1)">核心系統客戶資料 </button>
-  <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page2)">本行存款往來 </button>
-  <button class="btn" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page3)">本行消金產品(放款及信用卡)往來 </button>
-  <button class="btn" [class.active]="nowPage === Page.Page4" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page4)">本行Debit card交易明細 </button>
+<div style="margin-top: -18px; margin-left: 40px; width: 100%; position: fixed; z-index: 1;">
+  <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page1" style="margin-top: -1000px; margin-bottom: 5px; margin-left: 5px;"
+    (click)="changePage(Page.Page1)">核心系統客戶資料 </button>
+  <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
+    (click)="changePage(Page.Page2)">本行存款往來 </button>
+  <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
+    (click)="changePage(Page.Page3)">本行消金產品(放款及信用卡)往來 </button>
+  <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page4" style="margin-bottom: 5px; margin-left: 5px;"
+    (click)="changePage(Page.Page4)">本行Debit card交易明細 </button>
 </div>
 <ng-container appDynamic></ng-container>

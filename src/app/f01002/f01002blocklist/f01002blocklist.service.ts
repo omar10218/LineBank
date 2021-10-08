@@ -14,7 +14,7 @@ export class F01002BlockListService extends BaseService{
     let targetUrl = `${baseUrl}?applno=${applno}`;
     return this.postJsonObject(targetUrl, json);
   }
-  oneseve(baseUrl: string,json:JSON) {
+  onsave(baseUrl: string,json:JSON) {
   let targetUrl = baseUrl;
   return this.postJsonObject(targetUrl,json);
   }

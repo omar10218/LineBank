@@ -7,7 +7,7 @@ interface Code {
   result: string;
   count: string;
 }
-
+//Nick COMPARE本案申請書資訊合理性比對
 @Component({
   selector: 'app-childscn11page1',
   templateUrl: './childscn11page1.component.html',
@@ -38,7 +38,7 @@ export class Childscn11page1Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.getCOMPARE();
   }
-
+  //取資料
   getCOMPARE() {
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
@@ -48,7 +48,7 @@ export class Childscn11page1Component implements OnInit {
       this.compare = data.rspBody.compare;
     });
   }
-
+  //取viewValue
   getOptionDesc(codeVal: string): string {
     for (const data of this.mappingOption) {
       if (data.codeNo == codeVal) {

@@ -1,4 +1,91 @@
-<th class="f01_th">COMPARE_UNID 歷史申請書比對 (不同NID)</th>
+<!-- 頁面背景 -->
+<div class="line_bank_bankground_color">
+
+  <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">歷史申請書比對 (不同NID)</div>
+    <ng-container *ngIf="compare.length == 0; else elseTemplate">
+      <br><br>
+      <th style="padding-left: 20px;color: red;">查無比對資料</th>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <ng-container *ngFor="let compareRow of compare;let i = index">
+        <!-- 第一種 -->
+        <div nz-row *ngIf="i==0">
+          <div nz-col nzSpan="8" *ngIf="compare[i]!=null && compare[i].result == 'Y'; ">
+            <div style="padding:10px"><span class="form-title">{{getOptionDesc(compare[i].compareColumn)}}：</span><input
+                style="color: red;display: block;" [(ngModel)]="compare[i].count" name="count" disabled></div>
+          </div>
+          <div nz-col nzSpan="8" *ngIf="compare[i]!=null && compare[i].result != 'Y'; ">
+            <div style="padding:10px"><span class="form-title">{{getOptionDesc(compare[i].compareColumn)}}：</span><input
+                style="display: block;" [(ngModel)]="compare[i].count" name="count" disabled></div>
+          </div>
+
+          <div nz-col nzSpan="8" *ngIf="compare[i+1]!=null && compare[i+1].result == 'Y'; ">
+            <div style="padding:10px"><span
+                class="form-title">{{getOptionDesc(compare[i+1].compareColumn)}}：</span><input
+                style="color: red;display: block;" [(ngModel)]="compare[i+1].count" name="count" disabled></div>
+          </div>
+          <div nz-col nzSpan="8" *ngIf="compare[i+1]!=null && compare[i+1].result != 'Y'; ">
+            <div style="padding:10px"><span
+                class="form-title">{{getOptionDesc(compare[i+1].compareColumn)}}：</span><input style="display: block;"
+                [(ngModel)]="compare[i+1].count" name="count" disabled></div>
+          </div>
+
+          <div nz-col nzSpan="8" *ngIf="compare[i+2]!=null && compare[i+2].result == 'Y'; ">
+            <div style="padding:10px"><span
+                class="form-title">{{getOptionDesc(compare[i+2].compareColumn)}}：</span><input
+                style="color: red;display: block;" [(ngModel)]="compare[i+2].count" name="count" disabled></div>
+          </div>
+          <div nz-col nzSpan="8" *compare[i+2]!=null && ngIf="compare[i+2].result != 'Y'; ">
+            <div style="padding:10px"><span
+                class="form-title">{{getOptionDesc(compare[i+2].compareColumn)}}：</span><input style="display: block;"
+                [(ngModel)]="compare[i+2].count" name="count" disabled></div>
+          </div>
+
+        </div>
+
+        <!-- 第二種 -->
+        <div nz-row *ngIf="i>0">
+          <div nz-col nzSpan="8" *ngIf="compare[i*3]!=null && compare[i*3].result == 'Y'; ">
+            <div style="padding:10px"><span
+                class="form-title">{{getOptionDesc(compare[i*3].compareColumn)}}：</span><input
+                style="color: red;display: block;" [(ngModel)]="compare[i*3].count" name="count" disabled></div>
+          </div>
+          <div nz-col nzSpan="8" *ngIf="compare[i*3]!=null && compare[i*3].result != 'Y'; ">
+            <div style="padding:10px"><span
+                class="form-title">{{getOptionDesc(compare[i*3].compareColumn)}}：</span><input style="display: block;"
+                [(ngModel)]="compare[i*3].count" name="count" disabled></div>
+          </div>
+
+          <div nz-col nzSpan="8" *ngIf="compare[i*3+1]!=null && compare[i*3+1].result == 'Y'; ">
+            <div style="padding:10px"><span
+                class="form-title">{{getOptionDesc(compare[i*3+1].compareColumn)}}：</span><input
+                style="color: red;display: block;" [(ngModel)]="compare[i*3+1].count" name="count" disabled></div>
+          </div>
+          <div nz-col nzSpan="8" *ngIf="compare[i*3+1]!=null && compare[i*3+1].result != 'Y'; ">
+            <div style="padding:10px"><span
+                class="form-title">{{getOptionDesc(compare[i*3+1].compareColumn)}}：</span><input style="display: block;"
+                [(ngModel)]="compare[i*3+1].count" name="count" disabled></div>
+          </div>
+
+          <div nz-col nzSpan="8" *ngIf="compare[i*3+2]!=null && compare[i*3+2].result == 'Y'; ">
+            <div style="padding:10px"><span
+                class="form-title">{{getOptionDesc(compare[i*3+2].compareColumn)}}：</span><input
+                style="color: red;display: block;" [(ngModel)]="compare[i*3+2].count" name="count" disabled></div>
+          </div>
+          <div nz-col nzSpan="8" *ngIf="compare[i*3+2]!=null && compare[i*3+2].result != 'Y'; ">
+            <div style="padding:10px"><span
+                class="form-title">{{getOptionDesc(compare[i*3+2].compareColumn)}}：</span><input style="display: block;"
+                [(ngModel)]="compare[i*3+2].count" name="count" disabled></div>
+          </div>
+
+        </div>
+
+      </ng-container>
+    </ng-template>
+  </div>
+
+<!-- <th class="f01_th">COMPARE_UNID 歷史申請書比對 (不同NID)</th>
 <ng-container *ngIf="compare.length == 0; else elseTemplate">
   <br><br>
   <th style="padding-left: 20px;color: red;">查無比對資料</th>
@@ -27,158 +114,9 @@
           </ng-container>
         </mat-card-content>
 
-        <!-- <mat-card-content>
-          <tr>
-            <th nowrap="nowrap">GPS - 時點1比對次數</th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput #input formControlName="GPS_1" readonly>
-              </mat-form-field>
-            </td>
-            <th nowrap="nowrap">GPS - 時點2比對次數</th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput #input formControlName="GPS_2" readonly>
-              </mat-form-field>
-            </td>
-            <th nowrap="nowrap">IP address - 時點1比對次數</th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput #input formControlName="IP_ADDR_1" readonly>
-              </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap">IP address - 時點2比對次數</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="IP_ADDR_2" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap">手機型號 - 時點1比對次數</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="PHONE_MODEL_1" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap">手機型號 - 時點2比對次數</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="PHONE_MODEL_2" readonly>
-            </mat-form-field>
-          </td>
-      </tr>
-      <tr>
-        <th nowrap="nowrap">Device ID - 時點1比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="DEVICE_ID_1" readonly>
-          </mat-form-field>
-        </td>
-        <th nowrap="nowrap">Device ID - 時點2比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="DEVICE_ID_2" readonly>
-          </mat-form-field>
-        </td>
-        <th nowrap="nowrap">eMail比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="EMAIL" readonly>
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <th nowrap="nowrap">行動電話比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="MOBILE" readonly>
-          </mat-form-field>
-        </td>
-        <th nowrap="nowrap">戶籍電話比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="P_TEL" readonly>
-          </mat-form-field>
-        </td>
-        <th nowrap="nowrap">通訊電話比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="C_TEL" readonly>
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <th nowrap="nowrap">戶籍地址完整比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="P_ADDR" readonly>
-          </mat-form-field>
-        </td>
-        <th nowrap="nowrap">戶籍地址模糊比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="P_ADDR_FUZZY" readonly>
-          </mat-form-field>
-        </td>
-        <th nowrap="nowrap">通訊地址完整比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="C_ADDR" readonly>
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <th nowrap="nowrap">通訊地址模糊比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="C_ADDR_FUZZY" readonly>
-          </mat-form-field>
-        </td>
-        <th nowrap="nowrap">寄卡地址完整比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="M_ADDR" readonly>
-          </mat-form-field>
-        </td>
-        <th nowrap="nowrap">寄卡地址模糊比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="SEND_ADDR_FUZZY" readonly>
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <th nowrap="nowrap">公司名稱比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="CP_NAME" readonly>
-          </mat-form-field>
-        </td>
-        <th nowrap="nowrap">公司電話比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="CP_TEL" readonly>
-          </mat-form-field>
-        </td>
-        <th nowrap="nowrap">公司地址完整比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="CP_ADDR" readonly>
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <th nowrap="nowrap">公司地址模糊比對次數</th>
-        <td>
-          <mat-form-field color="accent">
-            <input matInput #input formControlName="CP_ADDR_FUZZY" readonly>
-          </mat-form-field>
-        </td>
-      </tr>
-        </mat-card-content> -->
+
       </mat-card>
     </table>
   </form>
 </ng-template>
-
+ -->

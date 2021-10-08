@@ -51,6 +51,7 @@ export class F03011Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.f03011Service.dssCallout(baseUrl, jsonObject).subscribe(data => {
+      console.log(data);
       this.total = data.rspBody.size;
       this.dssCalloutSource = data.rspBody.items;
       this.loading = false;

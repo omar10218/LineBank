@@ -68,28 +68,18 @@
                 [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="Proxy Income 維護">
                 <thead>
                     <tr>
-                        <th nzLeft class="table-header" nzWidth="100px"></th>
-                        <th class="table-header" nzWidth="100px">行職業代碼</th>
-                        <th class="table-header" nzWidth="100px">行業Level1</th>
-                        <th class="table-header" nzWidth="100px">行業Level1敘述</th>
-                        <th class="table-header" nzWidth="100px">行業Level2</th>
-                        <th class="table-header" nzWidth="100px">行業Level2敘述</th>
-                        <th class="table-header" nzWidth="100px">職業碼</th>
-                        <th class="table-header" nzWidth="100px">職業碼敘述</th>
-                        <th class="table-header" nzWidth="100px">第10百分位薪資</th>
-                        <th class="table-header" nzWidth="100px">中位數薪資</th>
-                        <th class="table-header" nzWidth="100px">第90百分位薪資</th>
-                        <th class="table-header" nzWidth="100px">異動日期</th>
-                        <th class="table-header" nzWidth="100px">First Creation GUID</th>
-                        <th class="table-header" nzWidth="100px">First Creation Timestamp</th>
-                        <th class="table-header" nzWidth="100px">Last Change GUID</th>
-                        <th class="table-header" nzWidth="100px">Last Change Timestamps</th>
-                        <th class="table-header" nzWidth="100px">First Creator ID</th>
-                        <th class="table-header" nzWidth="100px">First Creator IP Address</th>
-                        <th class="table-header" nzWidth="100px">First Create DataBase Timestamp</th>
-                        <th class="table-header" nzWidth="100px">Last Modifier ID</th>
-                        <th class="table-header" nzWidth="100px">Last Modifier IP Address</th>
-                        <th class="table-header" nzWidth="100px">Last Modified DataBase Timestamp</th>
+                        <th nzLeft class="table-header" nzWidth="140px"></th>
+                        <th class="table-header" nzWidth="150px">行職業代碼</th>
+                        <th class="table-header" nzWidth="150px">行業Level1</th>
+                        <th class="table-header" nzWidth="150px">行業Level1敘述</th>
+                        <th class="table-header" nzWidth="150px">行業Level2</th>
+                        <th class="table-header" nzWidth="150px">行業Level2敘述</th>
+                        <th class="table-header" nzWidth="150px">職業碼</th>
+                        <th class="table-header" nzWidth="150px">職業碼敘述</th>
+                        <th class="table-header" nzWidth="150px">第10百分位薪資</th>
+                        <th class="table-header" nzWidth="150px">中位數薪資</th>
+                        <th class="table-header" nzWidth="150px">第90百分位薪資</th>
+                        <th class="table-header" nzWidth="150px">異動日期</th>
                         <th class="table-header" hidden>ROWID</th>
                         
                         
@@ -110,16 +100,6 @@
                         <td class="table-data">{{ data.MID_SALARY }}</td>
                         <td class="table-data">{{ data.NINETY_PERCENT_SALARY }}</td>
                         <td class="table-data">{{ data.CHANGE_DATE | date:'yyyy-MM-dd'}}</td>
-                        <td class="table-data">{{ data.FRST_CRTN_GUID}}</td>
-                        <td class="table-data">{{ data.FRST_CRTN_TMSTMP}}</td>
-                        <td class="table-data">{{ data.LAST_CHNG_GUID }}</td>
-                        <td class="table-data">{{ data.LAST_CHNG_TMSTMP }}</td>
-                        <td class="table-data">{{ data.FRST_CRTR_ID }}</td>
-                        <td class="table-data">{{ data.FRST_CRTR_IP_ADDR }}</td>
-                        <td class="table-data">{{ data.FRST_CRT_DB_TMSTMP }}</td>
-                        <td class="table-data">{{ data.LAST_MDFR_ID }}</td>
-                        <td class="table-data">{{ data.LAST_MDFR_IP_ADDR }}</td>
-                        <td class="table-data">{{ data.LAST_MDFD_DB_TMSTMP }}</td>
                         <td class="table-data" hidden>{{ data.ROWID }}</td>
                         
                     </tr>

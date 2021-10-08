@@ -8,9 +8,21 @@ import { Childscn13Service } from '../childscn13.service';
 @Component({
   selector: 'app-childscn13add',
   templateUrl: './childscn13add.component.html',
-  styleUrls: ['./childscn13add.component.css']
+  styleUrls: ['./childscn13add.component.css','../../../../assets/css/child.css']
 })
 export class Childscn13addComponent implements OnInit {
+
+  constructor(
+    public dialogRef: MatDialogRef<Childscn13addComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public childscn13Service: Childscn13Service,
+    public dialog: MatDialog
+  ) {
+    this.fileControl = new FormControl(this.files, [
+      Validators.required,
+      MaxSizeValidator(this.maxSize * 1024)
+    ])
+  }
 
   accept: string = "image/*";
   fileControl: FormControl;
@@ -22,17 +34,21 @@ export class Childscn13addComponent implements OnInit {
   webInfoContent: string;
   msg: string = "";
 
-  constructor(public dialogRef: MatDialogRef<Childscn13addComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public childscn13Service: Childscn13Service, public dialog: MatDialog) {
-    this.fileControl = new FormControl(this.files, [
-      Validators.required,
-      MaxSizeValidator(this.maxSize * 1024)
-    ])
-  }
-
   ngOnInit(): void {
     this.fileControl.valueChanges.subscribe((files: any) => {
       this.files = files;
     });
+  }
+
+  formControl = new FormControl('', [
+    Validators.required
+    // Validators.email,
+  ]);
+
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+    this.formControl.hasError('email') ? 'Not a valid email' :
+    '';
   }
 
   changeSelect() {

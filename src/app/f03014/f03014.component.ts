@@ -73,7 +73,6 @@ export class F03014Component implements OnInit {
   }
   Inquire()//查詢
   {
-
     let jsonObject: any = {};
     this.i = 1;
     const url = 'f03/f03014action01';
@@ -113,6 +112,7 @@ export class F03014Component implements OnInit {
       console.log(data)
 
       this.ruleParamCondition.data = data.rspBody;
+      console.log(this.ruleParamCondition.data)
 
 
     }

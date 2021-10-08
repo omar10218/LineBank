@@ -104,6 +104,7 @@ export class F03006Component implements OnInit {
 
     //切換查詢選項
     changeSelect() {
+      this.changePage();
       this.getEmployeeList(this.pageIndex, this.pageSize);
     }
 
@@ -132,6 +133,7 @@ export class F03006Component implements OnInit {
       formData.append('leaveStartdate', this.pipe.transform( new Date(this.levelStartDateString) , 'yyyyMMdd' ) );
     }
     if (  this.levelEndDateString != null &&  this.levelEndDateString != '' ) {//請假迄日
+      console.log(this.pipe.transform( new Date(this.levelEndDateString) , 'yyyyMMdd' ));
       formData.append('leaveEnddate', this.pipe.transform( new Date(this.levelEndDateString) , 'yyyyMMdd' ) );
     }
     const baseUrl = 'f03/f03006action1';
@@ -298,6 +300,12 @@ export class F03006Component implements OnInit {
     this.getEmployeeList(this.pageIndex, this.pageSize);
     // console.log(this.pageIndex)
     // console.log(this.pageSize)
+  }
+
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
   }
 
 }

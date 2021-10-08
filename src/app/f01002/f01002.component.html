@@ -154,7 +154,7 @@
         <div nz-row>
             <div nz-col nzFlex="auto" style="background-color: white;">
                 <div nz-row>
-                    <div nz-col nzSpan="6" style="padding-left:15px;background-color: #BFECD0;">
+                    <div nz-col nzSpan="6" style="padding:0px 15px;background-color: #BFECD0;">
                         <div class="form-title line_bank_h3" style="margin:10px 0 ;">案件編號</div>
                         <div class="form" style="display: block;margin-bottom:10px">
                             <div><input matInput #input class="form-control" [(ngModel)]="swcApplno" name="swcApplno"
@@ -162,14 +162,14 @@
                             </div>
                         </div>
                     </div>
-                    <div nz-col nzSpan="6" style="padding-left:15px;">
+                    <div nz-col nzSpan="6" style="padding:0px 15px;">
                         <span class="form-title line_bank_h3" style="margin:10px 0 ;">身分證號</span>
                         <div class="form" style="display: block;margin-bottom:10px">
                             <div><input matInput #input class="form-control" [(ngModel)]="swcID" name="swcID" required>
                             </div>
                         </div>
                     </div>
-                    <div nz-col nzSpan="6" style="padding-left:15px;background-color: #BFECD0;">
+                    <div nz-col nzSpan="6" style="padding:0px 15px;background-color: #BFECD0;">
                         <span class="form-title line_bank_h3" style="margin:10px 0 ;">案件類別</span>
                         <div class="form" style="display: block;margin-bottom:10px">
                             <div>
@@ -180,7 +180,7 @@
                             </div>
                         </div>
                     </div>
-                    <div nz-col nzSpan="6" style="padding-left:15px;">
+                    <div nz-col nzSpan="6" style="padding:0px 15px">
                         <span class="form-title line_bank_h3" style="margin:10px 0 ;">代理人別</span>
                         <div class="form" style="display: block;margin-bottom:10px">
                             <div>
@@ -276,11 +276,13 @@
                 <div class="line_bank_card_no_padding">
                     <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource.data" [nzFrontPagination]="false"
                     [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
-                    [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="案件申覆清單"
+                    [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="案件申覆清單" 
                     [nzScroll]="{ x: '1500px', y: '220px' }" (nzQueryParams)="onQueryParamsChange($event)">
                     <thead style="max-height: 100vh;">
-                        <span style="text-align:right;"><b>案件數: {{this.total}} 件</b></span>
+                        <div style="text-align:right;width: 90vw; font-size: 16px;">
                             
+                            <span >案件數: {{this.total}} 件</span>
+                        </div>
                             <tr>
                                 <th class="table-header" [nzLeft]="true" [nzWidth]="'160px'">收件編號</th>
                                 <th class="table-header" [nzWidth]="'160px'">流程別</th>

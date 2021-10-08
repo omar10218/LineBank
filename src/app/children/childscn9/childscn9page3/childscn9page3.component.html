@@ -3,23 +3,23 @@
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="INSTALLMENT_ACCSource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-    nzTitle="分期信貸產品資訊">
+    [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="分期信貸產品資訊">
     <thead>
       <tr>
-        <th class="table-header">產品</th>
-        <th class="table-header">合約確定日期時間</th>
-        <th class="table-header">合約截止日期時間</th>
-        <th class="table-header">期數</th>
-        <th class="table-header">放款帳號</th>
-        <th class="table-header">目前帳號狀態</th>
-        <th class="table-header">目前利率</th>
-        <th class="table-header">撥款金額</th>
-        <th class="table-header">目前放款餘額</th>
-        <th class="table-header">佔額比</th>
-        <th class="table-header">結清日期時間</th>
-        <th class="table-header">往來月數( 年 月)</th>
-        <th class="table-header">合約剩餘期數</th>
-        <th class="table-header">多階利率說明</th>
+        <th class="table-header" nzWidth="100px">產品</th>
+        <th class="table-header" nzWidth="100px">合約確定日期時間</th>
+        <th class="table-header" nzWidth="100px">合約截止日期時間</th>
+        <th class="table-header" nzWidth="100px">期數</th>
+        <th class="table-header" nzWidth="100px">放款帳號</th>
+        <th class="table-header" nzWidth="100px">目前帳號狀態</th>
+        <th class="table-header" nzWidth="100px">目前利率</th>
+        <th class="table-header" nzWidth="100px">撥款金額</th>
+        <th class="table-header" nzWidth="100px">目前放款餘額</th>
+        <th class="table-header" nzWidth="100px">佔額比</th>
+        <th class="table-header" nzWidth="100px">結清日期時間</th>
+        <th class="table-header" nzWidth="100px">往來月數( 年 月)</th>
+        <th class="table-header" nzWidth="100px">合約剩餘期數</th>
+        <th class="table-header" nzWidth="100px">多階利率說明</th>
       </tr>
     </thead>
     <tbody>
@@ -46,24 +46,24 @@
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="REVOLVING_ACCSource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-    nzTitle="循環信貸產品資訊">
+    [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="循環信貸產品資訊">
     <thead>
       <tr>
-        <th class="table-header">產品</th>
-        <th class="table-header">合約確定日期時間</th>
-        <th class="table-header">合約截止日期時間</th>
-        <th class="table-header">期數</th>
-        <th class="table-header">放款帳號</th>
-        <th class="table-header">目前帳號狀態</th>
-        <th class="table-header">目前利率</th>
-        <th class="table-header">核准額度</th>
-        <th class="table-header">目前放款餘額</th>
-        <th class="table-header">佔額比</th>
-        <th class="table-header">目前可用額度</th>
-        <th class="table-header">結清日期</th>
-        <th class="table-header">往來月數( 年 月)</th>
-        <th class="table-header">結帳日至還款日是否可動用</th>
-        <th class="table-header">多階利率說明</th>
+        <th class="table-header" nzWidth="100px">產品</th>
+        <th class="table-header" nzWidth="100px">合約確定日期時間</th>
+        <th class="table-header" nzWidth="100px">合約截止日期時間</th>
+        <th class="table-header" nzWidth="100px">期數</th>
+        <th class="table-header" nzWidth="100px">放款帳號</th>
+        <th class="table-header" nzWidth="100px">目前帳號狀態</th>
+        <th class="table-header" nzWidth="100px">目前利率</th>
+        <th class="table-header" nzWidth="100px">核准額度</th>
+        <th class="table-header" nzWidth="100px">目前放款餘額</th>
+        <th class="table-header" nzWidth="100px">佔額比</th>
+        <th class="table-header" nzWidth="100px">目前可用額度</th>
+        <th class="table-header" nzWidth="100px">結清日期</th>
+        <th class="table-header" nzWidth="100px">往來月數( 年 月)</th>
+        <th class="table-header" nzWidth="100px">結帳日至還款日是否可動用</th>
+        <th class="table-header" nzWidth="100px">多階利率說明</th>
       </tr>
     </thead>
     <tbody>
@@ -91,28 +91,28 @@
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="INST_TRANS_DETAILSource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-    nzTitle="分期信貸往來明細">
+    [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="分期信貸往來明細">
     <thead>
       <tr>
-        <th class="table-header">交易日期時間</th>
-        <th class="table-header">放款帳號</th>
-        <th class="table-header">產品</th>
-        <th class="table-header">貸款期數</th>
-        <th class="table-header">本次繳款狀態</th>
-        <th class="table-header">帳戶逾期狀態</th>
-        <th class="table-header">本期適用利率</th>
-        <th class="table-header">應償還利息</th>
-        <th class="table-header">應償還本金</th>
-        <th class="table-header">本次償還利息</th>
-        <th class="table-header">本次償還本金</th>
-        <th class="table-header">目前貸款本金餘額</th>
-        <th class="table-header">本期償還利息合計</th>
-        <th class="table-header">本期償還本金合計</th>
-        <th class="table-header">應繳未繳(逾期)利息</th>
-        <th class="table-header">應繳未繳(逾期)本金</th>
-        <th class="table-header">本次應繳日</th>
-        <th class="table-header">下次應繳日</th>
-        <th class="table-header">繳款帳號(存款帳號)</th>
+        <th class="table-header" nzWidth="100px">交易日期時間</th>
+        <th class="table-header" nzWidth="100px">放款帳號</th>
+        <th class="table-header" nzWidth="100px">產品</th>
+        <th class="table-header" nzWidth="100px">貸款期數</th>
+        <th class="table-header" nzWidth="100px">本次繳款狀態</th>
+        <th class="table-header" nzWidth="100px">帳戶逾期狀態</th>
+        <th class="table-header" nzWidth="100px">本期適用利率</th>
+        <th class="table-header" nzWidth="100px">應償還利息</th>
+        <th class="table-header" nzWidth="100px">應償還本金</th>
+        <th class="table-header" nzWidth="100px">本次償還利息</th>
+        <th class="table-header" nzWidth="100px">本次償還本金</th>
+        <th class="table-header" nzWidth="100px">目前貸款本金餘額</th>
+        <th class="table-header" nzWidth="100px">本期償還利息合計</th>
+        <th class="table-header" nzWidth="100px">本期償還本金合計</th>
+        <th class="table-header" nzWidth="100px">應繳未繳(逾期)利息</th>
+        <th class="table-header" nzWidth="100px">應繳未繳(逾期)本金</th>
+        <th class="table-header" nzWidth="100px">本次應繳日</th>
+        <th class="table-header" nzWidth="100px">下次應繳日</th>
+        <th class="table-header" nzWidth="100px">繳款帳號(存款帳號)</th>
       </tr>
     </thead>
     <tbody>
@@ -144,22 +144,22 @@
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="REV_TRANS_DETAILSource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-    nzTitle="循環信貸往來明細">
+    [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="循環信貸往來明細">
     <thead>
       <tr>
-        <th class="table-header">交易日期時間</th>
-        <th class="table-header">放款帳號</th>
-        <th class="table-header">產品</th>
-        <th class="table-header">額度</th>
-        <th class="table-header">額度狀態</th>
-        <th class="table-header">申請動撥金額</th>
-        <th class="table-header">申請動撥結果</th>
-        <th class="table-header">徵審代碼</th>
-        <th class="table-header">本筆申請前可用額度</th>
-        <th class="table-header">交易類型</th>
-        <th class="table-header">交易金額</th>
-        <th class="table-header">累計動用金額</th>
-        <th class="table-header">目前可用額度</th>
+        <th class="table-header" nzWidth="100px">交易日期時間</th>
+        <th class="table-header" nzWidth="100px">放款帳號</th>
+        <th class="table-header" nzWidth="100px">產品</th>
+        <th class="table-header" nzWidth="100px">額度</th>
+        <th class="table-header" nzWidth="100px">額度狀態</th>
+        <th class="table-header" nzWidth="100px">申請動撥金額</th>
+        <th class="table-header" nzWidth="100px">申請動撥結果</th>
+        <th class="table-header" nzWidth="100px">徵審代碼</th>
+        <th class="table-header" nzWidth="100px">本筆申請前可用額度</th>
+        <th class="table-header" nzWidth="100px">交易類型</th>
+        <th class="table-header" nzWidth="100px">交易金額</th>
+        <th class="table-header" nzWidth="100px">累計動用金額</th>
+        <th class="table-header" nzWidth="100px">目前可用額度</th>
       </tr>
     </thead>
     <tbody>
@@ -185,29 +185,19 @@
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="APPR_STATIS_DATASource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-    nzTitle="撥款統計數據">
+    [nzScroll]="{ x: '500px', y: '240px' }" [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="撥款統計數據">
     <thead>
       <tr>
-        <th class="table-header">產品類別</th>
-        <th class="table-header">撥款後三個月內發生逾期月數</th>
-        <th class="table-header">撥款後三個月內最嚴重逾期狀態</th>
-        <th class="table-header">撥款後三個月內最嚴重逾期未繳金額</th>
-        <th class="table-header">撥款後六個月內發生逾期月數</th>
-        <th class="table-header">撥款後六個月內最嚴重逾期狀態</th>
-        <th class="table-header">撥款後六個月內最嚴重逾期未繳金額</th>
-        <th class="table-header">撥款後十二個月內發生逾期月數</th>
-        <th class="table-header">撥款後十二個月內最嚴重逾期狀態</th>
-        <th class="table-header">撥款後十二個月內最嚴重逾期未繳金額</th>
-        <th class="table-header">First Creation GUID</th>
-        <th class="table-header">First Creation Timestamp</th>
-        <th class="table-header">Last Change GUID</th>
-        <th class="table-header">Last Change Timestamp</th>
-        <th class="table-header">First Creator ID</th>
-        <th class="table-header">First Creator IP Address</th>
-        <th class="table-header">First Create DataBase Timestamp</th>
-        <th class="table-header">Last Modifier ID</th>
-        <th class="table-header">Last Modifier IP Address</th>
-        <th class="table-header">Last Modified DataBase Timestamp</th>
+        <th class="table-header" nzWidth="100px">產品類別</th>
+        <th class="table-header" nzWidth="100px">撥款後三個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">撥款後三個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">撥款後三個月內最嚴重逾期未繳金額</th>
+        <th class="table-header" nzWidth="100px">撥款後六個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">撥款後六個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">撥款後六個月內最嚴重逾期未繳金額</th>
+        <th class="table-header" nzWidth="100px">撥款後十二個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">撥款後十二個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">撥款後十二個月內最嚴重逾期未繳金額</th>
 
       </tr>
     </thead>
@@ -223,16 +213,6 @@
         <td class="table-data">{{ data.OD_TIMES_WIT_12_MON }}</td>
         <td class="table-data">{{ data.SERI_OD_STATUS_WIT_12_MON }}</td>
         <td class="table-data">{{ data.SERI_OD_AMT_WIT_12_MON }}</td>
-        <td class="table-data">{{ data.FRST_CRTN_GUID}}</td>
-        <td class="table-data">{{ data.FRST_CRTN_TMSTMP}}</td>
-        <td class="table-data">{{ data.LAST_CHNG_GUID }}</td>
-        <td class="table-data">{{ data.LAST_CHNG_TMSTMP }}</td>
-        <td class="table-data">{{ data.FRST_CRTR_ID }}</td>
-        <td class="table-data">{{ data.FRST_CRTR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.FRST_CRT_DB_TMSTMP }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_ID }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.LAST_MDFD_DB_TMSTMP }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -241,32 +221,22 @@
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="OVERDUE_STATIS_DATASource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-    nzTitle="逾期統計數據">
+    [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="逾期統計數據">
     <thead>
       <tr>
-        <th class="table-header">產品類別</th>
-        <th class="table-header">最近一次逾期距今月數</th>
-        <th class="table-header">最近一次逾期狀態</th>
-        <th class="table-header">最近一次逾期未繳金額</th>
-        <th class="table-header">近三個月內發生逾期月數</th>
-        <th class="table-header">近三個月內最嚴重逾期狀態</th>
-        <th class="table-header">近三個月內最嚴重逾期未繳金額</th>
-        <th class="table-header">近六個月內發生逾期月數</th>
-        <th class="table-header">近六個月內最嚴重逾期狀態</th>
-        <th class="table-header">近六個月內最嚴重逾期未繳金額</th>
-        <th class="table-header">近十二個月內發生逾期月數</th>
-        <th class="table-header">近十二個月內最嚴重逾期狀態</th>
-        <th class="table-header">近十二個月內最嚴重逾期未繳金額</th>
-        <th class="table-header">First Creation GUID</th>
-        <th class="table-header">First Creation Timestamp</th>
-        <th class="table-header">Last Change GUID</th>
-        <th class="table-header">Last Change Timestamp</th>
-        <th class="table-header">First Creator ID</th>
-        <th class="table-header">First Creator IP Address</th>
-        <th class="table-header">First Create DataBase Timestamp</th>
-        <th class="table-header">Last Modifier ID</th>
-        <th class="table-header">Last Modifier IP Address</th>
-        <th class="table-header">Last Modified DataBase Timestamp</th>
+        <th class="table-header" nzWidth="100px">產品類別</th>
+        <th class="table-header" nzWidth="100px">最近一次逾期距今月數</th>
+        <th class="table-header" nzWidth="100px">最近一次逾期狀態</th>
+        <th class="table-header" nzWidth="100px">最近一次逾期未繳金額</th>
+        <th class="table-header" nzWidth="100px">近三個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">近三個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">近三個月內最嚴重逾期未繳金額</th>
+        <th class="table-header" nzWidth="100px">近六個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">近六個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">近六個月內最嚴重逾期未繳金額</th>
+        <th class="table-header" nzWidth="100px">近十二個月內發生逾期月數</th>
+        <th class="table-header" nzWidth="100px">近十二個月內最嚴重逾期狀態</th>
+        <th class="table-header" nzWidth="100px">近十二個月內最嚴重逾期未繳金額</th>
       </tr>
     </thead>
     <tbody>
@@ -284,16 +254,6 @@
         <td class="table-data">{{ data.OD_TIMES_WIT_12_MON}}</td>
         <td class="table-data">{{ data.SERI_OD_STATUS_WIT_12_MON}}</td>
         <td class="table-data">{{ data.SERI_OD_AMT_WIT_12_MON }}</td>
-        <td class="table-data">{{ data.FRST_CRTN_GUID }}</td>
-        <td class="table-data">{{ data.FRST_CRTN_TMSTMP }}</td>
-        <td class="table-data">{{ data.LAST_CHNG_GUID }}</td>
-        <td class="table-data">{{ data.LAST_CHNG_TMSTMP }}</td>
-        <td class="table-data">{{ data.FRST_CRTR_ID }}</td>
-        <td class="table-data">{{ data.FRST_CRTR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.FRST_CRT_DB_TMSTMP }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_ID }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.LAST_MDFD_DB_TMSTMP }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -302,27 +262,17 @@
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="CON_PROD_STATIS_DATASource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-    nzTitle="帳戶狀態統計">
+    [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="帳戶狀態統計">
     <thead>
       <tr>
-        <th class="table-header">產品類別</th>
-        <th class="table-header">總往來帳戶數</th>
-        <th class="table-header">正常帳戶數</th>
-        <th class="table-header">凍結中帳戶數</th>
-        <th class="table-header">逾期中帳戶數</th>
-        <th class="table-header">已結清帳戶數</th>
-        <th class="table-header">最早往來日期迄今</th>
-        <th class="table-header">最晚往來日期迄今</th>
-        <th class="table-header">First Creation GUID</th>
-        <th class="table-header">First Creation Timestamp</th>
-        <th class="table-header">Last Change GUID</th>
-        <th class="table-header">Last Change Timestamp</th>
-        <th class="table-header">First Creator ID</th>
-        <th class="table-header">First Creator IP Address</th>
-        <th class="table-header">First Create DataBase Timestamp</th>
-        <th class="table-header">Last Modifier ID</th>
-        <th class="table-header">Last Modifier IP Address</th>
-        <th class="table-header">Last Modified DataBase Timestamp</th>
+        <th class="table-header" nzWidth="100px">產品類別</th>
+        <th class="table-header" nzWidth="100px">總往來帳戶數</th>
+        <th class="table-header" nzWidth="100px">正常帳戶數</th>
+        <th class="table-header" nzWidth="100px">凍結中帳戶數</th>
+        <th class="table-header" nzWidth="100px">逾期中帳戶數</th>
+        <th class="table-header" nzWidth="100px">已結清帳戶數</th>
+        <th class="table-header" nzWidth="100px">最早往來日期迄今</th>
+        <th class="table-header" nzWidth="100px">最晚往來日期迄今</th>
       </tr>
     </thead>
     <tbody>
@@ -335,16 +285,6 @@
         <td class="table-data">{{ data.CLO_ACC_NUM }}</td>
         <td class="table-data">{{ data.FST_TRANS_DATE }}</td>
         <td class="table-data">{{ data.LST_TRANS_DATE }}</td>
-        <td class="table-data">{{ data.FRST_CRTN_GUID }}</td>
-        <td class="table-data">{{ data.FRST_CRTN_TMSTMP }}</td>
-        <td class="table-data">{{ data.LAST_CHNG_GUID}}</td>
-        <td class="table-data">{{ data.LAST_CHNG_TMSTMP}}</td>
-        <td class="table-data">{{ data.FRST_CRTR_ID }}</td>
-        <td class="table-data">{{ data.FRST_CRTR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.FRST_CRT_DB_TMSTMP }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_ID }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.LAST_MDFD_DB_TMSTMP }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -353,27 +293,17 @@
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="UNCLOSED_STATIS_DATASource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-    nzTitle="未結清帳戶統計">
+    [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="未結清帳戶統計">
     <thead>
       <tr>
-        <th class="table-header">產品類別</th>
-        <th class="table-header">帳戶數</th>
-        <th class="table-header">撥款金額/核准額度合計</th>
-        <th class="table-header">目前餘額合計</th>
-        <th class="table-header">目前餘額佔額比</th>
-        <th class="table-header">剩餘月數&lt=3個月帳戶數</th>
-        <th class="table-header">剩餘月數&lt=6個月帳戶數</th>
-        <th class="table-header">剩餘月數&lt=12個月帳戶數</th>
-        <th class="table-header">First Creation GUID</th>
-        <th class="table-header">First Creation Timestamp</th>
-        <th class="table-header">Last Change GUID</th>
-        <th class="table-header">Last Change Timestamp</th>
-        <th class="table-header">First Creator ID</th>
-        <th class="table-header">First Creator IP Address</th>
-        <th class="table-header">First Create DataBase Timestamp</th>
-        <th class="table-header">Last Modifier ID</th>
-        <th class="table-header">Last Modifier IP Address</th>
-        <th class="table-header">Last Modified DataBase Timestamp</th>
+        <th class="table-header" nzWidth="100px">產品類別</th>
+        <th class="table-header" nzWidth="100px">帳戶數</th>
+        <th class="table-header" nzWidth="100px">撥款金額/核准額度合計</th>
+        <th class="table-header" nzWidth="100px">目前餘額合計</th>
+        <th class="table-header" nzWidth="100px">目前餘額佔額比</th>
+        <th class="table-header" nzWidth="100px">剩餘月數&lt=3個月帳戶數</th>
+        <th class="table-header" nzWidth="100px">剩餘月數&lt=6個月帳戶數</th>
+        <th class="table-header" nzWidth="100px">剩餘月數&lt=12個月帳戶數</th>
       </tr>
     </thead>
     <tbody>
@@ -386,16 +316,6 @@
         <td class="table-data">{{ data.LESS_3_MON_ACC_NUM }}</td>
         <td class="table-data">{{ data.LESS_6_MON_ACC_NUM }}</td>
         <td class="table-data">{{ data.LESS_12_MON_ACC_NUM }}</td>
-        <td class="table-data">{{ data.FRST_CRTN_GUID }}</td>
-        <td class="table-data">{{ data.FRST_CRTN_TMSTMP }}</td>
-        <td class="table-data">{{ data.LAST_CHNG_GUID}}</td>
-        <td class="table-data">{{ data.LAST_CHNG_TMSTMP}}</td>
-        <td class="table-data">{{ data.FRST_CRTR_ID }}</td>
-        <td class="table-data">{{ data.FRST_CRTR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.FRST_CRT_DB_TMSTMP }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_ID }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.LAST_MDFD_DB_TMSTMP }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -404,29 +324,19 @@
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="CLOSED_STATIS_DATASource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-    nzTitle="已結清帳戶統計">
+    [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="已結清帳戶統計">
     <thead>
       <tr>
-        <th class="table-header">產品類別</th>
-        <th class="table-header">平均往來月數</th>
-        <th class="table-header">撥款後一個月(含)內結清帳戶數</th>
-        <th class="table-header">撥款後一個月(含)內結清帳戶%</th>
-        <th class="table-header">撥款後三個月(含)內結清帳戶數</th>
-        <th class="table-header">撥款後三個月(含)內結清帳戶%</th>
-        <th class="table-header">撥款後六個月(含)內結清帳戶數</th>
-        <th class="table-header">撥款後六個月(含)內結清帳戶%</th>
-        <th class="table-header">撥款後六個月(含)內結清帳戶%</th>
-        <th class="table-header">撥款後十二個月(含)內結清帳戶%</th>
-        <th class="table-header">First Creation GUID</th>
-        <th class="table-header">First Creation Timestamp</th>
-        <th class="table-header">Last Change GUID</th>
-        <th class="table-header">Last Change Timestamps</th>
-        <th class="table-header">First Creator ID</th>
-        <th class="table-header">First Creator IP Address</th>
-        <th class="table-header">First Create DataBase Timestamp</th>
-        <th class="table-header">Last Modifier ID</th>
-        <th class="table-header">Last Modifier IP Address</th>
-        <th class="table-header">Last Modified DataBase Timestamp</th>
+        <th class="table-header" nzWidth="100px">產品類別</th>
+        <th class="table-header" nzWidth="100px">平均往來月數</th>
+        <th class="table-header" nzWidth="100px">撥款後一個月(含)內結清帳戶數</th>
+        <th class="table-header" nzWidth="100px">撥款後一個月(含)內結清帳戶%</th>
+        <th class="table-header" nzWidth="100px">撥款後三個月(含)內結清帳戶數</th>
+        <th class="table-header" nzWidth="100px">撥款後三個月(含)內結清帳戶%</th>
+        <th class="table-header" nzWidth="100px">撥款後六個月(含)內結清帳戶數</th>
+        <th class="table-header" nzWidth="100px">撥款後六個月(含)內結清帳戶%</th>
+        <th class="table-header" nzWidth="100px">撥款後六個月(含)內結清帳戶%</th>
+        <th class="table-header" nzWidth="100px">撥款後十二個月(含)內結清帳戶%</th>
       </tr>
     </thead>
     <tbody>
@@ -441,17 +351,6 @@
         <td class="table-data">{{ data.CLO_PC_AFT_6_MON }}</td>
         <td class="table-data">{{ data.CLO_NUM_AFT_12_MON }}</td>
         <td class="table-data">{{ data.CLO_PC_AFT_12_MON }}</td>
-        <td class="table-data">{{ data.FRST_CRTN_GUID}}</td>
-        <td class="table-data">{{ data.FRST_CRTN_TMSTMP}}</td>
-        <td class="table-data">{{ data.LAST_CHNG_GUID }}</td>
-        <td class="table-data">{{ data.LAST_CHNG_TMSTMP }}</td>
-        <td class="table-data">{{ data.FRST_CRTR_ID }}</td>
-        <td class="table-data">{{ data.FRST_CRTR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.FRST_CRT_DB_TMSTMP }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_ID }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.LAST_MDFD_DB_TMSTMP }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -459,35 +358,25 @@
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="INSTAL_APPL_INFOSource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-    nzTitle="循環信貸申請動撥資訊">
+    [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="循環信貸申請動撥資訊">
     <thead>
       <tr>
-        <th class="table-header">申請動撥資訊</th>
-        <th class="table-header">最近一次申請動撥距今日數</th>
-        <th class="table-header">最近一次申請動撥申請金額</th>
-        <th class="table-header">近一個月申請次數</th>
-        <th class="table-header">撥款後三個月(含)內結清帳戶數</th>
-        <th class="table-header">近一個月申請金額合計</th>
-        <th class="table-header">近一個月平均申請金額</th>
-        <th class="table-header">近三個月申請次數</th>
-        <th class="table-header">近三個月申請金額合計</th>
-        <th class="table-header">近三個月平均申請金額</th>
-        <th class="table-header">近六個月申請次數</th>
-        <th class="table-header">近六個月申請金額合計</th>
-        <th class="table-header">近六個月平均申請金額</th>
-        <th class="table-header">近十二個月申請次數</th>
-        <th class="table-header">近十二個月申請金額合計</th>
-        <th class="table-header">近十二個月平均申請金額</th>
-        <th class="table-header">First Creation GUID</th>
-        <th class="table-header">First Creation Timestamp</th>
-        <th class="table-header">Last Change GUID</th>
-        <th class="table-header">Last Change Timestamps</th>
-        <th class="table-header">First Creator ID</th>
-        <th class="table-header">First Creator IP Address</th>
-        <th class="table-header">First Create DataBase Timestamp</th>
-        <th class="table-header">Last Modifier ID</th>
-        <th class="table-header">Last Modifier IP Address</th>
-        <th class="table-header">Last Modified DataBase Timestamp</th>
+        <th class="table-header" nzWidth="100px">申請動撥資訊</th>
+        <th class="table-header" nzWidth="100px">最近一次申請動撥距今日數</th>
+        <th class="table-header" nzWidth="100px">最近一次申請動撥申請金額</th>
+        <th class="table-header" nzWidth="100px">近一個月申請次數</th>
+        <th class="table-header" nzWidth="100px">撥款後三個月(含)內結清帳戶數</th>
+        <th class="table-header" nzWidth="100px">近一個月申請金額合計</th>
+        <th class="table-header" nzWidth="100px">近一個月平均申請金額</th>
+        <th class="table-header" nzWidth="100px">近三個月申請次數</th>
+        <th class="table-header" nzWidth="100px">近三個月申請金額合計</th>
+        <th class="table-header" nzWidth="100px">近三個月平均申請金額</th>
+        <th class="table-header" nzWidth="100px">近六個月申請次數</th>
+        <th class="table-header" nzWidth="100px">近六個月申請金額合計</th>
+        <th class="table-header" nzWidth="100px">近六個月平均申請金額</th>
+        <th class="table-header" nzWidth="100px">近十二個月申請次數</th>
+        <th class="table-header" nzWidth="100px">近十二個月申請金額合計</th>
+        <th class="table-header" nzWidth="100px">近十二個月平均申請金額</th>
       </tr>
     </thead>
     <tbody>
@@ -507,17 +396,6 @@
         <td class="table-data">{{ data.REQ_TIMES_LAST_12_MON }}</td>
         <td class="table-data">{{ data.REQ_AMT_LAST_12_MON }}</td>
         <td class="table-data">{{ data.AVE_REQ_AMT_LAST_12_MON }}</td>
-        <td class="table-data">{{ data.FRST_CRTN_GUID}}</td>
-        <td class="table-data">{{ data.FRST_CRTN_TMSTMP}}</td>
-        <td class="table-data">{{ data.LAST_CHNG_GUID }}</td>
-        <td class="table-data">{{ data.LAST_CHNG_TMSTMP }}</td>
-        <td class="table-data">{{ data.FRST_CRTR_ID }}</td>
-        <td class="table-data">{{ data.FRST_CRTR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.FRST_CRT_DB_TMSTMP }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_ID }}</td>
-        <td class="table-data">{{ data.LAST_MDFR_IP_ADDR }}</td>
-        <td class="table-data">{{ data.LAST_MDFD_DB_TMSTMP }}</td>
       </tr>
     </tbody>
   </nz-table>
