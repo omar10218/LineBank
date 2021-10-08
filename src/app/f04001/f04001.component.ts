@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { OptionsCode } from '../interface/base';
 import { F04001Service } from './f04001.service';
@@ -26,6 +27,9 @@ export class F04001Component implements OnInit {
   selectedValue: string;
   chkArray: checkBox[] = [];
   applnoSource = new MatTableDataSource<any>();
+  pageSize = 10;
+  pageIndex = 1;
+  total: any;
   constructor(private f04001Service: F04001Service, public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -93,9 +97,14 @@ export class F04001Component implements OnInit {
     await this.getLockApplno();
   }
 
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getLockApplno();
+  }
+  
   private async getLockApplno() {
     const baseUrl = 'f04/f04001fn1';
-    this.f04001Service.getLockApplno(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize, this.selectedValue)
+    this.f04001Service.getLockApplno(baseUrl, this.pageIndex, this.pageSize, this.selectedValue)
       .subscribe(data => {
         if (this.chkArray.length > 0) {
           let i: number = 0;
@@ -112,8 +121,8 @@ export class F04001Component implements OnInit {
             this.chkArray.push({ value: chkValue, completed: isChk == 'N' });
           }
         }
-        this.totalCount = data.rspBody.size;
-        this.applnoSource.data = data.rspBody.items;
+        this.total = data.rspBody.size;
+        this.applnoSource = data.rspBody.items;
         this.isAllCheck = false;
       });
   }
