@@ -3,14 +3,14 @@
     <!-- (click)="add()" -->
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="Select()">查詢資料</button>&nbsp;
     <button nz-button [nzSize]="'large'" nzType="primary"(click)="Clear()">清除資料</button>&nbsp;
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()" >離開</button>&nbsp;
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="leave()" >離開</button>&nbsp;
   </div>
   <div class="line_bank_card_no_padding">
 
     <div nz-row>
       <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
-            [(ngModel)]="applno" value="" >
+            [(ngModel)]="applno" name="applno" value="" >
         </div>
       </div>
       <div nz-col nzSpan="8">
@@ -77,17 +77,17 @@
     <div nz-row>
       <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">進件日期</span>
-          <nz-range-picker [(ngModel)]="apply_TIME" ></nz-range-picker>
+          <nz-range-picker [(ngModel)]="apply_TIME"name="apply_TIME" ></nz-range-picker>
         </div>
       </div>
       <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">上傳財力日期</span>
-           <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME" ></nz-range-picker>
+           <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME" name="proof_DOCUMENT_TIME"></nz-range-picker>
         </div>
       </div>
       <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">簽約完成日期</span>
-          <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME" ></nz-range-picker>
+          <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME"name="proof_DOCUMENT_TIME" ></nz-range-picker>
         </div>
       </div>
     </div>
@@ -111,7 +111,7 @@
     <div nz-row>
       <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">准駁日期時間</span>
-          <nz-range-picker [(ngModel)]="credit_TIME" ></nz-range-picker>
+          <nz-range-picker [(ngModel)]="credit_TIME"name="credit_TIME" ></nz-range-picker>
         </div>
       </div>
       <div nz-col nzSpan="8">
@@ -132,7 +132,7 @@
       <tr>
         <th nzLeft></th>
         <th nzLeft>案件編號</th>
-        <th nzLeft>身分證字號</th>
+        <th >身分證字號</th>
         <th>客戶ID</th>
         <th>客戶姓名</th>
         <th>公司名稱</th>
@@ -151,15 +151,15 @@
         <th>產品名稱</th>
         <th>專案名稱</th>
         <th>行銷代碼</th>
-        <th nzRight>序號</th>
+        <th >序號</th>
         <th nzRight>准駁日期時間</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of ruleParamCondition">
-        <td nzLeft class="table-data"><button nz-button [nzSize]="'middle'" nzType="primary" (click)="test(data.APPLNO)">明細</button></td>
+      <tr *ngFor="let data of ruleParamCondition.data">
+        <td nzLeft class="table-data"><button nz-button [nzSize]="'middle'" nzType="primary" (click)="Detail(data.APPLNO)">明細</button></td>
         <td nzLeft>{{ data.APPLNO }}</td><!--案件編號-->
-        <td nzLeft>{{ data.NATIONAL_ID }}</td><!--身分證字號-->
+        <td >{{ data.NATIONAL_ID }}</td><!--身分證字號-->
         <td>{{ data.CUST_ID }}</td> <!--客戶id-->
         <td>{{ data.CU_CNAME }}</td>  <!--客戶姓名-->
         <td>{{ data.CU_CP_NAME }}</td><!--公司名稱-->
@@ -178,7 +178,7 @@
         <td></td><!--產品名稱-->
         <td></td><!--專案名稱-->
         <td  ></td><!--行銷代碼-->
-        <td nzRight ></td><!--序號-->
+        <td  ></td><!--序號-->
         <td nzRight></td><!--准駁日期時間-->
       </tr>
     </tbody>

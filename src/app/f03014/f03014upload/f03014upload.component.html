@@ -1,27 +1,36 @@
-<form >
-  <table >
-    <tr>
-      <td>上傳檔案</td>
-      <input type="file" name="file" id="file" (change)="openup($event.target.files)" style="display: none;">
-      <input type="text" disabled="disable"  [(ngModel)]="Filename" name="Filename" >
-      <td><input type="button" value="開啟檔案" onclick="file.click()" ></td>
-      <td><input type="button" value="上傳" (click)="seve()" ></td>
-    </tr>
-    <tr>
-      <td>上傳異常訊息</td>
-      <td colspan="2">
-        <input type="text" style="height:200px;width:250px;" [(ngModel)]="rspMsg" name="rspMsg" value={{rspMsg}} disabled>
-      </td>
-    </tr>
-  </table>
-</form>
-<script>
-  openup($event)
-  {
-    const file = $event.target.files[0];
-    if(!file)
-    {
-      return;
-    }
-  }
-</script>
+
+<div class="line_bank_card_no_padding" style="min-height:170px">
+
+  <div class="line_bank_form_header_title">上傳Excel</div>
+  <div class="container" style="padding:20px">
+      <form class="mat-dialog-content" #formControl="ngForm" [formGroup]="uploadForm">
+          <div nz-row>
+              <div nz-col nzSpan="32">
+                  <div class="form" style="padding:20px">
+                      <div><span class="form-title-actions">上傳檔案</span>
+                          <div mat-dialog-actions>
+                              <input type="file" (change)="onChange($event)" />
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div nz-row>
+              <div nz-col nzSpan="32">
+                  <div class="form" style="padding:20px">
+                      <div><span class="form-title-actions">上傳異常訊息</span>
+                          <textarea matInput formControlName="ERROR_MESSAGE" readonly style="color:red;width:3  00px;"></textarea>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div mat-dialog-actions>
+              <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"style="margin:0px 5px" (click)="confirmAdd()">儲存</button>
+
+              <button nz-button [nzSize]="'middle'" nzType="warn" (click)="onNoClick()" tabindex="-1" style="margin:0px 5px">取消</button>
+
+          </div>
+          <br><br>
+      </form>
+  </div>
+</div>
