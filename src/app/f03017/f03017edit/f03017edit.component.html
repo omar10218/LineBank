@@ -1,13 +1,7 @@
-<h2 mat-dialog-title>提報黑名單</h2>
-<div>
-    <button mat-raised-button type="button" color="primary" >儲存</button>
-    &nbsp;&nbsp;
-    <button mat-raised-button type="button" color="warn" >離開</button>
-</div>
-<br>
-<form [formGroup]="blockListForm">
-    <table bordercolor="#000000" cellspacing="0" style="border-collapse:collapse;width: 800px;">
-        <tr>
+<!-- <table>
+
+<form>
+<tr>
             <th>通報單位</th>
             <td>
                 <mat-form-field color="accent">
@@ -18,8 +12,8 @@
             <th>通報原因1</th>
             <td>
                 <mat-form-field color="accent">
-                    <mat-select [(ngModel)]="reportReason1Value" formControlName="REPORT_REASON1">
-                        <mat-option *ngFor="let code of reportReason1" [value]="code.value">
+                    <mat-select [(ngModel)]="bkReason" formControlName="REPORT_REASON1">
+                        <mat-option *ngFor="let code of bkReasonCode" [value]="code.value">
                             {{code.viewValue}}
                         </mat-option>
                     </mat-select>
@@ -69,7 +63,7 @@
         <tr>
             <th>建檔項目欄位標題</th>
             <th>建檔項目欄位值內容</th>
-        </tr>
+        </tr> -->
         <!-- <tr>
             <td><input type="checkbox" name="姓名" value=""
                     (click)="checkboxSelect($event.target.checked,'CU_CNAME',this.blockListForm.value.CU_CNAME)">姓名</td>
@@ -99,7 +93,7 @@
             </td>
             <td><input matInput #input class="form-control" formControlName="CU_M_TEL"> </td>
         </tr> -->
-    </table>
+    <!-- </table>
 </form>
 <cdk-virtual-scroll-viewport itemSize="48" headerHeight="56" style="height: 400px; margin-left: 10px;">
     <mat-table [dataSource]="blockListDataSource">
@@ -147,4 +141,4 @@
             *matRowDef="let ruleParmRow; columns: ['REPORT_UNIT','BK_COLUMN', 'BK_CONTENT','REPORT_REASON1','REPORT_REASON2','REPORT_REASON3','REPORT_CONTENT','USE_FLAG','CREATE_DATETIME']">
         </mat-row>
     </mat-table>
-</cdk-virtual-scroll-viewport>
+</cdk-virtual-scroll-viewport> -->

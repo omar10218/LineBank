@@ -26,19 +26,8 @@ export class F03015uploadComponent implements OnInit {
     formdata.append('file', this.fileToUpload);
     let msgStr: string = "";
     let baseUrl = 'f03/f03015action4';
-    // const childernDialogRef = this.dialog.open(ConfirmComponent, {
-    //   data: { msgStr: "傳送" }
-    // });
-    // if (msgStr === '上傳成功!!') { this.dialogRef.close({ event: 'success' }); }
-
     this.f03015Service.uploadExcel(baseUrl, this.fileToUpload).subscribe(data => {
-      console.log(data)
       this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
-      // const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      //     data: { msgStr: data.msg }
-      //   });
-    // }, error => {
-    //   console.log(error);
     });
   }
 
@@ -56,9 +45,7 @@ export class F03015uploadComponent implements OnInit {
     if (this.isExcelFile) {
       this.fileToUpload = target.files.item(0);
     } else {
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "非excel檔，請檢查檔案格式重新上傳" }
-      });
+      this.uploadForm.patchValue({ ERROR_MESSAGE: "非excel檔，請檢查檔案格式重新上傳" });
     }
   }
 }

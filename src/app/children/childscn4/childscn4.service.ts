@@ -10,8 +10,7 @@ export class Childscn4Service extends BaseService{
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getCaseStep(formdata: FormData): Observable<any> {
-    const baseUrl = 'f01/childscn4';
-    return this.postFormData(baseUrl, formdata);
+  getCaseStep (baseUrl: string, json: JSON) {
+    return this.postJsonObject(baseUrl, json);
   }
 }

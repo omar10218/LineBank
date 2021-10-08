@@ -10,7 +10,7 @@ import { ChildrenService } from '../children.service';
 @Component({
   selector: 'app-childscn15',
   templateUrl: './childscn15.component.html',
-  styleUrls: ['./childscn15.component.css']
+  styleUrls: [ '../../../assets/css/f03.css','./childscn15.component.css']
 })
 export class Childscn15Component implements OnInit {
 

@@ -1,38 +1,30 @@
 <br>
-<mat-table [dataSource]="transactionLogSource" matSortDisableClear>
-  <ng-container matColumnDef="columnName">
-    <mat-header-cell *matHeaderCellDef>欄位名稱</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.columnName }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="originalValue">
-    <mat-header-cell *matHeaderCellDef>原欄位值</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.originalValue }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="currentValue">
-    <mat-header-cell *matHeaderCellDef>新欄位值</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.currentValue }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="transApName">
-    <mat-header-cell *matHeaderCellDef>異動程式名稱</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.transApName }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="transDate">
-    <mat-header-cell *matHeaderCellDef>異動日期</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ formatDate( row.transDate ) }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="transEmpNo">
-    <mat-header-cell *matHeaderCellDef>異動員工編號</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.transEmpNo }}</mat-cell>
-  </ng-container>
-  <mat-header-row *matHeaderRowDef="['columnName', 'originalValue', 'currentValue', 'transApName', 'transDate', 'transEmpNo']"></mat-header-row>
-  <mat-row *matRowDef="let BAM032SourceRow; columns: ['columnName', 'originalValue', 'currentValue', 'transApName', 'transDate', 'transEmpNo']"></mat-row>
-</mat-table>
-
-<tr>
-  <td>
-    <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-    </mat-paginator>
-  </td>
-</tr>
+<!-- 最外層卡片包覆 -->
+<div class="line_bank_card_no_padding">
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzData]="transactionLogSource" [nzFrontPagination]="false" [nzSimple]="true"
+    [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+    (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="資料異動歷程">
+    <thead>
+      <tr>
+        <th class="table-header">欄位名稱</th>
+        <th class="table-header">原欄位值</th>
+        <th class="table-header">新欄位值</th>
+        <th class="table-header">異動程式名稱</th>
+        <th class="table-header">異動日期</th>
+        <th class="table-header">異動員工編號</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of transactionLogSource">
+        <td class="table-data">{{ data.columnName }}</td>
+        <td class="table-data">{{ data.originalValue }}</td>
+        <td class="table-data">{{ data.currentValue }}</td>
+        <td class="table-data">{{ data.transApName }}</td>
+        <td class="table-data">{{ formatDate( data.transDate ) }}</td>
+        <td class="table-data">{{ data.transEmpNo }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
 

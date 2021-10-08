@@ -12,6 +12,7 @@ import { F03015confirmComponent } from './f03015confirm/f03015confirm.component'
 import { F03015editComponent } from './f03015edit/f03015edit.component';
 import { F03015uploadComponent } from './f03015upload/f03015upload.component';
 import * as XLSX from 'xlsx';
+import { Data } from '@angular/router';
 // import { saveAs } from 'file-saver';
 interface sysCode {
   value: string;
@@ -92,7 +93,7 @@ export class F03015Component implements OnInit {
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;
   currentSort: Sort;
-  proxyIncomeDataSource = new MatTableDataSource<any>();
+  proxyIncomeDataSource: Data[] = [];
   ngAfterViewInit() {
     this.currentPage = {
       pageIndex: 0,
@@ -103,11 +104,7 @@ export class F03015Component implements OnInit {
       active: '',
       direction: ''
     };
-    // this.paginator.page.subscribe((page: PageEvent) => {
-    //   this.currentPage = page;
-    // });
   }
-
   changeSort(sortInfo: Sort) {
     this.currentSort = sortInfo;
   }
@@ -130,7 +127,6 @@ export class F03015Component implements OnInit {
       jsonObject['inducLevel1'] = this.inducLevel1Value;
       jsonObject['inducLevel2'] = this.inducLevel2Value;
       jsonObject['jobCode'] = this.jobCodeValue;
-
       await this.f03015Service.getReturn('f03/f03015', jsonObject).subscribe(data => {
         this.totalCount = data.rspBody.size;
         this.proxyIncomeDataSource = data.rspBody.items;
@@ -162,7 +158,7 @@ export class F03015Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.refreshTable(); }
+      if (result != null && result.event == 'success') { this.getProxyIncomeData(); }
     });
   }
 

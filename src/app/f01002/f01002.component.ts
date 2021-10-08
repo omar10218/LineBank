@@ -101,7 +101,7 @@ export class F01002Component implements OnInit, AfterViewInit {
   // 案件子頁籤
   getLockCase(swcApplno: string, swcID: string) {
     this.f01002Service.getLockCase(swcApplno).subscribe(data => {
-      if (data.rspBody != null) {
+      if ( data.rspBody.length > 0 ) {
         this.fds = data.rspBody[0].fds
       }
       if (data.rspMsg == '案件鎖定成功') {

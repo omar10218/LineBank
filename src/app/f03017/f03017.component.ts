@@ -7,6 +7,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { F03017editComponent } from './f03017edit/f03017edit.component';
+import { F03017uploadComponent } from './f03017upload/f03017upload.component';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 interface sysCode {
   value: string
   viewValue: string
@@ -19,14 +21,19 @@ interface sysCode {
 })
 export class F03017Component implements OnInit {
 
-  bkColumn: sysCode[] = [];;  //建檔項目欄位下拉
-  bkContent: sysCode[] = [];;  //建檔項目欄位值內容下拉
+  bkColumnCode: sysCode[] = [];;  //建檔項目欄位下拉
   bkColumnValue: string;  //建檔項目欄位
   bkContentValue: string;  //建檔項目欄位值內容下拉
   isHidden: boolean;
   myDate: any = new Date();
-
-  constructor(private f03017Service: F03017Service,private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any,public dialog: MatDialog, private datePipe: DatePipe,) {
+  loading = true;
+  total = 1;
+  pageSize = 10;
+  pageIndex = 1;
+  constructor(
+    private f03017Service: F03017Service,
+    private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any,public dialog: MatDialog, private datePipe: DatePipe,)
+    {
     this.myDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
    }
 
@@ -42,35 +49,22 @@ export class F03017Component implements OnInit {
   ]);
 
   ngOnInit(): void {
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 10,
+      length: null
+    };
     this.isHidden = false;
-    this.f03017Service.getSysTypeCode('BK_COLUMN').subscribe(data => {
-      console.log(data)
+    // 取得下拉選單資料
+    this.f03017Service.getSysTypeCode('BLACK_ITEM').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['bk_Column'];
-        this.bkColumn.push({ value: codeNo, viewValue: desc })
-      }
-      console.log(this.bkColumn)
-    });
-    this.f03017Service.getSysTypeCode('BK_CONTENT').subscribe(data => {
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['bk_Content'];
-        this.bkContent.push({ value: codeNo, viewValue: desc })
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.bkColumnCode.push({ value: codeNo, viewValue: desc })
       }
     });
-
   }
-  // ngOnInit(): void {
-  //   const baseUrl = 'f03/f03017';
-  //   this.f03017Service.getImpertmentParameter(baseUrl, this.currentPage.page, this.currentPage.per_page).subscribe(data => {
-  //     console.log(data)
 
-  //     // this.clear();
-  //   });
-
-  // }
-  //============================================================
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
@@ -79,16 +73,14 @@ export class F03017Component implements OnInit {
   bkIncomeDataSource = new MatTableDataSource<any>();
 
   ngAfterViewInit() {
-    console.log(this.bkColumn)
-    console.log(this.bkContent)
-    console.log(this.bkIncomeForm)
-    console.log(this.data.bkColumnValue)
-    console.log(this.currentPage)
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
+    // console.log(this.bkColumn)
+    // console.log(this.bkContent)
+    // console.log(this.bkIncomeForm)
+    // console.log(this.data.bkColumnValue)
+    // console.log(this.currentPage)
+
+
+
     this.currentSort = {
       active: '',
       direction: ''
@@ -103,30 +95,33 @@ export class F03017Component implements OnInit {
   }
 
   async getBkIncomeData() {
-    if ((this.bkColumnValue == undefined && this.bkContentValue == undefined ) ||
-      (this.bkColumnValue == '' && this.bkContentValue == '' )) {
-        alert('請選擇一項條件')
-      // const cconfirmDialogRef = this.dialog.open(F03015confirmComponent, {
-      //   data: { msgStr: "請點選查詢並至少選擇一項查詢條件" }
-      // });
-    } else {
+    console.log(this.bkColumnValue)
+    if (typeof this.bkColumnValue == 'undefined'){return alert('請選擇建檔項目')}
 
       let jsonObject: any = {};
-
       jsonObject['page'] = this.currentPage.pageIndex + 1;
       jsonObject['per_page'] = this.currentPage.pageSize;
       jsonObject['bkColumn'] = this.bkColumnValue;
-      jsonObject['bkContent'] = this.bkColumnValue;
+      jsonObject['bkContent'] = this.bkContentValue;
 
+console.log(jsonObject)
 
       await this.f03017Service.getReturn('f03/f03017', jsonObject).subscribe(data => {
         console.log(data)
-        this.totalCount = data.rspBody.size;
+        // this.total = data.rspBody.size;
         this.bkIncomeDataSource = data.rspBody.items;
         console.log(this.bkIncomeDataSource)
       });
-    }
+this.loading = false;
   }
+
+  // onQueryParamsChange(params: NzTableQueryParams): void {
+  //   const { pageSize, pageIndex } = params;
+  //   this.pageSize=pageSize;
+  //   this.pageIndex=pageIndex;
+  //   this.getBkIncomeData(pageIndex, pageSize);
+
+  // }
   //新增
   insert(isInsert: boolean) {
     console.log(isInsert)
@@ -141,8 +136,58 @@ export class F03017Component implements OnInit {
       if (result != null && result.event == 'success') { this.refreshTable(); }
     });
   }
+
+  //編輯
+  update(isUpdate: boolean, data: any) {
+    const dialogRef = this.dialog.open(F03017editComponent, {
+      data: {
+        isUpdate: isUpdate,
+        isInsert: false,
+        data: data
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
+  }
+  //清除資料
+  clear() {
+    this.bkColumnValue = '';
+    this.bkContentValue = '';
+    this.bkIncomeDataSource = new MatTableDataSource;
+
+  }
+
+  //上傳EXCEL
+  uploadExcel() {
+    const dialogRef = this.dialog.open(F03017uploadComponent, {
+      data: {
+        ABNORMAL_NID: '',
+        ABNORMAL_NAME: '',
+        ON_CHECK: 'Y',
+        TRANSFER_EMPNO: '',
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    });
+  }
+
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
 
+  //從客戶資訊查詢客戶手機
+  getBkInfo(bkColumn:string, bkContent:string) {
+    let jsonObject:any={}
+    jsonObject['page']=this.currentPage.pageIndex+1;
+    jsonObject['per_page']=this.currentPage.pageSize;
+    jsonObject['bkColumn']=bkColumn;
+    jsonObject['bkContent']=bkContent;
+    this.f03017Service.getImpertmentParameter(jsonObject).subscribe(data => {
+      console.log(data)
+
+      // this.clear();
+    });
+  }
 }

@@ -21,17 +21,27 @@ export class F03012Service extends BaseService {
     let targetUrl = `${baseUrl}?roleNo=${roleNo}`;
     return this.postHttpClient(targetUrl);
   }
-  update(baseUrl: string, data: any, oldCompareTable: string, oldCompareColumn:string, setValueLow:string,setValueHight:string,compareType:string,): any {
+  update(baseUrl: string, data: any, oldCompareTable: string, oldCompareColumn:string, setValueLow:string,setValueHight:string,compareType:string,oldCompareType: string): any {
     const formdata: FormData = new FormData();
-    formdata.append('setValue', data.setValue);
+    // formdata.append('setValue', data.setValue);
     formdata.append('oldCompareTable', oldCompareTable);
     formdata.append('oldCompareColumn', oldCompareColumn);
+    formdata.append('oldCompareType', data.oldCompareType);
+    formdata.append('oldSetValueHight', data.oldSetValueHight);
+    formdata.append('oldSetValueLow', data.oldSetValueLow);
+
     formdata.append('compareTable', data.compareTable);
     formdata.append('compareColumn', data.compareColumn);
-    formdata.append('setValueLow', setValueLow);
-    formdata.append('setValueHight', setValueHight);
-    formdata.append('compareType', compareType);
+    formdata.append('setValueLow', data.setValueLow);
+    formdata.append('setValueHight', data.setValueHight);
+    formdata.append('compareType', data.compareType);
     return this.saveOrEditMsgString(baseUrl, formdata);
   }
 
+  // 送出選中的項目轉json後送到後端
+  submit(baseUrl: string , json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
+  }
+
 }
+

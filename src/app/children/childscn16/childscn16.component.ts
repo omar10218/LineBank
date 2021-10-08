@@ -12,7 +12,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 @Component({
   selector: 'app-childscn16',
   templateUrl: './childscn16.component.html',
-  styleUrls: ['./childscn16.component.css']
+  styleUrls: ['./childscn16.component.css','../../../assets/css/f03.css']
 })
 export class Childscn16Component implements OnInit {
 
@@ -30,24 +30,32 @@ export class Childscn16Component implements OnInit {
   currentSort: Sort;
   totalCount: any;
   ruleParamCondition = new MatTableDataSource<any>();
+  total = 1;
+  loading = false;
+  pageSize = 10;
+  pageIndex = 1;
+  cuid:string;
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    this.cuid= sessionStorage.getItem( 'cuid');
+    console.log(sessionStorage.getItem( 'cuid'))
     this.initial();
   }
-  ngAfterViewInit() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
+  // ngAfterViewInit() {
+  //   this.currentPage = {
+  //     pageIndex: 0,
+  //     pageSize: 10,
+  //     length: null
+  //   };
+  //   this.currentSort = {
+  //     active: '',
+  //     direction: ''
+  //   };
 
-  }
+  // }
   Inquire(id: string) //查詢
   {
+    console.log(id)
     const dialogRef = this.dialog.open(Childscn1Component, {
 
     });
@@ -57,7 +65,10 @@ export class Childscn16Component implements OnInit {
   {
     let url = 'f01/childscn16';
     this.jsonObject['applno'] = this.applno;
+    this.jsonObject['page'] = this.pageIndex;
+    this.jsonObject['per_page'] = this.pageSize;
     this.childscn16Service.selectCustomer(url, this.jsonObject).subscribe(data => {
+
       this.ruleParamCondition = data.rspBody;
     })
   }

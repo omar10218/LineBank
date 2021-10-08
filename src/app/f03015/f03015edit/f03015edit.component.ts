@@ -141,7 +141,6 @@ export class F03015editComponent implements OnInit {
       });
     } else {
       let jsonObject: any = {};
-      console.log(this.insertForm.value.INDUC_CODE)
       jsonObject['inducCode'] = this.insertForm.value.INDUC_CODE;
       jsonObject['inducLevel1'] = this.insertForm.value.INDUC_LEVEL1;
       jsonObject['inducLevel2'] = this.insertForm.value.INDUC_LEVEL2;

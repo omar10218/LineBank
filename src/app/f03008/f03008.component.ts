@@ -5,12 +5,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { F03008uploadComponent } from './f03008upload/f03008upload.component';
 import { F03008editComponent } from './f03008edit/f03008edit.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F03008deleteComponent } from './f03008delete/f03008delete.component';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
-
+//Nick 貸後管理異常名單維護
 @Component({
   selector: 'app-f03008',
   templateUrl: './f03008.component.html',
@@ -24,56 +23,43 @@ export class F03008Component implements OnInit {
     public f03008Service: F03008Service
   ) { }
 
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent;
-  currentSort: Sort;
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
+
   dialogRef: any;
   empNo: string = localStorage.getItem("empNo");
 
   ABNORMAL_NID: string = '';
   dataSource = new MatTableDataSource<any>();
 
-  ngAfterViewInit() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
-    this.getAbnormalList();
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getAbnormalList();
-    });
-  }
 
   ngOnInit(): void {
+    this.getAbnormalList(this.pageIndex, this.pageSize);
   }
 
-
-  getAbnormalList() {
+  //取表單
+  getAbnormalList(pageIndex: number, pageSize: number) {
     const baseUrl = 'f03/f03008action1';
     let jsonObject: any = {};
     jsonObject['abnormalNid'] = this.ABNORMAL_NID;
-    jsonObject['page'] = this.currentPage.pageIndex + 1;
-    jsonObject['per_page'] = this.currentPage.pageSize;
+    jsonObject['page'] = this.pageIndex;
+    jsonObject['per_page'] = this.pageSize;
     this.f03008Service.elAbnormalNid(baseUrl, jsonObject)
       .subscribe(data => {
-        this.totalCount = data.rspBody.size;
-        if (this.totalCount == 0) {
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "查無資料!" }
-          });
-        }
+        this.total = data.rspBody.size;
+        // if (this.total == 0) {
+        //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        //     data: { msgStr: "查無資料!" }
+        //   });
+        // }
         this.dataSource.data = data.rspBody.items;
       });
+    this.loading = false;
   }
 
+  //開啟上傳介面
   uploadNew() {
     const dialogRef = this.dialog.open(F03008uploadComponent, {
       data: {
@@ -89,8 +75,8 @@ export class F03008Component implements OnInit {
   }
 
   //修改介面
-  startEdit(abnormalNid:string,onCheck:string,transferEmpno:string,transferDate:string,
-    changeEmpno:string,changeDate:string,) {
+  startEdit(abnormalNid: string, onCheck: string, transferEmpno: string, transferDate: string,
+    changeEmpno: string, changeDate: string,) {
     const dialogRef = this.dialog.open(F03008editComponent, {
       data: {
         abnormalNid: abnormalNid,
@@ -102,14 +88,16 @@ export class F03008Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if ( result != null && (result.event == 'success' || result == '1') ) { this.refreshTable(); }
+      if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
     });
   }
 
   //刪除介面
-  deleteItem(abnormalNid:string,onCheck:string,transferEmpno:string,transferDate:string,
-    changeEmpno:string,changeDate:string,) {
+  deleteItem(abnormalNid: string, onCheck: string, transferEmpno: string, transferDate: string,
+    changeEmpno: string, changeDate: string,) {
     const dialogRef = this.dialog.open(F03008deleteComponent, {
+      minHeight: '30%',
+      width: '70%',
       data: {
         abnormalNid: abnormalNid,
         onCheck: onCheck,
@@ -120,28 +108,26 @@ export class F03008Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if ( result != null && (result.event == 'success' || result == '1') ) { this.refreshTable(); }
+      if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
     });
   }
 
-
+  //刷新表單
   private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
+    this.getAbnormalList(this.pageIndex, this.pageSize);
   }
-
-  changeSort(sortInfo: Sort) {
-    this.currentSort = sortInfo;
-    this.getAbnormalList();
-  }
-
+  //查詢
   search() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.paginator.firstPage();
-    this.getAbnormalList();
+    this.getAbnormalList(this.pageIndex, this.pageSize);
+  }
+
+  //查詢參數異動
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.pageSize = pageSize;
+    this.pageIndex = pageIndex;
+    this.getAbnormalList(this.pageIndex, this.pageSize);
+
   }
 
 }

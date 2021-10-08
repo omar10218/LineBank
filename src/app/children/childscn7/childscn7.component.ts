@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Childscn7Service } from './childscn7.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 
 //20210906 新增RPM資訊,SRP同一關係人 alvin.lee
 //Nick AML/FDS/CSS
 @Component({
   selector: 'app-childscn7',
   templateUrl: './childscn7.component.html',
-  styleUrls: ['./childscn7.component.css', '../../../assets/css/f01.css']
+  styleUrls: ['./childscn7.component.css', '../../../assets/css/f03.css']
 })
 export class Childscn7Component implements OnInit {
 
   constructor(
     private childscn7Service: Childscn7Service,
-  ) { }
+    private nzI18nService: NzI18nService,
+  ) {
+    this.nzI18nService.setLocale(zh_TW)
+   }
 
   CALLOUTSource = new MatTableDataSource<any>();
   AMLSource: any;
