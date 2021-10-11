@@ -108,6 +108,10 @@ export class F01002blocklistComponent implements OnInit {
   }
 
   checkboxSelect(check: boolean, data: any, value: any) {
+    // if (value == null) { 
+    //   this.dialog.open(ConfirmComponent, { data: { msgStr: "請輸入欄位值" } }); 
+    //   this.hTelChecked = false;
+    // } 
     if (check && value != null) {
       this.chkArray.push(data);
       this.contentArray.push(value);

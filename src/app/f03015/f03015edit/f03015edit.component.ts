@@ -12,7 +12,7 @@ interface sysCode {
 @Component({
   selector: 'app-f03015edit',
   templateUrl: './f03015edit.component.html',
-  styleUrls: ['./f03015edit.component.css']
+  styleUrls: ['./f03015edit.component.css', '../../../assets/css/f03.css']
 })
 export class F03015editComponent implements OnInit {
   //proxyIncome 維護
