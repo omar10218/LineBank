@@ -10,14 +10,14 @@
         <div style="padding:10px">
         <span class="form-title">DSS3落人再送JCIC時間設定 </span>
         <input nz-input placeholder="輸入數字" [(ngModel)]="DssJcicSet"  id="dss_jcic_set"
-        oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" style="display: block;"  readonly>
+        oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" style="display: block;" >
       </div>
       </div>
       <div nz-col nzSpan="12">
         <div style="padding:10px">
           <span class="form-title">DSS3落人後email提醒天數</span>
           <input nz-input placeholder="輸入天數" [(ngModel)]="DssMailDay"  id="dss_mail_day"
-          oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" readonly>
+          oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
         </div>
       </div>
       </div>
@@ -46,14 +46,14 @@
     <div nz-row style="margin:15px 0px">
       <div nz-col nzSpan="12">
         <div style="padding:10px">
-          <span class="form-title">PASS期間
+          <span class="form-title">PASS起始日
           </span>
           <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" (ngModelChange)="onChange($event)"></nz-date-picker>
         </div>
       </div>
       <div nz-col nzSpan="12">
         <div style="padding:10px">
-          <span class="form-title">PASS期間
+          <span class="form-title">PASS結束日
           </span>
           <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" (ngModelChange)="onChange($event)"></nz-date-picker>
         </div>
@@ -62,7 +62,7 @@
     <div style="width:10vw;height:10vh;margin:10px auto;">
       <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
       &nbsp;&nbsp;
-      <button nz-button [nzSize]="'middle'" >關閉</button>
+
     </div>
   </div>
   <br>

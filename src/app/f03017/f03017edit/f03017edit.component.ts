@@ -106,12 +106,13 @@ export class F03017editComponent implements OnInit {
   }
 
   checkboxSelect(check: boolean, data: any, value: any) {
+    console.log(check)
+    console.log(data)
+    console.log(value)
     if (check && value != null) {
       this.chkArray.push(data);
       this.contentArray.push(value);
-      console.log(check)
-      console.log(data)
-      console.log(value)
+
     } else {
       this.chkArray.forEach((element, index) => {
         if (element == data) {

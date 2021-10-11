@@ -74,11 +74,21 @@ export class F03016Component implements OnInit {
   // 儲存資料
   public async save(): Promise<void> {
     let jsonObject: any = {};
+    // let start=this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
+    // let end=this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
     jsonObject['DssJcicSet'] = this.DssJcicSet;
     jsonObject['DssMailDay'] = this.DssMailDay;
     jsonObject['BasicLimit'] = this.BasicLimit;
+    jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
+    jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
     if(this.CssPassStart<this.CssPassEnd){
       jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
+      jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
+    }
+    else if(this.CssPassStart!=null){
+      jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
+    }
+    else if(this.CssPassEnd!=null){
       jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
     }
     else{

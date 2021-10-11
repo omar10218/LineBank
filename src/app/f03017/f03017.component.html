@@ -56,7 +56,7 @@
 </thead>
 <tbody>
   <tr *ngFor="let data of bkIncomeDataSource">
-    <td class="table-data"><button mat-raised-button color="primary" (click)="update(true, data)">編輯</button></td>
+    <td class="table-data"><button mat-raised-button color="primary" (click)="update(true, data.reportUnit,data.bkColumn,data.bkContent,data.reportReason1, data.reportReason2,data.reportReason3,data.reportContent,data.useFlag,data.createDatetime,data.bkEmpno)">編輯</button></td>
     <td class="table-data">{{ data.reportUnit }}</td>
     <td class="table-data">{{ data.bkColumn }}</td>
     <td class="table-data">{{ data.bkContent }}</td>
