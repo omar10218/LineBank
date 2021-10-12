@@ -1,74 +1,80 @@
-<button nz-button nzType="primary" (click)="getBkIncomeData()">查詢資料</button>
-<button nz-button nzType="primary" (click)="insert(true)">新增</button>
-<button nz-button nzType="primary" (click)="clear()">清除資料</button>
-<button nz-button nzType="primary" (click)="uploadExcel()">上傳Excel</button>
-<button nz-button nzType="primary">離開</button>
-<br>
+<div class="line_bank_bankground_color">
+
+  <button nz-button nzType="primary" (click)="getBkIncomeData()">查詢資料</button>
+  <button nz-button nzType="primary" (click)="insert(true)">新增</button>
+  <button nz-button nzType="primary" (click)="clear()">清除資料</button>
+  <button nz-button nzType="primary" (click)="uploadExcel()">上傳Excel</button>
+  <button nz-button nzType="primary">離開</button>
+  <br>
 
 
-<form style="padding-left: 20px;">
-  <div class="f03_div">
+  <form style="padding-left: 20px;">
+    <div class="f03_div">
+    </div>
+    <table>
+      <br>
+      <mat-card class="matCard">
+        <mat-card-content>
+          <tr>
+            <th>建檔項目</th>
+            <td>
+              <mat-form-field color="accent">
+                <mat-select [(ngModel)]="bkColumnValue" name="bkColumnCode">
+                  <mat-option *ngFor="let code of bkColumnCode" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+
+
+              <div style="padding:10px"><span class="form-title">建檔內容</span><input style="display: block;"
+                [(ngModel)]="bkContentValue" name="bkContent"></div>
+
+          </tr>
+        </mat-card-content>
+      </mat-card>
+    </table>
+  </form>
+  <br>
+  <div class="line_bank_card_no_padding">
+
+    <nz-table nzShowSizeChanger [nzData]="bkIncomeDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+     [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="照會話術設定">
+    <thead>
+      <tr>
+        <th class="table-header">編輯</th>
+        <th class="table-header">通報單位</th>
+        <th class="table-header">建檔項目欄位標題</th>
+        <th class="table-header">建檔項目欄位值內容</th>
+        <th class="table-header">通報原因1</th>
+        <th class="table-header">通報原因2</th>
+        <th class="table-header">通報原因3</th>
+        <th class="table-header">通報補充</th>
+        <th class="table-header">使用中</th>
+        <th class="table-header">資料新增日期時間</th>
+        <th class="table-header">異動日期時間</th>
+        <th class="table-header">異動說明</th>
+        <th class="table-header">異動人員</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of bkIncomeDataSource">
+        <td class="table-data"><button mat-raised-button color="primary" (click)="update(true, data.reportUnit,data.bkColumn,data.bkContent,data.reportReason1, data.reportReason2,data.reportReason3,data.reportContent,data.useFlag,data.createDatetime,data.bkEmpno)">編輯</button></td>
+        <td class="table-data">{{ data.reportUnit }}</td>
+        <td class="table-data">{{ data.bkColumn }}</td>
+        <td class="table-data">{{ data.bkContent }}</td>
+        <td class="table-data">{{ data.reportReason1 }}</td>
+        <td class="table-data">{{ data.reportReason2 }}</td>
+        <td class="table-data">{{ data.reportReason3 }}</td>
+        <td class="table-data">{{ data.reportContent }}</td>
+        <td class="table-data">{{ data.useFlag }}</td>
+        <td class="table-data">{{ data.createDatetime }}</td>
+        <td class="table-data">異動日期時間</td>
+        <td class="table-data">異動說明</td>
+        <td class="table-data">{{ data.bkEmpno }}</td>
+      </tr>
+    </tbody>
+    </nz-table>
   </div>
-  <table>
-    <br>
-    <mat-card class="matCard">
-      <mat-card-content>
-        <tr>
-          <th>建檔項目</th>
-          <td>
-            <mat-form-field color="accent">
-              <mat-select [(ngModel)]="bkColumnValue" name="bkColumnCode">
-                <mat-option *ngFor="let code of bkColumnCode" [value]="code.value">
-                  {{code.viewValue}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </td>
-          <th>建檔內容</th>
-          <td>
-            <div style="padding:10px"><span class="form-title">建檔內容</span><input style="display: block;"
-              [(ngModel)]="bkContentValue" name="bkContent"></div>
-          </td>
-        </tr>
-      </mat-card-content>
-    </mat-card>
-  </table>
-</form>
-<br>
-<nz-table nzShowSizeChanger [nzData]="bkIncomeDataSource" [nzFrontPagination]="false" [nzSimple]="true"
- [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="照會話術設定">
-<thead>
-  <tr>
-    <th class="table-header">編輯</th>
-    <th class="table-header">通報單位</th>
-    <th class="table-header">建檔項目欄位標題</th>
-    <th class="table-header">建檔項目欄位值內容</th>
-    <th class="table-header">通報原因1</th>
-    <th class="table-header">通報原因2</th>
-    <th class="table-header">通報原因3</th>
-    <th class="table-header">通報補充</th>
-    <th class="table-header">使用中</th>
-    <th class="table-header">資料新增日期時間</th>
-    <th class="table-header">異動日期時間</th>
-    <th class="table-header">異動說明</th>
-    <th class="table-header">異動人員</th>
-  </tr>
-</thead>
-<tbody>
-  <tr *ngFor="let data of bkIncomeDataSource">
-    <td class="table-data"><button mat-raised-button color="primary" (click)="update(true, data.reportUnit,data.bkColumn,data.bkContent,data.reportReason1, data.reportReason2,data.reportReason3,data.reportContent,data.useFlag,data.createDatetime,data.bkEmpno)">編輯</button></td>
-    <td class="table-data">{{ data.reportUnit }}</td>
-    <td class="table-data">{{ data.bkColumn }}</td>
-    <td class="table-data">{{ data.bkContent }}</td>
-    <td class="table-data">{{ data.reportReason1 }}</td>
-    <td class="table-data">{{ data.reportReason2 }}</td>
-    <td class="table-data">{{ data.reportReason3 }}</td>
-    <td class="table-data">{{ data.reportContent }}</td>
-    <td class="table-data">{{ data.useFlag }}</td>
-    <td class="table-data">{{ data.createDatetime }}</td>
-    <td class="table-data">異動日期時間</td>
-    <td class="table-data">異動說明</td>
-    <td class="table-data">{{ data.bkEmpno }}</td>
-  </tr>
-</tbody>
-</nz-table>
+</div>

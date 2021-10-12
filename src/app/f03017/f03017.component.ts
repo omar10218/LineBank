@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
+import { MappingCode } from '../mappingcode.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { F03017editComponent } from './f03017edit/f03017edit.component';
 import { F03017uploadComponent } from './f03017upload/f03017upload.component';
@@ -25,6 +26,7 @@ export class F03017Component implements OnInit {
   bkColumnValue: string;  //建檔項目欄位
   bkContentValue: string;  //建檔項目欄位值內容下拉
   isHidden: boolean;
+  compareTableOption: MappingCode[];
   myDate: any = new Date();
   loading = true;
   total = 1;
@@ -57,6 +59,7 @@ export class F03017Component implements OnInit {
     this.isHidden = false;
     // 取得下拉選單資料
     this.f03017Service.getSysTypeCode('BLACK_ITEM').subscribe(data => {
+      console.log(data)
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
         const desc = jsonObj.codeDesc;
@@ -89,9 +92,9 @@ export class F03017Component implements OnInit {
     this.currentSort = sortInfo;
   }
 
+  // 查詢表單
   async getBkIncomeData() {
     if (typeof this.bkColumnValue == 'undefined'){return alert('請選擇建檔項目')}
-
       let jsonObject: any = {};
       jsonObject['page'] = this.currentPage.pageIndex + 1;
       jsonObject['per_page'] = this.currentPage.pageSize;
@@ -126,6 +129,17 @@ this.loading = false;
       if (result != null && result.event == 'success') { this.refreshTable(); }
     });
   }
+ //轉換
+ getOptionCompareTable(codeVal: string): string {
+  for (const data of this.compareTableOption) {
+    console.log(data)
+    if (data.codeNo == codeVal) {
+      return data.codeDesc;
+      break;
+    }
+  }
+  return codeVal;
+}
 
   //編輯
   update(isUpdate: boolean, data: any) {
