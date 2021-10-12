@@ -22,7 +22,7 @@ interface sysCode {
 @Component({
   selector: 'app-f01002blocklist',
   templateUrl: './f01002blocklist.component.html',
-  styleUrls: ['./f01002blocklist.component.css','../../../assets/css/f03.css']
+  styleUrls: ['./f01002blocklist.component.css', '../../../assets/css/f03.css']
 })
 export class F01002blocklistComponent implements OnInit {
   reportReason1: sysCode[] = [];  //通報原因1下拉
@@ -70,15 +70,14 @@ export class F01002blocklistComponent implements OnInit {
 
   blockListDataSource: readonly Data[] = [];
   private applno: string;
-  chkArray: checkBox[] = [];
-  contentArray: checkBox[] = [];
+  chkArray: string[] = [];
+  contentArray: string[] = [];
   jsonObject: any = {};
   no: string;//會員帳號
   total = 1;
   loading = false;
   pageSize = 5;
   pageIndex = 1;
-
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -107,22 +106,13 @@ export class F01002blocklistComponent implements OnInit {
       });
   }
 
-  checkboxSelect(check: boolean, data: any, value: any) {
-    // if (value == null) { 
-    //   this.dialog.open(ConfirmComponent, { data: { msgStr: "請輸入欄位值" } }); 
-    //   this.hTelChecked = false;
-    // } 
-    if (check && value != null) {
+  checkboxSelect(check: boolean, data: any) {
+    if (check) {
       this.chkArray.push(data);
-      this.contentArray.push(value);
-      console.log(data)
-      console.log(value)
-      console.log(check)
     } else {
       this.chkArray.forEach((element, index) => {
         if (element == data) {
           this.chkArray.splice(index, 1);
-          this.contentArray.splice(index, 1);
         }
       });
     }
@@ -137,6 +127,13 @@ export class F01002blocklistComponent implements OnInit {
     if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
       this.dialog.open(ConfirmComponent, { data: { msgStr: "請選擇通報原因1" } });
     } else {
+      this.chkArray.forEach((element) => {
+          if (element === "CU_CNAME") { this.contentArray.push(this.blockListForm.value.CU_CNAME); }
+          if (element === "NATIONAL_ID") { this.contentArray.push(this.blockListForm.value.NATIONAL_ID); }
+          if (element === "CU_H_TEL") { this.contentArray.push(this.blockListForm.value.CU_H_TEL); }
+          if (element === "CU_CP_TEL") { this.contentArray.push(this.blockListForm.value.CU_CP_TEL); }
+          if (element === "CU_M_TEL") { this.contentArray.push(this.blockListForm.value.CU_M_TEL); }
+      });
       this.jsonObject['applno'] = this.applno;
       this.jsonObject['REPORT_UNIT'] = this.blockListForm.value.REPORT_UNIT;
       this.jsonObject['REPORT_REASON1'] = this.blockListForm.value.REPORT_REASON1;
@@ -146,14 +143,12 @@ export class F01002blocklistComponent implements OnInit {
       this.jsonObject['USE_FLAG'] = this.blockListForm.value.USE_FLAG;
       this.jsonObject['BK_COLUMN'] = this.chkArray;
       this.jsonObject['BK_CONTENT'] = this.contentArray;
-      console.log(this.jsonObject)
-alert(this.jsonObject)
       const url = 'f01/blockListInsert';
       this.blockListService.onsave(url, this.jsonObject).subscribe(data => {
 
         if (data.rspMsg == "儲存成功") {
           this.dialog.open(ConfirmComponent, { data: { msgStr: "儲存成功" } });
-          this.dialogRef.close({ event: 'success' });
+          this.selectBlockList(this.pageIndex, this.pageSize);
         }
       })
     }

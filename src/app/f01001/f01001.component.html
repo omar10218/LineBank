@@ -62,7 +62,7 @@
     <mat-header-cell *matHeaderCellDef><u>案件註記</u></mat-header-cell>
     <mat-cell *matCellDef="let row">
       <mat-form-field>
-        <input matInput #name="ngModel" name="note" placeholder="請輸入註記" [(ngModel)]="row.note">
+        <input matInput #name="ngModel" name="note" placeholder="請輸入註記" [(ngModel)]="row.swcCaseMemo">
       </mat-form-field>
     </mat-cell>
   </ng-container>
@@ -72,7 +72,7 @@
       <u>儲存</u>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <button mat-raised-button color="primary" (click)="saveNote(row.swcApplno, row.note)">儲存</button>
+      <button mat-raised-button color="primary" (click)="saveCaseMemo(row.swcApplno, row.swcCaseMemo)">儲存</button>
     </mat-cell>
   </ng-container>
 
