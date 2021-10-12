@@ -15,21 +15,33 @@
           <div nz-col nzSpan="8">
             <div style="padding:10px">
               <span class="form-title">通報原因1</span>
-              <mat-select  formControlName="REPORT_REASON1">
+              <mat-select formControlName="REPORT_REASON1"
+                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
                 <mat-option *ngFor="let code of reportReason1" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
+              <!-- <mat-select  formControlName="REPORT_REASON1">
+                <mat-option *ngFor="let code of reportReason1" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select> -->
             </div>
           </div>
           <div nz-col nzSpan="8">
             <div style="padding:10px">
               <span class="form-title">通報原因2</span>
-              <mat-select  formControlName="REPORT_REASON3">
-                <mat-option *ngFor="let code of reportReason3" [value]="code.value">
+              <mat-select formControlName="REPORT_REASON2"
+                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+                <mat-option *ngFor="let code of reportReason2" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
+              <!-- <mat-select formControlName="REPORT_REASON3">
+                <mat-option *ngFor="let code of reportReason3" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select> -->
             </div>
           </div>
         </div>
@@ -61,11 +73,17 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">通報原因3</span>
-            <mat-select formControlName="REPORT_REASON3">
+            <mat-select formControlName="REPORT_REASON3"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of reportReason3" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+            <!-- <mat-select formControlName="REPORT_REASON3">
               <mat-option *ngFor="let code of reportReason3" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
-            </mat-select>
+            </mat-select> -->
           </div>
         </div>
         <div nz-col nzSpan="8">
@@ -77,11 +95,17 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">使用中</span>
-            <mat-select  formControlName="USE_FLAG">
+            <mat-select  formControlName="USE_FLAG"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of useFlag" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+            <!-- <mat-select formControlName="USE_FLAG">
               <mat-option *ngFor="let code of useFlag" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
-            </mat-select>
+            </mat-select> -->
           </div>
         </div>
       </div>
@@ -116,9 +140,9 @@
         </div>
       </div>
       <div nz-row>
-
-        <div nz-col nzSpan="12">
-          <div style="padding:10px;display:inline;">
+        <div nz-col nzSpan="6"></div>
+        <div nz-col nzSpan="6">
+          <div style="padding:25px;">
 
             <div style="width: 100%; height: 30px;"><input type="checkbox" style="width: 20%; height: 20px;"
                 (click)="checkboxSelect($event.target.checked,'CU_CNAME',this.blockListForm.value.CU_CNAME)">姓名
@@ -138,8 +162,8 @@
           </div>
         </div>
 
-        <div nz-col nzSpan="12">
-          <div style="padding:10px;display:inline;">
+        <div nz-col nzSpan="6">
+          <div style="padding:25px;">
             <input matInput #input class="form-control" formControlName="CU_CNAME">
             <input matInput #input class="form-control" formControlName="NATIONAL_ID">
             <input matInput #input class="form-control" formControlName="CU_H_TEL">
@@ -147,6 +171,7 @@
             <input matInput #input class="form-control" formControlName="CU_M_TEL">
           </div>
         </div>
+        <div nz-col nzSpan="6"></div>
       </div>
       <!-- <div nz-col nzSpan="24" style="height: 30px;">
 
@@ -191,8 +216,8 @@
       </div>
 
 
-  <!-- 表格 -->
-  <!-- <nz-table nzShowSizeChanger [nzData]="blockListDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+      <!-- 表格 -->
+      <!-- <nz-table nzShowSizeChanger [nzData]="blockListDataSource" [nzFrontPagination]="false" [nzSimple]="true"
               (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total"
               [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="黑名單">
               <thead>
@@ -222,5 +247,3 @@
                   </tr>
               </tbody>
           </nz-table> -->
-
-

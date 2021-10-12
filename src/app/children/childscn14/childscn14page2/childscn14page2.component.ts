@@ -11,7 +11,7 @@ interface dateCode {
 @Component({
   selector: 'app-childscn14page2',
   templateUrl: './childscn14page2.component.html',
-  styleUrls: ['./childscn14page2.component.css', '../../../../assets/css/f01.css']
+  styleUrls: ['./childscn14page2.component.css', '../../../../assets/css/child.css']
 })
 export class Childscn14page2Component implements OnInit {
 
