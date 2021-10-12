@@ -33,9 +33,9 @@ export class F01002Component implements OnInit, AfterViewInit {
   swcID: string;                                      // 身分證字號
   swcApplno: string;                                  // 案件編號
   caseType: string;                                   // 案件分類
-  caseTypeCode: OptionsCode[] = [];                       // 案件分類下拉
+  caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
   agentEmpNo: string;                                 // 代理人
-  agentEmpNoCode: OptionsCode[] = [];                     // 代理人下拉
+  agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
   cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單
   fds: string = "";                                   // fds
   loading = true;
@@ -52,7 +52,10 @@ export class F01002Component implements OnInit, AfterViewInit {
       }
     });
     // 查詢代理人
-    this.f01002Service.getEmpNo(this.empNo).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['swcL3EmpNo'] = this.empNo;
+
+    this.f01002Service.getEmpNo(jsonObject).subscribe(data => {
       this.agentEmpNoCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
         const empNo = jsonObj['empNo'];
@@ -117,7 +120,11 @@ export class F01002Component implements OnInit, AfterViewInit {
 
   // 儲存案件註記
   saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
-    this.f01002Service.saveCaseMemo(swcApplno, swcCaseMemo).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['swcApplno'] = swcApplno;
+    jsonObject['swcCaseMemo'] = swcCaseMemo;
+
+    this.f01002Service.saveCaseMemo(jsonObject).subscribe(data => {
       if (data.rspMsg == 'success') {
         this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
         window.location.reload();
