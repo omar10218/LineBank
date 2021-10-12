@@ -11,24 +11,22 @@ export class F01002Service extends BaseService {
   // pageIndex: number, pageSize: number, empno: string, swcID: string, swcApplno: string
   getCaseList(jsonObject:JSON): Observable<any> {
     const baseUrl = 'f01/f01002';
-    let targetUrl = `${baseUrl}`;
 
-    return this.postJsonObject(targetUrl, jsonObject);
+    return this.postJsonObject(baseUrl, jsonObject);
   }
-  getEmpNo(empno: string): Observable<any> {
+  getEmpNo(jsonObject:JSON): Observable<any> {
     const baseUrl = 'f01/f01002fn2';
-    let targetUrl = `${baseUrl}?empNo=${empno}`;
-    return this.postHttpClient(targetUrl);
+
+    return this.postJsonObject(baseUrl, jsonObject);
   }
-  getLockCase(swcApplno: string){
+  getLockCase(jsonObject:JSON){
     const baseUrl = 'f01/f01002fn1';
-    let targetUrl = `${baseUrl}?swcApplno=${swcApplno}`;
-    return this.postHttpClient(targetUrl);
+
+    return this.postJsonObject(baseUrl, jsonObject);
   }
 
-  saveCaseMemo(swcApplno: string, swcCaseMemo: string){
+  saveCaseMemo(jsonObject:JSON){
     const baseUrl = 'f01/f01002fn3';
-    let targetUrl = `${baseUrl}?swcApplno=${swcApplno}&swcCaseMemo=${swcCaseMemo}`;
-    return this.postHttpClient(targetUrl);
+    return this.postJsonObject(baseUrl, jsonObject);
   }
 }
