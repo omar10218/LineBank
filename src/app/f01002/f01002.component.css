@@ -43,18 +43,21 @@ mat-grid-tile {
     background: white;
   }
 
-  th {
+  /* th {
     border: 1px solid rgb(130, 130, 130);
 
-  }
+  } */
 
-  td {
-    /* background-color: cornflowerblue; */
+  /* td {
+    
     border: 1px solid rgb(130, 130, 130);
-  }
+  } */
+ /* :host .ant-table-small .ant-table-thead>tr>th{
+    background-color:#f53434;
+  } */
   .table-header{
     background-color:#ededed;
-    border: 1px solid #e8e8e8;
+    /* border: 1px solid #e8e8e8; */
     color:#848E9C;
     margin-bottom: 1px;
     font-size: 14px;

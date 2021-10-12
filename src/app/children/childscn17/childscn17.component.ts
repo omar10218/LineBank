@@ -18,13 +18,13 @@ export class Childscn17Component implements OnInit {
     private childscn17Service: Childscn17Service) { }
 
   ngOnInit(): void {
-    const caseParams = this.childService.getData();
-    this.applno = caseParams.applno;
+    this.applno = sessionStorage.getItem('applno');
     this.getRestartList();
   }
   
   getRestartList() {
     this.childscn17Service.getRestartList(this.applno).subscribe(data => {
+      console.log(data)
       this.restartDataSource = data.rspBody.items;
 
     });
