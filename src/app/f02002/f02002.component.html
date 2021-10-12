@@ -78,8 +78,12 @@
       <tbody>
         <tr *ngFor="let data of rescanData">
           <td class="table-data">
-            <button nz-button [nzSize]="'middle'" nzType="primary"
-              (click)="detail( data.APPLNO, data.NATIONAL_ID, data.CUST_ID )">明細</button>
+            <!-- <button nz-button [nzSize]="'middle'" nzType="primary"
+              (click)="detail( data.APPLNO, data.NATIONAL_ID, data.CUST_ID )">明細</button> -->
+
+              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="detail( data.APPLNO, data.NATIONAL_ID, data.CUST_ID )">
+              明細
+            </button>
           </td>
           <td class="table-data">{{ data.APPLNO }}</td>
           <td class="table-data">{{ data.NATIONAL_ID }}</td>

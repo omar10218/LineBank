@@ -1,10 +1,9 @@
 import { Childscn19Component } from './../../children/childscn19/childscn19.component';
-import { F01002blocklistComponent } from './../f01002blocklist/f01002blocklist.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Childscn18Component } from 'src/app/children/childscn18/childscn18.component';
-import { F01002rescanComponent } from '../f01002rescan/f01002rescan.component';
 import { Router } from '@angular/router';
+import { Childscn20Component } from 'src/app/children/childscn20/childscn20.component';
 
 @Component({
   selector: 'app-f01002scn1',
@@ -58,7 +57,7 @@ export class F01002scn1Component implements OnInit {
   }
 
   blockList() {
-    const dialogRef = this.dialog.open(F01002blocklistComponent,{
+    const dialogRef = this.dialog.open(Childscn20Component,{
       data:{
         applno: this.applno,
         cuid: this.cuid
