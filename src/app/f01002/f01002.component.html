@@ -1,5 +1,5 @@
 <div class="line_bank_bankground_color">
-    <div class="header">
+    <!-- <div class="header">
         <div nz-row>
             <div nz-col nzFlex="auto" style="background-color: white;">
                 <div nz-row>
@@ -54,8 +54,18 @@
         </div>
         <div>
         </div>
+    </div> -->
+
+    <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
+      <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
+        mat-stroked-button (click)="changePage(Page.Page1)">案件清單</button>
+      <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
+        mat-stroked-button (click)="changePage(Page.Page2)">照會提醒</button>
     </div>
-    <div class="content">
+    <!-- <router-outlet></router-outlet> -->
+    <ng-container appDynamic></ng-container>
+
+    <!-- <div class="content">
         <div #absBox class="abs-box">
             <div nz-col nzSpan="24">
                 <div class="line_bank_card_no_padding">
@@ -130,5 +140,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
+
