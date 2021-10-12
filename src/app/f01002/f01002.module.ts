@@ -8,8 +8,6 @@ import { F01002RoutingModule } from '../routing/f01002-routing.module';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { F01002Component } from './f01002.component';
 import { F01002scn1Component } from './f01002scn1/f01002scn1.component';
-import { F01002rescanComponent } from './f01002rescan/f01002rescan.component';
-import { F01002blocklistComponent } from './f01002blocklist/f01002blocklist.component';
 import { NgZorroAntdModule } from '../ngzorro/ng-zorro-antd.module';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import zh from '@angular/common/locales/zh';
@@ -18,8 +16,6 @@ registerLocaleData(zh);
   declarations: [
     F01002Component,
     F01002scn1Component,
-    F01002rescanComponent,
-    F01002blocklistComponent
   ],
   imports: [
     NzButtonModule,

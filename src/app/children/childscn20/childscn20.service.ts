@@ -6,7 +6,7 @@ import { BaseService } from 'src/app/base.service';
 @Injectable({
   providedIn: 'root'
 })
-export class F01002BlockListService extends BaseService{
+export class Childscn20Service extends BaseService{
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
@@ -18,5 +18,5 @@ export class F01002BlockListService extends BaseService{
   let targetUrl = baseUrl;
   return this.postJsonObject(targetUrl,json);
   }
-  
+
 }
