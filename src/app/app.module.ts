@@ -90,6 +90,8 @@ import { F03017uploadComponent } from './f03017/f03017upload/f03017upload.compon
 import { F02002Component } from './f02002/f02002.component';
 import { F01007Component } from './f01007/f01007.component';
 import { F01008Component } from './f01008/f01008.component';
+import { F01008addComponent } from './f01008/f01008add/f01008add.component';
+import { F01008deleteComponent } from './f01008/f01008delete/f01008delete.component';
 registerLocaleData(zh);
 export const TW_FORMATS = {
   parse: {
@@ -177,6 +179,8 @@ export const TW_FORMATS = {
     F02002Component,
     F01007Component,
     F01008Component,
+    F01008addComponent,
+    F01008deleteComponent
   ],
   imports: [
     NzIconModule,

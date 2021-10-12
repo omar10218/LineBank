@@ -1,1 +1,113 @@
-<p>f01008 works!</p>
+<div class="line_bank_bankground_color">
+  <div style="padding-left: 20px; padding-top: 20px;">
+    <button nz-button [nzSize]="'large'" nzType="primary">案件完成</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <!-- (click)="Inquire(data.applnoOld)" -->
+    <button nz-button [nzSize]="'large'" nzType="primary">暫存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="add()">新增</button>
+  </div>
+  <div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzSize="small" nzTitle="照會資訊" [nzNoResult]="'  '">
+      <thead>
+        <tr>
+          <th class="table-header" style="width:10%"></th>
+          <th class="table-header" style="width:10%">聯絡方式</th>
+          <th class="table-header" style="width:10%">手機/市話</th>
+          <th class="table-header" style="width:10%">電話狀況</th>
+          <th class="table-header" style="width:10%">備註</th>
+          <th class="table-header" style="width:10%">確認時間</th>
+          <th class="table-header" style="width:10%">設定下次聯絡時間</th>
+          <th class="table-header" style="width:10%">確認人員</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <button nz-button [nzSize]="'middle'" nzType="primary">編輯</button>&nbsp;&nbsp;
+            <button nz-button [nzSize]="'middle'" nzType="primary">刪除</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div  class="line_bank_card_no_padding">
+    <nz-table nzSize="small"  [nzNoResult]="'  '">
+      <thead>
+        <th class="table-header" style="width:50%">
+          重新發查日期時間
+        </th>
+        <th class="table-header"  style="width:50%">
+          目前已發查次數(最大可發查3次)
+        </th>
+      </thead>
+      <tbody>
+        <td>
+          <nz-date-picker  ></nz-date-picker>
+        </td>
+        <td>
+          <input type="text">
+        </td>
+      </tbody>
+    </nz-table>
+  </div>
+  <div  class="line_bank_card_no_padding">
+    <nz-table nzSize="small"  [nzNoResult]="'  '">
+      <thead>
+        <th class="table-header" style="width:50%">
+          審核結果
+        </th>
+        <th class="table-header"  style="width:50%">
+          原因碼
+        </th>
+      </thead>
+      <tbody>
+        <td>
+          <div style="padding:10px">
+            <mat-select name="cust_FLAG_Value" placeholder="請選擇">
+              <mat-option>
+
+              </mat-option>
+              <!-- <mat-option *ngFor="let item of cust_FLAG" [value]="item.value">
+                {{item.viewValue}}
+              </mat-option> -->
+            </mat-select>
+          </div>
+        </td>
+        <td>
+          <input type="text">
+        </td>
+      </tbody>
+    </nz-table>
+  </div>
+  <div  class="line_bank_card_no_padding">
+    <nz-table nzSize="small"  [nzNoResult]="'  '">
+      <thead>
+        <th class="table-header" style="width:50%">
+          審核註記
+        </th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <button nz-button [nzSize]="'large'" nzType="primary">儲存</button>
+            <br>
+            <br>
+            &nbsp;<textarea style="width:800px;height: 100px;"></textarea>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div  class="line_bank_card_no_padding">
+    <nz-table nzSize="small"  [nzNoResult]="'  '">
+      <thead>
+        <th class="table-header" style="width:10%">Date</th>
+        <th class="table-header" style="width:10%">User</th>
+        <th class="table-header" style="width:10%">Action</th>
+      </thead>
+      <tbody>
+        <td></td>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
