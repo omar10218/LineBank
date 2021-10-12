@@ -1,0 +1,51 @@
+<div class="line_bank_card_no_padding">
+  <!-- 表格 -->
+  <nz-table nzSize="small" nzTitle="照會資訊" [nzNoResult]="'  '">
+    <thead>
+      <tr>
+        <th class="table-header" style="width:10%">聯絡方式</th>
+        <th class="table-header" style="width:10%">手機/市話</th>
+        <th class="table-header" style="width:10%">電話狀況</th>
+        <th class="table-header" style="width:10%">備註</th>
+        <th class="table-header" style="width:10%">確認時間</th>
+        <th class="table-header" style="width:10%">設定下次聯絡時間</th>
+      </tr>
+    </thead>
+    <tbody>
+      <td class="table-data">
+        <nz-radio-group>
+          <label nz-radio nzValue="1">公司電話</label>
+          <label nz-radio nzValue="2">手機號碼</label>
+          <label nz-radio nzValue="3">住家號碼</label>
+          <label nz-radio nzValue="4">其他</label>
+        </nz-radio-group>
+      </td>
+      <td class="table-data">
+        <input type="text">
+      </td>
+      <td class="table-data">
+        <nz-radio-group>
+          <label nz-radio nzValue="1">本人接</label>
+          <label nz-radio nzValue="2">他人接</label>
+          <label nz-radio nzValue="3">無人接</label>
+          <label nz-radio nzValue="4">其他(備註)</label>
+        </nz-radio-group>
+      </td>
+      <td class="table-data">
+        <textarea style="height:84px;"></textarea>
+      </td>
+      <td class="table-data">
+        <input type="text">
+      </td>
+      <td class="table-data">
+        <input type="text">
+      </td>
+    </tbody>
+  </nz-table>
+  <div mat-dialog-actions>
+    <button nz-button [nzSize]="'middle'" nzType="primary"  [mat-dialog-close]="1"
+      style="margin:0px 5px" (click)="save()">儲存</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+      style="margin:0px 5px">取消</button>
+  </div>
+</div>
