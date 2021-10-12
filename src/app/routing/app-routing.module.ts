@@ -39,6 +39,8 @@ import { MenuListComponent } from './../menu-list/menu-list.component';
 import { F01006Component } from '../f01006/f01006.component';
 import { F03017Component } from '../f03017/f03017.component';
 import { F02002Component } from '../f02002/f02002.component';
+import { F01007Component } from '../f01007/f01007.component';
+import { F01008Component } from '../f01008/f01008.component';
 
 
 const routes: Routes = [
@@ -90,6 +92,14 @@ const routes: Routes = [
       {
         path: 'F01006',
         component: F01006Component
+      },
+      {
+        path: 'F01007',
+        component: F01007Component
+      },
+      {
+        path: 'F01008',
+        component: F01008Component
       },
       {
         path: 'F02001',

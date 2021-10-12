@@ -176,6 +176,7 @@ export class F03012Component implements OnInit {
 
   getOptionCompareTable(codeVal: string): string {
     for (const data of this.compareTableOption) {
+      console.log(data)
       if (data.codeNo == codeVal) {
         return data.codeDesc;
         break;
@@ -334,7 +335,6 @@ export class F03012Component implements OnInit {
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-
     this.getComePareDataSetList(pageSize,pageIndex);
   }
 

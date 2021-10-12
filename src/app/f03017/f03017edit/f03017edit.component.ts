@@ -132,7 +132,8 @@ export class F03017editComponent implements OnInit {
 
     if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
       this.dialog.open(ConfirmComponent, { data: { msgStr: "請選擇通報原因1" } });
-    } else {
+    }
+    else {
       this.jsonObject['REPORT_UNIT'] = this.blockListForm.value.REPORT_UNIT;
       this.jsonObject['REPORT_REASON1'] = this.blockListForm.value.REPORT_REASON1;
       this.jsonObject['REPORT_REASON2'] = this.blockListForm.value.REPORT_REASON2;
@@ -143,7 +144,7 @@ export class F03017editComponent implements OnInit {
       this.jsonObject['BK_CONTENT'] = this.contentArray;
       console.log(this.chkArray)
       console.log(this.contentArray)
-      alert()
+
       const url = 'f01/blockListInsert';
       this.f03017Service.insert(url, this.jsonObject).subscribe(data => {
 
