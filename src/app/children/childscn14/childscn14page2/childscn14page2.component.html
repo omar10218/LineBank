@@ -1,19 +1,18 @@
 <form [formGroup]="imageForm" style="padding-left: 20px;">
-    <table>
-          <tr>
-              
-              <td>
-                <button class = "btn" style="margin-bottom: 5px; margin-left: 5px;" mat-stroked-button>
-                    <a href="{{ getHost() }}:8080/LineBankViewone/pages/ImagePage2.jsp?applno={{ getApplno() }}" target="_blank">本案影像</a>
-                </button>
-              </td>
-            <th nowrap="nowrap" align="left">案件編號 </th>
-            <td>
-              <mat-form-field color="accent">
-                <input matInput #input formControlName="APPLNO" readonly>
-              </mat-form-field>
-            </td>
-          </tr>
-    </table>
+  <table>
+    <tr>
+      <td>
+        <button class="btn" nz-button [nzSize]="'large'" nzType="primary" style="margin-bottom: 5px; margin-left: 5px;">
+          <a href="{{ getHost() }}:8080/LineBankViewone/pages/ImagePage2.jsp?applno={{ getApplno() }}"
+            target="_blank">本案影像</a>
+        </button>
+      </td>
+      <td>
+        <div nz-col nzFlex="1">
+          <div style="padding:10px"><span class="form-title">案件編號</span><input matInput #input class="form-control"
+              formControlName="APPLNO" readonly></div>
+        </div>
+      </td>
+    </tr>
+  </table>
 </form>
-  
