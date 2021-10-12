@@ -70,8 +70,8 @@ export class Childscn20Component implements OnInit {
 
   blockListDataSource: readonly Data[] = [];
   private applno: string;
-  chkArray: checkBox[] = [];
-  contentArray: checkBox[] = [];
+  chkArray: string[] = [];
+  contentArray: string[] = [];
   jsonObject: any = {};
   no: string;//會員帳號
   total = 1;
@@ -128,11 +128,11 @@ export class Childscn20Component implements OnInit {
       this.dialog.open(ConfirmComponent, { data: { msgStr: "請選擇通報原因1" } });
     } else {
       this.chkArray.forEach((element) => {
-          if (element.value === "CU_CNAME") { this.contentArray.push(this.blockListForm.value.CU_CNAME); }
-          if (element.value === "NATIONAL_ID") { this.contentArray.push(this.blockListForm.value.NATIONAL_ID); }
-          if (element.value === "CU_H_TEL") { this.contentArray.push(this.blockListForm.value.CU_H_TEL); }
-          if (element.value === "CU_CP_TEL") { this.contentArray.push(this.blockListForm.value.CU_CP_TEL); }
-          if (element.value === "CU_M_TEL") { this.contentArray.push(this.blockListForm.value.CU_M_TEL); }
+          if (element === "CU_CNAME") { this.contentArray.push(this.blockListForm.value.CU_CNAME); }
+          if (element === "NATIONAL_ID") { this.contentArray.push(this.blockListForm.value.NATIONAL_ID); }
+          if (element === "CU_H_TEL") { this.contentArray.push(this.blockListForm.value.CU_H_TEL); }
+          if (element === "CU_CP_TEL") { this.contentArray.push(this.blockListForm.value.CU_CP_TEL); }
+          if (element === "CU_M_TEL") { this.contentArray.push(this.blockListForm.value.CU_M_TEL); }
       });
       this.jsonObject['applno'] = this.applno;
       this.jsonObject['REPORT_UNIT'] = this.blockListForm.value.REPORT_UNIT;

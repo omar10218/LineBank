@@ -9,7 +9,7 @@ interface dateCode {
 @Component({
   selector: 'app-childscn5',
   templateUrl: './childscn5.component.html',
-  styleUrls: ['./childscn5.component.css','../../../assets/css/f01.css']
+  styleUrls: ['./childscn5.component.css','../../../assets/css/child.css']
 })
 export class Childscn5Component implements OnInit {
 
