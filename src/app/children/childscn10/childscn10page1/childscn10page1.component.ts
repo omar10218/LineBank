@@ -6,7 +6,7 @@ import { Childscn10Service } from '../childscn10.service';
 @Component({
   selector: 'app-childscn10page1',
   templateUrl: './childscn10page1.component.html',
-  styleUrls: ['./childscn10page1.component.css', '../../../../assets/css/f01.css']
+  styleUrls: ['./childscn10page1.component.css','../../../../assets/css/child.css']
 })
 export class Childscn10page1Component implements OnInit {
 
