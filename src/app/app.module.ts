@@ -90,6 +90,7 @@ import { F03017uploadComponent } from './f03017/f03017upload/f03017upload.compon
 import { F02002Component } from './f02002/f02002.component';
 import { F01007Component } from './f01007/f01007.component';
 import { F01008Component } from './f01008/f01008.component';
+import { NZ_I18N, zh_TW } from 'ng-zorro-antd/i18n';
 import { F01008addComponent } from './f01008/f01008add/f01008add.component';
 import { F01008deleteComponent } from './f01008/f01008delete/f01008delete.component';
 registerLocaleData(zh);
@@ -214,6 +215,10 @@ export const TW_FORMATS = {
       multi: true
     },
     DatePipe,
+    {
+      provide: NZ_I18N,
+      useFactory: () => zh_TW,
+    },
   ],
   bootstrap: [AppComponent]
 })

@@ -10,7 +10,7 @@ export class Childscn10Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getDSSSearch(formData: FormData): Observable<any>  {
-    const baseUrl = 'f01/f01002scn10action';
+    const baseUrl = 'f01/childscn10action';
     return this.postFormData(baseUrl, formData);
   }
 

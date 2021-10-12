@@ -1,9 +1,11 @@
-<div style="margin-top: 5px; margin-left: 5px; width: 100%;">
-  <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page1)">徵信階段</button>
-  <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page2)">授信階段</button>
-  <button class="btn" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page3)">產生合約前回查</button>
+<div class="line_bank_bankground_color">
+  <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
+    <button class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
+      (click)="changePage(Page.Page1)">徵信階段</button>
+    <button class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
+      (click)="changePage(Page.Page2)">授信階段</button>
+    <button class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
+      (click)="changePage(Page.Page3)">產生合約前回查</button>
+  </div>
 </div>
 <ng-container appDynamic></ng-container>
