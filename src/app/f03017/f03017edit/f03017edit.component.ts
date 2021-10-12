@@ -133,6 +133,13 @@ export class F03017editComponent implements OnInit {
     if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
       this.dialog.open(ConfirmComponent, { data: { msgStr: "請選擇通報原因1" } });
     } else {
+      this.chkArray.forEach((element) => {
+        if (element.value === "CU_CNAME") { this.contentArray.push(this.blockListForm.value.CU_CNAME); }
+        if (element.value === "NATIONAL_ID") { this.contentArray.push(this.blockListForm.value.NATIONAL_ID); }
+        if (element.value === "CU_H_TEL") { this.contentArray.push(this.blockListForm.value.CU_H_TEL); }
+        if (element.value === "CU_CP_TEL") { this.contentArray.push(this.blockListForm.value.CU_CP_TEL); }
+        if (element.value === "CU_M_TEL") { this.contentArray.push(this.blockListForm.value.CU_M_TEL); }
+    });
       this.jsonObject['REPORT_UNIT'] = this.blockListForm.value.REPORT_UNIT;
       this.jsonObject['REPORT_REASON1'] = this.blockListForm.value.REPORT_REASON1;
       this.jsonObject['REPORT_REASON2'] = this.blockListForm.value.REPORT_REASON2;

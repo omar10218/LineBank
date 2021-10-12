@@ -1,6 +1,6 @@
 <cdk-virtual-scroll-viewport itemSize="48" headerHeight="56" style="height: 750px;   width: 900px;">
   <form class="mat-dialog-content" #formControl="ngForm" [formGroup]="blockListForm">
-    <div class="line_bank_card_no_padding">
+    <div class="line_bank_card_no_padding" style="padding-bottom: 20px;">
       <div class="line_bank_form_header_title">提報黑名單</div>
       <div nz-row>
         <div nz-col nzSpan="6">
@@ -63,19 +63,19 @@
         <div nz-col nzSpan="6">
           <div style="padding:10px">
             <span class="form-title">建檔項目欄位標題</span>
-            <div style="width: 100%; height: 30px;"><input type="checkbox" style="width: 20%; height: 20px;"
+            <div style="width: 100%; height: 35px;"><input type="checkbox" style="width: 20%; height: 20px;"
                 (click)="checkboxSelect($event.target.checked,'CU_CNAME')">姓名
             </div>
-            <div style="width: 100%; height: 30px;"><input type="checkbox" style="width: 20%; height: 20px;"
+            <div style="width: 100%; height: 35px;"><input type="checkbox" style="width: 20%; height: 20px;"
                 (click)="checkboxSelect($event.target.checked,'NATIONAL_ID')">身分證字號
             </div>
-            <div style="width: 100%; height: 30px;"><input type="checkbox" style="width: 20%; height: 20px;"
+            <div style="width: 100%; height: 35px;"><input type="checkbox" style="width: 20%; height: 20px;"
                 (click)="checkboxSelect($event.target.checked,'CU_H_TEL')">住家電話
             </div>
-            <div style="width: 100%; height: 30px;"><input type="checkbox" style="width: 20%; height: 20px;"
+            <div style="width: 100%; height: 35px;"><input type="checkbox" style="width: 20%; height: 20px;"
                 (click)="checkboxSelect($event.target.checked,'CU_H_TEL')">公司電話
             </div>
-            <div style="width: 100%; height: 30px;"><input type="checkbox" style="width: 20%; height: 20px;"
+            <div style="width: 100%; height: 35px;"><input type="checkbox" style="width: 20%; height: 20px;"
                 (click)="checkboxSelect($event.target.checked,'CU_M_TEL')">手機號碼
             </div>
           </div>
@@ -84,11 +84,11 @@
         <div nz-col nzSpan="6">
           <div style="padding:10px">
             <span class="form-title">建檔項目欄位值內容</span>
-            <input matInput #input class="form-control" formControlName="CU_CNAME">
-            <input matInput #input class="form-control" formControlName="NATIONAL_ID">
-            <input matInput #input class="form-control" formControlName="CU_H_TEL">
-            <input matInput #input class="form-control" formControlName="CU_CP_TEL">
-            <input matInput #input class="form-control" formControlName="CU_M_TEL">
+            <div style="height: 35px;"><input matInput #input class="form-control" formControlName="CU_CNAME"></div>
+            <div style="height: 35px;"><input matInput #input class="form-control" formControlName="NATIONAL_ID"></div>
+            <div style="height: 35px;"><input matInput #input class="form-control" formControlName="CU_H_TEL"></div>
+            <div style="height: 35px;"><input matInput #input class="form-control" formControlName="CU_CP_TEL"></div>
+            <div style="height: 35px;"><input matInput #input class="form-control" formControlName="CU_M_TEL"></div>
           </div>
         </div>
       </div>
