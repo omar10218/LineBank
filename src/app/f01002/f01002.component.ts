@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -25,6 +25,7 @@ export class F01002Component implements OnInit, AfterViewInit {
   ) { }
 
   total = 1;
+  @ViewChild('absBox')absBox:ElementRef // 抓取table id
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;                             // 分頁
@@ -41,6 +42,14 @@ export class F01002Component implements OnInit, AfterViewInit {
   loading = true;
   pageSize = 10;
   pageIndex = 1;
+
+  // 計算剩餘table資料長度
+  get tableHeight():string{
+    if(this.absBox){
+      return(this.absBox.nativeElement.offsetHeight-210)+'px';
+    }
+  }
+  
   ngOnInit(): void {
     // 查詢案件分類
     this.f01002Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
