@@ -1,3 +1,4 @@
+import { Childscn1Component } from './../children/childscn1/childscn1.component';
 import { F01002scn1Component } from './../f01002/f01002scn1/f01002scn1.component';
 import { F02002Service } from './f02002.service';
 import { Component, OnInit } from '@angular/core';
@@ -136,10 +137,12 @@ export class F02002Component implements OnInit {
       sessionStorage.setItem( 'fds', data.rspBody[0].fds );
       sessionStorage.setItem( 'queryDate', '' );
       //開啟徵審主畫面
-      this.router.navigate(['./F01002/F01002SCN1']);
+      window.open("http://localhost:4200/#/F01002/F01002SCN1");
+      // this.router.navigate(['./F01002/F01002SCN1']);
       // const childernDialogRef = this.dialog.open(F01002scn1Component, {
       //   minHeight: '30%',
       //   width: '70%',
+      //   maxHeight: '65vh'
       // });
     });
   }
