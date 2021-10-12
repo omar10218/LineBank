@@ -103,7 +103,10 @@ export class F01002Component implements OnInit, AfterViewInit {
 
   // 案件子頁籤
   getLockCase(swcApplno: string, swcID: string) {
-    this.f01002Service.getLockCase(swcApplno).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['swcApplno'] = swcApplno;
+
+    this.f01002Service.getLockCase(jsonObject).subscribe(data => {
       if ( data.rspBody.length > 0 ) {
         this.fds = data.rspBody[0].fds
       }
