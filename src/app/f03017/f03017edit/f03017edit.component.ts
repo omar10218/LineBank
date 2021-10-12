@@ -29,13 +29,13 @@ export class F03017editComponent implements OnInit {
   reportReason2: sysCode[] = [];  //通報原因2下拉
   reportReason3: sysCode[] = []; //通報原因3下拉
   useFlag: sysCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }]; //使用中下拉
-  reportReason1Value: string;  //通報原因1選擇
-  reportReason2Value: string;  //通報原因2選擇
-  reportReason3Value: string; //通報原因3選擇
-  useFlagValue: string; //使用中選擇
-  currentPage: PageEvent;
-  currentSort: Sort;
-  dialogRef: any;
+  // reportReason1Value: string;  //通報原因1選擇
+  // reportReason2Value: string;  //通報原因2選擇
+  // reportReason3Value: string; //通報原因3選擇
+  // useFlagValue: string; //使用中選擇
+  // currentPage: PageEvent;
+  // currentSort: Sort;
+  // dialogRef: any;
 
   constructor(
     public f03017Service: F03015Service,
@@ -124,7 +124,7 @@ export class F03017editComponent implements OnInit {
   }
 
   cancel(): void {
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 
   //新增
@@ -150,7 +150,7 @@ export class F03017editComponent implements OnInit {
 
         if (data.rspMsg == "儲存成功") {
           this.dialog.open(ConfirmComponent, { data: { msgStr: "儲存成功" } });
-          this.dialogRef.close({ event: 'success' });
+          // this.dialogRef.close({ event: 'success' });
         }
       })
     }

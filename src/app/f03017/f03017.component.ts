@@ -119,6 +119,8 @@ this.loading = false;
   //新增
   insert(isInsert: boolean) {
     const dialogRef = this.dialog.open(F03017editComponent, {
+      minHeight: '70vh',
+      width: '50%',
       data: {
         isInsert: isInsert,
         isUpdate: false
@@ -143,11 +145,16 @@ this.loading = false;
 
   //編輯
   update(isUpdate: boolean, data: any) {
+    console.log(data)
     const dialogRef = this.dialog.open(F03017editComponent, {
       data: {
         isUpdate: isUpdate,
         isInsert: false,
-        data: data
+        reportReason1Value:data.reportReason1,
+        reportReason2Value:data.reportReason2,
+        reportReason3Value:data.reportReason3,
+        USE_FLAG:data.useFlag,
+        REPORT_CONTENT: data.reportContent,
       }
     });
     dialogRef.afterClosed().subscribe(result => {
