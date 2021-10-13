@@ -9,7 +9,7 @@ import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { DatePipe } from '@angular/common';
-
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 interface sysCode {
   value: string;
@@ -22,19 +22,23 @@ interface sysCode {
   styleUrls: ['./f03016.component.css']
 })
 export class F03016Component implements OnInit {
-
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
   selectedValue: string;
   totalCount: any;
   compareTableCode: sysCode[] = [];
   DssJcicSet: number;
   DssMailDay: number;
   BasicLimit: number;
-  CssPassStart: string;
-  CssPassEnd: string;
+  CssPassStart: Date;
+  CssPassEnd: Date;
   IsJcic: string = '';
   TableName: string = '';
   columnName: string = '';
   originalValue:string;
+  private applno: string;
   currentValue: string;
   transEmpNo: string = localStorage.getItem("empNo");;
   transDate: string;
@@ -49,10 +53,20 @@ export class F03016Component implements OnInit {
   ngOnInit(): void {
 
   }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+  console.log(params)
+    const { pageSize, pageIndex } = params;
+    this.getImpertmentParameterInfo( pageSize, pageIndex);
+  }
   //取得資料
-  getImpertmentParameterInfo() {
+  getImpertmentParameterInfo(pageIndex: number, pageSize: number) {
     const baseUrl = 'f03/f03016';
-    this.f03016Service.getImpertmentParameter(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    this.f03016Service.getImpertmentParameter(baseUrl, jsonObject).subscribe(data => {
       console.log(data)
       this.DssJcicSet = data.rspBody.ipList[0].dssJcicSet;
       this.DssMailDay = data.rspBody.ipList[0].dssMailDay;
@@ -79,16 +93,10 @@ export class F03016Component implements OnInit {
     jsonObject['DssJcicSet'] = this.DssJcicSet;
     jsonObject['DssMailDay'] = this.DssMailDay;
     jsonObject['BasicLimit'] = this.BasicLimit;
-    jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
-    jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
+    // jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
+    // jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
     if(this.CssPassStart<this.CssPassEnd){
       jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
-      jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
-    }
-    else if(this.CssPassStart!=null){
-      jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
-    }
-    else if(this.CssPassEnd!=null){
       jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
     }
     else{
@@ -106,7 +114,7 @@ export class F03016Component implements OnInit {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
-      this.getImpertmentParameterInfo();
+      this.getImpertmentParameterInfo(this.pageSize, this.pageIndex);
 
     }
 
@@ -130,10 +138,10 @@ export class F03016Component implements OnInit {
       pageSize: 10,
       length: null
     };
-    this.getImpertmentParameterInfo();
+    this.getImpertmentParameterInfo(this.pageSize, this.pageIndex);
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
-      this.getImpertmentParameterInfo();
+      this.getImpertmentParameterInfo(this.pageSize, this.pageIndex);
     });
   }
 }

@@ -9,9 +9,10 @@ export class F03016Service extends BaseService {
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getImpertmentParameter(baseUrl: string, pageIndex: number, pageSize: number): Observable<any> {
-    let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
-    return this.postHttpClient(targetUrl);
+  getImpertmentParameter(baseUrl: string, json: JSON): Observable<any> {
+    // let targetUrl = `${baseUrl}?page=${pageIndex + 1}&per_page=${pageSize}`;
+    // return this.postHttpClient(targetUrl);
+    return this.postJsonObject(baseUrl, json);
   }
 
   update(baseUrl: string, jsonObject: any): any {

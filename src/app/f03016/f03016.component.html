@@ -69,7 +69,7 @@
   <br>
   <div class="line_bank_card_no_padding" >
     <nz-table nzShowSizeChanger [nzData]="ChangeSource" [nzFrontPagination]="false" [nzSimple]="true"
-        [nzLoading]="false" [nzTotal]="totalCount" [nzPageSize]="10" [nzPageIndex]="0"
+        [nzLoading]="false" [nzTotal]="totalCount" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"
          nzSize="small" nzTitle="照會話術設定">
         <thead>
           <tr>
