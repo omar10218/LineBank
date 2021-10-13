@@ -27,7 +27,6 @@ export class F03016Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   selectedValue: string;
-  totalCount: any;
   compareTableCode: sysCode[] = [];
   DssJcicSet: number;
   DssMailDay: number;
@@ -37,8 +36,7 @@ export class F03016Component implements OnInit {
   IsJcic: string = '';
   TableName: string = '';
   columnName: string = '';
-  originalValue:string;
-  private applno: string;
+  originalValue: string;
   currentValue: string;
   transEmpNo: string = localStorage.getItem("empNo");;
   transDate: string;
@@ -48,22 +46,21 @@ export class F03016Component implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<F03016Service>, private f03016Service: F03016Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private pipe: DatePipe) { }
+  constructor(public dialogRef: MatDialogRef<F03016Service>, private f03016Service: F03016Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, private pipe: DatePipe) { }
 
   ngOnInit(): void {
-
+    this.getImpertmentParameterInfo(this.pageIndex, this.pageSize);
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-  console.log(params)
+    console.log(params)
     const { pageSize, pageIndex } = params;
-    this.getImpertmentParameterInfo( pageSize, pageIndex);
+    this.getImpertmentParameterInfo(pageIndex, pageSize);
   }
   //取得資料
   getImpertmentParameterInfo(pageIndex: number, pageSize: number) {
     const baseUrl = 'f03/f03016';
     let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.f03016Service.getImpertmentParameter(baseUrl, jsonObject).subscribe(data => {
@@ -74,13 +71,13 @@ export class F03016Component implements OnInit {
       this.IsJcic = data.rspBody.ipList[0].isJcic;
       this.CssPassStart = data.rspBody.ipList[0].cssPassStart;
       this.CssPassEnd = data.rspBody.ipList[0].cssPassEnd;
-      this.ChangeSource = data.rspBody.tlList
+      this.ChangeSource = data.rspBody.tlList;
       this.columnName = data.rspBody.tlList[0].columnName;
       this.originalValue = data.rspBody.tlList[0].originalValue;
       this.currentValue = data.rspBody.tlList[0].currentValue;
       this.transEmpNo = data.rspBody.tlList[0].transEmpNo;
       this.transDate = data.rspBody.tlList[0].transDate;
-      this.totalCount = data.rspBody.size;
+      this.total = data.rspBody.size;
       // this.clear();
     });
   }
@@ -88,22 +85,20 @@ export class F03016Component implements OnInit {
   // 儲存資料
   public async save(): Promise<void> {
     let jsonObject: any = {};
-    // let start=this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
-    // let end=this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
-    jsonObject['DssJcicSet'] = this.DssJcicSet;
-    jsonObject['DssMailDay'] = this.DssMailDay;
-    jsonObject['BasicLimit'] = this.BasicLimit;
-    // jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
-    // jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
-    if(this.CssPassStart<this.CssPassEnd){
-      jsonObject['CssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy/MM/dd');
-      jsonObject['CssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy/MM/dd');
+    jsonObject['dssJcicSet'] = this.DssJcicSet;
+    jsonObject['dssMailDay'] = this.DssMailDay;
+    jsonObject['basicLimit'] = this.BasicLimit;
+    console.log(this.CssPassStart);
+    console.log(this.CssPassEnd);
+    if (this.CssPassStart != null && this.CssPassEnd != null && this.CssPassStart < this.CssPassEnd) {
+      jsonObject['cssPassStart'] = this.pipe.transform(new Date(this.CssPassStart), 'yyyy-MM-dd');
+      jsonObject['cssPassEnd'] = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy-MM-dd');
     }
-    else{
-     return alert('請輸入正確時間')
+    else {
+      return alert('請輸入正確時間')
     }
-    jsonObject['IsJcic'] = this.IsJcic;
-    jsonObject['TransEmpNo'] = this.transEmpNo;
+    jsonObject['isJcic'] = this.IsJcic;
+    jsonObject['transEmpNo'] = this.transEmpNo;
     let msgStr: string = "";
     let baseUrl = 'f03/f03016action1';
 
@@ -114,34 +109,19 @@ export class F03016Component implements OnInit {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
-      this.getImpertmentParameterInfo(this.pageSize, this.pageIndex);
+      this.changePage();
+      this.getImpertmentParameterInfo(this.pageIndex, this.pageSize);
 
     }
-
-
-
 
   }
   onChange(result: Date): void {
     console.log('onChange: ', result);
   }
-  // clear(){
-  //   this.DssJcicSet = null;
-  //   this.BasicLimit = null;
 
-
-  // }
-
-  ngAfterViewInit(): void {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.getImpertmentParameterInfo(this.pageSize, this.pageIndex);
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getImpertmentParameterInfo(this.pageSize, this.pageIndex);
-    });
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
   }
 }

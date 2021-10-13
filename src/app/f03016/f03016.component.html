@@ -27,7 +27,7 @@
         <div style="padding:10px">
           <span class="form-title">基本門檻
           </span>
-         <input nz-input  placeholder="輸入金額" [(ngModel)]="BasicLimit"  id="basic_limit" style="display: block;"  readonly>
+         <input nz-input  placeholder="輸入金額" [(ngModel)]="BasicLimit"  id="basic_limit" style="display: block;">
         </div>
       </div>
 
@@ -69,7 +69,7 @@
   <br>
   <div class="line_bank_card_no_padding" >
     <nz-table nzShowSizeChanger [nzData]="ChangeSource" [nzFrontPagination]="false" [nzSimple]="true"
-        [nzLoading]="false" [nzTotal]="totalCount" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"
+        [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"
          nzSize="small" nzTitle="照會話術設定">
         <thead>
           <tr>
