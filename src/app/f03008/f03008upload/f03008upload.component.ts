@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F03008Service } from '../f03008.service';
-import * as XLSX from 'xlsx';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -41,7 +40,15 @@ export class F03008uploadComponent implements OnInit {
     let baseUrl = 'f03/f03008action2';
     this.f03008Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
       console.log(data)
-      this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
+      let msg="";
+      if(data.rspCode!="0000"){
+        for (const Information of data.rspBody.ErrorInformation)
+        {
+          msg+=Information.repeatValue+"\n";
+        }
+      }
+      msg+=data.rspMsg;
+      this.uploadForm.patchValue({ ERROR_MESSAGE: msg });
     });
   }
 

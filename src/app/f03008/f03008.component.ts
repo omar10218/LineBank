@@ -5,7 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { F03008uploadComponent } from './f03008upload/f03008upload.component';
 import { F03008editComponent } from './f03008edit/f03008edit.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F03008deleteComponent } from './f03008delete/f03008delete.component';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 

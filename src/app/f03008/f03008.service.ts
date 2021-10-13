@@ -20,9 +20,10 @@ export class F03008Service extends BaseService {
   }
 
   uploadExcel(baseUrl: string, fileToUpload: File, empNo: string): Observable<any> {
-    baseUrl = baseUrl+`?empNo=${empNo}`;
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
+    formData.append('empNo', empNo);
+    formData.append('userId',localStorage.getItem("empNo") );
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formData);
   }
 }

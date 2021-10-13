@@ -24,7 +24,9 @@
           <th class="table-header">電話狀況</th>
           <th class="table-header">電話驗證</th>
           <th class="table-header">備註</th>
+          <th class="table-header">確認時間</th>
           <th class="table-header">設定下次照會時間</th>
+          <th class="table-header">照會完成</th>
           <th class="table-header">編輯</th>
           <th class="table-header">刪除</th>
         </tr>
@@ -36,20 +38,22 @@
           <td class="table-data">{{ row.TEL_CONDITION_View }}</td>
           <td class="table-data">{{ row.TEL_CHECK_View }}</td>
           <td class="table-data">{{ row.CON_MEMO }}</td>
+          <td class="table-data">{{ row.CALLOUT_SETTIME| date:"yyyy-MM-dd HH:mm" }}</td>
           <td class="table-data">{{ row.CALLOUT_DATE | date:"yyyy-MM-dd HH:mm" }}</td>
+          <td class="table-data">{{ row.CALLOUT_YN_View }}</td>
           <td class="table-data">
             <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'middle'" nzType="primary" (click)="startEdit(
-              row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID)">編輯</button>
+              row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)">編輯</button>
 
               <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'middle'" nzType="primary" (click)="startEdit(
-              row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID)" disabled >編輯</button>
+              row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" disabled >編輯</button>
           </td>
           <td class="table-data">
             <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'middle'" nzType="primary" (click)="deleteItem(
-              row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID)">刪除</button>
+              row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)">刪除</button>
 
               <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'middle'" nzType="primary" (click)="deleteItem(
-                row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID)" disabled >刪除</button>
+                row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" disabled >刪除</button>
           </td>
         </tr>
       </tbody>
@@ -92,7 +96,7 @@
         <tr>
           <td class="table-data" rowspan="3">03</td>
           <td class="table-data">{{ MDtable[0]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[0]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[0].CHECK_DATA" name="CHECK_DATA1">
               <label nz-radio nzValue="1">身分證號</label>
@@ -118,7 +122,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[0].CHECK_DATE" disabled disabled name="CHECK_DATE1"></textarea>
+            <textarea  disabled disabled name="CHECK_DATE1">{{MDtable[0].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[0].CHECK_EMPNO" disabled disabled name="CHECK_EMPNO1"></textarea>
@@ -127,7 +131,7 @@
 
         <tr>
           <td class="table-data">{{ MDtable[1]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[1]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[1].CHECK_DATA" name="CHECK_DATA2">
               <label nz-radio nzValue="1">身分證號</label>
@@ -153,7 +157,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[1].CHECK_DATE" disabled name="CHECK_DATE2"></textarea>
+            <textarea  disabled name="CHECK_DATE2">{{MDtable[1].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[1].CHECK_EMPNO" disabled name="CHECK_EMPNO2"></textarea>
@@ -162,7 +166,7 @@
 
         <tr>
           <td class="table-data">{{ MDtable[2]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[2]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[2].CHECK_DATA" name="CHECK_DATA3">
               <label nz-radio nzValue="1">身分證號</label>
@@ -188,7 +192,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[2].CHECK_DATE" disabled name="CHECK_DATE3"></textarea>
+            <textarea  disabled name="CHECK_DATE3">{{MDtable[2].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[2].CHECK_EMPNO" disabled name="CHECK_EMPNO3"></textarea>
@@ -198,7 +202,7 @@
         <tr>
           <td class="table-data">04</td>
           <td class="table-data">{{ MDtable[3]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[3]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[3].REPLY_CONDITION" name="REPLY_CONDITION4">
@@ -212,7 +216,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[3].CHECK_DATE" disabled name="CHECK_DATE4"></textarea>
+            <textarea  disabled name="CHECK_DATE4">{{MDtable[3].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[3].CHECK_EMPNO" disabled name="CHECK_EMPNO4"></textarea>
@@ -222,7 +226,7 @@
         <tr>
           <td class="table-data" rowspan="3">05</td>
           <td class="table-data">{{ MDtable[4]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[4]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[4].CHECK_DATA" name="CHECK_DATA5">
               <label nz-radio nzValue="7">信用卡</label>
@@ -247,7 +251,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[4].CHECK_DATE" disabled name="CHECK_DATE5"></textarea>
+            <textarea  disabled name="CHECK_DATE5">{{MDtable[4].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[4].CHECK_EMPNO" disabled name="CHECK_EMPNO5"></textarea>
@@ -256,7 +260,7 @@
 
         <tr>
           <td class="table-data">{{ MDtable[5]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[5]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[5].CHECK_DATA" name="CHECK_DATA6">
               <label nz-radio nzValue="7">信用卡</label>
@@ -281,7 +285,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[5].CHECK_DATE" disabled name="CHECK_DATE6"></textarea>
+            <textarea  disabled name="CHECK_DATE6">{{MDtable[5].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[5].CHECK_EMPNO" disabled name="CHECK_EMPNO6"></textarea>
@@ -290,7 +294,7 @@
 
         <tr>
           <td class="table-data">{{ MDtable[6]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[6]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[6].CHECK_DATA" name="CHECK_DATA7">
               <label nz-radio nzValue="7">信用卡</label>
@@ -315,7 +319,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[6].CHECK_DATE" disabled name="CHECK_DATE7"></textarea>
+            <textarea  disabled name="CHECK_DATE7">{{MDtable[6].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[6].CHECK_EMPNO" disabled name="CHECK_EMPNO7"></textarea>
@@ -325,7 +329,7 @@
         <tr>
           <td class="table-data">06</td>
           <td class="table-data">{{ MDtable[7]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[7]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[7].CHECK_DATA" name="CHECK_DATA8">
               <label nz-radio nzValue="12">高中以下</label>
@@ -343,7 +347,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[7].CHECK_DATE" disabled name="CHECK_DATE8"></textarea>
+            <textarea  disabled name="CHECK_DATE8">{{MDtable[7].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[7].CHECK_EMPNO" disabled name="CHECK_EMPNO8"></textarea>
@@ -353,7 +357,7 @@
         <tr>
           <td class="table-data">07</td>
           <td class="table-data">{{ MDtable[8]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[8]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[8].CHECK_DATA" name="CHECK_DATA9">
               <label nz-radio nzValue="15">比對相符</label>
@@ -376,7 +380,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[8].CHECK_DATE" disabled name="CHECK_DATE9"></textarea>
+            <textarea  disabled name="CHECK_DATE9">{{MDtable[8].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[8].CHECK_EMPNO" disabled name="CHECK_EMPNO9"></textarea>
@@ -386,7 +390,7 @@
         <tr>
           <td class="table-data">08</td>
           <td class="table-data">{{ MDtable[9]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[9]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[9].CHECK_DATA" name="CHECK_DATA10">
               <label nz-radio nzValue="15">比對相符</label>
@@ -409,7 +413,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[9].CHECK_DATE" disabled name="CHECK_DATE10"></textarea>
+            <textarea  disabled name="CHECK_DATE10">{{MDtable[9].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[9].CHECK_EMPNO" disabled name="CHECK_EMPNO10"></textarea>
@@ -419,7 +423,7 @@
         <tr>
           <td class="table-data">09</td>
           <td class="table-data">{{ MDtable[10]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[10]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[10].CHECK_DATA" name="CHECK_DATA11">
               <label nz-radio nzValue="15">比對相符</label>
@@ -442,7 +446,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[10].CHECK_DATE" disabled name="CHECK_DATE11"></textarea>
+            <textarea  disabled name="CHECK_DATE11">{{MDtable[10].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[10].CHECK_EMPNO" disabled name="CHECK_EMPNO11"></textarea>
@@ -452,7 +456,7 @@
         <tr>
           <td class="table-data">10</td>
           <td class="table-data">{{ MDtable[11]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[11]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[11].REPLY_CONDITION" name="REPLY_CONDITION12">
@@ -468,7 +472,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[11].CHECK_DATE" disabled name="CHECK_DATE12"></textarea>
+            <textarea  disabled name="CHECK_DATE12">{{MDtable[11].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[11].CHECK_EMPNO" disabled name="CHECK_EMPNO12"></textarea>
@@ -478,7 +482,7 @@
         <tr>
           <td class="table-data">11</td>
           <td class="table-data">{{ MDtable[12]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[12]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[12].REPLY_CONDITION" name="REPLY_CONDITION13">
@@ -494,7 +498,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[12].CHECK_DATE" disabled name="CHECK_DATE13"></textarea>
+            <textarea  disabled name="CHECK_DATE13">{{MDtable[12].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[12].CHECK_EMPNO" disabled name="CHECK_EMPNO13"></textarea>
@@ -504,7 +508,7 @@
         <tr>
           <td class="table-data">12</td>
           <td class="table-data">{{ MDtable[13]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[13]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">此區提供可複選
             <nz-checkbox-wrapper  *ngFor="let data of REPLY_CONDITION14code;">
@@ -518,7 +522,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[13].CHECK_DATE" disabled name="CHECK_DATE14"></textarea>
+            <textarea  disabled name="CHECK_DATE14">{{MDtable[13].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[13].CHECK_EMPNO" disabled name="CHECK_EMPNO14"></textarea>
@@ -528,7 +532,7 @@
         <tr>
           <td class="table-data" rowspan="2" >13</td>
           <td class="table-data">{{ MDtable[14]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[14]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[14].REPLY_CONDITION" name="REPLY_CONDITION15">
@@ -542,7 +546,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[14].CHECK_DATE" disabled name="CHECK_DATE15"></textarea>
+            <textarea  disabled name="CHECK_DATE15">{{MDtable[14].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[14].CHECK_EMPNO" disabled name="CHECK_EMPNO15"></textarea>
@@ -551,7 +555,7 @@
 
         <tr>
           <td class="table-data">{{ MDtable[15]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[15]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[15].REPLY_CONDITION" name="REPLY_CONDITION16">
@@ -565,7 +569,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[15].CHECK_DATE" disabled name="CHECK_DATE16"></textarea>
+            <textarea  disabled name="CHECK_DATE16">{{MDtable[15].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[15].CHECK_EMPNO" disabled name="CHECK_EMPNO16"></textarea>
@@ -575,7 +579,7 @@
         <tr>
           <td class="table-data">14</td>
           <td class="table-data">{{ MDtable[16]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[16]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">此區提供可複選
             <nz-checkbox-wrapper  *ngFor="let data of REPLY_CONDITION17code;">
@@ -589,7 +593,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[16].CHECK_DATE" disabled name="CHECK_DATE17"></textarea>
+            <textarea  disabled name="CHECK_DATE17">{{MDtable[16].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[16].CHECK_EMPNO" disabled name="CHECK_EMPNO17"></textarea>
@@ -600,7 +604,7 @@
         <tr>
           <td class="table-data">15</td>
           <td class="table-data">{{ MDtable[17]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[17]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[17].REPLY_CONDITION" name="REPLY_CONDITION18">
@@ -614,7 +618,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[17].CHECK_DATE" disabled name="CHECK_DATE18"></textarea>
+            <textarea  disabled name="CHECK_DATE18">{{MDtable[17].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[17].CHECK_EMPNO" disabled name="CHECK_EMPNO18"></textarea>
@@ -624,7 +628,7 @@
         <tr>
           <td class="table-data">16</td>
           <td class="table-data">{{ MDtable[18]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[18]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[18].REPLY_CONDITION" name="REPLY_CONDITION19">
@@ -638,7 +642,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[18].CHECK_DATE" disabled name="CHECK_DATE19"></textarea>
+            <textarea  disabled name="CHECK_DATE19">{{MDtable[18].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[18].CHECK_EMPNO" disabled name="CHECK_EMPNO19"></textarea>
@@ -648,7 +652,7 @@
         <tr>
           <td class="table-data">17</td>
           <td class="table-data">{{ MDtable[19]?.MD_NO.viewValue }}</td>
-          <td class="table-data">&nbsp;</td>
+          <td class="table-data">{{MDtable[19]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[19].REPLY_CONDITION" name="REPLY_CONDITION20">
@@ -662,15 +666,13 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea [(ngModel)]="MDtable[19].CHECK_DATE" disabled name="CHECK_DATE20"></textarea>
+            <textarea  disabled name="CHECK_DATE20">{{MDtable[19].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[19].CHECK_EMPNO" disabled name="CHECK_EMPNO20"></textarea>
           </td>
         </tr>
-
       </tbody>
     </nz-table>
   </div>
-
 </div>

@@ -1,36 +1,36 @@
 <div class="line_bank_bankground_color">
-<!-- list -->
-<mat-card class="matCard">
-  <mat-card-content>
-    <tr>
-      <th>比對資料表：</th>
-      <td>
-        <mat-form-field color="accent">
-          <mat-select formControlName="compareTable" [(ngModel)]="selectedValue1" name="compareTableCode"
-          (selectionChange)="queryByCompareTable($event.value)">
-          <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
-            {{code.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </td>
+  <!-- list -->
+  <mat-card class="matCard">
+    <mat-card-content>
+      <tr>
+        <th>比對資料表：</th>
+        <td>
+          <mat-form-field color="accent">
+            <mat-select formControlName="compareTable" [(ngModel)]="selectedValue1" name="compareTableCode"
+              (selectionChange)="queryByCompareTable($event.value)">
+              <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
 
-  </tr>
-</mat-card-content>
-</mat-card>
-<!-- submit -->
+      </tr>
+    </mat-card-content>
+  </mat-card>
+  <!-- submit -->
 
-<section class="example-section">
+  <section class="example-section">
 
-</section>
-<!-- 資料比對設定檔 -->
-<div class="line_bank_card_no_padding">
-  <nz-table nzShowSizeChanger [nzData]="compareDataSetSource.data" [nzFrontPagination]="false" [nzSimple]="true"
-  (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-       nzSize="small" nzTitle="資料比對警示門檻值設定">
+  </section>
+  <!-- 資料比對設定檔 -->
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="compareDataSetSource.data" [nzFrontPagination]="false" [nzSimple]="true"
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" [nzLoading]="false" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="資料比對警示門檻值設定">
       <thead>
         <tr>
-          <th class="table-header" >勾選
+          <th class="table-header">勾選
 
           </th>
           <th class="table-header">比對table</th>
@@ -44,23 +44,29 @@
       </thead>
       <tbody>
         <tr *ngFor="let row of compareDataSetSource.data; ">
-          <td class="table-data"   let i = index; (click)="changeChkStatus(row.id)">
-            <mat-checkbox [(ngModel)]="row.isChk" (click)="$event.preventDefault()" [disabled] = "useFlag"></mat-checkbox>
+          <td class="table-data" let i=index; (click)="changeChkStatus(row.id)">
+            <mat-checkbox [(ngModel)]="row.isChk" (click)="$event.preventDefault()" [disabled]="useFlag"></mat-checkbox>
           </td>
           <!-- <td class="table-data" let i = index; [nzShowCheckbox]="true" [nzChecked]="false"	(click)="$event.preventDefault()"  (click)="changeChkStatus(row.id)"	>
           </td> -->
           <td class="table-data">{{ getOptionCompareTable(row.compareTable) }}</td>
           <td class="table-data">{{row.codeDesc }}</td>
           <td class="table-data">
-            <div *ngIf = "row.isChk; else elseBlock">
-              <input [(ngModel)]="row.compareType">
+            <div *ngIf="row.isChk; else elseBlock">
+              <select [(ngModel)]="row.compareType">
+                <option [value]=1>絕對值 </option>
+                <option [value]=2>相對值 </option>
+              </select>
             </div>
             <ng-template #elseBlock>
-              {{ row.compareType}}
+              <select [(ngModel)]="row.compareType">
+                <option [value]=1>絕對值 </option>
+                <option [value]=2>相對值 </option>
+              </select>
             </ng-template>
-            </td>
+          </td>
           <td class="table-data">
-            <div *ngIf = "row.isChk; else elseBlock">
+            <div *ngIf="row.isChk; else elseBlock">
               <input [(ngModel)]="row.setValueLow">
             </div>
             <ng-template #elseBlock>
@@ -68,7 +74,7 @@
             </ng-template>
           </td>
           <td class="table-data">
-            <div *ngIf = "row.isChk; else elseBlock">
+            <div *ngIf="row.isChk; else elseBlock">
               <input [(ngModel)]="row.setValueHight">
             </div>
             <ng-template #elseBlock>
@@ -88,9 +94,9 @@
       </tbody>
     </nz-table>
     <div style="text-align: center;margin:10px 0;height:5vh;">
-      <button nz-button [nzSize]="'middle'" nzType="primary"  (click)="submit()" >儲存勾選</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="submit()">儲存勾選</button>
     </div>
-</div>
+  </div>
 </div>
 
 
@@ -182,4 +188,3 @@
     </mat-paginator>
   </td>
 </tr> -->
-
