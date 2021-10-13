@@ -26,6 +26,8 @@ export class Childscn8deleteComponent implements OnInit {
   CON_TARGET_Selected: string;//對象種類
   CON_MEMO_Code: OptionsCode[] = [];//註記種類下拉選單
   CON_MEMO_Selected: string;//註記種類
+  CALLOUT_SETTIME:Date;//確認時間
+  CALLOUT_DATE:Date;//確認時間
 
 
 

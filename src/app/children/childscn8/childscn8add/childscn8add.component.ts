@@ -57,6 +57,7 @@ export class Childscn8addComponent implements OnInit {
     jsonObject['date'] = this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyyMMdd');
     jsonObject['hour'] = this.data.HOURS;
     jsonObject['min'] = this.data.MINUTES;
+    jsonObject['empNo'] = this.data.CALLOUT_EMPNO;
     console.log('console.log(jsonObject);');
     console.log(jsonObject);
     await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {

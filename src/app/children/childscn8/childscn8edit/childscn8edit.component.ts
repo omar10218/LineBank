@@ -33,6 +33,7 @@ export class Childscn8editComponent implements OnInit {
     return this.formControl.hasError('required') ? '此欄位必填!' : '';
   }
 
+  CALLOUT_SETTIME:Date;//確認時間
   CALLOUT_DATE: Date; //設定下次照會時間
   CON_TEL_Selected: string;//電話種類
   CON_TARGET_Selected: string;//對象種類
@@ -60,6 +61,8 @@ export class Childscn8editComponent implements OnInit {
     jsonObject['hour'] = this.data.HOURS;
     jsonObject['min'] = this.data.MINUTES;
     jsonObject['rowID'] = this.data.ID;
+    jsonObject['empNo'] = this.data.CALLOUT_EMPNO;
+    jsonObject['calloutYn'] = this.data.CALLOUT_YN;
     console.log('console.log(jsonObject);');
     console.log(jsonObject);
     await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
