@@ -18,8 +18,8 @@ export class F03013Component implements OnInit {
   yearValue: number;        //查詢年份
   monthValue: number;       //查詢月份
   yearCode: sysCode[] = []; //年份下拉
-  monthCode:sysCode[] = []; //月份下拉
-  // pipe = new DatePipe('en-US');
+  monthCode: sysCode[] = []; //月份下拉
+  jsonObject: any = {};
   workingDateDataSource = new MatTableDataSource<any>();
   constructor(private f03013Service: F03013Service, private pipe: DatePipe) { }
 
@@ -35,7 +35,8 @@ export class F03013Component implements OnInit {
     }
     var yes = confirm('建立該年度行事曆,會刪除原設定,請確認');
     if (yes) {
-      this.f03013Service.createCalendar(this.selectedValue).subscribe(data => {
+      this.jsonObject['year'] = this.selectedValue;
+      this.f03013Service.createCalendar(this.jsonObject).subscribe(data => {
         if (data.rspMsg == 'success') {
           alert('新增' + this.selectedValue + '年度行事曆成功!')
         }
@@ -57,7 +58,9 @@ export class F03013Component implements OnInit {
       return alert('請選擇月份')
     }
 
-    this.f03013Service.queryIsWorkDay(this.yearValue, this.monthValue).subscribe(data => {
+    this.jsonObject['year'] = this.yearValue;
+    this.jsonObject['month'] = this.monthValue;
+    this.f03013Service.queryIsWorkDay(this.jsonObject).subscribe(data => {
       this.workingDateDataSource = data.rspBody;
       if (data.rspBody.length == '0') { alert('請先初始化' + this.yearValue + '年度行事曆') }
     });
@@ -86,8 +89,9 @@ export class F03013Component implements OnInit {
   }
   // 修改工作日
   updateWorkingDate(wDate: string, isWork: string) {
-    console.log(wDate)
-    this.f03013Service.updateWorkingDate(this.pipe.transform(new Date(wDate), 'yyyy-MM-dd'), isWork).subscribe(data => {
+    this.jsonObject['wDate'] = this.pipe.transform(new Date(wDate), 'yyyy-MM-dd');
+    this.jsonObject['isWork'] = isWork;
+    this.f03013Service.updateWorkingDate(this.jsonObject).subscribe(data => {
       if (data.rspMsg == 'success') {
         this.queryIsWorkDay();
       }
