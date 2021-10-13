@@ -143,11 +143,11 @@ export class F03006Component implements OnInit {
         console.log(data);
         this.total = data.rspBody.size;
         console.log(this.total);
-        if(this.total==0){
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "查無資料!" }
-          });
-        }
+        // if(this.total==0){
+        //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        //     data: { msgStr: "查無資料!" }
+        //   });
+        // }
         this.employeeSource.data = data.rspBody.items;
       });
       this.loading = false;
