@@ -10,10 +10,6 @@ export class F03004Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
   dialogData: any;
 
-  getSysTypeCode(baseUrl: string): Observable<any> {
-    return this.postHttpClient(baseUrl);
-  }
-
   getMappingCodeList(baseUrl: string, json: JSON): Observable<any> {
     return this.postJsonObject(baseUrl, json);
   }

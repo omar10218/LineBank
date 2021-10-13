@@ -47,6 +47,7 @@ export class F03004addComponent {
   public async confirmAdd(): Promise<void> {
     let msgStr: string = "";
     let baseUrl = 'f03/f03004action2';
+    this.hidden = "hidden";
     if( isNaN( this.data.codeSort ) ) {
       this.hidden = "";
     } else {

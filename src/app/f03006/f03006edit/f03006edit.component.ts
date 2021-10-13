@@ -32,8 +32,9 @@ export class F03006editComponent {
     this.changeDATE_TYPE('End');//請假迄日型態
     this.data.agent_empCode = [];
     const baseUrl = 'f03/f03006action5';
-    let targetUrl = `${baseUrl}?empNo=${this.data.EMP_NO}`;//員工編號
-    this.f03006Service.getEmployeeSysTypeCode(targetUrl)
+    let jsonObject: any = {};
+    jsonObject['empNo'] = this.data.EMP_NO
+    this.f03006Service.getEmployeeSysTypeCode(baseUrl, jsonObject)
       .subscribe(data => {
         this.data.agent_empCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.empList) {

@@ -21,6 +21,7 @@ export class F03005addComponent {
   ) { }
 
   ynCode: OptionsCode[] = [];
+  hidden: string = "hidden";
 
   ngOnInit(): void {
     this.f03005Service.getSysTypeCode('YN').subscribe(data => {
@@ -53,11 +54,15 @@ export class F03005addComponent {
   public async confirmAdd(): Promise<void> {
     let msgStr: string = "";
     let baseUrl = 'f03/f03005action2';
-    msgStr = await this.f03005Service.addOrEditAdrCodeSet(baseUrl, this.data);
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
-    });
-    if (msgStr === '新增成功!') { this.dialogRef.close({ event:'success' }); }
+    this.hidden = "hidden";
+    if( isNaN( this.data.reasonSort ) ) {
+      this.hidden = "";
+    } else {
+      msgStr = await this.f03005Service.addOrEditAdrCodeSet(baseUrl, this.data);
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      if (msgStr === '新增成功!') { this.dialogRef.close({ event:'success' }); }
+    }
   }
-
 }

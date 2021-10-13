@@ -14,45 +14,39 @@ export class F03006Service extends BaseService {
   dialogData: any;
 
   //取得Table
-  getEmployeeList(baseUrl: string, pageIndex: number, pageSize: number, formData: FormData): Observable<any> {
-    let targetUrl = `${baseUrl}?page=${pageIndex }&per_page=${pageSize}`;
-    return this.postFormData(targetUrl, formData);
+  getEmployeeList(baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
   }
 
   //取得初始下拉選單及角色資訊
-  getEmployeeSysTypeCode(baseUrl: string): Observable<Employee> {
+  getEmployeeSysTypeCode(baseUrl: string, json: JSON): Observable<Employee> {
     let targetUrl = baseUrl;
-    return this.postHttpClient(targetUrl).pipe(map(res => res));
+    return this.postJsonObject(targetUrl, json).pipe(map(res => res));
   }
 
   //新增修改
   addorEditSystemCodeSet(baseUrl: string, data: any): any {
-    const formdata: FormData = new FormData();
-    formdata.append('empNo', data.EMP_NO);
-    formdata.append('empName', data.EMP_NAME);
-    formdata.append('empId', data.EMP_ID);
-    formdata.append('onJob', data.ON_JOB);
-    formdata.append('agentEmp', data.AGENT_EMP);
-    formdata.append('email', data.EMAIL);
-    formdata.append('assignStop', data.ASSIGN_STOP);
-    formdata.append('assignProjectno', data.ASSIGN_PROJECTNO)
-    console.log('data.LEAVE_STARTDATE');
-    console.log(data.LEAVE_STARTDATE);
-    console.log('data.LEAVE_ENDDATE');
-    console.log(data.LEAVE_ENDDATE);
+    let jsonObject: any = {};
+    jsonObject['empNo'] = data.EMP_NO;//員工編號
+    jsonObject['empName'] = data.EMP_NAME;//員工姓名
+    jsonObject['empId'] = data.EMP_ID;//員工ID
+    jsonObject['agentEmp'] = data.AGENT_EMP;//代理人
+    jsonObject['email'] = data.EMAIL;//email
+    jsonObject['onJob'] = data.ON_JOB;//是否在職
+    jsonObject['assignStop'] = data.ASSIGN_STOP;//是否停派
     if ( data.LEAVE_STARTDATE != null && data.LEAVE_STARTDATE != "" ) {
-      formdata.append('leaveStartdateType', data.LEAVE_STARTDATE_TYPE);
-      formdata.append('leaveStartdate',  this.pipe.transform( new Date(data.LEAVE_STARTDATE) , 'yyyyMMdd' ) );
+      jsonObject['leaveStartdateType'] = data.LEAVE_STARTDATE_TYPE//請假起日類型
+      jsonObject['leaveStartdate'] = this.pipe.transform( new Date(data.LEAVE_STARTDATE) , 'yyyyMMdd' );//請假起日
     }
     if ( data.LEAVE_ENDDATE != null && data.LEAVE_ENDDATE_TYPE != "" ) {
-      formdata.append('leaveEnddateType', data.LEAVE_ENDDATE_TYPE);
-      formdata.append('leaveEnddate', this.pipe.transform( new Date(data.LEAVE_ENDDATE) , 'yyyyMMdd' ) );
+      jsonObject['leaveEnddateType'] = data.LEAVE_ENDDATE_TYPE;//請假迄日類型
+      jsonObject['leaveEnddate'] = this.pipe.transform( new Date(data.LEAVE_ENDDATE) , 'yyyyMMdd' );//請假迄日
     }
-    return this.saveOrEditMsgString(baseUrl, formdata);
+    return this.saveOrEditMsgJson(baseUrl, jsonObject);
   }
 
   //角色設定
-  saveEmployeeRole(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
+  saveEmployeeRole(baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
   }
 }

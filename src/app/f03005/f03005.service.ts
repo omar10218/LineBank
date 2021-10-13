@@ -15,14 +15,14 @@ export class F03005Service extends BaseService {
   }
 
   addOrEditAdrCodeSet(baseUrl: string, data: any): any {
-    const formdata: FormData = new FormData();
-    formdata.append('reasonKind', data.reasonKind);
-    formdata.append('upReasonCode', data.upReasonCode);
-    formdata.append('reasonCode', data.reasonCode);
-    formdata.append('reasonDesc', data.reasonDesc);
-    formdata.append('reasonSort', data.reasonSort);
-    formdata.append('reasonFlag', data.reasonFlag);
-    formdata.append('reasonLevel', data.reasonLevel);
-    return this.saveOrEditMsgString(baseUrl, formdata);
+    let jsonObject: any = {};
+    jsonObject['reasonKind'] =  data.reasonKind;
+    jsonObject['upReasonCode'] = data.upReasonCode;
+    jsonObject['reasonCode'] = data.reasonCode;
+    jsonObject['reasonDesc'] = data.reasonDesc;
+    jsonObject['reasonSort'] = data.reasonSort;
+    jsonObject['reasonFlag'] = data.reasonFlag;
+    jsonObject['reasonLevel'] = data.reasonLevel;
+    return this.saveOrEditMsgJson(baseUrl, jsonObject);
   }
 }
