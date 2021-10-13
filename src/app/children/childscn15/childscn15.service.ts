@@ -11,14 +11,14 @@ export class Childscn15Service extends BaseService {
 
   //取Table資料
   getReason(baseUrl: string, applno: string) {
-    let targetUrl = `${baseUrl}?applno=${applno}`;
-    return this.postHttpClient(targetUrl);
+    let jsonObject: any = {};
+    jsonObject['applno'] = applno;
+    return this.postJsonObject(baseUrl, jsonObject);
   }
 
   //儲存Table資料
-  public async saveReason(baseUrl: string,applno: string, formdata: FormData): Promise<Observable<any>> {
-    let targetUrl = `${baseUrl}?applno=${applno}`;
-    return await this.postFormData(targetUrl, formdata).toPromise();
+  public async saveReason(baseUrl: string, json: JSON): Promise<Observable<any>> {
+    return await this.postJsonObject(baseUrl, json).toPromise();
   }
 
 

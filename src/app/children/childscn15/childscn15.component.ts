@@ -148,18 +148,18 @@ export class Childscn15Component implements OnInit {
     }
     else {
       //資料傳送
-      const formdata = new FormData();
-      formdata.append('manageHigh', this.manageHigh);
-      formdata.append('manageOther', this.manageOther);
-      formdata.append('delayOther', this.delayOther);
-      formdata.append('delayOtherTwo', this.delayOtherTwo);
-      formdata.append('manageString', fmString);
-      formdata.append('delayString', fdString);
+      let jsonObject: any = {};
+      jsonObject['applno'] = this.applno;
+      jsonObject['manageHigh'] = this.manageHigh;
+      jsonObject['manageOther'] = this.manageOther;
+      jsonObject['delayOther'] = this.delayOther;
+      jsonObject['delayOtherTwo'] = this.delayOtherTwo;
+      jsonObject['manageString'] = fmString;
+      jsonObject['delayString'] = fdString;
       let msgStr: string = "";
       let codeStr: string = "";
       const baseUrl = 'f01/childscn15action1';
-
-      this.childscn15Service.saveReason(baseUrl, this.applno, formdata).then((data: any) => {
+      this.childscn15Service.saveReason(baseUrl, jsonObject).then((data: any) => {
         codeStr = data.rspCode;
         msgStr = data.rspMsg;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {

@@ -10,8 +10,9 @@ export class Childscn7Service extends BaseService {
 
 //取Table資料
   getAML_FDS_CSS(baseUrl: string,applno: string){
-    let targetUrl = `${baseUrl}?applno=${applno}`;
-    return this.postHttpClient(targetUrl);
+    let jsonObject: any = {};
+    jsonObject['applno'] = applno;
+    return this.postJsonObject(baseUrl, jsonObject);
   }
 
 
