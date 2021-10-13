@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { Component,Inject, OnInit, ViewChild } from '@angular/core';
 import { F03017Service } from '../f03017/f03017.service';
 import { DatePipe } from '@angular/common';
@@ -24,6 +25,8 @@ export class F03017Component implements OnInit {
   bkColumnCode: sysCode[] = [];;  //建檔項目欄位下拉
   bkColumnValue: string;  //建檔項目欄位
   bkContentValue: string;  //建檔項目欄位值內容下拉
+  chkArray: string[] = [];
+  contentArray: string[] = [];
   isHidden: boolean;
   myDate: any = new Date();
   loading = true;
@@ -40,6 +43,11 @@ export class F03017Component implements OnInit {
    bkIncomeForm: FormGroup = this.fb.group({
     bkColumn: [this.data.bkColumnValue, [Validators.maxLength(30)]],
     bk_Content: [this.data.bkContentValue, [Validators.maxLength(30)]],
+    CU_CNAME: [this.data.CU_CNAME, []],
+    NATIONAL_ID: [this.data.NATIONAL_ID, []],
+    CU_H_TEL: [this.data.CU_H_TEL, []],
+    CU_CP_TEL: [this.data.CU_CP_TEL, []],
+    CU_M_TEL: [this.data.CU_M_TEL, []],
     page: ['', [Validators.maxLength(3)]],
     per_page: ['', [Validators.maxLength(3)]]
   });
@@ -130,10 +138,20 @@ this.loading = false;
   }
 
   //編輯
-  update(isUpdate: boolean, data: any) {
+  update(isUpdate: boolean, data: any, ) {
     console.log(data)
+    this.chkArray.forEach((element)=>{
+      if(element==="CU_CNAME"){this.contentArray.push(this.bkIncomeForm.value.CU_CNAME);}
+      if(element==="NATIONAL_ID"){this.contentArray.push(this.bkIncomeForm.value.NATIONAL_ID);}
+      if(element==="CU_H_TEL"){this.contentArray.push(this.bkIncomeForm.value.CU_H_TEL);}
+      if(element==="CU_CP_TEL"){this.contentArray.push(this.bkIncomeForm.value.CU_CP_TEL);}
+      if(element==="CU_M_TEL"){this.contentArray.push(this.bkIncomeForm.value.CU_M_TEL);}
+    });
+
     const dialogRef = this.dialog.open(F03017editComponent, {
       data: {
+        // BK_COLUMN:chkArray,
+        // BK_CONTENT :contentArray,
         isUpdate: isUpdate,
         isInsert: false,
         reportReason1Value:data.reportReason1,
@@ -141,7 +159,16 @@ this.loading = false;
         reportReason3Value:data.reportReason3,
         USE_FLAG:data.useFlag,
         REPORT_CONTENT: data.reportContent,
+        BK_CONTENT:data.bkContent,
+        BK_COLUMN:data.bkColumn,
+
+      // CU_CNAME:data.bkContent,
+      //   NATIONAL_ID:data.bkContent,
+      //   CU_H_TEL:data.bkContent,
+      //   CU_CP_TEL:data.bkContent,
+      //   CU_M_TEL:data.bkContent,
       }
+
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && result.event == 'success') { this.refreshTable(); }

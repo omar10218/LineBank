@@ -80,6 +80,9 @@ export class F03017editComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log(this.blockListForm)
+    console.log(this.data.BK_CONTENT)
+    this.selectCustInfo();
     this.route.queryParams.subscribe(params => {
       this.no = localStorage.getItem("empNo");
       // this.selectBlockList(this.pageIndex, this.pageSize)//一進去畫面就抓取資料表
@@ -162,19 +165,30 @@ export class F03017editComponent implements OnInit {
     }
   }
 
-  //查詢客戶資料
-  // selectCustInfo() {
-  //   const url = 'f01/selectCustInfo';
-  //   const applno = this.applno;
-  //   let jsonObject: any = {};
-  //   this.f03017Service.gettable(url, applno, jsonObject).subscribe(data => {
-  //     this.blockListForm.patchValue({ 'CU_CNAME': data.rspBody.list[0].cuCname })
-  //     this.blockListForm.patchValue({ 'NATIONAL_ID': data.rspBody.list[0].nationalId })
-  //     this.blockListForm.patchValue({ 'CU_H_TEL': data.rspBody.list[0].cuHTel })
-  //     this.blockListForm.patchValue({ 'CU_CP_TEL': data.rspBody.list[0].cuCpTel })
-  //     this.blockListForm.patchValue({ 'CU_M_TEL': data.rspBody.list[0].cuMTel })
-  //   })
-  // }
+  // 查詢客戶資料
+  selectCustInfo() {
+    if( this.blockListForm.value.BK_COLUMN==='CU_CNAME')
+   {
+    this.blockListForm.patchValue({ 'CU_CNAME': this.data.BK_CONTENT})
+   }
+    if( this.blockListForm.value.BK_COLUMN==='NATIONAL_ID')
+   {
+    this.blockListForm.patchValue({ 'NATIONAL_ID': this.data.BK_CONTENT})
+   }
+    if( this.blockListForm.value.BK_COLUMN==='CU_H_TEL')
+   {
+    this.blockListForm.patchValue({ 'CU_H_TEL': this.data.BK_CONTENT})
+   }
+    if( this.blockListForm.value.BK_COLUMN==='CU_CP_TEL')
+   {
+    this.blockListForm.patchValue({ 'CU_CP_TEL': this.data.BK_CONTENT})
+   }
+    if( this.blockListForm.value.BK_COLUMN==='CU_M_TEL')
+   {
+    this.blockListForm.patchValue({ 'CU_M_TEL': this.data.BK_CONTENT})
+   }
+
+  }
 
   //查詢資料表
   // selectBlockList(pageIndex: number, pageSize: number) {
