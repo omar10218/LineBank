@@ -74,11 +74,11 @@
           <div style="padding:10px">
             <span class="form-title">通報原因3</span>
             <mat-select formControlName="REPORT_REASON3"
-            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
-            <mat-option *ngFor="let code of reportReason3" [value]="code.value">
-              {{code.viewValue}}
-            </mat-option>
-          </mat-select>
+              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              <mat-option *ngFor="let code of reportReason3" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
             <!-- <mat-select formControlName="REPORT_REASON3">
               <mat-option *ngFor="let code of reportReason3" [value]="code.value">
                 {{code.viewValue}}
@@ -95,12 +95,12 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">使用中</span>
-            <mat-select  formControlName="USE_FLAG"
-            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
-            <mat-option *ngFor="let code of useFlag" [value]="code.value">
-              {{code.viewValue}}
-            </mat-option>
-          </mat-select>
+            <mat-select formControlName="USE_FLAG"
+              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              <mat-option *ngFor="let code of useFlag" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
             <!-- <mat-select formControlName="USE_FLAG">
               <mat-option *ngFor="let code of useFlag" [value]="code.value">
                 {{code.viewValue}}
@@ -247,3 +247,4 @@
                   </tr>
               </tbody>
           </nz-table> -->
+    </form>
