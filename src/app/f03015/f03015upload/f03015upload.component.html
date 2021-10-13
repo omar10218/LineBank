@@ -1,4 +1,4 @@
-<cdk-virtual-scroll-viewport itemSize="48" headerHeight="56" style="height: 750px;   width: 900px;">
+<cdk-virtual-scroll-viewport itemSize="48" headerHeight="56" style="height: 400px;   width: 900px;">
     <div class="line_bank_card_no_padding" style="min-height:170px">
 
         <div class="line_bank_form_header_title">上傳Excel</div>
@@ -11,7 +11,6 @@
                                 <div mat-dialog-actions>
                                     <input type="file" (change)="onChange($event)" />
                                 </div>
-                                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                             </div>
                         </div>
                     </div>
