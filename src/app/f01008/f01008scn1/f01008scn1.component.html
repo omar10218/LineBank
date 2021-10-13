@@ -1,0 +1,20 @@
+<p>f01008scn1 works!</p>
+<br>
+<nz-tabset nzLinkRouter>
+  <nz-tab>
+    <a *nzTabLink nz-tab-link [routerLink]="['./F01008SCN2']">
+      <button nz-button nzType="primary" id="firstBtn"> 審核資料</button>
+    </a>
+  </nz-tab>
+  <nz-tab>
+    <a *nzTabLink nz-tab-link [routerLink]="['./F01008SCN3']">
+      <button nz-button nzType="primary">資料異動歷程</button>
+    </a>
+  </nz-tab>
+  <nz-tab>
+    <a *nzTabLink nz-tab-link [routerLink]="['./F01008SCN4']">
+      <button nz-button nzType="primary">資料異動歷程</button>
+    </a>
+  </nz-tab>
+</nz-tabset>
+<router-outlet style="padding-top: 120px;display: block;"></router-outlet>

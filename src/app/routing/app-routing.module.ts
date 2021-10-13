@@ -99,7 +99,7 @@ const routes: Routes = [
       },
       {
         path: 'F01008',
-        component: F01008Component
+        loadChildren: () => import ('../f01008/f01008.module').then(m => m.F01008Module)
       },
       {
         path: 'F02001',
