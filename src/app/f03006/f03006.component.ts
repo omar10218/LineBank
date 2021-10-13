@@ -42,7 +42,7 @@ export class F03006Component implements OnInit {
   agent_empCode: OptionsCode[] = [];//代理人
   levelStartDateTypeCode: OptionsCode[] = [];//日期種類起
   levelEndDateTypeCode: OptionsCode[] = [];//日期種類迄
-  projectCode: OptionsCode[] = [];//派件專案代碼
+  // projectCode: OptionsCode[] = [];//派件專案代碼
   roleCode: OptionsCode[] = [];//角色
   on_jobCode: OptionsCode[] = [];//是否在職
   assign_stopCode: OptionsCode[] = [];//是否停派
@@ -54,7 +54,7 @@ export class F03006Component implements OnInit {
   emailValue: string;//email
   on_jobValue: string = "Y"; //是否在職預設Y
   assign_stopValue: string;//是否停派
-  projectValue: string;//派艦專案代碼
+  // projectValue: string;//派艦專案代碼
   levelStartDateTypeValue: string;//請假起日
   levelEndDateTypeValue: string;//請假起日類型
   levelStartDateValue: Date;//請假起日類型值
@@ -69,7 +69,8 @@ export class F03006Component implements OnInit {
     this.getEmployeeList(this.pageIndex, this.pageSize);
 
     const baseUrl = 'f03/f03006';//代理人
-    this.f03006Service.getEmployeeSysTypeCode(baseUrl)
+    let jsonObject: any = {};
+    this.f03006Service.getEmployeeSysTypeCode(baseUrl, jsonObject)
       .subscribe(data => {
         for (const jsonObj of data.rspBody.empList) {
           const codeNo = jsonObj.empNo;
@@ -83,11 +84,11 @@ export class F03006Component implements OnInit {
           this.levelStartDateTypeCode.push({ value: codeNo, viewValue: desc })
           this.levelEndDateTypeCode.push({ value: codeNo, viewValue: desc })
         }
-        for (const jsonObj of data.rspBody.projectList) {//派件專案代碼
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.projectCode.push({ value: codeNo, viewValue: desc })
-        }
+        // for (const jsonObj of data.rspBody.projectList) {//派件專案代碼
+        //   const codeNo = jsonObj.codeNo;
+        //   const desc = jsonObj.codeDesc;
+        //   this.projectCode.push({ value: codeNo, viewValue: desc })
+        // }
 
         this.assign_stopCode.push({ value: "", viewValue: "請選擇" })//是否停派//是否在職
         for (const jsonObj of data.rspBody.ynList) {
@@ -118,26 +119,26 @@ export class F03006Component implements OnInit {
 
   //取得表單資料
   getEmployeeList(pageIndex: number, pageSize: number) {
-    let formData = new FormData();
-    formData.append('empNo', this.empNoValue != null ?　this.empNoValue : '');//員工編號
-    formData.append('empName', this.empNameValue != null ?　this.empNameValue : '');//員工姓名
-    formData.append('empId', this.empIDValue != null ?　this.empIDValue : '');//員工ID
-    formData.append('agentEmp', this.agent_empValue != null ?　this.agent_empValue : '');//代理人
-    formData.append('email', this.emailValue != null ?　this.emailValue : '');//email
-    formData.append('onJob', this.on_jobValue != null ?　this.on_jobValue : '');//是否在職
-    formData.append('assignStop', this.assign_stopValue != null ?　this.assign_stopValue : '');//是否停派
-    formData.append('assignProjectno', this.projectValue != null ?　this.projectValue : '');//派件專案代碼
-    formData.append('leaveStartdateType', this.levelStartDateTypeValue != null ?　this.levelStartDateTypeValue : '');//請假起日類型
-    formData.append('leaveEnddateType', this.levelEndDateTypeValue != null ?　this.levelEndDateTypeValue : '');//請假迄日類型
+    const baseUrl = 'f03/f03006action1';
+    let jsonObject: any = {};
+    jsonObject['empNo'] = this.empNoValue != null ?　this.empNoValue : '';//員工編號
+    jsonObject['empName'] = this.empNameValue != null ?　this.empNameValue : '';//員工姓名
+    jsonObject['empId'] = this.empIDValue != null ?　this.empIDValue : '';//員工ID
+    jsonObject['agentEmp'] = this.agent_empValue != null ?　this.agent_empValue : '';//代理人
+    jsonObject['email'] = this.emailValue != null ?　this.emailValue : '';//email
+    jsonObject['onJob'] = this.on_jobValue != null ?　this.on_jobValue : '';//是否在職
+    jsonObject['assignStop'] = this.assign_stopValue != null ?　this.assign_stopValue : '';//是否停派
+    jsonObject['leaveStartdateType'] = this.levelStartDateTypeValue != null ?　this.levelStartDateTypeValue : '';//請假起日類型
+    jsonObject['leaveEnddateType'] = this.levelEndDateTypeValue != null ?　this.levelEndDateTypeValue : '';//請假迄日類型
     if (  this.levelStartDateString != null &&  this.levelStartDateString != '' ) {//請假起日
-      formData.append('leaveStartdate', this.pipe.transform( new Date(this.levelStartDateString) , 'yyyyMMdd' ) );
+      jsonObject['leaveStartdate'] = this.pipe.transform( new Date(this.levelStartDateString) , 'yyyyMMdd' );
     }
     if (  this.levelEndDateString != null &&  this.levelEndDateString != '' ) {//請假迄日
-      console.log(this.pipe.transform( new Date(this.levelEndDateString) , 'yyyyMMdd' ));
-      formData.append('leaveEnddate', this.pipe.transform( new Date(this.levelEndDateString) , 'yyyyMMdd' ) );
+      jsonObject['leaveEnddate'] = this.pipe.transform( new Date(this.levelEndDateString) , 'yyyyMMdd' );
     }
-    const baseUrl = 'f03/f03006action1';
-    this.f03006Service.getEmployeeList(baseUrl, pageIndex, pageSize,formData)
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    this.f03006Service.getEmployeeList(baseUrl, jsonObject)
       .subscribe(data => {
         console.log(data);
         this.total = data.rspBody.size;
@@ -161,7 +162,7 @@ export class F03006Component implements OnInit {
     this.emailValue= '';//email
     this.on_jobValue = "Y";//是否在職
     this.assign_stopValue= '';//是否停派
-    this.projectValue= '';//派件專案代碼
+    // this.projectValue= '';//派件專案代碼
     this.levelStartDateTypeValue= '';//請假起日類型
     this.levelEndDateTypeValue= '';//請假迄日類型
     this.levelStartDateValue=undefined;//請假起日
@@ -224,7 +225,7 @@ export class F03006Component implements OnInit {
         AGENT_EMP: '',//代理人
         EMAIL: '',//email
         ASSIGN_STOP: '',//是否停派
-        ASSIGN_PROJECTNO: '',//派件專案代碼
+        // ASSIGN_PROJECTNO: '',//派件專案代碼
         LEAVE_STARTDATE: '',//請假起日
         LEAVE_STARTDATE_TYPE: '',//請假起日類型
         LEAVE_ENDDATE: '',//請假迄日
@@ -232,7 +233,7 @@ export class F03006Component implements OnInit {
         agent_empCode: this.agent_empCode,//代理人
         levelStartDateTypeCode: this.levelStartDateTypeCode,//日期種類起
         levelEndDateTypeCode: this.levelEndDateTypeCode,//日期種類迄
-        projectCode: this.projectCode,//派件專案代碼
+        // projectCode: this.projectCode,//派件專案代碼
         roleCode: this.roleCode,//角色
         on_jobCode: this.on_jobCode,//是否在職
         assign_stopCode: this.assign_stopCode//是否停派
@@ -263,7 +264,7 @@ export class F03006Component implements OnInit {
         AGENT_EMP: AGENT_EMP,//代理人
         EMAIL: EMAIL,//email
         ASSIGN_STOP: ASSIGN_STOP,//是否停派
-        ASSIGN_PROJECTNO: ASSIGN_PROJECTNO,//派件專案代碼
+        // ASSIGN_PROJECTNO: ASSIGN_PROJECTNO,//派件專案代碼
         LEAVE_STARTDATE: LEAVE_STARTDATE,//請假起日
         LEAVE_STARTDATE_TYPE: LEAVE_STARTDATE_TYPE,//請假起日類型
         LEAVE_ENDDATE: LEAVE_ENDDATE,//請假迄日
@@ -271,7 +272,7 @@ export class F03006Component implements OnInit {
         agent_empCode: this.agent_empCode,//代理人
         levelStartDateTypeCode: this.levelStartDateTypeCode,//日期種類起
         levelEndDateTypeCode: this.levelEndDateTypeCode,//日期種類迄
-        projectCode: this.projectCode,//派件專案代碼
+        // projectCode: this.projectCode,//派件專案代碼
         roleCode: this.roleCode,//角色
         on_jobCode: this.on_jobCode,//是否在職
         assign_stopCode: this.assign_stopCode//是否停派

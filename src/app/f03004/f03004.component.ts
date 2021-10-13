@@ -26,7 +26,6 @@ export class F03004Component implements OnInit, AfterViewInit {
 
   mappingCodeSource: Data[] = [];
   total = 1;
-  loading = true;
   pageSize = 10;
   pageIndex = 1;
   sysCode: OptionsCode[] = [];
@@ -34,7 +33,8 @@ export class F03004Component implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     const baseUrl = 'f03/f03004';
-    this.f03004Service.getSysTypeCode(baseUrl).subscribe(data => {
+    let jsonObject: any = {};
+    this.f03004Service.getMappingCodeList(baseUrl, jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
@@ -44,7 +44,7 @@ export class F03004Component implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.getMappingCode(this.pageIndex, this.pageSize);
+    //this.getMappingCode(this.pageIndex, this.pageSize);
   }
 
   changeSort(sortInfo: Sort) {
@@ -59,9 +59,10 @@ export class F03004Component implements OnInit, AfterViewInit {
     jsonObject['codeType'] = this.selectedValue;
     this.f03004Service.getMappingCodeList(baseUrl, jsonObject)
       .subscribe(data => {
-        this.loading = false;
-        this.total = data.rspBody.size;
-        this.mappingCodeSource = data.rspBody.items;
+        if (data.rspBody != null) {
+          this.total = data.rspBody.size;
+          this.mappingCodeSource = data.rspBody.items;
+        }
       });
   }
 

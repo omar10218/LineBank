@@ -20,6 +20,7 @@ export class F03005editComponent {
   ) { }
 
   ynCode: OptionsCode[] = [];
+  hidden: string = "hidden";
 
   ngOnInit(): void {
     this.f03005Service.getSysTypeCode('YN').subscribe(data => {
@@ -38,8 +39,8 @@ export class F03005editComponent {
 
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Required field' :
-    this.formControl.hasError('email') ? 'Not a valid email' :
-    '';
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
   }
 
   onNoClick(): void {
@@ -49,10 +50,15 @@ export class F03005editComponent {
   public async stopEdit(): Promise<void> {
     let msgStr: string = "";
     let baseUrl = 'f03/f03005action3';
-    msgStr = await this.f03005Service.addOrEditAdrCodeSet(baseUrl, this.data);
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
-    });
-    if (msgStr === '更新成功!') { this.dialogRef.close({ event:'success' }); }
+    this.hidden = "hidden";
+    if (isNaN(this.data.reasonSort)) {
+      this.hidden = "";
+    } else {
+      msgStr = await this.f03005Service.addOrEditAdrCodeSet(baseUrl, this.data);
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      if (msgStr === '更新成功!') { this.dialogRef.close({ event: 'success' }); }
+    }
   }
 }
