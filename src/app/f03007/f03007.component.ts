@@ -35,7 +35,8 @@ export class F03007Component implements OnInit, AfterViewInit {
   ngAfterViewInit() { }
   ngOnInit(): void {
     const baseUrl = 'f03/f03007';
-    this.f03007Service.getRoleOption(baseUrl).subscribe(data => {
+    let jsonObject: any = {};
+    this.f03007Service.roleFunction(baseUrl, jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody.list) {
         const codeNo = jsonObj['roleNo'];
         const desc = jsonObj['roleName'];
