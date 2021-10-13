@@ -41,11 +41,13 @@ export class BaseService {
   }
 
   protected postJsonObject(baseUrl: string, json: JSON) {
+    json['userId'] = localStorage.getItem("empNo");
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, json);
   }
 
   //for file download
   protected postGetFile(baseUrl: string, json: JSON) {
+    json['userId'] = localStorage.getItem("empNo");
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, json, { responseType: 'blob' as 'json' });
   }
 
@@ -59,10 +61,12 @@ export class BaseService {
 
   //Json使用
   private async saveOrEditWithJson(baseUrl: string, json: JSON) {
+    json['userId'] = localStorage.getItem("empNo");
     return await this.postJsonObject(baseUrl, json).toPromise();
   }
 
   public async delWithJson(baseUrl: string, json: JSON) {
+    json['userId'] = localStorage.getItem("empNo");
     return await this.postJsonObject(baseUrl, json).toPromise();
   }
 
