@@ -34,7 +34,7 @@ export class F03012Component implements OnInit {
   chkArray: checkBox[] = [];
   selectedValue: string = 'default';
   selectedValue1:string;
-  total = 1;
+  total:any;
   pageSize = 10;
   pageIndex = 1;
   sysCode: OptionsCode[] = [];
@@ -124,7 +124,7 @@ export class F03012Component implements OnInit {
     this.f03012Service.getComePareDataSetList(baseUrl, jsonObject)
     .subscribe(data => {
       console.log(data);
-      this.totalCount = data.rspBody.size;
+      this.total = data.rspBody.size;
       this.compareDataSetSource.data = data.rspBody.items;
       this.compareTableOption = data.rspBody.compareTable;
       this.compareColumnOption = data.rspBody.comparColumn;
