@@ -155,14 +155,16 @@ export class Childscn8Component implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getCALLOUTFunction(pageIndex, pageSize);
+    this.pageSize=pageSize;
+    this.pageIndex=pageIndex;
+    this.getCALLOUTFunction(this.pageIndex, this.pageSize);
   }
 
   getSearch() {
     return this.search;
   }
 
-  totalCount: any;//表單資料筆數設定
+  //totalCount: any;//表單資料筆數設定
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;//表單資料筆數設定
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;//表單資料筆數設定
 
@@ -279,6 +281,8 @@ export class Childscn8Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize
     jsonObject['applno'] = this.applno
+    console.log('jsonObject');
+    console.log(jsonObject);
     this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
       console.log('data');
       console.log(data);
@@ -350,7 +354,7 @@ export class Childscn8Component implements OnInit {
         }
       }
       this.CALLOUTSource.data = this.rspBodyList;
-      this.totalCount = data.rspBody.size;
+      this.total = data.rspBody.size;
       console.log(this.CALLOUTSource.data);
     });
     this.loading = false;

@@ -72,6 +72,7 @@ export class Childscn13editComponent implements OnInit {
         formdata.append('empno', '9901890');
         formdata.append('rowid', this.data.rowId);
         formdata.append('file', this.files);
+        formdata.append('userId',localStorage.getItem("empNo") );
       }
     } else {
       formdata.append('web', this.data.webAddrValue.split('=')[0]);
@@ -79,6 +80,7 @@ export class Childscn13editComponent implements OnInit {
       formdata.append('messageContent', this.data.webInfoContent);
       formdata.append('empno', '9901890');
       formdata.append('rowid', this.rowId);
+      formdata.append('userId',localStorage.getItem("empNo") );
     }
 
     await this.childscn13Service.childscn13Action(baseUrl, formdata).then((data: any) => {

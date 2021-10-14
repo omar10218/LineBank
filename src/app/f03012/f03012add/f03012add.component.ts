@@ -76,23 +76,35 @@ export class F03012addComponent implements OnInit {
     // if (!this.compareTableSetForm.valid) {
     //   msg = '資料格式有誤，請修正!';
     // } else {
-      const url = 'f03/f03012action1';
-      const formdata: FormData = new FormData();
-      formdata.append('elCompareDataSet[0].compareTable', this.compareTableSetForm.value.compareTable);
-      formdata.append('elCompareDataSet[0].compareColumn', this.compareTableSetForm.value.compareColumn);
-      formdata.append('elCompareDataSet[0].compareType', this.compareTableSetForm.value.compareType);
-      formdata.append('elCompareDataSet[0].setValueHight', this.compareTableSetForm.value.setValueHight);
-      formdata.append('elCompareDataSet[0].setValueLow', this.compareTableSetForm.value.setValueLow);
+      const url = 'f03/f03012action5';
+
+      let jsonObject: any = {};
+      jsonObject['compareTable'] = this.selectedValue1;
+      jsonObject['compareColumn'] = this.selectedValue2;
+      jsonObject['compareType'] = this.compareType;
+      jsonObject['setValueLow'] = this.setValueLow;
+      jsonObject['setValueHight'] = this.setValueHight;
+
+      this.f03012Service.submit(url , jsonObject).subscribe(data => {
+        alert(msg = data.rspMsg)
+         window.location.reload();
+      });
+      // const formdata: FormData = new FormData();
+      // formdata.append('elCompareDataSet[0].compareTable', this.compareTableSetForm.value.compareTable);
+      // formdata.append('elCompareDataSet[0].compareColumn', this.compareTableSetForm.value.compareColumn);
+      // formdata.append('elCompareDataSet[0].compareType', this.compareTableSetForm.value.compareType);
+      // formdata.append('elCompareDataSet[0].setValueHight', this.compareTableSetForm.value.setValueHight);
+      // formdata.append('elCompareDataSet[0].setValueLow', this.compareTableSetForm.value.setValueLow);
       // formdata.append('setValue', this.compareTableSetForm.value.setValue);
-      console.log(formdata);
-      console.log(url);
-      this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
-       alert(msg = data.rspMsg)
-       window.location.reload();
+      // console.log(formdata);
+      // console.log(url);
+      // this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
+      //  alert(msg = data.rspMsg)
+      //  window.location.reload();
       //   console.log(formdata);
       // console.log(url);
       //   console.log(data);
-      });
+      // });
     // }
     // setTimeout(() => {
     //   const DialogRef = this.dialog.open(F03012confirmComponent, { data: { msgStr: msg } });

@@ -21,26 +21,32 @@ interface sysCode {
   styleUrls: ['./f03017.component.css', '../../assets/css/f03.css']
 })
 export class F03017Component implements OnInit {
-
+Id:number[]=[];
   bkColumnCode: sysCode[] = [];;  //建檔項目欄位下拉
   bkColumnValue: string;  //建檔項目欄位
   bkContentValue: string;  //建檔項目欄位值內容下拉
-  chkArray: string[] = [];
-  contentArray: string[] = [];
+  chkArray: string[] = [];//勾選欄
+  contentArray: string[] = [];//勾選欄內容
   isHidden: boolean;
   myDate: any = new Date();
   loading = true;
   total = 1;
   pageSize = 10;
   pageIndex = 1;
+
   constructor(
     private f03017Service: F03017Service,
-    private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any,public dialog: MatDialog, private datePipe: DatePipe,)
+    private fb: FormBuilder,
+     @Inject(MAT_DIALOG_DATA)
+     public data: any,
+     public dialog: MatDialog,
+      private datePipe: DatePipe,)
     {
     this.myDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
    }
 
    bkIncomeForm: FormGroup = this.fb.group({
+     Id:[this.data.Id, [Validators.maxLength(30)]],
     bkColumn: [this.data.bkColumnValue, [Validators.maxLength(30)]],
     bk_Content: [this.data.bkContentValue, [Validators.maxLength(30)]],
     CU_CNAME: [this.data.CU_CNAME, []],
@@ -57,14 +63,17 @@ export class F03017Component implements OnInit {
   ]);
 
   ngOnInit(): void {
+console.log(this.bkIncomeForm)
     this.currentPage = {
       pageIndex: 0,
       pageSize: 10,
       length: null
     };
     this.isHidden = false;
+
     // 取得下拉選單資料
     this.f03017Service.getSysTypeCode('BLACK_ITEM').subscribe(data => {
+      console.log(data)
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
         const desc = jsonObj.codeDesc;
@@ -81,7 +90,7 @@ export class F03017Component implements OnInit {
   bkIncomeDataSource = new MatTableDataSource<any>();
 
   ngAfterViewInit() {
-
+console.log(this.bkColumnCode)
 
 
     this.currentSort = {
@@ -97,6 +106,18 @@ export class F03017Component implements OnInit {
     this.currentSort = sortInfo;
   }
 
+  // 欄位標題文字轉換
+  chageColumntext(codeVal: string): string {
+    for (const data of this.bkColumnCode) {
+      if (data.value == codeVal) {
+        return data.viewValue;
+        break;
+      }
+    }
+    return codeVal;
+  }
+
+  // 取得資料
   async getBkIncomeData() {
     if (typeof this.bkColumnValue == 'undefined'){return alert('請選擇建檔項目')}
 
@@ -105,11 +126,11 @@ export class F03017Component implements OnInit {
       jsonObject['per_page'] = this.currentPage.pageSize;
       jsonObject['bkColumn'] = this.bkColumnValue;
       jsonObject['bkContent'] = this.bkContentValue;
-
-
       await this.f03017Service.getReturn('f03/f03017', jsonObject).subscribe(data => {
-        // this.total = data.rspBody.size;
+        this.total = data.rspBody.size;
+        console.log(data)
         this.bkIncomeDataSource = data.rspBody.items;
+        console.log(this.bkIncomeDataSource)
       });
 this.loading = false;
   }
@@ -121,6 +142,7 @@ this.loading = false;
   //   this.getBkIncomeData(pageIndex, pageSize);
 
   // }
+
   //新增
   insert(isInsert: boolean) {
     const dialogRef = this.dialog.open(F03017editComponent, {
@@ -129,16 +151,17 @@ this.loading = false;
       data: {
         isInsert: isInsert,
         isUpdate: false
-
       }
+
     });
+    console.log(isInsert)
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && result.event == 'success') { this.refreshTable(); }
     });
   }
 
   //編輯
-  update(isUpdate: boolean, data: any, ) {
+  update(isUpdate: boolean, data: any,row:any ) {
     console.log(data)
     this.chkArray.forEach((element)=>{
       if(element==="CU_CNAME"){this.contentArray.push(this.bkIncomeForm.value.CU_CNAME);}
@@ -154,6 +177,7 @@ this.loading = false;
         // BK_CONTENT :contentArray,
         isUpdate: isUpdate,
         isInsert: false,
+        row:row,
         reportReason1Value:data.reportReason1,
         reportReason2Value:data.reportReason2,
         reportReason3Value:data.reportReason3,
@@ -196,7 +220,6 @@ this.loading = false;
       if (result != null && result.event == 'success') { this.refreshTable(); }
     });
   }
-
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }
@@ -209,7 +232,6 @@ this.loading = false;
     jsonObject['bkColumn']=bkColumn;
     jsonObject['bkContent']=bkContent;
     this.f03017Service.getImpertmentParameter(jsonObject).subscribe(data => {
-
       // this.clear();
     });
   }

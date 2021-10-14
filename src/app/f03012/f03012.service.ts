@@ -10,9 +10,10 @@ export class F03012Service extends BaseService {
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getComePareDataSetList(baseUrl: string, pageIndex: number, pageSize: number): Observable<any> {
-    let targetUrl = `${baseUrl}?page=${pageIndex}&per_page=${pageSize}`;
-    return this.postHttpClient(targetUrl);
+  getComePareDataSetList(baseUrl: string, jsonObject: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, jsonObject);
+    // let targetUrl = `${baseUrl}?page=${pageIndex}&per_page=${pageSize}`;
+    // return this.postHttpClient(targetUrl);
   }
   saveComePareDataSetList(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
