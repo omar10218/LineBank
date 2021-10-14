@@ -24,8 +24,6 @@ export class F01002page1Component implements OnInit, AfterViewInit {
 
   total = 1;
   @ViewChild('absBox')absBox:ElementRef // 抓取table id
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;                             // 分頁
   currentSort: Sort;                                  // 排序
   empNo: string = localStorage.getItem("empNo");      // 當前員編
