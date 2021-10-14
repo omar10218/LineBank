@@ -9,7 +9,7 @@ import { MappingCode } from '../mappingcode.model';
 import { F03012Service } from './f03012.service';
 import { F03012addComponent } from './f03012add/f03012add.component';
 import { F03012editComponent } from './f03012edit/f03012edit.component';
-import { NzTableQueryParams } from 'ng-zorro-antd/table';
+
 interface checkBox {
   id: number;
   setValueHight: number;
@@ -34,17 +34,18 @@ export class F03012Component implements OnInit {
   chkArray: checkBox[] = [];
   selectedValue: string = 'default';
   selectedValue1:string;
+  total:number;
+  pageIndex:number=1;
+  pageSize:number=10;
   sysCode: OptionsCode[] = [];
   // selectedColumn: OptionsCode[] = [];
   compareTableCode: OptionsCode[] = [];
   compareColumnCode: OptionsCode[] = [];
   compareType: OptionsCode[] = [];
+  currentPage: PageEvent;
   currentSort: Sort;
   allComplete: boolean = false;
-  pageSize = 3;
-  pageIndex = 1;
-  total = 1;
-  loading = true;
+
   // 20211005 新增
   checked = []; //存取被選到的物件
   compareItems = []; //物件陣列
@@ -80,32 +81,46 @@ export class F03012Component implements OnInit {
       // }
     });
 
+    this.currentPage = {
+      pageIndex: 0,
+      pageSize: 3,
+      length: null
+    };
 
+    this.currentSort = {
+      active: '',
+      direction: ''
+    };
   }
   mappingCodeSource = new MatTableDataSource<any>();
   ngAfterViewInit(): void {
-    this.getComePareDataSetList(this.pageIndex, this.pageSize);
-
+    this.getComePareDataSetList();
+    this.paginator.page.subscribe((page: PageEvent) => {
+      this.currentPage = page;
+      this.getComePareDataSetList();
+    });
   }
 
-
+  totalCount: any;
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  // compareDataSetSource = new MatTableDataSource<any>();
   compareDataSetSource = new MatTableDataSource<any>();
 
   compareTableOption: MappingCode[];
   compareColumnOption: MappingCode[];
 
-  getComePareDataSetList(pageIndex: number, pageSize: number) {
+  getComePareDataSetList() {
     const baseUrl = 'f03/f03012scn1';
-    console.log(pageSize)
-    this.f03012Service.getComePareDataSetList(baseUrl, pageIndex, pageSize)
+    this.f03012Service.getComePareDataSetList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize)
     .subscribe(data => {
       console.log(data);
-      this.total = data.rspBody.size;
-      this.compareDataSetSource.data= data.rspBody.items;
+      this.totalCount = data.rspBody.size;
+      this.compareDataSetSource.data = data.rspBody.items;
       this.compareTableOption = data.rspBody.compareTable;
       this.compareColumnOption = data.rspBody.comparColumn;
 
-      this.useFlag = true;
+      this.useFlag = false;
     });
   }
 
@@ -142,7 +157,7 @@ export class F03012Component implements OnInit {
       width: '50%',
       });
       dialogRef.afterClosed().subscribe(result => {
-        if (result != null && result.event == 'success')
+        if (result != null && result.event == 'success') { this.refreshTable(); }
         window.location.reload();
       });
   }
@@ -166,13 +181,13 @@ export class F03012Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success')
+      if (result != null && result.event == 'success') { this.refreshTable(); }
       window.location.reload();
     });
   }
-  // private refreshTable() {
-  //   this.paginator._changePageSize(this.paginator.pageSize);
-  // }
+  private refreshTable() {
+    this.paginator._changePageSize(this.paginator.pageSize);
+  }
 
   getOptionCompareTable(codeVal: string): string {
     for (const data of this.compareTableOption) {
@@ -222,10 +237,10 @@ export class F03012Component implements OnInit {
       console.log(data)
       // const items = data.rspBody.items.filter(item => item.compareType !== null && item.setValueHight !== null && item.setValueLow !== null)
       const items = data.rspBody.items
-      this.total = items.length;
+      this.totalCount = items.length;
       this.compareDataSetSource.data = items;
 
-      this.useFlag = false;
+      this.useFlag = true;
     });
     // setTimeout(() => {
     //   const DialogRef = this.dialog.open(F03012confirmComponent, { data: { msgStr: msg } });
@@ -280,16 +295,21 @@ export class F03012Component implements OnInit {
   // checkBox狀態變化時觸發此function，改變checkBox狀態同時存取該項目入checked陣列
   changeChkStatus(id) {
     console.log(id)
-    this.compareDataSetSource.data.forEach(
-      (chk) => {
-        if(chk.id === id) {
-          console.log(chk.id)
-          chk.isChk = !chk.isChk;
-          // this.getCompareDataSet();
-          console.log(chk.isChk)
+    // if(this.useFlag == false) {
+    //   return false
+    // }
+
+      this.compareDataSetSource.data.forEach(
+        (chk) => {
+          if(chk.id === id) {
+            console.log(chk.id)
+            chk.isChk = !chk.isChk;
+            // this.getCompareDataSet();
+            console.log(chk.isChk)
+          }
         }
-      }
-    );
+      );
+
   }
 
   // 送出選中項
@@ -317,7 +337,8 @@ export class F03012Component implements OnInit {
       jsonObject['setValueHight'] = obj.setValueHight;
       jsonObject['setValueLow'] = obj.setValueLow;
 
-      if(obj.compareType == null || obj.setValueHight == null || obj.setValueLow == null) {
+      if(obj.compareType == null || obj.setValueHight == null || obj.setValueLow == null ||
+        obj.compareType == '' || obj.setValueHight == '' || obj.setValueLow == '') {
         alert("有欄位為空值，儲存失敗")
         return false
       }
@@ -332,12 +353,10 @@ export class F03012Component implements OnInit {
        window.location.reload();
     });
   }
-  onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
+  onQueryParamsChange(){
 
-    this.getComePareDataSetList(pageSize,pageIndex);
   }
 
 
-
 }
+
