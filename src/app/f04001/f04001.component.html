@@ -1,20 +1,26 @@
 <div class="line_bank_bankground_color">
+  <br>
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">流程解除鎖定作業</div>
-    <br>
-    <div style="padding:10px;">
-      <span class="form-title">案件關卡</span>
-    <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()"
-      style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
-      <mat-option *ngFor="let code of sysCode" [value]="code.value">
-        {{code.viewValue}}
-      </mat-option>
-    </mat-select>
+    <div nz-row>
+      <div nz-col nzSpan="6">
+        <div style="padding:10px"><span class="form-title">案件關卡</span>
+          <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of sysCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
   </div>
-    <br><br>
+
+  <br>
+  <div class="line_bank_card_no_padding">
     <nz-table nzShowSizeChanger [nzData]="applnoSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
-    [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-    (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="流程解除鎖定案件"#middleTable>
+      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"
+      nzSize="small" nzTitle="流程解除鎖定案件" #middleTable>
       <thead>
         <tr>
           <th class="table-header">
@@ -39,4 +45,3 @@
     <br>
   </div>
 </div>
-<br>

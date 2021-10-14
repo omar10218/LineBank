@@ -10,7 +10,7 @@
         <th class="table-header">帳戶類別</th>
         <th class="table-header">帳戶狀態</th>
         <th class="table-header">開立帳戶日期</th>
-        <th class="table-header">終止日期</th>
+        <!-- <th class="table-header">終止日期</th> -->
         <th class="table-header">迄今往來天數</th>
       </tr>
     </thead>
@@ -19,7 +19,7 @@
         <td class="table-data">{{ data.ACC_TYPE}}</td>
         <td class="table-data">{{ data.ACC_STATUS }}</td>
         <td class="table-data">{{ data.ACC_OPEN_DATE | date: 'yyyy-MM-dd hh：mm：ss'}}</td>
-        <td class="table-data">{{ data.ACC_EXP_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
+        <!-- <td class="table-data">{{ data.ACC_EXP_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td> -->
         <td class="table-data">{{ data.ACTIVATE_DAY}}</td>
       </tr>
     </tbody>
@@ -34,9 +34,9 @@
         <th class="table-header">交易日期時間</th>
         <th class="table-header">帳戶名稱</th>
         <th class="table-header">帳戶</th>
-        <th class="table-header">帳戶狀態</th>
+        <!-- <th class="table-header">帳戶狀態</th> -->
         <th class="table-header">交易類型</th>
-        <th class="table-header">MCC</th>
+        <!-- <th class="table-header">MCC</th> -->
         <th class="table-header">交易名稱/銀行</th>
         <th class="table-header">帳戶號碼</th>
         <th class="table-header">提出</th>
@@ -51,9 +51,9 @@
         <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd hh：mm：ss'}}</td>
         <td class="table-data">{{ data.ACC_NAME }}</td>
         <td class="table-data">{{ data.ACC_NO }}</td>
-        <td class="table-data">{{ data.ACC_STATUS}}</td>
+        <!-- <td class="table-data">{{ data.ACC_STATUS}}</td> -->
         <td class="table-data">{{ data.TRANS_TYPE }}</td>
-        <td class="table-data">{{ data.MCC }}</td>
+        <!-- <td class="table-data">{{ data.MCC }}</td> -->
         <td class="table-data">{{ data.TRANS_BANK }}</td>
         <td class="table-data">{{ data.TRANS_ACC_NO }}</td>
         <td class="table-data">{{ data.WITHDRAWAL }}</td>
@@ -119,9 +119,9 @@
         <th class="table-header">上月底餘額</th>
         <th class="table-header">近三個月月底餘額平均</th>
         <th class="table-header">近六個月月底餘額平均</th>
-        <th class="table-header">目前餘額較上月底變動幅度</th>
+        <!-- <th class="table-header">目前餘額較上月底變動幅度</th>
         <th class="table-header">目前餘額較前第三個月底變動幅度</th>
-        <th class="table-header">目前餘額較前第六個月底變動幅度</th>
+        <th class="table-header">目前餘額較前第六個月底變動幅度</th> -->
       </tr>
     </thead>
     <tbody>
@@ -133,9 +133,9 @@
         <td class="table-data">{{ data.LAST_MON_BAL}}</td>
         <td class="table-data">{{ data.AVE_BAL_MON_3 }}</td>
         <td class="table-data">{{ data.AVE_BAL_MON_6 }}</td>
-        <td class="table-data">{{ data.AMT_VARI_LAST_MONTH }}</td>
+        <!-- <td class="table-data">{{ data.AMT_VARI_LAST_MONTH }}</td>
         <td class="table-data">{{ data.AMT_VARI_3RD_MONTH }}</td>
-        <td class="table-data">{{ data.AMT_VARI_6TH_MONTH }}</td>
+        <td class="table-data">{{ data.AMT_VARI_6TH_MONTH }}</td> -->
       </tr>
     </tbody>
   </nz-table>

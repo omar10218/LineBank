@@ -9,24 +9,43 @@ import { BaseService } from '../base.service';
 export class F01002Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
   // pageIndex: number, pageSize: number, empno: string, swcID: string, swcApplno: string
-  getCaseList(jsonObject:JSON): Observable<any> {
+  getCaseList(jsonObject: JSON): Observable<any> {
     const baseUrl = 'f01/f01002';
 
     return this.postJsonObject(baseUrl, jsonObject);
   }
-  getEmpNo(jsonObject:JSON): Observable<any> {
+  getEmpNo(jsonObject: JSON): Observable<any> {
     const baseUrl = 'f01/f01002fn2';
 
     return this.postJsonObject(baseUrl, jsonObject);
   }
-  getLockCase(jsonObject:JSON){
+  getLockCase(jsonObject: JSON) {
     const baseUrl = 'f01/f01002fn1';
 
     return this.postJsonObject(baseUrl, jsonObject);
   }
 
-  saveCaseMemo(jsonObject:JSON){
+  saveCaseMemo(jsonObject: JSON) {
     const baseUrl = 'f01/f01002fn3';
     return this.postJsonObject(baseUrl, jsonObject);
   }
+
+  getCalloutList(jsonObject: JSON): Observable<any> {
+    const baseUrl = 'f01/f01002fn4';
+
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
+
+  updateCalloutTime(jsonObject: JSON): Observable<any> {
+    const baseUrl = 'f01/f01002fn5';
+
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
+
+  updateCalloutYN(jsonObject: JSON): Observable<any> {
+    const baseUrl = 'f01/f01002fn6';
+
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
+
 }
