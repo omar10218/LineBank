@@ -14,7 +14,11 @@ export class Childscn13Service extends BaseService {
     return this.postJsonObject(baseUrl, json);
   }
 
-  public async childscn13Action(baseUrl: string, formdata: FormData): Promise<Observable<any>> {
-    return await this.postFormData(baseUrl, formdata).toPromise();
+  public async childscn13Action(baseUrl: string, formData: FormData): Promise<Observable<any>> {
+    return await this.postFormData(baseUrl, formData).toPromise();
+  }
+
+  public async childscn13Del(baseUrl: string, json: JSON): Promise<Observable<any>> {
+    return await this.postJsonObject(baseUrl, json).toPromise();
   }
 }

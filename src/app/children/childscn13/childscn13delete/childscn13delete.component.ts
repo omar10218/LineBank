@@ -22,12 +22,12 @@ export class Childscn13deleteComponent implements OnInit {
   }
 
   async deleteFile() {
-    const formdata = new FormData();
-    formdata.append('rowid', this.rowId);
     const baseUrl = 'f01/childscn13action3';
+    let jsonObject: any = {};
+    jsonObject['rowid'] = this.rowId;
     let msgStr: string = "";
     let codeStr: string = "";
-    await this.childscn13Service.childscn13Action(baseUrl, formdata).then((data: any) => {
+    await this.childscn13Service.childscn13Del(baseUrl, jsonObject).then((data: any) => {
       codeStr = data.rspCode;
       msgStr = data.rspMsg;
     });

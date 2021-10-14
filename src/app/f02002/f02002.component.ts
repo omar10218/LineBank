@@ -8,6 +8,7 @@ import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { DatePipe } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-f02002',
@@ -137,7 +138,7 @@ export class F02002Component implements OnInit {
       sessionStorage.setItem( 'fds', data.rspBody[0].fds );
       sessionStorage.setItem( 'queryDate', '' );
       //開啟徵審主畫面
-      window.open("http://localhost:4200/#/F01002/F01002SCN1");
+      window.open( environment.allowOrigin + "/#/F01002/F01002SCN1" );
       // this.router.navigate(['./F01002/F01002SCN1']);
       // const childernDialogRef = this.dialog.open(F01002scn1Component, {
       //   minHeight: '30%',

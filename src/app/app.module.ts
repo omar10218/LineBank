@@ -93,6 +93,8 @@ import { F01008Component } from './f01008/f01008.component';
 import { NZ_I18N, zh_TW } from 'ng-zorro-antd/i18n';
 import { F01008addComponent } from './f01008/f01008add/f01008add.component';
 import { F01008deleteComponent } from './f01008/f01008delete/f01008delete.component';
+import { F03006amtComponent } from './f03006/f03006amt/f03006amt.component';
+import { F03006prjComponent } from './f03006/f03006prj/f03006prj.component';
 registerLocaleData(zh);
 export const TW_FORMATS = {
   parse: {
@@ -181,7 +183,9 @@ export const TW_FORMATS = {
     F01007Component,
     F01008Component,
     F01008addComponent,
-    F01008deleteComponent
+    F01008deleteComponent,
+    F03006amtComponent,
+    F03006prjComponent
   ],
   imports: [
     NzIconModule,

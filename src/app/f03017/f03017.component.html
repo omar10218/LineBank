@@ -78,23 +78,25 @@
         <th class="table-header">異動日期時間</th>
         <th class="table-header">異動說明</th>
         <th class="table-header">異動人員</th>
+        <th class="table-header" >ROWID</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of bkIncomeDataSource">
         <td class="table-data"><button mat-raised-button color="primary" (click)="update(true,data)">編輯</button></td>
         <td class="table-data">{{ data.reportUnit }}</td>
-        <td class="table-data">{{ data.bkColumn }}</td>
+        <td class="table-data">{{  chageColumntext(data.bkColumn) }}</td>
         <td class="table-data">{{ data.bkContent }}</td>
         <td class="table-data">{{ data.reportReason1 }}</td>
         <td class="table-data">{{ data.reportReason2 }}</td>
         <td class="table-data">{{ data.reportReason3 }}</td>
         <td class="table-data">{{ data.reportContent }}</td>
         <td class="table-data">{{ data.useFlag }}</td>
-        <td class="table-data">{{ data.createDatetime }}</td>
+        <td class="table-data">{{ data.createDatetime| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
         <td class="table-data">異動日期時間</td>
         <td class="table-data">異動說明</td>
         <td class="table-data">{{ data.bkEmpno }}</td>
+        <td class="table-data" >{{ data.ROWID }}</td>
       </tr>
     </tbody>
     </nz-table>
