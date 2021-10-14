@@ -84,6 +84,7 @@ export class Childscn13addComponent implements OnInit {
         formdata.append('messageContent', this.webInfoContent);
         formdata.append('empno', '9901890');
         formdata.append('file', this.files);
+        formdata.append('userId',localStorage.getItem("empNo") );
         const baseUrl = 'f01/childscn13action1';
         let msgStr: string = "";
         let codeStr: string = "";
