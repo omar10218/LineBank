@@ -12,4 +12,8 @@ export class Childscn1Service extends BaseService {
   getImfornation(baseUrl: string, json: JSON){
     return this.postJsonObject(baseUrl, json);
   }
+
+  saveCreditmemo(baseUrl: string, json: JSON): any {
+    return this.saveOrEditMsgJson(baseUrl, json);
+  }
 }
