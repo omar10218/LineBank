@@ -14,6 +14,7 @@ import zh from '@angular/common/locales/zh';
 import { F01002page1Component } from './f01002page1/f01002page1.component';
 import { F01002page2Component } from './f01002page2/f01002page2.component';
 import { CommonLibModule } from '../common-lib/common-lib.module';
+import { F01002page2updateComponent } from './f01002page2/f01002page2update/f01002page2update.component';
 registerLocaleData(zh);
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ registerLocaleData(zh);
     F01002scn1Component,
     F01002page1Component,
     F01002page2Component,
+    F01002page2updateComponent,
   ],
   imports: [
     NzButtonModule,
