@@ -1,4 +1,7 @@
+import { MappingCode } from './../../mappingcode.model';
 import { Component, OnInit } from '@angular/core';
+import { OptionsCode } from 'src/app/interface/base';
+import { Childscn1Service } from './childscn1.service';
 
 @Component({
   selector: 'app-childscn1',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Childscn1Component implements OnInit {
 
-  constructor() { }
+  constructor(
+    private childscn1Service: Childscn1Service,
+  ) { }
 
   mark: string;
 
@@ -50,10 +55,88 @@ export class Childscn1Component implements OnInit {
   ocupatnCustStgp1AndDescOne: string;           //策略客群1代碼/中文
   OCUPATN_CUST_STGP1
 
+  //審核結果
+  creditResult: string;
+  creditResultCode: OptionsCode[] = [];//核決結果下拉選單
+  resultProdCode: string;
+  resultPrjCode: string;
+  resultApproveLimit: number;
+  resultMinPayrate: number;
+  resultRealRate: number;
+
   ngOnInit(): void {
+    this.applno = sessionStorage.getItem('applno');
+    this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//時下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.creditResultCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    const baseUrl = 'f01/childscn1'
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
+
+      //CreditAuditinfo
+      if (data.rspBody.CreditAuditinfoList.length > 0 ) {
+        this.cuCName = data.rspBody.CreditAuditinfoList[0].CU_CNAME;
+        this.custId = data.rspBody.CreditAuditinfoList[0].CUST_ID;
+        this.nationalId = data.rspBody.CreditAuditinfoList[0].NATIONAL_ID;
+        this.prodCode = data.rspBody.CreditAuditinfoList[0].PROD_CODE;
+        this.applicationAmount = data.rspBody.CreditAuditinfoList[0].APPLICATION_AMOUNT;
+        this.purposeCode = data.rspBody.CreditAuditinfoList[0].PURPOSE_CODE;
+      }
+
+      //AML
+      if ( data.rspBody.amlList.length > 0 ) {
+        this.aml = data.rspBody.amlList[0].AML;
+        this.amlDesc = data.rspBody.amlList[0].CODE_DESC;
+        this.amlDate = data.rspBody.amlList[0].AML_DATE;
+      }
+
+      //FDS
+      if ( data.rspBody.fdsList.length > 0 ) {
+        this.fds = data.rspBody.fdsList[0].FDS;
+        this.fdsDesc = data.rspBody.fdsList[0].CODE_DESC;
+        this.fdsDate = data.rspBody.fdsList[0].FDS_DATE;
+      }
+
+      //CSS
+      if ( data.rspBody.cssList.length > 0 ) {
+        this.cssScore = data.rspBody.cssList[0].cssScore;
+        this.cssGrade = data.rspBody.cssList[0].cssGrade;
+        this.cssDate = data.rspBody.cssList[0].cssDate;
+      }
+
+      //RPM
+      if ( data.rspBody.rpmList.length > 0 ) {
+        this.isRpm = data.rspBody.rpmList[0].isRpm;
+        this.rpmTypeDescribe = data.rspBody.rpmList[0].rpmTypeDescribe;
+        this.rpmDate = this.formatDate( data.rspBody.rpmList[0].rpmDate );
+      }
+
+      //result
+      if ( data.rspBody.resultMap != null ) {
+        this.resultProdCode = data.rspBody.resultMap.PROD_CODE;
+        this.resultPrjCode = data.rspBody.resultMap.PRJ_CODE;
+        if ( data.rspBody.resultMap.CREDIT_RESULT != ' ' ) {
+          this.creditResult = data.rspBody.resultMap.CREDIT_RESULT;
+        }
+        this.resultApproveLimit = data.rspBody.resultMap.APPROVE_LIMIT;
+        this.resultMinPayrate = data.rspBody.resultMap.MIN_PAYRATE;
+        this.resultRealRate = data.rspBody.resultMap.REAL_RATE;
+      }
+    })
   }
 
   save() {
 
+  }
+
+  formatDate(date: string) {
+    return date.split("T")[0]+" "+date.split("T")[1].split(".")[0];
   }
 }
