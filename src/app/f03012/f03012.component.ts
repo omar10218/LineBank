@@ -9,7 +9,7 @@ import { MappingCode } from '../mappingcode.model';
 import { F03012Service } from './f03012.service';
 import { F03012addComponent } from './f03012add/f03012add.component';
 import { F03012editComponent } from './f03012edit/f03012edit.component';
-
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 interface checkBox {
   id: number;
   setValueHight: number;
@@ -34,9 +34,9 @@ export class F03012Component implements OnInit {
   chkArray: checkBox[] = [];
   selectedValue: string = 'default';
   selectedValue1:string;
-  total:number;
-  pageIndex:number=1;
-  pageSize:number=10;
+  total = 1;
+  pageSize = 10;
+  pageIndex = 1;
   sysCode: OptionsCode[] = [];
   // selectedColumn: OptionsCode[] = [];
   compareTableCode: OptionsCode[] = [];
@@ -82,7 +82,7 @@ export class F03012Component implements OnInit {
     });
 
     this.currentPage = {
-      pageIndex: 0,
+      pageIndex: 1,
       pageSize: 3,
       length: null
     };
@@ -92,12 +92,18 @@ export class F03012Component implements OnInit {
       direction: ''
     };
   }
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params)
+    const { pageSize, pageIndex } = params;
+    this.getComePareDataSetList(pageIndex, pageSize);
+  }
+
   mappingCodeSource = new MatTableDataSource<any>();
   ngAfterViewInit(): void {
-    this.getComePareDataSetList();
+    this.getComePareDataSetList(this.pageIndex, this.pageSize);
     this.paginator.page.subscribe((page: PageEvent) => {
       this.currentPage = page;
-      this.getComePareDataSetList();
+      this.getComePareDataSetList(this.pageIndex, this.pageSize);
     });
   }
 
@@ -110,9 +116,12 @@ export class F03012Component implements OnInit {
   compareTableOption: MappingCode[];
   compareColumnOption: MappingCode[];
 
-  getComePareDataSetList() {
+  getComePareDataSetList(pageIndex: number, pageSize: number) {
     const baseUrl = 'f03/f03012scn1';
-    this.f03012Service.getComePareDataSetList(baseUrl, this.currentPage.pageIndex, this.currentPage.pageSize)
+    let jsonObject: any = {};
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    this.f03012Service.getComePareDataSetList(baseUrl, jsonObject)
     .subscribe(data => {
       console.log(data);
       this.totalCount = data.rspBody.size;
@@ -353,9 +362,7 @@ export class F03012Component implements OnInit {
        window.location.reload();
     });
   }
-  onQueryParamsChange(){
 
-  }
 
 
 }
