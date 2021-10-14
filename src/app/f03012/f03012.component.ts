@@ -81,11 +81,11 @@ export class F03012Component implements OnInit {
       // }
     });
 
-    this.currentPage = {
-      pageIndex: 1,
-      pageSize: 3,
-      length: null
-    };
+    // this.currentPage = {
+    //   pageIndex: 1,
+    //   pageSize: 3,
+    //   length: null
+    // };
 
     this.currentSort = {
       active: '',
@@ -327,10 +327,8 @@ export class F03012Component implements OnInit {
     let jsonObjects: any = [];
     const url = 'f03/f03012action1'
     let msg = ''
-
     this.checked = this.compareDataSetSource.data.filter(
       (i) => i.isChk == true);
-
       //如果未選中任何項目
     if(this.checked.length == 0) {
       alert("未選中任何項目!!")
@@ -356,11 +354,17 @@ export class F03012Component implements OnInit {
       // obj = {};
     }
     console.log(jsonObjects)
-
     this.f03012Service.submit(url , jsonObjects).subscribe(data => {
       alert(msg = data.rspMsg)
+      this.changePage();
        window.location.reload();
     });
+
+  }
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
   }
 
 
