@@ -2,6 +2,10 @@ import { MappingCode } from './../../mappingcode.model';
 import { Component, OnInit } from '@angular/core';
 import { OptionsCode } from 'src/app/interface/base';
 import { Childscn1Service } from './childscn1.service';
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 
 @Component({
   selector: 'app-childscn1',
@@ -12,6 +16,7 @@ export class Childscn1Component implements OnInit {
 
   constructor(
     private childscn1Service: Childscn1Service,
+    public dialog: MatDialog,
   ) { }
 
   mark: string;
@@ -52,8 +57,20 @@ export class Childscn1Component implements OnInit {
   resltcdOne: string;                           //決策結果
   calvOne: string;                              //案件等級
   ocupatnCustGpAndDescOne: string;              //行職業代碼分群代碼/中文
-  ocupatnCustStgp1AndDescOne: string;           //策略客群1代碼/中文
-  OCUPATN_CUST_STGP1
+  ocupatnCustStgp1One: string;                  //策略客群1代碼/中文
+  ocupatnCustStgp2One: string;                  //策略客群2代碼/中文
+  goodbehavOne: string;                         //往來優質特徵註記代碼/中文
+  specilcaseOne: string;                        //特殊案件貼標/中文
+
+  //DSS2st
+  sysflowcdTwo: string;                         //系統流程
+  resltcdTwo: string;                           //決策結果
+  calvTwo: string;                              //案件等級
+  ocupatnCustGpAndDescTwo: string;              //行職業代碼分群代碼/中文
+  ocupatnCustStgp1Two: string;                  //策略客群1代碼/中文
+  ocupatnCustStgp2Two: string;                  //策略客群2代碼/中文
+  goodbehavTwo: string;                         //往來優質特徵註記代碼/中文
+  specilcaseTwo: string;                        //特殊案件貼標/中文
 
   //審核結果
   creditResult: string;
@@ -63,6 +80,12 @@ export class Childscn1Component implements OnInit {
   resultApproveLimit: number;
   resultMinPayrate: number;
   resultRealRate: number;
+
+  //Creditmemo
+  creditmemoSource: Data[] = [];
+  total = 1;
+  pageSize = 10;
+  pageIndex = 1;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -81,13 +104,13 @@ export class Childscn1Component implements OnInit {
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
 
       //CreditAuditinfo
-      if (data.rspBody.CreditAuditinfoList.length > 0 ) {
-        this.cuCName = data.rspBody.CreditAuditinfoList[0].CU_CNAME;
-        this.custId = data.rspBody.CreditAuditinfoList[0].CUST_ID;
-        this.nationalId = data.rspBody.CreditAuditinfoList[0].NATIONAL_ID;
-        this.prodCode = data.rspBody.CreditAuditinfoList[0].PROD_CODE;
-        this.applicationAmount = data.rspBody.CreditAuditinfoList[0].APPLICATION_AMOUNT;
-        this.purposeCode = data.rspBody.CreditAuditinfoList[0].PURPOSE_CODE;
+      if ( data.rspBody.CreditAuditinfoList.length > 0 ) {
+        this.cuCName = data.rspBody.CreditAuditinfoList[0].cuCname;
+        this.custId = data.rspBody.CreditAuditinfoList[0].custId;
+        this.nationalId = data.rspBody.CreditAuditinfoList[0].nationalId;
+        this.prodCode = data.rspBody.CreditAuditinfoList[0].prodCode;
+        this.applicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount;
+        this.purposeCode = data.rspBody.CreditAuditinfoList[0].purposeCode;
       }
 
       //AML
@@ -118,22 +141,81 @@ export class Childscn1Component implements OnInit {
         this.rpmDate = this.formatDate( data.rspBody.rpmList[0].rpmDate );
       }
 
-      //result
-      if ( data.rspBody.resultMap != null ) {
-        this.resultProdCode = data.rspBody.resultMap.PROD_CODE;
-        this.resultPrjCode = data.rspBody.resultMap.PRJ_CODE;
-        if ( data.rspBody.resultMap.CREDIT_RESULT != ' ' ) {
-          this.creditResult = data.rspBody.resultMap.CREDIT_RESULT;
-        }
-        this.resultApproveLimit = data.rspBody.resultMap.APPROVE_LIMIT;
-        this.resultMinPayrate = data.rspBody.resultMap.MIN_PAYRATE;
-        this.resultRealRate = data.rspBody.resultMap.REAL_RATE;
+      //DSS1
+      if ( data.rspBody.dss1List.length > 0 ) {
+        this.sysflowcdOne = data.rspBody.dss1List[0].sysflowcd;
+        this.resltcdOne = data.rspBody.dss1List[0].resltcd;
+        this.calvOne = data.rspBody.dss1List[0].calv;
+        this.ocupatnCustGpAndDescOne = data.rspBody.dss1List[0].ocupatnCustGp + data.rspBody.dss1List[0].ocupatnCustGpDesc;
+        this.ocupatnCustStgp1One = data.rspBody.dss1List[0].ocupatnCustStgp1 + data.rspBody.dss1List[0].ocupatnCustStgp1Desc;
+        this.ocupatnCustStgp2One = data.rspBody.dss1List[0].ocupatnCustStgp2;
+        this.goodbehavOne = data.rspBody.dss1List[0].goodbehav + data.rspBody.dss1List[0].goodbehavDesc;
+        this.specilcaseOne = data.rspBody.dss1List[0].specilcase + data.rspBody.dss1List[0].specilcaseDesc;
       }
+
+      //DSS2
+      if ( data.rspBody.dss2List.length > 0 ) {
+        this.sysflowcdTwo = data.rspBody.dss2List[0].sysflowcd;
+        this.resltcdTwo = data.rspBody.dss2List[0].resltcd;
+        this.calvTwo = data.rspBody.dss2List[0].calv;
+        this.ocupatnCustGpAndDescTwo = data.rspBody.dss2List[0].ocupatnCustGp + data.rspBody.dss2List[0].ocupatnCustGpDesc;
+        this.ocupatnCustStgp1Two = data.rspBody.dss2List[0].ocupatnCustStgp1 + data.rspBody.dss2List[0].ocupatnCustStgp1Desc;
+        this.ocupatnCustStgp2Two = data.rspBody.dss2List[0].ocupatnCustStgp2;
+        this.goodbehavTwo = data.rspBody.dss2List[0].goodbehav + data.rspBody.dss2List[0].goodbehavDesc;
+        this.specilcaseTwo = data.rspBody.dss2List[0].specilcase + data.rspBody.dss2List[0].specilcaseDesc;
+      }
+
+      //result
+      if ( data.rspBody.resultList.length > 0 ) {
+        this.resultProdCode = data.rspBody.resultList[0].prodCode;
+        this.resultPrjCode = data.rspBody.resultList[0].prjCode;
+        this.creditResult = data.rspBody.resultList[0].creditResult;
+        this.resultApproveLimit = data.rspBody.resultList[0].approveLimit;
+        this.resultMinPayrate = data.rspBody.resultList[0].minPayrate;
+        this.resultRealRate = data.rspBody.resultList[0].realRate;
+      }
+    })
+
+    this.getCreditmemo( this.pageIndex, this.pageSize );
+  }
+
+  getCreditmemo( pageIndex: number, pageSize: number ) {
+    const baseUrl = 'f01/childscn1scn1';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
+      this.total = data.rspBody.size;
+      this.creditmemoSource = data.rspBody.items;
     })
   }
 
-  save() {
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getCreditmemo(pageIndex, pageSize);
+  }
 
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
+  }
+
+  //儲存
+  public async save(): Promise<void>{
+    let msgStr: string = "";
+    const baseUrl = 'f01/childscn1action1';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['creditaction'] = this.mark;
+    jsonObject['creditlevel'] = 'L3';
+    msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
+      data: { msgStr: msgStr }
+    });
+    this.changePage();
+    this.getCreditmemo( this.pageIndex, this.pageSize );
   }
 
   formatDate(date: string) {
