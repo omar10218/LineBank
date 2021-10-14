@@ -1,3 +1,15 @@
+<div nz-row>
+  <div nz-col nzSpan="6">
+    <div style="padding:10px"><span class="form-title">查詢日期</span>
+      <mat-select style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6"
+        [(ngModel)]="dateValue" name="ynCode" (ngModelChange)="changeDate()">
+        <mat-option *ngFor="let date of dateCode" [value]="date.value">
+          {{date.viewValue}}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+</div>
 <form [formGroup]="dss2Form" style="padding-left: 20px;">
   <table>
     <div class="line_bank_card_no_padding_child">
