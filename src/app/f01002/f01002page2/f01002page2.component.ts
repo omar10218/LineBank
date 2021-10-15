@@ -53,7 +53,7 @@ export class F01002page2Component implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    // this.getCaseList(this.empNo, this.swcID, this.swcApplno, pageIndex, pageSize);
+    this.getCalloutList();
   }
 
   // 照會提醒清單
@@ -65,7 +65,7 @@ export class F01002page2Component implements OnInit {
       console.log(data)
       this.total = data.rspBody.size;
       this.rspBodyList = data.rspBody.items;
-      this.callOutDataSource.data = this.rspBodyList
+      this.callOutDataSource.data = this.rspBodyList;
     });
   }
 
