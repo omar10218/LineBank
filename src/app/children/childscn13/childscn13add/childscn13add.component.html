@@ -57,6 +57,8 @@
             <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="uploadFile()" [disabled]="!formControl.valid">
               <mat-icon matSuffix>backup</mat-icon>
             </button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+            style="margin:0px 5px">關閉</button>
           </div>
           <div *ngIf="msg">
             <h4 [innerHtml]='msg' style="color: red; margin-left: 5px;"></h4>
@@ -67,5 +69,6 @@
     <ng-container *ngIf="imageSrc" class="inboxContainer">
       <img [src]="imageSrc" alt='Item image' *ngIf="imageSrc">
     </ng-container>
+
   </div>
 </div>
