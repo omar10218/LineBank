@@ -54,8 +54,11 @@ export class F03016Component implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params)
-    const { pageSize, pageIndex } = params;
-    this.getImpertmentParameterInfo(pageIndex, pageSize);
+    // const { pageSize, pageIndex } = params;
+    let pageSize = params.pageSize;
+    const pageIndex = params.pageIndex;
+    pageSize = 1;
+    this.getImpertmentParameterInfo(params.pageIndex, params.pageSize);
   }
   //取得資料
   getImpertmentParameterInfo(pageIndex: number, pageSize: number) {

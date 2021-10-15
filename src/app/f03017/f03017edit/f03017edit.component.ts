@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core'
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
 import {PageEvent} from '@angular/material/paginator'
@@ -41,6 +41,11 @@ export class F03017editComponent implements OnInit {
 	currentPage: PageEvent
 	currentSort: Sort
 	dialogRef: any
+  @ViewChild('CU_CNAME') CU_CNAME: ElementRef;
+  @ViewChild('NATIONAL_ID') NATIONAL_ID: ElementRef;
+  @ViewChild('CU_H_TEL') CU_H_TEL: ElementRef;
+  @ViewChild('CU_CP_TEL') CU_CP_TEL: ElementRef;
+  @ViewChild('CU_M_TEL') CU_M_TEL: ElementRef;
 
 	constructor(public f03017Service: F03017Service, private route: ActivatedRoute, public dialog: MatDialog, public childService: ChildrenService, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
@@ -105,7 +110,31 @@ export class F03017editComponent implements OnInit {
 			})
 	}
 
+  test(id: string, value): void {
+    var checked: boolean;
+    if (id=="CU_CNAME"){
+      checked = this.CU_CNAME.nativeElement.checked
+    } else if (id=="NATIONAL_ID"){
+      checked = this.NATIONAL_ID.nativeElement.checked
+    }else if(id=="CU_H_TEL"){
+      checked = this.CU_H_TEL.nativeElement.checked
+    }else if(id=="CU_CP_TEL"){
+      checked = this.CU_CP_TEL.nativeElement.checked
+    }else if(id="CU_M_TEL"){
+      checked = this.CU_M_TEL.nativeElement.checked
+    }
+    var data = id;
+    console.log(checked,data,value)
+    this.checkboxSelect(checked,data, value);
+
+  }
+
+  testArray=[];
 	checkboxSelect(check: boolean, data: any, value: any) {
+
+    this.testArray[data]=value;
+    console.log(this.testArray);
+
 		console.log(check)
 		console.log(data)
 		console.log(value)
@@ -130,8 +159,10 @@ export class F03017editComponent implements OnInit {
 	public async insertData(): Promise<void> {
 		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
 			this.dialog.open(ConfirmComponent, {data: {msgStr: '請選擇通報原因1'}})
-		} else {
+		}
+    else {
 			this.chkArray.forEach(element => {
+        console.log(element)
 				if (element.value === 'CU_CNAME') {
 					this.contentArray.push(this.blockListForm.value.CU_CNAME)
 				}
@@ -154,8 +185,18 @@ export class F03017editComponent implements OnInit {
 			this.jsonObject['reportReason3'] = this.blockListForm.value.REPORT_REASON3
 			this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 			this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
-			this.jsonObject['bkColumn'] = this.chkArray
-			this.jsonObject['bkContent'] = this.contentArray
+      const content = [];
+      // for(var i=0;i<this.chkArray.length;i++) {
+      //   content.push({bkColumn: this.chkArray[i], bkContent: this.contentArray[i]});
+      // }
+
+      Object.keys(this.testArray).forEach(key => {
+        content.push({bkColumn: key, bkContent: this.testArray[key]});
+      });
+
+			// this.jsonObject['bkColumn'] = this.chkArray
+			// this.jsonObject['bkContent'] = this.contentArray
+      this.jsonObject['content'] = content;
 			console.log(this.chkArray)
 			console.log(this.contentArray)
 			alert()
@@ -197,10 +238,12 @@ export class F03017editComponent implements OnInit {
 			this.jsonObject['reportReason3'] = this.blockListForm.value.REPORT_REASON3
 			this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 			this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
+      this.jsonObject['rowID'] = this.blockListForm.value.ROWID;
 			this.jsonObject['bkColumn'] = this.chkArray
 			this.jsonObject['bkContent'] = this.contentArray
 			console.log(this.chkArray)
 			console.log(this.contentArray)
+
 			alert()
 			const url = 'f03/f03017action2'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
