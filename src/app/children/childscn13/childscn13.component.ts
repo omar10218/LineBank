@@ -1,8 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent, MatPaginator } from '@angular/material/paginator';
-import { Sort, MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MappingCode } from 'src/app/mappingcode.model';
@@ -11,6 +8,20 @@ import { Childscn13addComponent } from './childscn13add/childscn13add.component'
 import { Childscn13deleteComponent } from './childscn13delete/childscn13delete.component';
 import { Childscn13editComponent } from './childscn13edit/childscn13edit.component';
 import { Childscn13showComponent } from './childscn13show/childscn13show.component';
+
+
+//網頁資訊
+interface webInfoData {
+  applno: string;
+  daytime: string;
+  empno: string;
+  messageContent: string;
+  rowId: string;
+  web: string;
+  webAddr: string;
+  webImg: string;
+  ImgSrc: string;
+}
 
 @Component({
   selector: 'app-childscn13',
@@ -27,18 +38,25 @@ export class Childscn13Component implements OnInit {
   private applno: string;
   private search: string;
   private cuid: string;
+  imageSrcB:string="outline_photo_black_48dp";
+  imageSrcW:string="outline_image_white_48dp";
+  imageSrc:string;
+  //test='assets\images\outline_photo_black_48dp.png';
 
   webInfoSource: readonly Data[] = [];
+  webInfoSource2:webInfoData[]=[];
   total = 1;
   loading = true;
   pageSize = 10;
   pageIndex = 1;
   webAddrOption: MappingCode[];
 
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.search = sessionStorage.getItem('search');
+    this.imageSrc=this.imageSrcB;
   }
 
   getApplno(): String {
@@ -60,10 +78,13 @@ export class Childscn13Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn13Service.getWebInfo( baseurl, jsonObject ).subscribe(data => {
+      console.log('data.rspBody.items')
       console.log(data.rspBody.items)
       this.loading = false;
       this.total = data.rspBody.size;
       this.webInfoSource = data.rspBody.items;
+      this.webInfoSource2= data.rspBody.items;
+      this.webInfoSource2.forEach(c=>c.ImgSrc=this.imageSrcB);
       this.webAddrOption = data.rspBody.webAddr;
     });
   }
@@ -147,4 +168,16 @@ export class Childscn13Component implements OnInit {
     this.pageSize = 10;
     this.total = 1;
   }
+
+  //滑鼠移進切換圖示
+  mouseover(rowId:string){
+   this.webInfoSource2.find(c=>c.rowId==rowId).ImgSrc=this.imageSrcW;
+  }
+    //滑鼠移出切換圖示
+  mouseout(rowId:string){
+    this.webInfoSource2.find(c=>c.rowId==rowId).ImgSrc=this.imageSrcB;
+
+  }
+
+
 }

@@ -8,7 +8,7 @@ import { Childscn13Service } from '../childscn13.service';
 @Component({
   selector: 'app-childscn13edit',
   templateUrl: './childscn13edit.component.html',
-  styleUrls: ['./childscn13edit.component.css']
+  styleUrls: ['./childscn13edit.component.css','../../../../assets/css/child.css']
 })
 export class Childscn13editComponent implements OnInit {
 
@@ -94,4 +94,10 @@ export class Childscn13editComponent implements OnInit {
 
     if (msgStr === '修改成功' && codeStr === '0000') { this.dialogRef.close({ event: 'success' }); }
   }
+
+    //關閉
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+
 }
