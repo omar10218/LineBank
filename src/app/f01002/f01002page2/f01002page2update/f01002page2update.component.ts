@@ -6,7 +6,7 @@ import { F01002Service } from '../../f01002.service';
 @Component({
   selector: 'app-f01002page2update',
   templateUrl: './f01002page2update.component.html',
-  styleUrls: ['./f01002page2update.component.css']
+  styleUrls: ['./f01002page2update.component.css', '.../../../assets/css/f01.css']
 })
 export class F01002page2updateComponent implements OnInit {
 
@@ -23,13 +23,12 @@ export class F01002page2updateComponent implements OnInit {
   public async cancelCallout(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['rowid'] = this.data.ID;
-    let msgStr: string = "";
+    let msgStr: string = '';
     msgStr = await this.f01002Service.updateCalloutYN(jsonObject);
-    console.log(msgStr)
     const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
-    if (msgStr === 'success') { this.dialogRef.close({ event: 'success' }); }
+    if (msgStr === '取消成功!') { this.dialogRef.close({ event: 'success' }); }
   }
 
   onNoClick() {
