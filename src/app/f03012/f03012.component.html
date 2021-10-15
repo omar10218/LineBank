@@ -54,26 +54,50 @@
           <td class="table-data">{{ getOptionCompareTable(row.compareTable) }}</td>
           <td class="table-data">{{row.codeDesc }}</td>
           <td class="table-data">
-            {{row.compareType}}
+            <div *ngIf="row.isChk==true">
+              <select [(ngModel)]='row.compareType'>
+                <option [value]=1>絕對值</option>
+                <option [value]=2>相對值</option>
+              </select>
+            </div>
+            <div *ngIf="row.isChk==false">
+              <select disabled [(ngModel)]='row.compareType'>
+                <option [value]=1>絕對值</option>
+                <option [value]=2>相對值</option>
+              </select>
+            </div>
+
           </td>
           <td class="table-data">
-            <div *ngIf="row.isChk; else elseBlock">
+            <!-- <div *ngIf="row.isChk; else elseBlock">
               <input [(ngModel)]="row.setValueLow">
             </div>
             <ng-template #elseBlock>
               {{ row.setValueLow }}
-            </ng-template>
+            </ng-template> -->
+            <div *ngIf="row.isChk == true;">
+              <input [(ngModel)]="row.setValueLow">
+            </div>
+            <div *ngIf="row.isChk == false;">
+              {{ row.setValueLow }}
+            </div>
           </td>
           <td class="table-data">
-            <div *ngIf="row.isChk; else elseBlock">
+            <!-- <div *ngIf="row.isChk; else elseBlock">
               <input [(ngModel)]="row.setValueHight">
             </div>
             <ng-template else="">
               {{ row.setValueHight }}
-            </ng-template>
+            </ng-template> -->
+            <div *ngIf="row.isChk == true;">
+              <input [(ngModel)]="row.setValueHight">
+            </div>
+            <div *ngIf="row.isChk == false;">
+              {{ row.setValueHight }}
+            </div>
           </td>
           <td class="table-data">
-            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="edit(
+            <button *ngIf="row.isChk == false;" nz-button [nzSize]="'middle'" nzType="primary" (click)="edit(
               row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight, row.compareType )">編輯</button>
           </td>
           <td class="table-data">

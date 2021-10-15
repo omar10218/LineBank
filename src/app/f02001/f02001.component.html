@@ -37,7 +37,7 @@
       </div>
       <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">審核結果</span>
-          <mat-select [(ngModel)]="credit_RESULT_Value" name="CREDIT_RESULT_Value" placeholder="請選擇">
+          <mat-select [(ngModel)]="credit_RESULT_Value" name="CREDIT_RESULT_Value">
             <mat-option *ngFor="let item of credit_RESULT" [value]="item.value">
               {{item.viewValue}}
             </mat-option>
@@ -48,7 +48,7 @@
     <div nz-row>
       <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">案件狀態</span>
-          <mat-select [(ngModel)]="status_DESC_Value" name="status_DESC_Value" placeholder="請選擇">
+          <mat-select [(ngModel)]="status_DESC_Value" name="status_DESC_Value">
             <mat-option *ngFor="let item of status_DESC" [value]="item.value">
               {{item.viewValue}}
             </mat-option>
@@ -57,7 +57,7 @@
       </div>
       <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">客群標籤</span>
-          <mat-select [(ngModel)]="cust_FLAG_Value" name="cust_FLAG_Value" placeholder="請選擇">
+          <mat-select [(ngModel)]="cust_FLAG_Value" name="cust_FLAG_Value">
             <mat-option *ngFor="let item of cust_FLAG" [value]="item.value">
               {{item.viewValue}}
             </mat-option>
@@ -66,7 +66,7 @@
       </div>
       <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">分險等級分群</span>
-          <mat-select [(ngModel)]="risk_GRADE_Value" name="risk_GRADE_Value" placeholder="請選擇">
+          <mat-select [(ngModel)]="risk_GRADE_Value" name="risk_GRADE_Value">
             <mat-option *ngFor="let item of risk_GRADE" [value]="item.value">
               {{item.viewValue}}
             </mat-option>
@@ -125,7 +125,7 @@
     </div>
 </div>
 <div class="line_bank_card_no_padding">
-  <div class="line_bank_form_header_title">照會話術設定結果</div>
+  <div class="line_bank_form_header_title">案件查詢資料結果</div>
   <!-- 表格 -->
   <nz-table #columnTable  [nzData]="listOfData" [nzScroll]="{ x: '3800px' }">
     <thead>

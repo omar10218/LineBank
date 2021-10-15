@@ -101,4 +101,10 @@ export class Childscn13addComponent implements OnInit {
       this.msg ='請至少選擇1個圖檔!';
     }
   }
+
+    //關閉
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+
 }
