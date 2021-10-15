@@ -1,1 +1,68 @@
-<p>f03006amt works!</p>
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title" >組織人員維護-角色設定  </div>
+
+      <nz-table [nzData]="data.SOURCE" [nzFrontPagination]="false" [nzSimple]="true">
+        <thead>
+          <tr>
+            <th  style="width:100px" class="table-header">
+              <div>
+                <mat-checkbox color="primary" (change)="setAll($event.checked)">全選</mat-checkbox>
+              </div>
+            </th>
+            <th  style="width:200px" class="table-header">產品代碼</th>
+            <th  style="width:200px" class="table-header">產品名稱</th>
+            <th  style="width:200px" class="table-header">額度</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="table-data">
+              <div nz-row>
+                <label nz-checkbox [(ngModel)]="data.CHECKBOX[0].completed" name={{data.CHECKBOX[0].completed}}></label>
+              </div>
+            </td>
+            <td class="table-data">PLI</td>
+            <td class="table-data">分期型信貸</td>
+            <td class="table-data"><input style="display: block;" value="" ></td>
+          </tr>
+          <tr>
+            <td class="table-data">
+              <div nz-row>
+                <label nz-checkbox [(ngModel)]="data.CHECKBOX[0].completed" name={{data.CHECKBOX[0].completed}}></label>
+              </div>
+            </td>
+            <td class="table-data">PLR</td>
+            <td class="table-data">循環型產品2</td>
+            <td class="table-data"><input style="display: block;" value="" ></td>
+          </tr>
+          <tr>
+            <td class="table-data">
+              <div nz-row>
+                <label nz-checkbox [(ngModel)]="data.CHECKBOX[0].completed" name={{data.CHECKBOX[0].completed}}></label>
+              </div>
+            </td>
+            <td class="table-data">MR</td>
+            <td class="table-data">房屋貸款3</td>
+            <td class="table-data"><input style="display: block;" value="" ></td>
+          </tr>
+          <tr>
+            <td class="table-data">
+              <div nz-row>
+                <label nz-checkbox [(ngModel)]="data.CHECKBOX[0].completed" name={{data.CHECKBOX[0].completed}}></label>
+              </div>
+            </td>
+            <td class="table-data">CC</td>
+            <td class="table-data">信用卡</td>
+            <td class="table-data"><input style="display: block;" value="" ></td>
+          </tr>
+
+        </tbody>
+      </nz-table>
+      <div mat-dialog-actions>
+        <button nz-button [nzSize]="'middle'" nzType="primary" [mat-dialog-close]="1" style="margin:0px 5px"
+          (click)="confirmAdd()">儲存</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+          style="margin:0px 5px">取消</button>
+      </div>
+
+</div>
