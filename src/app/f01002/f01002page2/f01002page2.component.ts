@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01002Service } from '../f01002.service';
+import { F01002page2updateComponent } from './f01002page2update/f01002page2update.component';
 
 //20211014 alvin.lee
 
@@ -84,21 +85,28 @@ export class F01002page2Component implements OnInit {
   }
 
   //取消照會提醒
-  cancelCallout(ID: string){
-    let msg = '';
-    let jsonObject: any = {};
-    jsonObject['rowid'] = ID;
-    this.f01002Service.updateCalloutYN(jsonObject).subscribe(data => {
-      msg = data.rspMsg;
+  cancelCallout(ID: string) {
+    const dialogRef = this.dialog.open(F01002page2updateComponent, {
+      minHeight: '70vh',
+      width: '50%',
+      panelClass: 'mat-dialog-transparent',
+      data: {
+        ID: ID,
+      }
     });
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == '取消成功') { this.getCalloutList(); }
-    }, 1000);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') { this.refreshTable(); }
+    })
   }
-  
+
   //透過案編跳轉至徵信照會
-  toCalloutPage(){
+  toCalloutPage() {
     this.router.navigate(['./F01002/CHILDSCN8']);
   }
+
+  refreshTable() {
+    this.getCalloutList();
+  }
+  
 }

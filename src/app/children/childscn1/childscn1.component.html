@@ -4,46 +4,46 @@
   <div nz-row>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">案件編號</span><input matInput #input class="form-control"
-          value="20210929A000001" readonly></div>
+          [(ngModel)]="applno" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">姓名</span><input matInput #input class="form-control"
-          value="吳OO" readonly></div>
+          [(ngModel)]="cuCName" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">客戶ID</span><input matInput #input class="form-control"
-          value="1234567" readonly></div>
+          [(ngModel)]="custId" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">身分證字號</span><input matInput #input class="form-control"
-          value="N123456789" readonly></div>
+          [(ngModel)]="nationalId" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">客戶身分名單註記</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          value="待確認" readonly></div>
     </div>
   </div>
 
   <div nz-row>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">申請產品</span><input matInput #input class="form-control"
-          value="循環型1" readonly></div>
+          [(ngModel)]="prodCode" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">申請金額</span><input matInput #input class="form-control"
-          value="200000" readonly></div>
+          [(ngModel)]="applicationAmount" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">貸款用途</span><input matInput #input class="form-control"
-          value="一般消費性支出" readonly></div>
+          [(ngModel)]="purposeCode" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">專案名稱</span><input matInput #input class="form-control" value=""
-          readonly></div>
+      <div style="padding:10px"><span class="form-title">專案名稱</span><input matInput #input class="form-control"
+          value="待確認" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">行銷代碼</span><input matInput #input class="form-control" value=""
-          readonly></div>
+      <div style="padding:10px"><span class="form-title">行銷代碼</span><input matInput #input class="form-control"
+          value="待確認" readonly></div>
     </div>
   </div>
 </div>
@@ -111,60 +111,60 @@
   <div nz-row>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">AML代碼</span><input matInput #input class="form-control"
-          value="1" readonly></div>
+          [(ngModel)]="aml" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">AML說明</span><input matInput #input class="form-control"
-          value="低風險" readonly></div>
+          [(ngModel)]="amlDesc" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">查詢日期時間</span><input matInput #input class="form-control"
-          value="2021-8-12 12:33:12" readonly></div>
+          [(ngModel)]="amlDate" readonly></div>
     </div>
   </div>
 
   <div nz-row>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">FDS代碼</span><input matInput #input class="form-control"
-          value="D" readonly></div>
+          [(ngModel)]="fds" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">FDS說明</span><input matInput #input class="form-control"
-          value="Delay" readonly></div>
+          [(ngModel)]="fdsDesc" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">查詢日期時間</span><input matInput #input class="form-control"
-          value="2021-8-12 12:33:12" readonly></div>
+          [(ngModel)]="fdsDate" readonly></div>
     </div>
   </div>
 
   <div nz-row>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">Score分數</span><input matInput #input class="form-control"
-          value="D" readonly></div>
+          [(ngModel)]="cssScore" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">Score等級</span><input matInput #input class="form-control"
-          value="Delay" readonly></div>
+          [(ngModel)]="cssGrade" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">查詢日期時間</span><input matInput #input class="form-control"
-          value="2021-8-12 12:33:12" readonly></div>
+          [(ngModel)]="cssDate" readonly></div>
     </div>
   </div>
 
   <div nz-row>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">是否為利關人</span><input matInput #input class="form-control"
-          value="Z" readonly></div>
+          [(ngModel)]="isRpm" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">關係類型描述</span><input matInput #input class="form-control"
-          value="股東負責人的三血二姻" readonly></div>
+          [(ngModel)]="rpmTypeDescribe" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">查詢日期時間</span><input matInput #input class="form-control"
-          value="2021-8-12 12:33:12" readonly></div>
+          [(ngModel)]="rpmDate" readonly></div>
     </div>
   </div>
 </div>
@@ -179,38 +179,38 @@
   <div nz-row>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">系統流程</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="sysflowcdOne" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">決策結果</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="resltcdOne" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">案件等級</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="calvOne" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">行職業代碼分群代碼/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="ocupatnCustGpAndDescOne" readonly></div>
     </div>
   </div>
 
   <div nz-row>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">策略客群1代碼/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="ocupatnCustStgp1One" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">策略客群2代碼/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="ocupatnCustStgp2One" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">往來優質特徵註記代碼/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="goodbehavOne" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">特徵案件貼標/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="specilcaseOne" readonly></div>
     </div>
   </div>
 
@@ -220,12 +220,12 @@
           value="" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">徵審代碼</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">徵審代碼</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
     <div nz-col nzFlex="2">
-      <div style="padding:10px"><span class="form-title">徵審代碼說明行職業代碼分群代碼/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">徵審代碼說明行職業代碼分群代碼/中文</span><input matInput #input
+          class="form-control" value="" readonly></div>
     </div>
   </div>
   <br>
@@ -235,38 +235,38 @@
   <div nz-row>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">系統流程</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="sysflowcdTwo" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">決策結果</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="resltcdTwo" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">案件等級</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="calvTwo" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">行職業代碼分群代碼/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="ocupatnCustGpAndDescTwo" readonly></div>
     </div>
   </div>
 
   <div nz-row>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">策略客群1代碼/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="ocupatnCustStgp1Two" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">策略客群2代碼/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="ocupatnCustStgp2Two" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">往來優質特徵註記代碼/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="goodbehavTwo" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">特徵案件貼標/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+          [(ngModel)]="specilcaseTwo" readonly></div>
     </div>
   </div>
 
@@ -276,12 +276,12 @@
           value="" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">徵審代碼</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">徵審代碼</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
     <div nz-col nzFlex="2">
-      <div style="padding:10px"><span class="form-title">徵審代碼說明行職業代碼分群代碼/中文</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">徵審代碼說明行職業代碼分群代碼/中文</span><input matInput #input
+          class="form-control" value="" readonly></div>
     </div>
   </div>
 
@@ -305,8 +305,8 @@
 
   <div nz-row>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">固定利率</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">固定利率</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">期數最小值</span><input matInput #input class="form-control"
@@ -323,20 +323,20 @@
 
   <div nz-row>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">加碼利率</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">加碼利率</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">基準利率類型</span><input matInput #input class="form-control"
           value="" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">基準利率</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">基準利率</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">貸放利率</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">貸放利率</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">期數最小值</span><input matInput #input class="form-control"
@@ -353,65 +353,71 @@
 
   <div nz-row>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">起始期數</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">起始期數</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">利率類型</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">利率類型</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">固定利率</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">固定利率</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">加碼利率</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">加碼利率</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">基準利率類型</span><input matInput #input class="form-control"
           value="" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">基準利率</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">基準利率</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">貸放利率</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">貸放利率</span><input matInput #input class="form-control" value=""
+          readonly></div>
     </div>
   </div>
 </div>
 
 <!-- 審核結果 -->
 <div class="line_bank_card_no_padding" style="min-height:170px">
-    <div class="line_bank_form_header_title">審核結果</div>
-    <div nz-row>
-      <div nz-col nzFlex="1">
-        <div style="padding:10px"><span class="form-title">產品代號</span><input matInput #input class="form-control"
-            value="" readonly></div>
-      </div>
-      <div nz-col nzFlex="1">
-        <div style="padding:10px"><span class="form-title">專案代號</span><input matInput #input class="form-control"
-            value="" readonly></div>
-      </div>
-      <div nz-col nzFlex="1">
-        <div style="padding:10px"><span class="form-title">核決結果</span><input matInput #input class="form-control"
-            value="" readonly></div>
-      </div>
-      <div nz-col nzFlex="1">
-        <div style="padding:10px"><span class="form-title">核准額度</span><input matInput #input class="form-control"
-            value="" readonly></div>
-      </div>
-      <div nz-col nzFlex="1">
-        <div style="padding:10px"><span class="form-title">每月最低還款比率</span><input matInput #input class="form-control"
-            value="" readonly></div>
-      </div>
-      <div nz-col nzFlex="1">
-        <div style="padding:10px"><span class="form-title">利率</span><input matInput #input class="form-control"
-            value="" readonly></div>
+  <div class="line_bank_form_header_title">審核結果</div>
+  <div nz-row>
+    <div nz-col nzFlex="1">
+      <div style="padding:10px"><span class="form-title">產品代號</span><input matInput #input class="form-control"
+          value="待確認" readonly></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:10px"><span class="form-title">專案代號</span><input matInput #input class="form-control"
+          value="待確認" readonly></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:10px"><span class="form-title">核決結果</span>
+        <mat-select [(ngModel)]="creditResult" name="creditResult"
+          style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+          <mat-option *ngFor="let code of creditResultCode" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
       </div>
     </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:10px"><span class="form-title">核准額度</span><input matInput #input class="form-control"
+          [(ngModel)]="resultApproveLimit"></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:10px"><span class="form-title">每月最低還款比率</span><input matInput #input class="form-control"
+          [(ngModel)]="resultMinPayrate"></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:10px"><span class="form-title">利率</span><input matInput #input class="form-control"
+          [(ngModel)]="resultRealRate"></div>
+    </div>
+  </div>
 </div>
 
 <!-- 審核註記 -->
@@ -429,10 +435,30 @@
     <div nz-col nzFlex="3">
       <div class="form">
         <div><span class="form-title">審核註記</span><textarea matInput class="input-textarea"
-            [(ngModel)]="mark"></textarea>
+            [(ngModel)]="mark" name="mark"></textarea>
         </div>
       </div>
     </div>
     <div nz-col nzFlex="1"></div>
   </div>
+
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzData]="creditmemoSource" [nzFrontPagination]="false" [nzSimple]="true"
+    [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"
+    nzSize="small" nzTitle="審核意見">
+    <thead>
+      <tr>
+        <th class="table-header" nzWidth="30%">Date</th>
+        <th class="table-header" nzWidth="30%">User</th>
+        <th class="table-header" nzWidth="40%">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of creditmemoSource">
+        <td class="table-data">{{ formatDate( data.creditdate ) }}</td>
+        <td class="table-data">{{ data.credituser }}</td>
+        <td class="table-data">{{ data.creditaction }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
 </div>

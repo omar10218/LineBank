@@ -20,6 +20,8 @@ export class Childscn5Component implements OnInit {
 
   cpTypeCreditCode: dateCode[] = [{ value: '1', viewValue: '測試1號' }, { value: '2', viewValue: '測試2號' }]; ;
   customerInfoForm: FormGroup = this.fb.group({
+    CUCNAME: ['', []],
+    CUENAME: ['', []],
     EMAIL: ['', []],
     BIRTHDAY: ['', []],
     EDUCATION: ['', []],
@@ -78,6 +80,8 @@ export class Childscn5Component implements OnInit {
     formdata.append('code', 'CUSTOMER_INFO');
     this.childscn5Service.getCustomerInfoSearch(formdata).subscribe(data => {
       console.log(data.rspBody)
+      this.customerInfoForm.patchValue({ CUCNAME: data.rspBody.items[0].cuCname })
+      this.customerInfoForm.patchValue({ CUENAME: data.rspBody.items[0].cuEname })
       this.customerInfoForm.patchValue({ EMAIL: data.rspBody.items[0].cuEmail })
       this.customerInfoForm.patchValue({ BIRTHDAY: data.rspBody.items[0].birthday })
       this.customerInfoForm.patchValue({ EDUCATION: data.rspBody.items[0].education })

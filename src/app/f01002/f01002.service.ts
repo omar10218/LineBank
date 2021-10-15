@@ -42,10 +42,10 @@ export class F01002Service extends BaseService {
     return this.postJsonObject(baseUrl, jsonObject);
   }
 
-  updateCalloutYN(jsonObject: JSON): Observable<any> {
+  updateCalloutYN(jsonObject: JSON):any {
     const baseUrl = 'f01/f01002fn6';
 
-    return this.postJsonObject(baseUrl, jsonObject);
+    return this.saveOrEditMsgJson(baseUrl, jsonObject);
   }
 
 }
