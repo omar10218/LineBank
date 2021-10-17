@@ -26,7 +26,8 @@ export class F03014editComponent implements OnInit {
    @Inject(MAT_DIALOG_DATA) public data: any,
    private pipe: DatePipe,
    private f03014Service: F03014Service,
-   public dialog: MatDialog)
+   public dialog: MatDialog
+   )
    {
 
    }
@@ -77,7 +78,6 @@ export class F03014editComponent implements OnInit {
         alert(data.rspMsg)
       }
       console.log(data)
-
     })
   }
   onNoClick()//取消

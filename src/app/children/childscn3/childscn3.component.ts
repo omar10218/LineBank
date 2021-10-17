@@ -67,7 +67,6 @@ export class Childscn3Component implements OnInit {
   {
     if (check) {
       this.level1.push(id)
-
     }
     else {
       this.level1.splice(this.level1.indexOf(id), 1)
@@ -79,7 +78,6 @@ export class Childscn3Component implements OnInit {
         }
       }
     }
-
   }
 
   seveFraud()//發送Fraud Team
@@ -89,16 +87,14 @@ export class Childscn3Component implements OnInit {
     this.jsonObject['applno'] = this.applno;
     this.jsonObject['announceEmpno'] = this.no;
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
-      msgStr = data.rspMsg;
+      msgStr = "已儲存,並完成發送";
       if(data.rspCode == '0000')
       {
+         this.getTable()
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
         });
-        alert("已儲存,並完成發送")
       }
-      console.log("456")
-      console.log(data)
     })
   }
 
@@ -118,30 +114,24 @@ export class Childscn3Component implements OnInit {
     this.jsonObject['result'] = this.l1;
     const url = 'f01/childscn3action1';
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
-      msgStr = data.rspMsg;
+      msgStr = "已儲存成功";
       if(data.rspCode == '0000')
       {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
         });
-        alert("已儲存成功")
       }
-      console.log("123")
-      console.log(data)
-
     })
-
   }
 
   getTable()//抓取資料表
   {
     let jsonOb: any = {};
     const url = 'f01/childscn3';
-    jsonOb['applno'] = this.l1;
+    jsonOb['applno'] = this.applno;
     // const applno = this.applno;
+    console.log(this.applno);
     this.childsc3Service.oneseve(url, jsonOb).subscribe(data => {
-
-      console.log(data)
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;
     })
