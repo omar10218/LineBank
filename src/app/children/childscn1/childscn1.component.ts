@@ -97,6 +97,7 @@ export class Childscn1Component implements OnInit {
   pageIndex = 1;
 
   ngOnInit(): void {
+
     this.applno = sessionStorage.getItem('applno');
     this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
     .subscribe(data => {
@@ -210,6 +211,8 @@ export class Childscn1Component implements OnInit {
         this.resultApproveAmt = data.rspBody.resultList[0].approveAmt;
         this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
       }
+
+      sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult);
     })
 
     this.getCreditmemo( this.pageIndex, this.pageSize );

@@ -24,6 +24,9 @@ export class F01002scn1Component implements OnInit {
   private routerCase: string;
   fds: string
 
+  creditResult: string;
+  level: string;
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
@@ -71,5 +74,12 @@ export class F01002scn1Component implements OnInit {
 
   leave () {
     this.router.navigate(['./F02002']);
+  }
+
+  finish() {
+    this.creditResult = sessionStorage.getItem('creditResult');
+    if (this.creditResult == null || this.creditResult == '' || this.creditResult == 'null') {
+      alert("請選取審核結果");
+    }
   }
 }
