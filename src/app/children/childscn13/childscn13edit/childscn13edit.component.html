@@ -30,6 +30,9 @@
       <div nz-row>
         <div nz-col nzFlex="1">
           <div style="padding:20px">
+            <!-- <div><span class="form-title">請選擇檔案</span>
+              <input [formControl]="fileControl" [accept]="accept" type="file" (change)="onAddImage($event)">
+            </div> -->
             <div><span class="form-title-actions">請選擇檔案</span>
               <mat-form-field>
                 <ngx-mat-file-input [formControl]="fileControl" [accept]="accept" (change)="onAddImage($event)">
@@ -53,10 +56,13 @@
       <div nz-col nzFlex="1">
         <div style="padding:20px">
           <div mat-dialog-actions>
-            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="uploadFile()"
+            <button  nz-button [nzSize]="'middle'" nzType="primary" style="width:7%;" (click)="uploadFile()"
               [disabled]="!formControl.valid">
-              <mat-icon matSuffix>backup</mat-icon>
+              <!-- <mat-icon matSuffix>backup</mat-icon> -->
+              <img class="position_top_left" width="100%" src= "assets/images/outline_cloud_upload_black_48dp.png">
             </button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+            style="margin:0px 5px">關閉</button>
           </div>
           <div *ngIf="msg">
             <h4 [innerHtml]='msg' style="color: red; margin-left: 5px;"></h4>

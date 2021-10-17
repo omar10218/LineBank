@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { BnNgIdleService } from 'bn-ng-idle';
-import {JSEncrypt} from 'jsencrypt/lib';
+import { JSEncrypt } from 'jsencrypt/lib';
 import { sha256 } from 'js-sha256';
 
 
@@ -17,6 +17,9 @@ export class LoginComponent {
   jsEncrypt: JSEncrypt = new JSEncrypt({});
   hash: string;
   hide = true;
+  SrcEyeOff = "outline_visibility_off_black_48dp";
+  SrcEye = "outline_remove_red_eye_black_48dp";
+  imgSrc=this.SrcEyeOff;
 
   no = '';
   pwd = '';
@@ -25,7 +28,7 @@ export class LoginComponent {
   private bnIdle: BnNgIdleService = null;
   constructor(private router: Router, private loginService: LoginService) { }
 
-  async onClickMe(): Promise<void>  {
+  async onClickMe(): Promise<void> {
     this.bnIdle = new BnNgIdleService();
 
     //------------------------------------------------------------------
@@ -42,10 +45,10 @@ export class LoginComponent {
     // console.log("dec=====>"+dec);
     //------------------------------------------------------------------
 
-    if (await this.loginService.initData(this.no,this.pwd)) {
+    if (await this.loginService.initData(this.no, this.pwd)) {
       localStorage.setItem("empNo", this.no);
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
-      this.bnIdle.startWatching(60*10).subscribe((isTimedOut: boolean) => {
+      this.bnIdle.startWatching(60 * 10).subscribe((isTimedOut: boolean) => {
         if (isTimedOut) { this.routerGoUrl(); }
       });
       sessionStorage.setItem('BusType', JSON.stringify(await this.loginService.getRuleCode('BUS_TYPE')));
@@ -68,4 +71,9 @@ export class LoginComponent {
     alert('閒置過久已登出');
 
   }
+  changeImage() {
+    this.hide=!this.hide;
+    this.imgSrc=this.hide?this.SrcEyeOff:this.SrcEye;
+  }
+
 }

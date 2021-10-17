@@ -12,9 +12,9 @@
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">
     <!-- 表格 -->
-    <nz-table nzShowSizeChanger [nzData]="webInfoSource" [nzFrontPagination]="false" [nzSimple]="true"
+    <nz-table nzShowSizeChanger [nzData]="webInfoSource2" [nzFrontPagination]="false" [nzSimple]="true"
       [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="財務試算">
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="網頁資訊">
       <thead>
         <tr>
           <th class="table-header">案編</th>
@@ -37,9 +37,10 @@
           <td class="table-data">{{ data.daytime }}</td>
           <td class="table-data">{{ data.empno }}</td>
           <td class="table-data">
-            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="openView(data.webImg)">
-              <mat-icon aria-label="">image</mat-icon>
-            </button>
+            <button (mouseover)="mouseover(data.rowId)" (mouseout)="mouseout(data.rowId)" nz-button [nzSize]="'middle'" nzType="primary" (click)="openView(data.webImg)">
+              <!-- <mat-icon aria-label="">image</mat-icon> -->
+               <img class="position_top_left" width="100%" src='{{ "assets/images/" + data.ImgSrc + ".png" }}'>
+              </button>
           </td>
           <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
             <td class="table-data">

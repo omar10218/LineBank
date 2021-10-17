@@ -1,4 +1,10 @@
+import { OptionsCode } from './../../interface/base';
 import { Component, OnInit } from '@angular/core';
+import { Childscn1Service } from './childscn1.service';
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 
 @Component({
   selector: 'app-childscn1',
@@ -7,7 +13,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Childscn1Component implements OnInit {
 
-  constructor() { }
+  constructor(
+    private childscn1Service: Childscn1Service,
+    public dialog: MatDialog,
+  ) { }
 
   mark: string;
 
@@ -47,13 +56,234 @@ export class Childscn1Component implements OnInit {
   resltcdOne: string;                           //決策結果
   calvOne: string;                              //案件等級
   ocupatnCustGpAndDescOne: string;              //行職業代碼分群代碼/中文
-  ocupatnCustStgp1AndDescOne: string;           //策略客群1代碼/中文
-  OCUPATN_CUST_STGP1
+  ocupatnCustStgp1One: string;                  //策略客群1代碼/中文
+  ocupatnCustStgp2One: string;                  //策略客群2代碼/中文
+  goodbehavOne: string;                         //往來優質特徵註記代碼/中文
+  specilcaseOne: string;                        //特殊案件貼標/中文
+
+  //DSS2st
+  sysflowcdTwo: string;                         //系統流程
+  resltcdTwo: string;                           //決策結果
+  calvTwo: string;                              //案件等級
+  ocupatnCustGpAndDescTwo: string;              //行職業代碼分群代碼/中文
+  ocupatnCustStgp1Two: string;                  //策略客群1代碼/中文
+  ocupatnCustStgp2Two: string;                  //策略客群2代碼/中文
+  goodbehavTwo: string;                         //往來優質特徵註記代碼/中文
+  specilcaseTwo: string;                        //特殊案件貼標/中文
+
+  //審核結果
+  creditResult: string;
+  creditResultCode: OptionsCode[] = [];//核決結果下拉選單
+  resultProdCode: string;
+  resultPrjCode: string;
+  resultApproveAmt: number;
+  resultLowestPayRate: number;
+
+  periodTypeCode: OptionsCode[] = [];//期別下拉選單
+  interestTypeCode: OptionsCode[] = [];//利率型態下拉選單
+  interestCode: OptionsCode[] = [];//基準利率型態下拉選單
+  period: string;
+  periodType: string;
+  interestType: string;
+  interestValue: string;
+  interestBase: number;
+  interest: number = 0;
+  approveInterest: number;
+
+  //Creditmemo
+  creditmemoSource: Data[] = [];
+  total = 1;
+  pageSize = 10;
+  pageIndex = 1;
 
   ngOnInit(): void {
+    this.applno = sessionStorage.getItem('applno');
+    this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.creditResultCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    this.childscn1Service.getSysTypeCode('PERIOD_TYPE')//期別下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.periodTypeCode.push({ value: codeNo, viewValue: desc })
+      }
+      this.periodType = '1';
+    });
+
+    this.childscn1Service.getSysTypeCode('INTEREST_TYPE')//利率型態下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.interestTypeCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    this.childscn1Service.getSysTypeCode('INTEREST_CODE')//基準利率型態下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.interestCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    const baseUrl = 'f01/childscn1'
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
+
+      //CreditAuditinfo
+      if ( data.rspBody.CreditAuditinfoList.length > 0 ) {
+        this.cuCName = data.rspBody.CreditAuditinfoList[0].cuCname;
+        this.custId = data.rspBody.CreditAuditinfoList[0].custId;
+        this.nationalId = data.rspBody.CreditAuditinfoList[0].nationalId;
+        this.prodCode = data.rspBody.CreditAuditinfoList[0].prodCode;
+        this.applicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount;
+        this.purposeCode = data.rspBody.CreditAuditinfoList[0].purposeCode;
+      }
+
+      //AML
+      if ( data.rspBody.amlList.length > 0 ) {
+        this.aml = data.rspBody.amlList[0].AML;
+        this.amlDesc = data.rspBody.amlList[0].CODE_DESC;
+        this.amlDate = data.rspBody.amlList[0].AML_DATE;
+      }
+
+      //FDS
+      if ( data.rspBody.fdsList.length > 0 ) {
+        this.fds = data.rspBody.fdsList[0].FDS;
+        this.fdsDesc = data.rspBody.fdsList[0].CODE_DESC;
+        this.fdsDate = data.rspBody.fdsList[0].FDS_DATE;
+      }
+
+      //CSS
+      if ( data.rspBody.cssList.length > 0 ) {
+        this.cssScore = data.rspBody.cssList[0].cssScore;
+        this.cssGrade = data.rspBody.cssList[0].cssGrade;
+        this.cssDate = data.rspBody.cssList[0].cssDate;
+      }
+
+      //RPM
+      if ( data.rspBody.rpmList.length > 0 ) {
+        this.isRpm = data.rspBody.rpmList[0].isRpm;
+        this.rpmTypeDescribe = data.rspBody.rpmList[0].rpmTypeDescribe;
+        this.rpmDate = this.formatDate( data.rspBody.rpmList[0].rpmDate );
+      }
+
+      //DSS1
+      if ( data.rspBody.dss1List.length > 0 ) {
+        this.sysflowcdOne = data.rspBody.dss1List[0].sysflowcd;
+        this.resltcdOne = data.rspBody.dss1List[0].resltcd;
+        this.calvOne = data.rspBody.dss1List[0].calv;
+        this.ocupatnCustGpAndDescOne = data.rspBody.dss1List[0].ocupatnCustGp + data.rspBody.dss1List[0].ocupatnCustGpDesc;
+        this.ocupatnCustStgp1One = data.rspBody.dss1List[0].ocupatnCustStgp1 + data.rspBody.dss1List[0].ocupatnCustStgp1Desc;
+        this.ocupatnCustStgp2One = data.rspBody.dss1List[0].ocupatnCustStgp2;
+        this.goodbehavOne = data.rspBody.dss1List[0].goodbehav + data.rspBody.dss1List[0].goodbehavDesc;
+        this.specilcaseOne = data.rspBody.dss1List[0].specilcase + data.rspBody.dss1List[0].specilcaseDesc;
+      }
+
+      //DSS2
+      if ( data.rspBody.dss2List.length > 0 ) {
+        this.sysflowcdTwo = data.rspBody.dss2List[0].sysflowcd;
+        this.resltcdTwo = data.rspBody.dss2List[0].resltcd;
+        this.calvTwo = data.rspBody.dss2List[0].calv;
+        this.ocupatnCustGpAndDescTwo = data.rspBody.dss2List[0].ocupatnCustGp + data.rspBody.dss2List[0].ocupatnCustGpDesc;
+        this.ocupatnCustStgp1Two = data.rspBody.dss2List[0].ocupatnCustStgp1 + data.rspBody.dss2List[0].ocupatnCustStgp1Desc;
+        this.ocupatnCustStgp2Two = data.rspBody.dss2List[0].ocupatnCustStgp2;
+        this.goodbehavTwo = data.rspBody.dss2List[0].goodbehav + data.rspBody.dss2List[0].goodbehavDesc;
+        this.specilcaseTwo = data.rspBody.dss2List[0].specilcase + data.rspBody.dss2List[0].specilcaseDesc;
+      }
+
+      //result
+      if ( data.rspBody.resultList.length > 0 ) {
+        this.resultProdCode = data.rspBody.resultList[0].prodCode;
+        this.resultPrjCode = data.rspBody.resultList[0].prjCode;
+        this.creditResult = data.rspBody.resultList[0].creditResult;
+        this.resultApproveAmt = data.rspBody.resultList[0].approveAmt;
+        this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
+      }
+    })
+
+    this.getCreditmemo( this.pageIndex, this.pageSize );
   }
 
-  save() {
+  getCreditmemo( pageIndex: number, pageSize: number ) {
+    const baseUrl = 'f01/childscn1scn1';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
+      this.total = data.rspBody.size;
+      this.creditmemoSource = data.rspBody.items;
+    })
+  }
 
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getCreditmemo(pageIndex, pageSize);
+  }
+
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
+  }
+
+  //儲存
+  public async save(): Promise<void>{
+    let msgStr: string = "";
+    const baseUrl = 'f01/childscn1action1';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['creditaction'] = this.mark;
+    jsonObject['creditlevel'] = 'L3';
+    msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
+      data: { msgStr: msgStr }
+    });
+    this.changePage();
+    this.getCreditmemo( this.pageIndex, this.pageSize );
+  }
+
+  formatDate(date: string) {
+    return date.split("T")[0]+" "+date.split("T")[1].split(".")[0];
+  }
+
+  changeInterest() {
+    if ( this.interestType == '02' ) {
+      this.interestValue = '1';
+      this.interestBase = 2;
+      this.approveInterest = Number(this.interestBase) + Number(this.interest);
+    } else {
+      this.interestValue = '';
+      this.interestBase = 0;
+      this.approveInterest = Number(this.interestBase) + Number(this.interest);
+    }
+  }
+
+  changeInterestValue() {
+    let msgStr: string = "";
+    if ( this.interestType != "02" ) {
+      msgStr = '利率型態請選擇加減碼';
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      this.interestValue = '';
+    } else {
+
+    }
+  }
+
+  caluclate () {
+    this.approveInterest = Number(this.interestBase) + Number(this.interest);
   }
 }

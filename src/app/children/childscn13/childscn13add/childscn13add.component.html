@@ -54,9 +54,12 @@
       <div nz-col nzFlex="1">
         <div style="padding:20px">
           <div mat-dialog-actions>
-            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="uploadFile()" [disabled]="!formControl.valid">
-              <mat-icon matSuffix>backup</mat-icon>
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="width:7%;" (click)="uploadFile()" [disabled]="!formControl.valid">
+              <!-- <mat-icon matSuffix>backup</mat-icon> -->
+              <img class="position_top_left" width="100%" src= "assets/images/outline_cloud_upload_black_48dp.png">
             </button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+            style="margin:0px 5px">關閉</button>
           </div>
           <div *ngIf="msg">
             <h4 [innerHtml]='msg' style="color: red; margin-left: 5px;"></h4>
@@ -67,5 +70,6 @@
     <ng-container *ngIf="imageSrc" class="inboxContainer">
       <img [src]="imageSrc" alt='Item image' *ngIf="imageSrc">
     </ng-container>
+
   </div>
 </div>

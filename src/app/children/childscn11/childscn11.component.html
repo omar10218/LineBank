@@ -1,14 +1,16 @@
+<div class="line_bank_bankground_color">
 <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
   <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page1)">本案申請書資訊合理性</button>
+  nz-button nzType="primary" [nzSize]="'middle'" (click)="changePage(Page.Page1)">本案申請書資訊合理性</button>
   <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page2)">歷史申請書比對(不同NID)</button>
+  nz-button nzType="primary" [nzSize]="'middle'" (click)="changePage(Page.Page2)">歷史申請書比對(不同NID)</button>
   <button class="btn" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page3)">歷史申請書比對(同一NID)</button>
+  nz-button nzType="primary" [nzSize]="'middle'" (click)="changePage(Page.Page3)">歷史申請書比對(同一NID)</button>
   <button class="btn" [class.active]="nowPage === Page.Page4" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page4)">KRM043報送資料比對</button>
+  nz-button nzType="primary" [nzSize]="'middle'" (click)="changePage(Page.Page4)">KRM043報送資料比對</button>
   <button class="btn" [class.active]="nowPage === Page.Page5" style="margin-bottom: 5px; margin-left: 5px;"
-    mat-stroked-button (click)="changePage(Page.Page5)">BAM061報送資料比對</button>
+  nz-button nzType="primary" [nzSize]="'middle'" (click)="changePage(Page.Page5)">BAM061報送資料比對</button>
+</div>
 </div>
 <!-- <router-outlet></router-outlet> -->
 <ng-container appDynamic></ng-container>

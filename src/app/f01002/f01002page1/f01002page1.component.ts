@@ -78,12 +78,6 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
   }
 
-  // 排序
-  // changeSort(sortInfo: Sort) {
-  // this.currentSort = sortInfo;
-  // this.getCaseList(this.empNo, this.swcID, this.swcApplno);
-  // }
-
   // 查詢案件清單
   getCaseList(empNo: string, swcID: string, swcApplno: string, pageIndex: number, pageSize: number) {
     let jsonObject: any = {};

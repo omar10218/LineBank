@@ -10,10 +10,11 @@ import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-f03006add',
   templateUrl: './f03006add.component.html',
-  styleUrls: ['./f03006add.component.css', '.../../../assets/css/f03.css']
+  styleUrls: ['./f03006add.component.css', '../../../assets/css/f03.css']
 })
 export class F03006addComponent implements OnInit {
-
+  empunitlistValue: string;
+  empdeptlistValue: string;
   dateType: OptionsCode[];
   levelStartDateValue: Date;
   levelEndDateValue: Date;
@@ -29,6 +30,7 @@ export class F03006addComponent implements OnInit {
     this.dateType = this.data.levelStartDateTypeCode;
     this.data.levelStartDateTypeCode = [];
     this.data.levelEndDateTypeCode = [];
+    console.log( this.data.empunitlistCode)
   }
 
   formControl = new FormControl('', [
@@ -109,6 +111,7 @@ export class F03006addComponent implements OnInit {
   public async confirmAdd(): Promise<void> {
     let start = this.datepipe.transform(this.data.LEAVE_STARTDATE, 'yyyyMMdd')
     let end = this.datepipe.transform(this.data.LEAVE_ENDDATE, 'yyyyMMdd')
+
     if (!this.checkIDCard(this.data.EMP_ID)) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '員工ID格式不正確' }

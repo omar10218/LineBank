@@ -1,519 +1,529 @@
-<th style="padding-left: 20px;">查詢日期：</th>
-<td>
-  <mat-form-field color="accent">
-    <mat-select [(ngModel)]="dateValue" name="ynCode" (ngModelChange)="changeDate()">
-      <mat-option *ngFor="let date of dateCode" [value]="date.value">
-        {{date.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</td>
-<br>
+<div nz-row>
+  <div nz-col nzSpan="6">
+    <div style="padding:10px"><span class="form-title">查詢日期</span>
+      <mat-select style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6"
+        [(ngModel)]="dateValue" name="ynCode" (ngModelChange)="changeDate()">
+        <mat-option *ngFor="let date of dateCode" [value]="date.value">
+          {{date.viewValue}}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+</div>
 <form [formGroup]="dss2Form" style="padding-left: 20px;">
   <table>
-    <mat-card class="matCard">
-      <mat-card-content>
-        <tr>
-          <th nowrap="nowrap" align="left">系統流程</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="SYSFLOWCD" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">決策結果</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="RESLTCD" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">案件等級</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="CALV" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">行職業代碼分群(徵審確認後) 代碼</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="OCUPATN_UNDW_GP" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">行職業代碼分群(徵審確認後) 中文</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="OCUPATN_UNDW_GP_DESC" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">策略客群1(徵審確認後) 代碼</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="OCUPATN_UNDW_STGP1" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">策略客群1(徵審確認後) 中文</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="OCUPATN_UNDW_STGP1_DESC" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">策略客群2(徵審確認後) 代碼</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="OCUPATN_UNDW_STGP2" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">往來優質特徵註記 代碼</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="GOODBEHAV" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">往來優質特徵註記 中文</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="GOODBEHAV_DESC" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">風險模型子模型 代碼</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="RISKMDSUB_A1" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">風險模型子模型 中文</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="RISKMDSUB_A1_DESC" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">風險模型分數</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="RISKMDSCORE_A1" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">風險模型等級</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="RISKMDGRADE_A1" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">風險模型等級分群</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="RISKMDGRADE_A1_GP" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">風險模型等級(等級策略調整後)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="RISKMDGRADE_A1_ADJ" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">風險模型等級分群(等級策略調整後)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="RISKMDGRADE_A1_GP_ADJ" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">徵審代碼數量</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="UNDW_CD_CNT" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">徵審代碼清單(多個)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="UNDW_CD_LIST" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">LEVEL0 集團授信總額度CAP</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="L0CAP" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">LEVEL1 個人授信總額度CAP</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="L1CAP_NID" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">LEVEL2 個人授信無擔總額度CAP</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="L2CAP_NID_UNSEC" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">LEVEL3 個人授信無擔產品_循環信貸總額度CAP</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="L3CAP_NID_UNSEC_RL" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">LEVEL3 個人授信無擔產品_分期信貸總額度CAP</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="L3CAP_NID_UNSEC_IL" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">LEVEL2 個人授信有擔總額度CAP</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="L2CAP_NID_SEC" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">LEVEL3 個人授信有擔產品_房貸總額度CAP</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="L3CAP_NID_SEC_MORTG" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">LEVEL1 公司授信總額度CAP</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="L1CAP_CMPY" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">結帳日至還款日之間客戶如不繳款是否可以撥款</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="DISB_BTCR_YN" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">授信策略模板分類</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_MDUL" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">授信策略模板分類 中文</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_MDUL_DESC" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">授信策略模板生效日期時間</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_MDUL_ATVDT" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">利率模板生效日期時間</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_RATE_ATVDT" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">試算授信策略_准駁</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_APRFRJ" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">授信策略_額度/金額</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_1_LIMIT" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">策略利率類型</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_1_SRATE_TYPE" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">加碼利率(多階) 數量</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_T1_SRATE_CNT" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">加碼利率(多階) 清單</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_1_SRATE_LIST" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">授信策略_每月最低還款比例(僅限循環信貸)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_1_MINPAYRT" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">授信策略_期數最小值</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_1_PERIOD_MIN" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">授信策略_期數最大值</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_1_PERIOD_MAX" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">產品條件_開辦費(首次簽約用)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_1_ORIGINFEE" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">產品條件_帳戶管理費(續約用)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_1_LOANEXTFEE" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">授信策略_MUE倍數</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_1_MUEX" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">限額_MUE</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="LIMIT_1_MUE" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">限額_DBR22</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="LIMIT_1_DBR" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">限額_本行利害關係人(銀行法第32條)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="LIMIT_1_LAW32" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">限額_同一自然人無擔保授信限額(銀行法第33條)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="LIMIT_1_LAW33_UNS" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">限額_產品/專案額度上限</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="LIMIT_1_PROD_MAX" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">限額_產品/專案額度下限</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="LIMIT_1_PROD_MIN" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">限額_客戶申請金額</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="LIMIT_1_CUSTAPPLY" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">限額_月付收支比</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="LIMIT_1_DTI" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">建議方案數量</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_OPTION_CNT" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">建議方案(多個)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_OPTION_LIST" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案2_產品</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_2_PRDT" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">方案2_額度/金額</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_2_LIMIT" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案2_策略利率類型</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_2_SRATE_TYPE" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案2_加碼利率(多階) 數量</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_2_SRATE_CNT" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">方案2_加碼利率(多階) 清單</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_2_SRATE_LIST" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案2_每月最低還款比例(僅限循環信貸)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_2_MINPAYRT" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案2_期數最小值</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_2_PERIOD_MIN" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">方案2_期數最大值</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_2_PERIOD_MAX" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案2_產品條件_開辦費(首次簽約用)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_2_ORIGINFEE" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案2_產品條件_帳戶管理費(續約用)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_2_LOANEXTFEE" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">方案3_產品</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_3_PRDT" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案3_額度/金額</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_3_LIMIT" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案3_策略利率類型</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_3_SRATE_TYPE" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">方案3_加碼利率(多階) 數量</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_3_SRATE_CNT" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案3_加碼利率(多階) 清單</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_3_SRATE_LIST" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案3_每月最低還款比例(僅限循環信貸)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_3_MINPAYRT" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">方案3_期數最小值</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_3_PERIOD_MIN" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案3_期數最大值</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_3_PERIOD_MAX" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">方案3_產品條件_開辦費(首次簽約用)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_3_ORIGINFEE" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">方案3_產品條件_帳戶管理費(續約用)</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="STRGY_3_LOANEXTFEE" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">SPARE - 數值</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="SPARE_ARRAY1" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">SPARE - 文字</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="SPARE_ARRAY2" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-      </mat-card-content>
-    </mat-card>
+    <div class="line_bank_card_no_padding_child">
+      <div class="line_bank_form_header_title">授信階段</div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">系統流程</span>
+            <input style="display: block;" formControlName="SYSFLOWCD" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">決策結果</span>
+            <input style="display: block;" formControlName="RESLTCD" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">案件等級</span>
+            <input style="display: block;" formControlName="CALV" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">行職業代碼分群(徵審確認後) 代碼</span>
+            <input style="display: block;" formControlName="OCUPATN_UNDW_GP" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">行職業代碼分群(徵審確認後) 中文</span>
+            <input style="display: block;" formControlName="OCUPATN_UNDW_GP_DESC" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">策略客群1(徵審確認後) 代碼</span>
+            <input style="display: block;" formControlName="OCUPATN_UNDW_STGP1" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">策略客群1(徵審確認後) 中文</span>
+            <input style="display: block;" formControlName="OCUPATN_UNDW_STGP1_DESC" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">策略客群2(徵審確認後) 代碼</span>
+            <input style="display: block;" formControlName="OCUPATN_UNDW_STGP2" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">往來優質特徵註記 代碼</span>
+            <input style="display: block;" formControlName="GOODBEHAV" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">往來優質特徵註記 中文</span>
+            <input style="display: block;" formControlName="GOODBEHAV_DESC" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">風險模型子模型 代碼</span>
+            <input style="display: block;" formControlName="RISKMDSUB_A1" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">風險模型子模型 中文</span>
+            <input style="display: block;" formControlName="RISKMDSUB_A1_DESC" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">風險模型分數</span>
+            <input style="display: block;" formControlName="RISKMDSCORE_A1" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">風險模型等級</span>
+            <input style="display: block;" formControlName="RISKMDGRADE_A1" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">風險模型等級分群</span>
+            <input style="display: block;" formControlName="RISKMDGRADE_A1_GP" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">風險模型等級(等級策略調整後)</span>
+            <input style="display: block;" formControlName="RISKMDGRADE_A1_ADJ" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">風險模型等級分群(等級策略調整後)</span>
+            <input style="display: block;" formControlName="RISKMDGRADE_A1_GP_ADJ" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">徵審代碼數量</span>
+            <input style="display: block;" formControlName="UNDW_CD_CNT" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">徵審代碼清單(多個)</span>
+            <input style="display: block;" formControlName="UNDW_CD_LIST" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">LEVEL0 集團授信總額度CAP</span>
+            <input style="display: block;" formControlName="L0CAP" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">LEVEL1 個人授信總額度CAP</span>
+            <input style="display: block;" formControlName="L1CAP_NID" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">LEVEL2 個人授信無擔總額度CAP</span>
+            <input style="display: block;" formControlName="L2CAP_NID_UNSEC" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">LEVEL3 個人授信無擔產品_循環信貸總額度CAP</span>
+            <input style="display: block;" formControlName="L3CAP_NID_UNSEC_RL" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">LEVEL3 個人授信無擔產品_分期信貸總額度CAP</span>
+            <input style="display: block;" formControlName="L3CAP_NID_UNSEC_IL" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">LEVEL2 個人授信有擔總額度CAP</span>
+            <input style="display: block;" formControlName="L2CAP_NID_SEC" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">LEVEL3 個人授信有擔產品_房貸總額度CAP</span>
+            <input style="display: block;" formControlName="L3CAP_NID_SEC_MORTG" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">LEVEL1 公司授信總額度CAP</span>
+            <input style="display: block;" formControlName="L1CAP_CMPY" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">結帳日至還款日之間客戶如不繳款是否可以撥款</span>
+            <input style="display: block;" formControlName="DISB_BTCR_YN" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">授信策略模板分類</span>
+            <input style="display: block;" formControlName="STRGY_MDUL" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">授信策略模板分類 中文</span>
+            <input style="display: block;" formControlName="STRGY_MDUL_DESC" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">授信策略模板生效日期時間</span>
+            <input style="display: block;" formControlName="STRGY_MDUL_ATVDT" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">利率模板生效日期時間</span>
+            <input style="display: block;" formControlName="STRGY_RATE_ATVDT" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">試算授信策略_准駁</span>
+            <input style="display: block;" formControlName="STRGY_APRFRJ" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:10px">
+            <span class="form-title">授信策略_額度/金額</span>
+            <input style="display: block;" formControlName="STRGY_1_LIMIT" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">策略利率類型</span>
+            <input style="display: block;" formControlName="STRGY_1_SRATE_TYPE" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">加碼利率(多階) 數量</span>
+            <input style="display: block;" formControlName="STRGY_T1_SRATE_CNT" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">加碼利率(多階) 清單</span>
+            <input style="display: block;" formControlName="STRGY_1_SRATE_LIST" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">授信策略_每月最低還款比例(僅限循環信貸)</span>
+            <input style="display: block;" formControlName="STRGY_1_MINPAYRT" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">授信策略_期數最小值</span>
+            <input style="display: block;" formControlName="STRGY_1_PERIOD_MIN" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">授信策略_期數最大值</span>
+            <input style="display: block;" formControlName="STRGY_1_PERIOD_MAX" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">產品條件_開辦費(首次簽約用)</span>
+            <input style="display: block;" formControlName="STRGY_1_ORIGINFEE" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">產品條件_帳戶管理費(續約用)</span>
+            <input style="display: block;" formControlName="STRGY_1_LOANEXTFEE" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">授信策略_MUE倍數</span>
+            <input style="display: block;" formControlName="STRGY_1_MUEX" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">限額_MUE</span>
+            <input style="display: block;" formControlName="LIMIT_1_MUE" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">限額_DBR22</span>
+            <input style="display: block;" formControlName="LIMIT_1_DBR" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">限額_本行利害關係人(銀行法第32條)</span>
+            <input style="display: block;" formControlName="LIMIT_1_LAW32" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">限額_同一自然人無擔保授信限額(銀行法第33條)</span>
+            <input style="display: block;" formControlName="LIMIT_1_LAW33_UNS" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">限額_產品/專案額度上限</span>
+            <input style="display: block;" formControlName="LIMIT_1_PROD_MAX" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">限額_產品/專案額度下限</span>
+            <input style="display: block;" formControlName="LIMIT_1_PROD_MIN" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">限額_客戶申請金額</span>
+            <input style="display: block;" formControlName="LIMIT_1_CUSTAPPLY" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">限額_月付收支比</span>
+            <input style="display: block;" formControlName="LIMIT_1_DTI" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">建議方案數量</span>
+            <input style="display: block;" formControlName="STRGY_OPTION_CNT" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">建議方案(多個)</span>
+            <input style="display: block;" formControlName="STRGY_OPTION_LIST" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案2_產品</span>
+            <input style="display: block;" formControlName="STRGY_2_PRDT" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案2_額度/金額</span>
+            <input style="display: block;" formControlName="STRGY_2_LIMIT" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案2_策略利率類型</span>
+            <input style="display: block;" formControlName="STRGY_2_SRATE_TYPE" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案2_加碼利率(多階) 數量</span>
+            <input style="display: block;" formControlName="STRGY_2_SRATE_CNT" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案2_加碼利率(多階) 清單</span>
+            <input style="display: block;" formControlName="STRGY_2_SRATE_LIST" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案2_每月最低還款比例(僅限循環信貸)</span>
+            <input style="display: block;" formControlName="STRGY_2_MINPAYRT" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案2_期數最小值</span>
+            <input style="display: block;" formControlName="STRGY_2_PERIOD_MIN" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案2_期數最大值</span>
+            <input style="display: block;" formControlName="STRGY_2_PERIOD_MAX" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案2_產品條件_開辦費(首次簽約用)</span>
+            <input style="display: block;" formControlName="STRGY_2_ORIGINFEE" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案2_產品條件_帳戶管理費(續約用)</span>
+            <input style="display: block;" formControlName="STRGY_2_LOANEXTFEE" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案3_產品</span>
+            <input style="display: block;" formControlName="STRGY_3_PRDT" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案3_額度/金額</span>
+            <input style="display: block;" formControlName="STRGY_3_LIMIT" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案3_策略利率類型</span>
+            <input style="display: block;" formControlName="STRGY_3_SRATE_TYPE" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案3_加碼利率(多階) 數量</span>
+            <input style="display: block;" formControlName="STRGY_3_SRATE_CNT" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案3_加碼利率(多階) 清單</span>
+            <input style="display: block;" formControlName="STRGY_3_SRATE_LIST" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案3_每月最低還款比例(僅限循環信貸)</span>
+            <input style="display: block;" formControlName="STRGY_3_MINPAYRT" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案3_期數最小值</span>
+            <input style="display: block;" formControlName="STRGY_3_PERIOD_MIN" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案3_期數最大值</span>
+            <input style="display: block;" formControlName="STRGY_3_PERIOD_MAX" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案3_產品條件_開辦費(首次簽約用)</span>
+            <input style="display: block;" formControlName="STRGY_3_ORIGINFEE" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="8">
+          <div style="padding:10px">
+            <span class="form-title">方案3_產品條件_帳戶管理費(續約用)</span>
+            <input style="display: block;" formControlName="STRGY_3_LOANEXTFEE" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">方案3_產品條件_開辦費(首次簽約用)</span>
+            <input style="display: block;" formControlName="STRGY_TMP3_ORIGINFEE" readonly>
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">SPARE - 數值</span>
+            <input style="display: block;" formControlName="SPARE_ARRAY1" readonly>
+          </div>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title">SPARE - 文字</span>
+            <input style="display: block;" formControlName="SPARE_ARRAY2" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
   </table>
 </form>
