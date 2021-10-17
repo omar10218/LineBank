@@ -1,7 +1,8 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F03014Service } from '../f03014.service';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 
 @Component({
   selector: 'app-f03014edit',
@@ -22,7 +23,10 @@ export class F03014editComponent implements OnInit {
   usingType:string[]=this.data.usingType;
   daytest:string;//三個月後的日期
   constructor(public dialogRef: MatDialogRef<F03014editComponent>,
-   @Inject(MAT_DIALOG_DATA) public data: any,private pipe: DatePipe,private f03014Service: F03014Service )
+   @Inject(MAT_DIALOG_DATA) public data: any,
+   private pipe: DatePipe,
+   private f03014Service: F03014Service,
+   public dialog: MatDialog)
    {
 
    }
@@ -40,6 +44,7 @@ export class F03014editComponent implements OnInit {
   }
   seve()//儲存
   {
+    let msgStr: string = "";
     let jsonObject: any = {};
     const url = 'f03/f03014action03';
     // let formData = new FormData();
@@ -52,23 +57,23 @@ export class F03014editComponent implements OnInit {
     jsonObject['effectiveDate'] = this.Efficient != null ? this.Efficient : '';
     jsonObject['expirationDate'] = this.Invalidation != null ? this.Invalidation : '';
     jsonObject['useFlag'] = this.usingValue != null ? this.usingValue : '';
-    // formData.append('rowId',this.rid);
-    // formData.append('custNid',this.IdentityValue);
-    // formData.append('custName',this.NameValue);
-    // formData.append('content1',this.NarrateValue1);
-    // formData.append('content2',this.NarrateValue2);
-    // formData.append('remark',this.remakrValue);
-    // formData.append('effectiveDate',this.Efficient);
-    // formData.append('expirationDate',this.Invalidation);
-    // formData.append('useFlag',this.usingValue);
+
     this.f03014Service.update(url,jsonObject).subscribe(data=>{
+      msgStr = data.rspMsg;
       if(data.rspCode =='0000'&& data.rspMsg =='成功')
       {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: msgStr }
+        });
+        console.log(data)
         alert("儲存成功")
         this.onNoClick();
       }
       else
       {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: msgStr }
+        });
         alert(data.rspMsg)
       }
       console.log(data)

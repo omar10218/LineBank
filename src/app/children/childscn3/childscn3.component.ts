@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 
 import { Childscn3Service } from './childscn3.service';
@@ -26,7 +28,8 @@ export class Childscn3Component implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private childsc3Service: Childscn3Service
+    private childsc3Service: Childscn3Service,
+    public dialog: MatDialog
   ) { }
 
   private applno: string;
@@ -81,16 +84,27 @@ export class Childscn3Component implements OnInit {
 
   seveFraud()//發送Fraud Team
   {
+    let msgStr: string = "";
     const url = 'f01/childscn3action2';
     this.jsonObject['applno'] = this.applno;
     this.jsonObject['announceEmpno'] = this.no;
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
-
+      msgStr = data.rspMsg;
+      if(data.rspCode == '0000')
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: msgStr }
+        });
+        alert("已儲存,並完成發送")
+      }
+      console.log("456")
+      console.log(data)
     })
   }
 
   seve()//儲存
   {
+    let msgStr: string = "";
     this.l1 = [];
     for (var i of this.data) {
       if (i.check == true) {
@@ -104,6 +118,16 @@ export class Childscn3Component implements OnInit {
     this.jsonObject['result'] = this.l1;
     const url = 'f01/childscn3action1';
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
+      msgStr = data.rspMsg;
+      if(data.rspCode == '0000')
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: msgStr }
+        });
+        alert("已儲存成功")
+      }
+      console.log("123")
+      console.log(data)
 
     })
 
@@ -111,9 +135,12 @@ export class Childscn3Component implements OnInit {
 
   getTable()//抓取資料表
   {
+    let jsonOb: any = {};
     const url = 'f01/childscn3';
-    const applno = this.applno;
-    this.childsc3Service.gettable(url, applno).subscribe(data => {
+    jsonOb['applno'] = this.l1;
+    // const applno = this.applno;
+    this.childsc3Service.oneseve(url, jsonOb).subscribe(data => {
+
       console.log(data)
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;
