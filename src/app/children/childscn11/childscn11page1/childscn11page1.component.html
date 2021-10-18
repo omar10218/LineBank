@@ -3,11 +3,6 @@
 
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">本案申請書資訊合理性比對</div>
-    <ng-container *ngIf="compare.length == 0; else elseTemplate">
-      <br><br>
-      <th style="padding-left: 20px;color: red;">{{ notFind }}</th>
-    </ng-container>
-    <ng-template #elseTemplate>
       <ng-container *ngFor="let compareRow of compare;let i = index">
         <!-- 第一種 -->
         <div nz-row *ngIf="i==0">
@@ -82,7 +77,6 @@
         </div>
 
       </ng-container>
-    </ng-template>
   </div>
   <!-- <th class="f01_th">COMPARE本案申請書資訊合理性比對</th>
 <ng-container *ngIf="compare.length == 0; else elseTemplate">

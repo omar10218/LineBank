@@ -6,11 +6,11 @@ import { BaseService } from 'src/app/base.service';
 @Injectable({
   providedIn: 'root'
 })
-export class Childscn11Service extends BaseService {
+export class F01002Scn1Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
+  dialogData: any;
 
-  getCompare(json: JSON): Observable<any> {
-    const baseUrl = 'f01/childscn11';
-    return this.postJsonObject(baseUrl, json);
+  saveOrEditMsgJson(baseUrl: string, json: JSON): any {
+    return this.saveOrEditMsgJson(baseUrl, json);
   }
 }
