@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Childscn18Component } from 'src/app/children/childscn18/childscn18.component';
 import { Router } from '@angular/router';
 import { Childscn20Component } from 'src/app/children/childscn20/childscn20.component';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { F01002Scn1Service } from './f01002scn1.service';
 
 @Component({
   selector: 'app-f01002scn1',
@@ -15,6 +17,7 @@ export class F01002scn1Component implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
+    private f01002scn1Service: F01002Scn1Service
   ) { }
 
   private creditLevel: string = 'APPLCreditL3';
@@ -77,9 +80,41 @@ export class F01002scn1Component implements OnInit {
   }
 
   finish() {
+    const baseUrl = '';
+    let msg = '';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['level'] = this.level;
     this.creditResult = sessionStorage.getItem('creditResult');
-    if (this.creditResult == null || this.creditResult == '' || this.creditResult == 'null') {
-      alert("請選取審核結果");
+
+    //文審人員
+    if (this.level == 'L4') {
+      if (this.creditResult == null || this.creditResult == '' || this.creditResult == 'null') {
+        msg = '請選取審核結果';
+      } else {
+        msg = this.saveResult( baseUrl, jsonObject);
+      }
     }
+
+    //徵信人員
+    if (this.level == 'L3') {
+
+    }
+
+    if (this.level == 'L2') {
+
+    }
+
+    if (this.level == 'L1') {
+
+    }
+
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
+      data: { msgStr: msg }
+    });
+  }
+
+  saveResult( url: string, json: JSON ): string {
+    return this.f01002scn1Service.saveOrEditMsgJson( url, json );
   }
 }
