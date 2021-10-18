@@ -339,9 +339,9 @@
         <th class="table-header" nzWidth="100px">撥款金額/核准額度合計</th>
         <th class="table-header" nzWidth="100px">目前餘額合計</th>
         <th class="table-header" nzWidth="100px">目前餘額佔額比</th>
-        <th class="table-header" nzWidth="100px">剩餘月數&lt=3個月帳戶數</th>
-        <th class="table-header" nzWidth="100px">剩餘月數&lt=6個月帳戶數</th>
-        <th class="table-header" nzWidth="100px">剩餘月數&lt=12個月帳戶數</th>
+        <th class="table-header" nzWidth="100px">剩餘月數<=個月帳戶數</th>
+        <th class="table-header" nzWidth="100px">剩餘月數<=6個月帳戶數</th>
+        <th class="table-header" nzWidth="100px">剩餘月數<=12個月帳戶數</th>
       </tr>
     </thead>
     <tbody>
@@ -373,7 +373,7 @@
         <th class="table-header" nzWidth="100px">撥款後三個月(含)內結清帳戶%</th>
         <th class="table-header" nzWidth="100px">撥款後六個月(含)內結清帳戶數</th>
         <th class="table-header" nzWidth="100px">撥款後六個月(含)內結清帳戶%</th>
-        <th class="table-header" nzWidth="100px">撥款後六個月(含)內結清帳戶%</th>
+        <th class="table-header" nzWidth="100px">撥款後十二個月(含)內結清帳戶數</th>
         <th class="table-header" nzWidth="100px">撥款後十二個月(含)內結清帳戶%</th>
       </tr>
     </thead>
@@ -403,7 +403,6 @@
         <th class="table-header" nzWidth="100px">最近一次申請動撥距今日數</th>
         <th class="table-header" nzWidth="100px">最近一次申請動撥申請金額</th>
         <th class="table-header" nzWidth="100px">近一個月申請次數</th>
-        <th class="table-header" nzWidth="100px">撥款後三個月(含)內結清帳戶數</th>
         <th class="table-header" nzWidth="100px">近一個月申請金額合計</th>
         <th class="table-header" nzWidth="100px">近一個月平均申請金額</th>
         <th class="table-header" nzWidth="100px">近三個月申請次數</th>
@@ -428,7 +427,7 @@
         <td class="table-data">{{ data.REQ_TIMES_LAST_3_MON }}</td>
         <td class="table-data">{{ data.REQ_AMT_LAST_3_MON }}</td>
         <td class="table-data">{{ data.AVE_REQ_AMT_LAST_3_MON }}</td>
-        <td class="table-data">{{ data.REQ_TIMES_LAST_16_MON }}</td>
+        <td class="table-data">{{ data.REQ_TIMES_LAST_6_MON }}</td>
         <td class="table-data">{{ data.REQ_AMT_LAST_6_MON }}</td>
         <td class="table-data">{{ data.AVE_REQ_AMT_LAST_6_MON }}</td>
         <td class="table-data">{{ data.REQ_TIMES_LAST_12_MON }}</td>
