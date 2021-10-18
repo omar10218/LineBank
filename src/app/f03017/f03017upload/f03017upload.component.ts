@@ -15,7 +15,7 @@ import { F03017Service } from '../f03017.service';
 @Component({
   selector: 'app-f03017upload',
   templateUrl: './f03017upload.component.html',
-  styleUrls: ['./f03017upload.component.css']
+  styleUrls: ['./f03017upload.component.css', '../../../assets/css/f03.css']
 })
 
 export class F03017uploadComponent implements OnInit {
