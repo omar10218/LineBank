@@ -24,7 +24,7 @@ interface sysCode {
 @Component({
 	selector: 'app-f03017edit',
 	templateUrl: './f03017edit.component.html',
-	styleUrls: ['./f03017edit.component.css'],
+	styleUrls: ['./f03017edit.component.css' ,'../../../assets/css/f03.css'],
 })
 export class F03017editComponent implements OnInit {
 	reportReason1: sysCode[] = [] //通報原因1下拉

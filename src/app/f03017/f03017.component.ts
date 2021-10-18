@@ -120,7 +120,7 @@ console.log(this.bkColumnCode)
   // 取得資料
   async getBkIncomeData() {
     if (typeof this.bkColumnValue == 'undefined'){return alert('請選擇建檔項目')}
-
+    else if(typeof this.bkContentValue == 'undefined'){return alert('請選擇建檔內容')}
       let jsonObject: any = {};
       jsonObject['page'] = this.currentPage.pageIndex + 1;
       jsonObject['per_page'] = this.currentPage.pageSize;

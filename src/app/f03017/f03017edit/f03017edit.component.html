@@ -140,7 +140,7 @@
         </div>
       </div>
       <div nz-row>
-        <div nz-col nzSpan="6"></div>
+        <!-- <div nz-col nzSpan="6"></div> -->
         <div nz-col nzSpan="6">
           <div style="padding:25px;">
 
@@ -162,7 +162,7 @@
           </div>
         </div>
 
-        <div nz-col nzSpan="6">
+        <div nz-col nzSpan="18">
           <div style="padding:25px;">
             <input matInput #input class="form-control" formControlName="CU_CNAME" (keyup)="test('CU_CNAME', $event.target.value)">
             <input matInput #input class="form-control" formControlName="NATIONAL_ID" (keyup)="test('NATIONAL_ID', $event.target.value)">
@@ -171,7 +171,7 @@
             <input matInput #input class="form-control" formControlName="CU_M_TEL"(keyup)="test('CU_M_TEL', $event.target.value)">
           </div>
         </div>
-        <div nz-col nzSpan="6"></div>
+
       </div>
       <!-- <div nz-col nzSpan="24" style="height: 30px;">
 
@@ -212,7 +212,7 @@
       <div mat-dialog-actions>
         <button nz-button [nzSize]="'middle'" nzType="primary" [mat-dialog-close]="1" (click)="insertData()"
           style="margin:0px 5px">儲存</button>
-        <button nz-button [nzSize]="'middle'" nzType="warn" (click)="cancel()" tabindex="-1">離開</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="cancel()" tabindex="-1">離開</button>
       </div>
 
 
