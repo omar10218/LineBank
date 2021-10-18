@@ -5,7 +5,7 @@
     <div class="line_bank_form_header_title">BAM061報送資料比對</div>
     <ng-container *ngIf="compare.length == 0; else elseTemplate">
       <br><br>
-      <th style="padding-left: 20px;color: red;">查無比對資料</th>
+      <th style="padding-left: 20px;color: red;">{{ notFind }}</th>
     </ng-container>
     <ng-template #elseTemplate>
       <ng-container *ngFor="let compareRow of compare;let i = index">

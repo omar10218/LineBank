@@ -1,7 +1,45 @@
-<div style="margin-top: 5px; margin-left: 5px; width: 100%;">
+<!-- <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
   <button class="btn" nz-button nzType="primary" style="margin-bottom: 5px; margin-left: 5px;" [class.active]="nowPage === Page.Page1" (click)="changePage(Page.Page1)">PAGE1</button>
   <button class="btn" nz-button nzType="primary" style="margin-bottom: 5px; margin-left: 5px;" [class.active]="nowPage === Page.Page2" (click)="changePage(Page.Page2)">PAGE2</button>
-    <!-- <button class="btn" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
-      mat-stroked-button (click)="changePage(Page.Page3)">PAGE3</button> -->
+    <button class="btn" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
+      mat-stroked-button (click)="changePage(Page.Page3)">PAGE3</button>
 </div>
-<ng-container appDynamic></ng-container>
+<ng-container appDynamic></ng-container> -->
+
+
+
+<!-- 本案影像 -->
+<button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+        (click)="uploadImage()">新增上傳</button>
+<div class="line_bank_card_no_padding">
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzData]="imageSource" [nzFrontPagination]="false" [nzSimple]="true"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex" nzSize="small" nzTitle="本案影像">
+    <thead>
+      <tr>
+        <th class="table-header"></th>
+        <th class="table-header">文件類型</th>
+        <th class="table-header">文件Key值</th>
+        <th class="table-header">備註</th>
+        <th class="table-header">上傳日期時間</th>
+        <th class="table-header">上傳人員</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of imageSource">
+        <td class="table-data">
+          <button class="btn" nz-button [nzSize]="'large'" nzType="primary" style="margin-bottom: 5px; margin-left: 5px;">
+            <a href="{{ getHost() }}:8080/LineBankViewone/pages/ImagePage2.jsp?applno={{ getApplno() }}"
+              target="_blank">本案影像</a>
+          </button>
+        </td>
+        <td class="table-data">{{ data.DOC_ID }}</td>
+        <td class="table-data">{{ data.FILE_ATTACHMENT_ID }}</td>
+        <td class="table-data">{{ data.REMARK }}</td>
+        <td class="table-data">{{ data.UPLOAD_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
+        <td class="table-data">{{ data.UPLOAD_PERSON }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

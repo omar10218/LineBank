@@ -1,6 +1,5 @@
-import { MappingCode } from './../../mappingcode.model';
+import { OptionsCode } from './../../interface/base';
 import { Component, OnInit } from '@angular/core';
-import { OptionsCode } from 'src/app/interface/base';
 import { Childscn1Service } from './childscn1.service';
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
@@ -77,9 +76,19 @@ export class Childscn1Component implements OnInit {
   creditResultCode: OptionsCode[] = [];//核決結果下拉選單
   resultProdCode: string;
   resultPrjCode: string;
-  resultApproveLimit: number;
-  resultMinPayrate: number;
-  resultRealRate: number;
+  resultApproveAmt: number;
+  resultLowestPayRate: number;
+
+  periodTypeCode: OptionsCode[] = [];//期別下拉選單
+  interestTypeCode: OptionsCode[] = [];//利率型態下拉選單
+  interestCode: OptionsCode[] = [];//基準利率型態下拉選單
+  period: string;
+  periodType: string;
+  interestType: string;
+  interestValue: string;
+  interestBase: number;
+  interest: number = 0;
+  approveInterest: number;
 
   //Creditmemo
   creditmemoSource: Data[] = [];
@@ -88,13 +97,42 @@ export class Childscn1Component implements OnInit {
   pageIndex = 1;
 
   ngOnInit(): void {
+
     this.applno = sessionStorage.getItem('applno');
-    this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//時下拉選單
+    this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
     .subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
         const desc = jsonObj.codeDesc;
         this.creditResultCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    this.childscn1Service.getSysTypeCode('PERIOD_TYPE')//期別下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.periodTypeCode.push({ value: codeNo, viewValue: desc })
+      }
+      this.periodType = '1';
+    });
+
+    this.childscn1Service.getSysTypeCode('INTEREST_TYPE')//利率型態下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.interestTypeCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    this.childscn1Service.getSysTypeCode('INTEREST_CODE')//基準利率型態下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.interestCode.push({ value: codeNo, viewValue: desc })
       }
     });
 
@@ -170,10 +208,11 @@ export class Childscn1Component implements OnInit {
         this.resultProdCode = data.rspBody.resultList[0].prodCode;
         this.resultPrjCode = data.rspBody.resultList[0].prjCode;
         this.creditResult = data.rspBody.resultList[0].creditResult;
-        this.resultApproveLimit = data.rspBody.resultList[0].approveLimit;
-        this.resultMinPayrate = data.rspBody.resultList[0].minPayrate;
-        this.resultRealRate = data.rspBody.resultList[0].realRate;
+        this.resultApproveAmt = data.rspBody.resultList[0].approveAmt;
+        this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
       }
+
+      sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult);
     })
 
     this.getCreditmemo( this.pageIndex, this.pageSize );
@@ -220,5 +259,34 @@ export class Childscn1Component implements OnInit {
 
   formatDate(date: string) {
     return date.split("T")[0]+" "+date.split("T")[1].split(".")[0];
+  }
+
+  changeInterest() {
+    if ( this.interestType == '02' ) {
+      this.interestValue = '1';
+      this.interestBase = 2;
+      this.approveInterest = Number(this.interestBase) + Number(this.interest);
+    } else {
+      this.interestValue = '';
+      this.interestBase = 0;
+      this.approveInterest = Number(this.interestBase) + Number(this.interest);
+    }
+  }
+
+  changeInterestValue() {
+    let msgStr: string = "";
+    if ( this.interestType != "02" ) {
+      msgStr = '利率型態請選擇加減碼';
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      this.interestValue = '';
+    } else {
+
+    }
+  }
+
+  caluclate () {
+    this.approveInterest = Number(this.interestBase) + Number(this.interest);
   }
 }

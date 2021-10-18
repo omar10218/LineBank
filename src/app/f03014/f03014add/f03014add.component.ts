@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { F03014Service } from '../f03014.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 
 
 interface sysCode {
@@ -32,7 +33,11 @@ export class F03014addComponent implements OnInit {
   daytest:string;//三個月後的日期
   jsonObject :any = {};
   Custlist:any=[];
-  constructor(private pipe: DatePipe,private f03014Service: F03014Service, public dialogRef: MatDialogRef<F03014addComponent>) { }
+  constructor(private pipe: DatePipe,
+    private f03014Service: F03014Service,
+    public dialogRef: MatDialogRef<F03014addComponent>,
+    public dialog: MatDialog
+    ) { }
 
   ngOnInit(): void {
     this.usingType.push({value: '1', viewValue: 'Y'});
@@ -48,6 +53,7 @@ export class F03014addComponent implements OnInit {
   }
   seve()//存檔
   {
+    let msgStr: string = "";
     const url = 'f03/f03014action02';
     this.jsonObject['custNid']=this.custNid;
     this.jsonObject['custName']=this.custName;
@@ -63,12 +69,16 @@ export class F03014addComponent implements OnInit {
     this.f03014Service.Add(url,this.Custlist).subscribe(data=>{
       if(data.rspCode =='0000'&& data.rspMsg =='成功')
       {
-        alert("新增成功")
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: msgStr }
+        });
         this.onNoClick();
       }
       else
       {
-        alert(data.rspMsg)
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: msgStr }
+        });
       }
       console.log(data)
 

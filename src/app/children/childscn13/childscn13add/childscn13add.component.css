@@ -32,3 +32,8 @@
     display: block;
     max-height: 65vh;
   }
+
+  .position_top_left{
+    position: relative;
+    top:-5px;
+  }

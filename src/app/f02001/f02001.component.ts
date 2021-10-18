@@ -178,6 +178,7 @@ export class F02001Component implements OnInit {
     }
 
     this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
+      console.log(data)
       this.ruleParamCondition.data = data.rspBody;
     })
   }

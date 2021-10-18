@@ -9,8 +9,8 @@ import { BaseService } from 'src/app/base.service';
 export class Childscn11Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getCompare(formData: FormData): Observable<any> {
-    const baseUrl = 'f01/childscn11';
-    return this.postFormData(baseUrl, formData);
+  getCompare(json: JSON): Observable<any> {
+    const baseUrl = 'f01/childscn11action1';
+    return this.postJsonObject(baseUrl, json);
   }
 }

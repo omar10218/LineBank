@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-f01008delete',
   templateUrl: './f01008delete.component.html',
-  styleUrls: ['./f01008delete.component.css']
+  styleUrls: ['./f01008delete.component.css','../../../assets/css/f01.css']
 })
 export class F01008deleteComponent implements OnInit {
 
