@@ -2,14 +2,15 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd, Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ChildrenService } from '../../children.service';
 import { Childscn6Service } from '../childscn6.service';
 
 @Component({
   selector: 'app-childscn6page1',
   templateUrl: './childscn6page1.component.html',
-  styleUrls: ['./childscn6page1.component.css', '../../../../assets/css/f01.css']
+  styleUrls: ['./childscn6page1.component.css', '../../../../assets/css/child.css']
 })
 export class Childscn6page1Component implements OnInit, AfterViewInit {
 
@@ -24,19 +25,6 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
         this.setBooleanFalse();
         this.list = [];
 
-        this.currentPage = {
-          pageIndex: 0,
-          pageSize: 10,
-          length: null
-        };
-        this.getKRI002();
-
-        this.currentPage2 = {
-          pageIndex: 0,
-          pageSize: 10,
-          length: null
-        };
-        this.getBAM011();
         // when onSameUrlNavigation: 'reload'，會重新觸發 router event
       }
     });
@@ -72,9 +60,16 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   private applno: string;
   private cuid: string;
   private queryDate: string;
-  currentPage: PageEvent;
-  currentPage2: PageEvent;
-  currentSort: Sort;
+
+  KRI002Source: readonly Data[] = [];
+  total1 = 1;
+  pageSize1 = 10;
+  pageIndex1 = 1;
+
+  BAM011Source: readonly Data[] = [];
+  total2 = 1;
+  pageSize2 = 20;
+  pageIndex2 = 1;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -83,49 +78,19 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
     this.getJcicMultiple();
     this.setBooleanFalse();
-
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-
-    this.currentPage2 = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
   }
 
-  totalCount: any;
-  totalCount2: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  @ViewChild('paginator2', { static: true }) paginator2: MatPaginator;
-  KRI002Source = new MatTableDataSource<any>();
-  BAM011Source = new MatTableDataSource<any>();
-
   ngAfterViewInit() {
-    this.getKRI002();
-    this.paginator.page.subscribe((page: PageEvent) => {
-      this.currentPage = page;
-      this.getKRI002();
-    });
 
-    this.getBAM011();
-    this.paginator2.page.subscribe((page: PageEvent) => {
-      this.currentPage2 = page;
-      this.getBAM011();
-    });
   }
 
   getJcicMultiple() {
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    formdata.append('code', 'AAS003,APS001,ACI001,BAI001,BAI004,BAS006,BAS008,KRI001,JAS002,VAM020,STS007');
-    formdata.append('queryDate', this.queryDate);
-    this.childscn6Service.getMASTERJCICSearch(formdata).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['cuid'] = this.cuid;
+    jsonObject['code'] = 'AAS003,APS001,ACI001,BAI001,BAI004,BAS006,BAS008,KRI001,JAS002,VAM020,STS007';
+    jsonObject['queryDate'] = this.queryDate;
+    this.childscn6Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
       this.AAS003 = data.rspBody[0].AAS003;
       this.APS001 = data.rspBody[0].APS001;
       this.ACI001 = data.rspBody[0].ACI001;
@@ -140,35 +105,63 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     });
   }
 
-  getKRI002() {
-    this.KRI002Source.data = null;
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    formdata.append('code', 'KRI002');
-    formdata.append('queryDate', this.queryDate);
-    formdata.append('page', `${this.currentPage.pageIndex + 1}`);
-    formdata.append('per_page', `${this.currentPage.pageSize}`);
-    this.childscn6Service.getJCICSearch(formdata).subscribe(data => {
-      this.totalCount = data.rspBody.size;
-      this.KRI002Source.data = data.rspBody.items;
+  getJCIC( pageIndex: number, pageSize: number, code: string ) {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['cuid'] = this.cuid;
+    jsonObject['code'] = code;
+    jsonObject['queryDate'] = this.queryDate;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    this.childscn6Service.getJCICSearch(jsonObject).subscribe(data => {
+      if ( code == 'KRI002' ) {
+        this.total1 = data.rspBody.size;
+        this.KRI002Source = data.rspBody.items;
+      } else if ( code == 'BAM011' ) {
+        this.total2 = data.rspBody.size;
+        this.BAM011Source = data.rspBody.items;
+      } else {
+
+      }
+
     });
   }
 
-  getBAM011() {
-    this.BAM011Source.data = null;
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    formdata.append('code', 'BAM011');
-    formdata.append('queryDate', this.queryDate);
-    formdata.append('page', `${this.currentPage.pageIndex + 1}`);
-    formdata.append('per_page', `${this.currentPage.pageSize}`);
-    this.childscn6Service.getJCICSearch(formdata).subscribe(data => {
-      this.totalCount2 = data.rspBody.size;
-      this.BAM011Source.data = data.rspBody.items;
-    });
+  onQueryParamsChange(params: NzTableQueryParams, code: string): void {
+    const { pageSize, pageIndex } = params;
+    console.log('====>' + pageIndex + ',' + pageSize)
+    this.getJCIC(pageIndex, pageSize, code);
   }
+
+  // getKRI002() {
+  //   this.KRI002Source.data = null;
+  //   const formdata: FormData = new FormData();
+  //   formdata.append('applno', this.applno);
+  //   formdata.append('cuid', this.cuid);
+  //   formdata.append('code', 'KRI002');
+  //   formdata.append('queryDate', this.queryDate);
+  //   formdata.append('page', `${this.currentPage.pageIndex + 1}`);
+  //   formdata.append('per_page', `${this.currentPage.pageSize}`);
+  //   this.childscn6Service.getJCICSearch(formdata).subscribe(data => {
+  //     this.totalCount = data.rspBody.size;
+  //     this.KRI002Source.data = data.rspBody.items;
+  //   });
+  // }
+
+  // getBAM011() {
+  //   this.BAM011Source.data = null;
+  //   const formdata: FormData = new FormData();
+  //   formdata.append('applno', this.applno);
+  //   formdata.append('cuid', this.cuid);
+  //   formdata.append('code', 'BAM011');
+  //   formdata.append('queryDate', this.queryDate);
+  //   formdata.append('page', `${this.currentPage.pageIndex + 1}`);
+  //   formdata.append('per_page', `${this.currentPage.pageSize}`);
+  //   this.childscn6Service.getJCICSearch(formdata).subscribe(data => {
+  //     this.totalCount2 = data.rspBody.size;
+  //     this.BAM011Source.data = data.rspBody.items;
+  //   });
+  // }
 
   setBooleanTrue() {
     this.hideKRI002 = true;
