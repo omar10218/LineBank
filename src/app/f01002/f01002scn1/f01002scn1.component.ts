@@ -35,6 +35,7 @@ export class F01002scn1Component implements OnInit {
     this.search = sessionStorage.getItem('search');
     this.cuid = sessionStorage.getItem('cuid');
     this.fds = sessionStorage.getItem('fds');
+    this.level = sessionStorage.getItem('level');
   }
 
   ngAfterViewInit() {
@@ -86,26 +87,8 @@ export class F01002scn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.level;
     this.creditResult = sessionStorage.getItem('creditResult');
-
-    //文審人員
-    if (this.level == 'L4') {
-      if (this.creditResult == null || this.creditResult == '' || this.creditResult == 'null') {
-        msg = '請選取審核結果';
-      } else {
-        msg = this.saveResult( baseUrl, jsonObject);
-      }
-    }
-
     //徵信人員
     if (this.level == 'L3') {
-
-    }
-
-    if (this.level == 'L2') {
-
-    }
-
-    if (this.level == 'L1') {
 
     }
 
