@@ -32,9 +32,15 @@ table {
 }
 
 .hide{
-	background-color: #FFE4CA;
+  color:#ffffff;
+  background:#24C875;
+  border-color:#24C875;
+  border-radius:5px;
 }
 
 .nohide{
-	background-color: white;
+  color:#24C875;
+  background:white;
+  border-color:#24C875;
+  border-radius:5px;
 }

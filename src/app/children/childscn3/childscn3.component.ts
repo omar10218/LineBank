@@ -108,8 +108,21 @@ export class Childscn3Component implements OnInit {
     console.log(this.data)
     for (var i of this.data) {
       if (i.check == true) {
-        if (i.child.length < 1) {
+        if (i.child.length < 1)
+         {
           this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
+        }
+        else
+        {
+          for (var k of i.child) {
+            if (k.check == true) {
+              this.l1.push({ announceReason1: i.reasonCode, announceReason2: k.reasonCode })
+            }
+            else {
+              this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
+            }
+            // }
+          }
         }
         // if(i.child.check ==false)
         // {
@@ -117,15 +130,7 @@ export class Childscn3Component implements OnInit {
         // }
         // else
         // {
-        for (var k of i.child) {
-          if (k.check == true) {
-            this.l1.push({ announceReason1: i.reasonCode, announceReason2: k.reasonCode })
-          }
-          else {
-            this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
-          }
-          // }
-        }
+
       }
     }
     this.jsonObject['applno'] = this.applno;

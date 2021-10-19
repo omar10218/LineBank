@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-f03008upload',
   templateUrl: './f03008upload.component.html',
-  styleUrls: ['./f03008upload.component.css','../../../assets/css/f03.css']
+  styleUrls: ['./f03008upload.component.css', '../../../assets/css/f03.css']
 })
 export class F03008uploadComponent implements OnInit {
 
@@ -28,7 +28,7 @@ export class F03008uploadComponent implements OnInit {
 
   empNo: string = localStorage.getItem("empNo");
   JsonBool = false;
-  ExcelSource : any;
+  ExcelSource: any;
 
   ngOnInit(): void {
   }
@@ -40,14 +40,15 @@ export class F03008uploadComponent implements OnInit {
     let baseUrl = 'f03/f03008action2';
     this.f03008Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
       console.log(data)
-      let msg="";
-      if(data.rspCode!="0000"){
-        for (const Information of data.rspBody.ErrorInformation)
-        {
-          msg+=Information.repeatValue+"\n";
+      let msg = "";
+      if (data.rspCode != "0000") {
+        if (data.rspBody.ErrorInformation.length > 0) {
+          for (const Information of data.rspBody.ErrorInformation) {
+            msg += Information.repeatValue + "\n";
+          }
         }
       }
-      msg+=data.rspMsg;
+      msg += data.rspMsg;
       this.uploadForm.patchValue({ ERROR_MESSAGE: msg });
     });
   }

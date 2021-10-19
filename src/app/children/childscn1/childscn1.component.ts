@@ -50,6 +50,7 @@ export class Childscn1Component implements OnInit {
   isRpm: string;                                //RPM是否為利關人
   rpmTypeDescribe: string;                      //RPM關係類型描述
   rpmDate: string;                              //RPM查詢日期
+  rpmId: string;                                //RMP關係人ID
 
   //DSS1st
   sysflowcdOne: string;                         //系統流程
@@ -177,6 +178,7 @@ export class Childscn1Component implements OnInit {
         this.isRpm = data.rspBody.rpmList[0].isRpm;
         this.rpmTypeDescribe = data.rspBody.rpmList[0].rpmTypeDescribe;
         this.rpmDate = this.formatDate( data.rspBody.rpmList[0].rpmDate );
+        this.rpmId = data.rspBody.rpmList[0].rpmId;
       }
 
       //DSS1
