@@ -5,6 +5,7 @@ import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-childscn1',
@@ -304,9 +305,9 @@ export class Childscn1Component implements OnInit {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
-      this.interestValue = '';
-    } else {
-
+      childernDialogRef.afterClosed().subscribe(result => {
+        this.interestValue = '';
+      });
     }
   }
 
