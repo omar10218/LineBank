@@ -1,5 +1,5 @@
 import { element } from 'protractor';
-import { Component,Inject, OnInit, ViewChild } from '@angular/core';
+import { Component,ElementRef,Inject, OnInit, ViewChild } from '@angular/core';
 import { F03017Service } from '../f03017/f03017.service';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -21,11 +21,12 @@ interface sysCode {
   styleUrls: ['./f03017.component.css', '../../assets/css/f03.css']
 })
 export class F03017Component implements OnInit {
-Id:number[]=[];
+  Id:number[]=[];
   bkColumnCode: sysCode[] = [];;  //建檔項目欄位下拉
   bkColumnValue: string;  //建檔項目欄位
   bkContentValue: string;  //建檔項目欄位值內容下拉
   chkArray: string[] = [];//勾選欄
+  transEmpNo: string = localStorage.getItem("BK_EMPNO");
   contentArray: string[] = [];//勾選欄內容
   isHidden: boolean;
   myDate: any = new Date();
@@ -33,7 +34,7 @@ Id:number[]=[];
   total = 1;
   pageSize = 10;
   pageIndex = 1;
-
+  @ViewChild('CU_CNAME') CU_CNAME: ElementRef;
   constructor(
     private f03017Service: F03017Service,
     private fb: FormBuilder,
@@ -47,8 +48,8 @@ Id:number[]=[];
 
    bkIncomeForm: FormGroup = this.fb.group({
      Id:[this.data.Id, [Validators.maxLength(30)]],
-    bkColumn: [this.data.bkColumnValue, [Validators.maxLength(30)]],
-    bk_Content: [this.data.bkContentValue, [Validators.maxLength(30)]],
+     BK_COLUMN: [this.data.bkColumnValue, [Validators.maxLength(30)]],
+    BK_CONTENT: [this.data.bkContentValue, [Validators.maxLength(30)]],
     CU_CNAME: [this.data.CU_CNAME, []],
     NATIONAL_ID: [this.data.NATIONAL_ID, []],
     CU_H_TEL: [this.data.CU_H_TEL, []],
@@ -63,6 +64,7 @@ Id:number[]=[];
   ]);
 
   ngOnInit(): void {
+
 console.log(this.bkIncomeForm)
     this.currentPage = {
       pageIndex: 0,
@@ -90,6 +92,7 @@ console.log(this.bkIncomeForm)
   bkIncomeDataSource = new MatTableDataSource<any>();
 
   ngAfterViewInit() {
+console.log(this.transEmpNo)
 console.log(this.bkColumnCode)
 
 
@@ -163,12 +166,21 @@ this.loading = false;
   //編輯
   update(isUpdate: boolean, data: any,row:any ) {
     console.log(data)
+
     this.chkArray.forEach((element)=>{
-      if(element==="CU_CNAME"){this.contentArray.push(this.bkIncomeForm.value.CU_CNAME);}
-      if(element==="NATIONAL_ID"){this.contentArray.push(this.bkIncomeForm.value.NATIONAL_ID);}
-      if(element==="CU_H_TEL"){this.contentArray.push(this.bkIncomeForm.value.CU_H_TEL);}
-      if(element==="CU_CP_TEL"){this.contentArray.push(this.bkIncomeForm.value.CU_CP_TEL);}
-      if(element==="CU_M_TEL"){this.contentArray.push(this.bkIncomeForm.value.CU_M_TEL);}
+      console.log(element)
+      var checked:boolean = true;
+      if(element==="CU_CNAME")
+      {this.contentArray.push(this.bkIncomeForm.value.CU_CNAME);
+        }
+      if(element==="NATIONAL_ID")
+      {this.contentArray.push(this.bkIncomeForm.value.NATIONAL_ID);}
+      if(element==="CU_H_TEL")
+      {this.contentArray.push(this.bkIncomeForm.value.CU_H_TEL);}
+      if(element==="CU_CP_TEL")
+      {this.contentArray.push(this.bkIncomeForm.value.CU_CP_TEL);}
+      if(element==="CU_M_TEL")
+      {this.contentArray.push(this.bkIncomeForm.value.CU_M_TEL);}
     });
 
     const dialogRef = this.dialog.open(F03017editComponent, {
@@ -178,13 +190,13 @@ this.loading = false;
         isUpdate: isUpdate,
         isInsert: false,
         row:row,
-        reportReason1Value:data.reportReason1,
-        reportReason2Value:data.reportReason2,
-        reportReason3Value:data.reportReason3,
-        USE_FLAG:data.useFlag,
-        REPORT_CONTENT: data.reportContent,
-        BK_CONTENT:data.bkContent,
-        BK_COLUMN:data.bkColumn,
+        reportReason1Value:data.REPORT_REASON1,
+        reportReason2Value:data.REPORT_REASON2,
+        reportReason3Value:data.REPORT_REASON3,
+        USE_FLAG:data.USE_FLAG,
+        REPORT_CONTENT: data.REPORT_CONTENT,
+        BK_CONTENT:data.BK_CONTENT,
+        BK_COLUMN:data.BK_COLUMN,
 
       // CU_CNAME:data.bkContent,
       //   NATIONAL_ID:data.bkContent,
