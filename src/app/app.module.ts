@@ -56,7 +56,6 @@ import { F03011editComponent } from './f03011/f03011edit/f03011edit.component';
 import { F03010editComponent } from './f03010/f03010edit/f03010edit.component';
 import { F04001Component } from './f04001/f04001.component';
 import { F04002Component } from './f04002/f04002.component';
-import { F01005Component } from './f01005/f01005.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { DatePipe, CommonModule, registerLocaleData } from '@angular/common';
 import { F03011addComponent } from './f03011/f03011add/f03011add.component';
@@ -156,7 +155,6 @@ export const TW_FORMATS = {
     F03010editComponent,
     F04001Component,
     F04002Component,
-    F01005Component,
     F03011addComponent,
     F03010addComponent,
     F03012addComponent,
@@ -185,7 +183,7 @@ export const TW_FORMATS = {
     F01008addComponent,
     F01008deleteComponent,
     F03006amtComponent,
-    F03006prjComponent
+    F03006prjComponent,
   ],
   imports: [
     NzIconModule,
