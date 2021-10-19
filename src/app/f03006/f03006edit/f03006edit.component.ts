@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-f03006edit',
   templateUrl: './f03006edit.component.html',
-  styleUrls: ['./f03006edit.component.css', '.../../../assets/css/f03.css']
+  styleUrls: ['./f03006edit.component.css', '../../../assets/css/f03.css']
 })
 export class F03006editComponent {
 

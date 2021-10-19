@@ -1,11 +1,11 @@
-import { MappingCode } from './../../mappingcode.model';
+import { OptionsCode } from './../../interface/base';
 import { Component, OnInit } from '@angular/core';
-import { OptionsCode } from 'src/app/interface/base';
 import { Childscn1Service } from './childscn1.service';
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-childscn1',
@@ -51,35 +51,56 @@ export class Childscn1Component implements OnInit {
   isRpm: string;                                //RPM是否為利關人
   rpmTypeDescribe: string;                      //RPM關係類型描述
   rpmDate: string;                              //RPM查詢日期
+  rpmId: string;                                //RMP關係人ID
 
   //DSS1st
   sysflowcdOne: string;                         //系統流程
   resltcdOne: string;                           //決策結果
   calvOne: string;                              //案件等級
-  ocupatnCustGpAndDescOne: string;              //行職業代碼分群代碼/中文
+  ocupatnCustGpOne: string;                     //行職業代碼分群代碼/中文
   ocupatnCustStgp1One: string;                  //策略客群1代碼/中文
   ocupatnCustStgp2One: string;                  //策略客群2代碼/中文
-  goodbehavOne: string;                         //往來優質特徵註記代碼/中文
-  specilcaseOne: string;                        //特殊案件貼標/中文
+  goodbehavMortOne: string;                     //往來優質特徵註記(房貸)代碼/中文
+  goodbehavCcOne: string;                       //往來優質特徵註記(信用卡)代碼/中文
+  riskmdscoreA0: string;                        //風險模型分數
+  riskmdgradeA0Adj: string;                     //風險模型等級(策略調整後)
 
   //DSS2st
   sysflowcdTwo: string;                         //系統流程
   resltcdTwo: string;                           //決策結果
   calvTwo: string;                              //案件等級
-  ocupatnCustGpAndDescTwo: string;              //行職業代碼分群代碼/中文
+  ocupatnCustGpTwo: string;                     //行職業代碼分群代碼/中文
   ocupatnCustStgp1Two: string;                  //策略客群1代碼/中文
   ocupatnCustStgp2Two: string;                  //策略客群2代碼/中文
-  goodbehavTwo: string;                         //往來優質特徵註記代碼/中文
-  specilcaseTwo: string;                        //特殊案件貼標/中文
+  goodbehavMortTwo: string;                     //往來優質特徵註記(房貸)代碼/中文
+  goodbehavCcTwo: string;                       //往來優質特徵註記(信用卡)代碼/中文
+  riskmdscoreA1: string;                        //風險模型分數
+  riskmdgradeA1Adj: string;                     //風險模型等級(策略調整後)
+  custTag: string;                              //客群標籤/說明
+
+  //DSS2st Strgy
+  strgyAprfrj: string;                          //授信策略准駁結果
+  strgyLimitReving: string;                     //授信策略循環信貸額度
+  strgyMinpayrt: string;                        //授信策略每月最低還款比率
 
   //審核結果
   creditResult: string;
   creditResultCode: OptionsCode[] = [];//核決結果下拉選單
   resultProdCode: string;
   resultPrjCode: string;
-  resultApproveLimit: number;
-  resultMinPayrate: number;
-  resultRealRate: number;
+  resultApproveAmt: number;
+  resultLowestPayRate: number;
+
+  periodTypeCode: OptionsCode[] = [];//期別下拉選單
+  interestTypeCode: OptionsCode[] = [];//利率型態下拉選單
+  interestCode: OptionsCode[] = [];//基準利率型態下拉選單
+  period: string;
+  periodType: string;
+  interestType: string;
+  interestValue: string;
+  interestBase: number;
+  interest: number = 0;
+  approveInterest: number;
 
   //Creditmemo
   creditmemoSource: Data[] = [];
@@ -88,13 +109,42 @@ export class Childscn1Component implements OnInit {
   pageIndex = 1;
 
   ngOnInit(): void {
+
     this.applno = sessionStorage.getItem('applno');
-    this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//時下拉選單
+    this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
     .subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
         const desc = jsonObj.codeDesc;
         this.creditResultCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    this.childscn1Service.getSysTypeCode('PERIOD_TYPE')//期別下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.periodTypeCode.push({ value: codeNo, viewValue: desc })
+      }
+      this.periodType = '1';
+    });
+
+    this.childscn1Service.getSysTypeCode('INTEREST_TYPE')//利率型態下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.interestTypeCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    this.childscn1Service.getSysTypeCode('INTEREST_CODE')//基準利率型態下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.interestCode.push({ value: codeNo, viewValue: desc })
       }
     });
 
@@ -139,6 +189,7 @@ export class Childscn1Component implements OnInit {
         this.isRpm = data.rspBody.rpmList[0].isRpm;
         this.rpmTypeDescribe = data.rspBody.rpmList[0].rpmTypeDescribe;
         this.rpmDate = this.formatDate( data.rspBody.rpmList[0].rpmDate );
+        this.rpmId = data.rspBody.rpmList[0].rpmId;
       }
 
       //DSS1
@@ -146,11 +197,13 @@ export class Childscn1Component implements OnInit {
         this.sysflowcdOne = data.rspBody.dss1List[0].sysflowcd;
         this.resltcdOne = data.rspBody.dss1List[0].resltcd;
         this.calvOne = data.rspBody.dss1List[0].calv;
-        this.ocupatnCustGpAndDescOne = data.rspBody.dss1List[0].ocupatnCustGp + data.rspBody.dss1List[0].ocupatnCustGpDesc;
-        this.ocupatnCustStgp1One = data.rspBody.dss1List[0].ocupatnCustStgp1 + data.rspBody.dss1List[0].ocupatnCustStgp1Desc;
+        this.ocupatnCustGpOne = data.rspBody.dss1List[0].ocupatnCustGp;
+        this.ocupatnCustStgp1One = data.rspBody.dss1List[0].ocupatnCustStgp1;
         this.ocupatnCustStgp2One = data.rspBody.dss1List[0].ocupatnCustStgp2;
-        this.goodbehavOne = data.rspBody.dss1List[0].goodbehav + data.rspBody.dss1List[0].goodbehavDesc;
-        this.specilcaseOne = data.rspBody.dss1List[0].specilcase + data.rspBody.dss1List[0].specilcaseDesc;
+        this.goodbehavMortOne = data.rspBody.dss1List[0].goodbehavMort;
+        this.goodbehavCcOne = data.rspBody.dss1List[0].goodbehavCc;
+        this.riskmdscoreA0 = data.rspBody.dss1List[0].riskmdscoreA0;
+        this.riskmdgradeA0Adj = data.rspBody.dss1List[0].riskmdgradeA0Adj;
       }
 
       //DSS2
@@ -158,11 +211,21 @@ export class Childscn1Component implements OnInit {
         this.sysflowcdTwo = data.rspBody.dss2List[0].sysflowcd;
         this.resltcdTwo = data.rspBody.dss2List[0].resltcd;
         this.calvTwo = data.rspBody.dss2List[0].calv;
-        this.ocupatnCustGpAndDescTwo = data.rspBody.dss2List[0].ocupatnCustGp + data.rspBody.dss2List[0].ocupatnCustGpDesc;
+        this.ocupatnCustGpTwo = data.rspBody.dss2List[0].ocupatnCustGp + data.rspBody.dss2List[0].ocupatnCustGpDesc;
         this.ocupatnCustStgp1Two = data.rspBody.dss2List[0].ocupatnCustStgp1 + data.rspBody.dss2List[0].ocupatnCustStgp1Desc;
         this.ocupatnCustStgp2Two = data.rspBody.dss2List[0].ocupatnCustStgp2;
-        this.goodbehavTwo = data.rspBody.dss2List[0].goodbehav + data.rspBody.dss2List[0].goodbehavDesc;
-        this.specilcaseTwo = data.rspBody.dss2List[0].specilcase + data.rspBody.dss2List[0].specilcaseDesc;
+        this.goodbehavMortTwo = data.rspBody.dss2List[0].goodbehavMort;
+        this.goodbehavCcTwo = data.rspBody.dss2List[0].goodbehavCc;
+        this.riskmdscoreA1 = data.rspBody.dss2List[0].riskmdscoreA1;
+        this.riskmdgradeA1Adj = data.rspBody.dss2List[0].riskmdgradeA1Adj;
+        this.custTag = data.rspBody.dss2List[0].custTag + '/' + data.rspBody.dss2List[0].custTagDesc;
+      }
+
+      //DSS2Strgy
+      if ( data.rspBody.dss2StrgyList.length > 0 ) {
+        this.strgyAprfrj = data.rspBody.dss2StrgyList[0].strgyAprfrj;
+        this.strgyLimitReving = data.rspBody.dss2StrgyList[0].strgyLimitReving;
+        this.strgyMinpayrt = data.rspBody.dss2StrgyList[0].strgyMinpayrt;
       }
 
       //result
@@ -170,10 +233,11 @@ export class Childscn1Component implements OnInit {
         this.resultProdCode = data.rspBody.resultList[0].prodCode;
         this.resultPrjCode = data.rspBody.resultList[0].prjCode;
         this.creditResult = data.rspBody.resultList[0].creditResult;
-        this.resultApproveLimit = data.rspBody.resultList[0].approveLimit;
-        this.resultMinPayrate = data.rspBody.resultList[0].minPayrate;
-        this.resultRealRate = data.rspBody.resultList[0].realRate;
+        this.resultApproveAmt = data.rspBody.resultList[0].approveAmt;
+        this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
       }
+
+      sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult);
     })
 
     this.getCreditmemo( this.pageIndex, this.pageSize );
@@ -220,5 +284,34 @@ export class Childscn1Component implements OnInit {
 
   formatDate(date: string) {
     return date.split("T")[0]+" "+date.split("T")[1].split(".")[0];
+  }
+
+  changeInterest() {
+    if ( this.interestType == '02' ) {
+      this.interestValue = '1';
+      this.interestBase = 2;
+      this.approveInterest = Number(this.interestBase) + Number(this.interest);
+    } else {
+      this.interestValue = '';
+      this.interestBase = 0;
+      this.approveInterest = Number(this.interestBase) + Number(this.interest);
+    }
+  }
+
+  changeInterestValue() {
+    let msgStr: string = "";
+    if ( this.interestType != "02" ) {
+      msgStr = '利率型態請選擇加減碼';
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      childernDialogRef.afterClosed().subscribe(result => {
+        this.interestValue = '';
+      });
+    }
+  }
+
+  caluclate () {
+    this.approveInterest = Number(this.interestBase) + Number(this.interest);
   }
 }

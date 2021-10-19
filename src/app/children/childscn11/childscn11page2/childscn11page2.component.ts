@@ -23,6 +23,7 @@ export class Childscn11page2Component implements OnInit {
   private applno: string;
   mappingOption: MappingCode[];
   compare: Code[] = [];
+  notFind: string;
 
   compare_UNIDForm: FormGroup = this.fb.group({
     GPS_1: ['', []],//			GPS - 時點1比對次數
@@ -55,12 +56,16 @@ export class Childscn11page2Component implements OnInit {
   }
 //取資料
   getCOMPARE() {
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('code', 'EL_HISTORY_COMPARE_UNID');
-    this.childscn11Service.getCompare(formdata).subscribe(data => {
-      this.mappingOption = data.rspBody.table;
-      this.compare = data.rspBody.compare;
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;;
+    jsonObject['code'] = 'EL_HISTORY_COMPARE_UNID';
+    this.childscn11Service.getCompare(jsonObject).subscribe(data => {
+      if ( data.rspBody.compare == 'not find') {
+        this.notFind = "此案編查無比對資料";
+      } else {
+        this.mappingOption = data.rspBody.table;
+        this.compare = data.rspBody.compare;
+      }
     });
   }
   //取viewValue

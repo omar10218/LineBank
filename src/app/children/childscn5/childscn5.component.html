@@ -7,296 +7,214 @@
       </div>
       <div class="line_bank_card_no_padding_child">
         <div class="line_bank_form_header_title">客戶資料</div>
-        <!-- 基本資料 -->
-
+        <!-- 行業別 -->
         <div nz-row>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
               <span class="form-title">中文姓名</span>
               <input style="display: block;" formControlName="CUCNAME" readonly>
             </div>
           </div>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">英文姓名</span>
-              <input style="display: block;" formControlName="CUENAME" readonly>
+              <span class="form-title">身分證字號</span>
+              <input style="display: block;" formControlName="NATIONAL_ID" readonly>
             </div>
           </div>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">教育程度</span>
-              <input style="display: block;" formControlName="EDUCATION" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">行動電話</span>
-              <input style="display: block;" formControlName="MOBILE" readonly>
+              <span class="form-title">性別</span>
+              <input style="display: block;" formControlName="CU_SEX" readonly>
             </div>
           </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
         <div nz-row>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">電子信箱</span>
-              <input style="display: block;" formControlName="EMAIL" readonly>
+              <span class="form-title">住家型態</span>
+              <input style="display: block;" formControlName="CU_RDTL" readonly>
             </div>
           </div>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
               <span class="form-title">生日</span>
-              <input style="display: block;" formControlName="BIRTHDAY" readonly>
+              <input style="display: block;" formControlName="CU_BIRTHDAY" readonly>
             </div>
           </div>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">教育程度</span>
-              <input style="display: block;" formControlName="EDUCATION" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">行動電話</span>
-              <input style="display: block;" formControlName="MOBILE" readonly>
-            </div>
-          </div>
-        </div>
-        <!-- 戶籍地址 -->
-        <div nz-row>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">戶籍地址區域碼</span>
-              <input style="display: block;" formControlName="P_ADDR_CODE" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="18">
-            <div style="padding:10px">
-              <span class="form-title">戶籍地址</span>
-              <input style="display: block;" formControlName="P_ADDR" readonly>
-            </div>
-          </div>
-        </div>
-        <!-- 通訊地址 -->
-        <div nz-row>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">通訊地址區域碼</span>
-              <input style="display: block;" formControlName="H_ADDR_CODE" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="18">
-            <div style="padding:10px">
-              <span class="form-title">通訊地址</span>
-              <input style="display: block;" formControlName="H_ADDR" readonly>
-            </div>
-          </div>
-        </div>
-        <!-- 公司資料 -->
-        <div nz-row>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">公司統編</span>
-              <input style="display: block;" formControlName="CP_NO" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">公司名稱</span>
-              <input style="display: block;" formControlName="CP_NAME" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">目前工作年資</span>
-              <input style="display: block;" formControlName="CP_TENURE" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">前一份公司名稱</span>
-              <input style="display: block;" formControlName="PREVIOUS_CP_NAME" readonly>
+              <span class="form-title">婚姻</span>
+              <input style="display: block;" formControlName="CU_MARRIED_STATUS" readonly>
             </div>
           </div>
         </div>
 
         <div nz-row>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">前一份工作職稱</span>
-              <input style="display: block;" formControlName="PREVIOUS_CP_TITLE" readonly>
+              <span class="form-title">房屋所有權者</span>
+              <input style="display: block;" formControlName="HOUSE_OWNER" readonly>
             </div>
           </div>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">前一份工作年資</span>
-              <input style="display: block;" formControlName="PREVIOUS_CP_TENURE" readonly>
+              <span class="form-title">學歷</span>
+              <input style="display: block;" formControlName="CU_EDUCATION" readonly>
             </div>
           </div>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">公司電話區域碼</span>
-              <input style="display: block;" formControlName="CP_TEL_CODE" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">公司電話</span>
-              <input style="display: block;" formControlName="CP_TEL" readonly>
+              <span class="form-title"></span>
+              <!-- <input style="display: block;" formControlName="CU_MARRIED_STATUS" readonly> -->
             </div>
           </div>
         </div>
 
         <div nz-row>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="3">
             <div style="padding:10px">
-              <span class="form-title">公司地址區域碼</span>
-              <input style="display: block;" formControlName="CP_ADDR_CODE" readonly>
+              <span class="form-title">住宅地址</span>
+              <input style="display: block;" formControlName="CU_H_ADDR_CODE" readonly>
             </div>
           </div>
-          <div nz-col nzSpan="18">
+          <div nz-col nzSpan="6">
+            <div style="padding:10px">
+              <span class="form-title">&nbsp;</span>
+              <input style="display: block;" formControlName="CU_H_ADDR1" readonly>
+            </div>
+          </div>
+          <div nz-col nzSpan="6">
+            <div style="padding:10px">
+              <span class="form-title">&nbsp;</span>
+              <input style="display: block;" formControlName="CU_H_ADDR2" readonly>
+            </div>
+          </div>
+          <div nz-col nzSpan="3">
+            <div style="padding:10px">
+              <span class="form-title">住宅電話</span>
+              <input style="display: block;" formControlName="CU_H_TEL_INO" readonly>
+            </div>
+          </div>
+          <div nz-col nzSpan="6">
+            <div style="padding:10px">
+              <span class="form-title">&nbsp;</span>
+              <input style="display: block;" formControlName="CU_H_TEL" readonly>
+            </div>
+          </div>
+        </div>
+
+        <div nz-row>
+          <div nz-col nzSpan="3">
             <div style="padding:10px">
               <span class="form-title">公司地址</span>
-              <input style="display: block;" formControlName="CP_ADDR" readonly>
+              <input style="display: block;" formControlName="CU_CP_ADDR_CODE" readonly>
+            </div>
+          </div>
+          <div nz-col nzSpan="6">
+            <div style="padding:10px">
+              <span class="form-title">&nbsp;</span>
+              <input style="display: block;" formControlName="CU_CP_ADDR1" readonly>
+            </div>
+          </div>
+          <div nz-col nzSpan="6">
+            <div style="padding:10px">
+              <span class="form-title">&nbsp;</span>
+              <input style="display: block;" formControlName="CU_CP_ADDR2" readonly>
+            </div>
+          </div>
+          <div nz-col nzSpan="3">
+            <div style="padding:10px">
+              <span class="form-title">公司電話</span>
+              <input style="display: block;" formControlName="CU_CP_TEL_INO" readonly>
+            </div>
+          </div>
+          <div nz-col nzSpan="6">
+            <div style="padding:10px">
+              <span class="form-title">&nbsp;</span>
+              <input style="display: block;" formControlName="CU_CP_TEL" readonly>
             </div>
           </div>
         </div>
-        <!-- 公司資料 -->
+
         <div nz-row>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">公司職稱</span>
-              <input style="display: block;" formControlName="CP_TITLE" readonly>
+              <span class="form-title">公司名稱</span>
+              <input style="display: block;" formControlName="CU_CP_NAME" readonly>
             </div>
           </div>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">行職業代碼</span>
-              <input style="display: block;" formControlName="CP_TYPE" readonly>
+              <span class="form-title">公司統編</span>
+              <input style="display: block;" formControlName="CU_CP_NO" readonly>
             </div>
           </div>
-          <div nz-col nzSpan="12">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">徵信認定職行業</span>
-              <mat-select formControlName="CP_TYPE_CREDIT">
-                <mat-option *ngFor="let code of cpTypeCreditCode" [value]="code.value">
-                  {{code.viewValue}}
-                </mat-option>
-              </mat-select>
+              <span class="form-title">到職日</span>
+              <input style="display: block;" formControlName="HIRED_DATE" readonly>
             </div>
           </div>
         </div>
-        <!-- 行業別 -->
+
         <div nz-row>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">行業別Level 1</span>
-              <input style="display: block;" formControlName="CP_TYPE_LEVEL1" readonly>
+              <span class="form-title">年資</span>
+              <input style="display: block;" formControlName="SENIORITY" readonly>
             </div>
           </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">行業別Level 1 & 2</span>
-              <input style="display: block;" formControlName="CP_TYPE_LEVEL1_2" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">職稱代碼</span>
-              <input style="display: block;" formControlName="CP_TITLE_NO" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
+          <div nz-col nzSpan="8">
             <div style="padding:10px">
               <span class="form-title">年收入</span>
-              <input style="display: block;" formControlName="SALARY_YEAR" readonly>
-            </div>
-          </div>
-        </div>
-        <!-- 行業別 -->
-        <div nz-row>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">GPS時點1</span>
-              <input style="display: block;" formControlName="GPS_1" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">GPS時點2</span>
-              <input style="display: block;" formControlName="GPS_2" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">IP ADDRESS時點1</span>
-              <input style="display: block;" formControlName="IP_ADDR_1" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">IP ADDRESS時點2</span>
-              <input style="display: block;" formControlName="IP_ADDR_2" readonly>
-            </div>
-          </div>
-        </div>
-        <!-- 行業別 -->
-        <div nz-row>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">手機型號時點1</span>
-              <input style="display: block;" formControlName="PHONE_MODEL_1" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">手機型號時點2</span>
-              <input style="display: block;" formControlName="PHONE_MODEL_2" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">裝置ID時點1</span>
-              <input style="display: block;" formControlName="PHONE_DEVICE_ID_1" readonly>
-            </div>
-          </div>
-          <div nz-col nzSpan="6">
-            <div style="padding:10px">
-              <span class="form-title">裝置ID時點2</span>
-              <input style="display: block;" formControlName="PHONE_DEVICE_ID_2" readonly>
-            </div>
-          </div>
-        </div>
-        <!-- 行業別 -->
-        <div nz-row>
-          <div nz-col nzSpan="8">
-            <div style="padding:10px">
-              <span class="form-title">通訊電話區域碼</span>
-              <input style="display: block;" formControlName="H_TEL_CODE" readonly>
+              <input style="display: block;" formControlName="ANNUAL_INCOME" readonly>
             </div>
           </div>
           <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">通訊電話</span>
-              <input style="display: block;" formControlName="H_TEL" readonly>
+              <span class="form-title"></span>
+              <!-- <input style="display: block;" formControlName="HIRED_DATE" readonly> -->
+            </div>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="16">
+            <div style="padding:10px">
+              <span class="form-title">email</span>
+              <input style="display: block;" formControlName="CU_EMAIL" readonly>
             </div>
           </div>
           <div nz-col nzSpan="8">
             <div style="padding:10px">
-              <span class="form-title">申請時間</span>
-              <input style="display: block;" formControlName="APPLY_TIME" readonly>
+              <span class="form-title">行動電話</span>
+              <input style="display: block;" formControlName="CU_M_TEL" readonly>
+            </div>
+          </div>
+          <div nz-col nzSpan="8">
+            <div style="padding:10px">
+              <span class="form-title"></span>
+              <!-- <input style="display: block;" formControlName="CU_SEX" readonly> -->
+            </div>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="8">
+            <div style="padding:10px">
+              <span class="form-title">行職業</span>
+              <input style="display: block;" formControlName="CU_TYPE" readonly>
+            </div>
+          </div>
+          <div nz-col nzSpan="8">
+            <div style="padding:10px">
+              <span class="form-title">職稱</span>
+              <input style="display: block;" formControlName="CU_TITLE" readonly>
+            </div>
+          </div>
+          <div nz-col nzSpan="8">
+            <div style="padding:10px">
+              <span class="form-title"></span>
+              <!-- <input style="display: block;" formControlName="CU_SEX" readonly> -->
             </div>
           </div>
         </div>

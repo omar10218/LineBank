@@ -33,11 +33,11 @@ export class Childscn6Component implements OnInit {
 
   ngAfterViewInit() {
     const url = 'f01/childscn6';
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    formdata.append('code', 'MASTER');
-    this.childscn6Service.getDate(url, formdata).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['cuid'] = this.cuid;
+    jsonObject['code'] = 'MASTER';
+    this.childscn6Service.getDate(url, jsonObject).subscribe(data => {
       if (data.rspBody.items.length > 0) {
         for (let i = 0; i < data.rspBody.items.length; i++) {
           this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })

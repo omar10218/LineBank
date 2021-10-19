@@ -39,7 +39,7 @@
           <td class="table-data">
             <button (mouseover)="mouseover(data.rowId)" (mouseout)="mouseout(data.rowId)" nz-button [nzSize]="'middle'" nzType="primary" (click)="openView(data.webImg)">
               <!-- <mat-icon aria-label="">image</mat-icon> -->
-               <img width="100%" src='{{ "assets/images/" + data.ImgSrc + ".png" }}'>
+               <img class="position_top_left" width="100%" src='{{ "assets/images/" + data.ImgSrc + ".png" }}'>
               </button>
           </td>
           <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">

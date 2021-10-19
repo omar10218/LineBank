@@ -39,3 +39,18 @@
 :host ::ng-deep .router + * {
   flex: 1;
 }
+
+.position_top{
+  position:relative;
+  top:-2px;
+}
+
+.position_top2{
+
+  width:45px;
+  height:45px;
+  position: relative;
+  top:-33px;
+  left:118px;
+
+}

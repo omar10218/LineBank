@@ -3,40 +3,35 @@
 
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">歷史申請書比對(同一NID)</div>
-    <ng-container *ngIf="compare.length == 0; else elseTemplate">
-      <br><br>
-      <th style="padding-left: 20px;color: red;">查無比對資料</th>
-    </ng-container>
-    <ng-template #elseTemplate>
       <ng-container *ngFor="let compareRow of compare;let i = index">
         <!-- 第一種 -->
         <div nz-row *ngIf="i==0">
-          <div nz-col nzSpan="8" *ngIf="compare[i]!=null && compare[i].result == 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i] !=null && compare[i].result == 'Y'; ">
             <div style="padding:10px"><span class="form-title">{{getOptionDesc(compare[i].compareColumn)}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i].count" name="count" disabled></div>
           </div>
-          <div nz-col nzSpan="8" *ngIf="compare[i]!=null && compare[i].result != 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i] !=null && compare[i].result != 'Y'; ">
             <div style="padding:10px"><span class="form-title">{{getOptionDesc(compare[i].compareColumn)}}：</span><input
                 style="display: block;" [(ngModel)]="compare[i].count" name="count" disabled></div>
           </div>
 
-          <div nz-col nzSpan="8" *ngIf="compare[i+1]!=null && compare[i+1].result == 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i+1] !=null && compare[i+1].result == 'Y'; ">
             <div style="padding:10px"><span
                 class="form-title">{{getOptionDesc(compare[i+1].compareColumn)}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i+1].count" name="count" disabled></div>
           </div>
-          <div nz-col nzSpan="8" *ngIf="compare[i+1]!=null && compare[i+1].result != 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i+1] !=null && compare[i+1].result != 'Y'; ">
             <div style="padding:10px"><span
                 class="form-title">{{getOptionDesc(compare[i+1].compareColumn)}}：</span><input style="display: block;"
                 [(ngModel)]="compare[i+1].count" name="count" disabled></div>
           </div>
 
-          <div nz-col nzSpan="8" *ngIf="compare[i+2]!=null && compare[i+2].result == 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i+2] !=null && compare[i+2].result == 'Y'; ">
             <div style="padding:10px"><span
                 class="form-title">{{getOptionDesc(compare[i+2].compareColumn)}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i+2].count" name="count" disabled></div>
           </div>
-          <div nz-col nzSpan="8" *compare[i+2]!=null && ngIf="compare[i+2].result != 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i+2] !=null && compare[i+2].result != 'Y'; ">
             <div style="padding:10px"><span
                 class="form-title">{{getOptionDesc(compare[i+2].compareColumn)}}：</span><input style="display: block;"
                 [(ngModel)]="compare[i+2].count" name="count" disabled></div>
@@ -46,34 +41,34 @@
 
         <!-- 第二種 -->
         <div nz-row *ngIf="i>0">
-          <div nz-col nzSpan="8" *ngIf="compare[i*3]!=null && compare[i*3].result == 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i*3] !=null && compare[i*3].result == 'Y'; ">
             <div style="padding:10px"><span
                 class="form-title">{{getOptionDesc(compare[i*3].compareColumn)}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i*3].count" name="count" disabled></div>
           </div>
-          <div nz-col nzSpan="8" *ngIf="compare[i*3]!=null && compare[i*3].result != 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i*3] !=null && compare[i*3].result != 'Y'; ">
             <div style="padding:10px"><span
                 class="form-title">{{getOptionDesc(compare[i*3].compareColumn)}}：</span><input style="display: block;"
                 [(ngModel)]="compare[i*3].count" name="count" disabled></div>
           </div>
 
-          <div nz-col nzSpan="8" *ngIf="compare[i*3+1]!=null && compare[i*3+1].result == 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i*3+1] !=null && compare[i*3+1].result == 'Y'; ">
             <div style="padding:10px"><span
                 class="form-title">{{getOptionDesc(compare[i*3+1].compareColumn)}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i*3+1].count" name="count" disabled></div>
           </div>
-          <div nz-col nzSpan="8" *ngIf="compare[i*3+1]!=null && compare[i*3+1].result != 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i*3+1] !=null && compare[i*3+1].result != 'Y'; ">
             <div style="padding:10px"><span
                 class="form-title">{{getOptionDesc(compare[i*3+1].compareColumn)}}：</span><input style="display: block;"
                 [(ngModel)]="compare[i*3+1].count" name="count" disabled></div>
           </div>
 
-          <div nz-col nzSpan="8" *ngIf="compare[i*3+2]!=null && compare[i*3+2].result == 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i*3+2] !=null && compare[i*3+2].result == 'Y'; ">
             <div style="padding:10px"><span
                 class="form-title">{{getOptionDesc(compare[i*3+2].compareColumn)}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i*3+2].count" name="count" disabled></div>
           </div>
-          <div nz-col nzSpan="8" *ngIf="compare[i*3+2]!=null && compare[i*3+2].result != 'Y'; ">
+          <div nz-col nzSpan="8" *ngIf="compare[i*3+2] !=null && compare[i*3+2].result != 'Y'; ">
             <div style="padding:10px"><span
                 class="form-title">{{getOptionDesc(compare[i*3+2].compareColumn)}}：</span><input style="display: block;"
                 [(ngModel)]="compare[i*3+2].count" name="count" disabled></div>
@@ -82,7 +77,6 @@
         </div>
 
       </ng-container>
-    </ng-template>
   </div>
 
   <!-- <th class="f01_th">歷史申請書比對(同一NID)</th>

@@ -8,4 +8,9 @@ import { BaseService } from 'src/app/base.service';
 })
 export class Childscn14Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
+
+  getImageInfo(jsonObject: JSON): Observable<any>  {
+    const baseUrl = 'f01/childscn14action';
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
 }

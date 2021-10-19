@@ -60,7 +60,7 @@
         <tr>
           <th class="table-header">ALM代碼</th>
           <th class="table-header">ALM說明</th>
-          <th class="table-header">日期時間</th>
+          <th class="table-header">查詢日期時間</th>
         </tr>
       </thead>
       <tbody>
@@ -81,7 +81,7 @@
         <tr>
           <th class="table-header">FDS代碼</th>
           <th class="table-header">FDS說明</th>
-          <th class="table-header">日期時間</th>
+          <th class="table-header">查詢日期時間</th>
         </tr>
       </thead>
       <tbody>
@@ -102,7 +102,7 @@
         <tr>
           <th class="table-header">Score分數</th>
           <th class="table-header">Score等級</th>
-          <th class="table-header">日期時間</th>
+          <th class="table-header">查詢日期時間</th>
         </tr>
       </thead>
       <tbody>
@@ -123,6 +123,7 @@
         <tr>
           <th class="table-header">是否為利關人</th>
           <th class="table-header">關係類型描述</th>
+          <th class="table-header">關係人ID</th>
           <th class="table-header">查詢日期時間</th>
         </tr>
       </thead>
@@ -130,6 +131,7 @@
         <tr *ngFor="let data of RPMSource">
           <td class="table-data">{{ data.isRpm }}</td>
           <td class="table-data">{{ data.rpmTypeDescribe }}</td>
+          <td class="table-data">{{ data.rpmId }}</td>
           <td class="table-data">{{ data.rpmDate | date:'yyyy-MM-dd hh:mm:ss' }}</td>
         </tr>
       </tbody>

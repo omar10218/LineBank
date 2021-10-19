@@ -135,10 +135,24 @@
             (data.EMP_NO, data.ROLE_NO)">角色</button>
           </td>
           <td class="table-data">
-            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="startEdit(i,
+            <button nz-button nz-dropdown [nzSize]="'middle'" nzType="primary" [nzDropdownMenu]="menu4">
+              選項
+              <i nz-icon nzType="down"></i>
+            </button>
+            <nz-dropdown-menu #menu4="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="startEdit(
+                data.EMP_NO, data.EMP_NAME,data.EMP_ID, data.ON_JOB,data.AGENT_EMP, data.EMAIL,
+                data.LEAVE_STARTDATE,data.LEAVE_ENDDATE,data.LEAVE_STARTDATE_TYPE,
+                data.LEAVE_ENDDATE_TYPE, data.ASSIGN_STOP,data.ASSIGN_PROJECTNO)">編輯</li>
+                <li nz-menu-item (click)="startPrj(data.EMP_NO, data.ROLE_NO)">派件專案代碼</li>
+                <li nz-menu-item (click)="startAmt()">產品及授權額度</li>
+              </ul>
+            </nz-dropdown-menu>
+            <!-- <button nz-button [nzSize]="'middle'" nzType="primary" (click)="startEdit(i,
             data.EMP_NO, data.EMP_NAME,data.EMP_ID, data.ON_JOB,data.AGENT_EMP, data.EMAIL,
             data.LEAVE_STARTDATE,data.LEAVE_ENDDATE,data.LEAVE_STARTDATE_TYPE,
-            data.LEAVE_ENDDATE_TYPE, data.ASSIGN_STOP,data.ASSIGN_PROJECTNO)">編輯</button>
+            data.LEAVE_ENDDATE_TYPE, data.ASSIGN_STOP,data.ASSIGN_PROJECTNO)">編輯</button> -->
           </td>
         </tr>
       </tbody>

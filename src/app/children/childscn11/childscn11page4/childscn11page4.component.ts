@@ -21,6 +21,7 @@ export class Childscn11page4Component implements OnInit {
   private applno: string;
   mappingOption: MappingCode[];
   compare: Code[] = [];
+  notFind: string;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -28,12 +29,16 @@ export class Childscn11page4Component implements OnInit {
   }
  //取資料
   getKRM043() {
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('code', 'EL_KRM043_COMPARE');
-    this.childscn11Service.getCompare(formdata).subscribe(data => {
-      this.mappingOption = data.rspBody.table;
-      this.compare = data.rspBody.compare;
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;;
+    jsonObject['code'] = 'EL_KRM043_COMPARE';
+    this.childscn11Service.getCompare(jsonObject).subscribe(data => {
+      if ( data.rspBody.compare == 'not find') {
+        this.notFind = "此案編查無比對資料";
+      } else {
+        this.mappingOption = data.rspBody.table;
+        this.compare = data.rspBody.compare;
+      }
     });
   }
   //取viewValue

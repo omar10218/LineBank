@@ -1,45 +1,45 @@
 <div class="line_bank_bankground_color">
 
 
-  <button nz-button nzType="primary" (click)="insert(true)">新增</button>
+  <!-- <button nz-button nzType="primary" (click)="insert(true)">新增</button>
 
   <button nz-button nzType="primary" (click)="uploadExcel()">上傳Excel</button>
   <button nz-button nzType="primary">離開</button>
-  <br>
+  <br> -->
 
 
   <form style="padding-left: 20px;">
 
-      <br>
-      <div class="line_bank_card_no_padding">
-        <mat-card-content>
-          <div nz-row>
-            <div nz-col nzSpan="8">
-              <div style="padding:10px"><span class="form-title">建檔項目</span>
-                <mat-select [(ngModel)]="bkColumnValue" name="adrType"
-                  style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
-                  <mat-option *ngFor="let code of bkColumnCode" [value]="code.value">
-                    {{code.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </div>
+    <br>
+    <div class="line_bank_card_no_padding">
+      <mat-card-content>
+        <div nz-row>
+          <div nz-col nzSpan="8">
+            <div style="padding:10px"><span class="form-title">建檔項目</span>
+              <mat-select [(ngModel)]="bkColumnValue" name="adrType"
+                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+                <mat-option *ngFor="let code of bkColumnCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
             </div>
-            <div nz-col nzSpan="8">
-              <div style="padding:10px"><span class="form-title">建檔內容</span><input style="display: block;"
-                [(ngModel)]="bkContentValue" name="bkContent"></div>
-            </div>
-             <div nz-col nzSpan="2"></div>
-            <div nz-col nzSpan="2" style="text-align:center;margin-top:30px">
-              <button nz-button nzType="primary" (click)="getBkIncomeData()">查詢資料</button>
-            </div>
-            <div nz-col nzSpan="2" style="text-align:center;margin-top:30px">
-              <button nz-button nzType="primary" (click)="clear()">清除資料</button>
-            </div>
-            <div nz-col nzSpan="2"></div>
           </div>
+          <div nz-col nzSpan="8">
+            <div style="padding:10px"><span class="form-title">建檔內容</span><input style="display: block;"
+                [(ngModel)]="bkContentValue" name="bkContent"></div>
+          </div>
+          <div nz-col nzSpan="2"></div>
+          <div nz-col nzSpan="2" style="text-align:center;margin-top:30px">
+            <button nz-button nzType="primary" (click)="getBkIncomeData()">查詢資料</button>
+          </div>
+          <div nz-col nzSpan="2" style="text-align:center;margin-top:30px">
+            <button nz-button nzType="primary" (click)="clear()">清除資料</button>
+          </div>
+          <div nz-col nzSpan="2"></div>
+        </div>
 
-          <tr>
-            <!-- <th>建檔項目</th>
+        <tr>
+          <!-- <th>建檔項目</th>
             <td>
               <mat-form-field color="accent">
                 <mat-select [(ngModel)]="bkColumnValue" name="bkColumnCode">
@@ -53,52 +53,60 @@
 
 
 
-          </tr>
-        </mat-card-content>
-      </div>
+        </tr>
+      </mat-card-content>
+    </div>
 
   </form>
   <br>
   <div class="line_bank_card_no_padding">
 
     <nz-table nzShowSizeChanger [nzData]="bkIncomeDataSource" [nzFrontPagination]="false" [nzSimple]="true"
-     [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="照會話術設定">
-    <thead>
-      <tr>
-        <th class="table-header">編輯</th>
-        <th class="table-header">通報單位</th>
-        <th class="table-header">建檔項目欄位標題</th>
-        <th class="table-header">建檔項目欄位值內容</th>
-        <th class="table-header">通報原因1</th>
-        <th class="table-header">通報原因2</th>
-        <th class="table-header">通報原因3</th>
-        <th class="table-header">通報補充</th>
-        <th class="table-header">使用中</th>
-        <th class="table-header">資料新增日期時間</th>
-        <th class="table-header">異動日期時間</th>
-        <th class="table-header">異動說明</th>
-        <th class="table-header">異動人員</th>
-        <th class="table-header" >ROWID</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of bkIncomeDataSource">
-        <td class="table-data"><button mat-raised-button color="primary" (click)="update(true,data)">編輯</button></td>
-        <td class="table-data">{{ data.reportUnit }}</td>
-        <td class="table-data">{{  chageColumntext(data.bkColumn) }}</td>
-        <td class="table-data">{{ data.bkContent }}</td>
-        <td class="table-data">{{ data.reportReason1 }}</td>
-        <td class="table-data">{{ data.reportReason2 }}</td>
-        <td class="table-data">{{ data.reportReason3 }}</td>
-        <td class="table-data">{{ data.reportContent }}</td>
-        <td class="table-data">{{ data.useFlag }}</td>
-        <td class="table-data">{{ data.createDatetime| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
-        <td class="table-data">異動日期時間</td>
-        <td class="table-data">異動說明</td>
-        <td class="table-data">{{ data.bkEmpno }}</td>
-        <td class="table-data" >{{ data.ROWID }}</td>
-      </tr>
-    </tbody>
+      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="黑名單維護"
+      [nzNoResult]="'no result'">
+      <thead>
+        <tr>
+          <th class="table-header">編輯</th>
+          <th class="table-header">通報單位</th>
+          <th class="table-header">建檔項目欄位標題</th>
+          <th class="table-header">建檔項目欄位值內容</th>
+          <th class="table-header">通報原因1</th>
+          <th class="table-header">通報原因2</th>
+          <th class="table-header">通報原因3</th>
+          <th class="table-header">通報補充</th>
+          <th class="table-header">使用中</th>
+          <th class="table-header">資料新增日期時間</th>
+          <th class="table-header">異動日期時間</th>
+          <th class="table-header">異動說明</th>
+          <th class="table-header">異動人員</th>
+          <th class="table-header" hidden>ROWID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of bkIncomeDataSource">
+          <td class="table-data"><button nz-button nzType="primary" (click)="update(true,data)">編輯</button></td>
+          <td class="table-data">{{ data.REPORT_UNIT }}</td>
+          <td class="table-data">{{ chageColumntext(data.BK_COLUMN) }}</td>
+          <td class="table-data">{{ data.BK_CONTENT }}</td>
+          <td class="table-data">{{ data.REPORT_REASON1 }}</td>
+          <td class="table-data">{{ data.REPORT_REASON2 }}</td>
+          <td class="table-data">{{ data.REPORT_REASON3 }}</td>
+          <td class="table-data">{{ data.REPORT_CONTENT }}</td>
+          <td class="table-data">{{ data.USE_FLAG }}</td>
+          <td class="table-data">{{ data.CREATE_DATETIME| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
+          <td class="table-data">{{ data.USE_FLAG }}</td>
+          <td class="table-data">{{ data.USE_FLAG }}</td>
+          <td class="table-data">{{transEmpNo}}</td>
+          <td class="table-data" hidden>{{ data.RID }}</td>
+        </tr>
+      </tbody>
+
     </nz-table>
+    <div style="text-align: center;margin:30px 0 0 10px;height:10vh;">
+
+      <button nz-button nzType="primary" (click)="insert(true)">新增</button>
+      &nbsp;&nbsp;
+      <button nz-button nzType="primary" (click)="uploadExcel()">上傳Excel</button>
+    </div>
   </div>
 </div>

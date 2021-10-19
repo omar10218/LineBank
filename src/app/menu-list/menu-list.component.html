@@ -3,7 +3,11 @@
     <img src="assets\images\LineBank.png" width="14%" (click)="goHome()">
     <button mat-button [matMenuTriggerFor]="aboveMenu" *ngFor="let menu of getMenu()"
       style="margin: 0px 20px; text-align: center;">
-      <mat-icon style="display:inline-block;position:relative;bottom:7px">{{menu.getIcon()}}</mat-icon>
+      <!-- <mat-icon style="display:inline-block;position:relative;bottom:7px">{{menu.getIcon()}}</mat-icon> -->
+      <img *ngIf="menu.getIcon()=='person_outline'" width="19%" src="assets\images\outline_person_black_48dp.png">
+      <img *ngIf="menu.getIcon()=='search'" width="19%" src="assets\images\outline_search_black_48dp.png">
+      <img *ngIf="menu.getIcon()=='autorenew'" width="19%" src="assets\images\outline_autorenew_black_48dp.png">
+      <img *ngIf="menu.getIcon()=='equalizer'" width="19%" src="assets\images\outline_equalizer_black_48dp.png">
       {{menu.getTitle()}}
       <mat-menu #aboveMenu="matMenu" yPosition="below" style="font-size:25px">
         <button mat-menu-item *ngFor="let map of menu.getMenuList() | keyvalue: returnZero" [routerLink]="map.value">
@@ -17,14 +21,17 @@
       <nz-card-meta nzDescription="{{empNo}}" style="position:absolute;top:25px;left:70px"></nz-card-meta>
     </nz-card>
     <ng-template #coverTemplate>
-      <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" class="user-avatar">
-      </nz-avatar>
+      <!-- <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" class="user-avatar">
+      </nz-avatar> -->
+      <img src="assets/images/user.png" class="user-avatar">
+      <!-- <mat-icon [matMenuTriggerFor]="menu" aria-label="User"
+      style="position: absolute; top:16px;right:20px">xxwmore_horiz</mat-icon> -->
+      <img  src="assets/images/outline_more_horiz_black_48dp.png" [matMenuTriggerFor]="menu" class="position_top2">
 
-      <mat-icon [matMenuTriggerFor]="menu" aria-label="User" style="position: absolute; top:16px;right:20px">
-        xxwmore_horiz</mat-icon>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="logOut()">
-          <mat-icon>exit_to_app</mat-icon>
+          <!-- <mat-icon>exit_to_app</mat-icon> -->
+          <img width="25%" src="assets/images/outline_exit_to_app_black_48dp.png" class="position_top">
           <span>登出</span>
         </button>
       </mat-menu>
