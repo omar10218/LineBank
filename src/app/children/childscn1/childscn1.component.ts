@@ -56,21 +56,31 @@ export class Childscn1Component implements OnInit {
   sysflowcdOne: string;                         //系統流程
   resltcdOne: string;                           //決策結果
   calvOne: string;                              //案件等級
-  ocupatnCustGpAndDescOne: string;              //行職業代碼分群代碼/中文
+  ocupatnCustGpOne: string;                     //行職業代碼分群代碼/中文
   ocupatnCustStgp1One: string;                  //策略客群1代碼/中文
   ocupatnCustStgp2One: string;                  //策略客群2代碼/中文
-  goodbehavOne: string;                         //往來優質特徵註記代碼/中文
-  specilcaseOne: string;                        //特殊案件貼標/中文
+  goodbehavMortOne: string;                     //往來優質特徵註記(房貸)代碼/中文
+  goodbehavCcOne: string;                       //往來優質特徵註記(信用卡)代碼/中文
+  riskmdscoreA0: string;                        //風險模型分數
+  riskmdgradeA0Adj: string;                     //風險模型等級(策略調整後)
 
   //DSS2st
   sysflowcdTwo: string;                         //系統流程
   resltcdTwo: string;                           //決策結果
   calvTwo: string;                              //案件等級
-  ocupatnCustGpAndDescTwo: string;              //行職業代碼分群代碼/中文
+  ocupatnCustGpTwo: string;                     //行職業代碼分群代碼/中文
   ocupatnCustStgp1Two: string;                  //策略客群1代碼/中文
   ocupatnCustStgp2Two: string;                  //策略客群2代碼/中文
-  goodbehavTwo: string;                         //往來優質特徵註記代碼/中文
-  specilcaseTwo: string;                        //特殊案件貼標/中文
+  goodbehavMortTwo: string;                     //往來優質特徵註記(房貸)代碼/中文
+  goodbehavCcTwo: string;                       //往來優質特徵註記(信用卡)代碼/中文
+  riskmdscoreA1: string;                        //風險模型分數
+  riskmdgradeA1Adj: string;                     //風險模型等級(策略調整後)
+  custTag: string;                              //客群標籤/說明
+
+  //DSS2st Strgy
+  strgyAprfrj: string;                          //授信策略准駁結果
+  strgyLimitReving: string;                     //授信策略循環信貸額度
+  strgyMinpayrt: string;                        //授信策略每月最低還款比率
 
   //審核結果
   creditResult: string;
@@ -186,11 +196,13 @@ export class Childscn1Component implements OnInit {
         this.sysflowcdOne = data.rspBody.dss1List[0].sysflowcd;
         this.resltcdOne = data.rspBody.dss1List[0].resltcd;
         this.calvOne = data.rspBody.dss1List[0].calv;
-        this.ocupatnCustGpAndDescOne = data.rspBody.dss1List[0].ocupatnCustGp + data.rspBody.dss1List[0].ocupatnCustGpDesc;
-        this.ocupatnCustStgp1One = data.rspBody.dss1List[0].ocupatnCustStgp1 + data.rspBody.dss1List[0].ocupatnCustStgp1Desc;
+        this.ocupatnCustGpOne = data.rspBody.dss1List[0].ocupatnCustGp;
+        this.ocupatnCustStgp1One = data.rspBody.dss1List[0].ocupatnCustStgp1;
         this.ocupatnCustStgp2One = data.rspBody.dss1List[0].ocupatnCustStgp2;
-        this.goodbehavOne = data.rspBody.dss1List[0].goodbehav + data.rspBody.dss1List[0].goodbehavDesc;
-        this.specilcaseOne = data.rspBody.dss1List[0].specilcase + data.rspBody.dss1List[0].specilcaseDesc;
+        this.goodbehavMortOne = data.rspBody.dss1List[0].goodbehavMort;
+        this.goodbehavCcOne = data.rspBody.dss1List[0].goodbehavCc;
+        this.riskmdscoreA0 = data.rspBody.dss1List[0].riskmdscoreA0;
+        this.riskmdgradeA0Adj = data.rspBody.dss1List[0].riskmdgradeA0Adj;
       }
 
       //DSS2
@@ -198,11 +210,21 @@ export class Childscn1Component implements OnInit {
         this.sysflowcdTwo = data.rspBody.dss2List[0].sysflowcd;
         this.resltcdTwo = data.rspBody.dss2List[0].resltcd;
         this.calvTwo = data.rspBody.dss2List[0].calv;
-        this.ocupatnCustGpAndDescTwo = data.rspBody.dss2List[0].ocupatnCustGp + data.rspBody.dss2List[0].ocupatnCustGpDesc;
+        this.ocupatnCustGpTwo = data.rspBody.dss2List[0].ocupatnCustGp + data.rspBody.dss2List[0].ocupatnCustGpDesc;
         this.ocupatnCustStgp1Two = data.rspBody.dss2List[0].ocupatnCustStgp1 + data.rspBody.dss2List[0].ocupatnCustStgp1Desc;
         this.ocupatnCustStgp2Two = data.rspBody.dss2List[0].ocupatnCustStgp2;
-        this.goodbehavTwo = data.rspBody.dss2List[0].goodbehav + data.rspBody.dss2List[0].goodbehavDesc;
-        this.specilcaseTwo = data.rspBody.dss2List[0].specilcase + data.rspBody.dss2List[0].specilcaseDesc;
+        this.goodbehavMortTwo = data.rspBody.dss2List[0].goodbehavMort;
+        this.goodbehavCcTwo = data.rspBody.dss2List[0].goodbehavCc;
+        this.riskmdscoreA1 = data.rspBody.dss2List[0].riskmdscoreA1;
+        this.riskmdgradeA1Adj = data.rspBody.dss2List[0].riskmdgradeA1Adj;
+        this.custTag = data.rspBody.dss2List[0].custTag + '/' + data.rspBody.dss2List[0].custTagDesc;
+      }
+
+      //DSS2Strgy
+      if ( data.rspBody.dss2StrgyList.length > 0 ) {
+        this.strgyAprfrj = data.rspBody.dss2StrgyList[0].strgyAprfrj;
+        this.strgyLimitReving = data.rspBody.dss2StrgyList[0].strgyLimitReving;
+        this.strgyMinpayrt = data.rspBody.dss2StrgyList[0].strgyMinpayrt;
       }
 
       //result
