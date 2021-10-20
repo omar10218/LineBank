@@ -3,8 +3,9 @@
     <img src="assets\images\LineBank.png" width="14%" (click)="goHome()">
     <button mat-button [matMenuTriggerFor]="aboveMenu" *ngFor="let menu of getMenu()"
       style="margin: 0px 20px; text-align: center;">
-      <!-- <mat-icon style="display:inline-block;position:relative;bottom:7px">{{menu.getIcon()}}</mat-icon> -->
-      <img *ngIf="menu.getIcon()=='person_outline'" width="19%" src="assets\images\outline_person_black_48dp.png">
+    <!-- <mat-icon style="display:inline-block;position:relative;bottom:7px">{{menu.getIcon()}}</mat-icon> -->
+
+    <img *ngIf="menu.getIcon()=='person_outline'" width="19%" src="assets\images\outline_person_black_48dp.png">
       <img *ngIf="menu.getIcon()=='search'" width="19%" src="assets\images\outline_search_black_48dp.png">
       <img *ngIf="menu.getIcon()=='autorenew'" width="19%" src="assets\images\outline_autorenew_black_48dp.png">
       <img *ngIf="menu.getIcon()=='equalizer'" width="19%" src="assets\images\outline_equalizer_black_48dp.png">
@@ -17,6 +18,46 @@
     </button>
     <span class="example-spacer"></span>
 
+    <!-- <ul nz-menu nzMode="horizontal">
+      <button *ngFor="let menu of getMenu()" style="margin: 0px 20px; text-align: center;">
+        <img *ngIf="menu.getIcon()=='person_outline'" width="19%" src="assets\images\outline_person_black_48dp.png">
+        <img *ngIf="menu.getIcon()=='search'" width="19%" src="assets\images\outline_search_black_48dp.png">
+        <img *ngIf="menu.getIcon()=='autorenew'" width="19%" src="assets\images\outline_autorenew_black_48dp.png">
+        <img *ngIf="menu.getIcon()=='equalizer'" width="19%" src="assets\images\outline_equalizer_black_48dp.png">
+        <li nz-submenu nzTitle="{{menu.getTitle()}}" yPosition="below" style="font-size:25px">
+          <ul>
+            <li nz-submenu nzTitle="徵審">
+              <ul>
+                <ng-container *ngFor="let map of menu.getMenuList() | keyvalue: returnZero">
+                  <ng-container *ngIf="map.key.indexOf('覆審')">
+                    <li nz-menu-item>
+                      <button [routerLink]="map.value">
+                        {{map.key}}
+                      </button>
+                    </li>
+                  </ng-container>
+                </ng-container>
+              </ul>
+            </li>
+          </ul>
+          <ul>
+            <li nz-submenu nzTitle="覆審">
+              <ul>
+                <ng-container *ngFor="let map of menu.getMenuList() | keyvalue: returnZero">
+                  <ng-container *ngIf="!map.key.indexOf('覆審')">
+                    <li nz-menu-item><button [routerLink]="map.value">
+                        {{map.key}}
+                      </button></li>
+                  </ng-container>
+                </ng-container>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </button>
+      <span class="example-spacer"></span>
+    </ul> -->
+
     <nz-card nzHoverable style="width:15%;height:75%;position:relative" [nzCover]="coverTemplate">
       <nz-card-meta nzDescription="{{empNo}}" style="position:absolute;top:25px;left:70px"></nz-card-meta>
     </nz-card>
@@ -26,7 +67,7 @@
       <img src="assets/images/user.png" class="user-avatar">
       <!-- <mat-icon [matMenuTriggerFor]="menu" aria-label="User"
       style="position: absolute; top:16px;right:20px">xxwmore_horiz</mat-icon> -->
-      <img  src="assets/images/outline_more_horiz_black_48dp.png" [matMenuTriggerFor]="menu" class="position_top2">
+      <img src="assets/images/outline_more_horiz_black_48dp.png" [matMenuTriggerFor]="menu" class="position_top2">
 
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="logOut()">
