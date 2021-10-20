@@ -63,7 +63,6 @@ export class F03014addComponent implements OnInit {
     this.jsonObject['effectiveDate']=this.Efficient;
     this.jsonObject['expirationDate']=this.Invalidation;
     this.jsonObject['useFlag']=this.usingValue;
-    this.jsonObject['changeDate']=this.currentTimeValue;
 
     this.Custlist.push(this.jsonObject)
     this.f03014Service.Add(url,this.Custlist).subscribe(data=>{
@@ -75,13 +74,6 @@ export class F03014addComponent implements OnInit {
           if(data.rspMsg ==='成功'){this.dialogRef.close({ event:'success' }); }
 
       }
-      else
-      {
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: msgStr }
-        });
-      }
-      console.log(data)
 
     })
   }

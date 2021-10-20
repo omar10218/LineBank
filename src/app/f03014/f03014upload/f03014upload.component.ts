@@ -67,7 +67,6 @@ export class F03014uploadComponent implements OnInit {
       this.f03014Service.postExcel(baseUrl,this.fileToUpload).subscribe(data => {
         console.log(data)
         this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
-
       });
     }
     else
