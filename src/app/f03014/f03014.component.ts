@@ -11,6 +11,8 @@ import { F03014uploadComponent } from './f03014upload/f03014upload.component'
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 //Jay 客戶身份名單註記
 interface sysCode {
   value: string;
@@ -34,13 +36,12 @@ export class F03014Component implements OnInit {
   dateFormat = 'yyyy/MM/dd';
 
 
-  i = 0;
   myDate:any = new Date();
   total = 1;
-  loading = false;
+  loading = true;
   pageSize = 10;
   pageIndex = 1;
-  ruleParamCondition = new MatTableDataSource<any>();
+  ruleParamCondition : Data[] = [];
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;
@@ -56,29 +57,50 @@ export class F03014Component implements OnInit {
   {
     this.usingType.push({ value: '1', viewValue: 'Y' });
     this.usingType.push({ value: '2', viewValue: 'N' });
+    this.Inquire(this.pageIndex, this.pageSize)
   }
-  ngAfterViewInit() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
-  }
-  variable() {
-    this.i = 0;
-  }
-  Inquire()//查詢
+
+  search()//查詢
   {
+    this.changePage()
+    this.Inquire(this.pageIndex,this.pageSize)
+  }
+  Inquire(pageIndex: number, pageSize: number)//查詢分頁
+  {
+    console.log(this.Efficient)
+    console.log(this.Invalidation)
+
     let jsonObject: any = {};
-    this.i = 1;
     const url = 'f03/f03014action01';
     jsonObject['custNid'] = this.IdentityValue != null ? this.IdentityValue : '';
     jsonObject['custName'] = this.NameValue != null ? this.NameValue : '';
     jsonObject['content1'] = this.NarrateValue != null ? this.NarrateValue : '';
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+
+    if(this.Efficient !=null)
+    {
+      console.log('====1111====')
+      var startDate, endDate;
+      startDate = new Date(this.Efficient[0]);
+      endDate = new Date(this.Efficient[1]);
+      if((endDate-startDate)/1000/60/60/24>90){
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "生效日查詢區間最多三個月內!" }
+        });}
+    }
+
+    if(this.Invalidation !=null)
+    {
+      console.log('====2222====')
+      var startDate, endDate;
+      startDate = new Date(this.Invalidation[0]);
+      endDate = new Date(this.Invalidation[1]);
+      if((endDate-startDate)/1000/60/60/24>90){
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "失效日查詢區間最多三個月內!" }
+        });}
+    }
 
     if(this.Efficient != null)
     {
@@ -109,11 +131,9 @@ export class F03014Component implements OnInit {
 
 
     this.f03014Service.selectCustomer(url, jsonObject).subscribe(data => {
-      console.log(data)
 
-      this.ruleParamCondition.data = data.rspBody;
-      console.log(this.ruleParamCondition.data)
-
+      this.ruleParamCondition = data.rspBody.item;
+      this.total = data.rspBody.size;
 
     }
     )
@@ -135,12 +155,13 @@ export class F03014Component implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
+      if (result != null && (result.event == 'success')) { this.search(); }
+      console.log(result)
 
     });
   }
   EditTable(i: number, parmArry: string[])//編輯
   {
-    console.log(parmArry)
     const dialogRef = this.dialog.open(F03014editComponent, {
       data: {
         rid: parmArry[0],
@@ -158,6 +179,8 @@ export class F03014Component implements OnInit {
 
     });
     dialogRef.afterClosed().subscribe(result => {
+      if (result != null && (result.event == 'success')) { this.search(); }
+      console.log(result)
 
     });
   }
@@ -175,6 +198,7 @@ export class F03014Component implements OnInit {
     const url = 'f03/f03014action06';
     let jsonObject: any = {};
     let blob:Blob;
+
     jsonObject['custNid'] = this.IdentityValue;
     jsonObject['custName'] = this.NameValue;
     jsonObject['content1'] = this.NarrateValue;
@@ -194,7 +218,18 @@ export class F03014Component implements OnInit {
     })
 
   }
-
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const {pageSize, pageIndex} = params
+		this.pageSize = pageSize
+		this.pageIndex = pageIndex
+    this.Inquire(pageIndex, pageSize);
+  }
+  changePage()
+  {
+		this.pageIndex = 1
+		this.pageSize = 10
+		this.total = 1
+	}
   Clear()//清空查詢資料
   {
       this.usingValue="";//使用中
@@ -203,20 +238,22 @@ export class F03014Component implements OnInit {
       this.NarrateValue="";//簡述
       this.Efficient=null;//生效
       this.Invalidation=null;//失效
-      this.ruleParamCondition.data = null;
+      this.ruleParamCondition = null;
   }
   disabledDate(time)
   {
-    let curDate = (new Date()).getTime();
-    let three = 90*24*3600*1000;
-    let threeMonths = curDate + three;
-    return time.getTime()>threeMonths
+    // let curDate = (new Date()).getTime();
+    // let three = 90*24*3600*1000;
+    // let threeMonths = curDate + three;
+    // return time.getTime()>threeMonths
+
   }
   disabledDate1(time)
   {
-    let curDate = (new Date()).getTime();
-    let three = 90*24*3600*1000;
-    let threeMonths = curDate + three;
-    return time.getTime()<Date.now()||time.getTime()>threeMonths
+    // let curDate = (new Date()).getTime();
+    // let three = 90*24*3600*1000;
+    // let threeMonths = curDate + three;
+    // return time.getTime()>=threeMonths
   }
+
 }

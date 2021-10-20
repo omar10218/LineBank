@@ -1,8 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
@@ -23,9 +20,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   ) { }
 
   total = 1;
-  @ViewChild('absBox')absBox:ElementRef // 抓取table id
-  currentPage: PageEvent;                             // 分頁
-  currentSort: Sort;                                  // 排序
+  @ViewChild('absBox') absBox: ElementRef // 抓取table id
   empNo: string = localStorage.getItem("empNo");      // 當前員編
   swcID: string;                                      // 身分證字號
   swcApplno: string;                                  // 案件編號
@@ -33,16 +28,16 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
   agentEmpNo: string;                                 // 代理人
   agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
-  cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單
+  cusinfoDataSource = [];  // 案件清單
   fds: string = "";                                   // fds
   loading = true;
   pageSize = 10;
   pageIndex = 1;
 
   // 計算剩餘table資料長度
-  get tableHeight():string{
-    if(this.absBox){
-      return(this.absBox.nativeElement.offsetHeight-210)+'px';
+  get tableHeight(): string {
+    if (this.absBox) {
+      return (this.absBox.nativeElement.offsetHeight - 210) + 'px';
     }
   }
 
@@ -89,7 +84,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     this.loading = false;
     this.f01002Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
-      this.cusinfoDataSource.data = data.rspBody.items;
+      this.cusinfoDataSource = data.rspBody.items;
     });
   }
 
@@ -106,7 +101,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     jsonObject['swcApplno'] = swcApplno;
 
     this.f01002Service.getLockCase(jsonObject).subscribe(data => {
-      if ( data.rspBody.length > 0 ) {
+      if (data.rspBody.length > 0) {
         this.fds = data.rspBody[0].fds
       }
       if (data.rspMsg == '案件鎖定成功') {
@@ -136,7 +131,9 @@ export class F01002page1Component implements OnInit, AfterViewInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno, pageIndex, pageSize);
+    if (params == null) {
+      this.getCaseList(this.empNo, this.swcID, this.swcApplno, pageIndex, pageSize);
+    } 
   }
 
   changePage() {
@@ -165,5 +162,12 @@ export class F01002page1Component implements OnInit, AfterViewInit {
       }
     }
     return codeVal;
+  }
+
+  // 排序
+  sortChange(e: string) {
+    console.log(e)
+    this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+      (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
   }
 }

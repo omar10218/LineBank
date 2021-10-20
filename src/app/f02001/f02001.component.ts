@@ -1,8 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Data, Router } from '@angular/router';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F02001Service } from './f02001.service';
 
 // Jay 案件查詢
@@ -16,45 +19,43 @@ interface sysCode {
   styleUrls: ['./f02001.component.css', '../../assets/css/f03.css']
 })
 export class F02001Component implements OnInit {
-  applno: string; //案件編號
-  national_ID: string; //身分證字號
-  cust_ID: string; //客戶ID
-  cust_CNAME: string; //客戶姓名
-  l3EMPNO: string //徵信員員編姓名
+  applno: string = ''; //案件編號
+  national_ID: string = ''; //身分證字號
+  cust_ID: string = ''; //客戶ID
+  cust_CNAME: string = ''; //客戶姓名
+  l3EMPNO: string = ''; //徵信員員編姓名
   credit_RESULT: sysCode[] = []; //審核結果陣列
-  credit_RESULT_Value: string;//審核結果值
+  credit_RESULT_Value: string = '';//審核結果值
   status_DESC: sysCode[] = []; //案件狀態
-  status_DESC_Value: string;//案件狀態值
+  status_DESC_Value: string = '';//案件狀態值
   cust_FLAG: sysCode[] = []; //客群標籤
-  cust_FLAG_Value: string;//客群標籤值
+  cust_FLAG_Value: string = '';//客群標籤值
   risk_GRADE: sysCode[] = [];//風險等級分群
-  risk_GRADE_Value: string;//風險等級分群值
+  risk_GRADE_Value: string = '';//風險等級分群值
   apply_TIME: [Date, Date];//進件日期
-  proof_DOCUMENT_TIME: string;//上傳財力日期
-  sign_UP_TIME: string;//簽約完成日期
-  product_NAME: string;//產品名稱
-  project_NAME: string;//專案名稱
-  marketing_CODE: string;//行銷代碼
+  proof_DOCUMENT_TIME: [Date, Date];//上傳財力日期
+  sign_UP_TIME: [Date, Date];//簽約完成日期
+  product_NAME: string = '';//產品名稱
+  project_NAME: string = '';//專案名稱
+  marketing_CODE: string = '';//行銷代碼
   credit_TIME: [Date, Date];//准駁日期時間
   jsonObject: any = {};
-  ruleParamCondition = new MatTableDataSource<any>();
-  listOfData: readonly Data[] = [];
-  total = 1;
+  resultData = [];
+  total : number;
   loading = false;
-  pageSize = 10;
-  pageIndex = 1;
+  pageSize : number;
+  pageIndex : number;
+  firstFlag;
   constructor(private router: Router,
     private f02001Service: F02001Service,
-    private pipe: DatePipe,
-    private nzI18nService: NzI18nService
+    public pipe: DatePipe,
+    public nzI18nService: NzI18nService,
+    public dialog: MatDialog,
   ) {
     this.nzI18nService.setLocale(zh_TW)
   }
 
   ngOnInit(): void {
-    this.getCreditResult();
-    this.getCustFlag();
-    this.getRiskGrade();
     this.getStatusDesc();
     this.credit_RESULT_Value = '';
     this.status_DESC_Value = '';
@@ -62,7 +63,25 @@ export class F02001Component implements OnInit {
     this.risk_GRADE_Value = '';
   }
 
-  getStatusDesc(){
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params)
+    if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
+      const { pageSize, pageIndex } = params;
+      this.selectData(pageIndex, pageSize);
+
+    }
+  }
+
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
+  }
+
+  getStatusDesc() {
+    this.getCreditResult();
+    this.getCustFlag();
+    this.getRiskGrade();
     this.f02001Service.getStatusDesc().subscribe(data => {
       console.log(data)
       this.status_DESC.push({ value: '', viewValue: '請選擇' })
@@ -110,15 +129,22 @@ export class F02001Component implements OnInit {
     });
   }
 
-  // search() {
-  //   this.router.navigate(['./F01001SCN1'], { queryParams: { applno: "201803127003", search: 'Y' } });
-  // }
+
   Detail()//明細
   {
 
   }
-  Select()//查詢
+
+  select()//查詢
   {
+    this.changePage();
+    this.conditionCheck();
+  }
+
+  selectData(pageIndex: number, pageSize: number) {
+    this.jsonObject['page'] = pageIndex;
+    this.jsonObject['per_page'] = pageSize;
+
     let url = "f02/f02001action1";
     this.jsonObject['applno'] = this.applno;//案件編號
     this.jsonObject['nationalID'] = this.national_ID;//身分證字號
@@ -179,9 +205,12 @@ export class F02001Component implements OnInit {
 
     this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
       console.log(data)
-      this.ruleParamCondition.data = data.rspBody;
+      this.resultData = data.rspBody.item;
+      this.total = data.rspBody.size;
+      this.firstFlag = 2;
     })
   }
+
   Clear()//清除
   {
     this.applno = '';
@@ -200,10 +229,24 @@ export class F02001Component implements OnInit {
     this.project_NAME = '';
     this.marketing_CODE = '';
     this.credit_TIME = null;
-    this.ruleParamCondition.data = null;
+    this.resultData = null;
   }
   leave()//離開
   {
 
+  }
+
+  conditionCheck() {
+    if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == ''
+      && this.l3EMPNO == '' && this.credit_RESULT_Value == '' && this.status_DESC_Value == ''
+      && this.cust_FLAG_Value == '' && this.risk_GRADE_Value == '' && this.apply_TIME == null
+      && this.proof_DOCUMENT_TIME == null && this.sign_UP_TIME == null && this.product_NAME == ''
+      && this.project_NAME == '' && this.marketing_CODE == '' && this.credit_TIME == null) {
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請至少選擇一項條件" }
+      });
+    } else {
+      this.selectData(this.pageIndex, this.pageSize);
+    }
   }
 }
