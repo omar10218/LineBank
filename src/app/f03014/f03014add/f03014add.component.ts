@@ -67,12 +67,13 @@ export class F03014addComponent implements OnInit {
 
     this.Custlist.push(this.jsonObject)
     this.f03014Service.Add(url,this.Custlist).subscribe(data=>{
+      msgStr = data.rspMsg;
       if(data.rspCode =='0000'&& data.rspMsg =='成功')
       {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: msgStr }
-        });
-        this.onNoClick();
+          data: { msgStr: msgStr } });
+          if(data.rspMsg ==='成功'){this.dialogRef.close({ event:'success' }); }
+
       }
       else
       {

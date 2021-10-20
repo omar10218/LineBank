@@ -110,9 +110,7 @@ export class F02001Component implements OnInit {
     });
   }
 
-  // search() {
-  //   this.router.navigate(['./F01001SCN1'], { queryParams: { applno: "201803127003", search: 'Y' } });
-  // }
+
   Detail()//明細
   {
 

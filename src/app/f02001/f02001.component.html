@@ -127,7 +127,7 @@
 <div class="line_bank_card_no_padding">
   <div class="line_bank_form_header_title">案件查詢資料結果</div>
   <!-- 表格 -->
-  <nz-table #columnTable  [nzData]="listOfData" [nzScroll]="{ x: '3800px' }">
+  <nz-table #columnTable  [nzData]="listOfData" [nzPageIndex]="pageIndex" [nzPageSize]="pageSize" [nzFrontPagination]="false" [nzScroll]="{ x: '3800px' }">
     <thead>
       <tr>
         <th nzLeft></th>

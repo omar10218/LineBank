@@ -61,29 +61,26 @@ export class F03014editComponent implements OnInit {
 
     this.f03014Service.update(url,jsonObject).subscribe(data=>{
       msgStr = data.rspMsg;
-      if(data.rspCode =='0000'&& data.rspMsg =='成功')
+      if(data.rspCode =='0000'|| data.rspMsg =='成功')
       {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: msgStr }
-        });
-        console.log(data)
-        alert("儲存成功")
-        this.onNoClick();
+          data: { msgStr: msgStr }});
+          if(data.rspMsg ==='成功'){this.dialogRef.close({ event:'success' }); }
+
+
       }
       else
       {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
         });
-        alert(data.rspMsg)
+
       }
-      console.log(data)
+
     })
   }
   onNoClick()//取消
   {
-    console.log(this.data.EFFECTIVE_DATE)
-    console.log(this.pipe.transform( new Date(this.data.EFFECTIVE_DATE) , 'yyyy-MM-dd' ))
     this.dialogRef.close();
   }
 
