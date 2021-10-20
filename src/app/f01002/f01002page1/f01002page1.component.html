@@ -3,7 +3,7 @@
         <div nz-row>
             <div nz-col nzFlex="auto" style="background-color: white;">
                 <div nz-row>
-                    <div nz-col nzSpan="6" style="padding:0px 15px;background-color: #BFECD0;">
+                    <div nz-col nzSpan="5" style="padding:0px 15px;background-color: #BFECD0;">
                         <div class="form-title line_bank_h3" style="margin:10px 0 ;">案件編號</div>
                         <div class="form" style="display: block;margin-bottom:10px">
                             <div><input matInput #input class="form-control" [(ngModel)]="swcApplno" name="swcApplno"
@@ -11,14 +11,14 @@
                             </div>
                         </div>
                     </div>
-                    <div nz-col nzSpan="6" style="padding:0px 15px;">
+                    <div nz-col nzSpan="5" style="padding:0px 15px;">
                         <span class="form-title line_bank_h3" style="margin:10px 0 ;">身分證號</span>
                         <div class="form" style="display: block;margin-bottom:10px">
                             <div><input matInput #input class="form-control" [(ngModel)]="swcID" name="swcID" required>
                             </div>
                         </div>
                     </div>
-                    <div nz-col nzSpan="6" style="padding:0px 15px;background-color: #BFECD0;">
+                    <div nz-col nzSpan="5" style="padding:0px 15px;background-color: #BFECD0;">
                         <span class="form-title line_bank_h3" style="margin:10px 0 ;">案件類別</span>
                         <div class="form" style="display: block;margin-bottom:10px">
                             <div>
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                     </div>
-                    <div nz-col nzSpan="6" style="padding:0px 15px">
+                    <div nz-col nzSpan="5" style="padding:0px 15px">
                         <span class="form-title line_bank_h3" style="margin:10px 0 ;">代理人別</span>
                         <div class="form" style="display: block;margin-bottom:10px">
                             <div>
@@ -44,16 +44,16 @@
                             </div>
                         </div>
                     </div>
+                    <div nz-col nzSpan="4" style="background-color: #BFECD0;padding:33px;text-align: center;">
+                        <div style="padding-left: 10px;">
+                            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢案件</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div nz-col nzFlex="200px" style="background-color: #BFECD0;padding-top:10px;text-align: center;">
-                <div style="padding-left: 10px;">
-                    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢案件</button>
-                </div>
-            </div>
+           
         </div>
-        <div>
-        </div>
+   
     </div>
     <div class="content">
         <div #absBox class="abs-box">
