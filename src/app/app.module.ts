@@ -1,3 +1,4 @@
+import { F02003Component } from './f02003/f02003.component';
 //import { NgZorroAntdModule } from './ngzorro/ng-zorro-antd.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -185,7 +186,8 @@ export const TW_FORMATS = {
     F01008addComponent,
     F01008deleteComponent,
     F03006amtComponent,
-    F03006prjComponent
+    F03006prjComponent,
+    F02003Component
   ],
   imports: [
     NzIconModule,

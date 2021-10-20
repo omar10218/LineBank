@@ -41,6 +41,7 @@ import { F03017Component } from '../f03017/f03017.component';
 import { F02002Component } from '../f02002/f02002.component';
 import { F01007Component } from '../f01007/f01007.component';
 import { F01008Component } from '../f01008/f01008.component';
+import { F02003Component } from '../f02003/f02003.component';
 
 
 const routes: Routes = [
@@ -71,19 +72,19 @@ const routes: Routes = [
       },
       {
         path: 'F01001',
-        loadChildren: () => import ('../f01001/f01001.module').then(m => m.F01001Module)
+        loadChildren: () => import('../f01001/f01001.module').then(m => m.F01001Module)
       },
       {
         path: 'F01002',
-        loadChildren: () => import ('../f01002/f01002.module').then(m => m.F01002Module)
+        loadChildren: () => import('../f01002/f01002.module').then(m => m.F01002Module)
       },
       {
         path: 'F01003',
-        loadChildren: () => import ('../f01003/f01003.module').then(m => m.F01003Module)
+        loadChildren: () => import('../f01003/f01003.module').then(m => m.F01003Module)
       },
       {
         path: 'F01004',
-        loadChildren: () => import ('../f01004/f01004.module').then(m => m.F01004Module)
+        loadChildren: () => import('../f01004/f01004.module').then(m => m.F01004Module)
       },
       {
         path: 'F01005',
@@ -99,7 +100,15 @@ const routes: Routes = [
       },
       {
         path: 'F01008',
-        loadChildren: () => import ('../f01008/f01008.module').then(m => m.F01008Module)
+        loadChildren: () => import('../f01008/f01008.module').then(m => m.F01008Module)
+      },
+      {
+        path: 'F01009',
+        loadChildren: () => import('../f01009/f01009.module').then(m => m.F01009Module)
+      },
+      {
+        path: 'F01010',
+        loadChildren: () => import('../f01010/f01010.module').then(m => m.F01010Module)
       },
       {
         path: 'F02001',
@@ -162,6 +171,10 @@ const routes: Routes = [
       {
         path: 'F02002',
         component: F02002Component
+      },
+      {
+        path: 'F02003',
+        component: F02003Component
       },
       {
         path: 'F03001',
