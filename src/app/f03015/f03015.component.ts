@@ -25,11 +25,12 @@ interface sysCode {
 })
 export class F03015Component implements OnInit {
 
-  inducCode: sysCode[] = [];  //行職業代碼下拉
+  inducCode: string = '';
+  // inducCode: sysCode[] = [];  //行職業代碼下拉
   inducLevel1: sysCode[] = [];  //行職業level1下拉
   inducLevel2: sysCode[] = [];  //行職業level2下拉
-  jobCode: sysCode[] = []; //職業代碼下拉
-  inducCodeValue: string;  //行職業代碼選擇
+  jobCode: sysCode[] = []; //職業碼下拉
+  // inducCodeValue: string;  //行職業代碼選擇
   inducLevel1Value: string;  //行職業level1選擇
   inducLevel2Value: string;  //行職業level2選擇
   jobCodeValue: string; //職業碼選擇
@@ -45,10 +46,10 @@ export class F03015Component implements OnInit {
 
   }
   proxyIncomeForm: FormGroup = this.fb.group({
-    INDUC_CODE: [this.data.inducCodeValue, [Validators.maxLength(30)]],
-    INDUC_LEVEL1: [this.data.inducLevel1Value, [Validators.maxLength(30)]],
-    INDUC_LEVEL2: [this.data.inducLevel2Value, [Validators.maxLength(10), Validators.minLength(10)]],
-    JOB_CODE: [this.data.jobCodeValue, [Validators.maxLength(10), Validators.minLength(10)]],
+    INDUC_CODE: ['', [Validators.maxLength(6)]],
+    INDUC_LEVEL1: [this.data.inducLevel1Value, [Validators.maxLength(2)]],
+    INDUC_LEVEL2: [this.data.inducLevel2Value, [Validators.maxLength(2)]],
+    JOB_CODE: [this.data.jobCodeValue, [Validators.maxLength(2)]],
     pageIndex: ['', [Validators.maxLength(3)]],
     pageSize: ['', [Validators.maxLength(3)]]
   });
@@ -58,35 +59,21 @@ export class F03015Component implements OnInit {
   ]);
   ngOnInit(): void {
     this.isHidden = false;
-    this.f03015Service.getSysTypeCode('INDUC_CODE').subscribe(data => {
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.inducCode.push({ value: codeNo, viewValue: desc })
+    let jsonObject: any = {};
+
+    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+      for (const jsonObj of data.rspBody.items) {
+        const codeNo = jsonObj['INDUC_LEVEL1'];
+        const desc = jsonObj['INDUC_LEVEL1_DESC'];
+        this.inducLevel1.push({ value: codeNo, viewValue: desc });
       }
     });
-    this.f03015Service.getSysTypeCode('INDUC_LEVEL1').subscribe(data => {
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.inducLevel1.push({ value: codeNo, viewValue: desc })
-      }
-    });
-    this.f03015Service.getSysTypeCode('INDUC_LEVEL2').subscribe(data => {
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.inducLevel2.push({ value: codeNo, viewValue: desc })
-      }
-    });
-    this.f03015Service.getSysTypeCode('JOB_CODE').subscribe(data => {
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.jobCode.push({ value: codeNo, viewValue: desc })
-      }
-    });
+    this.inducLevel2 = [];
+    this.jobCode = [];
+    this.inducLevel2Value = "";
+    this.jobCodeValue = "";
   }
+
   //============================================================
   totalCount: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
@@ -95,41 +82,69 @@ export class F03015Component implements OnInit {
   currentSort: Sort;
   proxyIncomeDataSource: Data[] = [];
   ngAfterViewInit() {
-    this.currentPage = {
-      pageIndex: 0,
-      pageSize: 10,
-      length: null
-    };
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
-  }
-  changeSort(sortInfo: Sort) {
-    this.currentSort = sortInfo;
   }
 
-  // doSearch() { this.isHidden = false; }
+  //取行職業level2下拉
+  changeLevel1Select() {
+    this.inducLevel2 = [];
+    this.jobCode = [];
+    this.inducLevel2Value = "";
+    this.jobCodeValue = "";
 
-  async getProxyIncomeData() {
-    if ((this.inducCodeValue == undefined && this.inducLevel1Value == undefined && this.inducLevel2Value == undefined && this.jobCodeValue == undefined) ||
-      (this.inducCodeValue == '' && this.inducLevel1Value == '' && this.inducLevel2Value == '' && this.jobCodeValue == '')) {
+    let jsonObject: any = {};
+    jsonObject['inducLevel1'] = this.inducLevel1Value;
+
+    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+      for (const jsonObj of data.rspBody.items) {
+        const codeNo = jsonObj['INDUC_LEVEL2'];
+        const desc = jsonObj['INDUC_LEVEL2_DESC'];
+        this.inducLevel2.push({ value: codeNo, viewValue: desc });
+      }
+    });
+  }
+
+  //取職業碼下拉
+  changeLevel2Select() {
+    this.jobCode = [];
+    this.jobCodeValue = "";
+
+    let jsonObject: any = {};
+    jsonObject['inducLevel1'] = this.inducLevel1Value;
+    jsonObject['inducLevel2'] = this.inducLevel2Value;
+
+    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+      for (const jsonObj of data.rspBody.items) {
+        const codeNo = jsonObj['JOB_CODE'];
+        const desc = jsonObj['JOB_CODE_DESC'];
+        this.jobCode.push({ value: codeNo, viewValue: desc });
+      }
+    });
+  }
+
+  // 查詢
+  async getProxyIncomeData(pageIndex: number, pageSize: number) {
+    if ((this.proxyIncomeForm.value.INDUC_CODE == null || this.proxyIncomeForm.value.INDUC_CODE == '') && (this.inducLevel1Value == undefined || this.inducLevel1Value == '')
+      && (this.inducLevel2Value == undefined || this.inducLevel2Value == '') && (this.jobCodeValue == undefined || this.jobCodeValue == '')) {
       const cconfirmDialogRef = this.dialog.open(F03015confirmComponent, {
         data: { msgStr: "請點選查詢並至少選擇一項查詢條件" }
       });
     } else {
-
       let jsonObject: any = {};
-
-      jsonObject['page'] = this.currentPage.pageIndex + 1;
-      jsonObject['per_page'] = this.currentPage.pageSize;
-      jsonObject['inducCode'] = this.inducCodeValue;
+      jsonObject['page'] = pageIndex;
+      jsonObject['per_page'] = pageSize;
+      jsonObject['inducCode'] = this.inducCode;
       jsonObject['inducLevel1'] = this.inducLevel1Value;
       jsonObject['inducLevel2'] = this.inducLevel2Value;
       jsonObject['jobCode'] = this.jobCodeValue;
       await this.f03015Service.getReturn('f03/f03015', jsonObject).subscribe(data => {
         this.totalCount = data.rspBody.size;
-        this.proxyIncomeDataSource = data.rspBody.items;
+        if (this.totalCount === 0) {
+          this.dialog.open(F03015confirmComponent, {
+            data: { msgStr: "查無資料" }
+          });
+        } else {
+          this.proxyIncomeDataSource = data.rspBody.items;
+        }
       });
     }
   }
@@ -158,13 +173,13 @@ export class F03015Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.getProxyIncomeData(); }
+      if (result != null && result.event == 'success') { this.getProxyIncomeData(this.pageIndex, this.pageSize); }
     });
   }
 
   //清除資料
   clear() {
-    this.inducCodeValue = '';
+    this.inducCode = '';
     this.inducLevel1Value = '';
     this.inducLevel2Value = '';
     this.jobCodeValue = '';
@@ -176,12 +191,7 @@ export class F03015Component implements OnInit {
   //上傳EXCEL
   uploadExcel() {
     const dialogRef = this.dialog.open(F03015uploadComponent, {
-      data: {
-        ABNORMAL_NID: '',
-        ABNORMAL_NAME: '',
-        ON_CHECK: 'Y',
-        TRANSFER_EMPNO: '',
-      }
+      data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && result.event == 'success') { this.refreshTable(); }
@@ -194,19 +204,17 @@ export class F03015Component implements OnInit {
 
   //匯出EXCEL
   exportExcel() {
-    if ((this.inducCodeValue == undefined && this.inducLevel1Value == undefined && this.inducLevel2Value == undefined && this.jobCodeValue == undefined) ||
-      (this.inducCodeValue == '' && this.inducLevel1Value == '' && this.inducLevel2Value == '' && this.jobCodeValue == '')) {
+    if ((this.proxyIncomeForm.value.INDUC_CODE == null || this.proxyIncomeForm.value.INDUC_CODE == '') && (this.inducLevel1Value == undefined || this.inducLevel1Value == '')
+      && (this.inducLevel2Value == undefined || this.inducLevel2Value == '') && (this.jobCodeValue == undefined || this.jobCodeValue == '')) {
       const cconfirmDialogRef = this.dialog.open(F03015confirmComponent, {
-        data: { msgStr: "請點選查詢並至少選擇一項查詢條件" }
+        data: { msgStr: "請至少選擇一項查詢條件並至少選擇一項查詢條件" }
       });
     } else {
       let jsonObject: any = {};
-      let formData = new FormData();
       let blob: Blob;
-      formData.append('inducCode', this.inducCodeValue != null ? this.inducCodeValue : '');
       jsonObject['page'] = this.currentPage.pageIndex + 1;
       jsonObject['per_page'] = this.currentPage.pageSize;
-      jsonObject['inducCode'] = this.inducCodeValue;
+      jsonObject['inducCode'] = this.inducCode;
       jsonObject['inducLevel1'] = this.inducLevel1Value;
       jsonObject['inducLevel2'] = this.inducLevel2Value;
       jsonObject['jobCode'] = this.jobCodeValue;
@@ -234,7 +242,7 @@ export class F03015Component implements OnInit {
       });
       if (data.rspCode == '0000') {
         deleteDialogRef.afterClosed().subscribe(result => {
-          this.getProxyIncomeData();
+          this.getProxyIncomeData(this.pageIndex, this.pageSize);
         });
       }
     });
