@@ -41,11 +41,11 @@ export class F02001Component implements OnInit {
   credit_TIME: [Date, Date];//准駁日期時間
   jsonObject: any = {};
   resultData = [];
-  total = 1;
+  total : number;
   loading = false;
-  pageSize = 10;
-  pageIndex = 1;
-  firstFlag = 1;
+  pageSize : number;
+  pageIndex : number;
+  firstFlag;
   constructor(private router: Router,
     private f02001Service: F02001Service,
     public pipe: DatePipe,
@@ -70,6 +70,12 @@ export class F02001Component implements OnInit {
       this.selectData(pageIndex, pageSize);
 
     }
+  }
+
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
   }
 
   getStatusDesc() {
@@ -131,6 +137,7 @@ export class F02001Component implements OnInit {
 
   select()//查詢
   {
+    this.changePage();
     this.conditionCheck();
   }
 
