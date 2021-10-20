@@ -1,7 +1,7 @@
 <cdk-virtual-scroll-viewport itemSize="48" headerHeight="56" style="height: 400px;   width: 600px;">
   <div class="line_bank_card_no_padding" style="min-height:170px">
 
-      <div class="line_bank_form_header_title">上傳Excel</div>
+      <div class="line_bank_form_header_title">上傳文件</div>
       <div class="container" style="padding:20px">
           <form class="mat-dialog-content" #formControl="ngForm" [formGroup]="uploadForm">
               <div nz-row>
@@ -10,15 +10,15 @@
                           <div><span class="form-title-actions">上傳檔案</span>
                               <div mat-dialog-actions>
                                   <input type="file" (change)="onChange($event)"
-                                  style="padding-bottom: 30px;"/>
+                                  style="width:100%;height:32px;border-radius:10px;border:none;padding:3px;margin-left:-20px;margin-bottom: 7px; background-color:#E6E6E6"/>
                               </div>
                           </div>
                       </div>
                   </div>
                   <div nz-col nzSpan="32">
-                    <div class="form" style="padding:20px"><span class="form-title">文件類型</span>
+                    <div class="form" style="padding:20px"><span class="form-title-actions">文件類型</span>
                       <mat-select [(ngModel)]="imageTypeValue" name="sysCode" formControlName="DOC_ID"
-                        style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+                        style="width:150px;height:32px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
                         <mat-option *ngFor="let code of imageTypeCode" [value]="code.value">
                           {{code.value}} - {{code.viewValue}}
                         </mat-option>

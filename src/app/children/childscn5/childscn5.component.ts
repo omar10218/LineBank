@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { F03015Service } from 'src/app/f03015/f03015.service';
 import { Childscn5Service } from './childscn5.service';
-interface dateCode {
+
+interface sysCode {
   value: string;
   viewValue: string;
 }
@@ -9,62 +13,85 @@ interface dateCode {
 @Component({
   selector: 'app-childscn5',
   templateUrl: './childscn5.component.html',
-  styleUrls: ['./childscn5.component.css','../../../assets/css/child.css']
+  styleUrls: ['./childscn5.component.css', '../../../assets/css/child.css']
 })
 export class Childscn5Component implements OnInit {
+  private applno: string;           //案件編號
+  private cuid: string;             //客戶編號
+  cuLevel1CaCode: sysCode[] = [];   //徵信認列行業Level1下拉
+  cuLevel1CaValue: string;          //徵信認列行業Level1
+  cuLevel2CaCode: sysCode[] = [];   //徵信認列行業Level2下拉
+  cuLevel2CaValue: string;          //徵信認列行業Level2
+  jobCodeCaCode: sysCode[] = [];    //職業代碼下拉
+  jobCodeCaValue: string;           //職業代碼
 
   constructor(
     private fb: FormBuilder,
+    public dialog: MatDialog,
     private childscn5Service: Childscn5Service,
+    private f03015Service: F03015Service
   ) { }
 
-  // cpTypeCreditCode: dateCode[] = [{ value: '1', viewValue: '測試1號' }, { value: '2', viewValue: '測試2號' }]; ;
   customerInfoForm: FormGroup = this.fb.group({
-    CUCNAME: ['', []],          //中文姓名
-    NATIONAL_ID: ['', []],      //身分證字號
-    CU_SEX: ['', []],           //性別
-    CU_RDTL: ['', []],          //住家型態
-    CU_BIRTHDAY: ['', []],      //生日
-    CU_MARRIED_STATUS: ['', []],//婚姻
-    HOUSE_OWNER: ['', []],      //房屋所有權者
-    CU_EDUCATION: ['', []],     //學歷
-    CU_H_ADDR_CODE: ['', []],   //住宅郵區
-    CU_H_ADDR1: ['', []],       //住宅地址1
-    CU_H_ADDR2: ['', []],       //住宅地址2
-    CU_H_TEL_INO: ['', []],     //住宅電話區碼
-    CU_H_TEL: ['', []],         //住宅電話
-    CU_CP_ADDR_CODE: ['', []],  //公司郵區
-    CU_CP_ADDR1: ['', []],      //公司地址1
-    CU_CP_ADDR2: ['', []],      //公司地址2
-    CU_CP_TEL_INO: ['', []],    //公司電話區碼
-    CU_CP_TEL: ['', []],        //公司電話
-    CU_CP_NAME: ['', []],       //公司名稱
-    CU_CP_NO: ['', []],         //公司統編
-    HIRED_DATE: ['', []],       //到職日
-    SENIORITY: ['', []],        //年資
-    ANNUAL_INCOME: ['', []],    //年收入
-    CU_EMAIL: ['', []],         //eMail
-    CU_M_TEL: ['', []],         //行動電話
-    CU_TYPE: ['', []],          //行職業
-    CU_TITLE: ['', []],         //職稱
+    CUCNAME: ['', []],          // 中文姓名
+    NATIONAL_ID: ['', []],      // 身分證字號
+    CU_SEX: ['', []],           // 性別
+    CU_RDTL: ['', []],          // 住家型態
+    CU_BIRTHDAY: ['', []],      // 生日
+    CU_MARRIED_STATUS: ['', []],// 婚姻
+    HOUSE_OWNER: ['', []],      // 房屋所有權者
+    CU_EDUCATION: ['', []],     // 學歷
+    CU_TITLE: ['', []],         // 職稱
+    CU_H_ADDR_CODE: ['', []],   // 住宅郵區
+    CU_H_ADDR1: ['', []],       // 住宅地址1
+    CU_H_ADDR2: ['', []],       // 住宅地址2
+    CU_H_TEL_INO: ['', []],     // 住宅電話區碼
+    CU_H_TEL: ['', []],         // 住宅電話
+    CU_CP_ADDR_CODE: ['', []],  // 公司郵區
+    CU_CP_ADDR1: ['', []],      // 公司地址1
+    CU_CP_ADDR2: ['', []],      // 公司地址2
+    CU_CP_TEL_INO: ['', []],    // 公司電話區碼
+    CU_CP_TEL: ['', []],        // 公司電話
+    CU_CP_NAME: ['', []],       // 公司名稱
+    CU_CP_NO: ['', []],         // 公司統編
+    HIRED_DATE: ['', []],       // 到職日
+    SENIORITY: ['', []],        // 年資
+    ANNUAL_INCOME: ['', []],    // 年收入
+    CU_EMAIL: ['', []],         // eMail
+    CU_M_TEL: ['', []],         // 行動電話
+    CU_LEVEL1: ['', []],        // 行業Level1
+    CU_LEVEL2: ['', []],        // 行業Level2
+    JOB_CODE: ['', []],         // 職業碼
+    CU_LEVEL1_CA: ['', []],     // 徵信認列行業Level1
+    CU_LEVEL2_CA: ['', []],     // 徵信認列行業Level2
+    JOB_CODE_CA: ['', []],      // 徵信認列行業職業碼
+
   });
 
-  private applno: string;
-  private cuid: string;
-
   ngOnInit(): void {
+
+    let jsonObject: any = {};
+    // 取徵信認列行業Level1下拉
+    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+      for (const jsonObj of data.rspBody.items) {
+        const codeNo = jsonObj['INDUC_LEVEL1'];
+        const desc = jsonObj['INDUC_LEVEL1_DESC'];
+        this.cuLevel1CaCode.push({ value: codeNo, viewValue: desc });
+      }
+    });
+
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.getCustomerInfo();
   }
 
-  getCustomerInfo(){
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    formdata.append('code', 'CUSTOMER_INFO');
-    this.childscn5Service.getCustomerInfoSearch(formdata).subscribe(data => {
-      console.log(data)
+  getCustomerInfo() {
+
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['custId'] = this.cuid;
+
+    this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
       this.customerInfoForm.patchValue({ CUCNAME: data.rspBody.items[0].cuCname })
       this.customerInfoForm.patchValue({ NATIONAL_ID: data.rspBody.items[0].nationalId })
       this.customerInfoForm.patchValue({ CU_SEX: data.rspBody.items[0].cuSex })
@@ -95,6 +122,56 @@ export class Childscn5Component implements OnInit {
     });
   }
 
-  edit(){
+  // 取徵信認列行業Level2下拉
+  changeLevel1Select() {
+    this.cuLevel2CaCode = [];
+    this.cuLevel2CaValue = '';
+    this.jobCodeCaCode = [];
+    this.jobCodeCaValue = '';
+    let jsonObject: any = {};
+    jsonObject['inducLevel1'] = this.cuLevel1CaValue;
+
+    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+      for (const jsonObj of data.rspBody.items) {
+        const codeNo = jsonObj['INDUC_LEVEL2'];
+        const desc = jsonObj['INDUC_LEVEL2_DESC'];
+        this.cuLevel2CaCode.push({ value: codeNo, viewValue: desc });
+      }
+    });
   }
+
+  // 取徵信認列職業碼下拉
+  changeLevel2Select() {
+    this.jobCodeCaCode = [];
+    this.jobCodeCaValue = '';
+    let jsonObject: any = {};
+    jsonObject['inducLevel1'] = this.cuLevel1CaValue;
+    jsonObject['inducLevel2'] = this.cuLevel2CaValue;
+    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+      for (const jsonObj of data.rspBody.items) {
+        const codeNo = jsonObj['JOB_CODE'];
+        const desc = jsonObj['JOB_CODE_DESC'];
+        this.jobCodeCaCode.push({ value: codeNo, viewValue: desc });
+      }
+    });
+  }
+
+  save() {
+    let msg = '';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['custId'] = this.cuid;
+    jsonObject['cuLevel1Ca'] = '12';
+    jsonObject['cuLevel2Ca'] = '12';
+    jsonObject['jobCodeCa'] = '12';
+
+    this.childscn5Service.update(jsonObject).subscribe(data => {
+      msg = data.rspMsg;
+    });
+    setTimeout(() => {
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
+      if (msg != null && msg == '延長成功') { this.getCustomerInfo(); }
+    }, 1000);
+  }
+
 }

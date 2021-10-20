@@ -4,7 +4,7 @@
     <div style="padding-left: 20px; padding-top: 20px;">
       <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="doSearch()">查詢</button> -->
       <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-        (click)="getProxyIncomeData()">查詢資料</button>
+        (click)="getProxyIncomeData(this.pageIndex, this.pageSize)">查詢資料</button>
       <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="insert(true)">新增</button>
       <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="clear()">清除資料</button>
       <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
@@ -18,17 +18,19 @@
       <div nz-row>
         <div nz-col nzSpan="6">
           <div style="padding:10px"><span class="form-title">行職業代碼</span>
-            <mat-select [(ngModel)]="inducCodeValue" name="sysCode" formControlName="INDUC_CODE"
+            <!-- <mat-select [(ngModel)]="inducCodeValue" name="sysCode" formControlName="INDUC_CODE"
               style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
               <mat-option *ngFor="let code of inducCode" [value]="code.value">
                 {{code.value}} - {{code.viewValue}}
               </mat-option>
-            </mat-select>
+            </mat-select> -->
+              <input matInput #input class="form-control" [(ngModel)]="inducCode" formControlName="INDUC_CODE" maxlength="6">
+
           </div>
         </div>
         <div nz-col nzSpan="6">
           <div style="padding:10px"><span class="form-title">行業Level1</span>
-            <mat-select [(ngModel)]="inducLevel1Value" name="inducLevel1" formControlName="INDUC_LEVEL1"
+            <mat-select [(ngModel)]="inducLevel1Value" (ngModelChange)="changeLevel1Select()" name="inducLevel1" formControlName="INDUC_LEVEL1"
               style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
               <mat-option *ngFor="let code of inducLevel1" [value]="code.value">
                 {{code.value}} - {{code.viewValue}}
@@ -38,7 +40,7 @@
         </div>
         <div nz-col nzSpan="6">
           <div style="padding:10px"><span class="form-title">行業Level2</span>
-            <mat-select [(ngModel)]="inducLevel2Value" name="inducLevel2" formControlName="INDUC_LEVEL2"
+            <mat-select [(ngModel)]="inducLevel2Value" (ngModelChange)="changeLevel2Select()" name="inducLevel2" formControlName="INDUC_LEVEL2"
               style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
               <mat-option *ngFor="let code of inducLevel2" [value]="code.value">
                 {{code.value}} - {{code.viewValue}}
