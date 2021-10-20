@@ -138,7 +138,8 @@ export class F02002Component implements OnInit {
       sessionStorage.setItem( 'fds', data.rspBody[0].fds );
       sessionStorage.setItem( 'queryDate', '' );
       //開啟徵審主畫面
-      window.open( environment.allowOrigin + "/#/F01002/F01002SCN1" );
+      const url = window.location.href.split("/#");
+      window.open( url[0] + "/#/F01002/F01002SCN1" );
       // this.router.navigate(['./F01002/F01002SCN1']);
       // const childernDialogRef = this.dialog.open(F01002scn1Component, {
       //   minHeight: '30%',

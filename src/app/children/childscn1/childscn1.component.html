@@ -195,7 +195,7 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">行職業代碼分群代碼/中文</span><input matInput #input class="form-control"
-          [(ngModel)]="ocupatnCustGpAndDescOne" readonly></div>
+          [(ngModel)]="ocupatnCustGpOne" readonly></div>
     </div>
   </div>
 
@@ -209,26 +209,26 @@
           [(ngModel)]="ocupatnCustStgp2One" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">往來優質特徵註記代碼/中文</span><input matInput #input class="form-control"
-          [(ngModel)]="goodbehavOne" readonly></div>
+      <div style="padding:10px"><span class="form-title">往來優質特徵註記(房貸)代碼/中文</span><input matInput #input class="form-control"
+          [(ngModel)]="goodbehavMortOne" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">特徵案件貼標/中文</span><input matInput #input class="form-control"
-          [(ngModel)]="specilcaseOne" readonly></div>
+      <div style="padding:10px"><span class="form-title">往來優質特徵註記(信用卡)代碼/中文</span><input matInput #input class="form-control"
+        [(ngModel)]="goodbehavCcOne" readonly></div>
     </div>
   </div>
 
   <div nz-row>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">徵審代碼類別</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">風險模型分數</span><input matInput #input class="form-control"
+        [(ngModel)]="riskmdscoreA0" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">徵審代碼</span><input matInput #input class="form-control" value=""
+      <div style="padding:10px"><span class="form-title">風險模型等級(策略調整後)</span><input matInput #input class="form-control" [(ngModel)]="riskmdgradeA0Adj"
           readonly></div>
     </div>
     <div nz-col nzFlex="2">
-      <div style="padding:10px"><span class="form-title">徵審代碼說明行職業代碼分群代碼/中文</span><input matInput #input
+      <div style="padding:10px"><span class="form-title">徵審代碼/中文</span><input matInput #input
           class="form-control" value="" readonly></div>
     </div>
   </div>
@@ -251,7 +251,7 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">行職業代碼分群代碼/中文</span><input matInput #input class="form-control"
-          [(ngModel)]="ocupatnCustGpAndDescTwo" readonly></div>
+          [(ngModel)]="ocupatnCustGpTwo" readonly></div>
     </div>
   </div>
 
@@ -265,26 +265,26 @@
           [(ngModel)]="ocupatnCustStgp2Two" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">往來優質特徵註記代碼/中文</span><input matInput #input class="form-control"
-          [(ngModel)]="goodbehavTwo" readonly></div>
+      <div style="padding:10px"><span class="form-title">往來優質特徵註記(房貸)代碼/中文</span><input matInput #input class="form-control"
+          [(ngModel)]="goodbehavMortTwo" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">特徵案件貼標/中文</span><input matInput #input class="form-control"
-          [(ngModel)]="specilcaseTwo" readonly></div>
+      <div style="padding:10px"><span class="form-title">往來優質特徵註記(信用卡)代碼/中文</span><input matInput #input class="form-control"
+          [(ngModel)]="goodbehavCcTwo" readonly></div>
     </div>
   </div>
 
   <div nz-row>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">徵審代碼類別</span><input matInput #input class="form-control"
-          value="" readonly></div>
+      <div style="padding:10px"><span class="form-title">風險模型分數</span><input matInput #input class="form-control"
+        [(ngModel)]="riskmdscoreA1" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">徵審代碼</span><input matInput #input class="form-control" value=""
+      <div style="padding:10px"><span class="form-title">風險模型等級(策略調整後)</span><input matInput #input class="form-control" [(ngModel)]="riskmdgradeA1Adj"
           readonly></div>
     </div>
     <div nz-col nzFlex="2">
-      <div style="padding:10px"><span class="form-title">徵審代碼說明行職業代碼分群代碼/中文</span><input matInput #input
+      <div style="padding:10px"><span class="form-title">徵審代碼/中文</span><input matInput #input
           class="form-control" value="" readonly></div>
     </div>
   </div>
@@ -292,15 +292,19 @@
   <div nz-row>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">授信策略准駁結果</span><input matInput #input class="form-control"
-          value="" readonly></div>
+        [(ngModel)]="strgyAprfrj" readonly></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">授信策略額度金額</span><input matInput #input class="form-control"
-          value="" readonly></div>
+        [(ngModel)]="strgyLimitReving" readonly></div>
     </div>
-    <div nz-col nzFlex="2">
+    <div nz-col nzFlex="1">
       <div style="padding:10px"><span class="form-title">授信策略每月最低還款比率</span><input matInput #input class="form-control"
-          value="" readonly></div>
+        [(ngModel)]="strgyMinpayrt" readonly></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:10px"><span class="form-title">客群標籤/說明</span><input matInput #input class="form-control"
+        [(ngModel)]="custTag" readonly></div>
     </div>
   </div>
 

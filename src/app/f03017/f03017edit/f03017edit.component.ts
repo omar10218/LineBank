@@ -1,3 +1,4 @@
+import { templateJitUrl } from '@angular/compiler'
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core'
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
@@ -24,7 +25,7 @@ interface sysCode {
 @Component({
 	selector: 'app-f03017edit',
 	templateUrl: './f03017edit.component.html',
-	styleUrls: ['./f03017edit.component.css' ,'../../../assets/css/f03.css'],
+	styleUrls: ['./f03017edit.component.css' , '../../../assets/css/f03.css'],
 })
 export class F03017editComponent implements OnInit {
 	reportReason1: sysCode[] = [] //通報原因1下拉
@@ -41,6 +42,8 @@ export class F03017editComponent implements OnInit {
 	currentPage: PageEvent
 	currentSort: Sort
 	dialogRef: any
+  checked:boolean;
+  // get Element by ID抓取checkboxID值
   @ViewChild('CU_CNAME') CU_CNAME: ElementRef;
   @ViewChild('NATIONAL_ID') NATIONAL_ID: ElementRef;
   @ViewChild('CU_H_TEL') CU_H_TEL: ElementRef;
@@ -81,13 +84,16 @@ export class F03017editComponent implements OnInit {
 	pageIndex = 1
 
 	ngOnInit(): void {
+
 		console.log(this.blockListForm)
 		console.log(this.data.BK_CONTENT)
+		console.log(this.data.BK_COLUMN)
 		this.selectCustInfo()
 		this.route.queryParams.subscribe(params => {
 			this.no = localStorage.getItem('empNo')
 			// this.selectBlockList(this.pageIndex, this.pageSize)//一進去畫面就抓取資料表
 		})
+
 
 		//抓取資料表
 		this.blockListForm.patchValue({'REPORT_UNIT': this.no})
@@ -109,7 +115,30 @@ export class F03017editComponent implements OnInit {
 				}
 			})
 	}
+  ngAfterViewInit(): void {
 
+// 判斷該checkbox有無資料而打勾
+    var checked:boolean=true;
+    if(this.data.BK_COLUMN==="CU_CNAME"){
+      this.CU_CNAME.nativeElement.checked=checked
+      console.log( this.CU_CNAME.nativeElement.checked)
+    }
+    else if(this.data.BK_COLUMN==="NATIONAL_ID"){
+      this.NATIONAL_ID.nativeElement.checked=checked
+      console.log( this.NATIONAL_ID.nativeElement.checked)
+    }
+    else if(this.data.BK_COLUMN==="CU_H_TEL"){
+      this.CU_H_TEL.nativeElement.checked=checked
+    }
+    else if(this.data.BK_COLUMN==="CU_CP_TEL"){
+      this.CU_CP_TEL.nativeElement.checked=checked
+    }
+    else if(this.data.BK_COLUMN==="CU_M_TEL"){
+      this.CU_M_TEL.nativeElement.checked=checked
+    }
+  }
+
+// 輸入值去抓取checkbox資料
   test(id: string, value): void {
     var checked: boolean;
     if (id=="CU_CNAME"){
@@ -123,6 +152,7 @@ export class F03017editComponent implements OnInit {
     }else if(id="CU_M_TEL"){
       checked = this.CU_M_TEL.nativeElement.checked
     }
+    console.log(this.CU_CNAME.nativeElement.checked)
     var data = id;
     console.log(checked,data,value)
     this.checkboxSelect(checked,data, value);
@@ -130,10 +160,13 @@ export class F03017editComponent implements OnInit {
   }
 
   testArray=[];
+  check:boolean;
 	checkboxSelect(check: boolean, data: any, value: any) {
 
+    // 取最後的輸入值
     this.testArray[data]=value;
     console.log(this.testArray);
+    console.log(this.testArray[data]);
 
 		console.log(check)
 		console.log(data)
@@ -199,7 +232,7 @@ export class F03017editComponent implements OnInit {
       this.jsonObject['content'] = content;
 			console.log(this.chkArray)
 			console.log(this.contentArray)
-			alert()
+			alert('儲存成功')
 			const url = 'f03/f03017action'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 				console.log(data)
@@ -215,23 +248,29 @@ export class F03017editComponent implements OnInit {
 		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
 			this.dialog.open(ConfirmComponent, {data: {msgStr: '請選擇通報原因1'}})
 		} else {
-			this.chkArray.forEach(element => {
-				if (element.value === 'CU_CNAME') {
-					this.contentArray.push(this.blockListForm.value.CU_CNAME)
-				}
-				if (element.value === 'NATIONAL_ID') {
-					this.contentArray.push(this.blockListForm.value.NATIONAL_ID)
-				}
-				if (element.value === 'CU_H_TEL') {
-					this.contentArray.push(this.blockListForm.value.CU_H_TEL)
-				}
-				if (element.value === 'CU_CP_TEL') {
-					this.contentArray.push(this.blockListForm.value.CU_CP_TEL)
-				}
-				if (element.value === 'CU_M_TEL') {
-					this.contentArray.push(this.blockListForm.value.CU_M_TEL)
-				}
-			})
+      this.chkArray.forEach(element=>{
+        if(element.value==='CU_NAME'){
+          this.CU_CNAME.nativeElement.checked = true
+        }
+      })
+			// this.chkArray.forEach(element => {
+			// 	if (element.value === 'CU_CNAME') {
+			// 		this.contentArray.push(this.blockListForm.value.CU_CNAME)
+			// 	}
+			// 	if (element.value === 'NATIONAL_ID') {
+			// 		this.contentArray.push(this.blockListForm.value.NATIONAL_ID)
+			// 	}
+			// 	if (element.value === 'CU_H_TEL') {
+			// 		this.contentArray.push(this.blockListForm.value.CU_H_TEL)
+			// 	}
+			// 	if (element.value === 'CU_CP_TEL') {
+			// 		this.contentArray.push(this.blockListForm.value.CU_CP_TEL)
+			// 	}
+			// 	if (element.value === 'CU_M_TEL') {
+			// 		this.contentArray.push(this.blockListForm.value.CU_M_TEL)
+			// 	}
+			// })
+
 			this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
 			this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
 			this.jsonObject['reportReason2'] = this.blockListForm.value.REPORT_REASON2
@@ -239,12 +278,16 @@ export class F03017editComponent implements OnInit {
 			this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 			this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
       this.jsonObject['rowID'] = this.blockListForm.value.ROWID;
-			this.jsonObject['bkColumn'] = this.chkArray
-			this.jsonObject['bkContent'] = this.contentArray
+			// this.jsonObject['bkColumn'] = this.chkArray
+			// this.jsonObject['bkContent'] = this.contentArray
+      const content = [];
+      Object.keys(this.testArray).forEach(key => {
+        content.push({bkColumn: key, bkContent: this.testArray[key],check:this.chkArray});
+      });
 			console.log(this.chkArray)
 			console.log(this.contentArray)
-
-			alert()
+      this.jsonObject['content'] = content;
+			alert('儲存成功')
 			const url = 'f03/f03017action2'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 				console.log(data)
@@ -298,3 +341,4 @@ export class F03017editComponent implements OnInit {
 		// this.selectBlockList(this.pageIndex, this.pageSize);
 	}
 }
+

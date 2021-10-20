@@ -85,19 +85,19 @@
       <tbody>
         <tr *ngFor="let data of bkIncomeDataSource">
           <td class="table-data"><button nz-button nzType="primary" (click)="update(true,data)">編輯</button></td>
-          <td class="table-data">{{ data.reportUnit }}</td>
-          <td class="table-data">{{ chageColumntext(data.bkColumn) }}</td>
-          <td class="table-data">{{ data.bkContent }}</td>
-          <td class="table-data">{{ data.reportReason1 }}</td>
-          <td class="table-data">{{ data.reportReason2 }}</td>
-          <td class="table-data">{{ data.reportReason3 }}</td>
-          <td class="table-data">{{ data.reportContent }}</td>
-          <td class="table-data">{{ data.useFlag }}</td>
-          <td class="table-data">{{ data.createDatetime| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
-          <td class="table-data">異動日期時間</td>
-          <td class="table-data">異動說明</td>
-          <td class="table-data">{{ data.bkEmpno }}</td>
-          <td class="table-data" hidden>{{ data.ROWID }}</td>
+          <td class="table-data">{{ data.REPORT_UNIT }}</td>
+          <td class="table-data">{{ chageColumntext(data.BK_COLUMN) }}</td>
+          <td class="table-data">{{ data.BK_CONTENT }}</td>
+          <td class="table-data">{{ data.REPORT_REASON1 }}</td>
+          <td class="table-data">{{ data.REPORT_REASON2 }}</td>
+          <td class="table-data">{{ data.REPORT_REASON3 }}</td>
+          <td class="table-data">{{ data.REPORT_CONTENT }}</td>
+          <td class="table-data">{{ data.USE_FLAG }}</td>
+          <td class="table-data">{{ data.CREATE_DATETIME| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
+          <td class="table-data">{{ data.USE_FLAG }}</td>
+          <td class="table-data">{{ data.USE_FLAG }}</td>
+          <td class="table-data">{{transEmpNo}}</td>
+          <td class="table-data" hidden>{{ data.RID }}</td>
         </tr>
       </tbody>
 

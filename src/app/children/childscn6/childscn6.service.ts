@@ -9,17 +9,17 @@ import { BaseService } from 'src/app/base.service';
 export class Childscn6Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getJCICSearch(formData: FormData): Observable<any> {
+  getJCICSearch(json: JSON): Observable<any> {
     const baseUrl = 'f01/childscn6action';
-    return this.postFormData(baseUrl, formData);
+    return this.postJsonObject(baseUrl, json);
   }
 
-  getDate(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
+  getDate(baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
   }
 
-  getMASTERJCICSearch(formData: FormData): Observable<any> {
+  getMASTERJCICSearch(json: JSON): Observable<any> {
     const baseUrl = 'f01/childscn6action1';
-    return this.postFormData(baseUrl, formData);
+    return this.postJsonObject(baseUrl, json);
   }
 }
