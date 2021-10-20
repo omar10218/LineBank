@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-f01008',
@@ -8,9 +9,13 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class F01008Component implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.router.navigate(['./F01008/F01008SCN1']);
   }
 
 

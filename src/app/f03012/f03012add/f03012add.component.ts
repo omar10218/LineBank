@@ -57,6 +57,7 @@ export class F03012addComponent implements OnInit {
     this.selectedColumn = [];
     this.f03012Service.getSysTypeCode(this.selectedValue1)
       .subscribe(data => {
+        console.log(data)
         for (const jsonObj of data.rspBody.mappingList) {
           const codeNo = jsonObj.codeNo;
           const desc = jsonObj.codeDesc;

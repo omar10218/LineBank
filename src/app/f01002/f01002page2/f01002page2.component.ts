@@ -62,7 +62,6 @@ export class F01002page2Component implements OnInit {
     jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
     this.loading = false;
     this.f01002Service.getCalloutList(jsonObject).subscribe(data => {
-      console.log(data)
       this.total = data.rspBody.size;
       this.rspBodyList = data.rspBody.items;
       this.callOutDataSource.data = this.rspBodyList;
