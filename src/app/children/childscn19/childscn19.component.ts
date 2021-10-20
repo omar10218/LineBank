@@ -139,10 +139,10 @@ export class Childscn19Component implements OnInit {
 
   //從客戶資訊查詢客戶手機
   queryCusMobile() {
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    this.childscn5Service.getCustomerInfoSearch(formdata).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['custId'] = this.cuid;
+    this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
       this.mobile = data.rspBody.items[0].cuMTel;
     });
   }

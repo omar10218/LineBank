@@ -4,15 +4,15 @@ import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
 import { Childscn14Service } from './childscn14.service';
-import { Childscn14page1Component } from './childscn14page1/childscn14page1.component';
-import { Childscn14page2Component } from './childscn14page2/childscn14page2.component';
+// import { Childscn14page1Component } from './childscn14page1/childscn14page1.component';
+// import { Childscn14page2Component } from './childscn14page2/childscn14page2.component';
 import { Childscn14page3Component } from './childscn14page3/childscn14page3.component';
 
-enum Page {
-  Page1,
-  Page2,
-  Page3
-}
+// enum Page {
+//   Page1,
+//   Page2,
+//   Page3
+// }
 
 @Component({
   selector: 'app-childscn14',
@@ -22,7 +22,7 @@ enum Page {
 export class Childscn14Component implements OnInit {
 
   constructor(
-    private componenFactoryResolver: ComponentFactoryResolver,
+    // private componenFactoryResolver: ComponentFactoryResolver,
     private childscn14Service: Childscn14Service,
     public dialog: MatDialog,
   ) { }
@@ -30,6 +30,7 @@ export class Childscn14Component implements OnInit {
   @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
   private applno: string;
   private cuid: string;
+  private host: String;
   imageSource: Data[] = [];
   total = 1;
   loading = false;
@@ -42,15 +43,15 @@ export class Childscn14Component implements OnInit {
   //     [Page.Page3, Childscn14page3Component],
   //   ]
   // );
-  nowPage = Page.Page1;
-  readonly Page = Page;
+  // nowPage = Page.Page1;
+  // readonly Page = Page;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
-    // this.search = sessionStorage.getItem('search');
-    // this.fds = sessionStorage.getItem('fds');
-    //this.router.navigate(['./'+this.routerCase+'/CHILDSCN14/CHILDSCN14PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });
+    this.host = this.getHost();
+
+    this.getImageDetail(this.pageIndex, this.pageSize);
+
   }
 
   ngAfterViewInit() {
@@ -65,10 +66,6 @@ export class Childscn14Component implements OnInit {
   //   const componentRef = viewContainerRef.createComponent(componentFactory);
   // }
 
-  getApplno(): String {
-    return this.applno;
-  }
-
   getHost(): String {
     var origin = window.location.origin;
     var host = origin.substring(0, origin.lastIndexOf(":"));
@@ -77,25 +74,32 @@ export class Childscn14Component implements OnInit {
   }
 
   getImageDetail(pageIndex: number, pageSize: number ) {
-    let jsonObject: any = {};
-    jsonObject['page'] = pageIndex;
-    jsonObject['per_page'] = pageSize;
-    jsonObject['applno'] = this.applno;
-    jsonObject['cuid'] = this.cuid;
-    jsonObject['code'] = "EL_IMAGE";
-    this.childscn14Service.getImageInfo(jsonObject).subscribe(data => {
-      this.total = data.rspBody.size;
+    // let jsonObject: any = {};
+    // // jsonObject['page'] = pageIndex;
+    // // jsonObject['per_page'] = pageSize;
+    // // jsonObject['applno'] = this.applno;
+    // // jsonObject['cuid'] = this.cuid;
+    // // jsonObject['code'] = "EL_IMAGE";
+    // this.childscn14Service.getImageInfo(jsonObject, this.applno).subscribe(data => {
+    //   this.total = data.rspBody.size;
+    //   this.imageSource = data.rspBody.items;
+    //   this.loading = false;
+    // });
+
+    const baseUrl = 'f01/childscn14action1';
+    this.childscn14Service.getImageInfo(baseUrl, this.applno).subscribe(data => {
+      console.log(data.rspBody.items);
       this.imageSource = data.rspBody.items;
-      this.loading = false;
+      this.total = data.rspBody.items.size;
     });
   }
 
-  onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
-    this.pageSize = pageSize;
-    this.pageIndex = pageIndex;
-    this.getImageDetail(this.pageIndex, this.pageSize);
-  }
+  // onQueryParamsChange(params: NzTableQueryParams): void {
+  //   const { pageSize, pageIndex } = params;
+  //   this.pageSize = pageSize;
+  //   this.pageIndex = pageIndex;
+  //   this.getImageDetail(this.pageIndex, this.pageSize);
+  // }
 
   //上傳影像
   uploadImage() {
@@ -103,7 +107,7 @@ export class Childscn14Component implements OnInit {
       data: {
         DOC_ID: '',
         FILE_ATTACHMENT_ID: '',
-        REMARK: 'Y',
+        REMARK: '',
         UPLOAD_PERSON: this.cuid,
       }
     });
