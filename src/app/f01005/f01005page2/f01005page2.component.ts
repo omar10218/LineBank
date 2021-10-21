@@ -56,13 +56,14 @@ export class F01005page2Component implements OnInit {
   // 照會提醒清單
   getCalloutList() {
     let jsonObject: any = {};
-    jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
+    jsonObject['page'] = this.pageIndex;
+    jsonObject['per_page'] = this.pageSize;
     this.loading = false;
     this.f01005Service.getCalloutList(jsonObject).subscribe(data => {
       console.log(data)
       this.total = data.rspBody.size;
       this.rspBodyList = data.rspBody.items;
-      this.callOutDataSource.data = this.rspBodyList;
+      this.callOutDataSource.data =  data.rspBody;
     });
   }
 

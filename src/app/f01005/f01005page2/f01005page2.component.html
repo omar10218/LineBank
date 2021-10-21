@@ -26,23 +26,25 @@
                                   {{data.APPLNO}}
                               </button>
                           </td>
-                          <td class="table-data">{{ data.CON_TYPE }}</td>
-                          <td class="table-data">{{ data.PHONE }}</td>
-                          <td class="table-data">{{ data.TEL_CONDITION }}</td>
-                          <td class="table-data">{{ data.TEL_CHECK }}</td>
-                          <td class="table-data">{{ data.CON_MEMO }}</td>
-                          <td class="table-data">{{ data.CALLOUT_DATE | date: 'yyyy-MM-dd.hh:mm' }}</td>
+                          <td class="table-data">{{ data.FRAUD_EMPNO }}</td>
+                          <td class="table-data">{{ data.NATIONAL_ID }}</td>
+                          <td class="table-data">{{ data.CU_CNAME }}</td>
+                          <td class="table-data">{{ data.CU_CP_NAME }}</td>
+                          <td class="table-data">{{ data.ANNOUNCE_DATE| date: 'yyyy-MM-dd.hh:mm'  }}</td>
                           <td class="table-data">
-                              <nz-radio-group [(ngModel)]="data.CALLOUT_RDO"
+                            {{ data.OP_ID }}
+                              <!-- <nz-radio-group [(ngModel)]="data.CALLOUT_RDO"
                                   (ngModelChange)="extendTime(data.ROWID, data.CALLOUT_RDO)" name="extendTimeValue">
                                   <label nz-radio *ngFor="let code of extendTimeCode"
                                       [nzValue]="code.value">{{code.label}}</label>
-                              </nz-radio-group>
+                              </nz-radio-group> -->
                           </td>
                           <td class="table-data">
-                              <button nz-button id="test" nzType="primary" [nzSize]="'middle'"
-                                  (click)="cancelCallout(data.ROWID)">取消</button>
+                            {{ data.CUST_FLAG }}
+                              <!-- <button nz-button id="test" nzType="primary" [nzSize]="'middle'"
+                                  (click)="cancelCallout(data.ROWID)">取消</button> -->
                           </td>
+                          <td class="table-data">{{ data.RISK_GRADE }}</td>
                       </tr>
                   </tbody>
               </nz-table>
