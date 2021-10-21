@@ -1,27 +1,12 @@
 <div class="line_bank_bankground_color">
-    <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
+    <div style="margin-top: 5px; margin-left: 5px; width: 100%;z-index: 9999;">
+        <br>
         <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
             mat-stroked-button (click)="changePage(Page.Page1)">案件清單</button>
-        <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
-            mat-stroked-button (click)="changePage(Page.Page2)" *ngIf="this.total==0">照會提醒</button>
-        <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;background-color:red;"
-            mat-stroked-button (click)="changePage(Page.Page2)" *ngIf="this.total!=0">照會提醒</button>
+        <nz-badge [nzCount]="total">
+            <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
+                    mat-stroked-button (click)="changePage(Page.Page2)">照會提醒</button>
+        </nz-badge>
     </div>
     <ng-container appDynamic></ng-container>
 </div>
-<!-- <div class="line_bank_bankground_color">
-    <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
-        <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
-            mat-stroked-button (click)="changePage(Page.Page1)">案件清單</button>
-        <ng-container *ngIf="this.total==0" else elseTemplate>
-            <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
-                mat-stroked-button (click)="changePage(Page.Page2)">照會提醒</button>
-        </ng-container>
-        <ng-template #elseTemplate>
-            <button class="btn" [class.active]="nowPage === Page.Page2"
-                style="margin-bottom: 5px; margin-left: 5px;background-color:red;" mat-stroked-button
-                (click)="changePage(Page.Page2)">照會提醒</button>
-        </ng-template>
-    </div>
-    <ng-container appDynamic></ng-container>
-</div> -->

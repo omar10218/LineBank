@@ -1,3 +1,4 @@
+import { NgZorroAntdModule } from './../ngzorro/ng-zorro-antd.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuListComponent } from './menu-list.component';
@@ -16,6 +17,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzCardModule,
     NzAvatarModule,
     NzIconModule,
+    NgZorroAntdModule
   ]
 })
 export class MenuListModule { }

@@ -20,6 +20,7 @@ export class Childscn1Component implements OnInit {
   ) { }
 
   mark: string;
+  review: string = '';
 
   //申請資訊
   applno: string;                               //案編
@@ -110,6 +111,7 @@ export class Childscn1Component implements OnInit {
 
   ngOnInit(): void {
 
+    this.review = sessionStorage.getItem('review');
     this.applno = sessionStorage.getItem('applno');
     this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
     .subscribe(data => {

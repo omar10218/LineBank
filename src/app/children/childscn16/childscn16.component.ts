@@ -8,6 +8,8 @@ import { Childscn1Component } from '../childscn1/childscn1.component'
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { environment } from 'src/environments/environment';
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 //Jay 歷史資料
 @Component({
@@ -30,19 +32,24 @@ export class Childscn16Component implements OnInit {
   currentPage: PageEvent;
   currentSort: Sort;
   totalCount: any;
-  ruleParamCondition = new MatTableDataSource<any>();
+  ruleParamCondition : Data[] = [];
+  transactionLogSource: Data[] = [];
   total = 1;
   loading = false;
   pageSize = 10;
   pageIndex = 1;
   cuid:string;
   fds: string = "";
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid= sessionStorage.getItem( 'cuid');
     console.log(sessionStorage.getItem( 'cuid'))
-    this.initial();
   }
+  ngAfterViewInit() {
+    //this.initial( this.pageIndex, this.pageSize );
+  }
+
   // ngAfterViewInit() {
   //   this.currentPage = {
   //     pageIndex: 0,
@@ -60,7 +67,7 @@ export class Childscn16Component implements OnInit {
     const url = 'f01/f01002fn1';
     let jsonObject: any = {};
     console.log(this.applno)
-    jsonObject['applno'] =this.applno;
+    jsonObject['swcApplno'] =this.applno;
     this.childscn16Service.selectCustomer(url,jsonObject).subscribe(data =>
       {
         console.log(data);
@@ -76,19 +83,24 @@ export class Childscn16Component implements OnInit {
           sessionStorage.setItem( 'fds', this.fds );
           sessionStorage.setItem( 'queryDate', '' );
           //開啟徵審主畫面
-          window.open( environment.allowOrigin + "/#/F01002/F01002SCN1" );
+          window.open("http://localhost:4200/#/F01002/F01002SCN1/CHILDSCN1");
         }
     })
   }
-  initial()//初始查詢
+  initial(pageIndex: number, pageSize: number)//初始查詢
   {
     let url = 'f01/childscn16';
     this.jsonObject['applno'] = this.applno;
-    this.jsonObject['page'] = this.pageIndex;
-    this.jsonObject['per_page'] = this.pageSize;
+    this.jsonObject['page'] = pageIndex;
+    this.jsonObject['per_page'] = pageSize;
     this.childscn16Service.selectCustomer(url, this.jsonObject).subscribe(data => {
-
-      this.ruleParamCondition = data.rspBody;
+      console.log(data.rspBody.size)
+      this.total = data.rspBody.size;
+      this.ruleParamCondition = data.rspBody.items;
     })
+  }
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.initial(pageIndex, pageSize);
   }
 }

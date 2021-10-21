@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { Sort, MatSort } from '@angular/material/sort';
@@ -17,7 +18,8 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   constructor(
     private childscn6Service: Childscn6Service,
     private router: Router,
-    public childService: ChildrenService
+    public childService: ChildrenService,
+    private pipe: DatePipe
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -71,6 +73,9 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   pageSize2 = 20;
   pageIndex2 = 1;
 
+  watermark: string;
+  today: string;
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
@@ -78,6 +83,14 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
     this.getJcicMultiple();
     this.setBooleanFalse();
+
+    const baseUrl = 'f01/childscn6action2';
+    let jsonObject: any = {};
+    this.childscn6Service.getDate(baseUrl, jsonObject).subscribe(data => {
+      this.today = this.pipe.transform(new Date(), 'yyyyMMdd');
+      this.watermark = data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
+    });
+
   }
 
   ngAfterViewInit() {
@@ -129,7 +142,6 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   onQueryParamsChange(params: NzTableQueryParams, code: string): void {
     const { pageSize, pageIndex } = params;
-    console.log('====>' + pageIndex + ',' + pageSize)
     this.getJCIC(pageIndex, pageSize, code);
   }
 
