@@ -92,6 +92,7 @@ export class Childscn5Component implements OnInit {
     jsonObject['custId'] = this.cuid;
 
     this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
+      console.log(data)
       this.customerInfoForm.patchValue({ CUCNAME: data.rspBody.items[0].cuCname })
       this.customerInfoForm.patchValue({ NATIONAL_ID: data.rspBody.items[0].nationalId })
       this.customerInfoForm.patchValue({ CU_SEX: data.rspBody.items[0].cuSex })
@@ -100,6 +101,7 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ CU_MARRIED_STATUS: data.rspBody.items[0].cuMarriedStatus })
       this.customerInfoForm.patchValue({ HOUSE_OWNER: data.rspBody.items[0].houseOwner })
       this.customerInfoForm.patchValue({ CU_EDUCATION: data.rspBody.items[0].cuEducation })
+      this.customerInfoForm.patchValue({ CU_TITLE: data.rspBody.items[0].cuTitle })
       this.customerInfoForm.patchValue({ CU_H_ADDR_CODE: data.rspBody.items[0].cuHAddrCode })
       this.customerInfoForm.patchValue({ CU_H_ADDR1: data.rspBody.items[0].cuHAddr1 })
       this.customerInfoForm.patchValue({ CU_H_ADDR2: data.rspBody.items[0].cuHAddr2 })
@@ -117,8 +119,13 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ ANNUAL_INCOME: data.rspBody.items[0].annualIncome })
       this.customerInfoForm.patchValue({ CU_EMAIL: data.rspBody.items[0].cuEmail })
       this.customerInfoForm.patchValue({ CU_M_TEL: data.rspBody.items[0].cuMTel })
-      this.customerInfoForm.patchValue({ CU_TYPE: data.rspBody.items[0].cuType })
-      this.customerInfoForm.patchValue({ CU_TITLE: data.rspBody.items[0].cuTitle })
+      this.customerInfoForm.patchValue({ CU_LEVEL1: data.rspBody.items[0].cuLevel1 })
+      this.customerInfoForm.patchValue({ CU_LEVEL2: data.rspBody.items[0].cuLevel2 })
+      this.customerInfoForm.patchValue({ JOB_CODE: data.rspBody.items[0].jobCode })
+      this.customerInfoForm.patchValue({ CU_LEVEL1_CA: data.rspBody.items[0].cuLevel1Ca })
+      this.customerInfoForm.patchValue({ CU_LEVEL2_CA: data.rspBody.items[0].cuLevel2Ca })
+      this.customerInfoForm.patchValue({ JOB_CODE_CA: data.rspBody.items[0].jobCodeCa })
+      
     });
   }
 
@@ -161,9 +168,9 @@ export class Childscn5Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['custId'] = this.cuid;
-    jsonObject['cuLevel1Ca'] = '12';
-    jsonObject['cuLevel2Ca'] = '12';
-    jsonObject['jobCodeCa'] = '12';
+    jsonObject['cuLevel1Ca'] = this.cuLevel1CaValue;
+    jsonObject['cuLevel2Ca'] = this.cuLevel2CaValue;
+    jsonObject['jobCodeCa'] = this.jobCodeCaValue;
 
     this.childscn5Service.update(jsonObject).subscribe(data => {
       msg = data.rspMsg;

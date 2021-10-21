@@ -45,7 +45,7 @@ export class F02001Component implements OnInit {
   loading = false;
   pageSize : number;
   pageIndex : number;
-  firstFlag;
+  firstFlag = 1;
   constructor(private router: Router,
     private f02001Service: F02001Service,
     public pipe: DatePipe,
