@@ -2,7 +2,7 @@
     <div class="content">
         <div nz-col nzSpan="24">
             <div class="line_bank_card_no_padding">
-                <nz-table nzShowSizeChanger [nzData]="callOutDataSource.data" [nzFrontPagination]="true"
+                <nz-table nzShowSizeChanger [nzData]="callOutDataSource" [nzFrontPagination]="false"
                     [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
                     [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="照會提醒清單"
                     (nzQueryParams)="onQueryParamsChange($event)">
@@ -20,7 +20,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of callOutDataSource.data">
+                        <tr *ngFor="let data of callOutDataSource">
                             <td class="table-data">
                                 <button nz-button [nzSize]="'middle'" nzType="link" (click)="toCalloutPage()">
                                     {{data.APPLNO}}
@@ -34,14 +34,14 @@
                             <td class="table-data">{{ data.CALLOUT_DATE | date: 'yyyy-MM-dd.hh:mm' }}</td>
                             <td class="table-data">
                                 <nz-radio-group [(ngModel)]="data.CALLOUT_RDO"
-                                    (ngModelChange)="extendTime(data.ROWID, data.CALLOUT_RDO)" name="extendTimeValue">
+                                    (ngModelChange)="extendTime(data.RID, data.CALLOUT_RDO)" name="extendTimeValue">
                                     <label nz-radio *ngFor="let code of extendTimeCode"
                                         [nzValue]="code.value">{{code.label}}</label>
                                 </nz-radio-group>
                             </td>
                             <td class="table-data">
                                 <button nz-button id="test" nzType="primary" [nzSize]="'middle'"
-                                    (click)="cancelCallout(data.ROWID)">取消</button>
+                                    (click)="cancelCallout(data.RID)">取消</button>
                             </td>
                         </tr>
                     </tbody>

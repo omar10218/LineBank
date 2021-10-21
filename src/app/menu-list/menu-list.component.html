@@ -3,9 +3,9 @@
     <img src="assets\images\LineBank.png" width="14%" (click)="goHome()">
     <button mat-button [matMenuTriggerFor]="aboveMenu" *ngFor="let menu of getMenu()"
       style="margin: 0px 20px; text-align: center;">
-    <!-- <mat-icon style="display:inline-block;position:relative;bottom:7px">{{menu.getIcon()}}</mat-icon> -->
+      <!-- <mat-icon style="display:inline-block;position:relative;bottom:7px">{{menu.getIcon()}}</mat-icon> -->
 
-    <img *ngIf="menu.getIcon()=='person_outline'" width="19%" src="assets\images\outline_person_black_48dp.png">
+      <img *ngIf="menu.getIcon()=='person_outline'" width="19%" src="assets\images\outline_person_black_48dp.png">
       <img *ngIf="menu.getIcon()=='search'" width="19%" src="assets\images\outline_search_black_48dp.png">
       <img *ngIf="menu.getIcon()=='autorenew'" width="19%" src="assets\images\outline_autorenew_black_48dp.png">
       <img *ngIf="menu.getIcon()=='equalizer'" width="19%" src="assets\images\outline_equalizer_black_48dp.png">

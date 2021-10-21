@@ -44,7 +44,7 @@ export class Childscn3Component implements OnInit {
   no: string;//會員帳號
   total = 1;
   loading = false;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');

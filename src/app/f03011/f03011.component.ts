@@ -29,8 +29,8 @@ export class F03011Component implements OnInit {
   dssCalloutSource: readonly Data[] = [];
   total = 1;
   loading = true;
-  pageSize = 10;
   pageIndex = 1;
+  pageSize = 50;
   tvnoOption: MappingCode[];
   calvOption: MappingCode[];
   scklvOption: MappingCode[];

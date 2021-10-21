@@ -20,7 +20,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   ) { }
 
   total = 1;
-  @ViewChild('absBox') absBox: ElementRef // 抓取table id
+  @ViewChild('absBox') absBox: ElementRef             // 抓取table id
   empNo: string = localStorage.getItem("empNo");      // 當前員編
   swcID: string;                                      // 身分證字號
   swcApplno: string;                                  // 案件編號
@@ -28,10 +28,10 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
   agentEmpNo: string;                                 // 代理人
   agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
-  cusinfoDataSource = [];  // 案件清單
+  cusinfoDataSource = [];                             // 案件清單
   fds: string = "";                                   // fds
   loading = true;
-  readonly pageSize = 10;
+  readonly pageSize = 50;
   pageIndex = 1;
 
   // 計算剩餘table資料長度
@@ -90,9 +90,14 @@ export class F01002page1Component implements OnInit, AfterViewInit {
 
   //代入條件查詢
   select() {
-    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') { return alert('請至少選擇一項') }
-    this.changePage();
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請至少選擇一項條件" }
+      });
+    } else {
+      this.changePage();
+      this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+    }
   }
 
   // 案件子頁籤
@@ -166,7 +171,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   }
 
   // 排序
-sortChange  (e: string) {
+  sortChange(e: string) {
     console.log(e)
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
