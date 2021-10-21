@@ -28,11 +28,11 @@ interface callout {
 })
 
 export class F01002page2Component implements OnInit {
-  callOutDataSource = new MatTableDataSource<any>();  // 照會提醒清單
+  callOutDataSource = [];  // 照會提醒清單
   rspBodyList: callout[] = [];//table資料
   total = 1;
   loading = true;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
   extendTimeValue: string;
   extendTimeCode = [
@@ -62,13 +62,11 @@ export class F01002page2Component implements OnInit {
     jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
-    console.log(this.pageIndex)
-    console.log(this.pageSize)
     this.loading = false;
     this.f01002Service.getCalloutList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.rspBodyList = data.rspBody.items;
-      this.callOutDataSource.data = this.rspBodyList;
+      this.callOutDataSource = this.rspBodyList;
     });
   }
 

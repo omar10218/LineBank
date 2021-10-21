@@ -36,7 +36,7 @@ export class F01003Component implements OnInit, AfterViewInit {
   cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單
   fds: string = "";                                   // fds
   loading = true;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
 
   // 計算剩餘table資料長度

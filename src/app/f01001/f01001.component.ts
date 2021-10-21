@@ -36,7 +36,7 @@ export class F01001Component implements OnInit, AfterViewInit {
   cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單
   fds: string = "";                                   // fds
   loading = true;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
 
   // 計算剩餘table資料長度
@@ -94,7 +94,6 @@ export class F01001Component implements OnInit, AfterViewInit {
     jsonObject['swcApplno'] = swcApplno;
     this.loading = false;
     this.f01001Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
       this.total = data.rspBody.size;
       this.cusinfoDataSource.data = data.rspBody.items;
     });

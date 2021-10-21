@@ -92,21 +92,36 @@ export class Childscn19Component implements OnInit {
 
   //新增補件資訊
   public async rescan(): Promise<void> {
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['rescanType'] = this.rescanType;
-    jsonObject['rescanContent'] = this.rescanContent;
-    jsonObject['rescanItem'] = this.rescanItem;
-    jsonObject['restartDate'] = this.pipe.transform(this.restartDate, 'yyyy-MM-dd');
-    let msgStr: string = "";
-    msgStr = await this.childscn19Service.addRescan(jsonObject);
-    if (msgStr == 'success') {
-      msgStr = '儲存成功！'
+    if (this.restartDate == null) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請輸入日期" }
+      });
+    } else if (this.rescanType == null) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請輸入補件原因" }
+      });
+    } else if (this.rescanItem == null) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請輸入補件項目" }
+      });
+    } else {
+      let jsonObject: any = {};
+      jsonObject['applno'] = this.applno;
+      jsonObject['rescanType'] = this.rescanType;
+      jsonObject['rescanContent'] = this.rescanContent;
+      jsonObject['rescanItem'] = this.rescanItem;
+      jsonObject['restartDate'] = this.pipe.transform(this.restartDate, 'yyyy-MM-dd');
+      let msgStr: string = "";
+      msgStr = await this.childscn19Service.addRescan(jsonObject);
+      if (msgStr == 'success') {
+        msgStr = '儲存成功！'
+      }
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      this.getRescanList();
     }
-    this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
-    });
-    this.getRescanList();
+    return;
   }
 
   //發送簡訊檔
@@ -118,23 +133,32 @@ export class Childscn19Component implements OnInit {
       }
     }
     this.messageContent = this.content;
-    if (this.realSmsTime == null) { return alert('請輸入日期'); }
-    if (this.realSmsTime != null && this.mytime == null) { return alert('請輸入時間'); }
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['messageContent'] = this.messageContent;
-    jsonObject['empno'] = localStorage.getItem("empNo");
-    jsonObject['mobile'] = this.mobile;
-    jsonObject['realSmstime'] = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd') + this.pipe.transform(this.mytime, ' HH:mm');
-    let msgStr: string = "";
-    msgStr = await this.childscn19Service.addSms(jsonObject);
-    if (msgStr == 'success') {
-      msgStr = '儲存成功！'
+    if (this.realSmsTime == null) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請輸入日期" }
+      });
+    } else if (this.realSmsTime != null && this.mytime == null) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請輸入時間" }
+      });
+    } else {
+      let jsonObject: any = {};
+      jsonObject['applno'] = this.applno;
+      jsonObject['messageContent'] = this.messageContent;
+      jsonObject['empno'] = localStorage.getItem("empNo");
+      jsonObject['mobile'] = this.mobile;
+      jsonObject['realSmstime'] = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd') + this.pipe.transform(this.mytime, ' HH:mm');
+      let msgStr: string = "";
+      msgStr = await this.childscn19Service.addSms(jsonObject);
+      if (msgStr == 'success') {
+        msgStr = '儲存成功！'
+      }
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      this.getSmsList(this.applno);
     }
-    this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
-    });
-    this.getSmsList(this.applno);
+    return;
   }
 
   //從客戶資訊查詢客戶手機
