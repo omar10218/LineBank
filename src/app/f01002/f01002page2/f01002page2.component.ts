@@ -60,6 +60,10 @@ export class F01002page2Component implements OnInit {
   getCalloutList() {
     let jsonObject: any = {};
     jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
+    jsonObject['page'] = this.pageIndex;
+    jsonObject['per_page'] = this.pageSize;
+    console.log(this.pageIndex)
+    console.log(this.pageSize)
     this.loading = false;
     this.f01002Service.getCalloutList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
