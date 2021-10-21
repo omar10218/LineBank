@@ -7,6 +7,7 @@
 
       <img *ngIf="menu.getIcon()=='person_outline'" width="19%" src="assets\images\outline_person_black_48dp.png">
       <img *ngIf="menu.getIcon()=='search'" width="19%" src="assets\images\outline_search_black_48dp.png">
+      <img *ngIf="menu.getIcon()=='report'" width="19%" src="assets\images\outline_equalizer_black_48dp.png">
       <img *ngIf="menu.getIcon()=='autorenew'" width="19%" src="assets\images\outline_autorenew_black_48dp.png">
       <img *ngIf="menu.getIcon()=='equalizer'" width="19%" src="assets\images\outline_equalizer_black_48dp.png">
       {{menu.getTitle()}}
@@ -18,10 +19,11 @@
     </button>
     <span class="example-spacer"></span>
 
-    <!-- <ul nz-menu nzMode="horizontal">
-      <button *ngFor="let menu of getMenu()" style="margin: 0px 20px; text-align: center;">
+    <!-- <ul nz-menu nzMode="horizontal" style="background-color: transparent;">
+      <button mat-button *ngFor="let menu of getMenu()" style="margin: 0px 20px; text-align: center;">
         <img *ngIf="menu.getIcon()=='person_outline'" width="19%" src="assets\images\outline_person_black_48dp.png">
         <img *ngIf="menu.getIcon()=='search'" width="19%" src="assets\images\outline_search_black_48dp.png">
+        <img *ngIf="menu.getIcon()=='report'" width="19%" src="assets\images\outline_equalizer_black_48dp.png">
         <img *ngIf="menu.getIcon()=='autorenew'" width="19%" src="assets\images\outline_autorenew_black_48dp.png">
         <img *ngIf="menu.getIcon()=='equalizer'" width="19%" src="assets\images\outline_equalizer_black_48dp.png">
         <li nz-submenu nzTitle="{{menu.getTitle()}}" yPosition="below" style="font-size:25px">
@@ -31,7 +33,7 @@
                 <ng-container *ngFor="let map of menu.getMenuList() | keyvalue: returnZero">
                   <ng-container *ngIf="map.key.indexOf('覆審')">
                     <li nz-menu-item>
-                      <button [routerLink]="map.value">
+                      <button mat-menu-item [routerLink]="map.value">
                         {{map.key}}
                       </button>
                     </li>
@@ -45,9 +47,11 @@
               <ul>
                 <ng-container *ngFor="let map of menu.getMenuList() | keyvalue: returnZero">
                   <ng-container *ngIf="!map.key.indexOf('覆審')">
-                    <li nz-menu-item><button [routerLink]="map.value">
+                    <li nz-menu-item>
+                      <button mat-menu-item [routerLink]="map.value">
                         {{map.key}}
-                      </button></li>
+                      </button>
+                    </li>
                   </ng-container>
                 </ng-container>
               </ul>
@@ -76,10 +80,7 @@
           <span>登出</span>
         </button>
       </mat-menu>
-
     </ng-template>
-
-
   </mat-toolbar-row>
 </mat-toolbar>
 <router-outlet class="router" style="padding-top: 90px;"></router-outlet>
