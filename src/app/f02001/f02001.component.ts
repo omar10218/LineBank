@@ -74,7 +74,7 @@ export class F02001Component implements OnInit {
 
   changePage() {
     this.pageIndex = 1;
-    this.pageSize = 10;
+    this.pageSize = 50;
     this.total = 1;
   }
 

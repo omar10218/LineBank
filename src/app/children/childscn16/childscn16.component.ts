@@ -12,6 +12,7 @@ import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 //Jay 歷史資料
+
 @Component({
   selector: 'app-childscn16',
   templateUrl: './childscn16.component.html',
@@ -36,7 +37,7 @@ export class Childscn16Component implements OnInit {
   transactionLogSource: Data[] = [];
   total = 1;
   loading = false;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
   cuid:string;
   fds: string = "";
