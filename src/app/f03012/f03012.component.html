@@ -76,13 +76,13 @@
           <td class="table-data">{{row.codeDesc }}</td>
           <td class="table-data">
             <div *ngIf="row.isChk==true">
-              <select [(ngModel)]='row.compareType'>
+              <select [(ngModel)]='row.compareType' [compareWith]="test">
                 <option [value]=1>絕對值</option>
                 <option [value]=2>相對值</option>
               </select>
             </div>
             <div *ngIf="row.isChk==false">
-              <select disabled [(ngModel)]='row.compareType'>
+              <select disabled [(ngModel)]='row.compareType' [compareWith]="test">
                 <option [value]=1>絕對值</option>
                 <option [value]=2>相對值</option>
               </select>
