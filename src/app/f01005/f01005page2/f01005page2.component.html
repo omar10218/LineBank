@@ -2,7 +2,7 @@
   <div class="content">
       <div nz-col nzSpan="24">
           <div class="line_bank_card_no_padding">
-              <nz-table nzShowSizeChanger [nzData]="callOutDataSource.data" [nzFrontPagination]="false"
+              <nz-table nzShowSizeChanger [nzData]="callOutDataSource.data" [nzFrontPagination]="true"
                   [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
                   [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="照會提醒清單"
                   (nzQueryParams)="onQueryParamsChange($event)">
@@ -31,6 +31,7 @@
                           <td class="table-data">{{ data.CU_CNAME }}</td>
                           <td class="table-data">{{ data.CU_CP_NAME }}</td>
                           <td class="table-data">{{ data.ANNOUNCE_DATE| date: 'yyyy-MM-dd.hh:mm'  }}</td>
+
                           <td class="table-data">
                             {{ data.OP_ID }}
                               <!-- <nz-radio-group [(ngModel)]="data.CALLOUT_RDO"
@@ -52,3 +53,6 @@
       </div>
   </div>
 </div>
+
+
+<button (click)="onclick()">Update</button>

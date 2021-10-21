@@ -1,11 +1,11 @@
 <div class="line_bank_card_no_padding">
   <div class="line_bank_form_header_title">資料比對設定維護--新增</div>
-  <form [formGroup]="compareTableSetForm" style="margin:10px">
+  <div style="margin:10px">
     <div nz-row>
       <div nz-col nzSpan="12">
         <div style="padding:10px">
           <span class="form-title">比對table</span>
-          <mat-select formControlName="compareTable" [(ngModel)]="selectedValue1" name="compareTableCode"
+          <mat-select [(ngModel)]="selectedValue1"
           style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6"  (ngModelChange)="changeSelect()">
             <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
               {{code.viewValue}}
@@ -16,7 +16,7 @@
       <div nz-col nzSpan="12">
         <div style="padding:10px">
           <span class="form-title">比對欄位</span>
-          <mat-select formControlName="compareColumn" [(ngModel)]="selectedValue2" name="selectedColumn"
+          <mat-select [(ngModel)]="selectedValue2"
           style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
             <mat-option *ngFor="let code of selectedColumn" [value]="code.value">
               {{code.viewValue}}
@@ -40,13 +40,13 @@
       <div nz-col nzSpan="8">
         <div style="padding:10px">
           <span class="form-title">設定最低門檻</span>
-          <input formControlName="setValueLow" matInput [(ngModel)]="setValueLow">
+          <input  matInput [(ngModel)]="setValueLow">
         </div>
       </div>
       <div nz-col nzSpan="8">
         <div style="padding:10px">
           <span class="form-title">設定最高高檻</span>
-          <input formControlName="setValueHight" matInput [(ngModel)]="setValueHight">
+          <input matInput [(ngModel)]="setValueHight">
         </div>
       </div>
       <div mat-dialog-actions style="margin:5px auto">
@@ -56,7 +56,7 @@
 
       </div>
     </div>
-  </form>
+  </div>
 </div>
 
 

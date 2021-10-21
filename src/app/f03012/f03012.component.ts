@@ -128,6 +128,7 @@ export class F03012Component implements OnInit {
       this.compareDataSetSource.data = data.rspBody.items;
       this.compareTableOption = data.rspBody.compareTable;
       this.compareColumnOption = data.rspBody.comparColumn;
+      console.log(data.rspBody.comparColumn);
 
       this.useFlag = false;
     });

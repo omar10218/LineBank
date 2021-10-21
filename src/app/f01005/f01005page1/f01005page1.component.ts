@@ -58,17 +58,17 @@ export class F01005page1Component implements OnInit {
       }
     });
     // 查詢代理人
-    let jsonObject: any = {};
-    jsonObject['swcL3EmpNo'] = this.empNo;
+    // let jsonObject: any = {};
+    // jsonObject['swcL3EmpNo'] = this.empNo;
 
-    this.f01005Service.getEmpNo(jsonObject).subscribe(data => {
-      this.agentEmpNoCode.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody) {
-        const empNo = jsonObj['empNo'];
-        const empName = jsonObj['empName'];
-        this.agentEmpNoCode.push({ value: empNo, viewValue: empName })
-      }
-    });
+    // this.f01005Service.getEmpNo(jsonObject).subscribe(data => {
+    //   this.agentEmpNoCode.push({ value: '', viewValue: '請選擇' })
+    //   for (const jsonObj of data.rspBody) {
+    //     const empNo = jsonObj['empNo'];
+    //     const empName = jsonObj['empName'];
+    //     this.agentEmpNoCode.push({ value: empNo, viewValue: empName })
+    //   }
+    // });
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcID = '';
@@ -82,13 +82,13 @@ export class F01005page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
-    jsonObject['swcL3EmpNo'] = empNo;
-    jsonObject['swcID'] = swcID;
-    jsonObject['swcApplno'] = swcApplno;
+    // jsonObject['swcL3EmpNo'] = empNo;
+    // jsonObject['swcID'] = swcID;
+    // jsonObject['swcApplno'] = swcApplno;
     this.loading = false;
     this.f01005Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
-      this.cusinfoDataSource.data = data.rspBody.items;
+      this.cusinfoDataSource = data.rspBody.items;
     });
   }
   //代入條件查詢
@@ -102,19 +102,19 @@ export class F01005page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
-    this.f01005Service.getLockCase(jsonObject).subscribe(data => {
-      if ( data.rspBody.length > 0 ) {
-        this.fds = data.rspBody[0].fds
-      }
-      if (data.rspMsg == '案件鎖定成功') {
+
+      // if ( data.rspBody.length > 0 ) {
+      //   this.fds = data.rspBody[0].fds
+      // }
+
         sessionStorage.setItem('applno', swcApplno);
         sessionStorage.setItem('cuid', swcID);
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         this.router.navigate(['./F01002/F01002SCN1']);
-      }
-    });
+
+
   }
   // 儲存案件註記
   saveCaseMemo(swcApplno: string, swcCaseMemo: string) {

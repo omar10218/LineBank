@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -44,8 +44,16 @@ export class F01005page2Component implements OnInit {
     private router: Router
   ) { }
 
+  @Input() update: (event: number) => {};
+  @Output() update2 = new EventEmitter<number>();
+
   ngOnInit(): void {
     this.getCalloutList();
+  }
+
+  onclick() {
+    // this.update();
+    this.update2.emit();
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -61,9 +69,11 @@ export class F01005page2Component implements OnInit {
     this.loading = false;
     this.f01005Service.getCalloutList(jsonObject).subscribe(data => {
       console.log(data)
-      this.total = data.rspBody.size;
+      this.total = data.rspBody.length;
       this.rspBodyList = data.rspBody.items;
       this.callOutDataSource.data =  data.rspBody;
+      this.update(this.total);
+      // this.update2.emit( this.total);
     });
   }
 
@@ -98,7 +108,9 @@ export class F01005page2Component implements OnInit {
     // })
   }
    //透過案編跳轉至徵信照會
-   toCalloutPage() {
+   toCalloutPage(applno:string) {
+     sessionStorage.setItem('applno',applno)
+     sessionStorage.setItem('search','Y')
     this.router.navigate(['./F01002/F01002SCN1/CHILDSCN15']);
   }
 
