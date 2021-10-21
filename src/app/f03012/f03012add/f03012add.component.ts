@@ -85,7 +85,7 @@ export class F03012addComponent implements OnInit {
       jsonObject['compareType'] = this.compareType;
       jsonObject['setValueLow'] = this.setValueLow;
       jsonObject['setValueHight'] = this.setValueHight;
-
+console.log(this.compareType)
       this.f03012Service.submit(url , jsonObject).subscribe(data => {
         alert(msg = data.rspMsg)
          window.location.reload();

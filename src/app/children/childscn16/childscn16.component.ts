@@ -94,7 +94,6 @@ export class Childscn16Component implements OnInit {
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
     this.childscn16Service.selectCustomer(url, this.jsonObject).subscribe(data => {
-
       console.log(data.rspBody.size)
       this.total = data.rspBody.size;
       this.ruleParamCondition = data.rspBody.items;

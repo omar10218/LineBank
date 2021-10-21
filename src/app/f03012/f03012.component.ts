@@ -366,6 +366,9 @@ export class F03012Component implements OnInit {
     this.pageSize = 10;
     this.total = 1;
   }
+  test(option:number , value:1):boolean{
+    return option===value
+  }
 
 
 

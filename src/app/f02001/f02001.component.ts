@@ -65,7 +65,7 @@ export class F02001Component implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params)
-    if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
+    if (this.firstFlag !=1 ) { // 判斷是否為第一次進頁面
       const { pageSize, pageIndex } = params;
       this.selectData(pageIndex, pageSize);
 

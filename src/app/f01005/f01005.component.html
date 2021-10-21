@@ -1,9 +1,9 @@
 <div class="line_bank_bankground_color">
-    <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
-        <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
-            mat-stroked-button (click)="changePage(Page.Page1)">案件清單</button>
-        <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
-            mat-stroked-button (click)="changePage(Page.Page2)">照會提醒</button>
-    </div>
-    <ng-container appDynamic></ng-container>
+  <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
+      <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
+          mat-stroked-button (click)="changePage(Page.Page1)">案件清單</button>
+      <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;background-color:red;"
+          mat-stroked-button (click)="changePage(Page.Page2)" >徵信通報</button>
+  </div>
+  <ng-container appDynamic></ng-container>
 </div>

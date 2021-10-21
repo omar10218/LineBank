@@ -25,23 +25,23 @@ interface sysCode {
 })
 export class F03014Component implements OnInit {
   usingType: sysCode[] = [];
-  usingValue: string;
-  NameValue: string;//客戶名字
-  IdentityValue: string;//身分字號
-  NarrateValue: string;//簡述
-  Efficient: [Date,Date];//生效
-  Invalidation: [Date,Date];//失效
-  daytest: string;//三個月後的日期
+  usingValue: string = '';
+  NameValue: string = '';//客戶名字
+  IdentityValue: string = '';//身分字號
+  NarrateValue: string = '';//簡述
+  Efficient: [Date,Date] =null;//生效
+  Invalidation: [Date,Date] = null;//失效
+  // daytest: string;//三個月後的日期
   date: [Date, Date];
   dateFormat = 'yyyy/MM/dd';
-
-
   myDate:any = new Date();
   total = 1;
   loading = true;
   pageSize = 10;
   pageIndex = 1;
   ruleParamCondition : Data[] = [];
+  i=1;
+  condition=1;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;
@@ -57,19 +57,70 @@ export class F03014Component implements OnInit {
   {
     this.usingType.push({ value: '1', viewValue: 'Y' });
     this.usingType.push({ value: '2', viewValue: 'N' });
-    this.Inquire(this.pageIndex, this.pageSize)
+
   }
 
   search()//查詢
   {
-    this.changePage()
-    this.Inquire(this.pageIndex,this.pageSize)
+
+    if(this.Efficient != null)
+    {
+      var startDate, endDate;
+      startDate = new Date(this.Efficient[0]);
+      endDate = new Date(this.Efficient[1]);
+      if((endDate-startDate)/1000/60/60/24>90){
+        this.condition =0;
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "生效日查詢區間最多三個月內!" }
+        });
+      }
+      else
+      {
+        this.condition =1;
+      }
+    }
+
+
+
+    if(this.Invalidation != null)
+    {
+      var startDate, endDate;
+      startDate = new Date(this.Invalidation[0]);
+      endDate = new Date(this.Invalidation[1]);
+      if((endDate-startDate)/1000/60/60/24>90){
+        this.condition =0;
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "失效日查詢區間最多三個月內!" }
+        });
+      }
+      else
+      {
+        this.condition =1;
+      }
+    }
+
+
+
+    if(this.condition > 0 )
+    {
+      if(this.NameValue ==''&& this.IdentityValue ==''&& this.NarrateValue =='' &&
+      this.Efficient ==null && this.Invalidation == null && this.usingValue == '')
+      {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請至少選擇一項條件" }
+        });
+      }
+      else
+      {
+        this.changePage()
+        this.Inquire(this.pageIndex,this.pageSize)
+      }
+
+    }
+
   }
   Inquire(pageIndex: number, pageSize: number)//查詢分頁
   {
-    console.log(this.Efficient)
-    console.log(this.Invalidation)
-
     let jsonObject: any = {};
     const url = 'f03/f03014action01';
     jsonObject['custNid'] = this.IdentityValue != null ? this.IdentityValue : '';
@@ -78,45 +129,20 @@ export class F03014Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
 
-    if(this.Efficient !=null)
-    {
-      console.log('====1111====')
-      var startDate, endDate;
-      startDate = new Date(this.Efficient[0]);
-      endDate = new Date(this.Efficient[1]);
-      if((endDate-startDate)/1000/60/60/24>90){
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "生效日查詢區間最多三個月內!" }
-        });}
-    }
-
-    if(this.Invalidation !=null)
-    {
-      console.log('====2222====')
-      var startDate, endDate;
-      startDate = new Date(this.Invalidation[0]);
-      endDate = new Date(this.Invalidation[1]);
-      if((endDate-startDate)/1000/60/60/24>90){
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "失效日查詢區間最多三個月內!" }
-        });}
-    }
 
     if(this.Efficient != null)
     {
       jsonObject['effectiveDate_start'] = this.pipe.transform (new Date(this.Efficient[0]).toString() , 'yyyy-MM-dd');
       jsonObject['effectiveDate_end'] =  this.pipe.transform (new Date(this.Efficient[1]).toString() , 'yyyy-MM-dd');
+
     }
-    else
-    {
-      jsonObject['effectiveDate_start'] ='';
-      jsonObject['effectiveDate_end'] = '';
-    }
+
 
     if(this.Invalidation != null)
     {
       jsonObject['expirationDate_start'] =this.pipe.transform (new Date(this.Invalidation[0]).toString() , 'yyyy-MM-dd');
       jsonObject['expirationDate_end'] =  this.pipe.transform (new Date(this.Invalidation[1]).toString() , 'yyyy-MM-dd');
+
     }
     else
     {
@@ -128,7 +154,6 @@ export class F03014Component implements OnInit {
     // jsonObject['expirationDate_end'] =  this.Invalidation[1] != null ? this.Invalidation[1] : '';
 
     jsonObject['useFlag'] = this.usingValue != null ? this.usingValue : '';
-
 
     this.f03014Service.selectCustomer(url, jsonObject).subscribe(data => {
 
@@ -155,9 +180,17 @@ export class F03014Component implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && (result.event == 'success')) { this.search(); }
-      console.log(result)
+      if (result != null && (result.event == 'success')) {
+        if(this.NameValue ==''&& this.IdentityValue ==''&& this.NarrateValue =='' &&
+        this.Efficient ==null && this.Invalidation == null && this.usingValue == '')
+        {
 
+        }
+        else
+        {
+          this.search();
+        }
+         }
     });
   }
   EditTable(i: number, parmArry: string[])//編輯
@@ -180,7 +213,6 @@ export class F03014Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && (result.event == 'success')) { this.search(); }
-      console.log(result)
 
     });
   }
@@ -219,10 +251,11 @@ export class F03014Component implements OnInit {
 
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
-    const {pageSize, pageIndex} = params
-		this.pageSize = pageSize
-		this.pageIndex = pageIndex
-    this.Inquire(pageIndex, pageSize);
+    if(this.i!=1)//判斷是不是第一次進入此頁面
+    {
+      const { pageSize, pageIndex } = params;
+      this.Inquire(pageIndex, pageSize);
+    }
   }
   changePage()
   {
@@ -240,20 +273,4 @@ export class F03014Component implements OnInit {
       this.Invalidation=null;//失效
       this.ruleParamCondition = null;
   }
-  disabledDate(time)
-  {
-    // let curDate = (new Date()).getTime();
-    // let three = 90*24*3600*1000;
-    // let threeMonths = curDate + three;
-    // return time.getTime()>threeMonths
-
-  }
-  disabledDate1(time)
-  {
-    // let curDate = (new Date()).getTime();
-    // let three = 90*24*3600*1000;
-    // let threeMonths = curDate + three;
-    // return time.getTime()>=threeMonths
-  }
-
 }
