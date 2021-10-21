@@ -2,7 +2,7 @@
     <div class="content">
         <div nz-col nzSpan="24">
             <div class="line_bank_card_no_padding">
-                <nz-table nzShowSizeChanger [nzData]="callOutDataSource.data" [nzFrontPagination]="false"
+                <nz-table nzShowSizeChanger [nzData]="callOutDataSource.data" [nzFrontPagination]="true"
                     [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
                     [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="照會提醒清單"
                     (nzQueryParams)="onQueryParamsChange($event)">

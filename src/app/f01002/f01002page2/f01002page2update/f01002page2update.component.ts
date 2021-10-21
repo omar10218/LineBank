@@ -6,7 +6,7 @@ import { F01002Service } from '../../f01002.service';
 @Component({
   selector: 'app-f01002page2update',
   templateUrl: './f01002page2update.component.html',
-  styleUrls: ['./f01002page2update.component.css', '.../../../assets/css/f01.css']
+  styleUrls: ['./f01002page2update.component.css',]
 })
 export class F01002page2updateComponent implements OnInit {
 

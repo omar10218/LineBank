@@ -34,8 +34,9 @@
     <div #absBox class="abs-box">
       <div nz-col nzSpan="24">
         <div class="line_bank_card_no_padding">
-          <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource.data" [nzFrontPagination]="false" [nzSimple]="true"
+          <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
             [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable
+            style="height:40vh"
             nzSize="small" nzTitle="FRAUD案件清單" [nzScroll]="{ x: '1500px', y:tableHeight}"
             (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
@@ -61,13 +62,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let data of cusinfoDataSource.data">
+              <tr *ngFor="let data of cusinfoDataSource">
                 <td class="table-data" [nzLeft]="true" style="text-align: center;">
-                  <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='N'"
+                  <!-- <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='N'"
                     [disabled]="true">
                     {{data.swcApplno}}
-                  </button>
-                  <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='Y'"
+                  </button> -->
+                  <button nz-button [nzSize]="'middle'" nzType="link"
                     (click)="getLockCase(data.swcApplno, data.swcID)">
                     {{data.swcApplno}}
                   </button>

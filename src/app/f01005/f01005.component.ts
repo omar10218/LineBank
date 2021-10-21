@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { DynamicDirective } from '../common-lib/directive/dynamic.directive';
 import { F01005page1Component } from './f01005page1/f01005page1.component';
 import { F01005page2Component } from './f01005page2/f01005page2.component';
@@ -28,8 +28,10 @@ export class F01005Component implements OnInit {
   );
   nowPage = Page.Page1;
   readonly Page = Page;
+  num :number;
 
   ngOnInit(): void {
+
   }
 
   ngAfterViewInit() {
@@ -42,6 +44,14 @@ export class F01005Component implements OnInit {
     const viewContainerRef = this.appDynamic.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
+
+    const instance: any = componentRef.instance;
+    instance.update = (num) => {
+      this.num = num
+    }
+    // instance.update2 = new EventEmitter<void>().subscribe(() => {
+    //   this.num--;
+    // });
   }
 
 }
