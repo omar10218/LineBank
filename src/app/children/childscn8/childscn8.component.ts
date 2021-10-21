@@ -70,8 +70,8 @@ export class Childscn8Component implements OnInit {
   listOfData: readonly Data[] = [];//表單資料筆數設定
   total = 1;
   loading = true;
-  pageSize = 10;
   pageIndex = 1;
+  pageSize = 50;
 
   CON_TYPE_Code: OptionsCode[] = [];//聯絡方式下拉選單
   CON_TYPE: string;//聯絡方式

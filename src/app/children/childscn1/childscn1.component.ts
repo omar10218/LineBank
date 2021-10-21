@@ -106,8 +106,8 @@ export class Childscn1Component implements OnInit {
   //Creditmemo
   creditmemoSource: Data[] = [];
   total = 1;
-  pageSize = 10;
   pageIndex = 1;
+  pageSize = 50;
 
   ngOnInit(): void {
 

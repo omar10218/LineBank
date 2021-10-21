@@ -26,8 +26,8 @@ export class F03004Component implements OnInit, AfterViewInit {
 
   mappingCodeSource: Data[] = [];
   total = 1;
-  pageSize = 10;
   pageIndex = 1;
+  pageSize = 50;
   sysCode: OptionsCode[] = [];
   selectedValue: string;
 

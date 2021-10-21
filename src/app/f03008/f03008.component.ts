@@ -24,8 +24,8 @@ export class F03008Component implements OnInit {
 
   total = 1;
   loading = true;
-  pageSize = 10;
   pageIndex = 1;
+  pageSize = 50;
 
   dialogRef: any;
   empNo: string = localStorage.getItem("empNo");
