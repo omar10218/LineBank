@@ -26,11 +26,9 @@ interface sysCode {
 export class F03015Component implements OnInit {
 
   inducCode: string = '';
-  // inducCode: sysCode[] = [];  //行職業代碼下拉
   inducLevel1: sysCode[] = [];  //行職業level1下拉
   inducLevel2: sysCode[] = [];  //行職業level2下拉
   jobCode: sysCode[] = []; //職業碼下拉
-  // inducCodeValue: string;  //行職業代碼選擇
   inducLevel1Value: string;  //行職業level1選擇
   inducLevel2Value: string;  //行職業level2選擇
   jobCodeValue: string; //職業碼選擇
@@ -82,6 +80,22 @@ export class F03015Component implements OnInit {
   currentSort: Sort;
   proxyIncomeDataSource: Data[] = [];
   ngAfterViewInit() {
+  }
+
+  //取行職業level1下拉
+  getLevel1Select() {
+    let jsonObject: any = {};
+    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+      for (const jsonObj of data.rspBody.items) {
+        const codeNo = jsonObj['INDUC_LEVEL1'];
+        const desc = jsonObj['INDUC_LEVEL1_DESC'];
+        this.inducLevel1.push({ value: codeNo, viewValue: desc });
+      }
+    });
+    this.inducLevel2 = [];
+    this.jobCode = [];
+    this.inducLevel2Value = "";
+    this.jobCodeValue = "";
   }
 
   //取行職業level2下拉
@@ -159,7 +173,10 @@ export class F03015Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.refreshTable(); }
+      if (result != null && result.event == 'success') {
+        this.getLevel1Select();
+        this.refreshTable();
+      }
     });
   }
 
