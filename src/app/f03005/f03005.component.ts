@@ -23,8 +23,9 @@ export class F03005Component implements OnInit {
   adrCodeSource: readonly Data[] = [];
   total = 1;
   loading = true;
-  pageSize = 10;
   pageIndex = 1;
+  pageSize = 50;
+
   adrType: OptionsCode[] = [];  //最上層下拉
   secondType: OptionsCode[] = [];  //第二層下拉
   thirdType: OptionsCode[] = [];  //第三層下拉

@@ -66,13 +66,13 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   KRI002Source: readonly Data[] = [];
   total1 = 1;
-  pageSize1 = 10;
   pageIndex1 = 1;
+  pageSize1 = 50;
 
   BAM011Source: readonly Data[] = [];
   total2 = 1;
-  pageSize2 = 20;
   pageIndex2 = 1;
+  pageSize2 = 50;
 
   watermark: string;S
 

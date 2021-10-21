@@ -22,8 +22,8 @@ export class Childscn2page1Component implements OnInit {
   transactionLogSource: Data[] = [];
   total = 1;
   loading = true;
-  pageSize = 10;
   pageIndex = 1;
+  pageSize = 50;
 
   ngOnInit(): void {
   }

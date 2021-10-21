@@ -47,8 +47,8 @@ export class Childscn13Component implements OnInit {
   webInfoSource2:webInfoData[]=[];
   total = 1;
   loading = true;
-  pageSize = 10;
   pageIndex = 1;
+  pageSize = 50;
   webAddrOption: MappingCode[];
 
 

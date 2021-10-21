@@ -29,8 +29,9 @@ export class Childscn12Component implements OnInit {
   applIncomeSource: readonly Data[] = [];
   total = 1;
   loading = true;
-  pageSize = 10;
   pageIndex = 1;
+  pageSize = 50;
+
   incomeTypeOption: MappingCode[];
 
   ngOnInit(): void {
