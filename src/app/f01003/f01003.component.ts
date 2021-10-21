@@ -23,7 +23,7 @@ export class F01003Component implements OnInit, AfterViewInit {
   ) { }
 
   total = 1;
-  @ViewChild('absBox')absBox:ElementRef // 抓取table id
+  @ViewChild('absBox') absBox: ElementRef // 抓取table id
   currentPage: PageEvent;                             // 分頁
   currentSort: Sort;                                  // 排序
   empNo: string = localStorage.getItem("empNo");      // 當前員編
@@ -40,9 +40,9 @@ export class F01003Component implements OnInit, AfterViewInit {
   pageIndex = 1;
 
   // 計算剩餘table資料長度
-  get tableHeight():string{
-    if(this.absBox){
-      return(this.absBox.nativeElement.offsetHeight-210)+'px';
+  get tableHeight(): string {
+    if (this.absBox) {
+      return (this.absBox.nativeElement.offsetHeight - 210) + 'px';
     }
   }
 
@@ -102,7 +102,12 @@ export class F01003Component implements OnInit, AfterViewInit {
 
   //代入條件查詢
   select() {
-    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') { return alert('請至少選擇一項') }
+    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') {
+      const cconfirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請至少選擇一項條件" }
+      });
+    } else
+      this.changePage();
     this.changePage();
     this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
   }
@@ -112,7 +117,7 @@ export class F01003Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
     this.f01003Service.getLockCase(jsonObject).subscribe(data => {
-      if ( data.rspBody.length > 0 ) {
+      if (data.rspBody.length > 0) {
         this.fds = data.rspBody[0].fds
       }
       if (data.rspMsg == '案件鎖定成功') {

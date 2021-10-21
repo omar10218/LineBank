@@ -48,20 +48,20 @@ export class F01002page2Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getCalloutList();
+    this.getCalloutList(this.pageIndex, this.pageSize);
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getCalloutList();
+    this.getCalloutList(pageIndex, pageSize);
   }
 
   // 照會提醒清單
-  getCalloutList() {
+  getCalloutList(pageIndex: number, pageSize: number) {
     let jsonObject: any = {};
     jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
-    jsonObject['page'] = this.pageIndex;
-    jsonObject['per_page'] = this.pageSize;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
     console.log(this.pageIndex)
     console.log(this.pageSize)
     this.loading = false;
@@ -83,7 +83,7 @@ export class F01002page2Component implements OnInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == '延長成功') { this.getCalloutList(); }
+      if (msg != null && msg == '延長成功') { this.getCalloutList(this.pageIndex, this.pageSize); }
     }, 1000);
   }
 
@@ -109,7 +109,7 @@ export class F01002page2Component implements OnInit {
   }
 
   refreshTable() {
-    this.getCalloutList();
+    this.getCalloutList(this.pageIndex, this.pageSize);
   }
   
 }
