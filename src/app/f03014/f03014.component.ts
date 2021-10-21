@@ -37,7 +37,7 @@ export class F03014Component implements OnInit {
   myDate:any = new Date();
   total = 1;
   loading = true;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
   ruleParamCondition : Data[] = [];
   i=1;
