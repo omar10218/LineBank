@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { HandleSubscribeService } from 'src/app/services/handle-subscribe.service';
 import { F01002Service } from '../../f01002.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class F01002page2updateComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private f01002Service: F01002Service,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<F01002page2updateComponent>
+    public dialogRef: MatDialogRef<F01002page2updateComponent>,
+    private handleSubscribeS: HandleSubscribeService
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +31,7 @@ export class F01002page2updateComponent implements OnInit {
       data: { msgStr: msgStr }
     });
     if (msgStr === '取消成功!') { this.dialogRef.close({ event: 'success' }); }
+    this.handleSubscribeS.updateCallout();
   }
 
   onNoClick() {

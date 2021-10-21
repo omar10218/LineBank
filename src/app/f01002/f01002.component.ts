@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -8,6 +8,8 @@ import { OptionsCode } from '../interface/base';
 import { DynamicDirective } from '../common-lib/directive/dynamic.directive';
 import { F01002page1Component } from './f01002page1/f01002page1.component';
 import { F01002page2Component } from './f01002page2/f01002page2.component';
+import { HandleSubscribeService } from '../services/handle-subscribe.service';
+import { Subscription } from 'rxjs';
 
 enum Page {
   Page1,
@@ -20,14 +22,20 @@ enum Page {
   styleUrls: ['./f01002.component.css', '../../assets/css/f01.css']
 })
 
-export class F01002Component implements OnInit, AfterViewInit {
+export class F01002Component implements OnInit, AfterViewInit, OnDestroy {
   total: string;
+
   constructor(
     private componenFactoryResolver: ComponentFactoryResolver,
     private router: Router,
     private f01002Service: F01002Service,
     public dialog: MatDialog,
-  ) { }
+    private handleSubscribeS: HandleSubscribeService
+  ) {
+    this.calloutSource$ = this.handleSubscribeS.calloutSource$.subscribe(() => {
+      this.getCalloutList();
+    });
+  }
 
 
   @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
@@ -40,6 +48,7 @@ export class F01002Component implements OnInit, AfterViewInit {
   );
   nowPage = Page.Page1;
   readonly Page = Page;
+  calloutSource$: Subscription;
 
   changePage(page: Page): void {
     this.nowPage = page;
@@ -59,6 +68,10 @@ export class F01002Component implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
+    this.calloutSource$.unsubscribe();
   }
 
   ngAfterViewInit() {

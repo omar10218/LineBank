@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { HandleSubscribeService } from 'src/app/services/handle-subscribe.service';
 import { F01002Service } from '../f01002.service';
 import { F01002page2updateComponent } from './f01002page2update/f01002page2update.component';
 
@@ -28,6 +29,7 @@ interface callout {
 })
 
 export class F01002page2Component implements OnInit {
+  applno: string;
   callOutDataSource = [];  // 照會提醒清單
   rspBodyList: callout[] = [];//table資料
   total = 1;
@@ -44,10 +46,13 @@ export class F01002page2Component implements OnInit {
   constructor(
     private f01002Service: F01002Service,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private handleSubscribeService: HandleSubscribeService
   ) { }
 
   ngOnInit(): void {
+    // this.search = sessionStorage.getItem('search');
+    // this.empNo = localStorage.getItem("empNo");
     this.getCalloutList(this.pageIndex, this.pageSize);
   }
 
@@ -81,7 +86,10 @@ export class F01002page2Component implements OnInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == '延長成功') { this.getCalloutList(this.pageIndex, this.pageSize); }
+      if (msg != null && msg == '延長成功') {
+        this.getCalloutList(this.pageIndex, this.pageSize);
+        this.handleSubscribeService.updateCallout();
+      }
     }, 1000);
   }
 
@@ -95,14 +103,15 @@ export class F01002page2Component implements OnInit {
         ID: ID,
       }
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && result.event == 'success') { this.refreshTable(); }
     })
   }
 
   //透過案編跳轉至徵信照會
-  toCalloutPage() {
+  toCalloutPage(applno: string) {
+    sessionStorage.setItem('applno', applno);
+    sessionStorage.setItem('search', 'Y');
     this.router.navigate(['./F01002/F01002SCN1/CHILDSCN8']);
   }
 
