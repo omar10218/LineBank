@@ -185,6 +185,11 @@ const routes: Routes = [
     path: 'CHILDSCN17',
     component: Childscn17Component
   },
+  {
+    path: '',
+    redirectTo: 'CHILDSCN1',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({
