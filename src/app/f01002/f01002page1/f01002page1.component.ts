@@ -91,12 +91,13 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   //代入條件查詢
   select() {
     if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') {
-      const cconfirmDialogRef = this.dialog.open(ConfirmComponent, {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項條件" }
       });
-    } else
+    } else {
       this.changePage();
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+      this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+    }
   }
 
   // 案件子頁籤
