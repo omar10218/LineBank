@@ -105,11 +105,11 @@ export class F01002page2Component implements OnInit {
 
   //透過案編跳轉至徵信照會
   toCalloutPage() {
-    this.router.navigate(['./F01002/CHILDSCN8']);
+    this.router.navigate(['./F01002/F01002SCN1/CHILDSCN8']);
   }
 
   refreshTable() {
     this.getCalloutList(this.pageIndex, this.pageSize);
   }
-  
+
 }
