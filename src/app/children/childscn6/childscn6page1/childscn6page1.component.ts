@@ -5,6 +5,7 @@ import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router, NavigationEnd, Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { NgxWatermarkOptions } from 'ngx-watermark';
 import { ChildrenService } from '../../children.service';
 import { Childscn6Service } from '../childscn6.service';
 
@@ -73,8 +74,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   pageSize2 = 20;
   pageIndex2 = 1;
 
-  watermark: string;
-  today: string;
+  watermark: string;S
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -83,14 +83,6 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
     this.getJcicMultiple();
     this.setBooleanFalse();
-
-    const baseUrl = 'f01/childscn6action2';
-    let jsonObject: any = {};
-    this.childscn6Service.getDate(baseUrl, jsonObject).subscribe(data => {
-      this.today = this.pipe.transform(new Date(), 'yyyyMMdd');
-      this.watermark = data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
-    });
-
   }
 
   ngAfterViewInit() {
