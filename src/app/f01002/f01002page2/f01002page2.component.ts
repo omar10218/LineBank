@@ -32,7 +32,7 @@ export class F01002page2Component implements OnInit {
   rspBodyList: callout[] = [];//table資料
   total = 1;
   loading = true;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
   extendTimeValue: string;
   extendTimeCode = [
