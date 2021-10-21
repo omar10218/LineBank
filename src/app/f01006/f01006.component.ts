@@ -25,7 +25,7 @@ export class F01006Component implements OnInit, AfterViewInit {
   custId: string;                                     // 客戶編號
   total: any;                                    // 回傳總筆數
   loading = true;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
   cusinfoDataSource: readonly Data[] = [];
   // cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單

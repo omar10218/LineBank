@@ -28,11 +28,11 @@ interface callout {
 })
 
 export class F01002page2Component implements OnInit {
-  callOutDataSource = new MatTableDataSource<any>();  // 照會提醒清單
+  callOutDataSource = [];  // 照會提醒清單
   rspBodyList: callout[] = [];//table資料
   total = 1;
   loading = true;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
   extendTimeValue: string;
   extendTimeCode = [
@@ -48,27 +48,25 @@ export class F01002page2Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getCalloutList();
+    this.getCalloutList(this.pageIndex, this.pageSize);
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getCalloutList();
+    this.getCalloutList(pageIndex, pageSize);
   }
 
   // 照會提醒清單
-  getCalloutList() {
+  getCalloutList(pageIndex: number, pageSize: number) {
     let jsonObject: any = {};
     jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
-    jsonObject['page'] = this.pageIndex;
-    jsonObject['per_page'] = this.pageSize;
-    console.log(this.pageIndex)
-    console.log(this.pageSize)
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
     this.loading = false;
     this.f01002Service.getCalloutList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.rspBodyList = data.rspBody.items;
-      this.callOutDataSource.data = this.rspBodyList;
+      this.callOutDataSource = this.rspBodyList;
     });
   }
 
@@ -83,7 +81,7 @@ export class F01002page2Component implements OnInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == '延長成功') { this.getCalloutList(); }
+      if (msg != null && msg == '延長成功') { this.getCalloutList(this.pageIndex, this.pageSize); }
     }, 1000);
   }
 
@@ -105,11 +103,11 @@ export class F01002page2Component implements OnInit {
 
   //透過案編跳轉至徵信照會
   toCalloutPage() {
-    this.router.navigate(['./F01002/CHILDSCN8']);
+    this.router.navigate(['./F01002/F01002SCN1/CHILDSCN8']);
   }
 
   refreshTable() {
-    this.getCalloutList();
+    this.getCalloutList(this.pageIndex, this.pageSize);
   }
-  
+
 }

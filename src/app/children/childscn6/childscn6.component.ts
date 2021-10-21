@@ -2,6 +2,8 @@ import { Childscn6page1Component } from './childscn6page1/childscn6page1.compone
 import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
 import { Childscn6Service } from './childscn6.service';
 import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
+import { NgxWatermarkOptions } from 'ngx-watermark';
+import { DatePipe } from '@angular/common';
 interface dateCode {
   value: string;
   viewValue: string;
@@ -17,6 +19,7 @@ export class Childscn6Component implements OnInit {
   constructor(
     private childscn6Service: Childscn6Service,
     private componenFactoryResolver: ComponentFactoryResolver,
+    private pipe: DatePipe
   ) { }
 
   @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
@@ -25,10 +28,31 @@ export class Childscn6Component implements OnInit {
   toggle = true;
   private applno: string;
   private cuid: string;
+  today: string;
+
+  options: NgxWatermarkOptions = {
+    text: '',
+    width: 350,
+    height: 300,
+    fontFamily: 'Kanit',
+    color: '#999',
+    alpha: .7,
+    degree: -45,
+    fontSize: '20px',
+  };
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.applno = sessionStorage.getItem('applno');
+    const baseUrl = 'f01/childscn6action2';
+    let jsonObject: any = {};
+    this.childscn6Service.getDate(baseUrl, jsonObject).subscribe(data => {
+      this.today = this.pipe.transform(new Date(), 'yyyyMMdd');
+      //this.watermark = data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
+
+      this.options.text =  data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
+      // data.rspBody[0].empNo + data.rspBody[0].empName + this.today
+      // +data.rspBody[0].empNo + data.rspBody[0].empName + this.today+data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
+    });
   }
 
   ngAfterViewInit() {

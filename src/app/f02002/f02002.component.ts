@@ -36,8 +36,8 @@ export class F02002Component implements OnInit {
   rescanData: Data[] = [];
   total = 1;
   loading = true;
-  pageSize = 10;
   pageIndex = 1;
+  pageSize = 50;
 
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';

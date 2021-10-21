@@ -25,8 +25,8 @@ export class F03010Component implements OnInit {
   listOfData: readonly Data[] = [];
   total = 1;
   loading = true;
-  pageSize = 10;
   pageIndex = 1;
+  pageSize = 50;
 
   ngOnInit(): void {
     this.getSpeaking(this.pageIndex, this.pageSize);
