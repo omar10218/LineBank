@@ -71,15 +71,26 @@ export class F03012addComponent implements OnInit {
   }
 
 	changeSelect() {
-		this.selectedColumn = []
-		this.f03012Service.getSysTypeCode(this.selectedValue1).subscribe(data => {
-			console.log(data)
-			for (const jsonObj of data.rspBody.mappingList) {
-				const codeNo = jsonObj.codeNo
-				const desc = jsonObj.codeDesc
-				this.selectedColumn.push({value: codeNo, viewValue: desc})
-			}
-		})
+    let jsonObject:any={};
+    jsonObject['compareTable']=this.selectedValue1;
+    this.f03012Service.getColumn(jsonObject)
+    .subscribe(data => {
+      console.log(data)
+      for (const jsonObj of data.rspBody.mappingList){
+        const codeNo=jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.selectedColumn.push({ value:codeNo, viewValue:desc})
+      }
+    })
+    // 		this.selectedColumn = []
+		// this.f03012Service.getSysTypeCode(this.selectedValue1).subscribe(data => {
+		// 	console.log(data)
+		// 	for (const jsonObj of data.rspBody.mappingList) {
+		// 		const codeNo = jsonObj.codeNo
+		// 		const desc = jsonObj.codeDesc
+		// 		this.selectedColumn.push({value: codeNo, viewValue: desc})
+		// 	}
+		// })
 	}
 
 	formControl = new FormControl('', [
@@ -105,6 +116,7 @@ export class F03012addComponent implements OnInit {
 		this.f03012Service.submit(url, jsonObject).subscribe(data => {
 			alert((msg = data.rspMsg))
       this.getData()
+      alert('11111')
 		})
 		// const formdata: FormData = new FormData();
 		// formdata.append('elCompareDataSet[0].compareTable', this.compareTableSetForm.value.compareTable);

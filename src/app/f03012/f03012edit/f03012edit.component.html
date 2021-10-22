@@ -6,7 +6,7 @@
       <div style="padding:10px">
         <span class="form-title">比對table</span>
       <mat-select [(ngModel)]="data.compareTable" name="compareTable" (ngModelChange)="changeSelect()" style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
-        <mat-option *ngFor="let code of compareTableCode" [value]="code.value">
+        <mat-option *ngFor="let code of compareTableCode" [value]="code.value" disabled>
             {{code.viewValue}}
         </mat-option>
     </mat-select>
@@ -15,8 +15,8 @@
     <div nz-col nzSpan="12">
       <div style="padding:10px">
         <span class="form-title">比對欄位</span>
-         <mat-select [(ngModel)]="data.compareColumn" name="compareColumn" value = "11111"  style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
-          <mat-option *ngFor="let code of compareColumnCode" [value]="code.value">
+         <mat-select [(ngModel)]="data.compareColumn" name="compareColumn"  value = "data.compareColumn"  style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+          <mat-option *ngFor="let code of compareColumnCode" [value]="code.value" disabled>
               {{code.viewValue}}
           </mat-option>
       </mat-select>
@@ -49,7 +49,7 @@
     <div mat-dialog-actions style="margin:5px auto">
       <button nz-button [nzSize]="'middle'" nzType="primary"  (click)="save()">儲存</button>
       &nbsp;&nbsp;
-      <button nz-button [nzSize]="'middle'" nzType="primary"   tabindex="-1">取消</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary"   tabindex="-1" (click)="onNoClick()">取消</button>
   </div>
 </div>
 <!-- <div class="container">
