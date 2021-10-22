@@ -1,15 +1,15 @@
 <mat-toolbar class="line_bank_form_header_title_color" style="z-index:50;position:fixed">
   <mat-toolbar-row>
-    <img src="assets\images\LineBank.png" width="15%" (click)="goHome()">
+    <img src="assets\images\LineBank.png" width="12%" (click)="goHome()">
     <button mat-button [matMenuTriggerFor]="aboveMenu" *ngFor="let menu of getMenu()"
-      style="width:13%;text-align: center;">
+      style="width:11%;text-align: center;">
       <!-- <mat-icon style="display:inline-block;position:relative;bottom:7px">{{menu.getIcon()}}</mat-icon> -->
 
-      <img *ngIf="menu.getIcon()=='person_outline'" width="15%" src="assets\images\outline_person_black_48dp.png">
-      <img *ngIf="menu.getIcon()=='search'" width="15%" src="assets\images\outline_search_black_48dp.png">
-      <img *ngIf="menu.getIcon()=='report'" width="15%" src="assets\images\outline_equalizer_black_48dp.png">
-      <img *ngIf="menu.getIcon()=='autorenew'" width="15%" src="assets\images\outline_autorenew_black_48dp.png">
-      <img *ngIf="menu.getIcon()=='equalizer'" width="15%" src="assets\images\outline_equalizer_black_48dp.png">
+      <img *ngIf="menu.getIcon()=='person_outline'" width="13%" src="assets\images\outline_person_black_48dp.png">
+      <img *ngIf="menu.getIcon()=='search'" width="13%" src="assets\images\outline_search_black_48dp.png">
+      <img *ngIf="menu.getIcon()=='report'" width="13%" src="assets\images\outline_equalizer_black_48dp.png">
+      <img *ngIf="menu.getIcon()=='autorenew'" width="13%" src="assets\images\outline_autorenew_black_48dp.png">
+      <img *ngIf="menu.getIcon()=='equalizer'" width="13%" src="assets\images\outline_equalizer_black_48dp.png">
       {{menu.getTitle()}}
       <mat-menu #aboveMenu="matMenu" yPosition="below" style="font-size:25px">
         <button mat-menu-item *ngFor="let map of menu.getMenuList() | keyvalue: returnZero" [routerLink]="map.value">
@@ -83,4 +83,4 @@
     </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
-<router-outlet class="router" style="padding-top: 80px;"></router-outlet>
+<router-outlet class="router" style="padding-top: 65px;"></router-outlet>

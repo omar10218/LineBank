@@ -90,8 +90,11 @@ export class F03015editComponent implements OnInit {
 
       jsonObject['inducCode'] = this.insertForm.value.INDUC_CODE;
       jsonObject['inducLevel1'] = this.insertForm.value.INDUC_LEVEL1;
+      jsonObject['inducLevel1Desc'] = this.insertForm.value.INDUC_LEVEL1_DESC;
       jsonObject['inducLevel2'] = this.insertForm.value.INDUC_LEVEL2;
+      jsonObject['inducLevel2Desc'] = this.insertForm.value.INDUC_LEVEL2_DESC;
       jsonObject['jobCode'] = this.insertForm.value.JOB_CODE;
+      jsonObject['jobCodeDesc'] = this.insertForm.value.JOB_CODE_DESC;
       jsonObject['tenPercentSalary'] = this.insertForm.value.TEN_PERCENT_SALARY;
       jsonObject['midSalary'] = this.insertForm.value.MID_SALARY;
       jsonObject['ninetyPercentSalary'] = this.insertForm.value.NINETY_PERCENT_SALARY;
@@ -114,8 +117,11 @@ export class F03015editComponent implements OnInit {
       let jsonObject: any = {};
       jsonObject['inducCode'] = this.insertForm.value.INDUC_CODE;
       jsonObject['inducLevel1'] = this.insertForm.value.INDUC_LEVEL1;
+      jsonObject['inducLevel1Desc'] = this.insertForm.value.INDUC_LEVEL1_DESC;
       jsonObject['inducLevel2'] = this.insertForm.value.INDUC_LEVEL2;
+      jsonObject['inducLevel2Desc'] = this.insertForm.value.INDUC_LEVEL2_DESC;
       jsonObject['jobCode'] = this.insertForm.value.JOB_CODE;
+      jsonObject['jobCodeDesc'] = this.insertForm.value.JOB_CODE_DESC;
       jsonObject['tenPercentSalary'] = this.insertForm.value.TEN_PERCENT_SALARY;
       jsonObject['midSalary'] = this.insertForm.value.MID_SALARY;
       jsonObject['ninetyPercentSalary'] = this.insertForm.value.NINETY_PERCENT_SALARY;
