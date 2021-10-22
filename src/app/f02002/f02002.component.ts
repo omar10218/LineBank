@@ -137,6 +137,7 @@ export class F02002Component implements OnInit {
       sessionStorage.setItem( 'search', 'Y' );
       sessionStorage.setItem( 'fds', data.rspBody[0].fds );
       sessionStorage.setItem( 'queryDate', '' );
+      sessionStorage.setItem( 'winClose', 'Y' );
       //開啟徵審主畫面
       const url = window.location.href.split("/#");
       window.open( url[0] + "/#/F01002/F01002SCN1" );
