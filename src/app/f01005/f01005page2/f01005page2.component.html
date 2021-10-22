@@ -22,7 +22,7 @@
                   <tbody>
                       <tr *ngFor="let data of callOutDataSource.data">
                           <td class="table-data">
-                              <button nz-button [nzSize]="'middle'" nzType="link" (click)="toCalloutPage()">
+                              <button nz-button [nzSize]="'middle'" nzType="link" (click)="toCalloutPage(data.APPLNO)">
                                   {{data.APPLNO}}
                               </button>
                           </td>
@@ -55,4 +55,4 @@
 </div>
 
 
-<button (click)="onclick()">Update</button>
+

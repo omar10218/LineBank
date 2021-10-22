@@ -24,6 +24,7 @@ interface callout {
   styleUrls: ['./f01005page2.component.css']
 })
 export class F01005page2Component implements OnInit {
+  applno: string = localStorage.getItem("empNo");
   callOutDataSource = new MatTableDataSource<any>();  // 照會提醒清單
   rspBodyList: callout[] = [];//table資料
   total = 1;
@@ -109,7 +110,9 @@ export class F01005page2Component implements OnInit {
   }
    //透過案編跳轉至徵信照會
    toCalloutPage(applno:string) {
+     alert(applno)
      sessionStorage.setItem('applno',applno)
+     alert(applno)
      sessionStorage.setItem('search','Y')
     this.router.navigate(['./F01002/F01002SCN1/CHILDSCN15']);
   }
