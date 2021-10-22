@@ -132,7 +132,10 @@ export class F04002Component implements OnInit {
     }
     else {
       const baseUrl = 'f04/f04002fn2';
-      this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl, this.selectedValue, valArray, 'P').subscribe(data => {
+      var result = "D";
+      if(this.selectedValue = 'CSS_MANAGE'){ result = "P" ;}
+
+      this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl, this.selectedValue, valArray, result).subscribe(data => {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: data.rspMsg }
         });

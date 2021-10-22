@@ -25,7 +25,7 @@ export class F04002Service extends BaseService {
     let jsonObject: any = {};
 
     jsonObject['step'] = step;
-    jsonObject['applno'] = formData;
+    jsonObject['applnoList'] = formData;
     jsonObject['result'] = result;
     return this.postJsonObject(baseUrl, jsonObject);
   }
