@@ -126,12 +126,6 @@ export class Childscn19Component implements OnInit {
 
   //發送簡訊檔
   public async addSms(): Promise<void> {
-    //做textarea檢核
-    // if (this.content != null) {
-    //   if (this.content.indexOf('徵審人員修改') >= 0) {
-    //     return alert('不得有徵審人員修改字樣');
-    //   }
-    // }
     this.messageContent = this.content;
     if (this.realSmsTime == null) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {

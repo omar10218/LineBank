@@ -122,16 +122,20 @@ export class F01002page1Component implements OnInit, AfterViewInit {
 
   // 儲存案件註記
   saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
+    let msg = '';
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
     jsonObject['swcCaseMemo'] = swcCaseMemo;
 
     this.f01002Service.saveCaseMemo(jsonObject).subscribe(data => {
-      if (data.rspMsg == 'success') {
-        this.getCaseList(this.empNo, this.swcID, this.swcApplno);
-        window.location.reload();
-      }
+      msg = data.rspMsg;
     });
+    setTimeout(() => {
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
+      if (msg != null && msg == 'success') {
+        this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+      }
+    }, 1000);
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {

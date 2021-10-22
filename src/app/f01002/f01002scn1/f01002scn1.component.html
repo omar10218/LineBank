@@ -2,15 +2,24 @@
 <div class="line_bank_bankground_color">
   <br>
   <div style="position:fixed;top:90px;width:100%;z-index:50">
-    <ng-container *ngIf="getSearch() == 'Y'">
-      <div style="padding-left: 20px; padding-top: 20px;">
+    <ng-container *ngIf="getSearch() == 'Y' && getWinClose() == 'Y' ">
+      <div style="padding:0 10px;background-color:white">
+      <div style="background-color:white;margin:0px -8px -20px -8px;padding:5px">
         <button class="leave" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="leave()">離開</button>
       </div>
+    </div>
+    </ng-container>
+    <ng-container *ngIf="getSearch() == 'Y' && getWinClose() == 'N' ">
+      <div style="padding:0 10px;background-color:white">
+      <div style="background-color:white;margin:0px -8px -20px -8px;padding:5px">
+        <!-- <button class="leave" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="leave()">離開</button> -->
+      </div>
+    </div>
     </ng-container>
     <ng-container *ngIf="getSearch() == 'N'">
       <div style="padding:0 10px;background-color:white">
         <mat-grid-list cols="9" rowHeight="2:0.5"
-          style="background-color:white;margin:0px -8px -20px -8px;padding:20px">
+          style="background-color:white;margin:0px -8px -20px -8px;padding:0px">
           <mat-grid-tile><span (click)="reSearch()">重查</span></mat-grid-tile>
           <mat-grid-tile><span>重算</span></mat-grid-tile>
           <mat-grid-tile><span (click)="finish()">案件完成</span></mat-grid-tile>
@@ -32,20 +41,9 @@
         </a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN2']">
-          <button nz-button nzType="primary">資料異動歷程</button>
-        </a>
-      </nz-tab>
-      <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN3']">
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN10']">
           <button nz-button nzType="primary">
-            偽案通報</button>
-        </a>
-      </nz-tab>
-      <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN4']">
-          <button nz-button nzType="primary">
-            案件歷程</button>
+            決策結果</button>
         </a>
       </nz-tab>
       <nz-tab>
@@ -61,41 +59,27 @@
         </a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN7']">
-          <button nz-button nzType="primary">
-            AML/FDS/CSS</button>
-        </a>
-      </nz-tab>
-      <ng-container *ngIf="fds == 'D'">
-        <nz-tab>
-          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN15']">
-            <button nz-button nzType="primary">
-              偽冒案件處理</button>
-          </a>
-        </nz-tab>
-      </ng-container>
-      <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN8']">
-          <button nz-button nzType="primary">
-            徵信照會</button>
-        </a>
-      </nz-tab>
-      <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN9']">
           <button nz-button nzType="primary">
             核心資訊</button>
         </a>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN10']">
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN7']">
           <button nz-button nzType="primary">
-            決策結果</button>
+            AML/FDS/CSS</button>
         </a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN11']">
           <button nz-button nzType="primary">
             資料比對</button>
+        </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN8']">
+          <button nz-button nzType="primary">
+            徵信照會</button>
         </a>
       </nz-tab>
       <nz-tab>
@@ -126,6 +110,31 @@
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN17']">
           <button nz-button nzType="primary">
             申覆資料</button>
+        </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN3']">
+          <button nz-button nzType="primary">
+            偽案通報</button>
+        </a>
+      </nz-tab>
+      <ng-container *ngIf="fds == 'D'">
+        <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN15']">
+            <button nz-button nzType="primary">
+              偽冒案件處理</button>
+          </a>
+        </nz-tab>
+      </ng-container>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN4']">
+          <button nz-button nzType="primary">
+            案件歷程</button>
+        </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN2']">
+          <button nz-button nzType="primary">資料異動歷程</button>
         </a>
       </nz-tab>
     </nz-tabset>

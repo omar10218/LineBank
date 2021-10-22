@@ -1,7 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F03013Service } from './f03013.service';
+import { F03013createComponent } from './f03013create/f03013create.component';
 //20210911 alvin.lee
 interface sysCode {
   value: string;
@@ -21,7 +24,11 @@ export class F03013Component implements OnInit {
   monthCode: sysCode[] = []; //月份下拉
   jsonObject: any = {};
   workingDateDataSource = new MatTableDataSource<any>();
-  constructor(private f03013Service: F03013Service, private pipe: DatePipe) { }
+  constructor(
+    private f03013Service: F03013Service,
+    private pipe: DatePipe,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
     this.getYearRange();
@@ -30,41 +37,81 @@ export class F03013Component implements OnInit {
 
   //創建年度行事曆
   createCalendar() {
-    if (typeof this.selectedValue === 'undefined') {
-      return alert('請選擇需創建年份')
-    }
-    var yes = confirm('建立該年度行事曆,會刪除原設定,請確認');
-    if (yes) {
-      this.jsonObject['year'] = this.selectedValue;
-      this.f03013Service.createCalendar(this.jsonObject).subscribe(data => {
-        if (data.rspMsg == 'success') {
-          alert('新增' + this.selectedValue + '年度行事曆成功!')
+    if (this.selectedValue == null) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請選擇需創建年份" }
+      });
+    } else if (this.selectedValue != null) {
+      const confirmDialogRef = this.dialog.open(F03013createComponent, {
+        minHeight: '70vh',
+        width: '50%',
+        panelClass: 'mat-dialog-transparent',
+        data: {
+          value: this.selectedValue,
         }
       });
-    } else {
-      return;
     }
+
+
+
+    //   if (this.selectedValue == null) {
+    //     return alert('請選擇需創建年份')
+    //   }
+    //   var yes = confirm('建立該年度行事曆,會刪除原設定,請確認');
+    //   if (yes) {
+    //     this.jsonObject['year'] = this.selectedValue;
+    //     this.f03013Service.createCalendar(this.jsonObject).subscribe(data => {
+    //       if (data.rspMsg == 'success') {
+    //         alert('新增' + this.selectedValue + '年度行事曆成功!')
+    //       }
+    //     });
+    //   } else {
+    //     return;
+    //   }
   }
+  // if (this.selectedValue == null) {
+  //   const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+  //     data: { msgStr: "請選擇需創建年份" }
+  //   });
+  // }else if(this.selectedValue!=null){
+  //   const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+  //     data: { msgStr: "建立該年度行事曆,會刪除原設定,請確認" }
+  //   });
+  // } if 
+
+
+
+
 
   // 查詢選擇之年度與月份
   queryIsWorkDay() {
-    if (typeof this.yearValue === 'undefined' && typeof this.monthValue === 'undefined') {
-      return alert('請選擇年份與月份')
-    }
-    if (typeof this.yearValue === 'undefined') {
-      return alert('請選擇年份')
-    }
-    if (typeof this.monthValue === 'undefined') {
-      return alert('請選擇月份')
-    }
+    if (this.yearValue == null && this.monthValue == null) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請選擇年份與月份" }
+      });
+    } else if (this.yearValue == null) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請選擇年份" }
+      });
+    } else if (this.monthValue == null) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請選擇月份" }
+      });
+    } else {
+      this.jsonObject['year'] = this.yearValue;
+      this.jsonObject['month'] = this.monthValue;
+      this.f03013Service.queryIsWorkDay(this.jsonObject).subscribe(data => {
+        this.workingDateDataSource = data.rspBody;
+        if (data.rspBody.length == '0') {
 
-    this.jsonObject['year'] = this.yearValue;
-    this.jsonObject['month'] = this.monthValue;
-    this.f03013Service.queryIsWorkDay(this.jsonObject).subscribe(data => {
-      this.workingDateDataSource = data.rspBody;
-      if (data.rspBody.length == '0') { alert('請先初始化' + this.yearValue + '年度行事曆') }
-    });
+          const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '請先初始化' + this.yearValue + '年度行事曆' }
+          });
+          }
+      });
+    }
   }
+  
   // 取得年份下拉
   getYearRange() {
     this.f03013Service.getSysTypeCode('YEAR').subscribe(data => {

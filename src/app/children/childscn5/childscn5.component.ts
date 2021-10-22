@@ -16,15 +16,18 @@ interface sysCode {
   styleUrls: ['./childscn5.component.css', '../../../assets/css/child.css']
 })
 export class Childscn5Component implements OnInit {
-  private applno: string;           //案件編號
-  private cuid: string;             //客戶編號
-  cuLevel1CaCode: sysCode[] = [];   //徵信認列行業Level1下拉
-  cuLevel1CaValue: string;          //徵信認列行業Level1
-  cuLevel2CaCode: sysCode[] = [];   //徵信認列行業Level2下拉
-  cuLevel2CaValue: string;          //徵信認列行業Level2
-  jobCodeCaCode: sysCode[] = [];    //職業代碼下拉
-  jobCodeCaValue: string;           //職業代碼
-
+  private applno: string;               //案件編號
+  private cuid: string;                 //客戶編號
+  cuLevel1CaCode: sysCode[] = [];       //徵信認列行業Level1下拉
+  cuLevel1CaValue: string;              //徵信認列行業Level1
+  cuLevel2CaCode: sysCode[] = [];       //徵信認列行業Level2下拉
+  cuLevel2CaValue: string;              //徵信認列行業Level2
+  jobCodeCaCode: sysCode[] = [];        //職業代碼下拉
+  jobCodeCaValue: string;               //職業代碼
+  companyWhitelistCode: sysCode[] = []; //公司是否為白名單下拉
+  companyWhitelistValue: string;//公司是否為白名單
+  genderCode: sysCode[] = [];           //性別下拉
+  genderValue: string;                  //性別
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -65,13 +68,35 @@ export class Childscn5Component implements OnInit {
     CU_LEVEL1_CA: ['', []],     // 徵信認列行業Level1
     CU_LEVEL2_CA: ['', []],     // 徵信認列行業Level2
     JOB_CODE_CA: ['', []],      // 徵信認列行業職業碼
+    COMPANY_WHITELIST: ['', []] // 公司是否為白名單
+
 
   });
 
   ngOnInit(): void {
+    this.companyWhitelistValue = '';
+    //取性別
+    this.childscn5Service.getSysTypeCode('GENDER')
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.genderCode.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    //取公司白名單下拉
+    this.childscn5Service.getSysTypeCode('COMPANY_WHITELIST')
+      .subscribe(data => {
+        this.companyWhitelistCode.push({ value: '', viewValue: '請選擇' })
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.companyWhitelistCode.push({ value: codeNo, viewValue: desc })
+        }
+      });
 
-    let jsonObject: any = {};
     // 取徵信認列行業Level1下拉
+    let jsonObject: any = {};
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj['INDUC_LEVEL1'];
@@ -92,10 +117,9 @@ export class Childscn5Component implements OnInit {
     jsonObject['custId'] = this.cuid;
 
     this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
-      console.log(data)
       this.customerInfoForm.patchValue({ CUCNAME: data.rspBody.items[0].cuCname })
       this.customerInfoForm.patchValue({ NATIONAL_ID: data.rspBody.items[0].nationalId })
-      this.customerInfoForm.patchValue({ CU_SEX: data.rspBody.items[0].cuSex })
+      this.customerInfoForm.patchValue({ CU_SEX: this.getGender(data.rspBody.items[0].cuSex) })
       this.customerInfoForm.patchValue({ CU_RDTL: data.rspBody.items[0].cuRdtl })
       this.customerInfoForm.patchValue({ CU_BIRTHDAY: data.rspBody.items[0].cuBirthday })
       this.customerInfoForm.patchValue({ CU_MARRIED_STATUS: data.rspBody.items[0].cuMarriedStatus })
@@ -119,13 +143,16 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ ANNUAL_INCOME: data.rspBody.items[0].annualIncome })
       this.customerInfoForm.patchValue({ CU_EMAIL: data.rspBody.items[0].cuEmail })
       this.customerInfoForm.patchValue({ CU_M_TEL: data.rspBody.items[0].cuMTel })
-      this.customerInfoForm.patchValue({ CU_LEVEL1: data.rspBody.items[0].cuLevel1 })
-      this.customerInfoForm.patchValue({ CU_LEVEL2: data.rspBody.items[0].cuLevel2 })
+      this.customerInfoForm.patchValue({
+        CU_LEVEL1: data.rspBody.items[0].cuLevel1 +
+          data.rspBody.items[0].cuLevel2
+      })
+      // this.customerInfoForm.patchValue({ CU_LEVEL2: data.rspBody.items[0].cuLevel2 })
       this.customerInfoForm.patchValue({ JOB_CODE: data.rspBody.items[0].jobCode })
       this.customerInfoForm.patchValue({ CU_LEVEL1_CA: data.rspBody.items[0].cuLevel1Ca })
       this.customerInfoForm.patchValue({ CU_LEVEL2_CA: data.rspBody.items[0].cuLevel2Ca })
       this.customerInfoForm.patchValue({ JOB_CODE_CA: data.rspBody.items[0].jobCodeCa })
-      
+
     });
   }
 
@@ -171,6 +198,7 @@ export class Childscn5Component implements OnInit {
     jsonObject['cuLevel1Ca'] = this.cuLevel1CaValue;
     jsonObject['cuLevel2Ca'] = this.cuLevel2CaValue;
     jsonObject['jobCodeCa'] = this.jobCodeCaValue;
+    jsonObject['companyWhitelist'] = this.companyWhitelistValue;
 
     this.childscn5Service.update(jsonObject).subscribe(data => {
       msg = data.rspMsg;
@@ -181,4 +209,14 @@ export class Childscn5Component implements OnInit {
     }, 1000);
   }
 
+  getGender(codeVal: string): string {
+    for (const data of this.genderCode) {
+      if (data.value == codeVal) {
+        return data.viewValue;
+        break;
+      }
+    }
+    console.log(codeVal)
+    return codeVal;
+  }
 }

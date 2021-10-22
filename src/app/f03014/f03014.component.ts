@@ -260,7 +260,7 @@ export class F03014Component implements OnInit {
   changePage()
   {
 		this.pageIndex = 1
-		this.pageSize = 10
+		this.pageSize = 50
 		this.total = 1
 	}
   Clear()//清空查詢資料

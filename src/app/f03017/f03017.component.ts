@@ -122,8 +122,26 @@ console.log(this.bkColumnCode)
 
   // 取得資料
   async getBkIncomeData() {
-    if (typeof this.bkColumnValue == 'undefined'){return alert('請選擇建檔項目')}
-    else if(typeof this.bkContentValue == 'undefined'){return alert('請選擇建檔內容')}
+    if(typeof this.bkColumnValue=='undefined'){
+      return alert('請選擇建檔內容');
+    }else{
+      if(this.bkColumnValue==''){
+        return alert('請選擇建檔內容');
+      }
+     }
+    if(typeof this.bkContentValue=='undefined'){
+      return alert('請選擇建檔內容');
+    }else{
+      if(this.bkContentValue==''){
+        return alert('請選擇建檔內容');
+      }
+     }
+
+    // if (typeof this.bkColumnValue == 'undefined')
+    // {return alert('請選擇建檔項目')}
+    // else if(typeof this.bkColumnValue == null){return alert('請選擇建檔內容')}
+    // else if(typeof this.bkContentValue == 'undefined'){return alert('請選擇建檔內容')}
+    // else if(typeof this.bkContentValue == null){return alert('請選擇建檔內容')}
       let jsonObject: any = {};
       jsonObject['page'] = this.currentPage.pageIndex + 1;
       jsonObject['per_page'] = this.currentPage.pageSize;

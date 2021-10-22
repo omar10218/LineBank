@@ -112,6 +112,7 @@ export class F01002page2Component implements OnInit {
   toCalloutPage(applno: string) {
     sessionStorage.setItem('applno', applno);
     sessionStorage.setItem('search', 'Y');
+    sessionStorage.setItem('winClose', 'N');
     this.router.navigate(['./F01002/F01002SCN1/CHILDSCN8']);
   }
 
