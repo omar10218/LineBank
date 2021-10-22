@@ -251,7 +251,7 @@ export class F03015Component implements OnInit {
   //刪除
   async delete(rowId: string) {
     let jsonObject: any = {};
-    jsonObject['rId'] = rowId;
+    jsonObject['rowID'] = rowId;
 
     await this.f03015Service.getReturn('f03/f03015action2', jsonObject).subscribe(data => {
       const deleteDialogRef = this.dialog.open(F03015confirmComponent, {
