@@ -10,9 +10,9 @@ export class F03013Service extends BaseService {
   baseUrl = 'f03/';
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  createCalendar(jsonObject: JSON): Observable<any> {
+  createCalendar(jsonObject: JSON): any {
     let targetUrl = this.baseUrl + 'f03013action1';
-    return this.postJsonObject(targetUrl, jsonObject);
+    return this.saveOrEditMsgJson(targetUrl, jsonObject);
   }
   queryIsWorkDay(jsonObject: JSON): Observable<any> {
     let targetUrl = this.baseUrl + 'f03013action2';
