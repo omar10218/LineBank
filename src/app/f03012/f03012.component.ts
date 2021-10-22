@@ -56,6 +56,20 @@ export class F03012Component implements OnInit {
   constructor(private f03012Service: F03012Service, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+
+    // this.currentPage = {
+    //   pageIndex: 1,
+    //   pageSize: 3,
+    //   length: null
+    // };
+
+    this.currentSort = {
+      active: '',
+      direction: ''
+    };
+  }
+  getCompareTable(){
     this.f03012Service.getSysTypeCode('COMPARE_TABLE')
     .subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
@@ -80,17 +94,6 @@ export class F03012Component implements OnInit {
       //     });
       // }
     });
-
-    // this.currentPage = {
-    //   pageIndex: 1,
-    //   pageSize: 3,
-    //   length: null
-    // };
-
-    this.currentSort = {
-      active: '',
-      direction: ''
-    };
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params)
@@ -168,7 +171,8 @@ export class F03012Component implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result != null && result.event == 'success') { this.refreshTable(); }
-        window.location.reload();
+        // window.location.reload();
+        this.getCompareTable()
       });
   }
 
@@ -192,7 +196,8 @@ export class F03012Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && result.event == 'success') { this.refreshTable(); }
-      window.location.reload();
+      // window.location.reload();
+      this.getCompareTable()
     });
   }
   private refreshTable() {
@@ -358,7 +363,8 @@ export class F03012Component implements OnInit {
     this.f03012Service.submit(url , jsonObjects).subscribe(data => {
       alert(msg = data.rspMsg)
       this.changePage();
-       window.location.reload();
+      //  window.location.reload();
+      this.getCompareTable()
     });
 
   }

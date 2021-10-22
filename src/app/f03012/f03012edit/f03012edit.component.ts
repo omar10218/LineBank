@@ -52,7 +52,9 @@ export class F03012editComponent implements OnInit {
 		return this.formControl.hasError('required') ? 'Required field' : ''
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+    this.getData()
+  }
 	getData() {
 		console.log(this.data)
 		// console.log(this.data.setValue)
@@ -63,13 +65,28 @@ export class F03012editComponent implements OnInit {
 				this.compareTableCode.push({value: codeNo, viewValue: desc})
 			}
 		})
-		this.f03012Service.getSysTypeCode(this.data.compareTable).subscribe(data => {
-			for (const jsonObj of data.rspBody.mappingList) {
-				const codeNo = jsonObj.codeNo
-				const desc = jsonObj.codeDesc
-				this.compareColumnCode.push({value: codeNo, viewValue: desc})
-			}
-		})
+    // this.f03012Service.getSysTypeCode(this.data.compareTable).subscribe(data => {
+		// 	for (const jsonObj of data.rspBody.mappingList) {
+		// 		const codeNo = jsonObj.codeNo
+		// 		const desc = jsonObj.codeDesc
+    //     console.log(jsonObj.codeDesc)
+    //     console.log(jsonObj.codeNo)
+		// 		this.compareColumnCode.push({value: codeNo, viewValue: desc})
+    //     console.log(this.compareColumnCode)
+		// 	}
+		// })
+    let jsonObj:any={};
+    jsonObj['compareTable']=this.data.compareTable;
+    this.f03012Service.getColumn(jsonObj).subscribe(data =>{
+    console.log(data)
+      for(const jsonObj of data.rspBody.mappingList){
+        const codeNo= jsonObj.codeNo
+        const desc = jsonObj.codeDesc
+        this.compareColumnCode.push({value: codeNo, viewValue: desc})
+      }
+      console.log(this.compareColumnCode)
+    })
+
 		this.oldCompareTable = this.data.compareTable
 		this.compareColumn = this.data.compareColumn
 		this.oldCompareColumn = this.data.oldCompareColumn
@@ -79,6 +96,7 @@ export class F03012editComponent implements OnInit {
 		this.setValueHight = this.data.setValueHight
 		this.oldSetValueLow = this.data.oldSetValueLow
 		this.oldSetValueHight = this.data.oldSetValueHight
+
 	}
 	public async save(): Promise<void> {
 		let msgStr: string = ''
@@ -97,8 +115,20 @@ export class F03012editComponent implements OnInit {
 	}
 
 	changeSelect() {
-		// this.data.compareColumn = '';
+    // let jsonObject:any={};
+    // jsonObject['compareTable']=this.selectedValue1;
+    // this.f03012Service.getColumn(jsonObject)
+    // .subscribe(data => {
+    //   console.log(data)
+    //   for (const jsonObj of data.rspBody.mappingList){
+    //     const codeNo=jsonObj.codeNo;
+    //     const desc = jsonObj.codeDesc;
+    //     this.selectedColumn.push({ value:codeNo, viewValue:desc})
+    //   }
+    // })
+
 		this.f03012Service.getSysTypeCode(this.data.compareTable).subscribe(data => {
+      console.log(data)
 			for (const jsonObj of data.rspBody.mappingList) {
 				const codeNo = jsonObj.codeNo
 				const desc = jsonObj.codeDesc
@@ -109,5 +139,6 @@ export class F03012editComponent implements OnInit {
 
 	onNoClick(): void {
 		this.dialogRef.close()
+    window.location.reload();
 	}
 }
