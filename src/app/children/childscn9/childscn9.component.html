@@ -1,4 +1,5 @@
-<div style="padding-top:10px; padding-left: 40px; margin-top: -20px; width: 100%;">
+<div class="line_bank_bankground_color">
+  <div style="margin-top: 30px; margin-left: 5px; width: 100%;">
   <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page1"
     (click)="changePage(Page.Page1)">核心系統客戶資料 </button>
   <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
@@ -7,5 +8,6 @@
     (click)="changePage(Page.Page3)">本行消金產品(放款及信用卡)往來 </button>
   <!-- <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page4" style="margin-bottom: 5px; margin-left: 5px;"
     (click)="changePage(Page.Page4)">本行Debit card交易明細 </button> -->
+</div>
 </div>
 <ng-container appDynamic></ng-container>

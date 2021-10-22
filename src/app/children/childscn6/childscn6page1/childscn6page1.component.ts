@@ -96,6 +96,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     jsonObject['code'] = 'AAS003,APS001,ACI001,BAI001,BAI004,BAS006,BAS008,KRI001,JAS002,VAM020,STS007';
     jsonObject['queryDate'] = this.queryDate;
     this.childscn6Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
+      console.log("=====>"+data.rspBody[0].VAM020)
       this.AAS003 = data.rspBody[0].AAS003;
       this.APS001 = data.rspBody[0].APS001;
       this.ACI001 = data.rspBody[0].ACI001;

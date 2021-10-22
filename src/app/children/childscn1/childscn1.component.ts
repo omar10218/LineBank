@@ -100,7 +100,7 @@ export class Childscn1Component implements OnInit {
   interestType: string;
   interestValue: string;
   interestBase: number;
-  interest: number;
+  interest: number = 0;
   approveInterest: number;
 
   //Creditmemo
@@ -307,9 +307,9 @@ export class Childscn1Component implements OnInit {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
-      childernDialogRef.afterClosed().subscribe(result => {
-        this.interestValue = '';
-      });
+      // childernDialogRef.afterClosed().subscribe(result => {
+      //   this.interestValue = '';
+      // });
     }
   }
 
