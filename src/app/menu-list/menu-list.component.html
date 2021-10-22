@@ -62,13 +62,13 @@
       <span class="example-spacer"></span>
     </ul> -->
 
-    <nz-card nzHoverable style="width:15%;height:75%;position:relative" [nzCover]="coverTemplate">
-      <nz-card-meta nzDescription="{{empNo}}" style="position:absolute;top:25px;left:70px"></nz-card-meta>
+    <nz-card nzHoverable style="width:10%;height:60%;position:relative" [nzCover]="coverTemplate">
+      <nz-card-meta nzDescription="{{empNo}}" style="position:absolute;top:15px;left:30px"></nz-card-meta>
     </nz-card>
     <ng-template #coverTemplate>
       <!-- <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" class="user-avatar">
       </nz-avatar> -->
-      <img src="assets/images/user.png" class="user-avatar">
+      <!-- <img src="assets/images/user.png" class="user-avatar"> -->
       <!-- <mat-icon [matMenuTriggerFor]="menu" aria-label="User"
       style="position: absolute; top:16px;right:20px">xxwmore_horiz</mat-icon> -->
       <img src="assets/images/outline_more_horiz_black_48dp.png" [matMenuTriggerFor]="menu" class="position_top2">
@@ -83,4 +83,4 @@
     </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
-<router-outlet class="router" style="padding-top: 65px;"></router-outlet>
+<router-outlet class="router" style="padding-top: 45px;"></router-outlet>
