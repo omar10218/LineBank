@@ -15,8 +15,7 @@ export class F01008Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const url = window.location.href.split("/#");
-    open( url[0] + "/#/F01008/F01008SCN1" );
+    this.router.navigate(['./F01008/F01008SCN1']);
   }
 
 
