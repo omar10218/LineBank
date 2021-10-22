@@ -26,6 +26,7 @@ export class F01002scn1Component implements OnInit {
   private cuid: string;
   private routerCase: string;
   fds: string
+  private winClose: string ='';
 
   creditResult: string;
   level: string;
@@ -36,6 +37,7 @@ export class F01002scn1Component implements OnInit {
     this.cuid = sessionStorage.getItem('cuid');
     this.fds = sessionStorage.getItem('fds');
     this.level = sessionStorage.getItem('level');
+    this.winClose = sessionStorage.getItem('winClose');
   }
 
   ngAfterViewInit() {
@@ -76,8 +78,13 @@ export class F01002scn1Component implements OnInit {
     return this.search;
   }
 
+  getWinClose(): String{
+    return this.winClose;
+  }
+
   leave () {
-    this.router.navigate(['./F02002']);
+    // this.router.navigate(['./F02002']);
+    window.close();
   }
 
   finish() {

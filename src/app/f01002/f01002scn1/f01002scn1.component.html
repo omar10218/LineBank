@@ -2,10 +2,19 @@
 <div class="line_bank_bankground_color">
   <br>
   <div style="position:fixed;top:90px;width:100%;z-index:50">
-    <ng-container *ngIf="getSearch() == 'Y'">
-      <div style="padding-left: 20px; padding-top: 20px;">
+    <ng-container *ngIf="getSearch() == 'Y' && getWinClose() == 'Y' ">
+      <div style="padding:0 10px;background-color:white">
+      <div style="background-color:white;margin:0px -8px -20px -8px;padding:5px">
         <button class="leave" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="leave()">離開</button>
       </div>
+    </div>
+    </ng-container>
+    <ng-container *ngIf="getSearch() == 'Y' && getWinClose() == 'N' ">
+      <div style="padding:0 10px;background-color:white">
+      <div style="background-color:white;margin:0px -8px -20px -8px;padding:5px">
+        <!-- <button class="leave" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="leave()">離開</button> -->
+      </div>
+    </div>
     </ng-container>
     <ng-container *ngIf="getSearch() == 'N'">
       <div style="padding:0 10px;background-color:white">
