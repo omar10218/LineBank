@@ -1,24 +1,24 @@
 <div class="line_bank_bankground_color">
   <div class="header">
-    <div nz-row>
-      <div nz-col nzFlex="auto" style="background-color: white;">
+    <div nz-row style="width:95%;margin:0 auto">
+      <div nz-col nzFlex="auto" style="background-color: white;border-radius: 10px;box-shadow: 0 1px 2px gray">
         <div nz-row>
-          <div nz-col nzSpan="10" style="padding:0px 15px;background-color: #BFECD0;">
-            <div class="form-title line_bank_h3" style="margin:10px 0 ;">案件編號</div>
-            <div class="form" style="display: block;margin-bottom:10px">
+          <div nz-col nzSpan="10" style="padding:0px 15px;background-color: #BFECD0;;border-radius: 10px 0 0 10px;">
+            <div class="form-title line_bank_h4" style="margin:10px 0 ;">案件編號</div>
+            <div class="form" style="display: block;margin-bottom:10px;padding:0px">
               <div><input matInput #input class="form-control" [(ngModel)]="swcApplno" name="swcApplno" required>
               </div>
             </div>
           </div>
           <div nz-col nzSpan="10" style="padding:0px 15px;">
-            <span class="form-title line_bank_h3" style="margin:10px 0 ;">身分證號</span>
-            <div class="form" style="display: block;margin-bottom:10px">
+            <span class="form-title line_bank_h4" style="margin:10px 0 ;">身分證號</span>
+            <div class="form" style="display: block;margin-bottom:10px;padding:0px">
               <div><input matInput #input class="form-control" [(ngModel)]="swcID" name="swcID" required>
               </div>
             </div>
           </div>
 
-          <div nz-col  nzSpan="4" style="background-color: #BFECD0;text-align: center;padding:33px;">
+          <div nz-col  nzSpan="4" style="background-color: #BFECD0;text-align: center;padding:33px;;border-radius: 0 10px 10px 0;">
             <div >
                 <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢案件</button>
             </div>
