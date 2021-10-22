@@ -229,8 +229,8 @@ export class F03015Component implements OnInit {
     } else {
       let jsonObject: any = {};
       let blob: Blob;
-      jsonObject['page'] = this.currentPage.pageIndex + 1;
-      jsonObject['per_page'] = this.currentPage.pageSize;
+      jsonObject['page'] = this.pageIndex;
+      jsonObject['per_page'] = this.pageSize;
       jsonObject['inducCode'] = this.inducCode;
       jsonObject['inducLevel1'] = this.inducLevel1Value;
       jsonObject['inducLevel2'] = this.inducLevel2Value;
