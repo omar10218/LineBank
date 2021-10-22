@@ -46,11 +46,13 @@
 }
 
 .position_top2{
-
   width:45px;
   height:45px;
   position: relative;
   top:-33px;
   left:118px;
+}
 
+.ant-menu-horizontal{
+  border-bottom: none;
 }

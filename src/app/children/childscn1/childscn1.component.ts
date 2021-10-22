@@ -100,7 +100,7 @@ export class Childscn1Component implements OnInit {
   interestType: string;
   interestValue: string;
   interestBase: number;
-  interest: number = 0;
+  interest: number;
   approveInterest: number;
 
   //Creditmemo
@@ -295,7 +295,7 @@ export class Childscn1Component implements OnInit {
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
     } else {
       this.interestValue = '';
-      this.interestBase = 0;
+      this.interestBase = null;
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
     }
   }
@@ -314,6 +314,20 @@ export class Childscn1Component implements OnInit {
   }
 
   caluclate () {
-    this.approveInterest = Number(this.interestBase) + Number(this.interest);
+    if ( isNaN( this.interest ) ) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '利率請輸入數字!' }
+      });
+      childernDialogRef.afterClosed().subscribe(result => {
+        this.interest = null;
+        this.approveInterest = null;
+      });
+    } else {
+      if ( this.interestBase == null ) {
+        this.approveInterest = Number(this.interest);
+      } else {
+        this.approveInterest = Number(this.interestBase) + Number(this.interest);
+      }
+    }
   }
 }
