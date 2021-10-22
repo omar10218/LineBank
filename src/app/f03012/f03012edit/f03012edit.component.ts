@@ -139,5 +139,6 @@ export class F03012editComponent implements OnInit {
 
 	onNoClick(): void {
 		this.dialogRef.close()
+    window.location.reload();
 	}
 }
