@@ -37,7 +37,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   // 計算剩餘table資料長度
   get tableHeight(): string {
     if (this.absBox) {
-      return (this.absBox.nativeElement.offsetHeight - 210) + 'px';
+      return (this.absBox.nativeElement.offsetHeight - 190) + 'px';
     }
   }
 
@@ -135,7 +135,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
       if (msg != null && msg == 'success') {
         this.getCaseList(this.empNo, this.swcID, this.swcApplno);
       }
-    }, 1000);
+    }, 500);
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {

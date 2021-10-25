@@ -1,15 +1,16 @@
-<div class="line_bank_card_no_padding" style="min-height:170px;">
+<div class="line_bank_card_no_padding" style="min-height:140px;">
     <div class="line_bank_form_header_title">建立該年度行事曆,會刪除原設定,請確認</div>
-    <div class="container" style="padding:20px;width:40vh;margin: 0 auto;">
-        <form class="mat-dialog-content" #formControl="ngForm">
-            <div style="text-align:center;"><nz-spin nzSimple [nzSize]="'large'"[nzSpinning] = "loading"></nz-spin></div>
+    <div class="container" style="width:40vh;margin: 0 auto;">
+        
+            <br>
+            <div style="text-align:center;height:10vh"><nz-spin nzSimple [nzSize]="'large'"[nzSpinning] = "loading"></nz-spin></div>
             <div mat-dialog-actions>
                 <button nz-button [nzSize]="'middle'" nzType="primary"
-                    style="margin:0px 5px" (click)="createCalendar()">確定</button>
-                <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
-                    style="margin:0px 5px">離開</button>
+                    style="margin:0px 5px;flex:1" (click)="createCalendar()" [disabled]="confirm">確定</button>
+                <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1" 
+                    style="margin:0px 5px;flex:1">離開</button>
             </div>
             <br><br>
-        </form>
+  
     </div>
 </div>

@@ -63,12 +63,9 @@
                 <div class="line_bank_card_no_padding">
                     <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false"
                         [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
-                        [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="徵信案件清單"
-                        [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)">
+                        [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="徵信案件清單" nzFooter="案件數: {{this.total}} 件"
+                        [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)"> 
                         <thead style="max-height: 100vh;">
-                            <div style="text-align:right;width: 90vw; font-size: 16px;">
-                                <span>案件數: {{this.total}} 件</span>
-                            </div>
                             <tr>
                                 <th class="table-header" [nzWidth]="'160px'" (nzSortOrderChange)="sortChange($event)"
                                     [nzSortFn]="true" [nzLeft]="true">收件編號</th>
