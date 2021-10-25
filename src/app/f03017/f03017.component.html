@@ -63,7 +63,7 @@
 
     <nz-table nzShowSizeChanger [nzData]="bkIncomeDataSource" [nzFrontPagination]="false" [nzSimple]="true"
       [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="黑名單維護"
-      [nzNoResult]="'no result'">
+     >
       <thead>
         <tr>
           <th class="table-header">編輯</th>
@@ -102,7 +102,7 @@
       </tbody>
 
     </nz-table>
-    <div style="text-align: center;margin-top:30px;height:8vh;">
+    <div style="text-align: center;margin:20px;height:10vh;">
 
       <button nz-button nzType="primary" (click)="insert(true)">新增</button>
       &nbsp;&nbsp;

@@ -80,7 +80,7 @@ export class F03017Component implements OnInit {
 	@ViewChild('sortTable', {static: true}) sortTable: MatSort
 	currentPage: PageEvent
 	currentSort: Sort
-	bkIncomeDataSource = new MatTableDataSource<any>()
+	bkIncomeDataSource = [];
 
 	ngAfterViewInit() {
 		console.log(this.transEmpNo)
