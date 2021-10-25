@@ -88,7 +88,7 @@
         <tbody>
           <tr *ngFor="let data of proxyIncomeDataSource">
             <td nzLeft><button nz-button [nzSize]="'middle'" nzType="primary" (click)="update(true, data)">編輯</button>
-              <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="delete(data.ID)">刪除</button>
+              <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="delete(data.RID)">刪除</button>
             </td>
             <td class="table-data">{{ data.INDUC_CODE }}</td>
             <td class="table-data">{{ data.INDUC_LEVEL1 }}</td>

@@ -85,8 +85,11 @@ export class F03015Component implements OnInit {
   //取行職業level1下拉
   getLevel1Select() {
     let jsonObject: any = {};
+    this.inducLevel1 = [];
+    this.inducLevel1Value = "";
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody.items) {
+        console.log(jsonObj)
         const codeNo = jsonObj['INDUC_LEVEL1'];
         const desc = jsonObj['INDUC_LEVEL1_DESC'];
         this.inducLevel1.push({ value: codeNo, viewValue: desc });
@@ -153,6 +156,7 @@ export class F03015Component implements OnInit {
       await this.f03015Service.getReturn('f03/f03015', jsonObject).subscribe(data => {
         this.totalCount = data.rspBody.size;
         if (this.totalCount === 0) {
+          this.proxyIncomeDataSource = null;
           this.dialog.open(F03015confirmComponent, {
             data: { msgStr: "查無資料" }
           });
@@ -190,7 +194,9 @@ export class F03015Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.getProxyIncomeData(this.pageIndex, this.pageSize); }
+      if (result != null && result.event == 'success') {
+        this.refreshTable();
+      }
     });
   }
 
@@ -211,12 +217,37 @@ export class F03015Component implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.refreshTable(); }
+      if (result != null && result.event == 'success') {
+        this.getLevel1Select();
+        this.refreshTable();
+      }
     });
   }
 
   private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize);
+    if ((this.proxyIncomeForm.value.INDUC_CODE == null || this.proxyIncomeForm.value.INDUC_CODE == '') && (this.inducLevel1Value == undefined || this.inducLevel1Value == '')
+      && (this.inducLevel2Value == undefined || this.inducLevel2Value == '') && (this.jobCodeValue == undefined || this.jobCodeValue == '')) {
+        this.proxyIncomeDataSource = null;
+    } else {
+      let jsonObject: any = {};
+      jsonObject['page'] = this.pageIndex;
+      jsonObject['per_page'] = this.pageSize;
+      jsonObject['inducCode'] = this.inducCode;
+      jsonObject['inducLevel1'] = this.inducLevel1Value;
+      jsonObject['inducLevel2'] = this.inducLevel2Value;
+      jsonObject['jobCode'] = this.jobCodeValue;
+      this.f03015Service.getReturn('f03/f03015', jsonObject).subscribe(data => {
+        this.totalCount = data.rspBody.size;
+        if (this.totalCount === 0) {
+          this.proxyIncomeDataSource = null;
+          this.dialog.open(F03015confirmComponent, {
+            data: { msgStr: "查無資料" }
+          });
+        } else {
+          this.proxyIncomeDataSource = data.rspBody.items;
+        }
+      });
+    }
   }
 
   //匯出EXCEL
@@ -259,7 +290,8 @@ export class F03015Component implements OnInit {
       });
       if (data.rspCode == '0000') {
         deleteDialogRef.afterClosed().subscribe(result => {
-          this.getProxyIncomeData(this.pageIndex, this.pageSize);
+          this.getLevel1Select();
+          this.refreshTable();
         });
       }
     });
