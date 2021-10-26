@@ -7,3 +7,30 @@ input{
   border: 1px solid #E6E6E6;
 }
 
+.check_title{
+  color:#2E4765;
+  flex:1;
+  font-weight:500;
+  padding-top:5px;
+}
+/* 功能按鈕樣式 */
+button{
+  color:#24C875;
+  background:white;
+  border:1px solid #24C875;
+  border-radius:5px;
+
+}
+button:hover{
+  color:#ffffff;
+  background:#24C875;
+  border:1px solid #24C875;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+button:active{
+  color:#ffffff;
+  background:#24C875;
+  border:1px solid #24C875;
+  border-radius:5px;
+}

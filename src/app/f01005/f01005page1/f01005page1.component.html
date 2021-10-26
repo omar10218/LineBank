@@ -36,13 +36,13 @@
         <div class="line_bank_card_no_padding">
           <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="true" [nzSimple]="false"
             [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable
-            style="height:30vh"
+            style="height:30vh" nzFooter="案件數: {{this.total}} 件"
             nzSize="small" nzTitle="FRAUD案件清單" [nzScroll]="{ x: '1500px', y:'240px'}"
             (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
-              <div style="text-align:right;width: 90vw; font-size: 16px;">
+              <!-- <div style="text-align:right;width: 90vw; font-size: 16px;">
                 <span>案件數: {{this.total}} 件</span>
-              </div>
+              </div> -->
               <tr>
                 <th class="table-header" [nzLeft]="true" [nzWidth]="'160px'">收件編號</th>
                 <th class="table-header" [nzWidth]="'160px'">流程別</th>
