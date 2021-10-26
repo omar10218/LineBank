@@ -10,6 +10,7 @@ import { F03013Service } from '../f03013.service';
 })
 export class F03013createComponent implements OnInit {
   loading: boolean;
+  confirm: boolean;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<F03013createComponent>,
@@ -21,6 +22,7 @@ export class F03013createComponent implements OnInit {
   }
 
   public async createCalendar(): Promise<void> {
+    this.confirm = true;
     this.loading = true;
     let jsonObject: any = {};
     jsonObject['year'] = this.data.value;
@@ -29,7 +31,7 @@ export class F03013createComponent implements OnInit {
     const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     this.loading = false;
     setTimeout(() => {
-    this.dialog.closeAll(); 
+      this.dialog.closeAll();
     },1500);
   }
 

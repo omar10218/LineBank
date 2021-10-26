@@ -2,6 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F03013Service } from './f03013.service';
 import { F03013createComponent } from './f03013create/f03013create.component';
@@ -23,7 +25,8 @@ export class F03013Component implements OnInit {
   yearCode: sysCode[] = []; //年份下拉
   monthCode: sysCode[] = []; //月份下拉
   jsonObject: any = {};
-  workingDateDataSource = new MatTableDataSource<any>();
+  workingDateDataSource: readonly Data[] = [];
+
   constructor(
     private f03013Service: F03013Service,
     private pipe: DatePipe,
@@ -33,8 +36,9 @@ export class F03013Component implements OnInit {
   ngOnInit(): void {
     this.getYearRange();
     this.getMonthRange();
+    
   }
-
+ 
   //創建年度行事曆
   createCalendar() {
     if (this.selectedValue == null) {
@@ -42,6 +46,8 @@ export class F03013Component implements OnInit {
         data: { msgStr: "請選擇需創建年份" }
       });
     } else if (this.selectedValue != null) {
+    this.dialog.closeAll(); 
+
       const confirmDialogRef = this.dialog.open(F03013createComponent, {
         minHeight: '70vh',
         width: '50%',
