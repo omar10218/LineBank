@@ -46,15 +46,12 @@ export class Childscn21Component implements OnInit {
   const baseUrl = 'f01/childscn21';
   let jsonObject: any = {};
   jsonObject['applno'] = this.applno
-  console.log('jsonObject');
-  console.log(jsonObject);
   this.childscn21Service.postJsonObject_PERSON_MAIN(baseUrl, jsonObject).subscribe(data => {
-    console.log('data');
-    console.log(data);
-    this.PERSONSource.data = data.rspBody;
-
+    if ( data.rspMsg == 'success' ) {
+      this.PERSONSource.data = data.rspBody;
+    }
     //this.total = data.rspBody.size;
-    console.log(this.PERSONSource.data);
+    // console.log(this.PERSONSource.data);
   });
   //this.loading = false;
 }
