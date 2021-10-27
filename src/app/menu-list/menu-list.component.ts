@@ -23,4 +23,8 @@ export class MenuListComponent {
   goHome(){
     this.router.navigate(['./home']);
   }
+
+  input() {
+    this.router.navigate(['./input']);
+  }
 }
