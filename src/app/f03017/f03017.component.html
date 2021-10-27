@@ -17,7 +17,7 @@
           <div nz-col nzSpan="8">
             <div style="padding:10px"><span class="form-title">建檔項目</span>
               <mat-select [(ngModel)]="bkColumnValue" name="adrType"
-                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+                style="width:100%;height:30px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
                 <mat-option *ngFor="let code of bkColumnCode" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
@@ -102,7 +102,7 @@
       </tbody>
 
     </nz-table>
-    <div style="text-align: center;margin:20px;height:10vh;">
+    <div style="text-align: center;margin:10px;height:5vh;">
 
       <button nz-button nzType="primary" (click)="insert(true)">新增</button>
       &nbsp;&nbsp;
