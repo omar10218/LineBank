@@ -49,6 +49,8 @@
           <input matInput [(ngModel)]="setValueHight">
         </div>
       </div>
+
+       <nz-alert *ngIf="error === '成功新增'" [nzType]="'success'" nzBanner  [nzMessage]="'成功新增'" [nzShowIcon]="true" class="mb-lg" style="width:50vw"></nz-alert>
       <div mat-dialog-actions style="margin:5px auto">
         <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()">新增</button>
         &nbsp;&nbsp;

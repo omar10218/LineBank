@@ -3,7 +3,8 @@ import {FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms'
 import {MatDialog} from '@angular/material/dialog'
 import {OptionsCode} from 'src/app/interface/base'
 import {F03012Service} from '../f03012.service'
-
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { FADE_CLASS_NAME_MAP } from 'ng-zorro-antd/modal'
 @Component({
 	selector: 'app-f03012add',
 	templateUrl: './f03012add.component.html',
@@ -12,6 +13,8 @@ import {F03012Service} from '../f03012.service'
 export class F03012addComponent implements OnInit {
 	selectedValue1: string
 	selectedValue2: string
+  error:string
+
 	//下拉
 	selectedColumn: OptionsCode[] = []
 	setValueHight: string
@@ -29,7 +32,7 @@ export class F03012addComponent implements OnInit {
 	// 	setValueLow: ['', [Validators.required]],
 	// })
 
-	constructor(private fb: FormBuilder, private f03012Service: F03012Service, public dialog: MatDialog) {}
+	constructor(private fb: FormBuilder, private f03012Service: F03012Service, public dialog: MatDialog,private alert: NzAlertModule) {}
 
 	ngOnInit(): void {
     this.getData()
@@ -101,6 +104,7 @@ export class F03012addComponent implements OnInit {
 	add() {
 		let msg = ''
 		this.submitted = true
+    console.log(this.alert)
 		// if (!this.compareTableSetForm.valid) {
 		//   msg = '資料格式有誤，請修正!';
 		// } else {
@@ -113,10 +117,12 @@ export class F03012addComponent implements OnInit {
 		jsonObject['setValueLow'] = this.setValueLow
 		jsonObject['setValueHight'] = this.setValueHight
 		console.log(this.compareType)
+    this.error = ''
 		this.f03012Service.submit(url, jsonObject).subscribe(data => {
 			alert((msg = data.rspMsg))
       this.getData()
-      alert('11111')
+      this.error = data.rspMsg
+
 		})
 		// const formdata: FormData = new FormData();
 		// formdata.append('elCompareDataSet[0].compareTable', this.compareTableSetForm.value.compareTable);

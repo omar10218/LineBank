@@ -10,6 +10,7 @@ import { F03012Service } from './f03012.service';
 import { F03012addComponent } from './f03012add/f03012add.component';
 import { F03012editComponent } from './f03012edit/f03012edit.component';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 interface checkBox {
   id: number;
   setValueHight: number;
@@ -53,7 +54,7 @@ export class F03012Component implements OnInit {
 
 
 
-  constructor(private f03012Service: F03012Service, public dialog: MatDialog) { }
+  constructor(private f03012Service: F03012Service, public dialog: MatDialog,private alert: NzAlertModule) { }
 
   ngOnInit(): void {
     this.getCompareTable()
@@ -149,6 +150,7 @@ export class F03012Component implements OnInit {
     formdata.append('setValueLow', setValueLow);
     if(compareType == null || setValueHight == null || setValueLow == null) {
       alert("有欄位為空值，刪除失敗")
+      // this.alert('This is a normal message');
       return false
     }
     this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {

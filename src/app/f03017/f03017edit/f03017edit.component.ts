@@ -224,6 +224,7 @@ export class F03017editComponent implements OnInit {
       // }
 
       Object.keys(this.testArray).forEach(key => {
+        console.log(key)
         content.push({bkColumn: key, bkContent: this.testArray[key]});
       });
 
