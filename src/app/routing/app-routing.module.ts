@@ -1,3 +1,4 @@
+import { InputloanComponent } from './../inputloan/inputloan.component';
 import { F03016Component } from './../f03016/f03016.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -42,6 +43,11 @@ import { F02002Component } from '../f02002/f02002.component';
 import { F01007Component } from '../f01007/f01007.component';
 import { F01008Component } from '../f01008/f01008.component';
 import { F02003Component } from '../f02003/f02003.component';
+import { Inputloanpage1Component } from '../inputloan/inputloanpage1/inputloanpage1.component';
+import { Inputloanpage2Component } from '../inputloan/inputloanpage2/inputloanpage2.component';
+import { Inputloanpage3Component } from '../inputloan/inputloanpage3/inputloanpage3.component';
+import { Inputloanpage4Component } from '../inputloan/inputloanpage4/inputloanpage4.component';
+import { Inputloanpage5Component } from '../inputloan/inputloanpage5/inputloanpage5.component';
 
 
 const routes: Routes = [
@@ -61,6 +67,32 @@ const routes: Routes = [
     path: '',
     component: MenuListComponent,
     children: [
+      {
+        path: 'input',
+        component: InputloanComponent,
+        children: [
+          {
+            path: 'INPUTLOANPAGE1',
+            component: Inputloanpage1Component
+          },
+          {
+            path: 'INPUTLOANPAGE2',
+            component: Inputloanpage2Component
+          },
+          {
+            path: 'INPUTLOANPAGE3',
+            component: Inputloanpage3Component
+          },
+          {
+            path: 'INPUTLOANPAGE4',
+            component: Inputloanpage4Component
+          },
+          {
+            path: 'INPUTLOANPAGE5',
+            component: Inputloanpage5Component
+          },
+        ]
+      },
       {
         path: '',
         redirectTo: 'home',

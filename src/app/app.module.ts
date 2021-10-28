@@ -96,6 +96,12 @@ import { F01008deleteComponent } from './f01008/f01008delete/f01008delete.compon
 import { F03006amtComponent } from './f03006/f03006amt/f03006amt.component';
 import { F03006prjComponent } from './f03006/f03006prj/f03006prj.component';
 import { F03013createComponent } from './f03013/f03013create/f03013create.component';
+import { InputloanComponent } from './inputloan/inputloan.component';
+import { Inputloanpage1Component } from './inputloan/inputloanpage1/inputloanpage1.component';
+import { Inputloanpage2Component } from './inputloan/inputloanpage2/inputloanpage2.component';
+import { Inputloanpage3Component } from './inputloan/inputloanpage3/inputloanpage3.component';
+import { Inputloanpage4Component } from './inputloan/inputloanpage4/inputloanpage4.component';
+import { Inputloanpage5Component } from './inputloan/inputloanpage5/inputloanpage5.component';
 registerLocaleData(zh);
 export const TW_FORMATS = {
   parse: {
@@ -187,7 +193,13 @@ export const TW_FORMATS = {
     F03006amtComponent,
     F03006prjComponent,
     F02003Component,
-    F03013createComponent
+    F03013createComponent,
+    InputloanComponent,
+    Inputloanpage1Component,
+    Inputloanpage2Component,
+    Inputloanpage3Component,
+    Inputloanpage4Component,
+    Inputloanpage5Component
   ],
   imports: [
     NzIconModule,
@@ -204,7 +216,7 @@ export const TW_FORMATS = {
     CommonModule,
     NgZorroAntdModule,
     NzButtonModule,
-    GoogleMapsModule
+    GoogleMapsModule,
   ],
   providers: [
     BnNgIdleService,
