@@ -116,6 +116,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('review','');
+        sessionStorage.setItem('level', '3');
         this.router.navigate(['./F01002/F01002SCN1']);
       }
     });

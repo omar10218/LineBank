@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Childscn21Service } from './childscn21.service';
-// import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import {NzI18nService, zh_TW} from 'ng-zorro-antd/i18n'
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n'
 
 //Nick 額度資訊
 @Component({
@@ -15,12 +14,7 @@ export class Childscn21Component implements OnInit {
   constructor(
     private childscn21Service: Childscn21Service,
     private nzI18nService: NzI18nService
-  ) {this.nzI18nService.setLocale(zh_TW) }
-
-  // total = 1;
-  // loading = true;
-  // pageIndex = 1;
-  // pageSize = 50;
+  ) { this.nzI18nService.setLocale(zh_TW) }
 
   private applno: string;
 
@@ -32,29 +26,17 @@ export class Childscn21Component implements OnInit {
 
   }
 
-  // //頁數切換
-  // onQueryParamsChange(params: NzTableQueryParams): void {
-  //   const { pageSize, pageIndex } = params;
-  //   this.pageSize=pageSize;
-  //   this.pageIndex=pageIndex;
-  //   this.getCALLOUTFunction(this.pageIndex, this.pageSize);
-  // }
-
-
- //取Table
- private async getCALLOUTFunction() {
-  const baseUrl = 'f01/childscn21';
-  let jsonObject: any = {};
-  jsonObject['applno'] = this.applno
-  this.childscn21Service.postJsonObject_PERSON_MAIN(baseUrl, jsonObject).subscribe(data => {
-    if ( data.rspMsg == 'success' ) {
-      this.PERSONSource.data = data.rspBody;
-    }
-    //this.total = data.rspBody.size;
-    // console.log(this.PERSONSource.data);
-  });
-  //this.loading = false;
-}
+  //取Table
+  private async getCALLOUTFunction() {
+    const baseUrl = 'f01/childscn21';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno
+    this.childscn21Service.postJsonObject_PERSON_MAIN(baseUrl, jsonObject).subscribe(data => {
+      if (data.rspMsg == 'success') {
+        this.PERSONSource.data = data.rspBody;
+      }
+    });
+  }
 
 
 }

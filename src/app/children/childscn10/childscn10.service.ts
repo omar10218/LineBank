@@ -17,4 +17,14 @@ export class Childscn10Service extends BaseService {
   getDate(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
+
+  getDate_Json(baseUrl: string,  json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
+  }
+
+  //取徵信照會Table/新增/編輯/刪除
+  postJsonObject_CALLOUT(baseUrl: string, json: JSON){
+    return this.postJsonObject(baseUrl, json);
+  }
+
 }

@@ -26,6 +26,7 @@ import { Childscn10Component } from './childscn10/childscn10.component';
 import { Childscn10page1Component } from './childscn10/childscn10page1/childscn10page1.component';
 import { Childscn10page2Component } from './childscn10/childscn10page2/childscn10page2.component';
 import { Childscn10page3Component } from './childscn10/childscn10page3/childscn10page3.component';
+import { Childscn10page4Component } from './childscn10/childscn10page4/childscn10page4.component';
 import { Childscn11Component } from './childscn11/childscn11.component';
 import { Childscn11page1Component } from './childscn11/childscn11page1/childscn11page1.component';
 import { Childscn11page2Component } from './childscn11/childscn11page2/childscn11page2.component';
@@ -59,6 +60,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { ChildmapComponent } from './childmap/childmap.component';
 import { NgxWatermarkModule } from 'ngx-watermark';
+
 
 @NgModule({
   declarations: [
@@ -110,7 +112,8 @@ import { NgxWatermarkModule } from 'ngx-watermark';
     Childscn19Component,
     Childscn20Component,
     Childscn21Component,
-    ChildmapComponent
+    ChildmapComponent,
+    Childscn10page4Component
   ],
   imports: [
     CommonModule,

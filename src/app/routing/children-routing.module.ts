@@ -5,6 +5,7 @@ import { Childscn10Component } from '../children/childscn10/childscn10.component
 import { Childscn10page1Component } from '../children/childscn10/childscn10page1/childscn10page1.component';
 import { Childscn10page2Component } from '../children/childscn10/childscn10page2/childscn10page2.component';
 import { Childscn10page3Component } from '../children/childscn10/childscn10page3/childscn10page3.component';
+import { Childscn10page4Component } from '../children/childscn10/childscn10page4/childscn10page4.component';
 import { Childscn11Component } from '../children/childscn11/childscn11.component';
 import { Childscn11page1Component } from '../children/childscn11/childscn11page1/childscn11page1.component';
 import { Childscn11page2Component } from '../children/childscn11/childscn11page2/childscn11page2.component';
@@ -118,6 +119,11 @@ const routes: Routes = [
       {
         path: 'CHILDSCN10PAGE3',
         component: Childscn10page3Component
+      }
+      ,
+      {
+        path: 'CHILDSCN10PAGE4',
+        component: Childscn10page4Component
       }
     ]
   },
