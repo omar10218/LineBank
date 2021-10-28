@@ -1,11 +1,7 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'large'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
-    <button nz-button [nzSize]="'large'" nzType="primary" style="margin:0px 5px" (click)="changeSelect()">查詢</button>
-    <button nz-button [nzSize]="'large'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
-  </div>
-  <br>
+
+
 
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">組織人員維護</div>
@@ -94,7 +90,11 @@
             </div>
           </div>
     </div>
-
+    <div style="padding: 20px;text-align: center;">
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="changeSelect()">查詢</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
+    </div>
   </div>
 
 
@@ -146,7 +146,7 @@
                 data.LEAVE_STARTDATE,data.LEAVE_ENDDATE,data.LEAVE_STARTDATE_TYPE,
                 data.LEAVE_ENDDATE_TYPE, data.ASSIGN_STOP,data.ASSIGN_PROJECTNO)">編輯</li>
                 <li nz-menu-item (click)="startPrj(data.EMP_NO, data.ROLE_NO)">派件專案代碼</li>
-                <li nz-menu-item (click)="startAmt()">產品及授權額度</li>
+                <li nz-menu-item (click)="startAmt(data.EMP_NO )">產品及授權額度</li>
               </ul>
             </nz-dropdown-menu>
             <!-- <button nz-button [nzSize]="'middle'" nzType="primary" (click)="startEdit(i,

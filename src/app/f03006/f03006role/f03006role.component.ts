@@ -19,10 +19,12 @@ export class F03006roleComponent {
   constructor(public dialogRef: MatDialogRef<F03006roleComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03006Service: F03006Service) { }
   submit() {
   }
+
   //載入選項
   setAll(completed: boolean) {
     for (const obj of this.data.CHECKBOX) {
       obj.completed = completed;
+
     }
   }
 

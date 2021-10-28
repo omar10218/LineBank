@@ -10,8 +10,8 @@ import {RoleItem, OptionsCode} from '../interface/base'
 import {ConfirmComponent} from '../common-lib/confirm/confirm.component'
 import {NzI18nService, zh_TW} from 'ng-zorro-antd/i18n'
 import {NzTableQueryParams} from 'ng-zorro-antd/table'
-import { F03006amtComponent } from './f03006amt/f03006amt.component'
-import { F03006prjComponent } from './f03006prj/f03006prj.component'
+import {F03006amtComponent} from './f03006amt/f03006amt.component'
+import {F03006prjComponent} from './f03006prj/f03006prj.component'
 
 //角色checkBox框架
 interface checkBox {
@@ -62,6 +62,8 @@ export class F03006Component implements OnInit {
 
 	employeeSource = new MatTableDataSource<any>() //組織人員維護Table
 	empRoleSource = new MatTableDataSource<RoleItem>() //角色Table
+	empPrjSource = new MatTableDataSource<RoleItem>() //專案Table
+	empAmtSource = new MatTableDataSource<RoleItem>() //產品Table
 
 	ngOnInit(): void {
 		this.getEmployeeList(this.pageIndex, this.pageSize)
@@ -69,8 +71,9 @@ export class F03006Component implements OnInit {
 		const baseUrl = 'f03/f03006' //代理人
 		let jsonObject: any = {}
 		this.f03006Service.getEmployeeSysTypeCode(baseUrl, jsonObject).subscribe(data => {
-		console.log(data.rspBody['empUnitList'])
-      for (const jsonObj of data.rspBody.empList) {
+			console.log(data.rspBody)
+			console.log(data.rspBody['empUnitList'])
+			for (const jsonObj of data.rspBody.empList) {
 				const codeNo = jsonObj.empNo
 				const desc = jsonObj.empNo
 				this.agent_empCode.push({value: codeNo, viewValue: desc})
@@ -115,6 +118,9 @@ export class F03006Component implements OnInit {
 			this.empRoleSource.data = data.rspBody.roleList //角色Table
 		})
 	}
+	// ngAfterViewInit(){
+	//   this.getAmtList()
+	// }
 
 	//切換查詢選項
 	changeSelect() {
@@ -166,6 +172,20 @@ export class F03006Component implements OnInit {
 		})
 		this.loading = false
 	}
+
+	// 取得Amt資料
+	// getAmtList(empNo: string) {
+	// 	const baseUrl = 'f03/f03006action8'
+	// 	let jsonObject: any = {}
+
+
+	// 	jsonObject['empNo'] = empNo
+	// 	console.log(jsonObject)
+	// 	this.f03006Service.getEmployeeList(baseUrl, jsonObject).subscribe(data => {
+	// 		console.log(data)
+	// 		this.empAmtSource.data = data.rspBody
+	// 	})
+	// }
 
 	//清除資料
 	Clear() {
@@ -265,7 +285,7 @@ export class F03006Component implements OnInit {
 	}
 
 	//修改
-	startEdit( EMP_NO: string, EMP_NAME: string, EMP_ID: string, ON_JOB: string, AGENT_EMP: string, EMAIL: string, LEAVE_STARTDATE: string, LEAVE_ENDDATE: string, LEAVE_STARTDATE_TYPE: string, LEAVE_ENDDATE_TYPE: string, ASSIGN_STOP: string, ASSIGN_PROJECTNO: string) {
+	startEdit(EMP_NO: string, EMP_NAME: string, EMP_ID: string, ON_JOB: string, AGENT_EMP: string, EMAIL: string, LEAVE_STARTDATE: string, LEAVE_ENDDATE: string, LEAVE_STARTDATE_TYPE: string, LEAVE_ENDDATE_TYPE: string, ASSIGN_STOP: string, ASSIGN_PROJECTNO: string) {
 		const dialogRef = this.dialog.open(F03006editComponent, {
 			minHeight: '70vh',
 			width: '50%',
@@ -300,7 +320,7 @@ export class F03006Component implements OnInit {
 
 	//派件專案代碼
 	startPrj(empNo: string, roleArray: string) {
-    console.log(empNo, roleArray)
+		console.log(empNo, roleArray)
 		this.chkArray = []
 		let selfRole = roleArray != null ? roleArray : ''
 		for (const jsonObj of this.empRoleSource.data) {
@@ -317,7 +337,7 @@ export class F03006Component implements OnInit {
 		const dialogRef = this.dialog.open(F03006prjComponent, {
 			minHeight: '70vh',
 			width: '50%',
-      data: {CHECKBOX: this.chkArray, SOURCE: this.empRoleSource.data, empNo: empNo},
+			data: {CHECKBOX: this.chkArray, SOURCE: this.empRoleSource.data, empNo: empNo},
 		})
 		dialogRef.afterClosed().subscribe(result => {
 			if (result != null && (result.event == 'success' || result == '1')) {
@@ -327,30 +347,34 @@ export class F03006Component implements OnInit {
 	}
 
 	//產品及授權額度
-	startAmt(empNo: string, roleArray: string) {
-    console.log(empNo, roleArray)
-		this.chkArray = []
-		let selfRole = roleArray != null ? roleArray : ''
-		for (const jsonObj of this.empRoleSource.data) {
-			let isChk: boolean = false
-			const chkValue = jsonObj.roleNo
-			for (const str of selfRole.split(',')) {
-				isChk = str == chkValue
-				if (isChk) {
-					break
+	async startAmt(empNo: string) {
+		const baseUrl = 'f03/f03006action8'
+		let jsonObject: any = {}
+		jsonObject['empNo'] = empNo //員工編號
+		console.log(jsonObject)
+		await this.f03006Service.getEmployeeList(baseUrl, jsonObject).subscribe(data => {
+			console.log(data)
+			this.empAmtSource.data = data.rspBody
+			console.log(empNo)
+			//this.getAmtList(empNo
+			this.chkArray = []
+			for (const jsonObj of this.empRoleSource.data) {
+				let isChk: boolean = false
+				const chkValue = jsonObj.roleNo
+
+				this.chkArray.push({value: chkValue, completed: isChk})
+			}
+			const dialogRef = this.dialog.open(F03006amtComponent, {
+				minHeight: '70vh',
+				width: '50%',
+				data: {CHECKBOX: this.chkArray, SOURCE: this.empAmtSource.data, empNo: empNo},
+			})
+
+			dialogRef.afterClosed().subscribe(result => {
+				if (result != null && (result.event == 'success' || result == '1')) {
+					this.refreshTable()
 				}
-			}
-			this.chkArray.push({value: chkValue, completed: isChk})
-		}
-		const dialogRef = this.dialog.open(F03006amtComponent, {
-			minHeight: '70vh',
-			width: '50%',
-			data: {CHECKBOX: this.chkArray, SOURCE: this.empRoleSource.data, empNo: empNo},
-		})
-		dialogRef.afterClosed().subscribe(result => {
-			if (result != null && (result.event == 'success' || result == '1')) {
-				this.refreshTable()
-			}
+			})
 		})
 	}
 
