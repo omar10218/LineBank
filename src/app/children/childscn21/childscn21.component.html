@@ -22,6 +22,8 @@
           <th class="table-header">停用日期</th>
           <th class="table-header">循環別</th>
           <th class="table-header">是否可撤銷</th>
+          <th class="table-header">專案代碼</th>
+          <th class="table-header">額度狀態</th>
         </tr>
       </thead>
       <tbody>
@@ -40,8 +42,8 @@
           <td class="table-data">{{ row.stopDate| date:"yyyy-MM-dd"  }}</td>
           <td class="table-data">{{ row.cycleType }}</td>
           <td class="table-data">{{ row.cancelFlag }}</td>
-          <td class="table-data">{{ row.PHONE }}</td>
-
+          <td class="table-data">{{ row.projectCode }}</td>
+          <td class="table-data">{{ row.statusFlag }}</td>
         </tr>
       </tbody>
     </nz-table>

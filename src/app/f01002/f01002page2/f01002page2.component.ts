@@ -113,6 +113,7 @@ export class F01002page2Component implements OnInit {
     sessionStorage.setItem('applno', applno);
     sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('winClose', 'N');
+    sessionStorage.setItem('level', '3');
     this.router.navigate(['./F01002/F01002SCN1/CHILDSCN8']);
   }
 
