@@ -24,7 +24,7 @@ export class F03006amtComponent {
 		console.log(this.data.SOURCE)
     this.getCheckList()
 	}
-
+n
 	//載入選項
 	setAll(completed: boolean) {
 		for (const obj of this.data.CHECKBOX) {
@@ -38,16 +38,19 @@ export class F03006amtComponent {
 		this.dialogRef.close()
 	}
 	// 如果該row的isChk屬性為true就存入陣列
+  test:any
 	getCheckList() {
 		this.checked = this.data.SOURCE.filter(
-      data => {
-        if(data.MAX_APPROVE_AMT==! null){
-          this.check=true
-        }
-        console.log(data)
-        console.log(this.check)
-      });
-      console.log(this.checked)
+      data => data.MAX_APPROVE_AMT=this.test)
+
+      // {
+      //   if(data.MAX_APPROVE_AMT==! null){
+      //     this.check=true
+      //   }
+      //   console.log(data)
+      //   console.log(this.check)
+      // });
+      // console.log(this.checked)
 
 	}
 

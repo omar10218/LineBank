@@ -1,0 +1,502 @@
+<div class="line_bank_bankground_color">
+  <div class="line_bank_card_no_padding">
+
+    <!-- KRM046信用卡證卡持有 -->
+    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="KRM046信用卡證卡持有">
+      <thead>
+
+        <tr>
+          <th class="table-header" style="width:20%">持有往來</th>
+          <th class="table-header" colspan="4" style="width:50%">正卡</th>
+        </tr>
+
+        <tr>
+          <th class="table-header" style="width:20%"></th>
+          <th class="table-header" style="width:20%">銀行家數</th>
+          <th class="table-header" style="width:20%">總卡數</th>
+          <th class="table-header" style="width:20%">活卡最早往來年數</th>
+          <th class="table-header" style="width:20%">活卡最早往來月數</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-header"></td>
+          <td class="table-data">{{ listSource.ccLatvBank }}</td>
+          <td class="table-data">{{ listSource.ccLatvCnt }}</td>
+          <td class="table-data">{{ listSource.ccLatvMaxyob }}</td>
+          <td class="table-data">{{ listSource.ccLatvMaxmob }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+
+    <!-- KRM046信用卡證卡持有 -->
+    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="KRM048信用卡帳務額度資訊">
+      <thead>
+        <tr>
+          <th class="table-header" style="width:14%"></th>
+          <th class="table-header" style="width:14%">目前額度合計</th>
+          <th class="table-header" style="width:14%">家數</th>
+          <th class="table-header" style="width:14%">每家額度平均</th>
+          <th class="table-header" style="width:14%">最大額度</th>
+          <th class="table-header" style="width:14%">最小額度</th>
+          <th class="table-header" style="width:16%"> 近12個月內將額家數</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-header">永久額度</td>
+          <td class="table-data">{{ listSource.permLimitAdj01aj }}</td>
+          <td class="table-data">{{ listSource.issue01aj }}</td>
+          <td class="table-data">{{ listSource.permLimitAvg01aj }}</td>
+          <td class="table-data">{{ listSource.permLimitMax01aj }}</td>
+          <td class="table-data">{{ listSource.permLimitMin01aj }}</td>
+          <td class="table-data">{{ listSource.ccPermlimitDwncntL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">預借額度</td>
+          <td class="table-data">{{ listSource.cashLimitAdj01aj }}</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">{{ listSource.ccCashlimitDwncntL12 }}</td>
+        </tr>
+      </tbody>
+
+
+
+    </nz-table>
+    <!-- 第一欄位 -->
+    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="第一欄位">
+      <thead>
+        <tr>
+          <th class="table-header" >使用行為</th>
+          <th class="table-header" colspan="2">目前(近一個月)</th>
+          <th class="table-header" colspan="2">近十二個月內</th>
+        </tr>
+        <tr>
+          <th class="table-header" style="width:20%"></th>
+          <th class="table-header"  style="width:20%">動用筆數</th>
+          <th class="table-header"  style="width:20%">餘額</th>
+          <th class="table-header"  style="width:20%">動用月份數</th>
+          <th class="table-header"  style="width:20%">平均每月餘額</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-header">本期應付帳款</td>
+          <td class="table-data">{{ listSource.issueAtv01aj }}</td>
+          <td class="table-data">{{ listSource.payable01aj }}</td>
+          <td class="table-data">{{ listSource.ccPayableMthL12 }}</td>
+          <td class="table-data">{{ listSource.ccPayableAvgL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">上期循環信用</td>
+          <td class="table-data">{{ listSource.revolBalCnt01aj }}</td>
+          <td class="table-data">{{ listSource.revolBal01aj }}</td>
+          <td class="table-data">{{ listSource.ccRevolMthL12 }}</td>
+          <td class="table-data">{{ listSource.ccRevolAvgL06 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">當期預借現金</td>
+          <td class="table-data">{{ listSource.cashLentCnt01aj }}</td>
+          <td class="table-data">{{ listSource.cashLent01aj }}</td>
+          <td class="table-data">{{ listSource.ccCashlentMthL12 }}</td>
+          <td class="table-data">{{ listSource.ccCashlentAvgL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">未到期分期賞還待付金額</td>
+          <td class="table-data">{{ listSource.preOwedCnt01aj }}</td>
+          <td class="table-data">{{ listSource.preOwed01aj }}</td>
+          <td class="table-data">{{ listSource.ccPreowedMthL12 }}</td>
+          <td class="table-data">{{ listSource.ccPreowedAvgL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">預借分期</td>
+          <td class="table-data">{{ listSource.preCashedCnt01aj }}</td>
+          <td class="table-data">{{ listSource.preCashed01aj }}</td>
+          <td class="table-data">{{ listSource.ccPrecashedMthL12 }}</td>
+          <td class="table-data">{{ listSource.ccPrecashedAvgL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">帳單分期</td>
+          <td class="table-data">{{ listSource.preBilledCnt01aj }}</td>
+          <td class="table-data">{{ listSource.preBilled01aj }}</td>
+          <td class="table-data">{{ listSource.ccPrebilledMthL12 }}</td>
+          <td class="table-data">{{ listSource.ccPrebilledAvgL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">消費分期</td>
+          <td class="table-data">{{ listSource.preSpentCnt01aj }}</td>
+          <td class="table-data">{{ listSource.preSpent01aj }}</td>
+          <td class="table-data">{{ listSource.ccPrespentMthL12 }}</td>
+          <td class="table-data">{{ listSource.ccPrespentAvgL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">預借行為(當期+未到期)</td>
+          <td class="table-data">{{ listSource.cashOsCnt01aj }}</td>
+          <td class="table-data">{{ listSource.cashOs01aj }}</td>
+          <td class="table-data">{{ listSource.ccCashosMthL12 }}</td>
+          <td class="table-data">{{ listSource.ccCashosAvgL12 }}</td>
+        </tr>
+      </tbody>
+
+    </nz-table>
+<!-- 第二欄位 -->
+<nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+[nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="第二欄位">
+<thead>
+ <tr >
+   <th class="table-header" style="width:17%">繳費比率</th>
+   <th class="table-header" *ngFor="let index of [1,2,3,4,5,6,7,8,9,10,11,12]">第{{ index }}期</th>
+ </tr>
+
+</thead>
+<tbody>
+ <tr>
+   <td class="table-header">上期應付帳款</td>
+   <td class="table-data">{{ listSource.lastPaya01aj }}</td>
+   <td class="table-data">{{ listSource.lastPaya02 }}</td>
+   <td class="table-data">{{ listSource.lastPaya03 }}</td>
+   <td class="table-data">{{ listSource.lastPaya04 }}</td>
+   <td class="table-data">{{ listSource.lastPaya05 }}</td>
+   <td class="table-data">{{ listSource.lastPaya06 }}</td>
+   <td class="table-data">{{ listSource.lastPaya07 }}</td>
+   <td class="table-data">{{ listSource.lastPaya08 }}</td>
+   <td class="table-data">{{ listSource.lastPaya09 }}</td>
+   <td class="table-data">{{ listSource.lastPaya10 }}</td>
+   <td class="table-data">{{ listSource.lastPaya11 }}</td>
+   <td class="table-data">{{ listSource.lastPaya12 }}</td>
+ </tr>
+ <tr>
+   <td class="table-header">上期應付帳款繳款率</td>
+   <td class="table-data">{{ listSource.paymentRt01aj }}</td>
+   <td class="table-data">{{ listSource.paymentRt02 }}</td>
+   <td class="table-data">{{ listSource.paymentRt03 }}</td>
+   <td class="table-data">{{ listSource.paymentRt04 }}</td>
+   <td class="table-data">{{ listSource.paymentRt05 }}</td>
+   <td class="table-data">{{ listSource.paymentRt06 }}</td>
+   <td class="table-data">{{ listSource.paymentRt07 }}</td>
+   <td class="table-data">{{ listSource.paymentRt08 }}</td>
+   <td class="table-data">{{ listSource.paymentRt09 }}</td>
+   <td class="table-data">{{ listSource.paymentRt10 }}</td>
+   <td class="table-data">{{ listSource.paymentRt11 }}</td>
+   <td class="table-data">{{ listSource.paymentRt12 }}</td>
+ </tr>
+
+
+</tbody>
+
+</nz-table>
+    <!-- 第三欄位 -->
+    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="第三欄位">
+      <thead>
+        <tr>
+          <th class="table-header">額度使用率(分母為有動用之額度)</th>
+          <th class="table-header">目前(近一個月內)</th>
+          <th class="table-header">近六個月內</th>
+          <th class="table-header">近十二個月內</th>
+          <th class="table-header">額度使用率(分母為所有額度)</th>
+          <th class="table-header">目前(近一個月內)</th>
+          <th class="table-header">近六個月內</th>
+          <th class="table-header">近十二個月內</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-header">循環信用佔額比</td>
+          <td class="table-data">{{ listSource.ccRevRtall01aj }}</td>
+          <td class="table-data">{{ listSource.ccRevRtallL06 }}</td>
+          <td class="table-data">{{ listSource.ccRevRtallL12 }}</td>
+          <td class="table-header">循環信用佔額比</td>
+          <td class="table-data">{{ listSource.ccRevRtall01aj }}</td>
+          <td class="table-data">{{ listSource.ccRevRtallL06 }}</td>
+          <td class="table-data">{{ listSource.ccRevRtallL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">循環預借未到期佔額比</td>
+          <td class="table-data">{{ listSource.ccRevcapreRt01aj }}</td>
+          <td class="table-data">{{ listSource.ccRevcapreRtL06 }}</td>
+          <td class="table-data">{{ listSource.ccRevcapreRtL12 }}</td>
+          <td class="table-header">循環預借未到期佔額比</td>
+          <td class="table-data">{{ listSource.ccRevRtall01aj }}</td>
+          <td class="table-data">{{ listSource.ccRevRtallL06 }}</td>
+          <td class="table-data">{{ listSource.ccRevRtallL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">本期應付未到期佔額比</td>
+          <td class="table-data">{{ listSource.ccPayablepreRt01aj }}</td>
+          <td class="table-data">{{ listSource.ccPayablepreRtL06 }}</td>
+          <td class="table-data">{{ listSource.ccPayablepreRtL12 }}</td>
+          <td class="table-header">本期應付未到期佔額比</td>
+          <td class="table-data">{{ listSource.ccPayablepreRtall01aj }}</td>
+          <td class="table-data">{{ listSource.ccPayablepreRtallL06 }}</td>
+          <td class="table-data">{{ listSource.ccPayablepreRtallL12 }}</td>
+        </tr>
+
+      </tbody>
+
+
+    </nz-table>
+
+
+    <!-- 第四欄位 -->
+    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="第四欄位">
+      <thead>
+        <tr>
+          <th class="table-header" colspan="1">逾期行為</th>
+          <th class="table-header" colspan="2">目前(近一個月內)</th>
+          <th class="table-header" colspan="2">近六個月內</th>
+          <th class="table-header" colspan="2">近十二個月內</th>
+        </tr>
+        <tr>
+          <th class="table-header" style="width:10%"></th>
+          <th class="table-header" style="width:15%">筆數</th>
+          <th class="table-header" style="width:15%">該期應繳金額合計</th>
+          <th class="table-header" style="width:15%">月份數</th>
+          <th class="table-header" style="width:15%">該期應繳金額月平均</th>
+          <th class="table-header" style="width:15%">月份數</th>
+          <th class="table-header" style="width:15%">該期應繳金額月平均</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-header">N,0無延期</td>
+          <td class="table-data">{{ listSource.paycode0Cnt01aj }}</td>
+          <td class="table-data">{{ listSource.paycode0Os01aj }}</td>
+          <td class="table-data">{{ listSource.ccPaycode0MthL06 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode0OsavgL06 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode0MthL12 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode0OsavgL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">1,延期未滿1個月</td>
+          <td class="table-data">{{ listSource.paycode1Cnt01aj }}</td>
+          <td class="table-data">{{ listSource.paycode1Os01aj }}</td>
+          <td class="table-data">{{ listSource.ccPaycode1MthL06 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode1OsavgL06 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode1MthL12 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode1OsavgL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">2,延期未滿2個月</td>
+          <td class="table-data">{{ listSource.paycode2Cnt01aj }}</td>
+          <td class="table-data">{{ listSource.paycode2Os01aj }}</td>
+          <td class="table-data">{{ listSource.ccPaycode2MthL06 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode2OsavgL06 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode2MthL12 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode2OsavgL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">3,延期未滿3個月</td>
+          <td class="table-data">{{ listSource.paycode3Cnt01aj }}</td>
+          <td class="table-data">{{ listSource.paycode3Os01aj }}</td>
+          <td class="table-data">{{ listSource.ccPaycode3MthL06 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode3OsavgL06 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode3MthL12 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode3OsavgL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">4~7,<br>延期3個月以上</td>
+          <td class="table-data">{{ listSource.paycode4567Cnt01aj }}</td>
+          <td class="table-data">{{ listSource.paycode4567Os01aj }}</td>
+          <td class="table-data">{{ listSource.ccPaycode4567MthL06 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode4567OsavgL06 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode4567MthL12 }}</td>
+          <td class="table-data">{{ listSource.ccPaycode4567OsavgL12 }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+
+    <!-- 第五欄位 -->
+    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="第五欄位">
+      <thead>
+        <tr>
+          <th class="table-header" colspan="6">JCIC授信往來</th>
+          <th class="table-header" colspan="2">近12個月新增</th>
+        </tr>
+        <tr>
+          <th class="table-header" style="width:9%"></th>
+          <th class="table-header" style="width:13%">來往銀行家數</th>
+          <th class="table-header" style="width:13%">資料筆數</th>
+          <th class="table-header" style="width:13%">放款餘額合計</th>
+          <th class="table-header" style="width:13%">餘額合計</th>
+          <th class="table-header" style="width:13%">佔額比</th>
+          <th class="table-header" style="width:13%">筆數</th>
+          <th class="table-header" style="width:13%">額度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-header">授信往來</td>
+          <td class="table-data">{{ listSource.lnBk }}</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">{{ listSource.lnBal }}</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+        </tr>
+        <tr>
+          <td class="table-header">無擔保單放款<br>(含現金卡)</td>
+          <td class="table-data">{{ listSource.lnUnsBk }}</td>
+          <td class="table-data">{{ listSource.lnUnsCnt }}</td>
+          <td class="table-data">{{ listSource.lnUnsBal }}</td>
+          <td class="table-data">{{ listSource.lnUnsLimit }}</td>
+          <td class="table-data">{{ listSource.lnUnsRt }}</td>
+          <td class="table-data">{{ listSource.lnUnsNewcntL12 }}</td>
+          <td class="table-data">{{ listSource.lnUnsNewcntamtL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">現金卡</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">{{ listSource.lnYBal }}</td>
+          <td class="table-data">{{ listSource.lnYLimit }}</td>
+          <td class="table-data">{{ listSource.lnYRt }}</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+        </tr>
+        <tr>
+          <td class="table-header">房貸</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">{{ listSource.lnSecMortBal }}</td>
+          <td class="table-data">{{ listSource.lnSecMortLimit }}</td>
+          <td class="table-data">{{ listSource.lnSecMortRt }}</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+        </tr>
+        <tr>
+          <td class="table-header">車貸</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">{{ listSource.lnSecCarBal }}</td>
+          <td class="table-data">{{ listSource.lnSecCarLimit }}</td>
+          <td class="table-data">{{ listSource.lnSecCarRt }}</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+        </tr>
+        <tr>
+          <td class="table-header">其他動產</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">{{ listSource.lnSecOthrBal }}</td>
+          <td class="table-data">{{ listSource.lnSecOthrLimit }}</td>
+          <td class="table-data">{{ listSource.lnSecOthrRt }}</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+        </tr>
+        <tr>
+          <td class="table-header">學生貸款</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">{{ listSource.lnZStuBal }}</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+        </tr>
+      </tbody>
+    </nz-table>
+
+ <!-- 第六欄位 -->
+ <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+ [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="第六欄位">
+ <thead>
+   <tr>
+     <th class="table-header">JCIC授信繳款</th>
+     <th class="table-header">近一個月內</th>
+     <th class="table-header">近六個月內</th>
+     <th class="table-header">近十二個月內</th>
+
+   </tr>
+ </thead>
+ <tbody>
+   <tr>
+     <td class="table-header">最差還款記錄</td>
+     <td class="table-data">{{ listSource.lnPaycodeMax01 }}</td>
+     <td class="table-data">{{ listSource.lnPaycodeMaxL06 }}</td>
+     <td class="table-data">{{ listSource.lnPaycodeMaxL12 }}</td>
+   </tr>
+   <tr>
+     <td class="table-header">M1+逾期月數</td>
+     <td class="table-data">無資料</td>
+     <td class="table-data">{{ listSource.lnM1plusL06 }}</td>
+     <td class="table-data">{{ listSource.lnM1plusL12 }}</td>
+   </tr>
+   <tr>
+     <td class="table-header">M2+逾期月數</td>
+     <td class="table-data">無資料</td>
+     <td class="table-data">{{ listSource.lnM2plusL06 }}</td>
+     <td class="table-data">{{ listSource.lnM2plusL12 }}</td>
+   </tr>
+
+ </tbody>
+
+</nz-table>
+ <!-- 第七欄位 -->
+ <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+ [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="第七欄位">
+ <thead>
+   <tr>
+     <th class="table-header" colspan="3">被查詢紀錄(不含本行)銀行家數</th>
+     <th class="table-header" colspan="3">當事人自查次數</th>
+   </tr>
+   <tr>
+     <th class="table-header"  style="width:15%"></th>
+     <th class="table-header" style="width:17%">近三個月內</th>
+     <th class="table-header" style="width:17%">近十二個月內</th>
+     <th class="table-header" style="width:17%">查詢原因(REASON1&2)</th>
+     <th class="table-header" style="width:17%">近三個月內</th>
+     <th class="table-header" style="width:17%">近十二個月內</th>
+   </tr>
+ </thead>
+ <tbody>
+   <tr>
+     <td class="table-header">新業務查詢</td>
+     <td class="table-data">{{ listSource.inqNewbBankL03 }}</td>
+     <td class="table-data">{{ listSource.inqNewbBankL12 }}</td>
+     <td class="table-header">排除求職之查詢記錄</td>
+     <td class="table-data">{{ listSource.inqPersonExdL03 }}</td>
+     <td class="table-data">{{ listSource.inqPersonExdL12 }}</td>
+   </tr>
+   <tr>
+     <td class="table-header">部門債逾於催資產管理</td>
+     <td class="table-data">{{ listSource.inqColBankL03 }}</td>
+     <td class="table-data">{{ listSource.inqColBankL12 }}</td>
+     <td class="table-header">
+       X1債清條例債權人清冊<br>
+       X2消費金融無擔保債務展延方案專用債權人清冊<br>
+       Y銀行公會消金債務協商專用
+      </td>
+     <td class="table-data">{{ listSource.lnPaycodeMax01 }}</td>
+     <td class="table-data">{{ listSource.inqPersonXyL12 }}</td>
+   </tr>
+   <tr>
+     <td class="table-header">原業務查詢</td>
+     <td class="table-data">{{ listSource.inqOribBankL03 }}</td>
+     <td class="table-data">{{ listSource.inqOribBankL12 }}</td>
+     <td class="table-header">金融往來相關</td>
+     <td class="table-data">{{ listSource.lnPaycodeMax01 }}</td>
+     <td class="table-data">{{ listSource.inqPersonFinL12 }}</td>
+   </tr>
+
+
+ </tbody>
+
+</nz-table>
+
+
+
+
+
+  </div>
+
+</div>
