@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChildrenRoutingModule } from '../routing/children-routing.module';
-
 import { Childscn2Component } from "./childscn2/childscn2.component";
 import { Childscn2page1Component } from "./childscn2/childscn2page1/childscn2page1.component";
 import { Childscn3Component } from './childscn3/childscn3.component';
@@ -58,7 +57,6 @@ import { Childscn20Component } from './childscn20/childscn20.component';
 import { Childscn21Component } from './childscn21/childscn21.component';
 import { NgxWatermarkModule } from 'ngx-watermark';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { Childscn6page2Component } from './childscn6/childscn6page2/childscn6page2.component';
 
 
 
@@ -112,7 +110,6 @@ import { Childscn6page2Component } from './childscn6/childscn6page2/childscn6pag
     Childscn19Component,
     Childscn20Component,
     Childscn21Component,
-    Childscn6page2Component,
     Childscn10page4Component
   ],
   imports: [

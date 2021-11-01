@@ -1,5 +1,4 @@
 import { Childscn6page1Component } from './childscn6page1/childscn6page1.component';
-import { Childscn6page2Component } from './childscn6page2/childscn6page2.component';
 import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
 import { Childscn6Service } from './childscn6.service';
 import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
@@ -36,16 +35,7 @@ export class Childscn6Component implements OnInit {
   private cuid: string;
   today: string;
 
-  component = new Map<Page, any>(
-    [
-      [Page.Page1, Childscn6page1Component],
-      [Page.Page2, Childscn6page2Component]
-    ]
-  );
-  nowPage = Page.Page1;
-  readonly Page = Page;
   calloutSource$: Subscription;
-
 
   options: NgxWatermarkOptions = {
     text: '',
@@ -70,13 +60,6 @@ export class Childscn6Component implements OnInit {
       data.rspBody[0].empNo + data.rspBody[0].empName + this.today
       +data.rspBody[0].empNo + data.rspBody[0].empName + this.today+data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
     });
-  }
-  changePage(page: Page): void {
-    this.nowPage = page;
-    const componentFactory = this.componenFactoryResolver.resolveComponentFactory(this.component.get(this.nowPage));
-    const viewContainerRef = this.appDynamic.viewContainerRef;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(componentFactory);
   }
 
   ngAfterViewInit() {

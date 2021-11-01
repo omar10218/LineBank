@@ -19,6 +19,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+        this.getJcicList()
         this.getJcicMultiple();
         this.setBooleanFalse();
         this.list = [];
@@ -43,6 +44,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   list: any[] = [];
 
   hideJCICMASTER = false;
+  hideJCIC = false;
   hideKCM012 = false;
   hideDAM001 = false;
   hideBAM061 = false;
@@ -76,7 +78,13 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   private applno: string;
   private cuid: string;
-  private queryDate: string;
+
+  private queryDate: string = '2021-10-25 11:52:57.301' // 現在時間
+  listSource: any = []
+	total = 1
+	pageIndex = 1
+	pageSize = 50
+  index: any
 
   KCM012Source: readonly Data[] = [];
   total1 = 1;
@@ -233,15 +241,26 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
-    this.queryDate = sessionStorage.getItem('queryDate');
+    //this.queryDate = sessionStorage.getItem('queryDate');
 
     this.getJcicMultiple();
     this.setBooleanFalse();
+    this.getJcicList()
   }
 
   ngAfterViewInit() {
 
   }
+
+  // 取得聯徵彙整清單
+	getJcicList() {
+		let jsonObject: any = {}
+		jsonObject['applno'] = this.applno
+		jsonObject['queryDate'] = this.queryDate
+		this.childscn6Service.getMASTERJCICList(jsonObject).subscribe(data => {
+			this.listSource = data.rspBody;
+		})
+	}
 
   getJcicMultiple() {
     let jsonObject: any = {};
@@ -278,7 +297,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
       if ( code == 'BAM061' ) { this.total3 = data.rspBody.size; this.BAM061Source = data.rspBody.items; }
       if ( code == 'KRM043' ) { this.total4 = data.rspBody.size; this.KRM043Source = data.rspBody.items; }
       if ( code == 'BAM062' ) { this.total5 = data.rspBody.size; this.BAM062Source = data.rspBody.items; }
-      if ( code == 'VAM020' ) { console.log(data.rspBody.items);this.total6 = data.rspBody.size; this.VAM020Source = data.rspBody.items; }
+      if ( code == 'VAM020' ) { this.total6 = data.rspBody.size; this.VAM020Source = data.rspBody.items; }
       if ( code == 'VAM201' ) { this.total7 = data.rspBody.size; this.VAM201Source = data.rspBody.items; }
       if ( code == 'VAM106' ) { this.total8 = data.rspBody.size; this.VAM106Source = data.rspBody.items; }
       if ( code == 'VAM107' ) { this.total9 = data.rspBody.size; this.VAM107Source = data.rspBody.items; }
@@ -343,6 +362,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   setBooleanTrue() {
     this.hideJCICMASTER = true;
+    this.hideJCIC = true;
     this.hideKCM012 = true;
     this.hideDAM001 = true;
     this.hideBAM061 = true;
@@ -377,6 +397,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   setBooleanFalse() {
     this.hideJCICMASTER = false;
+    this.hideJCIC = false;
     this.hideKCM012 = false;
     this.hideDAM001 = false;
     this.hideBAM061 = false;
@@ -412,6 +433,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   exist() {
     for (let index = 0; index < this.list.length; index++) {
       if (this.list[index] == "JCICMASTER") { this.hideJCICMASTER = !this.hideJCICMASTER; }
+      if (this.list[index] == "JCIC") { this.hideJCIC= !this.hideJCIC }
       if (this.list[index] == "KCM012") { this.hideKCM012 = !this.hideKCM012; }
       if (this.list[index] == "DAM001") { this.hideDAM001 = !this.hideDAM001; }
       if (this.list[index] == "BAM061") { this.hideBAM061 = !this.hideBAM061; }
@@ -455,7 +477,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
     if (this.list.length == 0) {
       this.setBooleanFalse();
-    } else if (this.list.length == 31) {
+    } else if (this.list.length == 32) {
       this.setBooleanFalse();
       this.list = [];
     } else {
