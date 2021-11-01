@@ -48,6 +48,7 @@ import { Inputloanpage2Component } from '../inputloan/inputloanpage2/inputloanpa
 import { Inputloanpage3Component } from '../inputloan/inputloanpage3/inputloanpage3.component';
 import { Inputloanpage4Component } from '../inputloan/inputloanpage4/inputloanpage4.component';
 import { Inputloanpage5Component } from '../inputloan/inputloanpage5/inputloanpage5.component';
+import { F02004Component } from '../f02004/f02004.component';
 
 
 const routes: Routes = [
@@ -207,6 +208,10 @@ const routes: Routes = [
       {
         path: 'F02003',
         component: F02003Component
+      },
+      {
+        path: 'F02004',
+        component: F02004Component
       },
       {
         path: 'F03001',

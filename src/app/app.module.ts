@@ -102,6 +102,7 @@ import { Inputloanpage2Component } from './inputloan/inputloanpage2/inputloanpag
 import { Inputloanpage3Component } from './inputloan/inputloanpage3/inputloanpage3.component';
 import { Inputloanpage4Component } from './inputloan/inputloanpage4/inputloanpage4.component';
 import { Inputloanpage5Component } from './inputloan/inputloanpage5/inputloanpage5.component';
+import { F02004Component } from './f02004/f02004.component';
 registerLocaleData(zh);
 export const TW_FORMATS = {
   parse: {
@@ -199,7 +200,8 @@ export const TW_FORMATS = {
     Inputloanpage2Component,
     Inputloanpage3Component,
     Inputloanpage4Component,
-    Inputloanpage5Component
+    Inputloanpage5Component,
+    F02004Component
   ],
   imports: [
     NzIconModule,
