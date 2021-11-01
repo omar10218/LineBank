@@ -56,9 +56,6 @@ import { Childscn18Component } from './childscn18/childscn18.component';
 import { Childscn19Component } from './childscn19/childscn19.component';
 import { Childscn20Component } from './childscn20/childscn20.component';
 import { Childscn21Component } from './childscn21/childscn21.component';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { ChildmapComponent } from './childmap/childmap.component';
 import { NgxWatermarkModule } from 'ngx-watermark';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { Childscn6page2Component } from './childscn6/childscn6page2/childscn6page2.component';
@@ -115,8 +112,8 @@ import { Childscn6page2Component } from './childscn6/childscn6page2/childscn6pag
     Childscn19Component,
     Childscn20Component,
     Childscn21Component,
-    ChildmapComponent,
-    Childscn6page2Component
+    Childscn6page2Component,
+    Childscn10page4Component
   ],
   imports: [
     CommonModule,
