@@ -1,138 +1,138 @@
 <div class="line_bank_bankground_color">
-  <div style="margin-top: 5px; margin-left: 5px; width: 100%;">
-    <nz-tabset nzLinkRouter>
+  <div style=" width: 100%;">
+    <nz-tabset nzLinkRouter style="position:fixed;z-index:10;bottom:283px;width:100%">
       <nz-tab>
         <a *nzTabLink nz-tab-link>
           <button nz-button [nzSize]="'default'" class="hide" (click)="all()"
-            style="margin-top: 15px; margin-left: 5px;">Show All</button></a>
+           >Show All</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideJCIC ? 'nohide' : 'hide'"
-            (click)="show('JCIC')" style="margin-top: 15px; margin-left: 5px;">聯徵彙整資訊</button></a>
+            (click)="show('JCIC')" >聯徵彙整資訊</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideJCICMASTER ? 'nohide' : 'hide'"
-            (click)="show('JCICMASTER')" style="margin-top: 15px; margin-left: 5px;">JCICMASTER</button></a>
+            (click)="show('JCICMASTER')" >JCICMASTER</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideKCM012 ? 'nohide' : 'hide'"
-            (click)="show('KCM012')" style="margin-top: 15px; margin-left: 5px;">KCM012</button></a>
+            (click)="show('KCM012')" >KCM012</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideDAM001 ? 'nohide' : 'hide'"
-            (click)="show('DAM001')" style="margin-top: 15px; margin-left: 5px;">DAM001</button></a>
+            (click)="show('DAM001')" >DAM001</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM061 ? 'nohide' : 'hide'"
-            (click)="show('BAM061')" style="margin-top: 15px; margin-left: 5px;">BAM061</button></a>
+            (click)="show('BAM061')" >BAM061</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideKRM043 ? 'nohide' : 'hide'"
-            (click)="show('KRM043')" style="margin-top: 15px; margin-left: 5px;">KRM043</button></a>
+            (click)="show('KRM043')" >KRM043</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM062 ? 'nohide' : 'hide'"
-            (click)="show('BAM062')" style="margin-top: 15px; margin-left: 5px;">BAM062</button></a>
+            (click)="show('BAM062')" >BAM062</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideVAM020 ? 'nohide' : 'hide'"
-            (click)="show('VAM020')" style="margin-top: 15px; margin-left: 5px;">VAM020</button></a>
+            (click)="show('VAM020')" >VAM020</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideVAM201 ? 'nohide' : 'hide'"
-            (click)="show('VAM201')" style="margin-top: 15px; margin-left: 5px;">VAM201</button></a>
+            (click)="show('VAM201')" >VAM201</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideVAM106 ? 'nohide' : 'hide'"
-            (click)="show('VAM106')" style="margin-top: 15px; margin-left: 5px;">VAM106</button></a>
+            (click)="show('VAM106')" >VAM106</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideVAM107 ? 'nohide' : 'hide'"
-            (click)="show('VAM107')" style="margin-top: 15px; margin-left: 5px;">VAM107</button></a>
+            (click)="show('VAM107')" >VAM107</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideVAM108 ? 'nohide' : 'hide'"
-            (click)="show('VAM108')" style="margin-top: 15px; margin-left: 5px;">VAM108</button></a>
+            (click)="show('VAM108')" >VAM108</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM029 ? 'nohide' : 'hide'"
-            (click)="show('BAM029')" style="margin-top: 15px; margin-left: 5px;">BAM029</button></a>
+            (click)="show('BAM029')" >BAM029</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM501 ? 'nohide' : 'hide'"
-            (click)="show('BAM501')" style="margin-top: 15px; margin-left: 5px;">BAM501</button></a>
+            (click)="show('BAM501')" >BAM501</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM502 ? 'nohide' : 'hide'"
-            (click)="show('BAM502')" style="margin-top: 15px; margin-left: 5px;">BAM502</button></a>
+            (click)="show('BAM502')" >BAM502</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM504 ? 'nohide' : 'hide'"
-            (click)="show('BAM504')" style="margin-top: 15px; margin-left: 5px;">BAM504</button></a>
+            (click)="show('BAM504')" >BAM504</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM505 ? 'nohide' : 'hide'"
-            (click)="show('BAM505')" style="margin-top: 15px; margin-left: 5px;">BAM505</button></a>
+            (click)="show('BAM505')" >BAM505</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM032 ? 'nohide' : 'hide'"
-            (click)="show('BAM032')" style="margin-top: 15px; margin-left: 5px;">BAM032</button></a>
+            (click)="show('BAM032')" >BAM032</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM011 ? 'nohide' : 'hide'"
-            (click)="show('BAM011')" style="margin-top: 15px; margin-left: 5px;">BAM011</button></a>
+            (click)="show('BAM011')" >BAM011</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM067 ? 'nohide' : 'hide'"
-            (click)="show('BAM067')" style="margin-top: 15px; margin-left: 5px;">BAM067</button></a>
+            (click)="show('BAM067')" >BAM067</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM070 ? 'nohide' : 'hide'"
-            (click)="show('BAM070')" style="margin-top: 15px; margin-left: 5px;">BAM070</button></a>
+            (click)="show('BAM070')" >BAM070</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM101 ? 'nohide' : 'hide'"
-            (click)="show('BAM101')" style="margin-top: 15px; margin-left: 5px;">BAM101</button></a>
+            (click)="show('BAM101')" >BAM101</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM421 ? 'nohide' : 'hide'"
-            (click)="show('BAM421')" style="margin-top: 15px; margin-left: 5px;">BAM421</button></a>
+            (click)="show('BAM421')" >BAM421</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM305 ? 'nohide' : 'hide'"
-            (click)="show('BAM305')" style="margin-top: 15px; margin-left: 5px;">BAM305</button></a>
+            (click)="show('BAM305')" >BAM305</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM306 ? 'nohide' : 'hide'"
-            (click)="show('BAM306')" style="margin-top: 15px; margin-left: 5px;">BAM306</button></a>
+            (click)="show('BAM306')" >BAM306</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideBAM307 ? 'nohide' : 'hide'"
-            (click)="show('BAM307')" style="margin-top: 15px; margin-left: 5px;">BAM307</button></a>
+            (click)="show('BAM307')" >BAM307</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link> <button nz-button [nzSize]="'default'" [ngClass]="hideBAM608 ? 'nohide' : 'hide'"
-            (click)="show('BAM608')" style="margin-top: 15px; margin-left: 5px;">BAM608</button></a>
+            (click)="show('BAM608')" >BAM608</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideKRM046 ? 'nohide' : 'hide'"
-            (click)="show('KRM046')" style="margin-top: 15px; margin-left: 5px;">KRM046</button></a>
+            (click)="show('KRM046')" >KRM046</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideKRM048 ? 'nohide' : 'hide'"
-            (click)="show('KRM048')" style="margin-top: 15px; margin-left: 5px;">KRM048</button></a>
+            (click)="show('KRM048')" >KRM048</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideSTM022 ? 'nohide' : 'hide'"
-            (click)="show('STM022')" style="margin-top: 15px; margin-left: 5px;">STM022</button></a>
+            (click)="show('STM022')" >STM022</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideSTM008 ? 'nohide' : 'hide'"
-            (click)="show('STM008')" style="margin-top: 15px; margin-left: 5px;">STM008</button></a>
+            (click)="show('STM008')" >STM008</button></a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link><button nz-button [nzSize]="'default'" [ngClass]="hideSTM025 ? 'nohide' : 'hide'"
-            (click)="show('STM025')" style="margin-top: 15px; margin-left: 5px;">STM025</button></a>
+            (click)="show('STM025')" >STM025</button></a>
       </nz-tab>
     </nz-tabset>
   </div>

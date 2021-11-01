@@ -57,3 +57,15 @@ table {
   transform:rotate(45deg);
   padding-top: 1000px;
 }
+::ng-deep.ant-tabs-tab button:hover {
+  background-color: none;
+  color: none;
+  border-color: none;
+}
+:host::ng-deep .ant-tabs > .ant-tabs-nav,
+.ant-tabs > div > .ant-tabs-nav {
+  background: #dddddd;
+  overflow: hidden;
+  padding: 0px 5px;
+}
+
