@@ -57,3 +57,10 @@ table {
   transform:rotate(45deg);
   padding-top: 1000px;
 }
+::ng-deep.ant-table-small .ant-table-thead>tr>th{
+background-color:#ededed;
+}
+.table-header-title{
+  font-weight: 500;
+  pointer-events: none;
+}
