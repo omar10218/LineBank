@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { OptionsCode } from './../../interface/base';
 import { Component, OnInit } from '@angular/core';
 import { Childscn1Service } from './childscn1.service';
@@ -5,7 +6,7 @@ import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
-import { timingSafeEqual } from 'crypto';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-childscn1',
@@ -244,6 +245,43 @@ export class Childscn1Component implements OnInit {
     this.getCreditmemo( this.pageIndex, this.pageSize );
   }
 
+  map: any;
+  distance: any;
+  ngAfterViewInit(): void {
+
+    // this.map = L.map('map', { center: [25.0249211, 121.5075035], zoom: 12 });//指定欲繪製地圖在id為map的元素中，中心座標為[25.0249211,121.5075035]，縮放程度為16
+    //生成地圖S
+    this.map = L.map('map').setView([25.0249211, 121.5075035], 12);
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      // attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+    tiles.addTo(this.map);
+
+    //標點
+    const marker1 = L
+      .marker([25.0249211, 121.5075035], { title: '' })
+      .addTo(this.map).openPopup();//開啟彈出視窗
+
+    const marker2 = L.marker([25.07824532440103, 121.57678659801286], { title: '' })
+    .addTo(this.map).openPopup();//開啟彈出視窗
+
+    this.map.invalidateSize(true);
+
+    //計算兩點座標距離
+    var markerFrom = L.circleMarker([25.0249211, 121.5075035], { color: "#F00", radius: 10 });
+    var markerTo =  L.circleMarker([25.07824532440103, 121.57678659801286], { color: "#4AFF00", radius: 10 });
+    var from = markerFrom.getLatLng();
+    var to = markerTo.getLatLng();
+    this.distance = (from.distanceTo(to)).toFixed(0)/1000;
+
+    //取兩點座標中心
+    var corner1 = L.latLng(25.0249211, 121.5075035),
+    corner2 = L.latLng(25.07824532440103, 121.57678659801286),
+    bounds = L.latLngBounds(corner1, corner2);
+    this.map.fitBounds(bounds);
+  }
+
   getCreditmemo( pageIndex: number, pageSize: number ) {
     const baseUrl = 'f01/childscn1scn1';
     let jsonObject: any = {};
@@ -251,8 +289,8 @@ export class Childscn1Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
-      this.total = data.rspBody.size;
-      this.creditmemoSource = data.rspBody.items;
+      // this.total = data.rspBody.size;
+      // this.creditmemoSource = data.rspBody.items;
     })
   }
 
@@ -328,5 +366,10 @@ export class Childscn1Component implements OnInit {
         this.approveInterest = Number(this.interestBase) + Number(this.interest);
       }
     }
+  }
+
+  open() {
+    const url = window.location.href.split("/#");
+    window.open( url[0] + "/#/MAP" );
   }
 }
