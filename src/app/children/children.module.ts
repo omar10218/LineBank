@@ -60,6 +60,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { ChildmapComponent } from './childmap/childmap.component';
 import { NgxWatermarkModule } from 'ngx-watermark';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { Childscn6page2Component } from './childscn6/childscn6page2/childscn6page2.component';
+
 
 
 @NgModule({
@@ -113,7 +116,7 @@ import { NgxWatermarkModule } from 'ngx-watermark';
     Childscn20Component,
     Childscn21Component,
     ChildmapComponent,
-    Childscn10page4Component
+    Childscn6page2Component
   ],
   imports: [
     CommonModule,
@@ -124,7 +127,8 @@ import { NgxWatermarkModule } from 'ngx-watermark';
     CommonLibModule,
     NgZorroAntdModule,
     GoogleMapsModule,
-    NgxWatermarkModule
+    NgxWatermarkModule,
+    NzTableModule
   ]
 })
 export class ChildrenModule { }
