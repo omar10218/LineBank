@@ -356,7 +356,7 @@ export class F03006Component implements OnInit {
 			console.log(data)
 			this.empAmtSource.data = data.rspBody
 			console.log(empNo)
-			//this.getAmtList(empNo
+			// this.getAmtList(empNo)
 			this.chkArray = []
 			for (const jsonObj of this.empRoleSource.data) {
 				let isChk: boolean = false
@@ -370,11 +370,11 @@ export class F03006Component implements OnInit {
 				data: {CHECKBOX: this.chkArray, SOURCE: this.empAmtSource.data, empNo: empNo},
 			})
 
-			dialogRef.afterClosed().subscribe(result => {
-				if (result != null && (result.event == 'success' || result == '1')) {
-					this.refreshTable()
-				}
-			})
+			// dialogRef.afterClosed().subscribe(result => {
+			// 	if (result != null && (result.event == 'success' || result == '1')) {
+			// 		this.refreshTable()
+			// 	}
+			// })
 		})
 	}
 

@@ -46,7 +46,7 @@ export class F03006Service extends BaseService {
   }
 
   //角色設定
-  saveEmployeeRole(baseUrl: string, json: JSON): Observable<any> {
-    return this.postJsonObject(baseUrl, json);
+  saveEmployeeRole(baseUrl: string, array: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, array);
   }
 }
