@@ -33,7 +33,7 @@ export class F01005page1Component implements OnInit {
   caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
   agentEmpNo: string;                                 // 代理人
   agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
-  cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單
+  cusinfoDataSource = [];  // 案件清單
   fds: string = "";                                   // fds
   loading = true;
   pageSize = 10;
