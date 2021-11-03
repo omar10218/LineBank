@@ -4,9 +4,14 @@ import { Childscn6Service } from './childscn6.service';
 import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
 import { NgxWatermarkOptions } from 'ngx-watermark';
 import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 interface dateCode {
   value: string;
   viewValue: string;
+}
+enum Page {
+  Page1,
+  Page2
 }
 
 @Component({
@@ -15,7 +20,7 @@ interface dateCode {
   styleUrls: ['./childscn6.component.css', '../../../assets/css/f01.css']
 })
 export class Childscn6Component implements OnInit {
-
+  total: string;
   constructor(
     private childscn6Service: Childscn6Service,
     private componenFactoryResolver: ComponentFactoryResolver,
@@ -29,6 +34,8 @@ export class Childscn6Component implements OnInit {
   private applno: string;
   private cuid: string;
   today: string;
+
+  calloutSource$: Subscription;
 
   options: NgxWatermarkOptions = {
     text: '',
@@ -50,28 +57,29 @@ export class Childscn6Component implements OnInit {
       //this.watermark = data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
 
       this.options.text =  data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
-      // data.rspBody[0].empNo + data.rspBody[0].empName + this.today
-      // +data.rspBody[0].empNo + data.rspBody[0].empName + this.today+data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
+      data.rspBody[0].empNo + data.rspBody[0].empName + this.today
+      +data.rspBody[0].empNo + data.rspBody[0].empName + this.today+data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
     });
   }
 
   ngAfterViewInit() {
-    const url = 'f01/childscn6';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['cuid'] = this.cuid;
-    jsonObject['code'] = 'MASTER';
-    this.childscn6Service.getDate(url, jsonObject).subscribe(data => {
-      if (data.rspBody.items.length > 0) {
-        for (let i = 0; i < data.rspBody.items.length; i++) {
-          this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
-        }
-        this.dateValue = data.rspBody.items[0].QUERYDATE
-        sessionStorage.setItem('queryDate', this.dateValue);
-        this.resetPage();
-        //this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase, fds: this.fds} });
-      }
-    });
+    this.resetPage();
+    // const url = 'f01/childscn6';
+    // let jsonObject: any = {};
+    // jsonObject['applno'] = this.applno;
+    // jsonObject['cuid'] = this.cuid;
+    // jsonObject['code'] = 'MASTER';
+    // this.childscn6Service.getDate(url, jsonObject).subscribe(data => {
+    //   if (data.rspBody.items.length > 0) {
+    //     for (let i = 0; i < data.rspBody.items.length; i++) {
+    //       this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
+    //     }
+    //     this.dateValue = data.rspBody.items[0].QUERYDATE
+    //     sessionStorage.setItem('queryDate', this.dateValue);
+    //     this.resetPage();
+    //     //this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase, fds: this.fds} });
+    //   }
+    // });
   }
 
   changeDate() {

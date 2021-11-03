@@ -2,7 +2,7 @@
   <div class="content">
       <div nz-col nzSpan="24">
           <div class="line_bank_card_no_padding">
-              <nz-table nzShowSizeChanger [nzData]="callOutDataSource.data" [nzFrontPagination]="true"
+              <nz-table nzShowSizeChanger [nzData]="callOutDataSource" [nzFrontPagination]="false"
                   [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
                   [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="照會提醒清單"nzFooter="案件數: {{this.total}} 件"
                   (nzQueryParams)="onQueryParamsChange($event)">
@@ -20,7 +20,7 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let data of callOutDataSource.data">
+                      <tr *ngFor="let data of callOutDataSource">
                           <td class="table-data">
                               <button nz-button [nzSize]="'middle'" nzType="link" (click)="toCalloutPage(data.APPLNO)">
                                   {{data.APPLNO}}

@@ -22,4 +22,8 @@ export class Childscn6Service extends BaseService {
     const baseUrl = 'f01/childscn6action1';
     return this.postJsonObject(baseUrl, json);
   }
+  getMASTERJCICList(json: JSON): Observable<any> {
+    const baseUrl = 'f01/childscn6action3';
+    return this.postJsonObject(baseUrl, json);
+  }
 }

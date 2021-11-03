@@ -71,7 +71,7 @@ const routes: Routes = [
       {
         path: 'CHILDSCN6PAGE1',
         component: Childscn6page1Component
-      }
+      },
     ]
   },
   {
