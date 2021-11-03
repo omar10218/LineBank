@@ -61,19 +61,20 @@
         <div #absBox class="abs-box">
             <div nz-col nzSpan="24">
                 <div class="line_bank_card_no_padding">
-                    <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource.data" [nzFrontPagination]="false"
+                    <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false"
                         [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
                         [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="文審案件清單"
-                        [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)">
+                        nzFooter="案件數: {{this.total}} 件" [nzScroll]="{ x: '1500px', y:tableHeight}"
+                        (nzQueryParams)="onQueryParamsChange($event)">
                         <thead style="max-height: 100vh;">
-                            <div style="text-align:right;width: 90vw; font-size: 16px;">
-                                <span>案件數: {{this.total}} 件</span>
-                            </div>
                             <tr>
-                                <th class="table-header" [nzLeft]="true" [nzWidth]="'160px'">收件編號</th>
+                                <th class="table-header" [nzWidth]="'160px'" (nzSortOrderChange)="sortChange($event)"
+                                    [nzSortFn]="true" [nzLeft]="true">收件編號</th>
                                 <th class="table-header" [nzWidth]="'160px'">流程別</th>
                                 <th class="table-header" [nzWidth]="'160px'">是否重查完成</th>
-                                <th class="table-header" [nzWidth]="'160px'">進件時間</th>
+                                <th class="table-header" [nzWidth]="'160px'" (nzSortOrderChange)="sortChange($event)"
+                                    [nzSortFn]="true" [nzSortOrder]="'ascend'">
+                                    進件時間</th>
                                 <th class="table-header" [nzWidth]="'160px'">身分證號</th>
                                 <th class="table-header" [nzWidth]="'160px'">姓名</th>
                                 <th class="table-header" [nzWidth]="'200px'">公司名稱</th>
@@ -88,7 +89,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let data of cusinfoDataSource.data">
+                            <tr *ngFor="let data of cusinfoDataSource">
                                 <td class="table-data" [nzLeft]="true" [nzWidth]="'160px'" style="text-align: center;">
                                     <button nz-button [nzSize]="'middle'" nzType="link"
                                         *ngIf="data.swcReadyForReview=='N'" [disabled]="true">

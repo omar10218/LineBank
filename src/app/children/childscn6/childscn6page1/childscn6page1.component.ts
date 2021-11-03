@@ -265,7 +265,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   getJcicMultiple() {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['cuid'] = this.cuid;
+    jsonObject['nationalId'] = this.cuid;
     jsonObject['code'] = 'AAS003,JAS002,APS001,ACI001,BAI001,KRI001,BAI004,KRI002,BAS008,BAS006,STS007';
     jsonObject['queryDate'] = this.queryDate;
     this.childscn6Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
@@ -286,7 +286,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   getJCIC( pageIndex: number, pageSize: number, code: string ) {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['cuid'] = this.cuid;
+    jsonObject['nationalId'] = this.cuid;
     jsonObject['code'] = code;
     jsonObject['queryDate'] = this.queryDate;
     jsonObject['page'] = pageIndex;
