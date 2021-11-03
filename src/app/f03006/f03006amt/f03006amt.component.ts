@@ -16,15 +16,15 @@ interface checkBox {
 })
 export class F03006amtComponent {
 	checked = [] //存取被選到的物件
-  check:boolean=false ;
+	check: boolean = false
 	constructor(public dialogRef: MatDialogRef<F03006amtComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03006Service: F03006Service) {}
 	submit() {}
 	ngOnInit(): void {
 		console.log(this.data)
 		console.log(this.data.SOURCE)
-    this.getCheckList()
+		this.getCheckList()
 	}
-n
+	n
 	//載入選項
 	setAll(completed: boolean) {
 		for (const obj of this.data.CHECKBOX) {
@@ -38,75 +38,70 @@ n
 		this.dialogRef.close()
 	}
 	// 如果該row的isChk屬性為true就存入陣列
-  test:any
+	test: any
 	getCheckList() {
-		this.checked = this.data.SOURCE.filter(
-      data => data.MAX_APPROVE_AMTt<=this.test)
+		this.checked = this.data.SOURCE.filter(data => data.MAX_APPROVE_AMTt <= this.test)
 
-      // {
-      //   if(data.MAX_APPROVE_AMT==! null){
-      //     this.check=true
-      //   }
-      //   console.log(data)
-      //   console.log(this.check)
-      // });
-      // console.log(this.checked)
-
+		// {
+		//   if(data.MAX_APPROVE_AMT==! null){
+		//     this.check=true
+		//   }
+		//   console.log(data)
+		//   console.log(this.check)
+		// });
+		// console.log(this.checked)
 	}
 
 	//儲存角色設定
 	public async confirmAdd(): Promise<void> {
+		const baseUrl = 'f03/f03006action9'
+		var valArray: string[] = []
+		// for (const obj of this.data.CHECKBOX) {
+		//   if (obj.completed) { valArray.push(obj.value); }
+		// }
+		console.log(this.data)
+		console.log(this.data.SOURCE)
+		let jsonObject: any = {}
+		// let jsonObjects: any = [];
+		// let array: [];
+		jsonObject['empNo'] = this.data.empNo
+		const array = this.data.SOURCE.filter(item => item.MAX_APPROVE_AMT >= 0).map(item => ({
+			empNo: this.data.empNo,
+			prodType: item.PROD_CODE,
+			maxApproveAmt: item.MAX_APPROVE_AMT,
+		}))
 
-	  const baseUrl = 'f03/f03006action9';
-	  var valArray: string[] = [];
-	  // for (const obj of this.data.CHECKBOX) {
-	  //   if (obj.completed) { valArray.push(obj.value); }
-	  // }
-	  console.log(this.data)
-	  console.log(this.data.SOURCE)
-	  let jsonObject: any = {};
-	  let jsonObjects: any = [];
-	  // let array: [];
-	  jsonObject['empNo'] = this.data.empNo;
+		// let arr = []
+		// for (let i = 0; i < this.data.SOURCE.length; i++) {
+		// 	const item = this.data.SOURCE[i]
+		// 	if (item.MAX_APPROVE_AMT >= 0) {
+		// 		arr.push({
+		// 			empNo: this.data.empNo,
+		// 			prodType: item.PROD_CODE,
+		// 			maxApproveAmt: item.MAX_APPROVE_AMT,
+		// 		})
+		// 	}
+		// }
 
-    const array = this.data.SOURCE
-      .filter(item => item.MAX_APPROVE_AMT >= 0)
-      .map(item => ({
-        empNo: this.data.empNo,
-			  prodType: item.PROD_CODE,
-			  maxApproveAmt: item.MAX_APPROVE_AMT,
-      }));
-
-
-    let arr = [];
-    for (let i = 0 ; i < this.data.SOURCE.length ; i++) {
-      const item = this.data.SOURCE[i];
-      if (item.MAX_APPROVE_AMT >= 0) {
-        arr.push({
-          empNo: this.data.empNo,
-		  	  prodType: item.PROD_CODE,
-			    maxApproveAmt: item.MAX_APPROVE_AMT,
-        })
-      }
-    }
-
-	  // for( let i=0; i<this.data.SOURCE.length; i++){
-	  //   console.log(this.data.SOURCE[i].PROD_CODE)
-	  //   // array =this.data.SOURCE[i].PROD_CODE;
-	  //   jsonObject['maxApproveAmt'] =this.data.SOURCE[i].MAX_APPROVE_AMT ;
-	  //   jsonObject['prodType'] =this.data.SOURCE[i].PROD_CODE ;
-	  //   jsonObjects.push(jsonObject)
-	  // }
-	  console.log(array)
-	  let msgStr = '';
-	   this.f03006Service.saveEmployeeRole(baseUrl, array).subscribe(data => {
-	     console.log(data)
-	    msgStr = (data.rspCode === '0000' && data.rspMsg === '成功') ? '儲存成功！' : '儲存失敗！';
-	    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-	      data: { msgStr: msgStr }
-	    });
-	    if (msgStr === '儲存成功！') { this.dialogRef.close({ event:'success' }); }
-	  });
+		// for( let i=0; i<this.data.SOURCE.length; i++){
+		//   console.log(this.data.SOURCE[i].PROD_CODE)
+		//   // array =this.data.SOURCE[i].PROD_CODE;
+		//   jsonObject['maxApproveAmt'] =this.data.SOURCE[i].MAX_APPROVE_AMT ;
+		//   jsonObject['prodType'] =this.data.SOURCE[i].PROD_CODE ;
+		//   jsonObjects.push(jsonObject)
+		// }
+		console.log(array)
+		let msgStr = ''
+		this.f03006Service.saveEmployeeRole(baseUrl, array).subscribe(data => {
+			console.log(data)
+			msgStr = data.rspCode === '0000' && data.rspMsg === '成功' ? '儲存成功！' : '儲存失敗！'
+			const childernDialogRef = this.dialog.open(ConfirmComponent, {
+				data: {msgStr: msgStr},
+			})
+			if (msgStr === '儲存成功！') {
+				this.dialogRef.close({event: 'success'})
+			}
+		})
 	}
 	// public async confirmAdd(): Promise<void> {
 	// 	// this.getCompareDataSet()
@@ -127,7 +122,7 @@ n
 	// 		jsonObjects.push(jsonObject)
 	// 	}
 	// 	console.log(jsonObjects)
-  //   this.f03006Service.saveEmployeeRole(baseUrl, jsonObjects).subscribe(data => {
+	//   this.f03006Service.saveEmployeeRole(baseUrl, jsonObjects).subscribe(data => {
 	// 		console.log(data)
 	// 		msgStr = data.rspCode === '0000' && data.rspMsg === '儲存成功!' ? '儲存成功！' : '儲存失敗！'
 	// 		const childernDialogRef = this.dialog.open(ConfirmComponent, {
