@@ -3,7 +3,10 @@
   flex-direction: column;
   flex: 1;
 }
-
+::ng-deep.ant-table-footer {
+  position: absolute;
+  bottom:-50px;
+}
 :host{
   display: flex;
   flex-direction: column;
@@ -137,5 +140,8 @@ width:200px;
 border-radius:10px;
 background-color:#DBDBDB ;
 border:1px solid  #c9c9c9;
+}
+.form{
+  padding:0px;
 }
 
