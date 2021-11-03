@@ -1,22 +1,21 @@
+import { F01011Service } from './f01011.service';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { F03008Service } from '../f03008.service';
-import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 
 @Component({
-  selector: 'app-f03008upload',
-  templateUrl: './f03008upload.component.html',
-  styleUrls: ['./f03008upload.component.css', '../../../assets/css/f03.css']
+  selector: 'app-f01011',
+  templateUrl: './f01011.component.html',
+  styleUrls: ['./f01011.component.css', '../../assets/css/f01.css']
 })
-export class F03008uploadComponent implements OnInit {
+export class F01011Component implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<F03008uploadComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public f03008Service: F03008Service,
+    private fb: FormBuilder,
     public dialog: MatDialog,
-    private fb: FormBuilder
+    private f01011Service: F01011Service,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   uploadForm: FormGroup = this.fb.group({
@@ -34,14 +33,16 @@ export class F03008uploadComponent implements OnInit {
   }
 
   public async confirmAdd(): Promise<void> {
+
     if ( this.fileToUpload == null ) {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "請上傳正確檔案!!" });
     } else {
       const formdata: FormData = new FormData();
       formdata.append('file', this.fileToUpload);
       let msgStr: string = "";
-      let baseUrl = 'f03/f03008action2';
-      this.f03008Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
+      let baseUrl = 'f01/f01011action1';
+      this.f01011Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
+        console.log(data)
         let msg = "";
         if (data.rspCode != "0000") {
           if (data.rspBody.ErrorInformation.length > 0) {
@@ -54,13 +55,6 @@ export class F03008uploadComponent implements OnInit {
         this.uploadForm.patchValue({ ERROR_MESSAGE: msg });
       });
     }
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  submit() {
   }
 
   //檢查上傳檔案格式
