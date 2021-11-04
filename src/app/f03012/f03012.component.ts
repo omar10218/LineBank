@@ -51,7 +51,7 @@ export class F03012Component implements OnInit {
   checked = []; //存取被選到的物件
   compareItems = []; //物件陣列
   useFlag: boolean; //用來控制元件是否顯示於頁面
-
+  isEdit:boolean=true
 
 
   constructor(private f03012Service: F03012Service, public dialog: MatDialog,private alert: NzAlertModule) { }
@@ -70,6 +70,7 @@ export class F03012Component implements OnInit {
       direction: ''
     };
   }
+
   getCompareTable(){
     this.f03012Service.getSysTypeCode('COMPARE_TABLE')
     .subscribe(data => {
@@ -109,6 +110,7 @@ export class F03012Component implements OnInit {
       this.currentPage = page;
       this.getComePareDataSetList(this.pageIndex, this.pageSize);
     });
+    console.log(this.selectedValue1)
   }
 
   totalCount: any;
@@ -243,6 +245,7 @@ export class F03012Component implements OnInit {
 
   // }
   queryByCompareTable(compareTable:string){
+    this.selectedValue1=compareTable
     let msg= '';
     const url = 'f03/f03012action4'
     const formdata:FormData =new FormData();
@@ -266,14 +269,14 @@ export class F03012Component implements OnInit {
 
   }
 
-  setAll(completed: boolean) {
+  // setAll(completed: boolean) {
 
-    for (const obj of this.chkArray) {
-      console.log(this.chkArray);
-      obj.completed = completed;
-    }
+  //   for (const obj of this.chkArray) {
+  //     console.log(this.chkArray);
+  //     obj.completed = completed;
+  //   }
 
-  }
+  // }
   // async allCheck() {
   //   this.isAllCheck = false;
   //   await this.getRoleFunction();
@@ -304,11 +307,11 @@ export class F03012Component implements OnInit {
   // }
 
   // 如果該row的isChk屬性為true就存入陣列
-  getCompareDataSet() {
-    this.checked = this.compareDataSetSource.data.filter(
-      (i) => i.isChk == true);
-      console.log(this.checked)
-  }
+  // getCompareDataSet() {
+  //   this.checked = this.compareDataSetSource.data.filter(
+  //     (i) => i.isChk == true);
+  //     console.log(this.checked)
+  // }
   // checkBox狀態變化時觸發此function，改變checkBox狀態同時存取該項目入checked陣列
   changeChkStatus(id) {
     console.log(id)

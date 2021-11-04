@@ -117,10 +117,18 @@
               {{ row.setValueHight }}
             </div>
           </td>
-          <td class="table-data">
-            <button *ngIf="row.isChk == false;" nz-button [nzSize]="'middle'" nzType="primary" (click)="edit(
+          <td class="table-data"*ngIf="row.compareTable==selectedValue1; else elseBlock" >
+            <button  nz-button [nzSize]="'middle'" nzType="primary" disabled nzGhost (click)="edit(
               row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight, row.compareType )">編輯</button>
           </td>
+          <ng-template #elseBlock>
+            <td class="table-data">
+              <button *ngIf="row.isChk == false;"  nz-button [nzSize]="'middle'" nzType="primary" (click)="edit(
+                row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight, row.compareType )">編輯</button>
+            </td>
+          </ng-template>
+
+
           <td class="table-data">
             <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="delete(
               row.compareTable, row.compareColumn, row.compareType, row.setValueHight, row.setValueLow)">刪除</button>
