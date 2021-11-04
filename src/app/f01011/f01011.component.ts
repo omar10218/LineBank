@@ -42,16 +42,18 @@ export class F01011Component implements OnInit {
       let msgStr: string = "";
       let baseUrl = 'f01/f01011action1';
       this.f01011Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
-        console.log(data)
         let msg = "";
-        if (data.rspCode != "0000") {
-          if (data.rspBody.ErrorInformation.length > 0) {
-            for (const Information of data.rspBody.ErrorInformation) {
-              msg += Information.repeatValue + "\n";
+        let errorMsg = "";
+        msg = data.rspMsg;
+        if ( data.rspBody != null ) {
+          if ( data.rspMsg.length > 0 ) {
+            msg = data.rspMsg + "\n 錯誤清單：\n";
+            for( let i = 0 ; i < data.rspBody.length ; i++ ) {
+              errorMsg += "第" + data.rspBody[i].index + ", 客戶ID：" + data.rspBody[i].nationalId + ", 錯誤訊息：" + data.rspBody[i].errorMsg + "\n";
             }
+            msg = msg + errorMsg;
           }
         }
-        msg += data.rspMsg;
         this.uploadForm.patchValue({ ERROR_MESSAGE: msg });
       });
     }
