@@ -57,6 +57,8 @@ import { Childscn20Component } from './childscn20/childscn20.component';
 import { Childscn21Component } from './childscn21/childscn21.component';
 import { NgxWatermarkModule } from 'ngx-watermark';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faImage,faFolderOpen,faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -122,7 +124,14 @@ import { NzTableModule } from 'ng-zorro-antd/table';
     NgZorroAntdModule,
     GoogleMapsModule,
     NgxWatermarkModule,
-    NzTableModule
+    NzTableModule,
+    FontAwesomeModule
   ]
 })
-export class ChildrenModule { }
+export class ChildrenModule {
+  constructor(library:FaIconLibrary){
+    library.addIcons(faImage);
+    library.addIcons(faFolderOpen);
+    library.addIcons(faCloudUploadAlt);
+  }
+ }

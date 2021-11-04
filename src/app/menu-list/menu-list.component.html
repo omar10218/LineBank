@@ -4,12 +4,17 @@
     <button mat-button [matMenuTriggerFor]="aboveMenu" *ngFor="let menu of getMenu()"
       style="width:11%;text-align: center;">
       <!-- <mat-icon style="display:inline-block;position:relative;bottom:7px">{{menu.getIcon()}}</mat-icon> -->
-
-      <img *ngIf="menu.getIcon()=='person_outline'" width="13%" src="assets\images\outline_person_black_48dp.png">
-      <img *ngIf="menu.getIcon()=='search'" width="13%" src="assets\images\outline_search_black_48dp.png">
+      <!-- <img *ngIf="menu.getIcon()=='person_outline'" width="13%" src="assets\images\outline_person_black_48dp.png"> -->
+      <!-- <img *ngIf="menu.getIcon()=='search'" width="13%" src="assets\images\outline_search_black_48dp.png">
       <img *ngIf="menu.getIcon()=='report'" width="13%" src="assets\images\outline_equalizer_black_48dp.png">
       <img *ngIf="menu.getIcon()=='autorenew'" width="13%" src="assets\images\outline_autorenew_black_48dp.png">
-      <img *ngIf="menu.getIcon()=='equalizer'" width="13%" src="assets\images\outline_equalizer_black_48dp.png">
+      <img *ngIf="menu.getIcon()=='equalizer'" width="13%" src="assets\images\outline_equalizer_black_48dp.png"> -->
+      <fa-icon *ngIf="menu.getIcon()=='person_outline'" width="13%" [icon]="['fas', 'user']"></fa-icon>
+      <fa-icon *ngIf="menu.getIcon()=='search'" width="13%" [icon]="['fas', 'search']"></fa-icon>
+      <fa-icon *ngIf="menu.getIcon()=='report'" width="13%" [icon]="['fas', 'chart-bar']"></fa-icon>
+      <fa-icon *ngIf="menu.getIcon()=='autorenew'" width="13%" [icon]="['fas', 'sync-alt']"></fa-icon>
+      <fa-icon *ngIf="menu.getIcon()=='equalizer'" width="13%" [icon]="['fas', 'user-cog']"></fa-icon>
+
       {{menu.getTitle()}}
       <mat-menu #aboveMenu="matMenu" yPosition="below" style="font-size:25px">
         <button mat-menu-item *ngFor="let map of menu.getMenuList() | keyvalue: returnZero" [routerLink]="map.value">
@@ -71,12 +76,13 @@
       <!-- <img src="assets/images/user.png" class="user-avatar"> -->
       <!-- <mat-icon [matMenuTriggerFor]="menu" aria-label="User"
       style="position: absolute; top:16px;right:20px">xxwmore_horiz</mat-icon> -->
-      <img src="assets/images/outline_more_horiz_black_48dp.png" [matMenuTriggerFor]="menu" class="position_top2">
-
+      <!-- <img src="assets/images/outline_more_horiz_black_48dp.png" [matMenuTriggerFor]="menu" class="position_top2"> -->
+      <fa-icon class="ellipsisIcon_size" [matMenuTriggerFor]="menu" [icon]="['fas', 'ellipsis-h']" ></fa-icon>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="logOut()">
           <!-- <mat-icon>exit_to_app</mat-icon> -->
-          <img width="25%" src="assets/images/outline_exit_to_app_black_48dp.png" class="position_top">
+          <fa-icon class="icon_size" [icon]="['fas', 'share-square']" ></fa-icon>
+          <!-- <img width="25%" src="assets/images/outline_exit_to_app_black_48dp.png" class="position_top"> -->
           <span>登出</span>
         </button>
         <!-- <button mat-menu-item (click)="input()">

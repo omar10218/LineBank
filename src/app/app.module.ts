@@ -104,6 +104,7 @@ import { Inputloanpage4Component } from './inputloan/inputloanpage4/inputloanpag
 import { Inputloanpage5Component } from './inputloan/inputloanpage5/inputloanpage5.component';
 import { F02004Component } from './f02004/f02004.component';
 import { F01011Component } from './f01011/f01011.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 registerLocaleData(zh);
 export const TW_FORMATS = {
   parse: {
@@ -221,6 +222,7 @@ export const TW_FORMATS = {
     NgZorroAntdModule,
     NzButtonModule,
     GoogleMapsModule,
+    FontAwesomeModule,
   ],
   providers: [
     BnNgIdleService,

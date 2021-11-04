@@ -64,3 +64,14 @@
   position: absolute;
   top: -8px;
 }
+
+.icon_size{
+  font-size:20px
+}
+
+.ellipsisIcon_size{
+  position: absolute;
+  top: 2%;
+  left: 70%;
+  font-size:20px
+}

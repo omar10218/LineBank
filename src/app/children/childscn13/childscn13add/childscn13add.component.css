@@ -37,3 +37,11 @@
     position: relative;
     top:-5px;
   }
+
+  .icon_size{
+    position: relative;
+    top:-4px;
+    font-size:20px
+  }
+
+
