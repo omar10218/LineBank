@@ -8,5 +8,14 @@ import { BaseService } from '../base.service';
 })
 export class F01009Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
+  getCaseList(jsonObject: JSON): Observable<any> {
+    const baseUrl = 'f01/f01009';
 
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
+
+  getLockCase(jsonObject: JSON){
+    const baseUrl = 'f01/f01009fn1';
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
 }

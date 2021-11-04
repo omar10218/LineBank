@@ -19,7 +19,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     public dialog: MatDialog,
   ) { }
 
-  total = 1;
+  total: number;
   @ViewChild('absBox') absBox: ElementRef             // 抓取table id
   empNo: string = localStorage.getItem("empNo");      // 當前員編
   swcID: string;                                      // 身分證字號
@@ -30,7 +30,6 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
   cusinfoDataSource = [];                             // 案件清單
   fds: string = "";                                   // fds
-  loading = true;
   readonly pageSize = 50;
   pageIndex = 1;
 
@@ -51,7 +50,8 @@ export class F01002page1Component implements OnInit, AfterViewInit {
         this.caseTypeCode.push({ value: codeNo, viewValue: desc })
       }
     });
-    // 查詢代理人
+
+    // 代理人
     let jsonObject: any = {};
     jsonObject['swcL3EmpNo'] = this.empNo;
 
@@ -70,18 +70,18 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+    this.getCaseList();
   }
 
   // 查詢案件清單
-  getCaseList(empNo: string, swcID: string, swcApplno: string) {
+  getCaseList() {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL3EmpNo'] = empNo;
-    jsonObject['swcID'] = swcID;
-    jsonObject['swcApplno'] = swcApplno;
-    this.loading = false;
+    jsonObject['swcL3EmpNo'] = this.empNo;
+    jsonObject['swcID'] = this.swcID;
+    jsonObject['swcApplno'] = this.swcApplno;
+    jsonObject['caseType'] = this.caseType;
     this.f01002Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
@@ -94,9 +94,15 @@ export class F01002page1Component implements OnInit, AfterViewInit {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項條件" }
       });
-    } else {
+    } else if (this.swcID != '' && !this.f01002Service.checkIdNumberIsValid(this.swcID)) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "身分驗證失敗" }
+      });
+    }
+    else {
+      this.empNo = this.agentEmpNo; 
       this.changePage();
-      this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+      this.getCaseList();
     }
   }
 
@@ -115,7 +121,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
-        sessionStorage.setItem('review','');
+        sessionStorage.setItem('review', '');
         sessionStorage.setItem('level', '3');
         this.router.navigate(['./F01002/F01002SCN1']);
       }
@@ -135,7 +141,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       if (msg != null && msg == 'success') {
-        this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+        this.getCaseList();
       }
     }, 500);
   }
@@ -145,7 +151,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     console.log(params)
     if (this.pageIndex !== pageIndex) {
       this.pageIndex = pageIndex;
-      this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+      this.getCaseList();
     }
   }
 
@@ -178,7 +184,6 @@ export class F01002page1Component implements OnInit, AfterViewInit {
 
   // 排序
   sortChange(e: string) {
-    console.log(e)
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
   }
