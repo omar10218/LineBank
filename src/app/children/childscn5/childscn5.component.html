@@ -3,7 +3,12 @@
   <form [formGroup]="customerInfoForm" style="padding-left: 20px;">
     <table>
       <div style="padding-left: 10px;">
-        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
+        <div *ngIf="getSearch() == 'N'">
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
+        </div>
+        <div *ngIf="getSearch() != 'N'">
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" disabled >儲存</button>
+        </div>
       </div>
       <div class="line_bank_card_no_padding_child">
 
