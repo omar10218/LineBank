@@ -8,7 +8,6 @@ import { BaseService } from '../base.service';
 })
 export class F01002Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
-  // pageIndex: number, pageSize: number, empno: string, swcID: string, swcApplno: string
   getCaseList(jsonObject: JSON): Observable<any> {
     const baseUrl = 'f01/f01002';
 

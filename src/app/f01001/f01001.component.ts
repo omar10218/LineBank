@@ -16,7 +16,7 @@ export class F01001Component implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private f01001Service: F01001Service,
-    public dialog: MatDialog,
+    public dialog: MatDialog
   ) { }
 
   total = 1;
@@ -30,7 +30,6 @@ export class F01001Component implements OnInit, AfterViewInit {
   agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
   cusinfoDataSource = [];                             // 案件清單
   fds: string = "";                                   // fds
-  loading = true;
   readonly pageSize = 50;
   pageIndex = 1;
 
@@ -81,7 +80,6 @@ export class F01001Component implements OnInit, AfterViewInit {
     jsonObject['swcL4EmpNo'] = empNo;
     jsonObject['swcID'] = swcID;
     jsonObject['swcApplno'] = swcApplno;
-    this.loading = false;
     this.f01001Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
