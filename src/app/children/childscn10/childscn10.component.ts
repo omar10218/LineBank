@@ -60,9 +60,9 @@ export class Childscn10Component implements OnInit {
   getLevel() {
     let YN = "N";
     //測試用 都通過
-    YN = "Y"
+    // YN = "Y"
     //正式用
-    // if(this.level=="1"||this.level=="2"){YN="Y"}
+    if(this.level=="1"||this.level=="2"){YN="Y"}
     return YN;
   }
 

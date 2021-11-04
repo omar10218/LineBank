@@ -1,0 +1,56 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { Childbwscn1Component } from '../children-bw/childbwscn1/childbwscn1.component';
+import { Childbwscn2Component } from '../children-bw/childbwscn2/childbwscn2.component';
+import { Childbwscn3Component } from '../children-bw/childbwscn3/childbwscn3.component';
+import { Childbwscn4Component } from '../children-bw/childbwscn4/childbwscn4.component';
+import { Childbwscn5Component } from '../children-bw/childbwscn5/childbwscn5.component';
+import { Childbwscn6Component } from '../children-bw/childbwscn6/childbwscn6.component';
+import { Childbwscn7Component } from '../children-bw/childbwscn7/childbwscn7.component';
+import { Childbwscn8Component } from '../children-bw/childbwscn8/childbwscn8.component';
+
+const routes: Routes = [
+  {
+    path: 'CHILDBWSCN1',
+    component: Childbwscn1Component
+  },
+  {
+    path: 'CHILDBWSCN2',
+    component: Childbwscn2Component,
+  },
+  {
+    path: 'CHILDBWSCN3',
+    component: Childbwscn3Component
+  },
+  {
+    path: 'CHILDBWSCN4',
+    component: Childbwscn4Component
+  },
+  {
+    path: 'CHILDBWSCN5',
+    component: Childbwscn5Component
+  },
+  {
+    path: 'CHILDBWSCN6',
+    component: Childbwscn6Component,
+  },
+  {
+    path: 'CHILDBWSCN7',
+    component: Childbwscn7Component
+  },
+  {
+    path: 'CHILDBWSCN8',
+    component: Childbwscn8Component
+  },
+  {
+    path: '',
+    redirectTo: 'CHILDBWSCN1',
+    pathMatch: 'full'
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ChildrenBwRoutingModule { }

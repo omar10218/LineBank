@@ -49,6 +49,7 @@ import { Inputloanpage3Component } from '../inputloan/inputloanpage3/inputloanpa
 import { Inputloanpage4Component } from '../inputloan/inputloanpage4/inputloanpage4.component';
 import { Inputloanpage5Component } from '../inputloan/inputloanpage5/inputloanpage5.component';
 import { F02004Component } from '../f02004/f02004.component';
+import { F01011Component } from '../f01011/f01011.component';
 
 
 const routes: Routes = [
@@ -142,6 +143,10 @@ const routes: Routes = [
       {
         path: 'F01010',
         loadChildren: () => import('../f01010/f01010.module').then(m => m.F01010Module)
+      },
+      {
+        path: 'F01011',
+        component: F01011Component
       },
       {
         path: 'F02001',

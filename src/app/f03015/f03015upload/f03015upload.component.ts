@@ -22,13 +22,15 @@ export class F03015uploadComponent implements OnInit {
   });
 
   public async confirmAdd(): Promise<void> {
-    const formdata: FormData = new FormData();
-    formdata.append('file', this.fileToUpload);
-    let msgStr: string = "";
-    let baseUrl = 'f03/f03015action4';
-    this.f03015Service.uploadExcel(baseUrl, this.fileToUpload).subscribe(data => {
-      this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
-    });
+    let hasErrorMsg = this.uploadForm.value.ERROR_MESSAGE != null && this.uploadForm.value.ERROR_MESSAGE != '';
+    if(!hasErrorMsg) {
+      const formdata: FormData = new FormData();
+      formdata.append('file', this.fileToUpload);
+      let baseUrl = 'f03/f03015action4';
+      this.f03015Service.uploadExcel(baseUrl, this.fileToUpload).subscribe(data => {
+        this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
+      });
+    }
   }
 
   onNoClick(): void {
@@ -40,6 +42,7 @@ export class F03015uploadComponent implements OnInit {
 
   //檢查上傳檔案格式
   onChange(evt) {
+    this.uploadForm.patchValue({ ERROR_MESSAGE: "" });
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isExcelFile = !!target.files[0].name.match(/(.xls|.xlsx)/);
     if (this.isExcelFile) {

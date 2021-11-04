@@ -54,7 +54,6 @@ export class F01009Component implements OnInit {
     sessionStorage.setItem('search', 'N');
     sessionStorage.setItem('fds', 'F');
     sessionStorage.setItem('queryDate', '');
-    sessionStorage.setItem('review', 'Y');
     this.router.navigate(['./F01009/F01009SCN1']);
   }
 }

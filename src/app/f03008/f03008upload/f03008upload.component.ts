@@ -34,23 +34,26 @@ export class F03008uploadComponent implements OnInit {
   }
 
   public async confirmAdd(): Promise<void> {
-    const formdata: FormData = new FormData();
-    formdata.append('file', this.fileToUpload);
-    let msgStr: string = "";
-    let baseUrl = 'f03/f03008action2';
-    this.f03008Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
-      console.log(data)
-      let msg = "";
-      if (data.rspCode != "0000") {
-        if (data.rspBody.ErrorInformation.length > 0) {
-          for (const Information of data.rspBody.ErrorInformation) {
-            msg += Information.repeatValue + "\n";
+    if ( this.fileToUpload == null ) {
+      this.uploadForm.patchValue({ ERROR_MESSAGE: "請上傳正確檔案!!" });
+    } else {
+      const formdata: FormData = new FormData();
+      formdata.append('file', this.fileToUpload);
+      let msgStr: string = "";
+      let baseUrl = 'f03/f03008action2';
+      this.f03008Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
+        let msg = "";
+        if (data.rspCode != "0000") {
+          if (data.rspBody.ErrorInformation.length > 0) {
+            for (const Information of data.rspBody.ErrorInformation) {
+              msg += Information.repeatValue + "\n";
+            }
           }
         }
-      }
-      msg += data.rspMsg;
-      this.uploadForm.patchValue({ ERROR_MESSAGE: msg });
-    });
+        msg += data.rspMsg;
+        this.uploadForm.patchValue({ ERROR_MESSAGE: msg });
+      });
+    }
   }
 
   onNoClick(): void {
