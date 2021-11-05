@@ -6,7 +6,11 @@
       <div nz-col nzSpan="24">
         <div class="form">
           <div><span class="form-title">上傳檔案</span>
-            <input type="file" (change)="onChange($event)" style="padding-left: 6px;">
+              <label >
+              <input class='file_input' type="file" (change)="onChange($event)" style="padding-left: 6px;">
+              <fa-icon class="icon_size" [icon]="['fas', 'folder-open']"></fa-icon>
+              {{msg}}
+            </label>
           </div>
         </div>
       </div>
@@ -30,37 +34,3 @@
     </form>
   </div>
 
-
-
-
-<!-- <div class="container">
-  <h2 mat-dialog-title>貸後管理異常名單維護-上傳Excel</h2>
-  <form [formGroup]="uploadForm" class="mat-dialog-content" (ngSubmit)="submit()" #formControl="ngForm">
-    <table>
-      <mat-card class="matCard">
-        <mat-card-content>
-          <tr>
-            <th>上傳檔案</th>
-            <td>
-              <div mat-dialog-actions>
-                <input type="file" (change)="onChange($event)" />
-              </div>
-            </td>
-          </tr>
-          <br>
-          <tr>
-            <th>上傳異常訊息</th>
-            <td>
-              <textarea matInput formControlName="ERROR_MESSAGE" readonly style="color:red"></textarea>
-            </td>
-          </tr>
-        </mat-card-content>
-      </mat-card>
-    </table>
-
-    <div mat-dialog-actions>
-      <button mat-raised-button [type]="submit" color="primary" (click)="confirmAdd()">儲存</button>
-      <button mat-raised-button (click)="onNoClick()" color="warn" tabindex="-1">取消</button>
-    </div>
-  </form>
-</div> -->
