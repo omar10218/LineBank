@@ -49,7 +49,7 @@ export class F01011Component implements OnInit {
           if ( data.rspMsg.length > 0 ) {
             msg = data.rspMsg + "\n 錯誤清單：\n";
             for( let i = 0 ; i < data.rspBody.length ; i++ ) {
-              errorMsg += "第" + data.rspBody[i].index + ", 客戶ID：" + data.rspBody[i].nationalId + ", 錯誤訊息：" + data.rspBody[i].errorMsg + "\n";
+              errorMsg += "第" + data.rspBody[i].index + "筆,身分證字號：" + data.rspBody[i].nationalId+ ",客戶ID：" + data.rspBody[i].custId + " 匯入失敗, 錯誤訊息：" + data.rspBody[i].errorMsg + "\n";
             }
             msg = msg + errorMsg;
           }
@@ -61,6 +61,7 @@ export class F01011Component implements OnInit {
 
   //檢查上傳檔案格式
   onChange(evt) {
+    this.uploadForm.patchValue({ ERROR_MESSAGE: '' });
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isExcelFile = !!target.files[0].name.match(/(.xls|.xlsx)/);
     if (this.isExcelFile) {

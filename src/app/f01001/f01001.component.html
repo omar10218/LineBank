@@ -6,23 +6,24 @@
                 style="background-color: white;height:20%;border-radius: 10px;box-shadow: 0 1px 2px gray ;">
                 <div nz-row>
                     <div nz-col nzSpan="5"
-                        style="padding:0px 15px;background-color: #BFECD0;height:20%;border-radius: 10px 0 0 10px;">
+                        style="padding:0px 15px;background-color: #BFECD0;border-radius: 10px 0 0 10px;">
                         <div class="form-title line_bank_h4" style="margin:10px 0 ;">案件編號</div>
                         <div class="form" style="display: block;margin-bottom:10px;padding:0px;">
                             <div><input matInput #input class="form-control" [(ngModel)]="swcApplno" name="swcApplno"
-                                    required>
+                                placeholder="請輸入案件編號" required>
                             </div>
                         </div>
                     </div>
                     <div nz-col nzSpan="5" style="padding:0px 15px;">
-                        <span class="form-title line_bank_h4" style="margin:10px 0 ;height:20%">身分證號</span>
+                        <span class="form-title line_bank_h4" style="margin:10px 0 ">身分證號</span>
                         <div class="form" style="display: block;margin-bottom:10px;padding:0px;">
-                            <div><input matInput #input class="form-control" [(ngModel)]="swcID" name="swcID" required>
+                            <div><input matInput #input class="form-control" [(ngModel)]="swcID" name="swcID" 
+                                placeholder="請輸入身分證編號" required>
                             </div>
                         </div>
                     </div>
-                    <div nz-col nzSpan="5" style="padding:0px 15px;background-color: #BFECD0;height:20%">
-                        <span class="form-title line_bank_h4" style="margin:10px 0 ;height:20% ">案件類別</span>
+                    <div nz-col nzSpan="5" style="padding:0px 15px;background-color: #BFECD0;">
+                        <span class="form-title line_bank_h4" style="margin:10px 0;">案件類別</span>
                         <div class="form" style="display: block;margin-bottom:10px;padding:0px;">
                             <div>
                                 <mat-select [(ngModel)]="caseType" name="caseTypeCode"
@@ -35,7 +36,7 @@
                         </div>
                     </div>
                     <div nz-col nzSpan="5" style="padding:0px 15px">
-                        <span class="form-title line_bank_h4" style="margin:10px 0;height:20% ">代理人別</span>
+                        <span class="form-title line_bank_h4" style="margin:10px 0;">代理人別</span>
                         <div class="form" style="display: block;margin-bottom:10px;padding:0px;">
                             <div>
                                 <mat-select [(ngModel)]="agentEmpNo" name="agentEmpNoCode"
@@ -63,9 +64,8 @@
                 <div class="line_bank_card_no_padding">
                     <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false"
                         [nzSimple]="true" [nzTotal]="total" [nzPageSize]="pageSize"
-                        [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="文審案件清單"
-                        nzFooter="案件數: {{this.total}} 件" [nzScroll]="{ x: '1500px', y:tableHeight}"
-                        (nzQueryParams)="onQueryParamsChange($event)">
+                        [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="文審案件清單" nzFooter="案件數: {{this.total}} 件"
+                        [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)"> 
                         <thead style="max-height: 100vh;">
                             <tr>
                                 <th class="table-header" [nzWidth]="'160px'" (nzSortOrderChange)="sortChange($event)"
@@ -73,8 +73,7 @@
                                 <th class="table-header" [nzWidth]="'160px'">流程別</th>
                                 <th class="table-header" [nzWidth]="'160px'">是否重查完成</th>
                                 <th class="table-header" [nzWidth]="'160px'" (nzSortOrderChange)="sortChange($event)"
-                                    [nzSortFn]="true" [nzSortOrder]="'ascend'">
-                                    進件時間</th>
+                                    [nzSortFn]="true" [nzSortOrder]="'ascend'">進件時間</th>
                                 <th class="table-header" [nzWidth]="'160px'">身分證號</th>
                                 <th class="table-header" [nzWidth]="'160px'">姓名</th>
                                 <th class="table-header" [nzWidth]="'200px'">公司名稱</th>
