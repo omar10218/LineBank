@@ -36,7 +36,7 @@
             <div><span class="form-title-actions">請選擇檔案</span>
               <mat-form-field>
                 <ngx-mat-file-input [formControl]="fileControl" [accept]="accept" (change)="onAddImage($event)">
-                  <div ngxMatFileInputIcon>upload</div>
+                  <div ngxMatFileInputIcon><fa-icon class="icon_size" [icon]="['fas', 'folder-open']"></fa-icon></div>
                 </ngx-mat-file-input>
               </mat-form-field>
             </div>
@@ -60,7 +60,8 @@
             <button  nz-button [nzSize]="'middle'" nzType="primary" style="width:7%;" (click)="uploadFile()"
               [disabled]="!formControl.valid">
               <!-- <mat-icon matSuffix>backup</mat-icon> -->
-              <img class="position_top_left" width="100%" src= "assets/images/outline_cloud_upload_black_48dp.png">
+              <!-- <img class="position_top_left" width="100%" src= "assets/images/outline_cloud_upload_black_48dp.png"> -->
+              <fa-icon class="icon_size" [icon]="['fas', 'cloud-upload-alt']"></fa-icon>
             </button>
             <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
             style="margin:0px 5px">關閉</button>
