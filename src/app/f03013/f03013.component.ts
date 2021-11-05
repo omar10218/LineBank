@@ -19,9 +19,9 @@ interface sysCode {
 })
 
 export class F03013Component implements OnInit {
-  selectedValue: number;    //欲創建年度行事曆
-  yearValue: number;        //查詢年份
-  monthValue: number;       //查詢月份
+  selectedValue: string;    //欲創建年度行事曆
+  yearValue: string;        //查詢年份
+  monthValue: string;       //查詢月份
   yearCode: sysCode[] = []; //年份下拉
   monthCode: sysCode[] = []; //月份下拉
   jsonObject: any = {};
@@ -36,12 +36,14 @@ export class F03013Component implements OnInit {
   ngOnInit(): void {
     this.getYearRange();
     this.getMonthRange();
-    
+    this.selectedValue = '';
+    this.yearValue = '';
+    this.monthValue = '';
   }
  
   //創建年度行事曆
   createCalendar() {
-    if (this.selectedValue == null) {
+    if (this.selectedValue == null || this.selectedValue =='') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請選擇需創建年份" }
       });
@@ -121,7 +123,7 @@ export class F03013Component implements OnInit {
   // 取得年份下拉
   getYearRange() {
     this.f03013Service.getSysTypeCode('YEAR').subscribe(data => {
-      console.log(data)
+      this.yearCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
@@ -133,10 +135,11 @@ export class F03013Component implements OnInit {
   // 取得月份下拉
   getMonthRange() {
     this.f03013Service.getSysTypeCode('MONTH').subscribe(data => {
+      this.monthCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
-        this.monthCode.push({ value: codeNo, viewValue: desc })
+        this.monthCode.push({ value: codeNo, viewValue: desc });
       }
     });
   }
