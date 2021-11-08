@@ -3,7 +3,7 @@
         <br>
         <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
             mat-stroked-button (click)="changePage(Page.Page1)">案件清單</button>
-        <nz-badge [nzCount]="total">
+        <nz-badge [nzCount]="total" [nzTitle]="null">
             <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
                     mat-stroked-button (click)="changePage(Page.Page2)">照會提醒</button>
         </nz-badge>

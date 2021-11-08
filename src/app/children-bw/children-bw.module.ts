@@ -18,6 +18,7 @@ import { Childbwscn8Component } from './childbwscn8/childbwscn8.component';
 import { Childbwscn9Component } from './childbwscn9/childbwscn9.component';
 import { Childbwscn10Component } from './childbwscn10/childbwscn10.component';
 import { Childbwscn11Component } from './childbwscn11/childbwscn11.component';
+import { NgxWatermarkModule } from 'ngx-watermark';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { Childbwscn11Component } from './childbwscn11/childbwscn11.component';
     NgZorroAntdModule,
     GoogleMapsModule,
     NzTableModule,
-    ChildrenBwRoutingModule
+    ChildrenBwRoutingModule,
+    NgxWatermarkModule
   ]
 })
 export class ChildrenBwModule {
