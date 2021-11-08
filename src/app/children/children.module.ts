@@ -59,6 +59,8 @@ import { NgxWatermarkModule } from 'ngx-watermark';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faImage,faFolderOpen,faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
+import { Childscn22Component } from './childscn22/childscn22.component';
+import { Childscn23Component } from './childscn23/childscn23.component';
 
 
 
@@ -112,7 +114,9 @@ import { faImage,faFolderOpen,faCloudUploadAlt } from '@fortawesome/free-solid-s
     Childscn19Component,
     Childscn20Component,
     Childscn21Component,
-    Childscn10page4Component
+    Childscn10page4Component,
+    Childscn22Component,
+    Childscn23Component
   ],
   imports: [
     CommonModule,
