@@ -1,1 +1,10 @@
-<p>childbwscn2 works!</p>
+<div class="line_bank_bankground_color">
+  <div style="margin-top: 20px; margin-left: 5px;">
+    <button class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
+      (click)="changePage(Page.Page1)">覆審階段</button>
+    <button class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
+      (click)="changePage(Page.Page2)">風險類型</button>
+  </div>
+</div>
+<br>
+<ng-container appDynamic></ng-container>
