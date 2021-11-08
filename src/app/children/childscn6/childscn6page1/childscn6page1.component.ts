@@ -78,8 +78,8 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   private applno: string;
   private cuid: string;
+  // private queryDate: string;
 
-  private queryDate: string = '2021-10-25 11:52:57.301' // 現在時間
   listSource: any = []
 	total = 1
 	pageIndex = 1
@@ -241,7 +241,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
-    //this.queryDate = sessionStorage.getItem('queryDate');
+    // this.queryDate = sessionStorage.getItem('queryDate');
 
     this.getJcicMultiple();
     this.setBooleanFalse();
@@ -256,7 +256,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 	getJcicList() {
 		let jsonObject: any = {}
 		jsonObject['applno'] = this.applno
-		jsonObject['queryDate'] = this.queryDate
+		// jsonObject['queryDate'] = this.queryDate
 		this.childscn6Service.getMASTERJCICList(jsonObject).subscribe(data => {
 			this.listSource = data.rspBody;
 		})
@@ -267,7 +267,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     jsonObject['applno'] = this.applno;
     jsonObject['nationalId'] = this.cuid;
     jsonObject['code'] = 'AAS003,JAS002,APS001,ACI001,BAI001,KRI001,BAI004,KRI002,BAS008,BAS006,STS007';
-    jsonObject['queryDate'] = this.queryDate;
+    // jsonObject['queryDate'] = this.queryDate;
     this.childscn6Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
       if ( data.rspBody[0].AAS003.length == 0 ) { this.AAS003.push(''); } else { this.AAS003 = data.rspBody[0].AAS003; };
       if ( data.rspBody[0].JAS002.length == 0 ) { this.JAS002.push(''); } else { this.JAS002 = data.rspBody[0].JAS002; };
@@ -288,7 +288,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     jsonObject['applno'] = this.applno;
     jsonObject['nationalId'] = this.cuid;
     jsonObject['code'] = code;
-    jsonObject['queryDate'] = this.queryDate;
+    // jsonObject['queryDate'] = this.queryDate;
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn6Service.getJCICSearch(jsonObject).subscribe(data => {
