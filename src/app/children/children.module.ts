@@ -61,6 +61,7 @@ import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesom
 import { faImage,faFolderOpen,faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
 import { Childscn22Component } from './childscn22/childscn22.component';
 import { Childscn23Component } from './childscn23/childscn23.component';
+import { Childscn23addComponent } from './childscn23/childscn23add/childscn23add.component';
 
 
 
@@ -116,7 +117,8 @@ import { Childscn23Component } from './childscn23/childscn23.component';
     Childscn21Component,
     Childscn10page4Component,
     Childscn22Component,
-    Childscn23Component
+    Childscn23Component,
+    Childscn23addComponent
   ],
   imports: [
     CommonModule,
