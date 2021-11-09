@@ -6,7 +6,7 @@ export interface CaseParams {
   queryDate: string;
 }
 
-export interface OptionsCode{
+export interface OptionsCode {
   value: string;
   viewValue: string;
 }
@@ -52,7 +52,7 @@ export interface CommonRes {
   rspMsg: string;
 }
 
-interface EmpItems{
+interface EmpItems {
   agentEmp: string;
   assignProjectno: string;
   assignStop: string;
@@ -70,4 +70,52 @@ export interface RoleItem {
   roleNo: string;
   roleName: string;
   roleAmt: string;
+}
+
+export enum JCICCode {
+  KCM012 = 'KCM012',
+  DAM001 = 'DAM001',
+  BAM061 = 'BAM061',
+  KRM043 = 'KRM043',
+  BAM062 = 'BAM062',
+  VAM020 = 'VAM020',
+  VAM201 = 'VAM201',
+  VAM106 = 'VAM106',
+  VAM107 = 'VAM107',
+  VAM108 = 'VAM108',
+  BAM029 = 'BAM029',
+  BAM501 = 'BAM501',
+  BAM502 = 'BAM502',
+  BAM504 = 'BAM504',
+  BAM505 = 'BAM505',
+  BAM032 = 'BAM032',
+  BAM011 = 'BAM011',
+  BAM067 = 'BAM067',
+  BAM070 = 'BAM070',
+  BAM101 = 'BAM101',
+  BAM421 = 'BAM421',
+  BAM305 = 'BAM305',
+  BAM306 = 'BAM306',
+  BAM307 = 'BAM307',
+  BAM608 = 'BAM608',
+  KRM046 = 'KRM046',
+  KRM048 = 'KRM048',
+  STM022 = 'STM022',
+  STM008 = 'STM008',
+  STM025 = 'STM025'
+}
+
+export interface JCICTable {
+  dataList: DataItem[];
+  title: string;
+  nzScroll: string;
+}
+
+export interface DataItem {
+  name: string;
+  bodyKey: string;
+  width?: string;
+  nzScroll?: string;
+  nzLeft?: boolean;
+  nzRight?: boolean;
 }

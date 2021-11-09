@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationEnd, Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { JCICCode } from 'src/app/interface/base';
 import { ChildrenService } from '../../children.service';
 import { Childscn6Service } from '../childscn6.service';
 
@@ -86,157 +87,9 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 	pageSize = 50
   index: any
 
-  KCM012Source: readonly Data[] = [];
-  total1 = 1;
-  pageIndex1 = 1;
-  pageSize1 = 50;
-
-  DAM001Source: readonly Data[] = [];
-  total2 = 1;
-  pageIndex2 = 1;
-  pageSize2 = 50;
-
-  BAM061Source: readonly Data[] = [];
-  total3 = 1;
-  pageIndex3 = 1;
-  pageSize3 = 50;
-
-  KRM043Source: readonly Data[] = [];
-  total4 = 1;
-  pageIndex4 = 1;
-  pageSize4 = 50;
-
-  BAM062Source: readonly Data[] = [];
-  total5 = 1;
-  pageIndex5 = 1;
-  pageSize5 = 50;
-
-  VAM020Source: readonly Data[] = [];
-  total6 = 1;
-  pageIndex6 = 1;
-  pageSize6 = 50;
-
-  VAM201Source: readonly Data[] = [];
-  total7 = 1;
-  pageIndex7 = 1;
-  pageSize7 = 50;
-
-  VAM106Source: readonly Data[] = [];
-  total8 = 1;
-  pageIndex8 = 1;
-  pageSize8 = 50;
-
-  VAM107Source: readonly Data[] = [];
-  total9 = 1;
-  pageIndex9 = 1;
-  pageSize9 = 50;
-
-  VAM108Source: readonly Data[] = [];
-  total10 = 1;
-  pageIndex10 = 1;
-  pageSize10 = 50;
-
-  BAM029Source: readonly Data[] = [];
-  total11 = 1;
-  pageIndex11 = 1;
-  pageSize11 = 50;
-
-  BAM501Source: readonly Data[] = [];
-  total12 = 1;
-  pageIndex12 = 1;
-  pageSize12 = 50;
-
-  BAM502Source: readonly Data[] = [];
-  total13 = 1;
-  pageIndex13 = 1;
-  pageSize13 = 50;
-
-  BAM504Source: readonly Data[] = [];
-  total14 = 1;
-  pageIndex14 = 1;
-  pageSize14 = 50;
-
-  BAM505Source: readonly Data[] = [];
-  total15 = 1;
-  pageIndex15 = 1;
-  pageSize15 = 50;
-
-  BAM032Source: readonly Data[] = [];
-  total16 = 1;
-  pageIndex16 = 1;
-  pageSize16 = 50;
-
-  BAM011Source: readonly Data[] = [];
-  total17 = 1;
-  pageIndex17 = 1;
-  pageSize17 = 50;
-
-  BAM067Source: readonly Data[] = [];
-  total18 = 1;
-  pageIndex18 = 1;
-  pageSize18 = 50;
-
-  BAM070Source: readonly Data[] = [];
-  total19 = 1;
-  pageIndex19 = 1;
-  pageSize19 = 50;
-
-  BAM101Source: readonly Data[] = [];
-  total20 = 1;
-  pageIndex20 = 1;
-  pageSize20 = 50;
-
-  BAM421Source: readonly Data[] = [];
-  total21 = 1;
-  pageIndex21 = 1;
-  pageSize21 = 50;
-
-  BAM305Source: readonly Data[] = [];
-  total22 = 1;
-  pageIndex22 = 1;
-  pageSize22 = 50;
-
-  BAM306Source: readonly Data[] = [];
-  total23 = 1;
-  pageIndex23 = 1;
-  pageSize23 = 50;
-
-  BAM307Source: readonly Data[] = [];
-  total24 = 1;
-  pageIndex24 = 1;
-  pageSize24 = 50;
-
-  BAM608Source: readonly Data[] = [];
-  total25 = 1;
-  pageIndex25 = 1;
-  pageSize25 = 50;
-
-  KRM046Source: readonly Data[] = [];
-  total26 = 1;
-  pageIndex26 = 1;
-  pageSize26 = 50;
-
-  KRM048Source: readonly Data[] = [];
-  total27 = 1;
-  pageIndex27 = 1;
-  pageSize27 = 50;
-
-  STM022Source: readonly Data[] = [];
-  total28 = 1;
-  pageIndex28 = 1;
-  pageSize28 = 50;
-
-  STM008Source: readonly Data[] = [];
-  total29 = 1;
-  pageIndex29 = 1;
-  pageSize29 = 50;
-
-  STM025Source: readonly Data[] = [];
-  total30 = 1;
-  pageIndex30 = 1;
-  pageSize30 = 50;
-
   watermark: string;
+
+  readonly JCICCode = JCICCode;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -283,52 +136,52 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     });
   }
 
-  getJCIC( pageIndex: number, pageSize: number, code: string ) {
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['nationalId'] = this.cuid;
-    jsonObject['code'] = code;
-    // jsonObject['queryDate'] = this.queryDate;
-    jsonObject['page'] = pageIndex;
-    jsonObject['per_page'] = pageSize;
-    this.childscn6Service.getJCICSearch(jsonObject).subscribe(data => {
-      if ( code == 'KCM012' ) { this.total1 = data.rspBody.size; this.KCM012Source = data.rspBody.items; }
-      if ( code == 'DAM001' ) { this.total2 = data.rspBody.size; this.DAM001Source = data.rspBody.items; }
-      if ( code == 'BAM061' ) { this.total3 = data.rspBody.size; this.BAM061Source = data.rspBody.items; }
-      if ( code == 'KRM043' ) { this.total4 = data.rspBody.size; this.KRM043Source = data.rspBody.items; }
-      if ( code == 'BAM062' ) { this.total5 = data.rspBody.size; this.BAM062Source = data.rspBody.items; }
-      if ( code == 'VAM020' ) { this.total6 = data.rspBody.size; this.VAM020Source = data.rspBody.items; }
-      if ( code == 'VAM201' ) { this.total7 = data.rspBody.size; this.VAM201Source = data.rspBody.items; }
-      if ( code == 'VAM106' ) { this.total8 = data.rspBody.size; this.VAM106Source = data.rspBody.items; }
-      if ( code == 'VAM107' ) { this.total9 = data.rspBody.size; this.VAM107Source = data.rspBody.items; }
-      if ( code == 'VAM108' ) { this.total10 = data.rspBody.size; this.VAM108Source = data.rspBody.items; }
-      if ( code == 'BAM029' ) { this.total11 = data.rspBody.size; this.BAM029Source = data.rspBody.items; }
-      if ( code == 'BAM501' ) { this.total12 = data.rspBody.size; this.BAM501Source = data.rspBody.items; }
-      if ( code == 'BAM502' ) { this.total13 = data.rspBody.size; this.BAM502Source = data.rspBody.items; }
-      if ( code == 'BAM504' ) { this.total14 = data.rspBody.size; this.BAM504Source = data.rspBody.items; }
-      if ( code == 'BAM505' ) { this.total15 = data.rspBody.size; this.BAM505Source = data.rspBody.items; }
-      if ( code == 'BAM032' ) { this.total16 = data.rspBody.size; this.BAM032Source = data.rspBody.items; }
-      if ( code == 'BAM011' ) { this.total17 = data.rspBody.size; this.BAM011Source = data.rspBody.items; }
-      if ( code == 'BAM067' ) { this.total18 = data.rspBody.size; this.BAM067Source = data.rspBody.items; }
-      if ( code == 'BAM070' ) { this.total19 = data.rspBody.size; this.BAM070Source = data.rspBody.items; }
-      if ( code == 'BAM101' ) { this.total20 = data.rspBody.size; this.BAM101Source = data.rspBody.items; }
-      if ( code == 'BAM421' ) { this.total21 = data.rspBody.size; this.BAM421Source = data.rspBody.items; }
-      if ( code == 'BAM305' ) { this.total22 = data.rspBody.size; this.BAM305Source = data.rspBody.items; }
-      if ( code == 'BAM306' ) { this.total23 = data.rspBody.size; this.BAM306Source = data.rspBody.items; }
-      if ( code == 'BAM307' ) { this.total24 = data.rspBody.size; this.BAM307Source = data.rspBody.items; }
-      if ( code == 'BAM608' ) { this.total25 = data.rspBody.size; this.BAM608Source = data.rspBody.items; }
-      if ( code == 'KRM046' ) { this.total26 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
-      if ( code == 'KRM048' ) { this.total27 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
-      if ( code == 'STM022' ) { this.total28 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
-      if ( code == 'STM008' ) { this.total29 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
-      if ( code == 'STM025' ) { this.total30 = data.rspBody.size; this.STM025Source = data.rspBody.items; }
-    });
-  }
+  // getJCIC( pageIndex: number, pageSize: number, code: string ) {
+  //   let jsonObject: any = {};
+  //   jsonObject['applno'] = this.applno;
+  //   jsonObject['nationalId'] = this.cuid;
+  //   jsonObject['code'] = code;
+  //   jsonObject['queryDate'] = this.queryDate;
+  //   jsonObject['page'] = pageIndex;
+  //   jsonObject['per_page'] = pageSize;
+  //   this.childscn6Service.getJCICSearch(jsonObject).subscribe(data => {
+  //     if ( code == 'KCM012' ) { this.total1 = data.rspBody.size; this.KCM012Source = data.rspBody.items; }
+  //     if ( code == 'DAM001' ) { this.total2 = data.rspBody.size; this.DAM001Source = data.rspBody.items; }
+  //     if ( code == 'BAM061' ) { this.total3 = data.rspBody.size; this.BAM061Source = data.rspBody.items; }
+  //     if ( code == 'KRM043' ) { this.total4 = data.rspBody.size; this.KRM043Source = data.rspBody.items; }
+  //     if ( code == 'BAM062' ) { this.total5 = data.rspBody.size; this.BAM062Source = data.rspBody.items; }
+  //     if ( code == 'VAM020' ) { this.total6 = data.rspBody.size; this.VAM020Source = data.rspBody.items; }
+  //     if ( code == 'VAM201' ) { this.total7 = data.rspBody.size; this.VAM201Source = data.rspBody.items; }
+  //     if ( code == 'VAM106' ) { this.total8 = data.rspBody.size; this.VAM106Source = data.rspBody.items; }
+  //     if ( code == 'VAM107' ) { this.total9 = data.rspBody.size; this.VAM107Source = data.rspBody.items; }
+  //     if ( code == 'VAM108' ) { this.total10 = data.rspBody.size; this.VAM108Source = data.rspBody.items; }
+  //     if ( code == 'BAM029' ) { this.total11 = data.rspBody.size; this.BAM029Source = data.rspBody.items; }
+  //     if ( code == 'BAM501' ) { this.total12 = data.rspBody.size; this.BAM501Source = data.rspBody.items; }
+  //     if ( code == 'BAM502' ) { this.total13 = data.rspBody.size; this.BAM502Source = data.rspBody.items; }
+  //     if ( code == 'BAM504' ) { this.total14 = data.rspBody.size; this.BAM504Source = data.rspBody.items; }
+  //     if ( code == 'BAM505' ) { this.total15 = data.rspBody.size; this.BAM505Source = data.rspBody.items; }
+  //     if ( code == 'BAM032' ) { this.total16 = data.rspBody.size; this.BAM032Source = data.rspBody.items; }
+  //     if ( code == 'BAM011' ) { this.total17 = data.rspBody.size; this.BAM011Source = data.rspBody.items; }
+  //     if ( code == 'BAM067' ) { this.total18 = data.rspBody.size; this.BAM067Source = data.rspBody.items; }
+  //     if ( code == 'BAM070' ) { this.total19 = data.rspBody.size; this.BAM070Source = data.rspBody.items; }
+  //     if ( code == 'BAM101' ) { this.total20 = data.rspBody.size; this.BAM101Source = data.rspBody.items; }
+  //     if ( code == 'BAM421' ) { this.total21 = data.rspBody.size; this.BAM421Source = data.rspBody.items; }
+  //     if ( code == 'BAM305' ) { this.total22 = data.rspBody.size; this.BAM305Source = data.rspBody.items; }
+  //     if ( code == 'BAM306' ) { this.total23 = data.rspBody.size; this.BAM306Source = data.rspBody.items; }
+  //     if ( code == 'BAM307' ) { this.total24 = data.rspBody.size; this.BAM307Source = data.rspBody.items; }
+  //     if ( code == 'BAM608' ) { this.total25 = data.rspBody.size; this.BAM608Source = data.rspBody.items; }
+  //     if ( code == 'KRM046' ) { this.total26 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
+  //     if ( code == 'KRM048' ) { this.total27 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
+  //     if ( code == 'STM022' ) { this.total28 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
+  //     if ( code == 'STM008' ) { this.total29 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
+  //     if ( code == 'STM025' ) { this.total30 = data.rspBody.size; this.STM025Source = data.rspBody.items; }
+  //   });
+  // }
 
-  onQueryParamsChange(params: NzTableQueryParams, code: string): void {
-    const { pageSize, pageIndex } = params;
-    this.getJCIC(pageIndex, pageSize, code);
-  }
+  // onQueryParamsChange(params: NzTableQueryParams, code: string): void {
+  //   const { pageSize, pageIndex } = params;
+  //   this.getJCIC(pageIndex, pageSize, code);
+  // }
 
   // getKRI002() {
   //   this.KRI002Source.data = null;
