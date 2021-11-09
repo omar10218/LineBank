@@ -1,4 +1,29 @@
 <div class="line_bank_bankground_color">
+  <nz-layout>
+
+    <nz-sider nzCollapsible nzWidth="200px">
+      <div class="logo"></div>
+      <ul nz-menu nzTheme="dark" nzMode="inline">
+        <li nz-submenu nzTitle="User" nzIcon="user">
+          <ul>
+            <li nz-menu-item>Tom</li>
+            <li nz-menu-item>Bill</li>
+            <li nz-menu-item>Alex</li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Team" nzIcon="team">
+          <ul>
+            <li nz-menu-item>Team 1</li>
+            <li nz-menu-item>Team 2</li>
+          </ul>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="file"></i>
+          <span>File</span>
+        </li>
+      </ul>
+    </nz-sider>
+  </nz-layout>
   <div style="margin-top: 20px; margin-left: 5px;">
     <button class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
       (click)="changePage(Page.Page1)">覆審階段</button>

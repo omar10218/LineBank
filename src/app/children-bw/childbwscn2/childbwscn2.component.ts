@@ -3,6 +3,7 @@ import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive
 import { OptionsCode } from 'src/app/interface/base';
 import { Childbwscn2Service } from './childbwscn2.service';
 import { childbwscn2page1Component } from './childbwscn2page1/childbwscn2page1.component';
+import { childbwscn2page2Component } from './childbwscn2page2/childbwscn2page2.component';
 // import { Childscn10page2Component } from './childscn10page2/childscn10page2.component';
 // import { Childscn10page3Component } from './childscn10page3/childscn10page3.component';
 // import { Childscn10page4Component } from './childscn10page4/childscn10page4.component';
@@ -37,7 +38,7 @@ export class Childbwscn2Component implements OnInit {
    component = new Map<Page, any>(
      [
        [Page.Page1, childbwscn2page1Component],
-      //  [Page.Page2, Childscn10page2Component],
+       [Page.Page2, childbwscn2page2Component],
       //  [Page.Page3, Childscn10page3Component],
       //  [Page.Page4, Childscn10page4Component]
      ]
