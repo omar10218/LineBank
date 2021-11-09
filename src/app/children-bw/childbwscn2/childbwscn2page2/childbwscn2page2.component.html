@@ -1,0 +1,31 @@
+   <!-- 徵審代碼 -->
+   <div class="line_bank_card_no_padding_child">
+    <nz-table nzShowSizeChanger [nzData]="BW_DSS4_RISKDSUB_LIST" [nzFrontPagination]="false" [nzSimple]="true" nzTitle="風險模型變數設定"
+    nzSize="small">
+    <thead>
+      <tr>
+        <th class="table-header">Type</th>
+        <th class="table-header" >AdvResnCd</th>
+        <th class="table-header" >Element</th>
+        <th class="table-header" >Outcome</th>
+        <th class="table-header" >ScoreValue</th>
+        <th class="table-header" >DeviationScore</th>
+        <th class="table-header" >Value1andValue2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of BW_DSS4_RISKDSUB_LIST">
+        <td class="table-data">{{row.type}}</td>
+        <td class="table-data">{{row.advResnCd}}</td>
+        <td class="table-data">{{row.element}}</td>
+        <td class="table-data">{{row.outCome}}</td>
+        <td class="table-data">{{row.scoreValue}}</td>
+        <td class="table-data">{{row.deviationScore}}</td>
+        <td class="table-data">{{row.value1AndValue2}}</td>
+
+      </tr>
+    </tbody>
+  </nz-table>
+   </div>
+   <!-- <div class="EL_DSS_form_header_title3">徵審代碼</div> -->
+

@@ -1,3 +1,5 @@
+import { childbwscn2page1Component } from './children-bw/childbwscn2/childbwscn2page1/childbwscn2page1.component';
+import { childbwscn2page2Component } from './children-bw/childbwscn2/childbwscn2page2/childbwscn2page2.component';
 import { F02003Component } from './f02003/f02003.component';
 //import { NgZorroAntdModule } from './ngzorro/ng-zorro-antd.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -206,7 +208,9 @@ export const TW_FORMATS = {
     Inputloanpage4Component,
     Inputloanpage5Component,
     F02004Component,
-    F01011Component
+    F01011Component,
+    childbwscn2page1Component,
+    childbwscn2page2Component,
   ],
   imports: [
     NzIconModule,
