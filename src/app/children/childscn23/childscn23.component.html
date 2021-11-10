@@ -1,1 +1,80 @@
-<p>childscn23 works!</p>
+<div class="line_bank_bankground_color">
+  <div style="padding-left: 20px; padding-top: 20px;">
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="add()">新增</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px">儲存</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px">刪除</button>
+  </div>
+</div>
+<br>
+<div class="line_bank_card_no_padding">
+
+  <nz-table [nzData]="" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small">
+    <thead>
+      <tr>
+        <th class="table-header"> </th>
+        <th class="table-header">科目</th>
+        <th class="table-header">BAM421<br>預設本金</th>
+        <th class="table-header">BAM429<br>預設本金</th>
+        <th class="table-header">信用卡<br>近一期循環預借未到期金額 </th>
+        <th class="table-header">預設利率</th>
+        <th class="table-header">預設貸款年數</th>
+        <th class="table-header">預設貸款期數</th>
+        <th class="table-header">月付金<br>[BAM421]</th>
+        <th class="table-header">月付金<br>[BAM029]<br>新增核准額度</th>
+        <th class="table-header">月付金<br>[KRM048]<br>信用卡循環預借<br>未到期</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <input class="inpu1" type="checkbox">
+        </td>
+        <td></td>
+        <td><input class="inpu2" type="text"></td>
+        <td><input class="inpu2" type="text"></td>
+        <td><input class="inpu2" type="text"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr *ngIf="i==true">
+        <td>
+          <input class="inpu1" type="checkbox">
+        </td>
+        <td></td>
+        <td><input class="inpu2" type="text" [(ngModel)]="ttt" (keyup)="test(ttt)" ></td>
+        <td><input class="inpu2" type="text"></td>
+        <td><input class="inpu2" type="text"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<br>
+<div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="合計金額">
+    <thead>
+      <tr>
+        <th class="table-header">BAM421月付金</th>
+        <th class="table-header">BAM029月付金</th>
+        <th class="table-header">KRM048月付金</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
