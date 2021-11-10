@@ -6,3 +6,16 @@
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
       border-radius: 10px;
 }
+
+th,tr,td{text-align:left; border: 1.5px solid rgb(255, 254, 254);}
+
+td{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:black;
+  margin-bottom: 1px;
+  font-size: 14px;
+}
+.form-title{
+  font-size:12px;
+}

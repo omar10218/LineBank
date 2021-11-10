@@ -7,7 +7,7 @@ import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n'
 @Component({
   selector: 'app-childscn10page2',
   templateUrl: './childscn10page2.component.html',
-  styleUrls: ['./childscn10page2.component.css', '../../../../assets/css/f01.css']
+  styleUrls: ['./childscn10page2.component.css', '../../../../assets/css/child.css']
 })
 export class Childscn10page2Component implements OnInit {
 
@@ -21,6 +21,12 @@ export class Childscn10page2Component implements OnInit {
   }
 
   private applno: string;
+  private search: string;
+  fmData = new MatTableDataSource<any>();//判斷結果資料表
+
+  test7=10000
+  test1="1";test2="2";test3="3";
+  test4="4";test5="5";test6="6";
 
   dss2Source1 = new MatTableDataSource<any>();//table資料
   dss2Source2 = new MatTableDataSource<any>();//table資料
@@ -180,6 +186,8 @@ export class Childscn10page2Component implements OnInit {
   });
 
   ngOnInit(): void {
+    this.applno = sessionStorage.getItem('applno');
+    this.search = sessionStorage.getItem('search');
     this.getDSS21();
     this.getDSS22();
     this.getDSS23();

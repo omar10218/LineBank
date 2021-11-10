@@ -38,6 +38,8 @@ export class Childscn8editComponent implements OnInit {
   CON_TEL_Selected: string;//電話種類
   CON_TARGET_Selected: string;//對象種類
   CON_MEMO_Selected: string;//註記種類
+  speakingContent:string;//話述內容
+  speakingAbbreviation:string;//話術名稱
 
   submit() {
   }
@@ -80,5 +82,11 @@ export class Childscn8editComponent implements OnInit {
   //取消
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  //顯示話述內容
+  ShowspeakingContenta(name:string,msg:string){
+    this.speakingAbbreviation=name;
+    this.speakingContent=msg;
   }
 }

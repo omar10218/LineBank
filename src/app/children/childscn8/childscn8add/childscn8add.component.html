@@ -1,83 +1,62 @@
-<div class="line_bank_card_no_padding" style="min-height:170px">
+<div class="line_bank_card_no_padding" style="min-height:170px;">
   <div class="line_bank_form_header_title">徵信照會-新增</div>
-  <div class="container" style="padding:20px">
+  <div class="container" style="padding:20px;">
     <form class="mat-dialog-content" #formControl="ngForm">
 
       <div nz-row>
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">聯絡方式</span>
-              <mat-radio-group fxLayout="column" [(ngModel)]="data.CON_TYPE" name="CON_TYPE" required>
-                <mat-radio-button *ngFor="let code of data.CON_TYPE_Code" [value]="code.value">
-                  <tr>
-                    <td>
-                      {{code.viewValue}}&nbsp;&nbsp;&nbsp;
-                    </td>
-                  </tr>
+              <mat-radio-group *ngFor="let code of data.CON_TYPE_Code" fxLayout="column" [(ngModel)]="data.CON_TYPE"
+                name="CON_TYPE" required>
+                <mat-radio-button [value]="code.value">
+                  {{code.viewValue}}
                 </mat-radio-button>
+                <br>
               </mat-radio-group>
             </div>
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-          </div>
-        </div>
-        <div nz-col nzSpan="8">
-          <div class="form" style="padding:20px">
-            <div><span class="form-title-actions">手機/市話</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.PHONE" name="PHONE" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            </div>
           </div>
         </div>
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">電話狀況</span>
-              <mat-radio-group fxLayout="column" [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" required>
-                <mat-radio-button *ngFor="let code of data.TEL_CONDITION_Code" [value]="code.value">
+              <mat-radio-group *ngFor="let code of data.TEL_CONDITION_Code" fxLayout="column"
+                [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" required>
+                <mat-radio-button [value]="code.value">
                   {{code.viewValue}}
                 </mat-radio-button>
+                <br>
               </mat-radio-group>
             </div>
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
-      </div>
-
-      <div nz-row>
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">電話驗證</span>
-              <mat-radio-group fxLayout="column" [(ngModel)]="data.TEL_CHECK" name="TEL_CHECK" required>
-                <mat-radio-button *ngFor="let code of data.TEL_CHECK_Code" [value]="code.value">
+              <mat-radio-group *ngFor="let code of data.TEL_CHECK_Code" fxLayout="column" [(ngModel)]="data.TEL_CHECK"
+                name="TEL_CHECK" required>
+                <mat-radio-button [value]="code.value">
                   {{code.viewValue}}
                 </mat-radio-button>
+                <br>
               </mat-radio-group>
             </div>
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
-        <div nz-col nzSpan="12">
-          <div style="padding:10px"><span class="form-title">設定下次照會時間</span>
-            <nz-date-picker style="display:block" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" required></nz-date-picker>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-          </div>
-        </div>
-        <!-- <div nz-col nzSpan="8">
-          <div class="form" style="padding:20px">
-            <div><span class="form-title-actions">設定下次照會時間</span>
-              <mat-form-field color="accent">
-                <input matInput [matDatepicker]="CALLOUT_DATE" [(ngModel)]="data.CALLOUT_DATE" required
-                  name="CALLOUT_DATE">
-                <mat-datepicker-toggle matSuffix [for]="CALLOUT_DATE"></mat-datepicker-toggle>
-                <mat-datepicker #CALLOUT_DATE></mat-datepicker>
-              </mat-form-field>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            </div>
-          </div>
-        </div> -->
       </div>
 
       <div nz-row>
-        <div nz-col nzSpan="8">
+        <div nz-col nzSpan="6">
+          <div style="padding:10px"><span class="form-title">設定下次照會時間</span>
+            <nz-date-picker style="display:block" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" required>
+            </nz-date-picker>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">時</span>
               <mat-select [(ngModel)]="data.HOURS" name="HOURS" required
@@ -90,7 +69,7 @@
             </div>
           </div>
         </div>
-        <div nz-col nzSpan="8">
+        <div nz-col nzSpan="6">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">分</span>
               <mat-select [(ngModel)]="data.MINUTES" name="MINUTES" required
@@ -103,22 +82,54 @@
             </div>
           </div>
         </div>
-
-        <div nz-col nzSpan="8">
+        <div nz-col nzSpan="6">
           <div class="form" style="padding:20px">
-            <div><span class="form-title-actions">備註</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.CON_MEMO" name="CON_MEMO">
+            <div><span class="form-title-actions">手機/市話</span>
+              <input matInput #input class="form-control" [(ngModel)]="data.PHONE" name="PHONE" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
       </div>
 
-      <div mat-dialog-actions>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <div class="form">
+            <div><span class="form-title">備註</span><textarea matInput class="input-textarea" [(ngModel)]="data.CON_MEMO"
+                name="CON_MEMO" style="height: 80px;"></textarea>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div mat-dialog-actions style="padding-top:0px;padding-bottom:0px;">
         <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1"
           style="margin:0px 5px" (click)="save()">儲存</button>
         <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
           style="margin:0px 5px">取消</button>
       </div>
+
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <div *ngFor="let speaking of data.speakingData" style="padding-left: 20px;margin-top: 40px;">
+            <button type="submit" style="float:left;margin-top: 5px;" mat-raised-button
+              (click)="ShowspeakingContenta(speaking.speakingAbbreviation,speaking.speakingContent)">{{speaking.speakingAbbreviation}}</button>
+          </div>
+        </div>
+      </div>
+
+      <div nz-row>
+        <div nz-col nzSpan="24" nz-row *ngIf="data.speakingData.length>0">
+          <div class="form">
+            <div><span class="form-title">話術內容:{{speakingAbbreviation}}</span><textarea readonly matInput
+                class="input-textarea" [(ngModel)]="speakingContent" name="speakingContent"
+                style="height: 80px;"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </form>
   </div>
 </div>

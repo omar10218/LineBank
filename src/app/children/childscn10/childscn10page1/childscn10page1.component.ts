@@ -20,6 +20,12 @@ export class Childscn10page1Component implements OnInit {
   }
 
   private applno: string;
+  private search: string;
+  fmData = new MatTableDataSource<any>();//判斷結果資料表
+
+  test7=10000
+  test1="1";test2="2";test3="3";
+  test4="4";test5="5";test6="6";
 
   dss1Source1 = new MatTableDataSource<any>();//table資料
   dss1Source2 = new MatTableDataSource<any>();//table資料
@@ -179,14 +185,22 @@ export class Childscn10page1Component implements OnInit {
   });
 
   ngOnInit(): void {
+    this.applno = sessionStorage.getItem('applno');
+    this.search = sessionStorage.getItem('search');
     this.getDSS11();
     this.getDSS12();
     this.getDSS13();
   }
 
+  getSearch(): string {
+    return this.search;
+  }
+  getApplno(): String {
+    return this.applno;
+  }
+
   //取決策1Table
   getDSS11() {
-    this.applno = sessionStorage.getItem('applno');
     const url = 'f01/childscn10action';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
