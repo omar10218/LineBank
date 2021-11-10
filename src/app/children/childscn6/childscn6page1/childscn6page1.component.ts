@@ -44,8 +44,9 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   list: any[] = [];
 
+  hideJCIC = true;
+  hideAll = false;
   hideJCICMASTER = false;
-  hideJCIC = false;
   hideKCM012 = false;
   hideDAM001 = false;
   hideBAM061 = false;
@@ -215,7 +216,6 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   setBooleanTrue() {
     this.hideJCICMASTER = true;
-    this.hideJCIC = true;
     this.hideKCM012 = true;
     this.hideDAM001 = true;
     this.hideBAM061 = true;
@@ -250,7 +250,6 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   setBooleanFalse() {
     this.hideJCICMASTER = false;
-    this.hideJCIC = false;
     this.hideKCM012 = false;
     this.hideDAM001 = false;
     this.hideBAM061 = false;
@@ -320,7 +319,19 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     }
   }
 
+  showJCIC() {
+    this.setBooleanTrue();
+    this.hideAll = true;
+    this.list = [];
+    this.hideJCIC = !this.hideJCIC;
+    if ( this.hideJCIC === true ) {
+      this.setBooleanFalse();
+      this.hideAll = false;
+    }
+  }
+
   show(who: string) {
+    this.hideJCIC = true;
     if (this.list.indexOf(who) !== -1) {
       const index: number = this.list.indexOf(who);
       this.list.splice(index, 1);
@@ -330,7 +341,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
     if (this.list.length == 0) {
       this.setBooleanFalse();
-    } else if (this.list.length == 32) {
+    } else if (this.list.length == 31) {
       this.setBooleanFalse();
       this.list = [];
     } else {
@@ -342,6 +353,8 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   }
 
   all() {
+    this.hideAll = false;
+    this.hideJCIC = true;
     this.setBooleanFalse();
     this.list = [];
   }

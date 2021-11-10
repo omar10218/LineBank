@@ -1,138 +1,138 @@
 <div class="line_bank_bankground_color">
   <div style=" width: 100%;position:fixed;z-index:10">
     <nz-tabset nzLinkRouter>
-      <nz-tab [nzTitle]="showAll">
-        <ng-template #showAll let-visible="visible">
-          <button nz-button [nzSize]="'default'" class="hide" (click)="all()">Show All</button>
-        </ng-template>
-      </nz-tab>
       <nz-tab [nzTitle]="JCIC">
         <ng-template #JCIC let-visible="visible">
           <button nz-button [nzSize]="'default'" [ngClass]="hideJCIC ? 'nohide' : 'hide'"
-            (click)="show('JCIC')">聯徵彙整資訊</button>
+            (click)="showJCIC()">聯徵彙整資訊</button>
+        </ng-template>
+      </nz-tab>
+      <nz-tab [nzTitle]="showAll">
+        <ng-template #showAll let-visible="visible">
+          <button nz-button [nzSize]="'default'" [ngClass]="hideAll ? 'nohide' : 'hide'" (click)="all()">Show All</button>
         </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="JCICMASTER">
         <ng-template #JCICMASTER let-visible="visible">
-          <button nz-button [nzSize]="'default'" [ngClass]="hideJCICMASTER ? 'nohide' : 'hide'"
-            (click)="show('JCICMASTER')">JCICMASTER</button>
+          <a href="#JCICMASTER" nz-button [nzSize]="'default'" [ngClass]="hideJCICMASTER ? 'nohide' : 'hide'"
+            (click)="show('JCICMASTER')">JCICMASTER</a>
         </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="KCM012">
-        <ng-template #KCM012 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideKCM012 ? 'nohide' : 'hide'" (click)="show('KCM012')">KCM012</button></ng-template>
+        <ng-template #KCM012 let-visible="visible"><a href="#KCM012" nz-button [nzSize]="'default'"
+            [ngClass]="hideKCM012 ? 'nohide' : 'hide'" (click)="show('KCM012')">KCM012</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="DAM001">
-        <ng-template #DAM001 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideDAM001 ? 'nohide' : 'hide'" (click)="show('DAM001')">DAM001</button></ng-template>
+        <ng-template #DAM001 let-visible="visible"><a href="#DAM001" nz-button [nzSize]="'default'"
+            [ngClass]="hideDAM001 ? 'nohide' : 'hide'" (click)="show('DAM001')">DAM001</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM061">
-        <ng-template #BAM061 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM061 ? 'nohide' : 'hide'" (click)="show('BAM061')">BAM061</button></ng-template>
+        <ng-template #BAM061 let-visible="visible"><a href="#BAM061" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM061 ? 'nohide' : 'hide'" (click)="show('BAM061')">BAM061</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="KRM043">
-        <ng-template #KRM043 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideKRM043 ? 'nohide' : 'hide'" (click)="show('KRM043')">KRM043</button></ng-template>
+        <ng-template #KRM043 let-visible="visible"><a href="#KRM043" nz-button [nzSize]="'default'"
+            [ngClass]="hideKRM043 ? 'nohide' : 'hide'" (click)="show('KRM043')">KRM043</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM062">
-        <ng-template #BAM062 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM062 ? 'nohide' : 'hide'" (click)="show('BAM062')">BAM062</button></ng-template>
+        <ng-template #BAM062 let-visible="visible"><a href="#BAM062" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM062 ? 'nohide' : 'hide'" (click)="show('BAM062')">BAM062</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="VAM020">
-        <ng-template #VAM020 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideVAM020 ? 'nohide' : 'hide'" (click)="show('VAM020')">VAM020</button></ng-template>
+        <ng-template #VAM020 let-visible="visible"><a href="#VAM020" nz-button [nzSize]="'default'"
+            [ngClass]="hideVAM020 ? 'nohide' : 'hide'" (click)="show('VAM020')">VAM020</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="VAM201">
-        <ng-template #VAM201 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideVAM201 ? 'nohide' : 'hide'" (click)="show('VAM201')">VAM201</button></ng-template>
+        <ng-template #VAM201 let-visible="visible"><a href="#VAM201" nz-button [nzSize]="'default'"
+            [ngClass]="hideVAM201 ? 'nohide' : 'hide'" (click)="show('VAM201')">VAM201</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="VAM106">
-        <ng-template #VAM106 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideVAM106 ? 'nohide' : 'hide'" (click)="show('VAM106')">VAM106</button></ng-template>
+        <ng-template #VAM106 let-visible="visible"><a href="#VAM106" nz-button [nzSize]="'default'"
+            [ngClass]="hideVAM106 ? 'nohide' : 'hide'" (click)="show('VAM106')">VAM106</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="VAM107">
-        <ng-template #VAM107 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideVAM107 ? 'nohide' : 'hide'" (click)="show('VAM107')">VAM107</button></ng-template>
+        <ng-template #VAM107 let-visible="visible"><a href="#VAM107" nz-button [nzSize]="'default'"
+            [ngClass]="hideVAM107 ? 'nohide' : 'hide'" (click)="show('VAM107')">VAM107</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="VAM108">
-        <ng-template #VAM108 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideVAM108 ? 'nohide' : 'hide'" (click)="show('VAM108')">VAM108</button></ng-template>
+        <ng-template #VAM108 let-visible="visible"><a href="#VAM108" nz-button [nzSize]="'default'"
+            [ngClass]="hideVAM108 ? 'nohide' : 'hide'" (click)="show('VAM108')">VAM108</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM029">
-        <ng-template #BAM029 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM029 ? 'nohide' : 'hide'" (click)="show('BAM029')">BAM029</button></ng-template>
+        <ng-template #BAM029 let-visible="visible"><a href="#BAM029" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM029 ? 'nohide' : 'hide'" (click)="show('BAM029')">BAM029</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM501">
-        <ng-template #BAM501 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM501 ? 'nohide' : 'hide'" (click)="show('BAM501')">BAM501</button></ng-template>
+        <ng-template #BAM501 let-visible="visible"><a href="#BAM501" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM501 ? 'nohide' : 'hide'" (click)="show('BAM501')">BAM501</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM502">
-        <ng-template #BAM502 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM502 ? 'nohide' : 'hide'" (click)="show('BAM502')">BAM502</button></ng-template>
+        <ng-template #BAM502 let-visible="visible"><a href="#BAM502" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM502 ? 'nohide' : 'hide'" (click)="show('BAM502')">BAM502</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM504">
-        <ng-template #BAM504 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM504 ? 'nohide' : 'hide'" (click)="show('BAM504')">BAM504</button></ng-template>
+        <ng-template #BAM504 let-visible="visible"><a href="#BAM504" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM504 ? 'nohide' : 'hide'" (click)="show('BAM504')">BAM504</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM505">
-        <ng-template #BAM505 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM505 ? 'nohide' : 'hide'" (click)="show('BAM505')">BAM505</button></ng-template>
+        <ng-template #BAM505 let-visible="visible"><a href="#BAM505" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM505 ? 'nohide' : 'hide'" (click)="show('BAM505')">BAM505</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM032">
-        <ng-template #BAM032 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM032 ? 'nohide' : 'hide'" (click)="show('BAM032')">BAM032</button></ng-template>
+        <ng-template #BAM032 let-visible="visible"><a href="#BAM032" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM032 ? 'nohide' : 'hide'" (click)="show('BAM032')">BAM032</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM011">
-        <ng-template #BAM011 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM011 ? 'nohide' : 'hide'" (click)="show('BAM011')">BAM011</button></ng-template>
+        <ng-template #BAM011 let-visible="visible"><a href="#BAM011" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM011 ? 'nohide' : 'hide'" (click)="show('BAM011')">BAM011</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM067">
-        <ng-template #BAM067 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM067 ? 'nohide' : 'hide'" (click)="show('BAM067')">BAM067</button></ng-template>
+        <ng-template #BAM067 let-visible="visible"><a href="#BAM067" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM067 ? 'nohide' : 'hide'" (click)="show('BAM067')">BAM067</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM070">
-        <ng-template #BAM070 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM070 ? 'nohide' : 'hide'" (click)="show('BAM070')">BAM070</button></ng-template>
+        <ng-template #BAM070 let-visible="visible"><a href="#BAM070" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM070 ? 'nohide' : 'hide'" (click)="show('BAM070')">BAM070</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM101">
-        <ng-template #BAM101 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM101 ? 'nohide' : 'hide'" (click)="show('BAM101')">BAM101</button></ng-template>
+        <ng-template #BAM101 let-visible="visible"><a href="#BAM101" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM101 ? 'nohide' : 'hide'" (click)="show('BAM101')">BAM101</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM421">
-        <ng-template #BAM421 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM421 ? 'nohide' : 'hide'" (click)="show('BAM421')">BAM421</button></ng-template>
+        <ng-template #BAM421 let-visible="visible"><a href="#BAM421" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM421 ? 'nohide' : 'hide'" (click)="show('BAM421')">BAM421</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM305">
-        <ng-template #BAM305 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM305 ? 'nohide' : 'hide'" (click)="show('BAM305')">BAM305</button></ng-template>
+        <ng-template #BAM305 let-visible="visible"><a href="#BAM305" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM305 ? 'nohide' : 'hide'" (click)="show('BAM305')">BAM305</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM306">
-        <ng-template #BAM306 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM306 ? 'nohide' : 'hide'" (click)="show('BAM306')">BAM306</button></ng-template>
+        <ng-template #BAM306 let-visible="visible"><a href="#BAM306" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM306 ? 'nohide' : 'hide'" (click)="show('BAM306')">BAM306</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM307">
-        <ng-template #BAM307 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM307 ? 'nohide' : 'hide'" (click)="show('BAM307')">BAM307</button></ng-template>
+        <ng-template #BAM307 let-visible="visible"><a href="#BAM307" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM307 ? 'nohide' : 'hide'" (click)="show('BAM307')">BAM307</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM608">
-        <ng-template #BAM608 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM608 ? 'nohide' : 'hide'" (click)="show('BAM608')">BAM608</button></ng-template>
+        <ng-template #BAM608 let-visible="visible"><a href="#BAM608" nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM608 ? 'nohide' : 'hide'" (click)="show('BAM608')">BAM608</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="KRM046">
-        <ng-template #KRM046 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideKRM046 ? 'nohide' : 'hide'" (click)="show('KRM046')">KRM046</button></ng-template>
+        <ng-template #KRM046 let-visible="visible"><a href="#KRM046" nz-button [nzSize]="'default'"
+            [ngClass]="hideKRM046 ? 'nohide' : 'hide'" (click)="show('KRM046')">KRM046</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="KRM048">
-        <ng-template #KRM048 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideKRM048 ? 'nohide' : 'hide'" (click)="show('KRM048')">KRM048</button></ng-template>
+        <ng-template #KRM048 let-visible="visible"><a href="#KRM048" nz-button [nzSize]="'default'"
+            [ngClass]="hideKRM048 ? 'nohide' : 'hide'" (click)="show('KRM048')">KRM048</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="STM022">
-        <ng-template #STM022 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideSTM022 ? 'nohide' : 'hide'" (click)="show('STM022')">STM022</button></ng-template>
+        <ng-template #STM022 let-visible="visible"><a href="#STM025" nz-button [nzSize]="'default'"
+            [ngClass]="hideSTM022 ? 'nohide' : 'hide'" (click)="show('STM022')">STM022</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="STM008">
-        <ng-template #STM008 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideSTM008 ? 'nohide' : 'hide'" (click)="show('STM008')">STM008</button></ng-template>
+        <ng-template #STM008 let-visible="visible"><a href="#STM008" nz-button [nzSize]="'default'"
+            [ngClass]="hideSTM008 ? 'nohide' : 'hide'" (click)="show('STM008')">STM008</a></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="STM025">
         <ng-template #STM025 let-visible="visible"><a href="#STM025" nz-button [nzSize]="'default'"
@@ -618,7 +618,7 @@
   </div>
 
   <!-- JCICMASTEE -->
-  <div [(hidden)]="hideJCICMASTER" class="line_bank_card_no_padding">
+  <div [id]="!hideJCICMASTER ? 'JCICMASTER' : '' " [(hidden)]="hideJCICMASTER" class="line_bank_card_no_padding">
     <!-- AAS003 -->
     <nz-table nzSize="small" nzTitle="AAS003 自然人姓名,身分證補發,通報,補充註記">
       <ng-container *ngFor="let data of AAS003.slice(0,1)">
@@ -782,32 +782,32 @@
     <br>
   </div>
 
-  <app-jcictable *ngIf="!hideKCM012" class="line_bank_card_no_padding" [code]="JCICCode.KCM012"></app-jcictable>
-  <app-jcictable *ngIf="!hideDAM001" class="line_bank_card_no_padding" [code]="JCICCode.DAM001"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM061" class="line_bank_card_no_padding" [code]="JCICCode.BAM061"></app-jcictable>
-  <app-jcictable *ngIf="!hideKRM043" class="line_bank_card_no_padding" [code]="JCICCode.KRM043"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM062" class="line_bank_card_no_padding" [code]="JCICCode.BAM062"></app-jcictable>
-  <app-jcictable *ngIf="!hideVAM020" class="line_bank_card_no_padding" [code]="JCICCode.VAM020"></app-jcictable>
-  <app-jcictable *ngIf="!hideVAM201" class="line_bank_card_no_padding" [code]="JCICCode.VAM201"></app-jcictable>
-  <app-jcictable *ngIf="!hideVAM106" class="line_bank_card_no_padding" [code]="JCICCode.VAM106"></app-jcictable>
-  <app-jcictable *ngIf="!hideVAM107" class="line_bank_card_no_padding" [code]="JCICCode.VAM107"></app-jcictable>
-  <app-jcictable *ngIf="!hideVAM108" class="line_bank_card_no_padding" [code]="JCICCode.VAM108"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM029" class="line_bank_card_no_padding" [code]="JCICCode.BAM029"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM501" class="line_bank_card_no_padding" [code]="JCICCode.BAM501"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM502" class="line_bank_card_no_padding" [code]="JCICCode.BAM502"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM504" class="line_bank_card_no_padding" [code]="JCICCode.BAM504"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM505" class="line_bank_card_no_padding" [code]="JCICCode.BAM505"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM032" class="line_bank_card_no_padding" [code]="JCICCode.BAM032"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM011" class="line_bank_card_no_padding" [code]="JCICCode.BAM011"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM067" class="line_bank_card_no_padding" [code]="JCICCode.BAM067"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM070" class="line_bank_card_no_padding" [code]="JCICCode.BAM070"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM101" class="line_bank_card_no_padding" [code]="JCICCode.BAM101"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM421" class="line_bank_card_no_padding" [code]="JCICCode.BAM421"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM305" class="line_bank_card_no_padding" [code]="JCICCode.BAM305"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM306" class="line_bank_card_no_padding" [code]="JCICCode.BAM306"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM307" class="line_bank_card_no_padding" [code]="JCICCode.BAM307"></app-jcictable>
-  <app-jcictable *ngIf="!hideBAM608" class="line_bank_card_no_padding" [code]="JCICCode.BAM608"></app-jcictable>
-  <app-jcictable *ngIf="!hideKRM046" class="line_bank_card_no_padding" [code]="JCICCode.KRM046"></app-jcictable>
-  <app-jcictable *ngIf="!hideKRM048" class="line_bank_card_no_padding" [code]="JCICCode.KRM048"></app-jcictable>
-  <app-jcictable id="STM025" *ngIf="!hideSTM025" class="line_bank_card_no_padding" [code]="JCICCode.STM025"></app-jcictable>
+  <app-jcictable [id]="!hideKCM012 ? 'KCM012' : '' " *ngIf="!hideKCM012" class="line_bank_card_no_padding" [code]="JCICCode.KCM012"></app-jcictable>
+  <app-jcictable [id]="!hideDAM001 ? 'DAM001' : '' " *ngIf="!hideDAM001" class="line_bank_card_no_padding" [code]="JCICCode.DAM001"></app-jcictable>
+  <app-jcictable [id]="!hideBAM061 ? 'BAM061' : '' " *ngIf="!hideBAM061" class="line_bank_card_no_padding" [code]="JCICCode.BAM061"></app-jcictable>
+  <app-jcictable [id]="!hideKRM043 ? 'KRM043' : '' " *ngIf="!hideKRM043" class="line_bank_card_no_padding" [code]="JCICCode.KRM043"></app-jcictable>
+  <app-jcictable [id]="!hideBAM062 ? 'BAM062' : '' " *ngIf="!hideBAM062" class="line_bank_card_no_padding" [code]="JCICCode.BAM062"></app-jcictable>
+  <app-jcictable [id]="!hideVAM020 ? 'VAM020' : '' " *ngIf="!hideVAM020" class="line_bank_card_no_padding" [code]="JCICCode.VAM020"></app-jcictable>
+  <app-jcictable [id]="!hideVAM201 ? 'VAM201' : '' " *ngIf="!hideVAM201" class="line_bank_card_no_padding" [code]="JCICCode.VAM201"></app-jcictable>
+  <app-jcictable [id]="!hideVAM106 ? 'VAM106' : '' " *ngIf="!hideVAM106" class="line_bank_card_no_padding" [code]="JCICCode.VAM106"></app-jcictable>
+  <app-jcictable [id]="!hideVAM107 ? 'VAM107' : '' " *ngIf="!hideVAM107" class="line_bank_card_no_padding" [code]="JCICCode.VAM107"></app-jcictable>
+  <app-jcictable [id]="!hideVAM108 ? 'VAM108' : '' " *ngIf="!hideVAM108" class="line_bank_card_no_padding" [code]="JCICCode.VAM108"></app-jcictable>
+  <app-jcictable [id]="!hideBAM029 ? 'BAM029' : '' " *ngIf="!hideBAM029" class="line_bank_card_no_padding" [code]="JCICCode.BAM029"></app-jcictable>
+  <app-jcictable [id]="!hideBAM501 ? 'BAM501' : '' " *ngIf="!hideBAM501" class="line_bank_card_no_padding" [code]="JCICCode.BAM501"></app-jcictable>
+  <app-jcictable [id]="!hideBAM502 ? 'BAM502' : '' " *ngIf="!hideBAM502" class="line_bank_card_no_padding" [code]="JCICCode.BAM502"></app-jcictable>
+  <app-jcictable [id]="!hideBAM504 ? 'BAM504' : '' " *ngIf="!hideBAM504" class="line_bank_card_no_padding" [code]="JCICCode.BAM504"></app-jcictable>
+  <app-jcictable [id]="!hideBAM505 ? 'BAM505' : '' " *ngIf="!hideBAM505" class="line_bank_card_no_padding" [code]="JCICCode.BAM505"></app-jcictable>
+  <app-jcictable [id]="!hideBAM032 ? 'BAM032' : '' " *ngIf="!hideBAM032" class="line_bank_card_no_padding" [code]="JCICCode.BAM032"></app-jcictable>
+  <app-jcictable [id]="!hideBAM011 ? 'BAM011' : '' " *ngIf="!hideBAM011" class="line_bank_card_no_padding" [code]="JCICCode.BAM011"></app-jcictable>
+  <app-jcictable [id]="!hideBAM067 ? 'BAM067' : '' " *ngIf="!hideBAM067" class="line_bank_card_no_padding" [code]="JCICCode.BAM067"></app-jcictable>
+  <app-jcictable [id]="!hideBAM070 ? 'BAM070' : '' " *ngIf="!hideBAM070" class="line_bank_card_no_padding" [code]="JCICCode.BAM070"></app-jcictable>
+  <app-jcictable [id]="!hideBAM101 ? 'BAM101' : '' " *ngIf="!hideBAM101" class="line_bank_card_no_padding" [code]="JCICCode.BAM101"></app-jcictable>
+  <app-jcictable [id]="!hideBAM421 ? 'BAM421' : '' " *ngIf="!hideBAM421" class="line_bank_card_no_padding" [code]="JCICCode.BAM421"></app-jcictable>
+  <app-jcictable [id]="!hideBAM305 ? 'BAM305' : '' " *ngIf="!hideBAM305" class="line_bank_card_no_padding" [code]="JCICCode.BAM305"></app-jcictable>
+  <app-jcictable [id]="!hideBAM306 ? 'BAM306' : '' " *ngIf="!hideBAM306" class="line_bank_card_no_padding" [code]="JCICCode.BAM306"></app-jcictable>
+  <app-jcictable [id]="!hideBAM307 ? 'BAM307' : '' " *ngIf="!hideBAM307" class="line_bank_card_no_padding" [code]="JCICCode.BAM307"></app-jcictable>
+  <app-jcictable [id]="!hideBAM608 ? 'BAM608' : '' " *ngIf="!hideBAM608" class="line_bank_card_no_padding" [code]="JCICCode.BAM608"></app-jcictable>
+  <app-jcictable [id]="!hideKRM046 ? 'KRM046' : '' " *ngIf="!hideKRM046" class="line_bank_card_no_padding" [code]="JCICCode.KRM046"></app-jcictable>
+  <app-jcictable [id]="!hideKRM048 ? 'KRM048' : '' " *ngIf="!hideKRM048" class="line_bank_card_no_padding" [code]="JCICCode.KRM048"></app-jcictable>
+  <app-jcictable [id]="!hideSTM025 ? 'STM025' : '' " *ngIf="!hideSTM025" class="line_bank_card_no_padding" [code]="JCICCode.STM025"></app-jcictable>
 </div>
