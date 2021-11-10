@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-childscn10page3',
   templateUrl: './childscn10page3.component.html',
-  styleUrls: ['./childscn10page3.component.css', '../../../../assets/css/f01.css']
+  styleUrls: ['./childscn10page3.component.css', '../../../../assets/css/child.css']
 })
 export class Childscn10page3Component implements OnInit {
 

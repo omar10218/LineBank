@@ -7,7 +7,7 @@ import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n'
 @Component({
   selector: 'app-childscn10page2',
   templateUrl: './childscn10page2.component.html',
-  styleUrls: ['./childscn10page2.component.css', '../../../../assets/css/f01.css']
+  styleUrls: ['./childscn10page2.component.css', '../../../../assets/css/child.css']
 })
 export class Childscn10page2Component implements OnInit {
 
