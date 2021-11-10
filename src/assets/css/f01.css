@@ -21,7 +21,7 @@ mat-grid-tile {
   font-size: 14px;
 }
 /* 表格內容樣式 */
-.table-data{
+/* .table-data{
   background-color:white;
   border: 0.5px solid #e8e8e8;
   color:black;
@@ -29,13 +29,13 @@ mat-grid-tile {
   font-size: 12px;
 }
 /* 表單輸入欄 */
-input{
+/* input{
   background-color:#E6E6E6;
   border-radius: 10px;
   height:30px;
   width:100%;
   border: 1px solid #E6E6E6;
-}
+}  */
 /* 表單標題 */
 .form-title{
   color:#2E4765;
@@ -78,7 +78,7 @@ input{
 
 /* title和input為一個form */
 .form{
-  padding:10px;
+  padding:0px;
 }
 /* 隔線系統強制拓寬 */
 /* ::ng-deep.ant-row{
