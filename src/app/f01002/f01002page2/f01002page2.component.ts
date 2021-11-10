@@ -25,7 +25,7 @@ interface callout {
 @Component({
   selector: 'app-f01002page2',
   templateUrl: './f01002page2.component.html',
-  styleUrls: ['./f01002page2.component.css']
+  styleUrls: ['./f01002page2.component.css', '../../../assets/css/f01.css']
 })
 
 export class F01002page2Component implements OnInit {

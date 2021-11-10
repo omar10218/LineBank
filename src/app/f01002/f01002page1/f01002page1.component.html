@@ -55,7 +55,6 @@
       </div>
     </div> -->
   <div nz-row class="search_row">
-    <div nz-col nzFlex="4">
       <div class="EL_DSS_form_header_title3">
         <div nz-col>
           <div nz-row>
@@ -107,10 +106,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div nz-col nzFlex="1" class="tabs_row">
-
-    </div>
+   
+    
   </div>
 
   <div class="content">
@@ -120,7 +117,7 @@
 
           <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
             [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
-            nzFooter="案件數: {{this.total}} 件" [nzScroll]="{ x: '1500px', y:tableHeight}"
+            nzFooter="案件數: {{this.total}} 件" [nzScroll]="{ x: '1500px', y:tableHeight}" 
             (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
               <tr>

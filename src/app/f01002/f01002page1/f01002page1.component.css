@@ -68,10 +68,11 @@ input{
 }
 
 ::ng-deep.ant-table.ant-table-small .ant-table-title{
-  color:#2E4765;
+  color:#ffffff;
   font-size:18px;
-  border-radius:5px 5px 0 0;
-  background-color:#BFECD0;
+  border-radius:10px 10px 0 0;
+  background-color:white;
+  topacity:0.1;
   font-weight: 500;
   text-align: center;
   border: 1px solid #DBDBDB;
@@ -139,24 +140,28 @@ border:1px solid  #c9c9c9;
 
 /* 11/10 update */
 .EL_DSS_form_header_title3{
-  width:99%;
+  width:95%;
+  position: relative;
+  top:10px;
+  z-index:10;
   /* margin-bottom: 10px; */
   text-align: center;
+  margin:0 auto;
   color:#2E4765;
-  border-radius: 10px;
+  border-radius: 10px 10px 0px 0px;
   box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
   background-color: #BFECD0;
   padding:10px 0;
 }
 .search_row{
-  width:95%;
+  width:100%;
   margin:0 auto;
 }
-.tabs_row{
+/* .tabs_row{
   box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
   background-color: #96CABC;
   border-radius:10px
-}
+} */
 .mat-select{
   width:100%;
   display:inline-block;
