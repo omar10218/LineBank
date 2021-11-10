@@ -61,11 +61,11 @@
   </div>
 
 
-  <div *ngFor="let speaking of speakingData" style="padding-left: 20px;">
+  <!-- <div *ngFor="let speaking of speakingData" style="padding-left: 20px;">
     <button type="submit" style="float:left" mat-raised-button
       (click)="ShowspeakingContenta(speaking.speakingContent)">{{speaking.speakingAbbreviation}}</button>
   </div>
-  <br><br>
+  <br> -->
 
   <div *ngIf="getSearch() == 'N'" style="padding-left: 20px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save()">儲存</button>
@@ -74,8 +74,6 @@
   <div *ngIf="getSearch() != 'N'" style="padding-left: 20px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save()" disabled >儲存</button>
   </div>
-
-  <br>
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">
   <!-- 表格 -->

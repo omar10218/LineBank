@@ -1,62 +1,4 @@
-<!-- <th style="padding-left: 20px;">查詢日期：</th>
-<td>
-  <mat-form-field color="accent">
-    <mat-select [(ngModel)]="dateValue" name="ynCode" (ngModelChange)="changeDate()">
-      <mat-option *ngFor="let date of dateCode" [value]="date.value">
-        {{date.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</td>
-<br>
-<form [formGroup]="dss3Form" style="padding-left: 20px;">
-  <table>
-    <mat-card class="matCard">
-      <mat-card-content>
-        <tr>
-          <th nowrap="nowrap" align="left">系統流程</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="SYSFLOWCD" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">決策結果</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="RESLTCD" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">徵審代碼數量</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="UNDW_CD_CNT" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <th nowrap="nowrap" align="left">徵審代碼清單</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="UNDW_CD_LIST" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">SPARE - 數值格式</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="SPARE_ARRAY1" readonly>
-            </mat-form-field>
-          </td>
-          <th nowrap="nowrap" align="left">SPARE - 文字格式</th>
-          <td>
-            <mat-form-field color="accent">
-              <input matInput #input formControlName="SPARE_ARRAY2" readonly>
-            </mat-form-field>
-          </td>
-        </tr>
-      </mat-card-content>
-    </mat-card>
-  </table>
-</form> -->
+
 
 
 
@@ -74,7 +16,7 @@
   </div>
 </div>
 <form [formGroup]="dss3Form">
- 
+
     <div class="line_bank_card_no_padding_child">
       <div class="line_bank_form_header_title">產生合約前回查</div>
       <div nz-row>
@@ -118,5 +60,175 @@
         </div>
       </div>
     </div>
- 
+
 </form>
+
+<br>
+
+<div class="line_bank_card_no_padding">
+  <nz-table nzShowSizeChanger [nzData]="fmData.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+    nzTitle="DBR計算">
+    <thead>
+      <tr >
+        <th style="width:43%" class="table-header" colspan="2">項目</th>
+        <th style="width:19%" class="table-header">DSS計算結果</th>
+        <th style="width:19%"class="table-header">產生合約前回查手動調整</th>
+      </tr>
+    </thead>
+    <tbody>
+     <tr >
+       <td>(DBR分子)無擔保負債金錢</td>
+       <td>(A)無擔保負債(不含本行)_BAM501月報</td>
+       <td>
+        <span class="form-title">{{test1}}</span>
+       </td>
+       <td>
+        <div style="padding:0px"><input style="display: block;"
+          [(ngModel)]="test3" name="test3"></div>
+       </td>
+     </tr>
+     <tr *ngIf="fmData.data.length>0">
+      <td></td>
+      <td>(B)無擔保負債(不含本行)_BAM504扣除鑑價值</td>
+      <td>
+        <span class="form-title">{{test4}}</span>
+       </td>
+       <td>
+        <div style="padding:0px"><input style="display: block;"
+          [(ngModel)]="test6" name="test6"></div>
+       </td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td></td>
+      <td>(C)無擔保負債(不含本行)_BAM505新增核准額度</td>
+      <td>
+        <span class="form-title">{{test4}}</span>
+       </td>
+       <td>
+        <div style="padding:0px"><input style="display: block;"
+          [(ngModel)]="test6" name="test6"></div>
+       </td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td></td>
+      <td>(D)無擔保負債(不含本行)_BAM029新增核准額度</td>
+      <td>
+        <span class="form-title">{{test4}}</span>
+       </td>
+       <td>
+        <div style="padding:0px"><input style="display: block;"
+          [(ngModel)]="test6" name="test6"></div>
+       </td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td></td>
+      <td>(E)本行無擔保負債_循環信貸額度</td>
+      <td>
+        <span class="form-title">{{test4}}</span>
+       </td>
+       <td>
+        <div style="padding:0px"><input style="display: block;"
+          [(ngModel)]="test6" name="test6"></div>
+       </td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td></td>
+      <td>(E)本行無擔保負債_循環信貸額度</td>
+      <td>
+        <span class="form-title">{{test4}}</span>
+       </td>
+       <td>
+        <div style="padding:0px"><input style="display: block;"
+          [(ngModel)]="test6" name="test6"></div>
+       </td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td></td>
+      <td>(F)本行無擔保負債_分期信貸放款餘額</td>
+      <td>
+        <span class="form-title">{{test4}}</span>
+       </td>
+       <td>
+        <div style="padding:0px"><input style="display: block;"
+          [(ngModel)]="test6" name="test6"></div>
+       </td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td></td>
+      <td>(G)本行無擔保負債_信用卡循環預借未到期</td>
+      <td>
+        <span class="form-title">{{test4}}</span>
+       </td>
+       <td>
+        <div style="padding:0px"><input style="display: block;"
+          [(ngModel)]="test6" name="test6"></div>
+       </td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td></td>
+      <td>(H)其他無擔保負債_其他非JCIC</td>
+      <td>
+        <span class="form-title">{{test4}}</span>
+       </td>
+       <td>
+        <div style="padding:0px"><input style="display: block;"
+          [(ngModel)]="test6" name="test6"></div>
+       </td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td></td>
+      <td>(I)(減項)無擔保負債(不含本行)_BAM029清償全額</td>
+      <td>
+        <span class="form-title">{{test4}}</span>
+       </td>
+       <td>
+        <div style="padding:0px"><input style="display: block;"
+          [(ngModel)]="test6" name="test6"></div>
+       </td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td></td>
+      <td>(J)無擔保負債(不含本筆核准)合計</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td colspan="2">(DBR分母)客戶填寫年收入</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td colspan="2">(DBR分母)徵審確認後年收入</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td colspan="2">本筆建議核准金額/額度</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td colspan="2">無擔保倍數(不含本筆&使用客戶填寫收入值)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td colspan="2">無擔保倍數(不含本筆&使用徵審確認收入值)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td colspan="2">無擔保倍數(含本筆核准&使用徵審確認收入值)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr *ngIf="fmData.data.length>0">
+      <td colspan="2">無擔保倍數(含本筆合約金額&使用徵審確認收入值)</td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { OptionsCode } from 'src/app/interface/base';
 import { Childscn10Service } from '../childscn10.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-childscn10page3',
@@ -30,6 +31,12 @@ export class Childscn10page3Component implements OnInit {
   private applno: string;
   private cuid: string;
   private search: string;
+
+  fmData = new MatTableDataSource<any>();//判斷結果資料表
+
+  test7=10000
+  test1="1";test2="2";test3="3";
+  test4="4";test5="5";test6="6";
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
