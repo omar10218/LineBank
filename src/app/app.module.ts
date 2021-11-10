@@ -229,6 +229,7 @@ export const TW_FORMATS = {
     NzButtonModule,
     GoogleMapsModule,
     FontAwesomeModule,
+
   ],
   providers: [
     BnNgIdleService,

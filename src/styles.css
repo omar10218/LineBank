@@ -56,6 +56,9 @@ html {
 .line_bank_h4{
   font-size: 15px;
 }
+.line_bank_h5{
+  font-size: 13px;
+}
 .line_bank_bankground_color{
   background-color: #fff7e9;
   width:100%;
@@ -94,7 +97,7 @@ html {
 }
 .line_bank_card_no_padding {
 	position: relative;
-  margin:20px auto;
+  margin:10px auto;
 	width: 95%;
 	background: white;
 	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
@@ -133,3 +136,14 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
 .ant-empty-normal {
   margin: 0;
 }
+/* .ant-table.ant-table-small .ant-table-tbody>tr>td{
+  padding:6px;
+}
+.table-data{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:rgb(87, 87, 87);
+  margin-bottom: 0px;
+  font-size: 5px;
+} */
+

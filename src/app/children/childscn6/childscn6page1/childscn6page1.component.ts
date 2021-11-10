@@ -258,6 +258,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 		jsonObject['applno'] = this.applno
 		// jsonObject['queryDate'] = this.queryDate
 		this.childscn6Service.getMASTERJCICList(jsonObject).subscribe(data => {
+      console.log(data)
 			this.listSource = data.rspBody;
 		})
 	}
