@@ -191,6 +191,7 @@ export class Childscn8Component implements OnInit {
         CALLOUT_SETTIME: '',//確認時間
         CALLOUT_EMPNO: this.empNo,//徵信員編
         //CALLOUT_YN:''//照會完成
+        speakingData:this.speakingData//照會話術
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -226,7 +227,8 @@ export class Childscn8Component implements OnInit {
         CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
         CALLOUT_EMPNO: this.empNo,//徵信員編
         CALLOUT_YN: CALLOUT_YN,//照會完成
-        CALLOUT_YN_Code: this.CALLOUT_YN_Code//照會完成下拉選單
+        CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
+        speakingData:this.speakingData//照會話術
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -392,10 +394,10 @@ export class Childscn8Component implements OnInit {
     return result;
   }
 
-  ShowspeakingContenta(speakingContent: string): void {
-    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: speakingContent } });
-    // alert(speakingContent);
-  }
+  // ShowspeakingContenta(speakingContent: string): void {
+  //   const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: speakingContent } });
+  //   // alert(speakingContent);
+  // }
 
   //照會項目儲存
   async save() {
