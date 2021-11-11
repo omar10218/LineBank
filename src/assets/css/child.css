@@ -101,4 +101,9 @@ input{
 ::ng-deep.ant-table{
   border-radius:10px;
 }
+/* disabled樣式*/
+input:disabled{
+  color: darkgrey;
+}
+
 

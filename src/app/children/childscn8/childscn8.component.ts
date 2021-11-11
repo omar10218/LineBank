@@ -172,7 +172,7 @@ export class Childscn8Component implements OnInit {
   Add() {
     const dialogRef = this.dialog.open(Childscn8addComponent, {
       minHeight: '70vh',
-      width: '50%',
+      width: '70%',
       data: {
         applno: this.applno,//收件編號
         CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
@@ -241,7 +241,7 @@ export class Childscn8Component implements OnInit {
   deleteItem(CON_TYPE: string, PHONE: string, TEL_CONDITION: string, TEL_CHECK: string, CON_MEMO: string, CALLOUT_DATE: string, ID: string, CALLOUT_SETTIME: string, CALLOUT_YN: string) {
     const dialogRef = this.dialog.open(Childscn8deleteComponent, {
       minHeight: '70vh',
-      width: '50%',
+      width: '70%',
       data: {
         applno: this.applno,//收件編號
         CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單

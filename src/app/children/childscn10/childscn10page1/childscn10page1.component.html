@@ -8,13 +8,19 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">系統流程</span>
-            <input formControlName="SYSFLOWCD" readonly>
+            <input formControlName="SYSFLOWCD"  disabled>
           </div>
+
+          <!-- <div nz-col nzFlex="1">
+            <div style="padding:10px"><span class="form-title">產品代號</span><input matInput #input class="form-control"
+                value="待確認"  disabled disabled></div>
+          </div> -->
+
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">決策結果</span>
-            <input style="display: block;" formControlName="RESLTCD" readonly>
+            <input style="display: block;" formControlName="RESLTCD" disabled>
           </div>
         </div>
       </div>
@@ -24,37 +30,37 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">案件等級</span>
-            <input style="display: block;" formControlName="CALV" readonly>
+            <input style="display: block;" formControlName="CALV" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">往來優質特徵註記(房貸)</span>
-            <input style="display: block;" formControlName="GOODBEHAV_MORT" readonly>
+            <input style="display: block;" formControlName="GOODBEHAV_MORT" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">往來優質特徵註記(信用卡)</span>
-            <input style="display: block;" formControlName="GOODBEHAV_CC" readonly>
+            <input style="display: block;" formControlName="GOODBEHAV_CC" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">策略客群1(客戶填寫)</span>
-            <input style="display: block;" formControlName="OCUPATN_CUST_STGP1" readonly>
+            <input style="display: block;" formControlName="OCUPATN_CUST_STGP1" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">策略客群2(客戶填寫)</span>
-            <input style="display: block;" formControlName="OCUPATN_CUST_STGP2" readonly>
+            <input style="display: block;" formControlName="OCUPATN_CUST_STGP2" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">行職業代碼分群(客戶填寫)</span>
-            <input style="display: block;" formControlName="OCUPATN_CUST_GP" readonly>
+            <input style="display: block;" formControlName="OCUPATN_CUST_GP" disabled>
           </div>
         </div>
       </div>
@@ -63,31 +69,31 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">策略客群1(客戶填寫) (PM分群)</span>
-            <input style="display: block;" formControlName="OCUPATN_CUST_STGP1_PM" readonly>
+            <input style="display: block;" formControlName="OCUPATN_CUST_STGP1_PM" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">策略客群2(客戶填寫) (PM分群)</span>
-            <input style="display: block;" formControlName="OCUPATN_CUST_STGP2_PM" readonly>
+            <input style="display: block;" formControlName="OCUPATN_CUST_STGP2_PM" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">行職業代碼分群(客戶填寫) (PM分群)</span>
-            <input style="display: block;" formControlName="OCUPATN_CUST_GP_PM" readonly>
+            <input style="display: block;" formControlName="OCUPATN_CUST_GP_PM" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">客群標籤</span>
-            <input style="display: block;" formControlName="CUST_TAG" readonly>
+            <input style="display: block;" formControlName="CUST_TAG" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">客群標籤說明</span>
-            <input style="display: block;" formControlName="CUST_TAG_DESC" readonly>
+            <input style="display: block;" formControlName="CUST_TAG_DESC" disabled>
           </div>
         </div>
       </div>
@@ -114,19 +120,19 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略模板分類</span>
-            <input style="display: block;" formControlName="STRGY_MDUL" readonly>
+            <input style="display: block;" formControlName="STRGY_MDUL" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">授信策略模板生效日期時間</span>
-            <input style="display: block;" formControlName="STRGY_MDUL_ATVDT" readonly>
+            <input style="display: block;" formControlName="STRGY_MDUL_ATVDT" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">利率模板生效日期時間</span>
-            <input style="display: block;" formControlName="STRGY_RATE_ATVDT" readonly>
+            <input style="display: block;" formControlName="STRGY_RATE_ATVDT" disabled>
           </div>
         </div>
       </div>
@@ -161,20 +167,20 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">產品名稱</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PRDCD" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PRDCD" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">授信策略_准駁</span>
-            <input style="display: block;" formControlName="STRGY_TMP_APRFRJ" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_APRFRJ" disabled>
           </div>
         </div>
 
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">期數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MIN" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MIN" disabled>
           </div>
         </div>
         <h3 style="padding-top: 35px;padding-left:0px;padding-right:0px;">~</h3>
@@ -188,7 +194,7 @@
           <div style="padding:10px">
             <span class="form-title"></span>
             <br>
-            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MAX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MAX" disabled>
           </div>
         </div>
       </div>
@@ -197,13 +203,13 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">循環信貸額度</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_REVING" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_REVING" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">分期信貸金額</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_INST" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_INST" disabled>
           </div>
         </div>
         <h3 style="padding-top: 35px;padding-left:0px;padding-right:0px;">=</h3>
@@ -216,7 +222,7 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">分期信貸-現金額度</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_CASH" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_CASH" disabled>
           </div>
         </div>
         <h3 style="padding-top: 35px;padding-left:0px;padding-right:0px;">+</h3>
@@ -229,7 +235,7 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">分期信貸-債整額度</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_MERG" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_MERG" disabled>
           </div>
         </div>
       </div>
@@ -238,31 +244,31 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">每月最低還款比例(僅限循環信貸)</span>
-            <input style="display: block;" formControlName="STRGY_TMP_MINPAYRT" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_MINPAYRT" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">結帳日至還款日間客戶可申請動撥Y</span>
-            <input style="display: block;" formControlName="STRGY_TMP_DISB_BTCR_YN" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_DISB_BTCR_YN" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">循環信貸簡易檢核動撥金額門檻</span>
-            <input style="display: block;" formControlName="STRGY_TMP_RL_DISB_THRHLD" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_RL_DISB_THRHLD" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">開辦費(首次簽約用)</span>
-            <input style="display: block;" formControlName="STRGY_TMP_ORIGINFEE" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_ORIGINFEE" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">帳戶管理費(續約用)</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LOANEXTFEE" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LOANEXTFEE" disabled>
           </div>
         </div>
       </div>
@@ -318,37 +324,37 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_DBR</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_DBR" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_DBR" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_產品MUE</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_PRDMUE" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_PRDMUE" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_本行利害關係人(銀行法第32條)</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_LAW32" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_LAW32" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_同一自然人無擔保授信限額(銀行法第33條)</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_LAW33_UNS" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_LAW33_UNS" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_產品/專案額度上限</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MAX" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MAX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_產品/專案額度下限</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MIN" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MIN" disabled>
           </div>
         </div>
       </div>
@@ -357,25 +363,25 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_客戶申請金額</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_CUSTAPPLY" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_CUSTAPPLY" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_月付收支比</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_DTI" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_DTI" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_歸戶MUE</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_NIDMUE" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_NIDMUE" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_債整額度</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_MERGEAMT" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_MERGEAMT" disabled>
           </div>
         </div>
       </div>
@@ -384,37 +390,37 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_歸戶MUE倍數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_NIDMUEX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_NIDMUEX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_歸戶MUECAP</span>
-            <input style="display: block;" formControlName="STRGY_TMP_NIDMUECAP" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_NIDMUECAP" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_產品MUE倍數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_產品MUECAP</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEXCAP" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEXCAP" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_DBR限額倍數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_DBRX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_DBRX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_DTI參數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_DTIX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_DTIX" disabled>
           </div>
         </div>
       </div>
@@ -423,171 +429,162 @@
 
   <div style="padding-left: 30px; padding-top: 20px;">
     <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()">儲存</button>
-    <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()" disabled >儲存</button>
+    <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()"
+      disabled>儲存</button>
   </div>
 
   <div class="line_bank_card_no_padding">
     <nz-table nzShowSizeChanger [nzData]="fmData.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
       nzTitle="DBR計算">
       <thead>
-        <tr >
+        <tr>
           <th style="width:43%" class="table-header" colspan="2">項目</th>
           <th style="width:19%" class="table-header">DSS計算結果</th>
-          <th style="width:19%"class="table-header">徵審手動調整</th>
+          <th style="width:19%" class="table-header">徵審手動調整</th>
         </tr>
       </thead>
       <tbody>
-       <tr >
-         <td>(DBR分子)無擔保負債金錢</td>
-         <td>(A)無擔保負債(不含本行)_BAM501月報</td>
-         <td>
-          <span class="form-title">{{test1}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test2" name="test2"></div>
-         </td>
-       </tr>
-       <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(B)無擔保負債(不含本行)_BAM504扣除鑑價值</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(C)無擔保負債(不含本行)_BAM505新增核准額度</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(D)無擔保負債(不含本行)_BAM029新增核准額度</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(E)本行無擔保負債_循環信貸額度</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(E)本行無擔保負債_循環信貸額度</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(F)本行無擔保負債_分期信貸放款餘額</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(G)本行無擔保負債_信用卡循環預借未到期</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(H)其他無擔保負債_其他非JCIC</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(I)(減項)無擔保負債(不含本行)_BAM029清償全額</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(J)無擔保負債(不含本筆核准)合計</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">(DBR分母)客戶填寫年收入</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">(DBR分母)徵審確認後年收入</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">本筆建議核准金額/額度</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">無擔保倍數(不含本筆&使用客戶填寫收入值)</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">無擔保倍數(不含本筆&使用徵審確認收入值)</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">無擔保倍數(含本筆核准&使用徵審確認收入值)</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">無擔保倍數(含本筆合約金額&使用徵審確認收入值)</td>
-        <td></td>
-        <td></td>
-      </tr>
+        <tr>
+          <td>(DBR分子)無擔保負債金錢</td>
+          <td>(A)無擔保負債(不含本行)_BAM501月報</td>
+          <td>
+            <span class="form-title">{{test1}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test2" name="test2"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(B)無擔保負債(不含本行)_BAM504扣除鑑價值</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(C)無擔保負債(不含本行)_BAM505新增核准額度</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(D)無擔保負債(不含本行)_BAM029新增核准額度</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(E)本行無擔保負債_循環信貸額度</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(E)本行無擔保負債_循環信貸額度</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(F)本行無擔保負債_分期信貸放款餘額</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(G)本行無擔保負債_信用卡循環預借未到期</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(H)其他無擔保負債_其他非JCIC</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(I)(減項)無擔保負債(不含本行)_BAM029清償全額</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(J)無擔保負債(不含本筆核准)合計</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">(DBR分母)客戶填寫年收入</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">(DBR分母)徵審確認後年收入</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">本筆建議核准金額/額度</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">無擔保倍數(不含本筆&使用客戶填寫收入值)</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">無擔保倍數(不含本筆&使用徵審確認收入值)</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">無擔保倍數(含本筆核准&使用徵審確認收入值)</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">無擔保倍數(含本筆合約金額&使用徵審確認收入值)</td>
+          <td></td>
+          <td></td>
+        </tr>
       </tbody>
     </nz-table>
   </div>
@@ -597,88 +594,84 @@
     <nz-table nzShowSizeChanger [nzData]="fmData.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
       nzTitle="收支比計算">
       <thead>
-        <tr >
+        <tr>
           <th style="width:43%" class="table-header" colspan="2">項目</th>
           <th style="width:19%" class="table-header">DSS計算結果</th>
-          <th style="width:19%"class="table-header">徵審手動調整</th>
+          <th style="width:19%" class="table-header">徵審手動調整</th>
         </tr>
       </thead>
       <tbody>
-       <tr >
-         <td>(收支比分子)月付貸款總金額</td>
-         <td>(A)月付金計算_授信往來</td>
-         <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-       </tr>
-       <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(B)月付金計算_新增核准授信</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(C)月付金計算_信用卡循環預借未到期</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(D)月付金計算_其他非JCIC</td>
-        <td>
-          <span class="form-title">{{test4}}</span>
-         </td>
-         <td>
-          <div style="padding:0px"><input style="display: block;"
-            [(ngModel)]="test5" name="test5"></div>
-         </td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td></td>
-        <td>(E)月付金(不含本筆核准)合計</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">(收支比分母)客戶填寫年收入</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">(收支比分母)徵審確認後年收入</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">收支比(不含本筆&使用客戶填寫收入值)(%)</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">收支比(不含本數&使用徵審確認收入值)(%)</td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr *ngIf="fmData.data.length>0">
-        <td colspan="2">收支比(含本筆核准&使用徵審確認收入值)(%)</td>
-        <td></td>
-        <td></td>
-      </tr>
+        <tr>
+          <td>(收支比分子)月付貸款總金額</td>
+          <td>(A)月付金計算_授信往來</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(B)月付金計算_新增核准授信</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(C)月付金計算_信用卡循環預借未到期</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(D)月付金計算_其他非JCIC</td>
+          <td>
+            <span class="form-title">{{test4}}</span>
+          </td>
+          <td>
+            <div style="padding:0px"><input style="display: block;" [(ngModel)]="test5" name="test5"></div>
+          </td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td></td>
+          <td>(E)月付金(不含本筆核准)合計</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">(收支比分母)客戶填寫年收入</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">(收支比分母)徵審確認後年收入</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">收支比(不含本筆&使用客戶填寫收入值)(%)</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">收支比(不含本數&使用徵審確認收入值)(%)</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="fmData.data.length>0">
+          <td colspan="2">收支比(含本筆核准&使用徵審確認收入值)(%)</td>
+          <td></td>
+          <td></td>
+        </tr>
       </tbody>
     </nz-table>
   </div>
@@ -692,20 +685,20 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">產品名稱</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PRDCD" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PRDCD" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">授信策略_准駁</span>
-            <input style="display: block;" formControlName="STRGY_TMP_APRFRJ" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_APRFRJ" disabled>
           </div>
         </div>
 
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">期數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MIN" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MIN" disabled>
           </div>
         </div>
         <h3 style="padding-top: 35px;padding-left:0px;padding-right:0px;">~</h3>
@@ -719,25 +712,25 @@
           <div style="padding:10px">
             <span class="form-title"></span>
             <br>
-            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MAX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MAX" disabled>
           </div>
         </div>
         <!-- <div nz-col nzFlex="5">
           <div style="padding:10px">
             <span class="form-title">期數最小值</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MIN" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MIN" disabled>
           </div>
         </div>
         <div nz-col nzFlex="5">
           <div style="padding:10px">
             <span class="form-title">期數最大值</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MAX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MAX" disabled>
           </div>
         </div> -->
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">效期截止日</span>
-            <input style="display: block;" formControlName="STRGY_TMP_EXPIRDATE" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_EXPIRDATE" disabled>
           </div>
         </div>
       </div>
@@ -746,13 +739,13 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">循環信貸額度</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_REVING" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_REVING" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">分期信貸金額</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_INST" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_INST" disabled>
           </div>
         </div>
         <h3 style="padding-top: 35px;padding-left:0px;padding-right:0px;">=</h3>
@@ -765,7 +758,7 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">分期信貸-現金額度</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_CASH" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_CASH" disabled>
           </div>
         </div>
         <h3 style="padding-top: 35px;padding-left:0px;padding-right:0px;">+</h3>
@@ -778,7 +771,7 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">分期信貸-債整額度</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_MERG" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_MERG" disabled>
           </div>
         </div>
       </div>
@@ -787,31 +780,31 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">每月最低還款比例(僅限循環信貸)</span>
-            <input style="display: block;" formControlName="STRGY_TMP_MINPAYRT" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_MINPAYRT" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">結帳日至還款日間客戶可申請動撥Y</span>
-            <input style="display: block;" formControlName="STRGY_TMP_DISB_BTCR_YN" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_DISB_BTCR_YN" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">循環信貸簡易檢核動撥金額門檻</span>
-            <input style="display: block;" formControlName="STRGY_TMP_RL_DISB_THRHLD" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_RL_DISB_THRHLD" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">開辦費(首次簽約用)</span>
-            <input style="display: block;" formControlName="STRGY_TMP_ORIGINFEE" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_ORIGINFEE" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">帳戶管理費(續約用)</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LOANEXTFEE" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LOANEXTFEE" disabled>
           </div>
         </div>
       </div>
@@ -869,37 +862,37 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_DBR</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_DBR" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_DBR" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_產品MUE</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_PRDMUE" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_PRDMUE" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_本行利害關係人(銀行法第32條)</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_LAW32" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_LAW32" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_同一自然人無擔保授信限額(銀行法第33條)</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_LAW33_UNS" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_LAW33_UNS" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_產品/專案額度上限</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MAX" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MAX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_產品/專案額度下限</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MIN" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MIN" disabled>
           </div>
         </div>
       </div>
@@ -908,25 +901,25 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_客戶申請金額</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_CUSTAPPLY" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_CUSTAPPLY" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_月付收支比</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_DTI" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_DTI" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_歸戶MUE</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_NIDMUE" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_NIDMUE" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_債整額度</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_MERGEAMT" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_MERGEAMT" disabled>
           </div>
         </div>
       </div>
@@ -935,37 +928,37 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_歸戶MUE倍數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_NIDMUEX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_NIDMUEX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_歸戶MUECAP</span>
-            <input style="display: block;" formControlName="STRGY_TMP_NIDMUECAP" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_NIDMUECAP" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_產品MUE倍數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_產品MUECAP</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEXCAP" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEXCAP" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_DBR限額倍數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_DBRX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_DBRX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_DTI參數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_DTIX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_DTIX" disabled>
           </div>
         </div>
       </div>
@@ -981,20 +974,20 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">產品名稱</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PRDCD" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PRDCD" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">授信策略_准駁</span>
-            <input style="display: block;" formControlName="STRGY_TMP_APRFRJ" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_APRFRJ" disabled>
           </div>
         </div>
 
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">期數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MIN" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MIN" disabled>
           </div>
         </div>
         <h3 style="padding-top: 35px;padding-left:0px;padding-right:0px;">~</h3>
@@ -1008,14 +1001,14 @@
           <div style="padding:10px">
             <span class="form-title"></span>
             <br>
-            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MAX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PERIOD_MAX" disabled>
           </div>
         </div>
 
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">效期截止日</span>
-            <input style="display: block;" formControlName="STRGY_TMP_EXPIRDATE" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_EXPIRDATE" disabled>
           </div>
         </div>
       </div>
@@ -1024,13 +1017,13 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">循環信貸額度</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_REVING" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_REVING" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">分期信貸金額</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_INST" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_INST" disabled>
           </div>
         </div>
         <h3 style="padding-top: 35px;padding-left:0px;padding-right:0px;">=</h3>
@@ -1043,7 +1036,7 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">分期信貸-現金額度</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_CASH" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_CASH" disabled>
           </div>
         </div>
         <h3 style="padding-top: 35px;padding-left:0px;padding-right:0px;">+</h3>
@@ -1056,7 +1049,7 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">分期信貸-債整額度</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_MERG" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LIMIT_MERG" disabled>
           </div>
         </div>
       </div>
@@ -1065,31 +1058,31 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">每月最低還款比例(僅限循環信貸)</span>
-            <input style="display: block;" formControlName="STRGY_TMP_MINPAYRT" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_MINPAYRT" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">結帳日至還款日間客戶可申請動撥Y</span>
-            <input style="display: block;" formControlName="STRGY_TMP_DISB_BTCR_YN" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_DISB_BTCR_YN" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">循環信貸簡易檢核動撥金額門檻</span>
-            <input style="display: block;" formControlName="STRGY_TMP_RL_DISB_THRHLD" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_RL_DISB_THRHLD" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">開辦費(首次簽約用)</span>
-            <input style="display: block;" formControlName="STRGY_TMP_ORIGINFEE" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_ORIGINFEE" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">帳戶管理費(續約用)</span>
-            <input style="display: block;" formControlName="STRGY_TMP_LOANEXTFEE" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_LOANEXTFEE" disabled>
           </div>
         </div>
       </div>
@@ -1145,37 +1138,37 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_DBR</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_DBR" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_DBR" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_產品MUE</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_PRDMUE" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_PRDMUE" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_本行利害關係人(銀行法第32條)</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_LAW32" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_LAW32" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_同一自然人無擔保授信限額(銀行法第33條)</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_LAW33_UNS" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_LAW33_UNS" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_產品/專案額度上限</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MAX" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MAX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_產品/專案額度下限</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MIN" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_PROD_MIN" disabled>
           </div>
         </div>
       </div>
@@ -1184,25 +1177,25 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_客戶申請金額</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_CUSTAPPLY" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_CUSTAPPLY" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_月付收支比</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_DTI" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_DTI" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_歸戶MUE</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_NIDMUE" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_NIDMUE" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">限額_債整額度</span>
-            <input style="display: block;" formControlName="LIMIT_TMP_MERGEAMT" readonly>
+            <input style="display: block;" formControlName="LIMIT_TMP_MERGEAMT" disabled>
           </div>
         </div>
       </div>
@@ -1211,37 +1204,37 @@
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_歸戶MUE倍數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_NIDMUEX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_NIDMUEX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_歸戶MUECAP</span>
-            <input style="display: block;" formControlName="STRGY_TMP_NIDMUECAP" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_NIDMUECAP" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_產品MUE倍數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_產品MUECAP</span>
-            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEXCAP" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_PRDMUEXCAP" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_DBR限額倍數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_DBRX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_DBRX" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:10px">
             <span class="form-title">試算授信策略_DTI參數</span>
-            <input style="display: block;" formControlName="STRGY_TMP_DTIX" readonly>
+            <input style="display: block;" formControlName="STRGY_TMP_DTIX" disabled>
           </div>
         </div>
       </div>
