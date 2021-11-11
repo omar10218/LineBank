@@ -112,9 +112,11 @@
 
       <div nz-row>
         <div nz-col nzSpan="24">
-          <div *ngFor="let speaking of data.speakingData" style="padding-left: 20px;margin-top: 40px;">
-            <button type="submit" style="float:left;margin-top: 5px;" mat-raised-button
-              (click)="ShowspeakingContenta(speaking.speakingAbbreviation,speaking.speakingContent)">{{speaking.speakingAbbreviation}}</button>
+          <div *ngFor="let speaking of data.speakingData" style="padding-left: 20px;margin-top: 40px;margin-left: 0px;">
+            <button  type="submit" nz-button nzType="primary" style="float:left;margin:2px 2px; color:#ffffff;border-color:#2c86ec;background:#2c86ec"
+              (click)="ShowspeakingContenta(speaking.speakingAbbreviation,speaking.speakingContent)">
+                {{speaking.speakingAbbreviation}}
+            </button>
           </div>
         </div>
       </div>
