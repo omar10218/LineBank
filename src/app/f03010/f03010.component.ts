@@ -106,7 +106,7 @@ export class F03010Component implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result != null && result.event == '刪除成功!') {
           this.refreshTable();
-          window.location.reload();
+          // window.location.reload();
         }
       });
   }

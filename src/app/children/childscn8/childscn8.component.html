@@ -49,10 +49,9 @@
               row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" disabled >編輯</button>
           </td>
           <td class="table-data">
-            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'middle'" nzType="primary" (click)="deleteItem(
+            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="deleteItem(
               row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)">刪除</button>
-
-              <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'middle'" nzType="primary" (click)="deleteItem(
+              <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'middle'" nzType="default" (click)="deleteItem(
                 row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" disabled >刪除</button>
           </td>
         </tr>
