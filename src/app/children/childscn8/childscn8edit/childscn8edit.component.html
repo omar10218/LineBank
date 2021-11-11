@@ -139,7 +139,7 @@
         <div nz-col nzFlex="1">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">手機/市話</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.PHONE" name="PHONE" required>
+              <input matInput #input class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') " [(ngModel)]="data.PHONE" name="PHONE" required>
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
           </div>

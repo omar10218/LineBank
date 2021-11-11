@@ -3,7 +3,7 @@
   <div class="container" style="padding:20px">
     <form class="mat-dialog-content" #formControl="ngForm">
 
-      <div nz-row>
+      <!-- <div nz-row>
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">聯絡方式</span>
@@ -46,6 +46,96 @@
               </mat-radio-group>
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
+          </div>
+        </div>
+      </div> -->
+      <div nz-row>
+        <div nz-col nzSpan="8">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">聯絡方式</span>
+              <!-- <nz-radio-group *ngFor="let code of data.CON_TYPE_Code" fxLayout="column" [(ngModel)]="data.CON_TYPE"
+                name="CON_TYPE" required>
+                <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+              </nz-radio-group> -->
+
+
+              <nz-radio-group [(ngModel)]="data.CON_TYPE" name="CON_TYPE"  disabled >
+                <div nz-row>
+                  <div nz-col nzSpan="12" *ngFor="let code of data.CON_TYPE_Code">
+                    <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+                  </div>
+                </div>
+
+              </nz-radio-group>
+
+
+              <!-- <mat-radio-group *ngFor="let code of data.CON_TYPE_Code" fxLayout="column" [(ngModel)]="data.CON_TYPE"
+                name="CON_TYPE" required>
+                <mat-radio-button [value]="code.value">
+                  {{code.viewValue}}
+                </mat-radio-button>
+                <br>
+              </mat-radio-group> -->
+            </div>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">電話驗證</span>
+              <!-- <nz-radio-group *ngFor="let code of data.TEL_CHECK_Code" fxLayout="column" [(ngModel)]="data.TEL_CHECK"
+                name="TEL_CHECK" required>
+                <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+              </nz-radio-group> -->
+
+
+              <nz-radio-group [(ngModel)]="data.TEL_CHECK" name="TEL_CHECK"  disabled >
+                <div nz-row>
+                  <div nz-col nzSpan="12" *ngFor="let code of data.TEL_CHECK_Code">
+                    <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+                  </div>
+                </div>
+
+              </nz-radio-group>
+
+
+              <!-- <mat-radio-group *ngFor="let code of data.TEL_CHECK_Code" fxLayout="column" [(ngModel)]="data.TEL_CHECK"
+                name="TEL_CHECK" required>
+                <mat-radio-button [value]="code.value">
+                  {{code.viewValue}}
+                </mat-radio-button>
+                <br>
+              </mat-radio-group> -->
+            </div>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <div class="form" style="padding:20px">
+            <div><span class="form-title-actions">電話狀況</span>
+              <!-- <nz-radio-group *ngFor="let code of data.TEL_CONDITION_Code" fxLayout="column"
+                [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" required>
+                <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+              </nz-radio-group> -->
+              <nz-radio-group [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" disabled >
+                <div nz-row>
+                  <div nz-col nzSpan="12" *ngFor="let code of data.TEL_CONDITION_Code">
+                    <label nz-radio  required [nzValue]="code.value">{{code.viewValue}}</label>
+                  </div>
+                </div>
+
+              </nz-radio-group>
+              <!-- <mat-radio-group *ngFor="let code of data.TEL_CONDITION_Code" fxLayout="column"
+                [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" required>
+                <mat-radio-button [value]="code.value">
+                  {{code.viewValue}}
+                </mat-radio-button>
+                <br>
+              </mat-radio-group> -->
+            </div>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>

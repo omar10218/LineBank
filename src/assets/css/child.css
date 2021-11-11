@@ -98,5 +98,9 @@ input{
   padding:10px;
   background-color:#E6E6E6
 }
+/* disabled樣式*/
+input:disabled{
+  color: darkgrey;
+}
 
 

@@ -112,4 +112,8 @@ mat-grid-tile {
 .button-group{
   padding:10px;
 }
+/* disabled樣式*/
+input:disabled{
+  color: darkgrey;
+}
 
