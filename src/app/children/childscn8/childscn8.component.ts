@@ -207,7 +207,7 @@ export class Childscn8Component implements OnInit {
 
     const dialogRef = this.dialog.open(Childscn8editComponent, {
       minHeight: '70vh',
-      width: '50%',
+      width: '70%',
       data: {
         applno: this.applno,//收件編號
         CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
