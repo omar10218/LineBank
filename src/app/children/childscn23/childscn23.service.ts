@@ -13,5 +13,9 @@ export class Childscn23Service extends BaseService {
   getdropdown( baseUrl: string ): Observable<any> {
     return this.getLine(baseUrl);
   }
+  AddUpDel(baseUrl: string, json: JSON)
+  {
+    return this.postJsonObject(baseUrl,json);
+  }
 
 }

@@ -1,20 +1,19 @@
 <div class="line_bank_bankground_color">
   <div style="padding-left: 20px; padding-top: 20px;">
     <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="add()">新增</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px">儲存</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px">刪除</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="seve()">儲存</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="del()">刪除</button>
   </div>
 </div>
-<br>
 <div class="line_bank_card_no_padding">
 
-  <nz-table [nzData]="" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small">
+  <nz-table [nzData]="data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small">
     <thead>
       <tr>
         <th class="table-header"> </th>
         <th class="table-header">科目</th>
         <th class="table-header">BAM421<br>預設本金</th>
-        <th class="table-header">BAM429<br>預設本金</th>
+        <th class="table-header">BAM029<br>預設本金</th>
         <th class="table-header">信用卡<br>近一期循環預借未到期金額 </th>
         <th class="table-header">預設利率</th>
         <th class="table-header">預設貸款年數</th>
@@ -25,36 +24,56 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr *ngFor="let item of data">
         <td>
-          <input class="inpu1" type="checkbox">
+          <!-- <input class="inpu1" type="checkbox" checked="true"  (change)="test($event)"> -->
+          <input class="inpu1" type="checkbox"   (change)="addcheckbox($event.target.checked,item.ID)">
         </td>
-        <td></td>
-        <td><input class="inpu2" type="text"></td>
-        <td><input class="inpu2" type="text"></td>
-        <td><input class="inpu2" type="text"></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>
+          <div nz-col nzSpan="6">
+            <mat-select [(ngModel)]="item.ACCOUNT_CODE" name="ACCOUNT_CODE"  placeholder="請選擇" (ngModelChange)="sujectSelect(item.ID)"
+              style="width:120px;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              <mat-option *ngFor="let code of sysCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+            </div>
+        </td>
+        <!-- <td><input class="inpu2" type="text"[attr.disabled]="null" [(ngModel)]="gold421" (keyup)="limit(gold421,'gold421')"></td> -->
+        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'||suject==undefined? '' : null" [(ngModel)]="item.MONTHLY_PAY_421" name="gold421" value="" (keyup)="limit(gold421,'gold421')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'||suject==undefined? '' : null" [(ngModel)]="item.MONTHLY_PAY_029" name="gold029" (keyup)="limit(gold029,'gold029')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'? null:'' " [(ngModel)]="item.MONTHLY_PAY_CC" name="gold" (keyup)="limit(gold,'gold')"></td>
+        <td>{{item.CAL_RATE}}</td>
+        <td>{{item.CAL_YEARS}}</td>
+        <td>{{item.CAL_PERIOD}}</td>
         <td></td>
         <td></td>
         <td></td>
       </tr>
-      <tr *ngIf="i==true">
+      <!-- <tr *ngIf="i==true">
         <td>
           <input class="inpu1" type="checkbox">
         </td>
+        <td>
+          <div nz-col nzSpan="6">
+            <mat-select  name="sujecttwo"  placeholder="請選擇" (ngModelChange)="sujectSelectTwo()" [(ngModel)]="sujecttwo"
+              style="width:120px;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              <mat-option *ngFor="let code of sysCode" [value]="code.viewValue">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+            </div>
+        </td>
+        <td><input class="inpu2" type="text"[attr.disabled]="sujecttwo=='CC信用卡'||sujecttwo==undefined? '' : null" [(ngModel)]="addgold421" name="addgold421" (keyup)="limit(addgold421,'addgold421')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="sujecttwo=='CC信用卡'||sujecttwo==undefined? '' : null" [(ngModel)]="addgold029" name="addgold029" (keyup)="limit(addgold029,'addgold029')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="sujecttwo=='CC信用卡'? null:'' " [(ngModel)]="addgold" name="addgold" (keyup)="limit(addgold,'addgold')"></td>
+        <td>{{InterestRateTwo}}</td>
+        <td>{{YearsTwo}}</td>
+        <td>{{NumberofPeriodsTwo}}</td>
         <td></td>
-        <td><input class="inpu2" type="text" [(ngModel)]="ttt" (keyup)="test(ttt)" ></td>
-        <td><input class="inpu2" type="text"></td>
-        <td><input class="inpu2" type="text"></td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+      </tr> -->
     </tbody>
   </nz-table>
 </div>
@@ -70,11 +89,10 @@
     </thead>
     <tbody>
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>{{Monthly421}}</td>
+        <td>{{Monthly429}}</td>
+        <td>{{Monthly}}</td>
       </tr>
     </tbody>
   </nz-table>
 </div>
-
