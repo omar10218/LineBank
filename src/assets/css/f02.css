@@ -6,6 +6,7 @@ mat-grid-tile {
 ::ng-deep.ant-table.ant-table-small .ant-table-title{
   color:#2E4765;
   font-size:18px;
+  opacity:1;
   border-radius:5px 5px 0 0;
   background-color:#BFECD0;
   font-weight: bold;

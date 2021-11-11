@@ -138,6 +138,7 @@ border:1px solid  #c9c9c9;
   padding:0px;
 }
 
+
 /* 11/10 update */
 .search_row_header{
   width:95%;
@@ -193,4 +194,7 @@ border:1px solid  #c9c9c9;
   width:88%;
   margin:0 auto;
   display:block;
+}
+:host::ng-deep.ant-table{
+  border-radius:10px;
 }

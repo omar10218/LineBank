@@ -30,3 +30,6 @@ table {
 	background-color: #FFE4CA !important;
 	text-align: center;
 }
+:host::ng-deep.ant-table{
+  border-radius:10px;
+}

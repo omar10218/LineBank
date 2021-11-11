@@ -8,6 +8,7 @@ mat-grid-tile {
   font-size:18px;
   border-radius:5px 5px 0 0;
   background-color:#BFECD0;
+  opacity: 1;
   font-weight: bold;
   text-align: center;
   border: 1px solid #DBDBDB;
