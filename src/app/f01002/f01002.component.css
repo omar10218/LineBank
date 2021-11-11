@@ -144,4 +144,3 @@ border:1px solid  #c9c9c9;
 :host::ng-deep.ant-breadcrumb+.ant-page-header-heading{
   margin-top: 0px;
 }
-
