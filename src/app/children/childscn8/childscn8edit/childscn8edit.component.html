@@ -7,22 +7,16 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">聯絡方式</span>
-              <nz-radio-group >
-                <label nz-radio nzValue="A">Option A</label>
-                <label nz-radio nzValue="B">Option B</label>
-                <label nz-radio nzValue="C">Option C</label>
-                <label nz-radio nzValue="D">Option C</label>
-                <label nz-radio nzValue="E">Option C</label>
-                <label nz-radio nzValue="F">Option C</label>
-                <label nz-radio nzValue="G">Option C</label>
-
+              <nz-radio-group *ngFor="let code of data.CON_TYPE_Code" fxLayout="column" [(ngModel)]="data.CON_TYPE"
+                name="CON_TYPE" required>
+                <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
               </nz-radio-group>
               <!-- <mat-radio-group *ngFor="let code of data.CON_TYPE_Code" fxLayout="column" [(ngModel)]="data.CON_TYPE"
                 name="CON_TYPE" required>
                 <mat-radio-button [value]="code.value">
                   {{code.viewValue}}
                 </mat-radio-button>
-
+                <br>
               </mat-radio-group> -->
             </div>
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
@@ -32,13 +26,17 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">電話驗證</span>
-              <mat-radio-group *ngFor="let code of data.TEL_CHECK_Code" fxLayout="column" [(ngModel)]="data.TEL_CHECK"
+              <nz-radio-group *ngFor="let code of data.TEL_CHECK_Code" fxLayout="column" [(ngModel)]="data.TEL_CHECK"
+                name="TEL_CHECK" required>
+                <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+              </nz-radio-group>
+              <!-- <mat-radio-group *ngFor="let code of data.TEL_CHECK_Code" fxLayout="column" [(ngModel)]="data.TEL_CHECK"
                 name="TEL_CHECK" required>
                 <mat-radio-button [value]="code.value">
                   {{code.viewValue}}
                 </mat-radio-button>
                 <br>
-              </mat-radio-group>
+              </mat-radio-group> -->
             </div>
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
@@ -47,19 +45,23 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">電話狀況</span>
-              <mat-radio-group *ngFor="let code of data.TEL_CONDITION_Code" fxLayout="column"
+              <nz-radio-group *ngFor="let code of data.TEL_CONDITION_Code" fxLayout="column"
+                [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" required>
+                <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+              </nz-radio-group>
+              <!-- <mat-radio-group *ngFor="let code of data.TEL_CONDITION_Code" fxLayout="column"
                 [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" required>
                 <mat-radio-button [value]="code.value">
                   {{code.viewValue}}
                 </mat-radio-button>
                 <br>
-              </mat-radio-group>
+              </mat-radio-group> -->
             </div>
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
-      <nz-divider></nz-divider>
+      <nz-divider style="padding:0px"></nz-divider>
       <div nz-row>
 
 
@@ -125,7 +127,7 @@
         </div>
 
       </div>
-      <nz-divider></nz-divider>
+      <nz-divider style="padding:0px"></nz-divider>
       <div nz-row>
         <div nz-col nzSpan="24">
           <div class="form">
@@ -147,9 +149,11 @@
 
       <div nz-row>
         <div nz-col nzSpan="24">
-          <div *ngFor="let speaking of data.speakingData" style="padding-left: 20px;margin-top: 40px;">
-            <button type="submit" style="float:left;margin-top: 5px;" mat-raised-button
-              (click)="ShowspeakingContenta(speaking.speakingAbbreviation,speaking.speakingContent)">{{speaking.speakingAbbreviation}}</button>
+          <div *ngFor="let speaking of data.speakingData" style="padding-left: 20px;margin-top: 40px;margin-left: 0px;">
+            <button  type="submit" nz-button nzType="primary" style="float:left;margin:2px 2px; color:#ffffff;border-color:#2c86ec;background:#2c86ec"
+              (click)="ShowspeakingContenta(speaking.speakingAbbreviation,speaking.speakingContent)">
+                {{speaking.speakingAbbreviation}}
+            </button>
           </div>
         </div>
       </div>
