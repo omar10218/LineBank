@@ -64,7 +64,7 @@
                     <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource.data" [nzFrontPagination]="false"
                         [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
                         [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="授信案件清單"
-                        [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)">
+                        [nzScroll]="{ x: '1500px', y:'tableHeight'}" (nzQueryParams)="onQueryParamsChange($event)">
                         <thead style="max-height: 100vh;">
                             <div style="text-align:right;width: 90vw; font-size: 16px;">
                                 <span>案件數: {{this.total}} 件</span>
@@ -87,7 +87,7 @@
                                 <th class="table-header" [nzRight]="true" [nzWidth]="'100px'">儲存</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="height:100vh">
                             <tr *ngFor="let data of cusinfoDataSource.data">
                                 <td class="table-data" [nzLeft]="true" [nzWidth]="'160px'" style="text-align: center;">
                                     <button nz-button [nzSize]="'middle'" nzType="link"

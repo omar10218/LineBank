@@ -58,13 +58,13 @@ export class F01002Component implements OnInit, AfterViewInit, OnDestroy {
     const componentRef = viewContainerRef.createComponent(componentFactory);
   }
 
-  swcID: string;                                      // 身分證字號
-  swcApplno: string;                                  // 案件編號
-  caseType: string;                                   // 案件分類
-  caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
-  agentEmpNo: string;                                 // 代理人
-  agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
-  callOutDataSource = new MatTableDataSource<any>();  // 照會提醒清單
+  // swcID: string;                                      // 身分證字號
+  // swcApplno: string;                                  // 案件編號
+  // caseType: string;                                   // 案件分類
+  // caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
+  // agentEmpNo: string;                                 // 代理人
+  // agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
+  // callOutDataSource = new MatTableDataSource<any>();  // 照會提醒清單
 
 
   ngOnInit(): void {

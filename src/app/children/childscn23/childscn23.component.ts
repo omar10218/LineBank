@@ -15,6 +15,7 @@ export class Childscn23Component implements OnInit {
   ttt:string;
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    this.dropdown();
   }
   add() {
     this.i = true;
@@ -38,7 +39,7 @@ export class Childscn23Component implements OnInit {
 
   dropdown()
   {
-    let url ='fo1/childscn23action2';
+    let url ='f01/childscn23action2';
     this.childscn23Service.getdropdown(url).subscribe(data=>{
       console.log(data);
     })

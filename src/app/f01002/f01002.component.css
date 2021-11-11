@@ -138,4 +138,10 @@ border-radius:10px;
 background-color:#DBDBDB ;
 border:1px solid  #c9c9c9;
 }
+:host::ng-deep.ant-page-header{
+  padding: 15px 28px 0px 28px;
+}
+:host::ng-deep.ant-breadcrumb+.ant-page-header-heading{
+  margin-top: 0px;
+}
 

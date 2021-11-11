@@ -36,7 +36,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   // 計算剩餘table資料長度
   get tableHeight(): string {
     if (this.absBox) {
-      return (this.absBox.nativeElement.offsetHeight - 190) + 'px';
+      return (this.absBox.nativeElement.offsetHeight - 140) + 'px';
     }
   }
 
