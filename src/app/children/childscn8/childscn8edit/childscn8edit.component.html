@@ -7,13 +7,23 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">聯絡方式</span>
-              <mat-radio-group *ngFor="let code of data.CON_TYPE_Code" fxLayout="column" [(ngModel)]="data.CON_TYPE"
+              <nz-radio-group >
+                <label nz-radio nzValue="A">Option A</label>
+                <label nz-radio nzValue="B">Option B</label>
+                <label nz-radio nzValue="C">Option C</label>
+                <label nz-radio nzValue="D">Option C</label>
+                <label nz-radio nzValue="E">Option C</label>
+                <label nz-radio nzValue="F">Option C</label>
+                <label nz-radio nzValue="G">Option C</label>
+
+              </nz-radio-group>
+              <!-- <mat-radio-group *ngFor="let code of data.CON_TYPE_Code" fxLayout="column" [(ngModel)]="data.CON_TYPE"
                 name="CON_TYPE" required>
                 <mat-radio-button [value]="code.value">
                   {{code.viewValue}}
                 </mat-radio-button>
-                <br>
-              </mat-radio-group>
+
+              </mat-radio-group> -->
             </div>
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
@@ -49,7 +59,7 @@
           </div>
         </div>
       </div>
-
+      <nz-divider></nz-divider>
       <div nz-row>
 
 
@@ -115,7 +125,7 @@
         </div>
 
       </div>
-
+      <nz-divider></nz-divider>
       <div nz-row>
         <div nz-col nzSpan="24">
           <div class="form">
