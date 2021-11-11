@@ -57,6 +57,20 @@ export class F03004editComponent {
       });
       if (msgStr === '編輯成功!') { this.dialogRef.close({ event:'success' }); }
     }
+  }
 
+  min = 1;
+  max = 1;
+  test1() {
+    // this.min = 10;
+    this.min = this.data.codeTag.length / (document.getElementById('test').clientWidth / 10);
+  }
+
+  test2() {
+   this.min = 1;
+  }
+
+  change() {
+    this.min = this.data.codeTag.length / (document.getElementById('test').clientWidth / 10);
   }
 }
