@@ -76,9 +76,9 @@ span:hover::before {
 .ant-tabs > div > .ant-tabs-nav {
   background: #f5f5f5;
   overflow: hidden;
-  padding: 0px 5px;
+  padding: 0px;
 }
 
 ::ng-deep.ant-tabs-tab + .ant-tabs-tab {
-  margin-left: 20px;
+  margin-left: 10px;
 }

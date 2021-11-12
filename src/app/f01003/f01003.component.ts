@@ -33,8 +33,9 @@ export class F01003Component implements OnInit, AfterViewInit {
   caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
   agentEmpNo: string;                                 // 代理人
   agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
-  cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單
+  cusinfoDataSource = [];                             // 案件清單
   fds: string = "";                                   // fds
+  stepName: string;                                   // 目前關卡名
   loading = true;
   pageSize = 50;
   pageIndex = 1;
@@ -94,9 +95,9 @@ export class F01003Component implements OnInit, AfterViewInit {
     jsonObject['swcApplno'] = swcApplno;
     this.loading = false;
     this.f01003Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
       this.total = data.rspBody.size;
-      this.cusinfoDataSource.data = data.rspBody.items;
+      this.cusinfoDataSource = data.rspBody.items;
+      this.stepName = data.rspBody.items[0].F_StepName;
     });
   }
 
@@ -127,6 +128,7 @@ export class F01003Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('level', '2');
+        sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01002/F01002SCN1']);
       }
     });

@@ -30,6 +30,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
   cusinfoDataSource = [];                             // 案件清單
   fds: string = "";                                   // fds
+  stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
 
@@ -85,6 +86,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     this.f01002Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
+      this.stepName = data.rspBody.items[0].F_StepName;
     });
   }
 
@@ -123,6 +125,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('review', '');
         sessionStorage.setItem('level', '3');
+        sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01002/F01002SCN1']);
       }
     });
@@ -148,7 +151,6 @@ export class F01002page1Component implements OnInit, AfterViewInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageIndex } = params;
-    console.log(params)
     if (this.pageIndex !== pageIndex) {
       this.pageIndex = pageIndex;
       this.getCaseList();

@@ -35,6 +35,7 @@ export class F01005page1Component implements OnInit {
   agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
   cusinfoDataSource = [];  // 案件清單
   fds: string = "";                                   // fds
+  stepName: string;                                   // 目前關卡名
   loading = true;
   pageSize = 10;
   pageIndex = 1;
@@ -89,6 +90,7 @@ export class F01005page1Component implements OnInit {
     this.f01005Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
+      this.stepName = data.rspBody.items[0].F_StepName;
     });
   }
   //代入條件查詢
@@ -112,6 +114,7 @@ export class F01005page1Component implements OnInit {
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
+        sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01002/F01002SCN1']);
 
 
