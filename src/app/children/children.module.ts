@@ -63,6 +63,7 @@ import { Childscn22Component } from './childscn22/childscn22.component';
 import { Childscn23Component } from './childscn23/childscn23.component';
 import { JcictableComponent } from './childscn6/childscn6page1/jcictable/jcictable.component';
 import { Childscn23addComponent } from './childscn23/childscn23add/childscn23add.component';
+import { FormatNumberPipe, ToNumberPipe } from '../pipe/customFormatterPipe';
 
 
 
@@ -120,7 +121,9 @@ import { Childscn23addComponent } from './childscn23/childscn23add/childscn23add
     Childscn22Component,
     Childscn23Component,
     JcictableComponent,
-    Childscn23addComponent
+    Childscn23addComponent,
+    FormatNumberPipe,
+    ToNumberPipe
   ],
   imports: [
     CommonModule,
@@ -134,7 +137,7 @@ import { Childscn23addComponent } from './childscn23/childscn23add/childscn23add
     NgxWatermarkModule,
     NzTableModule,
     FontAwesomeModule
-  ]
+  ],
 })
 export class ChildrenModule {
   constructor(library:FaIconLibrary){
