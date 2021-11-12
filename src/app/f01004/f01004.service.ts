@@ -16,4 +16,19 @@ export class F01004Service extends BaseService {
 
     return this.postJsonObject(targetUrl, jsonObject);
   }
+
+  getEmpNo(jsonObject:JSON): Observable<any> {
+    const baseUrl = 'f01/f01004fn2';
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
+
+  getLockCase(jsonObject: JSON){
+    const baseUrl = 'f01/f01004fn1';
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
+
+  saveCaseMemo(jsonObject:JSON){
+    const baseUrl = 'f01/f01004fn3';
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
 }
