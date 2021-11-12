@@ -89,12 +89,12 @@ html {
 }
 
 .line_bank_form_header_child_title{
-  text-align: center;
+  text-align: left;
   font-weight:500;
   font-size: 14px;
   color:#2E4765;
   background-color:	#fff6c6	;
-  padding:10px 0;
+  padding:5px 5px 5px 10px;
 }
 
 .line_bank_card {
