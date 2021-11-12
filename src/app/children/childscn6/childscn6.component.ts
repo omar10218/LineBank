@@ -39,13 +39,13 @@ export class Childscn6Component implements OnInit {
 
   options: NgxWatermarkOptions = {
     text: '',
-    width: 350,
-    height: 300,
+    width: 300,
+    height: 150,
     fontFamily: 'Kanit',
     color: '#999',
-    alpha: .7,
+    alpha: .3,
     degree: -45,
-    fontSize: '20px',
+    fontSize: '15px',
   };
 
   ngOnInit(): void {
@@ -53,7 +53,7 @@ export class Childscn6Component implements OnInit {
     const baseUrl = 'f01/childscn6action2';
     let jsonObject: any = {};
     this.childscn6Service.getDate(baseUrl, jsonObject).subscribe(data => {
-      this.today = this.pipe.transform(new Date(), 'yyyyMMdd');
+      this.today = this.pipe.transform(new Date(), 'yyyyMMdd HH:mm:ss');
       //this.watermark = data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
 
       this.options.text =  data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
