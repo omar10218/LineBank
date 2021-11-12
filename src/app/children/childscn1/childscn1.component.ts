@@ -7,6 +7,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import * as L from 'leaflet';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-childscn1',
@@ -18,6 +19,7 @@ export class Childscn1Component implements OnInit {
   constructor(
     private childscn1Service: Childscn1Service,
     public dialog: MatDialog,
+    private pipe: DatePipe
   ) { }
 
   mark: string;
@@ -181,7 +183,7 @@ export class Childscn1Component implements OnInit {
       if ( data.rspBody.cssList.length > 0 ) {
         this.cssScore = data.rspBody.cssList[0].cssScore;
         this.cssGrade = data.rspBody.cssList[0].cssGrade;
-        this.cssDate = data.rspBody.cssList[0].cssDate;
+        this.cssDate = this.pipe.transform(new Date(data.rspBody.cssList[0].cssDate), 'yyyy-MM-dd hh:mm:ss');
       }
 
       //RPM
