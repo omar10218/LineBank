@@ -21,6 +21,7 @@ export class Childscn10page1Component implements OnInit {
 
   private applno: string;
   private search: string;
+  private stepName: string;
   fmData = new MatTableDataSource<any>();//DBR收支表資料 徵信
   // DBR_DTI_Data = new MatTableDataSource<any>();//DBR收支表資料 徵信
 
@@ -188,6 +189,9 @@ export class Childscn10page1Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
+    //APPLCreditL3為徵信
+    this.stepName = sessionStorage.getItem('stepName');
+
     this.getDSS11();
     this.getDSS12();
     this.getDSS13();
@@ -201,6 +205,9 @@ export class Childscn10page1Component implements OnInit {
     return this.applno;
   }
 
+  getstepName(): String {
+    return this.stepName;
+  }
   //取決策1Table
   getDSS11() {
     const url = 'f01/childscn10action';
@@ -442,21 +449,6 @@ export class Childscn10page1Component implements OnInit {
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
       if (data.rspBody.length > 0) {
         this.fmData.data = data.rspBody
-        this.fmData.data[0].unsdebt_AMT_501EX = "52";
-        this.fmData.data[0].unsdebt_AMT_504EX = "55";
-        this.fmData.data[0].unsdebt_AMTNEW_505EX = "49";
-        this.fmData.data[0].unsdebt_AMTNEW_029EX = "46";
-        this.fmData.data[0].unsdebt_824_RLLIMIT = "43";
-        this.fmData.data[0].unsdebt_824_RLBAL = "40";
-        this.fmData.data[0].unsdebt_824_ILBAL = "37";
-        this.fmData.data[0].unsdebt_824_CCRBAL = "34";
-        this.fmData.data[0].unsdebt_NONJCIC = "58";
-        this.fmData.data[0].unsdebt_PAYAMT_029EX = "61";
-
-        this.fmData.data[0].mthpay_BAM421 = "22";
-        this.fmData.data[0].mthpay_BAM029 = "19";
-        this.fmData.data[0].mthpay_KRM048 = "25";
-        this.fmData.data[0].mthpay_NONJCIC = "28";
 
         this.fmData.data[0].unsdebt_AMT_501EX_B = this.fmData.data[0].unsdebt_AMT_501EX_B == null ? this.fmData.data[0].unsdebt_AMT_501EX : this.fmData.data[0].unsdebt_AMT_501EX_B;
         this.fmData.data[0].unsdebt_AMT_504EX_B = this.fmData.data[0].unsdebt_AMT_504EX_B == null ? this.fmData.data[0].unsdebt_AMT_504EX : this.fmData.data[0].unsdebt_AMT_504EX_B;
@@ -474,81 +466,10 @@ export class Childscn10page1Component implements OnInit {
         this.fmData.data[0].mthpay_KRM048_B = this.fmData.data[0].mthpay_KRM048_B == null ? this.fmData.data[0].mthpay_KRM048 : this.fmData.data[0].mthpay_KRM048_B;
         this.fmData.data[0].mthpay_NONJCIC_B = this.fmData.data[0].mthpay_NONJCIC_B == null ? this.fmData.data[0].mthpay_NONJCIC : this.fmData.data[0].mthpay_NONJCIC_B;
       }
-      // console.log('DBR_DTI_Data');
-      // console.log(this.fmData.data);
-      // this.test();
+
     });
   }
 
-  // test() {
-  //   this.fmData.data[0].dbr_0 = "15";
-  //   this.fmData.data[0].dbr_0CK_B = "2";
-  //   this.fmData.data[0].dbr_0CK_C = "3";
-  //   this.fmData.data[0].dbr_0X = "16";
-  //   this.fmData.data[0].dbr_0XCK_B = "5";
-  //   this.fmData.data[0].dbr_0XCK_C = "6";
-  //   this.fmData.data[0].dbr_1 = "19";
-  //   this.fmData.data[0].dbr_1CK_B = "8";
-  //   this.fmData.data[0].dbr_1CK_C = "9";
-  //   this.fmData.data[0].dti_0 = "70";
-  //   this.fmData.data[0].dti_0CK_B = "11";
-  //   this.fmData.data[0].dti_0CK_C = "12";
-  //   this.fmData.data[0].dti_0X = "71";
-  //   this.fmData.data[0].dti_0XCK_B = "14";
-  //   this.fmData.data[0].dti_0XCK_C = "15";
-  //   this.fmData.data[0].dti_1 = "15";
-  //   this.fmData.data[0].dti_1CK_B = "17";
-  //   this.fmData.data[0].dti_1CK_C = "18";
-  //   //  this.fmData.data[0].mthpay_BAM029="19";
-  //   //  this.fmData.data[0].mthpay_BAM029_B="20";
-  //   this.fmData.data[0].mthpay_BAM029_C = "21";
-  //   //  this.fmData.data[0].mthpay_BAM421="22";
-  //   //  this.fmData.data[0].mthpay_BAM421_B="23";
-  //   this.fmData.data[0].mthpay_BAM421_C = "24";
-  //   //  this.fmData.data[0].mthpay_KRM048="25";
-  //   //  this.fmData.data[0].mthpay_KRM048_B="26";
-  //   this.fmData.data[0].mthpay_KRM048_C = "27";
-  //   //  this.fmData.data[0].mthpay_NONJCIC="28";
-  //   //  this.fmData.data[0].mthpay_NONJCIC_B="29";
-  //   this.fmData.data[0].mthpay_NONJCIC_C = "30";
-  //   this.fmData.data[0].mthpay_SUM_0 = "31";
-  //   this.fmData.data[0].mthpay_SUM_0CK_B = "32";
-  //   this.fmData.data[0].mthpay_SUM_0CK_C = "33";
-  //   //  this.fmData.data[0].unsdebt_824_CCRBAL="34";
-  //   //  this.fmData.data[0].unsdebt_824_CCRBAL_B="35";
-  //   this.fmData.data[0].unsdebt_824_CCRBAL_C = "36";
-  //   //  this.fmData.data[0].unsdebt_824_ILBAL="37";
-  //   //  this.fmData.data[0].unsdebt_824_ILBAL_B="38";
-  //   this.fmData.data[0].unsdebt_824_ILBAL_C = "39";
-  //   //  this.fmData.data[0].unsdebt_824_RLBAL="40";
-  //   //  this.fmData.data[0].unsdebt_824_RLBAL_B="41";
-  //   this.fmData.data[0].unsdebt_824_RLBAL_C = "42";
-  //   //  this.fmData.data[0].unsdebt_824_RLLIMIT="43";
-  //   //  this.fmData.data[0].unsdebt_824_RLLIMIT_B="44";
-  //   this.fmData.data[0].unsdebt_824_RLLIMIT_C = "45";
-  //   //  this.fmData.data[0].unsdebt_AMTNEW_029EX="46";
-  //   //  this.fmData.data[0].unsdebt_AMTNEW_029EX_B="47";
-  //   this.fmData.data[0].unsdebt_AMTNEW_029EX_C = "48";
-  //   //  this.fmData.data[0].unsdebt_AMTNEW_505EX="49";
-  //   //  this.fmData.data[0].unsdebt_AMTNEW_505EX_B="50";
-  //   this.fmData.data[0].unsdebt_AMTNEW_505EX_C = "51";
-  //   //  this.fmData.data[0].unsdebt_AMT_501EX="52";
-  //   //  this.fmData.data[0].unsdebt_AMT_501EX_B="53";
-  //   this.fmData.data[0].unsdebt_AMT_501EX_C = "54";
-  //   //  this.fmData.data[0].unsdebt_AMT_504EX="55";
-  //   //  this.fmData.data[0].unsdebt_AMT_504EX_B="56";
-  //   this.fmData.data[0].unsdebt_AMT_504EX_C = "57";
-  //   //  this.fmData.data[0].unsdebt_NONJCIC="58";
-  //   //  this.fmData.data[0].unsdebt_NONJCIC_B="59";
-  //   this.fmData.data[0].unsdebt_NONJCIC_C = "60";
-  //   //  this.fmData.data[0].unsdebt_PAYAMT_029EX="61";
-  //   //  this.fmData.data[0].unsdebt_PAYAMT_029EX_B="62";
-  //   this.fmData.data[0].unsdebt_PAYAMT_029EX_C = "63";
-  //   this.fmData.data[0].unsdebt_SUM_0 = "64";
-  //   this.fmData.data[0].unsdebt_SUM_0CK_B = "65";
-  //   this.fmData.data[0].unsdebt_SUM_0CK_C = "66";
-
-  // }
 
   //去除符號中文
   data_number(x: string) {
@@ -604,6 +525,8 @@ export class Childscn10page1Component implements OnInit {
     jsonObject['mthpayBam029'] = this.save_data_number(this.fmData.data[0].mthpay_BAM029_B);
     jsonObject['mthpayKrm048'] = this.save_data_number(this.fmData.data[0].mthpay_KRM048_B);
     jsonObject['mthpayNonjcic'] = this.save_data_number2(this.fmData.data[0].mthpay_NONJCIC_B);
+    console.log('jsonObject')
+    console.log(jsonObject)
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
       console.log('savedata')
       console.log(data)
