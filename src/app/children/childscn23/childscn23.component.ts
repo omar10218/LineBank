@@ -42,13 +42,14 @@ export class Childscn23Component implements OnInit {
   Monthly421=0;//BAM421月付金
   Monthly029=0;//BAM029月付金
   Monthlycc=0;//信用卡付月金
+  Monthlytest=0;//信用卡付月金
   jsonObject: any = {};
   data: any[]=[];//裝一開始的資料表
   AddData: any;
   checkboxAny:any[]=[];//判斷是否回傳
   seveData:any[]=[];
   // Source = new MatTableDataSource<any>() //產品Table
-
+  x:string;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -86,40 +87,26 @@ export class Childscn23Component implements OnInit {
     })
   }
 
-  limit(x: string,id:string,name:string)
+  limit(x: string)
   {
     x=x.replace(/\D/g,'')
     if(x.length>0)
     {
       x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
-    for(const item of this.data){
-      if(item.ID==id )
-        {
-          switch(name)
-          {
-            case "gold421":
-              item.MONTHLY_PAY_421=x;
-              break;
-              case "gold029":
-                item.MONTHLY_PAY_029=x;
-                break;
-                case "gold":
-                  item.MONTHLY_PAY_CC =x;
-                  break;
-          }
-
-      }
-    }
 
   }
   limit2()
   {
+
     for(const item of this.data)
     {
         item.MONTHLY_PAY_421 = item.MONTHLY_PAY_421!=undefined ?  (item.MONTHLY_PAY_421+"").replace(/\B(?=(\d{3})+(?!\d))/g, ','):item.MONTHLY_PAY_421;
         item.MONTHLY_PAY_029 = item.MONTHLY_PAY_029!=undefined ?  (item.MONTHLY_PAY_029+"").replace(/\B(?=(\d{3})+(?!\d))/g, ','):item.MONTHLY_PAY_029;
         item.MONTHLY_PAY_CC = item.MONTHLY_PAY_CC!=undefined ?  (item.MONTHLY_PAY_CC+"").replace(/\B(?=(\d{3})+(?!\d))/g, ','):item.MONTHLY_PAY_CC;
+        item.CONTRACT_AMT_421 = item.CONTRACT_AMT_421!=undefined ?  (item.CONTRACT_AMT_421+"").replace(/\B(?=(\d{3})+(?!\d))/g, ','):item.CONTRACT_AMT_421;
+        item.CONTRACT_AMT_029 = item.CONTRACT_AMT_029!=undefined ?  (item.CONTRACT_AMT_029+"").replace(/\B(?=(\d{3})+(?!\d))/g, ','):item.CONTRACT_AMT_029;
+        item.CONTRACT_AMT_CC = item.CONTRACT_AMT_CC!=undefined ?  (item.CONTRACT_AMT_CC+"").replace(/\B(?=(\d{3})+(?!\d))/g, ','):item.CONTRACT_AMT_CC;
         item.CAL_RATE = item.CAL_RATE * 100 + "%";
     }
 
@@ -139,13 +126,13 @@ export class Childscn23Component implements OnInit {
 
     })
   }
-  sujectSelect(ID:string,ACCOUNT:string)
+  sujectSelect(ID:string)
   {
-    this.suject=ACCOUNT;
     for(const jsonObj of this.Content)
     {
       for(const item of this.data){
-        if(item.ID==ID  ){
+        if(item.ID==ID  )
+        {
           if(item.ACCOUNT_CODE==jsonObj.ACCOUNT_CODE){
             item.CAL_RATE=jsonObj.DEFAULT_RATE* 100 + "%";
             item.CAL_YEARS=jsonObj.DEFAULT_YEARS;
@@ -244,22 +231,35 @@ export class Childscn23Component implements OnInit {
     if(check)
     {
       this.checkboxAny.push(z)
-      this.Monthly421=this.Monthly421 + parseInt(amt421);//BAM421月付金
-      this.Monthly029=this.Monthly029+ parseInt(amt029);//BAM029月付金
-      this.Monthlycc=this.Monthlycc+ parseInt(amtcc);//信用卡付月金
+      this.Monthly421=this.Monthly421 + parseInt(this.Cut(amt421));//BAM421月付金
+      this.Monthly029=this.Monthly029+ parseInt(this.Cut(amt029));//BAM029月付金
+      this.Monthlycc=this.Monthlycc+ parseInt(this.Cut(amtcc));//信用卡付月金
+
     }
     else
     {
       this.checkboxAny.splice(this.checkboxAny.indexOf(z), 1)
-      this.Monthly421=this.Monthly421 - parseInt(amt421);//BAM421月付金
-      this.Monthly029=this.Monthly029 - parseInt(amt029);//BAM029月付金
-      this.Monthlycc=this.Monthlycc - parseInt(amtcc);//信用卡付月金
+      this.Monthly421=this.Monthly421 - parseInt(this.Cut(amt421));//BAM421月付金
+      this.Monthly029=this.Monthly029 - parseInt(this.Cut(amt029));//BAM029月付金
+      this.Monthlycc=this.Monthlycc - parseInt(this.Cut(amtcc));//信用卡付月金
     }
+  }
+  data_number(p: number)
+  {
+    this.x ='';
+    this.x = (p+"")
+    if(this.x!=null)
+    {
+
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
   }
   test()
   {
-    console.log(this.suject)
     console.log('this.data')
-    console.log(this.seveData)
+    console.log(this.Monthly421)
+    console.log(this.Monthly029)
+    console.log(this.Monthlycc)
   }
 }
