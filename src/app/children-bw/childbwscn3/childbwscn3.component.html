@@ -26,8 +26,23 @@
           <ng-template #BAM101 let-visible="visible"><button nz-button [nzSize]="'default'"
               [ngClass]="hideBAM101 ? 'nohide' : 'hide'" (click)="show('BAM101')">BAM101</button></ng-template>
         </nz-tab>
+      <nz-tab [nzTitle]="KRM048">
+        <ng-template #KRM048 let-visible="visible"><button nz-button [nzSize]="'default'"
+            [ngClass]="hideKRM048 ? 'nohide' : 'hide'" (click)="show('KRM048')">KRM048</button></ng-template>
+      </nz-tab>
+      <nz-tab [nzTitle]="STM022">
+        <ng-template #STM022 let-visible="visible"><button nz-button [nzSize]="'default'"
+            [ngClass]="hideSTM022 ? 'nohide' : 'hide'" (click)="show('STM022')">STM022</button></ng-template>
+      </nz-tab>
+      <nz-tab [nzTitle]="STM008">
+        <ng-template #STM008 let-visible="visible"><button nz-button [nzSize]="'default'"
+            [ngClass]="hideSTM008 ? 'nohide' : 'hide'" (click)="show('STM008')">STM008</button></ng-template>
+      </nz-tab>
+      <nz-tab [nzTitle]="STM025">
+        <ng-template #STM025 let-visible="visible"><button nz-button [nzSize]="'default'"
+            [ngClass]="hideSTM025 ? 'nohide' : 'hide'" (click)="show('STM025')">STM025</button></ng-template>
+      </nz-tab>
     </nz-tabset>
-
   </div>
   <br><br>
 
@@ -56,41 +71,6 @@
           <td class="table-data">{{ listSource.ccLatvCnt }}</td>
           <td class="table-data">{{ listSource.ccLatvMaxyob }}</td>
           <td class="table-data">{{ listSource.ccLatvMaxmob }}</td>
-        </tr>
-      </tbody>
-    </nz-table>
-    <!-- KRM046信用卡證卡持有 -->
-    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="KRM048信用卡帳務額度資訊">
-      <thead>
-        <tr>
-          <th class="table-header" style="width:14%"></th>
-          <th class="table-header" style="width:14%">目前額度合計</th>
-          <th class="table-header" style="width:14%">家數</th>
-          <th class="table-header" style="width:14%">每家額度平均</th>
-          <th class="table-header" style="width:14%">最大額度</th>
-          <th class="table-header" style="width:14%">最小額度</th>
-          <th class="table-header" style="width:16%"> 近12個月內將額家數</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-header">永久額度</td>
-          <td class="table-data">{{ listSource.permLimitAdj01aj }}</td>
-          <td class="table-data">{{ listSource.issue01aj }}</td>
-          <td class="table-data">{{ listSource.permLimitAvg01aj }}</td>
-          <td class="table-data">{{ listSource.permLimitMax01aj }}</td>
-          <td class="table-data">{{ listSource.permLimitMin01aj }}</td>
-          <td class="table-data">{{ listSource.ccPermlimitDwncntL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header">預借額度</td>
-          <td class="table-data">{{ listSource.cashLimitAdj01aj }}</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">{{ listSource.ccCashlimitDwncntL12 }}</td>
         </tr>
       </tbody>
     </nz-table>
@@ -604,6 +584,40 @@
           <td class="table-data">{{ data.REJECT_DATE }}</td>
           <td class="table-data">{{ data.EVER_STOP_CARD }}</td>
           <td class="table-data">{{ data.STOP_CARD_DATE }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <nz-table nzShowSizeChanger [nzData]="KRM048Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="KRM048信用卡戶帳款資訊">
+      <thead>
+        <tr>
+          <th class="table-header" style="width:14%"></th>
+          <th class="table-header" style="width:14%">目前額度合計</th>
+          <th class="table-header" style="width:14%">家數</th>
+          <th class="table-header" style="width:14%">每家額度平均</th>
+          <th class="table-header" style="width:14%">最大額度</th>
+          <th class="table-header" style="width:14%">最小額度</th>
+          <th class="table-header" style="width:16%"> 近12個月內將額家數</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-header">永久額度</td>
+          <td class="table-data">{{ listSource.permLimitAdj01aj }}</td>
+          <td class="table-data">{{ listSource.issue01aj }}</td>
+          <td class="table-data">{{ listSource.permLimitAvg01aj }}</td>
+          <td class="table-data">{{ listSource.permLimitMax01aj }}</td>
+          <td class="table-data">{{ listSource.permLimitMin01aj }}</td>
+          <td class="table-data">{{ listSource.ccPermlimitDwncntL12 }}</td>
+        </tr>
+        <tr>
+          <td class="table-header">預借額度</td>
+          <td class="table-data">{{ listSource.cashLimitAdj01aj }}</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">無資料</td>
+          <td class="table-data">{{ listSource.ccCashlimitDwncntL12 }}</td>
         </tr>
       </tbody>
     </nz-table>

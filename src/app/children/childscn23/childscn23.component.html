@@ -32,7 +32,7 @@
         </td>
         <td>
           <div nz-col nzSpan="6">
-            <mat-select [(ngModel)]="item.ACCOUNT_CODE" name="ACCOUNT_CODE"  placeholder="請選擇" (ngModelChange)="sujectSelect(item.ID)"
+            <mat-select [(ngModel)]="item.ACCOUNT_CODE" name="ACCOUNT_CODE"  placeholder="請選擇" (ngModelChange)="sujectSelect(item.ID,item.ACCOUNT_CODE)"
               style="width:120px;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
               <mat-option *ngFor="let code of sysCode" [value]="code.value">
                 {{code.viewValue}}
@@ -41,9 +41,9 @@
             </div>
         </td>
         <!-- <td><input class="inpu2" type="text"[attr.disabled]="null" [(ngModel)]="gold421" (keyup)="limit(gold421,'gold421')"></td> -->
-        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'||suject==undefined? '' : null" [(ngModel)]="item.MONTHLY_PAY_421" name="gold421" (keyup)="limit(item.MONTHLY_PAY_421,item.ID,'gold421')"></td>
-        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'||suject==undefined? '' : null" [(ngModel)]="item.MONTHLY_PAY_029" name="gold029" (keyup)="limit(item.MONTHLY_PAY_029,item.ID,'gold029')"></td>
-        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'? null:'' " [(ngModel)]="item.MONTHLY_PAY_CC" name="gold" (keyup)="limit(item.MONTHLY_PAY_CC,item.ID,'gold')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC'||suject==undefined? '' : null" [(ngModel)]="item.MONTHLY_PAY_421" name="gold421" (keyup)="limit(item.MONTHLY_PAY_421,item.ID,'gold421')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC'||suject==undefined? '' : null" [(ngModel)]="item.MONTHLY_PAY_029" name="gold029" (keyup)="limit(item.MONTHLY_PAY_029,item.ID,'gold029')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC'? null:'' " [(ngModel)]="item.MONTHLY_PAY_CC" name="gold" (keyup)="limit(item.MONTHLY_PAY_CC,item.ID,'gold')"></td>
         <td>{{item.CAL_RATE}}</td>
         <td>{{item.CAL_YEARS}}</td>
         <td>{{item.CAL_PERIOD}}</td>

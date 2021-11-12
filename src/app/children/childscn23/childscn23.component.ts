@@ -72,7 +72,7 @@ export class Childscn23Component implements OnInit {
       this.AddData = {APPLNO:'20210827E001',ACCOUNT_CODE: '', ID:'1', MONTHLY_PAY_421:'', MONTHLY_PAY_029: '',MONTHLY_PAY_CC:'',CAL_RATE:'',CAL_YEARS:'',CAL_PERIOD:'',CONTRACT_AMT_421:'',CONTRACT_AMT_029:'',CONTRACT_AMT_CC:''};
       this.data.push(this.AddData)
       this.i=false;
-      console.log(this.data)
+
     }
   }
   set()
@@ -139,14 +139,15 @@ export class Childscn23Component implements OnInit {
 
     })
   }
-  sujectSelect(ID:string)
+  sujectSelect(ID:string,ACCOUNT:string)
   {
+    this.suject=ACCOUNT;
     for(const jsonObj of this.Content)
     {
       for(const item of this.data){
         if(item.ID==ID  ){
           if(item.ACCOUNT_CODE==jsonObj.ACCOUNT_CODE){
-            item.CAL_RATE=jsonObj.DEFAULT_RATE;
+            item.CAL_RATE=jsonObj.DEFAULT_RATE* 100 + "%";
             item.CAL_YEARS=jsonObj.DEFAULT_YEARS;
             item.CAL_PERIOD=jsonObj.DEFAULT_PERIOD;
           }
@@ -257,6 +258,7 @@ export class Childscn23Component implements OnInit {
   }
   test()
   {
+    console.log(this.suject)
     console.log('this.data')
     console.log(this.seveData)
   }
