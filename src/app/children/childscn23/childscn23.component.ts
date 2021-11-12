@@ -214,12 +214,7 @@ export class Childscn23Component implements OnInit {
     this.i=true;
     this.checkboxAny=[];
   }
-  CAL_RATE(i:string)//處理利率
-  {
 
-    i = i.replace("%","");
-
-  }
   Cut(s:string)//處理千分位
   {
     s=s.replace(",","")
@@ -248,10 +243,16 @@ export class Childscn23Component implements OnInit {
     if(check)
     {
       this.checkboxAny.push(z)
+      this.Monthly421=this.Monthly421 + parseInt(amt421);//BAM421月付金
+      this.Monthly029=this.Monthly029+ parseInt(amt029);//BAM029月付金
+      this.Monthlycc=this.Monthlycc+ parseInt(amtcc);//信用卡付月金
     }
     else
     {
       this.checkboxAny.splice(this.checkboxAny.indexOf(z), 1)
+      this.Monthly421=this.Monthly421 - parseInt(amt421);//BAM421月付金
+      this.Monthly029=this.Monthly029 - parseInt(amt029);//BAM029月付金
+      this.Monthlycc=this.Monthlycc - parseInt(amtcc);//信用卡付月金
     }
   }
   test()
