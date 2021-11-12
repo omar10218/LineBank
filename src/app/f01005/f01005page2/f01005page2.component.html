@@ -4,7 +4,7 @@
           <div class="line_bank_card_no_padding">
               <nz-table nzShowSizeChanger [nzData]="callOutDataSource" [nzFrontPagination]="false"
                   [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
-                  [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="照會提醒清單"nzFooter="案件數: {{this.total}} 件"
+                  [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="徵信通報"nzFooter="案件數: {{this.total}} 件"
                   (nzQueryParams)="onQueryParamsChange($event)">
                   <thead style="max-height: 100vh;">
                       <tr>
