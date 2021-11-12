@@ -49,4 +49,12 @@ td{
 .form-title{
   font-size:12px;
 }
+/* 文字顏色 */
+.data_color{
+  color: red;
+}
+/* 文字靠右 */
+.data_right{
+  text-align:right;
+}
 
