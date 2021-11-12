@@ -45,7 +45,7 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
 
   AAS003: any[] = [];
   BAI001: any[] = [];
-
+  JAS002: any[] = [];
   // JAS002: any[] = [];
   // BAM307: any[] = [];
   // ACI001: any[] = [];
@@ -91,7 +91,8 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
   hideSTM022 = false;
   hideSTM008 = false;
   hideSTM025 = false;
-
+  hideJAS002 = false;
+  hideBAM031 = false;
   private applno: string;
   private cuid: string;
 
@@ -218,10 +219,7 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
   pageIndex23 = 1;
   pageSize23 = 50;
 
-  // KCM012Source: readonly Data[] = [];
-  // total1 = 1;
-  // pageIndex1 = 1;
-  // pageSize1 = 50;
+
 
   // DAM001Source: readonly Data[] = [];
   // total2 = 1;
@@ -402,9 +400,9 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
     jsonObject['code'] = 'AAS003,BAI001';
     // jsonObject['queryDate'] = this.queryDate;
     this.childbwscn3Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
-      console.log(data)
       if ( data.rspBody[0].AAS003.length == 0 ) { this.AAS003.push(''); } else { this.AAS003 = data.rspBody[0].AAS003; };
       if ( data.rspBody[0].BAI001.length == 0 ) { this.BAI001.push(''); } else { this.BAI001 = data.rspBody[0].BAI001; };
+      if ( data.rspBody[0].JAS002.length == 0 ) { this.JAS002.push(''); } else { this.JAS002 = data.rspBody[0].BAI001; };
     });
   }
 
@@ -421,7 +419,7 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
       if ( code == 'BAM101' ) { this.total1 = data.rspBody.size; this.BAM101Source = data.rspBody.items; }
       if ( code == 'KRM048' ) { this.total1 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
       if ( code == 'KRM046' ) { this.total1 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
-      if ( code == 'JAS002' ) { this.total1 = data.rspBody.size; this.JAS002Source = data.rspBody.items; }
+      // if ( code == 'JAS002' ) { this.total1 = data.rspBody.size; this.JAS002Source = data.rspBody.items; }
       if ( code == 'STM022' ) { this.total1 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
       if ( code == 'STM008' ) { this.total1 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
       if ( code == 'STM025' ) { this.total1 = data.rspBody.size; this.STM025Source = data.rspBody.items; }
@@ -481,6 +479,8 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
     this.hideSTM022 = true;
     this.hideSTM008 = true;
     this.hideSTM025 = true;
+    this.hideJAS002 = true;
+    this.hideBAM031 = true;
   }
 
   setBooleanFalse() {
@@ -516,6 +516,8 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
     this.hideSTM022 = false;
     this.hideSTM008 = false;
     this.hideSTM025 = false;
+    this.hideJAS002 = false;
+    this.hideBAM031 = false;
   }
 
   exist() {
@@ -552,6 +554,9 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
       if (this.list[index] == "STM022") { this.hideSTM022 = !this.hideSTM022; }
       if (this.list[index] == "STM008") { this.hideSTM008 = !this.hideSTM008; }
       if (this.list[index] == "STM025") { this.hideSTM025 = !this.hideSTM025; }
+      if (this.list[index] == "JAS002") { this.hideJAS002 = !this.hideJAS002; }
+      if (this.list[index] == "BAM031") { this.hideBAM031 = !this.hideBAM031; }
+
     }
   }
 

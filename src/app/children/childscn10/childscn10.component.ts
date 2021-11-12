@@ -34,6 +34,7 @@ export class Childscn10Component implements OnInit {
   private cuid: string;
   private routerCase: string;
   private level: string;
+  private stepName: string;
   component = new Map<Page, any>(
     [
       [Page.Page1, Childscn10page1Component],
@@ -49,6 +50,7 @@ export class Childscn10Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.level = sessionStorage.getItem('level');
+    this.stepName = sessionStorage.getItem('stepName');
     const url = 'f01/childscn10';
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
@@ -64,6 +66,10 @@ export class Childscn10Component implements OnInit {
     //正式用
     if(this.level=="1"||this.level=="2"){YN="Y"}
     return YN;
+  }
+  //判斷是否顯示授信
+  getstepName(): String {
+    return this.stepName;
   }
 
   ngAfterViewInit() {

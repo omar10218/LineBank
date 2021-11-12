@@ -68,4 +68,8 @@ table {
   overflow: hidden;
   padding: 0px 5px;
 }
+#prohibit
+{
+  background-color: #d3d3d3;
+}
 

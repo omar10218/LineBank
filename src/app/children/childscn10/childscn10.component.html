@@ -2,7 +2,7 @@
   <div style="margin-top: 20px; margin-left: 5px;">
     <button class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
       (click)="changePage(Page.Page1)">徵信階段</button>
-    <button class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
+    <button *ngIf="getstepName() == 'APPLCreditL2'|| getstepName() == 'APPLCreditL1'" class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
       (click)="changePage(Page.Page2)">授信階段</button>
     <button class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page3" style="margin-bottom: 5px; margin-left: 5px;"
       (click)="changePage(Page.Page3)">產生合約前回查</button>
