@@ -1,105 +1,80 @@
 <div class="line_bank_bankground_color">
-  <div class="header">
-    <div nz-row  style="background-color: white;">
-      
+
+  <div nz-row class="search_row">
+    <div class="search_row_header">
+      <div nz-col>
+        <div nz-row>
+          <div nz-col nzSpan="5">
+            <span class="form-title line_bank_h4"> 案件編號</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="applno" name="applno" required>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="5">
+            <span class="form-title line_bank_h4">身分證號</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="nationalId" name="nationalId" required>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="5">
+            <span class="form-title line_bank_h4">客戶編號</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="custId" name="custId" required>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="5" >
+            <button nz-button [nzSize]="'large'" nzType="primary" (click)="select()">查詢案件</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <div class="header">
+    <div nz-row style="background-color: white;">
+
       <div nz-col nzSpan="6" style="padding:0px 15px;background-color: #BFECD0;">
         <div class="form-title line_bank_h3" style="margin:10px 0 ;">案件編號</div>
         <div class="form" style="display: block;margin-bottom:10px">
-            <div><input matInput #input class="form-control" [(ngModel)]="applno"
-              name="applno"  required>
-            </div>
-        </div>
-    
-    </div>
-    <div nz-col nzSpan="6" style="padding:0px 15px;">
-      <span class="form-title line_bank_h3" style="margin:10px 0 ;">身分證號</span>
-      <div class="form" style="display: block;margin-bottom:10px">
-          <div><input matInput #input class="form-control"[(ngModel)]="nationalId"
-            name="nationalId" required>
+          <div><input matInput #input class="form-control" [(ngModel)]="applno" name="applno" required>
           </div>
+        </div>
+
       </div>
-  </div>
+      <div nz-col nzSpan="6" style="padding:0px 15px;">
+        <span class="form-title line_bank_h3" style="margin:10px 0 ;">身分證號</span>
+        <div class="form" style="display: block;margin-bottom:10px">
+          <div><input matInput #input class="form-control" [(ngModel)]="nationalId" name="nationalId" required>
+          </div>
+        </div>
+      </div>
       <div nz-col nzSpan="6" style="padding:0px 15px;background-color: #BFECD0;">
         <div class="form-title line_bank_h3" style="margin:10px 0 ;">客戶編號</div>
         <div class="form" style="display: block;margin-bottom:10px">
-            <div><input matInput #input class="form-control" [(ngModel)]="custId"
-              name="custId"  required>
-            </div>
+          <div><input matInput #input class="form-control" [(ngModel)]="custId" name="custId" required>
+          </div>
         </div>
-    
+
+      </div>
+      <div nz-col nzSpan="6" style="padding:0px 15px;text-align: center;">
+        <button nz-button [nzSize]="'large'" nzType="primary" (click)="select()">查詢案件</button>
+      </div>
     </div>
-    <div nz-col nzSpan="6" style="padding:0px 15px;text-align: center;">
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="select()">查詢案件</button>
-  </div>
-    </div>
-    <!-- <div>
-      <mat-grid-list cols="5" rowHeight="2:0.5" style="background-color:white" >
-        <mat-grid-tile  style="background: #BFECD0;">
-          <div class="form" style="padding:20px">
-            <div><span class="form-title line_bank_h3">案件編號</span>
-            </div>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="form" style="padding:20px">
-            <div><input matInput #input class="form-control" [(ngModel)]="applno"
-                name="applno" required>
-            </div>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile style="background: #BFECD0;">
-          <div class="form" style="padding:20px">
-            <div><span class="form-title line_bank_h3">身分證號</span>
-            </div>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="form" style="padding:20px">
-            <div><input matInput #input class="form-control" [(ngModel)]="custId"
-                name="custId" required>
-            </div>
-          </div>
-        </mat-grid-tile >
-        <mat-grid-tile [rowspan]="2" style="background: #BFECD0;">
-          <div style="padding-left: 10px">
-            <button nz-button [nzSize]="'large'" nzType="primary" (click)="select()">查詢案件</button>
-          </div>
-        </mat-grid-tile >
-        <mat-grid-tile style="background: #BFECD0;">
-          <div class="form" style="padding:20px" >
-            <div><span class="form-title line_bank_h3">客戶編號</span>
-            </div>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="form" style="padding:20px">
-            <div><input matInput #input class="form-control" [(ngModel)]="custId"
-              name="custId" required>
-            </div>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile style="background: #BFECD0;">
-          <div class="form" style="padding:20px">
-            <div>
-            </div>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="form" style="padding:20px">
-            <div>
-            </div>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </div> -->
-  </div>
+
+
+  </div> -->
   <div class="content">
     <div class="abs-box">
       <div nz-col nzSpan="24">
         <div class="line_bank_card_no_padding">
           <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
             [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable
-            nzSize="small" nzTitle="案件申覆清單" [nzScroll]="{ y: '240px' }">
+            nzSize="small" [nzScroll]="{ y: '240px' }">
             <thead>
               <tr>
                 <th class="table-header">案件編號</th>
