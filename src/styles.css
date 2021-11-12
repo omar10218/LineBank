@@ -68,13 +68,24 @@ html {
   background-color: #98CCFE;
 }
 .line_bank_form_header_title{
-  text-align: center;
+  text-align: left;
   font-weight:500;
-  font-size: 18px;
+  font-size: 16px;
+  margin:5px 0;
   color:#2E4765;
   background-color: #BFECD0;
-  padding:10px 0;
+  padding:5px 5px 5px 10px;
   border-radius: 10px 10px 0 0;
+}
+.line_bank_form_header_title_middle{
+  text-align: left;
+  margin:5px 0;
+  font-weight:500;
+  font-size: 16px;
+  color:#2E4765;
+  background-color: #BFECD0;
+  padding:5px 5px 5px 10px;
+  border-radius: 0px;
 }
 
 .line_bank_form_header_child_title{
@@ -131,9 +142,7 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
 .mat-dialog-transparent .mat-dialog-container {
   background: transparent;
   box-shadow: none;
-  position: fixed;
-  top:15%;
-  left:0%;
+
 }
 
 .ant-empty-normal {
