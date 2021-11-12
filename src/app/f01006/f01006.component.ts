@@ -1,8 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ChildrenService } from '../children/children.service';
@@ -24,19 +22,14 @@ export class F01006Component implements OnInit, AfterViewInit {
   nationalId: string;                                 // 身分證字號
   custId: string;                                     // 客戶編號
   total: any;                                    // 回傳總筆數
-  loading = true;
   pageSize = 50;
   pageIndex = 1;
   cusinfoDataSource: readonly Data[] = [];
-  // cusinfoDataSource = new MatTableDataSource<any>();  // 案件清單
   constructor(
     public dialog: MatDialog,
     private f01006Service: F01006Service,
     public childService: ChildrenService,
-    private nzI18nService: NzI18nService
-    ) {
-      this.nzI18nService.setLocale(zh_TW)
-    }
+  ) {}
 
 
   //假資料
@@ -61,9 +54,9 @@ export class F01006Component implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.total = 2;
-    this.cusinfoDataSource = this.elements;
-    this.getCaseList(this.applno, this.nationalId, this.custId, this.pageIndex, this.pageSize);
+    // this.total = 2;
+    // this.cusinfoDataSource = this.elements;
+    // this.getCaseList(this.applno, this.nationalId, this.custId, this.pageIndex, this.pageSize);
 
   }
 
@@ -71,12 +64,12 @@ export class F01006Component implements OnInit, AfterViewInit {
   select() {
     if (this.applno == '' && this.nationalId == '' && this.custId == '') { return alert('請至少選擇一項') }
 
-    this.getCaseList(this.applno, this.nationalId, this.custId,this.pageIndex, this.pageSize);
+    this.getCaseList(this.applno, this.nationalId, this.custId, this.pageIndex, this.pageSize);
   }
 
   // 排序
   changeSort(sortInfo: Sort) {
-    this.getCaseList(this.applno, this.nationalId, this.custId,this.pageIndex, this.pageSize);
+    this.getCaseList(this.applno, this.nationalId, this.custId, this.pageIndex, this.pageSize);
   }
 
   //跳出申請葉面
@@ -104,10 +97,10 @@ export class F01006Component implements OnInit, AfterViewInit {
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getCaseList(this.applno, this.nationalId, this.custId,pageIndex, pageSize);
+    this.getCaseList(this.applno, this.nationalId, this.custId, pageIndex, pageSize);
   }
   //案件清單
-  getCaseList(applno: string, nationalId: string, custId: string, pageIndex: number, pageSize: number ) {
+  getCaseList(applno: string, nationalId: string, custId: string, pageIndex: number, pageSize: number) {
     let jsonObject: any = {};
 
     jsonObject['page'] = this.pageIndex + 1;
@@ -115,8 +108,6 @@ export class F01006Component implements OnInit, AfterViewInit {
     jsonObject['applno'] = applno;
     jsonObject['nationalId'] = nationalId;
     jsonObject['custId'] = custId;
-    this.loading = false;
-    //
     // this.f01006Service.getCaseList(jsonObject).subscribe(data => {
     //   this.total = data.rspBody.size;
     //   this.cusinfoDataSource = data.rspBody.items;
