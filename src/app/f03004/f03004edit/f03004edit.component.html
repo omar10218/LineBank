@@ -45,7 +45,6 @@
             <div><span class="form-title-actions">備註</span>
               <!-- <input matInput #input class="form-control" [(ngModel)]="data.codeTag" name="codeTag"> -->
               <textarea matInput
-            style="width: 100%;height:22px;background-color:#E6E6E6;border-radius:10px;border:none"
             [(ngModel)]="data.codeTag" name="codeTag"
             required
             matTextareaAutosize
@@ -61,8 +60,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">暫停使用</span>
-              <mat-select [(ngModel)]="data.codeFlag" name="codeFlag"
-                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              <mat-select [(ngModel)]="data.codeFlag" name="codeFlag">
                 <mat-option *ngFor="let code of ynCode" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
