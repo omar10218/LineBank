@@ -367,7 +367,7 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
   // pageSize30 = 50;
 
   watermark: string;
-
+  s:string;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
