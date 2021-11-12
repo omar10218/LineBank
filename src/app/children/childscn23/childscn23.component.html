@@ -3,11 +3,12 @@
     <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="add()">新增</button>
     <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="seve()">儲存</button>
     <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="del()">刪除</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="test()">測試</button>
   </div>
 </div>
 <div class="line_bank_card_no_padding">
 
-  <nz-table [nzData]="data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small">
+  <nz-table [nzData]="data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" >
     <thead>
       <tr>
         <th class="table-header"> </th>
@@ -27,7 +28,7 @@
       <tr *ngFor="let item of data">
         <td>
           <!-- <input class="inpu1" type="checkbox" checked="true"  (change)="test($event)"> -->
-          <input class="inpu1" type="checkbox"   (change)="addcheckbox($event.target.checked,item.ID)">
+          <input class="inpu1" type="checkbox"   (change)="addcheckbox($event.target.checked,item.ID,item.CONTRACT_AMT_029,item.CONTRACT_AMT_421,item.CONTRACT_AMT_CC)">
         </td>
         <td>
           <div nz-col nzSpan="6">
@@ -40,9 +41,9 @@
             </div>
         </td>
         <!-- <td><input class="inpu2" type="text"[attr.disabled]="null" [(ngModel)]="gold421" (keyup)="limit(gold421,'gold421')"></td> -->
-        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'||suject==undefined? '' : null" [(ngModel)]="item.MONTHLY_PAY_421" name="gold421" value="" (keyup)="limit(gold421,'gold421')"></td>
-        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'||suject==undefined? '' : null" [(ngModel)]="item.MONTHLY_PAY_029" name="gold029" (keyup)="limit(gold029,'gold029')"></td>
-        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'? null:'' " [(ngModel)]="item.MONTHLY_PAY_CC" name="gold" (keyup)="limit(gold,'gold')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'||suject==undefined? '' : null" [(ngModel)]="item.MONTHLY_PAY_421" name="gold421" (keyup)="limit(item.MONTHLY_PAY_421,item.ID,'gold421')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'||suject==undefined? '' : null" [(ngModel)]="item.MONTHLY_PAY_029" name="gold029" (keyup)="limit(item.MONTHLY_PAY_029,item.ID,'gold029')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="suject=='CC信用卡'? null:'' " [(ngModel)]="item.MONTHLY_PAY_CC" name="gold" (keyup)="limit(item.MONTHLY_PAY_CC,item.ID,'gold')"></td>
         <td>{{item.CAL_RATE}}</td>
         <td>{{item.CAL_YEARS}}</td>
         <td>{{item.CAL_PERIOD}}</td>
@@ -79,7 +80,7 @@
 </div>
 <br>
 <div class="line_bank_card_no_padding">
-  <nz-table nzShowSizeChanger [nzData]="" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="合計金額">
+  <nz-table nzShowSizeChanger [nzData]="" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="合計金額" nzTemplateMode >
     <thead>
       <tr>
         <th class="table-header">BAM421月付金</th>
@@ -90,8 +91,8 @@
     <tbody>
       <tr>
         <td>{{Monthly421}}</td>
-        <td>{{Monthly429}}</td>
-        <td>{{Monthly}}</td>
+        <td>{{Monthly029}}</td>
+        <td>{{Monthlycc}}</td>
       </tr>
     </tbody>
   </nz-table>

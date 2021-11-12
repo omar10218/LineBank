@@ -118,3 +118,6 @@ input:disabled{
   color: darkgrey;
 }
 
+:host::ng-deep.ant-table.ant-table-small .ant-table-tbody>tr>td{
+  padding:0px;
+}

@@ -1,7 +1,8 @@
 import { logging } from 'protractor';
 import { Sort } from '@angular/material/sort';
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { Childscn23Service } from './childscn23.service';
+import{FormatNumberPipe,ToNumberPipe} from '../../pipe/customFormatterPipe';
 // import {MatTableDataSource} from '@angular/material/table'
 
 interface sysCode {
@@ -13,10 +14,11 @@ interface sysCode {
 @Component({
   selector: 'app-childscn23',
   templateUrl: './childscn23.component.html',
-  styleUrls: ['./childscn23.component.css', '../../../assets/css/child.css']
+  styleUrls: ['./childscn23.component.css', '../../../assets/css/child.css'],
+
+
 })
 export class Childscn23Component implements OnInit {
-
   constructor( private childscn23Service: Childscn23Service) { }
   applno: string;
   i = true;
@@ -37,14 +39,14 @@ export class Childscn23Component implements OnInit {
   InterestRateTwo:string;//利率
   YearsTwo:string;//年數
   NumberofPeriodsTwo:string;//期數
-  Monthly421:string;//BAM421月付金
-  Monthly429:string;//BAM429月付金
-  Monthly:string;//信用卡付月金
+  Monthly421=0;//BAM421月付金
+  Monthly029=0;//BAM029月付金
+  Monthlycc=0;//信用卡付月金
   jsonObject: any = {};
   data: any[]=[];//裝一開始的資料表
   AddData: any;
   checkboxAny:any[]=[];//判斷是否回傳
-
+  seveData:any[]=[];
   // Source = new MatTableDataSource<any>() //產品Table
 
 
@@ -64,9 +66,10 @@ export class Childscn23Component implements OnInit {
   }
   add()//新增一筆
   {
+
     if(this.i==true)
     {
-      this.AddData = {ACCOUNT_CODE: '',APPLNO:'20210827E001', ID:'1', MONTHLY_PAY_421:'', MONTHLY_PAY_029: '',MONTHLY_PAY_CC:'',CAL_RATE:'',CAL_YEARS:'',CAL_PERIOD:'',CONTRACT_AMT_421:'',CONTRACT_AMT_029:'',CONTRACT_AMT_CC:''};
+      this.AddData = {APPLNO:'20210827E001',ACCOUNT_CODE: '', ID:'1', MONTHLY_PAY_421:'', MONTHLY_PAY_029: '',MONTHLY_PAY_CC:'',CAL_RATE:'',CAL_YEARS:'',CAL_PERIOD:'',CONTRACT_AMT_421:'',CONTRACT_AMT_029:'',CONTRACT_AMT_CC:''};
       this.data.push(this.AddData)
       this.i=false;
       console.log(this.data)
@@ -79,39 +82,46 @@ export class Childscn23Component implements OnInit {
     this.childscn23Service.AddUpDel(url,this.jsonObject).subscribe(data=>{
       this.data = data.rspBody.items
       this.suject=data.rspBody.items[0].ACCOUNT_CODE;
+      this.limit2();
     })
   }
 
-  limit(x: string,name:string)
+  limit(x: string,id:string,name:string)
   {
     x=x.replace(/\D/g,'')
-    var s="this."+name;
     if(x.length>0)
     {
       x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
-    switch(name)
-    {
-      case "gold421":
-        this.gold421 =x;
-       break;
-      case "gold429":
-        this.gold029 = x;
-        break;
-      case "gold":
-        this.gold = x;
-        break;
-        case "addgold421":
-          this.addgold421 =x;
-         break;
-        case "addgold429":
-          this.addgold029 = x;
-          break;
-        case "addgold":
-          this.addgold = x;
-          break;
+    for(const item of this.data){
+      if(item.ID==id )
+        {
+          switch(name)
+          {
+            case "gold421":
+              item.MONTHLY_PAY_421=x;
+              break;
+              case "gold029":
+                item.MONTHLY_PAY_029=x;
+                break;
+                case "gold":
+                  item.MONTHLY_PAY_CC =x;
+                  break;
+          }
+
+      }
     }
 
+  }
+  limit2()
+  {
+    for(const item of this.data)
+    {
+        item.MONTHLY_PAY_421 = item.MONTHLY_PAY_421!=undefined ?  (item.MONTHLY_PAY_421+"").replace(/\B(?=(\d{3})+(?!\d))/g, ','):item.MONTHLY_PAY_421;
+        item.MONTHLY_PAY_029 = item.MONTHLY_PAY_029!=undefined ?  (item.MONTHLY_PAY_029+"").replace(/\B(?=(\d{3})+(?!\d))/g, ','):item.MONTHLY_PAY_029;
+        item.MONTHLY_PAY_CC = item.MONTHLY_PAY_CC!=undefined ?  (item.MONTHLY_PAY_CC+"").replace(/\B(?=(\d{3})+(?!\d))/g, ','):item.MONTHLY_PAY_CC;
+        item.CAL_RATE = item.CAL_RATE * 100 + "%";
+    }
 
   }
   dropdown()
@@ -160,8 +170,42 @@ export class Childscn23Component implements OnInit {
   }
   seve()//儲存
   {
+    let url ='f01/childscn23action3'
+    let jsonObject1: any = {};
+    for(const jsonObj of this.checkboxAny)
+    {
+      for(const item of this.data)
+      {
+        let jsonObject: any = {};
+        if(jsonObj==item.ID)
+        {
+          jsonObject['applno']=item.APPLNO;
+          jsonObject['accountCode']=item.ACCOUNT_CODE;
+          jsonObject['id']=item.ID;
+          jsonObject['calRate']=parseInt(item.CAL_RATE)/100;
+          jsonObject['calYears']=item.CAL_YEARS;
+          jsonObject['calPeriod']=item.CAL_PERIOD;
+          jsonObject['monthlyPay421']=item.MONTHLY_PAY_421 != null? this.Cut(item.MONTHLY_PAY_421):'';
+          jsonObject['monthlyPay029']=item.MONTHLY_PAY_029 != null? this.Cut(item.MONTHLY_PAY_029):'';
+          jsonObject['monthlyPayCc']=item.MONTHLY_PAY_CC != null? this.Cut(item.MONTHLY_PAY_CC):'';
+          this.seveData.push(jsonObject);
+        }
+      }
+    }
+    jsonObject1['dataList']=this.seveData
+    console.log( this.seveData)
 
-    for(const item of this.data){
+    this.childscn23Service.AddUpDel(url,jsonObject1).subscribe(data=>{
+      console.log(data)
+      if(data.rspCode !='0000')
+      {
+        this.set();
+      }
+      this.seveData=[];
+
+    })
+    for(const item of this.data)
+    {
       if(item.ID=='1')
       {
         this.data.pop();
@@ -170,31 +214,50 @@ export class Childscn23Component implements OnInit {
     this.i=true;
     this.checkboxAny=[];
   }
+
+  Cut(s:string)//處理千分位
+  {
+    s=s.replace(",","")
+    return s
+  }
   del()//刪除
   {
     let jsonObject: any = {};
-    this.jsonObject['result'] =this.checkboxAny;
+    jsonObject['result'] =this.checkboxAny;
     let url = 'f01/childscn23action4';
     this.childscn23Service.AddUpDel(url,jsonObject).subscribe(data=>{
+      if(data.rspMsg=='刪除成功')
+      {
+        this.set();
+      }
+      else
+      {
+        console.log(data.rspMsg)
+      }
       console.log(data)
     })
 
   }
-  addcheckbox(check:boolean,z:string)
+  addcheckbox(check:boolean,z:string,amt029:string,amt421:string,amtcc:string)
   {
     if(check)
     {
       this.checkboxAny.push(z)
+      this.Monthly421=this.Monthly421 + parseInt(amt421);//BAM421月付金
+      this.Monthly029=this.Monthly029+ parseInt(amt029);//BAM029月付金
+      this.Monthlycc=this.Monthlycc+ parseInt(amtcc);//信用卡付月金
     }
     else
     {
       this.checkboxAny.splice(this.checkboxAny.indexOf(z), 1)
+      this.Monthly421=this.Monthly421 - parseInt(amt421);//BAM421月付金
+      this.Monthly029=this.Monthly029 - parseInt(amt029);//BAM029月付金
+      this.Monthlycc=this.Monthlycc - parseInt(amtcc);//信用卡付月金
     }
   }
   test()
   {
-
     console.log('this.data')
-    console.log(this.data)
+    console.log(this.seveData)
   }
 }
