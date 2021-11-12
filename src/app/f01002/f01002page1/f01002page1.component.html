@@ -1,57 +1,57 @@
 <div class="line_bank_bankground_color">
 
   <div nz-row class="search_row">
-      <div class="search_row_header">
-        <div nz-col>
-          <div nz-row>
-            <div nz-col nzSpan="5">
-              <span class="form-title line_bank_h4"> 案件編號</span>
-              <div class="form" style="margin:0 auto;width:90%">
-                <div><input matInput #input class="form-control" [(ngModel)]="swcApplno" name="swcApplno"
-                    placeholder="請輸入案件編號" required>
-                </div>
+    <div class="search_row_header">
+      <div nz-col>
+        <div nz-row>
+          <div nz-col nzSpan="5">
+            <span class="form-title line_bank_h4"> 案件編號</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="swcApplno" name="swcApplno"
+                  placeholder="請輸入案件編號" required>
               </div>
             </div>
-            <div nz-col nzSpan="5">
-              <span class="form-title line_bank_h4">身分證號</span>
-              <div class="form" style="margin:0 auto;width:90%">
-                <div><input matInput #input class="form-control" [(ngModel)]="swcID" name="swcID" placeholder="請輸入身分證編號"
-                    required>
-                </div>
+          </div>
+          <div nz-col nzSpan="5">
+            <span class="form-title line_bank_h4">身分證號</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="swcID" name="swcID" placeholder="請輸入身分證編號"
+                  required>
               </div>
             </div>
-            <div nz-col nzSpan="5">
-              <span class="form-title line_bank_h4">案件類別</span>
-              <div class="form" style="width:90%;height:25px;margin:0 auto;color:gray">
-                <div style="color:gray">
-                  <mat-select [(ngModel)]="caseType" name="caseTypeCode" class="mat-select" >
-                    <mat-option class="option" *ngFor="let code of caseTypeCode" [value]="code.value">
-                      {{code.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </div>
+          </div>
+          <div nz-col nzSpan="5">
+            <span class="form-title line_bank_h4">案件類別</span>
+            <div class="form" style="width:90%;height:25px;margin:0 auto;color:gray">
+              <div style="color:gray">
+                <mat-select [(ngModel)]="caseType" name="caseTypeCode" class="mat-select">
+                  <mat-option class="option" *ngFor="let code of caseTypeCode" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
               </div>
             </div>
-            <div nz-col nzSpan="5">
-              <span class="form-title line_bank_h4">代理人別</span>
-              <div class="form" style="width:90%;height:25px;margin:0 auto">
-                <div>
-                  <mat-select [(ngModel)]="agentEmpNo" name="agentEmpNoCode" class="mat-select">
-                    <mat-option class="option" *ngFor="let code of agentEmpNoCode" [value]="code.value">
-                      {{code.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </div>
+          </div>
+          <div nz-col nzSpan="5">
+            <span class="form-title line_bank_h4">代理人別</span>
+            <div class="form" style="width:90%;height:25px;margin:0 auto">
+              <div>
+                <mat-select [(ngModel)]="agentEmpNo" name="agentEmpNoCode" class="mat-select">
+                  <mat-option class="option" *ngFor="let code of agentEmpNoCode" [value]="code.value">
+                    {{code.viewValue}}
+                  </mat-option>
+                </mat-select>
               </div>
             </div>
-            <div nz-col nzSpan="4" style="padding:12px;">
-              <div >
-                <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢案件</button>
-              </div>
+          </div>
+          <div nz-col nzSpan="4" style="padding:12px;">
+            <div>
+              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢案件</button>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </div>
 
   <div class="content">
@@ -61,32 +61,32 @@
 
           <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
             [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
-            nzFooter="案件數: {{this.total}} 件" [nzScroll]="{ x: '1500px', y:tableHeight}" 
+            nzFooter="案件數: {{this.total}} 件" [nzScroll]="{ x: '1500px', y:tableHeight}"
             (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
               <tr>
                 <th class="table-header" [nzWidth]="'160px'" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
-                  [nzLeft]="true">收件編號</th>
-                <th class="table-header" [nzWidth]="'160px'">流程別</th>
-                <th class="table-header" [nzWidth]="'160px'">是否重查完成</th>
-                <th class="table-header" [nzWidth]="'160px'" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
+                  >收件編號</th>
+                <th class="table-header" [nzWidth]="'70px'">流程別</th>
+                <th class="table-header" [nzWidth]="'110px'">是否重查完成</th>
+                <th class="table-header" [nzWidth]="'110px'" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
                   [nzSortOrder]="'ascend'">進件時間</th>
-                <th class="table-header" [nzWidth]="'160px'">身分證號</th>
-                <th class="table-header" [nzWidth]="'160px'">姓名</th>
-                <th class="table-header" [nzWidth]="'200px'">公司名稱</th>
-                <th class="table-header" [nzWidth]="'160px'">客群標籤</th>
-                <th class="table-header" [nzWidth]="'160px'">申請金額/額度</th>
-                <th class="table-header" [nzWidth]="'160px'">風險等級分群</th>
-                <th class="table-header" [nzWidth]="'160px'">累積進件</th>
-                <th class="table-header" [nzWidth]="'160px'">審核結果</th>
-                <th class="table-header" [nzWidth]="'160px'">通知</th>
-                <th class="table-header" [nzRight]="true" [nzWidth]="'220px'">案件註記</th>
-                <th class="table-header" [nzRight]="true" [nzWidth]="'100px'">儲存</th>
+                <th class="table-header" [nzWidth]="'110px'">身分證號</th>
+                <th class="table-header" [nzWidth]="'80px'">姓名</th>
+                <th class="table-header" [nzWidth]="'130px'">公司名稱</th>
+                <th class="table-header" [nzWidth]="'100px'">客群標籤</th>
+                <th class="table-header" [nzWidth]="'110px'">申請金額/額度</th>
+                <th class="table-header" [nzWidth]="'110px'">風險等級分群</th>
+                <th class="table-header" [nzWidth]="'100px'">累積進件</th>
+                <th class="table-header" [nzWidth]="'70px'">審核結果</th>
+                <th class="table-header" [nzWidth]="'70px'">通知</th>
+                <th class="table-header"[nzWidth]="'120px'">案件註記</th>
+                <th class="table-header"[nzWidth]="'100px'">儲存</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let data of cusinfoDataSource">
-                <td class="table-data" [nzLeft]="true" [nzWidth]="'160px'" style="text-align: center;">
+                <td class="table-data"  style="text-align: center;">
                   <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='N'"
                     [disabled]="true">
                     {{data.swcApplno}}
@@ -97,10 +97,10 @@
                   </button>
                 </td>
                 <td class="table-data">{{ getOptionCaseType(data.swcFlowType) }}</td>
-                <td class="table-data" [nzWidth]="'110px'">{{ data.swcReadyForReview }}</td>
-                <td class="table-data" [nzWidth]="'100px'">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}
+                <td class="table-data">{{ data.swcReadyForReview }}</td>
+                <td class="table-data" nzWidth="'70px'">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}
                 </td>
-                <td class="table-data" [nzWidth]="'100px'">{{ data.swcID }}</td>
+                <td class="table-data" >{{ data.swcID }}</td>
                 <td class="table-data">{{ data.swcName }}</td>
                 <td class="table-data">{{ data.swcCompany }}</td>
                 <td class="table-data">{{ data.swcCreditLimit }}</td>
@@ -109,17 +109,17 @@
                 <td class="table-data">{{ data.swcEnterCount }}</td>
                 <td class="table-data">{{ data.swcResult }}</td>
                 <td class="table-data">
-                  <button nz-button id="test" [nzSize]="'middle'" *ngIf="data.swcNotifyMsg==''" [disabled]="true"
+                  <button nz-button id="test" nzSize='small' *ngIf="data.swcNotifyMsg==''" [disabled]="true"
                     nzType="primary">通知</button>
-                  <button nz-button id="test" [nzSize]="'middle'" *ngIf="data.swcNotifyMsg!=''"
+                  <button nz-button id="test" nzSize='small' *ngIf="data.swcNotifyMsg!=''"
                     (click)="openNotifyMsg(data.swcApplno)" nzType="primary">通知</button>
                 </td>
-                <td class="table-data" [nzRight]="true" [nzWidth]="'200px'">
-                  <input matInput #input class="form-control" [(ngModel)]="data.swcCaseMemo" name="note"
+                <td class="table-data" >
+                  <input matInput id="input" class="form-control" [(ngModel)]="data.swcCaseMemo" name="note"
                     placeholder="請輸入註記" required>
                 </td>
-                <td class="table-data btn_test" [nzRight]="true" style="text-align: center;">
-                  <button nz-button id="test" nzType="primary"
+                <td class="table-data btn_test" style="text-align: center;">
+                  <button nz-button id="test" nzType="primary" nzSize='small'
                     (click)="saveCaseMemo(data.swcApplno, data.swcCaseMemo)">儲存</button>
                 </td>
               </tr>
