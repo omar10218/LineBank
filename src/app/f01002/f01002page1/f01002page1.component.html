@@ -65,33 +65,33 @@
             (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
               <tr>
-                <th class="table-header" [nzWidth]="'160px'" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
-                  >收件編號</th>
-                <th class="table-header" [nzWidth]="'70px'">流程別</th>
-                <th class="table-header" [nzWidth]="'110px'">是否重查完成</th>
-                <th class="table-header" [nzWidth]="'110px'" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
+                <th class="table-header"  nzLeft (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
+                [nzWidth]="'120px'" >收件編號</th>
+                <th class="table-header" >流程別</th>
+                <th class="table-header" >重查完成</th>
+                <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
                   [nzSortOrder]="'ascend'">進件時間</th>
-                <th class="table-header" [nzWidth]="'110px'">身分證號</th>
-                <th class="table-header" [nzWidth]="'80px'">姓名</th>
-                <th class="table-header" [nzWidth]="'130px'">公司名稱</th>
-                <th class="table-header" [nzWidth]="'100px'">客群標籤</th>
-                <th class="table-header" [nzWidth]="'110px'">申請金額/額度</th>
-                <th class="table-header" [nzWidth]="'110px'">風險等級分群</th>
-                <th class="table-header" [nzWidth]="'100px'">累積進件</th>
-                <th class="table-header" [nzWidth]="'70px'">審核結果</th>
-                <th class="table-header" [nzWidth]="'70px'">通知</th>
-                <th class="table-header"[nzWidth]="'120px'">案件註記</th>
-                <th class="table-header"[nzWidth]="'100px'">儲存</th>
+                <th class="table-header" >身分證號</th>
+                <th class="table-header" >姓名</th>
+                <th class="table-header" [nzWidth]="'140px'">公司名稱</th>
+                <th class="table-header" >申請金額</th>
+                <th class="table-header" >客群標籤</th>
+                <th class="table-header" >風險等級分群</th>
+                <th class="table-header" >累積進件</th>
+                <th class="table-header" >審核結果</th>
+                <th class="table-header" >通知</th>
+                <th class="table-header"[nzWidth]="'140px'" nzRight>案件註記</th>
+                <th class="table-header" nzRight>儲存</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let data of cusinfoDataSource">
-                <td class="table-data"  style="text-align: center;">
+                <td class="table-data" nzLeft >
                   <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='N'"
                     [disabled]="true">
                     {{data.swcApplno}}
                   </button>
-                  <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='Y'"
+                  <button nz-button [nzSize]="'middle'" nzLeft nzType="link" *ngIf="data.swcReadyForReview=='Y'"
                     (click)="getLockCase(data.swcApplno, data.swcID)">
                     {{data.swcApplno}}
                   </button>
@@ -108,17 +108,17 @@
                 <td class="table-data">{{ data.swcRiskLevelGroup }}</td>
                 <td class="table-data">{{ data.swcEnterCount }}</td>
                 <td class="table-data">{{ data.swcResult }}</td>
-                <td class="table-data">
+                <td class="table-data" style="text-align: center;">
                   <button nz-button id="test" nzSize='small' *ngIf="data.swcNotifyMsg==''" [disabled]="true"
                     nzType="primary">通知</button>
                   <button nz-button id="test" nzSize='small' *ngIf="data.swcNotifyMsg!=''"
                     (click)="openNotifyMsg(data.swcApplno)" nzType="primary">通知</button>
                 </td>
-                <td class="table-data" >
+                <td class="table-data" nzRight style="text-align: center;">
                   <input matInput id="input" class="form-control" [(ngModel)]="data.swcCaseMemo" name="note"
                     placeholder="請輸入註記" required>
                 </td>
-                <td class="table-data btn_test" style="text-align: center;">
+                <td class="table-data btn_test" nzRight  style="text-align: center;">
                   <button nz-button id="test" nzType="primary" nzSize='small'
                     (click)="saveCaseMemo(data.swcApplno, data.swcCaseMemo)">儲存</button>
                 </td>
