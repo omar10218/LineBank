@@ -21,6 +21,7 @@ export class F01004Component implements OnInit,AfterViewInit {
   swcID: string;
   swcApplno: string;
   note: string;
+  stepName: string;                                   // 目前關卡名
   cusinfoDataSource = new MatTableDataSource<any>();
   constructor( private router: Router, private f01004Service: F01004Service) {}
 
@@ -70,6 +71,7 @@ export class F01004Component implements OnInit,AfterViewInit {
       console.log(data)
       this.totalCount = data.rspBody.size;
       this.cusinfoDataSource.data = data.rspBody.items;
+      this.stepName = data.rspBody.items[0].F_StepName;
     });
   }
 
