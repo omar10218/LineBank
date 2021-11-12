@@ -90,11 +90,7 @@ export class F01001Component implements OnInit, AfterViewInit {
 
   //代入條件查詢
   select() {
-    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請至少選擇一項條件" }
-      });
-    } else if (this.swcID != '' && !this.f01001Service.checkIdNumberIsValid(this.swcID)) {
+     if (this.swcID != '' && !this.f01001Service.checkIdNumberIsValid(this.swcID)) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "身分驗證失敗" }
       });

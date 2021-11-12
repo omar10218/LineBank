@@ -95,7 +95,6 @@ export class F01005page1Component implements OnInit {
   }
   //代入條件查詢
   select() {
-    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') { return alert('請至少選擇一項') }
     this.changePage();
     this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
   }
@@ -104,11 +103,6 @@ export class F01005page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
-
-      // if ( data.rspBody.length > 0 ) {
-      //   this.fds = data.rspBody[0].fds
-      // }
-
         sessionStorage.setItem('applno', swcApplno);
         sessionStorage.setItem('cuid', swcID);
         sessionStorage.setItem('search', 'N');
@@ -116,7 +110,6 @@ export class F01005page1Component implements OnInit {
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01002/F01002SCN1']);
-
 
   }
   // 儲存案件註記

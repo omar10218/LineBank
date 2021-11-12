@@ -79,12 +79,6 @@ export class F01003Component implements OnInit, AfterViewInit {
     this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
   }
 
-  // 排序
-  // changeSort(sortInfo: Sort) {
-  // this.currentSort = sortInfo;
-  // this.getCaseList(this.empNo, this.swcID, this.swcApplno);
-  // }
-
   // 查詢案件清單
   getCaseList(empNo: string, swcID: string, swcApplno: string, pageIndex: number, pageSize: number) {
     let jsonObject: any = {};
@@ -103,12 +97,6 @@ export class F01003Component implements OnInit, AfterViewInit {
 
   //代入條件查詢
   select() {
-    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') {
-      const cconfirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請至少選擇一項條件" }
-      });
-    } else
-      this.changePage();
     this.changePage();
     this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
   }
