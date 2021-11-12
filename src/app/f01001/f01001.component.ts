@@ -9,7 +9,7 @@ import { F01001Service } from './f01001.service';
 @Component({
   selector: 'app-f01001',
   templateUrl: './f01001.component.html',
-  styleUrls: ['./f01001.component.css']
+  styleUrls: ['./f01001.component.css','../../assets/css/f01.css']
 })
 export class F01001Component implements OnInit, AfterViewInit {
 
@@ -70,17 +70,17 @@ export class F01001Component implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+    this.getCaseList();
   }
 
   // 查詢案件清單
-  getCaseList(empNo: string, swcID: string, swcApplno: string) {
+  getCaseList() {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL4EmpNo'] = empNo;
-    jsonObject['swcID'] = swcID;
-    jsonObject['swcApplno'] = swcApplno;
+    jsonObject['swcL4EmpNo'] = this.empNo;
+    jsonObject['swcID'] = this.swcID;
+    jsonObject['swcApplno'] = this.swcApplno;
     this.f01001Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
@@ -94,15 +94,23 @@ export class F01001Component implements OnInit, AfterViewInit {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項條件" }
       });
-    } else
+    } else if (this.swcID != '' && !this.f01001Service.checkIdNumberIsValid(this.swcID)) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "身分驗證失敗" }
+      });
+    }
+    else {
+      this.empNo = this.agentEmpNo; 
       this.changePage();
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+      this.getCaseList();
+    }
   }
 
   // 案件子頁籤
   getLockCase(swcApplno: string, swcID: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
+
     this.f01001Service.getLockCase(jsonObject).subscribe(data => {
       if (data.rspBody.length > 0) {
         this.fds = data.rspBody[0].fds
@@ -133,7 +141,7 @@ export class F01001Component implements OnInit, AfterViewInit {
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       if (msg != null && msg == 'success') {
-        this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+        this.getCaseList();
       }
     }, 500);
   }
@@ -142,7 +150,7 @@ export class F01001Component implements OnInit, AfterViewInit {
     const { pageIndex } = params;
     if (this.pageIndex !== pageIndex) {
       this.pageIndex = pageIndex;
-      this.getCaseList(this.empNo, this.swcID, this.swcApplno);
+      this.getCaseList();
     }
   }
 

@@ -6,6 +6,9 @@ import { F01004RoutingModule } from '../routing/f01004-routing.module';
 
 import { F01004Component } from './f01004.component';
 import { F01004scn1Component } from './f01004scn1/f01004scn1.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NgZorroAntdModule } from '../ngzorro/ng-zorro-antd.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +16,9 @@ import { F01004scn1Component } from './f01004scn1/f01004scn1.component';
     F01004scn1Component
   ],
   imports: [
+    NzTableModule,
+    NgZorroAntdModule,
+    NzButtonModule,
     CommonModule,
     MaterialModule,
     FormsModule,
