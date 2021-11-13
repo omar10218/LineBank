@@ -5,7 +5,7 @@
     <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="clear()">清除資料</button>
   </div>
   <!-- 最外層卡片包覆 -->
-  <div class="line_bank_card_no_padding">
+  <div class="line_bank_card_no_padding" style="height: 90px;">
     <div nz-row>
       <div nz-col nzFlex="1">
         <div class="form" style="padding:20px">
@@ -53,9 +53,10 @@
 
   <div class="line_bank_card_no_padding">
     <!-- 表格 -->
+    <div class="line_bank_form_header_title">補件資訊查詢</div>
     <nz-table nzShowSizeChanger [nzData]="rescanData" [nzFrontPagination]="false" [nzSimple]="true"
       [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="補件資訊查詢">
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small"  >
       <thead>
         <tr>
           <th class="table-header"></th>

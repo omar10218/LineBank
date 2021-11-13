@@ -8,34 +8,32 @@
   <div class="line_bank_card_no_padding">
 
     <div nz-row>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
             [(ngModel)]="applno" name="applno">
         </div>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">身分證字號</span><input style="display: block;"
             [(ngModel)]="national_ID" name="national_ID" >
         </div>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">客戶ID</span><input style="display: block;"
             [(ngModel)]="cust_ID" name="cust_ID" >
         </div>
       </div>
-    </div>
-    <div nz-row>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">客戶姓名</span><input style="display: block;"
             [(ngModel)]="cust_CNAME" name="cust_CNAME" >
         </div>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">徵信員員編姓名</span><input style="display: block;"
             [(ngModel)]="l3EMPNO" name="l3EMPNO" >
         </div>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">審核結果</span>
           <mat-select [(ngModel)]="credit_RESULT_Value" name="CREDIT_RESULT_Value">
             <mat-option *ngFor="let item of credit_RESULT" [value]="item.value">
@@ -46,7 +44,7 @@
       </div>
     </div>
     <div nz-row>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">案件狀態</span>
           <mat-select [(ngModel)]="status_DESC_Value" name="status_DESC_Value">
             <mat-option *ngFor="let item of status_DESC" [value]="item.value">
@@ -55,7 +53,7 @@
           </mat-select>
         </div>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">客群標籤</span>
           <mat-select [(ngModel)]="cust_FLAG_Value" name="cust_FLAG_Value">
             <mat-option *ngFor="let item of cust_FLAG" [value]="item.value">
@@ -64,7 +62,7 @@
           </mat-select>
         </div>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">分險等級分群</span>
           <mat-select [(ngModel)]="risk_GRADE_Value" name="risk_GRADE_Value">
             <mat-option *ngFor="let item of risk_GRADE" [value]="item.value">
@@ -73,47 +71,45 @@
           </mat-select>
         </div>
       </div>
-    </div>
-    <div nz-row>
-      <div nz-col nzSpan="8">
-        <div style="padding:10px"><span class="form-title">進件日期</span>
-          <nz-range-picker [(ngModel)]="apply_TIME"name="apply_TIME" ></nz-range-picker>
-        </div>
-      </div>
-      <div nz-col nzSpan="8">
-        <div style="padding:10px"><span class="form-title">上傳財力日期</span>
-           <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME" name="proof_DOCUMENT_TIME"></nz-range-picker>
-        </div>
-      </div>
-      <div nz-col nzSpan="8">
-        <div style="padding:10px"><span class="form-title">簽約完成日期</span>
-          <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME"name="proof_DOCUMENT_TIME" ></nz-range-picker>
-        </div>
-      </div>
-    </div>
-    <div nz-row>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">產品名稱</span><input style="display: block;"
             [(ngModel)]="product_NAME" name="product_NAME" >
         </div>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">專案名稱</span><input style="display: block;"
             [(ngModel)]="project_NAME" name="project_NAME" >
         </div>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">行銷代碼</span><input style="display: block;"
             [(ngModel)]="marketing_CODE" name="marketing_CODE" >
         </div>
       </div>
     </div>
     <div nz-row>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="6">
+        <div style="padding:10px"><span class="form-title">進件日期</span>
+          <nz-range-picker [(ngModel)]="apply_TIME"name="apply_TIME" ></nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="6">
+        <div style="padding:10px"><span class="form-title">上傳財力日期</span>
+           <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME" name="proof_DOCUMENT_TIME"></nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="6">
+        <div style="padding:10px"><span class="form-title">簽約完成日期</span>
+          <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME"name="proof_DOCUMENT_TIME" ></nz-range-picker>
+        </div>
+      </div>
+      <div nz-col nzSpan="6">
         <div style="padding:10px"><span class="form-title">准駁日期時間</span>
           <nz-range-picker [(ngModel)]="credit_TIME"name="credit_TIME" ></nz-range-picker>
         </div>
       </div>
+    </div>
+    <div nz-row>
       <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title"></span>
         </div>
