@@ -68,4 +68,26 @@ table {
   overflow: hidden;
   padding: 0px 5px;
 }
-
+#prohibit
+{
+  background-color: #d3d3d3;
+}
+.red
+{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:black;
+  margin-bottom: 1px;
+  font-size: 14px;
+  color:red;
+}
+.black
+{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:black;
+  margin-bottom: 1px;
+  font-size: 14px;
+  color:black;
+  background-color:#FF0000;
+}

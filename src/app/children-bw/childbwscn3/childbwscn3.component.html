@@ -250,10 +250,10 @@
         <tr>
           <td class="table-header">預借額度</td>
           <td class="table-data">{{ listSource.cashLimitAdj01aj }}</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
           <td class="table-data">{{ listSource.ccCashlimitDwncntL12 }}</td>
         </tr>
       </tbody>
@@ -396,33 +396,33 @@
       <tbody>
         <tr>
           <td class="table-header">循環信用佔額比</td>
-          <td class="table-data">{{ listSource.ccRevRtall01aj }}</td>
-          <td class="table-data">{{ listSource.ccRevRtallL06 }}</td>
-          <td class="table-data">{{ listSource.ccRevRtallL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtall01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL12 }}</td>
           <td class="table-header">循環信用佔額比</td>
-          <td class="table-data">{{ listSource.ccRevRtall01aj }}</td>
-          <td class="table-data">{{ listSource.ccRevRtallL06 }}</td>
-          <td class="table-data">{{ listSource.ccRevRtallL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtall01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL12 }}</td>
         </tr>
         <tr>
           <td class="table-header">循環預借未到期佔額比</td>
-          <td class="table-data">{{ listSource.ccRevcapreRt01aj }}</td>
-          <td class="table-data">{{ listSource.ccRevcapreRtL06 }}</td>
-          <td class="table-data">{{ listSource.ccRevcapreRtL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevcapreRt01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevcapreRtL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevcapreRtL12 }}</td>
           <td class="table-header">循環預借未到期佔額比</td>
-          <td class="table-data">{{ listSource.ccRevRtall01aj }}</td>
-          <td class="table-data">{{ listSource.ccRevRtallL06 }}</td>
-          <td class="table-data">{{ listSource.ccRevRtallL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtall01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL12 }}</td>
         </tr>
         <tr>
           <td class="table-header">本期應付未到期佔額比</td>
-          <td class="table-data">{{ listSource.ccPayablepreRt01aj }}</td>
-          <td class="table-data">{{ listSource.ccPayablepreRtL06 }}</td>
-          <td class="table-data">{{ listSource.ccPayablepreRtL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRt01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRtL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRtL12 }}</td>
           <td class="table-header">本期應付未到期佔額比</td>
-          <td class="table-data">{{ listSource.ccPayablepreRtall01aj }}</td>
-          <td class="table-data">{{ listSource.ccPayablepreRtallL06 }}</td>
-          <td class="table-data">{{ listSource.ccPayablepreRtallL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRtall01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRtallL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRtallL12 }}</td>
         </tr>
       </tbody>
     </nz-table>
@@ -517,12 +517,12 @@
         <tr>
           <td class="table-header">授信往來</td>
           <td class="table-data">{{ listSource.lnBk }}</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data"id="prohibit"></td>
           <td class="table-data">{{ listSource.lnBal }}</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data"id="prohibit"></td>
+          <td class="table-data"id="prohibit"></td>
+          <td class="table-data"id="prohibit"></td>
+          <td class="table-data"id="prohibit"></td>
         </tr>
         <tr>
           <td class="table-header">無擔保單放款<br>(含現金卡)</td>
@@ -536,53 +536,53 @@
         </tr>
         <tr>
           <td class="table-header">現金卡</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
           <td class="table-data">{{ listSource.lnYBal }}</td>
           <td class="table-data">{{ listSource.lnYLimit }}</td>
           <td class="table-data">{{ listSource.lnYRt }}</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data"id="prohibit"></td>
         </tr>
         <tr>
           <td class="table-header">房貸</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
           <td class="table-data">{{ listSource.lnSecMortBal }}</td>
           <td class="table-data">{{ listSource.lnSecMortLimit }}</td>
           <td class="table-data">{{ listSource.lnSecMortRt }}</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
         </tr>
         <tr>
           <td class="table-header">車貸</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
           <td class="table-data">{{ listSource.lnSecCarBal }}</td>
           <td class="table-data">{{ listSource.lnSecCarLimit }}</td>
           <td class="table-data">{{ listSource.lnSecCarRt }}</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
         </tr>
         <tr>
           <td class="table-header">其他動產</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
           <td class="table-data">{{ listSource.lnSecOthrBal }}</td>
           <td class="table-data">{{ listSource.lnSecOthrLimit }}</td>
           <td class="table-data">{{ listSource.lnSecOthrRt }}</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
         </tr>
         <tr>
           <td class="table-header">學生貸款</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
           <td class="table-data">{{ listSource.lnZStuBal }}</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
+          <td class="table-data" id="prohibit"></td>
         </tr>
       </tbody>
     </nz-table>
@@ -607,13 +607,13 @@
         </tr>
         <tr>
           <td class="table-header">M1+逾期月數</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
           <td class="table-data">{{ listSource.lnM1plusL06 }}</td>
           <td class="table-data">{{ listSource.lnM1plusL12 }}</td>
         </tr>
         <tr>
           <td class="table-header">M2+逾期月數</td>
-          <td class="table-data">無資料</td>
+          <td class="table-data" id="prohibit"></td>
           <td class="table-data">{{ listSource.lnM2plusL06 }}</td>
           <td class="table-data">{{ listSource.lnM2plusL12 }}</td>
         </tr>

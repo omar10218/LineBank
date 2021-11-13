@@ -6,7 +6,7 @@
 nz-time-picker {
     margin: 0 8px 12px 0;
   }
-  
+
   .line_bank_form_header_title{
     text-align: center;
     font-weight:500;
@@ -16,7 +16,7 @@ nz-time-picker {
     padding:10px 0;
     border-radius: 10px 10px 0 0;
   }
-  
+
   .line_bank_card_no_padding {
     position: relative;
     margin:20px auto;
@@ -33,7 +33,7 @@ nz-time-picker {
     border:none;
     background-color:#e6e6e6;
     border-radius: 10px;
-  
+
   }
   /* ::ng-deep.ant-row{
     display: inline-block
@@ -90,7 +90,7 @@ nz-time-picker {
     background:white;
     border-color:#24C875;
     border-radius:5px;
-  
+
   }
   .ant-btn-primary:hover{
     color:#ffffff;
@@ -99,8 +99,8 @@ nz-time-picker {
     border-radius:5px;
     box-shadow:0 2px 0 rgb(0 0 0 / 5%);
   }
-  
-  
+
+
   .mat-dialog-actions{
     padding-left:20px;
   }
@@ -122,4 +122,3 @@ nz-time-picker {
     padding:10px;
     background-color:#E6E6E6
   }
-  

@@ -1,5 +1,5 @@
 <div class="line_bank_bankground_color">
-
+  <br>
   <div nz-row class="search_row">
     <div class="search_row_header">
       <div nz-col>
@@ -25,7 +25,7 @@
               </div>
             </div>
           </div>
-          <div nz-col nzSpan="5" >
+          <div nz-col nzSpan="5">
             <button nz-button [nzSize]="'large'" nzType="primary" (click)="select()">查詢案件</button>
           </div>
 
@@ -34,46 +34,12 @@
     </div>
   </div>
 
-
-  <!-- <div class="header">
-    <div nz-row style="background-color: white;">
-
-      <div nz-col nzSpan="6" style="padding:0px 15px;background-color: #BFECD0;">
-        <div class="form-title line_bank_h3" style="margin:10px 0 ;">案件編號</div>
-        <div class="form" style="display: block;margin-bottom:10px">
-          <div><input matInput #input class="form-control" [(ngModel)]="applno" name="applno" required>
-          </div>
-        </div>
-
-      </div>
-      <div nz-col nzSpan="6" style="padding:0px 15px;">
-        <span class="form-title line_bank_h3" style="margin:10px 0 ;">身分證號</span>
-        <div class="form" style="display: block;margin-bottom:10px">
-          <div><input matInput #input class="form-control" [(ngModel)]="nationalId" name="nationalId" required>
-          </div>
-        </div>
-      </div>
-      <div nz-col nzSpan="6" style="padding:0px 15px;background-color: #BFECD0;">
-        <div class="form-title line_bank_h3" style="margin:10px 0 ;">客戶編號</div>
-        <div class="form" style="display: block;margin-bottom:10px">
-          <div><input matInput #input class="form-control" [(ngModel)]="custId" name="custId" required>
-          </div>
-        </div>
-
-      </div>
-      <div nz-col nzSpan="6" style="padding:0px 15px;text-align: center;">
-        <button nz-button [nzSize]="'large'" nzType="primary" (click)="select()">查詢案件</button>
-      </div>
-    </div>
-
-
-  </div> -->
   <div class="content">
     <div class="abs-box">
       <div nz-col nzSpan="24">
         <div class="line_bank_card_no_padding">
           <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
-            [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable
+           [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable
             nzSize="small" [nzScroll]="{ y: '240px' }">
             <thead>
               <tr>
@@ -110,95 +76,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-<!-- <div sticky>
-    <table>
-        <div>
-            <tr>
-                <td>
-                    <mat-form-field color="accent">
-                        <input matInput [(ngModel)]="applno" placeholder="案件編號">
-                    </mat-form-field>
-                </td>
-                <td>
-                    <mat-form-field color="accent">
-                        <input matInput [(ngModel)]="nationalId" placeholder="身分證號">
-                    </mat-form-field>
-                </td>
-                <td>
-                    <mat-form-field color="accent">
-                        <input matInput [(ngModel)]="custId" placeholder="客戶編號">
-                    </mat-form-field>
-                </td>
-                <td>
-                    <button type="submit" mat-raised-button color="primary" (click)="select()">查詢案件</button>
-                </td>
-            </tr>
-        </div>
-        <div>
-            <td>
-                <mat-paginator #paginator [length]="totalCount" [pageIndex]="0" [pageSize]="10"
-                    [pageSizeOptions]="[5, 10, 15, 50, 100]" [showFirstLastButtons]="true">
-                </mat-paginator>
-            </td>
-        </div>
-    </table>
-</div>
-
-<cdk-virtual-scroll-viewport itemSize="48" headerHeight="56" style="margin-left: 10px;flex: 1;">
-    <ng-container *ngIf="this.totalCount == 0; else elseTemplate">
-        <br><br>
-        <th style="padding-left: 20px;color: red;">查無案件</th>
-    </ng-container>
-    <ng-template #elseTemplate>
-        <mat-table [dataSource]="cusinfoDataSource" matSort #sortTable="matSort" (matSortChange)="changeSort($event)">
-            <ng-container matColumnDef="applno" sticky>
-                <mat-header-cell *matHeaderCellDef mat-sort-header>案件編號</mat-header-cell>
-                <mat-cell *matCellDef="let row">
-                    <button mat-raised-button color="primary"
-                        (click)="getRestartCase(row.applno, row.nationalId, row.custId, row.name, row.limit, row.periods, row.rates)">
-                        {{row.applno}}
-                    </button>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="nationalId">
-                <mat-header-cell *matHeaderCellDef>National ID</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ (row.nationalId) }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="custId">
-                <mat-header-cell *matHeaderCellDef>Customer ID</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.custId }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>姓名</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="limit">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>核准額度</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.limit }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="rates">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>核准利率</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.rates }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="periods">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>申辦期數</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.periods }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="code">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>產品代號</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.code }}</mat-cell>
-            </ng-container>
-
-            <mat-header-row
-                *matHeaderRowDef="['applno', 'nationalId', 'custId', 'name', 'limit', 'rates','periods', 'code']; sticky: true">
-            </mat-header-row>
-            <mat-row
-                *matRowDef="let caseListRow; columns: ['applno', 'nationalId', 'custId', 'name', 'limit', 'rates','periods', 'code']">
-            </mat-row>
-        </mat-table>
-    </ng-template>
-</cdk-virtual-scroll-viewport> -->

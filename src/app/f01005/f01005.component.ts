@@ -49,9 +49,6 @@ export class F01005Component implements OnInit {
     instance.update = (num) => {
       this.num = num
     }
-    // instance.update2 = new EventEmitter<void>().subscribe(() => {
-    //   this.num--;
-    // });
   }
 
 }
