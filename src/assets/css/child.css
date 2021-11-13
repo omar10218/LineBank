@@ -108,7 +108,7 @@ input:disabled{
 .line_bank_card_no_padding_child{
   position: relative;
   margin:20px auto;
-    width: 100%;
+    width: 95%;
     background: white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
@@ -197,7 +197,7 @@ input:disabled{
   color:#2E4765;
   font-weight: 500;
   text-align:left;
-  width:88%;
+  width: 100%;
   margin:0 auto;
   display:block;
 }
