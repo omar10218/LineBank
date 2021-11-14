@@ -32,7 +32,7 @@ export class F03006Component implements OnInit {
 
 	total = 1
 	loading = true
-	pageSize = 10
+	pageSize = 50
 	pageIndex = 1
 
 	agent_empCode: OptionsCode[] = [] //代理人
