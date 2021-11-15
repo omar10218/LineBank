@@ -1,6 +1,6 @@
 <div class="line_bank_bankground_color">
   <div style=" width: 100%;position:fixed;z-index:10">
-    <nz-tabset nzLinkRouter>
+    <nz-tabset nzLinkRouter style="margin-top: 12px;">
       <nz-tab [nzTitle]="JCIC">
         <ng-template #JCIC let-visible="visible">
           <button nz-button nzSize="small" [ngClass]="hideJCIC ? 'nohide' : 'hide'"
@@ -141,7 +141,19 @@
 
     </nz-tabset>
   </div>
-  <br><br>
+  <div style="padding-left: 50px; padding-top: 62px;">
+    <div nz-row>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">查詢日期</span><input matInput #input class="form-control"
+          [(ngModel)]="queryDate" readonly disabled></div>
+      </div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+    </div>
+  </div>
 
   <!-- 聯徵彙整資訊 -->
   <div [(hidden)]="hideJCIC" class="line_bank_card_no_padding">

@@ -80,7 +80,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   private applno: string;
   private cuid: string;
-  // private queryDate: string;
+  queryDate: string;
 
   listSource: any = []
 	total = 1
@@ -97,6 +97,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     this.cuid = sessionStorage.getItem('cuid');
     // this.queryDate = sessionStorage.getItem('queryDate');
 
+    this.getQueryDate();
     this.getJcicMultiple();
     this.setBooleanFalse();
     this.getJcicList()
@@ -104,6 +105,25 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
+  }
+
+  getQueryDate() {
+    const url = 'f01/childscn6';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['cuid'] = this.cuid;
+    jsonObject['code'] = 'MASTER';
+    this.childscn6Service.getDate(url, jsonObject).subscribe(data => {
+      if (data.rspBody.items.length > 0) {
+        // for (let i = 0; i < data.rspBody.items.length; i++) {
+        //   this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
+        // }
+        // this.dateValue = data.rspBody.items[0].QUERYDATE
+        // sessionStorage.setItem('queryDate', this.dateValue);
+        this.queryDate = data.rspBody.items[0].QUERYDATE;
+        //this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase, fds: this.fds} });
+      }
+    });
   }
 
   // 取得聯徵彙整清單
