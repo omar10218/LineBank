@@ -5,11 +5,12 @@ mat-grid-tile {
 /* 表格標題樣式 */
 ::ng-deep.ant-table.ant-table-small .ant-table-title{
   color:#2E4765;
-  font-size:18px;
+    font-size:16px;
+  padding:5px 5px 5px 10px;
   border-radius:5px 5px 0 0;
   background-color:#BFECD0;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
   border: 1px solid #DBDBDB;
 }
 /* 表格表頭樣式 */

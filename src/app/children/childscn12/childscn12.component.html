@@ -40,25 +40,25 @@
           <td class="table-data">{{ data.yincome }}</td>
           <td class="table-data">{{ data.mincome }}</td>
           <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
-            <td class="table-data">
-              <button nz-button [nzSize]="'middle'" nzType="primary"
+            <td class="table-data" style="text-align:center">
+              <button nz-button [nzSize]="'small'" nzType="primary"
                 (click)="startEdit(
                 data.incomeType, data.cuId, data.cuCname, data.num, data.mincomeExp)">編輯</button>
             </td>
-            <td class="table-data">
-              <button nz-button [nzSize]="'middle'" nzType="default" nzDanger
+            <td class="table-data" style="text-align:center">
+              <button nz-button [nzSize]="'small'" nzType="default" nzDanger
                 (click)="deleteItem(
                 data.incomeType, data.cuId, data.cuCname, data.num, data.mincomeExp)">刪除</button>
             </td>
           </ng-container>
           <ng-template #elseTemplate>
-            <td class="table-data">
-              <button nz-button [nzSize]="'middle'" nzType="primary"
+            <td class="table-data" style="text-align:center">
+              <button nz-button [nzSize]="'small'" nzType="primary"
                 (click)="startEdit(
                 data.incomeType, data.cuId, data.cuCname, data.num, data.mincomeExp)" disabled>編輯</button>
             </td>
-            <td class="table-data">
-              <button nz-button [nzSize]="'middle'" nzType="default" nzDanger
+            <td class="table-data" style="text-align:center">
+              <button nz-button [nzSize]="'small'" nzType="default" nzDanger
                 (click)="deleteItem(
                 data.incomeType, data.cuId, data.cuCname, data.num, data.mincomeExp)" disabled>刪除</button>
             </td>
