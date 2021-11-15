@@ -1,17 +1,20 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="uploadNew()">上傳</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢</button>
-  </div>
 
-  <div class="line_bank_card_no_padding">
+<br>
+  <div class="line_bank_card_no_padding" style="margin:0px auto 10px auto">
     <!-- <div class="line_bank_form_header_title">貸後管理異常名單維護</div> -->
 
     <div nz-row>
       <div nz-col nzSpan="3">
-        <div style="padding:10px"><span class="form-title">ID：</span>
+        <div style="padding:8px"><span class="form-title">ID：</span>
           <input style="display: block;" [(ngModel)]="ABNORMAL_NID" name="ABNORMAL_NID" >
+        </div>
+      </div>
+      <div nz-col nzSpan="3">
+        <div style="padding-left: 20px; margin-top: 25px;">
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="uploadNew()">上傳</button>
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢</button>
         </div>
       </div>
     </div>
@@ -41,11 +44,11 @@
           <td class="table-data">{{ data.transferDate| date:"yyyy-MM-dd" }}</td>
           <td class="table-data">{{ data.changeEmpno }}</td>
           <td class="table-data">{{ data.changeDate | date:"yyyy-MM-dd" }}</td>
-          <td class="table-data">
+          <td class="table-data"style="text-align: center;">
             <button nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
               data.abnormalNid, data.onCheck,data.transferEmpno, data.transferDate,data.changeEmpno, data.changeDate)">編輯</button>
           </td>
-          <td class="table-data">
+          <td class="table-data" style="text-align: center;">
             <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="deleteItem(
               data.abnormalNid, data.onCheck,data.transferEmpno, data.transferDate,data.changeEmpno, data.changeDate)">刪除</button>
           </td>

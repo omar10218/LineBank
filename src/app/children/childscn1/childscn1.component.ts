@@ -288,8 +288,8 @@ export class Childscn1Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
-      // this.total = data.rspBody.size;
-      // this.creditmemoSource = data.rspBody.items;
+      this.total = data.rspBody.size;
+      this.creditmemoSource = data.rspBody.items;
     })
   }
 

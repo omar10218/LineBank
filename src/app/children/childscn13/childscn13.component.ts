@@ -46,7 +46,6 @@ export class Childscn13Component implements OnInit {
   webInfoSource: readonly Data[] = [];
   webInfoSource2:webInfoData[]=[];
   total = 1;
-  loading = true;
   pageIndex = 1;
   pageSize = 50;
   webAddrOption: MappingCode[];
@@ -80,7 +79,6 @@ export class Childscn13Component implements OnInit {
     this.childscn13Service.getWebInfo( baseurl, jsonObject ).subscribe(data => {
       console.log('data.rspBody.items')
       console.log(data.rspBody.items)
-      this.loading = false;
       this.total = data.rspBody.size;
       this.webInfoSource = data.rspBody.items;
       this.webInfoSource2= data.rspBody.items;

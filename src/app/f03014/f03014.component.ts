@@ -68,38 +68,60 @@ export class F03014Component implements OnInit {
       var startDate, endDate;
       startDate = new Date(this.Efficient[0]);
       endDate = new Date(this.Efficient[1]);
-      if((endDate-startDate)/1000/60/60/24>90){
-        this.condition =0;
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "生效日查詢區間最多三個月內!" }
-        });
+      if(this.IdentityValue != null && this.IdentityValue !='')
+      {
+        if((endDate-startDate)/1000/60/60/24>365)
+        {
+          this.condition =0;
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "生效日查詢區間最多一年內!" }
+          });
+        }
       }
       else
       {
-        this.condition =1;
+        if((endDate-startDate)/1000/60/60/24>90){
+          this.condition =0;
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "生效日查詢區間最多三個月內!" }
+          });
+        }
+        else
+        {
+          this.condition =1;
+        }
       }
     }
-
-
-
     if(this.Invalidation != null)
     {
       var startDate, endDate;
       startDate = new Date(this.Invalidation[0]);
       endDate = new Date(this.Invalidation[1]);
-      if((endDate-startDate)/1000/60/60/24>90){
-        this.condition =0;
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "失效日查詢區間最多三個月內!" }
-        });
+      if(this.IdentityValue != null && this.IdentityValue !='')
+      {
+        if((endDate-startDate)/1000/60/60/24>365)
+        {
+          this.condition =0;
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "失效日查詢區間最多一年內!" }
+          });
+        }
       }
       else
       {
-        this.condition =1;
+        if((endDate-startDate)/1000/60/60/24>90)
+        {
+          this.condition =0;
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "失效日查詢區間最多三個月內!" }
+          });
+        }
+        else
+        {
+          this.condition =1;
+        }
       }
     }
-
-
 
     if(this.condition > 0 )
     {
@@ -239,7 +261,6 @@ export class F03014Component implements OnInit {
     jsonObject['useFlag'] = this.usingValue;
     let opton =  { responseType: 'blob' as 'json' };
     this.f03014Service.downloadExcel(url,jsonObject).subscribe(data=>{
-      console.log(data)
       blob = new Blob([data], { type: ' application/xlsx' });
       let downloadURL = window.URL.createObjectURL(blob);
       let link = document.createElement('a');

@@ -35,7 +35,6 @@ export class F02002Component implements OnInit {
 
   rescanData: Data[] = [];
   total = 1;
-  loading = true;
   pageIndex = 1;
   pageSize = 50;
 
@@ -47,7 +46,6 @@ export class F02002Component implements OnInit {
           this.rescanEmpnoCode.push( { value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO } );
         }
       }
-      this.loading = false;
     });
   }
 
@@ -68,7 +66,6 @@ export class F02002Component implements OnInit {
       jsonObject['endDate'] = '';
     }
     this.f02002Service.f02002( baseUrl, jsonObject ).subscribe(data => {
-      this.loading = false;
       if ( data.rspBody.size == 0 ) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
@@ -91,13 +88,24 @@ export class F02002Component implements OnInit {
       if ( this.date != null ) {
         startDate = new Date( this.date[0] );
         endDate =  new Date( this.date[1] );
-        if ( ( endDate - startDate ) / 1000 / 60 / 60 / 24 > 90 ) {
-          this.clear();
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "查詢區間最多三個月內!" }
-          });
+        if ( this.nationalId != '' || this.custId != '') {
+          if ( ( endDate - startDate ) / 1000 / 60 / 60 / 24 > 365 ) {
+            this.clear();
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "查詢區間最多一年內!" }
+            });
+          } else {
+            this.getRescanData( this.pageIndex, this.pageSize );
+          }
         } else {
-          this.getRescanData( this.pageIndex, this.pageSize );
+          if ( ( endDate - startDate ) / 1000 / 60 / 60 / 24 > 90 ) {
+            this.clear();
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "查詢區間最多三個月內!" }
+            });
+          } else {
+            this.getRescanData( this.pageIndex, this.pageSize );
+          }
         }
       } else {
         this.getRescanData( this.pageIndex, this.pageSize );
@@ -111,7 +119,6 @@ export class F02002Component implements OnInit {
     this.custId = '';
     this.rescanEmpno = '';
     this.total = 1;
-    this.loading = false;
     this.pageSize = 10;
     this.pageIndex = 1;
     this.rescanData = null;

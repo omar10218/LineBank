@@ -1,12 +1,11 @@
 <div class="line_bank_bankground_color">
 
   <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="add()">新增</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="submit()">儲存勾選</button>
+
   </div>
   <div class="line_bank_card_no_padding">
     <div nz-row>
-      <div nz-col nzSpan="3">
+      <div nz-col nzSpan="6">
         <div style="padding:10px"><span class="form-title">資料比對項目</span>
           <mat-select formControlName="compareTable" [(ngModel)]="selectedValue1" name="compareTableCode"
             (selectionChange)="queryByCompareTable($event.value)">
@@ -16,8 +15,12 @@
           </mat-select>
         </div>
       </div>
-      <div nz-col nzSpan="8"></div>
-      <div nz-col nzSpan="8"></div>
+      <div nz-col nzSpan="3">
+
+      </div>
+      <div nz-col nzSpan="6">
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin-top:25px" (click)="add()">新增</button>
+      </div>
 
     </div>
 
@@ -120,19 +123,19 @@
               {{ row.setValueHight }}
             </div>
           </td>
-          <td class="table-data" *ngIf="row.compareTable==selectedValue1; else elseBlock">
+          <td class="table-data" *ngIf="row.compareTable==selectedValue1; else elseBlock" style="text-align: center">
             <button nz-button [nzSize]="'middle'" nzType="primary" disabled nzGhost (click)="edit(
               row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight, row.compareType )">編輯</button>
           </td>
           <ng-template #elseBlock>
-            <td class="table-data">
+            <td class="table-data" style="text-align: center">
               <button *ngIf="row.isChk == false;" nz-button [nzSize]="'small'" nzType="primary" (click)="edit(
                 row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight, row.compareType )">編輯</button>
             </td>
           </ng-template>
 
 
-          <td class="table-data">
+          <td class="table-data" style="text-align: center">
             <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="delete(
               row.compareTable, row.compareColumn, row.compareType, row.setValueHight, row.setValueLow)">刪除</button>
 
@@ -140,7 +143,9 @@
         </tr>
       </tbody>
     </nz-table>
-
+    <div *ngIf="useFlag" style="padding:10px; text-align:center">
+      <button nz-button (click)="submit()" nzSize="'middle'" nzType="primary" >儲存勾選</button>
+    </div>
   </div>
 </div>
 
