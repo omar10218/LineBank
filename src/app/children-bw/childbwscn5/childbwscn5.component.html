@@ -15,13 +15,13 @@
       </tr>
     </thead>
     <tbody >
-      <tr>
-        <td class="table-data">0918189293</td>
-        <td class="table-data">(02)12345678</td>
-        <td class="table-data">台北市內湖區洲子街76號</td>
-        <td class="table-data"></td>
-        <td class="table-data"></td>
-        <td class="table-data"></td>
+      <tr *ngFor="let data of materialSource">
+        <td class="table-data">{{data.CU_M_TEL}}</td>
+        <td class="table-data">{{data.CU_H_TEL}}</td>
+        <td class="table-data">{{data.CU_H_ADDR}}</td>
+        <td class="table-data">{{data.SOURCE_MEMO1}}</td>
+        <td class="table-data">{{data.SOURCE_MEMO2}}</td>
+        <td class="table-data">{{data.SOURCE_MEMO3}}</td>
       </tr>
     </tbody>
   </nz-table>

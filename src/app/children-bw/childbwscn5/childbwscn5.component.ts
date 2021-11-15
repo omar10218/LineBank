@@ -21,13 +21,19 @@ export class Childbwscn5Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    this.set()
   }
   set()
   {
     let jsonObject: any = {}
     jsonObject['applno'] = this.applno
     this.Childbwscn5Service.getmaterial(jsonObject).subscribe(data=>{
-      this.materialSource = data
+
+      if(data.rspMsg == 'success')
+      {
+        this.materialSource = data.rspBody
+      }
+      this.materialSource = null;
     })
 
   }
