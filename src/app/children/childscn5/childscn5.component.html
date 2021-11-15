@@ -252,13 +252,13 @@
 
 
 
-    </div>
-    <div style="padding-left: 10px;">
-      <div *ngIf="getSearch() == 'N'">
-        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
-      </div>
-      <div *ngIf="getSearch() != 'N'">
-        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" disabled>儲存</button>
+      <div style="padding-left: 10px;text-align: center">
+        <div *ngIf="getSearch() == 'N'">
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
+        </div>
+        <div *ngIf="getSearch() != 'N'">
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" disabled>儲存</button>
+        </div>
       </div>
     </div>
   </form>
