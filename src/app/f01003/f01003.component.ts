@@ -117,7 +117,7 @@ export class F01003Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('level', '2');
         sessionStorage.setItem('stepName', this.stepName);
-        this.router.navigate(['./F01002/F01002SCN1']);
+        this.router.navigate(['./F01003/F01003SCN1']);
       }
     });
   }

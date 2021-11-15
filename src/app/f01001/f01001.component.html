@@ -63,8 +63,8 @@
             (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
               <tr>
-                <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzWidth]="'160px'" [nzSortFn]="true"
-                  [nzLeft]="true">收件編號</th>
+                <th class="table-header" nzLeft (nzSortOrderChange)="sortChange($event)" 
+                [nzSortFn]="true" [nzWidth]="'160px'">收件編號</th>
                 <th class="table-header">流程別</th>
                 <th class="table-header">重查完成</th>
                 <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
