@@ -379,8 +379,7 @@ hideBAM031= false;
 		jsonObject['applno'] = this.applno
 		// jsonObject['queryDate'] = this.queryDate
 		this.childbwscn3Service.getMASTERJCICList(jsonObject).subscribe(data => {
-      console.log("111111")
-      console.log(data)
+
 			this.listSource = data.rspBody;
 		})
 	}
