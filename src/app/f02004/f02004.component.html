@@ -3,21 +3,21 @@
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">
     <div nz-row>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="6">
         <div class="form" style="padding:20px">
           <div><span class="form-title-actions">循環貨款帳戶</span>
             <input matInput #input class="form-control" [(ngModel)]="account">
           </div>
         </div>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="6">
         <div class="form" style="padding:20px">
           <div><span class="form-title-actions">查詢日期區間</span>
             <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="date" (ngModelChange)="dateNull()" style="width:100%;"></nz-range-picker>
           </div>
         </div>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="6">
         <div class="form" style="padding:20px">
           <div><span class="form-title-actions">動撥狀態</span>
             <mat-select [(ngModel)]="drFlag"
@@ -29,12 +29,15 @@
           </div>
         </div>
       </div>
+      <div nz-col nzSpan="6">
+        <div style="text-align:center;padding:10px;margin-top:24px">
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢</button>
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="clear()">清除資料</button>
+        </div>
+      </div>
     </div>
 
-    <div style="text-align:center;padding:10px">
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢</button>
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="clear()">清除資料</button>
-    </div>
+
   </div>
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">動撥紀錄查詢</div>
