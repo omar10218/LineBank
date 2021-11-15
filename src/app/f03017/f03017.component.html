@@ -1,9 +1,6 @@
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button nzType="primary" style="margin:0px 5px"(click)="getBkIncomeData()">查詢資料</button>
-    <button nz-button nzType="primary" style="margin:0px 5px" (click)="clear()">清除資料</button>
-  </div>
-  <div class="line_bank_card_no_padding">
+<br>
+  <div class="line_bank_card_no_padding" style="margin:0 auto 10px auto">
     <div nz-row>
       <div nz-col nzSpan="3">
         <div style="padding:10px"><span class="form-title">建檔項目</span>
@@ -15,10 +12,18 @@
         </div>
       </div>
       <div nz-col nzSpan="3">
-        <div style="padding:10px"><span class="form-title">建檔內容</span><input style="display: block;"
+        <div style="padding:10px;"><span class="form-title">建檔內容</span><input style="display: block;border-radius: 5px;"
             [(ngModel)]="bkContentValue" name="bkContent"></div>
       </div>
+      <div nz-col nzSpan="1"></div>
+    <div nz-col nzSpan="6">
+      <div style="margin-top:24px;text-align: center">
+        <button nz-button nzType="primary" style="margin:0px 5px"(click)="getBkIncomeData()">查詢資料</button>
+        <button nz-button nzType="primary" style="margin:0px 5px" (click)="clear()">清除資料</button>
+      </div>
     </div>
+    </div>
+
   </div>
 
   <div class="line_bank_card_no_padding">

@@ -1,13 +1,5 @@
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <!-- <button mat-raised-button color="primary" (click)="doSearch()">查詢</button> -->
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢資料</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="AddTable()">新增</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="openup()">上傳Excel</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-      (click)="execlExport()">匯出Excel</button>
-  </div>
+
   <div class="line_bank_card_no_padding">
     <div nz-row>
       <div nz-col nzSpan="3">
@@ -49,6 +41,16 @@
           </mat-select>
         </div>
       </div>
+
+    </div>
+    <div style="padding:10px;text-align: center">
+      <!-- <button mat-raised-button color="primary" (click)="doSearch()">查詢</button> -->
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢資料</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="AddTable()">新增</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="openup()">上傳Excel</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+        (click)="execlExport()">匯出Excel</button>
     </div>
   </div>
   <div class="line_bank_card_no_padding">

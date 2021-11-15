@@ -1,22 +1,12 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
   <!-- <form [formGroup]="proxyIncomeForm" style="padding-left: 20px;"> -->
-    <div style="padding-left: 20px; padding-top: 20px;">
-      <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="doSearch()">查詢</button> -->
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-        (click)="getProxyIncomeData(this.pageIndex, this.pageSize)">查詢資料</button>
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="insert(true)">新增</button>
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="clear()">清除資料</button>
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-        (click)="uploadExcel()">上傳Excel</button>
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-        (click)="exportExcel()">匯出Excel</button>
-    </div>
+
 
     <!-- 最外層卡片包覆 -->
     <div class="line_bank_card_no_padding">
       <div nz-row>
-        <div nz-col nzSpan="3">
+        <div nz-col nzSpan="6">
           <div style="padding:10px"><span class="form-title">行職業代碼</span>
             <!-- <mat-select [(ngModel)]="inducCodeValue" name="sysCode" formControlName="INDUC_CODE"
               style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
@@ -28,7 +18,7 @@
 
           </div>
         </div>
-        <div nz-col nzSpan="3">
+        <div nz-col nzSpan="6">
           <div style="padding:10px"><span class="form-title">行業Level1</span>
             <mat-select [(ngModel)]="inducLevel1Value" (ngModelChange)="changeLevel1Select()" name="inducLevel1" formControlName="INDUC_LEVEL1">
               <mat-option *ngFor="let code of inducLevel1" [value]="code.value">
@@ -37,7 +27,7 @@
             </mat-select>
           </div>
         </div>
-        <div nz-col nzSpan="3">
+        <div nz-col nzSpan="6">
           <div style="padding:10px"><span class="form-title">行業Level2</span>
             <mat-select [(ngModel)]="inducLevel2Value" (ngModelChange)="changeLevel2Select()" name="inducLevel2" formControlName="INDUC_LEVEL2">
               <mat-option *ngFor="let code of inducLevel2" [value]="code.value">
@@ -46,7 +36,7 @@
             </mat-select>
           </div>
         </div>
-        <div nz-col nzSpan="3">
+        <div nz-col nzSpan="6">
           <div style="padding:10px"><span class="form-title">職稱碼</span>
             <mat-select [(ngModel)]="jobCodeValue" name="jobCode" formControlName="JOB_CODE">
               <mat-option *ngFor="let code of jobCode" [value]="code.value">
@@ -56,13 +46,24 @@
           </div>
         </div>
       </div>
+      <div style="padding:10px;text-align: center">
+        <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="doSearch()">查詢</button> -->
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+          (click)="getProxyIncomeData(this.pageIndex, this.pageSize)">查詢資料</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="insert(true)">新增</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="clear()">清除資料</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+          (click)="uploadExcel()">上傳Excel</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+          (click)="exportExcel()">匯出Excel</button>
+      </div>
     </div>
     <!-- 最外層卡片包覆 -->
     <div class="line_bank_card_no_padding">
       <!-- 表格 -->
       <nz-table nzShowSizeChanger [nzData]="proxyIncomeDataSource" [nzFrontPagination]="false" [nzSimple]="true"
         [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-        [nzScroll]="{ x: '2000px', y: '240;px' }" nzTitle="Proxy Income 維護">
+        [nzScroll]="{ x: '1500px', y: '240;px' }" nzTitle="Proxy Income 維護">
         <thead>
           <tr>
             <th nzLeft class="table-header" nzWidth="140px"></th>
