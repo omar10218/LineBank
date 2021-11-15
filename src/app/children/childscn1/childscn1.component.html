@@ -28,7 +28,7 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">申請金額</span><input matInput #input class="form-control"
-          [(ngModel)]="applicationAmount" name="applicationAmount" required></div>
+          [(ngModel)]="applicationAmount" name="applicationAmount" required placeholder="輸入金額"></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">貸款用途</span><input matInput #input class="form-control"
@@ -86,8 +86,7 @@
       <div style="padding:3px">
         <!-- map -->
         <div id="map" style="height: 400px; width: 400px; z-index: 2;"></div>
-        <input matInput #input class="form-control"
-        value="距離：{{ distance }} km" readonly disabled>
+        <input matInput #input class="form-control" value="距離：{{ distance }} km" readonly disabled>
       </div>
     </div>
     <div nz-col nzFlex="1">
@@ -295,12 +294,12 @@
           readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">期數最小值</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
+      <div style="padding:3px"><span class="form-title">期數最小值</span><input matInput #input class="form-control" value=""
+          readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">期數最大值</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
+      <div style="padding:3px"><span class="form-title">期數最大值</span><input matInput #input class="form-control" value=""
+          readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"></div>
@@ -334,12 +333,12 @@
           readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">期數最小值</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
+      <div style="padding:3px"><span class="form-title">期數最小值</span><input matInput #input class="form-control" value=""
+          readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">期數最大值</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
+      <div style="padding:3px"><span class="form-title">期數最大值</span><input matInput #input class="form-control" value=""
+          readonly disabled></div>
     </div>
   </div>
 
@@ -391,8 +390,8 @@
           value="待確認" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">核決結果</span>
-        <mat-select [(ngModel)]="creditResult" name="creditResult">
+      <div style="padding:2px"><span class="form-title">核決結果</span>
+        <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px">
           <mat-option *ngFor="let code of creditResultCode" [value]="code.value">
             {{code.viewValue}}
           </mat-option>
@@ -401,29 +400,30 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">核准額度</span><input matInput #input class="form-control"
-          [(ngModel)]="resultApproveAmt"></div>
+          [(ngModel)]="resultApproveAmt" placeholder="輸入額度"></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">每月最低還款比率</span><input matInput #input class="form-control"
-          [(ngModel)]="resultLowestPayRate"></div>
+          [(ngModel)]="resultLowestPayRate" placeholder="輸入還款比率"></div>
     </div>
   </div>
 
   <div nz-row>
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">序號</span><input matInput #input class="form-control" value="1">
+      <div style="padding:3px"><span class="form-title">序號</span><input matInput #input class="form-control" value="1"
+          placeholder="輸入序號">
       </div>
     </div>
     <div nz-col nzFlex="1">
       <div class="form" style="padding:3px">
         <div><span class="form-title">分段起始期數</span>
-          <input matInput #input class="form-control" [(ngModel)]="period" name="period">
+          <input matInput #input class="form-control" [(ngModel)]="period" name="period" placeholder="輸入期數">
         </div>
       </div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">期別</span>
-        <mat-select [(ngModel)]="periodType" name="periodType">
+      <div style="padding:1px"><span class="form-title">期別</span>
+        <mat-select [(ngModel)]="periodType" name="periodType" style="height:25px">
           <mat-option *ngFor="let code of periodTypeCode" [value]="code.value">
             {{code.viewValue}}
           </mat-option>
@@ -431,8 +431,8 @@
       </div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">利率型態</span>
-        <mat-select [(ngModel)]="interestType" name="interestType"
+      <div style="padding:1px"><span class="form-title">利率型態</span>
+        <mat-select [(ngModel)]="interestType" name="interestType" style="height:25px"
           (ngModelChange)="changeInterest()">
           <mat-option *ngFor="let code of interestTypeCode" [value]="code.value">
             {{code.viewValue}}
@@ -462,7 +462,7 @@
       <div class="form" style="padding:3px">
         <div><span class="form-title">利率</span>
           <input matInput #input class="form-control" [(ngModel)]="interest" name="interest"
-            (ngModelChange)="caluclate()">
+            (ngModelChange)="caluclate()" placeholder="輸入利率" placeholder="輸入利率">
         </div>
       </div>
     </div>
@@ -479,23 +479,20 @@
 <!-- 審核註記 -->
 <div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
   <div class="line_bank_form_header_title">審核註記</div>
-  <div nz-row style="padding:5px">
-    <div nz-col nzFlex="1">
-      <div style="padding:3px">
-        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
-      </div>
-    </div>
-  </div>
 
-  <div nz-row style="padding:5px">
-    <div nz-col nzFlex="3">
+  <div nz-row style="padding:5px;text-align: center;">
+    <div nz-col nzSpan="24">
       <div class="form">
         <div><span class="form-title"></span><textarea matInput class="input-textarea" [(ngModel)]="mark"
             name="mark"></textarea>
         </div>
       </div>
     </div>
-    <div nz-col nzFlex="1"></div>
+
+
+  </div>
+  <div style="padding:3px;text-align: center;">
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
   </div>
 
   <!-- 表格 -->

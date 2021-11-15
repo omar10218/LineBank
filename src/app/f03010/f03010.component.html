@@ -23,11 +23,11 @@
           <td class="table-data">{{ data.speakingAbbreviation }}</td>
           <td class="table-data">{{ data.speakingContent }}</td>
           <td class="table-data">{{ data.stopFlag }}</td>
-          <td class="table-data">
+          <td class="table-data" style="text-align: center;">
             <button nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
               data.speakingAbbreviation, data.speakingContent, data.stopFlag)">編輯</button>
           </td>
-          <td class="table-data">
+          <td class="table-data" style="text-align: center;">
             <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="delete(
               data.speakingAbbreviation, data.speakingContent, data.stopFlag)">刪除</button>
 

@@ -1,9 +1,6 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
-  </div>
+<br>
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">
 
@@ -37,6 +34,14 @@
           </div>
         </ng-container>
       </div>
+
+        <div nz-col nzSpan="5">
+          <div style="padding-left: 20px; margin-top: 30px;">
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
+          </div>
+        </div>
+
     </div>
     <br>
   </div>

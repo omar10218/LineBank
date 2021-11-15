@@ -11,10 +11,12 @@
                     </mat-select>
                 </div>
             </div>
+
             <div nz-col nzSpan="3">
                 <div style="padding:28px"><span class="form-title"></span><button nz-button [nzSize]="'middle'"
                         nzType="primary" (click)="createCalendar()">建立年度行事曆</button></div>
             </div>
+            <div nz-col nzSpan="2"> </div>
             <div nz-col nzSpan="3">
                 <div style="padding:10px;"><span class="form-title">年分</span>
                     <mat-select [(ngModel)]="yearValue" name="yearCode">

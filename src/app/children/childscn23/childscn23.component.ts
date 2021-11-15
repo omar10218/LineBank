@@ -257,6 +257,7 @@ export class Childscn23Component implements OnInit {
   }
   test()
   {
+    // Math.pow()
     console.log('this.data')
     console.log(this.Monthly421)
     console.log(this.Monthly029)

@@ -239,7 +239,6 @@ export class F03014Component implements OnInit {
     jsonObject['useFlag'] = this.usingValue;
     let opton =  { responseType: 'blob' as 'json' };
     this.f03014Service.downloadExcel(url,jsonObject).subscribe(data=>{
-      console.log(data)
       blob = new Blob([data], { type: ' application/xlsx' });
       let downloadURL = window.URL.createObjectURL(blob);
       let link = document.createElement('a');

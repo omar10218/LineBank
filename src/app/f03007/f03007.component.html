@@ -1,8 +1,6 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
-  </div>
+
   <div class="line_bank_card_no_padding">
     <!-- <div class="line_bank_form_header_title">角色功能維護</div> -->
     <div nz-row>
@@ -13,6 +11,11 @@
               {{code.viewValue}}
             </mat-option>
           </mat-select>
+        </div>
+      </div>
+      <div nz-col nzSpan="3">
+        <div style="padding-left: 20px; margin-top: 28px;">
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
         </div>
       </div>
     </div>

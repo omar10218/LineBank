@@ -1,10 +1,9 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()">新增</button>
-  </div>
+
   <!-- 最外層卡片包覆 -->
-  <div class="line_bank_card_no_padding">
+  <br>
+  <div class="line_bank_card_no_padding" style="margin:0 auto">
     <!-- 表格 -->
     <nz-table nzShowSizeChanger [nzData]="dssCalloutSource" [nzFrontPagination]="false" [nzSimple]="true"
       [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
@@ -23,16 +22,19 @@
           <td class="table-data">{{ getOptiontvNo( data.tvNo )}}</td>
           <td class="table-data">{{ getOptionscklv( data.scklv )}}</td>
           <td class="table-data">{{ getOptioncalv( data.calv ) }}</td>
-          <td class="table-data">
+          <td class="table-data" style="text-align: center;">
             <button nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
               data.tvNo, data.scklv, data.calv)">編輯</button>
           </td>
-          <td class="table-data">
+          <td class="table-data" style="text-align: center;">
             <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="delete(
               data.tvNo, data.scklv, data.calv)">刪除</button>
           </td>
         </tr>
       </tbody>
     </nz-table>
+  </div>
+  <div style="padding-left: 20px; padding-top: 20px;text-align: center;">
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()">新增</button>
   </div>
 </div>

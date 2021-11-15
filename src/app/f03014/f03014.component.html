@@ -1,13 +1,5 @@
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <!-- <button mat-raised-button color="primary" (click)="doSearch()">查詢</button> -->
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢資料</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="AddTable()">新增</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="openup()">上傳Excel</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-      (click)="execlExport()">匯出Excel</button>
-  </div>
+
   <div class="line_bank_card_no_padding">
     <div nz-row>
       <div nz-col nzSpan="3">
@@ -21,26 +13,26 @@
             maxlength="10" value="">
         </div>
       </div>
-      <div nz-col nzSpan="3">
+      <div nz-col nzSpan="5">
         <div style="padding:10px"><span class="form-title">簡述一</span><input style="display: block;"
             [(ngModel)]="NarrateValue" name="NarrateValue" value="">
         </div>
       </div>
-      <div nz-col nzSpan="3">
+      <div nz-col nzSpan="5">
         <!-- (ngModelChange)="dateNull()" -->
 
-        <div style="padding:10px"><span class="form-title">生效日</span>
+        <div style="padding:10px "><span class="form-title">生效日</span>
           <nz-range-picker [(ngModel)]="Efficient" name="Efficient "></nz-range-picker>
         </div>
       </div>
-      <div nz-col nzSpan="3">
+      <div nz-col nzSpan="5">
         <div style="padding:10px"><span class="form-title">失效日</span>
           <nz-range-picker [(ngModel)]="Invalidation" name="Invalidation">
           </nz-range-picker>
         </div>
       </div>
 
-      <div nz-col nzSpan="3">
+      <div nz-col nzSpan="2">
         <div style="padding:10px"><span class="form-title">使用中</span>
           <mat-select [(ngModel)]="usingValue" name="usingValue">
             <mat-option *ngFor="let code of usingType" [value]="code.value">
@@ -49,6 +41,16 @@
           </mat-select>
         </div>
       </div>
+
+    </div>
+    <div style="padding:10px;text-align: center">
+      <!-- <button mat-raised-button color="primary" (click)="doSearch()">查詢</button> -->
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢資料</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="AddTable()">新增</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="openup()">上傳Excel</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+        (click)="execlExport()">匯出Excel</button>
     </div>
   </div>
   <div class="line_bank_card_no_padding">
