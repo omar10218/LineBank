@@ -1,11 +1,10 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
-
   <!-- 最外層卡片包覆 -->
   <br>
-  <div class="line_bank_card_no_padding" style="margin:0px auto 10px auto">
+  <div class="line_bank_card_no_padding">
     <div nz-row >
-      <div nz-col nzSpan="6">
+      <div nz-col nzSpan="3">
         <div style="padding:10px"><span class="form-title">代碼類別</span>
           <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()">
             <mat-option *ngFor="let code of sysCode" [value]="code.value">
@@ -14,7 +13,7 @@
           </mat-select>
         </div>
       </div>
-      <div nz-col nzSpan="6">
+      <div nz-col nzSpan="3">
         <div style="padding-left: 20px; margin-top: 25px;">
           <button nz-button id="test" [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
           <button nz-button id="test" [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
