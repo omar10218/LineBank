@@ -7,6 +7,7 @@ import { Childscn20Component } from 'src/app/children/childscn20/childscn20.comp
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01002Scn1Service } from './f01002scn1.service';
 import { Childscn22Component } from 'src/app/children/childscn22/childscn22.component';
+import { F01001Scn1Service } from 'src/app/f01001/f01001scn1/f01001scn1.service';
 
 @Component({
   selector: 'app-f01002scn1',
@@ -98,19 +99,22 @@ export class F01002scn1Component implements OnInit {
   }
 
   finish() {
-    const baseUrl = '';
+    const baseUrl = 'f01/childscn0';
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = this.level;
+    jsonObject['level'] = 'L3';
     this.creditResult = sessionStorage.getItem('creditResult');
+    this.f01002scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
+      console.log(data);
+    });
     //徵信人員
     if (this.level == 'L3') {
 
     }
 
     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msg }
+      data: { msgStr: '案件完成' }
     });
   }
 
