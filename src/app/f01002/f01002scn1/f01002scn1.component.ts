@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Childscn20Component } from 'src/app/children/childscn20/childscn20.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01002Scn1Service } from './f01002scn1.service';
+import { Childscn22Component } from 'src/app/children/childscn22/childscn22.component';
 
 @Component({
   selector: 'app-f01002scn1',
@@ -58,6 +59,15 @@ export class F01002scn1Component implements OnInit {
 
   reSearch() {
     const dialogRef = this.dialog.open(Childscn18Component,{
+      data:{
+        applno: this.applno,
+        cuid: this.cuid
+      }
+    });
+  }
+
+  recalculate(){
+    const dialogRef = this.dialog.open(Childscn22Component,{
       data:{
         applno: this.applno,
         cuid: this.cuid
