@@ -1,99 +1,91 @@
 <div class="line_bank_bankground_color">
-
-  <br>
+  <div style="padding-left: 20px; padding-top: 20px;">
+    <button nz-button style="margin:0px 5px" [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
+  </div>
   <!-- 產生合約前回查值設定 -->
-  <br>
-  <div class="line_bank_card_no_padding" >
+  <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">產生合約前回查值設定</div>
-    <div nz-row style="margin:15px 0px">
-      <div nz-col nzSpan="12">
+    <div nz-row>
+      <div nz-col nzSpan="3">
         <div style="padding:10px">
-        <span class="form-title">DSS3落人再送JCIC時間設定 </span>
-        <input nz-input placeholder="輸入數字" [(ngModel)]="DssJcicSet"  id="dss_jcic_set"
-        oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" style="display: block;" >
-      </div>
-      </div>
-      <div nz-col nzSpan="12">
-        <div style="padding:10px">
-          <span class="form-title">DSS3落人後email提醒天數</span>
-          <input nz-input placeholder="輸入天數" [(ngModel)]="DssMailDay"  id="dss_mail_day"
-          oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
+          <span class="form-title">DSS3落人再送JCIC時間設定 </span>
+          <input nz-input placeholder="輸入數字" [(ngModel)]="DssJcicSet" id="dss_jcic_set"
+            oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
         </div>
       </div>
+      <div nz-col nzSpan="3">
+        <div style="padding:10px">
+          <span class="form-title">DSS3落人後email提醒天數</span>
+          <input nz-input placeholder="輸入天數" [(ngModel)]="DssMailDay" id="dss_mail_day"
+            oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
+        </div>
       </div>
-      <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">動撥設定 </div>
-      <div nz-row style="margin:15px 0px">
-      <div nz-col nzSpan="12">
+    </div>
+    <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">動撥設定 </div>
+    <div nz-row>
+      <div nz-col nzSpan="3">
         <div style="padding:10px">
           <span class="form-title">基本門檻
           </span>
-         <input nz-input  placeholder="輸入金額" [(ngModel)]="BasicLimit"  id="basic_limit" style="display: block;">
+          <input nz-input placeholder="輸入金額" [(ngModel)]="BasicLimit" id="basic_limit" style="display: block;">
         </div>
       </div>
-
-      <div nz-col nzSpan="12">
+      <div nz-col nzSpan="3">
         <div style="padding:10px">
-          <span class="form-title"  >是否查詢JCIC</span>
+          <span class="form-title">是否查詢JCIC</span>
           <mat-radio-group aria-label="Select an option" [(ngModel)]="IsJcic" style="display: block;">
             <mat-radio-button [value]="'Y'">是</mat-radio-button>
             <mat-radio-button [value]="'N'">否</mat-radio-button>
           </mat-radio-group>
-
         </div>
       </div>
     </div>
-    <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">CSS PASS設定  </div>
-    <div nz-row style="margin:15px 0px">
-      <div nz-col nzSpan="12">
+    <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">CSS PASS設定</div>
+    <div nz-row>
+      <div nz-col nzSpan="3">
         <div style="padding:10px">
           <span class="form-title">PASS起始日
           </span>
-          <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" (ngModelChange)="onChange($event)"></nz-date-picker>
+          <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" (ngModelChange)="onChange($event)">
+          </nz-date-picker>
         </div>
       </div>
-      <div nz-col nzSpan="12">
+      <div nz-col nzSpan="3">
         <div style="padding:10px">
-          <span class="form-title">PASS結束日
-          </span>
-          <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" (ngModelChange)="onChange($event)"></nz-date-picker>
+          <span class="form-title">PASS結束日</span>
+          <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" (ngModelChange)="onChange($event)">
+          </nz-date-picker>
         </div>
       </div>
-    </div>
-    <div style="width:10vw;height:10vh;margin:10px auto;">
-      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
-      &nbsp;&nbsp;
-
     </div>
   </div>
-  <br>
-  <br>
-  <div class="line_bank_card_no_padding" >
+  <div class="line_bank_card_no_padding">
     <nz-table nzShowSizeChanger [nzData]="ChangeSource" [nzFrontPagination]="false" [nzSimple]="true"
-        [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"
-         nzSize="small" nzTitle="重要參數異動紀錄">
-        <thead>
-          <tr>
-            <th class="table-header">欄位	</th>
-            <th class="table-header">原欄位值	</th>
-            <th class="table-header">新欄位值	</th>
-            <th class="table-header">處理員編	</th>
-            <th class="table-header">異動時間 </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of ChangeSource">
-            <td class="table-data">{{data.columnName}}</td>
-            <td class="table-data">{{data.originalValue}}</td>
-            <td class="table-data">{{data.currentValue}}</td>
-              <td class="table-data">{{data.transEmpNo}}</td>
-              <td class="table-data">
-              {{data.transDate| date: 'yyyy/MM/dd HH:mm:ss'}}
+      [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="重要參數異動紀錄">
+      <thead>
+        <tr>
+          <th class="table-header">欄位 </th>
+          <th class="table-header">原欄位值 </th>
+          <th class="table-header">新欄位值 </th>
+          <th class="table-header">處理員編 </th>
+          <th class="table-header">異動時間 </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ChangeSource">
+          <td class="table-data">{{data.columnName}}</td>
+          <td class="table-data">{{data.originalValue}}</td>
+          <td class="table-data">{{data.currentValue}}</td>
+          <td class="table-data">{{data.transEmpNo}}</td>
+          <td class="table-data">
+            {{data.transDate| date: 'yyyy/MM/dd HH:mm:ss'}}
 
 
-            </td>
-          </tr>
-        </tbody>
-      </nz-table>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
   </div>
 </div>
 <!-- <div width='100%' >

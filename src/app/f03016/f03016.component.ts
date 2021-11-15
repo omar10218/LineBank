@@ -19,7 +19,7 @@ interface sysCode {
 @Component({
   selector: 'app-f03016',
   templateUrl: './f03016.component.html',
-  styleUrls: ['./f03016.component.css']
+  styleUrls: ['./f03016.component.css', '../../assets/css/f03.css']
 })
 export class F03016Component implements OnInit {
   total = 1;

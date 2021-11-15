@@ -34,10 +34,10 @@
         <ng-template #KRM046 let-visible="visible"><button nz-button [nzSize]="'default'"
             [ngClass]="hideKRM046 ? 'nohide' : 'hide'" (click)="show('KRM046')">KRM046</button></ng-template>
       </nz-tab>
-      <nz-tab [nzTitle]="JAS002">
+      <!-- <nz-tab [nzTitle]="JAS002">
         <ng-template #JAS002 let-visible="visible"><button nz-button [nzSize]="'default'"
             [ngClass]="hideJAS002 ? 'nohide' : 'hide'" (click)="show('JAS002')">JAS002</button></ng-template>
-      </nz-tab>
+      </nz-tab> -->
       <nz-tab [nzTitle]="STM022">
         <ng-template #STM022 let-visible="visible"><button nz-button [nzSize]="'default'"
             [ngClass]="hideSTM022 ? 'nohide' : 'hide'" (click)="show('STM022')">STM022</button></ng-template>
@@ -160,7 +160,8 @@
     <br>
   </div>
   <!-- JAS002 -->
-<div [(hidden)]="hideJAS002" class="line_bank_card_no_padding">
+  <div >
+<!-- <div [(hidden)]="hideJAS002" class="line_bank_card_no_padding"> -->
   <!-- 表格 -->
   <!-- <nz-table nzSize="small" nzTitle="JAS002 信用異常紀錄 (B, D, K)">
     <ng-container *ngFor="let data of JAS002.slice(0,1)">

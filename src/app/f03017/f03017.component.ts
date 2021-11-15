@@ -1,16 +1,17 @@
-import {element} from 'protractor'
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core'
-import {F03017Service} from '../f03017/f03017.service'
-import {DatePipe} from '@angular/common'
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
-import {MatPaginator, PageEvent} from '@angular/material/paginator'
-import {MatSort, Sort} from '@angular/material/sort'
-import {MatTableDataSource} from '@angular/material/table'
-import {F03017editComponent} from './f03017edit/f03017edit.component'
-import {F03017uploadComponent} from './f03017upload/f03017upload.component'
-import {NzTableQueryParams} from 'ng-zorro-antd/table'
-import {getMaxListeners} from 'process'
+import { element } from 'protractor'
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core'
+import { F03017Service } from '../f03017/f03017.service'
+import { DatePipe } from '@angular/common'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MatPaginator, PageEvent } from '@angular/material/paginator'
+import { MatSort, Sort } from '@angular/material/sort'
+import { MatTableDataSource } from '@angular/material/table'
+import { F03017editComponent } from './f03017edit/f03017edit.component'
+import { F03017uploadComponent } from './f03017upload/f03017upload.component'
+import { NzTableQueryParams } from 'ng-zorro-antd/table'
+import { getMaxListeners } from 'process'
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component'
 interface sysCode {
 	value: string
 	viewValue: string
@@ -19,7 +20,7 @@ interface sysCode {
 @Component({
 	selector: 'app-f03017',
 	templateUrl: './f03017.component.html',
-	styleUrls: ['./f03017.component.css', '../../assets/css/f03.css'],
+	styleUrls: ['./f03017.component.css', '../../assets/css/f03.css']
 })
 export class F03017Component implements OnInit {
 	Id: number[] = []
@@ -76,15 +77,13 @@ export class F03017Component implements OnInit {
 	}
 
 	totalCount: any
-	@ViewChild('paginator', {static: true}) paginator: MatPaginator
-	@ViewChild('sortTable', {static: true}) sortTable: MatSort
+	@ViewChild('paginator', { static: true }) paginator: MatPaginator
+	@ViewChild('sortTable', { static: true }) sortTable: MatSort
 	currentPage: PageEvent
 	currentSort: Sort
 	bkIncomeDataSource = [];
 
 	ngAfterViewInit() {
-		console.log(this.transEmpNo)
-		console.log(this.bkColumnCode)
 
 		this.currentSort = {
 			active: '',
@@ -99,11 +98,11 @@ export class F03017Component implements OnInit {
 	}
 	getListValue() {
 		this.f03017Service.getSysTypeCode('BLACK_ITEM').subscribe(data => {
-			this.bkColumnCode.push({value: '', viewValue: '請選擇'})
+			this.bkColumnCode.push({ value: '', viewValue: '請選擇' })
 			for (const jsonObj of data.rspBody.mappingList) {
 				const codeNo = jsonObj.codeNo
 				const desc = jsonObj.codeDesc
-				this.bkColumnCode.push({value: codeNo, viewValue: desc})
+				this.bkColumnCode.push({ value: codeNo, viewValue: desc })
 			}
 		})
 	}
@@ -120,19 +119,25 @@ export class F03017Component implements OnInit {
 
 	// 取得資料
 	async getBkIncomeData() {
-		if (typeof this.bkColumnValue == 'undefined') {
-			return alert('請選擇建檔項目')
+		if (this.bkColumnValue == '') {
+			const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+				data: { msgStr: "請選擇建檔項目" }
+			});
+		} else if (this.bkContentValue == null) {
+			const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+				data: { msgStr: "請選擇建檔內容" }
+			});
 		} else {
-			if (this.bkColumnValue == '') {
-				return alert('請選擇建檔項目')
-			}
-		}
-		if (typeof this.bkContentValue == 'undefined') {
-			return alert('請選擇建檔內容')
-		} else {
-			if (this.bkContentValue == '') {
-				return alert('請選擇建檔內容')
-			}
+			let jsonObject: any = {}
+			jsonObject['page'] = this.currentPage.pageIndex + 1
+			jsonObject['per_page'] = this.currentPage.pageSize
+			jsonObject['bkColumn'] = this.bkColumnValue
+			jsonObject['bkContent'] = this.bkContentValue
+			await this.f03017Service.getReturn('f03/f03017', jsonObject).subscribe(data => {
+				this.total = data.rspBody.size
+				this.bkIncomeDataSource = data.rspBody.items
+			})
+			this.loading = false
 		}
 
 		// if (typeof this.bkColumnValue == 'undefined')
@@ -140,18 +145,6 @@ export class F03017Component implements OnInit {
 		// else if(typeof this.bkColumnValue == null){return alert('請選擇建檔內容')}
 		// else if(typeof this.bkContentValue == 'undefined'){return alert('請選擇建檔內容')}
 		// else if(typeof this.bkContentValue == null){return alert('請選擇建檔內容')}
-		let jsonObject: any = {}
-		jsonObject['page'] = this.currentPage.pageIndex + 1
-		jsonObject['per_page'] = this.currentPage.pageSize
-		jsonObject['bkColumn'] = this.bkColumnValue
-		jsonObject['bkContent'] = this.bkContentValue
-		await this.f03017Service.getReturn('f03/f03017', jsonObject).subscribe(data => {
-			this.total = data.rspBody.size
-			console.log(data)
-			this.bkIncomeDataSource = data.rspBody.items
-			console.log(this.bkIncomeDataSource)
-		})
-		this.loading = false
 	}
 
 	// onQueryParamsChange(params: NzTableQueryParams): void {
