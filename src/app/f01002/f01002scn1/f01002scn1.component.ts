@@ -27,7 +27,7 @@ export class F01002scn1Component implements OnInit {
   private cuid: string;
   private routerCase: string;
   fds: string
-  private winClose: string ='';
+  private winClose: string = '';
 
   creditResult: string;
   level: string;
@@ -47,10 +47,10 @@ export class F01002scn1Component implements OnInit {
   }
 
   reScan() {
-    const dialogRef = this.dialog.open(Childscn19Component,{
+    const dialogRef = this.dialog.open(Childscn19Component, {
       minHeight: '50%',
       width: '70%',
-      data:{
+      data: {
         applno: this.applno,
         cuid: this.cuid
       }
@@ -58,17 +58,19 @@ export class F01002scn1Component implements OnInit {
   }
 
   reSearch() {
-    const dialogRef = this.dialog.open(Childscn18Component,{
-      data:{
+    const dialogRef = this.dialog.open(Childscn18Component, {
+      data: {
         applno: this.applno,
         cuid: this.cuid
       }
     });
   }
 
-  recalculate(){
-    const dialogRef = this.dialog.open(Childscn22Component,{
-      data:{
+  recalculate() {
+    const dialogRef = this.dialog.open(Childscn22Component, {
+      minHeight: '50%',
+      width: '30%',
+      data: {
         applno: this.applno,
         cuid: this.cuid
       }
@@ -76,8 +78,8 @@ export class F01002scn1Component implements OnInit {
   }
 
   blockList() {
-    const dialogRef = this.dialog.open(Childscn20Component,{
-      data:{
+    const dialogRef = this.dialog.open(Childscn20Component, {
+      data: {
         applno: this.applno,
         cuid: this.cuid
       }
@@ -88,11 +90,11 @@ export class F01002scn1Component implements OnInit {
     return this.search;
   }
 
-  getWinClose(): String{
+  getWinClose(): String {
     return this.winClose;
   }
 
-  leave () {
+  leave() {
     // this.router.navigate(['./F02002']);
     window.close();
   }
@@ -114,7 +116,7 @@ export class F01002scn1Component implements OnInit {
     });
   }
 
-  saveResult( url: string, json: JSON ): string {
-    return this.f01002scn1Service.saveOrEditMsgJson( url, json );
+  saveResult(url: string, json: JSON): string {
+    return this.f01002scn1Service.saveOrEditMsgJson(url, json);
   }
 }
