@@ -41,7 +41,6 @@ export class F03017editComponent implements OnInit {
 	useFlagValue: string //使用中選擇
 	currentPage: PageEvent
 	currentSort: Sort
-	dialogRef: any
   checked:boolean;
   // get Element by ID抓取checkboxID值
   @ViewChild('CU_CNAME') CU_CNAME: ElementRef;
@@ -50,7 +49,7 @@ export class F03017editComponent implements OnInit {
   @ViewChild('CU_CP_TEL') CU_CP_TEL: ElementRef;
   @ViewChild('CU_M_TEL') CU_M_TEL: ElementRef;
 
-	constructor(public f03017Service: F03017Service, private route: ActivatedRoute, public dialog: MatDialog, public childService: ChildrenService, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) {}
+	constructor(public f03017Service: F03017Service,public dialogRef: MatDialogRef<F03017editComponent>, private route: ActivatedRoute, public dialog: MatDialog, public childService: ChildrenService, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
 	blockListForm: FormGroup = this.fb.group({
 		ROWID: [],
@@ -184,9 +183,10 @@ export class F03017editComponent implements OnInit {
 		}
 	}
 
-	cancel(): void {
-		// this.dialogRef.close();
-	}
+	 // 離開該彈窗
+   onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 	//新增
 	public async insertData(): Promise<void> {

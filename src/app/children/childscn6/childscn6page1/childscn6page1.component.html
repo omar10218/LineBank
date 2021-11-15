@@ -344,7 +344,7 @@
       <tbody>
         <tr>
           <td class="table-header">循環信用佔額比</td>
-          <td class="table-data">{{ listSource.ccRevRtall01aj }}</td>
+          <td class="table-data" [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtall01aj }}</td>
           <td class="table-data">{{ listSource.ccRevRtallL06 }}</td>
           <td class="table-data">{{ listSource.ccRevRtallL12 }}</td>
           <td class="table-header">循環信用佔額比</td>
