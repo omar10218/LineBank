@@ -36,30 +36,30 @@
           <td class="table-data">{{ data.messageContent }}</td>
           <td class="table-data">{{ data.daytime }}</td>
           <td class="table-data">{{ data.empno }}</td>
-          <td class="table-data">
-            <button (mouseover)="mouseover(data.rowId)" (mouseout)="mouseout(data.rowId)" nz-button [nzSize]="'middle'" nzType="primary" (click)="openView(data.webImg)">
+          <td class="table-data" style="text-align: center;">
+            <button (mouseover)="mouseover(data.rowId)" (mouseout)="mouseout(data.rowId)" nz-button [nzSize]="'small'" nzType="primary" (click)="openView(data.webImg)">
               <!-- <mat-icon aria-label="">image</mat-icon> -->
                <!-- <img class="position_top_left" style="height: 30px; padding-bottom: 5px;" src='{{ "assets/images/" + data.ImgSrc + ".png" }}'> -->
                <fa-icon class="icon_size" [icon]="['fas', 'image']"></fa-icon>
               </button>
           </td>
           <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
-            <td class="table-data">
-              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="startEdit(
+            <td class="table-data" style="text-align: center;">
+              <button nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
                 data.rowId, data.web, data.webAddr, data.messageContent, data.webImg)">編輯</button>
             </td>
-            <td class="table-data">
-              <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="deleteItem(
+            <td class="table-data" style="text-align: center;">
+              <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="deleteItem(
                   data.rowId, data.web, data.webAddr, data.messageContent, data.webImg)">刪除</button>
             </td>
           </ng-container>
           <ng-template #elseTemplate>
-            <td class="table-data">
-              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="startEdit(
+            <td class="table-data" style="text-align: center;">
+              <button nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
                   data.rowId, data.web, data.webAddr, data.messageContent, data.webImg)" disabled>編輯</button>
             </td>
-            <td class="table-data">
-              <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="deleteItem(
+            <td class="table-data" style="text-align: center;">
+              <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="deleteItem(
                   data.rowId, data.web, data.webAddr, data.messageContent, data.webImg)" disabled>刪除</button>
             </td>
           </ng-template>

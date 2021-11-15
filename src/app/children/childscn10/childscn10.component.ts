@@ -61,15 +61,22 @@ export class Childscn10Component implements OnInit {
   //判斷等級是否顯示 授信 高階主管才可顯示 風險模型資訊
   getLevel() {
     let YN = "N";
-    //測試用 都通過
-    // YN = "Y"
     //正式用
     if(this.level=="1"||this.level=="2"){YN="Y"}
+    //測試用 都通過
+    // YN = "Y"
     return YN;
   }
   //判斷是否顯示授信
   getstepName(): String {
+    //高階主管作業 APPLCreditL1
+    //授信作業 APPLCreditL2
+    //徵信作業 APPLCreditL3
+    //文審作業 APPLCreditL4
+    //偽冒案件 APPLFraud
     return this.stepName;
+    //測試用
+    // return 'APPLCreditL2';
   }
 
   ngAfterViewInit() {

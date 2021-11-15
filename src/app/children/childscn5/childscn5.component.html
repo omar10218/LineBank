@@ -3,14 +3,7 @@
 
   <form [formGroup]="customerInfoForm" style="width:95%;margin:10px auto">
 
-    <div style="padding-left: 10px;">
-      <div *ngIf="getSearch() == 'N'">
-        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
-      </div>
-      <div *ngIf="getSearch() != 'N'">
-        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" disabled>儲存</button>
-      </div>
-    </div>
+
     <div class="line_bank_card_no_padding_child">
 <!-- 基本資料 -->
       <div class="line_bank_form_header_title">基本資料</div>
@@ -260,6 +253,13 @@
 
 
     </div>
-
+    <div style="padding-left: 10px;">
+      <div *ngIf="getSearch() == 'N'">
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
+      </div>
+      <div *ngIf="getSearch() != 'N'">
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" disabled>儲存</button>
+      </div>
+    </div>
   </form>
 </div>
