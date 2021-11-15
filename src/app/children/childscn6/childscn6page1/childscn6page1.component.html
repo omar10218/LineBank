@@ -726,7 +726,7 @@
         <th nz-col nzFlex="1" class="table-header" style="color:#2E4765; background-color:#BFECD0;">BAI004</th>
         <td nz-col nzFlex="1" class="table-header">信用卡及特店資料處理日期</td>
         <td nz-col nzFlex="1" class="table-data">{{ data.DATA_DATE ? data.DATA_DATE : ' ' }}</td>
-        <td nz-col nzFlex="1" class="table-data" style="color: red;">B64 DBR22倍規範無擔保債務<br>暨年收入彙整資訊之現金卡資料日期</td>
+        <td nz-col nzFlex="3" class="table-data" style="color: red;">B64 DBR22倍規範無擔保債務<br>暨年收入彙整資訊之現金卡資料日期</td>
       </ng-container>
     </div>
     <div nz-row>
@@ -736,7 +736,7 @@
         <td nz-col nzFlex="1" class="table-header">信用卡結帳日期擷取範圍</td>
         <td nz-col nzFlex="1" class="table-data">{{ data.HI_BILL_DATE ? data.HI_BILL_DATE + '~': ' ' }}{{
           data.LO_BILL_DATE ? data.LO_BILL_DATE : ' ' }}</td>
-        <td nz-col nzFlex="1" class="table-data" style="color: red;">B64</td>
+        <td nz-col nzFlex="3" class="table-data" style="color: red;">B64</td>
       </ng-container>
     </div>
     <div nz-row>
@@ -744,9 +744,10 @@
       <ng-container *ngFor="let data of BAS008.slice(0,1)">
         <th nz-col nzFlex="1" class="table-header" style="color:#2E4765; background-color:#BFECD0;">BAS008</th>
         <td nz-col nzFlex="1" class="table-header">每日授信餘額變動資訊-交易日期擷取區間</td>
-        <td nz-col nzFlex="2" class="table-data">{{ data.STA_DATE ? data.STA_DATE + '~': ' ' }}{{
+        <td nz-col nzFlex="1" class="table-data">{{ data.STA_DATE ? data.STA_DATE + '~': ' ' }}{{
           data.END_DATE ? data.END_DATE : ' ' }}</td>
         <td hidden>{{ data.FILLER ? data.FILLER : ' ' }}</td>
+        <td nz-col nzFlex="3" class="table-data"></td>
       </ng-container>
     </div>
     <br>
