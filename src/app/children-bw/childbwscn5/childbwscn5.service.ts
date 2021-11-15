@@ -10,7 +10,7 @@ export class Childbwscn5Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getmaterial(json: JSON): Observable<any> {
-    const baseUrl = '/f01/childbwScn5';
+    const baseUrl = 'f01/childbwScn5';
     return this.postJsonObject(baseUrl, json);
   }
 

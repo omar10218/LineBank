@@ -28,8 +28,12 @@ export class Childbwscn5Component implements OnInit {
     let jsonObject: any = {}
     jsonObject['applno'] = this.applno
     this.Childbwscn5Service.getmaterial(jsonObject).subscribe(data=>{
-      console.log(data)
-      // this.materialSource = data
+
+      if(data.rspMsg == 'success')
+      {
+        this.materialSource = data.rspBody
+      }
+      this.materialSource = null;
     })
 
   }
