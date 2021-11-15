@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { OptionsCode } from '../interface/base';
 import { F03005Service } from './f03005.service';
 import { F03005addComponent } from './f03005add/f03005add.component';
@@ -116,7 +117,9 @@ export class F03005Component implements OnInit {
 
   addNew() {
     if (this.selectedAdrValue == null || this.selectedAdrValue == '') {
-      alert('請選擇：原因碼類別');
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+				data: { msgStr: "請選擇建檔項目" }
+			});
     } else if (this.selectedSecondValue == '' && this.selectedThirdValue == '') {
       this.openInsertWindow('Z01', '1');
     } else if (this.selectedSecondValue != '' && this.selectedThirdValue == '') {

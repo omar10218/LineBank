@@ -1,14 +1,16 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
   <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button id="test" [nzSize]="'small'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
-    <button nz-button id="test" [nzSize]="'small'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
+    <button nz-button id="test" [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+      (click)="addNew()">新增</button>
+    <button nz-button id="test" [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+      (click)="Clear()">清除資料</button>
   </div>
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">
-    <div nz-row >
-      <div nz-col nzSpan="6">
-        <div style="padding:10px"><span class="form-title">代碼類別</span>
+    <div nz-row>
+      <div nz-col nzSpan="3">
+        <div style="padding:10px;"><span class="form-title">代碼類別</span>
           <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()">
             <mat-option *ngFor="let code of sysCode" [value]="code.value">
               {{code.viewValue}}
@@ -16,20 +18,17 @@
           </mat-select>
         </div>
       </div>
-      <div nz-col nzSpan="6">
         <!-- <div style="padding:10px"><span class="form-title">Filter</span>
           <input matInput class="form-control" value="{{selectedValue}}" disabled />
         </div> -->
-      </div>
-      <div nz-col nzSpan="12"></div>
     </div>
   </div>
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">
     <!-- 表格 -->
     <nz-table nzShowSizeChanger [nzData]="mappingCodeSource" [nzFrontPagination]="false" [nzSimple]="true"
-      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="系統代碼維護">
+      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"
+      nzSize="small" nzTitle="系統代碼維護">
       <thead style="max-height: 100vh;">
         <tr>
           <th class="table-header">類別</th>

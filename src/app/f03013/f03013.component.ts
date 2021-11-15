@@ -93,15 +93,15 @@ export class F03013Component implements OnInit {
 
   // 查詢選擇之年度與月份
   queryIsWorkDay() {
-    if (this.yearValue == null && this.monthValue == null) {
+    if (this.yearValue == '' && this.monthValue == '') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請選擇年份與月份" }
       });
-    } else if (this.yearValue == null) {
+    } else if (this.yearValue == '') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請選擇年份" }
       });
-    } else if (this.monthValue == null) {
+    } else if (this.monthValue == '') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請選擇月份" }
       });
