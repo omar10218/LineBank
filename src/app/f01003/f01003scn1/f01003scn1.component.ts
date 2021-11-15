@@ -23,9 +23,9 @@ export class F01003scn1Component implements OnInit {
   private cuid: string;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.applno = params['applno'];
-      this.search = params['search'];
-      this.cuid = params['cuid'];
+      this.applno = sessionStorage.getItem('applno');
+      this.search = sessionStorage.getItem('search');
+      this.cuid = sessionStorage.getItem('cuid');
     });
   }
 
@@ -56,7 +56,15 @@ export class F01003scn1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'L2';
-    jsonObject['creditResult'] = '';
+
+    let json:any = {};
+    json['creditMemo'] = "測試";
+    json['approveAmt'] = '2';
+    json['lowestPayRate'] = '1';
+    json['approveInterest'] = '1';
+    json['interest'] = '2';
+    json['interestType'] = '03';
+    jsonObject['creditResult'] = json;
     this.f01003Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
       console.log(data)
     });
