@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Data } from '@angular/router';
+import { Childbwscn5Service } from '../childbwscn5/childbwscn5.service';
 @Component({
   selector: 'app-childbwscn5',
   templateUrl: './childbwscn5.component.html',
@@ -7,12 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Childbwscn5Component implements OnInit {
 
-  constructor() { }
+  constructor(  private Childbwscn5Service: Childbwscn5Service,
+    )
+    {
+
+  }
   applno: string;
+  materialSource: readonly Data[] = [];
+  total = 1;
+  pageIndex = 1;
+  pageSize= 50;
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
   }
-  set() {
+  set()
+  {
+    let jsonObject: any = {}
+    jsonObject['applno'] = this.applno
+    this.Childbwscn5Service.getmaterial(jsonObject).subscribe(data=>{
+      this.materialSource = data
+    })
 
   }
 
