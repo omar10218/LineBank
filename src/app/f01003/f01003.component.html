@@ -22,8 +22,8 @@
           </div>
           <div nz-col nzSpan="5">
             <span class="form-title line_bank_h4">案件類別</span>
-            <div class="form" style="width:90%;height:25px;margin:0 auto;color:gray">
-              <div style="color:gray">
+            <div class="form" style="margin:0 auto;width:90%">
+              <div >
                 <mat-select [(ngModel)]="caseType" name="caseTypeCode" class="mat-select">
                   <mat-option class="option" *ngFor="let code of caseTypeCode" [value]="code.value">
                     {{code.viewValue}}
@@ -34,7 +34,7 @@
           </div>
           <div nz-col nzSpan="5">
             <span class="form-title line_bank_h4">代理人別</span>
-            <div class="form" style="width:90%;height:25px;margin:0 auto">
+            <div class="form"style="margin:0 auto;width:90%" >
               <div>
                 <mat-select [(ngModel)]="agentEmpNo" name="agentEmpNoCode" class="mat-select">
                   <mat-option class="option" *ngFor="let code of agentEmpNoCode" [value]="code.value">
@@ -120,20 +120,20 @@
 
               </div>
               <tr>
-                <th class="table-header" [nzLeft]="true">收件編號</th>
+                <th class="table-header" [nzWidth]="'160px'" [nzLeft]="true">收件編號</th>
                 <th class="table-header">流程別</th>
-                <th class="table-header">是否重查完成</th>
+                <th class="table-header">重查完成</th>
                 <th class="table-header">進件時間</th>
                 <th class="table-header">身分證號</th>
                 <th class="table-header">姓名</th>
-                <th class="table-header">公司名稱</th>
+                <th class="table-header"  [nzWidth]="'140px'">公司名稱</th>
                 <th class="table-header">客群標籤</th>
-                <th class="table-header">申請金額/額度</th>
+                <th class="table-header">申請金額</th>
                 <th class="table-header">風險等級分群</th>
                 <th class="table-header">累積進件</th>
                 <th class="table-header">審核結果</th>
                 <th class="table-header">通知</th>
-                <th class="table-header" [nzRight]="true">案件註記</th>
+                <th class="table-header" [nzWidth]="'120px'" [nzRight]="true">案件註記</th>
                 <th class="table-header" [nzRight]="true">儲存</th>
               </tr>
             </thead>
