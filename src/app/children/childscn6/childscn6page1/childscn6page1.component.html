@@ -1,6 +1,6 @@
 <div class="line_bank_bankground_color">
   <div style=" width: 100%;position:fixed;z-index:10">
-    <nz-tabset nzLinkRouter style="margin-top: 12px;">
+    <nz-tabset nzLinkRouter style="margin-top: 0px;">
       <nz-tab [nzTitle]="JCIC">
         <ng-template #JCIC let-visible="visible">
           <button nz-button nzSize="small" [ngClass]="hideJCIC ? 'nohide' : 'hide'"
@@ -141,7 +141,7 @@
 
     </nz-tabset>
   </div>
-  <div style="padding-left: 50px; padding-top: 62px;">
+  <div style="padding-left: 35px; padding-top: 62px;">
     <div nz-row>
       <div nz-col nzFlex="1">
         <div style="padding:3px"><span class="form-title">查詢日期</span><input matInput #input class="form-control"
@@ -356,17 +356,17 @@
       <tbody>
         <tr>
           <td class="table-header">循環信用佔額比</td>
-          <td class="table-data">{{ listSource.ccRevRtall01aj }}</td>
-          <td class="table-data">{{ listSource.ccRevRtallL06 }}</td>
-          <td class="table-data">{{ listSource.ccRevRtallL12 }}</td>
-          <td class="table-header">循環信用佔額比</td>
-          <td class="table-data">{{ listSource.ccRevRtall01aj }}</td>
-          <td class="table-data">{{ listSource.ccRevRtallL06 }}</td>
-          <td class="table-data">{{ listSource.ccRevRtallL12 }}</td>
+          <td class="table-data" [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtall01aj }}</td>
+          <td class="table-data" [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL06 }}</td>
+          <td class="table-data" [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL12 }}</td>
+          <td class="table-header" >循環信用佔額比</td>
+          <td class="table-data" [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtall01aj }}</td>
+          <td class="table-data" [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL06 }}</td>
+          <td class="table-data" [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL12 }}</td>
         </tr>
         <tr>
           <td class="table-header">循環預借未到期佔額比</td>
-          <td class="table-data">{{ listSource.ccRevcapreRt01aj }}</td>
+          <td class="table-data" [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevcapreRt01aj }}</td>
           <td class="table-data">{{ listSource.ccRevcapreRtL06 }}</td>
           <td class="table-data">{{ listSource.ccRevcapreRtL12 }}</td>
           <td class="table-header">循環預借未到期佔額比</td>

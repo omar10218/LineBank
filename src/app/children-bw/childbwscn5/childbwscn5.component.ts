@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Data } from '@angular/router';
 import { Childbwscn5Service } from '../childbwscn5/childbwscn5.service';
+
+// 貸後異常名單比對 Jay
 @Component({
   selector: 'app-childbwscn5',
   templateUrl: './childbwscn5.component.html',
