@@ -1,5 +1,28 @@
 <div class="line_bank_bankground_color">
-<div style="margin-top: 30px; margin-left: 5px; width: 100%;">
+  <br>
+  <nz-page-header class="site-page-header" style=" width: 100%;padding:0 40px">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page1" (click)="changePage(Page.Page1)">
+        <a style="color:black">本案申請書資訊合理性</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item
+      [class.active]="nowPage === Page.Page2" (click)="changePage(Page.Page2)">
+        <a style="color:black">歷史申請書比對(不同NID)</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page3" (click)="changePage(Page.Page3)">
+        <a style="color:black">歷史申請書比對(同一NID)</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page4"
+        (click)="changePage(Page.Page4)">
+        <a style="color:black">KRM043報送資料比對</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page5"
+        (click)="changePage(Page.Page5)">
+        <a>BAM061報送資料比對 </a>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header>
+<!-- <div style="margin-top: 30px; margin-left: 5px; width: 100%;">
   <button class="btn" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
   nz-button nzType="primary" [nzSize]="'middle'" (click)="changePage(Page.Page1)">本案申請書資訊合理性</button>
   <button class="btn" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
@@ -10,7 +33,7 @@
   nz-button nzType="primary" [nzSize]="'middle'" (click)="changePage(Page.Page4)">KRM043報送資料比對</button>
   <button class="btn" [class.active]="nowPage === Page.Page5" style="margin-bottom: 5px; margin-left: 5px;"
   nz-button nzType="primary" [nzSize]="'middle'" (click)="changePage(Page.Page5)">BAM061報送資料比對</button>
-</div>
+</div> -->
 </div>
 <!-- <router-outlet></router-outlet> -->
 <ng-container appDynamic></ng-container>
