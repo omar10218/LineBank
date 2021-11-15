@@ -68,16 +68,30 @@ export class F03014Component implements OnInit {
       var startDate, endDate;
       startDate = new Date(this.Efficient[0]);
       endDate = new Date(this.Efficient[1]);
-      if((endDate-startDate)/1000/60/60/24>90){
-        this.condition =0;
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "生效日查詢區間最多三個月內!" }
-        });
+      if(this.IdentityValue != null && this.IdentityValue !='')
+      {
+        if((endDate-startDate)/1000/60/60/24>365)
+        {
+          this.condition =0;
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "生效日查詢區間最多一年內!" }
+          });
+        }
       }
       else
       {
-        this.condition =1;
+        if((endDate-startDate)/1000/60/60/24>90){
+          this.condition =0;
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "生效日查詢區間最多三個月內!" }
+          });
+        }
+        else
+        {
+          this.condition =1;
+        }
       }
+
     }
 
 
@@ -87,16 +101,32 @@ export class F03014Component implements OnInit {
       var startDate, endDate;
       startDate = new Date(this.Invalidation[0]);
       endDate = new Date(this.Invalidation[1]);
-      if((endDate-startDate)/1000/60/60/24>90){
-        this.condition =0;
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "失效日查詢區間最多三個月內!" }
-        });
+      if(this.IdentityValue != null && this.IdentityValue !='')
+      {
+        if((endDate-startDate)/1000/60/60/24>365)
+        {
+          this.condition =0;
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "失效日查詢區間最多一年內!" }
+          });
+        }
       }
       else
       {
-        this.condition =1;
+        if((endDate-startDate)/1000/60/60/24>90)
+        {
+          this.condition =0;
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "失效日查詢區間最多三個月內!" }
+          });
+        }
+        else
+        {
+          this.condition =1;
+        }
       }
+
+
     }
 
 
