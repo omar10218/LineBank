@@ -91,11 +91,7 @@ export class F03014Component implements OnInit {
           this.condition =1;
         }
       }
-
     }
-
-
-
     if(this.Invalidation != null)
     {
       var startDate, endDate;
@@ -125,11 +121,7 @@ export class F03014Component implements OnInit {
           this.condition =1;
         }
       }
-
-
     }
-
-
 
     if(this.condition > 0 )
     {

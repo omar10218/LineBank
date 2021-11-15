@@ -41,10 +41,10 @@ export class F02001Component implements OnInit {
   credit_TIME: [Date, Date];//准駁日期時間
   jsonObject: any = {};
   resultData = [];
-  total : number;
+  total: number;
   loading = false;
-  pageSize : number;
-  pageIndex : number;
+  pageSize: number;
+  pageIndex: number;
   firstFlag = 1;
   constructor(private router: Router,
     private f02001Service: F02001Service,
@@ -65,7 +65,7 @@ export class F02001Component implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params)
-    if (this.firstFlag !=1 ) { // 判斷是否為第一次進頁面
+    if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
       const { pageSize, pageIndex } = params;
       this.selectData(pageIndex, pageSize);
 
@@ -159,56 +159,202 @@ export class F02001Component implements OnInit {
     this.jsonObject['projectName'] = this.project_NAME;//專案名稱
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
     this.jsonObject['approveAmt'] = '';//核准金額/額度
-
-    if (this.apply_TIME != null)//進件日期
+    if (this.national_ID != '' || this.cust_ID != '')
     {
-      this.jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-      this.jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+      if (this.apply_TIME != null)//進件日期
+      {
+        if(this.dealwithData365(this.apply_TIME))
+        {
+          this.jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+        }
+        else
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "進件日期查詢區間最多一年內!" }
+          });
+        }
+      }
+      else {
+        this.jsonObject['applyTimeStart'] = '';
+        this.jsonObject['applyTimeEnd'] = '';
+      }
 
-    }
-    else {
-      this.jsonObject['applyTimeStart'] = '';
-      this.jsonObject['applyTimeEnd'] = '';
-    }
+      if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
+      {
+        if(this.dealwithData365(this.proof_DOCUMENT_TIME))
+        {
+          this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyy-MM-dd');
 
-    if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
+        }
+        else
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "上傳財力日期查詢區間最多一年內!" }
+          });
+        }
+      }
+      else {
+        this.jsonObject['proofDocumentTimeStart'] = '';
+        this.jsonObject['proofDocumentTimeEnd'] = '';
+      }
+
+      if (this.sign_UP_TIME != null)//簽約完成日期
+      {
+        if(this.dealwithData365(this.sign_UP_TIME))
+        {
+          this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyy-MM-dd');
+        }
+        else
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "簽約完成日期查詢區間最多一年內!" }
+          });
+        }
+
+      }
+      else {
+        this.jsonObject['signUpTimeStart'] = '';
+        this.jsonObject['signUpTimeEnd'] = '';
+      }
+
+      if (this.credit_TIME != null)//准駁日期時間
+      {
+        if(this.dealwithData365(this.credit_TIME))
+        {
+          this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
+        }
+        else
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "准駁日期時間查詢區間最多一年內!" }
+          });
+        }
+      }
+      else {
+        this.jsonObject['creditTimeStart'] = '';
+        this.jsonObject['creditTimeEnd'] = '';
+      }
+    }
+    else
+     {
+      if (this.apply_TIME != null)//進件日期
+      {
+        if(this.dealwithData90(this.apply_TIME))
+        {
+          this.jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+        }
+        else
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "進件日期查詢區間最多三個內!" }
+          });
+        }
+
+      }
+      else {
+        this.jsonObject['applyTimeStart'] = '';
+        this.jsonObject['applyTimeEnd'] = '';
+      }
+
+      if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
+      {
+        if(this.dealwithData90(this.proof_DOCUMENT_TIME))
+        {
+          this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyy-MM-dd');
+        }
+        else
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "上傳財力日期查詢區間最多三個內!" }
+          });
+        }
+
+      }
+      else {
+        this.jsonObject['proofDocumentTimeStart'] = '';
+        this.jsonObject['proofDocumentTimeEnd'] = '';
+      }
+
+      if (this.sign_UP_TIME != null)//簽約完成日期
+      {
+        if(this.dealwithData90(this.sign_UP_TIME))
+        {
+          this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyy-MM-dd');
+        }
+        else
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "簽約完成日期查詢區間最多三個內!" }
+          });
+        }
+      }
+      else {
+        this.jsonObject['signUpTimeStart'] = '';
+        this.jsonObject['signUpTimeEnd'] = '';
+      }
+      if (this.credit_TIME != null)//准駁日期時間
+      {
+        if(this.dealwithData90(this.credit_TIME))
+        {
+          this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
+        }
+        else
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "准駁日期時間查詢區間最多三個內!" }
+          });
+        }
+      }
+      else {
+        this.jsonObject['creditTimeStart'] = '';
+        this.jsonObject['creditTimeEnd'] = '';
+      }
+
+      this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
+
+        this.resultData = data.rspBody.item;
+        this.total = data.rspBody.size;
+        this.firstFlag = 2;
+      }
+      )
+    }
+  }
+
+  dealwithData365(stime:any)
+  {
+    var startDate, endDate;
+    startDate = new Date(stime[0]);
+    endDate = new Date(stime[1]);
+    if((endDate - startDate) / 1000 / 60 / 60 / 24 > 365)
     {
-      this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyy-MM-dd');
-      this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyy-MM-dd');
-
+      return false;
     }
-    else {
-      this.jsonObject['proofDocumentTimeStart'] = '';
-      this.jsonObject['proofDocumentTimeEnd'] = '';
-    }
-
-    if (this.sign_UP_TIME != null)//簽約完成日期
+    else
     {
-      this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyy-MM-dd');
-      this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyy-MM-dd');
-
+        return true;
     }
-    else {
-      this.jsonObject['signUpTimeStart'] = '';
-      this.jsonObject['signUpTimeEnd'] = '';
-    }
-
-    if (this.credit_TIME != null)//准駁日期時間
+  }
+  dealwithData90(stime:any)
+  {
+    var startDate, endDate;
+    startDate = new Date(stime[0]);
+    endDate = new Date(stime[1]);
+    if((endDate - startDate) / 1000 / 60 / 60 / 24 > 90)
     {
-      this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
-      this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
+      return false;
     }
-    else {
-      this.jsonObject['creditTimeStart'] = '';
-      this.jsonObject['creditTimeEnd'] = '';
+    else
+    {
+        return true;
     }
-
-    this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
-      console.log(data)
-      this.resultData = data.rspBody.item;
-      this.total = data.rspBody.size;
-      this.firstFlag = 2;
-    })
   }
 
   Clear()//清除
