@@ -59,44 +59,35 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
 
   list: any[] = [];
 
-  hideJCICMASTER = false;
-  hideJCIC = false;
-  hideKCM012 = false;
-  hideDAM001 = false;
-  hideBAM061 = false;
-  hideKRM043 = false;
-  hideBAM062 = false;
-  hideVAM020 = false;
-  hideVAM201 = false;
-  hideVAM106 = false;
-  hideVAM107 = false;
-  hideVAM108 = false;
-  hideBAM029 = false;
-  hideBAM501 = false;
-  hideBAM502 = false;
-  hideBAM504 = false;
-  hideBAM505 = false;
-  hideBAM032 = false;
-  hideBAM011 = false;
-  hideBAM067 = false;
-  hideBAM070 = false;
-  hideBAM101 = false;
-  hideBAM421 = false;
-  hideBAM305 = false;
-  hideBAM306 = false;
-  hideBAM307 = false;
-  hideBAM608 = false;
-  hideKRM046 = false;
-  hideKRM048 = false;
-  hideSTM022 = false;
-  hideSTM008 = false;
-  hideSTM025 = false;
-  hideJAS002 = false;
-  hideBAM031 = false;
+hideJCICMASTER = false;
+hideJCIC = false;
+hideBAM421= false;
+hideBAM101= false;
+hideKRM048= false;
+hideKRM046= false;
+hideSTM022= false;
+hideSTM008= false;
+hideSTM025= false;
+hideVAM106= false;
+hideVAM107= false;
+hideVAM108= false;
+hideVAM201= false;
+hideBAM501= false;
+hideBAM502= false;
+hideBAM504= false;
+hideBAM505= false;
+hideBAM029= false;
+hideBAM305= false;
+hideBAM306= false;
+hideBAM307= false;
+hideBAM011= false;
+hideBAM070= false;
+hideBAM031= false;
+
   private applno: string;
   private cuid: string;
 
-  private queryDate: string = '2021-10-25 11:52:57.301' // 現在時間
+  // private queryDate: string = '2021-10-25 11:52:57.301' // 現在時間
   // private queryDate: string  // 現在時間
   listSource: any = []
 	total = 1
@@ -449,12 +440,12 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
   setBooleanTrue() {
     this.hideJCICMASTER = true;
     this.hideJCIC = true;
-    this.hideKCM012 = true;
-    this.hideDAM001 = true;
-    this.hideBAM061 = true;
-    this.hideKRM043 = true;
-    this.hideBAM062 = true;
-    this.hideVAM020 = true;
+    // this.hideKCM012 = true;
+    // this.hideDAM001 = true;
+    // this.hideBAM061 = true;
+    // this.hideKRM043 = true;
+    // this.hideBAM062 = true;
+    // this.hideVAM020 = true;
     this.hideVAM201 = true;
     this.hideVAM106 = true;
     this.hideVAM107 = true;
@@ -464,72 +455,62 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
     this.hideBAM502 = true;
     this.hideBAM504 = true;
     this.hideBAM505 = true;
-    this.hideBAM032 = true;
+    // this.hideBAM032 = true;
     this.hideBAM011 = true;
-    this.hideBAM067 = true;
+    // this.hideBAM067 = true;
     this.hideBAM070 = true;
     this.hideBAM101 = true;
     this.hideBAM421 = true;
     this.hideBAM305 = true;
     this.hideBAM306 = true;
     this.hideBAM307 = true;
-    this.hideBAM608 = true;
+    // this.hideBAM608 = true;
     this.hideKRM046 = true;
     this.hideKRM048 = true;
     this.hideSTM022 = true;
     this.hideSTM008 = true;
     this.hideSTM025 = true;
-    this.hideJAS002 = true;
+    // this.hideJAS002 = true;
     this.hideBAM031 = true;
   }
 
   setBooleanFalse() {
     this.hideJCICMASTER = false;
     this.hideJCIC = false;
-    this.hideKCM012 = false;
-    this.hideDAM001 = false;
-    this.hideBAM061 = false;
-    this.hideKRM043 = false;
-    this.hideBAM062 = false;
-    this.hideVAM020 = false;
-    this.hideVAM201 = false;
-    this.hideVAM106 = false;
-    this.hideVAM107 = false;
-    this.hideVAM108 = false;
-    this.hideBAM029 = false;
-    this.hideBAM501 = false;
-    this.hideBAM502 = false;
-    this.hideBAM504 = false;
-    this.hideBAM505 = false;
-    this.hideBAM032 = false;
-    this.hideBAM011 = false;
-    this.hideBAM067 = false;
-    this.hideBAM070 = false;
-    this.hideBAM101 = false;
-    this.hideBAM421 = false;
-    this.hideBAM305 = false;
-    this.hideBAM306 = false;
-    this.hideBAM307 = false;
-    this.hideBAM608 = false;
-    this.hideKRM046 = false;
-    this.hideKRM048 = false;
-    this.hideSTM022 = false;
-    this.hideSTM008 = false;
-    this.hideSTM025 = false;
-    this.hideJAS002 = false;
-    this.hideBAM031 = false;
+    this.hideBAM421= false;
+    this.hideBAM101= false;
+    this.hideKRM048= false;
+    this.hideKRM046= false;
+    this.hideSTM022= false;
+    this.hideSTM008= false;
+    this.hideSTM025= false;
+    this.hideVAM106= false;
+    this.hideVAM107= false;
+    this.hideVAM108= false;
+    this.hideVAM201= false;
+    this.hideBAM501= false;
+    this.hideBAM502= false;
+    this.hideBAM504= false;
+    this.hideBAM505= false;
+    this.hideBAM029= false;
+    this.hideBAM305= false;
+    this.hideBAM306= false;
+    this.hideBAM307= false;
+    this.hideBAM011= false;
+    this.hideBAM070= false;
+    this.hideBAM031= false;
   }
 
   exist() {
     for (let index = 0; index < this.list.length; index++) {
       if (this.list[index] == "JCICMASTER") { this.hideJCICMASTER = !this.hideJCICMASTER; }
       if (this.list[index] == "JCIC") { this.hideJCIC= !this.hideJCIC }
-      if (this.list[index] == "KCM012") { this.hideKCM012 = !this.hideKCM012; }
-      if (this.list[index] == "DAM001") { this.hideDAM001 = !this.hideDAM001; }
-      if (this.list[index] == "BAM061") { this.hideBAM061 = !this.hideBAM061; }
-      if (this.list[index] == "KRM043") { this.hideKRM043 = !this.hideKRM043; }
-      if (this.list[index] == "BAM062") { this.hideBAM062 = !this.hideBAM062; }
-      if (this.list[index] == "VAM020") { this.hideVAM020 = !this.hideVAM020; }
+      // if (this.list[index] == "KCM012") { this.hideKCM012 = !this.hideKCM012; }
+      // if (this.list[index] == "DAM001") { this.hideDAM001 = !this.hideDAM001; }
+      // if (this.list[index] == "BAM061") { this.hideBAM061 = !this.hideBAM061; }
+      // if (this.list[index] == "KRM043") { this.hideKRM043 = !this.hideKRM043; }
+      // if (this.list[index] == "BAM062") { this.hideBAM062 = !this.hideBAM062; }
+      // if (this.list[index] == "VAM020") { this.hideVAM020 = !this.hideVAM020; }
       if (this.list[index] == "VAM201") { this.hideVAM201 = !this.hideVAM201; }
       if (this.list[index] == "VAM106") { this.hideVAM106 = !this.hideVAM106; }
       if (this.list[index] == "VAM107") { this.hideVAM107 = !this.hideVAM107; }
@@ -539,22 +520,22 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
       if (this.list[index] == "BAM502") { this.hideBAM502 = !this.hideBAM502; }
       if (this.list[index] == "BAM504") { this.hideBAM504 = !this.hideBAM504; }
       if (this.list[index] == "BAM505") { this.hideBAM505 = !this.hideBAM505; }
-      if (this.list[index] == "BAM032") { this.hideBAM032 = !this.hideBAM032; }
+      // if (this.list[index] == "BAM032") { this.hideBAM032 = !this.hideBAM032; }
       if (this.list[index] == "BAM011") { this.hideBAM011 = !this.hideBAM011; }
-      if (this.list[index] == "BAM067") { this.hideBAM067 = !this.hideBAM067; }
+      // if (this.list[index] == "BAM067") { this.hideBAM067 = !this.hideBAM067; }
       if (this.list[index] == "BAM070") { this.hideBAM070 = !this.hideBAM070; }
       if (this.list[index] == "BAM101") { this.hideBAM101 = !this.hideBAM101; }
       if (this.list[index] == "BAM421") { this.hideBAM421 = !this.hideBAM421; }
       if (this.list[index] == "BAM305") { this.hideBAM305 = !this.hideBAM305; }
       if (this.list[index] == "BAM306") { this.hideBAM306 = !this.hideBAM306; }
       if (this.list[index] == "BAM307") { this.hideBAM307 = !this.hideBAM307; }
-      if (this.list[index] == "BAM608") { this.hideBAM608 = !this.hideBAM608; }
+      // if (this.list[index] == "BAM608") { this.hideBAM608 = !this.hideBAM608; }
       if (this.list[index] == "KRM046") { this.hideKRM046 = !this.hideKRM046; }
       if (this.list[index] == "KRM048") { this.hideKRM048 = !this.hideKRM048; }
       if (this.list[index] == "STM022") { this.hideSTM022 = !this.hideSTM022; }
       if (this.list[index] == "STM008") { this.hideSTM008 = !this.hideSTM008; }
       if (this.list[index] == "STM025") { this.hideSTM025 = !this.hideSTM025; }
-      if (this.list[index] == "JAS002") { this.hideJAS002 = !this.hideJAS002; }
+      // if (this.list[index] == "JAS002") { this.hideJAS002 = !this.hideJAS002; }
       if (this.list[index] == "BAM031") { this.hideBAM031 = !this.hideBAM031; }
 
     }
@@ -567,10 +548,9 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
     } else {
       this.list.push(who);
     }
-
     if (this.list.length == 0) {
       this.setBooleanFalse();
-    } else if (this.list.length == 32) {
+    } else if (this.list.length == 24) {
       this.setBooleanFalse();
       this.list = [];
     } else {

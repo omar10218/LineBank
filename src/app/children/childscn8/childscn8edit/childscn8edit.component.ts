@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-childscn8edit',
   templateUrl: './childscn8edit.component.html',
-  styleUrls: ['./childscn8edit.component.css', '.../../../assets/css/f03.css']
+  styleUrls: ['./childscn8edit.component.css', '../../../../assets/css/f03.css']
 })
 export class Childscn8editComponent implements OnInit {
 
