@@ -23,6 +23,7 @@ export class F01003scn1Component implements OnInit {
   private cuid: string;
   fds: string;
   private winClose: string = '';
+  level: string;
   creditMemo: string;
   approveAmt: string;
   lowestPayRate: string;
@@ -31,12 +32,11 @@ export class F01003scn1Component implements OnInit {
   interestType: string;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.applno = sessionStorage.getItem('applno');
-      this.search = sessionStorage.getItem('search');
-      this.cuid = sessionStorage.getItem('cuid');
-      this.fds = sessionStorage.getItem('fds');
-    });
+    this.applno = sessionStorage.getItem('applno');
+    this.search = sessionStorage.getItem('search');
+    this.cuid = sessionStorage.getItem('cuid');
+    this.fds = sessionStorage.getItem('fds');
+    this.level = sessionStorage.getItem('level');
   }
 
   ngAfterViewInit() {
@@ -61,7 +61,7 @@ export class F01003scn1Component implements OnInit {
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = 'L2';
+    jsonObject['level'] = this.level;
 
     this.creditMemo = sessionStorage.getItem('mark');
     this.approveAmt = sessionStorage.getItem('resultApproveAmt');

@@ -96,7 +96,7 @@ export class F01001Component implements OnInit, AfterViewInit {
       });
     }
     else {
-      this.empNo = this.agentEmpNo; 
+      this.empNo = this.agentEmpNo;
       this.changePage();
       this.getCaseList();
     }
@@ -117,7 +117,7 @@ export class F01001Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
-        sessionStorage.setItem('level', '4');
+        sessionStorage.setItem('level', 'L4');
         sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01001/F01001SCN1']);
       }
