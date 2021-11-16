@@ -1,9 +1,8 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()">新增話術</button>
-  </div>
+
   <!-- 最外層卡片包覆 -->
+  <br>
   <div class="line_bank_card_no_padding">
     <!-- 表格 -->
     <nz-table nzShowSizeChanger [nzData]="listOfData" [nzFrontPagination]="false" [nzSimple]="true"
@@ -35,6 +34,9 @@
         </tr>
       </tbody>
     </nz-table>
+    <div style="padding:10px;text-align:center">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()">新增話術</button>
+    </div>
   </div>
 
   <!-- <div class="line_bank_card_no_padding" >

@@ -50,7 +50,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of bkIncomeDataSource">
-          <td class="table-data"><button nz-button nzType="primary" (click)="update(true,data)">編輯</button></td>
+          <td class="table-data"><button nz-button nzType="primary" nzSize="small" (click)="update(true,data)" style="text-align:center">編輯</button></td>
           <td class="table-data">{{ data.REPORT_UNIT }}</td>
           <td class="table-data">{{ chageColumntext(data.BK_COLUMN) }}</td>
           <td class="table-data">{{ data.BK_CONTENT }}</td>
@@ -70,9 +70,9 @@
     </nz-table>
     <div style="text-align: center;margin:10px;height:10vh;">
 
-      <button nz-button nzType="primary" (click)="insert(true)">新增</button>
+      <button nz-button nzType="primary" nzSize="middle" (click)="insert(true)">新增</button>
       &nbsp;&nbsp;
-      <button nz-button nzType="primary" (click)="uploadExcel()">上傳Excel</button>
+      <button nz-button nzType="primary" nzSize="middle" (click)="uploadExcel()">上傳Excel</button>
     </div>
   </div>
 </div>

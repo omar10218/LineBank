@@ -4,7 +4,7 @@
     <form class="mat-dialog-content  nz-row" #formControl="ngForm">
       <div nz-col nzSpan="24">
         <div class="form">
-          <div><span class="form-title">話術簡稱</span><input matInput #input [(ngModel)]="data.speakingAbbreviation"
+          <div><span class="form-title" style="margin:0">話術簡稱</span><input matInput #input [(ngModel)]="data.speakingAbbreviation"
               name="speakingAbbreviation" required>
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
@@ -20,7 +20,7 @@
       </div>
       <div nz-col nzSpan="24">
         <div class="form">
-          <div><span class="form-title">暫停使用</span>
+          <div><span class="form-title" style="margin:0">暫停使用</span>
             <nz-select [(ngModel)]="data.stopFlag"  name="stopFlag">
               <nz-option nzValue="{{code.viewValue}}" *ngFor="let code of stopFlagCode" nzLabel="{{code.viewValue}}" ></nz-option>
             </nz-select>
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div nz-col nzSpan="24">
-        <div class="button-group">
+        <div class="button-group" style="text-align:center">
           <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()" [disabled]="!formControl.valid" style="margin:0px 5px"
             [mat-dialog-close]="1">儲存</button>
           <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1" style="margin:0px 5px">取消</button>

@@ -8,7 +8,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">照會模組</span>
               <mat-select [(ngModel)]="data.tvNo" name="tvNo"
-                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+               >
                 <mat-option *ngFor="let code of tvNoCode" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
@@ -21,7 +21,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">系統徵信比</span>
               <mat-select [(ngModel)]="data.scklv" name="scklv"
-                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+               >
                 <mat-option *ngFor="let code of scklvCode" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
@@ -34,7 +34,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">案件等級</span>
               <mat-select [(ngModel)]="data.calv" name="calv"
-                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+               >
                 <mat-option *ngFor="let code of calvCode" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
@@ -45,13 +45,13 @@
         </div>
       </div>
 
-      <div mat-dialog-actions>
+      <div mat-dialog-actions style="margin:0 auto;width:12vw;">
         <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1"
           (click)="save()" style="margin:0px 5px">儲存</button>
         <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
           style="margin:0px 5px">取消</button>
       </div>
-      <br><br>
+
     </form>
   </div>
 </div>

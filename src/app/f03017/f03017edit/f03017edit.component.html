@@ -16,7 +16,7 @@
             <div style="padding:10px">
               <span class="form-title">通報原因1</span>
               <mat-select formControlName="REPORT_REASON1"
-                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+               >
                 <mat-option *ngFor="let code of reportReason1" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
@@ -32,7 +32,7 @@
             <div style="padding:10px">
               <span class="form-title">通報原因2</span>
               <mat-select formControlName="REPORT_REASON2"
-                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+               >
                 <mat-option *ngFor="let code of reportReason2" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
@@ -74,7 +74,7 @@
           <div style="padding:10px">
             <span class="form-title">通報原因3</span>
             <mat-select formControlName="REPORT_REASON3"
-              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+             >
               <mat-option *ngFor="let code of reportReason3" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
@@ -96,7 +96,7 @@
           <div style="padding:10px">
             <span class="form-title">使用中</span>
             <mat-select formControlName="USE_FLAG"
-              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+             >
               <mat-option *ngFor="let code of useFlag" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
@@ -189,9 +189,9 @@
       </div>
       <div mat-dialog-actions style="width:20%;padding-left:0px;margin:0 auto">
 
-        <button  nzType="primary" [mat-dialog-close]="1" (click)="insertData()"
+        <button  nzType="primary" nzSize="middle" [mat-dialog-close]="1" (click)="insertData()"
           style="margin:0px 5px">儲存</button>
-        <button  nzType="primary" (click)="onNoClick()" tabindex="-1" >離開</button>
+        <button  nzType="primary" nzSize="middle" (click)="onNoClick()" tabindex="-1" >離開</button>
       </div>
       <!-- <div nz-col nzSpan="24" style="height: 30px;">
 

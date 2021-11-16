@@ -61,6 +61,7 @@ export class F03008Component implements OnInit {
   //開啟上傳介面
   uploadNew() {
     const dialogRef = this.dialog.open(F03008uploadComponent, {
+      width:"50vw",
       data: {
         ABNORMAL_NID: '',
         ABNORMAL_NAME: '',

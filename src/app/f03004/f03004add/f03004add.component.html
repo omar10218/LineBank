@@ -61,10 +61,10 @@
         </div>
       </div>
 
-      <div mat-dialog-actions>
-        <button nz-button [nzSize]="'small'" nzType="primary" [disabled]="!formControl.valid"
+      <div mat-dialog-actions style="margin:0 auto;width:12vw;">
+        <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
           style="margin:0px 5px" (click)="confirmAdd()">儲存</button>
-        <button nz-button [nzSize]="'small'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
           style="margin:0px 5px">取消</button>
       </div>
       <br><br>

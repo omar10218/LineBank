@@ -3,7 +3,7 @@
     flex-direction: column;
     flex: 1;
   }
-  ::ng-deep.ant-table-footer {
+  :host::ng-deep.ant-table-footer {
     position: absolute;
     bottom:-50px;
   }
@@ -22,16 +22,16 @@
   display: flex;
   flex-direction: column;
   }
-  
+
   /* .header {
-  
+
   } */
-  
+
   .content {
   position: relative;
   flex: 1;
   }
-  
+
   .abs-box {
   position: absolute;
   left: 0;
@@ -40,12 +40,12 @@
   height: 100%;
   overflow: auto;
   }
-  
-  
+
+
   mat-grid-tile {
     background: white;
   }
-  
+
   .table-header{
     background-color:#ededed;
     color:#848E9C;
@@ -71,7 +71,7 @@
     font-weight: 500;
     display:block;
   }
-  
+
   ::ng-deep.ant-table.ant-table-small .ant-table-title{
     color:#2E4765;
     font-size:18px;
@@ -80,7 +80,7 @@
     font-weight: 500;
     text-align: center;
     border: 1px solid #DBDBDB;
-  
+
   }
   .ant-btn-primary{
     color:#24C875;
@@ -88,7 +88,7 @@
     background:white;
     border-color:#24C875;
     border-radius:5px;
-  
+
   }
   .ant-btn-primary:hover{
     color:#ffffff;
@@ -102,10 +102,10 @@
     background:#24C875;
     border-color:#24C875;
     border-radius:5px;
-  
+
   }
-  
-  
+
+
   #test:hover{
     color:#ffffff;
     background:#24C875;
@@ -118,9 +118,9 @@
     background:#24C875;
     border-color:#24C875;
     border-radius:5px;
-  
+
   }
-  
+
   .flex-container {
     display: flex;
   }
@@ -133,8 +133,8 @@
   .form{
     padding:0px;
   }
-  
-  
+
+
   /* 11/10 update */
   #test{
     color:#24C875;
@@ -142,9 +142,9 @@
     background:white;
     border-color:#24C875;
     border-radius:5px;
-  
+
   }
-  
+
   #test:hover{
     color:#ffffff;
     background:#24C875;
@@ -157,7 +157,7 @@
     background:#24C875;
     border-color:#24C875;
     border-radius:5px;
-  
+
   }
   #input{
     background-color:#ffffff;
@@ -213,7 +213,7 @@
   :host::ng-deep.ant-table.ant-table-small .ant-table-tbody>tr>td{
     padding:0px;
   }
-  
+
   .form-title{
     color:#2E4765;
     font-weight: 500;
@@ -225,4 +225,3 @@
   :host::ng-deep.ant-table{
     border-radius:10px;
   }
-  
