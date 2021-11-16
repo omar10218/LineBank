@@ -44,7 +44,7 @@ interface checkboxCode {
 @Component({
   selector: 'app-childscn8items',
   templateUrl: './childscn8items.component.html',
-  styleUrls: ['./childscn8items.component.css']
+  styleUrls: ['./childscn8items.component.css', '.../../../assets/css/f03.css']
 })
 export class Childscn8itemsComponent implements OnInit {
 
