@@ -7,7 +7,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">收入項目</span>
               <mat-select [(ngModel)]="incomeType" name="incomeType" required
-                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+                >
                 <mat-option *ngFor="let code of data.incomeTypeOption" [value]="code.codeNo">
                   {{code.codeDesc}}
                 </mat-option>
@@ -47,7 +47,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">月收入例外</span>
               <mat-select [(ngModel)]="data.mincomeExp" name="mincomeExp" required
-                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+               >
                 <mat-option *ngFor="let yn of ynCode" [value]="yn.value">
                   {{yn.viewValue}}
                 </mat-option>

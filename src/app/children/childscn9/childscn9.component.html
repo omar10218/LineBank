@@ -4,18 +4,18 @@
     <nz-page-header class="site-page-header" style=" width: 100%;padding:0 40px">
       <nz-breadcrumb nz-page-header-breadcrumb>
         <nz-breadcrumb-item [class.active]="nowPage === Page.Page1" (click)="changePage(Page.Page1)">
-          <a style="color:black">核心系統客戶資料</a>
+          <a  [ngClass]="nowPage === Page.Page1 ? 'oncloick' : 'unclock'">核心系統客戶資料</a>
         </nz-breadcrumb-item>
         <nz-breadcrumb-item
         [class.active]="nowPage === Page.Page2" (click)="changePage(Page.Page2)">
-          <a style="color:black">本行存款往來</a>
+          <a  [ngClass]="nowPage === Page.Page2 ? 'oncloick' : 'unclock'">本行存款往來</a>
         </nz-breadcrumb-item>
         <nz-breadcrumb-item [class.active]="nowPage === Page.Page3" (click)="changePage(Page.Page3)">
-          <a style="color:black">本行消金產品(放款及信用卡)往來</a>
+          <a  [ngClass]="nowPage === Page.Page3 ? 'oncloick' : 'unclock'">本行消金產品(放款及信用卡)往來</a>
         </nz-breadcrumb-item>
         <nz-breadcrumb-item [class.active]="nowPage === Page.Page4"
           (click)="changePage(Page.Page4)">
-          <a>本行Debit card交易明細 </a>
+          <a  [ngClass]="nowPage === Page.Page4 ? 'oncloick' : 'unclock'">本行Debit card交易明細 </a>
         </nz-breadcrumb-item>
       </nz-breadcrumb>
     </nz-page-header>
