@@ -12,6 +12,7 @@ import { Childscn8deleteComponent } from './childscn8delete/childscn8delete.comp
 import { DatePipe } from '@angular/common'
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
 
 
 //徵信照會table框架
@@ -60,7 +61,8 @@ export class Childscn8Component implements OnInit {
   constructor(
     public dialog: MatDialog,
     private childscn8Service: Childscn8Service,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private f01002Scn1Service: F01002Scn1Service
   ) { }
 
   private applno: string;
@@ -121,8 +123,8 @@ export class Childscn8Component implements OnInit {
 
 
   ngOnInit(): void {
-    this.getCALLOUTFunction(this.pageIndex, this.pageSize);//載入頁面
     this.applno = sessionStorage.getItem('applno');
+    this.getCALLOUTFunction(this.pageIndex, this.pageSize);//載入頁面
     this.search = sessionStorage.getItem('search');
     this.empNo = localStorage.getItem("empNo");
 
@@ -152,7 +154,6 @@ export class Childscn8Component implements OnInit {
           this.MDtable.push({ MD_NO: mdno, CHECK_DATA: '', REPLY_CONDITION: '', CHECK_NOTE: '', CHECK_DATE: '', CHECK_EMPNO: '', txt: '' })
         }
       });
-    console.log(this.MDtable);
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -172,71 +173,110 @@ export class Childscn8Component implements OnInit {
 
   //新增
   Add() {
-    const dialogRef = this.dialog.open(Childscn8addComponent, {
-      minHeight: '70vh',
-      width: '70%',
-      data: {
-        applno: this.applno,//收件編號
-        // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
-        CON_TYPE: '',//聯絡方式
-        // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
-        TEL_CONDITION: '',//電話狀況
-        // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
-        TEL_CHECK: '',//電話種類
-        // HOURS_Code: this.HOURS_Code,//時下拉選單
-        HOURS: '',//時種類
-        // MINUTES_Code: this.MINUTES_Code,//分下拉選單
-        MINUTES: '',//分種類
-        PHONE: '',//手機/市話
-        CON_MEMO: '',//備註
-        CALLOUT_DATE: '',//設定下次照會時間
-        CALLOUT_SETTIME: '',//確認時間
-        CALLOUT_EMPNO: this.empNo,//徵信員編
-        //CALLOUT_YN:''//照會完成
-        speakingData:this.speakingData//照會話術
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
-      if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
-    });
+    this.f01002Scn1Service.setJCICAddSource({
+      applno: this.applno,//收件編號
+      // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+      CON_TYPE: '',//聯絡方式
+      // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+      TEL_CONDITION: '',//電話狀況
+      // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+      TEL_CHECK: '',//電話種類
+      // HOURS_Code: this.HOURS_Code,//時下拉選單
+      HOURS: '',//時種類
+      // MINUTES_Code: this.MINUTES_Code,//分下拉選單
+      MINUTES: '',//分種類
+      PHONE: '',//手機/市話
+      CON_MEMO: '',//備註
+      CALLOUT_DATE: '',//設定下次照會時間
+      CALLOUT_SETTIME: '',//確認時間
+      CALLOUT_EMPNO: this.empNo,//徵信員編
+      //CALLOUT_YN:''//照會完成
+      speakingData:this.speakingData//照會話術
+    })
+    // const dialogRef = this.dialog.open(Childscn8addComponent, {
+    //   minHeight: '70vh',
+    //   width: '70%',
+    //   data: {
+    //     applno: this.applno,//收件編號
+    //     // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+    //     CON_TYPE: '',//聯絡方式
+    //     // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+    //     TEL_CONDITION: '',//電話狀況
+    //     // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+    //     TEL_CHECK: '',//電話種類
+    //     // HOURS_Code: this.HOURS_Code,//時下拉選單
+    //     HOURS: '',//時種類
+    //     // MINUTES_Code: this.MINUTES_Code,//分下拉選單
+    //     MINUTES: '',//分種類
+    //     PHONE: '',//手機/市話
+    //     CON_MEMO: '',//備註
+    //     CALLOUT_DATE: '',//設定下次照會時間
+    //     CALLOUT_SETTIME: '',//確認時間
+    //     CALLOUT_EMPNO: this.empNo,//徵信員編
+    //     //CALLOUT_YN:''//照會完成
+    //     speakingData:this.speakingData//照會話術
+    //   }
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
+    // });
   }
 
   //編輯
   startEdit(CON_TYPE: string, PHONE: string, TEL_CONDITION: string, TEL_CHECK: string, CON_MEMO: string, CALLOUT_DATE: string, ID: string, CALLOUT_SETTIME: string, CALLOUT_YN: string) {
     // console.log(this.datepipe.transform(CALLOUT_DATE, 'HH'));
     // console.log(this.datepipe.transform(CALLOUT_DATE, 'mm'));
-
-    const dialogRef = this.dialog.open(Childscn8editComponent, {
-      minHeight: '70vh',
-      width: '70%',
-      data: {
-        applno: this.applno,//收件編號
-        // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
-        CON_TYPE: CON_TYPE,//聯絡方式
-        // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
-        TEL_CONDITION: TEL_CONDITION,//電話狀況
-        // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
-        TEL_CHECK: TEL_CHECK,//電話種類
-        // HOURS_Code: this.HOURS_Code,//時下拉選單
-        HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
-        // MINUTES_Code: this.MINUTES_Code,//分下拉選單
-        MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
-        PHONE: PHONE,//手機/市話
-        CON_MEMO: CON_MEMO,//備註
-        CALLOUT_DATE: CALLOUT_DATE,//設定下次照會時間
-        ID: ID,//java用row ID
-        CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
-        CALLOUT_EMPNO: this.empNo,//徵信員編
-        CALLOUT_YN: CALLOUT_YN,//照會完成
-        // CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
-        speakingData:this.speakingData//照會話術
-      }
+    this.f01002Scn1Service.setJCICSource({
+      applno: this.applno,//收件編號
+      // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+      CON_TYPE: CON_TYPE,//聯絡方式
+      // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+      TEL_CONDITION: TEL_CONDITION,//電話狀況
+      // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+      TEL_CHECK: TEL_CHECK,//電話種類
+      // HOURS_Code: this.HOURS_Code,//時下拉選單
+      HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
+      // MINUTES_Code: this.MINUTES_Code,//分下拉選單
+      MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
+      PHONE: PHONE,//手機/市話
+      CON_MEMO: CON_MEMO,//備註
+      CALLOUT_DATE: CALLOUT_DATE,//設定下次照會時間
+      ID: ID,//java用row ID
+      CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
+      CALLOUT_EMPNO: this.empNo,//徵信員編
+      CALLOUT_YN: CALLOUT_YN,//照會完成
+      // CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
+      speakingData:this.speakingData//照會話術
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
-      if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
-    });
+    // const dialogRef = this.dialog.open(Childscn8editComponent, {
+    //   minHeight: '70vh',
+    //   width: '70%',
+    //   data: {
+    //     applno: this.applno,//收件編號
+    //     // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+    //     CON_TYPE: CON_TYPE,//聯絡方式
+    //     // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+    //     TEL_CONDITION: TEL_CONDITION,//電話狀況
+    //     // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+    //     TEL_CHECK: TEL_CHECK,//電話種類
+    //     // HOURS_Code: this.HOURS_Code,//時下拉選單
+    //     HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
+    //     // MINUTES_Code: this.MINUTES_Code,//分下拉選單
+    //     MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
+    //     PHONE: PHONE,//手機/市話
+    //     CON_MEMO: CON_MEMO,//備註
+    //     CALLOUT_DATE: CALLOUT_DATE,//設定下次照會時間
+    //     ID: ID,//java用row ID
+    //     CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
+    //     CALLOUT_EMPNO: this.empNo,//徵信員編
+    //     CALLOUT_YN: CALLOUT_YN,//照會完成
+    //     // CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
+    //     speakingData:this.speakingData//照會話術
+    //   }
+    // });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
+    // });
   }
 
   //刪除
@@ -285,11 +325,7 @@ export class Childscn8Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize
     jsonObject['applno'] = this.applno
-    console.log('jsonObject');
-    console.log(jsonObject);
     this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
-      console.log('data');
-      console.log(data);
       this.rspBodyData = data.rspBody;
       this.rspBodyList = data.rspBody.list;
       this.speakingData = data.rspBody.speaking;
@@ -359,7 +395,6 @@ export class Childscn8Component implements OnInit {
       }
       this.CALLOUTSource.data = this.rspBodyList;
       this.total = data.rspBody.size;
-      console.log(this.CALLOUTSource.data);
     });
     this.loading = false;
   }

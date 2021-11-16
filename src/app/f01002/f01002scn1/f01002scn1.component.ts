@@ -1,6 +1,7 @@
+import { Subscription } from 'rxjs';
 import { Childscn19Component } from './../../children/childscn19/childscn19.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Childscn18Component } from 'src/app/children/childscn18/childscn18.component';
 import { Router } from '@angular/router';
 import { Childscn20Component } from 'src/app/children/childscn20/childscn20.component';
@@ -20,7 +21,14 @@ export class F01002scn1Component implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private f01002scn1Service: F01002Scn1Service
-  ) { }
+  ) {
+    this.JCICSource$ = this.f01002scn1Service.JCICSource$.subscribe((data) => {
+      this.editData = data
+    });
+    this.JCICAddSource$ = this.f01002scn1Service.JCICAddSource$.subscribe((data) => {
+      this.addData = data
+    });
+  }
 
   private creditLevel: string = 'APPLCreditL3';
   private applno: string;
@@ -30,8 +38,14 @@ export class F01002scn1Component implements OnInit {
   fds: string
   private winClose: string = '';
 
+  isShowAdd: boolean;
+  addData: any;
+  editData: any;
+
   creditResult: string;
   level: string;
+  JCICSource$: Subscription;
+  JCICAddSource$: Subscription;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -45,6 +59,10 @@ export class F01002scn1Component implements OnInit {
   ngAfterViewInit() {
     // let element: HTMLElement = document.getElementById('firstBtn') as HTMLElement;
     // element.click();
+  }
+
+  ngOnDestroy() {
+    this.JCICSource$.unsubscribe();
   }
 
   reScan() {
@@ -105,16 +123,11 @@ export class F01002scn1Component implements OnInit {
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = 'L3';
+    jsonObject['level'] = this.leave;
     this.creditResult = sessionStorage.getItem('creditResult');
     this.f01002scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
       console.log(data);
     });
-    //徵信人員
-    if (this.level == 'L3') {
-
-    }
-
     const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: '案件完成' }
     });
@@ -123,4 +136,5 @@ export class F01002scn1Component implements OnInit {
   saveResult(url: string, json: JSON): string {
     return this.f01002scn1Service.saveOrEditMsgJson(url, json);
   }
+
 }

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
@@ -17,12 +17,12 @@ export class Childscn8editComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<Childscn8editComponent>,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    // @Inject(MAT_DIALOG_DATA) public data: any,
     public childscn8Service: Childscn8Service,
     public datepipe: DatePipe
   ) { }
 
-
+    @Input() data: any;
 
   //欄位驗證
   formControl = new FormControl('', [

@@ -138,6 +138,10 @@ import { FormatNumberPipe, ToNumberPipe } from '../pipe/customFormatterPipe';
     NzTableModule,
     FontAwesomeModule
   ],
+  exports: [
+    Childscn8addComponent,
+    Childscn8editComponent
+  ]
 })
 export class ChildrenModule {
   constructor(library:FaIconLibrary){
