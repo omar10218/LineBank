@@ -3,13 +3,13 @@
     <nz-tabset nzLinkRouter>
       <nz-tab [nzTitle]="showAll">
         <ng-template #showAll let-visible="visible">
-          <button nz-button [nzSize]="'default'" class="hide" (click)="all()">Show All</button>
+          <button nz-button [nzSize]="'default'" [ngClass]="hideAll ? 'nohide' : 'hide'" class="hide" (click)="all()">Show All</button>
         </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="JCIC">
         <ng-template #JCIC let-visible="visible">
           <button nz-button [nzSize]="'default'" [ngClass]="hideJCIC ? 'nohide' : 'hide'"
-            (click)="show('JCIC')">聯徵彙整資訊</button>
+            (click)="showJCIC()">聯徵彙整資訊</button>
         </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="JCICMASTER">
@@ -28,7 +28,7 @@
       </nz-tab>
       <nz-tab [nzTitle]="KRM048">
         <ng-template #KRM048 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideKRM048 ? 'nohide' : 'hide'" (click)="show('BAM101')">KRM048</button></ng-template>
+            [ngClass]="hideKRM048 ? 'nohide' : 'hide'" (click)="show('KRM048')">KRM048</button></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="KRM046">
         <ng-template #KRM046 let-visible="visible"><button nz-button [nzSize]="'default'"
