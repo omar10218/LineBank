@@ -51,9 +51,6 @@ export class Childscn8addComponent implements OnInit {
   speakingAbbreviation: string;//話術名稱
 
   ngOnInit(): void {
-    console.log('data.speakingData');
-    console.log(this.data.speakingData);
-
     this.childscn8Service.getSysTypeCode('HOURS')//時下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -62,8 +59,6 @@ export class Childscn8addComponent implements OnInit {
           this.HOURS_Code.push({ value: codeNo, viewValue: desc })
         }
       });
-    console.log('HOURS');
-    console.log(this.HOURS_Code);
 
     this.childscn8Service.getSysTypeCode('MINUTES')//分下拉選單
       .subscribe(data => {
@@ -73,8 +68,7 @@ export class Childscn8addComponent implements OnInit {
           this.MINUTES_Code.push({ value: codeNo, viewValue: desc })
         }
       });
-    console.log('MINUTES_Code');
-    console.log(this.MINUTES_Code);
+
     this.childscn8Service.getSysTypeCode('CON_TYPE')//聯絡方式下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -83,8 +77,7 @@ export class Childscn8addComponent implements OnInit {
           this.CON_TYPE_Code.push({ value: codeNo, viewValue: desc })
         }
       });
-    console.log('CON_TYPE_Code');
-    console.log(this.CON_TYPE_Code);
+
     this.childscn8Service.getSysTypeCode('TEL_CONDITION')//電話狀況下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -93,8 +86,7 @@ export class Childscn8addComponent implements OnInit {
           this.TEL_CONDITION_Code.push({ value: codeNo, viewValue: desc })
         }
       });
-    console.log('TEL_CONDITION_Code');
-    console.log(this.TEL_CONDITION_Code);
+
     this.childscn8Service.getSysTypeCode('TEL_CHECK')//電話種類下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -111,7 +103,7 @@ export class Childscn8addComponent implements OnInit {
     let codeStr: string = "";
     const baseUrl = 'f01/childscn8action1';
     let jsonObject: any = {};
-    jsonObject['applno'] = this.data.applno;
+    jsonObject['applno'] = sessionStorage.getItem('applno');
     jsonObject['conType'] = this.data.CON_TYPE;
     jsonObject['phone'] = this.data.PHONE;
     jsonObject['telCondition'] = this.data.TEL_CONDITION;
@@ -130,6 +122,7 @@ export class Childscn8addComponent implements OnInit {
       if (msgStr === '新增成功!' && codeStr === '0000') {
         // this.dialogRef.close({ event: 'success' });
         this.f01002scn1Service.setJCICAddSource({ show : false });
+        window.location.reload();
       }
     });
   }

@@ -171,7 +171,7 @@ export class Childscn8Component implements OnInit {
 
   //新增
   Add() {
-    this.showAdd = !this.showAdd
+    this.showAdd = !this.showAdd;
     this.f01002scn1Service.setJCICAddSource({
       show: this.showAdd,
       applno: this.applno,//收件編號

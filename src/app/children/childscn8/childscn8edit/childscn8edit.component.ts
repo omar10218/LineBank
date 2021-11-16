@@ -114,11 +114,7 @@ export class Childscn8editComponent implements OnInit {
     jsonObject['rowID'] = this.data.ID;
     jsonObject['empNo'] = this.data.CALLOUT_EMPNO;
     jsonObject['calloutYn'] = this.data.CALLOUT_YN;
-    console.log('console.log(jsonObject);');
-    console.log(jsonObject);
     await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
-      console.log('data');
-      console.log(data);
       codeStr = data.rspCode;
       msgStr = data.rspMsg;
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -127,6 +123,7 @@ export class Childscn8editComponent implements OnInit {
       if (msgStr === '編輯成功' && codeStr === '0000') {
         // this.dialogRef.close({ event: 'success' });
         this.f01002scn1Service.setJCICSource({ show : false });
+        window.location.reload();
       }
     });
   }
