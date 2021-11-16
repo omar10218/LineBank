@@ -21,11 +21,14 @@ export class F01003scn1Component implements OnInit {
   private applno: string;
   private search: string;
   private cuid: string;
+  fds: string;
+  private winClose: string = '';
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = sessionStorage.getItem('applno');
       this.search = sessionStorage.getItem('search');
       this.cuid = sessionStorage.getItem('cuid');
+      this.fds = sessionStorage.getItem('fds');
     });
   }
 
@@ -44,6 +47,10 @@ export class F01003scn1Component implements OnInit {
 
   getCuid(): string {
     return this.cuid;
+  }
+
+  getWinClose(): String {
+    return this.winClose;
   }
 
   getLevel(): string {
