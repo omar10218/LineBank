@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseService } from 'src/app/base.service';
-import { OptionsCode } from 'src/app/interface/base';
 
 @Injectable({
   providedIn: 'root'

@@ -6,8 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { Childscn8Service } from './childscn8.service';
-import { Childscn8addComponent } from './childscn8add/childscn8add.component';
-import { Childscn8editComponent } from './childscn8edit/childscn8edit.component';
 import { Childscn8deleteComponent } from './childscn8delete/childscn8delete.component';
 import { DatePipe } from '@angular/common'
 import { Data } from '@angular/router';
@@ -62,7 +60,7 @@ export class Childscn8Component implements OnInit {
     public dialog: MatDialog,
     private childscn8Service: Childscn8Service,
     public datepipe: DatePipe,
-    private f01002Scn1Service: F01002Scn1Service
+    private f01002scn1Service: F01002Scn1Service
   ) { }
 
   private applno: string;
@@ -119,8 +117,8 @@ export class Childscn8Component implements OnInit {
     { value: 'O', viewValue: 'LINE BANK 開戶', checked: false },
     { value: 'Z', viewValue: '其他:', checked: false },];
 
-
-
+  showAdd: boolean = false;
+  showEdit: boolean = false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -158,8 +156,8 @@ export class Childscn8Component implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.pageSize=pageSize;
-    this.pageIndex=pageIndex;
+    this.pageSize = pageSize;
+    this.pageIndex = pageIndex;
     this.getCALLOUTFunction(this.pageIndex, this.pageSize);
   }
 
@@ -173,7 +171,9 @@ export class Childscn8Component implements OnInit {
 
   //新增
   Add() {
-    this.f01002Scn1Service.setJCICAddSource({
+    this.showAdd = !this.showAdd
+    this.f01002scn1Service.setJCICAddSource({
+      show: this.showAdd,
       applno: this.applno,//收件編號
       // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
       CON_TYPE: '',//聯絡方式
@@ -191,7 +191,7 @@ export class Childscn8Component implements OnInit {
       CALLOUT_SETTIME: '',//確認時間
       CALLOUT_EMPNO: this.empNo,//徵信員編
       //CALLOUT_YN:''//照會完成
-      speakingData:this.speakingData//照會話術
+      speakingData: this.speakingData//照會話術
     })
     // const dialogRef = this.dialog.open(Childscn8addComponent, {
     //   minHeight: '70vh',
@@ -224,9 +224,9 @@ export class Childscn8Component implements OnInit {
 
   //編輯
   startEdit(CON_TYPE: string, PHONE: string, TEL_CONDITION: string, TEL_CHECK: string, CON_MEMO: string, CALLOUT_DATE: string, ID: string, CALLOUT_SETTIME: string, CALLOUT_YN: string) {
-    // console.log(this.datepipe.transform(CALLOUT_DATE, 'HH'));
-    // console.log(this.datepipe.transform(CALLOUT_DATE, 'mm'));
-    this.f01002Scn1Service.setJCICSource({
+    this.showEdit = !this.showEdit;
+    this.f01002scn1Service.setJCICSource({
+      show: this.showEdit,
       applno: this.applno,//收件編號
       // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
       CON_TYPE: CON_TYPE,//聯絡方式
@@ -246,7 +246,7 @@ export class Childscn8Component implements OnInit {
       CALLOUT_EMPNO: this.empNo,//徵信員編
       CALLOUT_YN: CALLOUT_YN,//照會完成
       // CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
-      speakingData:this.speakingData//照會話術
+      speakingData: this.speakingData//照會話術
     });
     // const dialogRef = this.dialog.open(Childscn8editComponent, {
     //   minHeight: '70vh',
@@ -509,5 +509,5 @@ export class Childscn8Component implements OnInit {
 function roughScale(x, base) {
   const parsed = parseInt(x, base);
   if (isNaN(parsed)) { return 0; }
-  return parsed ;
+  return parsed;
 }
