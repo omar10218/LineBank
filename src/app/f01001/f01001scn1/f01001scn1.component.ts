@@ -99,7 +99,7 @@ export class F01001scn1Component implements OnInit {
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = 'L4';
+    jsonObject['level'] = this.leave;
     this.creditResult = sessionStorage.getItem('creditResult');
     this.f01001Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
       console.log(data)

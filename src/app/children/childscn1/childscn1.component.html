@@ -85,16 +85,16 @@
     <div nz-col nzFlex="3">
       <div style="padding:3px">
         <!-- map -->
-        <div id="map" style="height: 400px; width: 400px; z-index: 2;"></div>
+        <div id="map" style="height: 400px; width: 100%; z-index: 2;"></div>
         <input matInput #input class="form-control" value="距離：{{ distance }} km" readonly disabled>
       </div>
     </div>
-    <div nz-col nzFlex="1">
+    <!-- <div nz-col nzFlex="1">
       <div style="padding:3px"></div>
     </div>
     <div nz-col nzFlex="4">
       <div style="padding:3px"></div>
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -400,11 +400,13 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">核准額度</span><input matInput #input class="form-control"
-          [(ngModel)]="resultApproveAmt" placeholder="輸入額度"></div>
+          [(ngModel)]="resultApproveAmt" placeholder="輸入額度"
+          (ngModelChange)="change(resultApproveAmt,'resultApproveAmt')" (keypress)="numberOnly($event)"></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">每月最低還款比率</span><input matInput #input class="form-control"
-          [(ngModel)]="resultLowestPayRate" placeholder="輸入還款比率"></div>
+          [(ngModel)]="resultLowestPayRate" placeholder="輸入還款比率"
+          (ngModelChange)="change(resultLowestPayRate,'resultLowestPayRate')" (keypress)="numberOnly($event)"></div>
     </div>
   </div>
 

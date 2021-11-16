@@ -112,6 +112,7 @@ export class Childscn1Component implements OnInit {
   pageSize = 50;
 
   ngOnInit(): void {
+    this.sessionNull();
     this.applno = sessionStorage.getItem('applno');
     this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
     .subscribe(data => {
@@ -312,6 +313,7 @@ export class Childscn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['creditaction'] = this.mark;
     jsonObject['creditlevel'] = 'L3';
+    sessionStorage.setItem( 'mark' , this.mark );
     msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
     const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
@@ -334,6 +336,9 @@ export class Childscn1Component implements OnInit {
       this.interestBase = null;
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
     }
+    sessionStorage.setItem('approveInterest' , this.approveInterest.toString() );
+    sessionStorage.setItem('interestType' , this.interestType );
+    sessionStorage.setItem('interest' , this.interest.toString() );
   }
 
   changeInterestValue() {
@@ -364,11 +369,37 @@ export class Childscn1Component implements OnInit {
       } else {
         this.approveInterest = Number(this.interestBase) + Number(this.interest);
       }
+      sessionStorage.setItem('approveInterest' , this.approveInterest.toString() );
+      sessionStorage.setItem('interest' , this.interest.toString() );
     }
   }
 
   open() {
     const url = window.location.href.split("/#");
     window.open( url[0] + "/#/MAP" );
+  }
+
+  change( value: any , valueName: string){
+    sessionStorage.setItem( valueName , value );
+  }
+
+  sessionNull() {
+    sessionStorage.setItem('interestType' , '' );
+    sessionStorage.setItem('approveInterest' , '' );
+    sessionStorage.setItem('interest' , '' );
+    sessionStorage.setItem('mark' , '');
+    sessionStorage.setItem('resultApproveAmt', '');
+    sessionStorage.setItem('resultLowestPayRate', '');
+  }
+
+  numberOnly(event: { which: any; keyCode: any; }): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請輸入數字!' }
+      });
+      return false;
+    }
+    return true;
   }
 }
