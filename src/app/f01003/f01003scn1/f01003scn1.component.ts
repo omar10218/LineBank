@@ -14,7 +14,7 @@ export class F01003scn1Component implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private f01003Scn1Service:F01003Scn1Service
+    private f01003Scn1Service: F01003Scn1Service
   ) { }
 
   private creditLevel: string = 'APPLCreditL2';
@@ -23,6 +23,13 @@ export class F01003scn1Component implements OnInit {
   private cuid: string;
   fds: string;
   private winClose: string = '';
+  creditMemo: string;
+  approveAmt: string;
+  lowestPayRate: string;
+  approveInterest: string;
+  interest: string;
+  interestType: string;
+
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = sessionStorage.getItem('applno');
@@ -37,16 +44,8 @@ export class F01003scn1Component implements OnInit {
     element.click();
   }
 
-  getApplno(): String {
-    return this.applno;
-  }
-
   getSearch(): string {
     return this.search;
-  }
-
-  getCuid(): string {
-    return this.cuid;
   }
 
   getWinClose(): String {
@@ -64,20 +63,33 @@ export class F01003scn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'L2';
 
-    let json:any = {};
-    json['creditMemo'] = "測試";
-    json['approveAmt'] = '2';
-    json['lowestPayRate'] = '1';
-    json['approveInterest'] = '1';
-    json['interest'] = '2';
-    json['interestType'] = '03';
-    jsonObject['creditResult'] = json;
-    this.f01003Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
-      console.log(data)
-    });
+    this.creditMemo = sessionStorage.getItem('mark');
+    this.approveAmt = sessionStorage.getItem('resultApproveAmt');
+    this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');
+    this.approveInterest = sessionStorage.getItem('approveInterest');
+    this.interest = sessionStorage.getItem('interest');
+    this.interestType = sessionStorage.getItem('interestType');
 
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: '案件完成' }
-    });
+    if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '') {
+      let json: any = {};
+      json['creditMemo'] = this.creditMemo;
+      json['approveAmt'] = this.approveAmt;
+      json['lowestPayRate'] = this.lowestPayRate;
+      json['approveInterest'] = this.approveInterest;
+      json['interest'] = this.interest;
+      json['interestType'] = this.interestType;
+      jsonObject['creditResult'] = json;
+      this.f01003Scn1Service.send(baseUrl, jsonObject).subscribe(data => {
+        console.log(data)
+      });
+
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '案件完成' }
+      });
+    } else {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '審核結果未填寫' }
+      });
+    }
   }
 }
