@@ -1,8 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    min-width: 1000px;
-    min-height: 800px;
+    min-width: 60vw;
+    min-height: 100%;
   }
 
   .container > * {
@@ -44,4 +44,13 @@
     font-size:20px
   }
 
-
+  .mat-select{
+    width:100%;
+    display:inline-block;
+    height:30px;
+    font-size:14px;
+    border-radius:5px;
+    border:1px solid #c9c9c9;
+    padding:4px;
+    background-color:#ffffff;
+  }

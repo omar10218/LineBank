@@ -1,17 +1,12 @@
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="add()">新增</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="seve()">儲存</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="del()">刪除</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="test()">測試</button>
-  </div>
+
 </div>
 <div class="line_bank_card_no_padding">
   <nz-table [nzData]="data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle=" ">
     <thead>
       <tr>
         <th class="table-header"> </th>
-        <th class="table-header">科目</th>
+        <th class="table-header" nzWidth="120px">科目</th>
         <th class="table-header">BAM421<br>預設本金</th>
         <th class="table-header">BAM029<br>預設本金</th>
         <th class="table-header">信用卡<br>近一期循環預借未到期金額 </th>
@@ -32,7 +27,7 @@
         <td>
           <div nz-col nzSpan="6">
             <mat-select [(ngModel)]="item.ACCOUNT_CODE" name="ACCOUNT_CODE"  placeholder="請選擇" (ngModelChange)="sujectSelect(item.ID)"
-              style="width:120px;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              style="width:120px;height:25px;border-radius:5px;background-color:white; border:1px solid #c9c9c9;">
               <mat-option *ngFor="let code of sysCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
@@ -77,6 +72,12 @@
       </tr> -->
     </tbody>
   </nz-table>
+  <div style="padding:10px;text-align:center">
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="add()">新增</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="seve()">儲存</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="del()">刪除</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="test()">測試</button>
+  </div>
 </div>
 <br>
 <div class="line_bank_card_no_padding">

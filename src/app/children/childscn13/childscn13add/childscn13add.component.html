@@ -7,8 +7,7 @@
         <div nz-col nzFlex="1">
           <div style="padding:20px">
             <div><span class="form-title-actions">第三方外部網站</span>
-              <mat-select [(ngModel)]="webAddrValue" name="webAddrValue" (ngModelChange)="changeSelect()" required
-                style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              <mat-select [(ngModel)]="webAddrValue" name="webAddrValue" (ngModelChange)="changeSelect()" required>
                 <mat-option *ngFor="let webAddr of data.webAddrOption" [value]="webAddr.codeNo + '=' + webAddr.codeTag">
                   {{webAddr.codeDesc}}
                 </mat-option>
@@ -51,9 +50,8 @@
         </div>
       </div>
     </form>
-    <div nz-row>
-      <div nz-col nzFlex="1">
-        <div style="padding:20px">
+
+        <div style="padding:10px;text-align: center;">
           <div mat-dialog-actions>
             <button nz-button [nzSize]="'middle'" nzType="primary" style="width:7%;" (click)="uploadFile()" [disabled]="!formControl.valid">
               <!-- <mat-icon matSuffix>backup</mat-icon> -->
@@ -73,5 +71,4 @@
       <img [src]="imageSrc" alt='Item image' *ngIf="imageSrc">
     </ng-container>
 
-  </div>
-</div>
+
