@@ -375,13 +375,12 @@ hideBAM031= false;
 
   // 取得聯徵彙整清單
 	getJcicList() {
-    alert(this.applno)
+
 		let jsonObject: any = {}
 		jsonObject['applno'] = this.applno
 		// jsonObject['queryDate'] = this.queryDate
 		this.childbwscn3Service.getMASTERJCICList(jsonObject).subscribe(data => {
-      console.log("111111")
-      console.log(data.rspBody)
+
 			this.listSource = data.rspBody;
 		})
 	}
