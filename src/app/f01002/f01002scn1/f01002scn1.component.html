@@ -159,7 +159,5 @@
   <router-outlet style="padding-top: 70px;display: block;"></router-outlet>
 </div>
 
-<button id="add" (click)="isShowAdd = !isShowAdd">新增</button>
-<app-childscn8add *ngIf="isShowAdd" cdkDrag></app-childscn8add>
-
+<app-childscn8add *ngIf="isShowAdd" cdkDrag [data]="addData"></app-childscn8add>
 <app-childscn8edit *ngIf="editData" cdkDrag [data]="editData"></app-childscn8edit>
