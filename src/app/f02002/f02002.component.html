@@ -1,11 +1,9 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="clear()">清除資料</button>
-  </div>
+
   <!-- 最外層卡片包覆 -->
-  <div class="line_bank_card_no_padding" style="height: 90px;">
+  <br>
+  <div class="line_bank_card_no_padding" style="min-height: 90px;">
     <div nz-row>
       <div nz-col nzFlex="1">
         <div class="form" style="padding:20px">
@@ -31,8 +29,7 @@
       <div nz-col nzFlex="1">
         <div class="form" style="padding:20px">
           <div><span class="form-title-actions">要求補件人員員編</span>
-            <mat-select [(ngModel)]="rescanEmpno"
-              style="width:100%;height:px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-select [(ngModel)]="rescanEmpno">
               <mat-option *ngFor="let code of rescanEmpnoCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
@@ -48,7 +45,10 @@
         </div>
       </div>
     </div>
-    <br>
+    <div style="padding:10px;text-align: center">
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="search()">查詢</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="clear()">清除資料</button>
+    </div>
   </div>
 
   <div class="line_bank_card_no_padding">

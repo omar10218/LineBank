@@ -44,7 +44,7 @@
               </div>
             </div>
           </div>
-          <div nz-col nzSpan="4" style="padding:12px;">
+          <div nz-col nzSpan="4" style="margin-top:13px;">
             <div>
               <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢案件</button>
             </div>
@@ -65,7 +65,7 @@
             (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
               <tr>
-                <th class="table-header" nzLeft (nzSortOrderChange)="sortChange($event)" 
+                <th class="table-header" nzLeft (nzSortOrderChange)="sortChange($event)"
                 [nzSortFn]="true" [nzWidth]="'160px'">收件編號</th>
                 <th class="table-header">流程別</th>
                 <th class="table-header">重查完成</th>

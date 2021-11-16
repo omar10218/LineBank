@@ -32,10 +32,10 @@ mat-grid-tile {
 /* 表單輸入欄 */
 input{
   background-color:white;
-  border-radius: 10px;
+  border-radius: 5px;
   height:30px;
   width:100%;
-  border: 1px solid #E6E6E6;
+  border: 1px solid #c9c9c9;
 }
 /* 表單標題 */
 .form-title{

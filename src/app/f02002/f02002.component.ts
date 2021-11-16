@@ -34,7 +34,7 @@ export class F02002Component implements OnInit {
   dateFormat = 'yyyy/MM/dd';
 
   rescanData: Data[] = [];
-  total = 1;
+  total = 0;
   pageIndex = 1;
   pageSize = 50;
 
