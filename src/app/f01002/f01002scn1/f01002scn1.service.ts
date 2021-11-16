@@ -13,6 +13,8 @@ export class F01002Scn1Service extends BaseService {
   JCICSource$ = this.JCICSource.asObservable();
   private JCICAddSource = new Subject<any>();
   JCICAddSource$ = this.JCICAddSource.asObservable();
+  private JCICItemsSource = new Subject<any>();
+  JCICItemsSource$ = this.JCICItemsSource.asObservable();
 
   setJCICSource(data): void {
     this.JCICSource.next(data);
@@ -20,6 +22,10 @@ export class F01002Scn1Service extends BaseService {
 
   setJCICAddSource(data): void {
     this.JCICAddSource.next(data);
+  }
+
+  setJCICItemsSource(data): void {
+    this.JCICItemsSource.next(data);
   }
 
   dialogData: any;

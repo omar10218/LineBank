@@ -1,83 +1,7 @@
-<!-- 頁面背景 -->
-
-<div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <div *ngIf="getSearch() == 'N'">
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="Add()">新增</button>
-    </div>
-    <div *ngIf="getSearch() != 'N'">
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="Add()" disabled >新增</button>
-    </div>
-
-  </div>
-
-  <!-- <app-childscn8edit class="example-box" cdkDrag></app-childscn8edit> -->
-  <br>
+<div class="container" style="padding:20px;">
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">
     <!-- 表格 -->
-    <nz-table nzShowSizeChanger [nzData]="CALLOUTSource.data" [nzFrontPagination]="false" [nzSimple]="true"
-      [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="徵信照會設定">
-      <thead>
-        <tr>
-          <th class="table-header">聯絡方式</th>
-          <th class="table-header">手機/市話</th>
-          <th class="table-header">電話狀況</th>
-          <th class="table-header">電話驗證</th>
-          <th class="table-header">備註</th>
-          <th class="table-header">確認時間</th>
-          <th class="table-header">設定下次照會時間</th>
-          <th class="table-header">照會完成</th>
-          <th class="table-header">編輯</th>
-          <th class="table-header">刪除</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of CALLOUTSource.data">
-          <td class="table-data">{{ row.CON_TYPE_View }}</td>
-          <td class="table-data">{{ row.PHONE }}</td>
-          <td class="table-data">{{ row.TEL_CONDITION_View }}</td>
-          <td class="table-data">{{ row.TEL_CHECK_View }}</td>
-          <td class="table-data">{{ row.CON_MEMO }}</td>
-          <td class="table-data">{{ row.CALLOUT_SETTIME| date:"yyyy-MM-dd HH:mm" }}</td>
-          <td class="table-data">{{ row.CALLOUT_DATE | date:"yyyy-MM-dd HH:mm" }}</td>
-          <td class="table-data">{{ row.CALLOUT_YN_View }}</td>
-          <td class="table-data">
-            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'middle'" nzType="primary" (click)="startEdit(
-              row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)">編輯</button>
-
-              <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'middle'" nzType="primary" (click)="startEdit(
-              row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" disabled >編輯</button>
-          </td>
-          <td class="table-data">
-            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="deleteItem(
-              row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)">刪除</button>
-              <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'middle'" nzType="default" (click)="deleteItem(
-                row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" disabled >刪除</button>
-          </td>
-        </tr>
-      </tbody>
-    </nz-table>
-  </div>
-
-
-  <!-- <div *ngFor="let speaking of speakingData" style="padding-left: 20px;">
-    <button type="submit" style="float:left" mat-raised-button
-      (click)="ShowspeakingContenta(speaking.speakingContent)">{{speaking.speakingAbbreviation}}</button>
-  </div>
-  <br> -->
-
-  <div *ngIf="getSearch() == 'N'" style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="items()">儲存</button>
-  </div>
-
-  <div *ngIf="getSearch() != 'N'" style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="save()" disabled >儲存</button>
-  </div>
-  <!-- 最外層卡片包覆 -->
-  <div class="line_bank_card_no_padding">
-  <!-- 表格 -->
     <nz-table [nzData]="MDtable" nzSize="small" nzTitle="照會項目">
       <thead>
         <tr>
@@ -121,7 +45,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled disabled name="CHECK_DATE1">{{MDtable[0].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled disabled name="CHECK_DATE1">{{MDtable[0].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[0].CHECK_EMPNO" disabled disabled name="CHECK_EMPNO1"></textarea>
@@ -156,7 +80,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE2">{{MDtable[1].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE2">{{MDtable[1].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[1].CHECK_EMPNO" disabled name="CHECK_EMPNO2"></textarea>
@@ -191,7 +115,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE3">{{MDtable[2].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE3">{{MDtable[2].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[2].CHECK_EMPNO" disabled name="CHECK_EMPNO3"></textarea>
@@ -215,7 +139,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE4">{{MDtable[3].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE4">{{MDtable[3].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[3].CHECK_EMPNO" disabled name="CHECK_EMPNO4"></textarea>
@@ -250,7 +174,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE5">{{MDtable[4].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE5">{{MDtable[4].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[4].CHECK_EMPNO" disabled name="CHECK_EMPNO5"></textarea>
@@ -284,7 +208,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE6">{{MDtable[5].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE6">{{MDtable[5].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[5].CHECK_EMPNO" disabled name="CHECK_EMPNO6"></textarea>
@@ -318,7 +242,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE7">{{MDtable[6].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE7">{{MDtable[6].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[6].CHECK_EMPNO" disabled name="CHECK_EMPNO7"></textarea>
@@ -346,7 +270,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE8">{{MDtable[7].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE8">{{MDtable[7].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[7].CHECK_EMPNO" disabled name="CHECK_EMPNO8"></textarea>
@@ -379,7 +303,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE9">{{MDtable[8].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE9">{{MDtable[8].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[8].CHECK_EMPNO" disabled name="CHECK_EMPNO9"></textarea>
@@ -412,7 +336,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE10">{{MDtable[9].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE10">{{MDtable[9].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[9].CHECK_EMPNO" disabled name="CHECK_EMPNO10"></textarea>
@@ -445,7 +369,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE11">{{MDtable[10].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE11">{{MDtable[10].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[10].CHECK_EMPNO" disabled name="CHECK_EMPNO11"></textarea>
@@ -471,7 +395,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE12">{{MDtable[11].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE12">{{MDtable[11].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[11].CHECK_EMPNO" disabled name="CHECK_EMPNO12"></textarea>
@@ -497,7 +421,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE13">{{MDtable[12].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE13">{{MDtable[12].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[12].CHECK_EMPNO" disabled name="CHECK_EMPNO13"></textarea>
@@ -510,9 +434,10 @@
           <td class="table-data">{{MDtable[13]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">此區提供可複選
-            <nz-checkbox-wrapper  *ngFor="let data of REPLY_CONDITION14code;">
+            <nz-checkbox-wrapper *ngFor="let data of REPLY_CONDITION14code;">
               <div nz-row>
-                <label nz-checkbox nzValue={{data.viewValue}} [(ngModel)]="data.checked" name={{data.viewValue}}>{{data.viewValue}}</label>
+                <label nz-checkbox nzValue={{data.viewValue}} [(ngModel)]="data.checked"
+                  name={{data.viewValue}}>{{data.viewValue}}</label>
               </div>
             </nz-checkbox-wrapper>
           </td>
@@ -521,7 +446,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE14">{{MDtable[13].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE14">{{MDtable[13].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[13].CHECK_EMPNO" disabled name="CHECK_EMPNO14"></textarea>
@@ -529,7 +454,7 @@
         </tr>
 
         <tr>
-          <td class="table-data" rowspan="2" >13</td>
+          <td class="table-data" rowspan="2">13</td>
           <td class="table-data">{{ MDtable[14]?.MD_NO.viewValue }}</td>
           <td class="table-data">{{MDtable[14]?.txt}}</td>
           <td class="table-data"></td>
@@ -545,7 +470,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE15">{{MDtable[14].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE15">{{MDtable[14].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[14].CHECK_EMPNO" disabled name="CHECK_EMPNO15"></textarea>
@@ -568,7 +493,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE16">{{MDtable[15].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE16">{{MDtable[15].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[15].CHECK_EMPNO" disabled name="CHECK_EMPNO16"></textarea>
@@ -581,9 +506,10 @@
           <td class="table-data">{{MDtable[16]?.txt}}</td>
           <td class="table-data"></td>
           <td class="table-data">此區提供可複選
-            <nz-checkbox-wrapper  *ngFor="let data of REPLY_CONDITION17code;">
+            <nz-checkbox-wrapper *ngFor="let data of REPLY_CONDITION17code;">
               <div nz-row>
-                <label nz-checkbox nzValue={{data.viewValue}} [(ngModel)]="data.checked" name={{data.viewValue}}>{{data.viewValue}}</label>
+                <label nz-checkbox nzValue={{data.viewValue}} [(ngModel)]="data.checked"
+                  name={{data.viewValue}}>{{data.viewValue}}</label>
               </div>
             </nz-checkbox-wrapper>
           </td>
@@ -592,7 +518,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE17">{{MDtable[16].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE17">{{MDtable[16].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[16].CHECK_EMPNO" disabled name="CHECK_EMPNO17"></textarea>
@@ -617,7 +543,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE18">{{MDtable[17].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE18">{{MDtable[17].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[17].CHECK_EMPNO" disabled name="CHECK_EMPNO18"></textarea>
@@ -641,7 +567,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE19">{{MDtable[18].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE19">{{MDtable[18].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[18].CHECK_EMPNO" disabled name="CHECK_EMPNO19"></textarea>
@@ -665,7 +591,7 @@
               rows="4"></textarea>
           </td>
           <td class="table-data">
-            <textarea  disabled name="CHECK_DATE20">{{MDtable[19].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
+            <textarea disabled name="CHECK_DATE20">{{MDtable[19].CHECK_DATE| date:"yyyy-MM-dd HH:mm"}}</textarea>
           </td>
           <td class="table-data">
             <textarea [(ngModel)]="MDtable[19].CHECK_EMPNO" disabled name="CHECK_EMPNO20"></textarea>
@@ -673,5 +599,12 @@
         </tr>
       </tbody>
     </nz-table>
+    <br>
+    <div mat-dialog-actions style="padding:5px">
+      <button nz-button [nzSize]="'middle'" nzType="primary" [mat-dialog-close]="1" style="margin:0px 5px"
+        (click)="save()">儲存</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+        style="margin:0px 5px">取消</button>
+    </div>
   </div>
 </div>

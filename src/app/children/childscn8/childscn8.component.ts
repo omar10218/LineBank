@@ -119,6 +119,7 @@ export class Childscn8Component implements OnInit {
 
   showAdd: boolean = false;
   showEdit: boolean = false;
+  showItems: boolean = false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -437,69 +438,76 @@ export class Childscn8Component implements OnInit {
   // }
 
   //照會項目儲存
-  async save() {
+  // async save() {
 
-    let msgStr: string = "";
-    let codeStr: string = "";
-    let checkItem = "";
-    let checkData = "";
-    let replyCondition = "";
-    let checkNote = "";
+  //   let msgStr: string = "";
+  //   let codeStr: string = "";
+  //   let checkItem = "";
+  //   let checkData = "";
+  //   let replyCondition = "";
+  //   let checkNote = "";
 
-    // 多選先做另外處理
-    this.MDtable[13].REPLY_CONDITION = "";//共20筆0開始
-    for (var data of this.REPLY_CONDITION14code) {//共20筆1開始
-      if (data.checked) { this.MDtable[13].REPLY_CONDITION += data.value + ","; }
-    }
-    this.MDtable[16].REPLY_CONDITION = "";//共20筆0開始
-    for (var data of this.REPLY_CONDITION17code) {//共20筆1開始
-      if (data.checked) { this.MDtable[16].REPLY_CONDITION += data.value + ","; }
-    }
-    //有資料則消除最後一筆分隔記號
-    this.MDtable[13].REPLY_CONDITION = this.MDtable[13].REPLY_CONDITION.length > 0 ?
-      this.MDtable[13].REPLY_CONDITION.slice(0, this.MDtable[13].REPLY_CONDITION.length - 1) :
-      this.MDtable[13].REPLY_CONDITION;
+  //   // 多選先做另外處理
+  //   this.MDtable[13].REPLY_CONDITION = "";//共20筆0開始
+  //   for (var data of this.REPLY_CONDITION14code) {//共20筆1開始
+  //     if (data.checked) { this.MDtable[13].REPLY_CONDITION += data.value + ","; }
+  //   }
+  //   this.MDtable[16].REPLY_CONDITION = "";//共20筆0開始
+  //   for (var data of this.REPLY_CONDITION17code) {//共20筆1開始
+  //     if (data.checked) { this.MDtable[16].REPLY_CONDITION += data.value + ","; }
+  //   }
+  //   //有資料則消除最後一筆分隔記號
+  //   this.MDtable[13].REPLY_CONDITION = this.MDtable[13].REPLY_CONDITION.length > 0 ?
+  //     this.MDtable[13].REPLY_CONDITION.slice(0, this.MDtable[13].REPLY_CONDITION.length - 1) :
+  //     this.MDtable[13].REPLY_CONDITION;
 
-    this.MDtable[16].REPLY_CONDITION = this.MDtable[16].REPLY_CONDITION.length > 0 ?
-      this.MDtable[16].REPLY_CONDITION.slice(0, this.MDtable[16].REPLY_CONDITION.length - 1) :
-      this.MDtable[16].REPLY_CONDITION;
+  //   this.MDtable[16].REPLY_CONDITION = this.MDtable[16].REPLY_CONDITION.length > 0 ?
+  //     this.MDtable[16].REPLY_CONDITION.slice(0, this.MDtable[16].REPLY_CONDITION.length - 1) :
+  //     this.MDtable[16].REPLY_CONDITION;
 
-    console.log('this.MDtable[13].REPLY_CONDITION');
-    console.log(this.MDtable[13].REPLY_CONDITION);
-    console.log('this.MDtable[16].REPLY_CONDITION');
-    console.log(this.MDtable[16].REPLY_CONDITION);
+  //   console.log('this.MDtable[13].REPLY_CONDITION');
+  //   console.log(this.MDtable[13].REPLY_CONDITION);
+  //   console.log('this.MDtable[16].REPLY_CONDITION');
+  //   console.log(this.MDtable[16].REPLY_CONDITION);
 
-    for (const calloutData of this.MDtable) {
-      checkItem += calloutData.MD_NO.value + ",";
-      checkData += (calloutData.CHECK_DATA != "" && calloutData.CHECK_DATA != null) ? calloutData.CHECK_DATA + "," : "*,";
-      replyCondition += (calloutData.REPLY_CONDITION != "" && calloutData.REPLY_CONDITION != null) ? calloutData.REPLY_CONDITION + "-" : "*-";
-      checkNote += (calloutData.CHECK_NOTE != "" && calloutData.CHECK_NOTE != null) ? calloutData.CHECK_NOTE + "," : "*,";
-    }
-    //有資料則消除最後一筆分隔記號
-    checkItem = checkItem.length > 0 ? checkItem.slice(0, checkItem.length - 1) : checkItem;
-    checkData = checkData.length > 0 ? checkData.slice(0, checkData.length - 1) : checkData;
-    replyCondition = replyCondition.length > 0 ? replyCondition.slice(0, replyCondition.length - 1) : replyCondition;
-    checkNote = checkNote.length > 0 ? checkNote.slice(0, checkNote.length - 1) : checkNote;
+  //   for (const calloutData of this.MDtable) {
+  //     checkItem += calloutData.MD_NO.value + ",";
+  //     checkData += (calloutData.CHECK_DATA != "" && calloutData.CHECK_DATA != null) ? calloutData.CHECK_DATA + "," : "*,";
+  //     replyCondition += (calloutData.REPLY_CONDITION != "" && calloutData.REPLY_CONDITION != null) ? calloutData.REPLY_CONDITION + "-" : "*-";
+  //     checkNote += (calloutData.CHECK_NOTE != "" && calloutData.CHECK_NOTE != null) ? calloutData.CHECK_NOTE + "," : "*,";
+  //   }
+  //   //有資料則消除最後一筆分隔記號
+  //   checkItem = checkItem.length > 0 ? checkItem.slice(0, checkItem.length - 1) : checkItem;
+  //   checkData = checkData.length > 0 ? checkData.slice(0, checkData.length - 1) : checkData;
+  //   replyCondition = replyCondition.length > 0 ? replyCondition.slice(0, replyCondition.length - 1) : replyCondition;
+  //   checkNote = checkNote.length > 0 ? checkNote.slice(0, checkNote.length - 1) : checkNote;
 
-    const baseUrl = 'f01/childscn8action5';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['empNo'] = this.empNo;
-    jsonObject['checkItem'] = checkItem;
-    jsonObject['checkData'] = checkData;
-    jsonObject['replyCondition'] = replyCondition;
-    jsonObject['checkNote'] = checkNote;
-    console.log('console.log(jsonObject);');
-    console.log(jsonObject);
-    await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
-      console.log('data');
-      console.log(data);
-      codeStr = data.rspCode;
-      msgStr = data.rspMsg;
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: msgStr }
-      });
-      if (msgStr != null && (msgStr == '儲存成功!' || msgStr == '1')) { this.refreshTable(); }
+  //   const baseUrl = 'f01/childscn8action5';
+  //   let jsonObject: any = {};
+  //   jsonObject['applno'] = this.applno;
+  //   jsonObject['empNo'] = this.empNo;
+  //   jsonObject['checkItem'] = checkItem;
+  //   jsonObject['checkData'] = checkData;
+  //   jsonObject['replyCondition'] = replyCondition;
+  //   jsonObject['checkNote'] = checkNote;
+  //   console.log('console.log(jsonObject);');
+  //   console.log(jsonObject);
+  //   await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
+  //     console.log('data');
+  //     console.log(data);
+  //     codeStr = data.rspCode;
+  //     msgStr = data.rspMsg;
+  //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+  //       data: { msgStr: msgStr }
+  //     });
+  //     if (msgStr != null && (msgStr == '儲存成功!' || msgStr == '1')) { this.refreshTable(); }
+  //   });
+  // }
+
+  items() {
+    this.showItems = !this.showItems;
+    this.f01002scn1Service.setJCICItemsSource({
+      show: this.showItems
     });
   }
 

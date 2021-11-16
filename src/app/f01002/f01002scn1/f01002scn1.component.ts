@@ -30,6 +30,9 @@ export class F01002scn1Component implements OnInit {
       this.editData = data;
       this.isShowEdit = data.show;
     });
+    this.JCICSource$ = this.f01002scn1Service.JCICItemsSource$.subscribe((data) => {
+      this.isShowItems = data.show;
+    });
   }
 
   private creditLevel: string = 'APPLCreditL3';
@@ -44,6 +47,7 @@ export class F01002scn1Component implements OnInit {
   editData: any;
   isShowAdd: boolean;
   isShowEdit: boolean;
+  isShowItems: boolean;
   JCICSource$: Subscription;
   JCICAddSource$: Subscription;
 
