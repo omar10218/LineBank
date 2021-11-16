@@ -249,26 +249,36 @@ export class F03014Component implements OnInit {
   }
   execlExport()//匯出
   {
-    const url = 'f03/f03014action06';
-    let jsonObject: any = {};
-    let blob:Blob;
+    if(this.NameValue ==''&& this.IdentityValue ==''&& this.NarrateValue =='' &&
+    this.Efficient ==null && this.Invalidation == null && this.usingValue == '')
+    {
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請至少選擇一項條件" }
+      });
+    }
+    else
+    {
+      const url = 'f03/f03014action06';
+      let jsonObject: any = {};
+      let blob:Blob;
+      jsonObject['custNid'] = this.IdentityValue;
+      jsonObject['custName'] = this.NameValue;
+      jsonObject['content1'] = this.NarrateValue;
+      jsonObject['effectiveDate'] = this.Efficient;
+      jsonObject['expirationDate'] = this.Invalidation;
+      jsonObject['useFlag'] = this.usingValue;
+      let opton =  { responseType: 'blob' as 'json' };
+      this.f03014Service.downloadExcel(url,jsonObject).subscribe(data=>{
+        blob = new Blob([data], { type: ' application/xlsx' });
+        let downloadURL = window.URL.createObjectURL(blob);
+        let link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = "客戶身分名單註記" +  this.myDate  + ".xlsx"; //瀏覽器下載時的檔案名稱
+        link.click();
 
-    jsonObject['custNid'] = this.IdentityValue;
-    jsonObject['custName'] = this.NameValue;
-    jsonObject['content1'] = this.NarrateValue;
-    jsonObject['effectiveDate'] = this.Efficient;
-    jsonObject['expirationDate'] = this.Invalidation;
-    jsonObject['useFlag'] = this.usingValue;
-    let opton =  { responseType: 'blob' as 'json' };
-    this.f03014Service.downloadExcel(url,jsonObject).subscribe(data=>{
-      blob = new Blob([data], { type: ' application/xlsx' });
-      let downloadURL = window.URL.createObjectURL(blob);
-      let link = document.createElement('a');
-      link.href = downloadURL;
-      link.download = "客戶身分名單註記" +  this.myDate  + ".xlsx"; //瀏覽器下載時的檔案名稱
-      link.click();
+      })
 
-    })
+    }
 
   }
   onQueryParamsChange(params: NzTableQueryParams): void {

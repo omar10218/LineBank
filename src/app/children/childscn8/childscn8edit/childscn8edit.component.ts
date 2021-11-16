@@ -4,6 +4,7 @@ import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dial
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn8Service } from '../childscn8.service';
 import { DatePipe } from '@angular/common'
+import { OptionsCode } from 'src/app/interface/base';
 
 //Nick  徵信照會 編輯
 @Component({
@@ -40,11 +41,57 @@ export class Childscn8editComponent implements OnInit {
   CON_MEMO_Selected: string;//註記種類
   speakingContent:string;//話述內容
   speakingAbbreviation:string;//話術名稱
+  CON_TYPE_Code: OptionsCode[] = [];//聯絡方式下拉選單
+  TEL_CONDITION_Code: OptionsCode[] = [];//電話狀況下拉選單
+  TEL_CHECK_Code: OptionsCode[] = [];//電話種類下拉選單
+  HOURS_Code: OptionsCode[] = [];//時下拉選單
+  MINUTES_Code: OptionsCode[] = [];//分下拉選單
+  CALLOUT_YN_Code: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' },];//照會完成下拉選單
 
   submit() {
   }
 
   ngOnInit(): void {
+    this.childscn8Service.getSysTypeCode('HOURS')//時下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.HOURS_Code.push({ value: codeNo, viewValue: desc })
+      }
+    });
+  this.childscn8Service.getSysTypeCode('MINUTES')//分下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.MINUTES_Code.push({ value: codeNo, viewValue: desc })
+      }
+    });
+  this.childscn8Service.getSysTypeCode('CON_TYPE')//聯絡方式下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.CON_TYPE_Code.push({ value: codeNo, viewValue: desc })
+      }
+    });
+  this.childscn8Service.getSysTypeCode('TEL_CONDITION')//電話狀況下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.TEL_CONDITION_Code.push({ value: codeNo, viewValue: desc })
+      }
+    });
+  this.childscn8Service.getSysTypeCode('TEL_CHECK')//電話種類下拉選單
+    .subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.TEL_CHECK_Code.push({ value: codeNo, viewValue: desc })
+      }
+    });
    }
 
    //儲存

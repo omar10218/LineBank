@@ -57,10 +57,11 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
   // BAS006: any[] = [];
   // STS007: any[] = [];
 
-  list: any[] = [];
+list: any[] = [];
 
+hideAll = false;
 hideJCICMASTER = false;
-hideJCIC = false;
+hideJCIC = true;
 hideBAM421= false;
 hideBAM101= false;
 hideKRM048= false;
@@ -375,16 +376,25 @@ hideBAM031= false;
 
   // 取得聯徵彙整清單
 	getJcicList() {
-    alert(this.applno)
+
 		let jsonObject: any = {}
 		jsonObject['applno'] = this.applno
 		// jsonObject['queryDate'] = this.queryDate
 		this.childbwscn3Service.getMASTERJCICList(jsonObject).subscribe(data => {
-      console.log("111111")
-      console.log(data.rspBody)
+
 			this.listSource = data.rspBody;
 		})
 	}
+  showJCIC() {
+    this.setBooleanTrue();
+    this.hideAll = true;
+    this.list = [];
+    this.hideJCIC = !this.hideJCIC;
+    if ( this.hideJCIC === true ) {
+      this.setBooleanFalse();
+      this.hideAll = false;
+    }
+  }
 
   getJcicMultiple() {
     let jsonObject: any = {};
@@ -441,7 +451,7 @@ hideBAM031= false;
 
   setBooleanTrue() {
     this.hideJCICMASTER = true;
-    this.hideJCIC = true;
+    // this.hideJCIC = true;
     // this.hideKCM012 = true;
     // this.hideDAM001 = true;
     // this.hideBAM061 = true;
@@ -478,7 +488,7 @@ hideBAM031= false;
 
   setBooleanFalse() {
     this.hideJCICMASTER = false;
-    this.hideJCIC = false;
+    // this.hideJCIC = false;
     this.hideBAM421= false;
     this.hideBAM101= false;
     this.hideKRM048= false;
@@ -544,6 +554,7 @@ hideBAM031= false;
   }
 
   show(who: string) {
+    this.hideJCIC = true;
     if (this.list.indexOf(who) !== -1) {
       const index: number = this.list.indexOf(who);
       this.list.splice(index, 1);
@@ -564,6 +575,8 @@ hideBAM031= false;
   }
 
   all() {
+    this.hideAll = false;
+    this.hideJCIC = true;
     this.setBooleanFalse();
     this.list = [];
   }

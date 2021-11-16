@@ -105,11 +105,11 @@ export class F01003Component implements OnInit, AfterViewInit {
   getLockCase(swcApplno: string, swcID: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
-    this.f01003Service.getLockCase(jsonObject).subscribe(data => {
-      if (data.rspBody.length > 0) {
-        this.fds = data.rspBody[0].fds
-      }
-      if (data.rspMsg == '案件鎖定成功') {
+    // this.f01003Service.getLockCase(jsonObject).subscribe(data => {
+    //   if (data.rspBody.length > 0) {
+    //     this.fds = data.rspBody[0].fds
+    //   }
+      // if (data.rspMsg == '案件鎖定成功') {
         sessionStorage.setItem('applno', swcApplno);
         sessionStorage.setItem('cuid', swcID);
         sessionStorage.setItem('search', 'N');
@@ -117,9 +117,10 @@ export class F01003Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('level', '2');
         sessionStorage.setItem('stepName', this.stepName);
-        this.router.navigate(['./F01002/F01002SCN1']);
-      }
-    });
+        this.router.navigate(['./F01003/F01003SCN1']);
+    //   }
+    // });
+
   }
 
   // 儲存案件註記

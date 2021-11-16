@@ -4,6 +4,7 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn8Service } from '../childscn8.service';
 import { FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common'
+import { OptionsCode } from 'src/app/interface/base';
 
 //Nick 徵信照會 新增
 @Component({
@@ -34,16 +35,74 @@ export class Childscn8addComponent implements OnInit {
   submit() {
   }
 
+  CON_TYPE_Code: OptionsCode[] = [];//聯絡方式下拉選單
+  TEL_CONDITION_Code: OptionsCode[] = [];//電話狀況下拉選單
+  TEL_CHECK_Code: OptionsCode[] = [];//電話種類下拉選單
+  HOURS_Code: OptionsCode[] = [];//時下拉選單
+  MINUTES_Code: OptionsCode[] = [];//分下拉選單
+
   CALLOUT_DATE: Date; //設定下次照會時間
   CON_TEL_Selected: string;//電話種類
   CON_TARGET_Selected: string;//對象種類
   CON_MEMO_Selected: string;//註記種類
-  speakingContent:string;//話述內容
-  speakingAbbreviation:string;//話術名稱
+  speakingContent: string;//話述內容
+  speakingAbbreviation: string;//話術名稱
 
   ngOnInit(): void {
     console.log('data.speakingData');
     console.log(this.data.speakingData);
+
+    this.childscn8Service.getSysTypeCode('HOURS')//時下拉選單
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.HOURS_Code.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    console.log('HOURS');
+    console.log(this.HOURS_Code);
+
+    this.childscn8Service.getSysTypeCode('MINUTES')//分下拉選單
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.MINUTES_Code.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    console.log('MINUTES_Code');
+    console.log(this.MINUTES_Code);
+    this.childscn8Service.getSysTypeCode('CON_TYPE')//聯絡方式下拉選單
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.CON_TYPE_Code.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    console.log('CON_TYPE_Code');
+    console.log(this.CON_TYPE_Code);
+    this.childscn8Service.getSysTypeCode('TEL_CONDITION')//電話狀況下拉選單
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.TEL_CONDITION_Code.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    console.log('TEL_CONDITION_Code');
+    console.log(this.TEL_CONDITION_Code);
+    this.childscn8Service.getSysTypeCode('TEL_CHECK')//電話種類下拉選單
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.TEL_CHECK_Code.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    console.log('TEL_CHECK_Code');
+    console.log(this.TEL_CHECK_Code);
   }
 
   //儲存
@@ -82,8 +141,8 @@ export class Childscn8addComponent implements OnInit {
   }
 
   //顯示話述內容
-  ShowspeakingContenta(name:string,msg:string){
-    this.speakingAbbreviation=name;
-    this.speakingContent=msg;
+  ShowspeakingContenta(name: string, msg: string) {
+    this.speakingAbbreviation = name;
+    this.speakingContent = msg;
   }
 }
