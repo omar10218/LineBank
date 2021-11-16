@@ -53,13 +53,14 @@ export class LoginComponent {
       console.log(this.no, this.pwd);
       localStorage.setItem("empNo", this.no);
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
-      if (!this.bnIdle['idle$']) {
-        this.bnIdle.startWatching( 60 * 10 ).subscribe((isTimedOut: boolean) => {
-          if (isTimedOut) { this.routerGoUrl(); }
-        });
-      } else {
-        this.bnIdle.resetTimer();
-      }
+      this.loginService.setBnIdle();
+      // if (!this.bnIdle['idle$']) {
+      //   this.bnIdle.startWatching( 60 * 10 ).subscribe((isTimedOut: boolean) => {
+      //     if (isTimedOut) { this.routerGoUrl(); }
+      //   });
+      // } else {
+      //   this.bnIdle.resetTimer();
+      // }
       sessionStorage.setItem('BusType', JSON.stringify(await this.loginService.getRuleCode('BUS_TYPE')));
       sessionStorage.setItem('ParmType', JSON.stringify(await this.loginService.getRuleCode('PARM_TYPE')));
       sessionStorage.setItem('ParmDim', JSON.stringify(await this.loginService.getRuleCode('PARM_DIM')));
@@ -72,14 +73,14 @@ export class LoginComponent {
     }
   }
 
-  private routerGoUrl(): void {
-    localStorage.clear();
-    sessionStorage.clear();
-    this.bnIdle.stopTimer();
-    this.router.navigate(['./logOut']);
-    alert('閒置過久已登出');
+  // private routerGoUrl(): void {
+  //   localStorage.clear();
+  //   sessionStorage.clear();
+  //   this.bnIdle.stopTimer();
+  //   this.router.navigate(['./logOut']);
+  //   alert('閒置過久已登出');
 
-  }
+  // }
   changeImage() {
     this.hide = !this.hide;
     this.imgSrc = this.hide ? this.SrcEyeOff : this.SrcEye;

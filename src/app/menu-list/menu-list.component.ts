@@ -2,19 +2,19 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuListService } from './menu-list.service';
 import { Menu } from './menu.model';
-import { BnNgIdleService } from 'bn-ng-idle';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-menu-list',
   templateUrl: './menu-list.component.html',
   styleUrls: ['./menu-list.component.css']
 })
-export class MenuListComponent {
+export class MenuListComponent implements OnInit {
   empNo: string = localStorage.getItem("empNo");
   constructor(
     private router: Router,
     private menuListService: MenuListService,
-    private bnIdle: BnNgIdleService
+    private loginService: LoginService,
   ) { }
 
   @HostListener('document:mousemove', ['$event'])
@@ -22,7 +22,11 @@ export class MenuListComponent {
   @HostListener('document:click', ['$event'])
   @HostListener('document:wheel', ['$event'])
   userOnAction() {
-    this.bnIdle.resetTimer();
+    this.loginService.setBnIdle();
+  }
+
+  ngOnInit() {
+    this.loginService.setBnIdle();
   }
 
   getMenu(): Menu[] { return this.menuListService.getMap(); }
