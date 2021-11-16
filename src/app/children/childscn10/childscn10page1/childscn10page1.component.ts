@@ -207,6 +207,8 @@ export class Childscn10page1Component implements OnInit {
 
   getstepName(): String {
     return this.stepName;
+    //測試用
+    // return "APPLCreditL2";
   }
   //取決策1Table
   getDSS11() {
@@ -445,6 +447,8 @@ export class Childscn10page1Component implements OnInit {
     const url = 'f01/childscn10action4';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
+       //測試用
+      //  jsonObject['applno'] = '20210827E000';
     jsonObject['dssType'] = "Dss1";
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
       if (data.rspBody.length > 0) {
@@ -465,6 +469,55 @@ export class Childscn10page1Component implements OnInit {
         this.fmData.data[0].mthpay_BAM029_B = this.fmData.data[0].mthpay_BAM029_B == null ? this.fmData.data[0].mthpay_BAM029 : this.fmData.data[0].mthpay_BAM029_B;
         this.fmData.data[0].mthpay_KRM048_B = this.fmData.data[0].mthpay_KRM048_B == null ? this.fmData.data[0].mthpay_KRM048 : this.fmData.data[0].mthpay_KRM048_B;
         this.fmData.data[0].mthpay_NONJCIC_B = this.fmData.data[0].mthpay_NONJCIC_B == null ? this.fmData.data[0].mthpay_NONJCIC : this.fmData.data[0].mthpay_NONJCIC_B;
+
+
+        this.fmData.data[0].unsdebt_AMT_501EX_B = this.data_number2(this.fmData.data[0].unsdebt_AMT_501EX_B);
+        this.fmData.data[0].unsdebt_AMT_504EX_B = this.data_number2(this.fmData.data[0].unsdebt_AMT_504EX_B);
+        this.fmData.data[0].unsdebt_AMTNEW_505EX_B = this.data_number2(this.fmData.data[0].unsdebt_AMTNEW_505EX_B);
+        this.fmData.data[0].unsdebt_AMTNEW_029EX_B = this.data_number2(this.fmData.data[0].unsdebt_AMTNEW_029EX_B);
+        this.fmData.data[0].unsdebt_824_RLLIMIT_B = this.data_number2(this.fmData.data[0].unsdebt_824_RLLIMIT_B);
+        this.fmData.data[0].unsdebt_824_RLBAL_B = this.data_number2(this.fmData.data[0].unsdebt_824_RLBAL_B);
+        this.fmData.data[0].unsdebt_824_ILBAL_B = this.data_number2(this.fmData.data[0].unsdebt_824_ILBAL_B);
+        this.fmData.data[0].unsdebt_824_CCRBAL_B = this.data_number2(this.fmData.data[0].unsdebt_824_CCRBAL_B);
+        this.fmData.data[0].unsdebt_NONJCIC_B = this.data_number2(this.fmData.data[0].unsdebt_NONJCIC_B);
+        this.fmData.data[0].unsdebt_PAYAMT_029EX_B = this.data_number2(this.fmData.data[0].unsdebt_PAYAMT_029EX_B);
+
+        this.fmData.data[0].mthpay_BAM421_B = this.data_number2(this.fmData.data[0].mthpay_BAM421_B);
+        this.fmData.data[0].mthpay_BAM029_B = this.data_number2(this.fmData.data[0].mthpay_BAM029_B);
+        this.fmData.data[0].mthpay_KRM048_B = this.data_number2(this.fmData.data[0].mthpay_KRM048_B);
+        this.fmData.data[0].mthpay_NONJCIC_B = this.data_number2(this.fmData.data[0].mthpay_NONJCIC_B);
+
+        //測試用
+        // this.fmData.data[0].unsdebt_AMT_504EX_B = "1";
+        // this.fmData.data[0].unsdebt_AMTNEW_505EX_B = "1";
+        // this.fmData.data[0].unsdebt_AMTNEW_029EX_B = "1";
+        // this.fmData.data[0].unsdebt_824_RLLIMIT_B = "1";
+        // this.fmData.data[0].unsdebt_824_RLBAL_B = "1";
+        // this.fmData.data[0].unsdebt_824_ILBAL_B = "1";
+        // this.fmData.data[0].unsdebt_824_B = "1";
+        // this.fmData.data[0].unsdebt_NONJCIC_B = "1";
+        // this.fmData.data[0].unsdebt_PAYAMT_029EX_B = "1";
+
+        // this.fmData.data[0].mthpay_BAM421_B = "1";
+        // this.fmData.data[0].mthpay_BAM029_B = "1";
+        // this.fmData.data[0].mthpay_KRM048_B = "1";
+        // this.fmData.data[0].mthpay_NONJCIC_B = "1";
+        // this.fmData.data[0].unsdebt_AMT_501EX = "1";
+        // this.fmData.data[0].unsdebt_AMT_504EX = "1";
+        // this.fmData.data[0].unsdebt_AMTNEW_505EX = "1";
+        // this.fmData.data[0].unsdebt_AMTNEW_029EX = "1";
+        // this.fmData.data[0].unsdebt_824_RLLIMIT = "1";
+        // this.fmData.data[0].unsdebt_824_RLBAL = "1";
+        // this.fmData.data[0].unsdebt_824_ILBAL = "1";
+        // this.fmData.data[0].unsdebt_824 = "1";
+        // this.fmData.data[0].unsdebt_NONJCIC = "1";
+        // this.fmData.data[0].unsdebt_PAYAMT_029EX = "1";
+
+        // this.fmData.data[0].mthpay_BAM421 = "1";
+        // this.fmData.data[0].mthpay_BAM029 = "1";
+        // this.fmData.data[0].mthpay_KRM048 = "1";
+        // this.fmData.data[0].mthpay_NONJCIC = "1";
+
       }
 
     });
@@ -510,6 +563,8 @@ export class Childscn10page1Component implements OnInit {
     const url = 'f01/childscn10action5';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
+    //測試用
+    // jsonObject['applno'] = '20210827E000';
     jsonObject['dssType'] = "Dss1";
     jsonObject['unsdebtAmt501Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_AMT_501EX_B);
     jsonObject['unsdebtAmt504Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_AMT_504EX_B);

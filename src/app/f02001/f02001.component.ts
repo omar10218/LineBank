@@ -144,7 +144,6 @@ export class F02001Component implements OnInit {
   selectData(pageIndex: number, pageSize: number) {
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
-
     let url = "f02/f02001action1";
     this.jsonObject['applno'] = this.applno;//案件編號
     this.jsonObject['nationalID'] = this.national_ID;//身分證字號
@@ -319,7 +318,6 @@ export class F02001Component implements OnInit {
       }
 
       this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
-
         this.resultData = data.rspBody.item;
         this.total = data.rspBody.size;
         this.firstFlag = 2;
@@ -375,7 +373,8 @@ export class F02001Component implements OnInit {
     this.project_NAME = '';
     this.marketing_CODE = '';
     this.credit_TIME = null;
-    this.resultData = null;
+    this.resultData = [];
+    this.jsonObject = [];
   }
   leave()//離開
   {

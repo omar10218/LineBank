@@ -31,11 +31,10 @@ export class Childbwscn5Component implements OnInit {
     jsonObject['applno'] = this.applno
     this.Childbwscn5Service.getmaterial(jsonObject).subscribe(data=>{
 
-      if(data.rspMsg == 'success')
+      if(data.rspMsg == "success")
       {
         this.materialSource = data.rspBody
       }
-      this.materialSource = null;
     })
 
   }
