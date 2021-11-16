@@ -374,7 +374,7 @@ export class F02001Component implements OnInit {
     this.marketing_CODE = '';
     this.credit_TIME = null;
     this.resultData = [];
-    this.jsonObject = [];
+    this.jsonObject = {};
   }
   leave()//離開
   {
