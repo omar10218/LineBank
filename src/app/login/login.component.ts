@@ -19,17 +19,21 @@ export class LoginComponent {
   hide = true;
   SrcEyeOff = "outline_visibility_off_black_48dp";
   SrcEye = "outline_remove_red_eye_black_48dp";
-  imgSrc=this.SrcEyeOff;
+  imgSrc = this.SrcEyeOff;
 
   no = '';
   pwd = '';
   public key: string;
   public iv: string;
-  private bnIdle: BnNgIdleService = null;
-  constructor(private router: Router, private loginService: LoginService) { }
+  // private bnIdle: BnNgIdleService = null;
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private bnIdle: BnNgIdleService
+  ) { }
 
   async onClickMe(): Promise<void> {
-    this.bnIdle = new BnNgIdleService();
+    // this.bnIdle = new BnNgIdleService();
 
     //------------------------------------------------------------------
     // let publicKey = this.jsEncrypt.getKey().getPublicBaseKeyB64();
@@ -46,11 +50,17 @@ export class LoginComponent {
     //------------------------------------------------------------------
 
     if (await this.loginService.initData(this.no, this.pwd)) {
+      console.log(this.no, this.pwd);
       localStorage.setItem("empNo", this.no);
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
-      // this.bnIdle.startWatching(60 * 10).subscribe((isTimedOut: boolean) => {
-      //   if (isTimedOut) { this.routerGoUrl(); }
-      // });
+      this.loginService.setBnIdle();
+      // if (!this.bnIdle['idle$']) {
+      //   this.bnIdle.startWatching( 60 * 10 ).subscribe((isTimedOut: boolean) => {
+      //     if (isTimedOut) { this.routerGoUrl(); }
+      //   });
+      // } else {
+      //   this.bnIdle.resetTimer();
+      // }
       sessionStorage.setItem('BusType', JSON.stringify(await this.loginService.getRuleCode('BUS_TYPE')));
       sessionStorage.setItem('ParmType', JSON.stringify(await this.loginService.getRuleCode('PARM_TYPE')));
       sessionStorage.setItem('ParmDim', JSON.stringify(await this.loginService.getRuleCode('PARM_DIM')));
@@ -63,17 +73,17 @@ export class LoginComponent {
     }
   }
 
-  private routerGoUrl(): void {
-    localStorage.clear();
-    sessionStorage.clear();
-    this.bnIdle.stopTimer();
-    this.router.navigate(['./logOut']);
-    alert('閒置過久已登出');
+  // private routerGoUrl(): void {
+  //   localStorage.clear();
+  //   sessionStorage.clear();
+  //   this.bnIdle.stopTimer();
+  //   this.router.navigate(['./logOut']);
+  //   alert('閒置過久已登出');
 
-  }
+  // }
   changeImage() {
-    this.hide=!this.hide;
-    this.imgSrc=this.hide?this.SrcEyeOff:this.SrcEye;
+    this.hide = !this.hide;
+    this.imgSrc = this.hide ? this.SrcEyeOff : this.SrcEye;
   }
 
 }

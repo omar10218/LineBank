@@ -64,6 +64,7 @@ import { Childscn23Component } from './childscn23/childscn23.component';
 import { JcictableComponent } from './childscn6/childscn6page1/jcictable/jcictable.component';
 import { Childscn23addComponent } from './childscn23/childscn23add/childscn23add.component';
 import { FormatNumberPipe, ToNumberPipe } from '../pipe/customFormatterPipe';
+import { Childscn8itemsComponent } from './childscn8/childscn8items/childscn8items.component';
 
 
 
@@ -123,7 +124,8 @@ import { FormatNumberPipe, ToNumberPipe } from '../pipe/customFormatterPipe';
     JcictableComponent,
     Childscn23addComponent,
     FormatNumberPipe,
-    ToNumberPipe
+    ToNumberPipe,
+    Childscn8itemsComponent
   ],
   imports: [
     CommonModule,
@@ -140,7 +142,8 @@ import { FormatNumberPipe, ToNumberPipe } from '../pipe/customFormatterPipe';
   ],
   exports: [
     Childscn8addComponent,
-    Childscn8editComponent
+    Childscn8editComponent,
+    Childscn8itemsComponent
   ]
 })
 export class ChildrenModule {

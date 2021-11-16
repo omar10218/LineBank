@@ -22,11 +22,16 @@ export class F01002scn1Component implements OnInit {
     private router: Router,
     private f01002scn1Service: F01002Scn1Service
   ) {
-    this.JCICSource$ = this.f01002scn1Service.JCICSource$.subscribe((data) => {
-      this.editData = data
-    });
     this.JCICAddSource$ = this.f01002scn1Service.JCICAddSource$.subscribe((data) => {
-      this.addData = data
+      this.addData = data;
+      this.isShowAdd = data.show;
+    });
+    this.JCICSource$ = this.f01002scn1Service.JCICSource$.subscribe((data) => {
+      this.editData = data;
+      this.isShowEdit = data.show;
+    });
+    this.JCICSource$ = this.f01002scn1Service.JCICItemsSource$.subscribe((data) => {
+      this.isShowItems = data.show;
     });
   }
 
@@ -38,14 +43,17 @@ export class F01002scn1Component implements OnInit {
   fds: string
   private winClose: string = '';
 
-  isShowAdd: boolean;
   addData: any;
   editData: any;
+  isShowAdd: boolean;
+  isShowEdit: boolean;
+  isShowItems: boolean;
+  JCICSource$: Subscription;
+  JCICAddSource$: Subscription;
 
   creditResult: string;
   level: string;
-  JCICSource$: Subscription;
-  JCICAddSource$: Subscription;
+
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');

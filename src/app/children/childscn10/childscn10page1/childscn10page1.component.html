@@ -452,6 +452,13 @@
             {{fmData.data[0].unsdebt_AMT_501EX}}
           </td>
           <td>
+            <!-- 另一種寫法 -->
+            <!-- <div *ngIf="getstepName()=='APPLCreditL3'" style="padding:0px"> <input class="data_right"
+              [value]="fmData.data[0].unsdebt_AMT_501EX_B | toNumber | number: '2.'" [(ngModel)]="fmData.data[0].unsdebt_AMT_501EX_B" type="text"
+              maxlength="20" /></div>
+          <div *ngIf="getstepName()!='APPLCreditL3'" style="padding:0px"> <input  class="data_right"
+            [value]="fmData.data[0].unsdebt_AMT_501EX_B | toNumber | number: '2.'" [(ngModel)]="fmData.data[0].unsdebt_AMT_501EX_B" type="text"
+              maxlength="20" disabled /></div> -->
             <div *ngIf="getstepName()=='APPLCreditL3'" style="padding:0px"> <input class="data_right"
                 [(ngModel)]="fmData.data[0].unsdebt_AMT_501EX_B"
                 (keyup)="fmData.data[0].unsdebt_AMT_501EX_B=data_number(fmData.data[0].unsdebt_AMT_501EX_B)"

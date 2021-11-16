@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseService } from '../base.service';
 import { OptionsCode } from '../interface/base';
+import { BnNgIdleService } from 'bn-ng-idle';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +12,37 @@ import { OptionsCode } from '../interface/base';
 export class LoginService extends BaseService {
   RuleCode: OptionsCode[] = null;
   Condition: OptionsCode[] = null;
-  constructor(protected httpClient: HttpClient) { super(httpClient); }
+
+  constructor(
+    protected httpClient: HttpClient,
+    private bnIdle: BnNgIdleService,
+    private router: Router,
+  ) { super(httpClient); }
+
+  setBnIdle(): void {
+    if (!this.bnIdle['idle$']) {
+      this.bnIdle.startWatching( 60 * 10 ).subscribe((isTimedOut: boolean) => {
+        if (isTimedOut) { this.routerGoUrl(); }
+      });
+    } else {
+      this.bnIdle.resetTimer();
+    }
+  }
+
+  private routerGoUrl(): void {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.bnIdle.stopTimer();
+    this.router.navigate(['./logOut']);
+    alert('閒置過久已登出');
+  }
 
   private async checkEmpNoPromise(empNo: string, empPwd: string): Promise<Observable<any>> {
     const formData = new FormData();
     formData.append("username", empNo);
     formData.append("password", empPwd);
     const baseURL = 'login';
-    return await this.postFormData(baseURL,formData).toPromise();
+    return await this.postFormData(baseURL, formData).toPromise();
   }
 
   public async initData(empNo: string, empPwd: string): Promise<boolean> {
@@ -44,7 +69,7 @@ export class LoginService extends BaseService {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
-        this.RuleCode.push({value: codeNo, viewValue: desc});
+        this.RuleCode.push({ value: codeNo, viewValue: desc });
       }
     });
     return this.RuleCode;
@@ -62,7 +87,7 @@ export class LoginService extends BaseService {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj['conditionId'];
         const desc = jsonObj['conditionName'];
-        this.Condition.push({value: codeNo, viewValue: desc});
+        this.Condition.push({ value: codeNo, viewValue: desc });
       }
     });
     return this.Condition;

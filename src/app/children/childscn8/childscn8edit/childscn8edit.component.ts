@@ -5,6 +5,7 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn8Service } from '../childscn8.service';
 import { DatePipe } from '@angular/common'
 import { OptionsCode } from 'src/app/interface/base';
+import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
 
 //Nick  徵信照會 編輯
 @Component({
@@ -19,7 +20,8 @@ export class Childscn8editComponent implements OnInit {
     public dialog: MatDialog,
     // @Inject(MAT_DIALOG_DATA) public data: any,
     public childscn8Service: Childscn8Service,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private f01002scn1Service: F01002Scn1Service
   ) { }
 
     @Input() data: any;
@@ -112,23 +114,24 @@ export class Childscn8editComponent implements OnInit {
     jsonObject['rowID'] = this.data.ID;
     jsonObject['empNo'] = this.data.CALLOUT_EMPNO;
     jsonObject['calloutYn'] = this.data.CALLOUT_YN;
-    console.log('console.log(jsonObject);');
-    console.log(jsonObject);
     await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
-      console.log('data');
-      console.log(data);
       codeStr = data.rspCode;
       msgStr = data.rspMsg;
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
-      if (msgStr === '編輯成功' && codeStr === '0000') { this.dialogRef.close({ event: 'success' }); }
+      if (msgStr === '編輯成功' && codeStr === '0000') {
+        // this.dialogRef.close({ event: 'success' });
+        this.f01002scn1Service.setJCICSource({ show : false });
+        window.location.reload();
+      }
     });
   }
 
   //取消
   onNoClick(): void {
-    this.dialogRef.close();
+    // this.dialogRef.close();
+    this.f01002scn1Service.setJCICSource({ show : false });
   }
 
   //顯示話述內容

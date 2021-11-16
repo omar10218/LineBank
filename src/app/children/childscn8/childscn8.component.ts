@@ -6,8 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { Childscn8Service } from './childscn8.service';
-import { Childscn8addComponent } from './childscn8add/childscn8add.component';
-import { Childscn8editComponent } from './childscn8edit/childscn8edit.component';
 import { Childscn8deleteComponent } from './childscn8delete/childscn8delete.component';
 import { DatePipe } from '@angular/common'
 import { Data } from '@angular/router';
@@ -62,7 +60,7 @@ export class Childscn8Component implements OnInit {
     public dialog: MatDialog,
     private childscn8Service: Childscn8Service,
     public datepipe: DatePipe,
-    private f01002Scn1Service: F01002Scn1Service
+    private f01002scn1Service: F01002Scn1Service
   ) { }
 
   private applno: string;
@@ -119,8 +117,9 @@ export class Childscn8Component implements OnInit {
     { value: 'O', viewValue: 'LINE BANK 開戶', checked: false },
     { value: 'Z', viewValue: '其他:', checked: false },];
 
-
-
+  showAdd: boolean = false;
+  showEdit: boolean = false;
+  showItems: boolean = false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -158,8 +157,8 @@ export class Childscn8Component implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.pageSize=pageSize;
-    this.pageIndex=pageIndex;
+    this.pageSize = pageSize;
+    this.pageIndex = pageIndex;
     this.getCALLOUTFunction(this.pageIndex, this.pageSize);
   }
 
@@ -173,7 +172,9 @@ export class Childscn8Component implements OnInit {
 
   //新增
   Add() {
-    this.f01002Scn1Service.setJCICAddSource({
+    this.showAdd = !this.showAdd;
+    this.f01002scn1Service.setJCICAddSource({
+      show: this.showAdd,
       applno: this.applno,//收件編號
       // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
       CON_TYPE: '',//聯絡方式
@@ -191,7 +192,7 @@ export class Childscn8Component implements OnInit {
       CALLOUT_SETTIME: '',//確認時間
       CALLOUT_EMPNO: this.empNo,//徵信員編
       //CALLOUT_YN:''//照會完成
-      speakingData:this.speakingData//照會話術
+      speakingData: this.speakingData//照會話術
     })
     // const dialogRef = this.dialog.open(Childscn8addComponent, {
     //   minHeight: '70vh',
@@ -224,9 +225,9 @@ export class Childscn8Component implements OnInit {
 
   //編輯
   startEdit(CON_TYPE: string, PHONE: string, TEL_CONDITION: string, TEL_CHECK: string, CON_MEMO: string, CALLOUT_DATE: string, ID: string, CALLOUT_SETTIME: string, CALLOUT_YN: string) {
-    // console.log(this.datepipe.transform(CALLOUT_DATE, 'HH'));
-    // console.log(this.datepipe.transform(CALLOUT_DATE, 'mm'));
-    this.f01002Scn1Service.setJCICSource({
+    this.showEdit = !this.showEdit;
+    this.f01002scn1Service.setJCICSource({
+      show: this.showEdit,
       applno: this.applno,//收件編號
       // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
       CON_TYPE: CON_TYPE,//聯絡方式
@@ -246,7 +247,7 @@ export class Childscn8Component implements OnInit {
       CALLOUT_EMPNO: this.empNo,//徵信員編
       CALLOUT_YN: CALLOUT_YN,//照會完成
       // CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
-      speakingData:this.speakingData//照會話術
+      speakingData: this.speakingData//照會話術
     });
     // const dialogRef = this.dialog.open(Childscn8editComponent, {
     //   minHeight: '70vh',
@@ -437,69 +438,76 @@ export class Childscn8Component implements OnInit {
   // }
 
   //照會項目儲存
-  async save() {
+  // async save() {
 
-    let msgStr: string = "";
-    let codeStr: string = "";
-    let checkItem = "";
-    let checkData = "";
-    let replyCondition = "";
-    let checkNote = "";
+  //   let msgStr: string = "";
+  //   let codeStr: string = "";
+  //   let checkItem = "";
+  //   let checkData = "";
+  //   let replyCondition = "";
+  //   let checkNote = "";
 
-    // 多選先做另外處理
-    this.MDtable[13].REPLY_CONDITION = "";//共20筆0開始
-    for (var data of this.REPLY_CONDITION14code) {//共20筆1開始
-      if (data.checked) { this.MDtable[13].REPLY_CONDITION += data.value + ","; }
-    }
-    this.MDtable[16].REPLY_CONDITION = "";//共20筆0開始
-    for (var data of this.REPLY_CONDITION17code) {//共20筆1開始
-      if (data.checked) { this.MDtable[16].REPLY_CONDITION += data.value + ","; }
-    }
-    //有資料則消除最後一筆分隔記號
-    this.MDtable[13].REPLY_CONDITION = this.MDtable[13].REPLY_CONDITION.length > 0 ?
-      this.MDtable[13].REPLY_CONDITION.slice(0, this.MDtable[13].REPLY_CONDITION.length - 1) :
-      this.MDtable[13].REPLY_CONDITION;
+  //   // 多選先做另外處理
+  //   this.MDtable[13].REPLY_CONDITION = "";//共20筆0開始
+  //   for (var data of this.REPLY_CONDITION14code) {//共20筆1開始
+  //     if (data.checked) { this.MDtable[13].REPLY_CONDITION += data.value + ","; }
+  //   }
+  //   this.MDtable[16].REPLY_CONDITION = "";//共20筆0開始
+  //   for (var data of this.REPLY_CONDITION17code) {//共20筆1開始
+  //     if (data.checked) { this.MDtable[16].REPLY_CONDITION += data.value + ","; }
+  //   }
+  //   //有資料則消除最後一筆分隔記號
+  //   this.MDtable[13].REPLY_CONDITION = this.MDtable[13].REPLY_CONDITION.length > 0 ?
+  //     this.MDtable[13].REPLY_CONDITION.slice(0, this.MDtable[13].REPLY_CONDITION.length - 1) :
+  //     this.MDtable[13].REPLY_CONDITION;
 
-    this.MDtable[16].REPLY_CONDITION = this.MDtable[16].REPLY_CONDITION.length > 0 ?
-      this.MDtable[16].REPLY_CONDITION.slice(0, this.MDtable[16].REPLY_CONDITION.length - 1) :
-      this.MDtable[16].REPLY_CONDITION;
+  //   this.MDtable[16].REPLY_CONDITION = this.MDtable[16].REPLY_CONDITION.length > 0 ?
+  //     this.MDtable[16].REPLY_CONDITION.slice(0, this.MDtable[16].REPLY_CONDITION.length - 1) :
+  //     this.MDtable[16].REPLY_CONDITION;
 
-    console.log('this.MDtable[13].REPLY_CONDITION');
-    console.log(this.MDtable[13].REPLY_CONDITION);
-    console.log('this.MDtable[16].REPLY_CONDITION');
-    console.log(this.MDtable[16].REPLY_CONDITION);
+  //   console.log('this.MDtable[13].REPLY_CONDITION');
+  //   console.log(this.MDtable[13].REPLY_CONDITION);
+  //   console.log('this.MDtable[16].REPLY_CONDITION');
+  //   console.log(this.MDtable[16].REPLY_CONDITION);
 
-    for (const calloutData of this.MDtable) {
-      checkItem += calloutData.MD_NO.value + ",";
-      checkData += (calloutData.CHECK_DATA != "" && calloutData.CHECK_DATA != null) ? calloutData.CHECK_DATA + "," : "*,";
-      replyCondition += (calloutData.REPLY_CONDITION != "" && calloutData.REPLY_CONDITION != null) ? calloutData.REPLY_CONDITION + "-" : "*-";
-      checkNote += (calloutData.CHECK_NOTE != "" && calloutData.CHECK_NOTE != null) ? calloutData.CHECK_NOTE + "," : "*,";
-    }
-    //有資料則消除最後一筆分隔記號
-    checkItem = checkItem.length > 0 ? checkItem.slice(0, checkItem.length - 1) : checkItem;
-    checkData = checkData.length > 0 ? checkData.slice(0, checkData.length - 1) : checkData;
-    replyCondition = replyCondition.length > 0 ? replyCondition.slice(0, replyCondition.length - 1) : replyCondition;
-    checkNote = checkNote.length > 0 ? checkNote.slice(0, checkNote.length - 1) : checkNote;
+  //   for (const calloutData of this.MDtable) {
+  //     checkItem += calloutData.MD_NO.value + ",";
+  //     checkData += (calloutData.CHECK_DATA != "" && calloutData.CHECK_DATA != null) ? calloutData.CHECK_DATA + "," : "*,";
+  //     replyCondition += (calloutData.REPLY_CONDITION != "" && calloutData.REPLY_CONDITION != null) ? calloutData.REPLY_CONDITION + "-" : "*-";
+  //     checkNote += (calloutData.CHECK_NOTE != "" && calloutData.CHECK_NOTE != null) ? calloutData.CHECK_NOTE + "," : "*,";
+  //   }
+  //   //有資料則消除最後一筆分隔記號
+  //   checkItem = checkItem.length > 0 ? checkItem.slice(0, checkItem.length - 1) : checkItem;
+  //   checkData = checkData.length > 0 ? checkData.slice(0, checkData.length - 1) : checkData;
+  //   replyCondition = replyCondition.length > 0 ? replyCondition.slice(0, replyCondition.length - 1) : replyCondition;
+  //   checkNote = checkNote.length > 0 ? checkNote.slice(0, checkNote.length - 1) : checkNote;
 
-    const baseUrl = 'f01/childscn8action5';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['empNo'] = this.empNo;
-    jsonObject['checkItem'] = checkItem;
-    jsonObject['checkData'] = checkData;
-    jsonObject['replyCondition'] = replyCondition;
-    jsonObject['checkNote'] = checkNote;
-    console.log('console.log(jsonObject);');
-    console.log(jsonObject);
-    await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
-      console.log('data');
-      console.log(data);
-      codeStr = data.rspCode;
-      msgStr = data.rspMsg;
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: msgStr }
-      });
-      if (msgStr != null && (msgStr == '儲存成功!' || msgStr == '1')) { this.refreshTable(); }
+  //   const baseUrl = 'f01/childscn8action5';
+  //   let jsonObject: any = {};
+  //   jsonObject['applno'] = this.applno;
+  //   jsonObject['empNo'] = this.empNo;
+  //   jsonObject['checkItem'] = checkItem;
+  //   jsonObject['checkData'] = checkData;
+  //   jsonObject['replyCondition'] = replyCondition;
+  //   jsonObject['checkNote'] = checkNote;
+  //   console.log('console.log(jsonObject);');
+  //   console.log(jsonObject);
+  //   await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
+  //     console.log('data');
+  //     console.log(data);
+  //     codeStr = data.rspCode;
+  //     msgStr = data.rspMsg;
+  //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+  //       data: { msgStr: msgStr }
+  //     });
+  //     if (msgStr != null && (msgStr == '儲存成功!' || msgStr == '1')) { this.refreshTable(); }
+  //   });
+  // }
+
+  items() {
+    this.showItems = !this.showItems;
+    this.f01002scn1Service.setJCICItemsSource({
+      show: this.showItems
     });
   }
 
@@ -509,5 +517,5 @@ export class Childscn8Component implements OnInit {
 function roughScale(x, base) {
   const parsed = parseInt(x, base);
   if (isNaN(parsed)) { return 0; }
-  return parsed ;
+  return parsed;
 }
