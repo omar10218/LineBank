@@ -59,7 +59,7 @@
 
               <nz-radio-group [(ngModel)]="data.CON_TYPE" name="CON_TYPE" required>
                 <div nz-row>
-                  <div nz-col nzSpan="12" *ngFor="let code of data.CON_TYPE_Code">
+                  <div nz-col nzSpan="12" *ngFor="let code of CON_TYPE_Code">
                     <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
                   </div>
                 </div>
@@ -90,7 +90,7 @@
 
               <nz-radio-group [(ngModel)]="data.TEL_CHECK" name="TEL_CHECK" required>
                 <div nz-row>
-                  <div nz-col nzSpan="12" *ngFor="let code of data.TEL_CHECK_Code">
+                  <div nz-col nzSpan="12" *ngFor="let code of TEL_CHECK_Code">
                     <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
                   </div>
                 </div>
@@ -119,7 +119,7 @@
               </nz-radio-group> -->
               <nz-radio-group [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION">
                 <div nz-row>
-                  <div nz-col nzSpan="12" *ngFor="let code of data.TEL_CONDITION_Code">
+                  <div nz-col nzSpan="12" *ngFor="let code of TEL_CONDITION_Code">
                     <label nz-radio  required [nzValue]="code.value">{{code.viewValue}}</label>
                   </div>
                 </div>
@@ -151,7 +151,7 @@
             <div><span class="form-title-actions">時</span>
               <mat-select [(ngModel)]="data.HOURS" name="HOURS" required
                 style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
-                <mat-option *ngFor="let code of data.HOURS_Code" [value]="code.value">
+                <mat-option *ngFor="let code of HOURS_Code" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
@@ -164,7 +164,7 @@
             <div><span class="form-title-actions">分</span>
               <mat-select [(ngModel)]="data.MINUTES" name="MINUTES" required
                 style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
-                <mat-option *ngFor="let code of data.MINUTES_Code" [value]="code.value">
+                <mat-option *ngFor="let code of MINUTES_Code" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
@@ -212,7 +212,7 @@
       </div>
 
       <div nz-row>
-        <div nz-col nzSpan="24" nz-row *ngIf="data.speakingData.length>0">
+        <div nz-col nzSpan="24" nz-row *ngIf="data.speakingData!=null && data.speakingData.length>0">
           <div class="form">
             <div><span class="form-title">話術內容:{{speakingAbbreviation}}</span><textarea readonly matInput
                 class="input-textarea" [(ngModel)]="speakingContent" name="speakingContent"

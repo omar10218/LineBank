@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseService } from 'src/app/base.service';
+import { OptionsCode } from 'src/app/interface/base';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,17 @@ export class Childscn8Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
 
-   //取徵信照會Table/新增/編輯/刪除
-   postJsonObject_CALLOUT(baseUrl: string, json: JSON){
+  //取徵信照會Table/新增/編輯/刪除
+  postJsonObject_CALLOUT(baseUrl: string, json: JSON) {
     return this.postJsonObject(baseUrl, json);
   }
+
+  // sCON_TYPE_Code: OptionsCode[] = [];//聯絡方式下拉選單
+  // sTEL_CONDITION_Code: OptionsCode[] = [];//電話狀況下拉選單
+  // sTEL_CHECK_Code: OptionsCode[] = [];//電話種類下拉選單
+  // sHOURS_Code: OptionsCode[] = [];//時下拉選單
+  // sMINUTES_Code: OptionsCode[] = [];//分下拉選單
+  // sCALLOUT_YN_Code: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' },];//照會完成下拉選單
 
 
   //編輯
@@ -49,6 +57,38 @@ export class Childscn8Service extends BaseService {
     baseUrl = `${baseUrl}?rowID=${ID}`;
     return this.postHttpClient(baseUrl);
   }
+
+  // //時下拉選單
+  // getHOURS() {
+  //   // console.log('1');
+  //   // console.log(this.sHOURS_Code);
+  //   // alert('this.CON_TYPE_Cod')
+  //   if (this.sHOURS_Code == null || this.sHOURS_Code.length == 0) {
+  //     this.getSysTypeCode('HOURS')
+  //       .subscribe(data => {
+  //         for (const jsonObj of data.rspBody.mappingList) {
+  //           const codeNo = jsonObj.codeNo;
+  //           const desc = jsonObj.codeDesc;
+  //           this.sHOURS_Code.push({ value: codeNo, viewValue: desc })
+  //         }
+  //       });
+  //   }
+  //   return this.sHOURS_Code;
+  // }
+  // //分下拉選單
+  // getMINUTES() {
+  //   if (this.sMINUTES_Code == null || this.sMINUTES_Code.length == 0) {
+  //     this.getSysTypeCode('MINUTES')//分下拉選單
+  //       .subscribe(data => {
+  //         for (const jsonObj of data.rspBody.mappingList) {
+  //           const codeNo = jsonObj.codeNo;
+  //           const desc = jsonObj.codeDesc;
+  //           this.sMINUTES_Code.push({ value: codeNo, viewValue: desc })
+  //         }
+  //       });
+  //   }
+  //   return this.sMINUTES_Code;
+  // }
 
 
 }

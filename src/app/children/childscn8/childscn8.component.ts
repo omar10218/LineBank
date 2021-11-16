@@ -73,6 +73,7 @@ export class Childscn8Component implements OnInit {
   pageIndex = 1;
   pageSize = 50;
 
+
   CON_TYPE_Code: OptionsCode[] = [];//聯絡方式下拉選單
   CON_TYPE: string;//聯絡方式
   TEL_CONDITION_Code: OptionsCode[] = [];//電話狀況下拉選單
@@ -125,6 +126,7 @@ export class Childscn8Component implements OnInit {
     this.search = sessionStorage.getItem('search');
     this.empNo = localStorage.getItem("empNo");
 
+
     this.childscn8Service.getSysTypeCode('HOURS')//時下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -175,15 +177,15 @@ export class Childscn8Component implements OnInit {
       width: '70%',
       data: {
         applno: this.applno,//收件編號
-        CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+        // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
         CON_TYPE: '',//聯絡方式
-        TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+        // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
         TEL_CONDITION: '',//電話狀況
-        TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+        // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
         TEL_CHECK: '',//電話種類
-        HOURS_Code: this.HOURS_Code,//時下拉選單
+        // HOURS_Code: this.HOURS_Code,//時下拉選單
         HOURS: '',//時種類
-        MINUTES_Code: this.MINUTES_Code,//分下拉選單
+        // MINUTES_Code: this.MINUTES_Code,//分下拉選單
         MINUTES: '',//分種類
         PHONE: '',//手機/市話
         CON_MEMO: '',//備註
@@ -210,15 +212,15 @@ export class Childscn8Component implements OnInit {
       width: '70%',
       data: {
         applno: this.applno,//收件編號
-        CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+        // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
         CON_TYPE: CON_TYPE,//聯絡方式
-        TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+        // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
         TEL_CONDITION: TEL_CONDITION,//電話狀況
-        TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+        // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
         TEL_CHECK: TEL_CHECK,//電話種類
-        HOURS_Code: this.HOURS_Code,//時下拉選單
+        // HOURS_Code: this.HOURS_Code,//時下拉選單
         HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
-        MINUTES_Code: this.MINUTES_Code,//分下拉選單
+        // MINUTES_Code: this.MINUTES_Code,//分下拉選單
         MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
         PHONE: PHONE,//手機/市話
         CON_MEMO: CON_MEMO,//備註
@@ -227,7 +229,7 @@ export class Childscn8Component implements OnInit {
         CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
         CALLOUT_EMPNO: this.empNo,//徵信員編
         CALLOUT_YN: CALLOUT_YN,//照會完成
-        CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
+        // CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
         speakingData:this.speakingData//照會話術
       }
     });
