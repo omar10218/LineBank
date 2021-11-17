@@ -76,17 +76,17 @@ export class F01003Component implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
+    this.getCaseList();
   }
 
   // 查詢案件清單
-  getCaseList(empNo: string, swcID: string, swcApplno: string, pageIndex: number, pageSize: number) {
+  getCaseList() {
     let jsonObject: any = {};
-    jsonObject['page'] = pageIndex;
-    jsonObject['per_page'] = pageSize;
-    jsonObject['swcL2EmpNo'] = empNo;
-    jsonObject['swcID'] = swcID;
-    jsonObject['swcApplno'] = swcApplno;
+    jsonObject['page'] = this.pageIndex;
+    jsonObject['per_page'] = this.pageSize;
+    jsonObject['swcL2EmpNo'] = this.empNo;
+    jsonObject['swcID'] = this.swcID;
+    jsonObject['swcApplno'] = this.swcApplno;
     this.loading = false;
     this.f01003Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
@@ -98,18 +98,18 @@ export class F01003Component implements OnInit, AfterViewInit {
   //代入條件查詢
   select() {
     this.changePage();
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
+    this.getCaseList();
   }
 
   // 案件子頁籤
   getLockCase(swcApplno: string, swcID: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
-    // this.f01003Service.getLockCase(jsonObject).subscribe(data => {
-    //   if (data.rspBody.length > 0) {
-    //     this.fds = data.rspBody[0].fds
-    //   }
-      // if (data.rspMsg == '案件鎖定成功') {
+    this.f01003Service.getLockCase(jsonObject).subscribe(data => {
+      if (data.rspBody.length > 0) {
+        this.fds = data.rspBody[0].fds
+      }
+      if (data.rspMsg == '案件鎖定成功') {
         sessionStorage.setItem('applno', swcApplno);
         sessionStorage.setItem('cuid', swcID);
         sessionStorage.setItem('search', 'N');
@@ -118,8 +118,8 @@ export class F01003Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('level', 'L2');
         sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01003/F01003SCN1']);
-    //   }
-    // });
+      }
+    });
 
   }
 
@@ -131,15 +131,18 @@ export class F01003Component implements OnInit, AfterViewInit {
 
     this.f01003Service.saveCaseMemo(jsonObject).subscribe(data => {
       if (data.rspMsg == 'success') {
-        this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
+        this.getCaseList();
         window.location.reload();
       }
     });
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno, pageIndex, pageSize);
+    const { pageIndex } = params;
+    if (this.pageIndex !== pageIndex) {
+      this.pageIndex = pageIndex;
+      this.getCaseList();
+    }
   }
 
   changePage() {
@@ -168,5 +171,11 @@ export class F01003Component implements OnInit, AfterViewInit {
       }
     }
     return codeVal;
+  }
+
+  // 排序
+  sortChange(e: string) {
+    this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+      (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
   }
 }
