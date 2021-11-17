@@ -96,6 +96,7 @@ export class F03017Component implements OnInit {
 	changeSort(sortInfo: Sort) {
 		this.currentSort = sortInfo
 	}
+  // 建檔項目選項
 	getListValue() {
 		this.f03017Service.getSysTypeCode('BLACK_ITEM').subscribe(data => {
 			this.bkColumnCode.push({ value: '', viewValue: '請選擇' })
@@ -117,13 +118,13 @@ export class F03017Component implements OnInit {
 		return codeVal
 	}
 
-	// 取得資料
+	// 取得table資料
 	async getBkIncomeData() {
-		if (this.bkColumnValue == '') {
+		if (this.bkColumnValue == '' || this.bkColumnValue == null) {
 			const confirmDialogRef = this.dialog.open(ConfirmComponent, {
 				data: { msgStr: "請選擇建檔項目" }
 			});
-		} else if (this.bkContentValue == null) {
+		} else if (this.bkContentValue == null || this.bkContentValue == '') {
 			const confirmDialogRef = this.dialog.open(ConfirmComponent, {
 				data: { msgStr: "請選擇建檔內容" }
 			});
@@ -227,10 +228,11 @@ export class F03017Component implements OnInit {
 	}
 	//清除資料
 	clear() {
-		this.bkContentValue = ''
-		this.bkColumnValue = ''
-		this.bkColumnCode = []
-		this.getListValue()
+		this.bkContentValue = '',
+		this.bkColumnValue = '',
+		this.bkColumnCode = [],
+		this.getListValue(),
+    this.bkIncomeDataSource=null;
 	}
 
 	//上傳EXCEL
