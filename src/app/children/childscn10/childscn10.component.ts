@@ -64,7 +64,7 @@ export class Childscn10Component implements OnInit {
     //正式用
     if(this.level=="1"||this.level=="2"){YN="Y"}
     //測試用 都通過
-    // YN = "Y"
+    YN = "Y"
     return YN;
   }
   //判斷是否顯示授信
@@ -74,9 +74,9 @@ export class Childscn10Component implements OnInit {
     //徵信作業 APPLCreditL3
     //文審作業 APPLCreditL4
     //偽冒案件 APPLFraud
-    return this.stepName;
+    // return this.stepName;
     //測試用
-    // return 'APPLCreditL2';
+    return 'APPLCreditL2';
   }
 
   ngAfterViewInit() {
