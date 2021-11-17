@@ -44,14 +44,14 @@
         <div style="padding:10px">
           <span class="form-title" style="width:100%">PASS起始日
           </span>
-          <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" name="CssPassStart" >
+          <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" name="CssPassStart" (ngModelChange)="onChange($event)">
           </nz-date-picker>
         </div>
       </div>
       <div nz-col nzSpan="12">
         <div style="padding:10px">
           <span class="form-title" style="width:100%">PASS結束日</span>
-          <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd">
+          <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd" (ngModelChange)="onChange($event)">
           </nz-date-picker>
         </div>
       </div>
