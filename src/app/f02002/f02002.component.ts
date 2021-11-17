@@ -41,10 +41,14 @@ export class F02002Component implements OnInit {
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
     this.f02002Service.getRescanEmpno( baseUrl ).subscribe(data => {
-      for (let i = 0; i < data.rspBody.length; i++) {
-        if (data.rspBody[i].RESCANEMPNO != null) {
-          this.rescanEmpnoCode.push( { value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO } );
+      if (data.rspBody.length > 0 ) {
+        for (let i = 0; i < data.rspBody.length; i++) {
+          if (data.rspBody[i].RESCANEMPNO != null) {
+            this.rescanEmpnoCode.push( { value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO } );
+          }
         }
+      } else {
+        this.rescanEmpnoCode.push( { value: '', viewValue: '無補件人員' } );
       }
     });
   }

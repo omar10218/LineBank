@@ -27,13 +27,14 @@ export class Childscn18Component implements OnInit {
     this.empNo = localStorage.getItem("empNo");
   }
   log(value: string[]): void {
-    console.log(value);
+    this.searchArray = value;
   }
   close() {
     this.dialogRef.close();
   }
 
   checkboxSelect(check: boolean, item: string) {
+    console.log(item)
     if ( check ) {
       this.searchArray.push( item );
     } else {
@@ -53,6 +54,5 @@ export class Childscn18Component implements OnInit {
     this.childscn18Service.reSearch(url, jsonObject).subscribe(data => {
       console.log(data.rspBody);
     });
-
   }
 }
