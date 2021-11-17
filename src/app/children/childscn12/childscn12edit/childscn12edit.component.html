@@ -36,7 +36,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">金額</span>
               <input matInput #input class="form-control" [(ngModel)]="data.num" name="num" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.num=='' || data.num== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -49,7 +49,7 @@
                   {{yn.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.mincomeExp=='' || data.mincomeExp== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">類別</span>
               <input matInput #input class="form-control" [(ngModel)]="data.codeType" name="codeType" disabled>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.codeType=='' || data.codeType== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -16,7 +16,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">代碼</span>
               <input matInput #input class="form-control" [(ngModel)]="data.codeNo" name="codeNo" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.codeNo=='' || data.codeNo== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -24,7 +24,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">描述</span>
               <input matInput #input class="form-control" [(ngModel)]="data.codeDesc" name="codeDesc" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.codeDesc=='' || data.codeDesc== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">排序</span>
               <input matInput #input class="form-control" [(ngModel)]="data.codeSort" name="codeSort" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.codeSort=='' || data.codeSort== null) ">{{getErrorMessage()}}</mat-error>
               <p style="color: red;" [hidden]="hidden">請輸入數字</p>
             </div>
           </div>
@@ -55,7 +55,7 @@
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.codeFlag=='' || data.codeFlag== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
