@@ -133,12 +133,22 @@ export class F01002scn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.leave;
     this.creditResult = sessionStorage.getItem('creditResult');
-    this.f01002scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
-      console.log(data);
-    });
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: '案件完成' }
-    });
+    if (this.creditResult == '' || this.creditResult == null ){
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請填寫核決結果!' }
+      });
+    } else {
+      alert(this.creditResult)
+      let json: any = {};
+      json['creditResult'] = this.creditResult;
+      jsonObject['creditResult'] = json;
+      this.f01002scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
+        console.log(data)
+      });
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '案件完成' }
+      });
+    }
   }
 
   saveResult(url: string, json: JSON): string {
