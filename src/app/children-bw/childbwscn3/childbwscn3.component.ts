@@ -34,13 +34,13 @@ export class Childbwscn3Component implements OnInit , AfterViewInit {
 
   options: NgxWatermarkOptions = {
     text: '盜用必追究',
-    width: 350,
-    height: 300,
+    width: 300,
+    height: 150,
     fontFamily: 'Kanit',
     color: '#999',
-    alpha: .7,
+    alpha: .3,
     degree: -45,
-    fontSize: '20px',
+    fontSize: '15px',
   };
 
   AAS003: any[] = [];
@@ -382,7 +382,8 @@ hideJAS002= false;
 		jsonObject['applno'] = this.applno
 		// jsonObject['queryDate'] = this.queryDate
 		this.childbwscn3Service.getMASTERJCICList(jsonObject).subscribe(data => {
-
+      console.log("data")
+      console.log(data)
 			this.listSource = data.rspBody;
 		})
 	}
@@ -406,7 +407,7 @@ hideJAS002= false;
     this.childbwscn3Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
       if ( data.rspBody[0].AAS003.length == 0 ) { this.AAS003.push(''); } else { this.AAS003 = data.rspBody[0].AAS003; };
       if ( data.rspBody[0].BAI001.length == 0 ) { this.BAI001.push(''); } else { this.BAI001 = data.rspBody[0].BAI001; };
-      if ( data.rspBody[0].JAS002.length == 0 ) { this.JAS002.push(''); } else { this.JAS002 = data.rspBody[0].BAI001; };
+      // if ( data.rspBody[0].JAS002.length == 0 ) { this.JAS002.push(''); } else { this.JAS002 = data.rspBody[0].BAI001; };
     });
   }
 
