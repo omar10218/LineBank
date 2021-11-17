@@ -131,7 +131,7 @@ export class F01002scn1Component implements OnInit {
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = this.leave;
+    jsonObject['level'] = 'L3';
     this.creditResult = sessionStorage.getItem('creditResult');
     if (this.creditResult == '' || this.creditResult == null ){
       const childernDialogRef = this.dialog.open(ConfirmComponent, {

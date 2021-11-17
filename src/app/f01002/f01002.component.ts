@@ -81,7 +81,6 @@ export class F01002Component implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.getCalloutList();
     this.changePage(this.nowPage);
-
   }
 
   getCalloutList() {
