@@ -62,7 +62,7 @@ export class F01003scn1Component implements OnInit {
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = this.level;
+    jsonObject['level'] = 'L2';
 
     this.creditMemo = sessionStorage.getItem('mark');
     this.approveAmt = sessionStorage.getItem('resultApproveAmt');
