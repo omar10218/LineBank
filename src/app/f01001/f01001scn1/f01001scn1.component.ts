@@ -71,15 +71,6 @@ export class F01001scn1Component implements OnInit {
     });
   }
 
-  reSearch() {
-    const dialogRef = this.dialog.open(Childscn18Component, {
-      data: {
-        applno: this.applno,
-        cuid: this.cuid
-      }
-    });
-  }
-
   blockList() {
     const dialogRef = this.dialog.open(Childscn20Component, {
       data: {

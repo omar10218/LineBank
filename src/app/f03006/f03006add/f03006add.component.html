@@ -8,7 +8,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">員工編號</span>
               <input matInput #input class="form-control" [(ngModel)]="data.EMP_NO" name="EMP_NO" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.EMP_NO=='' || data.EMP_NO== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -16,7 +16,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">員工姓名</span>
               <input matInput #input class="form-control" [(ngModel)]="data.EMP_NAME" name="EMP_NAME" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.EMP_NAME=='' || data.EMP_NAME== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -24,7 +24,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">員工ID</span>
               <input matInput #input class="form-control" [(ngModel)]="data.EMP_ID" name="EMP_ID" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.EMP_ID=='' || data.EMP_ID== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.ON_JOB=='' || data.ON_JOB== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">EMAIL</span>
               <input matInput #input class="form-control" [(ngModel)]="data.EMAIL" name="EMAIL" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.EMAIL=='' || data.EMAIL== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.ASSIGN_STOP=='' || data.ASSIGN_STOP== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>

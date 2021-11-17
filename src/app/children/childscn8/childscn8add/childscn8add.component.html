@@ -78,7 +78,7 @@
                 <br>
               </mat-radio-group> -->
             </div>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (data.CON_TYPE=='' || data.CON_TYPE== null) ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
 
@@ -111,7 +111,7 @@
                 <br>
               </mat-radio-group> -->
             </div>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (data.TEL_CHECK=='' || data.TEL_CHECK== null) ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
 
@@ -140,7 +140,7 @@
                 <br>
               </mat-radio-group> -->
             </div>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (data.TEL_CONDITION=='' || data.TEL_CONDITION== null) ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
@@ -152,7 +152,7 @@
             <div ><span class="form-title" style="margin:0px;">設定下次照會時間</span>
               <nz-date-picker style="display:block" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" required>
               </nz-date-picker>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.CALLOUT_DATE=='' || data.CALLOUT_DATE== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -165,7 +165,7 @@
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.HOURS=='' || data.HOURS== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -178,7 +178,7 @@
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.MINUTES=='' || data.MINUTES== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -186,7 +186,7 @@
           <div class="form" >
             <div><span class="form-title-actions">手機/市話</span>
               <input matInput #input class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') " [(ngModel)]="data.PHONE" name="PHONE" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (data.PHONE=='' || data.PHONE== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -197,7 +197,6 @@
           <div class="form">
             <div><span class="form-title" style="margin:0px;">備註</span><textarea matInput class="input-textarea" [(ngModel)]="data.CON_MEMO"
                 name="CON_MEMO" style="height: 80px;"></textarea>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>

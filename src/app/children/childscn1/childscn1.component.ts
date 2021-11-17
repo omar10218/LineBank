@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import * as L from 'leaflet';
 import { DatePipe } from '@angular/common';
+import { Childscn1editComponent } from './childscn1edit/childscn1edit.component';
 
 @Component({
   selector: 'app-childscn1',
@@ -240,6 +241,18 @@ export class Childscn1Component implements OnInit {
         this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
         sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult);
       }
+
+      //creditInterestPeriod
+      if ( data.rspBody.creditInterestPeriodList.length > 0 ) {
+        this.period = data.rspBody.creditInterestPeriodList[0].period;
+        this.interestType = data.rspBody.creditInterestPeriodList[0].interestType;
+        this.interest = data.rspBody.creditInterestPeriodList[0].interest;
+        this.periodType = data.rspBody.creditInterestPeriodList[0].periodType;
+        this.interestBase = data.rspBody.creditInterestPeriodList[0].interestBase;
+        this.interestCode = data.rspBody.creditInterestPeriodList[0].interestCode;
+        this.approveInterest = data.rspBody.creditInterestPeriodList[0].approveInterest;
+      }
+
     })
 
     this.getCreditmemo( this.pageIndex, this.pageSize );
@@ -312,8 +325,7 @@ export class Childscn1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['creditaction'] = this.mark;
-    jsonObject['creditlevel'] = 'L3';
-    sessionStorage.setItem( 'mark' , this.mark );
+    jsonObject['creditlevel'] = sessionStorage.getItem('stepName').split('t')[1];
     msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
     const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
@@ -339,6 +351,7 @@ export class Childscn1Component implements OnInit {
     sessionStorage.setItem('approveInterest' , this.approveInterest.toString() );
     sessionStorage.setItem('interestType' , this.interestType );
     sessionStorage.setItem('interest' , this.interest.toString() );
+    sessionStorage.setItem('interestBase' , this.interestBase.toString());
   }
 
   changeInterestValue() {
@@ -371,6 +384,7 @@ export class Childscn1Component implements OnInit {
       }
       sessionStorage.setItem('approveInterest' , this.approveInterest.toString() );
       sessionStorage.setItem('interest' , this.interest.toString() );
+      sessionStorage.setItem('interestBase' , this.interestBase.toString());
     }
   }
 
@@ -384,12 +398,14 @@ export class Childscn1Component implements OnInit {
   }
 
   sessionNull() {
+    sessionStorage.setItem('resultApproveAmt', '');
+    sessionStorage.setItem('resultLowestPayRate', '');
+    sessionStorage.setItem('period' , '' );
+    sessionStorage.setItem('periodType' , '' );
     sessionStorage.setItem('interestType' , '' );
     sessionStorage.setItem('approveInterest' , '' );
     sessionStorage.setItem('interest' , '' );
-    sessionStorage.setItem('mark' , '');
-    sessionStorage.setItem('resultApproveAmt', '');
-    sessionStorage.setItem('resultLowestPayRate', '');
+    sessionStorage.setItem('interestBase' , '' );
     sessionStorage.setItem('creditResult', '');
   }
 
@@ -406,7 +422,27 @@ export class Childscn1Component implements OnInit {
 
   getStyle(value: any) {
     return {
-      'text-align': isNaN(parseInt(value))  ? 'left' :  'right'
+      'text-align': this.isNumber(value) ? 'right' : 'left'
     }
+  }
+
+  isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
+
+  //審核註記編輯
+  startEdit(creditaction: string) {
+    const dialogRef = this.dialog.open(Childscn1editComponent, {
+      minHeight: '70vh',
+      width: '50%',
+      panelClass: 'mat-dialog-transparent',
+      data: {
+        creditaction: creditaction,
+        level: sessionStorage.getItem('stepName').split('t')[1]
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') {
+        this.getCreditmemo( this.pageIndex, this.pageSize );
+      }
+    });
   }
 }
