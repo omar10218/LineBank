@@ -2,7 +2,7 @@
 
 </div>
 <div class="line_bank_card_no_padding">
-  <nz-table [nzData]="data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle=" ">
+  <nz-table [nzData]="one" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle=" ">
     <thead>
       <tr>
         <th class="table-header"> </th>
@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of data">
+      <tr *ngFor="let item of one">
         <td>
           <!-- <input class="inpu1" type="checkbox" checked="true"  (change)="test($event)"> -->
           <input class="inpu1" type="checkbox"   (change)="addcheckbox($event.target.checked,item.ID,item.CONTRACT_AMT_029,item.CONTRACT_AMT_421,item.CONTRACT_AMT_CC)">

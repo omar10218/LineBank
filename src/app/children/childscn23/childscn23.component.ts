@@ -44,7 +44,7 @@ export class Childscn23Component implements OnInit {
   Monthlycc=0;//信用卡付月金
   Monthlytest=0;//信用卡付月金
   jsonObject: any = {};
-  data: any[]=[];//裝一開始的資料表
+  one: any[]=[];//裝一開始的資料表
   AddData: any;
   checkboxAny:any[]=[];//判斷是否回傳
   seveData:any[]=[];
@@ -71,7 +71,7 @@ export class Childscn23Component implements OnInit {
     if(this.i==true)
     {
       this.AddData = {APPLNO:'20210827E001',ACCOUNT_CODE: '', ID:'1', MONTHLY_PAY_421:'', MONTHLY_PAY_029: '',MONTHLY_PAY_CC:'',CAL_RATE:'',CAL_YEARS:'',CAL_PERIOD:'',CONTRACT_AMT_421:'',CONTRACT_AMT_029:'',CONTRACT_AMT_CC:''};
-      this.data.push(this.AddData)
+      this.one.push(this.AddData)
       this.i=false;
 
     }
@@ -81,8 +81,9 @@ export class Childscn23Component implements OnInit {
     let url ='f01/childscn23action1'
     this.jsonObject['applno']=this.applno;
     this.childscn23Service.AddUpDel(url,this.jsonObject).subscribe(data=>{
-      this.data = data.rspBody.items
-      this.suject=data.rspBody.items[0].ACCOUNT_CODE;
+      console.log(data)
+      this.one = data.rspBody.items
+      // this.suject=data.rspBody.items[0].ACCOUNT_CODE;
       this.limit2();
     })
   }
@@ -99,7 +100,7 @@ export class Childscn23Component implements OnInit {
   limit2()
   {
 
-    for(const item of this.data)
+    for(const item of this.one)
     {
         item.MONTHLY_PAY_421 = item.MONTHLY_PAY_421!=undefined ?  (item.MONTHLY_PAY_421+"").replace(/\B(?=(\d{3})+(?!\d))/g, ','):item.MONTHLY_PAY_421;
         item.MONTHLY_PAY_029 = item.MONTHLY_PAY_029!=undefined ?  (item.MONTHLY_PAY_029+"").replace(/\B(?=(\d{3})+(?!\d))/g, ','):item.MONTHLY_PAY_029;
@@ -130,7 +131,7 @@ export class Childscn23Component implements OnInit {
   {
     for(const jsonObj of this.Content)
     {
-      for(const item of this.data){
+      for(const item of this.one){
         if(item.ID==ID  )
         {
           if(item.ACCOUNT_CODE==jsonObj.ACCOUNT_CODE){
@@ -143,26 +144,26 @@ export class Childscn23Component implements OnInit {
     }
   }
 
-  sujectSelectTwo()//新增
-  {
-    for(const jsonObj of this.Content)
-    {
-      if(jsonObj['ACT_CODE']==this.sujecttwo)
-      {
-        this.InterestRateTwo = jsonObj['DEFAULT_RATE'];
-        this.YearsTwo = jsonObj['EFAULT_YEARS'];
-        this.NumberofPeriodsTwo = jsonObj['DEFAULT_PERIOD'];
+  // sujectSelectTwo()//新增
+  // {
+  //   for(const jsonObj of this.Content)
+  //   {
+  //     if(jsonObj['ACT_CODE']==this.sujecttwo)
+  //     {
+  //       this.InterestRateTwo = jsonObj['DEFAULT_RATE'];
+  //       this.YearsTwo = jsonObj['EFAULT_YEARS'];
+  //       this.NumberofPeriodsTwo = jsonObj['DEFAULT_PERIOD'];
 
-      }
-    }
-  }
+  //     }
+  //   }
+  // }
   seve()//儲存
   {
     let url ='f01/childscn23action3'
     let jsonObject1: any = {};
     for(const jsonObj of this.checkboxAny)
     {
-      for(const item of this.data)
+      for(const item of this.one)
       {
         let jsonObject: any = {};
         if(jsonObj==item.ID)
@@ -192,11 +193,11 @@ export class Childscn23Component implements OnInit {
       this.seveData=[];
 
     })
-    for(const item of this.data)
+    for(const item of this.one)
     {
       if(item.ID=='1')
       {
-        this.data.pop();
+        this.one.pop();
       }
     }
     this.i=true;
