@@ -1,19 +1,20 @@
 <div class="line_bank_bankground_color">
-  <nz-page-header class="site-page-header" style=" width: 100%;padding-top: 24px;">
+  <br>
+    <nz-page-header class="site-page-header" style=" width: 100%;padding:0 40px">
     <nz-breadcrumb nz-page-header-breadcrumb>
-      <nz-breadcrumb-item [class.active]="nowPage === Page.Page1" (click)="changePage(Page.Page1)">
-        <a style="color:black">徵信階段</a>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page1" (click)="changePage(Page.Page1)" >
+        <a [ngClass]="nowPage === Page.Page1 ? 'oncloick' : 'unclock'">徵信階段</a>
       </nz-breadcrumb-item>
-      <nz-breadcrumb-item *ngIf="getstepName() == 'APPLCreditL2'|| getstepName() == 'APPLCreditL1'"
-        [class.active]="nowPage === Page.Page2" (click)="changePage(Page.Page2)">
-        <a>授信階段</a>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page2" *ngIf="getstepName() == 'APPLCreditL2'|| getstepName() == 'APPLCreditL1'"
+       (click)="changePage(Page.Page2)">
+        <a [ngClass]="nowPage === Page.Page2 ? 'oncloick' : 'unclock'">授信階段</a>
       </nz-breadcrumb-item>
-      <nz-breadcrumb-item [class.active]="nowPage === Page.Page3" (click)="changePage(Page.Page3)">
-        <a>產生合約前回查</a>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page3"  (click)="changePage(Page.Page3)">
+        <a [ngClass]="nowPage === Page.Page3 ? 'oncloick' : 'unclock'">產生合約前回查</a>
       </nz-breadcrumb-item>
-      <nz-breadcrumb-item *ngIf="getLevel() == 'Y'" [class.active]="nowPage === Page.Page4"
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page4" *ngIf="getLevel() == 'Y'"
         (click)="changePage(Page.Page4)">
-        <a>風險模型資訊</a>
+        <a [ngClass]="nowPage === Page.Page4 ? 'oncloick' : 'unclock'">風險模型資訊</a>
       </nz-breadcrumb-item>
     </nz-breadcrumb>
   </nz-page-header>
