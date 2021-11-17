@@ -81,19 +81,45 @@ export class Childscn23Component implements OnInit {
     let url ='f01/childscn23action1'
     this.jsonObject['applno']=this.applno;
     this.childscn23Service.AddUpDel(url,this.jsonObject).subscribe(data=>{
-      console.log(data)
       this.one = data.rspBody.items
-      // this.suject=data.rspBody.items[0].ACCOUNT_CODE;
+      this.suject=data.rspBody.items[0].ACCOUNT_CODE;
       this.limit2();
     })
   }
 
-  limit(x: string)
+  // limit(x: string)
+  // {
+  //   x=x.replace(/\D/g,'')
+  //   if(x.length>0)
+  //   {
+  //     x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  //   }
+
+  // }
+  limit(x: string,id:string,name:string)
   {
     x=x.replace(/\D/g,'')
     if(x.length>0)
     {
       x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    for(const item of this.one){
+      if(item.ID==id )
+        {
+          switch(name)
+          {
+            case "gold421":
+              item.MONTHLY_PAY_421=x;
+              break;
+              case "gold029":
+                item.MONTHLY_PAY_029=x;
+                break;
+                case "gold":
+                  item.MONTHLY_PAY_CC =x;
+                  break;
+          }
+
+      }
     }
 
   }
@@ -144,19 +170,19 @@ export class Childscn23Component implements OnInit {
     }
   }
 
-  // sujectSelectTwo()//新增
-  // {
-  //   for(const jsonObj of this.Content)
-  //   {
-  //     if(jsonObj['ACT_CODE']==this.sujecttwo)
-  //     {
-  //       this.InterestRateTwo = jsonObj['DEFAULT_RATE'];
-  //       this.YearsTwo = jsonObj['EFAULT_YEARS'];
-  //       this.NumberofPeriodsTwo = jsonObj['DEFAULT_PERIOD'];
+  sujectSelectTwo()//新增
+  {
+    for(const jsonObj of this.Content)
+    {
+      if(jsonObj['ACT_CODE']==this.sujecttwo)
+      {
+        this.InterestRateTwo = jsonObj['DEFAULT_RATE'];
+        this.YearsTwo = jsonObj['EFAULT_YEARS'];
+        this.NumberofPeriodsTwo = jsonObj['DEFAULT_PERIOD'];
 
-  //     }
-  //   }
-  // }
+      }
+    }
+  }
   seve()//儲存
   {
     let url ='f01/childscn23action3'

@@ -1,8 +1,8 @@
-<section [ngxWatermark]="options"></section>
+<section  [ngxWatermark]="options"></section>
 <div class="line_bank_bankground_color">
   <div style=" width: 100%;position:fixed;z-index:10">
     <nz-tabset nzLinkRouter>
-      <nz-tab [nzTitle]="JCIC">
+        <nz-tab [nzTitle]="JCIC">
         <ng-template #JCIC let-visible="visible">
           <button nz-button [nzSize]="'default'" [ngClass]="hideJCIC ? 'nohide' : 'hide'"
             (click)="showJCIC()">聯徵彙整資訊</button>
@@ -10,8 +10,7 @@
       </nz-tab>
       <nz-tab [nzTitle]="showAll">
         <ng-template #showAll let-visible="visible">
-          <button nz-button [nzSize]="'default'" [ngClass]="hideAll ? 'nohide' : 'hide'" class="hide"
-            (click)="all()">Show All</button>
+          <button nz-button [nzSize]="'default'" [ngClass]="hideAll ? 'nohide' : 'hide'" class="hide" (click)="all()">Show All</button>
         </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="JCICMASTER">
@@ -161,38 +160,38 @@
     </nz-table>
     <br>
   </div>
-  <!-- JAS002 -->
-  <div [(hidden)]="hideJAS002" class="line_bank_card_no_padding">
-    <!-- 表格 -->
-    <nz-table nzShowSizeChanger [nzData]="JAS002Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total5"
-      [nzPageSize]="pageSize5" [nzPageIndex]="pageIndex5" (nzQueryParams)="onQueryParamsChange($event, 'JAS002')"
-      nzSize="small" nzTitle="JAS002 信用異常紀錄 (B, D, K)">
-      <thead>
-        <tr>
-          <th class="table-header">授信異常 YN</th>
-          <th class="table-header">最近授信異常日期</th>
-          <th class="table-header">退票異常 YN</th>
-          <th class="table-header">最近退票異常日期</th>
-          <th class="table-header">拒絕往來記錄 YN</th>
-          <th class="table-header">拒絕往來日期</th>
-          <th class="table-header">強制停卡異常 YN</th>
-          <th class="table-header">最近強制停卡日期</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of JAS002Source">
-          <td class="table-data">{{ data.EVER_DELINQUENT }}</td>
-          <td class="table-data">{{ data.DELINQUENT_DATE }}</td>
-          <td class="table-data">{{ data.EVER_BAD_CHECK }}</td>
-          <td class="table-data">{{ data.BAD_CHECK_DATE }}</td>
-          <td class="table-data">{{ data.EVER_REJECT }}</td>
-          <td class="table-data">{{ data.REJECT_DATE }}</td>
-          <td class="table-data">{{ data.EVER_STOP_CARD }}</td>
-          <td class="table-data">{{ data.STOP_CARD_DATE }}</td>
-        </tr>
-      </tbody>
-    </nz-table>
-  </div>
+    <!-- JAS002 -->
+<div [(hidden)]="hideJAS002" class="line_bank_card_no_padding">
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzData]="JAS002Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total5"
+  [nzPageSize]="pageSize5" [nzPageIndex]="pageIndex5" (nzQueryParams)="onQueryParamsChange($event, 'JAS002')"
+  nzSize="small" nzTitle="JAS002 信用異常紀錄 (B, D, K)">
+  <thead>
+    <tr>
+      <th class="table-header">授信異常 YN</th>
+      <th class="table-header">最近授信異常日期</th>
+      <th class="table-header">退票異常 YN</th>
+      <th class="table-header">最近退票異常日期</th>
+      <th class="table-header">拒絕往來記錄 YN</th>
+      <th class="table-header">拒絕往來日期</th>
+      <th class="table-header">強制停卡異常 YN</th>
+      <th class="table-header">最近強制停卡日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of JAS002Source">
+      <td class="table-data">{{ data.EVER_DELINQUENT }}</td>
+      <td class="table-data">{{ data.DELINQUENT_DATE }}</td>
+      <td class="table-data">{{ data.EVER_BAD_CHECK }}</td>
+      <td class="table-data">{{ data.BAD_CHECK_DATE }}</td>
+      <td class="table-data">{{ data.EVER_REJECT }}</td>
+      <td class="table-data">{{ data.REJECT_DATE }}</td>
+      <td class="table-data">{{ data.EVER_STOP_CARD }}</td>
+      <td class="table-data">{{ data.STOP_CARD_DATE }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+</div>
   <!-- JAS002 -->
   <!-- <div >
 <div [(hidden)]="hideJAS002" class="line_bank_card_no_padding"> -->
@@ -229,7 +228,7 @@
       </tr>
     </ng-container>
   </nz-table> -->
-  <!-- </div> -->
+<!-- </div> -->
   <!-- 聯徵彙整資訊 -->
   <div [(hidden)]="hideJCIC" class="line_bank_card_no_padding">
     <!-- KRM046信用卡證卡持有 -->
@@ -431,51 +430,33 @@
       <tbody>
         <tr>
           <td class="table-header">循環信用佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtall01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtall01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL12 }}</td>
           <td class="table-header">循環信用佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtall01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtall01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL12 }}</td>
         </tr>
         <tr>
           <td class="table-header">循環預借未到期佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevcapreRt01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevcapreRtL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevcapreRtL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevcapreRt01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevcapreRtL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevcapreRtL12 }}</td>
           <td class="table-header">循環預借未到期佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtall01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtall01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccRevRtallL12 }}</td>
         </tr>
         <tr>
           <td class="table-header">本期應付未到期佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRt01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRtL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRtL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRt01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRtL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRtL12 }}</td>
           <td class="table-header">本期應付未到期佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRtall01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRtallL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRtallL12 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRtall01aj }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRtallL06 }}</td>
+          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{ listSource.ccPayablepreRtallL12 }}</td>
         </tr>
       </tbody>
     </nz-table>
@@ -570,12 +551,12 @@
         <tr>
           <td class="table-header">授信往來</td>
           <td class="table-data">{{ listSource.lnBk }}</td>
-          <td class="table-data" id="prohibit"></td>
+          <td class="table-data"id="prohibit"></td>
           <td class="table-data">{{ listSource.lnBal }}</td>
-          <td class="table-data" id="prohibit"></td>
-          <td class="table-data" id="prohibit"></td>
-          <td class="table-data" id="prohibit"></td>
-          <td class="table-data" id="prohibit"></td>
+          <td class="table-data"id="prohibit"></td>
+          <td class="table-data"id="prohibit"></td>
+          <td class="table-data"id="prohibit"></td>
+          <td class="table-data"id="prohibit"></td>
         </tr>
         <tr>
           <td class="table-header">無擔保單放款<br>(含現金卡)</td>
@@ -595,7 +576,7 @@
           <td class="table-data">{{ listSource.lnYLimit }}</td>
           <td class="table-data">{{ listSource.lnYRt }}</td>
           <td class="table-data" id="prohibit"></td>
-          <td class="table-data" id="prohibit"></td>
+          <td class="table-data"id="prohibit"></td>
         </tr>
         <tr>
           <td class="table-header">房貸</td>
