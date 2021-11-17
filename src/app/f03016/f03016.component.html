@@ -3,64 +3,74 @@
   <!-- 產生合約前回查值設定 -->
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">產生合約前回查值設定</div>
-    <div nz-row>
-      <div nz-col nzSpan="12">
-        <div style="padding:10px">
-          <span class="form-title" style="width:100%">DSS3落人再送JCIC時間設定 </span>
-          <input nz-input placeholder="輸入數字" [(ngModel)]="DssJcicSet" id="dss_jcic_set"
-            oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
+    <form class="mat-dialog-content" #formControl="ngForm">
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">DSS3落人再送JCIC時間設定 </span>
+            <input nz-input placeholder="輸入數字" [(ngModel)]="DssJcicSet" id="dss_jcic_set"
+              oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">DSS3落人後email提醒天數</span>
+            <input nz-input placeholder="輸入天數" [(ngModel)]="DssMailDay" id="dss_mail_day"
+              oninput="value=value.replace(/[^\d]/g,'')" maxlength="2"required >
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </div>
         </div>
       </div>
-      <div nz-col nzSpan="12">
-        <div style="padding:10px">
-          <span class="form-title" style="width:100%">DSS3落人後email提醒天數</span>
-          <input nz-input placeholder="輸入天數" [(ngModel)]="DssMailDay" id="dss_mail_day"
-            oninput="value=value.replace(/[^\d]/g,'')" maxlength="2">
+      <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">動撥設定 </div>
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">基本門檻
+            </span>
+            <input nz-input placeholder="輸入金額" [(ngModel)]="BasicLimit" id="basic_limit" style="display: block;" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">是否查詢JCIC</span>
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="IsJcic" style="display: block;" required>
+              <mat-radio-button [value]="'Y'">是</mat-radio-button>
+              <mat-radio-button [value]="'N'">否</mat-radio-button>
+            </mat-radio-group>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">動撥設定 </div>
-    <div nz-row>
-      <div nz-col nzSpan="12">
-        <div style="padding:10px">
-          <span class="form-title" style="width:100%">基本門檻
-          </span>
-          <input nz-input placeholder="輸入金額" [(ngModel)]="BasicLimit" id="basic_limit" style="display: block;">
+      <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">CSS PASS設定</div>
+      <div nz-row>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">PASS起始日
+            </span>
+            <!-- <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" name="CssPassStart" (ngModelChange)="onChange($event)"> -->
+            <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" name="CssPassStart" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </nz-date-picker>
+          </div>
+        </div>
+        <div nz-col nzSpan="12">
+          <div style="padding:10px">
+            <span class="form-title" style="width:100%">PASS結束日</span>
+            <!-- <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd" (ngModelChange)="onChange($event)"> -->
+            <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd" required>
+            </nz-date-picker>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </div>
         </div>
       </div>
-      <div nz-col nzSpan="12">
-        <div style="padding:10px">
-          <span class="form-title" style="width:100%">是否查詢JCIC</span>
-          <mat-radio-group aria-label="Select an option" [(ngModel)]="IsJcic" style="display: block;">
-            <mat-radio-button [value]="'Y'">是</mat-radio-button>
-            <mat-radio-button [value]="'N'">否</mat-radio-button>
-          </mat-radio-group>
-        </div>
+      <div style="padding: 10px;text-align: center">
+        <button nz-button style="margin:0px 5px" [nzSize]="'middle'" nzType="primary" (click)="save()"
+          [disabled]="!formControl.valid">儲存</button>
       </div>
-    </div>
-    <div class="line_bank_form_header_title" style="border-radius: 0px 0px 0px 0px;">CSS PASS設定</div>
-    <div nz-row>
-      <div nz-col nzSpan="12">
-        <div style="padding:10px">
-          <span class="form-title" style="width:100%">PASS起始日
-          </span>
-          <!-- <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" name="CssPassStart" (ngModelChange)="onChange($event)"> -->
-          <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" name="CssPassStart" >
-          </nz-date-picker>
-        </div>
-      </div>
-      <div nz-col nzSpan="12">
-        <div style="padding:10px">
-          <span class="form-title" style="width:100%">PASS結束日</span>
-          <!-- <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd" (ngModelChange)="onChange($event)"> -->
-          <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd" >
-          </nz-date-picker>
-        </div>
-      </div>
-    </div>
-    <div style="padding: 10px;text-align: center">
-      <button nz-button style="margin:0px 5px" [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
-    </div>
+    </form>
   </div>
   <div class="line_bank_card_no_padding">
     <nz-table nzShowSizeChanger [nzData]="ChangeSource" [nzFrontPagination]="false" [nzSimple]="true"

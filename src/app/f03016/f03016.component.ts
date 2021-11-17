@@ -2,7 +2,7 @@
 
 
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder,FormControl,Validators } from '@angular/forms';
 import { F03016Service } from './f03016.service';;
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
@@ -52,6 +52,16 @@ export class F03016Component implements OnInit {
     this.getImpertmentParameterInfo(this.pageIndex, this.pageSize);
   }
 
+  formControl = new FormControl('', [
+    Validators.required
+  ]);
+  //欄位驗證
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
+
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params)
     // const { pageSize, pageIndex } = params;
@@ -96,7 +106,8 @@ export class F03016Component implements OnInit {
     if (this.CssPassStart < this.CssPassEnd) {
     let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart), 'yyyy-MM-dd');
     let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy-MM-dd');
-      if (CssPassStartString != '1970-01-01' && CssPassEndString != '1970-01-01'||CssPassStartString != '' && CssPassEndString != ''||CssPassStartString !=null && CssPassEndString != null) {
+      if (CssPassStartString != '1970-01-01' && CssPassEndString != '1970-01-01'
+      ) {
         jsonObject['cssPassStart'] = CssPassStartString;
         jsonObject['cssPassEnd'] = CssPassEndString;
       } else {

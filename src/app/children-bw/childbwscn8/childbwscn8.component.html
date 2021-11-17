@@ -1,7 +1,7 @@
 <br>
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="materialSource" [nzFrontPagination]="false" [nzSimple]="true"
-  [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+  [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzFooter="案件數: {{this.total}} 件"
   nzSize="small" nzTitle="貸後異常名單比對">
     <thead>
       <tr>
@@ -13,14 +13,14 @@
         <th class="table-header">異動人員員編</th>
       </tr>
     </thead>
-    <tbody >
+    <tbody  style="height: 100%">
       <tr *ngFor="let data of materialSource">
-        <td class="table-data">{{data.CU_M_TEL}}</td>
-        <td class="table-data">{{data.CU_H_TEL}}</td>
-        <td class="table-data">{{data.CU_H_ADDR}}</td>
-        <td class="table-data">{{data.SOURCE_MEMO1}}</td>
-        <td class="table-data">{{data.SOURCE_MEMO2}}</td>
-        <td class="table-data">{{data.SOURCE_MEMO3}}</td>
+        <td class="table-data">{{data.columnName}}</td>
+        <td class="table-data">{{data.tableName}}</td>
+        <td class="table-data">{{data.originalValue}}</td>
+        <td class="table-data">{{data.currentValue}}</td>
+        <td class="table-data">{{data.transDate| date: 'yyyy/MM/dd HH:mm:ss'}}</td>
+        <td class="table-data">{{data.transEmpNo}}</td>
       </tr>
     </tbody>
   </nz-table>
