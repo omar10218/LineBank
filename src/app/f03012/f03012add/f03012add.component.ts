@@ -117,7 +117,7 @@ export class F03012addComponent implements OnInit {
 		jsonObject['setValueLow'] = this.setValueLow
 		jsonObject['setValueHight'] = this.setValueHight
 		console.log(this.compareType)
-    this.error = ''
+    this.error = 'test'
 		this.f03012Service.submit(url, jsonObject).subscribe(data => {
 			alert((msg = data.rspMsg))
       this.getData()
@@ -148,11 +148,12 @@ export class F03012addComponent implements OnInit {
 	}
 
 	clear() {
-		this.selectedValue1 = ''
-		this.selectedValue2 = ''
-		this.compareType = ''
+		this.selectedValue1 = null
+		this.selectedValue2 = null
+		this.compareType = null
 		this.setValueHight = ''
 		this.setValueLow = ''
+
 	}
 	ngAfterViewInit(): void {}
 }
