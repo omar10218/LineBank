@@ -390,6 +390,7 @@ export class Childscn1Component implements OnInit {
     sessionStorage.setItem('mark' , '');
     sessionStorage.setItem('resultApproveAmt', '');
     sessionStorage.setItem('resultLowestPayRate', '');
+    sessionStorage.setItem('creditResult', '');
   }
 
   numberOnly(event: { which: any; keyCode: any; }): boolean {
@@ -401,5 +402,11 @@ export class Childscn1Component implements OnInit {
       return false;
     }
     return true;
+  }
+
+  getStyle(value: any) {
+    return {
+      'text-align': isNaN(parseInt(value))  ? 'left' :  'right'
+    }
   }
 }
