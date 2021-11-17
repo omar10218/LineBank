@@ -1,15 +1,16 @@
+<section  [ngxWatermark]="options"></section>
 <div class="line_bank_bankground_color">
   <div style=" width: 100%;position:fixed;z-index:10">
     <nz-tabset nzLinkRouter>
-      <nz-tab [nzTitle]="showAll">
-        <ng-template #showAll let-visible="visible">
-          <button nz-button [nzSize]="'default'" [ngClass]="hideAll ? 'nohide' : 'hide'" class="hide" (click)="all()">Show All</button>
-        </ng-template>
-      </nz-tab>
       <nz-tab [nzTitle]="JCIC">
         <ng-template #JCIC let-visible="visible">
           <button nz-button [nzSize]="'default'" [ngClass]="hideJCIC ? 'nohide' : 'hide'"
             (click)="showJCIC()">聯徵彙整資訊</button>
+        </ng-template>
+      </nz-tab>
+      <nz-tab [nzTitle]="showAll">
+        <ng-template #showAll let-visible="visible">
+          <button nz-button [nzSize]="'default'" [ngClass]="hideAll ? 'nohide' : 'hide'" class="hide" (click)="all()">Show All</button>
         </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="JCICMASTER">
@@ -34,10 +35,10 @@
         <ng-template #KRM046 let-visible="visible"><button nz-button [nzSize]="'default'"
             [ngClass]="hideKRM046 ? 'nohide' : 'hide'" (click)="show('KRM046')">KRM046</button></ng-template>
       </nz-tab>
-      <!-- <nz-tab [nzTitle]="JAS002">
+      <nz-tab [nzTitle]="JAS002">
         <ng-template #JAS002 let-visible="visible"><button nz-button [nzSize]="'default'"
             [ngClass]="hideJAS002 ? 'nohide' : 'hide'" (click)="show('JAS002')">JAS002</button></ng-template>
-      </nz-tab> -->
+      </nz-tab>
       <nz-tab [nzTitle]="STM022">
         <ng-template #STM022 let-visible="visible"><button nz-button [nzSize]="'default'"
             [ngClass]="hideSTM022 ? 'nohide' : 'hide'" (click)="show('STM022')">STM022</button></ng-template>
@@ -159,8 +160,40 @@
     </nz-table>
     <br>
   </div>
+    <!-- JAS002 -->
+<div [(hidden)]="hideJAS002" class="line_bank_card_no_padding">
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzData]="JAS002Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total5"
+  [nzPageSize]="pageSize5" [nzPageIndex]="pageIndex5" (nzQueryParams)="onQueryParamsChange($event, 'JAS002')"
+  nzSize="small" nzTitle="JAS002 信用異常紀錄 (B, D, K)">
+  <thead>
+    <tr>
+      <th class="table-header">授信異常 YN</th>
+      <th class="table-header">最近授信異常日期</th>
+      <th class="table-header">退票異常 YN</th>
+      <th class="table-header">最近退票異常日期</th>
+      <th class="table-header">拒絕往來記錄 YN</th>
+      <th class="table-header">拒絕往來日期</th>
+      <th class="table-header">強制停卡異常 YN</th>
+      <th class="table-header">最近強制停卡日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of JAS002Source">
+      <td class="table-data">{{ data.EVER_DELINQUENT }}</td>
+      <td class="table-data">{{ data.DELINQUENT_DATE }}</td>
+      <td class="table-data">{{ data.EVER_BAD_CHECK }}</td>
+      <td class="table-data">{{ data.BAD_CHECK_DATE }}</td>
+      <td class="table-data">{{ data.EVER_REJECT }}</td>
+      <td class="table-data">{{ data.REJECT_DATE }}</td>
+      <td class="table-data">{{ data.EVER_STOP_CARD }}</td>
+      <td class="table-data">{{ data.STOP_CARD_DATE }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+</div>
   <!-- JAS002 -->
-  <div >
+  <!-- <div >
 <!-- <div [(hidden)]="hideJAS002" class="line_bank_card_no_padding"> -->
   <!-- 表格 -->
   <!-- <nz-table nzSize="small" nzTitle="JAS002 信用異常紀錄 (B, D, K)">
@@ -195,7 +228,7 @@
       </tr>
     </ng-container>
   </nz-table> -->
-</div>
+<!-- </div> --> -->
   <!-- 聯徵彙整資訊 -->
   <div [(hidden)]="hideJCIC" class="line_bank_card_no_padding">
     <!-- KRM046信用卡證卡持有 -->

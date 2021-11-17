@@ -84,6 +84,7 @@ hideBAM307= false;
 hideBAM011= false;
 hideBAM070= false;
 hideBAM031= false;
+hideJAS002= false;
 
   private applno: string;
   private cuid: string;
@@ -422,7 +423,7 @@ hideBAM031= false;
       if ( code == 'BAM101' ) { this.total1 = data.rspBody.size; this.BAM101Source = data.rspBody.items; }
       if ( code == 'KRM048' ) { this.total1 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
       if ( code == 'KRM046' ) { this.total1 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
-      // if ( code == 'JAS002' ) { this.total1 = data.rspBody.size; this.JAS002Source = data.rspBody.items; }
+      if ( code == 'JAS002' ) { this.total1 = data.rspBody.size; this.JAS002Source = data.rspBody.items; }
       if ( code == 'STM022' ) { this.total1 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
       if ( code == 'STM008' ) { this.total1 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
       if ( code == 'STM025' ) { this.total1 = data.rspBody.size; this.STM025Source = data.rspBody.items; }
@@ -482,7 +483,7 @@ hideBAM031= false;
     this.hideSTM022 = true;
     this.hideSTM008 = true;
     this.hideSTM025 = true;
-    // this.hideJAS002 = true;
+    this.hideJAS002 = true;
     this.hideBAM031 = true;
   }
 
@@ -511,6 +512,7 @@ hideBAM031= false;
     this.hideBAM011= false;
     this.hideBAM070= false;
     this.hideBAM031= false;
+    this.hideJAS002 = false;
   }
 
   exist() {
@@ -547,13 +549,14 @@ hideBAM031= false;
       if (this.list[index] == "STM022") { this.hideSTM022 = !this.hideSTM022; }
       if (this.list[index] == "STM008") { this.hideSTM008 = !this.hideSTM008; }
       if (this.list[index] == "STM025") { this.hideSTM025 = !this.hideSTM025; }
-      // if (this.list[index] == "JAS002") { this.hideJAS002 = !this.hideJAS002; }
+      if (this.list[index] == "JAS002") { this.hideJAS002 = !this.hideJAS002; }
       if (this.list[index] == "BAM031") { this.hideBAM031 = !this.hideBAM031; }
 
     }
   }
 
   show(who: string) {
+    this.hideAll =true;
     this.hideJCIC = true;
     if (this.list.indexOf(who) !== -1) {
       const index: number = this.list.indexOf(who);
