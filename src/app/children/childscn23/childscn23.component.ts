@@ -85,6 +85,7 @@ export class Childscn23Component implements OnInit {
     let url ='f01/childscn23action1'
     this.jsonObject['applno']=this.applno;
     this.childscn23Service.AddUpDel(url,this.jsonObject).subscribe(data=>{
+      console.log(data)
       this.one = data.rspBody.items
       this.suject=data.rspBody.items[0].ACCOUNT_CODE;
       this.limit2();
@@ -205,7 +206,7 @@ export class Childscn23Component implements OnInit {
           jsonObject['id']=item.ID;
           jsonObject['calRate']=parseInt(item.CAL_RATE)/100;
           jsonObject['calYears']=item.CAL_YEARS? item.CAL_YEARS:0;
-          jsonObject['calPeriod']=item.CAL_PERIOD?item.CAL_PERIOD:0;
+          jsonObject['calPeriod']=item.CAL_PERIOD? item.CAL_PERIOD:0;
           jsonObject['monthlyPay421']=0;
           jsonObject['monthlyPay029']=0;
           jsonObject['monthlyPayCc']=item.MONTHLY_PAY_CC != null? this.Cut(item.MONTHLY_PAY_CC):'';
@@ -218,37 +219,40 @@ export class Childscn23Component implements OnInit {
           jsonObject['id']=item.ID;
           jsonObject['calRate']=parseInt(item.CAL_RATE)/100;
           jsonObject['calYears']=item.CAL_YEARS? item.CAL_YEARS:0;
-          jsonObject['calPeriod']=item.CAL_PERIOD?item.CAL_PERIOD:0;
+          jsonObject['calPeriod']=item.CAL_PERIOD? item.CAL_PERIOD:0;
           jsonObject['monthlyPay421']=item.MONTHLY_PAY_421 != null? this.Cut(item.MONTHLY_PAY_421):'';
           jsonObject['monthlyPay029']=item.MONTHLY_PAY_029 != null? this.Cut(item.MONTHLY_PAY_029):'';
-          jsonObject['monthlyPayCc']=item.MONTHLY_PAY_CC != null? this.Cut(item.MONTHLY_PAY_CC):'';
+          jsonObject['monthlyPayCc']=0;
           this.seveData.push(jsonObject);
           }
         }
       }
     }
     jsonObject1['dataList']=this.seveData
-    this.childscn23Service.AddUpDel(url,jsonObject1).subscribe(data=>{
-      console.log(data)
-      if(data.rspCode =='0000')
-      {
-        this.set();
-        this.checkboxAny =[];
-        this.seveData=[];
-      }
+      this.childscn23Service.AddUpDel(url,jsonObject1).subscribe(data=>{
+        console.log(data)
+        if(data.rspCode =='0000')
+        {
+          this.set();
+          this.checkboxAny =[];
+          this.seveData=[];
+          this.Monthly421=0;//BAM421月付金
+          this.Monthly029=0;//BAM029月付金
+          this.Monthlycc=0;//信用卡付月金
+        }
 
-    })
-    for(const item of this.one)
-    {
-      if(item.ID=='1')
+      })
+      for(const item of this.one)
       {
-        this.one.pop();
+        if(item.ID=='1')
+        {
+          this.one.pop();
+        }
       }
-    }
-    this.i=true;
+      this.i=true;
   }
 
-  Cut(s:string)//處理千分位
+    Cut(s:string)//處理千分位
   {
     s=s.replace(",","")
     return s
