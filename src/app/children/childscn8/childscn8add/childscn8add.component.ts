@@ -37,11 +37,11 @@ export class Childscn8addComponent implements OnInit {
   submit() {
   }
 
-  CON_TYPE_Code: OptionsCode[] = [];//聯絡方式下拉選單
-  TEL_CONDITION_Code: OptionsCode[] = [];//電話狀況下拉選單
-  TEL_CHECK_Code: OptionsCode[] = [];//電話種類下拉選單
-  HOURS_Code: OptionsCode[] = [];//時下拉選單
-  MINUTES_Code: OptionsCode[] = [];//分下拉選單
+  CON_TYPE_Code: OptionsCode[] = null;//聯絡方式下拉選單
+  TEL_CONDITION_Code: OptionsCode[] = null;//電話狀況下拉選單
+  TEL_CHECK_Code: OptionsCode[] = null;//電話種類下拉選單
+  HOURS_Code: OptionsCode[] = null;//時下拉選單
+  MINUTES_Code: OptionsCode[] = null //分下拉選單
 
   CALLOUT_DATE: Date; //設定下次照會時間
   CON_TEL_Selected: string;//電話種類
@@ -51,50 +51,11 @@ export class Childscn8addComponent implements OnInit {
   speakingAbbreviation: string;//話術名稱
 
   ngOnInit(): void {
-    this.childscn8Service.getSysTypeCode('HOURS')//時下拉選單
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.HOURS_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-
-    this.childscn8Service.getSysTypeCode('MINUTES')//分下拉選單
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.MINUTES_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-
-    this.childscn8Service.getSysTypeCode('CON_TYPE')//聯絡方式下拉選單
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.CON_TYPE_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-
-    this.childscn8Service.getSysTypeCode('TEL_CONDITION')//電話狀況下拉選單
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.TEL_CONDITION_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-
-    this.childscn8Service.getSysTypeCode('TEL_CHECK')//電話種類下拉選單
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.TEL_CHECK_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
+    this.HOURS_Code = this.childscn8Service.getHOURS();//時下拉選單
+    this.MINUTES_Code = this.childscn8Service.getMINUTES();//分下拉選單
+    this.CON_TYPE_Code = this.childscn8Service.getCON_TYPE();//聯絡方式下拉選單
+    this.TEL_CONDITION_Code = this.childscn8Service.getTEL_CONDITION();//電話狀況下拉選單
+    this.TEL_CHECK_Code = this.childscn8Service.getTEL_CHECK();//電話種類下拉選單
   }
 
   //儲存
@@ -121,7 +82,7 @@ export class Childscn8addComponent implements OnInit {
       });
       if (msgStr === '新增成功!' && codeStr === '0000') {
         // this.dialogRef.close({ event: 'success' });
-        this.f01002scn1Service.setJCICAddSource({ show : false });
+        this.f01002scn1Service.setJCICAddSource({ show: false });
         window.location.reload();
       }
     });
@@ -130,7 +91,7 @@ export class Childscn8addComponent implements OnInit {
   //取消
   onNoClick(): void {
     // this.dialogRef.close();
-    this.f01002scn1Service.setJCICAddSource({ show : false });
+    this.f01002scn1Service.setJCICAddSource({ show: false });
   }
 
   //顯示話述內容

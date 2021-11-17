@@ -68,6 +68,10 @@ export class F01002Component implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnInit(): void {
+    if (sessionStorage.getItem('bell') == 'Y') {
+      this.nowPage = Page.Page2;
+      sessionStorage.setItem('bell','');
+    }
   }
 
   ngOnDestroy() {
@@ -79,7 +83,7 @@ export class F01002Component implements OnInit, AfterViewInit, OnDestroy {
     this.changePage(this.nowPage);
 
   }
- 
+
   getCalloutList() {
     let jsonObject: any = {};
     jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");

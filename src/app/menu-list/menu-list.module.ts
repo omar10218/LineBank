@@ -9,7 +9,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faEllipsisH,faEyeSlash,faEye,faUser,faTimes,faSearch,faChartBar,faSyncAlt,faUserCog,faShareSquare } from '@fortawesome/free-solid-svg-icons';
-
+import { faBell } from '@fortawesome/free-regular-svg-icons';
 @NgModule({
   declarations: [MenuListComponent],
   exports: [MenuListComponent],
@@ -36,6 +36,6 @@ export class MenuListModule {
     library.addIcons(faEye);
     library.addIcons(faEyeSlash);
     library.addIcons(faEllipsisH);
-
+    library.addIcons(faBell);
   }
  }

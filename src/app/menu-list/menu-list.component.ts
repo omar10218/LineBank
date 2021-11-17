@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MenuListService } from './menu-list.service';
 import { Menu } from './menu.model';
 import { LoginService } from '../login/login.service';
+import { F01002Service } from '../f01002/f01002.service';
 
 @Component({
   selector: 'app-menu-list',
@@ -15,7 +16,10 @@ export class MenuListComponent implements OnInit {
     private router: Router,
     private menuListService: MenuListService,
     private loginService: LoginService,
+    private f01002Service: F01002Service,
   ) { }
+
+  total: string;
 
   @HostListener('document:mousemove', ['$event'])
   @HostListener('document:keyup', ['$event'])
@@ -27,6 +31,7 @@ export class MenuListComponent implements OnInit {
 
   ngOnInit() {
     this.loginService.setBnIdle();
+    this.getCalloutList();
   }
 
   getMenu(): Menu[] { return this.menuListService.getMap(); }
@@ -46,7 +51,16 @@ export class MenuListComponent implements OnInit {
     this.router.navigate(['./input']);
   }
 
+  getCalloutList() {
+    let jsonObject: any = {};
+    jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
+    this.f01002Service.getCalloutList(jsonObject).subscribe(data => {
+      console.log("for menu===>"+this.total)
+      this.total = data.rspBody.size;
+    });
+  }
 
-
-
+  bell() {
+    sessionStorage.setItem( 'bell', 'Y')
+  }
 }

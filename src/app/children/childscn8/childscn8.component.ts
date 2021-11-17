@@ -80,7 +80,7 @@ export class Childscn8Component implements OnInit {
   TEL_CONDITION: string;//電話狀況
   TEL_CHECK_Code: OptionsCode[] = [];//電話種類下拉選單
   TEL_CHECK: string;//電話種類
-  HOURS_Code: OptionsCode[] = [];//時下拉選單
+  HOURS_Code: OptionsCode[] = null;//時下拉選單
   HOURS: string;//時種類
   MINUTES_Code: OptionsCode[] = [];//分下拉選單
   MINUTES: string;//分種類
@@ -127,23 +127,26 @@ export class Childscn8Component implements OnInit {
     this.search = sessionStorage.getItem('search');
     this.empNo = localStorage.getItem("empNo");
 
+     this.HOURS_Code=this.childscn8Service.getHOURS();//時下拉選單
+     this.MINUTES_Code=this.childscn8Service.getMINUTES();//分下拉選單
 
-    this.childscn8Service.getSysTypeCode('HOURS')//時下拉選單
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.HOURS_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
-    this.childscn8Service.getSysTypeCode('MINUTES')//分下拉選單
-      .subscribe(data => {
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.MINUTES_Code.push({ value: codeNo, viewValue: desc })
-        }
-      });
+
+    // this.childscn8Service.getSysTypeCode('HOURS')//時下拉選單
+    //   .subscribe(data => {
+    //     for (const jsonObj of data.rspBody.mappingList) {
+    //       const codeNo = jsonObj.codeNo;
+    //       const desc = jsonObj.codeDesc;
+    //       this.HOURS_Code.push({ value: codeNo, viewValue: desc })
+    //     }
+    //   });
+    // this.childscn8Service.getSysTypeCode('MINUTES')//分下拉選單
+    //   .subscribe(data => {
+    //     for (const jsonObj of data.rspBody.mappingList) {
+    //       const codeNo = jsonObj.codeNo;
+    //       const desc = jsonObj.codeDesc;
+    //       this.MINUTES_Code.push({ value: codeNo, viewValue: desc })
+    //     }
+    //   });
     this.childscn8Service.getSysTypeCode('MD_NO')//項目
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
