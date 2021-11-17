@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Childbwscn6Service } from './childbwscn6.service';
+import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-childbwscn6',
@@ -7,9 +14,55 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Childbwscn6Component implements OnInit {
 
-  constructor() { }
+  constructor(
+    public childbwscn6Service: Childbwscn6Service,
+    public dialog: MatDialog,) { }
+  applno: string;
+  jsonObject: any = {};
+  data: any;//裝一開始的資料表
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
+  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
+  currentPage: PageEvent;
+  currentSort: Sort;
+  totalCount: any;
+  ruleParamCondition: Data[] = [];
+  transactionLogSource: Data[] = [];
+  total = 1;
+  loading = false;
+  pageSize = 50;
+  pageIndex = 1;
+  fds: string = "";
 
   ngOnInit(): void {
+    this.applno = sessionStorage.getItem('applno');
   }
 
+
+  //取得表單資料
+  initial(pageIndex: number, pageSize: number) {
+    const baseUrl = 'f01/childbwscn6'
+    let jsonObject: any = {}
+    jsonObject['applno'] = this.applno ;
+    //測試用
+    // jsonObject['applno'] = '1111111';
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page']= pageSize;
+    console.log('jsonObject');
+    console.log(jsonObject);
+    this.childbwscn6Service.selectCustomer(baseUrl, jsonObject).subscribe(data => {
+      console.log('data')
+      console.log(data)
+      this.total = data.rspBody.size
+      console.log(this.total)
+      this.ruleParamCondition = data.rspBody.items
+    })
+    this.loading = false
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params
+    this.pageSize = pageSize
+    this.pageIndex = pageIndex
+    this.initial(pageIndex, pageSize)
+  }
 }

@@ -4,7 +4,7 @@
   <div nz-row style="padding:5px">
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">案件編號</span><input matInput #input class="form-control"
-          [(ngModel)]="applno" readonly disabled></div>
+          [(ngModel)]="applno" [ngStyle]="getStyle(applno)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">姓名</span><input matInput #input class="form-control"
@@ -347,11 +347,11 @@
 
   <div nz-row style="padding:5px">
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">起始期數</span><input matInput #input class="form-control" value=""
+      <div style="padding:3px"><span class="form-title">起始期數</span><input matInput #input [ngStyle]="getStyle('aaa')" class="form-control" value="'aaa'"
           readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">利率類型</span><input matInput #input class="form-control" value=""
+      <div style="padding:3px"><span class="form-title">利率類型</span><input matInput #input [ngStyle]="getStyle(12345)" class="form-control" value="12345"
           readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
@@ -391,7 +391,7 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:2px"><span class="form-title">核決結果</span>
-        <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px">
+        <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px" (ngModelChange)="change(creditResult,'creditResult')">
           <mat-option *ngFor="let code of creditResultCode" [value]="code.value">
             {{code.viewValue}}
           </mat-option>

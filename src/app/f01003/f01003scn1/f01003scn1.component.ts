@@ -30,6 +30,7 @@ export class F01003scn1Component implements OnInit {
   approveInterest: string;
   interest: string;
   interestType: string;
+  creditResult: string;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -69,6 +70,7 @@ export class F01003scn1Component implements OnInit {
     this.approveInterest = sessionStorage.getItem('approveInterest');
     this.interest = sessionStorage.getItem('interest');
     this.interestType = sessionStorage.getItem('interestType');
+    this.creditResult = sessionStorage.getItem('creditResult');
 
     if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '') {
       let json: any = {};
@@ -78,14 +80,23 @@ export class F01003scn1Component implements OnInit {
       json['approveInterest'] = this.approveInterest;
       json['interest'] = this.interest;
       json['interestType'] = this.interestType;
-      jsonObject['creditResult'] = json;
-      this.f01003Scn1Service.send(baseUrl, jsonObject).subscribe(data => {
-        console.log(data)
-      });
 
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '案件完成' }
-      });
+      if (this.creditResult == '' || this.creditResult == null) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '請填寫核決結果!' }
+        });
+      } else {
+        alert(this.creditResult)
+        let json: any = {};
+        json['creditResult'] = this.creditResult;
+        jsonObject['creditResult'] = json;
+        this.f01003Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
+          console.log(data)
+        });
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '案件完成' }
+        });
+      }
     } else {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '審核結果未填寫' }

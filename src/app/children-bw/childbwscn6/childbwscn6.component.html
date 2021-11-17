@@ -1,1 +1,33 @@
-<p>childbwscn6 works!</p>
+<br>
+<div class="line_bank_bankground_color">
+  <div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzData]="ruleParamCondition"
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="歷史資料"  (nzQueryParams)="onQueryParamsChange($event)">
+      <thead>
+        <tr>
+          <th class="table-header">案件編號</th>
+          <th class="table-header">客戶ID</th>
+          <th class="table-header">身分證字號 </th>
+          <th class="table-header">審核結果</th>
+          <th class="table-header">複審人員</th>
+          <th class="table-header">複審主管</th>
+          <th class="table-header">複審日期</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ruleParamCondition">
+          <td class="table-data">{{ data.applno }}</td>
+          <td class="table-data">{{ data.custId }}</td>
+          <td class="table-data">{{ data.nationalId }}</td>
+          <td class="table-data">{{ data.creditResult }}</td>
+          <td class="table-data">{{ data.l4empno }}</td>
+          <td class="table-data">{{ data.l3empno }}</td>
+          <td class="table-data">{{ data.creditTime| date: 'yyyy-MM-dd' }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+

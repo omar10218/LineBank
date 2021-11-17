@@ -99,19 +99,25 @@ export class F01001scn1Component implements OnInit {
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = this.leave;
+    jsonObject['level'] = 'L4';
+
     this.creditResult = sessionStorage.getItem('creditResult');
-    this.f01001Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
-      console.log(data)
-    });
-
-    //徵信人員
-    if (this.level == 'L4') {
-
+    if (this.creditResult == '' || this.creditResult == null ){
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請填寫核決結果!' }
+      });
+    } else {
+      alert(this.creditResult)
+      let json: any = {};
+      json['creditResult'] = this.creditResult;
+      jsonObject['creditResult'] = json;
+      this.f01001Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
+        console.log(data)
+      });
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '案件完成' }
+      });
     }
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: '案件完成' }
-    });
   }
 
   getWinClose(): String {
