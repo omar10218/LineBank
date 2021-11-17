@@ -57,7 +57,7 @@ export class F01004scn1Component implements OnInit {
     jsonObject['level'] = 'L1';
     jsonObject['creditResult'] = '';
     this.f01004Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
-      console.log(data)
+      this.router.navigate(['./F01004']);
     });
 
     const childernDialogRef = this.dialog.open(ConfirmComponent, {

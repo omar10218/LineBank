@@ -101,7 +101,7 @@ export class F01003scn1Component implements OnInit {
         jsonObject['creditResult'] = jsoncreditResult;
         jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod
         this.f01003Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
-          console.log(data)
+          this.router.navigate(['./F01003']);
         });
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: '案件完成' }

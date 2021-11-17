@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn18Service } from './childscn18.service';
 
 @Component({
@@ -11,7 +13,9 @@ export class Childscn18Component implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<Childscn18Component>,
-    public childscn18Service: Childscn18Service
+    public childscn18Service: Childscn18Service,
+    public dialog: MatDialog,
+    private router: Router,
   ) { }
 
   empNo: string;  //上傳員編
@@ -27,6 +31,7 @@ export class Childscn18Component implements OnInit {
     this.empNo = localStorage.getItem("empNo");
   }
   log(value: string[]): void {
+    console.log(value)
     this.searchArray = value;
   }
   close() {
@@ -48,11 +53,14 @@ export class Childscn18Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['empNo'] = this.empNo;
     jsonObject['applno'] = this.applno;
-    jsonObject['swcID'] = this.swcID;
-    jsonObject['custID'] = this.custID;
+    jsonObject['swcNationlId'] = this.swcID;
+    jsonObject['swcCustId'] = this.custID;
     jsonObject['searchArray'] = this.searchArray.toString();
     this.childscn18Service.reSearch(url, jsonObject).subscribe(data => {
-      console.log(data.rspBody);
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: data.rspMsg }
+      });
+      this.router.navigate(['./F01002']);
     });
   }
 }
