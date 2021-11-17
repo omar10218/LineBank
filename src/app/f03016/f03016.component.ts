@@ -96,7 +96,7 @@ export class F03016Component implements OnInit {
     if (this.CssPassStart < this.CssPassEnd) {
     let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart), 'yyyy-MM-dd');
     let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy-MM-dd');
-      if (CssPassStartString != '1970-01-01' && CssPassEndString != '1970-01-01') {
+      if (CssPassStartString != '1970-01-01' && CssPassEndString != '1970-01-01'||CssPassStartString != '' && CssPassEndString != ''||CssPassStartString !=null && CssPassEndString != null) {
         jsonObject['cssPassStart'] = CssPassStartString;
         jsonObject['cssPassEnd'] = CssPassEndString;
       } else {

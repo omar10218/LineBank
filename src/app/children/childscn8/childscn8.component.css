@@ -28,7 +28,9 @@ form{
   padding-right: 20px;
 }
 
-
+.ant-btn-dangerous{
+  border-radius: 5px;
+}
 .txt1{
   width: 100%;
   height: 100%;

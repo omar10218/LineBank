@@ -4,3 +4,6 @@
   top: 150px;
   left: 0;
 }
+.ant-btn-dangerous{
+  border-radius: 5px;
+}

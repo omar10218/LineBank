@@ -177,6 +177,8 @@ export class Childscn8Component implements OnInit {
   Add() {
     this.showAdd = !this.showAdd;
     this.f01002scn1Service.setJCICAddSource({
+      minHeight: '70vh',
+			width: '50%',
       show: this.showAdd,
       applno: this.applno,//收件編號
       // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單

@@ -1,6 +1,6 @@
-<div class="container" style="padding:20px;">
+<div class="container" style="min-height:50vh;width:80vw">
   <!-- 最外層卡片包覆 -->
-  <div class="line_bank_card_no_padding">
+  <div class="line_bank_card_no_padding" style="width:100%;margin:0px">
     <!-- 表格 -->
     <nz-table [nzData]="MDtable" nzSize="small" nzTitle="照會項目">
       <thead>
@@ -600,10 +600,10 @@
       </tbody>
     </nz-table>
     <br>
-    <div mat-dialog-actions style="padding:5px">
+    <div mat-dialog-actions style="padding:5px;text-align: center">
       <button nz-button [nzSize]="'middle'" nzType="primary" [mat-dialog-close]="1" style="margin:0px 5px"
         (click)="save()">儲存</button>
-      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+      <button nz-button [nzSize]="'middle'" nzDanger (click)="onNoClick()" tabindex="-1"
         style="margin:0px 5px">取消</button>
     </div>
   </div>
