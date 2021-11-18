@@ -50,6 +50,7 @@ import { Inputloanpage4Component } from '../inputloan/inputloanpage4/inputloanpa
 import { Inputloanpage5Component } from '../inputloan/inputloanpage5/inputloanpage5.component';
 import { F02004Component } from '../f02004/f02004.component';
 import { F01011Component } from '../f01011/f01011.component';
+import { F04003Component } from '../f04003/f04003.component';
 
 
 const routes: Routes = [
@@ -293,6 +294,10 @@ const routes: Routes = [
       {
         path: 'F04002',
         component: F04002Component
+      },
+      {
+        path: 'F04003',
+        component: F04003Component
       },
     ]
   }
