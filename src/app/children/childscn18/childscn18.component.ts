@@ -53,7 +53,7 @@ export class Childscn18Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['empNo'] = this.empNo;
     jsonObject['applno'] = this.applno;
-    jsonObject['swcNationlId'] = this.swcID;
+    jsonObject['swcNationalId'] = this.swcID;
     jsonObject['swcCustId'] = this.custID;
     jsonObject['searchArray'] = this.searchArray.toString();
     this.childscn18Service.reSearch(url, jsonObject).subscribe(data => {
