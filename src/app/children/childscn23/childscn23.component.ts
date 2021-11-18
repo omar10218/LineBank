@@ -47,7 +47,9 @@ export class Childscn23Component implements OnInit {
   Monthly029 = 0;//BAM029月付金
   Monthlycc = 0;//信用卡付月金
   Monthlytest = 0;//信用卡付月金
+  jsonObject3: any = {};
   jsonObject: any = {};
+  jsonObject1:any = {};
   one: any[] = [];//裝一開始的資料表
   AddData: any;
   checkboxAny: any[] = [];//判斷是否回傳
@@ -81,8 +83,8 @@ export class Childscn23Component implements OnInit {
   }
   set() {
     let url = 'f01/childscn23action1'
-    this.jsonObject['applno'] = this.applno;
-    this.childscn23Service.AddUpDel(url, this.jsonObject).subscribe(data => {
+    this.jsonObject3['applno'] = this.applno;
+    this.childscn23Service.AddUpDel(url, this.jsonObject3).subscribe(data => {
       console.log(data)
       this.one = data.rspBody.items
       this.suject = data.rspBody.items[0].ACCOUNT_CODE;
@@ -175,44 +177,63 @@ export class Childscn23Component implements OnInit {
   seve()//儲存
   {
     let url = 'f01/childscn23action3'
-    let jsonObject1: any = {};
-    for (const jsonObj of this.checkboxAny) {
-      for (const item of this.one) {
-        let jsonObject: any = {};
-        if (jsonObj == item.ID) {
-          if (item.ACCOUNT_CODE == 'CC') {
-            jsonObject['applno'] = item.APPLNO;
-            jsonObject['accountCode'] = item.ACCOUNT_CODE;
-            jsonObject['rowId3'] = item.ID;
-            jsonObject['calRate'] = parseInt(item.CAL_RATE) / 100;
-            jsonObject['calYears'] = item.CAL_YEARS ? item.CAL_YEARS : 0;
-            jsonObject['calPeriod'] = item.CAL_PERIOD ? item.CAL_PERIOD : 0;
-            jsonObject['contractAmt421'] = 0;
-            jsonObject['contractAmt029'] = 0;
-            jsonObject['contractAmtCc'] = item.CONTRACT_AMT_CC != null ? this.Cut(item.CONTRACT_AMT_CC) : '';
-            this.seveData.push(jsonObject);
+
+    for (const ii of this.checkboxAny)
+    {
+      for (const item of this.one)
+      {
+        this.jsonObject = {};
+        if (ii == item.ID)
+        {
+          if(item.ID == 1)
+          {
+            this.jsonObject['rowId'] ='';
           }
-          else {
-            jsonObject['applno'] = item.APPLNO;
-            jsonObject['accountCode'] = item.ACCOUNT_CODE;
-            jsonObject['rowId'] = item.ID;
-            jsonObject['calRate'] = parseInt(item.CAL_RATE) / 100;
-            jsonObject['calYears'] = item.CAL_YEARS ? item.CAL_YEARS : 0;
-            jsonObject['calPeriod'] = item.CAL_PERIOD ? item.CAL_PERIOD : 0;
-            jsonObject['contractAmt421'] = item.CONTRACT_AMT_421 != null ? this.Cut(item.CONTRACT_AMT_421) : '';
-            jsonObject['contractAmt029'] = item.CONTRACT_AMT_029 != null ? this.Cut(item.CONTRACT_AMT_029) : '';
-            jsonObject['contractAmtCc'] = 0;
-            this.seveData.push(jsonObject);
+          else
+          {
+            this.jsonObject['rowId'] = item.ID;
+          }
+
+          if (item.ACCOUNT_CODE == 'CC')
+           {
+            console.log(item.CAL_YEARS)
+            console.log(item.CAL_PERIOD)
+            this.jsonObject['applno'] = item.APPLNO;
+            this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
+            // jsonObject['rowId'] = item.ID;
+            this.jsonObject['calRate'] = parseInt(item.CAL_RATE) / 100;
+            this.jsonObject['contractAmt421'] = "0";
+            this.jsonObject['contractAmt029'] = "0";
+            this.jsonObject['contractAmtCc'] = item.CONTRACT_AMT_CC != "" ? this.Cut(item.CONTRACT_AMT_CC) : "0";
+            this.seveData.push(this.jsonObject);
+          }
+          else
+          {
+            this.jsonObject['applno'] = item.APPLNO;
+            this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
+            // jsonObject['rowId'] = item.ID;
+            this.jsonObject['calRate'] = parseInt(item.CAL_RATE) / 100;
+            this.jsonObject['calYears'] = item.CAL_YEARS != undefined? item.CAL_YEARS :"0";
+            if(item.CAL_PERIOD != undefined)
+            {
+              this.jsonObject['calPeriod'] = item.CAL_PERIOD != undefined? item.CAL_PERIOD : "0";
+            }
+            this.jsonObject['contractAmt421'] = item.CONTRACT_AMT_421 != "" ? this.Cut(item.CONTRACT_AMT_421) : "0";
+            this.jsonObject['contractAmt029'] = item.CONTRACT_AMT_029 != "" ? this.Cut(item.CONTRACT_AMT_029) : "0";
+            this.jsonObject['contractAmtCc'] = "0";
+            this.seveData.push(this.jsonObject);
           }
         }
       }
     }
-    jsonObject1['dataList'] = this.seveData
+    this.jsonObject1['dataList'] = this.seveData
     console.log("1111111")
     console.log(this.seveData)
-    this.childscn23Service.AddUpDel(url, jsonObject1).subscribe(data => {
+    this.childscn23Service.AddUpDel(url,this.jsonObject1).subscribe(data => {
       console.log(this.seveData)
-      if (data.rspCode == '0000') {
+      console.log(data)
+      if (data.rspCode == '0000')
+      {
         this.set();
         this.checkboxAny = [];
         this.seveData = [];
@@ -232,7 +253,6 @@ export class Childscn23Component implements OnInit {
 
   Cut(s: string)//處理千分位
   {
-    console.log(s)
     if(s!=null)
     {
       s = s.replace(/,/g, "")
@@ -264,7 +284,7 @@ export class Childscn23Component implements OnInit {
 
   }
   addcheckbox(check: boolean, z: string, amt029: string, amt421: string, amtcc: string) {
-    console.log(amtcc)
+
     if (check) {
       this.checkboxAny.push(z)
       this.Monthly421 = this.Monthly421 + parseInt(this.Cut(amt421? amt421:"0"));//BAM421月付金
