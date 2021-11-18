@@ -180,7 +180,7 @@ export class Childscn8Component implements OnInit {
       minHeight: '70vh',
 			width: '50%',
       show: this.showAdd,
-      applno: this.applno,//收件編號
+      applno: this.applno,//案件編號
       // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
       CON_TYPE: '',//聯絡方式
       // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
@@ -203,7 +203,7 @@ export class Childscn8Component implements OnInit {
     //   minHeight: '70vh',
     //   width: '70%',
     //   data: {
-    //     applno: this.applno,//收件編號
+    //     applno: this.applno,//案件編號
     //     // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
     //     CON_TYPE: '',//聯絡方式
     //     // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
@@ -233,7 +233,7 @@ export class Childscn8Component implements OnInit {
     this.showEdit = !this.showEdit;
     this.f01002scn1Service.setJCICSource({
       show: this.showEdit,
-      applno: this.applno,//收件編號
+      applno: this.applno,//案件編號
       // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
       CON_TYPE: CON_TYPE,//聯絡方式
       // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
@@ -258,7 +258,7 @@ export class Childscn8Component implements OnInit {
     //   minHeight: '70vh',
     //   width: '70%',
     //   data: {
-    //     applno: this.applno,//收件編號
+    //     applno: this.applno,//案件編號
     //     // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
     //     CON_TYPE: CON_TYPE,//聯絡方式
     //     // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
@@ -291,7 +291,7 @@ export class Childscn8Component implements OnInit {
       minHeight: '70vh',
       width: '70%',
       data: {
-        applno: this.applno,//收件編號
+        applno: this.applno,//案件編號
         CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
         CON_TYPE: CON_TYPE,//聯絡方式
         TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
