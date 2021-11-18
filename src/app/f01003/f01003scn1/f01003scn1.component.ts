@@ -92,7 +92,7 @@ export class F01003scn1Component implements OnInit {
       jsonCreditInterestPeriod['interest'] = this.interest; // 固定利率
       jsonCreditInterestPeriod['interestBase'] = this.interest; // 基放利率
 
-      if (this.creditResult == '' || this.creditResult == null) {
+      if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: '請填寫核決結果!' }
         });
