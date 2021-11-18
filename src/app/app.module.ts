@@ -109,6 +109,7 @@ import { F01011Component } from './f01011/f01011.component';
 import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faFolderOpen} from '@fortawesome/free-solid-svg-icons';
 import { FormatNumberPipe, ToNumberPipe } from './pipe/customFormatterPipe';
+import { F04003Component } from './f04003/f04003.component';
 
 registerLocaleData(zh);
 export const TW_FORMATS = {
@@ -212,6 +213,7 @@ export const TW_FORMATS = {
     F01011Component,
     childbwscn2page1Component,
     childbwscn2page2Component,
+    F04003Component,
   ],
   imports: [
     NzIconModule,
