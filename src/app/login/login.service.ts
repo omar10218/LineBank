@@ -21,7 +21,7 @@ export class LoginService extends BaseService {
 
   setBnIdle(): void {
     if (!this.bnIdle['idle$']) {
-      this.bnIdle.startWatching( 60 * 10 ).subscribe((isTimedOut: boolean) => {
+      this.bnIdle.startWatching( 60 * 30 ).subscribe((isTimedOut: boolean) => {
         if (isTimedOut) { this.routerGoUrl(); }
       });
     } else {
