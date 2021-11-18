@@ -33,7 +33,7 @@ export class F03004editComponent {
   ]);
 
   getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Required field' : '';
+    return this.formControl.hasError('required') ? '此欄位必填!' : '';
   }
 
   submit() {

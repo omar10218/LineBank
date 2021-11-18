@@ -6,7 +6,7 @@
         <div class="form">
           <div><span class="form-title" style="margin:0">話術簡稱</span><input matInput #input [(ngModel)]="data.speakingAbbreviation"
               name="speakingAbbreviation" required>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (data.speakingAbbreviation=='' || data.speakingAbbreviation== null) ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
@@ -14,7 +14,7 @@
         <div class="form">
           <div><span class="form-title">話術內容</span><textarea matInput class="input-textarea"
               [(ngModel)]="data.speakingContent" name="speakingContent" required></textarea>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (data.speakingContent=='' || data.speakingContent== null) ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
             <nz-select [(ngModel)]="data.stopFlag"  name="stopFlag">
               <nz-option nzValue="{{code.viewValue}}" *ngFor="let code of stopFlagCode" nzLabel="{{code.viewValue}}" ></nz-option>
             </nz-select>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (data.stopFlag=='' || data.stopFlag== null) ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>

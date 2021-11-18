@@ -133,17 +133,16 @@ export class F01002scn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'L3';
     this.creditResult = sessionStorage.getItem('creditResult');
-    if (this.creditResult == '' || this.creditResult == null ){
+    if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請填寫核決結果!' }
       });
     } else {
-      alert(this.creditResult)
       let json: any = {};
       json['creditResult'] = this.creditResult;
       jsonObject['creditResult'] = json;
       this.f01002scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
-        console.log(data)
+        this.router.navigate(['./F01002']);
       });
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '案件完成' }

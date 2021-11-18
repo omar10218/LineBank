@@ -12,7 +12,7 @@
                   {{code.codeDesc}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (incomeType=='' || incomeType== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -20,7 +20,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">身份證字號</span>
               <input matInput #input class="form-control" type="text" [(ngModel)]="cuId" name="cuId" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (cuId=='' || cuId== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">姓名</span>
               <input matInput #input class="form-control" [(ngModel)]="cuCname" name="cuCname" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (cuCname=='' || cuCname== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">金額</span>
               <input matInput #input class="form-control" [(ngModel)]="num" name="num" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (num=='' || num== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>

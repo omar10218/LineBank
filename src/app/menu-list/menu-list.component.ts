@@ -1,16 +1,18 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuListService } from './menu-list.service';
 import { Menu } from './menu.model';
 import { LoginService } from '../login/login.service';
 import { F01002Service } from '../f01002/f01002.service';
 
+
+//Nick icon/時間登出/照會提醒
 @Component({
   selector: 'app-menu-list',
   templateUrl: './menu-list.component.html',
   styleUrls: ['./menu-list.component.css']
 })
-export class MenuListComponent implements OnInit {
+export class MenuListComponent implements OnInit, OnDestroy {
   empNo: string = localStorage.getItem("empNo");
   constructor(
     private router: Router,
@@ -28,10 +30,20 @@ export class MenuListComponent implements OnInit {
   userOnAction() {
     this.loginService.setBnIdle();
   }
+  intervalRef: any;
 
   ngOnInit() {
     this.loginService.setBnIdle();
     this.getCalloutList();
+    //設定5分鐘刷新照會提醒
+    this.intervalRef = setInterval(
+      () => {
+        this.getCalloutList();
+      }, 5* 60 * 1000);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.intervalRef);
   }
 
   getMenu(): Menu[] { return this.menuListService.getMap(); }
@@ -51,16 +63,19 @@ export class MenuListComponent implements OnInit {
     this.router.navigate(['./input']);
   }
 
+  //取照會提醒
   getCalloutList() {
     let jsonObject: any = {};
     jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
     this.f01002Service.getCalloutList(jsonObject).subscribe(data => {
-      console.log("for menu===>"+this.total)
       this.total = data.rspBody.size;
     });
   }
 
   bell() {
-    sessionStorage.setItem( 'bell', 'Y')
+    sessionStorage.setItem('bell', 'Y')
   }
+
+
+
 }

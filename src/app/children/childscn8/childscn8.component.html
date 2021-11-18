@@ -1,18 +1,14 @@
 <!-- 頁面背景 -->
 
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
+  <div style="padding-left: 50px; padding-top: 20px;">
     <div *ngIf="getSearch() == 'N'">
       <button nz-button [nzSize]="'large'" nzType="primary" (click)="Add()">新增</button>
     </div>
     <div *ngIf="getSearch() != 'N'">
       <button nz-button [nzSize]="'large'" nzType="primary" (click)="Add()" disabled >新增</button>
     </div>
-
   </div>
-
-  <!-- <app-childscn8edit class="example-box" cdkDrag></app-childscn8edit> -->
-  <br>
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">
     <!-- 表格 -->
@@ -61,18 +57,11 @@
     </nz-table>
   </div>
 
-
-  <!-- <div *ngFor="let speaking of speakingData" style="padding-left: 20px;">
-    <button type="submit" style="float:left" mat-raised-button
-      (click)="ShowspeakingContenta(speaking.speakingContent)">{{speaking.speakingAbbreviation}}</button>
-  </div>
-  <br> -->
-
-  <div *ngIf="getSearch() == 'N'" style="padding-left: 20px; padding-top: 20px;">
+  <div *ngIf="getSearch() == 'N'" style="padding-left: 50px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="items()">儲存</button>
   </div>
 
-  <div *ngIf="getSearch() != 'N'" style="padding-left: 20px; padding-top: 20px;">
+  <div *ngIf="getSearch() != 'N'" style="padding-left: 50px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save()" disabled >儲存</button>
   </div>
   <!-- 最外層卡片包覆 -->

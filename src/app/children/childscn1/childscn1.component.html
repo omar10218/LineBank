@@ -8,15 +8,15 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">姓名</span><input matInput #input class="form-control"
-          [(ngModel)]="cuCName" readonly disabled></div>
+          [(ngModel)]="cuCName" [ngStyle]="getStyle(cuCName)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">客戶ID</span><input matInput #input class="form-control"
-          [(ngModel)]="custId" readonly disabled></div>
+          [(ngModel)]="custId" [ngStyle]="getStyle(custId)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">身分證字號</span><input matInput #input class="form-control"
-          [(ngModel)]="nationalId" readonly disabled></div>
+          [(ngModel)]="nationalId" [ngStyle]="getStyle(nationalId)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">客戶身分名單註記</span><input matInput #input class="form-control"
@@ -24,15 +24,16 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">申請產品</span><input matInput #input class="form-control"
-          [(ngModel)]="prodCode" readonly disabled></div>
+          [(ngModel)]="prodCode" [ngStyle]="getStyle(prodCode)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">申請金額</span><input matInput #input class="form-control"
-          [(ngModel)]="applicationAmount" name="applicationAmount" required placeholder="輸入金額"></div>
+          [(ngModel)]="applicationAmount" name="applicationAmount" [ngStyle]="getStyle(applicationAmount)"
+          (keypress)="numberOnly($event)" required placeholder="輸入金額"></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">貸款用途</span><input matInput #input class="form-control"
-          [(ngModel)]="purposeCode" readonly disabled></div>
+          [(ngModel)]="purposeCode" [ngStyle]="getStyle(purposeCode)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">專案名稱</span><input matInput #input class="form-control"
@@ -104,57 +105,57 @@
   <div nz-row style="padding:5px">
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">AML代碼</span><input matInput #input class="form-control"
-          [(ngModel)]="aml" readonly disabled></div>
+          [(ngModel)]="aml" [ngStyle]="getStyle(aml)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">AML說明</span><input matInput #input class="form-control"
-          [(ngModel)]="amlDesc" readonly disabled></div>
+          [(ngModel)]="amlDesc" [ngStyle]="getStyle(amlDesc)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="2">
       <div style="padding:3px"><span class="form-title">查詢日期時間</span><input matInput #input class="form-control"
-          [(ngModel)]="amlDate" readonly disabled></div>
+          [(ngModel)]="amlDate" [ngStyle]="getStyle(amlDate)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">FDS代碼</span><input matInput #input class="form-control"
-          [(ngModel)]="fds" readonly disabled></div>
+          [(ngModel)]="fds" [ngStyle]="getStyle(fds)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">FDS說明</span><input matInput #input class="form-control"
-          [(ngModel)]="fdsDesc" readonly disabled></div>
+          [(ngModel)]="fdsDesc" [ngStyle]="getStyle(fdsDesc)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="2">
       <div style="padding:3px"><span class="form-title">查詢日期時間</span><input matInput #input class="form-control"
-          [(ngModel)]="fdsDate" readonly disabled></div>
+          [(ngModel)]="fdsDate" [ngStyle]="getStyle(fdsDate)" readonly disabled></div>
     </div>
   </div>
   <div nz-row style="padding:5px">
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">Score分數</span><input matInput #input class="form-control"
-          [(ngModel)]="cssScore" readonly disabled></div>
+          [(ngModel)]="cssScore" [ngStyle]="getStyle(cssScore)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">Score等級</span><input matInput #input class="form-control"
-          [(ngModel)]="cssGrade" readonly disabled></div>
+          [(ngModel)]="cssGrade" [ngStyle]="getStyle(cssGrade)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="2">
       <div style="padding:3px"><span class="form-title">查詢日期時間</span><input matInput #input class="form-control"
-          [(ngModel)]="cssDate" readonly disabled></div>
+          [(ngModel)]="cssDate" [ngStyle]="getStyle(cssDate)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">是否為利關人</span><input matInput #input class="form-control"
-          [(ngModel)]="isRpm" readonly disabled></div>
+          [(ngModel)]="isRpm" [ngStyle]="getStyle(isRpm)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">關係類型描述</span><input matInput #input class="form-control"
-          [(ngModel)]="rpmTypeDescribe" readonly disabled></div>
+          [(ngModel)]="rpmTypeDescribe" [ngStyle]="getStyle(rpmTypeDescribe)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">關係人ID</span><input matInput #input class="form-control"
-          [(ngModel)]="rpmId" readonly disabled></div>
+          [(ngModel)]="rpmId" [ngStyle]="getStyle(fdsDate)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">查詢日期時間</span><input matInput #input class="form-control"
-          [(ngModel)]="rpmDate" readonly disabled></div>
+          [(ngModel)]="rpmDate" [ngStyle]="getStyle(fdsDate)" readonly disabled></div>
     </div>
   </div>
 </div>
@@ -347,11 +348,11 @@
 
   <div nz-row style="padding:5px">
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">起始期數</span><input matInput #input [ngStyle]="getStyle('aaa')" class="form-control" value="'aaa'"
+      <div style="padding:3px"><span class="form-title">起始期數</span><input matInput #input class="form-control" value=""
           readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">利率類型</span><input matInput #input [ngStyle]="getStyle(12345)" class="form-control" value="12345"
+      <div style="padding:3px"><span class="form-title">利率類型</span><input matInput #input class="form-control" value=""
           readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
@@ -391,7 +392,8 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:2px"><span class="form-title">核決結果</span>
-        <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px" (ngModelChange)="change(creditResult,'creditResult')">
+        <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px"
+          (ngModelChange)="change(creditResult,'creditResult')">
           <mat-option *ngFor="let code of creditResultCode" [value]="code.value">
             {{code.viewValue}}
           </mat-option>
@@ -419,13 +421,15 @@
     <div nz-col nzFlex="1">
       <div class="form" style="padding:3px">
         <div><span class="form-title">分段起始期數</span>
-          <input matInput #input class="form-control" [(ngModel)]="period" name="period" placeholder="輸入期數">
+          <input matInput #input class="form-control" [(ngModel)]="period" name="period"
+            (ngModelChange)="change(period,'period')" (keypress)="numberOnly($event)" placeholder="輸入期數">
         </div>
       </div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:1px"><span class="form-title">期別</span>
-        <mat-select [(ngModel)]="periodType" name="periodType" style="height:25px">
+        <mat-select [(ngModel)]="periodType" name="periodType" style="height:25px"
+          (ngModelChange)="change(periodType,'periodType')">
           <mat-option *ngFor="let code of periodTypeCode" [value]="code.value">
             {{code.viewValue}}
           </mat-option>
@@ -485,8 +489,8 @@
   <div nz-row style="padding:5px;text-align: center;">
     <div nz-col nzSpan="24">
       <div class="form">
-        <div><span class="form-title"></span><textarea matInput class="input-textarea" [(ngModel)]="mark"
-            name="mark"></textarea>
+        <div><span class="form-title"></span><textarea matInput class="input-textarea" style="text-align: left;"
+            [(ngModel)]="mark" name="mark"></textarea>
         </div>
       </div>
     </div>
@@ -503,9 +507,10 @@
     nzSize="small" nzTitle="審核意見">
     <thead>
       <tr>
-        <th class="table-header" nzWidth="30%">Date</th>
-        <th class="table-header" nzWidth="30%">User</th>
-        <th class="table-header" nzWidth="40%">Action</th>
+        <th class="table-header">Date</th>
+        <th class="table-header">User</th>
+        <th class="table-header">Action</th>
+        <th class="table-header">Edit</th>
       </tr>
     </thead>
     <tbody>
@@ -513,6 +518,10 @@
         <td class="table-data">{{ data.creditdate | date:'yyyy-MM-dd hh:mm:ss' }}</td>
         <td class="table-data">{{ data.credituser }}</td>
         <td class="table-data">{{ data.creditaction }}</td>
+        <td class="table-data" style="text-align: center;">
+          <button id="test" nz-button [nzSize]="'small'" nzType="primary"
+            (click)="startEdit(data.credituser , data.creditaction)">編輯</button>
+        </td>
       </tr>
     </tbody>
   </nz-table>

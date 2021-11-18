@@ -7,9 +7,10 @@
         <div class="form">
           <div><span class="form-title" style="margin:0px">上傳檔案</span>
 
-              <input class='file_input' type="file" (change)="onChange($event)" style="padding-left: 6px;">
+            <br>
+              <input class='file_input' type="file" (change)="onChange($event)" >
               <fa-icon class="icon_size" [icon]="['fas', 'folder-open']"></fa-icon>
-              {{msg}}
+              <span style="margin-left: -95px;">{{msg}}</span>
 
           </div>
         </div>

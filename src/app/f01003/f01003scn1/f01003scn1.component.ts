@@ -31,6 +31,9 @@ export class F01003scn1Component implements OnInit {
   interest: string;
   interestType: string;
   creditResult: string;
+  period: string;
+  periodType: string;
+  interestBase: string;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -64,34 +67,41 @@ export class F01003scn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'L2';
 
-    this.creditMemo = sessionStorage.getItem('mark');
     this.approveAmt = sessionStorage.getItem('resultApproveAmt');
     this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');
+
+    this.period = sessionStorage.getItem('period');
+    this.periodType = sessionStorage.getItem('periodType');
+    this.interestType = sessionStorage.getItem('interestType');
     this.approveInterest = sessionStorage.getItem('approveInterest');
     this.interest = sessionStorage.getItem('interest');
-    this.interestType = sessionStorage.getItem('interestType');
+    this.interestBase = sessionStorage.getItem('interestBase');
     this.creditResult = sessionStorage.getItem('creditResult');
 
     if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '') {
-      let json: any = {};
-      json['creditMemo'] = this.creditMemo;
-      json['approveAmt'] = this.approveAmt;
-      json['lowestPayRate'] = this.lowestPayRate;
-      json['approveInterest'] = this.approveInterest;
-      json['interest'] = this.interest;
-      json['interestType'] = this.interestType;
 
-      if (this.creditResult == '' || this.creditResult == null) {
+      let jsoncreditResult: any = {};
+      jsoncreditResult['approveAmt'] = this.approveAmt;
+      jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
+
+      let jsonCreditInterestPeriod: any = {};
+      jsonCreditInterestPeriod['periodType'] = this.periodType;
+      jsonCreditInterestPeriod['interestType'] = this.interestType;
+      jsonCreditInterestPeriod['interestCode'] = '1';
+      jsonCreditInterestPeriod['approveInterest'] = this.approveInterest; // 核准利率
+      jsonCreditInterestPeriod['interest'] = this.interest; // 固定利率
+      jsonCreditInterestPeriod['interestBase'] = this.interest; // 基放利率
+
+      if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: '請填寫核決結果!' }
         });
       } else {
-        alert(this.creditResult)
-        let json: any = {};
-        json['creditResult'] = this.creditResult;
-        jsonObject['creditResult'] = json;
+        jsoncreditResult['creditResult'] = this.creditResult;
+        jsonObject['creditResult'] = jsoncreditResult;
+        jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod
         this.f01003Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
-          console.log(data)
+          this.router.navigate(['./F01003']);
         });
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: '案件完成' }

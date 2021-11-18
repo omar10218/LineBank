@@ -91,3 +91,13 @@ table {
   color:black;
   background-color:#FF0000;
 }
+section {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+

@@ -3,6 +3,8 @@ import { Sort } from '@angular/material/sort';
 import { Component, NgModule, OnInit } from '@angular/core';
 import { Childscn23Service } from './childscn23.service';
 import{FormatNumberPipe,ToNumberPipe} from '../../pipe/customFormatterPipe';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { MatDialog } from '@angular/material/dialog';
 // import {MatTableDataSource} from '@angular/material/table'
 
 interface sysCode {
@@ -18,8 +20,10 @@ interface sysCode {
 
 
 })
+
 export class Childscn23Component implements OnInit {
-  constructor( private childscn23Service: Childscn23Service) { }
+  constructor( private childscn23Service: Childscn23Service,
+    public dialog: MatDialog) { }
   applno: string;
   i = true;
   gold421:string;//BAM421預設本金
@@ -70,7 +74,7 @@ export class Childscn23Component implements OnInit {
 
     if(this.i==true)
     {
-      this.AddData = {APPLNO:'20210827E001',ACCOUNT_CODE: '', ID:'1', MONTHLY_PAY_421:'', MONTHLY_PAY_029: '',MONTHLY_PAY_CC:'',CAL_RATE:'',CAL_YEARS:'',CAL_PERIOD:'',CONTRACT_AMT_421:'',CONTRACT_AMT_029:'',CONTRACT_AMT_CC:''};
+      this.AddData = {APPLNO: this.applno ,ACCOUNT_CODE: '', ID:'1', MONTHLY_PAY_421:'', MONTHLY_PAY_029: '',MONTHLY_PAY_CC:'',CAL_RATE:'',CAL_YEARS:'',CAL_PERIOD:'',CONTRACT_AMT_421:'',CONTRACT_AMT_029:'',CONTRACT_AMT_CC:''};
       this.one.push(this.AddData)
       this.i=false;
 
@@ -83,17 +87,44 @@ export class Childscn23Component implements OnInit {
     this.childscn23Service.AddUpDel(url,this.jsonObject).subscribe(data=>{
       console.log(data)
       this.one = data.rspBody.items
-      // this.suject=data.rspBody.items[0].ACCOUNT_CODE;
+      this.suject=data.rspBody.items[0].ACCOUNT_CODE;
       this.limit2();
     })
   }
 
-  limit(x: string)
+  // limit(x: string)
+  // {
+  //   x=x.replace(/\D/g,'')
+  //   if(x.length>0)
+  //   {
+  //     x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  //   }
+
+  // }
+  limit(x: string,id:string,name:string)
   {
     x=x.replace(/\D/g,'')
     if(x.length>0)
     {
       x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    for(const item of this.one){
+      if(item.ID==id )
+        {
+          switch(name)
+          {
+            case "gold421":
+              item.MONTHLY_PAY_421=x;
+              break;
+              case "gold029":
+                item.MONTHLY_PAY_029=x;
+                break;
+                case "gold":
+                  item.MONTHLY_PAY_CC =x;
+                  break;
+          }
+
+      }
     }
 
   }
@@ -144,19 +175,19 @@ export class Childscn23Component implements OnInit {
     }
   }
 
-  // sujectSelectTwo()//新增
-  // {
-  //   for(const jsonObj of this.Content)
-  //   {
-  //     if(jsonObj['ACT_CODE']==this.sujecttwo)
-  //     {
-  //       this.InterestRateTwo = jsonObj['DEFAULT_RATE'];
-  //       this.YearsTwo = jsonObj['EFAULT_YEARS'];
-  //       this.NumberofPeriodsTwo = jsonObj['DEFAULT_PERIOD'];
+  sujectSelectTwo()//新增
+  {
+    for(const jsonObj of this.Content)
+    {
+      if(jsonObj['ACT_CODE']==this.sujecttwo)
+      {
+        this.InterestRateTwo = jsonObj['DEFAULT_RATE'];
+        this.YearsTwo = jsonObj['EFAULT_YEARS'];
+        this.NumberofPeriodsTwo = jsonObj['DEFAULT_PERIOD'];
 
-  //     }
-  //   }
-  // }
+      }
+    }
+  }
   seve()//儲存
   {
     let url ='f01/childscn23action3'
@@ -168,45 +199,63 @@ export class Childscn23Component implements OnInit {
         let jsonObject: any = {};
         if(jsonObj==item.ID)
         {
+          if(item.ACCOUNT_CODE=='CC')
+          {
+            jsonObject['applno']=item.APPLNO;
+          jsonObject['accountCode']=item.ACCOUNT_CODE;
+          jsonObject['id']=item.ID;
+          jsonObject['calRate']=parseInt(item.CAL_RATE)/100;
+          jsonObject['calYears']=item.CAL_YEARS? item.CAL_YEARS:0;
+          jsonObject['calPeriod']=item.CAL_PERIOD? item.CAL_PERIOD:0;
+          jsonObject['monthlyPay421']=0;
+          jsonObject['monthlyPay029']=0;
+          jsonObject['monthlyPayCc']=item.MONTHLY_PAY_CC != null? this.Cut(item.MONTHLY_PAY_CC):'';
+          this.seveData.push(jsonObject);
+          }
+          else
+          {
           jsonObject['applno']=item.APPLNO;
           jsonObject['accountCode']=item.ACCOUNT_CODE;
           jsonObject['id']=item.ID;
           jsonObject['calRate']=parseInt(item.CAL_RATE)/100;
-          jsonObject['calYears']=item.CAL_YEARS;
-          jsonObject['calPeriod']=item.CAL_PERIOD;
+          jsonObject['calYears']=item.CAL_YEARS? item.CAL_YEARS:0;
+          jsonObject['calPeriod']=item.CAL_PERIOD? item.CAL_PERIOD:0;
           jsonObject['monthlyPay421']=item.MONTHLY_PAY_421 != null? this.Cut(item.MONTHLY_PAY_421):'';
           jsonObject['monthlyPay029']=item.MONTHLY_PAY_029 != null? this.Cut(item.MONTHLY_PAY_029):'';
-          jsonObject['monthlyPayCc']=item.MONTHLY_PAY_CC != null? this.Cut(item.MONTHLY_PAY_CC):'';
+          jsonObject['monthlyPayCc']=0;
           this.seveData.push(jsonObject);
+          }
         }
       }
     }
     jsonObject1['dataList']=this.seveData
-    console.log( this.seveData)
+      this.childscn23Service.AddUpDel(url,jsonObject1).subscribe(data=>{
+        console.log(data)
+        if(data.rspCode =='0000')
+        {
+          this.set();
+          this.checkboxAny =[];
+          this.seveData=[];
+          this.Monthly421=0;//BAM421月付金
+          this.Monthly029=0;//BAM029月付金
+          this.Monthlycc=0;//信用卡付月金
+        }
 
-    this.childscn23Service.AddUpDel(url,jsonObject1).subscribe(data=>{
-      console.log(data)
-      if(data.rspCode !='0000')
+      })
+      for(const item of this.one)
       {
-        this.set();
+        if(item.ID=='1')
+        {
+          this.one.pop();
+        }
       }
-      this.seveData=[];
-
-    })
-    for(const item of this.one)
-    {
-      if(item.ID=='1')
-      {
-        this.one.pop();
-      }
-    }
-    this.i=true;
-    this.checkboxAny=[];
+      this.i=true;
   }
 
-  Cut(s:string)//處理千分位
+    Cut(s:string)//處理千分位
   {
-    s=s.replace(",","")
+
+    s=s.replace(/,/g,"")
     return s
   }
   del()//刪除
@@ -218,12 +267,15 @@ export class Childscn23Component implements OnInit {
       if(data.rspMsg=='刪除成功')
       {
         this.set();
+        this.checkboxAny =[]
       }
       else
       {
-        console.log(data.rspMsg)
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "刪除失敗" }
+        });
       }
-      console.log(data)
+
     })
 
   }
@@ -251,7 +303,6 @@ export class Childscn23Component implements OnInit {
     this.x = (p+"")
     if(this.x!=null)
     {
-
       this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
     return this.x
@@ -260,8 +311,8 @@ export class Childscn23Component implements OnInit {
   {
     // Math.pow()
     console.log('this.data')
-    console.log(this.Monthly421)
-    console.log(this.Monthly029)
+    console.log(this.checkboxAny )
+    console.log(this.seveData)
     console.log(this.Monthlycc)
   }
 }

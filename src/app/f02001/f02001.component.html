@@ -1,7 +1,6 @@
 <div class="line_bank_bankground_color">
-
+  <br>
   <div class="line_bank_card_no_padding">
-
     <div nz-row>
       <div nz-col nzSpan="4">
         <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
@@ -129,7 +128,7 @@
       [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
       <thead>
         <tr>
-          <th nzLeft></th>
+          <th nzLeft [width]="100"></th>
           <th nzLeft>案件編號</th>
           <th>身分證字號</th>
           <th>客戶ID</th>

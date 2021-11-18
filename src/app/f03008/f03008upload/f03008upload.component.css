@@ -8,13 +8,13 @@
   font-size: 0;
   opacity: 0;
   cursor: pointer;
-  background-color: blueviolet;
+  margin-left: -67px;
 }
 
 .icon_size {
   position: relative;
   top:3px;
-  left: -25px;
+  left: -97px;
   font-size:25px
 }
 

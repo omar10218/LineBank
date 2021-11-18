@@ -71,15 +71,6 @@ export class F01001scn1Component implements OnInit {
     });
   }
 
-  reSearch() {
-    const dialogRef = this.dialog.open(Childscn18Component, {
-      data: {
-        applno: this.applno,
-        cuid: this.cuid
-      }
-    });
-  }
-
   blockList() {
     const dialogRef = this.dialog.open(Childscn20Component, {
       data: {
@@ -102,17 +93,16 @@ export class F01001scn1Component implements OnInit {
     jsonObject['level'] = 'L4';
 
     this.creditResult = sessionStorage.getItem('creditResult');
-    if (this.creditResult == '' || this.creditResult == null ){
+    if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請填寫核決結果!' }
       });
     } else {
-      alert(this.creditResult)
       let json: any = {};
       json['creditResult'] = this.creditResult;
       jsonObject['creditResult'] = json;
       this.f01001Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
-        console.log(data)
+        this.router.navigate(['./F01001']);
       });
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '案件完成' }
