@@ -67,7 +67,7 @@
       <span class="example-spacer"></span>
     </ul> -->
     <button style="padding-right: 30px; background-color: transparent; border: transparent;" [routerLink]="'./F01002'" (click)="bell()">
-      <nz-badge [nzCount]="total" [nzTitle]="null" [nzOffset]="[10, -1]">
+      <nz-badge [(nzCount)]="total" [nzTitle]="null" [nzOffset]="[10, -1]">
         <fa-icon [icon]="['far', 'bell']"></fa-icon>
       </nz-badge>
     </button>
