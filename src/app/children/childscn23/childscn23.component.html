@@ -22,7 +22,7 @@
       <tr *ngFor="let item of one">
         <td>
           <!-- <input class="inpu1" type="checkbox" checked="true"  (change)="test($event)"> -->
-          <input class="inpu1" type="checkbox"   (change)="addcheckbox($event.target.checked,item.ID,item.CONTRACT_AMT_029,item.CONTRACT_AMT_421,item.CONTRACT_AMT_CC)">
+          <input class="inpu1" type="checkbox"   (change)="addcheckbox($event.target.checked,item.ID,item.MONTHLY_PAY_029,item.MONTHLY_PAY_421,item.MONTHLY_PAY_CC)">
         </td>
         <td>
           <div nz-col nzSpan="6">
@@ -35,15 +35,15 @@
             </div>
         </td>
         <!-- <td><input class="inpu2" type="text"[attr.disabled]="null" [(ngModel)]="gold421" (keyup)="limit(gold421,'gold421')"></td> -->
-        <td><input class="inpu2" type="text"[attr.disabled]="item.ACCOUNT_CODE=='CC'|| item.ACCOUNT_CODE==''? '' : null" [(ngModel)]="item.MONTHLY_PAY_421" name="gold421" (keyup)="limit(item.MONTHLY_PAY_421,item.ID,'gold421')"></td>
-        <td><input class="inpu2" type="text"[attr.disabled]="item.ACCOUNT_CODE=='CC'|| item.ACCOUNT_CODE==''? '' : null" [(ngModel)]="item.MONTHLY_PAY_029" name="gold029" (keyup)="limit(item.MONTHLY_PAY_029,item.ID,'gold029')"></td>
-        <td><input class="inpu2" type="text"[attr.disabled]="item.ACCOUNT_CODE=='CC'? null:'' " [(ngModel)]="item.MONTHLY_PAY_CC" name="gold" (keyup)="limit(item.MONTHLY_PAY_CC,item.ID,'gold')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="item.ACCOUNT_CODE=='CC'|| item.ACCOUNT_CODE==''? '' : null" [(ngModel)]="item.CONTRACT_AMT_421" name="gold421" (keyup)="limit(item.CONTRACT_AMT_421,item.ID,'gold421')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="item.ACCOUNT_CODE=='CC'|| item.ACCOUNT_CODE==''? '' : null" [(ngModel)]="item.CONTRACT_AMT_029" name="gold029" (keyup)="limit(item.CONTRACT_AMT_029,item.ID,'gold029')"></td>
+        <td><input class="inpu2" type="text"[attr.disabled]="item.ACCOUNT_CODE=='CC'? null:'' " [(ngModel)]="item.CONTRACT_AMT_CC" name="gold" (keyup)="limit(item.CONTRACT_AMT_CC,item.ID,'gold')"></td>
         <td>{{item.CAL_RATE}}</td>
         <td>{{item.CAL_YEARS}}</td>
         <td>{{item.CAL_PERIOD}}</td>
-        <td>{{item.CONTRACT_AMT_421}}</td>
-        <td>{{item.CONTRACT_AMT_029}}</td>
-        <td>{{item.CONTRACT_AMT_CC}}</td>
+        <td>{{item.MONTHLY_PAY_421 ? item.MONTHLY_PAY_421:"0"}}</td>
+        <td>{{item.MONTHLY_PAY_029 ? item.MONTHLY_PAY_029:"0"}}</td>
+        <td>{{item.MONTHLY_PAY_CC ? item.MONTHLY_PAY_CC:'0'}}</td>
         <!-- <td><button  (click)="test(item.ACCOUNT_CODE)">測試</button></td> -->
       </tr>
       <!-- <tr *ngIf="i==true">
