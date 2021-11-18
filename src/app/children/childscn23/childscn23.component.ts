@@ -254,7 +254,8 @@ export class Childscn23Component implements OnInit {
 
     Cut(s:string)//處理千分位
   {
-    s=s.replace(",","")
+
+    s=s.replace(/,/g,"")
     return s
   }
   del()//刪除
