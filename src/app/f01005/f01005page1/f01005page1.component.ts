@@ -27,7 +27,7 @@ export class F01005page1Component implements OnInit {
   currentPage: PageEvent;                             // 分頁
   currentSort: Sort;                                  // 排序
   empNo: string = localStorage.getItem("empNo");      // 當前員編
-  swcID: string;                                      // 身分證字號
+  swcNationalId: string;                              // 身分證字號
   swcApplno: string;                                  // 案件編號
   caseType: string;                                   // 案件分類
   caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
@@ -72,19 +72,19 @@ export class F01005page1Component implements OnInit {
     // });
     this.agentEmpNo = '';
     this.swcApplno = '';
-    this.swcID = '';
+    this.swcNationalId = '';
     this.caseType = '';
   }
   ngAfterViewInit() {
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
+    this.getCaseList(this.empNo, this.swcNationalId, this.swcApplno, this.pageIndex, this.pageSize);
   }
   // 查詢案件清單
-  getCaseList(empNo: string, swcID: string, swcApplno: string, pageIndex: number, pageSize: number) {
+  getCaseList(empNo: string, swcNationalId: string, swcApplno: string, pageIndex: number, pageSize: number) {
     let jsonObject: any = {};
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     // jsonObject['swcL3EmpNo'] = empNo;
-    // jsonObject['swcID'] = swcID;
+    // jsonObject['swcNationalId'] = swcNationalId;
     // jsonObject['swcApplno'] = swcApplno;
     this.loading = false;
     this.f01005Service.getCaseList(jsonObject).subscribe(data => {
@@ -96,15 +96,15 @@ export class F01005page1Component implements OnInit {
   //代入條件查詢
   select() {
     this.changePage();
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
+    this.getCaseList(this.empNo, this.swcNationalId, this.swcApplno, this.pageIndex, this.pageSize);
   }
   // 案件子頁籤
-  getLockCase(swcApplno: string, swcID: string) {
+  getLockCase(swcApplno: string, swcNationalId: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
         sessionStorage.setItem('applno', swcApplno);
-        sessionStorage.setItem('cuid', swcID);
+        sessionStorage.setItem('cuid', swcNationalId);
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
@@ -120,14 +120,14 @@ export class F01005page1Component implements OnInit {
 
     this.f01005Service.saveCaseMemo(jsonObject).subscribe(data => {
       if (data.rspMsg == 'success') {
-        this.getCaseList(this.empNo, this.swcID, this.swcApplno, this.pageIndex, this.pageSize);
+        this.getCaseList(this.empNo, this.swcNationalId, this.swcApplno, this.pageIndex, this.pageSize);
         window.location.reload();
       }
     });
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getCaseList(this.empNo, this.swcID, this.swcApplno, pageIndex, pageSize);
+    this.getCaseList(this.empNo, this.swcNationalId, this.swcApplno, pageIndex, pageSize);
   }
   changePage() {
     this.pageIndex = 1;

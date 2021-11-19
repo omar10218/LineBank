@@ -27,7 +27,7 @@ export class F01003Component implements OnInit, AfterViewInit {
   currentPage: PageEvent;                             // 分頁
   currentSort: Sort;                                  // 排序
   empNo: string = localStorage.getItem("empNo");      // 當前員編
-  swcID: string;                                      // 身分證字號
+  swcNationalId: string;                              // 身分證字號
   swcApplno: string;                                  // 案件編號
   caseType: string;                                   // 案件分類
   caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
@@ -71,7 +71,7 @@ export class F01003Component implements OnInit, AfterViewInit {
     });
     this.agentEmpNo = '';
     this.swcApplno = '';
-    this.swcID = '';
+    this.swcNationalId = '';
     this.caseType = '';
   }
 
@@ -85,7 +85,7 @@ export class F01003Component implements OnInit, AfterViewInit {
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
     jsonObject['swcL2EmpNo'] = this.empNo;
-    jsonObject['swcID'] = this.swcID;
+    jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
     this.loading = false;
     this.f01003Service.getCaseList(jsonObject).subscribe(data => {
@@ -102,7 +102,7 @@ export class F01003Component implements OnInit, AfterViewInit {
   }
 
   // 案件子頁籤
-  getLockCase(swcApplno: string, swcID: string) {
+  getLockCase(swcApplno: string, swcNationalId: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
     this.f01003Service.getLockCase(jsonObject).subscribe(data => {
@@ -111,7 +111,7 @@ export class F01003Component implements OnInit, AfterViewInit {
       }
       if (data.rspMsg == '案件鎖定成功') {
         sessionStorage.setItem('applno', swcApplno);
-        sessionStorage.setItem('cuid', swcID);
+        sessionStorage.setItem('cuid', swcNationalId);
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
