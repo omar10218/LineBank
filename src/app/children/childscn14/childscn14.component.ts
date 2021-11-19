@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
+import { Childscn6Service } from '../childscn6/childscn6.service';
 import { Childscn14Service } from './childscn14.service';
 // import { Childscn14page1Component } from './childscn14page1/childscn14page1.component';
 // import { Childscn14page2Component } from './childscn14page2/childscn14page2.component';
@@ -23,13 +24,16 @@ export class Childscn14Component implements OnInit {
 
   constructor(
     // private componenFactoryResolver: ComponentFactoryResolver,
+    private childscn6Service: Childscn6Service,
     private childscn14Service: Childscn14Service,
     public dialog: MatDialog,
   ) { }
 
   @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
   private applno: string;
+  private docKey: string;
   private cuid: string;
+  private cuNm: string;
   private host: String;
   imageSource: Data[] = [];
   total = 1;
@@ -50,8 +54,13 @@ export class Childscn14Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.host = this.getHost();
 
-    this.getImageDetail(this.pageIndex, this.pageSize);
-
+    const baseUrl = 'f01/childscn6action2';
+    let jsonObject: any = {};
+    this.childscn6Service.getDate(baseUrl, jsonObject).subscribe(data => {
+      this.cuid = data.rspBody[0].empNo;
+      this.cuNm = data.rspBody[0].empName;
+      this.getImageDetail(this.pageIndex, this.pageSize);
+    });
   }
 
   ngAfterViewInit() {
@@ -74,21 +83,13 @@ export class Childscn14Component implements OnInit {
   }
 
   getImageDetail(pageIndex: number, pageSize: number ) {
-    // let jsonObject: any = {};
-    // // jsonObject['page'] = pageIndex;
-    // // jsonObject['per_page'] = pageSize;
-    // // jsonObject['applno'] = this.applno;
-    // // jsonObject['cuid'] = this.cuid;
-    // // jsonObject['code'] = "EL_IMAGE";
-    // this.childscn14Service.getImageInfo(jsonObject, this.applno).subscribe(data => {
-    //   this.total = data.rspBody.size;
-    //   this.imageSource = data.rspBody.items;
-    //   this.loading = false;
-    // });
-
     const baseUrl = 'f01/childscn14action1';
-    this.childscn14Service.getImageInfo(baseUrl, this.applno).subscribe(data => {
-      console.log(data.rspBody.items);
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['cuid'] = this.cuid;
+    jsonObject['cuNm'] = this.cuNm;
+    this.childscn14Service.getImageInfo(baseUrl, jsonObject).subscribe(data => {
+      this.docKey = data.rspBody.docKey;
       this.imageSource = data.rspBody.items;
       this.total = data.rspBody.items.size;
     });

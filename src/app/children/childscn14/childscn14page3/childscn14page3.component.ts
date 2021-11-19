@@ -24,20 +24,23 @@ export class Childscn14page3Component implements OnInit {
     ) { }
   fileToUpload: File | null = null;
   private applno: string;
-
+  isValidFile: boolean;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
 
     const baseUrl = 'f01/childscn14action2';
-    this.childscn14Service.getImageInfo(baseUrl, this.applno).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    this.childscn14Service.getImageInfo(baseUrl, jsonObject).subscribe(data => {
       console.log(data);
     });
 
   }
   uploadForm: FormGroup = this.fb.group({
     DOC_ID: [this.data.DOC_ID, []],
-    REMARK: [this.data.REMARK, []]
+    REMARK: [this.data.REMARK, []],
+    ERROR_MESSAGE: []
   });
 
   public async upload(): Promise<void> {
@@ -45,9 +48,10 @@ export class Childscn14page3Component implements OnInit {
     formdata.append('file', this.fileToUpload);
     let msgStr: string = "";
     let baseUrl = 'f01/childscn14action2';
-    // this.f03015Service.uploadExcel(baseUrl, this.fileToUpload).subscribe(data => {
-    //   this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
-    // });
+    this.childscn14Service.uploadFile(baseUrl, this.fileToUpload).subscribe(data => {
+      this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
+      alert(this.uploadForm.value.ERROR_MESSAGE);
+    });
   }
 
   onNoClick(): void {
@@ -56,13 +60,14 @@ export class Childscn14page3Component implements OnInit {
 
   //檢查上傳檔案格式
   onChange(evt) {
-    // const target: DataTransfer = <DataTransfer>(evt.target);
-    // this.isExcelFile = !!target.files[0].name.match(/(.xls|.xlsx)/);
-    // if (this.isExcelFile) {
-    //   this.fileToUpload = target.files.item(0);
-    // } else {
-    //   this.uploadForm.patchValue({ ERROR_MESSAGE: "非excel檔，請檢查檔案格式重新上傳" });
-    // }
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif)/);
+    if (this.isValidFile) {
+      this.fileToUpload = target.files.item(0);
+    } else {
+      this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法圖檔，請檢查檔案格式重新上傳" });
+      alert(this.uploadForm.value.ERROR_MESSAGE);
+    }
   }
 
 }
