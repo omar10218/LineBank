@@ -3,10 +3,10 @@
     flex-direction: column;
     flex: 1;
   }
-  :host::ng-deep.ant-table-footer {
+  /* :host::ng-deep.ant-table-footer {
     position: absolute;
     bottom:-50px;
-  }
+  } */
   :host{
     display: flex;
     flex-direction: column;

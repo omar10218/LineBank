@@ -64,11 +64,7 @@
     border: 1px solid #c9c9c9;
   }
 
-  .form-title{
-    color:#2E4765;
-    font-weight: 500;
-    display:block;
-  }
+  
 
   :host::ng-deep.ant-table.ant-table-small .ant-table-title{
     color:#2E4765;
@@ -225,7 +221,7 @@
 
 .form-title{
   color:#2E4765;
-  font-weight: 500;
+  font-weight: bold;
   text-align:left;
   width:88%;
   margin:0 auto;

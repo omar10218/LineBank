@@ -60,12 +60,6 @@
     font-size: 14px;
   }
 
-  .form-title{
-    color:#2E4765;
-    font-weight: 500;
-    display:block;
-  }
-
   ::ng-deep.ant-table.ant-table-small .ant-table-title{
     color:#2E4765;
     font-size:18px;
@@ -203,7 +197,7 @@ input{
 
 .form-title{
   color:#2E4765;
-  font-weight: 500;
+  font-weight: bold;
   text-align:left;
   width:88%;
   margin:0 auto;
