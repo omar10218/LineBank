@@ -22,7 +22,7 @@ export class F01009Component implements OnInit, AfterViewInit {
   cusinfoDataSource = [];
   readonly pageSize = 50;
   pageIndex = 1;
-  total = 1;
+  total: number;
   fds: string = "";
   empNo: string = localStorage.getItem("empNo");      // 當前員編
   //ngModel區

@@ -19,7 +19,7 @@ export class F01004Component implements OnInit, AfterViewInit {
     private f01004Service: F01004Service,
     public dialog: MatDialog) { }
 
-  total = 1;
+  total: number;
   @ViewChild('absBox') absBox: ElementRef             // 抓取table id
   empNo: string = localStorage.getItem("empNo");      // 當前員編
   swcNationalId: string;                              // 身分證字號

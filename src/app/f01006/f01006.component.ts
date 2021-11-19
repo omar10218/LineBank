@@ -21,7 +21,7 @@ export class F01006Component implements OnInit, AfterViewInit {
   applno: string;                                     // 案件編號
   nationalId: string;                                 // 身分證字號
   custId: string;                                     // 客戶編號
-  total: any;                                    // 回傳總筆數
+  total: number;
   pageSize = 50;
   pageIndex = 1;
   cusinfoDataSource: readonly Data[] = [];
