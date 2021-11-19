@@ -36,7 +36,7 @@
               </div>
               </div>
               <div mat-dialog-actions style="margin:0 auto;width:12vw">
-                  <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
+                  <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!isValidFile"
                       style="margin:0px 5px" (click)="upload()">上傳</button>
                   <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="onNoClick()" tabindex="-1"
                       style="margin:0px 5px">取消</button>

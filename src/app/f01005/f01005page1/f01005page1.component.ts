@@ -22,7 +22,7 @@ export class F01005page1Component implements OnInit {
     public dialog: MatDialog,
   ) { }
 
-  total = 1;
+  total: number;
   @ViewChild('absBox')absBox:ElementRef // 抓取table id
   currentPage: PageEvent;                             // 分頁
   currentSort: Sort;                                  // 排序
