@@ -15,7 +15,7 @@
           <div nz-col nzSpan="5">
             <span class="form-title line_bank_h4">身分證號</span>
             <div class="form" style="margin:0 auto;width:90%">
-              <div><input matInput #input class="form-control" [(ngModel)]="swcID" name="swcID" placeholder="請輸入身分證編號"
+              <div><input matInput #input class="form-control" [(ngModel)]="swcNationalId" name="swcNationalId" placeholder="請輸入身分證編號"
                   required>
               </div>
             </div>
@@ -90,7 +90,7 @@
                     {{data.swcApplno}}
                   </button>
                   <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='Y'"
-                    (click)="getLockCase(data.swcApplno, data.swcID)">
+                    (click)="getLockCase(data.swcApplno, data.swcNationalId)">
                     {{data.swcApplno}}
                   </button>
                 </td>
@@ -98,7 +98,7 @@
                 <td class="table-data">{{ data.swcReadyForReview }}</td>
                 <td class="table-data">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}
                 </td>
-                <td class="table-data">{{ data.swcID }}</td>
+                <td class="table-data">{{ data.swcNationalId }}</td>
                 <td class="table-data">{{ data.swcName }}</td>
                 <td class="table-data">{{ data.swcCompany }}</td>
                 <td class="table-data">{{ data.swcCreditLimit }}</td>
