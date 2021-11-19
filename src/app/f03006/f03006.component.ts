@@ -59,7 +59,7 @@ export class F03006Component implements OnInit {
 	levelStartDateString: string //請假迄日
 	levelEndDateValue: Date //請假迄日類型
 	levelEndDateString: string //請假迄日類型值
-
+	one: string //裝一開始的資料表
 	employeeSource = new MatTableDataSource<any>() //組織人員維護Table
 	empRoleSource = new MatTableDataSource<RoleItem>() //角色Table
 	empPrjSource = new MatTableDataSource<RoleItem>() //專案Table
@@ -345,7 +345,12 @@ export class F03006Component implements OnInit {
 			}
 		})
 	}
+// 取得資料轉換千分位
+limit2() {
 
+  this.one = this.one .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+}
 	//產品及授權額度
 	async startAmt(empNo: string) {
 		const baseUrl = 'f03/f03006action8'
@@ -355,6 +360,8 @@ export class F03006Component implements OnInit {
 		await this.f03006Service.getEmployeeList(baseUrl, jsonObject).subscribe(data => {
 			console.log(data)
 			this.empAmtSource.data = data.rspBody
+
+			console.log(this.one)
 			console.log(empNo)
 			// this.getAmtList(empNo)
 			this.chkArray = []
