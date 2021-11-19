@@ -27,7 +27,7 @@ export class F01009Component implements OnInit, AfterViewInit {
   empNo: string = localStorage.getItem("empNo");      // 當前員編
   //ngModel區
   swcApplno: string;
-  swcID: string;
+  swcNationalId: string;
   swcCustId: string;
   caseType: string;
   agentEmpNo: string;
@@ -66,7 +66,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     });
     this.agentEmpNo = '';
     this.swcApplno = '';
-    this.swcID = '';
+    this.swcNationalId = '';
     this.caseType = '';
   }
 
@@ -76,11 +76,11 @@ export class F01009Component implements OnInit, AfterViewInit {
 
   // 代入條件查詢
   search() {
-    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcID == '' && this.caseType == '') {
+    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcNationalId == '' && this.caseType == '') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項條件" }
       });
-    } else if (this.swcID != '' && !this.f01009Service.checkIdNumberIsValid(this.swcID)) {
+    } else if (this.swcNationalId != '' && !this.f01009Service.checkIdNumberIsValid(this.swcNationalId)) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "身分驗證失敗" }
       });
@@ -97,7 +97,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
     jsonObject['swcL4EmpNo'] = this.agentEmpNo;
-    jsonObject['swcID'] = this.swcID;
+    jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01009Service.getCaseList(jsonObject).subscribe(data => {
@@ -123,7 +123,7 @@ export class F01009Component implements OnInit, AfterViewInit {
   }
 
   // 案件子頁籤
-  getLockCase(swcApplno: string, swcID: string) {
+  getLockCase(swcApplno: string, swcNationalId: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
     this.f01009Service.getLockCase(jsonObject).subscribe(data => {
@@ -132,7 +132,7 @@ export class F01009Component implements OnInit, AfterViewInit {
       }
       if (data.rspMsg == '案件鎖定成功') {
         sessionStorage.setItem('applno', swcApplno);
-        sessionStorage.setItem('cuid', swcID);
+        sessionStorage.setItem('cuid', swcNationalId);
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
