@@ -1,1 +1,67 @@
-<p>f04003 works!</p>
+<div class="line_bank_bankground_color">
+  <br>
+  <div class="line_bank_card_no_padding">
+    <div nz-row>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">派件層級</span>
+          <mat-select  [(ngModel)]="Level" name="Level" placeholder="請選擇" (ngModelChange)="test()"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of LevelCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzSpan="8">
+        <div style="padding:10px"><span class="form-title">派件人員</span>
+          <mat-select name="sysCode" placeholder="請選擇" (ngModelChange)="test()"
+            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+            <mat-option *ngFor="let code of LevelCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzSpan="5">
+        <div style="padding-left: 20px; margin-top: 30px;">
+          <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" >查詢</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" -->
+    <!-- 最外層卡片包覆 -->
+    <div class="line_bank_card_no_padding">
+      <div class="line_bank_form_header_title">案件重新指派</div>
+      <!-- 表格 -->
+      <nz-table nzShowSizeChanger [nzData]="setDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+         nzSize="small" >
+        <thead>
+          <tr>
+            <th class="table-header">原因碼類別</th>
+            <th class="table-header">上層原因碼</th>
+            <th class="table-header">原因碼</th>
+            <th class="table-header">原因碼說明</th>
+            <th class="table-header">排序</th>
+            <th class="table-header">是否停用</th>
+            <th class="table-header">編輯</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of setDataSource">
+            <td class="table-data">{{ data.reasonKind }}</td>
+            <td class="table-data">{{ data.upReasonCode }}</td>
+            <td class="table-data">{{ data.reasonCode }}</td>
+            <td class="table-data">{{ data.reasonDesc }}</td>
+            <td class="table-data">{{ data.reasonSort }}</td>
+            <td class="table-data">{{ data.reasonFlag }}</td>
+            <td class="table-data" style="text-align: center;">
+              <button nz-button [nzSize]="'small'" nzType="primary"
+                (click)="startEdit(
+                data.reasonKind, data.upReasonCode, data.reasonCode, data.reasonDesc, data.reasonSort, data.reasonFlag)">編輯</button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+</div>
