@@ -29,7 +29,7 @@
         <div nz-col nzSpan="8">
           <div style="padding-left: 20px; margin-top: 30px;">
             <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Inquire()">查詢</button>
-            <button (click)="tes()">111111</button>
+            <!-- <button (click)="tes()">111111</button> -->
           </div>
         </div>
       </div>
@@ -65,7 +65,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let data of setDataSource;let i = index;">
-            <td class="table-data">
+            <td class="table-data" *ngIf="Transfer==''" >
+              <mat-checkbox  disabled ></mat-checkbox>
+            </td>
+            <td class="table-data" *ngIf="Transfer!=''" >
               <mat-checkbox [(ngModel)]="checkboxArray[i].completed"  (change)="block($event.checked,data.F_WobNum)" ></mat-checkbox>
             </td>
             <td class="table-data">{{ data.empNo }}</td>
