@@ -19,6 +19,9 @@ import { Childbwscn9Component } from './childbwscn9/childbwscn9.component';
 import { Childbwscn10Component } from './childbwscn10/childbwscn10.component';
 import { Childbwscn11Component } from './childbwscn11/childbwscn11.component';
 import { NgxWatermarkModule } from 'ngx-watermark';
+import { Childbwscn4page1Component } from './childbwscn4/childbwscn4page1/childbwscn4page1.component';
+// import { Childbwscn4page1Component } from '../childbwyscn4/childbwscn4page1/childbwscn4page1.component';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { NgxWatermarkModule } from 'ngx-watermark';
     Childbwscn8Component,
     Childbwscn9Component,
     Childbwscn10Component,
-    Childbwscn11Component
+    Childbwscn11Component,
+    Childbwscn4page1Component,
+    // Childbwscn4page1Component
+
   ],
   imports: [
     CommonModule,

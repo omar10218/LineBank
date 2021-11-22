@@ -110,11 +110,9 @@ import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesom
 import { faFolderOpen} from '@fortawesome/free-solid-svg-icons';
 import { FormatNumberPipe, ToNumberPipe } from './pipe/customFormatterPipe';
 import { F04003Component } from './f04003/f04003.component';
-import { childbwscn4page1Component } from './children-bw/childbwscn4/childbwscn4page1/childbwscn4page1.component';
-import { childbwscn4page2Component } from './children-bw/childbwscn4/childbwscn4page2/childbwscn4page2.component';
-import { childbwscn4page3Component } from './children-bw/childbwscn4/childbwscn4page3/childbwscn4page3.component';
-import { childbwscn4page4Component } from './children-bw/childbwscn4/childbwscn4page4/childbwscn4page4.component';
-import { Childbwscn4Component } from './children-bw/childbwscn4/childbwscn4.component';
+
+
+
 
 registerLocaleData(zh);
 export const TW_FORMATS = {
@@ -218,11 +216,6 @@ export const TW_FORMATS = {
     F01011Component,
     childbwscn2page1Component,
     childbwscn2page2Component,
-    Childbwscn4Component,
-    childbwscn4page1Component,
-    childbwscn4page2Component,
-    childbwscn4page3Component,
-    childbwscn4page4Component,
     F04003Component,
   ],
   imports: [
