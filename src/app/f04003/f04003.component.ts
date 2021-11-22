@@ -39,9 +39,9 @@ export class F04003Component implements OnInit {
   }
   LevelCode: any[] = [];
   setDataSource: readonly Data[] = [];
-  Level: string //層級
+  Level: string =''//層級
   personnelCode: sysCode[] = [];;
-  personnel: string //人員
+  personnel: string =''//人員
   chkArray: any[] = [];
   checkboxArray: checkBox[] = [];
   assignArray: assign[] = [];
@@ -68,42 +68,55 @@ export class F04003Component implements OnInit {
   }
   Inquire()//查詢
   {
-    this.TransferCode=[];
-    this.setDataSource=[];
-    this.i = 0;
-    let url = 'f04/f04003action2'
-    let personnelJson: any = {};
-    personnelJson['level'] = this.Level;
-    personnelJson['EMP_NAME'] = this.personnel;
+    console.log(this.Level)
+    console.log(this.personnel)
+    if(this.Level != '' || this.personnel !='')
+    {
+      this.checkboxArray=[];
+      this.TransferCode=[];
+      this.setDataSource=[];
+      this.i = 0;
+      let url = 'f04/f04003action2'
+      let personnelJson: any = {};
+      personnelJson['level'] = this.Level;
+      personnelJson['EMP_NAME'] = this.personnel;
+      this.f04003Service.Set(url, personnelJson).subscribe(data => {
 
-    this.f04003Service.Set(url, personnelJson).subscribe(data => {
-      console.log(data)
-      if(data.rspBody.empList.length>0)
-      {
-        for(const obj of data.rspBody.empList)
+        if(data.rspBody.empList.length>0)
         {
-          const id = obj['EMP_NO'];
-          const name = obj['EMP_NAME'];
-           this.TransferCode.push({ value: id, viewValue: name })
+          for(const obj of data.rspBody.empList)
+          {
+            const id = obj['EMP_NO'];
+            const name = obj['EMP_NAME'];
+             this.TransferCode.push({ value: id, viewValue: name })
+          }
         }
-      }
 
-      if (data.rspBody.dataList.length > 0)
-      {
-        for (const jsonObj of data.rspBody.dataList)
+        if (data.rspBody.dataList.length > 0)
         {
-          const id = jsonObj['empNo'];
-          // const name = jsonObj.empList['empName'];
-          const member = jsonObj['F_WobNum'];
-          // this.TransferCode.push({ value: id, viewValue: name })
-          this.setDataSource = data.rspBody.dataList;
-          this.checkboxArray.push({ value: member, completed: false ,empno:id})
+          for (const jsonObj of data.rspBody.dataList)
+          {
+            const id = jsonObj['empNo'];
+            // const name = jsonObj.empList['empName'];
+            const member = jsonObj['F_WobNum'];
+            // this.TransferCode.push({ value: id, viewValue: name })
+            this.setDataSource = data.rspBody.dataList;
+            this.checkboxArray.push({ value: member, completed: false ,empno:id})
+          }
+          this.i = 1;
         }
-        this.i = 1;
-      }
-    })
+      })
+    }
+    else
+    {
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請選擇派件層級" }
+      });
+    }
+
   }
-  setAll(completed: boolean) {
+  setAll(completed: boolean) //全選
+  {
     for (const obj of this.checkboxArray)
     {
       if (obj.empno != this.Transfer) {
@@ -111,7 +124,8 @@ export class F04003Component implements OnInit {
       }
     }
   }
-  block(check: boolean, x: string) {
+  block(check: boolean, x: string)
+  {
     if (check) {
       this.chkArray.push(x);
 
@@ -122,7 +136,7 @@ export class F04003Component implements OnInit {
     }
 
   }
- change()
+ change()//轉件
    {
     if(this.Transfer =='')
     {
@@ -155,6 +169,9 @@ export class F04003Component implements OnInit {
         if(data.rspCode=='0000')
         {
           this.Inquire();
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "轉件成功" }
+          });
         }
       })
 
