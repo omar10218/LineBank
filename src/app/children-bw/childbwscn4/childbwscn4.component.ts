@@ -3,8 +3,10 @@ import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive
 import { OptionsCode } from 'src/app/interface/base';
 import { Childbwscn4Service } from './childbwscn4.service';
 import { Childbwscn4page1Component } from '../childbwscn4/childbwscn4page1/childbwscn4page1.component'
-// import { childbwscn4page3Component } from './childbwscn4page3/childbwscn4page3.component';
-// import { childbwscn4page4Component } from './childbwscn4page4/childbwscn4page4.component';
+import { Childbwscn4page2Component } from '../childbwscn4/childbwscn4page2/childbwscn4page2.component'
+import { Childbwscn4page3Component } from '../childbwscn4/childbwscn4page3/childbwscn4page3.component'
+import { Childbwscn4page4Component } from '../childbwscn4/childbwscn4page4/childbwscn4page4.component'
+
 
 enum Page {
   Page1,
@@ -34,9 +36,10 @@ export class Childbwscn4Component implements OnInit {
   component = new Map<Page, any>(
     [
       [Page.Page1, Childbwscn4page1Component],
-      // [Page.Page2, childbwscn4page2Component],
-      // [Page.Page3, childbwscn4page3Component],
-      // [Page.Page4, childbwscn4page4Component],
+      [Page.Page2, Childbwscn4page2Component],
+      [Page.Page3, Childbwscn4page3Component],
+      [Page.Page4, Childbwscn4page4Component],
+
     ]
   );
   nowPage = Page.Page1;
