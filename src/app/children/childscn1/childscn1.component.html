@@ -400,7 +400,7 @@
         </mat-select>
       </div>
     </div>
-    <div nz-col nzFlex="1">
+    <div nz-col nzFlex="1" >
       <div style="padding:3px"><span class="form-title">核准額度</span><input matInput #input class="form-control"
           [(ngModel)]="resultApproveAmt" placeholder="輸入額度"
           (ngModelChange)="change(resultApproveAmt,'resultApproveAmt')" (keypress)="numberOnly($event)"></div>
@@ -412,7 +412,7 @@
     </div>
   </div>
 
-  <div nz-row>
+  <div nz-row style="padding:5px">
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">序號</span><input matInput #input class="form-control" value="1"
           placeholder="輸入序號">

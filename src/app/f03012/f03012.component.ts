@@ -77,7 +77,6 @@ export class F03012Component implements OnInit {
 				const desc = jsonObj.codeDesc
 				this.compareTableCode.push({value: codeNo, viewValue: desc})
 			}
-			console.log(this.chkArray)
 		})
 	}
 	onQueryParamsChange(params: NzTableQueryParams): void {
