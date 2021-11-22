@@ -57,8 +57,10 @@ export class F03007Component implements OnInit, AfterViewInit {
       return false;
     }
     var valArray: string[] = new Array;
-    for (const obj of this.chkArray) {
-      if (obj.completed) { valArray.push(obj.value); }
+    for (const obj of this.chkArray)
+    {
+      if (obj.completed)
+      { valArray.push(obj.value); }
     }
     let jsonObject: any = {};
     jsonObject['roleNo'] = this.selectedValue;
