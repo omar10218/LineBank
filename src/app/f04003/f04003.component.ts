@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Data } from '@angular/router';
 import { time } from 'console';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F04003Service } from './f04003.service';
 
 // Jay 案件重新指派
@@ -24,7 +26,7 @@ interface assign {
 })
 export class F04003Component implements OnInit {
 
-  constructor(private f04003Service: F04003Service) { }
+  constructor(private f04003Service: F04003Service,public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.LevelCode.push({ value: 'L0', viewValue: 'L0' });
@@ -45,7 +47,7 @@ export class F04003Component implements OnInit {
   assignArray: assign[] = [];
   i = 0;
   isAllCheck: boolean = false;
-  Transfer: string;//轉件
+  Transfer:string = '';//轉件
   TransferCode: sysCode[] = [];
 
   Dispatch()//搜尋派件人員
@@ -73,16 +75,28 @@ export class F04003Component implements OnInit {
     let personnelJson: any = {};
     personnelJson['level'] = this.Level;
     personnelJson['EMP_NAME'] = this.personnel;
-    this.f04003Service.Set(url, personnelJson).subscribe(data => {
-      if (data.rspBody.length > 0)
-      {
 
-        for (const jsonObj of data.rspBody) {
+    this.f04003Service.Set(url, personnelJson).subscribe(data => {
+      console.log(data)
+      if(data.rspBody.empList.length>0)
+      {
+        for(const obj of data.rspBody.empList)
+        {
+          const id = obj['EMP_NO'];
+          const name = obj['EMP_NAME'];
+           this.TransferCode.push({ value: id, viewValue: name })
+        }
+      }
+
+      if (data.rspBody.dataList.length > 0)
+      {
+        for (const jsonObj of data.rspBody.dataList)
+        {
           const id = jsonObj['empNo'];
-          const name = jsonObj['empName'];
+          // const name = jsonObj.empList['empName'];
           const member = jsonObj['F_WobNum'];
-          this.TransferCode.push({ value: id, viewValue: name })
-          this.setDataSource = data.rspBody;
+          // this.TransferCode.push({ value: id, viewValue: name })
+          this.setDataSource = data.rspBody.dataList;
           this.checkboxArray.push({ value: member, completed: false ,empno:id})
         }
         this.i = 1;
@@ -110,37 +124,45 @@ export class F04003Component implements OnInit {
   }
  change()
    {
-    //  if(this.Transfer != )
-    for (const obj of this.checkboxArray)
+    if(this.Transfer =='')
     {
-      for (const jsonObj of this.setDataSource)
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請填轉件人員" }
+      });
+    }
+    else
+    {
+      for (const obj of this.checkboxArray)
       {
-        if (obj.completed==true)
+        for (const jsonObj of this.setDataSource)
         {
-          if (obj.value == jsonObj['F_WobNum'])
+          if (obj.completed==true)
           {
-            this.assignArray.push({ F_WobNum: jsonObj['F_WobNum'], swcApplno: jsonObj['swcApplno'] })
+            if (obj.value == jsonObj['F_WobNum'])
+            {
+              this.assignArray.push({ F_WobNum: jsonObj['F_WobNum'], swcApplno: jsonObj['swcApplno'] })
+            }
           }
         }
       }
-    }
-    let url = 'f04/f04003action3'
-    let changeJson: any = {};
-    changeJson['level'] = this.Level;
-    changeJson['roleNo'] = this.Transfer;
-    changeJson['assign'] = this.assignArray;
-    this.f04003Service.Set(url,changeJson).subscribe(data=>
-    {
-      if(data.rspCode=='0000')
+      let url = 'f04/f04003action3'
+      let changeJson: any = {};
+      changeJson['level'] = this.Level;
+      changeJson['roleNo'] = this.Transfer;
+      changeJson['assign'] = this.assignArray;
+      this.f04003Service.Set(url,changeJson).subscribe(data=>
       {
-        this.Inquire();
-      }
-        console.log("data")
-        console.log(data)
-    })
+        if(data.rspCode=='0000')
+        {
+          this.Inquire();
+        }
+      })
+
+    }
 
   }
   tes() {
+    console.log(this.Transfer)
     console.log(this.checkboxArray)
     console.log(this.setDataSource)
     console.log(this.assignArray)
