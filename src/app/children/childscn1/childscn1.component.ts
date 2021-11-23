@@ -13,7 +13,7 @@ import { Childscn1editComponent } from './childscn1edit/childscn1edit.component'
 @Component({
   selector: 'app-childscn1',
   templateUrl: './childscn1.component.html',
-  styleUrls: ['./childscn1.component.css','../../../assets/css/child.css']
+  styleUrls: ['./childscn1.component.css', '../../../assets/css/child.css']
 })
 export class Childscn1Component implements OnInit {
 
@@ -34,7 +34,7 @@ export class Childscn1Component implements OnInit {
   prodCode: string;                             //申請產品
   applicationAmount: number;                    //申請金額
   caApplicationAmount: number;
-  purposeCode:string;                           //貸款用途
+  purposeCode: string;                           //貸款用途
   caPmcus: string;
   caRisk: string
   //專案名稱(待確認)
@@ -118,41 +118,41 @@ export class Childscn1Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
-    .subscribe(data => {
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj.codeNo;
-        const desc = jsonObj.codeDesc;
-        this.creditResultCode.push({ value: codeNo, viewValue: desc })
-      }
-    });
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.creditResultCode.push({ value: codeNo, viewValue: desc })
+        }
+      });
 
     this.childscn1Service.getSysTypeCode('PERIOD_TYPE')//期別下拉選單
-    .subscribe(data => {
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj.codeNo;
-        const desc = jsonObj.codeDesc;
-        this.periodTypeCode.push({ value: codeNo, viewValue: desc })
-      }
-      this.periodType = '1';
-    });
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.periodTypeCode.push({ value: codeNo, viewValue: desc })
+        }
+        this.periodType = '1';
+      });
 
     this.childscn1Service.getSysTypeCode('INTEREST_TYPE')//利率型態下拉選單
-    .subscribe(data => {
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj.codeNo;
-        const desc = jsonObj.codeDesc;
-        this.interestTypeCode.push({ value: codeNo, viewValue: desc })
-      }
-    });
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.interestTypeCode.push({ value: codeNo, viewValue: desc })
+        }
+      });
 
     this.childscn1Service.getSysTypeCode('INTEREST_CODE')//基準利率型態下拉選單
-    .subscribe(data => {
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj.codeNo;
-        const desc = jsonObj.codeDesc;
-        this.interestCode.push({ value: codeNo, viewValue: desc })
-      }
-    });
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.interestCode.push({ value: codeNo, viewValue: desc })
+        }
+      });
 
     const baseUrl = 'f01/childscn1'
     let jsonObject: any = {};
@@ -160,48 +160,48 @@ export class Childscn1Component implements OnInit {
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
 
       //CreditAuditinfo
-      if ( data.rspBody.CreditAuditinfoList.length > 0 ) {
+      if (data.rspBody.CreditAuditinfoList.length > 0) {
         this.cuCName = data.rspBody.CreditAuditinfoList[0].cuCname;
         this.custId = data.rspBody.CreditAuditinfoList[0].custId;
         this.nationalId = data.rspBody.CreditAuditinfoList[0].nationalId;
         this.prodCode = data.rspBody.CreditAuditinfoList[0].prodCode;
         this.applicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount;
         this.caApplicationAmount = data.rspBody.CreditAuditinfoList[0].caApplicationAmount;
-        sessionStorage.setItem('caApplicationAmount',data.rspBody.CreditAuditinfoList[0].caApplicationAmount ? data.rspBody.resultList[0].caApplicationAmount : '');
+        sessionStorage.setItem('caApplicationAmount', data.rspBody.CreditAuditinfoList[0].caApplicationAmount ? data.rspBody.resultList[0].caApplicationAmount : '');
         this.purposeCode = data.rspBody.CreditAuditinfoList[0].purposeCode;
       }
 
       //AML
-      if ( data.rspBody.amlList.length > 0 ) {
+      if (data.rspBody.amlList.length > 0) {
         this.aml = data.rspBody.amlList[0].AML;
         this.amlDesc = data.rspBody.amlList[0].CODE_DESC;
         this.amlDate = data.rspBody.amlList[0].AML_DATE;
       }
 
       //FDS
-      if ( data.rspBody.fdsList.length > 0 ) {
+      if (data.rspBody.fdsList.length > 0) {
         this.fds = data.rspBody.fdsList[0].FDS;
         this.fdsDesc = data.rspBody.fdsList[0].CODE_DESC;
         this.fdsDate = data.rspBody.fdsList[0].FDS_DATE;
       }
 
       //CSS
-      if ( data.rspBody.cssList.length > 0 ) {
+      if (data.rspBody.cssList.length > 0) {
         this.cssScore = data.rspBody.cssList[0].cssScore;
         this.cssGrade = data.rspBody.cssList[0].cssGrade;
         this.cssDate = this.pipe.transform(new Date(data.rspBody.cssList[0].cssDate), 'yyyy-MM-dd hh:mm:ss');
       }
 
       //RPM
-      if ( data.rspBody.rpmList.length > 0 ) {
+      if (data.rspBody.rpmList.length > 0) {
         this.isRpm = data.rspBody.rpmList[0].isRpm;
         this.rpmTypeDescribe = data.rspBody.rpmList[0].rpmTypeDescribe;
-        this.rpmDate = this.formatDate( data.rspBody.rpmList[0].rpmDate );
+        this.rpmDate = this.formatDate(data.rspBody.rpmList[0].rpmDate);
         this.rpmId = data.rspBody.rpmList[0].rpmId;
       }
 
       //DSS1
-      if ( data.rspBody.dss1List.length > 0 ) {
+      if (data.rspBody.dss1List.length > 0) {
         this.sysflowcdOne = data.rspBody.dss1List[0].sysflowcd;
         this.resltcdOne = data.rspBody.dss1List[0].resltcd;
         this.calvOne = data.rspBody.dss1List[0].calv;
@@ -215,7 +215,7 @@ export class Childscn1Component implements OnInit {
       }
 
       //DSS2
-      if ( data.rspBody.dss2List.length > 0 ) {
+      if (data.rspBody.dss2List.length > 0) {
         this.sysflowcdTwo = data.rspBody.dss2List[0].sysflowcd;
         this.resltcdTwo = data.rspBody.dss2List[0].resltcd;
         this.calvTwo = data.rspBody.dss2List[0].calv;
@@ -230,14 +230,14 @@ export class Childscn1Component implements OnInit {
       }
 
       //DSS2Strgy
-      if ( data.rspBody.dss2StrgyList.length > 0 ) {
+      if (data.rspBody.dss2StrgyList.length > 0) {
         this.strgyAprfrj = data.rspBody.dss2StrgyList[0].strgyAprfrj;
         this.strgyLimitReving = data.rspBody.dss2StrgyList[0].strgyLimitReving;
         this.strgyMinpayrt = data.rspBody.dss2StrgyList[0].strgyMinpayrt;
       }
 
       //result
-      if ( data.rspBody.resultList.length > 0 ) {
+      if (data.rspBody.resultList.length > 0) {
         this.resultProdCode = data.rspBody.resultList[0].prodCode;
         this.resultPrjCode = data.rspBody.resultList[0].prjCode;
         this.creditResult = data.rspBody.resultList[0].creditResult;
@@ -253,24 +253,24 @@ export class Childscn1Component implements OnInit {
       }
 
       //creditInterestPeriod
-      if ( data.rspBody.creditInterestPeriodList.length > 0 ) {
+      if (data.rspBody.creditInterestPeriodList.length > 0) {
         this.period = data.rspBody.creditInterestPeriodList[0].period;
-        sessionStorage.setItem('period' , data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '' );
+        sessionStorage.setItem('period', data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '');
         this.interestType = data.rspBody.creditInterestPeriodList[0].interestType;
-        sessionStorage.setItem('interestType' , data.rspBody.creditInterestPeriodList[0].interestType ? data.rspBody.creditInterestPeriodList[0].interestType : '');
+        sessionStorage.setItem('interestType', data.rspBody.creditInterestPeriodList[0].interestType ? data.rspBody.creditInterestPeriodList[0].interestType : '');
         this.interest = data.rspBody.creditInterestPeriodList[0].interest;
-        sessionStorage.setItem('interest' , data.rspBody.creditInterestPeriodList[0].interest ? data.rspBody.creditInterestPeriodList[0].interest : '');
+        sessionStorage.setItem('interest', data.rspBody.creditInterestPeriodList[0].interest ? data.rspBody.creditInterestPeriodList[0].interest : '');
         this.periodType = data.rspBody.creditInterestPeriodList[0].periodType;
-        sessionStorage.setItem('periodType' , data.rspBody.creditInterestPeriodList[0].periodType ? data.rspBody.creditInterestPeriodList[0].periodType : '');
+        sessionStorage.setItem('periodType', data.rspBody.creditInterestPeriodList[0].periodType ? data.rspBody.creditInterestPeriodList[0].periodType : '');
         this.interestBase = data.rspBody.creditInterestPeriodList[0].interestBase;
-        sessionStorage.setItem('interestBase' , data.rspBody.creditInterestPeriodList[0].interestBase ? data.rspBody.creditInterestPeriodList[0].interestBase : '');
+        sessionStorage.setItem('interestBase', data.rspBody.creditInterestPeriodList[0].interestBase ? data.rspBody.creditInterestPeriodList[0].interestBase : '');
         this.interestCode = data.rspBody.creditInterestPeriodList[0].interestCode;
         this.approveInterest = data.rspBody.creditInterestPeriodList[0].approveInterest;
-        sessionStorage.setItem('approveInterest' , data.rspBody.creditInterestPeriodList[0].approveInterest ? data.rspBody.creditInterestPeriodList[0].approveInterest : '');
+        sessionStorage.setItem('approveInterest', data.rspBody.creditInterestPeriodList[0].approveInterest ? data.rspBody.creditInterestPeriodList[0].approveInterest : '');
       }
 
     })
-    this.getCreditmemo( this.pageIndex, this.pageSize );
+    this.getCreditmemo(this.pageIndex, this.pageSize);
   }
 
   map: any;
@@ -292,25 +292,25 @@ export class Childscn1Component implements OnInit {
       .addTo(this.map).openPopup();//開啟彈出視窗
 
     const marker2 = L.marker([25.07824532440103, 121.57678659801286], { title: '' })
-    .addTo(this.map).openPopup();//開啟彈出視窗
+      .addTo(this.map).openPopup();//開啟彈出視窗
 
     this.map.invalidateSize(true);
 
     //計算兩點座標距離
     var markerFrom = L.circleMarker([25.0249211, 121.5075035], { color: "#F00", radius: 10 });
-    var markerTo =  L.circleMarker([25.07824532440103, 121.57678659801286], { color: "#4AFF00", radius: 10 });
+    var markerTo = L.circleMarker([25.07824532440103, 121.57678659801286], { color: "#4AFF00", radius: 10 });
     var from = markerFrom.getLatLng();
     var to = markerTo.getLatLng();
-    this.distance = (from.distanceTo(to)).toFixed(0)/1000;
+    this.distance = (from.distanceTo(to)).toFixed(0) / 1000;
 
     //取兩點座標中心
     var corner1 = L.latLng(25.0249211, 121.5075035),
-    corner2 = L.latLng(25.07824532440103, 121.57678659801286),
-    bounds = L.latLngBounds(corner1, corner2);
+      corner2 = L.latLng(25.07824532440103, 121.57678659801286),
+      bounds = L.latLngBounds(corner1, corner2);
     this.map.fitBounds(bounds);
   }
 
-  getCreditmemo( pageIndex: number, pageSize: number ) {
+  getCreditmemo(pageIndex: number, pageSize: number) {
     const baseUrl = 'f01/childscn1scn1';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
@@ -318,7 +318,7 @@ export class Childscn1Component implements OnInit {
     jsonObject['per_page'] = pageSize;
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
-      this.creditmemoSource = data.rspBody.items;
+      this.creditmemoSource = data.rspBody.list;
     })
   }
 
@@ -334,7 +334,7 @@ export class Childscn1Component implements OnInit {
   }
 
   //儲存
-  public async save(): Promise<void>{
+  public async save(): Promise<void> {
     let msgStr: string = "";
     const baseUrl = 'f01/childscn1action1';
     let jsonObject: any = {};
@@ -346,15 +346,15 @@ export class Childscn1Component implements OnInit {
       data: { msgStr: msgStr }
     });
     this.changePage();
-    this.getCreditmemo( this.pageIndex, this.pageSize );
+    this.getCreditmemo(this.pageIndex, this.pageSize);
   }
 
   formatDate(date: string) {
-    return date.split("T")[0]+" "+date.split("T")[1].split(".")[0];
+    return date.split("T")[0] + " " + date.split("T")[1].split(".")[0];
   }
 
   changeInterest() {
-    if ( this.interestType == '02' ) {
+    if (this.interestType == '02') {
       this.interestValue = '1';
       this.interestBase = 2;
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
@@ -363,15 +363,15 @@ export class Childscn1Component implements OnInit {
       this.interestBase = null;
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
     }
-    sessionStorage.setItem('approveInterest' , this.approveInterest.toString() );
-    sessionStorage.setItem('interestType' , this.interestType );
-    sessionStorage.setItem('interest' , this.interest.toString() );
-    sessionStorage.setItem('interestBase' , this.interestBase.toString());
+    sessionStorage.setItem('approveInterest', this.approveInterest.toString());
+    sessionStorage.setItem('interestType', this.interestType);
+    sessionStorage.setItem('interest', this.interest.toString());
+    sessionStorage.setItem('interestBase', this.interestBase.toString());
   }
 
   changeInterestValue() {
     let msgStr: string = "";
-    if ( this.interestType != "02" ) {
+    if (this.interestType != "02") {
       msgStr = '利率型態請選擇加減碼';
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
@@ -382,8 +382,8 @@ export class Childscn1Component implements OnInit {
     }
   }
 
-  caluclate () {
-    if ( isNaN( this.interest ) ) {
+  caluclate() {
+    if (isNaN(this.interest)) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '利率請輸入數字!' }
       });
@@ -392,24 +392,24 @@ export class Childscn1Component implements OnInit {
         this.approveInterest = null;
       });
     } else {
-      if ( this.interestBase == null ) {
+      if (this.interestBase == null) {
         this.approveInterest = Number(this.interest);
       } else {
         this.approveInterest = Number(this.interestBase) + Number(this.interest);
       }
-      sessionStorage.setItem('approveInterest' , this.approveInterest.toString() );
-      sessionStorage.setItem('interest' , this.interest.toString() );
-      sessionStorage.setItem('interestBase' , this.interestBase.toString());
+      sessionStorage.setItem('approveInterest', this.approveInterest.toString());
+      sessionStorage.setItem('interest', this.interest.toString());
+      sessionStorage.setItem('interestBase', this.interestBase.toString());
     }
   }
 
   open() {
     const url = window.location.href.split("/#");
-    window.open( url[0] + "/#/MAP" );
+    window.open(url[0] + "/#/MAP");
   }
 
-  change( value: any , valueName: string){
-    sessionStorage.setItem( valueName , value );
+  change(value: any, valueName: string) {
+    sessionStorage.setItem(valueName, value);
   }
 
   numberOnly(event: { which: any; keyCode: any; }): boolean {
@@ -432,20 +432,20 @@ export class Childscn1Component implements OnInit {
   isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
 
   //審核註記編輯
-  startEdit(creditaction: string) {
+  startEdit(creditaction: string, rowId: string) {
     const dialogRef = this.dialog.open(Childscn1editComponent, {
       minHeight: '70vh',
       width: '50%',
       panelClass: 'mat-dialog-transparent',
       data: {
         creditaction: creditaction,
-        level: sessionStorage.getItem('stepName').split('t')[1]
+        level: sessionStorage.getItem('stepName').split('t')[1],
+        applno: this.applno,
+        rowId: rowId
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') {
-        this.getCreditmemo( this.pageIndex, this.pageSize );
-      }
+      this.getCreditmemo(this.pageIndex, this.pageSize);
     });
   }
 }

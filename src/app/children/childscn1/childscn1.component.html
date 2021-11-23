@@ -529,12 +529,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of creditmemoSource">
-        <td class="table-data">{{ data.creditdate | date:'yyyy-MM-dd hh:mm:ss' }}</td>
-        <td class="table-data">{{ data.credituser }}</td>
-        <td class="table-data">{{ data.creditaction }}</td>
+        <td class="table-data">{{ data.CREDITDATE | date:'yyyy-MM-dd hh:mm:ss' }}</td>
+        <td class="table-data">{{ data.CREDITUSER }}</td>
+        <td class="table-data">{{ data.CREDITACTION }}</td>
         <td class="table-data" style="text-align: center;">
           <button id="test" nz-button [nzSize]="'small'" nzType="primary"
-            (click)="startEdit(data.credituser , data.creditaction)">編輯</button>
+            (click)="startEdit(data.CREDITACTION , data.ID)">編輯</button>
         </td>
       </tr>
     </tbody>
