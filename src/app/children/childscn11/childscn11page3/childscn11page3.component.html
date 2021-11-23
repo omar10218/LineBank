@@ -7,33 +7,33 @@
         <!-- 第一種 -->
         <div nz-row *ngIf="i==0">
           <div nz-col nzSpan="8" *ngIf="compare[i] !=null && compare[i].result == 'Y'; ">
-            <div style="padding:10px"><span class="form-title">{{compare[i].compareColumn}}：</span><input
+            <div style="padding:10px"><span class="form-title" style="margin:0px">{{compare[i].compareColumn}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i].count" name="count" disabled></div>
           </div>
           <div nz-col nzSpan="8" *ngIf="compare[i] !=null && compare[i].result != 'Y'; ">
-            <div style="padding:10px"><span class="form-title">{{compare[i].compareColumn}}：</span><input
+            <div style="padding:10px"><span class="form-title" style="margin:0px">{{compare[i].compareColumn}}：</span><input
                 style="display: block;" [(ngModel)]="compare[i].count" name="count" disabled></div>
           </div>
 
           <div nz-col nzSpan="8" *ngIf="compare[i+1] !=null && compare[i+1].result == 'Y'; ">
             <div style="padding:10px"><span
-                class="form-title">{{compare[i+1].compareColumn}}：</span><input
+                class="form-title" style="margin:0px">{{compare[i+1].compareColumn}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i+1].count" name="count" disabled></div>
           </div>
           <div nz-col nzSpan="8" *ngIf="compare[i+1] !=null && compare[i+1].result != 'Y'; ">
             <div style="padding:10px"><span
-                class="form-title">{{compare[i+1].compareColumn}}：</span><input style="display: block;"
+                class="form-title" style="margin:0px">{{compare[i+1].compareColumn}}：</span><input style="display: block;"
                 [(ngModel)]="compare[i+1].count" name="count" disabled></div>
           </div>
 
           <div nz-col nzSpan="8" *ngIf="compare[i+2] !=null && compare[i+2].result == 'Y'; ">
             <div style="padding:10px"><span
-                class="form-title">{{compare[i+2].compareColumn}}：</span><input
+                class="form-title" style="margin:0px">{{compare[i+2].compareColumn}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i+2].count" name="count" disabled></div>
           </div>
           <div nz-col nzSpan="8" *ngIf="compare[i+2] !=null && compare[i+2].result != 'Y'; ">
             <div style="padding:10px"><span
-                class="form-title">{{compare[i+2].compareColumn}}：</span><input style="display: block;"
+                class="form-title" style="margin:0px">{{compare[i+2].compareColumn}}：</span><input style="display: block;"
                 [(ngModel)]="compare[i+2].count" name="count" disabled></div>
           </div>
 
@@ -43,34 +43,34 @@
         <div nz-row *ngIf="i>0">
           <div nz-col nzSpan="8" *ngIf="compare[i*3] !=null && compare[i*3].result == 'Y'; ">
             <div style="padding:10px"><span
-                class="form-title">{{compare[i*3].compareColumn}}：</span><input
+                class="form-title" style="margin:0px">{{compare[i*3].compareColumn}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i*3].count" name="count" disabled></div>
           </div>
           <div nz-col nzSpan="8" *ngIf="compare[i*3] !=null && compare[i*3].result != 'Y'; ">
             <div style="padding:10px"><span
-                class="form-title">{{compare[i*3].compareColumn}}：</span><input style="display: block;"
+                class="form-title" style="margin:0px">{{compare[i*3].compareColumn}}：</span><input style="display: block;"
                 [(ngModel)]="compare[i*3].count" name="count" disabled></div>
           </div>
 
           <div nz-col nzSpan="8" *ngIf="compare[i*3+1] !=null && compare[i*3+1].result == 'Y'; ">
             <div style="padding:10px"><span
-                class="form-title">{{compare[i*3+1].compareColumn}}：</span><input
+                class="form-title" style="margin:0px">{{compare[i*3+1].compareColumn}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i*3+1].count" name="count" disabled></div>
           </div>
           <div nz-col nzSpan="8" *ngIf="compare[i*3+1] !=null && compare[i*3+1].result != 'Y'; ">
             <div style="padding:10px"><span
-                class="form-title">{{compare[i*3+1].compareColumn}}：</span><input style="display: block;"
+                class="form-title" style="margin:0px">{{compare[i*3+1].compareColumn}}：</span><input style="display: block;"
                 [(ngModel)]="compare[i*3+1].count" name="count" disabled></div>
           </div>
 
           <div nz-col nzSpan="8" *ngIf="compare[i*3+2] !=null && compare[i*3+2].result == 'Y'; ">
             <div style="padding:10px"><span
-                class="form-title">{{compare[i*3+2].compareColumn}}：</span><input
+                class="form-title" style="margin:0px">{{compare[i*3+2].compareColumn}}：</span><input
                 style="color: red;display: block;" [(ngModel)]="compare[i*3+2].count" name="count" disabled></div>
           </div>
           <div nz-col nzSpan="8" *ngIf="compare[i*3+2] !=null && compare[i*3+2].result != 'Y'; ">
             <div style="padding:10px"><span
-                class="form-title">{{compare[i*3+2].compareColumn}}：</span><input style="display: block;"
+                class="form-title" style="margin:0px">{{compare[i*3+2].compareColumn}}：</span><input style="display: block;"
                 [(ngModel)]="compare[i*3+2].count" name="count" disabled></div>
           </div>
 

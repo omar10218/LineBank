@@ -60,19 +60,22 @@ export class Childbwscn4page1Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.search = sessionStorage.getItem('search');
-    const url = "/f01/childBwScn4";
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    formdata.append('code', 'CORE_CUS_INFO');
-    this.Childbwscn4Service.getDate(url, formdata).subscribe(data => {
+    const url = "f01/childBwScn4";
+
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['cuid'] = this.cuid;
+    jsonObject['code'] = 'CORE_CUS_INFO';
+    this.Childbwscn4Service.getDate(url, jsonObject).subscribe(data => {
+      console.log(data)
       if (data.rspBody.items.length > 0) {
-        for (let i = 0; i < data.rspBody.items.length; i++) {
-          this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
-        }
+         for (let i = 0; i < data.rspBody.items.length; i++) {
+         this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
+         }
         this.dateValue = data.rspBody.items[0].QUERYDATE
         this.getCoreCusInfo(this.dateValue);
-      }
+        }
+
     });
   }
 
