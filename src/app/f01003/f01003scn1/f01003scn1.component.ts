@@ -75,8 +75,68 @@ export class F01003scn1Component implements OnInit {
     });
   }
 
-  finish() {
-    const baseUrl = 'f01/childscn0';
+  // finish() {
+  //   const baseUrl = 'f01/childscn0';
+  //   let msg = '';
+  //   let jsonObject: any = {};
+  //   jsonObject['applno'] = this.applno;
+  //   jsonObject['level'] = 'L2';
+
+  //   this.approveAmt = sessionStorage.getItem('resultApproveAmt');
+  //   this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');
+
+  //   this.period = sessionStorage.getItem('period');
+  //   this.periodType = sessionStorage.getItem('periodType');
+  //   this.interestType = sessionStorage.getItem('interestType');
+  //   this.approveInterest = sessionStorage.getItem('approveInterest');
+  //   this.interest = sessionStorage.getItem('interest');
+  //   this.interestBase = sessionStorage.getItem('interestBase');
+  //   this.creditResult = sessionStorage.getItem('creditResult');
+  //   this.caApplicationAmount = sessionStorage.getItem('caApplicationAmount');
+  //   this.caPmcus = sessionStorage.getItem('caPmcus');
+  //   this.caRisk = sessionStorage.getItem('caRisk');
+
+  //   if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '') {
+
+  //     let jsoncreditResult: any = {};
+  //     jsoncreditResult['approveAmt'] = this.approveAmt;
+  //     jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
+  //     jsoncreditResult['caApplicationAmount'] = this.caApplicationAmount;
+
+  //     let jsonCreditInterestPeriod: any = {};
+  //     jsonCreditInterestPeriod['caPmcus'] = this.caPmcus;
+  //     jsonCreditInterestPeriod['caRisk'] = this.caRisk;
+  //     jsonCreditInterestPeriod['periodType'] = this.periodType;
+  //     jsonCreditInterestPeriod['interestType'] = this.interestType;
+  //     jsonCreditInterestPeriod['interestCode'] = '1';
+  //     jsonCreditInterestPeriod['approveInterest'] = this.approveInterest; // 核准利率
+  //     jsonCreditInterestPeriod['interest'] = this.interest; // 固定利率
+  //     jsonCreditInterestPeriod['interestBase'] = this.interest; // 基放利率
+
+  //     if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
+  //       const childernDialogRef = this.dialog.open(ConfirmComponent, {
+  //         data: { msgStr: '請填寫核決結果!' }
+  //       });
+  //     } else {
+  //       jsoncreditResult['creditResult'] = this.creditResult;
+  //       jsonObject['creditResult'] = jsoncreditResult;
+  //       jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod
+  //       this.f01003Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
+  //         this.router.navigate(['./F01003']);
+  //       });
+  //       const childernDialogRef = this.dialog.open(ConfirmComponent, {
+  //         data: { msgStr: '案件完成' }
+  //       });
+  //     }
+  //   } else {
+  //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+  //       data: { msgStr: '審核結果未填寫' }
+  //     });
+  //   }
+  // }
+
+  save(url: string, result: string) {
+    const baseUrl = url;
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
@@ -125,7 +185,7 @@ export class F01003scn1Component implements OnInit {
           this.router.navigate(['./F01003']);
         });
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: '案件完成' }
+          data: { msgStr: result }
         });
       }
     } else {
