@@ -20,6 +20,9 @@ import { Childbwscn10Component } from './childbwscn10/childbwscn10.component';
 import { Childbwscn11Component } from './childbwscn11/childbwscn11.component';
 import { NgxWatermarkModule } from 'ngx-watermark';
 import { Childbwscn4page1Component } from './childbwscn4/childbwscn4page1/childbwscn4page1.component';
+import { Childbwscn4page2Component } from './childbwscn4/childbwscn4page2/childbwscn4page2.component';
+import { Childbwscn4page3Component } from './childbwscn4/childbwscn4page3/childbwscn4page3.component';
+import { Childbwscn4page4Component } from './childbwscn4/childbwscn4page4/childbwscn4page4.component';
 // import { Childbwscn4page1Component } from '../childbwyscn4/childbwscn4page1/childbwscn4page1.component';
 
 
@@ -37,6 +40,9 @@ import { Childbwscn4page1Component } from './childbwscn4/childbwscn4page1/childb
     Childbwscn10Component,
     Childbwscn11Component,
     Childbwscn4page1Component,
+    Childbwscn4page2Component,
+    Childbwscn4page3Component,
+    Childbwscn4page4Component,
     // Childbwscn4page1Component
 
   ],

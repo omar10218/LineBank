@@ -10,7 +10,7 @@ export class Childbwscn4Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getCoreCusInfo(jsonObject: JSON): Observable<any>  {
-    const baseUrl = '/f01/childBwScn9action';
+    const baseUrl = '/f01/childBwScn4action';
     return this.postJsonObject(baseUrl, jsonObject);
   }
 
