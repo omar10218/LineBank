@@ -47,6 +47,8 @@ export class F03008Component implements OnInit {
     jsonObject['per_page'] = this.pageSize;
     this.f03008Service.elAbnormalNid(baseUrl, jsonObject)
       .subscribe(data => {
+        console.log(this.ABNORMAL_NID)
+        console.log(data)
         this.total = data.rspBody.size;
         // if (this.total == 0) {
         //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -65,6 +67,13 @@ export class F03008Component implements OnInit {
       data: {
         ABNORMAL_NID: '',
         ABNORMAL_NAME: '',
+        CUST_ID:'',
+        MOBILE:'',
+        PHONE:'',
+        ADDRESS:'',
+        DATA_SOURCE1:'',
+        DATA_SOURCE2:'',
+        DATA_SOURCE3:'',
         ON_CHECK: 'Y',
         TRANSFER_EMPNO: '',
       }

@@ -8,13 +8,14 @@
   font-size: 0;
   opacity: 0;
   cursor: pointer;
-  margin-left: -67px;
+  margin-left: ;
+
 }
 
 .icon_size {
   position: relative;
   top:3px;
-  left: -97px;
+  left: -122px;
   font-size:25px
 }
 

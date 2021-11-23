@@ -26,7 +26,14 @@
       (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="貸後管理異常名單">
       <thead>
         <tr>
-          <th class="table-header">異常ID</th>
+          <th class="table-header">身分證字號</th>
+          <th class="table-header">客戶ID</th>
+          <th class="table-header">行動電話</th>
+          <th class="table-header">市內電話</th>
+          <th class="table-header">地址</th>
+          <th class="table-header">數據源說明1</th>
+          <th class="table-header">數據源說明2</th>
+          <th class="table-header">數據源說明3</th>
           <th class="table-header">啟用比對</th>
           <th class="table-header">上傳員編</th>
           <th class="table-header">上傳時間</th>
@@ -39,6 +46,13 @@
       <tbody>
         <tr *ngFor="let data of dataSource.data">
           <td class="table-data">{{ data.abnormalNid }}</td>
+          <td class="table-data">{{ data.custId }}</td>
+          <td class="table-data">{{ data.mobile }}</td>
+          <td class="table-data">{{ data.phone }}</td>
+          <td class="table-data">{{ data.address }}</td>
+          <td class="table-data">{{ data.dataSource1 }}</td>
+          <td class="table-data">{{ data.dataSource2 }}</td>
+          <td class="table-data">{{ data.dataSource3 }}</td>
           <td class="table-data">{{ data.onCheck }}</td>
           <td class="table-data">{{ data.transferEmpno }}</td>
           <td class="table-data">{{ data.transferDate| date:"yyyy-MM-dd" }}</td>
