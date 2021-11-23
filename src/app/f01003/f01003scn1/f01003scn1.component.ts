@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Childscn22Component } from 'src/app/children/childscn22/childscn22.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01003Scn1Service } from './f01003scn1.service';
 
@@ -58,6 +59,17 @@ export class F01003scn1Component implements OnInit {
 
   getLevel(): string {
     return this.creditLevel;
+  }
+
+  recalculate() {
+    const dialogRef = this.dialog.open(Childscn22Component, {
+      minHeight: '50%',
+      width: '30%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid
+      }
+    });
   }
 
   finish() {

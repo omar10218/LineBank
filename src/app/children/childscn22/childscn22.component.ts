@@ -16,17 +16,35 @@ export class Childscn22Component implements OnInit {
     private childsnc22Service: Childscn22Service
   ) { }
 
+  applno: string;     // 案件編號
+  cuid: string;       // 身分證字號
+  stepName: string;   // 目前關卡
   ngOnInit(): void {
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
+    this.stepName = sessionStorage.getItem('stepName');
+    console.log(this.stepName)
   }
 
   cancel(): void {
     this.dialogRef.close();
   }
-  
+
   public async confirm(): Promise<void> {
     let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['swcNationalId'] = this.cuid;
     let msgStr: string = '';
-    msgStr = await this.childsnc22Service.doDss1Search(jsonObject);
-    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+    if (this.stepName == 'APPLCreditL3') {
+      msgStr = await this.childsnc22Service.doDss1Search(jsonObject);
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+    } else if (this.stepName == 'APPLCreditL2') {
+      msgStr = await this.childsnc22Service.doDss2Search(jsonObject);
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+    } else {
+      msgStr = await this.childsnc22Service.doDss4Search(jsonObject);
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+    }
+
   }
 }
