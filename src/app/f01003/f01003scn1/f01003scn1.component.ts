@@ -162,10 +162,10 @@ export class F01003scn1Component implements OnInit {
       jsoncreditResult['approveAmt'] = this.approveAmt;
       jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
       jsoncreditResult['caApplicationAmount'] = this.caApplicationAmount;
+      jsoncreditResult['caPmcus'] = this.caPmcus;
+      jsoncreditResult['caRisk'] = this.caRisk;
 
       let jsonCreditInterestPeriod: any = {};
-      jsonCreditInterestPeriod['caPmcus'] = this.caPmcus;
-      jsonCreditInterestPeriod['caRisk'] = this.caRisk;
       jsonCreditInterestPeriod['periodType'] = this.periodType;
       jsonCreditInterestPeriod['interestType'] = this.interestType;
       jsonCreditInterestPeriod['interestCode'] = '1';

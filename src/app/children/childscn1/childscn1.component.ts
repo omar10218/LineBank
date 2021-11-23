@@ -243,9 +243,9 @@ export class Childscn1Component implements OnInit {
         this.creditResult = data.rspBody.resultList[0].creditResult;
         sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult ? data.rspBody.resultList[0].creditResult : '');
         this.resultApproveAmt = data.rspBody.resultList[0].approveAmt;
-        sessionStorage.setItem('resultApproveAmt', data.rspBody.resultList[0].resultApproveAmt ? data.rspBody.resultList[0].resultApproveAmt : '');
+        sessionStorage.setItem('resultApproveAmt', data.rspBody.resultList[0].approveAmt ? data.rspBody.resultList[0].approveAmt : '');
         this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
-        sessionStorage.setItem('resultLowestPayRate', data.rspBody.resultList[0].resultLowestPayRate ? data.rspBody.resultList[0].resultLowestPayRate : '');
+        sessionStorage.setItem('resultLowestPayRate', data.rspBody.resultList[0].lowestPayRate ? data.rspBody.resultList[0].lowestPayRate : '');
         this.caPmcus = data.rspBody.resultList[0].caPmcus;
         sessionStorage.setItem('caPmcus', data.rspBody.resultList[0].caPmcus ? data.rspBody.resultList[0].caPmcus : '');
         this.caRisk = data.rspBody.resultList[0].caRisk;
