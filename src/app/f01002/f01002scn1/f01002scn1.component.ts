@@ -126,12 +126,37 @@ export class F01002scn1Component implements OnInit {
     window.close();
   }
 
-  finish() {
-    const baseUrl = 'f01/childscn0';
+  // finish() {
+  //   const baseUrl = 'f01/childscn0';
+  //   let msg = '';
+  //   let jsonObject: any = {};
+  //   jsonObject['applno'] = this.applno;
+  //   jsonObject['level'] = 'L3';
+  //   this.creditResult = sessionStorage.getItem('creditResult');
+  //   if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
+  //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+  //       data: { msgStr: '請填寫核決結果!' }
+  //     });
+  //   } else {
+  //     let json: any = {};
+  //     json['creditResult'] = this.creditResult;
+  //     jsonObject['creditResult'] = json;
+  //     this.f01002scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
+  //       this.router.navigate(['./F01002']);
+  //     });
+  //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+  //       data: { msgStr: '案件完成' }
+  //     });
+  //   }
+  // }
+
+  save(url: string, result: string) {
+    const baseUrl = url;
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'L3';
+
     this.creditResult = sessionStorage.getItem('creditResult');
     if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -145,7 +170,7 @@ export class F01002scn1Component implements OnInit {
         this.router.navigate(['./F01002']);
       });
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '案件完成' }
+        data: { msgStr: result }
       });
     }
   }
