@@ -53,6 +53,18 @@ export class F01002scn1Component implements OnInit {
 
   creditResult: string;
   level: string;
+  creditMemo: string;
+  approveAmt: string;
+  lowestPayRate: string;
+  approveInterest: string;
+  interest: string;
+  interestType: string;
+  period: string;
+  periodType: string;
+  interestBase: string;
+  caApplicationAmount: string;
+  caPmcus: string;
+  caRisk: string
 
 
   ngOnInit(): void {
@@ -161,20 +173,58 @@ export class F01002scn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'L3';
 
+    this.approveAmt = sessionStorage.getItem('resultApproveAmt');
+    this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');
+
+    this.period = sessionStorage.getItem('period');
+    this.periodType = sessionStorage.getItem('periodType');
+    this.interestType = sessionStorage.getItem('interestType');
+    this.approveInterest = sessionStorage.getItem('approveInterest');
+    this.interest = sessionStorage.getItem('interest');
+    this.interestBase = sessionStorage.getItem('interestBase');
     this.creditResult = sessionStorage.getItem('creditResult');
-    if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '請填寫核決結果!' }
-      });
+    this.caApplicationAmount = sessionStorage.getItem('caApplicationAmount');
+    this.caPmcus = sessionStorage.getItem('caPmcus');
+    this.caRisk = sessionStorage.getItem('caRisk');
+
+    if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '') {
+
+      let jsoncreditResult: any = {};
+      jsoncreditResult['approveAmt'] = this.approveAmt;
+      jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
+      jsoncreditResult['caPmcus'] = this.caPmcus;
+      jsoncreditResult['caRisk'] = this.caRisk;
+
+      let jsonCreditInterestPeriod: any = {};
+      jsonCreditInterestPeriod['periodType'] = this.periodType;
+      jsonCreditInterestPeriod['interestType'] = this.interestType;
+      jsonCreditInterestPeriod['interestCode'] = '1';
+      jsonCreditInterestPeriod['approveInterest'] = this.approveInterest; // 核准利率
+      jsonCreditInterestPeriod['interest'] = this.interest; // 固定利率
+      jsonCreditInterestPeriod['interestBase'] = this.interest; // 基放利率
+
+      let jsonElApplicationInfo: any = {};
+      jsonElApplicationInfo['caApplicationAmount'] = this.caApplicationAmount;
+
+      if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '請填寫核決結果!' }
+        });
+      } else {
+        jsoncreditResult['creditResult'] = this.creditResult;
+        jsonObject['creditResult'] = jsoncreditResult;
+        jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
+        jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
+        this.f01002scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
+          this.router.navigate(['./F01002']);
+        });
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: result }
+        });
+      }
     } else {
-      let json: any = {};
-      json['creditResult'] = this.creditResult;
-      jsonObject['creditResult'] = json;
-      this.f01002scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
-        this.router.navigate(['./F01002']);
-      });
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: result }
+        data: { msgStr: '審核結果未填寫' }
       });
     }
   }

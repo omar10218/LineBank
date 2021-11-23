@@ -161,7 +161,6 @@ export class F01003scn1Component implements OnInit {
       let jsoncreditResult: any = {};
       jsoncreditResult['approveAmt'] = this.approveAmt;
       jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
-      jsoncreditResult['caApplicationAmount'] = this.caApplicationAmount;
       jsoncreditResult['caPmcus'] = this.caPmcus;
       jsoncreditResult['caRisk'] = this.caRisk;
 
@@ -173,6 +172,9 @@ export class F01003scn1Component implements OnInit {
       jsonCreditInterestPeriod['interest'] = this.interest; // 固定利率
       jsonCreditInterestPeriod['interestBase'] = this.interest; // 基放利率
 
+      let jsonElApplicationInfo: any = {};
+      jsonElApplicationInfo['caApplicationAmount'] = this.caApplicationAmount;
+
       if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: '請填寫核決結果!' }
@@ -180,7 +182,8 @@ export class F01003scn1Component implements OnInit {
       } else {
         jsoncreditResult['creditResult'] = this.creditResult;
         jsonObject['creditResult'] = jsoncreditResult;
-        jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod
+        jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
+        jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
         this.f01003Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
           this.router.navigate(['./F01003']);
         });
