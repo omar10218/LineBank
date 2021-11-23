@@ -80,5 +80,5 @@ span:hover::before {
 }
 
 ::ng-deep.ant-tabs-tab + .ant-tabs-tab {
-  margin-left: 20px;
+  margin-left: 10px;
 }
