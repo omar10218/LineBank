@@ -33,7 +33,10 @@ export class Childscn1Component implements OnInit {
   //客戶身分名單註記(待確認)
   prodCode: string;                             //申請產品
   applicationAmount: number;                    //申請金額
+  caApplicationAmount: number;
   purposeCode:string;                           //貸款用途
+  caPmcus: string;
+  caRisk: string
   //專案名稱(待確認)
   //行銷代碼(待確認)
 
@@ -113,7 +116,6 @@ export class Childscn1Component implements OnInit {
   pageSize = 50;
 
   ngOnInit(): void {
-    this.sessionNull();
     this.applno = sessionStorage.getItem('applno');
     this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
     .subscribe(data => {
@@ -164,6 +166,8 @@ export class Childscn1Component implements OnInit {
         this.nationalId = data.rspBody.CreditAuditinfoList[0].nationalId;
         this.prodCode = data.rspBody.CreditAuditinfoList[0].prodCode;
         this.applicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount;
+        this.caApplicationAmount = data.rspBody.CreditAuditinfoList[0].caApplicationAmount;
+        sessionStorage.setItem('caApplicationAmount',data.rspBody.CreditAuditinfoList[0].caApplicationAmount ? data.rspBody.resultList[0].caApplicationAmount : '');
         this.purposeCode = data.rspBody.CreditAuditinfoList[0].purposeCode;
       }
 
@@ -237,24 +241,35 @@ export class Childscn1Component implements OnInit {
         this.resultProdCode = data.rspBody.resultList[0].prodCode;
         this.resultPrjCode = data.rspBody.resultList[0].prjCode;
         this.creditResult = data.rspBody.resultList[0].creditResult;
+        sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult ? data.rspBody.resultList[0].creditResult : '');
         this.resultApproveAmt = data.rspBody.resultList[0].approveAmt;
+        sessionStorage.setItem('resultApproveAmt', data.rspBody.resultList[0].resultApproveAmt ? data.rspBody.resultList[0].resultApproveAmt : '');
         this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
-        sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult);
+        sessionStorage.setItem('resultLowestPayRate', data.rspBody.resultList[0].resultLowestPayRate ? data.rspBody.resultList[0].resultLowestPayRate : '');
+        this.caPmcus = data.rspBody.resultList[0].caPmcus;
+        sessionStorage.setItem('caPmcus', data.rspBody.resultList[0].caPmcus ? data.rspBody.resultList[0].caPmcus : '');
+        this.caRisk = data.rspBody.resultList[0].caRisk;
+        sessionStorage.setItem('caRisk', data.rspBody.resultList[0].caRisk ? data.rspBody.resultList[0].caRisk : '');
       }
 
       //creditInterestPeriod
       if ( data.rspBody.creditInterestPeriodList.length > 0 ) {
         this.period = data.rspBody.creditInterestPeriodList[0].period;
+        sessionStorage.setItem('period' , data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '' );
         this.interestType = data.rspBody.creditInterestPeriodList[0].interestType;
+        sessionStorage.setItem('interestType' , data.rspBody.creditInterestPeriodList[0].interestType ? data.rspBody.creditInterestPeriodList[0].interestType : '');
         this.interest = data.rspBody.creditInterestPeriodList[0].interest;
+        sessionStorage.setItem('interest' , data.rspBody.creditInterestPeriodList[0].interest ? data.rspBody.creditInterestPeriodList[0].interest : '');
         this.periodType = data.rspBody.creditInterestPeriodList[0].periodType;
+        sessionStorage.setItem('periodType' , data.rspBody.creditInterestPeriodList[0].periodType ? data.rspBody.creditInterestPeriodList[0].periodType : '');
         this.interestBase = data.rspBody.creditInterestPeriodList[0].interestBase;
+        sessionStorage.setItem('interestBase' , data.rspBody.creditInterestPeriodList[0].interestBase ? data.rspBody.creditInterestPeriodList[0].interestBase : '');
         this.interestCode = data.rspBody.creditInterestPeriodList[0].interestCode;
         this.approveInterest = data.rspBody.creditInterestPeriodList[0].approveInterest;
+        sessionStorage.setItem('approveInterest' , data.rspBody.creditInterestPeriodList[0].approveInterest ? data.rspBody.creditInterestPeriodList[0].approveInterest : '');
       }
 
     })
-
     this.getCreditmemo( this.pageIndex, this.pageSize );
   }
 
@@ -395,18 +410,6 @@ export class Childscn1Component implements OnInit {
 
   change( value: any , valueName: string){
     sessionStorage.setItem( valueName , value );
-  }
-
-  sessionNull() {
-    sessionStorage.setItem('resultApproveAmt', '');
-    sessionStorage.setItem('resultLowestPayRate', '');
-    sessionStorage.setItem('period' , '' );
-    sessionStorage.setItem('periodType' , '' );
-    sessionStorage.setItem('interestType' , '' );
-    sessionStorage.setItem('approveInterest' , '' );
-    sessionStorage.setItem('interest' , '' );
-    sessionStorage.setItem('interestBase' , '' );
-    sessionStorage.setItem('creditResult', '');
   }
 
   numberOnly(event: { which: any; keyCode: any; }): boolean {

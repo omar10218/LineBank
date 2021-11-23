@@ -28,8 +28,12 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">申請金額</span><input matInput #input class="form-control"
-          [(ngModel)]="applicationAmount" name="applicationAmount" [ngStyle]="getStyle(applicationAmount)"
-          (keypress)="numberOnly($event)" required placeholder="輸入金額"></div>
+          [(ngModel)]="applicationAmount" name="applicationAmount" [ngStyle]="getStyle(applicationAmount)" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">徵信修改申請金額</span><input matInput #input class="form-control"
+          [(ngModel)]="caApplicationAmount" name="caApplicationAmount" [ngStyle]="getStyle(caApplicationAmount)"
+          (keypress)="numberOnly($event)" (ngModelChange)="change(caApplicationAmount,'caApplicationAmount')" required placeholder="輸入金額"></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">貸款用途</span><input matInput #input class="form-control"
@@ -409,6 +413,16 @@
       <div style="padding:3px"><span class="form-title">每月最低還款比率</span><input matInput #input class="form-control"
           [(ngModel)]="resultLowestPayRate" placeholder="輸入還款比率"
           (ngModelChange)="change(resultLowestPayRate,'resultLowestPayRate')" (keypress)="numberOnly($event)"></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">人員記錄-PM策略客群</span><input matInput #input class="form-control"
+          [(ngModel)]="caPmcus"
+          (ngModelChange)="change(caPmcus,'caPmcus')"></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">人員記錄-風險等級</span><input matInput #input class="form-control"
+          [(ngModel)]="caRisk"
+          (ngModelChange)="change(caRisk,'caRisk')"></div>
     </div>
   </div>
 

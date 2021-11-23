@@ -35,6 +35,9 @@ export class F01003scn1Component implements OnInit {
   period: string;
   periodType: string;
   interestBase: string;
+  caApplicationAmount: string;
+  caPmcus: string;
+  caRisk: string
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -89,14 +92,20 @@ export class F01003scn1Component implements OnInit {
     this.interest = sessionStorage.getItem('interest');
     this.interestBase = sessionStorage.getItem('interestBase');
     this.creditResult = sessionStorage.getItem('creditResult');
+    this.caApplicationAmount = sessionStorage.getItem('caApplicationAmount');
+    this.caPmcus = sessionStorage.getItem('caPmcus');
+    this.caRisk = sessionStorage.getItem('caRisk');
 
     if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '') {
 
       let jsoncreditResult: any = {};
       jsoncreditResult['approveAmt'] = this.approveAmt;
       jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
+      jsoncreditResult['caApplicationAmount'] = this.caApplicationAmount;
 
       let jsonCreditInterestPeriod: any = {};
+      jsonCreditInterestPeriod['caPmcus'] = this.caPmcus;
+      jsonCreditInterestPeriod['caRisk'] = this.caRisk;
       jsonCreditInterestPeriod['periodType'] = this.periodType;
       jsonCreditInterestPeriod['interestType'] = this.interestType;
       jsonCreditInterestPeriod['interestCode'] = '1';
