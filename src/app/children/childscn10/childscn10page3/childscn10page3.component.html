@@ -1,10 +1,6 @@
 <!-- <div class="line_bank_bankground_color" style="margin-top: -50px;"> -->
   <div class="line_bank_bankground_color" style="margin-top: 10px;">
-  <div style="padding-left: 50px;">
-    <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()">儲存</button>
-    <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()"
-      disabled>儲存</button>
-  </div>
+
   <div class="line_bank_card_no_padding">
     <nz-table nzShowSizeChanger [nzData]="fmData.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
       nzTitle="DBR計算">
@@ -169,5 +165,10 @@
         </tr>
       </tbody>
     </nz-table>
+    <div style="padding: 10px;text-align: center">
+      <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()">儲存</button>
+      <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()"
+        disabled>儲存</button>
+    </div>
   </div>
 </div>

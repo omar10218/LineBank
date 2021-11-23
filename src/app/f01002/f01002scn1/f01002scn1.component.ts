@@ -75,7 +75,8 @@ export class F01002scn1Component implements OnInit {
 
   reScan() {
     const dialogRef = this.dialog.open(Childscn19Component, {
-      minHeight: '50%',
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
       width: '70%',
       data: {
         applno: this.applno,
@@ -86,6 +87,7 @@ export class F01002scn1Component implements OnInit {
 
   reSearch() {
     const dialogRef = this.dialog.open(Childscn18Component, {
+      panelClass: 'mat-dialog-transparent',
       data: {
         applno: this.applno,
         cuid: this.cuid
@@ -95,6 +97,7 @@ export class F01002scn1Component implements OnInit {
 
   recalculate() {
     const dialogRef = this.dialog.open(Childscn22Component, {
+      panelClass: 'mat-dialog-transparent',
       minHeight: '50%',
       width: '30%',
       data: {
@@ -106,6 +109,7 @@ export class F01002scn1Component implements OnInit {
 
   blockList() {
     const dialogRef = this.dialog.open(Childscn20Component, {
+      panelClass: 'mat-dialog-transparent',
       data: {
         applno: this.applno,
         cuid: this.cuid

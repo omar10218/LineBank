@@ -148,6 +148,10 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
 .ant-empty-normal {
   margin: 0;
 }
+.ant-empty-normal .ant-empty-image{
+  height:40px;
+  margin-top:10px;
+}
 /* .ant-table.ant-table-small .ant-table-tbody>tr>td{
   padding:6px;
 }

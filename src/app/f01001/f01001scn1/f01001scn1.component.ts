@@ -62,7 +62,8 @@ export class F01001scn1Component implements OnInit {
 
   reScan() {
     const dialogRef = this.dialog.open(Childscn19Component, {
-      minHeight: '50%',
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
       width: '70%',
       data: {
         applno: this.applno,
@@ -73,6 +74,7 @@ export class F01001scn1Component implements OnInit {
 
   blockList() {
     const dialogRef = this.dialog.open(Childscn20Component, {
+      panelClass: 'mat-dialog-transparent',
       data: {
         applno: this.applno,
         cuid: this.cuid

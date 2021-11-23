@@ -111,6 +111,8 @@ export class Childscn13Component implements OnInit {
 
   addNew() {
     const dialogRef = this.dialog.open(Childscn13addComponent, {
+      height:'100%',
+      panelClass: 'mat-dialog-transparent',
       data: {
         applno: this.applno,
         search: this.search,

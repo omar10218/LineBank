@@ -1,6 +1,6 @@
 <br>
 <div style="width: 800px;height:1300px;margin:0 auto">
-  <button nz-button [nzSize]="'large'" nzType="primary" (click)="cancel()">離開</button>
+
   <div class="line_bank_card_no_padding">
     <!-- 補件功能 -->
     <div class="line_bank_form_header_title">補件</div>
@@ -58,7 +58,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of rescanDataSource">
-          <td class="table-data"><button nz-button [nzSize]="'small'" nzType="primary"
+          <td class="table-data" style="text-align:center"><button nz-button [nzSize]="'small'" nzType="primary"
               (click)="delRescan(data.ROWID)">刪除</button></td>
           <td class="table-data">{{ data.RESTART_DATE|date: 'yyyy-MM-dd' }}</td>
           <td class="table-data">{{ data.RESCAN_TYPE }}</td>
@@ -126,6 +126,10 @@
         </tr>
       </tbody>
     </nz-table>
+    <div style="padding:10px;text-align:center">
+
+      <button nz-button [nzSize]="'large'" nzType="primary" (click)="cancel()">離開</button>
+    </div>
     <br>
     <br>
   </div>
