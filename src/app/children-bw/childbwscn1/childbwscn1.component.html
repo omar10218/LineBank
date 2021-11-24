@@ -1,21 +1,154 @@
-<div class="line_bank_card_no_padding" style="min-height:170px">
+<!-- 覆審資訊 -->
+<div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
   <div class="line_bank_form_header_title">覆審資訊</div>
-  <div nz-row>
+  <div nz-row style="padding:5px">
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">身分證字號</span><input matInput #input class="form-control"
+      <div style="padding:3px"><span class="form-title">身分證字號</span><input matInput #input class="form-control"
           [(ngModel)]="applno" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">客戶ID</span><input matInput #input class="form-control"
+      <div style="padding:3px"><span class="form-title">客戶ID</span><input matInput #input class="form-control"
           [(ngModel)]="cuCName" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">姓名</span><input matInput #input class="form-control"
+      <div style="padding:3px"><span class="form-title">姓名</span><input matInput #input class="form-control"
           [(ngModel)]="custId" readonly></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:10px"><span class="form-title">符合貸後異常名單</span><input matInput #input class="form-control"
+      <div style="padding:3px"><span class="form-title">符合貸後異常名單</span><input matInput #input class="form-control"
           [(ngModel)]="nationalId" readonly></div>
     </div>
   </div>
+</div>
+
+<!-- DSS決策結果 -->
+<div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
+  <div class="line_bank_form_header_title">DSS決策結果</div>
+  <div nz-row style="padding:5px">
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">本次貸後管理狀態</span><input matInput #input class="form-control"
+          value="" readonly></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">本次貸後管理註記</span><input matInput #input class="form-control"
+          value="" readonly></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">本次客戶風險等級CRL</span><input matInput #input class="form-control"
+          value="" readonly></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">預計下次審查日期</span><input matInput #input class="form-control"
+          value="" readonly></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">徵審代碼數量</span><input matInput #input class="form-control"
+          value="" readonly></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">本次貸後管理狀態(中文)</span><input matInput #input class="form-control"
+          value="" readonly></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">本次貸後管理註記(中文)</span><input matInput #input class="form-control"
+          value="" readonly></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">本次客戶風險等級CRL(中文)</span><input matInput #input
+          class="form-control" value="" readonly></div>
+    </div>
+  </div>
+</div>
+
+<!-- DSS決策結果 -->
+<div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
+  <div class="line_bank_form_header_title">審核結果</div>
+  <div nz-row style="padding:5px">
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">FRZ</label></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">DWN</label></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">HLD</label></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">NEX</label></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">N00</label></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">XXX</label></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">000</label></div>
+    </div>
+  </div>
+
+  <div nz-row style="padding:5px">
+    <div style="padding:2px"><span class="form-title">是否需通知客戶</span>
+      <mat-select style="height:25px" value="Y">
+        <mat-option *ngFor="let code of ynCode" [value]="code.value">
+          {{code.viewValue}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(起)</span><input matInput #input
+          class="form-control" value="" readonly></div>
+    </div>
+    <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(迄)</span><input matInput #input
+          class="form-control" value="" readonly></div>
+    </div>
+    <div nz-col nzFlex="1"></div>
+    <div nz-col nzFlex="1"></div>
+    <div nz-col nzFlex="1"></div>
+    <div nz-col nzFlex="1"></div>
+  </div>
+</div>
+
+<!-- 審核註記 -->
+<div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
+  <div class="line_bank_form_header_title">審核註記</div>
+
+  <div nz-row style="padding:5px;text-align: center;">
+    <div nz-col nzSpan="24">
+      <div class="form">
+        <div><span class="form-title"></span><textarea matInput class="input-textarea" style="text-align: left;"
+            [(ngModel)]="mark" name="mark"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:3px;text-align: center;">
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+  </div>
+
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzData]="creditmemoSource" [nzFrontPagination]="false" [nzSimple]="true"
+    [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"
+    nzSize="small" nzTitle="審核意見">
+    <thead>
+      <tr>
+        <th class="table-header">Date</th>
+        <th class="table-header">User</th>
+        <th class="table-header">Action</th>
+        <th class="table-header">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of creditmemoSource">
+        <td class="table-data">{{ data.CREDITDATE | date:'yyyy-MM-dd hh:mm:ss' }}</td>
+        <td class="table-data">{{ data.CREDITUSER }}</td>
+        <td class="table-data">{{ data.CREDITACTION }}</td>
+        <td class="table-data" style="text-align: center;">
+          <button id="test" nz-button [nzSize]="'small'" nzType="primary"
+            (click)="startEdit(data.CREDITACTION , data.ID)">編輯</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
 </div>
