@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Childscn10Service } from '../childscn10.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n'
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-childscn10page2',
@@ -16,7 +18,8 @@ export class Childscn10page2Component implements OnInit {
   constructor(
     private fb: FormBuilder,
     private childscn10Service: Childscn10Service,
-    private nzI18nService: NzI18nService) {
+    private nzI18nService: NzI18nService,
+    public dialog: MatDialog) {
     this.nzI18nService.setLocale(zh_TW)
   }
 
@@ -540,6 +543,7 @@ export class Childscn10page2Component implements OnInit {
 
   //儲存 DBR收支表資料 授信
   save() {
+    let msg = "";
     const url = 'f01/childscn10action5';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
@@ -563,6 +567,10 @@ export class Childscn10page2Component implements OnInit {
     console.log('jsonObject')
     console.log(jsonObject)
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
+      msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msg }
+      });
       console.log('savedata')
       console.log(data)
     });
