@@ -105,7 +105,7 @@ export class Childscn1Component implements OnInit {
   periodType: string;
   interestType: string;
   interestValue: string;
-  interestBase: number;
+  interestBase: number = 0;
   interest: number = 0;
   approveInterest: number;
 
@@ -161,13 +161,17 @@ export class Childscn1Component implements OnInit {
 
       //CreditAuditinfo
       if (data.rspBody.CreditAuditinfoList.length > 0) {
+        console.log(data.rspBody.CreditAuditinfoList)
         this.cuCName = data.rspBody.CreditAuditinfoList[0].cuCname;
         this.custId = data.rspBody.CreditAuditinfoList[0].custId;
         this.nationalId = data.rspBody.CreditAuditinfoList[0].nationalId;
         this.prodCode = data.rspBody.CreditAuditinfoList[0].prodCode;
         this.applicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount;
         this.caApplicationAmount = data.rspBody.CreditAuditinfoList[0].caApplicationAmount;
-        sessionStorage.setItem('caApplicationAmount', data.rspBody.CreditAuditinfoList[0].caApplicationAmount ? data.rspBody.resultList[0].caApplicationAmount : '');
+        if (data.rspBody.CreditAuditinfoList[0].caApplicationAmount == 0 || data.rspBody.CreditAuditinfoList[0].caApplicationAmount == '' || data.rspBody.CreditAuditinfoList[0].caApplicationAmount == null) {
+          this.caApplicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount;
+        }
+        sessionStorage.setItem('caApplicationAmount', data.rspBody.CreditAuditinfoList[0].caApplicationAmount );
         this.purposeCode = data.rspBody.CreditAuditinfoList[0].purposeCode;
       }
 
@@ -243,9 +247,9 @@ export class Childscn1Component implements OnInit {
         this.creditResult = data.rspBody.resultList[0].creditResult;
         sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult ? data.rspBody.resultList[0].creditResult : '');
         this.resultApproveAmt = data.rspBody.resultList[0].approveAmt;
-        sessionStorage.setItem('resultApproveAmt', data.rspBody.resultList[0].resultApproveAmt ? data.rspBody.resultList[0].resultApproveAmt : '');
+        sessionStorage.setItem('resultApproveAmt', data.rspBody.resultList[0].approveAmt ? data.rspBody.resultList[0].approveAmt : '');
         this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
-        sessionStorage.setItem('resultLowestPayRate', data.rspBody.resultList[0].resultLowestPayRate ? data.rspBody.resultList[0].resultLowestPayRate : '');
+        sessionStorage.setItem('resultLowestPayRate', data.rspBody.resultList[0].lowestPayRate ? data.rspBody.resultList[0].lowestPayRate : '');
         this.caPmcus = data.rspBody.resultList[0].caPmcus;
         sessionStorage.setItem('caPmcus', data.rspBody.resultList[0].caPmcus ? data.rspBody.resultList[0].caPmcus : '');
         this.caRisk = data.rspBody.resultList[0].caRisk;
@@ -360,12 +364,14 @@ export class Childscn1Component implements OnInit {
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
     } else {
       this.interestValue = '';
-      this.interestBase = null;
+      this.interestBase = 0
+      console.log("====1====>"+this.interestBase)
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
     }
     sessionStorage.setItem('approveInterest', this.approveInterest.toString());
     sessionStorage.setItem('interestType', this.interestType);
     sessionStorage.setItem('interest', this.interest.toString());
+    console.log("====2====>"+this.interestBase)
     sessionStorage.setItem('interestBase', this.interestBase.toString());
   }
 
