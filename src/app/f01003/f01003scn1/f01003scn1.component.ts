@@ -164,6 +164,7 @@ export class F01003scn1Component implements OnInit {
     jsoncreditResult['creditResult'] = this.creditResult;
 
     let jsonCreditInterestPeriod: any = {};
+    jsonCreditInterestPeriod['period'] = this.period;
     jsonCreditInterestPeriod['periodType'] = this.periodType;
     jsonCreditInterestPeriod['interestType'] = this.interestType;
     jsonCreditInterestPeriod['interestCode'] = '1';
