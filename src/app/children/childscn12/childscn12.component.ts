@@ -190,11 +190,13 @@ export class Childscn12Component implements OnInit {
         console.log(this.EL_INCOME_Source.data);
         //轉換checkbox
         if (data.rspBody.income.length == 7) {
-          let i = 0;
-          this.strArray = this.EL_INCOME_Source.data[6].checkIncome.split(',');
-          for (const str of this.strArray) {
-            for (const chk of this.chkArray) {
-              chk.completed = str == chk.value ? true : chk.completed;
+          if (this.EL_INCOME_Source.data[6].checkIncome != null) {
+            let i = 0;
+            this.strArray = this.EL_INCOME_Source.data[6].checkIncome.split(',');
+            for (const str of this.strArray) {
+              for (const chk of this.chkArray) {
+                chk.completed = str == chk.value ? true : chk.completed;
+              }
             }
           }
           this.EL_INCOME_Source.data[6].income = this.toCurrency(this.EL_INCOME_Source.data[6].income.toString());
@@ -229,14 +231,16 @@ export class Childscn12Component implements OnInit {
       }
       // console.log('this.INCOME_DETAILS_List');
       // console.log(this.INCOME_DETAILS_List);
-      this.loading = false;
+
     });
+    this.loading = false;
   }
 
   //載入時資料處理 裝資料
   setData(INCOME_DETAILS: INCOME_DETAILS, data: any) {
 
     if (data != null) {
+      let x = 0;
       //表34特殊處理
       if (INCOME_DETAILS.key == "salaryTransferList" || INCOME_DETAILS.key == "paySlipList") {
         if (data.A1 != null) {
@@ -329,6 +333,7 @@ export class Childscn12Component implements OnInit {
       //表12 P1給預設
       if (INCOME_DETAILS.key == "incomeAndTaxList" || INCOME_DETAILS.key == "withholdingList") {
         INCOME_DETAILS.P1 = (data.P1 != null) ? this.toCurrency(data.P1.toString()) : "1";
+        data.B1 != null ? this.data_number(data.B1.toString(), INCOME_DETAILS.key, "B1") : this.data_number("", INCOME_DETAILS.key, "B1")
       }
 
 
@@ -338,7 +343,7 @@ export class Childscn12Component implements OnInit {
       data.A3 != null ? this.data_number(data.A3, INCOME_DETAILS.key, "A3") : this.data_number("", INCOME_DETAILS.key, "A3");
       if (INCOME_DETAILS.key == "salaryTransferList" || INCOME_DETAILS.key == "paySlipList") {
         //觸發資料計算 P1/P2/P3/P4/P5/P6/P7/P8
-        let x = 0;
+
         data.P1 != null ? this.data_number(data.P1, INCOME_DETAILS.key, "P1") : x = 0;
         data.P2 != null ? this.data_number(data.P2, INCOME_DETAILS.key, "P2") : x = 0;
         data.P3 != null ? this.data_number(data.P3, INCOME_DETAILS.key, "P3") : x = 0;
@@ -357,10 +362,16 @@ export class Childscn12Component implements OnInit {
     if (this.EL_INCOME_Source.data != null) {
       let check = "";
       for (const chk of this.chkArray) {
+        console.log('1');
+        console.log(check);
         if (check == "") {
           check = chk.completed ? check + chk.value : check;
+          console.log('2');
+          console.log(check);
         } else {
-          check = chk.completed ? "," + check + chk.value : check;
+          check = chk.completed ? check + "," + chk.value : check;
+          console.log('3');
+          console.log(check);
         }
       }
       const baseUrl = 'f01/childscn12action2';
@@ -403,14 +414,19 @@ export class Childscn12Component implements OnInit {
     this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
       // console.log('data.rspBody');
       // console.log(data);
-      msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
+      if (data.rspMsg == "success") {
+        msg = "儲存成功!";
+        this.getData();
+      } else {
+        msg = "儲存失敗";
+      }
+
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msg }
       });
     });
     // console.log('save');
     // console.log(this.INCOME_DETAILS_List);
-
   }
 
   //去除符號中文 並更新小計欄位
