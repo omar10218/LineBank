@@ -1,5 +1,5 @@
 <div class="line_bank_bankground_color">
-  <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()">test</button>
+  <!-- <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()">test</button> -->
   <br>
   <div *ngIf="getStepName()" style="padding-left: 50px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_income()">儲存</button>
@@ -9,7 +9,7 @@
   </div>
   <div class="line_bank_card_no_padding">
     <nz-table [nzData]="EL_INCOME_Source" nzSize="small" nzTitle="財務試算" [nzLoading]="loading" nzFrontPagination="true"
-    nzSimple="true">
+      nzSimple="true">
       <thead>
         <tr>
           <th class="table-header" style="width:5%">項目</th>
@@ -20,11 +20,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of EL_INCOME_Source.data;let i=index">
-          <td >{{item.items}}</td>
-          <td *ngIf="i!=6" >{{toCurrency(item.income.toString())}}</td>
-          <td *ngIf="i==6" >
+          <td>{{item.items}}</td>
+          <td *ngIf="i!=6">{{toCurrency(item.income.toString())}}</td>
+          <td *ngIf="i==6">
             <div style="padding:0px;"> <input [(ngModel)]="item.income" (keyup)="item.income=data_number(item.income)"
-              maxlength="20" /></div>
+                maxlength="20" /></div>
           </td>
           <td>
             <nz-checkbox-wrapper>
@@ -32,7 +32,8 @@
             </nz-checkbox-wrapper>
           </td>
           <td *ngIf="i==0" rowspan="7">
-            <textarea style=" width: 100%;height: 163px;" name="test4">{{EL_INCOME_Source.data[6].mark}}</textarea>
+            <textarea style=" width: 100%;height: 163px;" [(ngModel)]="EL_INCOME_Source.data[6].mark"
+              name="EL_INCOME_Source.data[6].mark"></textarea>
           </td>
         </tr>
       </tbody>
