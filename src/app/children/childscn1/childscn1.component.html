@@ -504,7 +504,7 @@
     <div nz-col nzSpan="24">
       <div class="form">
         <div><span class="form-title"></span><textarea matInput class="input-textarea" style="text-align: left;"
-            [(ngModel)]="mark" name="mark"></textarea>
+            [(ngModel)]="mark" name="mark" (ngModelChange)="change(mark,'mark')"></textarea>
         </div>
       </div>
     </div>

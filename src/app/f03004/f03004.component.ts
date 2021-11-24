@@ -86,7 +86,7 @@ export class F03004Component implements OnInit, AfterViewInit {
   }
 
   addNew() {
-    if (this.selectedValue == null) {
+    if (this.selectedValue == null || this.selectedValue == '') {
       alert('請選擇：代碼類別');
     } else {
       const dialogRef = this.dialog.open(F03004addComponent, {

@@ -9,6 +9,7 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01002Scn1Service } from './f01002scn1.service';
 import { Childscn22Component } from 'src/app/children/childscn22/childscn22.component';
 import { F01001Scn1Service } from 'src/app/f01001/f01001scn1/f01001scn1.service';
+import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
 
 @Component({
   selector: 'app-f01002scn1',
@@ -20,7 +21,8 @@ export class F01002scn1Component implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private f01002scn1Service: F01002Scn1Service
+    private f01002scn1Service: F01002Scn1Service,
+    private childscn1Service: Childscn1Service,
   ) {
     this.JCICAddSource$ = this.f01002scn1Service.JCICAddSource$.subscribe((data) => {
       this.addData = data;
@@ -64,8 +66,8 @@ export class F01002scn1Component implements OnInit {
   interestBase: string;
   caApplicationAmount: string;
   caPmcus: string;
-  caRisk: string
-
+  caRisk: string;
+  mark: string;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -186,6 +188,7 @@ export class F01002scn1Component implements OnInit {
     this.caApplicationAmount = sessionStorage.getItem('caApplicationAmount');
     this.caPmcus = sessionStorage.getItem('caPmcus');
     this.caRisk = sessionStorage.getItem('caRisk');
+    this.mark = sessionStorage.getItem('mark');
 
     let jsoncreditResult: any = {};
     jsoncreditResult['approveAmt'] = this.approveAmt;
@@ -215,7 +218,7 @@ export class F01002scn1Component implements OnInit {
       });
     } else {
       if (this.creditResult == 'A') {
-        if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '' && this.periodType != '' && this.period != '') {
+        if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '' && this.periodType != '' && this.period != '' && this.mark != '' && this.mark != null) {
           this.result(baseUrl, jsonObject, result);
         } else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -233,6 +236,7 @@ export class F01002scn1Component implements OnInit {
   }
 
   result(baseUrl: string, jsonObject: JSON, result: string) {
+    this.saveMemo();
     this.f01002scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       this.removeSession();
       this.router.navigate(['./F01002']);
@@ -255,6 +259,18 @@ export class F01002scn1Component implements OnInit {
     sessionStorage.removeItem("caApplicationAmount");
     sessionStorage.removeItem("caPmcus");
     sessionStorage.removeItem("caRisk");
+    sessionStorage.removeItem("mark");
   }
 
+  //儲存
+  public async saveMemo(): Promise<void> {
+    this.removeSession();
+    let msgStr: string = "";
+    const baseUrl = 'f01/childscn1action1';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['creditaction'] = this.mark;
+    jsonObject['creditlevel'] = sessionStorage.getItem('stepName').split('t')[1];
+    msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
+  }
 }
