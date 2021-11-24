@@ -171,7 +171,7 @@ export class Childscn12Component implements OnInit {
   //檢查是否是徵信
   getStepName() {
     //測試用
-    return true;
+    // return true;
     return this.stepName == "APPLCreditL3" ? true : false;
   }
 
@@ -181,13 +181,13 @@ export class Childscn12Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno
     this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
-      console.log('data.rspBody');
-      console.log(data);
+      // console.log('data.rspBody');
+      // console.log(data);
       //------------------以下總表處理
       if (data.rspBody.income != null) {
         this.EL_INCOME_Source.data = data.rspBody.income;
-        console.log('this.EL_INCOME_Source.data');
-        console.log(this.EL_INCOME_Source.data);
+        // console.log('this.EL_INCOME_Source.data');
+        // console.log(this.EL_INCOME_Source.data);
         //轉換checkbox
         if (data.rspBody.income.length == 7) {
           if (this.EL_INCOME_Source.data[6].checkIncome != null) {
@@ -251,6 +251,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A14 = strArray[3];
           INCOME_DETAILS.A15 = strArray[4];
           INCOME_DETAILS.A16 = strArray[5];
+          data.A11 != null ? this.data_number(data.A11.toString(), INCOME_DETAILS.key, "A11") : this.data_number("", INCOME_DETAILS.key, "A11");
         }
         if (data.A2 != null) {
           let strArray = data.A2.split(',');
@@ -260,12 +261,14 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A24 = strArray[3];
           INCOME_DETAILS.A25 = strArray[4];
           INCOME_DETAILS.A26 = strArray[5];
+          data.A21 != null ? this.data_number(data.A21.toString(), INCOME_DETAILS.key, "A21") : this.data_number("", INCOME_DETAILS.key, "A21");
         }
         if (data.A4 != null) {
           let strArray = data.A4.split(',');
           INCOME_DETAILS.A41 = strArray[0];
           INCOME_DETAILS.A42 = strArray[1];
           INCOME_DETAILS.A43 = strArray[2];
+          data.A41 != null ? this.data_number(data.A41.toString(), INCOME_DETAILS.key, "A41") : this.data_number("", INCOME_DETAILS.key, "A41");
         }
         if (data.A5 != null) {
           let strArray = data.A5.split(',');
@@ -275,6 +278,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A54 = strArray[3];
           INCOME_DETAILS.A55 = strArray[4];
           INCOME_DETAILS.A56 = strArray[5];
+          data.A51 != null ? this.data_number(data.A51.toString(), INCOME_DETAILS.key, "A51") : this.data_number("", INCOME_DETAILS.key, "A51");
         }
         if (data.A6 != null) {
           let strArray = data.A6.split(',');
@@ -284,12 +288,14 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A64 = strArray[3];
           INCOME_DETAILS.A65 = strArray[4];
           INCOME_DETAILS.A66 = strArray[5];
+          data.A61 != null ? this.data_number(data.A61.toString(), INCOME_DETAILS.key, "A61") : this.data_number("", INCOME_DETAILS.key, "A61");
         }
         if (data.A8 != null) {
           let strArray = data.A8.split(',');
           INCOME_DETAILS.A81 = strArray[0];
           INCOME_DETAILS.A82 = strArray[1];
           INCOME_DETAILS.A83 = strArray[2];
+          data.A81 != null ? this.data_number(data.A81.toString(), INCOME_DETAILS.key, "A81") : this.data_number("", INCOME_DETAILS.key, "A81");
         }
       }
       INCOME_DETAILS.A1 = (data.A1 != null) ? this.toCurrency(data.A1.toString()) : INCOME_DETAILS.A1;
@@ -362,16 +368,10 @@ export class Childscn12Component implements OnInit {
     if (this.EL_INCOME_Source.data != null) {
       let check = "";
       for (const chk of this.chkArray) {
-        console.log('1');
-        console.log(check);
         if (check == "") {
           check = chk.completed ? check + chk.value : check;
-          console.log('2');
-          console.log(check);
         } else {
           check = chk.completed ? check + "," + chk.value : check;
-          console.log('3');
-          console.log(check);
         }
       }
       const baseUrl = 'f01/childscn12action2';
@@ -381,8 +381,8 @@ export class Childscn12Component implements OnInit {
       jsonObject['income'] = this.toNumber(this.EL_INCOME_Source.data[6].income);
       jsonObject['check'] = check
       jsonObject['mark'] = this.EL_INCOME_Source.data[6].mark
-      console.log('jsonObject');
-      console.log(jsonObject);
+      // console.log('jsonObject');
+      // console.log(jsonObject);
       this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
         // console.log('data.rspBody');
         // console.log(data);
@@ -409,8 +409,8 @@ export class Childscn12Component implements OnInit {
     jsonObject['paySlipList'] = save_INCOME_DETAILS_List[3];
     jsonObject['laborDetailsList'] = save_INCOME_DETAILS_List[4];
     jsonObject['bankerList'] = save_INCOME_DETAILS_List[5];
-    console.log('jsonObject1');
-    console.log(jsonObject);
+    // console.log('jsonObject1');
+    // console.log(jsonObject);
     this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
       // console.log('data.rspBody');
       // console.log(data);
@@ -852,7 +852,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.C2 = CB ? INCOME_DETAILS.D2 : INCOME_DETAILS.C2;
           INCOME_DETAILS.A2 = this.toNumber(INCOME_DETAILS.A21) + "," + this.toNumber(INCOME_DETAILS.A22) + "," + this.toNumber(INCOME_DETAILS.A23) + "," +
             this.toNumber(INCOME_DETAILS.A24) + "," + this.toNumber(INCOME_DETAILS.A25) + "," + this.toNumber(INCOME_DETAILS.A26);
-          break;
+            break;
         case "3":
           if (!isNaN(data = parseInt(this.toNumber(INCOME_DETAILS.A3.toString())))) {
             CB = INCOME_DETAILS.C3 == "" || INCOME_DETAILS.C3 == INCOME_DETAILS.D3 ? true : false;
@@ -1093,10 +1093,6 @@ export class Childscn12Component implements OnInit {
     data.C = this.toNumber(data.C);
   }
 
-  test() {
-    let x = "1,123"
-    alert(this.toNumber(x));
-    alert(x);
-  }
+
 
 }
