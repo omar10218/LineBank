@@ -27,6 +27,7 @@ export class F03008deleteComponent implements OnInit {
   empNo: string = localStorage.getItem("empNo");
 
   ngOnInit(): void {
+    console.log(this.data)
   }
 
   submit() {

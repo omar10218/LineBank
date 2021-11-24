@@ -60,11 +60,11 @@
           <td class="table-data">{{ data.changeDate | date:"yyyy-MM-dd" }}</td>
           <td class="table-data"style="text-align: center;">
             <button nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
-              data.abnormalNid, data.onCheck,data.transferEmpno, data.transferDate,data.changeEmpno, data.changeDate)">編輯</button>
+              data.abnormalNid,data.custId,data.mobile,data.phone,data.address,data.dataSource1,data.dataSource2, data.dataSource3,data.onCheck,data.transferEmpno, data.transferDate,data.changeEmpno, data.changeDate)">編輯</button>
           </td>
           <td class="table-data" style="text-align: center;">
             <button nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="deleteItem(
-              data.abnormalNid, data.onCheck,data.transferEmpno, data.transferDate,data.changeEmpno, data.changeDate)">刪除</button>
+              data.abnormalNid,data.custId,data.mobile,data.phone,data.address,data.dataSource1,data.dataSource2, data.dataSource3,data.onCheck,data.transferEmpno, data.transferDate,data.changeEmpno, data.changeDate)">刪除</button>
           </td>
         </tr>
       </tbody>

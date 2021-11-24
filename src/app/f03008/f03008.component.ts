@@ -84,12 +84,20 @@ export class F03008Component implements OnInit {
   }
 
   //修改介面
-  startEdit(abnormalNid: string, onCheck: string, transferEmpno: string, transferDate: string,
+  startEdit(abnormalNid: string,custId:string,mobile:string,phone:string,address:string,dataSource1:string,dataSource2:string,dataSource3:string, onCheck: string, transferEmpno: string, transferDate: string,
     changeEmpno: string, changeDate: string,) {
     const dialogRef = this.dialog.open(F03008editComponent, {
+      panelClass: 'mat-dialog-transparent',
       data: {
         abnormalNid: abnormalNid,
         onCheck: onCheck,
+        custId:custId,
+        mobile:mobile,
+        phone:phone,
+        address:address,
+        dataSource1:dataSource1,
+        dataSource2:dataSource2,
+        dataSource3:dataSource3,
         transferEmpno: transferEmpno,
         transferDate: transferDate,
         changeEmpno: changeEmpno,
@@ -102,14 +110,22 @@ export class F03008Component implements OnInit {
   }
 
   //刪除介面
-  deleteItem(abnormalNid: string, onCheck: string, transferEmpno: string, transferDate: string,
+  deleteItem(abnormalNid: string,custId:string,mobile:string,phone:string,address:string,dataSource1:string,dataSource2:string,dataSource3:string, onCheck: string, transferEmpno: string, transferDate: string,
     changeEmpno: string, changeDate: string,) {
     const dialogRef = this.dialog.open(F03008deleteComponent, {
       minHeight: '30%',
       width: '70%',
+      panelClass: 'mat-dialog-transparent',
       data: {
         abnormalNid: abnormalNid,
         onCheck: onCheck,
+        custId:custId,
+        mobile:mobile,
+        phone:phone,
+        address:address,
+        dataSource1:dataSource1,
+        dataSource2:dataSource2,
+        dataSource3:dataSource3,
         transferEmpno: transferEmpno,
         transferDate: transferDate,
         changeEmpno: changeEmpno,

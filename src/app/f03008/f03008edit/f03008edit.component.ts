@@ -15,7 +15,8 @@ export class F03008editComponent   {
   constructor(
     public dialogRef: MatDialogRef<F03008editComponent>,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA)
+    public data: any,
     public f03008Service: F03008Service ,
     private nzI18nService: NzI18nService,
     ) {
@@ -26,6 +27,7 @@ export class F03008editComponent   {
   empNo: string = localStorage.getItem("empNo");
 
   ngOnInit(): void {
+    console.log(this.data)
   }
 
   submit() {

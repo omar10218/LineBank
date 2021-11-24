@@ -1,11 +1,80 @@
-<div class="line_bank_card_no_padding" style="min-height:170px">
+<div class="line_bank_card_no_padding" style="min-height:100px">
   <div class="line_bank_form_header_title">貸後管理異常名單-編輯</div>
-  <div class="container" style="padding:20px">
-    <form class="mat-dialog-content" #formControl="ngForm">
+  <div class="container" style="padding:5px;">
+    <form #formControl="ngForm">
+
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:5px">
+            <div><span class="form-title-actions">身分證字號</span>
+              <input matInput #input class="form-control" [(ngModel)]="data.abnormalNid" name="abnormalNid" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:5px">
+            <div><span class="form-title-actions">客戶ID</span>
+              <input matInput #input class="form-control" [(ngModel)]="data.custId" name="custId" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:5px">
+            <div><span class="form-title-actions">行動電話</span>
+              <input matInput #input class="form-control" [(ngModel)]="data.mobile" name="mobile" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:5px">
+            <div><span class="form-title-actions">市內電話</span>
+              <input matInput #input class="form-control" [(ngModel)]="data.phone" name="phone" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div nz-row>
+        <div nz-col nzFlex="2">
+          <div class="form" style="padding:5px">
+            <div style="flex:2">
+              <span class="form-title-actions">地址</span>
+              <input matInput #input class="form-control" [(ngModel)]="data.address" name="address" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div class="form" style="padding:5px">
+            <div>
+              <span class="form-title-actions">上傳員編</span>
+              <input matInput #input class="form-control" [(ngModel)]="data.transferEmpno" name="transferEmpno"
+                disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col  nzFlex="1">
+          <div class="form" style="padding:5px">
+            <div><span class="form-title-actions">異動員編</span>
+              <input matInput #input class="form-control" [(ngModel)]="data.changeEmpno" name="changeEmpno" disabled>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
 
       <div nz-row>
         <div nz-col nzFlex="1">
-          <div class="form" style="padding:3px">
+          <div class="form" style="padding:5px">
             <div><span class="form-title-actions">異常ID</span>
               <input matInput #input class="form-control" [(ngModel)]="data.abnormalNid" name="abnormalNid" disabled>
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
@@ -13,10 +82,43 @@
           </div>
         </div>
         <div nz-col nzFlex="1">
-          <div class="form" style="padding:3px">
+          <div class="form" style="padding:5px">
+            <div>
+              <span class="form-title-actions">數據源說明1</span>
+              <input matInput #input class="form-control" [(ngModel)]="data.dataSource1" name="dataSource1" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div class="form" style="padding:5px">
+            <div>
+              <span class="form-title-actions">數據源說明2</span>
+              <input matInput #input class="form-control" [(ngModel)]="data.dataSource2" name="dataSource2" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div class="form" style="padding:5px">
+            <div>
+              <span class="form-title-actions">數據源說明3</span>
+              <input matInput #input class="form-control" [(ngModel)]="data.dataSource3" name="dataSource3" disabled>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+      <div nz-row>
+        <div nz-col nzSpan="6">
+          <div class="form" style="padding:5px">
             <div><span class="form-title-actions">是否比對</span>
-              <mat-select [(ngModel)]="data.onCheck" name="onCheck" style="width:123px;height:29px"
-              >
+              <mat-select [(ngModel)]="data.onCheck" name="onCheck" style="width:145px;height:31px">
                 <mat-option *ngFor="let code of YNselect" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
@@ -25,45 +127,33 @@
             </div>
           </div>
         </div>
-        <div nz-col nzFlex="1">
-          <div class="form" style="padding:3px">
-            <div><span class="form-title-actions">上傳員編</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.transferEmpno" name="transferEmpno"
-                disabled>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:3px">
+            <span class="form-title" style="margin:0px">上傳時間</span>
+            <nz-date-picker style="display:block" [(ngModel)]="data.transferDate" name="transferDate" disabled>
+            </nz-date-picker>
           </div>
         </div>
+        <div nz-col nzSpan="6">
+          <div style="padding:3px">
+            <span class="form-title" style="margin:0px">異動時間</span>
+            <nz-date-picker style="display:block" [(ngModel)]="data.changeDate" name="changeDate" disabled>
+            </nz-date-picker>
+          </div>
+        </div>
+        <div nz-col nzSpan="6"></div>
+
       </div>
 
-      <div nz-row>
-        <div nz-col nzSpan="8">
-          <div style="padding:10px"><span class="form-title">上傳時間</span>
-            <nz-date-picker style="display:block"  [(ngModel)]="data.transferDate" name="transferDate" disabled ></nz-date-picker>
-          </div>
-        </div>
-        <div nz-col nzSpan="8">
-          <div class="form" style="padding:11px">
-            <div><span class="form-title-actions">異動員編</span>
-              <input  matInput #input class="form-control" [(ngModel)]="data.changeEmpno" name="changeEmpno" disabled >
-            </div>
-          </div>
-        </div>
 
-        <div nz-col nzSpan="8">
-          <div style="padding:10px"><span class="form-title">異動時間</span>
-            <nz-date-picker style="display:block"  [(ngModel)]="data.changeDate" name="changeDate" disabled></nz-date-picker>
-          </div>
-        </div>
-      </div>
+
 
       <div mat-dialog-actions style="margin:0 auto;width:12vw;">
         <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" style="margin:0px 5px"
           (click)="stopEdit()">儲存</button>
-        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+        <button nz-button [nzSize]="'middle'" nzDanger (click)="onNoClick()" tabindex="-1"
           style="margin:0px 5px">取消</button>
       </div>
-      <br><br>
     </form>
   </div>
 </div>
