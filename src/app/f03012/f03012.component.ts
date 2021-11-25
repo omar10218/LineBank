@@ -115,47 +115,47 @@ export class F03012Component implements OnInit {
 			this.compareTableOption = data.rspBody.compareTable
 			this.compareColumnOption = data.rspBody.comparColumn
 			this.one = data.rspBody.items
-			this.limit2()
+			// this.limit2()
 			console.log(data.rspBody.comparColumn)
 			console.log('one', this.one)
 			this.useFlag = false
 		})
 	}
 
-	limit(x: string, id: string, name: string) {
-		x = x.replace(/\D/g, '')
-		if (x.length > 0) {
-			x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-		}
-		for (const item of this.one) {
-			if (item.id == id) {
-				switch (name) {
-					case 'setValueLow':
-						item.setValueLow = x
-						break
-					case 'setValueHight':
-						item.setValueHight = x
-						break
-				}
-			}
-		}
-	}
+	// limit(x: string, id: string, name: string) {
+	// 	x = x.replace(/\D/g, '')
+	// 	if (x.length > 0) {
+	// 		x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+	// 	}
+	// 	for (const item of this.one) {
+	// 		if (item.id == id) {
+	// 			switch (name) {
+	// 				case 'setValueLow':
+	// 					item.setValueLow = x
+	// 					break
+	// 				case 'setValueHight':
+	// 					item.setValueHight = x
+	// 					break
+	// 			}
+	// 		}
+	// 	}
+	// }
 // 取得資料轉換千分位
-	limit2() {
-		for (const item of this.one) {
-			item.setValueHight = item.setValueHight != undefined ? (item.setValueHight + '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.setValueHight
-			item.setValueLow = item.setValueLow != undefined ? (item.setValueLow + '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.setValueLow
-		}
-	}
+	// limit2() {
+	// 	for (const item of this.one) {
+	// 		item.setValueHight = item.setValueHight != undefined ? (item.setValueHight + '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.setValueHight
+	// 		item.setValueLow = item.setValueLow != undefined ? (item.setValueLow + '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.setValueLow
+	// 	}
+	// }
 //儲存前處理千分位
-  Cut(s: string)  {
-    if(s!=null)
-    {
-      s = s.replace(/,/g, "")
-    }
+  // Cut(s: string)  {
+  //   if(s!=null)
+  //   {
+  //     s = s.replace(/,/g, "")
+  //   }
 
-    return s
-  }
+  //   return s
+  // }
 	delete(compareTable: string, compareColumn: string, compareType: string, setValueHight: string, setValueLow: string) {
 		let msg = ''
 		const url = 'f03/f03012action3'
@@ -276,7 +276,7 @@ export class F03012Component implements OnInit {
 			this.totalCount = items.length
 			this.compareDataSetSource.data = items
 			this.one = data.rspBody.items
-			this.limit2()
+			// this.limit2()
 			this.useFlag = true
 		})
 
@@ -319,8 +319,10 @@ export class F03012Component implements OnInit {
 			jsonObject['compareTable'] = obj.compareTable
 			jsonObject['compareColumn'] = obj.compareColumn
 			jsonObject['compareType'] = obj.compareType
-			jsonObject['setValueHight'] =   obj.setValueHight != "" ? this.Cut( obj.setValueHight) : "0";
-			jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
+			jsonObject['setValueHight'] =   obj.setValueHight
+			jsonObject['setValueLow'] =   obj.setValueLow
+			// jsonObject['setValueHight'] =   obj.setValueHight != "" ? this.Cut( obj.setValueHight) : "0";
+			// jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
 
 
 			if (obj.compareType == null || obj.setValueHight == null || obj.setValueLow == null || obj.compareType == '' || obj.setValueHight == '' || obj.setValueLow == '') {

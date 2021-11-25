@@ -103,7 +103,8 @@
               {{ row.setValueLow }}
             </ng-template> -->
             <div *ngIf="row.isChk == true;">
-              <input [(ngModel)]="row.setValueLow"  name="setValueLow" (keyup)="limit(row.setValueLow,row.id,'setValueLow')">
+              <!-- <input [(ngModel)]="row.setValueLow"  name="setValueLow" (keyup)="limit(row.setValueLow,row.id,'setValueLow')"> -->
+              <input [(ngModel)]="row.setValueLow"  name="setValueLow" >
             </div>
             <div *ngIf="row.isChk == false;">
               {{ row.setValueLow }}
@@ -117,7 +118,8 @@
               {{ row.setValueHight }}
             </ng-template> -->
             <div *ngIf="row.isChk == true;">
-              <input [(ngModel)]="row.setValueHight" name="setValueHight" (keyup)="limit(row.setValueHight,row.id,'setValueHight')">
+              <input [(ngModel)]="row.setValueHight" name="setValueHight" >
+              <!-- <input [(ngModel)]="row.setValueHight" name="setValueHight" (keyup)="limit(row.setValueHight,row.id,'setValueHight')"> -->
             </div>
             <div *ngIf="row.isChk == false;">
               {{ row.setValueHight }}
