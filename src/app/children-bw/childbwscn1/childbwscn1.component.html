@@ -1,4 +1,7 @@
 <!-- 覆審資訊 -->
+<!-- <br>
+<button (click)="test()">test</button>
+<br> -->
 <div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
   <div class="line_bank_form_header_title">覆審資訊</div>
   <div nz-row style="padding:5px">
@@ -64,27 +67,16 @@
 <div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
   <div class="line_bank_form_header_title">審核結果</div>
   <div nz-row style="padding:5px">
-    <div nz-col nzFlex="1">
-      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">FRZ</label></div>
-    </div>
-    <div nz-col nzFlex="1">
-      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">DWN</label></div>
-    </div>
-    <div nz-col nzFlex="1">
-      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">HLD</label></div>
-    </div>
-    <div nz-col nzFlex="1">
-      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">NEX</label></div>
-    </div>
-    <div nz-col nzFlex="1">
-      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">N00</label></div>
-    </div>
-    <div nz-col nzFlex="1">
-      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">XXX</label></div>
-    </div>
-    <div nz-col nzFlex="1">
-      <div style="padding:3px"><label nz-checkbox nzValue="" class="checkbox_title">000</label></div>
-    </div>
+    <nz-radio-group [(ngModel)]="BW_creditResult" name="BW_creditResult" required>
+      <div nz-row>
+        <div nz-col nzFlex="1" *ngFor="let code of BW_creditResult_Code">
+          <div style="width:100%; height:30px">
+
+            <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+          </div>
+        </div>
+      </div>
+    </nz-radio-group>
   </div>
 
   <div nz-row style="padding:5px">
