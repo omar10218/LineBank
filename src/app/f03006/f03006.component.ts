@@ -251,6 +251,7 @@ export class F03006Component implements OnInit {
 	//新增
 	addNew() {
 		const dialogRef = this.dialog.open(F03006addComponent, {
+      panelClass: 'mat-dialog-transparent',
 			minHeight: '70vh',
 			width: '50%',
 			data: {
@@ -287,6 +288,7 @@ export class F03006Component implements OnInit {
 	//修改
 	startEdit(EMP_NO: string, EMP_NAME: string, EMP_ID: string, ON_JOB: string, AGENT_EMP: string, EMAIL: string, LEAVE_STARTDATE: string, LEAVE_ENDDATE: string, LEAVE_STARTDATE_TYPE: string, LEAVE_ENDDATE_TYPE: string, ASSIGN_STOP: string, ASSIGN_PROJECTNO: string) {
 		const dialogRef = this.dialog.open(F03006editComponent, {
+      panelClass: 'mat-dialog-transparent',
 			minHeight: '70vh',
 			width: '50%',
 			data: {
@@ -335,6 +337,7 @@ export class F03006Component implements OnInit {
 			this.chkArray.push({value: chkValue, completed: isChk})
 		}
 		const dialogRef = this.dialog.open(F03006prjComponent, {
+      panelClass: 'mat-dialog-transparent',
 			minHeight: '70vh',
 			width: '50%',
 			data: {CHECKBOX: this.chkArray, SOURCE: this.empRoleSource.data, empNo: empNo},
@@ -372,6 +375,7 @@ limit2() {
 				this.chkArray.push({value: chkValue, completed: isChk})
 			}
 			const dialogRef = this.dialog.open(F03006amtComponent, {
+        panelClass: 'mat-dialog-transparent',
 				minHeight: '70vh',
 				width: '50%',
 				data: {CHECKBOX: this.chkArray, SOURCE: this.empAmtSource.data, empNo: empNo},

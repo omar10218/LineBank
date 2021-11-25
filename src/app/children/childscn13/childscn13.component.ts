@@ -95,6 +95,7 @@ export class Childscn13Component implements OnInit {
   openView(web_img: any) {
     let base64String = 'data:image/jpeg;base64,' + web_img;
     const dialogRef = this.dialog.open(Childscn13showComponent, {
+      minHeight:'80%',
       data: { base64Str: base64String }
     });
   }

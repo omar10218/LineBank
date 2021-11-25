@@ -20,7 +20,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of ruleParamCondition">
-          <td><button nz-button [nzSize]="'middle'" nzType="primary" (click)="Inquire(data.applnoOld)">查詢</button></td>
+          <td style="text-align: center;"><button nz-button [nzSize]="'small'" nzType="primary" (click)="Inquire(data.applnoOld)">查詢</button></td>
           <td class="table-data">{{ data.applnoOld }}</td>
           <td class="table-data">{{ data.custId }}</td>
           <td class="table-data">{{ data.nationalId }}</td>

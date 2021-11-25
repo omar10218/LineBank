@@ -105,6 +105,7 @@ export class Childscn14Component implements OnInit {
   //上傳影像
   uploadImage() {
     const dialogRef = this.dialog.open(Childscn14page3Component, {
+      panelClass: 'mat-dialog-transparent',
       data: {
         DOC_ID: '',
         FILE_ATTACHMENT_ID: '',

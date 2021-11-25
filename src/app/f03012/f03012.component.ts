@@ -181,6 +181,7 @@ export class F03012Component implements OnInit {
 	}
 	add() {
 		const dialogRef = this.dialog.open(F03012addComponent, {
+      panelClass: 'mat-dialog-transparent',
 			minHeight: '70vh',
 			width: '50%',
 		})
@@ -195,6 +196,7 @@ export class F03012Component implements OnInit {
 
 	edit(compareTable: string, compareColumn: string, setValueLow: string, setValueHight: string, compareType: string) {
 		const dialogRef = this.dialog.open(F03012editComponent, {
+      panelClass: 'mat-dialog-transparent',
 			minHeight: '70vh',
 			width: '50%',
 			data: {

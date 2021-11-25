@@ -35,7 +35,6 @@ export class F03006amtComponent {
     console.log(x)
     console.log(name)
 
-alert('1111')
 				switch (name) {
 					case 'MAX_APPROVE_AMT':
 						this.data.MAX_APPROVE_AMT = x
