@@ -130,9 +130,16 @@ export class F02001Component implements OnInit {
   }
 
 
-  Detail()//明細
+  Detail(id: string, nationalId: string)//明細
   {
-
+    sessionStorage.setItem('applno', id);
+    sessionStorage.setItem('cuid', nationalId);
+    sessionStorage.setItem('search','Y');
+    sessionStorage.setItem('queryDate', '');
+    sessionStorage.setItem('winClose', 'Y');
+    //開啟徵審主畫面
+    const url = window.location.href.split("/#");
+    window.open(url[0] + "/#/F01002/F01002SCN1");
   }
 
   select()//查詢

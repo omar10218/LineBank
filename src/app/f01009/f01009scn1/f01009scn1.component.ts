@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Childbwscn12Component } from 'src/app/children-bw/childbwscn12/childbwscn12.component';
 import { Childscn18Component } from 'src/app/children/childscn18/childscn18.component';
 
 @Component({
@@ -35,7 +36,8 @@ export class F01009scn1Component implements OnInit {
   }
 
   reSearch() {
-    const dialogRef = this.dialog.open(Childscn18Component,{
+    const dialogRef = this.dialog.open(Childbwscn12Component,{
+      width:"60vw",
       data:{
         applno: this.applno,
         cuid: this.cuid
