@@ -1,1 +1,23 @@
-<p>childbwscn12 works!</p>
+<div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">重查</div>
+  <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"  nzTemplateMode>
+  <thead>
+    <tr>
+      <th>客戶類別</th>
+      <th>核心資訊</th>
+      <th>JCIC組合查詢SC3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+     <td>申請人-{{swcID!=undefined? '':swcID}}</td>
+     <td><input class="inpu1" type="checkbox"></td>
+     <td><input class="inpu1" type="checkbox"></td>
+    </tr>
+  </tbody>
+</nz-table>
+<div style="padding:10px;text-align:center">
+  <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" >重查</button>
+  <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px">關閉</button>
+</div>
+</div>
