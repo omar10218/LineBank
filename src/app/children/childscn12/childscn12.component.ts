@@ -162,7 +162,7 @@ export class Childscn12Component implements OnInit {
     this.chkArray.push({ value: "C5", completed: false });
     this.chkArray.push({ value: "C6", completed: false });
     this.chkArray.push({ value: "C7", completed: false });
-    console.log(this.INCOME_DETAILS_List);
+    // console.log(this.INCOME_DETAILS_List);
     this.applno = sessionStorage.getItem('applno');
     this.stepName = sessionStorage.getItem('stepName');
     this.getData();
@@ -251,6 +251,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A14 = strArray[3];
           INCOME_DETAILS.A15 = strArray[4];
           INCOME_DETAILS.A16 = strArray[5];
+          //觸發資料計算 BCD
           data.A11 != null ? this.data_number(data.A11.toString(), INCOME_DETAILS.key, "A11") : this.data_number("", INCOME_DETAILS.key, "A11");
         }
         if (data.A2 != null) {
@@ -261,6 +262,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A24 = strArray[3];
           INCOME_DETAILS.A25 = strArray[4];
           INCOME_DETAILS.A26 = strArray[5];
+          //觸發資料計算BCD
           data.A21 != null ? this.data_number(data.A21.toString(), INCOME_DETAILS.key, "A21") : this.data_number("", INCOME_DETAILS.key, "A21");
         }
         if (data.A4 != null) {
@@ -268,6 +270,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A41 = strArray[0];
           INCOME_DETAILS.A42 = strArray[1];
           INCOME_DETAILS.A43 = strArray[2];
+          //觸發資料計算 BCD
           data.A41 != null ? this.data_number(data.A41.toString(), INCOME_DETAILS.key, "A41") : this.data_number("", INCOME_DETAILS.key, "A41");
         }
         if (data.A5 != null) {
@@ -278,6 +281,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A54 = strArray[3];
           INCOME_DETAILS.A55 = strArray[4];
           INCOME_DETAILS.A56 = strArray[5];
+          //觸發資料計算 BCD
           data.A51 != null ? this.data_number(data.A51.toString(), INCOME_DETAILS.key, "A51") : this.data_number("", INCOME_DETAILS.key, "A51");
         }
         if (data.A6 != null) {
@@ -288,6 +292,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A64 = strArray[3];
           INCOME_DETAILS.A65 = strArray[4];
           INCOME_DETAILS.A66 = strArray[5];
+          //觸發資料計算 BCD
           data.A61 != null ? this.data_number(data.A61.toString(), INCOME_DETAILS.key, "A61") : this.data_number("", INCOME_DETAILS.key, "A61");
         }
         if (data.A8 != null) {
@@ -295,6 +300,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A81 = strArray[0];
           INCOME_DETAILS.A82 = strArray[1];
           INCOME_DETAILS.A83 = strArray[2];
+          //觸發資料計算 BCD
           data.A81 != null ? this.data_number(data.A81.toString(), INCOME_DETAILS.key, "A81") : this.data_number("", INCOME_DETAILS.key, "A81");
         }
       }
@@ -350,14 +356,20 @@ export class Childscn12Component implements OnInit {
       if (INCOME_DETAILS.key == "salaryTransferList" || INCOME_DETAILS.key == "paySlipList") {
         //觸發資料計算 P1/P2/P3/P4/P5/P6/P7/P8
 
-        data.P1 != null ? this.data_number(data.P1, INCOME_DETAILS.key, "P1") : x = 0;
-        data.P2 != null ? this.data_number(data.P2, INCOME_DETAILS.key, "P2") : x = 0;
-        data.P3 != null ? this.data_number(data.P3, INCOME_DETAILS.key, "P3") : x = 0;
-        data.P4 != null ? this.data_number(data.P4, INCOME_DETAILS.key, "P4") : x = 0;
-        data.P5 != null ? this.data_number(data.P5, INCOME_DETAILS.key, "P5") : x = 0;
-        data.P6 != null ? this.data_number(data.P6, INCOME_DETAILS.key, "P6") : x = 0;
-        data.P7 != null ? this.data_number(data.P7, INCOME_DETAILS.key, "P7") : x = 0;
-        data.P8 != null ? this.data_number(data.P8, INCOME_DETAILS.key, "P8") : x = 0;
+        data.P1 != null ? this.data_number(data.P1.toString(), INCOME_DETAILS.key, "P1") : x = 0;
+        data.P2 != null ? this.data_number(data.P2.toString(), INCOME_DETAILS.key, "P2") : x = 0;
+        data.P3 != null ? this.data_number(data.P3.toString(), INCOME_DETAILS.key, "P3") : x = 0;
+        data.P4 != null ? this.data_number(data.P4.toString(), INCOME_DETAILS.key, "P4") : x = 0;
+        data.P5 != null ? this.data_number(data.P5.toString(), INCOME_DETAILS.key, "P5") : x = 0;
+        data.P6 != null ? this.data_number(data.P6.toString(), INCOME_DETAILS.key, "P6") : x = 0;
+        data.P7 != null ? this.data_number(data.P7.toString(), INCOME_DETAILS.key, "P7") : x = 0;
+        data.P8 != null ? this.data_number(data.P8.toString(), INCOME_DETAILS.key, "P8") : x = 0;
+      }
+
+      if (INCOME_DETAILS.key == "bankerList") {
+        data.C1 != null ? this.data_number(data.C1.toString(), INCOME_DETAILS.key, "C1") : x = 0;
+        data.C2 != null ? this.data_number(data.C2.toString(), INCOME_DETAILS.key, "C2") : x = 0;
+        data.C3 != null ? this.data_number(data.C3.toString(), INCOME_DETAILS.key, "C3") : x = 0;
       }
 
 
@@ -620,7 +632,6 @@ export class Childscn12Component implements OnInit {
           if (key == "laborDetailsList") {
             this.A1_A4(value, total_INCOME_DETAILS);
           }
-
           //計算總total bankerList table另計
           if (key != "bankerList") {
             this.getTotal(key, total_INCOME_DETAILS);
@@ -652,14 +663,6 @@ export class Childscn12Component implements OnInit {
     }
     return data
   }
-
-  // test() {
-  //   this.toCurrency("");
-  // }
-
-
-
-
 
   //第一二張table處理 計算A1_A8  incomeAndTaxList/withholdingList
   A1_A8_P1(value: string, total_INCOME_DETAILS: INCOME_DETAILS[]) {
@@ -852,7 +855,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.C2 = CB ? INCOME_DETAILS.D2 : INCOME_DETAILS.C2;
           INCOME_DETAILS.A2 = this.toNumber(INCOME_DETAILS.A21) + "," + this.toNumber(INCOME_DETAILS.A22) + "," + this.toNumber(INCOME_DETAILS.A23) + "," +
             this.toNumber(INCOME_DETAILS.A24) + "," + this.toNumber(INCOME_DETAILS.A25) + "," + this.toNumber(INCOME_DETAILS.A26);
-            break;
+          break;
         case "3":
           if (!isNaN(data = parseInt(this.toNumber(INCOME_DETAILS.A3.toString())))) {
             CB = INCOME_DETAILS.C3 == "" || INCOME_DETAILS.C3 == INCOME_DETAILS.D3 ? true : false;
@@ -1092,7 +1095,5 @@ export class Childscn12Component implements OnInit {
     data.D5 = this.toNumber(data.D5); data.D7 = this.toNumber(data.D6); data.D7 = this.toNumber(data.D7); data.D8 = this.toNumber(data.D8);
     data.C = this.toNumber(data.C);
   }
-
-
 
 }
