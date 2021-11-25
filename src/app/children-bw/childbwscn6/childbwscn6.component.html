@@ -2,8 +2,9 @@
 <div class="line_bank_bankground_color">
   <div class="line_bank_card_no_padding">
     <!-- 表格 -->
-    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzData]="ruleParamCondition"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="歷史資料"  (nzQueryParams)="onQueryParamsChange($event)">
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total"
+      [nzData]="ruleParamCondition" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="歷史資料"
+      (nzQueryParams)="onQueryParamsChange($event)">
       <thead>
         <tr>
           <th class="table-header">案件編號</th>
@@ -17,7 +18,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of ruleParamCondition">
-          <td class="table-data">{{ data.applno }}</td>
+          <td class="table-data">
+            <button nz-button [nzSize]="'middle'" nzLeft nzType="link"
+              (click)="detail(data.applno, data.nationalId)">
+              {{ data.applno }}
+            </button>
+          </td>
           <td class="table-data">{{ data.custId }}</td>
           <td class="table-data">{{ data.nationalId }}</td>
           <td class="table-data">{{ data.creditResult }}</td>
@@ -29,5 +35,3 @@
     </nz-table>
   </div>
 </div>
-
-

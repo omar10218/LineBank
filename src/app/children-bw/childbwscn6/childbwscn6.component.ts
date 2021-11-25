@@ -42,11 +42,11 @@ export class Childbwscn6Component implements OnInit {
   initial(pageIndex: number, pageSize: number) {
     const baseUrl = 'f01/childbwscn6'
     let jsonObject: any = {}
-    jsonObject['applno'] = this.applno ;
+    jsonObject['applno'] = this.applno;
     //測試用
     // jsonObject['applno'] = '1111111';
     jsonObject['page'] = pageIndex;
-    jsonObject['per_page']= pageSize;
+    jsonObject['per_page'] = pageSize;
     console.log('jsonObject');
     console.log(jsonObject);
     this.childbwscn6Service.selectCustomer(baseUrl, jsonObject).subscribe(data => {
@@ -64,5 +64,16 @@ export class Childbwscn6Component implements OnInit {
     this.pageSize = pageSize
     this.pageIndex = pageIndex
     this.initial(pageIndex, pageSize)
+  }
+
+  detail(applno: string, nationalId: string) {
+    sessionStorage.setItem('applno', applno);
+    sessionStorage.setItem('cuid', nationalId);
+    sessionStorage.setItem('search', 'Y');
+    sessionStorage.setItem('queryDate', '');
+    sessionStorage.setItem('winClose', 'Y');
+    //開啟徵審主畫面
+    const url = window.location.href.split("/#");
+    window.open(url[0] + "/#/F01009/F01009SCN1");
   }
 }

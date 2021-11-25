@@ -138,7 +138,7 @@ export class F02002Component implements OnInit {
     }
   }
 
-  detail( applno: string, nationalId: string, custId: string) {
+  detail( applno: string, nationalId: string) {
     const url = 'f02/f02002action2';
     let jsonObject: any = {};
     jsonObject['applno'] = applno;
