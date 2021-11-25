@@ -154,43 +154,42 @@
         </tr>
       </thead>
       <tbody>
+        <!--案件編號-->
         <tr *ngFor="let data of resultData">
-          <td nzLeft><button nz-button [nzSize]="'middle'" nzType="link"
-            (click)="Detail(data.APPLNO,data.CUST_ID)">{{ data.APPLNO }}</button></td>
-          <!--案件編號-->
-          <td>{{ data.NATIONAL_ID }}</td>
+          <td nzLeft><button nz-button [nzSize]="'middle'" nzType="link" (click)="Detail(data.APPLNO,data.CUST_ID)">{{
+              data.APPLNO }}</button></td>
           <!--身分證字號-->
-          <td>{{ data.CUST_ID }}</td>
+          <td>{{ data.NATIONAL_ID }}</td>
           <!--客戶id-->
-          <td>{{ data.CU_CNAME }}</td>
+          <td>{{ data.CUST_ID }}</td>
           <!--客戶姓名-->
-          <td>{{ data.CU_CP_NAME }}</td>
+          <td>{{ data.CU_CNAME }}</td>
           <!--公司名稱-->
-          <td>{{ data.L3EMPNO }}</td>
+          <td>{{ data.CU_CP_NAME }}</td>
           <!--徵信員姓名-->
-          <td>{{ data.credit_RESULT }}</td>
-          <!--授信員編-->
           <td>{{ data.L3EMPNO }}</td>
+          <!--授信員編-->
+          <td>{{ data.credit_RESULT }}</td>
           <!--審核結果-->
-          <td>{{ data.cust_FLAG }}</td>
+          <td>{{ data.CREDIT_RESULT }}</td>
           <!--客群標籤-->
-          <td>{{ data.risk_GRADE }}</td>
+          <td>{{ data.CUST_FLAG }}</td>
           <!--風險等級分群-->
-          <td></td>
+          <td>{{ data.risk_GRADE }}</td>
           <!--累計進件數-->
-          <td>{{ data.STATUS_DESC }}</td>
+          <td></td>
           <!--案件狀態-->
-          <td>{{ data.APPLY_TIME }}</td>
+          <td>{{ data.STATUS_DESC }}</td>
           <!--進件日期-->
-          <td>{{ data.proof_DOCUMENT_TIME }}</td>
+          <td>{{ data.APPLY_TIME }}</td>
           <!--上傳財力日期-->
-          <td>{{ data.sign_UP_TIME }}</td>
+          <td>{{ data.proof_DOCUMENT_TIME }}</td>
           <!--簽約完成日期-->
-          <td></td>
+          <td>{{ data.sign_UP_TIME }}</td>
           <!--申請金額/額度-->
-          <td>{{ data.approve_AMT }}</td>
-          <!--核准金額/額度-->
           <td></td>
+          <!--核准金額/額度-->
+          <td>{{ data.approve_AMT }}</td>
           <!--合約金額/額度-->
           <td></td>
           <!--產品名稱-->
@@ -200,8 +199,9 @@
           <!--行銷代碼-->
           <td></td>
           <!--序號-->
-          <td nzRight></td>
+          <td></td>
           <!--准駁日期時間-->
+          <td nzRight></td>
         </tr>
       </tbody>
     </nz-table>
