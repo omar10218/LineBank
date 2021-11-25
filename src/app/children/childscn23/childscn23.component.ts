@@ -54,11 +54,13 @@ export class Childscn23Component implements OnInit {
   AddData: any;
   checkboxAny: any[] = [];//判斷是否回傳
   seveData: any[] = [];
+  search:string;
   // Source = new MatTableDataSource<any>() //產品Table
   x: string;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    this.search = sessionStorage.getItem('search');
     this.dropdown();
     this.set();
   }
