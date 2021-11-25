@@ -45,7 +45,7 @@ export class F01009Component implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    
+
     // 查詢案件分類
     this.f01009Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
       this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
@@ -76,17 +76,15 @@ export class F01009Component implements OnInit, AfterViewInit {
 
   // 代入條件查詢
   search() {
-    if (this.agentEmpNo == '' && this.swcApplno == '' && this.swcNationalId == '' && this.caseType == '') {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請至少選擇一項條件" }
-      });
-    } else if (this.swcNationalId != '' && !this.f01009Service.checkIdNumberIsValid(this.swcNationalId)) {
+    if (this.swcNationalId != '' && !this.f01009Service.checkIdNumberIsValid(this.swcNationalId)) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "身分驗證失敗" }
       });
     }
     else {
-      this.empNo = this.agentEmpNo;
+      if (this.agentEmpNo != '') {
+        this.empNo = this.agentEmpNo;
+      }
       this.changePage();
       this.getCaseList();
     }
@@ -101,7 +99,6 @@ export class F01009Component implements OnInit, AfterViewInit {
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01009Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
     });
@@ -158,4 +155,13 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.total = 1;
   }
 
+  // 清除資料
+  clear() {
+    this.agentEmpNo = '';
+    this.swcApplno = '';
+    this.swcNationalId = '';
+    this.caseType = '';
+    this.empNo = localStorage.getItem("empNo");
+    this.getCaseList();
+  }
 }

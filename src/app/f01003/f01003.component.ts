@@ -97,8 +97,18 @@ export class F01003Component implements OnInit, AfterViewInit {
 
   //代入條件查詢
   select() {
-    this.changePage();
-    this.getCaseList();
+    if (this.swcNationalId != '' && !this.f01003Service.checkIdNumberIsValid(this.swcNationalId)) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "身分驗證失敗" }
+      });
+    }
+    else {
+      if (this.agentEmpNo != '') {
+        this.empNo = this.agentEmpNo;
+      }
+      this.changePage();
+      this.getCaseList();
+    }
   }
 
   // 案件子頁籤
@@ -125,16 +135,18 @@ export class F01003Component implements OnInit, AfterViewInit {
 
   // 儲存案件註記
   saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
+    let msg = '';
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
     jsonObject['swcCaseMemo'] = swcCaseMemo;
 
     this.f01003Service.saveCaseMemo(jsonObject).subscribe(data => {
-      if (data.rspMsg == 'success') {
-        this.getCaseList();
-        window.location.reload();
-      }
+      msg = data.rspMsg;
     });
+    setTimeout(() => {
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
+      if (msg != null && msg == 'success') { window.location.reload(); }
+    }, 1000);
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -148,7 +160,6 @@ export class F01003Component implements OnInit, AfterViewInit {
   changePage() {
     this.pageIndex = 1;
     this.pageSize = 10;
-    this.total = 1;
   }
 
   // 打開通知彈窗
@@ -177,5 +188,14 @@ export class F01003Component implements OnInit, AfterViewInit {
   sortChange(e: string) {
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+  }
+  // 清除資料
+  clear() {
+    this.agentEmpNo = '';
+    this.swcApplno = '';
+    this.swcNationalId = '';
+    this.caseType = '';
+    this.empNo = localStorage.getItem("empNo");
+    this.getCaseList();
   }
 }

@@ -68,6 +68,7 @@ export class F01004Component implements OnInit, AfterViewInit {
     this.swcNationalId = '';
     this.caseType = '';
   }
+
   ngAfterViewInit() {
     this.getCaseList();
   }
@@ -95,7 +96,9 @@ export class F01004Component implements OnInit, AfterViewInit {
       });
     }
     else {
-      this.empNo = this.agentEmpNo;
+      if (this.agentEmpNo != '') {
+        this.empNo = this.agentEmpNo;
+      }
       this.changePage();
       this.getCaseList();
     }
@@ -140,10 +143,7 @@ export class F01004Component implements OnInit, AfterViewInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == 'success') {
-        this.getCaseList();
-      }
-    }, 500);
+      if (msg != null && msg == 'success') { window.location.reload(); }}, 1000);
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -182,5 +182,13 @@ export class F01004Component implements OnInit, AfterViewInit {
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
   }
-
+  // 清除資料
+  clear() {
+    this.agentEmpNo = '';
+    this.swcApplno = '';
+    this.swcNationalId = '';
+    this.caseType = '';
+    this.empNo = localStorage.getItem("empNo");
+    this.getCaseList();
+  }
 }

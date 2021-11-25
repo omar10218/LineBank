@@ -22,6 +22,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
   ) { }
 
   total: string;
+  applno= [];
 
   @HostListener('document:mousemove', ['$event'])
   @HostListener('document:keyup', ['$event'])
@@ -68,7 +69,9 @@ export class MenuListComponent implements OnInit, OnDestroy {
     let jsonObject: any = {};
     jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
     this.f01002Service.getCalloutList(jsonObject).subscribe(data => {
+      console.log(data)
       this.total = data.rspBody.size;
+      this.applno = data.rspBody.items;
     });
   }
 
