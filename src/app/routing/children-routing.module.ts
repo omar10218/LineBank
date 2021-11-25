@@ -198,10 +198,6 @@ const routes: Routes = [
     component: Childscn21Component
   },
   {
-    path: 'CHILDSCN22',
-    component: Childscn22Component
-  },
-  {
     path: 'CHILDSCN23',
     component: Childscn23Component
   },

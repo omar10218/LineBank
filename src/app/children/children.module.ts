@@ -66,6 +66,7 @@ import { Childscn23addComponent } from './childscn23/childscn23add/childscn23add
 import { FormatNumberPipe, ToNumberPipe } from '../pipe/customFormatterPipe';
 import { Childscn8itemsComponent } from './childscn8/childscn8items/childscn8items.component';
 import { Childscn1editComponent } from './childscn1/childscn1edit/childscn1edit.component';
+import { Childscn24Component } from './childscn24/childscn24.component';
 
 
 
@@ -127,7 +128,8 @@ import { Childscn1editComponent } from './childscn1/childscn1edit/childscn1edit.
     FormatNumberPipe,
     ToNumberPipe,
     Childscn8itemsComponent,
-    Childscn1editComponent
+    Childscn1editComponent,
+    Childscn24Component
   ],
   imports: [
     CommonModule,
