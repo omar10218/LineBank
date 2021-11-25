@@ -9,7 +9,7 @@ import { F01001Service } from './f01001.service';
 @Component({
   selector: 'app-f01001',
   templateUrl: './f01001.component.html',
-  styleUrls: ['./f01001.component.css','../../assets/css/f01.css']
+  styleUrls: ['./f01001.component.css', '../../assets/css/f01.css']
 })
 export class F01001Component implements OnInit, AfterViewInit {
 
@@ -101,13 +101,15 @@ export class F01001Component implements OnInit, AfterViewInit {
 
   //代入條件查詢
   select() {
-     if (this.swcNationalId != '' && !this.f01001Service.checkIdNumberIsValid(this.swcNationalId)) {
+    if (this.swcNationalId != '' && !this.f01001Service.checkIdNumberIsValid(this.swcNationalId)) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "身分驗證失敗" }
       });
     }
     else {
-      this.empNo = this.agentEmpNo;
+      if (this.agentEmpNo != '') {
+        this.empNo = this.agentEmpNo;
+      }
       this.changePage();
       this.getCaseList();
     }
@@ -147,10 +149,7 @@ export class F01001Component implements OnInit, AfterViewInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == 'success') {
-        this.getCaseList();
-      }
-    }, 500);
+      if (msg != null && msg == 'success') { window.location.reload(); }}, 1000);
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -195,4 +194,13 @@ export class F01001Component implements OnInit, AfterViewInit {
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
   }
 
+  // 清除資料
+  clear() {
+    this.agentEmpNo = '';
+    this.swcApplno = '';
+    this.swcNationalId = '';
+    this.caseType = '';
+    this.empNo = localStorage.getItem("empNo");
+    this.getCaseList();
+  }
 }

@@ -84,7 +84,9 @@ export class F01008Component implements OnInit {
       });
     }
     else {
-      this.empNo = this.agentEmpNo;
+      if (this.agentEmpNo != '') {
+        this.empNo = this.agentEmpNo;
+      }
       this.changePage();
       this.getCaseList();
     }
@@ -129,5 +131,15 @@ export class F01008Component implements OnInit {
   sortChange(e: string) {
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+  }
+
+  // 清除資料
+  clear() {
+    this.agentEmpNo = '';
+    this.swcApplno = '';
+    this.swcNationalId = '';
+    this.caseType = '';
+    this.empNo = localStorage.getItem("empNo");
+    this.getCaseList();
   }
 }

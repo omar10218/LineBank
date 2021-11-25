@@ -23,6 +23,7 @@ import { Childbwscn4page1Component } from './childbwscn4/childbwscn4page1/childb
 import { Childbwscn4page2Component } from './childbwscn4/childbwscn4page2/childbwscn4page2.component';
 import { Childbwscn4page3Component } from './childbwscn4/childbwscn4page3/childbwscn4page3.component';
 import { Childbwscn4page4Component } from './childbwscn4/childbwscn4page4/childbwscn4page4.component';
+import { Childbwscn12Component } from './childbwscn12/childbwscn12.component';
 // import { Childbwscn4page1Component } from '../childbwyscn4/childbwscn4page1/childbwscn4page1.component';
 
 
@@ -43,6 +44,7 @@ import { Childbwscn4page4Component } from './childbwscn4/childbwscn4page4/childb
     Childbwscn4page2Component,
     Childbwscn4page3Component,
     Childbwscn4page4Component,
+    Childbwscn12Component,
     // Childbwscn4page1Component
 
   ],

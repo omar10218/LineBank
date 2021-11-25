@@ -66,11 +66,32 @@
       </button>
       <span class="example-spacer"></span>
     </ul> -->
-    <button style="padding-right: 30px; background-color: transparent; border: transparent;" [routerLink]="'./F01002'" (click)="bell()">
-      <nz-badge [(nzCount)]="total" [nzTitle]="null" [nzOffset]="[10, -1]">
-        <fa-icon [icon]="['far', 'bell']"></fa-icon>
-      </nz-badge>
-    </button>
+
+
+
+
+    <a nz-dropdown [nzDropdownMenu]="menu">
+
+      <button style="padding-right: 30px; background-color: transparent; border: transparent;" [routerLink]="'./F01002'" (click)="bell()">
+        <nz-badge [(nzCount)]="total" [nzTitle]="null" [nzOffset]="[10, -1]">
+          <fa-icon [icon]="['far', 'bell']"></fa-icon>
+        </nz-badge>
+      </button>
+  
+    </a>
+
+
+
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu nzSelectable *ngFor="let data of applno">
+        <li nz-menu-item>{{ data.APPLNO }}</li>
+      </ul>
+    </nz-dropdown-menu>
+
+
+
+    
 
     <nz-card nzHoverable style="width:10%;height:60%;position:relative" [nzCover]="coverTemplate">
       <nz-card-meta nzDescription="{{empNo}}" style="position:absolute;top:15px;left:30px"></nz-card-meta>

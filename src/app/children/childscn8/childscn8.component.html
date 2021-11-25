@@ -58,11 +58,11 @@
   </div>
 
   <div *ngIf="getSearch() == 'N'" style="padding-left: 50px; padding-top: 20px;">
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="items()">儲存</button>
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="items()">編輯</button>
   </div>
 
   <div *ngIf="getSearch() != 'N'" style="padding-left: 50px; padding-top: 20px;">
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="save()" disabled >儲存</button>
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="save()" disabled >編輯</button>
   </div>
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">

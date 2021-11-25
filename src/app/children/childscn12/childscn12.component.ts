@@ -4,6 +4,7 @@ import { Childscn12Service } from './childscn12.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n'
+import { flatten } from '@angular/compiler';
 
 interface checkBox {
   value: string
@@ -124,6 +125,7 @@ export class Childscn12Component implements OnInit {
   chkArray: checkBox[] = [];
   strArray: any;
   loading = true
+  loading6 = true;//六個table用
 
   test1 = "1"; test2 = "2"; test3 = false; test4 = "文字";
 
@@ -234,6 +236,7 @@ export class Childscn12Component implements OnInit {
 
     });
     this.loading = false;
+    this.loading6 = false;
   }
 
   //載入時資料處理 裝資料
@@ -406,39 +409,43 @@ export class Childscn12Component implements OnInit {
     }
   }
   save2() {
-    let save_INCOME_DETAILS_List: INCOME_DETAILS[] = []
-    save_INCOME_DETAILS_List = JSON.parse(JSON.stringify(this.INCOME_DETAILS_List))
-    for (const INCOME_DETAILS of save_INCOME_DETAILS_List) {
-      this.save_data(INCOME_DETAILS);
-    }
-    const baseUrl = 'f01/childscn12action1';
-    let jsonObject: any = {};
-    let msg = "";
-    jsonObject['applno'] = this.applno
-    jsonObject['incomeAndTaxList'] = save_INCOME_DETAILS_List[0];
-    jsonObject['withholdingList'] = save_INCOME_DETAILS_List[1];
-    jsonObject['salaryTransferList'] = save_INCOME_DETAILS_List[2];
-    jsonObject['paySlipList'] = save_INCOME_DETAILS_List[3];
-    jsonObject['laborDetailsList'] = save_INCOME_DETAILS_List[4];
-    jsonObject['bankerList'] = save_INCOME_DETAILS_List[5];
-    // console.log('jsonObject1');
-    // console.log(jsonObject);
-    this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
-      // console.log('data.rspBody');
-      // console.log(data);
-      if (data.rspMsg == "success") {
-        msg = "儲存成功!";
-        this.getData();
-      } else {
-        msg = "儲存失敗";
+    if(!this.loading6){
+      let save_INCOME_DETAILS_List: INCOME_DETAILS[] = []
+      save_INCOME_DETAILS_List = JSON.parse(JSON.stringify(this.INCOME_DETAILS_List))
+      for (const INCOME_DETAILS of save_INCOME_DETAILS_List) {
+        this.save_data(INCOME_DETAILS);
       }
-
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: msg }
+      const baseUrl = 'f01/childscn12action1';
+      let jsonObject: any = {};
+      let msg = "";
+      jsonObject['applno'] = this.applno
+      jsonObject['incomeAndTaxList'] = save_INCOME_DETAILS_List[0];
+      jsonObject['withholdingList'] = save_INCOME_DETAILS_List[1];
+      jsonObject['salaryTransferList'] = save_INCOME_DETAILS_List[2];
+      jsonObject['paySlipList'] = save_INCOME_DETAILS_List[3];
+      jsonObject['laborDetailsList'] = save_INCOME_DETAILS_List[4];
+      jsonObject['bankerList'] = save_INCOME_DETAILS_List[5];
+      // console.log('jsonObject1');
+      // console.log(jsonObject);
+      this.loading6 = true
+      this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
+        this.loading6 = false
+        // console.log('data.rspBody');
+        // console.log(data);
+        if (data.rspMsg == "success") {
+          msg = "儲存成功!";
+          this.getData();
+        } else {
+          msg = "儲存失敗";
+        }
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: msg }
+        });
       });
-    });
-    // console.log('save');
-    // console.log(this.INCOME_DETAILS_List);
+      // console.log('save');
+      // console.log(this.INCOME_DETAILS_List);
+    }
+
   }
 
   //去除符號中文 並更新小計欄位

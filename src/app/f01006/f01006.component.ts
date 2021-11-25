@@ -114,4 +114,8 @@ export class F01006Component implements OnInit, AfterViewInit {
     // });
 
   }
+  // 清除資料
+  clear() {
+    
+  }
 }

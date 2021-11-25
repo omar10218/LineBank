@@ -25,8 +25,15 @@
               </div>
             </div>
           </div>
-          <div nz-col nzSpan="5">
-            <button nz-button [nzSize]="'large'" nzType="primary" (click)="select()">查詢案件</button>
+          <div nz-col nzSpan="2" style="margin-top:15px;">
+            <div>
+              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢案件</button>
+            </div>
+          </div>
+          <div nz-col nzSpan="2" style="margin-top:15px;">
+            <div>
+              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="clear()">清除資料</button>
+            </div>
           </div>
 
         </div>

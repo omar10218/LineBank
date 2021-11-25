@@ -76,13 +76,13 @@ export class F01005page1Component implements OnInit {
     this.caseType = '';
   }
   ngAfterViewInit() {
-    this.getCaseList(this.empNo, this.swcNationalId, this.swcApplno, this.pageIndex, this.pageSize);
+    this.getCaseList();
   }
   // 查詢案件清單
-  getCaseList(empNo: string, swcNationalId: string, swcApplno: string, pageIndex: number, pageSize: number) {
+  getCaseList() {
     let jsonObject: any = {};
-    jsonObject['page'] = pageIndex;
-    jsonObject['per_page'] = pageSize;
+    jsonObject['page'] = this.pageIndex;
+    jsonObject['per_page'] = this.pageSize;
     // jsonObject['swcL3EmpNo'] = empNo;
     // jsonObject['swcNationalId'] = swcNationalId;
     // jsonObject['swcApplno'] = swcApplno;
@@ -96,7 +96,7 @@ export class F01005page1Component implements OnInit {
   //代入條件查詢
   select() {
     this.changePage();
-    this.getCaseList(this.empNo, this.swcNationalId, this.swcApplno, this.pageIndex, this.pageSize);
+    this.getCaseList();
   }
   // 案件子頁籤
   getLockCase(swcApplno: string, swcNationalId: string) {
@@ -114,24 +114,25 @@ export class F01005page1Component implements OnInit {
   }
   // 儲存案件註記
   saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
+    let msg = '';
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
     jsonObject['swcCaseMemo'] = swcCaseMemo;
 
     this.f01005Service.saveCaseMemo(jsonObject).subscribe(data => {
-      if (data.rspMsg == 'success') {
-        this.getCaseList(this.empNo, this.swcNationalId, this.swcApplno, this.pageIndex, this.pageSize);
-        window.location.reload();
-      }
+      msg = data.rspMsg;
     });
+    setTimeout(() => {
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
+      if (msg != null && msg == 'success') { window.location.reload(); }}, 1000);
   }
+  
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getCaseList(this.empNo, this.swcNationalId, this.swcApplno, pageIndex, pageSize);
+    this.getCaseList();
   }
   changePage() {
     this.pageIndex = 1;
-    this.pageSize = 10;
     this.total = 1;
   }
   // 打開通知彈窗
@@ -154,6 +155,14 @@ export class F01005page1Component implements OnInit {
     }
     return codeVal;
   }
-
+// 清除資料
+clear() {
+  this.agentEmpNo = '';
+  this.swcApplno = '';
+  this.swcNationalId = '';
+  this.caseType = '';
+  this.empNo = localStorage.getItem("empNo");
+  this.getCaseList();
+}
 
 }

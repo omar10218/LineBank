@@ -124,11 +124,11 @@ export class F01001scn1Component implements OnInit {
     jsonObject['level'] = 'L4';
 
     this.creditResult = sessionStorage.getItem('creditResult');
-    if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '請填寫核決結果!' }
-      });
-    } else {
+    // if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
+    //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
+    //     data: { msgStr: '請填寫核決結果!' }
+    //   });
+    // } else {
       let json: any = {};
       json['creditResult'] = this.creditResult;
       jsonObject['creditResult'] = json;
@@ -138,6 +138,6 @@ export class F01001scn1Component implements OnInit {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: result }
       });
-    }
+    // }
   }
 }

@@ -20,9 +20,9 @@
       <tbody>
         <tr *ngFor="let item of EL_INCOME_Source.data;let i=index">
           <td>{{item.items}}</td>
-          <td *ngIf="i!=6">{{toCurrency(item.income.toString())}}</td>
+          <td class="data_right" *ngIf="i!=6">{{toCurrency(item.income.toString())}}</td>
           <td *ngIf="i==6">
-            <div style="padding:0px;"> <input [(ngModel)]="item.income" (keyup)="item.income=data_number(item.income)"
+            <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="item.income" (keyup)="item.income=data_number(item.income)"
                 maxlength="20" /></div>
           </td>
           <td>
@@ -39,10 +39,10 @@
     </nz-table>
   </div>
 
-  <div *ngIf="getStepName()" style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="getStepName()" style="padding-left: 100px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save2()">儲存</button>
   </div>
-  <div *ngIf="!getStepName()" style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="!getStepName()" style="padding-left: 100px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save2()" disabled>儲存</button>
   </div>
 
@@ -51,7 +51,7 @@
     <nz-collapse-panel [nzHeader]="'所得清單/報稅證明'" [nzActive]="false" [nzDisabled]="!getStepName()">
 
       <div class="line_bank_card_no_padding">
-        <nz-table [nzData]="INCOME_DETAILS_List" nzSize="small" nzTitle="所得清單/報稅證明" nzFrontPagination="false"
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="所得清單/報稅證明" nzFrontPagination="false"
           nzSimple="false">
           <thead>
             <tr>
@@ -345,7 +345,7 @@
     <nz-collapse-panel [nzHeader]="'扣繳憑單'" [nzActive]="false" [nzDisabled]="!getStepName()">
 
       <div class="line_bank_card_no_padding">
-        <nz-table [nzData]="INCOME_DETAILS_List" nzSize="small" nzTitle="扣繳憑單" nzFrontPagination="false"
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="扣繳憑單" nzFrontPagination="false"
           nzSimple="false">
           <thead>
             <tr>
@@ -619,7 +619,7 @@
     <nz-collapse-panel [nzHeader]="'薪轉存褶'" [nzActive]="false" [nzDisabled]="!getStepName()">
 
       <div class="line_bank_card_no_padding">
-        <nz-table [nzData]="INCOME_DETAILS_List" nzSize="small" nzTitle="薪轉存褶" nzFrontPagination="false"
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="薪轉存褶" nzFrontPagination="false"
           nzSimple="false">
           <thead>
             <tr>
@@ -914,7 +914,7 @@
     <nz-collapse-panel [nzHeader]="'電腦列印薪資單'" [nzActive]="false" [nzDisabled]="!getStepName()">
 
       <div class="line_bank_card_no_padding">
-        <nz-table [nzData]="INCOME_DETAILS_List" nzSize="small" nzTitle="電腦列印薪資單" nzFrontPagination="false"
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="電腦列印薪資單" nzFrontPagination="false"
           nzSimple="false">
           <thead>
             <tr>
@@ -1165,7 +1165,7 @@
     <nz-collapse-panel [nzHeader]="'勞保投保及勞退提撥明細'" [nzActive]="false" [nzDisabled]="!getStepName()">
 
       <div class="line_bank_card_no_padding">
-        <nz-table [nzData]="INCOME_DETAILS_List" nzSize="small" nzTitle="勞保投保及勞退提撥明細" nzFrontPagination="false"
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="勞保投保及勞退提撥明細" nzFrontPagination="false"
           nzSimple="false">
           <thead>
             <tr>
@@ -1293,7 +1293,7 @@
     <nz-collapse-panel [nzHeader]="'本行行員'" [nzActive]="false" [nzDisabled]="!getStepName()">
 
       <div class="line_bank_card_no_padding">
-        <nz-table [nzData]="INCOME_DETAILS_List" nzSize="small" nzTitle="本行行員" nzFrontPagination="false"
+        <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="本行行員" nzFrontPagination="false"
           nzSimple="false">
           <thead>
             <tr>

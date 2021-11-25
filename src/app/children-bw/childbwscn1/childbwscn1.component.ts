@@ -26,6 +26,12 @@ export class Childbwscn1Component implements OnInit {
   pageIndex = 1;
   pageSize = 50;
 
+  //審核結果
+  BW_creditResult: string
+  //審核結果選項
+  BW_creditResult_Code: OptionsCode[] = [{ value: 'FRZ', viewValue: 'FRZ' }, { value: 'DWN', viewValue: 'DWN' }, { value: 'HLD', viewValue: 'HLD' }
+    , { value: 'NEX', viewValue: 'NEX' }, { value: 'N00', viewValue: 'N00' }, { value: 'XXX', viewValue: 'XXX' }, { value: '000', viewValue: '000' }];
+
   ngOnInit(): void {
   }
 
@@ -41,5 +47,9 @@ export class Childbwscn1Component implements OnInit {
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
     this.getCreditmemo(pageIndex, pageSize);
+  }
+
+  test(){
+    alert(this.BW_creditResult);
   }
 }
