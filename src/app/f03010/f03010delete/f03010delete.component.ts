@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F03010Service } from '../f03010.service';
+import { OptionsCode } from 'src/app/interface/base';
 
 @Component({
   selector: 'app-f03010delete',
@@ -16,6 +17,9 @@ export class F03010deleteComponent implements OnInit {
     public f03010Service: F03010Service,
     public dialog: MatDialog
   ) { }
+
+  //暫停使用下拉選單
+  stopFlagCode: OptionsCode[] = [{ value: 'Y', viewValue: 'Y' }, { value: 'N', viewValue: 'N' }];
 
   ngOnInit(): void {
 
