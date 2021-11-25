@@ -5,7 +5,6 @@
       [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="歷史資料"  (nzQueryParams)="onQueryParamsChange($event)">
       <thead>
         <tr>
-          <th class="table-nzPageIndex"></th>
           <th class="table-header">案件編號</th>
           <th class="table-header">客戶編號</th>
           <th class="table-header">申請人ID</th>
@@ -20,8 +19,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of ruleParamCondition">
-          <td><button nz-button [nzSize]="'middle'" nzType="primary" (click)="Inquire(data.applnoOld)">查詢</button></td>
-          <td class="table-data">{{ data.applnoOld }}</td>
+          <td class="table-data"><button nz-button [nzSize]="'middle'" nzType="link" (click)="Inquire(data.applnoOld,data.nationalId)">{{ data.applnoOld }}</button></td>
           <td class="table-data">{{ data.custId }}</td>
           <td class="table-data">{{ data.nationalId }}</td>
           <td class="table-data">{{ data.prodCode }}</td>

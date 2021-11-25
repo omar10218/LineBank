@@ -67,23 +67,21 @@ export class Childscn16Component implements OnInit {
   {
     const url = 'f01/f01002fn1';
     let jsonObject: any = {};
-    console.log(this.applno)
     jsonObject['swcApplno'] = this.applno;
     this.childscn16Service.selectCustomer(url, jsonObject).subscribe(data => {
       console.log(data);
       // if ( data.rspBody.length > 0 ) {
       //   this.fds = data.rspBody[0].fds
       // }
+      sessionStorage.setItem('applno', id);
+      sessionStorage.setItem('cuid', nationalId);
+      sessionStorage.setItem('search','Y');
+      sessionStorage.setItem('queryDate', '');
+      sessionStorage.setItem('winClose', 'Y');
+      //開啟徵審主畫面
+      const url = window.location.href.split("/#");
+      window.open(url[0] + "/#/F01002/F01002SCN1");
 
-      if (data.rspMsg == '案件鎖定成功') {
-        sessionStorage.setItem('applno', id);
-        sessionStorage.setItem('cuid', nationalId);
-        sessionStorage.setItem('search', 'Y');
-        sessionStorage.setItem('fds', this.fds);
-        sessionStorage.setItem('queryDate', '');
-        //開啟徵審主畫面
-        window.open("http://localhost:4200/#/F01002/F01002SCN1/CHILDSCN1");
-      }
     })
   }
   initial(pageIndex: number, pageSize: number)//初始查詢
