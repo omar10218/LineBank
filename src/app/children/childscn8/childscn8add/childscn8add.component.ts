@@ -60,6 +60,23 @@ export class Childscn8addComponent implements OnInit {
 
   //儲存
   async save() {
+    if (this.data.CALLOUT_DATE == null || this.data.CALLOUT_DATE == "") {
+      this.data.HOURS = ""
+      this.data.MINUTES = ""
+    } else {
+      if (this.data.HOURS = "" || this.data.HOURS == null) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請輸入時間欄位" }
+        });
+        return;
+      }
+      if (this.data.MINUTES = "" || this.data.MINUTES == null) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請輸入時間欄位" }
+        });
+        return;
+      }
+    }
     let msgStr: string = "";
     let codeStr: string = "";
     const baseUrl = 'f01/childscn8action1';
