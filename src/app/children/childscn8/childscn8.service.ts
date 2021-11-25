@@ -46,6 +46,7 @@ export class Childscn8Service extends BaseService {
   //時下拉選單
   getHOURS() {
     if (this.sHOURS_Code == null || this.sHOURS_Code.length == 0) {
+      this.sHOURS_Code.push({ value: "", viewValue: "" })
       this.getSysTypeCode('HOURS')
         .subscribe(data => {
           for (const jsonObj of data.rspBody.mappingList) {
@@ -60,6 +61,7 @@ export class Childscn8Service extends BaseService {
   //分下拉選單
   getMINUTES() {
     if (this.sMINUTES_Code == null || this.sMINUTES_Code.length == 0) {
+      this.sMINUTES_Code.push({ value: "", viewValue: "" })
       this.getSysTypeCode('MINUTES')
         .subscribe(data => {
           for (const jsonObj of data.rspBody.mappingList) {

@@ -150,35 +150,32 @@
           <div class="form" >
 
             <div ><span class="form-title" style="margin:0px;">設定下次照會時間</span>
-              <nz-date-picker style="display:block" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" required>
+              <nz-date-picker style="display:block" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" >
               </nz-date-picker>
-              <mat-error *ngIf="formControl.invalid && (data.CALLOUT_DATE=='' || data.CALLOUT_DATE== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
         <div nz-col nzSpan="6">
           <div class="form" >
             <div><span class="form-title-actions">時</span>
-              <mat-select [(ngModel)]="data.HOURS" name="HOURS" required
+              <mat-select [(ngModel)]="data.HOURS" name="HOURS"
                >
                 <mat-option *ngFor="let code of HOURS_Code" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid && (data.HOURS=='' || data.HOURS== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
         <div nz-col nzSpan="6">
           <div class="form" >
             <div><span class="form-title-actions">分</span>
-              <mat-select [(ngModel)]="data.MINUTES" name="MINUTES" required
+              <mat-select [(ngModel)]="data.MINUTES" name="MINUTES"
                >
                 <mat-option *ngFor="let code of MINUTES_Code" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid && (data.MINUTES=='' || data.MINUTES== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
