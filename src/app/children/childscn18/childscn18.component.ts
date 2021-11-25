@@ -61,6 +61,7 @@ export class Childscn18Component implements OnInit {
         data: { msgStr: data.rspMsg }
       });
       this.router.navigate(['./F01002']);
+      this.dialogRef.close();
     });
   }
 }
