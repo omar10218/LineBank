@@ -33,8 +33,9 @@ export class Childscn10Component implements OnInit {
   private applno: string;
   private cuid: string;
   private routerCase: string;
-  private level: string;
-  private stepName: string;
+  // private level: string;
+  // private stepName: string;
+  private page: string;
   component = new Map<Page, any>(
     [
       [Page.Page1, Childscn10page1Component],
@@ -49,8 +50,9 @@ export class Childscn10Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
-    this.level = sessionStorage.getItem('level');
-    this.stepName = sessionStorage.getItem('stepName');
+    // this.level = sessionStorage.getItem('level');
+    // this.stepName = sessionStorage.getItem('stepName');
+    this.page = sessionStorage.getItem('page');
     const url = 'f01/childscn10';
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
@@ -58,25 +60,33 @@ export class Childscn10Component implements OnInit {
     //this.router.navigate(['./'+this.routerCase+'/CHILDSCN10/CHILDSCN10PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });
   }
 
-  //判斷等級是否顯示 授信 高階主管才可顯示 風險模型資訊
-  getLevel() {
-    let YN = "N";
-    //正式用
-    if(this.level=="1"||this.level=="2"){YN="Y"}
-    //測試用 都通過
-    // YN = "Y"
-    return YN;
-  }
+  // //判斷等級是否顯示 授信 高階主管才可顯示 風險模型資訊
+  // getLevel() {
+  //   // let YN = "N";
+  //   // //正式用
+  //   // if(this.level=="1"||this.level=="2"){YN="Y"}
+  //   // //測試用 都通過
+  //   // // YN = "Y"
+  //   // // alert(this.level)
+  //   // return YN;
+  //   return this.level;
+  // }
   //判斷是否顯示授信
-  getstepName(): String {
-    //高階主管作業 APPLCreditL1
-    //授信作業 APPLCreditL2
-    //徵信作業 APPLCreditL3
-    //文審作業 APPLCreditL4
-    //偽冒案件 APPLFraud
-    return this.stepName;
-    //測試用
-    // return 'APPLCreditL2';
+  // getstepName(): String {
+  //   //高階主管作業 APPLCreditL1
+  //   //授信作業 APPLCreditL2
+  //   //徵信作業 APPLCreditL3
+  //   //文審作業 APPLCreditL4
+  //   //偽冒案件 APPLFraud
+  //   return this.stepName;
+  //   //測試用
+  //   // return 'APPLCreditL2';
+  // }
+
+  //判斷頁面是否顯示
+ // 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8徵審後落人 9複審人員
+  getPage() {
+    return this.page
   }
 
   ngAfterViewInit() {

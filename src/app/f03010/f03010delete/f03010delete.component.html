@@ -21,8 +21,8 @@
       </div>
       <div class="form" style="padding:20px">
         <div><span class="form-title-actions">暫停使用</span>
-          <mat-select disabled style="width:42px;" [(ngModel)]="data.stopFlag" name="stopFlag">
-            <mat-option [value]="code.value" *ngFor="let code of stopFlagCode">{{code.value}}</mat-option>
+          <mat-select style="background-color: #E6E6E6;width:10%" disabled [(ngModel)]="data.stopFlag" name="stopFlag">
+            <mat-option  [value]="code.value" *ngFor="let code of stopFlagCode">{{code.value}}</mat-option>
           </mat-select>
         </div>
       </div>
