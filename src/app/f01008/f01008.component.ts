@@ -40,7 +40,7 @@ export class F01008Component implements OnInit {
     }
   }
   ngOnInit(): void {
-    
+
     // 代理人
     let jsonObject: any = {};
     jsonObject['swcD2EmpNo'] = this.empNo;
@@ -107,7 +107,8 @@ export class F01008Component implements OnInit {
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('review', '');
-        // sessionStorage.setItem('level', 'L3');
+        // sessionStorage.setItem('level', '8');//
+        sessionStorage.setItem('page', '8');
         sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01008/F01008SCN1']);
       }

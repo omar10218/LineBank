@@ -437,7 +437,7 @@
   </div>
 
   <div style="padding-left: 30px; padding-top: 20px;">
-    <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()">儲存</button>
+    <button *ngIf="getSearch() == 'N' && getstepName()=='APPLCreditL2'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()">儲存</button>
     <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()" disabled >儲存</button>
   </div>
 
@@ -459,7 +459,8 @@
           {{fmData.data[0].unsdebt_AMT_501EX}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_AMT_501EX_C" (keyup)="fmData.data[0].unsdebt_AMT_501EX_C=data_number(fmData.data[0].unsdebt_AMT_501EX_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_AMT_501EX_C" (keyup)="fmData.data[0].unsdebt_AMT_501EX_C=data_number(fmData.data[0].unsdebt_AMT_501EX_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].unsdebt_AMT_501EX_C" (keyup)="fmData.data[0].unsdebt_AMT_501EX_C=data_number(fmData.data[0].unsdebt_AMT_501EX_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -469,7 +470,8 @@
           {{fmData.data[0].unsdebt_AMT_504EX}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_AMT_504EX_C" (keyup)="fmData.data[0].unsdebt_AMT_504EX_C=data_number(fmData.data[0].unsdebt_AMT_504EX_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_AMT_504EX_C" (keyup)="fmData.data[0].unsdebt_AMT_504EX_C=data_number(fmData.data[0].unsdebt_AMT_504EX_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].unsdebt_AMT_504EX_C" (keyup)="fmData.data[0].unsdebt_AMT_504EX_C=data_number(fmData.data[0].unsdebt_AMT_504EX_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -479,7 +481,8 @@
            {{fmData.data[0].unsdebt_AMTNEW_505EX}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_AMTNEW_505EX_C" (keyup)="fmData.data[0].unsdebt_AMTNEW_505EX_C=data_number(fmData.data[0].unsdebt_AMTNEW_505EX_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_AMTNEW_505EX_C" (keyup)="fmData.data[0].unsdebt_AMTNEW_505EX_C=data_number(fmData.data[0].unsdebt_AMTNEW_505EX_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].unsdebt_AMTNEW_505EX_C" (keyup)="fmData.data[0].unsdebt_AMTNEW_505EX_C=data_number(fmData.data[0].unsdebt_AMTNEW_505EX_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -489,7 +492,8 @@
            {{fmData.data[0].unsdebt_AMTNEW_029EX}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_AMTNEW_029EX_C" (keyup)="fmData.data[0].unsdebt_AMTNEW_029EX_C=data_number(fmData.data[0].unsdebt_AMTNEW_029EX_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_AMTNEW_029EX_C" (keyup)="fmData.data[0].unsdebt_AMTNEW_029EX_C=data_number(fmData.data[0].unsdebt_AMTNEW_029EX_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].unsdebt_AMTNEW_029EX_C" (keyup)="fmData.data[0].unsdebt_AMTNEW_029EX_C=data_number(fmData.data[0].unsdebt_AMTNEW_029EX_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -499,7 +503,8 @@
             {{fmData.data[0].unsdebt_824_RLLIMIT}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_824_RLLIMIT_C" (keyup)="fmData.data[0].unsdebt_824_RLLIMIT_C=data_number(fmData.data[0].unsdebt_824_RLLIMIT_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_824_RLLIMIT_C" (keyup)="fmData.data[0].unsdebt_824_RLLIMIT_C=data_number(fmData.data[0].unsdebt_824_RLLIMIT_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].unsdebt_824_RLLIMIT_C" (keyup)="fmData.data[0].unsdebt_824_RLLIMIT_C=data_number(fmData.data[0].unsdebt_824_RLLIMIT_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -509,7 +514,8 @@
             {{fmData.data[0].unsdebt_824_RLBAL}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_824_RLBAL_C" (keyup)="fmData.data[0].unsdebt_824_RLBAL_C=data_number(fmData.data[0].unsdebt_824_RLBAL_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_824_RLBAL_C" (keyup)="fmData.data[0].unsdebt_824_RLBAL_C=data_number(fmData.data[0].unsdebt_824_RLBAL_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].unsdebt_824_RLBAL_C" (keyup)="fmData.data[0].unsdebt_824_RLBAL_C=data_number(fmData.data[0].unsdebt_824_RLBAL_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -519,7 +525,8 @@
            {{fmData.data[0].unsdebt_824_ILBAL}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_824_ILBAL_C" (keyup)="fmData.data[0].unsdebt_824_ILBAL_C=data_number(fmData.data[0].unsdebt_824_ILBAL_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_824_ILBAL_C" (keyup)="fmData.data[0].unsdebt_824_ILBAL_C=data_number(fmData.data[0].unsdebt_824_ILBAL_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].unsdebt_824_ILBAL_C" (keyup)="fmData.data[0].unsdebt_824_ILBAL_C=data_number(fmData.data[0].unsdebt_824_ILBAL_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -529,7 +536,8 @@
            {{fmData.data[0].unsdebt_824_CCRBAL}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_824_CCRBAL_C" (keyup)="fmData.data[0].unsdebt_824_CCRBAL_C=data_number(fmData.data[0].unsdebt_824_CCRBAL_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_824_CCRBAL_C" (keyup)="fmData.data[0].unsdebt_824_CCRBAL_C=data_number(fmData.data[0].unsdebt_824_CCRBAL_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].unsdebt_824_CCRBAL_C" (keyup)="fmData.data[0].unsdebt_824_CCRBAL_C=data_number(fmData.data[0].unsdebt_824_CCRBAL_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -539,7 +547,8 @@
            {{fmData.data[0].unsdebt_NONJCIC}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_NONJCIC_C" (keyup)="fmData.data[0].unsdebt_NONJCIC_C=data_number2(fmData.data[0].unsdebt_NONJCIC_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_NONJCIC_C" (keyup)="fmData.data[0].unsdebt_NONJCIC_C=data_number2(fmData.data[0].unsdebt_NONJCIC_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].unsdebt_NONJCIC_C" (keyup)="fmData.data[0].unsdebt_NONJCIC_C=data_number2(fmData.data[0].unsdebt_NONJCIC_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -549,7 +558,8 @@
            {{fmData.data[0].unsdebt_PAYAMT_029EX}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_PAYAMT_029EX_C" (keyup)="fmData.data[0].unsdebt_PAYAMT_029EX_C=data_number(fmData.data[0].unsdebt_PAYAMT_029EX_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].unsdebt_PAYAMT_029EX_C" (keyup)="fmData.data[0].unsdebt_PAYAMT_029EX_C=data_number(fmData.data[0].unsdebt_PAYAMT_029EX_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].unsdebt_PAYAMT_029EX_C" (keyup)="fmData.data[0].unsdebt_PAYAMT_029EX_C=data_number(fmData.data[0].unsdebt_PAYAMT_029EX_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -616,7 +626,8 @@
            {{fmData.data[0].mthpay_BAM421}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].mthpay_BAM421_C" (keyup)="fmData.data[0].mthpay_BAM421_C=data_number(fmData.data[0].mthpay_BAM421_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].mthpay_BAM421_C" (keyup)="fmData.data[0].mthpay_BAM421_C=data_number(fmData.data[0].mthpay_BAM421_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].mthpay_BAM421_C" (keyup)="fmData.data[0].mthpay_BAM421_C=data_number(fmData.data[0].mthpay_BAM421_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -626,7 +637,8 @@
            {{fmData.data[0].mthpay_BAM029}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].mthpay_BAM029_C" (keyup)="fmData.data[0].mthpay_BAM029_C=data_number(fmData.data[0].mthpay_BAM029_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].mthpay_BAM029_C" (keyup)="fmData.data[0].mthpay_BAM029_C=data_number(fmData.data[0].mthpay_BAM029_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].mthpay_BAM029_C" (keyup)="fmData.data[0].mthpay_BAM029_C=data_number(fmData.data[0].mthpay_BAM029_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -636,7 +648,8 @@
            {{fmData.data[0].mthpay_KRM048}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].mthpay_KRM048_C" (keyup)="fmData.data[0].mthpay_KRM048_C=data_number(fmData.data[0].mthpay_KRM048_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].mthpay_KRM048_C" (keyup)="fmData.data[0].mthpay_KRM048_C=data_number(fmData.data[0].mthpay_KRM048_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].mthpay_KRM048_C" (keyup)="fmData.data[0].mthpay_KRM048_C=data_number(fmData.data[0].mthpay_KRM048_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">
@@ -646,7 +659,8 @@
           {{fmData.data[0].mthpay_NONJCIC}}
           </td>
           <td>
-            <div style="padding:0px"> <input class="data_right"  [(ngModel)]="fmData.data[0].mthpay_NONJCIC_C" (keyup)="fmData.data[0].mthpay_NONJCIC_C=data_number2(fmData.data[0].mthpay_NONJCIC_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()=='APPLCreditL2'" > <input class="data_right"  [(ngModel)]="fmData.data[0].mthpay_NONJCIC_C" (keyup)="fmData.data[0].mthpay_NONJCIC_C=data_number2(fmData.data[0].mthpay_NONJCIC_C)" maxlength="20" /></div>
+            <div style="padding:0px" *ngIf="getstepName()!='APPLCreditL2'" > <input class="data_right"  disabled  [(ngModel)]="fmData.data[0].mthpay_NONJCIC_C" (keyup)="fmData.data[0].mthpay_NONJCIC_C=data_number2(fmData.data[0].mthpay_NONJCIC_C)" maxlength="20" /></div>
           </td>
         </tr>
         <tr *ngIf="fmData.data.length>0">

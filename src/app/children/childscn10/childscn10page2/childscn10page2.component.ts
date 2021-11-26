@@ -25,6 +25,8 @@ export class Childscn10page2Component implements OnInit {
 
   private applno: string;
   private search: string;
+  private stepName: string;
+
   fmData = new MatTableDataSource<any>();////DBR收支表資料 授信
 
   test7 = 10000
@@ -191,6 +193,7 @@ export class Childscn10page2Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
+    this.stepName = sessionStorage.getItem('stepName');;
     this.getDSS21();
     this.getDSS22();
     this.getDSS23();
@@ -202,6 +205,10 @@ export class Childscn10page2Component implements OnInit {
   }
   getApplno(): String {
     return this.applno;
+  }
+
+  getstepName(): String {
+    return this.stepName;
   }
 
   //取決策1Table
