@@ -23,7 +23,6 @@ export class Childscn22Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.stepName = sessionStorage.getItem('stepName');
-    console.log(this.stepName)
   }
 
   cancel(): void {
@@ -32,8 +31,8 @@ export class Childscn22Component implements OnInit {
 
   public async confirm(): Promise<void> {
     let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['swcNationalId'] = this.cuid;
+    // jsonObject['applno'] = this.applno;
+    // jsonObject['swcNationalId'] = this.cuid;
     let msgStr: string = '';
     if (this.stepName == 'APPLCreditL3') {
       msgStr = await this.childsnc22Service.doDss1Search(jsonObject);
