@@ -92,7 +92,7 @@ export class F01010Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL4EmpNo'] = this.agentEmpNo;
+    jsonObject['swcL3EmpNo'] = this.agentEmpNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
