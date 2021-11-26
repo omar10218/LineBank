@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F03014Service } from '../f03014.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-f03014edit',
@@ -36,6 +37,17 @@ export class F03014editComponent implements OnInit {
     console.log()
 
   }
+  formControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  //欄位驗證
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
+
   InvalidationMax()//抓3個月間隔方法
   {
     var a = new Date(this.Efficient);
@@ -45,6 +57,13 @@ export class F03014editComponent implements OnInit {
   }
   seve()//儲存
   {
+    if(this.IdentityValue == '' || this.NameValue == '' || this.NarrateValue1 == '' ||this.NarrateValue2 == null || this.remakrValue == null || this.Efficient == '' || this.Invalidation == '' || this.usingValue == '')
+    {
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請勿填空" }});
+    }
+   else
+   {
     let msgStr: string = "";
     let jsonObject: any = {};
     const url = 'f03/f03014action03';
@@ -76,8 +95,9 @@ export class F03014editComponent implements OnInit {
         });
 
       }
-
     })
+   }
+
   }
   onNoClick()//取消
   {
