@@ -8,6 +8,7 @@ import { Childscn20Component } from 'src/app/children/childscn20/childscn20.comp
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01002Scn1Service } from './f01002scn1.service';
 import { Childscn22Component } from 'src/app/children/childscn22/childscn22.component';
+import { Childscn24Component } from 'src/app/children/childscn24/childscn24.component';
 import { F01001Scn1Service } from 'src/app/f01001/f01001scn1/f01001scn1.service';
 import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
 
@@ -117,6 +118,17 @@ export class F01002scn1Component implements OnInit {
       data: {
         applno: this.applno,
         cuid: this.cuid
+      }
+    });
+  }
+  sendBack() {
+    const dialogRef = this.dialog.open(Childscn24Component, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight: '50%',
+      width: '30%',
+      data: {
+        applno: this.applno,
+        level:sessionStorage.getItem('level'),
       }
     });
   }

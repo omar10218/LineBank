@@ -53,6 +53,15 @@ export class F03012addComponent implements OnInit {
 		// 	}
 		// })
 	}
+  formControl = new FormControl('', [
+    Validators.required
+  ]);
+  //欄位驗證
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
 
   getData(){
     this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
@@ -96,10 +105,6 @@ export class F03012addComponent implements OnInit {
 		// })
 	}
 
-	formControl = new FormControl('', [
-		Validators.required,
-		// Validators.email,
-	])
 
 	add() {
 		let msg = ''
@@ -155,5 +160,6 @@ export class F03012addComponent implements OnInit {
 		this.setValueLow = ''
 
 	}
+
 	ngAfterViewInit(): void {}
 }

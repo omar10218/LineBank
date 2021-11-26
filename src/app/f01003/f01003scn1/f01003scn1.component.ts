@@ -5,7 +5,7 @@ import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
 import { Childscn22Component } from 'src/app/children/childscn22/childscn22.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01003Scn1Service } from './f01003scn1.service';
-
+import { Childscn24Component } from 'src/app/children/childscn24/childscn24.component';
 @Component({
   selector: 'app-f01003scn1',
   templateUrl: './f01003scn1.component.html',
@@ -231,7 +231,18 @@ export class F01003scn1Component implements OnInit {
     sessionStorage.removeItem("caPmcus");
     sessionStorage.removeItem("caRisk");
   }
-
+  // 退件
+  sendBack() {
+    const dialogRef = this.dialog.open(Childscn24Component, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight: '50%',
+      width: '30%',
+      data: {
+        applno: this.applno,
+        level:sessionStorage.getItem('level'),
+      }
+    });
+  }
   //儲存
   public async saveMemo(): Promise<void> {
     this.removeSession();
