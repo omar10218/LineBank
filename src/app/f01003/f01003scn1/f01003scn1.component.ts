@@ -183,7 +183,7 @@ export class F01003scn1Component implements OnInit {
     jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
     jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
 
-    if ( url == 'f01/childscn0action1' ) {
+    if (url == 'f01/childscn0action1') {
       this.result(baseUrl, jsonObject, result);
     } else {
       if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
@@ -192,12 +192,43 @@ export class F01003scn1Component implements OnInit {
         });
       } else {
         if (this.creditResult == 'A') {
-          if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '' && this.periodType != '' && this.period != '' && this.mark != '' && this.mark != null) {
-            this.result(baseUrl, jsonObject, result);
-          } else {
+          if (this.approveAmt == '' || this.approveAmt == null) {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
-              data: { msgStr: '審核結果未填寫' }
+              data: { msgStr: '核准額度未填寫' }
             });
+            return;
+          } else if (this.lowestPayRate == '' || this.lowestPayRate == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '每月最低還款比率未填寫' }
+            });
+            return;
+          } else if (this.approveInterest == '' || this.approveInterest == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '核准利率未填寫' }
+            });
+            return;
+          } else if (this.interest == '' || this.interest == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '利率未填寫' }
+            });
+            return;
+          } else if (this.interestType == '' || this.interestType == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '利率型態未填寫' }
+            });
+            return;
+          } else if (this.periodType == '' || this.periodType == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '期別未填寫' }
+            });
+            return;
+          } else if (this.mark == '' || this.mark == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '審核註記未填寫' }
+            });
+            return;
+          } else {
+            this.result(baseUrl, jsonObject, result);
           }
         } else {
           this.result(baseUrl, jsonObject, result);
