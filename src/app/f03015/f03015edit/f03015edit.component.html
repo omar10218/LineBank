@@ -9,7 +9,7 @@
           <div class="form" style="padding:20px">
             <div>
               <nz-form-label nzFor="website"><span class="form-title-actions">行職業代碼</span></nz-form-label>
-              <input nz-input #input class="form-control" name="INDUC_CODE" formControlName="INDUC_CODE" readonly>
+              <input nz-input #input class="form-control" name="INDUC_CODE" formControlName="INDUC_CODE" readonly disabled>
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@
       <div mat-dialog-actions>
         <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
           (click)="insert == true ? updateData() : confirmAdd() ">儲存</button>
-        <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="onNoClick()" tabindex="-1"
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
           style="margin:0px 5px">取消</button>
       </div>
       <br><br>

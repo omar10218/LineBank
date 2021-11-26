@@ -1,78 +1,42 @@
-<div class="line_bank_card_no_padding" style="min-height:170px">
+
+<div class="line_bank_card_no_padding">
   <div class="line_bank_form_header_title">話術維護-編輯</div>
-  <div class="container" style="padding:20px">
-    <form class="mat-dialog-content" #formControl="ngForm">
-      <div class="form" style="padding:20px">
-        <div><span class="form-title-actions">話術簡稱</span><input matInput #input class="form-control"
-            [(ngModel)]="data.speakingAbbreviation" name="speakingAbbreviation" disabled>
+  <div>
+    <form class="mat-dialog-content  nz-row" #formControl="ngForm">
+      <div nz-col nzSpan="24">
+        <div class="form">
+          <div><span class="form-title-actions">話術簡稱</span><input matInput #input class="form-control"
+              [(ngModel)]="data.speakingAbbreviation" name="speakingAbbreviation" disabled>
+          </div>
         </div>
-
       </div>
-      <div class="form" style="padding:20px">
-        <div><span class="form-title-actions">話術內容</span><textarea matInput
-            style="width: 100%;height:200px;background-color:#E6E6E6;border-radius:10px;border:none"
-            [(ngModel)]="data.speakingContent" name="speakingContent" required></textarea>
-          <mat-error *ngIf="formControl.invalid && (data.speakingContent=='' || data.speakingContent== null) ">{{getErrorMessage()}}</mat-error>
+      <div nz-col nzSpan="24">
+        <div class="form">
+          <div><span class="form-title" style="width: 100%;">話術內容</span><textarea matInput class="input-textarea"
+              [(ngModel)]="data.speakingContent" name="speakingContent" required></textarea>
+            <mat-error *ngIf="formControl.invalid && (data.speakingContent=='' || data.speakingContent== null) ">{{getErrorMessage()}}</mat-error>
+          </div>
         </div>
-
       </div>
-
-      <div class="form" style="padding:20px">
-        <div><span class="form-title-actions">暫停使用</span>
-          <nz-select [(ngModel)]="data.stopFlag"  name="stopFlag">
-            <nz-option nzValue="{{code.value}}" *ngFor="let code of stopFlagCode" nzLabel="{{code.value}}" ></nz-option>
-          </nz-select>
-          <!-- <mat-select [(ngModel)]="data.stopFlag" name="stopFlag"
-            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
-            <mat-option *ngFor="let code of stopFlagCode" [value]="code.value">
-              {{code.viewValue}}
-            </mat-option>
-          </mat-select> -->
-          <mat-error *ngIf="formControl.invalid && (data.stopFlag=='' || data.stopFlag== null) ">{{getErrorMessage()}}</mat-error>
+      <div nz-col nzSpan="24">
+        <div class="form">
+          <div><span class="form-title" style="margin:0">暫停使用</span>
+            <mat-select style="width:10%;" [(ngModel)]="data.stopFlag" name="stopFlag">
+              <mat-option [value]="code.value" *ngFor="let code of stopFlagCode">{{code.value}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControl.invalid && (data.stopFlag=='' || data.stopFlag== null) ">{{getErrorMessage()}}
+            </mat-error>
+          </div>
         </div>
-
       </div>
+      <div nz-col nzSpan="24">
+        <div class="button-group" style="text-align:center">
+          <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+            style="margin:0px 5px" (click)="save()">儲存</button>
+          <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+            style="margin:0px 5px">取消</button>
 
-      <div mat-dialog-actions style="margin:0 auto;width:12vw;">
-        <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1" style="margin:0px 5px"
-          (click)="save()">儲存</button>
-        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1" style="margin:0px 5px">取消</button>
-
+        </div>
       </div>
     </form>
   </div>
-</div>
-<!-- <div class="container">
-  <form class="mat-dialog-content" #formControl="ngForm">
-    <div class="form">
-      <th nowrap="nowrap">話術簡稱</th>
-      <mat-form-field color="accent">
-        <input matInput #input class="form-control" [(ngModel)]="data.speakingAbbreviation" name="speakingAbbreviation"
-          disabled>
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form">
-      <th nowrap="nowrap">話術內容</th>
-      <mat-form-field color="accent">
-        <textarea matInput style="width: 1000PX;height:200px;" [(ngModel)]="data.speakingContent" name="speakingContent"
-          required></textarea>
-        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="form">
-      <th nowrap="nowrap">暫停使用</th>
-      <mat-form-field color="accent">
-        <mat-select [(ngModel)]="data.stopFlag" name="stopFlag">
-          <mat-option *ngFor="let code of stopFlagCode" [value]="code.value">
-            {{code.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-button [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="save()">Save</button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
-    </div>
-  </form>
-</div> -->

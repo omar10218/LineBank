@@ -12,7 +12,7 @@
       </div>
       <div nz-col nzSpan="24">
         <div class="form">
-          <div><span class="form-title">話術內容</span><textarea matInput class="input-textarea"
+          <div><span class="form-title" style="width: 100%;">話術內容</span><textarea matInput class="input-textarea"
               [(ngModel)]="data.speakingContent" name="speakingContent" required></textarea>
             <mat-error *ngIf="formControl.invalid && (data.speakingContent=='' || data.speakingContent== null) ">{{getErrorMessage()}}</mat-error>
           </div>
@@ -21,9 +21,9 @@
       <div nz-col nzSpan="24">
         <div class="form">
           <div><span class="form-title" style="margin:0">暫停使用</span>
-            <nz-select [(ngModel)]="data.stopFlag"  name="stopFlag">
-              <nz-option nzValue="{{code.viewValue}}" *ngFor="let code of stopFlagCode" nzLabel="{{code.viewValue}}" ></nz-option>
-            </nz-select>
+            <mat-select style="width:10%;" [(ngModel)]="data.stopFlag"  name="stopFlag">
+              <mat-option  [value]="code.viewValue"  *ngFor="let code of stopFlagCode"  >{{code.viewValue}}</mat-option>
+            </mat-select>
             <mat-error *ngIf="formControl.invalid && (data.stopFlag=='' || data.stopFlag== null) ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>

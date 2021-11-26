@@ -23,6 +23,7 @@ export class F01001scn1Component implements OnInit {
   private creditLevel: string = 'APPLCreditL4';
   private applno: string;
   private search: string;
+  private page: string;
   private cuid: string;
   private routerCase: string;
   fds: string
@@ -37,6 +38,7 @@ export class F01001scn1Component implements OnInit {
     this.fds = sessionStorage.getItem('fds');
     this.level = sessionStorage.getItem('level');
     this.winClose = sessionStorage.getItem('winClose');
+    this.page = sessionStorage.getItem('page');
   }
 
   ngAfterViewInit() {
@@ -58,6 +60,10 @@ export class F01001scn1Component implements OnInit {
 
   getLevel(): string {
     return this.creditLevel;
+  }
+
+  getPage(): string {
+    return this.page;
   }
 
   reScan() {

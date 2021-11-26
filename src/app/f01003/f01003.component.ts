@@ -87,7 +87,7 @@ export class F01003Component implements OnInit, AfterViewInit {
     jsonObject['swcL2EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
-    this.loading = false;
+    jsonObject['caseType'] = this.caseType;
     this.f01003Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
@@ -125,7 +125,8 @@ export class F01003Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
-        sessionStorage.setItem('level', 'L2');
+        sessionStorage.setItem('level', '2');
+        sessionStorage.setItem('page', '3');
         sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01003/F01003SCN1']);
       }

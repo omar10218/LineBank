@@ -1,5 +1,6 @@
 <div class="line_bank_bankground_color">
   <div nz-row class="search_row">
+    <th style="padding-left: 20px;">Fraud案件清單 共{{this.total}}件</th>
     <div class="search_row_header">
       <div nz-col>
         <div nz-row>
@@ -44,7 +45,7 @@
         <div class="line_bank_card_no_padding">
           <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
             [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable
-            style="height:100%" nzFooter="案件數: {{this.total}} 件" nzSize="small" [nzScroll]="{ x: '1500px', y:'500px'}"
+            style="height:100%" nzSize="small" [nzScroll]="{ x: '1500px', y:'500px'}"
             (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
               <!-- <div style="text-align:right;width: 90vw; font-size: 16px;">

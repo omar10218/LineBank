@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { F03014Service } from '../f03014.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { FormControl, Validators } from '@angular/forms';
 
 
 interface sysCode {
@@ -44,6 +45,18 @@ export class F03014addComponent implements OnInit {
     this.usingType.push({ value: '2', viewValue: 'N' });
     this.currentTimeValue = this.pipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')//抓取現在時間
   }
+
+  formControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  //欄位驗證
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
+
   InvalidationMax()//抓3個月間隔方法
   {
     var a = new Date(this.Efficient);
@@ -92,6 +105,9 @@ export class F03014addComponent implements OnInit {
   {
     this.dialogRef.close();
   }
-
+  // test()
+  // {
+  //   console.log(this.custNid)
+  // }
 
 }
