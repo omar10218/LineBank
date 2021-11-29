@@ -139,10 +139,10 @@ export class F01001scn1Component implements OnInit {
       json['creditResult'] = this.creditResult;
       jsonObject['creditResult'] = json;
       this.f01001Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: data.rspMsg }
+        });
         this.router.navigate(['./F01001']);
-      });
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: result }
       });
     // }
   }

@@ -239,10 +239,10 @@ export class F01002scn1Component implements OnInit {
     this.saveMemo();
     this.f01002scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       this.removeSession();
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: data.rspMsg }
+      });
       this.router.navigate(['./F01002']);
-    });
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: result }
     });
   }
 

@@ -32,8 +32,8 @@ export class Childscn1Component implements OnInit {
   nationalId: string;                           //身分證
   //客戶身分名單註記(待確認)
   prodCode: string;                             //申請產品
-  applicationAmount: number;                    //申請金額
-  caApplicationAmount: number;
+  applicationAmount: string;                    //申請金額
+  caApplicationAmount: string;
   purposeCode: string;                           //貸款用途
   caPmcus: string;
   caRisk: string
@@ -95,7 +95,7 @@ export class Childscn1Component implements OnInit {
   creditResultCode: OptionsCode[] = [];//核決結果下拉選單
   resultProdCode: string;
   resultPrjCode: string;
-  resultApproveAmt: number;
+  resultApproveAmt: string;
   resultLowestPayRate: number;
 
   periodTypeCode: OptionsCode[] = [];//期別下拉選單
@@ -161,17 +161,16 @@ export class Childscn1Component implements OnInit {
 
       //CreditAuditinfo
       if (data.rspBody.CreditAuditinfoList.length > 0) {
-        console.log(data.rspBody.CreditAuditinfoList)
         this.cuCName = data.rspBody.CreditAuditinfoList[0].cuCname;
         this.custId = data.rspBody.CreditAuditinfoList[0].custId;
         this.nationalId = data.rspBody.CreditAuditinfoList[0].nationalId;
         this.prodCode = data.rspBody.CreditAuditinfoList[0].prodCode;
-        this.applicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount;
-        this.caApplicationAmount = data.rspBody.CreditAuditinfoList[0].caApplicationAmount;
-        if (data.rspBody.CreditAuditinfoList[0].caApplicationAmount == 0 || data.rspBody.CreditAuditinfoList[0].caApplicationAmount == '' || data.rspBody.CreditAuditinfoList[0].caApplicationAmount == null) {
-          this.caApplicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount;
+        this.applicationAmount = this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
+        this.caApplicationAmount = this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
+        if (data.rspBody.CreditAuditinfoList[0].caApplicationAmount != 0 || data.rspBody.CreditAuditinfoList[0].caApplicationAmount != '' || data.rspBody.CreditAuditinfoList[0].caApplicationAmount != null) {
+          this.caApplicationAmount = this.toCurrency(data.rspBody.CreditAuditinfoList[0].caApplicationAmount.toString());
         }
-        sessionStorage.setItem('caApplicationAmount', data.rspBody.CreditAuditinfoList[0].caApplicationAmount );
+        sessionStorage.setItem('caApplicationAmount', data.rspBody.CreditAuditinfoList[0].caApplicationAmount);
         this.purposeCode = data.rspBody.CreditAuditinfoList[0].purposeCode;
       }
 
@@ -246,7 +245,7 @@ export class Childscn1Component implements OnInit {
         this.resultPrjCode = data.rspBody.resultList[0].prjCode;
         this.creditResult = data.rspBody.resultList[0].creditResult;
         sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult ? data.rspBody.resultList[0].creditResult : '');
-        this.resultApproveAmt = data.rspBody.resultList[0].approveAmt;
+        this.resultApproveAmt = this.toCurrency(data.rspBody.resultList[0].approveAmt.toString());
         sessionStorage.setItem('resultApproveAmt', data.rspBody.resultList[0].approveAmt ? data.rspBody.resultList[0].approveAmt : '');
         this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
         sessionStorage.setItem('resultLowestPayRate', data.rspBody.resultList[0].lowestPayRate ? data.rspBody.resultList[0].lowestPayRate : '');
@@ -365,13 +364,13 @@ export class Childscn1Component implements OnInit {
     } else {
       this.interestValue = '';
       this.interestBase = 0
-      console.log("====1====>"+this.interestBase)
+      console.log("====1====>" + this.interestBase)
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
     }
     sessionStorage.setItem('approveInterest', this.approveInterest.toString());
     sessionStorage.setItem('interestType', this.interestType);
     sessionStorage.setItem('interest', this.interest.toString());
-    console.log("====2====>"+this.interestBase)
+    console.log("====2====>" + this.interestBase)
     sessionStorage.setItem('interestBase', this.interestBase.toString());
   }
 
@@ -429,7 +428,8 @@ export class Childscn1Component implements OnInit {
     return true;
   }
 
-  getStyle(value: any) {
+  getStyle(value: string) {
+    value = this.toNumber(value);
     return {
       'text-align': this.isNumber(value) ? 'right' : 'left'
     }
@@ -453,5 +453,15 @@ export class Childscn1Component implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getCreditmemo(this.pageIndex, this.pageSize);
     });
+  }
+
+  //+逗號
+  toCurrency(amount: string) {
+    return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
+  }
+
+  //去除符號/中英文
+  toNumber(data: string) {
+    return data != null ? data.replace(/[^\d]/g, '') : data;
   }
 }
