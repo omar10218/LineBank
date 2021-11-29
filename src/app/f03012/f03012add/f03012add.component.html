@@ -19,7 +19,7 @@
         <div nz-col nzSpan="12">
           <div style="padding:10px">
             <span class="form-title">比對欄位</span>
-            <mat-select [(ngModel)]="selectedValue2" required
+            <mat-select [(ngModel)]="selectedValue2" name="selectedValue2" required
             >
               <mat-option *ngFor="let code of selectedColumn" [value]="code.value">
                 {{code.viewValue}}
@@ -33,7 +33,7 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">比對方式</span>
-            <mat-select [(ngModel)]="compareType" required
+            <mat-select [(ngModel)]="compareType" required name="compareType"
             >
               <mat-option [value]=1>絕對值</mat-option>
               <mat-option [value]=2>相對值</mat-option>
@@ -45,14 +45,14 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title" >設定最低門檻</span>
-            <input style="ime-mode:disabled"  matInput [(ngModel)]="setValueLow" required>
+            <input style="ime-mode:disabled"  matInput [(ngModel)]="setValueLow" required  name="setValueLow">
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">設定最高高檻</span>
-            <input matInput [(ngModel)]="setValueHight" required>
+            <input matInput [(ngModel)]="setValueHight" required  name="setValueHight">
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
