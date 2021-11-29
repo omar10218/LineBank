@@ -27,7 +27,7 @@ export class Childscn10page2Component implements OnInit {
   private search: string;
   private stepName: string;
 
-  fmData = new MatTableDataSource<any>();////DBR收支表資料 授信
+  // fmData = new MatTableDataSource<any>();////DBR收支表資料 授信
 
   test7 = 10000
   test1 = "1"; test2 = "2"; test3 = "3";
@@ -197,7 +197,7 @@ export class Childscn10page2Component implements OnInit {
     this.getDSS21();
     this.getDSS22();
     this.getDSS23();
-    this.getDBR_DTI();
+    // this.getDBR_DTI();
   }
 
   getSearch(): string {
@@ -446,142 +446,142 @@ export class Childscn10page2Component implements OnInit {
     });
   }
 
-  //取DBR收支表資料 授信
-  getDBR_DTI() {
-    this.applno = sessionStorage.getItem('applno');
-    const url = 'f01/childscn10action4';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    //測試用
-    // jsonObject['applno'] = '20210827E000';
-    jsonObject['dssType'] = "Dss2";
-    this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
-      if (data.rspBody.length > 0) {
-        this.fmData.data = data.rspBody
+  // //取DBR收支表資料 授信
+  // getDBR_DTI() {
+  //   this.applno = sessionStorage.getItem('applno');
+  //   const url = 'f01/childscn10action4';
+  //   let jsonObject: any = {};
+  //   jsonObject['applno'] = this.applno;
+  //   //測試用
+  //   // jsonObject['applno'] = '20210827E000';
+  //   jsonObject['dssType'] = "Dss2";
+  //   this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
+  //     if (data.rspBody.length > 0) {
+  //       this.fmData.data = data.rspBody
 
-        this.fmData.data[0].unsdebt_AMT_501EX_C = this.data_number2(this.fmData.data[0].unsdebt_AMT_501EX_C);
-        this.fmData.data[0].unsdebt_AMT_504EX_C = this.data_number2(this.fmData.data[0].unsdebt_AMT_504EX_C);
-        this.fmData.data[0].unsdebt_AMTNEW_505EX_C = this.data_number2(this.fmData.data[0].unsdebt_AMTNEW_505EX_C);
-        this.fmData.data[0].unsdebt_AMTNEW_029EX_C = this.data_number2(this.fmData.data[0].unsdebt_AMTNEW_029EX_C);
-        this.fmData.data[0].unsdebt_824_RLLIMIT_C = this.data_number2(this.fmData.data[0].unsdebt_824_RLLIMIT_C);
-        this.fmData.data[0].unsdebt_824_RLBAL_C = this.data_number2(this.fmData.data[0].unsdebt_824_RLBAL_C);
-        this.fmData.data[0].unsdebt_824_ILBAL_C = this.data_number2(this.fmData.data[0].unsdebt_824_ILBAL_C);
-        this.fmData.data[0].unsdebt_824_CCRBAL_C = this.data_number2(this.fmData.data[0].unsdebt_824_CCRBAL_C);
-        this.fmData.data[0].unsdebt_NONJCIC_C = this.data_number2(this.fmData.data[0].unsdebt_NONJCIC_C);
-        this.fmData.data[0].unsdebt_PAYAMT_029EX_C = this.data_number2(this.fmData.data[0].unsdebt_PAYAMT_029EX_C);
+  //       this.fmData.data[0].unsdebt_AMT_501EX_C = this.data_number2(this.fmData.data[0].unsdebt_AMT_501EX_C);
+  //       this.fmData.data[0].unsdebt_AMT_504EX_C = this.data_number2(this.fmData.data[0].unsdebt_AMT_504EX_C);
+  //       this.fmData.data[0].unsdebt_AMTNEW_505EX_C = this.data_number2(this.fmData.data[0].unsdebt_AMTNEW_505EX_C);
+  //       this.fmData.data[0].unsdebt_AMTNEW_029EX_C = this.data_number2(this.fmData.data[0].unsdebt_AMTNEW_029EX_C);
+  //       this.fmData.data[0].unsdebt_824_RLLIMIT_C = this.data_number2(this.fmData.data[0].unsdebt_824_RLLIMIT_C);
+  //       this.fmData.data[0].unsdebt_824_RLBAL_C = this.data_number2(this.fmData.data[0].unsdebt_824_RLBAL_C);
+  //       this.fmData.data[0].unsdebt_824_ILBAL_C = this.data_number2(this.fmData.data[0].unsdebt_824_ILBAL_C);
+  //       this.fmData.data[0].unsdebt_824_CCRBAL_C = this.data_number2(this.fmData.data[0].unsdebt_824_CCRBAL_C);
+  //       this.fmData.data[0].unsdebt_NONJCIC_C = this.data_number2(this.fmData.data[0].unsdebt_NONJCIC_C);
+  //       this.fmData.data[0].unsdebt_PAYAMT_029EX_C = this.data_number2(this.fmData.data[0].unsdebt_PAYAMT_029EX_C);
 
-        this.fmData.data[0].mthpay_BAM421_C = this.data_number2(this.fmData.data[0].mthpay_BAM421_C);
-        this.fmData.data[0].mthpay_BAM029_C = this.data_number2(this.fmData.data[0].mthpay_BAM029_C);
-        this.fmData.data[0].mthpay_KRM048_C = this.data_number2(this.fmData.data[0].mthpay_KRM048_C);
-        this.fmData.data[0].mthpay_NONJCIC_C = this.data_number2(this.fmData.data[0].mthpay_NONJCIC_C);
+  //       this.fmData.data[0].mthpay_BAM421_C = this.data_number2(this.fmData.data[0].mthpay_BAM421_C);
+  //       this.fmData.data[0].mthpay_BAM029_C = this.data_number2(this.fmData.data[0].mthpay_BAM029_C);
+  //       this.fmData.data[0].mthpay_KRM048_C = this.data_number2(this.fmData.data[0].mthpay_KRM048_C);
+  //       this.fmData.data[0].mthpay_NONJCIC_C = this.data_number2(this.fmData.data[0].mthpay_NONJCIC_C);
 
-        //測試用
+  //       //測試用
 
-        // this.fmData.data[0].unsdebt_AMT_504EX_C = "1";
-        // this.fmData.data[0].unsdebt_AMTNEW_505EX_C = "1";
-        // this.fmData.data[0].unsdebt_AMTNEW_029EX_C = "1";
-        // this.fmData.data[0].unsdebt_824_RLLIMIT_C = "1";
-        // this.fmData.data[0].unsdebt_824_RLBAL_C = "1";
-        // this.fmData.data[0].unsdebt_824_ILBAL_C = "1";
-        // this.fmData.data[0].unsdebt_824_C = "1";
-        // this.fmData.data[0].unsdebt_NONJCIC_C = "1";
-        // this.fmData.data[0].unsdebt_PAYAMT_029EX_C = "1";
+  //       // this.fmData.data[0].unsdebt_AMT_504EX_C = "1";
+  //       // this.fmData.data[0].unsdebt_AMTNEW_505EX_C = "1";
+  //       // this.fmData.data[0].unsdebt_AMTNEW_029EX_C = "1";
+  //       // this.fmData.data[0].unsdebt_824_RLLIMIT_C = "1";
+  //       // this.fmData.data[0].unsdebt_824_RLBAL_C = "1";
+  //       // this.fmData.data[0].unsdebt_824_ILBAL_C = "1";
+  //       // this.fmData.data[0].unsdebt_824_C = "1";
+  //       // this.fmData.data[0].unsdebt_NONJCIC_C = "1";
+  //       // this.fmData.data[0].unsdebt_PAYAMT_029EX_C = "1";
 
-        // this.fmData.data[0].mthpay_BAM421_C = "1";
-        // this.fmData.data[0].mthpay_BAM029_C = "1";
-        // this.fmData.data[0].mthpay_KRM048_C = "1";
-        // this.fmData.data[0].mthpay_NONJCIC_C = "1";
-        // this.fmData.data[0].unsdebt_AMT_501EX = "1";
-        // this.fmData.data[0].unsdebt_AMT_504EX = "1";
-        // this.fmData.data[0].unsdebt_AMTNEW_505EX = "1";
-        // this.fmData.data[0].unsdebt_AMTNEW_029EX = "1";
-        // this.fmData.data[0].unsdebt_824_RLLIMIT = "1";
-        // this.fmData.data[0].unsdebt_824_RLBAL = "1";
-        // this.fmData.data[0].unsdebt_824_ILBAL = "1";
-        // this.fmData.data[0].unsdebt_824 = "1";
-        // this.fmData.data[0].unsdebt_NONJCIC = "1";
-        // this.fmData.data[0].unsdebt_PAYAMT_029EX = "1";
+  //       // this.fmData.data[0].mthpay_BAM421_C = "1";
+  //       // this.fmData.data[0].mthpay_BAM029_C = "1";
+  //       // this.fmData.data[0].mthpay_KRM048_C = "1";
+  //       // this.fmData.data[0].mthpay_NONJCIC_C = "1";
+  //       // this.fmData.data[0].unsdebt_AMT_501EX = "1";
+  //       // this.fmData.data[0].unsdebt_AMT_504EX = "1";
+  //       // this.fmData.data[0].unsdebt_AMTNEW_505EX = "1";
+  //       // this.fmData.data[0].unsdebt_AMTNEW_029EX = "1";
+  //       // this.fmData.data[0].unsdebt_824_RLLIMIT = "1";
+  //       // this.fmData.data[0].unsdebt_824_RLBAL = "1";
+  //       // this.fmData.data[0].unsdebt_824_ILBAL = "1";
+  //       // this.fmData.data[0].unsdebt_824 = "1";
+  //       // this.fmData.data[0].unsdebt_NONJCIC = "1";
+  //       // this.fmData.data[0].unsdebt_PAYAMT_029EX = "1";
 
-        // this.fmData.data[0].mthpay_BAM421 = "1";
-        // this.fmData.data[0].mthpay_BAM029 = "1";
-        // this.fmData.data[0].mthpay_KRM048 = "1";
-        // this.fmData.data[0].mthpay_NONJCIC = "1";
-
-
-      }
-      console.log('DBR_DTI_Data');
-      console.log(this.fmData.data);
-    });
-  }
+  //       // this.fmData.data[0].mthpay_BAM421 = "1";
+  //       // this.fmData.data[0].mthpay_BAM029 = "1";
+  //       // this.fmData.data[0].mthpay_KRM048 = "1";
+  //       // this.fmData.data[0].mthpay_NONJCIC = "1";
 
 
-  //去除符號中文
-  data_number(x: string) {
-    if (x != null) {
-      x = x.replace(/[^\d]/g, '');
-      x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    }
-    return x
-  }
-  //去除符號中文 可負號
-  data_number2(x: string) {
-    if (x != null) {
-      x = x.replace(/[^\d-]/g, '');
-      x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    }
-    return x
-  }
+  //     }
+  //     console.log('DBR_DTI_Data');
+  //     console.log(this.fmData.data);
+  //   });
+  // }
 
-  //去除符號/中文 可負號 儲存用
-  save_data_number(x: string) {
-    if (x != null) {
-      x = x.replace(/[^\d]/g, '');
-    }
-    return x
-  }
 
-  //去除符號/中文 可負號 儲存用
-  save_data_number2(x: string) {
-    if (x != null) {
-      x = x.replace(/[^\d-]/g, '');
-    }
-    return x
-  }
+  // //去除符號中文
+  // data_number(x: string) {
+  //   if (x != null) {
+  //     x = x.replace(/[^\d]/g, '');
+  //     x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  //   }
+  //   return x
+  // }
+  // //去除符號中文 可負號
+  // data_number2(x: string) {
+  //   if (x != null) {
+  //     x = x.replace(/[^\d-]/g, '');
+  //     x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  //   }
+  //   return x
+  // }
 
-  //儲存 DBR收支表資料 授信
-  save() {
-    let msg = "";
-    const url = 'f01/childscn10action5';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    //測試用
-    // jsonObject['applno'] = '20210827E000';
-    jsonObject['dssType'] = "Dss2";
-    jsonObject['unsdebtAmt501Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_AMT_501EX_C);
-    jsonObject['unsdebtAmt504Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_AMT_504EX_C);
-    jsonObject['unsdebtAmtnew505Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_AMTNEW_505EX_C);
-    jsonObject['unsdebtAmtnew029Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_AMTNEW_029EX_C);
-    jsonObject['unsdebt824Rllimit'] = this.save_data_number(this.fmData.data[0].unsdebt_824_RLLIMIT_C);
-    jsonObject['unsdebt824Rlbal'] = this.save_data_number(this.fmData.data[0].unsdebt_824_RLBAL_C);
-    jsonObject['unsdebt824Ilbal'] = this.save_data_number(this.fmData.data[0].unsdebt_824_ILBAL_C);
-    jsonObject['unsdebt824Ccrbal'] = this.save_data_number(this.fmData.data[0].unsdebt_824_CCRBAL_C);
-    jsonObject['unsdebtNonjcic'] = this.save_data_number2(this.fmData.data[0].unsdebt_NONJCIC_C);
-    jsonObject['unsdebtPayamt029Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_PAYAMT_029EX_C);
-    jsonObject['mthpayBam421'] = this.save_data_number(this.fmData.data[0].mthpay_BAM421_C);
-    jsonObject['mthpayBam029'] = this.save_data_number(this.fmData.data[0].mthpay_BAM029_C);
-    jsonObject['mthpayKrm048'] = this.save_data_number(this.fmData.data[0].mthpay_KRM048_C);
-    jsonObject['mthpayNonjcic'] = this.save_data_number2(this.fmData.data[0].mthpay_NONJCIC_C);
-    console.log('jsonObject')
-    console.log(jsonObject)
-    this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
-      msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: msg }
-      });
-      console.log('savedata')
-      console.log(data)
-    });
-  }
+  // //去除符號/中文 可負號 儲存用
+  // save_data_number(x: string) {
+  //   if (x != null) {
+  //     x = x.replace(/[^\d]/g, '');
+  //   }
+  //   return x
+  // }
+
+  // //去除符號/中文 可負號 儲存用
+  // save_data_number2(x: string) {
+  //   if (x != null) {
+  //     x = x.replace(/[^\d-]/g, '');
+  //   }
+  //   return x
+  // }
+
+  // //儲存 DBR收支表資料 授信
+  // save() {
+  //   let msg = "";
+  //   const url = 'f01/childscn10action5';
+  //   let jsonObject: any = {};
+  //   jsonObject['applno'] = this.applno;
+  //   //測試用
+  //   // jsonObject['applno'] = '20210827E000';
+  //   jsonObject['dssType'] = "Dss2";
+  //   jsonObject['unsdebtAmt501Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_AMT_501EX_C);
+  //   jsonObject['unsdebtAmt504Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_AMT_504EX_C);
+  //   jsonObject['unsdebtAmtnew505Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_AMTNEW_505EX_C);
+  //   jsonObject['unsdebtAmtnew029Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_AMTNEW_029EX_C);
+  //   jsonObject['unsdebt824Rllimit'] = this.save_data_number(this.fmData.data[0].unsdebt_824_RLLIMIT_C);
+  //   jsonObject['unsdebt824Rlbal'] = this.save_data_number(this.fmData.data[0].unsdebt_824_RLBAL_C);
+  //   jsonObject['unsdebt824Ilbal'] = this.save_data_number(this.fmData.data[0].unsdebt_824_ILBAL_C);
+  //   jsonObject['unsdebt824Ccrbal'] = this.save_data_number(this.fmData.data[0].unsdebt_824_CCRBAL_C);
+  //   jsonObject['unsdebtNonjcic'] = this.save_data_number2(this.fmData.data[0].unsdebt_NONJCIC_C);
+  //   jsonObject['unsdebtPayamt029Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_PAYAMT_029EX_C);
+  //   jsonObject['mthpayBam421'] = this.save_data_number(this.fmData.data[0].mthpay_BAM421_C);
+  //   jsonObject['mthpayBam029'] = this.save_data_number(this.fmData.data[0].mthpay_BAM029_C);
+  //   jsonObject['mthpayKrm048'] = this.save_data_number(this.fmData.data[0].mthpay_KRM048_C);
+  //   jsonObject['mthpayNonjcic'] = this.save_data_number2(this.fmData.data[0].mthpay_NONJCIC_C);
+  //   console.log('jsonObject')
+  //   console.log(jsonObject)
+  //   this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
+  //     msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
+  //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+  //       data: { msgStr: msg }
+  //     });
+  //     console.log('savedata')
+  //     console.log(data)
+  //   });
+  // }
 
 
 }

@@ -426,15 +426,15 @@
       </div>
     </form>
   </div>
-
+<!--
   <div style="padding-left: 50px;">
     <button *ngIf="getSearch() == 'N' && getstepName()=='APPLCreditL3' " nz-button [nzSize]="'large'" nzType="primary"
-      (click)="save()">儲存</button>
-    <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save()"
+      (click)="save_B()">儲存</button>
+    <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'large'" nzType="primary" (click)="save_B()"
       disabled>儲存</button>
-  </div>
+  </div> -->
 
-  <div class="line_bank_card_no_padding">
+  <!-- <div class="line_bank_card_no_padding">
     <nz-table nzShowSizeChanger [nzData]="fmData.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
       nzTitle="DBR計算">
       <thead>
@@ -452,13 +452,6 @@
             {{fmData.data[0].unsdebt_AMT_501EX}}
           </td>
           <td>
-            <!-- 另一種寫法 -->
-            <!-- <div *ngIf="getstepName()=='APPLCreditL3'" style="padding:0px"> <input class="data_right"
-              [value]="fmData.data[0].unsdebt_AMT_501EX_B | toNumber | number: '2.'" [(ngModel)]="fmData.data[0].unsdebt_AMT_501EX_B" type="text"
-              maxlength="20" /></div>
-          <div *ngIf="getstepName()!='APPLCreditL3'" style="padding:0px"> <input  class="data_right"
-            [value]="fmData.data[0].unsdebt_AMT_501EX_B | toNumber | number: '2.'" [(ngModel)]="fmData.data[0].unsdebt_AMT_501EX_B" type="text"
-              maxlength="20" disabled /></div> -->
             <div *ngIf="getstepName()=='APPLCreditL3'" style="padding:0px"> <input style="width:97%;margin:5px" class="data_right"
                 [(ngModel)]="fmData.data[0].unsdebt_AMT_501EX_B"
                 (keyup)="fmData.data[0].unsdebt_AMT_501EX_B=data_number(fmData.data[0].unsdebt_AMT_501EX_B)"
@@ -665,10 +658,10 @@
         </tr>
       </tbody>
     </nz-table>
-  </div>
+  </div> -->
 
 
-  <div class="line_bank_card_no_padding">
+  <!-- <div class="line_bank_card_no_padding">
     <nz-table nzShowSizeChanger [nzData]="fmData.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
       nzTitle="收支比計算">
       <thead>
@@ -780,7 +773,7 @@
         </tr>
       </tbody>
     </nz-table>
-  </div>
+  </div> -->
 
   <div class="line_bank_card_no_padding_child">
     <form [formGroup]="dss1Form2">
