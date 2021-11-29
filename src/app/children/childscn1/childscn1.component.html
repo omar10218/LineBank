@@ -35,7 +35,7 @@
       <div nz-col nzFlex="1">
         <div style="padding:3px"><span class="form-title">徵信修改申請金額</span><input matInput #input class="form-control"
             [(ngModel)]="caApplicationAmount" name="caApplicationAmount" [ngStyle]="getStyle(caApplicationAmount)"
-            (keypress)="numberOnly($event)" (ngModelChange)="change(caApplicationAmount,'caApplicationAmount')" required
+            (keypress)="numberOnly($event)" (keyup)="caApplicationAmount = toCurrency(toNumber(caApplicationAmount))" (ngModelChange)="change(toNumber(caApplicationAmount),'caApplicationAmount')" required
             placeholder="輸入金額"></div>
       </div>
       <div nz-col nzFlex="1">
@@ -415,8 +415,8 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">核准額度</span><input matInput #input class="form-control"
-          [(ngModel)]="resultApproveAmt" placeholder="輸入額度"
-          (ngModelChange)="change(resultApproveAmt,'resultApproveAmt')" (keypress)="numberOnly($event)"></div>
+          [(ngModel)]="resultApproveAmt" placeholder="輸入額度" [ngStyle]="getStyle(resultApproveAmt)"
+          (keypress)="numberOnly($event)" (keyup)="resultApproveAmt = toCurrency(toNumber(resultApproveAmt))"  (ngModelChange)="change(toNumber(resultApproveAmt),'resultApproveAmt')"></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">每月最低還款比率</span><input matInput #input class="form-control"
