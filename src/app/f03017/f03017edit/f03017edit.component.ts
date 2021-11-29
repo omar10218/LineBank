@@ -1,16 +1,16 @@
 import { templateJitUrl } from '@angular/compiler'
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core'
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
-import {PageEvent} from '@angular/material/paginator'
-import {Sort} from '@angular/material/sort'
-import {MatTableDataSource} from '@angular/material/table'
-import {ActivatedRoute, Data, Router} from '@angular/router'
-import {NzTableQueryParams} from 'ng-zorro-antd/table'
-import {ChildrenService} from 'src/app/children/children.service'
-import {ConfirmComponent} from 'src/app/common-lib/confirm/confirm.component'
-import {F03015Service} from 'src/app/f03015/f03015.service'
-import {F03017Service} from '../f03017.service'
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { PageEvent } from '@angular/material/paginator'
+import { Sort } from '@angular/material/sort'
+import { MatTableDataSource } from '@angular/material/table'
+import { ActivatedRoute, Data, Router } from '@angular/router'
+import { NzTableQueryParams } from 'ng-zorro-antd/table'
+import { ChildrenService } from 'src/app/children/children.service'
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component'
+import { F03015Service } from 'src/app/f03015/f03015.service'
+import { F03017Service } from '../f03017.service'
 //勾選框
 interface checkBox {
 	value: string
@@ -25,15 +25,15 @@ interface sysCode {
 @Component({
 	selector: 'app-f03017edit',
 	templateUrl: './f03017edit.component.html',
-	styleUrls: ['./f03017edit.component.css' , '../../../assets/css/f03.css'],
+	styleUrls: ['./f03017edit.component.css', '../../../assets/css/f03.css'],
 })
 export class F03017editComponent implements OnInit {
 	reportReason1: sysCode[] = [] //通報原因1下拉
 	reportReason2: sysCode[] = [] //通報原因2下拉
 	reportReason3: sysCode[] = [] //通報原因3下拉
 	useFlag: sysCode[] = [
-		{value: 'Y', viewValue: '是'},
-		{value: 'N', viewValue: '否'},
+		{ value: 'Y', viewValue: '是' },
+		{ value: 'N', viewValue: '否' },
 	] //使用中下拉
 	reportReason1Value: string //通報原因1選擇
 	reportReason2Value: string //通報原因2選擇
@@ -41,24 +41,24 @@ export class F03017editComponent implements OnInit {
 	useFlagValue: string //使用中選擇
 	currentPage: PageEvent
 	currentSort: Sort
-  checked:boolean;
-  // get Element by ID抓取checkboxID值
-  @ViewChild('CU_CNAME') CU_CNAME: ElementRef;
-  @ViewChild('NATIONAL_ID') NATIONAL_ID: ElementRef;
-  @ViewChild('CU_H_TEL') CU_H_TEL: ElementRef;
-  @ViewChild('CU_CP_TEL') CU_CP_TEL: ElementRef;
-  @ViewChild('CU_M_TEL') CU_M_TEL: ElementRef;
+	checked: boolean;
+	// get Element by ID抓取checkboxID值
+	@ViewChild('CU_CNAME') CU_CNAME: ElementRef;
+	@ViewChild('NATIONAL_ID') NATIONAL_ID: ElementRef;
+	@ViewChild('CU_H_TEL') CU_H_TEL: ElementRef;
+	@ViewChild('CU_CP_TEL') CU_CP_TEL: ElementRef;
+	@ViewChild('CU_M_TEL') CU_M_TEL: ElementRef;
 
-	constructor(public f03017Service: F03017Service,public dialogRef: MatDialogRef<F03017editComponent>, private route: ActivatedRoute, public dialog: MatDialog, public childService: ChildrenService, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) {}
+	constructor(public f03017Service: F03017Service, public dialogRef: MatDialogRef<F03017editComponent>, private route: ActivatedRoute, public dialog: MatDialog, public childService: ChildrenService, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
 	blockListForm: FormGroup = this.fb.group({
 		ROWID: [],
 		REPORT_UNIT: [this.data.no, []],
-		REPORT_REASON1: [this.data.reportReason1Value, []],
+		REPORT_REASON1: [this.data.reportReason1Value, [Validators.required]],
 		REPORT_REASON2: [this.data.reportReason2Value, []],
 		REPORT_REASON3: [this.data.reportReason3Value, []],
-		REPORT_CONTENT: [this.data.REPORT_CONTENT, []],
-		USE_FLAG: [this.data.USE_FLAG, []],
+		REPORT_CONTENT: [this.data.REPORT_CONTENT, [Validators.required]],
+		USE_FLAG: [this.data.USE_FLAG, [Validators.required]],
 		BK_COLUMN: [this.data.BK_COLUMN, []],
 		BK_CONTENT: [this.data.BK_CONTENT, []],
 		CU_CNAME: [this.data.CU_CNAME, []],
@@ -70,7 +70,12 @@ export class F03017editComponent implements OnInit {
 		pageSize: ['', [Validators.maxLength(3)]],
 	})
 
-	formControl = new FormControl('', [Validators.required])
+
+	b1 = false;
+	b2 = false;
+	b3 = false;
+	b4 = false;
+	b5 = false;
 
 	blockListDataSource: readonly Data[] = []
 	chkArray: checkBox[] = []
@@ -81,7 +86,21 @@ export class F03017editComponent implements OnInit {
 	loading = true
 	pageSize = 5
 	pageIndex = 1
+	check1: boolean = false
 
+	formControl = new FormControl('', [
+		Validators.required
+	]);
+
+
+
+
+	//欄位驗證
+	getErrorMessage() {
+		return this.formControl.hasError('required') ? '此欄位必填!' :
+			this.formControl.hasError('email') ? 'Not a valid email' :
+				'';
+	}
 	ngOnInit(): void {
 
 		console.log(this.blockListForm)
@@ -95,7 +114,7 @@ export class F03017editComponent implements OnInit {
 
 
 		//抓取資料表
-		this.blockListForm.patchValue({'REPORT_UNIT': this.no})
+		this.blockListForm.patchValue({ 'REPORT_UNIT': this.no })
 		// this.selectBlockList(this.pageIndex, this.pageSize);
 
 		//取Customer_info資料
@@ -108,64 +127,91 @@ export class F03017editComponent implements OnInit {
 				for (const jsonObj of data.rspBody.mappingList) {
 					const codeNo = jsonObj.codeNo
 					const desc = jsonObj.codeDesc
-					this.reportReason1.push({value: codeNo, viewValue: desc})
-					this.reportReason2.push({value: codeNo, viewValue: desc})
-					this.reportReason3.push({value: codeNo, viewValue: desc})
+					this.reportReason1.push({ value: codeNo, viewValue: desc })
+					this.reportReason2.push({ value: codeNo, viewValue: desc })
+					this.reportReason3.push({ value: codeNo, viewValue: desc })
 				}
 			})
 	}
-  ngAfterViewInit(): void {
 
-// 判斷該checkbox有無資料而打勾
-    var checked:boolean=true;
-    if(this.data.BK_COLUMN==="CU_CNAME"){
-      this.CU_CNAME.nativeElement.checked=checked
-      console.log( this.CU_CNAME.nativeElement.checked)
-    }
-    else if(this.data.BK_COLUMN==="NATIONAL_ID"){
-      this.NATIONAL_ID.nativeElement.checked=checked
-      console.log( this.NATIONAL_ID.nativeElement.checked)
-    }
-    else if(this.data.BK_COLUMN==="CU_H_TEL"){
-      this.CU_H_TEL.nativeElement.checked=checked
-    }
-    else if(this.data.BK_COLUMN==="CU_CP_TEL"){
-      this.CU_CP_TEL.nativeElement.checked=checked
-    }
-    else if(this.data.BK_COLUMN==="CU_M_TEL"){
-      this.CU_M_TEL.nativeElement.checked=checked
-    }
-  }
+	ngAfterViewInit(): void {
 
-// 輸入值去抓取checkbox資料
-  test(id: string, value): void {
-    var checked: boolean;
-    if (id=="CU_CNAME"){
-      checked = this.CU_CNAME.nativeElement.checked
-    } else if (id=="NATIONAL_ID"){
-      checked = this.NATIONAL_ID.nativeElement.checked
-    }else if(id=="CU_H_TEL"){
-      checked = this.CU_H_TEL.nativeElement.checked
-    }else if(id=="CU_CP_TEL"){
-      checked = this.CU_CP_TEL.nativeElement.checked
-    }else if(id="CU_M_TEL"){
-      checked = this.CU_M_TEL.nativeElement.checked
-    }
-    console.log(this.CU_CNAME.nativeElement.checked)
-    var data = id;
-    console.log(checked,data,value)
-    this.checkboxSelect(checked,data, value);
+		// 判斷該checkbox有無資料而打勾
+		var checked: boolean = true;
+		if (this.data.BK_COLUMN === "CU_CNAME") {
+			this.CU_CNAME.nativeElement.checked = checked
+			console.log(this.CU_CNAME.nativeElement.checked)
+		}
+		else if (this.data.BK_COLUMN === "NATIONAL_ID") {
+			this.NATIONAL_ID.nativeElement.checked = checked
+			console.log(this.NATIONAL_ID.nativeElement.checked)
+		}
+		else if (this.data.BK_COLUMN === "CU_H_TEL") {
+			this.CU_H_TEL.nativeElement.checked = checked
+		}
+		else if (this.data.BK_COLUMN === "CU_CP_TEL") {
+			this.CU_CP_TEL.nativeElement.checked = checked
+		}
+		else if (this.data.BK_COLUMN === "CU_M_TEL") {
+			this.CU_M_TEL.nativeElement.checked = checked
+		}
+	}
 
-  }
+	// 輸入值去抓取checkbox資料
+	test(id: string, value): void {
+		var checked: boolean;
+		if (id == "CU_CNAME") {
+			checked = this.CU_CNAME.nativeElement.checked
+		} else if (id == "NATIONAL_ID") {
+			checked = this.NATIONAL_ID.nativeElement.checked
+		} else if (id == "CU_H_TEL") {
+			checked = this.CU_H_TEL.nativeElement.checked
+		} else if (id == "CU_CP_TEL") {
+			checked = this.CU_CP_TEL.nativeElement.checked
+		} else if (id = "CU_M_TEL") {
+			checked = this.CU_M_TEL.nativeElement.checked
+		}
+		console.log(this.CU_CNAME.nativeElement.checked)
+		var data = id;
+		console.log(checked, data, value)
+		this.checkboxSelect(checked, data, value);
 
-  testArray=[];
-  check:boolean;
+	}
+	checktest(check: boolean) {
+		if (check == true) {
+			return this.check1 = true
+		}
+	}
+	testArray = [];
+	check: boolean;
 	checkboxSelect(check: boolean, data: any, value: any) {
 
-    // 取最後的輸入值
-    this.testArray[data]=value;
-    console.log(this.testArray);
-    console.log(this.testArray[data]);
+
+		switch (data) {
+			case 'CU_CNAME':
+				this.b1 = check
+				break;
+			case 'NATIONAL_ID':
+				this.b2 = check
+				break;
+			case 'CU_H_TEL':
+				this.b3 = check
+				break;
+			case 'CU_CP_TEL':
+				this.b4 = check
+				break;
+			case 'CU_M_TEL':
+				this.b5 = check
+				break;
+		}
+
+
+
+		this.checktest(check)
+		// 取最後的輸入值
+		this.testArray[data] = value;
+		console.log(this.testArray);
+		console.log(this.testArray[data]);
 
 		console.log(check)
 		console.log(data)
@@ -181,21 +227,24 @@ export class F03017editComponent implements OnInit {
 				}
 			})
 		}
+
+		console.log('this.chkArray');
+		console.log(this.chkArray);
 	}
 
-	 // 離開該彈窗
-   onNoClick(): void {
-    this.dialogRef.close();
-  }
+	// 離開該彈窗
+	onNoClick(): void {
+		this.dialogRef.close();
+	}
 
 	//新增
 	public async insertData(): Promise<void> {
 		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
-			this.dialog.open(ConfirmComponent, {data: {msgStr: '請選擇通報原因1'}})
+			this.dialog.open(ConfirmComponent, { data: { msgStr: '請選擇通報原因1' } })
 		}
-    else {
+		else {
 			this.chkArray.forEach(element => {
-        console.log(element)
+				console.log(element)
 				if (element.value === 'CU_CNAME') {
 					this.contentArray.push(this.blockListForm.value.CU_CNAME)
 				}
@@ -218,19 +267,19 @@ export class F03017editComponent implements OnInit {
 			this.jsonObject['reportReason3'] = this.blockListForm.value.REPORT_REASON3
 			this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 			this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
-      const content = [];
-      // for(var i=0;i<this.chkArray.length;i++) {
-      //   content.push({bkColumn: this.chkArray[i], bkContent: this.contentArray[i]});
-      // }
+			const content = [];
+			// for(var i=0;i<this.chkArray.length;i++) {
+			//   content.push({bkColumn: this.chkArray[i], bkContent: this.contentArray[i]});
+			// }
 
-      Object.keys(this.testArray).forEach(key => {
-        console.log(key)
-        content.push({bkColumn: key, bkContent: this.testArray[key]});
-      });
+			Object.keys(this.testArray).forEach(key => {
+				console.log(key)
+				content.push({ bkColumn: key, bkContent: this.testArray[key] });
+			});
 
 			// this.jsonObject['bkColumn'] = this.chkArray
 			// this.jsonObject['bkContent'] = this.contentArray
-      this.jsonObject['content'] = content;
+			this.jsonObject['content'] = content;
 			console.log(this.chkArray)
 			console.log(this.contentArray)
 			alert('儲存成功')
@@ -238,7 +287,7 @@ export class F03017editComponent implements OnInit {
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 				console.log(data)
 				if (data.rspMsg == '儲存成功') {
-					this.dialog.open(ConfirmComponent, {data: {msgStr: '儲存成功'}})
+					this.dialog.open(ConfirmComponent, { data: { msgStr: '儲存成功' } })
 					// this.dialogRef.close({ event: 'success' });
 				}
 			})
@@ -247,13 +296,13 @@ export class F03017editComponent implements OnInit {
 	//編輯
 	public async updateData(): Promise<void> {
 		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
-			this.dialog.open(ConfirmComponent, {data: {msgStr: '請選擇通報原因1'}})
+			this.dialog.open(ConfirmComponent, { data: { msgStr: '請選擇通報原因1' } })
 		} else {
-      this.chkArray.forEach(element=>{
-        if(element.value==='CU_NAME'){
-          this.CU_CNAME.nativeElement.checked = true
-        }
-      })
+			this.chkArray.forEach(element => {
+				if (element.value === 'CU_NAME') {
+					this.CU_CNAME.nativeElement.checked = true
+				}
+			})
 			// this.chkArray.forEach(element => {
 			// 	if (element.value === 'CU_CNAME') {
 			// 		this.contentArray.push(this.blockListForm.value.CU_CNAME)
@@ -278,22 +327,22 @@ export class F03017editComponent implements OnInit {
 			this.jsonObject['reportReason3'] = this.blockListForm.value.REPORT_REASON3
 			this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 			this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
-      this.jsonObject['rowID'] = this.blockListForm.value.ROWID;
+			this.jsonObject['rowID'] = this.blockListForm.value.ROWID;
 			// this.jsonObject['bkColumn'] = this.chkArray
 			// this.jsonObject['bkContent'] = this.contentArray
-      const content = [];
-      Object.keys(this.testArray).forEach(key => {
-        content.push({bkColumn: key, bkContent: this.testArray[key],check:this.chkArray});
-      });
+			const content = [];
+			Object.keys(this.testArray).forEach(key => {
+				content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.chkArray });
+			});
 			console.log(this.chkArray)
 			console.log(this.contentArray)
-      this.jsonObject['content'] = content;
+			this.jsonObject['content'] = content;
 			alert('儲存成功')
 			const url = 'f03/f03017action2'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 				console.log(data)
 				if (data.rspMsg == '儲存成功') {
-					this.dialog.open(ConfirmComponent, {data: {msgStr: '儲存成功'}})
+					this.dialog.open(ConfirmComponent, { data: { msgStr: '儲存成功' } })
 					// this.dialogRef.close({ event: 'success' });
 				}
 			})
@@ -303,19 +352,19 @@ export class F03017editComponent implements OnInit {
 	// 查詢客戶資料
 	selectCustInfo() {
 		if (this.blockListForm.value.BK_COLUMN === 'CU_CNAME') {
-			this.blockListForm.patchValue({'CU_CNAME': this.data.BK_CONTENT})
+			this.blockListForm.patchValue({ 'CU_CNAME': this.data.BK_CONTENT })
 		}
 		if (this.blockListForm.value.BK_COLUMN === 'NATIONAL_ID') {
-			this.blockListForm.patchValue({'NATIONAL_ID': this.data.BK_CONTENT})
+			this.blockListForm.patchValue({ 'NATIONAL_ID': this.data.BK_CONTENT })
 		}
 		if (this.blockListForm.value.BK_COLUMN === 'CU_H_TEL') {
-			this.blockListForm.patchValue({'CU_H_TEL': this.data.BK_CONTENT})
+			this.blockListForm.patchValue({ 'CU_H_TEL': this.data.BK_CONTENT })
 		}
 		if (this.blockListForm.value.BK_COLUMN === 'CU_CP_TEL') {
-			this.blockListForm.patchValue({'CU_CP_TEL': this.data.BK_CONTENT})
+			this.blockListForm.patchValue({ 'CU_CP_TEL': this.data.BK_CONTENT })
 		}
 		if (this.blockListForm.value.BK_COLUMN === 'CU_M_TEL') {
-			this.blockListForm.patchValue({'CU_M_TEL': this.data.BK_CONTENT})
+			this.blockListForm.patchValue({ 'CU_M_TEL': this.data.BK_CONTENT })
 		}
 	}
 
@@ -336,7 +385,7 @@ export class F03017editComponent implements OnInit {
 	// }
 
 	onQueryParamsChange(params: NzTableQueryParams): void {
-		const {pageSize, pageIndex} = params
+		const { pageSize, pageIndex } = params
 		this.pageSize = pageSize
 		this.pageIndex = pageIndex
 		// this.selectBlockList(this.pageIndex, this.pageSize);

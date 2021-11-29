@@ -9,63 +9,34 @@
           <div nz-col nzSpan="8">
             <div style="padding:10px">
               <span class="form-title">通報單位</span>
-              <input style="display: block;" value="{{ no }}" readonly formControlName="REPORT_UNIT">
+              <input style="display: block;" value="{{ no }}" readonly disabled formControlName="REPORT_UNIT">
             </div>
           </div>
           <div nz-col nzSpan="8">
             <div style="padding:10px">
               <span class="form-title">通報原因1</span>
-              <mat-select formControlName="REPORT_REASON1"
-               >
+              <mat-select formControlName="REPORT_REASON1">
                 <mat-option *ngFor="let code of reportReason1" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <!-- <mat-select  formControlName="REPORT_REASON1">
-                <mat-option *ngFor="let code of reportReason1" [value]="code.value">
-                  {{code.viewValue}}
-                </mat-option>
-              </mat-select> -->
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+             
             </div>
           </div>
           <div nz-col nzSpan="8">
             <div style="padding:10px">
               <span class="form-title">通報原因2</span>
-              <mat-select formControlName="REPORT_REASON2"
-               >
+              <mat-select formControlName="REPORT_REASON2">
                 <mat-option *ngFor="let code of reportReason2" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <!-- <mat-select formControlName="REPORT_REASON3">
-                <mat-option *ngFor="let code of reportReason3" [value]="code.value">
-                  {{code.viewValue}}
-                </mat-option>
-              </mat-select> -->
+           
             </div>
           </div>
         </div>
-        <!-- <span class="form-title">通報單位</span>
-                      <mat-form-field color="accent">
-                          <input matInput #input class="form-control" value="{{ no }}" formControlName="REPORT_UNIT"
-                              readonly>
-                      </mat-form-field>
-                      <span class="form-title">通報原因1</span>
-                      <mat-form-field color="accent">
-                          <mat-select [(ngModel)]="reportReason1Value" formControlName="REPORT_REASON1">
-                              <mat-option *ngFor="let code of reportReason1" [value]="code.value">
-                                  {{code.viewValue}}
-                              </mat-option>
-                          </mat-select>
-                      </mat-form-field>
-                      <span class="form-title">通報原因2</span>
-                      <mat-form-field color="accent">
-                          <mat-select [(ngModel)]="reportReason2Value" formControlName="REPORT_REASON2">
-                              <mat-option *ngFor="let code of reportReason2" [value]="code.value">
-                                  {{code.viewValue}}
-                              </mat-option>
-                          </mat-select>
-                      </mat-form-field> -->
+      
       </div>
 
 
@@ -73,125 +44,145 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">通報原因3</span>
-            <mat-select formControlName="REPORT_REASON3"
-             >
+            <mat-select formControlName="REPORT_REASON3">
               <mat-option *ngFor="let code of reportReason3" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
-            <!-- <mat-select formControlName="REPORT_REASON3">
-              <mat-option *ngFor="let code of reportReason3" [value]="code.value">
-                {{code.viewValue}}
-              </mat-option>
-            </mat-select> -->
+            
           </div>
         </div>
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">通報補充</span>
             <input style="display: block;" #input class="form-control" formControlName="REPORT_CONTENT">
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">使用中</span>
-            <mat-select formControlName="USE_FLAG"
-             >
+            <mat-select formControlName="USE_FLAG">
               <mat-option *ngFor="let code of useFlag" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
-            <!-- <mat-select formControlName="USE_FLAG">
-              <mat-option *ngFor="let code of useFlag" [value]="code.value">
-                {{code.viewValue}}
-              </mat-option>
-            </mat-select> -->
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+           
           </div>
         </div>
       </div>
-      <!-- <div>
-            <span class="form-title">通報原因3</span>
-            <mat-form-field color="accent">
-              <mat-select [(ngModel)]="reportReason3Value" formControlName="REPORT_REASON3">
-                <mat-option *ngFor="let code of reportReason3" [value]="code.value">
-                  {{code.viewValue}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-                      <span class="form-title">通報補充</span>
-                      <mat-form-field color="accent">
-                          <input matInput #input class="form-control" formControlName="REPORT_CONTENT">
-                      </mat-form-field>
-
-            <span class="form-title">使用中</span>
-            <mat-form-field color="accent">
-              <mat-select [(ngModel)]="useFlagValue" formControlName="USE_FLAG">
-                <mat-option *ngFor="let code of useFlag" [value]="code.value">
-                  {{code.viewValue}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div> -->
-
+      
       <div nz-col nzSpan="24">
         <div class="line_bank_form_header_title" style="border-radius: 0px;">
-         建檔項目欄位值內容
+          建檔項目欄位值內容
         </div>
       </div>
-      <div nz-row>
-        <!-- <div nz-col nzSpan="6"></div> -->
-        <div nz-col nzSpan="6">
-          <div style="padding:25px 5px;">
+      <div  [hidden]="!formControl.valid">
+        <div nz-row>
+        
+          <div nz-col nzSpan="6">
+            <div style="padding:25px 5px;">
+  
+              <div style="width: 100%;text-align: center;display: flex;align-items: center;">
+                <input type="checkbox"  style="flex:1;height:20px " #CU_CNAME [checked]="checked"
+                  (click)="checkboxSelect($event.target.checked,'CU_CNAME',this.blockListForm.value.CU_CNAME)">
+                  <span class="check_title">姓名</span>
+              </div>
+              <br>
+              <div style="width: 100%;text-align: center;display: flex;align-items: center;">
+                <input type="checkbox"   style="flex:1;height:20px" #NATIONAL_ID [checked]="checked"
+                  (click)="checkboxSelect($event.target.checked,'NATIONAL_ID',this.blockListForm.value.NATIONAL_ID)">
+                  <span class="check_title">身分證號
+                </span>
+              </div>
+              <br>
+              <div style="width: 100%;text-align: center;display: flex;align-items: center;">
+                <input type="checkbox"   style="flex:1;height:20px " #CU_H_TEL [checked]="checked"
+                  (click)="checkboxSelect($event.target.checked,'CU_H_TEL',this.blockListForm.value.CU_H_TEL)">
+                  <span class="check_title">住家電話
+                </span>
+              </div>
+              <br>
+              <div style="width: 100%;text-align: center;display: flex;align-items: center;">
+                <input type="checkbox"   style="flex:1;height:20px  " #CU_CP_TEL [checked]="checked"
+                  (click)="checkboxSelect($event.target.checked,'CU_CP_TEL',this.blockListForm.value.CU_CP_TEL)">
+                  <span class="check_title">公司電話
+                </span>
+              </div>
+              <br>
+              <div style="width: 100%;text-align: center;display: flex;align-items: center;">
+                <input type="checkbox"   style="flex:1;height:20px " #CU_M_TEL [checked]="checked"
+                  (click)="checkboxSelect($event.target.checked,'CU_M_TEL',this.blockListForm.value.CU_M_TEL)">
+                  <span class="check_title">手機號碼
+                </span>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="18">
+            <div style="padding:25px 5px;">
+              
+           <div *ngIf="b1==true"> 
+            <input matInput #input class="form-control" style="width:90%;margin-top:10px;height:28px"
+            formControlName="CU_CNAME" (keyup)="test('CU_CNAME', $event.target.value)" >
+           </div>
+           <div *ngIf="b1==false"> 
+             
+            <input matInput #input class="form-control" style="width:90%;margin-top:10px;height:28px;background-color:#E6E6E6"
+            formControlName="CU_CNAME" (keyup)="test('CU_CNAME', $event.target.value)" readonly>
+           </div>
 
-            <div style="width: 100%;text-align: center;display: flex;align-items: center;"><input type="checkbox" style="flex:1 " #CU_CNAME
-               [checked]="checked"  (click)="checkboxSelect($event.target.checked,'CU_CNAME',this.blockListForm.value.CU_CNAME)"><span  class="check_title">姓名</span>
-            </div>
-            <div style="width: 100%;text-align: center;display: flex;align-items: center;"><input type="checkbox" style="flex:1  " #NATIONAL_ID
-              [checked]="checked"   (click)="checkboxSelect($event.target.checked,'NATIONAL_ID',this.blockListForm.value.NATIONAL_ID)"><span  class="check_title">身分證字號
-              </span>
-            </div>
-            <div style="width: 100%;text-align: center;display: flex;align-items: center;"><input type="checkbox" style="flex:1 " #CU_H_TEL
-              [checked]="checked"   (click)="checkboxSelect($event.target.checked,'CU_H_TEL',this.blockListForm.value.CU_H_TEL)"><span  class="check_title">住家電話
-              </span>
-            </div>
-            <div style="width: 100%;text-align: center;display: flex;align-items: center;"><input type="checkbox" style="flex:1  " #CU_CP_TEL
-              [checked]="checked"   (click)="checkboxSelect($event.target.checked,'CU_CP_TEL',this.blockListForm.value.CU_CP_TEL)"><span  class="check_title">公司電話
-              </span>
-            </div>
-            <div style="width: 100%;text-align: center;display: flex;align-items: center;"><input type="checkbox" style="flex:1 " #CU_M_TEL
-              [checked]="checked"  (click)="checkboxSelect($event.target.checked,'CU_M_TEL',this.blockListForm.value.CU_M_TEL)"><span  class="check_title">手機號碼
-              </span>
+           <div *ngIf="b2==true"> 
+            <input matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px"
+            formControlName="NATIONAL_ID" (keyup)="test('NATIONAL_ID', $event.target.value)" >
+           </div>
+           <div *ngIf="b2==false"> 
+            
+            <input matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px;background-color: #E6E6E6"
+                formControlName="NATIONAL_ID" (keyup)="test('NATIONAL_ID', $event.target.value)" readonly>
+           </div>
+
+           <div *ngIf="b3==true"> 
+            <input matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px"
+            formControlName="CU_H_TEL" (keyup)="test('CU_H_TEL', $event.target.value)" >
+           </div>
+           <div *ngIf="b3==false"> 
+            <input matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px;background-color:#E6E6E6"
+            formControlName="CU_H_TEL" (keyup)="test('CU_H_TEL', $event.target.value)" readonly>
+           </div>
+
+           <div *ngIf="b4==true"> 
+            <input matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px"
+                formControlName="CU_CP_TEL" (keyup)="test('CU_CP_TEL', $event.target.value)">
+           </div>
+           <div *ngIf="b4==false"> 
+            <input matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px;background-color:#E6E6E6"
+            formControlName="CU_CP_TEL" (keyup)="test('CU_CP_TEL', $event.target.value)" readonly>
+           </div>
+           <div *ngIf="b5==true"> 
+            <input matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px"
+                formControlName="CU_M_TEL" (keyup)="test('CU_M_TEL', $event.target.value)">
+           </div>
+           <div *ngIf="b5==false"> 
+            <input matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px;background-color:#E6E6E6"
+            formControlName="CU_M_TEL" (keyup)="test('CU_M_TEL', $event.target.value)" readonly>
+           </div>
+                
+             
+             
+        
+             
+             
             </div>
           </div>
         </div>
-
-        <!-- <div nz-col nzSpan="18">
-          <div style="padding:25px 5px;">
-            <input matInput #input class="form-control" style="width:90%;margin-top: 5px;height:28px" formControlName="CU_CNAME" (keyup)="test('CU_CNAME', $event.target.value)"[disabled]="blockListForm.value.BK_CONTENT[0]==null?false : true">
-            <input matInput #input class="form-control" style="width:90%;margin-top: 5px;height:28px" formControlName="NATIONAL_ID" (keyup)="test('NATIONAL_ID', $event.target.value)"[disabled]="blockListForm.value.BK_CONTENT[1]==null?false : true">
-            <input matInput #input class="form-control" style="width:90%;margin-top: 5px;height:28px" formControlName="CU_H_TEL" (keyup)="test('CU_H_TEL', $event.target.value)" [disabled]="blockListForm.value.BK_CONTENT[2]==null?false : true">
-            <input matInput #input class="form-control" style="width:90%;margin-top: 5px;height:28px" formControlName="CU_CP_TEL"(keyup)="test('CU_CP_TEL', $event.target.value)" [disabled]="blockListForm.value.BK_CONTENT[3]==null?false : true">
-            <input matInput #input class="form-control" style="width:90%;margin-top: 5px;height:28px" formControlName="CU_M_TEL"(keyup)="test('CU_M_TEL', $event.target.value)" [disabled]="blockListForm.value.BK_CONTENT[4]==null?false : true">
-          </div>
-        </div> -->
-        <div nz-col nzSpan="18">
-          <div style="padding:25px 5px;">
-            <input matInput #input class="form-control" style="width:90%;margin-top: 5px;height:28px" formControlName="CU_CNAME" (keyup)="test('CU_CNAME', $event.target.value)">
-            <input matInput #input class="form-control" style="width:90%;margin-top: 5px;height:28px" formControlName="NATIONAL_ID" (keyup)="test('NATIONAL_ID', $event.target.value)">
-            <input matInput #input class="form-control" style="width:90%;margin-top: 5px;height:28px" formControlName="CU_H_TEL" (keyup)="test('CU_H_TEL', $event.target.value)" >
-            <input matInput #input class="form-control" style="width:90%;margin-top: 5px;height:28px" formControlName="CU_CP_TEL"(keyup)="test('CU_CP_TEL', $event.target.value)" >
-            <input matInput #input class="form-control" style="width:90%;margin-top: 5px;height:28px" formControlName="CU_M_TEL"(keyup)="test('CU_M_TEL', $event.target.value)" >
-          </div>
-        </div>
-
-
       </div>
+     
       <div mat-dialog-actions style="width:20%;padding-left:0px;margin:0 auto">
 
-        <button  nzType="primary" nzSize="middle" [mat-dialog-close]="1" (click)="insertData()"
+        <button nzType="primary" nzSize="middle"  [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="insertData()"
           style="margin:0px 5px">儲存</button>
-        <button  nzType="primary" nzSize="middle" (click)="onNoClick()" tabindex="-1" >離開</button>
+        <button nzType="primary" nzSize="middle" (click)="onNoClick()" tabindex="-1">離開</button>
       </div>
       <!-- <div nz-col nzSpan="24" style="height: 30px;">
 

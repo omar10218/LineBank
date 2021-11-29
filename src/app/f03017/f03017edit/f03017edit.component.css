@@ -6,7 +6,13 @@ input{
   width:100%;
   border: 1px solid #E6E6E6;
 }
-
+#check{
+  height:20px;
+}
+input:disabled{
+  color: darkgrey;
+  background-color:#E6E6E6
+}
 .check_title{
   color:#2E4765;
   flex:1;

@@ -159,8 +159,9 @@ export class F03017Component implements OnInit {
 	//新增
 	insert(isInsert: boolean) {
 		const dialogRef = this.dialog.open(F03017editComponent, {
-			minHeight: '70vh',
+			minHeight: '80vh',
 			width: '50%',
+			panelClass: 'mat-dialog-transparent',
 			data: {
 				isInsert: isInsert,
 				isUpdate: false,
@@ -177,7 +178,6 @@ export class F03017Component implements OnInit {
 	//編輯
 	update(isUpdate: boolean, data: any, row: any) {
 		console.log(data)
-
 		this.chkArray.forEach(element => {
 			console.log(element)
 			var checked: boolean = true
