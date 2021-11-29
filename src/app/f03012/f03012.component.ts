@@ -223,7 +223,10 @@ export class F03012Component implements OnInit {
 	private refreshTable() {
 		this.paginator._changePageSize(this.paginator.pageSize)
 	}
-
+  Clear(){
+    this.compareTableCode = null;
+    this.getComePareDataSetList(this.pageIndex, this.pageSize)
+}
 	getOptionCompareTable(codeVal: string): string {
 		for (const data of this.compareTableOption) {
 			if (data.codeNo == codeVal) {

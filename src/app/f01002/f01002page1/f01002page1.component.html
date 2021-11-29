@@ -1,6 +1,6 @@
 <div class="line_bank_bankground_color">
   <div nz-row class="search_row">
-    <th style="padding-left: 20px;">徵信案件清單 共{{this.total}}件</th>
+    <th style="padding-left: 30px;">徵信案件清單 共{{this.total}}件</th>
     <div class="search_row_header">
       <div nz-col>
         <div nz-row>
@@ -100,7 +100,8 @@
                     {{data.swcApplno}}
                   </button>
                 </td>
-                <td class="table-data">{{ getOptionCaseType(data.swcFlowType) }}</td>
+                <td *ngIf="data.swcCreditLevel == 'T';" class="table-data">補回件</td>
+                <td *ngIf="data.swcCreditLevel == '';" class="table-data">{{ getOptionCaseType(data.swcFlowType) }}</td>
                 <td class="table-data">{{ data.swcReadyForReview }}</td>
                 <td class="table-data" nzWidth="'70px'">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}
                 </td>
