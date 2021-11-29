@@ -18,4 +18,8 @@ export class Childscn23Service extends BaseService {
     return this.postJsonObject(baseUrl,json);
   }
 
+  getDate_Json(baseUrl: string,  json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
+  }
+
 }

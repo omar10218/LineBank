@@ -1,9 +1,9 @@
 <div class="line_bank_bankground_color">
   <br>
-  <div *ngIf="getStepName()" style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="getStepName() && this.EL_INCOME_Source.data.length==7" style="padding-left: 50px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_income()">儲存</button>
   </div>
-  <div *ngIf="!getStepName()" style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="!getStepName() || this.EL_INCOME_Source.data.length!=7" style="padding-left: 50px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_income()" disabled>儲存</button>
   </div>
   <div class="line_bank_card_no_padding">
@@ -18,23 +18,96 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of EL_INCOME_Source.data;let i=index">
-          <td>{{item.items}}</td>
-          <td class="data_right" *ngIf="i!=6">{{toCurrency(item.income.toString())}}</td>
-          <td *ngIf="i==6">
-            <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="item.income" (keyup)="item.income=data_number(item.income)"
+        <ng-container *ngIf="EL_INCOME_Source.data.length==7">
+          <tr *ngFor="let item of EL_INCOME_Source.data;let i=index">
+            <td>{{item.items}}</td>
+            <td class="data_right" *ngIf="i!=6">{{toCurrency(item.income.toString())}}</td>
+            <td *ngIf="i==6">
+              <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="item.income" (keyup)="item.income=data_number(item.income)"
+                  maxlength="20" /></div>
+            </td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nz-checkbox [(ngModel)]="chkArray[i].completed" name={{chkArray[i].value}}></label>
+              </nz-checkbox-wrapper>
+            </td>
+            <td *ngIf="i==0" rowspan="7">
+              <textarea style=" width: 95%;height:20vh;margin:0 12px;border-radius:5px;" [(ngModel)]="EL_INCOME_Source.data[6].mark"
+                name="EL_INCOME_Source.data[6].mark"></textarea>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="EL_INCOME_Source.data.length!=7">
+          <tr>
+            <td>薪轉存褶合計</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+            <td rowspan="7">
+              <textarea style=" width: 95%;height:20vh;margin:0 12px;border-radius:5px;" ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>薪資單合計</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>所清/報稅合計</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>扣繳憑單合計</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>勞保/勞退合計</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>行員年收入</td>
+            <td></td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>其他試算結果</td>
+            <td>
+              <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="income" (keyup)="income=data_number(income)"
                 maxlength="20" /></div>
-          </td>
-          <td>
-            <nz-checkbox-wrapper>
-              <label nz-checkbox [(ngModel)]="chkArray[i].completed" name={{chkArray[i].value}}></label>
-            </nz-checkbox-wrapper>
-          </td>
-          <td *ngIf="i==0" rowspan="7">
-            <textarea style=" width: 95%;height:20vh;margin:0 12px;border-radius:5px;" [(ngModel)]="EL_INCOME_Source.data[6].mark"
-              name="EL_INCOME_Source.data[6].mark"></textarea>
-          </td>
-        </tr>
+            </td>
+            <td>
+              <nz-checkbox-wrapper>
+                <label nz-checkbox ></label>
+              </nz-checkbox-wrapper>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </nz-table>
   </div>
