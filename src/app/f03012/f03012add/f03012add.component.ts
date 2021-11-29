@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core'
-import {FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms'
-import {MatDialog} from '@angular/material/dialog'
-import {OptionsCode} from 'src/app/interface/base'
-import {F03012Service} from '../f03012.service'
+import { Component, OnInit } from '@angular/core'
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
+import { MatDialog } from '@angular/material/dialog'
+import { OptionsCode } from 'src/app/interface/base'
+import { F03012Service } from '../f03012.service'
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { FADE_CLASS_NAME_MAP } from 'ng-zorro-antd/modal'
 @Component({
@@ -13,7 +13,7 @@ import { FADE_CLASS_NAME_MAP } from 'ng-zorro-antd/modal'
 export class F03012addComponent implements OnInit {
 	selectedValue1: string
 	selectedValue2: string
-  error:string
+	error: string
 
 	//下拉
 	selectedColumn: OptionsCode[] = []
@@ -32,10 +32,10 @@ export class F03012addComponent implements OnInit {
 	// 	setValueLow: ['', [Validators.required]],
 	// })
 
-	constructor(private fb: FormBuilder, private f03012Service: F03012Service, public dialog: MatDialog,private alert: NzAlertModule) {}
+	constructor(private fb: FormBuilder, private f03012Service: F03012Service, public dialog: MatDialog, private alert: NzAlertModule) { }
 
 	ngOnInit(): void {
-    this.getData()
+		this.getData()
 		// this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
 		// 	for (const jsonObj of data.rspBody.mappingList) {
 		// 		const codeNo = jsonObj.codeNo
@@ -53,39 +53,48 @@ export class F03012addComponent implements OnInit {
 		// 	}
 		// })
 	}
+	formControl = new FormControl('', [
+		Validators.required
+	]);
+	//欄位驗證
+	getErrorMessage() {
+		return this.formControl.hasError('required') ? '此欄位必填!' :
+			this.formControl.hasError('email') ? 'Not a valid email' :
+				'';
+	}
 
-  getData(){
-    this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
+	getData() {
+		this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
 			for (const jsonObj of data.rspBody.mappingList) {
 				const codeNo = jsonObj.codeNo
 				const desc = jsonObj.codeDesc
-				this.compareTableCode.push({value: codeNo, viewValue: desc})
+				this.compareTableCode.push({ value: codeNo, viewValue: desc })
 			}
 			for (let i = 0; i < this.compareTableCode.length; i++) {
 				this.f03012Service.getSysTypeCode(this.compareTableCode[i].value).subscribe(data => {
 					for (const jsonObj of data.rspBody.mappingList) {
 						const codeNo = jsonObj.codeNo
 						const desc = jsonObj.codeDesc
-						this.compareColumnCode.push({value: codeNo, viewValue: desc})
+						this.compareColumnCode.push({ value: codeNo, viewValue: desc })
 					}
 				})
 			}
 		})
-  }
+	}
 
 	changeSelect() {
-    let jsonObject:any={};
-    jsonObject['compareTable']=this.selectedValue1;
-    this.f03012Service.getColumn(jsonObject)
-    .subscribe(data => {
-      console.log(data)
-      for (const jsonObj of data.rspBody.mappingList){
-        const codeNo=jsonObj.codeNo;
-        const desc = jsonObj.codeDesc;
-        this.selectedColumn.push({ value:codeNo, viewValue:desc})
-      }
-    })
-    // 		this.selectedColumn = []
+		let jsonObject: any = {};
+		jsonObject['compareTable'] = this.selectedValue1;
+		this.f03012Service.getColumn(jsonObject)
+			.subscribe(data => {
+				console.log(data)
+				for (const jsonObj of data.rspBody.mappingList) {
+					const codeNo = jsonObj.codeNo;
+					const desc = jsonObj.codeDesc;
+					this.selectedColumn.push({ value: codeNo, viewValue: desc })
+				}
+			})
+		// 		this.selectedColumn = []
 		// this.f03012Service.getSysTypeCode(this.selectedValue1).subscribe(data => {
 		// 	console.log(data)
 		// 	for (const jsonObj of data.rspBody.mappingList) {
@@ -96,15 +105,11 @@ export class F03012addComponent implements OnInit {
 		// })
 	}
 
-	formControl = new FormControl('', [
-		Validators.required,
-		// Validators.email,
-	])
 
 	add() {
 		let msg = ''
 		this.submitted = true
-    console.log(this.alert)
+		console.log(this.alert)
 		// if (!this.compareTableSetForm.valid) {
 		//   msg = '資料格式有誤，請修正!';
 		// } else {
@@ -116,12 +121,15 @@ export class F03012addComponent implements OnInit {
 		jsonObject['compareType'] = this.compareType
 		jsonObject['setValueLow'] = this.setValueLow
 		jsonObject['setValueHight'] = this.setValueHight
-		console.log(this.compareType)
-    this.error = 'test'
+
+		this.error = 'test'
 		this.f03012Service.submit(url, jsonObject).subscribe(data => {
 			alert((msg = data.rspMsg))
-      this.getData()
-      this.error = data.rspMsg
+			this.getData()
+			this.error = data.rspMsg
+			if(data.rspMsg=='成功新增'){
+				this.dialog.closeAll();
+			}
 
 		})
 		// const formdata: FormData = new FormData();
@@ -155,5 +163,6 @@ export class F03012addComponent implements OnInit {
 		this.setValueLow = ''
 
 	}
-	ngAfterViewInit(): void {}
+
+	ngAfterViewInit(): void { }
 }

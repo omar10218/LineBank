@@ -20,6 +20,8 @@
       </div>
       <div nz-col nzSpan="6">
         <button nz-button [nzSize]="'middle'" nzType="primary" style="margin-top:25px" (click)="add()">新增</button>
+        &nbsp;&nbsp;
+        <button nz-button [nzSize]="'middle'"  nzDanger style="margin-top:25px" (click)="Clear()">取消</button>
       </div>
 
     </div>
@@ -54,7 +56,7 @@
   <div class="line_bank_card_no_padding">
     <nz-table nzShowSizeChanger [nzData]="compareDataSetSource.data" [nzFrontPagination]="false" [nzSimple]="true"
       (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" [nzLoading]="false" [nzTotal]="total"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="資料比對警示門檻值設定">
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="資料比對設定">
       <thead>
         <tr>
           <th class="table-header" *ngIf="useFlag">勾選 </th>
@@ -126,11 +128,11 @@
             </div>
           </td>
           <td class="table-data" *ngIf="row.compareTable==selectedValue1; else elseBlock" style="text-align: center">
-            <button nz-button [nzSize]="'middle'" nzType="primary" disabled nzGhost (click)="edit(
+            <button nz-button [nzSize]="'middle'" nzType="primary" hidden nzGhost (click)="edit(
               row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight, row.compareType )">編輯</button>
           </td>
           <ng-template #elseBlock>
-            <td class="table-data" style="text-align: center">
+            <td class="table-data"  style="text-align: center">
               <button *ngIf="row.isChk == false;" nz-button [nzSize]="'small'" nzType="primary" (click)="edit(
                 row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight, row.compareType )">編輯</button>
             </td>
