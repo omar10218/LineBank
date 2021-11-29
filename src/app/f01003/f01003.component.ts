@@ -36,7 +36,6 @@ export class F01003Component implements OnInit, AfterViewInit {
   cusinfoDataSource = [];                             // 案件清單
   fds: string = "";                                   // fds
   stepName: string;                                   // 目前關卡名
-  loading = true;
   pageSize = 50;
   pageIndex = 1;
 

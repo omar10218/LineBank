@@ -86,6 +86,7 @@ export class F01005page1Component implements OnInit {
     // jsonObject['swcL3EmpNo'] = empNo;
     // jsonObject['swcNationalId'] = swcNationalId;
     // jsonObject['swcApplno'] = swcApplno;
+    jsonObject['caseType'] = this.caseType;
     this.loading = false;
     this.f01005Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
