@@ -126,6 +126,7 @@ export class Childscn12Component implements OnInit {
   strArray: any;
   loading = true
   loading6 = true;//六個table用
+  income:string;
 
   test1 = "1"; test2 = "2"; test3 = false; test4 = "文字";
 
