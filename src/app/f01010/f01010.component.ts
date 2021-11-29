@@ -48,14 +48,14 @@ export class F01010Component implements OnInit {
 
   ngOnInit(): void {
     // 查詢案件分類
-    this.f01010Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
-      this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj.codeNo;
-        const desc = jsonObj.codeDesc;
-        this.caseTypeCode.push({ value: codeNo, viewValue: desc })
-      }
-    });
+    // this.f01010Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
+    //   this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
+    //   for (const jsonObj of data.rspBody.mappingList) {
+    //     const codeNo = jsonObj.codeNo;
+    //     const desc = jsonObj.codeDesc;
+    //     this.caseTypeCode.push({ value: codeNo, viewValue: desc })
+    //   }
+    // });
 
     this.f01010Service.getSysTypeCode('YN').subscribe(data => {
       this.ynCode.push({ value: '', viewValue: '請選擇' })
@@ -97,6 +97,7 @@ export class F01010Component implements OnInit {
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01010Service.getCaseList(jsonObject).subscribe(data => {
+      console.log(data)
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
     });

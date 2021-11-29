@@ -1,0 +1,43 @@
+:host {
+  display: block;
+  height: 200px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+  border: 2px solid green;
+}
+
+.bottom-right {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.right-wrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.right {
+  background: #fff;
+  border: 1px solid red;
+  text-align: center;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+}
+.resize-trigger {
+  width: 1px;
+  height: 5px;
+  margin-top: 5px;
+  background:red;
+}
+.nz-resizable-preview {
+  border-width: 0;
+  border-right-width: 1px;
+}

@@ -36,7 +36,6 @@ export class F01003Component implements OnInit, AfterViewInit {
   cusinfoDataSource = [];                             // 案件清單
   fds: string = "";                                   // fds
   stepName: string;                                   // 目前關卡名
-  loading = true;
   pageSize = 50;
   pageIndex = 1;
 
@@ -87,7 +86,7 @@ export class F01003Component implements OnInit, AfterViewInit {
     jsonObject['swcL2EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
-    this.loading = false;
+    jsonObject['caseType'] = this.caseType;
     this.f01003Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
