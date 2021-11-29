@@ -157,7 +157,7 @@
       <div nz-row>
         <div nz-col nzSpan="24">
           <div class="form">
-            <div><span class="form-title">備註</span><textarea matInput class="input-textarea" [(ngModel)]="data.CON_MEMO"
+            <div><span style="width: 100%;" class="form-title">備註</span><textarea matInput class="input-textarea" [(ngModel)]="data.CON_MEMO"
                 name="CON_MEMO" style="height: 80px;"></textarea>
             </div>
           </div>
@@ -187,7 +187,7 @@
       <div nz-row>
         <div nz-col nzSpan="24" nz-row *ngIf="data.speakingData!=null && data.speakingData.length>0">
           <div class="form">
-            <div><span class="form-title">話術內容:{{speakingAbbreviation}}</span><textarea readonly matInput
+            <div><span style="width: 100%;" class="form-title">話術內容:{{speakingAbbreviation}}</span><textarea readonly matInput
                 class="input-textarea" [(ngModel)]="speakingContent" name="speakingContent"
                 style="height: 80px;"></textarea>
             </div>
