@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
@@ -23,7 +22,7 @@ export class F01005page1Component implements OnInit {
   ) { }
 
   total: number;
-  @ViewChild('absBox')absBox:ElementRef // 抓取table id
+  @ViewChild('absBox') absBox: ElementRef // 抓取table id
   currentPage: PageEvent;                             // 分頁
   currentSort: Sort;                                  // 排序
   empNo: string = localStorage.getItem("empNo");      // 當前員編
@@ -36,40 +35,18 @@ export class F01005page1Component implements OnInit {
   cusinfoDataSource = [];  // 案件清單
   fds: string = "";                                   // fds
   stepName: string;                                   // 目前關卡名
-  loading = true;
-  pageSize = 10;
+  readonly pageSize = 50;
   pageIndex = 1;
 
   // 計算剩餘table資料長度
-  get tableHeight():string{
-    if(this.absBox){
-      return(this.absBox.nativeElement.offsetHeight-210)+'px';
+  get tableHeight(): string {
+    if (this.absBox) {
+      return (this.absBox.nativeElement.offsetHeight - 140) + 'px';
     }
   }
 
   ngOnInit(): void {
 
-    // 查詢案件分類
-    this.f01005Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
-      this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj.codeNo;
-        const desc = jsonObj.codeDesc;
-        this.caseTypeCode.push({ value: codeNo, viewValue: desc })
-      }
-    });
-    // 查詢代理人
-    // let jsonObject: any = {};
-    // jsonObject['swcL3EmpNo'] = this.empNo;
-
-    // this.f01005Service.getEmpNo(jsonObject).subscribe(data => {
-    //   this.agentEmpNoCode.push({ value: '', viewValue: '請選擇' })
-    //   for (const jsonObj of data.rspBody) {
-    //     const empNo = jsonObj['empNo'];
-    //     const empName = jsonObj['empName'];
-    //     this.agentEmpNoCode.push({ value: empNo, viewValue: empName })
-    //   }
-    // });
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
@@ -83,36 +60,57 @@ export class F01005page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    // jsonObject['swcL3EmpNo'] = empNo;
-    // jsonObject['swcNationalId'] = swcNationalId;
-    // jsonObject['swcApplno'] = swcApplno;
-    jsonObject['caseType'] = this.caseType;
-    this.loading = false;
+    jsonObject['swcApplno'] = this.swcApplno;
+    jsonObject['swcNationalId'] = this.swcNationalId;
     this.f01005Service.getCaseList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
       this.stepName = data.rspBody.items[0].F_StepName;
     });
   }
-  //代入條件查詢
-  select() {
-    this.changePage();
-    this.getCaseList();
+
+  // 排序
+  sortChange(e: string) {
+    this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+      (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
   }
+
+  //代入條件查詢
+  search() {
+    if (this.swcNationalId != '' && !this.f01005Service.checkIdNumberIsValid(this.swcNationalId)) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "身分驗證失敗" }
+      });
+    }
+    else {
+      if (this.agentEmpNo != '') {
+        this.empNo = this.agentEmpNo;
+      }
+      this.changePage();
+      this.getCaseList();
+    }
+  }
+
   // 案件子頁籤
   getLockCase(swcApplno: string, swcNationalId: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
-
+    this.f01005Service.getLockCase(jsonObject).subscribe(data => {
+      if (data.rspBody.length > 0) {
+        this.fds = data.rspBody[0].fds
+      }
+      if (data.rspMsg == '案件鎖定成功') {
         sessionStorage.setItem('applno', swcApplno);
         sessionStorage.setItem('cuid', swcNationalId);
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('stepName', this.stepName);
-        this.router.navigate(['./F01002/F01002SCN1']);
-
+        this.router.navigate(['./F01005/F01005SCN1']);
+      }
+    });
   }
+
   // 儲存案件註記
   saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
     let msg = '';
@@ -125,12 +123,17 @@ export class F01005page1Component implements OnInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == 'success') { window.location.reload(); }}, 1000);
+      if (msg != null && msg == 'success') { window.location.reload(); }
+    }, 1000);
   }
-  
+
+  // 參數
   onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
-    this.getCaseList();
+    const { pageIndex } = params;
+    if (this.pageIndex !== pageIndex) {
+      this.pageIndex = pageIndex;
+      this.getCaseList();
+    }
   }
   changePage() {
     this.pageIndex = 1;
@@ -146,8 +149,8 @@ export class F01005page1Component implements OnInit {
       }
     });
   }
-   // 將案件類型轉成中文
-   getOptionCaseType(codeVal: string): string {
+  // 將案件類型轉成中文
+  getOptionCaseType(codeVal: string): string {
     for (const data of this.caseTypeCode) {
       if (data.value == codeVal) {
         return data.viewValue;
@@ -156,14 +159,13 @@ export class F01005page1Component implements OnInit {
     }
     return codeVal;
   }
-// 清除資料
-clear() {
-  this.agentEmpNo = '';
-  this.swcApplno = '';
-  this.swcNationalId = '';
-  this.caseType = '';
-  this.empNo = localStorage.getItem("empNo");
-  this.getCaseList();
-}
+  // 清除資料
+  clear() {
+    this.agentEmpNo = '';
+    this.swcApplno = '';
+    this.swcNationalId = '';
+    this.empNo = localStorage.getItem("empNo");
+    this.getCaseList();
+  }
 
 }

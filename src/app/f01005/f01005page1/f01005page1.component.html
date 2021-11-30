@@ -1,6 +1,6 @@
 <div class="line_bank_bankground_color">
   <div nz-row class="search_row">
-    <th style="padding-left: 20px;">Fraud案件清單 共{{this.total}}件</th>
+    <th style="padding-left: 30px;">Fraud案件清單 共{{this.total}}件</th>
     <div class="search_row_header">
       <div nz-col>
         <div nz-row>
@@ -26,7 +26,7 @@
           </div>
           <div nz-col nzSpan="2" style="margin-top:20px;">
             <div>
-              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢案件</button>
+              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="search()">查詢案件</button>
             </div>
           </div>
           <div nz-col nzSpan="2" style="margin-top:20px;">
@@ -44,13 +44,10 @@
       <div nz-col nzSpan="24">
         <div class="line_bank_card_no_padding">
           <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
-            [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable
+            [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable
             style="height:100%" nzSize="small" [nzScroll]="{ x: '1500px', y:'500px'}"
             (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
-              <!-- <div style="text-align:right;width: 90vw; font-size: 16px;">
-                <span>案件數: {{this.total}} 件</span>
-              </div> -->
               <tr>
                 <th class="table-header" [nzLeft]="true" [nzWidth]="'120px'">案件編號</th>
                 <th class="table-header">流程別</th>
@@ -72,10 +69,6 @@
             <tbody>
               <tr *ngFor="let data of cusinfoDataSource" style="height: 100%;">
                 <td class="table-data" [nzLeft]="true" style="text-align: center;">
-                  <!-- <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='N'"
-                    [disabled]="true">
-                    {{data.swcApplno}}
-                  </button> -->
                   <button nz-button [nzSize]="'middle'" nzType="link"
                     (click)="getLockCase(data.swcApplno, data.swcNationalId)">
                     {{data.swcApplno}}
