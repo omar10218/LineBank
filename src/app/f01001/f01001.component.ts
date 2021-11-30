@@ -67,21 +67,11 @@ export class F01001Component implements OnInit, AfterViewInit {
     this.swcApplno = '';
     this.swcNationalId = '';
     this.caseType = '';
-    console.log(this.swcNationalId)
-    console.log(this.swcApplno)
-    console.log(this.pageIndex)
-    console.log(this.pageSize)
-    console.log(this.empNo)
 
   }
 
   ngAfterViewInit() {
     this.getCaseList();
-    console.log(this.swcNationalId)
-    console.log(this.swcApplno)
-    console.log(this.pageIndex)
-    console.log(this.pageSize)
-    console.log(this.empNo)
   }
 
   // 查詢案件清單

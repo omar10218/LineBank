@@ -72,7 +72,7 @@
                 <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzWidth]="'120px'" [nzSortFn]="true"
                   [nzLeft]="true">案件編號</th>
                 <th class="table-header">流程別</th>
-                <th class="table-header" [nzWidth]="'100px'">是否重查完成</th>
+                <th class="table-header" [nzWidth]="'100px'">重查完成</th>
                 <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
                   [nzSortOrder]="'ascend'">進件時間</th>
                 <th class="table-header">身分證號</th>
@@ -90,20 +90,19 @@
             </thead>
             <tbody>
               <tr *ngFor="let data of cusinfoDataSource">
-                <td class="table-data" [nzLeft]="true" style="text-align: center;">
+                <td class="table-data" nzLeft >
                   <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='N'"
                     [disabled]="true">
                     {{data.swcApplno}}
                   </button>
-                  <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='Y'"
+                  <button nz-button [nzSize]="'middle'" nzLeft nzType="link" *ngIf="data.swcReadyForReview=='Y'||data.swcReadyForReview==''"
                     (click)="getLockCase(data.swcApplno, data.swcNationalId)">
                     {{data.swcApplno}}
                   </button>
                 </td>
                 <td class="table-data">{{ getOptionCaseType(data.swcFlowType) }}</td>
                 <td class="table-data">{{ data.swcReadyForReview }}</td>
-                <td class="table-data">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}
-                </td>
+                <td class="table-data">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}</td>
                 <td class="table-data">{{ data.swcNationalId }}</td>
                 <td class="table-data">{{ data.swcName }}</td>
                 <td class="table-data">{{ data.swcCompany }}</td>
