@@ -293,7 +293,7 @@ test123(){
 			this.jsonObject['content'] = content;
 			console.log(this.chkArray)
 			console.log(this.contentArray)
-			alert('儲存成功')
+			
 			const url = 'f03/f03017action2'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 				console.log(data)
@@ -331,11 +331,9 @@ test123(){
 				content.push({ bkColumn: key, bkContent: this.testArray[key], check:this.CU_CNAME.nativeElement.checked,rowID:this.data.ROWID });
 			});
 		
-			alert('2')
 			console.log(this.chkArray)
 			console.log(this.contentArray)
 			this.jsonObject['content'] = content;
-			alert('儲存成功')
 			const url = 'f03/f03017action2'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 				console.log(data)
