@@ -125,7 +125,7 @@ export class F01003Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('level', '2');
-        sessionStorage.setItem('page', '3');
+        sessionStorage.setItem('page', '3'); //0查詢 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8產生合約前回查 9複審人員 10複審主管
         sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01003/F01003SCN1']);
       }

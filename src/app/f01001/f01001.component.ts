@@ -67,21 +67,11 @@ export class F01001Component implements OnInit, AfterViewInit {
     this.swcApplno = '';
     this.swcNationalId = '';
     this.caseType = '';
-    console.log(this.swcNationalId)
-    console.log(this.swcApplno)
-    console.log(this.pageIndex)
-    console.log(this.pageSize)
-    console.log(this.empNo)
 
   }
 
   ngAfterViewInit() {
     this.getCaseList();
-    console.log(this.swcNationalId)
-    console.log(this.swcApplno)
-    console.log(this.pageIndex)
-    console.log(this.pageSize)
-    console.log(this.empNo)
   }
 
   // 查詢案件清單
@@ -132,7 +122,7 @@ export class F01001Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('level', '4');
-        sessionStorage.setItem('page', '1');
+        sessionStorage.setItem('page', '1'); //0查詢 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8產生合約前回查 9複審人員 10複審主管
         sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01001/F01001SCN1']);
       }
