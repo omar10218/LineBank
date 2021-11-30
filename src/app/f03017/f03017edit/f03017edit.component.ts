@@ -236,14 +236,19 @@ export class F03017editComponent implements OnInit {
 	onNoClick(): void {
 		this.dialogRef.close();
 	}
-
+test123(){
+	if(this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null){
+		this.insertData()
+	}else{
+		this.updateData()
+	}
+}
 	//新增
 	public async insertData(): Promise<void> {
 		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
 			this.dialog.open(ConfirmComponent, { data: { msgStr: '請選擇通報原因1' } })
 		}
 		else {
-			
 			this.chkArray.forEach(element => {
 				console.log(element)
 				if (element.value === 'CU_CNAME') {
@@ -278,11 +283,11 @@ export class F03017editComponent implements OnInit {
 			const content = []
 			Object.keys(this.testArray).forEach(key => {
 				console.log(key)
-				content.push({ bkColumn: key, bkContent: this.testArray[key],check:this.CU_CNAME.nativeElement.checked,rowID:this.blockListForm.value.ROWID });
+				content.push({ bkColumn: key, bkContent: this.testArray[key],check:this.CU_CNAME.nativeElement.checked });
 				console.log(key)
 				console.log(this.testArray[key])
 				console.log( this.CU_CNAME.nativeElement.checked)
-				console.log(this.blockListForm.value.ROWID)
+				console.log(this.data.ROWID)	
 			});
 			 
 			this.jsonObject['content'] = content;
@@ -301,9 +306,7 @@ export class F03017editComponent implements OnInit {
 	}
 	//編輯
 	public async updateData(): Promise<void> {
-		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
-			this.dialog.open(ConfirmComponent, { data: { msgStr: '請選擇通報原因1' } })
-		} else {
+		
 			this.chkArray.forEach(element => {
 				if (element.value === 'CU_NAME') {
 					this.CU_CNAME.nativeElement.checked = true
@@ -325,7 +328,7 @@ export class F03017editComponent implements OnInit {
 			// this.jsonObject['bkContent'] = this.contentArray
 			const content = [];
 			Object.keys(this.testArray).forEach(key => {
-				content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.chkArray });
+				content.push({ bkColumn: key, bkContent: this.testArray[key], check:this.CU_CNAME.nativeElement.checked,rowID:this.data.ROWID });
 			});
 		
 			alert('2')
@@ -341,8 +344,11 @@ export class F03017editComponent implements OnInit {
 					// this.dialogRef.close({ event: 'success' });
 				}
 			})
-		}
+		
 	}
+
+
+
 
 	// 查詢客戶資料
 	selectCustInfo() {
