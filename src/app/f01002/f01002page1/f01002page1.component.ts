@@ -121,7 +121,6 @@ export class F01002page1Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
-        sessionStorage.setItem('review', '');
         sessionStorage.setItem('level', '3');
         sessionStorage.setItem('page', '2');
         sessionStorage.setItem('stepName', this.stepName);
