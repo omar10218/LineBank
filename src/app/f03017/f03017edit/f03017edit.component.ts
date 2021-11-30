@@ -229,8 +229,7 @@ export class F03017editComponent implements OnInit {
 			})
 		}
 
-		console.log('this.chkArray');
-		console.log(this.chkArray);
+	
 	}
 
 	// 離開該彈窗
@@ -276,15 +275,16 @@ export class F03017editComponent implements OnInit {
 			this.jsonObject['reportReason3'] = this.blockListForm.value.REPORT_REASON3
 			this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 			this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
-			this.jsonObject['rowID'] = this.blockListForm.value.ROWID
-			const content = [];
-		
+			const content = []
 			Object.keys(this.testArray).forEach(key => {
 				console.log(key)
-				content.push({ bkColumn: key, bkContent: this.testArray[key],check: this.chkArray,rowID:this.blockListForm.value.ROWID });
+				content.push({ bkColumn: key, bkContent: this.testArray[key],check:this.CU_CNAME.nativeElement.checked,rowID:this.blockListForm.value.ROWID });
+				console.log(key)
 				console.log(this.testArray[key])
+				console.log( this.CU_CNAME.nativeElement.checked)
+				console.log(this.blockListForm.value.ROWID)
 			});
-			
+			 
 			this.jsonObject['content'] = content;
 			console.log(this.chkArray)
 			console.log(this.contentArray)
