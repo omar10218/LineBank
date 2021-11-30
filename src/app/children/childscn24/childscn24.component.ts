@@ -30,9 +30,9 @@ export class Childscn24Component implements OnInit {
   public async confirm(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = this.level;
+    jsonObject['level'] = 'L'+this.level;
     let msgStr: string = '';
-    if (this.level == 'L2') {
+    if (this.level == '2') {
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     }
