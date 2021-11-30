@@ -31,11 +31,20 @@ export class F01009Component implements OnInit, AfterViewInit {
   swcCustId: string;
   caseType: string;
   agentEmpNo: string;
+  swcCollStatus: string;              // 本次貸後管理狀態
+  swcCollFlag: string;                // 本次貸後管理註記
+  swcRiskLevel: string;               // 本次客戶風險等級CRL
+  swcInputType: string;               // 進件類別
+  swcCusFlag: string;                 // 客戶身分名單註記
 
   //下拉選單區
   caseTypeCode: OptionsCode[] = [];
   agentEmpNoCode: OptionsCode[] = [];
-  ynCode: OptionsCode[] = [];
+  bwMgrStatusCode: OptionsCode[] = [];// 本次貸後管理狀態
+  bwMgrMarkCode: OptionsCode[] = [];  // 本次貸後管理註記
+  bwRiskCode: OptionsCode[] = [];     // 本次客戶風險等級CRL
+  bwInputTypeCode: OptionsCode[] = [];// 進件類別
+  ynCode: OptionsCode[] = [];         // 客戶身分名單註記
 
   // 計算剩餘table資料長度
   get tableHeight(): string {
@@ -45,9 +54,8 @@ export class F01009Component implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
     // 查詢案件分類
-    this.f01009Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
+    this.f01009Service.getSysTypeCode('BW_CASE_TYPE').subscribe(data => {
       this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
@@ -56,6 +64,60 @@ export class F01009Component implements OnInit, AfterViewInit {
       }
     });
 
+    // 代理人
+    let jsonObject: any = {};
+    jsonObject['swcL3EmpNo'] = this.empNo;
+
+    this.f01009Service.getEmpNo(jsonObject).subscribe(data => {
+      this.agentEmpNoCode.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody) {
+        const empNo = jsonObj['empNo'];
+        const empName = jsonObj['empName'];
+        this.agentEmpNoCode.push({ value: empNo, viewValue: empName })
+      }
+    });
+
+    // 本次貸後管理狀態
+    this.f01009Service.getSysTypeCode('BW_MGR_STATUS').subscribe(data => {
+      this.bwMgrStatusCode.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.bwMgrStatusCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    // 本次貸後管理註記
+    this.f01009Service.getSysTypeCode('BW_MGR_MARK').subscribe(data => {
+      this.bwMgrMarkCode.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.bwMgrMarkCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    // 本次客戶風險等級CRL
+    this.f01009Service.getSysTypeCode('BW_RISK').subscribe(data => {
+      this.bwRiskCode.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.bwRiskCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    // 進件類別
+    this.f01009Service.getSysTypeCode('BW_INPUT_TYPE').subscribe(data => {
+      this.bwInputTypeCode.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.bwInputTypeCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
+    // 客戶身分名單註記
     this.f01009Service.getSysTypeCode('YN').subscribe(data => {
       this.ynCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
@@ -64,10 +126,15 @@ export class F01009Component implements OnInit, AfterViewInit {
         this.ynCode.push({ value: codeNo, viewValue: desc })
       }
     });
+
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
     this.caseType = '';
+    this.swcCollStatus = '';
+    this.swcRiskLevel = '';
+    this.swcCollFlag = '';
+    this.swcInputType = '';
   }
 
   ngAfterViewInit() {
@@ -96,6 +163,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     jsonObject['per_page'] = this.pageSize;
     jsonObject['swcL4EmpNo'] = this.agentEmpNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
+    jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01009Service.getCaseList(jsonObject).subscribe(data => {
@@ -134,8 +202,6 @@ export class F01009Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
-        sessionStorage.setItem('level', '4');
-        sessionStorage.setItem('page', '9');
         this.router.navigate(['./F01009/F01009SCN1']);
       }
     });
@@ -157,12 +223,33 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.total = 1;
   }
 
-  // 清除資料
-  clear() {
+// 儲存案件註記
+saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
+  let msg = '';
+  let jsonObject: any = {};
+  jsonObject['swcApplno'] = swcApplno;
+  console.log(swcCaseMemo)
+  jsonObject['swcCaseMemo'] = swcCaseMemo;
+
+  this.f01009Service.saveCaseMemo(jsonObject).subscribe(data => {
+    msg = data.rspMsg;
+  });
+  setTimeout(() => {
+    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
+    if (msg != null && msg == 'success') { window.location.reload(); }
+  }, 1000);
+}
+   // 清除資料
+   clear() {
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
+    this.swcCustId = '';
+    this.swcCollStatus = '';
+    this.swcCollFlag = '';
+    this.swcRiskLevel = '';
     this.caseType = '';
+    this.swcInputType = '';
     this.empNo = localStorage.getItem("empNo");
     this.getCaseList();
   }

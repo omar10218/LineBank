@@ -19,4 +19,14 @@ export class F01010Service extends BaseService {
     const baseUrl = 'f01/f01010fn1';
     return this.postJsonObject(baseUrl, jsonObject);
   }
+
+  getEmpNo(jsonObject: JSON): Observable<any> {
+    const baseUrl = 'f01/f01002fn2';
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
+
+  saveCaseMemo(jsonObject: JSON) {
+    const baseUrl = 'f01/f01010fn3';
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
 }
