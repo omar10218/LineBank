@@ -100,7 +100,7 @@
                     {{data.swcApplno}}
                   </button>
                 </td>
-                <td *ngIf="data.swcCreditLevel == 'T';" class="table-data">補回件</td>
+                <td *ngIf="data.swcCreditLevel == 'T';" class="table-data">暫存件</td>
                 <td *ngIf="data.swcCreditLevel == '';" class="table-data">{{ getOptionCaseType(data.swcFlowType) }}</td>
                 <td class="table-data">{{ data.swcReadyForReview }}</td>
                 <td class="table-data" nzWidth="'70px'">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}
