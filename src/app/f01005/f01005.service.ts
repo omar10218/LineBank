@@ -35,17 +35,4 @@ export class F01005Service extends BaseService {
 
     return this.postJsonObject(baseUrl, jsonObject);
   }
-
-  updateCalloutTime(jsonObject: JSON): Observable<any> {
-    const baseUrl = 'f01/f01005fn5';
-
-    return this.postJsonObject(baseUrl, jsonObject);
-  }
-
-  updateCalloutYN(jsonObject: JSON):any {
-    const baseUrl = 'f01/f01005fn6';
-
-    return this.saveOrEditMsgJson(baseUrl, jsonObject);
-  }
-
 }
