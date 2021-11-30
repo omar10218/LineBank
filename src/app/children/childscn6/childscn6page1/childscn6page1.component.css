@@ -36,6 +36,8 @@ table {
   background:#24C875;
   border-color:#24C875;
   border-radius:5px;
+  height: 100%;
+  line-height: normal;
 }
 
 .nohide{
@@ -43,6 +45,8 @@ table {
   background:white;
   border-color:#24C875;
   border-radius:5px;
+  height: 100%;
+  line-height: normal;
 }
 
 .watermark {

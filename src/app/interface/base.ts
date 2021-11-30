@@ -89,7 +89,6 @@ export enum JCICCode {
   BAM504 = 'BAM504',
   BAM505 = 'BAM505',
   BAM032 = 'BAM032',
-  BAM011 = 'BAM011',
   BAM067 = 'BAM067',
   BAM070 = 'BAM070',
   BAM101 = 'BAM101',
@@ -102,7 +101,10 @@ export enum JCICCode {
   KRM048 = 'KRM048',
   STM022 = 'STM022',
   STM008 = 'STM008',
-  STM025 = 'STM025'
+  STM025 = 'STM025',
+  BAM033 = 'BAM033',
+  BAM034 = 'BAM034',
+  BAS010 = 'BAS010'
 }
 
 export interface JCICTable {
