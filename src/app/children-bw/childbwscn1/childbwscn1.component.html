@@ -4,6 +4,10 @@
   <div class="line_bank_form_header_title">覆審資訊</div>
   <div nz-row style="padding:5px">
     <div nz-col nzFlex="1">
+      <div style="padding:3px"><span class="form-title">案件編號</span><input matInput #input class="form-control"
+          [(ngModel)]="applno" readonly disabled></div>
+    </div>
+    <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">身分證字號</span><input matInput #input class="form-control"
           [(ngModel)]="custId" readonly disabled></div>
     </div>
@@ -107,14 +111,14 @@
     <div nz-col nzSpan="24">
       <div class="form">
         <div><span class="form-title"></span><textarea [(ngModel)]="creditaction" name='creditaction' matInput class="input-textarea" style="text-align: left;"
-            [(ngModel)]="mark" name="mark"></textarea>
+            [(ngModel)]="mark" name="mark" (keyup)="creditaction_keyup()"></textarea>
         </div>
       </div>
     </div>
   </div>
   <div style="padding:3px;text-align: center;">
-    <button *ngIf="getPage()=='9'|| getPage()=='10'" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
-    <button *ngIf="getPage()!='9'&& getPage()!='10'" disabled nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+    <button *ngIf="(getPage()=='9'|| getPage()=='10') && size == 0 " nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+    <button *ngIf="(getPage()!='9'&& getPage()!='10')|| size != 0" disabled nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
   </div>
 
   <!-- 表格 -->

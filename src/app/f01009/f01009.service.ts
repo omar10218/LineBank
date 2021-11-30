@@ -27,4 +27,9 @@ export class F01009Service extends BaseService {
     const baseUrl = 'f01/f01009fn3';
     return this.postJsonObject(baseUrl, jsonObject);
   }
+
+  postJson(baseUrl: string,  json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
+  }
+
 }
