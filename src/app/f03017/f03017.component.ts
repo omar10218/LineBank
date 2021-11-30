@@ -135,6 +135,7 @@ export class F03017Component implements OnInit {
 			jsonObject['bkColumn'] = this.bkColumnValue
 			jsonObject['bkContent'] = this.bkContentValue
 			await this.f03017Service.getReturn('f03/f03017', jsonObject).subscribe(data => {
+				console.log(data)
 				this.total = data.rspBody.size
 				this.bkIncomeDataSource = data.rspBody.items
 			})
@@ -178,6 +179,7 @@ export class F03017Component implements OnInit {
 	//編輯
 	update(isUpdate: boolean, data: any, row: any) {
 		console.log(data)
+		console.log(row)
 		this.chkArray.forEach(element => {
 			console.log(element)
 			var checked: boolean = true
@@ -199,12 +201,15 @@ export class F03017Component implements OnInit {
 		})
 
 		const dialogRef = this.dialog.open(F03017editComponent, {
+			minHeight: '80vh',
+			width: '70%',
+			panelClass: 'mat-dialog-transparent',
 			data: {
 				// BK_COLUMN:chkArray,
 				// BK_CONTENT :contentArray,
 				isUpdate: isUpdate,
 				isInsert: false,
-				row: row,
+				ROWID: row,
 				reportReason1Value: data.REPORT_REASON1,
 				reportReason2Value: data.REPORT_REASON2,
 				reportReason3Value: data.REPORT_REASON3,

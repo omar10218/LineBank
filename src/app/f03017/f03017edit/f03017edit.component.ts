@@ -52,7 +52,7 @@ export class F03017editComponent implements OnInit {
 	constructor(public f03017Service: F03017Service, public dialogRef: MatDialogRef<F03017editComponent>, private route: ActivatedRoute, public dialog: MatDialog, public childService: ChildrenService, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
 	blockListForm: FormGroup = this.fb.group({
-		ROWID: [],
+		ROWID: [this.data.ROWID, []],
 		REPORT_UNIT: [this.data.no, []],
 		REPORT_REASON1: [this.data.reportReason1Value, [Validators.required]],
 		REPORT_REASON2: [this.data.reportReason2Value, []],
@@ -106,6 +106,7 @@ export class F03017editComponent implements OnInit {
 		console.log(this.blockListForm)
 		console.log(this.data.BK_CONTENT)
 		console.log(this.data.BK_COLUMN)
+		console.log(this.data.ROWID)
 		this.selectCustInfo()
 		this.route.queryParams.subscribe(params => {
 			this.no = localStorage.getItem('empNo')
@@ -243,6 +244,7 @@ export class F03017editComponent implements OnInit {
 			this.dialog.open(ConfirmComponent, { data: { msgStr: '請選擇通報原因1' } })
 		}
 		else {
+			
 			this.chkArray.forEach(element => {
 				console.log(element)
 				if (element.value === 'CU_CNAME') {
@@ -261,24 +263,28 @@ export class F03017editComponent implements OnInit {
 					this.contentArray.push(this.blockListForm.value.CU_M_TEL)
 				}
 			})
+			this.chkArray.forEach(element => {
+				console.log(element)
+				if (element.value === 'CU_NAME') {
+					this.CU_CNAME.nativeElement.checked = true
+				}
+				console.log(this.CU_CNAME.nativeElement.checked)
+			})
 			this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
 			this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
 			this.jsonObject['reportReason2'] = this.blockListForm.value.REPORT_REASON2
 			this.jsonObject['reportReason3'] = this.blockListForm.value.REPORT_REASON3
 			this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 			this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
+			this.jsonObject['rowID'] = this.blockListForm.value.ROWID
 			const content = [];
-			// for(var i=0;i<this.chkArray.length;i++) {
-			//   content.push({bkColumn: this.chkArray[i], bkContent: this.contentArray[i]});
-			// }
-
+		
 			Object.keys(this.testArray).forEach(key => {
 				console.log(key)
-				content.push({ bkColumn: key, bkContent: this.testArray[key] });
+				content.push({ bkColumn: key, bkContent: this.testArray[key],check: this.chkArray,rowID:this.blockListForm.value.ROWID });
+				console.log(this.testArray[key])
 			});
-
-			// this.jsonObject['bkColumn'] = this.chkArray
-			// this.jsonObject['bkContent'] = this.contentArray
+			
 			this.jsonObject['content'] = content;
 			console.log(this.chkArray)
 			console.log(this.contentArray)
@@ -288,7 +294,7 @@ export class F03017editComponent implements OnInit {
 				console.log(data)
 				if (data.rspMsg == '儲存成功') {
 					this.dialog.open(ConfirmComponent, { data: { msgStr: '儲存成功' } })
-					// this.dialogRef.close({ event: 'success' });
+					
 				}
 			})
 		}
@@ -303,24 +309,10 @@ export class F03017editComponent implements OnInit {
 					this.CU_CNAME.nativeElement.checked = true
 				}
 			})
-			// this.chkArray.forEach(element => {
-			// 	if (element.value === 'CU_CNAME') {
-			// 		this.contentArray.push(this.blockListForm.value.CU_CNAME)
-			// 	}
-			// 	if (element.value === 'NATIONAL_ID') {
-			// 		this.contentArray.push(this.blockListForm.value.NATIONAL_ID)
-			// 	}
-			// 	if (element.value === 'CU_H_TEL') {
-			// 		this.contentArray.push(this.blockListForm.value.CU_H_TEL)
-			// 	}
-			// 	if (element.value === 'CU_CP_TEL') {
-			// 		this.contentArray.push(this.blockListForm.value.CU_CP_TEL)
-			// 	}
-			// 	if (element.value === 'CU_M_TEL') {
-			// 		this.contentArray.push(this.blockListForm.value.CU_M_TEL)
-			// 	}
-			// })
-
+			console.log(this.blockListForm)
+			console.log(this.blockListForm.value)
+			console.log(this.blockListForm.value.ROWID)
+		
 			this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
 			this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
 			this.jsonObject['reportReason2'] = this.blockListForm.value.REPORT_REASON2
@@ -328,12 +320,15 @@ export class F03017editComponent implements OnInit {
 			this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 			this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
 			this.jsonObject['rowID'] = this.blockListForm.value.ROWID;
+		
 			// this.jsonObject['bkColumn'] = this.chkArray
 			// this.jsonObject['bkContent'] = this.contentArray
 			const content = [];
 			Object.keys(this.testArray).forEach(key => {
 				content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.chkArray });
 			});
+		
+			alert('2')
 			console.log(this.chkArray)
 			console.log(this.contentArray)
 			this.jsonObject['content'] = content;
