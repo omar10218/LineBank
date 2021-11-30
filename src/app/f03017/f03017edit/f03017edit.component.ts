@@ -207,7 +207,7 @@ export class F03017editComponent implements OnInit {
 
 
 
-		this.checktest(check)
+		// this.checktest(check)
 		// 取最後的輸入值
 		this.testArray[data] = value;
 		console.log(this.testArray);
@@ -283,7 +283,7 @@ export class F03017editComponent implements OnInit {
 			console.log(this.chkArray)
 			console.log(this.contentArray)
 			alert('儲存成功')
-			const url = 'f03/f03017action'
+			const url = 'f03/f03017action2'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 				console.log(data)
 				if (data.rspMsg == '儲存成功') {
