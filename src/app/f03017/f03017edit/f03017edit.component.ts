@@ -102,7 +102,9 @@ export class F03017editComponent implements OnInit {
 				'';
 	}
 	ngOnInit(): void {
-
+		console.log('------------------');
+		// console.log(this.data.BK_CONTENT);
+		console.log('------------------');
 		console.log(this.blockListForm)
 		console.log(this.data.BK_CONTENT)
 		console.log(this.data.BK_COLUMN)
@@ -236,6 +238,7 @@ export class F03017editComponent implements OnInit {
 	onNoClick(): void {
 		this.dialogRef.close();
 	}
+
 test123(){
 	if(this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null){
 		this.insertData()

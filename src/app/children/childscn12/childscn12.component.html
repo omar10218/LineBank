@@ -11,15 +11,17 @@
       nzSimple="true">
       <thead>
         <tr>
-          <th class="table-header" style="width:5%">項目</th>
+          <th class="table-header" style="width:1%">No</th>
+          <th class="table-header" style="width:10%">項目</th>
           <th class="table-header" style="width:10%">數值</th>
-          <th class="table-header" style="width:10%">徵審確認後年收入</th>
-          <th class="table-header" style="width:15%">備註</th>
+          <th class="table-header" style="width:5%">徵審確認後年收入</th>
+          <th class="table-header" style="width:30%">備註</th>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngIf="EL_INCOME_Source.data.length==7">
           <tr *ngFor="let item of EL_INCOME_Source.data;let i=index">
+            <td>{{i+1}}</td>
             <td>{{item.items}}</td>
             <td class="data_right" *ngIf="i!=6">{{toCurrency(item.income.toString())}}</td>
             <td *ngIf="i==6">
@@ -39,6 +41,7 @@
         </ng-container>
         <ng-container *ngIf="EL_INCOME_Source.data.length!=7">
           <tr>
+            <td>1</td>
             <td>薪轉存褶合計</td>
             <td></td>
             <td>
@@ -51,6 +54,7 @@
             </td>
           </tr>
           <tr>
+            <td>2</td>
             <td>薪資單合計</td>
             <td></td>
             <td>
@@ -60,6 +64,7 @@
             </td>
           </tr>
           <tr>
+            <td>3</td>
             <td>所清/報稅合計</td>
             <td></td>
             <td>
@@ -69,6 +74,7 @@
             </td>
           </tr>
           <tr>
+            <td>4</td>
             <td>扣繳憑單合計</td>
             <td></td>
             <td>
@@ -78,6 +84,7 @@
             </td>
           </tr>
           <tr>
+            <td>5</td>
             <td>勞保/勞退合計</td>
             <td></td>
             <td>
@@ -87,6 +94,7 @@
             </td>
           </tr>
           <tr>
+            <td>6</td>
             <td>行員年收入</td>
             <td></td>
             <td>
@@ -96,6 +104,7 @@
             </td>
           </tr>
           <tr>
+            <td>7</td>
             <td>其他試算結果</td>
             <td>
               <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="income" (keyup)="income=data_number(income)"

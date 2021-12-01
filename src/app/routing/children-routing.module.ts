@@ -38,6 +38,7 @@ import { Childscn9page4Component } from '../children/childscn9/childscn9page4/ch
 import { Childscn21Component } from '../children/childscn21/childscn21.component';
 import { Childscn22Component } from '../children/childscn22/childscn22.component';
 import { Childscn23Component } from '../children/childscn23/childscn23.component';
+import { Childscn25Component } from '../children/childscn25/childscn25.component';
 
 const routes: Routes = [
   {
@@ -200,6 +201,10 @@ const routes: Routes = [
   {
     path: 'CHILDSCN23',
     component: Childscn23Component
+  },
+  {
+    path: 'CHILDSCN25',
+    component: Childscn25Component
   },
   {
     path: '',
