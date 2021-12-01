@@ -23,8 +23,6 @@ export class Childscn7Component implements OnInit {
   AMLSource: any;
   FDSSource: any;
   CSSSource: any;
-  RPMSource: any;
-  SRPSource: any;
 
   private applno: string;
   ngOnInit(): void {
@@ -38,8 +36,6 @@ export class Childscn7Component implements OnInit {
       this.AMLSource = data.rspBody.amlList;//alm資料
       this.FDSSource = data.rspBody.fdsList;//FDS資料
       this.CSSSource = data.rspBody.cssList;//CSS資料
-      this.RPMSource = data.rspBody.rpmList;//RPM資料
-      this.SRPSource = data.rspBody.srpList;//SRP同一關係人
     });
   }
 

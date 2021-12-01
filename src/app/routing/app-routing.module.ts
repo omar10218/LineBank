@@ -131,7 +131,7 @@ const routes: Routes = [
       },
       {
         path: 'F01007',
-        component: F01007Component
+        loadChildren: () => import ('../f01007/f01007.module').then(m => m.F01007Module)
       },
       {
         path: 'F01008',
