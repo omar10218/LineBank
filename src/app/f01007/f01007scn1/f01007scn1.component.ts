@@ -101,6 +101,8 @@ export class F01007scn1Component implements OnInit {
     });
   }
 
+  
+
   recalculate() {
     const dialogRef = this.dialog.open(Childscn22Component, {
       panelClass: 'mat-dialog-transparent',
@@ -112,14 +114,16 @@ export class F01007scn1Component implements OnInit {
       }
     });
   }
+  // 退件
   sendBack() {
     const dialogRef = this.dialog.open(Childscn24Component, {
       panelClass: 'mat-dialog-transparent',
       minHeight: '50%',
-      width: '30%',
+      width: '50%',
       data: {
         applno: this.applno,
         level:sessionStorage.getItem('level'),
+        stepName:sessionStorage.getItem('stepName'),
       }
     });
   }

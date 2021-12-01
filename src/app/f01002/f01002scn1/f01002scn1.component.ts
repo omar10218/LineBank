@@ -70,6 +70,8 @@ export class F01002scn1Component implements OnInit {
   caRisk: string;
   mark: string;
 
+  changeValue: boolean = true;
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
@@ -284,5 +286,10 @@ export class F01002scn1Component implements OnInit {
     jsonObject['creditaction'] = this.mark;
     jsonObject['creditlevel'] = sessionStorage.getItem('stepName').split('t')[1];
     msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
+  }
+
+  //判斷是否需要顯示案件完成列
+  changeRoute(route: boolean) {
+    this.changeValue = route;
   }
 }

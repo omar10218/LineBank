@@ -122,7 +122,7 @@
               
            <div *ngIf="b1==true"> 
             <input *ngIf="data.BK_COLUMN=='CU_CNAME'||data.BK_COLUMN==undefined" matInput #input class="form-control" style="width:90%;margin-top:0px;height:28px"
-            formControlName="CU_CNAME" (keyup)="test('CU_CNAME', $event.target.value)" >
+            formControlName="CU_CNAME"  (keyup)="test('CU_CNAME', $event.target.value)" >
            </div>
            <div *ngIf="b1==false"> 
              
@@ -132,7 +132,7 @@
 
            <div *ngIf="b2==true"> 
             <input *ngIf="data.BK_COLUMN=='NATIONAL_ID'||data.BK_COLUMN==undefined" matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px"
-            formControlName="NATIONAL_ID" (keyup)="test('NATIONAL_ID', $event.target.value)" >
+            formControlName="NATIONAL_ID"  (keyup)="test('NATIONAL_ID', $event.target.value)" >
            </div>
            <div *ngIf="b2==false"> 
             
@@ -142,28 +142,28 @@
 
            <div *ngIf="b3==true"> 
             <input *ngIf="data.BK_COLUMN=='CU_H_TEL'||data.BK_COLUMN==undefined" matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px"
-            formControlName="CU_H_TEL" (keyup)="test('CU_H_TEL', $event.target.value)" >
+            formControlName="CU_H_TEL"  (keyup)="test('CU_H_TEL', $event.target.value)" >
            </div>
            <div *ngIf="b3==false"> 
             <input *ngIf="data.BK_COLUMN=='CU_H_TEL'||data.BK_COLUMN==undefined" matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px;background-color:#E6E6E6"
-            formControlName="CU_H_TEL" (keyup)="test('CU_H_TEL', $event.target.value)" readonly>
+            formControlName="CU_H_TEL"  (keyup)="test('CU_H_TEL', $event.target.value)" readonly>
            </div>
 
            <div *ngIf="b4==true"> 
             <input *ngIf="data.BK_COLUMN=='CU_CP_TEL'||data.BK_COLUMN==undefined" matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px"
-                formControlName="CU_CP_TEL" (keyup)="test('CU_CP_TEL', $event.target.value)">
+                formControlName="CU_CP_TEL"  (keyup)="test('CU_CP_TEL', $event.target.value)">
            </div>
            <div *ngIf="b4==false"> 
             <input *ngIf="data.BK_COLUMN=='CU_CP_TEL'||data.BK_COLUMN==undefined" matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px;background-color:#E6E6E6"
-            formControlName="CU_CP_TEL" (keyup)="test('CU_CP_TEL', $event.target.value)" readonly>
+            formControlName="CU_CP_TEL"  (keyup)="test('CU_CP_TEL', $event.target.value)" readonly>
            </div>
            <div *ngIf="b5==true"> 
             <input *ngIf="data.BK_COLUMN=='CU_M_TEL'||data.BK_COLUMN==undefined" matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px"
-                formControlName="CU_M_TEL" (keyup)="test('CU_M_TEL', $event.target.value)">
+                formControlName="CU_M_TEL"   (keyup)="test('CU_M_TEL', $event.target.value)">
            </div>
            <div *ngIf="b5==false"> 
             <input *ngIf="data.BK_COLUMN=='CU_M_TEL'||data.BK_COLUMN==undefined" matInput #input class="form-control" style="width:90%;margin-top:12px;height:28px;background-color:#E6E6E6"
-            formControlName="CU_M_TEL" (keyup)="test('CU_M_TEL', $event.target.value)" readonly>
+            formControlName="CU_M_TEL"  (keyup)="test('CU_M_TEL', $event.target.value)" readonly>
            </div>
                 
              

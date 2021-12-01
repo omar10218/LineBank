@@ -42,6 +42,7 @@ export class F03017editComponent implements OnInit {
 	currentPage: PageEvent
 	currentSort: Sort
 	checked: boolean;
+	content = [];
 	// get Element by ID抓取checkboxID值
 	@ViewChild('CU_CNAME') CU_CNAME: ElementRef;
 	@ViewChild('NATIONAL_ID') NATIONAL_ID: ElementRef;
@@ -87,7 +88,6 @@ export class F03017editComponent implements OnInit {
 	pageSize = 5
 	pageIndex = 1
 	check1: boolean = false
-
 	formControl = new FormControl('', [
 		Validators.required
 	]);
@@ -102,13 +102,13 @@ export class F03017editComponent implements OnInit {
 				'';
 	}
 	ngOnInit(): void {
-		console.log('------------------');
-		// console.log(this.data.BK_CONTENT);
-		console.log('------------------');
+		
+		console.log(this.data)
 		console.log(this.blockListForm)
 		console.log(this.data.BK_CONTENT)
 		console.log(this.data.BK_COLUMN)
 		console.log(this.data.ROWID)
+
 		this.selectCustInfo()
 		this.route.queryParams.subscribe(params => {
 			this.no = localStorage.getItem('empNo')
@@ -118,7 +118,6 @@ export class F03017editComponent implements OnInit {
 
 		//抓取資料表
 		this.blockListForm.patchValue({ 'REPORT_UNIT': this.no })
-		// this.selectBlockList(this.pageIndex, this.pageSize);
 
 		//取Customer_info資料
 		// this.selectCustInfo();
@@ -143,20 +142,25 @@ export class F03017editComponent implements OnInit {
 		var checked: boolean = true;
 		if (this.data.BK_COLUMN === "CU_CNAME") {
 			this.CU_CNAME.nativeElement.checked = checked
+			this.switchstatus(true, this.data.BK_COLUMN)
 			console.log(this.CU_CNAME.nativeElement.checked)
 		}
 		else if (this.data.BK_COLUMN === "NATIONAL_ID") {
 			this.NATIONAL_ID.nativeElement.checked = checked
+			this.switchstatus(true, this.data.BK_COLUMN)
 			console.log(this.NATIONAL_ID.nativeElement.checked)
 		}
 		else if (this.data.BK_COLUMN === "CU_H_TEL") {
 			this.CU_H_TEL.nativeElement.checked = checked
+			this.switchstatus(true, this.data.BK_COLUMN)
 		}
 		else if (this.data.BK_COLUMN === "CU_CP_TEL") {
 			this.CU_CP_TEL.nativeElement.checked = checked
+			this.switchstatus(true, this.data.BK_COLUMN)
 		}
 		else if (this.data.BK_COLUMN === "CU_M_TEL") {
 			this.CU_M_TEL.nativeElement.checked = checked
+			this.switchstatus(true, this.data.BK_COLUMN)
 		}
 	}
 
@@ -165,14 +169,19 @@ export class F03017editComponent implements OnInit {
 		var checked: boolean;
 		if (id == "CU_CNAME") {
 			checked = this.CU_CNAME.nativeElement.checked
+			
 		} else if (id == "NATIONAL_ID") {
 			checked = this.NATIONAL_ID.nativeElement.checked
+			
 		} else if (id == "CU_H_TEL") {
 			checked = this.CU_H_TEL.nativeElement.checked
+			
 		} else if (id == "CU_CP_TEL") {
 			checked = this.CU_CP_TEL.nativeElement.checked
+			
 		} else if (id = "CU_M_TEL") {
 			checked = this.CU_M_TEL.nativeElement.checked
+			
 		}
 		console.log(this.CU_CNAME.nativeElement.checked)
 		var data = id;
@@ -185,11 +194,10 @@ export class F03017editComponent implements OnInit {
 			return this.check1 = true
 		}
 	}
-	testArray = [];
-	check: boolean;
-	checkboxSelect(check: boolean, data: any, value: any) {
-
-
+	// 轉換input值狀態
+	switchstatus(check: boolean, data: any){
+		
+		this.testArray.push(this.data.bkContent)
 		switch (data) {
 			case 'CU_CNAME':
 				this.b1 = check
@@ -207,10 +215,11 @@ export class F03017editComponent implements OnInit {
 				this.b5 = check
 				break;
 		}
-
-
-
-		// this.checktest(check)
+	}
+	testArray = [];
+	check: boolean;
+	checkboxSelect(check: boolean, data: any, value: any) {
+      this.switchstatus(check, data)
 		// 取最後的輸入值
 		this.testArray[data] = value;
 		console.log(this.testArray);
@@ -231,7 +240,7 @@ export class F03017editComponent implements OnInit {
 			})
 		}
 
-	
+
 	}
 
 	// 離開該彈窗
@@ -239,13 +248,15 @@ export class F03017editComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
-test123(){
-	if(this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null){
-		this.insertData()
-	}else{
-		this.updateData()
+	// 判斷要新增還是編輯
+	test123() {
+		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
+			this.insertData()
+		} else {
+			this.updateData()
+		}
 	}
-}
+
 	//新增
 	public async insertData(): Promise<void> {
 		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
@@ -285,71 +296,74 @@ test123(){
 			this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
 			const content = []
 			Object.keys(this.testArray).forEach(key => {
-				console.log(key)
-				content.push({ bkColumn: key, bkContent: this.testArray[key],check:this.CU_CNAME.nativeElement.checked });
-				console.log(key)
-				console.log(this.testArray[key])
-				console.log( this.CU_CNAME.nativeElement.checked)
-				console.log(this.data.ROWID)	
+				content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked });
+				console.log(this.CU_CNAME.nativeElement.checked)
+				console.log(this.data.ROWID)
 			});
-			 
+
 			this.jsonObject['content'] = content;
 			console.log(this.chkArray)
 			console.log(this.contentArray)
 			
 			const url = 'f03/f03017action2'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
+				let msgStr = '';
 				console.log(data)
-				if (data.rspMsg == '儲存成功') {
-					this.dialog.open(ConfirmComponent, { data: { msgStr: '儲存成功' } })
-					
-				}
+				msgStr = (data.rspCode === '0000' && data.rspMsg === '儲存成功!') ? '儲存成功！' : '儲存失敗！';
+				const childernDialogRef = this.dialog.open(ConfirmComponent, {
+					data: { msgStr: msgStr }
+				});
+				if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
+				// if (data.rspMsg == '更新成功' && data.rspCode == '0000') {
+				// 	this.dialog.open(ConfirmComponent, { data: { msgStr: '儲存成功' } })
+
+				// }
 			})
 		}
 	}
+
 	//編輯
 	public async updateData(): Promise<void> {
-		
-			this.chkArray.forEach(element => {
-				if (element.value === 'CU_NAME') {
-					this.CU_CNAME.nativeElement.checked = true
-				}
-			})
-			console.log(this.blockListForm)
-			console.log(this.blockListForm.value)
-			console.log(this.blockListForm.value.ROWID)
-		
-			this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
-			this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
-			this.jsonObject['reportReason2'] = this.blockListForm.value.REPORT_REASON2
-			this.jsonObject['reportReason3'] = this.blockListForm.value.REPORT_REASON3
-			this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
-			this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
-			this.jsonObject['rowID'] = this.blockListForm.value.ROWID;
-		
-			// this.jsonObject['bkColumn'] = this.chkArray
-			// this.jsonObject['bkContent'] = this.contentArray
-			const content = [];
-			Object.keys(this.testArray).forEach(key => {
-				content.push({ bkColumn: key, bkContent: this.testArray[key], check:this.CU_CNAME.nativeElement.checked,rowID:this.data.ROWID });
-			});
-		
-			console.log(this.chkArray)
-			console.log(this.contentArray)
-			this.jsonObject['content'] = content;
-			const url = 'f03/f03017action2'
-			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
-				console.log(data)
-				if (data.rspMsg == '儲存成功') {
-					this.dialog.open(ConfirmComponent, { data: { msgStr: '儲存成功' } })
-					// this.dialogRef.close({ event: 'success' });
-				}
-			})
-		
+
+		this.chkArray.forEach(element => {
+			if (element.value === 'CU_NAME') {
+				this.CU_CNAME.nativeElement.checked = true
+			}
+		})
+		console.log(this.blockListForm)
+		console.log(this.blockListForm.value)
+		console.log(this.blockListForm.value.ROWID)
+
+		this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
+		this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
+		this.jsonObject['reportReason2'] = this.blockListForm.value.REPORT_REASON2
+		this.jsonObject['reportReason3'] = this.blockListForm.value.REPORT_REASON3
+		this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
+		this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
+		this.jsonObject['rowID'] = this.blockListForm.value.ROWID;
+
+
+
+		Object.keys(this.testArray).forEach(key => {
+			this.content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked, rowID: this.data.ROWID });
+		});
+		console.log(this.chkArray)
+		console.log(this.contentArray)
+		this.jsonObject['content'] = this.content;
+		const url = 'f03/f03017action2'
+
+		console.log('this.jsonObject')
+		console.log(this.jsonObject)
+
+		await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
+			console.log(data)
+			// if (data.rspMsg == '儲存成功') {
+				this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } })
+				// this.dialogRef.close({ event: 'success' });
+			// }
+		})
+
 	}
-
-
-
 
 	// 查詢客戶資料
 	selectCustInfo() {
@@ -370,27 +384,13 @@ test123(){
 		}
 	}
 
-	//查詢資料表
-	// selectBlockList(pageIndex: number, pageSize: number) {
-	//   const url = 'f01/blockListSelect';
-	//   const applno = this.applno;
 
-	//   let jsonObject: any = {};
-	//   jsonObject['page'] = pageIndex;
-	//   jsonObject['per_page'] = pageSize;
-
-	//   this.f03017Service.gettable(url, applno, jsonObject).subscribe(data => {
-	//     this.blockListDataSource = data.rspBody.list;
-	//     this.total = data.rspBody.size;
-	//     this.loading = false;
-	//   })
-	// }
 
 	onQueryParamsChange(params: NzTableQueryParams): void {
 		const { pageSize, pageIndex } = params
 		this.pageSize = pageSize
 		this.pageIndex = pageIndex
-		// this.selectBlockList(this.pageIndex, this.pageSize);
+
 	}
 }
 
