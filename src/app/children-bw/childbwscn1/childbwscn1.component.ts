@@ -24,6 +24,7 @@ export class Childbwscn1Component implements OnInit {
   custId: string;
   nationalId: string;
   mark: string;
+  size=0//此層級是否有資料
 
   private page: string;
   //覆審:L4 覆審主管:L3
@@ -46,11 +47,14 @@ export class Childbwscn1Component implements OnInit {
 
   ngOnInit(): void {
     sessionStorage.setItem('BW_creditResult', null);
+    sessionStorage.setItem('size', "0");
+    sessionStorage.setItem('creditaction', null);
     this.page = sessionStorage.getItem('page');
     this.applno = sessionStorage.getItem('applno');
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
     this.creditlevel = this.page == "10" ? "L3" : this.creditlevel;
     this.getCreditmemo(this.pageIndex, this.pageSize);
+
   }
 
   //查詢 審核意見
@@ -62,6 +66,10 @@ export class Childbwscn1Component implements OnInit {
     jsonObject['per_page'] = pageSize;
     this.childbwscn1Service.postJson(url, jsonObject).subscribe(data => {
       this.creditmemoSource=data.rspBody.list;
+      for(const data of this.creditmemoSource){
+        this.size=(data.CREDITLEVEL!=null&&data.CREDITLEVEL==this.creditlevel)?this.size+1:this.size;//判斷是否有資料
+      }
+      sessionStorage.setItem('size', this.size.toString());
       console.log('getCreditmemo')
       console.log(data)
     });
@@ -130,6 +138,10 @@ export class Childbwscn1Component implements OnInit {
     radio_change(){
       sessionStorage.setItem('BW_creditResult', this.BW_creditResult);
       // alert(sessionStorage.getItem('BW_creditResult'));
+    }
+
+    creditaction_keyup(){
+      sessionStorage.setItem('creditaction', this.creditaction);
     }
 
 }
