@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
+import { Childscn24Component } from 'src/app/children/childscn24/childscn24.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01004Scn1Service } from './f01004scn1.service';
 
@@ -40,13 +41,14 @@ export class F01004scn1Component implements OnInit {
   caPmcus: string;
   caRisk: string;
   mark: string;
-
+  stepName:string;
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
     this.cuid = sessionStorage.getItem('cuid');
     this.fds = sessionStorage.getItem('fds');
     this.level = sessionStorage.getItem('level');
+    this.stepName= sessionStorage.getItem('stepName');
   }
 
   ngAfterViewInit() {
@@ -131,6 +133,19 @@ export class F01004scn1Component implements OnInit {
         this.result(baseUrl, jsonObject, result);
       }
     }
+  }
+   // 退件
+   sendBack() {
+    const dialogRef = this.dialog.open(Childscn24Component, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight: '50%',
+      width: '50%',
+      data: {
+        applno: this.applno,
+        level:sessionStorage.getItem('level'),
+        stepName:sessionStorage.getItem('stepName'),
+      }
+    });
   }
 
   result(baseUrl: string, jsonObject: JSON, result: string) {
