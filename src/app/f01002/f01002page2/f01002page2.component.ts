@@ -74,7 +74,11 @@ export class F01002page2Component implements OnInit {
       this.callOutDataSource = this.rspBodyList;
     });
   }
-
+// 排序
+sortChange(e: string) {
+  this.rspBodyList = e === 'ascend' ? this.rspBodyList.sort(
+    (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.rspBodyList.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+}
   //延長下次照會提醒時間
   extendTime(ID: string, calloutRdo: string) {
     let msg = '';
