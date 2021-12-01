@@ -35,6 +35,8 @@ export class Childbwscn1Component implements OnInit {
 
   //Creditmemo
   creditmemoSource: Data[] = [];
+  bwCreditAuditinfoList: Data[] = [];
+  bwCreditMainList: Data[] = [];
   total = 1;
   pageIndex = 1;
   pageSize = 50;
@@ -54,7 +56,7 @@ export class Childbwscn1Component implements OnInit {
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
     this.creditlevel = this.page == "10" ? "L3" : this.creditlevel;
     this.getCreditmemo(this.pageIndex, this.pageSize);
-
+    this.getCreditMainList();
   }
 
   //查詢 審核意見
@@ -87,6 +89,25 @@ export class Childbwscn1Component implements OnInit {
     return this.page
     //測試用
     // return '0'
+  }
+
+   //查詢 上方主資料
+   getCreditMainList() {
+    const url = 'f01/childbwscn1';
+    let jsonObject: any = {};
+    // jsonObject['applno'] = this.applno;
+    //測試用
+    jsonObject['applno'] = '20210927E011';
+    this.childbwscn1Service.postJson(url, jsonObject).subscribe(data => {
+      // console.log('getCreditMainList')
+      // console.log(data)
+      this.bwCreditAuditinfoList=data.rspBody.bwCreditAuditinfoList;
+      this.bwCreditMainList=data.rspBody.bwCreditMainList;
+      console.log('bwCreditAuditinfoList')
+      console.log(this.bwCreditAuditinfoList)
+      console.log('bwCreditMainList')
+      console.log(this.bwCreditMainList)
+    });
   }
 
   //儲存
