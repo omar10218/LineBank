@@ -76,6 +76,12 @@
           </a>
         </nz-tab>
         <nz-tab>
+          <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN25']">
+            <button nz-button nzType="primary" nzSize="small">
+              RPM&同一關係人</button>
+          </a>
+        </nz-tab>
+        <nz-tab>
           <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN11']">
             <button nz-button nzType="primary" nzSize="small">
               資料比對</button>
@@ -158,7 +164,7 @@
     </div>
     <router-outlet style="padding-top: 70px;display: block;"></router-outlet>
   </div>
-  
+
   <app-childscn8add *ngIf="isShowAdd" cdkDrag [data]="addData"></app-childscn8add>
   <app-childscn8edit *ngIf="isShowEdit" cdkDrag [data]="editData"></app-childscn8edit>
   <app-childscn8items *ngIf="isShowItems" cdkDrag></app-childscn8items>

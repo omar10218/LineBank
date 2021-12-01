@@ -96,13 +96,13 @@ export class F01009scn1Component implements OnInit {
   }
 
   finish() {
-    if (sessionStorage.getItem('BW_creditResult') == null) {
+    if (sessionStorage.getItem('BW_creditResult') == "") {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請選取審核結果' }
       });
       return;
     }
-    if ((sessionStorage.getItem('creditaction') == null ||sessionStorage.getItem('creditaction') == "") && sessionStorage.getItem('size') == "0") {
+    if (sessionStorage.getItem('creditaction') == "" && sessionStorage.getItem('size') == "0") {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請填寫審核註記' }
       });

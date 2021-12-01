@@ -46,9 +46,9 @@ export class Childbwscn1Component implements OnInit {
     , { value: 'NEX', viewValue: 'NEX' }, { value: 'N00', viewValue: 'N00' }, { value: 'XXX', viewValue: 'XXX' }, { value: '000', viewValue: '000' }];
 
   ngOnInit(): void {
-    sessionStorage.setItem('BW_creditResult', null);
+    sessionStorage.setItem('BW_creditResult', "");
     sessionStorage.setItem('size', "0");
-    sessionStorage.setItem('creditaction', null);
+    sessionStorage.setItem('creditaction', "");
     this.page = sessionStorage.getItem('page');
     this.applno = sessionStorage.getItem('applno');
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
