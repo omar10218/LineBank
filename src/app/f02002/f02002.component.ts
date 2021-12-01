@@ -166,4 +166,9 @@ export class F02002Component implements OnInit {
       this.date = null;
     }
   }
+
+  //補回
+  return() {
+
+  }
 }

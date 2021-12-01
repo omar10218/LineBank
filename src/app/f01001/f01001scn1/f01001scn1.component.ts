@@ -31,6 +31,9 @@ export class F01001scn1Component implements OnInit {
 
   creditResult: string;
   level: string;
+
+  changeValue: boolean = true;
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
@@ -145,5 +148,10 @@ export class F01001scn1Component implements OnInit {
         this.router.navigate(['./F01001']);
       });
     // }
+  }
+
+  //判斷是否需要顯示案件完成列
+  changeRoute(route: boolean) {
+    this.changeValue = route;
   }
 }
