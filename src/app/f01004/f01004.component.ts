@@ -54,7 +54,7 @@ export class F01004Component implements OnInit, AfterViewInit {
     });
     // 查詢代理人
     let jsonObject: any = {};
-    jsonObject['swcL1EmpNo'] = this.empNo;
+    jsonObject['swcL0EmpNo'] = this.empNo;
 
     this.f01004Service.getEmpNo(jsonObject).subscribe(data => {
       this.agentEmpNoCode.push({ value: '', viewValue: '請選擇' })
@@ -80,7 +80,7 @@ export class F01004Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL1EmpNo'] = this.empNo;
+    jsonObject['swcL0EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
     console.log(this.swcApplno)

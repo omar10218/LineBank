@@ -66,7 +66,7 @@ export class F01009Component implements OnInit, AfterViewInit {
 
     // 代理人
     let jsonObject: any = {};
-    jsonObject['swcL3EmpNo'] = this.empNo;
+    jsonObject['swcL4EmpNo'] = this.empNo;
 
     this.f01009Service.getEmpNo(jsonObject).subscribe(data => {
       this.agentEmpNoCode.push({ value: '', viewValue: '請選擇' })
@@ -161,7 +161,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL4EmpNo'] = this.agentEmpNo;
+    jsonObject['swcL4EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
