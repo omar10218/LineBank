@@ -61,6 +61,8 @@ export class F02001Component implements OnInit {
     this.status_DESC_Value = '';
     this.cust_FLAG_Value = '';
     this.risk_GRADE_Value = '';
+    this.apply_TIME= [this.dealwithData14(new Date()),new Date()]
+
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -71,7 +73,11 @@ export class F02001Component implements OnInit {
 
     }
   }
-
+  // test()
+  // {
+  //   console.log(this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd'))
+  //   console.log(this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd'))
+  // }
   changePage() {
     this.pageIndex = 1;
     this.pageSize = 50;
@@ -335,7 +341,13 @@ export class F02001Component implements OnInit {
       )
     }
   }
+  dealwithData14(time:Date)
+  {
+    var startDate
+    startDate = new Date();
+    return new Date(Date.now()-(13*24*60*60*1000));
 
+  }
   dealwithData365(stime:any)
   {
     var startDate, endDate;
@@ -403,5 +415,10 @@ export class F02001Component implements OnInit {
     } else {
       this.selectData(this.pageIndex, this.pageSize);
     }
+  }
+  sortChange(e: string) {
+    console.log(e)
+    this.resultData = e === 'ascend' ? this.resultData.sort(
+      (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
   }
 }
