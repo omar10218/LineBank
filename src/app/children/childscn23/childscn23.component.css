@@ -137,3 +137,7 @@ input{
 .data_right{
   text-align:right;
 }
+
+#td_height{
+  height:37px;
+}
