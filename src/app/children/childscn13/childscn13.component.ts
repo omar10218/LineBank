@@ -7,7 +7,6 @@ import { Childscn13Service } from './childscn13.service';
 import { Childscn13addComponent } from './childscn13add/childscn13add.component';
 import { Childscn13deleteComponent } from './childscn13delete/childscn13delete.component';
 import { Childscn13editComponent } from './childscn13edit/childscn13edit.component';
-import { Childscn13showComponent } from './childscn13show/childscn13show.component';
 
 
 //網頁資訊
@@ -50,6 +49,7 @@ export class Childscn13Component implements OnInit {
   pageSize = 50;
   webAddrOption: MappingCode[];
 
+  image: any;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -94,10 +94,11 @@ export class Childscn13Component implements OnInit {
 
   openView(web_img: any) {
     let base64String = 'data:image/jpeg;base64,' + web_img;
-    const dialogRef = this.dialog.open(Childscn13showComponent, {
-      minHeight:'80%',
-      data: { base64Str: base64String }
-    });
+    this.image = base64String;
+    // const dialogRef = this.dialog.open(Childscn13showComponent, {
+    //   minHeight:'80%',
+    //   data: { base64Str: base64String }
+    // });
   }
 
   getOptionDesc(codeVal: string): string {
