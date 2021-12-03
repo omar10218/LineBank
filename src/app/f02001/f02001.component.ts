@@ -396,6 +396,7 @@ export class F02001Component implements OnInit {
     this.l3EMPNO = '';
     this.credit_RESULT_Value = '';
     this.status_DESC_Value = '';
+    this.statusDescSecondValue = ''
     this.cust_FLAG_Value = '';
     this.risk_GRADE_Value = '';
     this.apply_TIME = null;

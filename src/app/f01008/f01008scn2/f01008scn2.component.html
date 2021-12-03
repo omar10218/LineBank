@@ -62,13 +62,13 @@
         </thead>
         <tbody>
             <tr *ngFor="let data of dataSource;">
-              <td class="table-data">{{data.CON_TYPE}}</td>
-              <td class="table-data">{{data.CON_TYPE}}</td>
-              <td class="table-data">{{data.codeDesc}}</td>
-              <td class="table-data">{{data.CON_TYPE}}</td>
-              <td class="table-data">{{data.CON_TYPE}}</td>
-              <td class="table-data">{{data.CON_TYPE}}</td>
-              <td class="table-data">{{data.CON_TYPE}}</td>
+              <td class="table-data">{{getOptionDesc(tYPE,data.CON_TYPE)}}</td>
+              <td class="table-data">{{data.PHONE}}</td>
+              <td class="table-data">{{getOptionDesc(cONDITION,data.TEL_CONDITION)}}</td>
+              <td class="table-data">{{data.CON_MEMO}}</td>
+              <td class="table-data">{{data.CALLOUT_SETTIME}}</td>
+              <td class="table-data">{{data.CALLOUT_DATE}}</td>
+              <td class="table-data">{{data.CALLOUT_EMPNO}}</td>
             </tr>
         </tbody>
       </nz-table>
