@@ -21,93 +21,194 @@
 
       <div class="EL_DSS_form_header_title2">案件資訊</div>
       <div nz-row>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">案件等級</span>
-            <input style="display: block;" formControlName="CALV" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">往來優質特徵註記(房貸)</span>
-            <input style="display: block;" formControlName="GOODBEHAV_MORT" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">往來優質特徵註記(信用卡)</span>
-            <input style="display: block;" formControlName="GOODBEHAV_CC" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">策略客群1(客戶填寫)</span>
             <input style="display: block;" formControlName="OCUPATN_CUST_STGP1" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">策略客群2(客戶填寫)</span>
             <input style="display: block;" formControlName="OCUPATN_CUST_STGP2" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">行職業代碼分群(客戶填寫)</span>
             <input style="display: block;" formControlName="OCUPATN_CUST_GP" disabled>
           </div>
         </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">案件等級</span>
+            <input style="display: block;" formControlName="CALV" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">往來優質特徵註記(房貸)</span>
+            <input style="display: block;" formControlName="GOODBEHAV_MORT" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">往來優質特徵註記(信用卡)</span>
+            <input style="display: block;" formControlName="GOODBEHAV_CC" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">風險模型子模型代碼</span>
+            <input formControlName="RISKMDSUB_A1" disabled>
+          </div>
+        </div>
       </div>
 
       <div nz-row>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">策略客群1(客戶填寫) (PM分群)</span>
             <input style="display: block;" formControlName="OCUPATN_CUST_STGP1_PM" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">策略客群2(客戶填寫) (PM分群)</span>
             <input style="display: block;" formControlName="OCUPATN_CUST_STGP2_PM" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">行職業代碼分群(客戶填寫) (PM分群)</span>
             <input style="display: block;" formControlName="OCUPATN_CUST_GP_PM" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">客群標籤</span>
             <input style="display: block;" formControlName="CUST_TAG" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">客群標籤說明</span>
             <input style="display: block;" formControlName="CUST_TAG_DESC" disabled>
           </div>
         </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">風險模型等級(策略調整後)</span>
+            <input style="display: block;" formControlName="RISKMDGRADE_A1_ADJ" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">風險模型等級分群(策略調整後)</span>
+            <input style="display: block;" formControlName="RISKMDGRADE_A1_GP_ADJ" disabled>
+          </div>
+        </div>
       </div>
 
-      <div class="EL_DSS_form_header_title3">徵審代碼</div>
-      <nz-table nzShowSizeChanger [nzData]="EL_DSS2_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
-        nzSize="small">
-        <thead>
-          <tr>
-            <th class="table-header">徵審代碼</th>
-            <th class="table-header">徵審代碼中文</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let row of EL_DSS2_UNDW_LIST1.data">
-            <td class="table-data">{{ row.UNDW_CD }}</td>
-            <td class="table-data"></td>
-          </tr>
-        </tbody>
-      </nz-table>
+      <div style="margin:0;" class="EL_DSS_form_header_title3">徵審代碼</div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">信用異常資訊
+          </div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS2_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small">
+            <thead>
+              <tr>
+                <th class="table-header">徵審代碼</th>
+                <th class="table-header">徵審代碼中文</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of EL_DSS2_UNDW_LIST1.data">
+                <td class="table-data">{{ row.UNDW_CD }}</td>
+                <td class="table-data"></td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">整體往來
+          </div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS2_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small">
+            <thead>
+              <tr>
+                <th class="table-header">徵審代碼</th>
+                <th class="table-header">徵審代碼中文</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of EL_DSS2_UNDW_LIST1.data">
+                <td class="table-data">{{ row.UNDW_CD }}</td>
+                <td class="table-data"></td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">信用卡往來
+          </div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS2_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small">
+            <thead>
+              <tr>
+                <th class="table-header">徵審代碼</th>
+                <th class="table-header">徵審代碼中文</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of EL_DSS2_UNDW_LIST1.data">
+                <td class="table-data">{{ row.UNDW_CD }}</td>
+                <td class="table-data"></td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">授信往來
+          </div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS2_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small">
+            <thead>
+              <tr>
+                <th class="table-header">徵審代碼</th>
+                <th class="table-header">徵審代碼中文</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of EL_DSS2_UNDW_LIST1.data">
+                <td class="table-data">{{ row.UNDW_CD }}</td>
+                <td class="table-data"></td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0;" class="EL_DSS_form_header_title4">其他
+          </div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS2_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small">
+            <thead>
+              <tr>
+                <th class="table-header">徵審代碼</th>
+                <th class="table-header">徵審代碼中文</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of EL_DSS2_UNDW_LIST1.data">
+                <td class="table-data">{{ row.UNDW_CD }}</td>
+                <td class="table-data"></td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
+
 
 
 
@@ -115,7 +216,7 @@
       <div nz-row>
         <div nz-col nzSpan="4">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略模板分類</span>
+            <span class="form-title">授信策略模板分類</span>
             <input style="display: block;" formControlName="STRGY_MDUL" disabled>
           </div>
         </div>
@@ -133,7 +234,7 @@
         </div>
       </div>
 
-      <div class="EL_DSS_form_header_title3">試算額度策略</div>
+      <div class="EL_DSS_form_header_title3">額度策略</div>
       <nz-table nzShowSizeChanger [nzData]="EL_DSS2_CFC_LIMIT1.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
         <thead>
@@ -143,6 +244,9 @@
             <th class="table-header">額度</th>
             <th class="table-header">額度起日</th>
             <th class="table-header">額度訖日</th>
+            <th class="table-header">本次DSS策略</th>
+            <th class="table-header">期限月數</th>
+            <th class="table-header">日期判斷註記</th>
           </tr>
         </thead>
         <tbody>
@@ -152,6 +256,9 @@
             <td class="table-data">{{ row.CFC_LIMIT_AMT }}</td>
             <td class="table-data">{{ row.CFC_LIMIT_START_DATE | date:"yyyy-MM-dd" }}</td>
             <td class="table-data">{{ row.CFC_LIMIT_END_DATE | date:"yyyy-MM-dd"}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
       </nz-table>
@@ -282,7 +389,7 @@
         </div>
       </div>
 
-      <div class="EL_DSS_form_header_title3">試算利率(多階)</div>
+      <div class="EL_DSS_form_header_title3">利率(多階)</div>
       <nz-table nzShowSizeChanger [nzData]="EL_DSS2_STRGY_SRATE1.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
         <thead>
@@ -301,7 +408,7 @@
         </tbody>
       </nz-table>
 
-      <div class="EL_DSS_form_header_title3">試算授信策略_債整明細</div>
+      <div class="EL_DSS_form_header_title3">授信策略_債整明細</div>
       <nz-table nzShowSizeChanger [nzData]="EL_DSS2_STRGY_MERG1.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
         <thead>
@@ -330,37 +437,31 @@
 
       <div class="EL_DSS_form_header_title2">額度限額資訊</div>
       <div nz-row>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
-            <span class="form-title">限額_DBR</span>
-            <input style="display: block;" formControlName="LIMIT_DBR" disabled>
+            <span class="form-title">限額_客戶申請金額</span>
+            <input style="display: block;" formControlName="LIMIT_CUSTAPPLY" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">限額_產品MUE</span>
-            <input style="display: block;" formControlName="LIMIT_PRDMUE" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_本行利害關係人(銀行法第32條)</span>
             <input style="display: block;" formControlName="LIMIT_LAW32" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_同一自然人無擔保授信限額(銀行法第33條)</span>
             <input style="display: block;" formControlName="LIMIT_LAW33_UNS" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_產品/專案額度上限</span>
             <input style="display: block;" formControlName="LIMIT_PROD_MAX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_產品/專案額度下限</span>
             <input style="display: block;" formControlName="LIMIT_PROD_MIN" disabled>
@@ -369,25 +470,31 @@
       </div>
 
       <div nz-row>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">限額_客戶申請金額</span>
-            <input style="display: block;" formControlName="LIMIT_CUSTAPPLY" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">限額_月付收支比</span>
-            <input style="display: block;" formControlName="LIMIT_DTI" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_歸戶MUE</span>
             <input style="display: block;" formControlName="LIMIT_NIDMUE" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">限額_產品MUE</span>
+            <input style="display: block;" formControlName="LIMIT_PRDMUE" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">限額_DBR</span>
+            <input style="display: block;" formControlName="LIMIT_DBR" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">限額_月付收支比</span>
+            <input style="display: block;" formControlName="LIMIT_DTI" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_債整額度</span>
             <input style="display: block;" formControlName="LIMIT_MERGEAMT" disabled>
@@ -396,39 +503,39 @@
       </div>
 
       <div nz-row>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_歸戶MUE倍數</span>
+            <span class="form-title">授信策略_<br>歸戶MUE倍數</span>
             <input style="display: block;" formControlName="STRGY_NIDMUEX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="3">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_歸戶MUECAP</span>
+            <span class="form-title">授信策略_<br>歸戶MUECAP</span>
             <input style="display: block;" formControlName="STRGY_NIDMUECAP" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_產品MUE倍數</span>
+            <span class="form-title">授信策略_<br>產品MUE倍數</span>
             <input style="display: block;" formControlName="STRGY_PRDMUEX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="3">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_產品MUECAP</span>
+            <span class="form-title">授信策略_<br>產品MUECAP</span>
             <input style="display: block;" formControlName="STRGY_PRDMUEXCAP" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="4">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_DBR限額倍數</span>
+            <span class="form-title">授信策略_<br>DBR限額倍數</span>
             <input style="display: block;" formControlName="STRGY_DBRX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="4">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_DTI參數</span>
+            <span class="form-title">授信策略_<br>DTI參數</span>
             <input style="display: block;" formControlName="STRGY_DTIX" disabled>
           </div>
         </div>
@@ -833,7 +940,7 @@
 
 
 
-      <div class="EL_DSS_form_header_title3">試算利率(多階)</div>
+      <div class="EL_DSS_form_header_title3">利率(多階)</div>
       <nz-table nzShowSizeChanger [nzData]="EL_DSS2_STRGY_SRATE2.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
         <thead>
@@ -852,7 +959,7 @@
         </tbody>
       </nz-table>
 
-      <div class="EL_DSS_form_header_title3">試算授信策略_債整明細</div>
+      <div class="EL_DSS_form_header_title3">授信策略_債整明細</div>
       <nz-table nzShowSizeChanger [nzData]="EL_DSS2_STRGY_MERG2.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
         <thead>
@@ -881,37 +988,31 @@
 
       <div class="EL_DSS_form_header_title2">額度限額資訊</div>
       <div nz-row>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
-            <span class="form-title">限額_DBR</span>
-            <input style="display: block;" formControlName="LIMIT_DBR" disabled>
+            <span class="form-title">限額_客戶申請金額</span>
+            <input style="display: block;" formControlName="LIMIT_CUSTAPPLY" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">限額_產品MUE</span>
-            <input style="display: block;" formControlName="LIMIT_PRDMUE" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_本行利害關係人(銀行法第32條)</span>
             <input style="display: block;" formControlName="LIMIT_LAW32" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_同一自然人無擔保授信限額(銀行法第33條)</span>
             <input style="display: block;" formControlName="LIMIT_LAW33_UNS" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_產品/專案額度上限</span>
             <input style="display: block;" formControlName="LIMIT_PROD_MAX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_產品/專案額度下限</span>
             <input style="display: block;" formControlName="LIMIT_PROD_MIN" disabled>
@@ -920,25 +1021,31 @@
       </div>
 
       <div nz-row>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">限額_客戶申請金額</span>
-            <input style="display: block;" formControlName="LIMIT_CUSTAPPLY" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">限額_月付收支比</span>
-            <input style="display: block;" formControlName="LIMIT_DTI" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_歸戶MUE</span>
             <input style="display: block;" formControlName="LIMIT_NIDMUE" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">限額_產品MUE</span>
+            <input style="display: block;" formControlName="LIMIT_PRDMUE" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">限額_DBR</span>
+            <input style="display: block;" formControlName="LIMIT_DBR" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">限額_月付收支比</span>
+            <input style="display: block;" formControlName="LIMIT_DTI" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_債整額度</span>
             <input style="display: block;" formControlName="LIMIT_MERGEAMT" disabled>
@@ -947,39 +1054,39 @@
       </div>
 
       <div nz-row>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_歸戶MUE倍數</span>
+            <span class="form-title">授信策略_<br>歸戶MUE倍數</span>
             <input style="display: block;" formControlName="STRGY_NIDMUEX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="3">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_歸戶MUECAP</span>
+            <span class="form-title">授信策略_<br>歸戶MUECAP</span>
             <input style="display: block;" formControlName="STRGY_NIDMUECAP" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_產品MUE倍數</span>
+            <span class="form-title">授信策略_<br>產品MUE倍數</span>
             <input style="display: block;" formControlName="STRGY_PRDMUEX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="3">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_產品MUECAP</span>
+            <span class="form-title">授信策略_<br>產品MUECAP</span>
             <input style="display: block;" formControlName="STRGY_PRDMUEXCAP" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="4">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_DBR限額倍數</span>
+            <span class="form-title">授信策略_<br>DBR限額倍數</span>
             <input style="display: block;" formControlName="STRGY_DBRX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="4">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_DTI參數</span>
+            <span class="form-title">授信策略_<br>DTI參數</span>
             <input style="display: block;" formControlName="STRGY_DTIX" disabled>
           </div>
         </div>
@@ -1120,7 +1227,7 @@
         </div>
       </div>
 
-      <div class="EL_DSS_form_header_title3">試算利率(多階)</div>
+      <div class="EL_DSS_form_header_title3">利率(多階)</div>
       <nz-table nzShowSizeChanger [nzData]="EL_DSS2_STRGY_SRATE3.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
         <thead>
@@ -1139,7 +1246,7 @@
         </tbody>
       </nz-table>
 
-      <div class="EL_DSS_form_header_title3">試算授信策略_債整明細</div>
+      <div class="EL_DSS_form_header_title3">授信策略_債整明細</div>
       <nz-table nzShowSizeChanger [nzData]="EL_DSS2_STRGY_MERG3.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
         <thead>
@@ -1168,37 +1275,31 @@
 
       <div class="EL_DSS_form_header_title2">額度限額資訊</div>
       <div nz-row>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
-            <span class="form-title">限額_DBR</span>
-            <input style="display: block;" formControlName="LIMIT_DBR" disabled>
+            <span class="form-title">限額_客戶申請金額</span>
+            <input style="display: block;" formControlName="LIMIT_CUSTAPPLY" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">限額_產品MUE</span>
-            <input style="display: block;" formControlName="LIMIT_PRDMUE" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_本行利害關係人(銀行法第32條)</span>
             <input style="display: block;" formControlName="LIMIT_LAW32" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_同一自然人無擔保授信限額(銀行法第33條)</span>
             <input style="display: block;" formControlName="LIMIT_LAW33_UNS" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_產品/專案額度上限</span>
             <input style="display: block;" formControlName="LIMIT_PROD_MAX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_產品/專案額度下限</span>
             <input style="display: block;" formControlName="LIMIT_PROD_MIN" disabled>
@@ -1207,25 +1308,31 @@
       </div>
 
       <div nz-row>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">限額_客戶申請金額</span>
-            <input style="display: block;" formControlName="LIMIT_CUSTAPPLY" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
-          <div style="padding:3px">
-            <span class="form-title">限額_月付收支比</span>
-            <input style="display: block;" formControlName="LIMIT_DTI" disabled>
-          </div>
-        </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_歸戶MUE</span>
             <input style="display: block;" formControlName="LIMIT_NIDMUE" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">限額_產品MUE</span>
+            <input style="display: block;" formControlName="LIMIT_PRDMUE" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">限額_DBR</span>
+            <input style="display: block;" formControlName="LIMIT_DBR" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px">
+            <span class="form-title">限額_月付收支比</span>
+            <input style="display: block;" formControlName="LIMIT_DTI" disabled>
+          </div>
+        </div>
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
             <span class="form-title">限額_債整額度</span>
             <input style="display: block;" formControlName="LIMIT_MERGEAMT" disabled>
@@ -1234,39 +1341,39 @@
       </div>
 
       <div nz-row>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_歸戶MUE倍數</span>
+            <span class="form-title">授信策略_<br>歸戶MUE倍數</span>
             <input style="display: block;" formControlName="STRGY_NIDMUEX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="3">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_歸戶MUECAP</span>
+            <span class="form-title">授信策略_<br>歸戶MUECAP</span>
             <input style="display: block;" formControlName="STRGY_NIDMUECAP" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="1">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_產品MUE倍數</span>
+            <span class="form-title">授信策略_<br>產品MUE倍數</span>
             <input style="display: block;" formControlName="STRGY_PRDMUEX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="3">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_產品MUECAP</span>
+            <span class="form-title">授信策略_<br>產品MUECAP</span>
             <input style="display: block;" formControlName="STRGY_PRDMUEXCAP" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="4">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_DBR限額倍數</span>
+            <span class="form-title">授信策略_<br>DBR限額倍數</span>
             <input style="display: block;" formControlName="STRGY_DBRX" disabled>
           </div>
         </div>
-        <div nz-col nzSpan="4">
+        <div nz-col nzFlex="4">
           <div style="padding:3px">
-            <span class="form-title">試算授信策略_DTI參數</span>
+            <span class="form-title">授信策略_<br>DTI參數</span>
             <input style="display: block;" formControlName="STRGY_DTIX" disabled>
           </div>
         </div>

@@ -106,6 +106,11 @@ export class Childscn10page1Component implements OnInit {
     STRGY_TMP_DBRX: ['', []],//試算授信策略_DBR限額倍數
     STRGY_TMP_DTIX: ['', []],//試算授信策略_DTI參數
 
+    //風險
+    RISKMDSUB_A0: ['', []],//風險模型子模型代碼
+    RISKMDGRADE_A0_ADJ: ['', []],//風險模型等級(策略調整後)
+    RISKMDGRADE_A0_GP_ADJ: ['', []],//風險模型等級分群(策略調整後)
+
   });
 
   dss1Form2: FormGroup = this.fb.group({
@@ -209,6 +214,12 @@ export class Childscn10page1Component implements OnInit {
   }
 
   getstepName(): String {
+    // 高階主管作業 APPLCreditL1
+    // 授信作業 APPLCreditL2
+    // 徵信作業 APPLCreditL3
+    // 文審作業 APPLCreditL4
+    // 偽冒案件 APPLFraud
+    // 0查詢
     return this.stepName;
     //測試用
     // return "APPLCreditL2";
@@ -219,9 +230,9 @@ export class Childscn10page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['strgy'] = "1";
+    //測試用
+    // jsonObject['applno'] = '20211129A000005';
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
-      // console.log('data');
-      // console.log(data);
       if (data.rspBody.DSS1.length > 0) {
         //系統決策
         this.dss1Form1.patchValue({ SYSFLOWCD: data.rspBody.DSS1[0].SYSFLOWCD })//系統流程
@@ -240,11 +251,19 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form1.patchValue({ CUST_TAG: data.rspBody.DSS1[0].CUST_TAG })//客群標籤
         this.dss1Form1.patchValue({ CUST_TAG_DESC: data.rspBody.DSS1[0].CUST_TAG_DESC })//客群標籤說明
 
+        //風險 後期新增三欄位
+        this.dss1Form1.patchValue({ RISKMDSUB_A0: data.rspBody.DSS1[0].RISKMDSUB_A0 })//風險模型子模型代碼
+        this.dss1Form1.patchValue({ RISKMDGRADE_A0_ADJ: data.rspBody.DSS1[0].RISKMDGRADE_A0_ADJ })//風險模型等級(策略調整後)
+        this.dss1Form1.patchValue({ RISKMDGRADE_A0_GP_ADJ: data.rspBody.DSS1[0].RISKMDGRADE_A0_GP_ADJ })//風險模型等級分群(策略調整後)
+
         //策略模板資訊
         this.dss1Form1.patchValue({ STRGY_MDUL: data.rspBody.DSS1[0].STRGY_MDUL })//試算授信策略模板分類
         this.dss1Form1.patchValue({ STRGY_MDUL_ATVDT: data.rspBody.DSS1[0].STRGY_MDUL_ATVDT })//授信策略模板生效日期時間
         this.dss1Form1.patchValue({ STRGY_RATE_ATVDT: data.rspBody.DSS1[0].STRGY_RATE_ATVDT })//利率模板生效日期時間
 
+
+      }
+      if (data.rspBody.DSS1STRGYTMP.length > 0) {
         //授信及產品條件
         //1.2.3共用
         this.dss1Form1.patchValue({ STRGY_TMP_PRDCD: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PRDCD })//產品名稱
@@ -279,20 +298,11 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form1.patchValue({ STRGY_TMP_PRDMUEXCAP: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PRDMUEXCAP })//試算授信策略_產品MUECAP
         this.dss1Form1.patchValue({ STRGY_TMP_DBRX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_DBRX })//試算授信策略_DBR限額倍數
         this.dss1Form1.patchValue({ STRGY_TMP_DTIX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_DTIX })//試算授信策略_DTI參數 注意名稱差異
-
-        this.EL_DSS1_UNDW_LIST1.data = data.rspBody.DSS1UNDWLIST;//徵審代碼
-        // console.log('this.EL_DSS1_UNDW_LIST1.data');
-        // console.log(this.EL_DSS1_UNDW_LIST1.data);
-        this.EL_DSS1_CFC_LIMIT1.data = data.rspBody.DSS1CFCLIMIT;//試算額度策略
-        // console.log('this.EL_DSS1_CFC_LIMIT1.data');
-        // console.log(this.EL_DSS1_CFC_LIMIT1.data);
-        this.EL_DSS1_STRGY_SRATE1.data = data.rspBody.DSS1STRGYSRATE;//試算利率(多階)
-        // console.log('this.EL_DSS1_STRGY_SRATE1.data');
-        // console.log(this.EL_DSS1_STRGY_SRATE1.data);
-        this.EL_DSS1_STRGY_MERG1.data = data.rspBody.DSS1STRGYMERG;//試算授信策略_債整明細
-        // console.log('this.EL_DSS1_STRGY_MERG1.data');
-        // console.log(this.EL_DSS1_STRGY_MERG1.data);
       }
+      this.EL_DSS1_UNDW_LIST1.data = data.rspBody.DSS1UNDWLIST;//徵審代碼
+      this.EL_DSS1_CFC_LIMIT1.data = data.rspBody.DSS1CFCLIMIT;//試算額度策略
+      this.EL_DSS1_STRGY_SRATE1.data = data.rspBody.DSS1STRGYSRATE;//試算利率(多階)
+      this.EL_DSS1_STRGY_MERG1.data = data.rspBody.DSS1STRGYMERG;//試算授信策略_債整明細
     });
   }
   //取決策2Table
@@ -328,6 +338,8 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form2.patchValue({ STRGY_MDUL_ATVDT: data.rspBody.DSS1[0].STRGY_MDUL_ATVDT })//授信策略模板生效日期時間
         this.dss1Form2.patchValue({ STRGY_RATE_ATVDT: data.rspBody.DSS1[0].STRGY_RATE_ATVDT })//利率模板生效日期時間
 
+      }
+      if (data.rspBody.DSS1STRGYTMP.length > 0) {
         //授信及產品條件
         //1.2.3共用
         this.dss1Form2.patchValue({ STRGY_TMP_PRDCD: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PRDCD })//產品名稱
@@ -365,9 +377,9 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form2.patchValue({ STRGY_TMP_DBRX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_DBRX })//試算授信策略_DBR限額倍數
         this.dss1Form2.patchValue({ STRGY_TMP_DTIX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_DTIX })//試算授信策略_DTI參數 注意名稱差異
 
-        this.EL_DSS1_STRGY_SRATE2.data = data.rspBody.DSS1STRGYSRATE;//試算利率(多階)
-        this.EL_DSS1_STRGY_MERG2.data = data.rspBody.DSS1STRGYMERG;//試算授信策略_債整明細
       }
+      this.EL_DSS1_STRGY_SRATE2.data = data.rspBody.DSS1STRGYSRATE;//試算利率(多階)
+      this.EL_DSS1_STRGY_MERG2.data = data.rspBody.DSS1STRGYMERG;//試算授信策略_債整明細
     });
   }
 
@@ -404,6 +416,9 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form3.patchValue({ STRGY_MDUL_ATVDT: data.rspBody.DSS1[0].STRGY_MDUL_ATVDT })//授信策略模板生效日期時間
         this.dss1Form3.patchValue({ STRGY_RATE_ATVDT: data.rspBody.DSS1[0].STRGY_RATE_ATVDT })//利率模板生效日期時間
 
+
+      }
+      if (data.rspBody.DSS1STRGYTMP.length > 0) {
         //授信及產品條件
         //1.2.3共用
         this.dss1Form3.patchValue({ STRGY_TMP_PRDCD: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PRDCD })//產品名稱
@@ -441,9 +456,10 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form3.patchValue({ STRGY_TMP_DBRX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_DBRX })//試算授信策略_DBR限額倍數
         this.dss1Form3.patchValue({ STRGY_TMP_DTIX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_DTIX })//試算授信策略_DTI參數 注意名稱差異
 
-        this.EL_DSS1_STRGY_SRATE3.data = data.rspBody.DSS1STRGYSRATE;//試算利率(多階)
-        this.EL_DSS1_STRGY_MERG3.data = data.rspBody.DSS1STRGYMERG;//試算授信策略_債整明細
+
       }
+      this.EL_DSS1_STRGY_SRATE3.data = data.rspBody.DSS1STRGYSRATE;//試算利率(多階)
+      this.EL_DSS1_STRGY_MERG3.data = data.rspBody.DSS1STRGYMERG;//試算授信策略_債整明細
     });
   }
 
