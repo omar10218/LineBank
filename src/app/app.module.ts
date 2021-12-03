@@ -37,19 +37,6 @@ import { F03002child201Component } from './f03002/f03002child2/f03002child201/f0
 import { F03002child202Component } from './f03002/f03002child2/f03002child202/f03002child202.component';
 import { F03002child203Component } from './f03002/f03002child2/f03002child203/f03002child203.component';
 import { TokenInterceptor } from './token.interceptor';
-import { F02001scn0Component } from './f02001/f02001scn0/f02001scn0.component';
-import { F02001scn1Component } from './f02001/f02001scn1/f02001scn1.component';
-import { F02001scn2Component } from './f02001/f02001scn2/f02001scn2.component';
-import { F02001scn3Component } from './f02001/f02001scn3/f02001scn3.component';
-import { F02001scn4Component } from './f02001/f02001scn4/f02001scn4.component';
-import { F02001scn5Component } from './f02001/f02001scn5/f02001scn5.component';
-import { F02001scn6Component } from './f02001/f02001scn6/f02001scn6.component';
-import { F02001scn7Component } from './f02001/f02001scn7/f02001scn7.component';
-import { F02001scn8Component } from './f02001/f02001scn8/f02001scn8.component';
-import { F02001scn9Component } from './f02001/f02001scn9/f02001scn9.component';
-import { F02001scn10Component } from './f02001/f02001scn10/f02001scn10.component';
-import { F02001scn11Component } from './f02001/f02001scn11/f02001scn11.component';
-import { F02001scn12Component } from './f02001/f02001scn12/f02001scn12.component';
 import { F03009Component } from './f03009/f03009.component';
 import { F03010Component } from './f03010/f03010.component';
 import { F03011Component } from './f03011/f03011.component';
@@ -152,19 +139,6 @@ export const TW_FORMATS = {
     F03002child201Component,
     F03002child202Component,
     F03002child203Component,
-    F02001scn0Component,
-    F02001scn1Component,
-    F02001scn2Component,
-    F02001scn3Component,
-    F02001scn4Component,
-    F02001scn5Component,
-    F02001scn6Component,
-    F02001scn7Component,
-    F02001scn8Component,
-    F02001scn9Component,
-    F02001scn10Component,
-    F02001scn11Component,
-    F02001scn12Component,
     F03009Component,
     F03010Component,
     F03011Component,

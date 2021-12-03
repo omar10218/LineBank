@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Data } from '@angular/router';
@@ -9,6 +9,7 @@ import { F01006restartComponent } from './f01006restart/f01006restart.component'
 import zh from '@angular/common/locales/zh';
 import { registerLocaleData } from '@angular/common';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 registerLocaleData(zh);
 
 
@@ -18,61 +19,56 @@ registerLocaleData(zh);
   styleUrls: ['./f01006.component.css', '../../assets/css/f01.css']
 })
 export class F01006Component implements OnInit, AfterViewInit {
+  @ViewChild('absBox') absBox: ElementRef             // 抓取table id
   applno: string;                                     // 案件編號
-  nationalId: string;                                 // 身分證字號
-  custId: string;                                     // 客戶編號
+  nationalID: string;                                 // 身分證字號
+  custID: string;                                     // 客戶編號
   total: number;
-  pageSize = 50;
+  readonly pageSize = 50;
   pageIndex = 1;
-  cusinfoDataSource: readonly Data[] = [];
+  cusinfoDataSource = [];
   constructor(
     public dialog: MatDialog,
     private f01006Service: F01006Service,
     public childService: ChildrenService,
-  ) {}
+  ) { }
 
-
-  //假資料
-  elements: any = [
-    { applno: '20210827E000', nationalId: 'A123456789', custId: 'A123456789', name: '測試一', limit: '5000', rates: '5%', periods: '12', code: '1001' },
-    { applno: '20210827E000', nationalId: 'A123456789', custId: 'A123456789', name: '測試一', limit: '5000', rates: '5%', periods: '12', code: '1001' },
-    { applno: '20210827E000', nationalId: 'A123456789', custId: 'A123456789', name: '測試一', limit: '5000', rates: '5%', periods: '12', code: '1001' },
-    { applno: '20210827E000', nationalId: 'A123456789', custId: 'A123456789', name: '測試一', limit: '5000', rates: '5%', periods: '12', code: '1001' },
-    { applno: '20210827E000', nationalId: 'A123456789', custId: 'A123456789', name: '測試一', limit: '5000', rates: '5%', periods: '12', code: '1001' },
-    { applno: '20210827E000', nationalId: 'A123456789', custId: 'A123456789', name: '測試一', limit: '5000', rates: '5%', periods: '12', code: '1001' },
-    { applno: '20210827E000', nationalId: 'A123456789', custId: 'A123456789', name: '測試一', limit: '5000', rates: '5%', periods: '12', code: '1001' },
-    { applno: '20210827E000', nationalId: 'A123456789', custId: 'A123456789', name: '測試一', limit: '5000', rates: '5%', periods: '12', code: '1001' },
-    { applno: '20210827E000', nationalId: 'A123456789', custId: 'A123456789', name: '測試一', limit: '5000', rates: '5%', periods: '12', code: '1001' },
-    { applno: '20210827E000', nationalId: 'A123456789', custId: 'A123456789', name: '測試一', limit: '5000', rates: '5%', periods: '12', code: '1001' },
-    { applno: '20210827E001', nationalId: 'A123456700', custId: 'A123456789', name: '測試一', limit: '5000', rates: '5%', periods: '12', code: '1001' }
-  ];
-
+  // 計算剩餘table資料長度
+  get tableHeight(): string {
+    if (this.absBox) {
+      return (this.absBox.nativeElement.offsetHeight - 140) + 'px';
+    }
+  }
   ngOnInit(): void {
     this.applno = '';
-    this.nationalId = '';
-    this.custId = '';
+    this.nationalID = '';
+    this.custID = '';
   }
 
   ngAfterViewInit(): void {
-    this.total = 2;
-    this.cusinfoDataSource = this.elements;
-    this.getCaseList(this.applno, this.nationalId, this.custId, this.pageIndex, this.pageSize);
-
+    this.getCaseList();
   }
 
   //代入條件查詢
   select() {
-    if (this.applno == '' && this.nationalId == '' && this.custId == '') { return alert('請至少選擇一項') }
+    if (this.nationalID != '' && !this.f01006Service.checkIdNumberIsValid(this.nationalID)) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "身分驗證失敗" }
+      });
+    }
+    else {
+      this.changePage();
+      this.getCaseList();
 
-    this.getCaseList(this.applno, this.nationalId, this.custId, this.pageIndex, this.pageSize);
+    }
   }
 
-  // 排序
-  changeSort(sortInfo: Sort) {
-    this.getCaseList(this.applno, this.nationalId, this.custId, this.pageIndex, this.pageSize);
+  changePage() {
+    this.pageIndex = 1;
+    this.total = 1;
   }
 
-  //跳出申請葉面
+  //跳出申請頁面
   getRestartCase(
     applno: string,
     nationalId: string,
@@ -84,6 +80,7 @@ export class F01006Component implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(F01006restartComponent, {
       minHeight: '30%',
       width: '70%',
+      panelClass: 'mat-dialog-transparent',
       data: {
         applno: applno,
         nationalId: nationalId,
@@ -96,26 +93,38 @@ export class F01006Component implements OnInit, AfterViewInit {
     });
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
-    this.getCaseList(this.applno, this.nationalId, this.custId, pageIndex, pageSize);
+    const { pageIndex } = params;
+    if (this.pageIndex !== pageIndex) {
+      this.pageIndex = pageIndex;
+      this.getCaseList();
+    }
   }
   //案件清單
-  getCaseList(applno: string, nationalId: string, custId: string, pageIndex: number, pageSize: number) {
+  getCaseList() {
     let jsonObject: any = {};
-
-    jsonObject['page'] = this.pageIndex + 1;
+    jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['applno'] = applno;
-    jsonObject['nationalId'] = nationalId;
-    jsonObject['custId'] = custId;
-    // this.f01006Service.getCaseList(jsonObject).subscribe(data => {
-    //   this.total = data.rspBody.size;
-    //   this.cusinfoDataSource = data.rspBody.items;
-    // });
+    jsonObject['applno'] = this.applno;
+    jsonObject['nationalID'] = this.nationalID;
+    jsonObject['custID'] = this.custID;
+    this.f01006Service.getCaseList(jsonObject).subscribe(data => {
+      this.total = data.rspBody.size;
+      this.cusinfoDataSource = data.rspBody.items;
+    });
 
   }
+
+  // 排序
+  sortChange(e: string) {
+    this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+      (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.cusinfoDataSource.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+  }
+
   // 清除資料
   clear() {
-    
+    this.applno = '';
+    this.nationalID = '';
+    this.custID = '';
+    this.getCaseList();
   }
 }

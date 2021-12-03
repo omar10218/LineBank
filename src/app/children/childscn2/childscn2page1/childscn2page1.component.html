@@ -7,6 +7,7 @@
     (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="資料異動歷程">
     <thead>
       <tr>
+        <th class="table-header">No</th>
         <th class="table-header">欄位名稱</th>
         <th class="table-header">原欄位值</th>
         <th class="table-header">新欄位值</th>
@@ -16,13 +17,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of transactionLogSource">
-        <td class="table-data">{{ data.columnName }}</td>
-        <td class="table-data">{{ data.originalValue }}</td>
-        <td class="table-data">{{ data.currentValue }}</td>
-        <td class="table-data">{{ data.transApName }}</td>
-        <td class="table-data">{{ formatDate( data.transDate ) }}</td>
-        <td class="table-data">{{ data.transEmpNo }}</td>
+      <tr *ngFor="let data of transactionLogSource;let i=index">
+        <td>{{i+1}}</td>
+        <td class="table-data">{{ data.COLUMN_NAME }}</td>
+        <td class="table-data">{{ data.ORIGINAL_VALUE }}</td>
+        <td class="table-data">{{ data.CURRENT_VALUE }}</td>
+        <td class="table-data">{{ data.TRANS_AP_NAME }}</td>
+        <td class="table-data">{{ formatDate( data.TRANS_DATE ) }}</td>
+        <td class="table-data">{{ data.TRANS_EMP_NO+data.EMP_NAME }}</td>
       </tr>
     </tbody>
   </nz-table>
