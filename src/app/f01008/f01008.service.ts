@@ -27,4 +27,10 @@ export class F01008Service extends BaseService {
 
     return this.postJsonObject(baseUrl, jsonObject);
   }
+
+  f01008scn2(jsonObject: JSON,url:string): Observable<any> {
+
+    return  this.postJsonObject(url, jsonObject);
+  }
+
 }

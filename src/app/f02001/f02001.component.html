@@ -33,7 +33,7 @@
       </div>
       <div nz-col nzFlex="1.8">
         <div style="padding:10px"><span class="form-title"><br></span>
-          <mat-select [(ngModel)]="statusDescSecondValue" name="status_DESC_Value">
+          <mat-select [(ngModel)]="statusDescSecondValue" name="status_DESC_Value" [disabled]="status_DESC_Value !=''?  false : true ">
             <mat-option *ngFor="let item of statusDescSecond" [value]="item.value">
               {{item.viewValue}}
             </mat-option>
@@ -132,7 +132,7 @@
           <th>審核結果</th>
           <th>等級gp</th>
           <th>案件狀態</th>
-          <th>進件狀態</th>
+          <th>系統狀態</th>
           <th>上傳財力日期時間</th>
           <th>准駁日期時間</th>
           <th>簽約日期時間</th>
@@ -173,7 +173,7 @@
            <td>{{ data.risk_GRADE }}</td>
             <!--案件狀態-->
           <td>{{ data.STATUS_DESC }}</td>
-            <!--進件狀態-->
+            <!--系統狀態-->
             <td>{{ data.STATUS_DESC }}</td>
             <!--上傳財力日期-->
           <td>{{ data.proof_DOCUMENT_TIME }}</td>
