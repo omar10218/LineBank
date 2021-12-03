@@ -23,26 +23,27 @@
         </div>
       </div>
       <br>
-      <div nz-row>
-        <div nz-col nzSpan="8">
-          <div style="margin:0;" class="EL_DSS_form_header_title3">徵審代碼</div>
-          <nz-table nzShowSizeChanger [nzData]="EL_DSS3_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
-            nzSize="small">
-            <thead>
-              <tr>
-                <th class="table-header">徵審代碼</th>
-                <th class="table-header">徵審代碼中文</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let row of EL_DSS3_UNDW_LIST1.data">
-                <td class="table-data">{{ row.undwCd }}</td>
-                <td class="table-data"></td>
-              </tr>
-            </tbody>
-          </nz-table>
-        </div>
-      </div>
+
+      <div style="margin:0;border-radius: 0px 10px 0px 0px;" class="EL_DSS_form_header_title3">徵審代碼</div>
+      <nz-table nzShowSizeChanger [nzData]="EL_DSS3_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+        nzSize="small">
+        <thead>
+          <tr>
+            <th class="table-header" style="width: 25%;">徵審代碼</th>
+            <th class="table-header" style="width: 25%;">徵審代碼中文</th>
+            <th class="table-header" style="width: 25%;"></th>
+            <th class="table-header" style="width: 25%;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of EL_DSS3_UNDW_LIST1.data">
+            <td class="table-data">{{ row.undwCd }}</td>
+            <td class="table-data"></td>
+            <td class="table-data"></td>
+            <td class="table-data"></td>
+          </tr>
+        </tbody>
+      </nz-table>
     </form>
   </div>
 
@@ -52,8 +53,7 @@
     <button *ngIf="getSearch() != 'N' " nz-button [nzSize]="'large'" nzType="primary" (click)="save_M()"
       disabled>產生合約前回查儲存</button>
   </div>
-  <div *ngIf="getSearch() != 'N' || getPage()=='8'" class="line_bank_card_no_padding"
-    style="width:50%;">
+  <div *ngIf="getSearch() != 'N' || getPage()=='8'" class="line_bank_card_no_padding" style="width:50%;">
     <nz-table nzShowSizeChanger [nzData]="fmData_M.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
       nzTitle="產生合約前回查DBR計算">
       <thead>
