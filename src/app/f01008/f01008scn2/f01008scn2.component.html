@@ -6,18 +6,18 @@
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="add()">新增</button>
   </div>
   <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">照會資訊</div>
     <!-- 表格 -->
-    <nz-table nzSize="small" nzTitle="照會資訊" [nzNoResult]="'  '">
+    <nz-table nzSize="small"  [nzNoResult]="'  '">
       <thead>
         <tr>
           <th class="table-header" style="width:10%"></th>
-          <th class="table-header" style="width:10%">聯絡方式</th>
+          <th class="table-header" style="width:12.5%">聯絡方式</th>
           <th class="table-header" style="width:10%">手機/市話</th>
-          <th class="table-header" style="width:10%">電話狀況</th>
+          <th class="table-header" style="width:12.5%">電話狀況</th>
           <th class="table-header" style="width:10%">備註</th>
           <th class="table-header" style="width:10%">確認時間</th>
           <th class="table-header" style="width:10%">設定下次聯絡時間</th>
-          <th class="table-header" style="width:10%">確認人員</th>
         </tr>
       </thead>
       <tbody>
@@ -26,9 +26,54 @@
             <button nz-button [nzSize]="'middle'" nzType="primary">編輯</button>&nbsp;&nbsp;
             <button nz-button [nzSize]="'middle'" nzType="primary">刪除</button>
           </td>
+          <td>
+            <mat-radio-group formControlName="angularLikeScore">
+              <mat-radio-button [value]="1">公司電話</mat-radio-button>
+              <mat-radio-button [value]="2">手機電話號碼</mat-radio-button>
+              <mat-radio-button [value]="3">住家號碼</mat-radio-button>
+              <mat-radio-button [value]="4">其他</mat-radio-button>
+            </mat-radio-group>
+          </td>
+          <td><input type="text"></td>
+          <td>
+            <mat-radio-group formControlName="angularLikeScore">
+              <mat-radio-button [value]="1">本人接</mat-radio-button>
+              <mat-radio-button [value]="2">他人接</mat-radio-button>
+              <mat-radio-button [value]="3">無人接</mat-radio-button>
+              <mat-radio-button [value]="4">其他(備註)</mat-radio-button>
+            </mat-radio-group>
+          </td>
+          <td><input type="text" style="height: 100px;"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
         </tr>
       </tbody>
     </nz-table>
+      <!-- 表格 -->
+      <nz-table nzSize="small"  [nzNoResult]="'  '">
+        <thead>
+          <tr>
+            <th class="table-header" style="width:12.5%">聯絡方式</th>
+            <th class="table-header" style="width:10%">手機/市話</th>
+            <th class="table-header" style="width:12.5%">電話狀況</th>
+            <th class="table-header" style="width:10%">備註</th>
+            <th class="table-header" style="width:10%">確認時間</th>
+            <th class="table-header" style="width:10%">設定下次聯絡時間</th>
+            <th class="table-header" style="width:10%">確認人員</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+              <td>5</td>
+              <td>6</td>
+              <td>7</td>
+            </tr>
+        </tbody>
+      </nz-table>
   </div>
   <div class="line_bank_card_no_padding">
     <nz-table nzSize="small" [nzNoResult]="'  '">
@@ -106,7 +151,9 @@
         <th class="table-header" style="width:10%">Action</th>
       </thead>
       <tbody>
-        <td></td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
       </tbody>
     </nz-table>
   </div>
