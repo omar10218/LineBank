@@ -20,6 +20,11 @@ export class F02001Service extends BaseService {
     return this.postJsonObject(targetUrl, jsonObject);
   }
 
+  changeStatsCode(jsonObject: JSON): Observable<any>{
+    let targetUrl = 'f02/f02001scn1';
+    return this.postJsonObject(targetUrl, jsonObject);
+  }
+
   inquiry(baseUrl: string, jsonObject: JSON): Observable<any> {
     let targetUrl = baseUrl;
     return this.postJsonObject(targetUrl, jsonObject);

@@ -24,7 +24,7 @@
       </div>
       <div nz-col nzFlex="1.8">
         <div style="padding:10px"><span class="form-title">案件狀態</span>
-          <mat-select [(ngModel)]="status_DESC_Value" name="status_DESC_Value">
+          <mat-select [(ngModel)]="status_DESC_Value" name="status_DESC_Value" (ngModelChange)="changeStatsCode(status_DESC_Value)">
             <mat-option *ngFor="let item of status_DESC" [value]="item.value">
               {{item.viewValue}}
             </mat-option>
@@ -33,8 +33,8 @@
       </div>
       <div nz-col nzFlex="1.8">
         <div style="padding:10px"><span class="form-title">案件狀態</span>
-          <mat-select [(ngModel)]="status_DESC_Value" name="status_DESC_Value">
-            <mat-option *ngFor="let item of status_DESC" [value]="item.value">
+          <mat-select [(ngModel)]="statusDescSecondValue" name="status_DESC_Value">
+            <mat-option *ngFor="let item of statusDescSecond" [value]="item.value">
               {{item.viewValue}}
             </mat-option>
           </mat-select>

@@ -28,6 +28,8 @@ export class F02001Component implements OnInit {
   credit_RESULT_Value: string = '';//審核結果值
   status_DESC: sysCode[] = []; //案件狀態
   status_DESC_Value: string = '';//案件狀態值
+  statusDescSecond: sysCode[] = [];//案件狀態第二層
+  statusDescSecondValue: string = '';//案件狀態值第二層
   cust_FLAG: sysCode[] = []; //客群標籤
   cust_FLAG_Value: string = '';//客群標籤值
   risk_GRADE: sysCode[] = [];//風險等級分群
@@ -89,12 +91,26 @@ export class F02001Component implements OnInit {
     this.getCustFlag();
     this.getRiskGrade();
     this.f02001Service.getStatusDesc().subscribe(data => {
-      console.log(data)
       this.status_DESC.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
-        const statusId = jsonObj['statusId'];
-        const statusDesc = jsonObj['statusDesc'];
-        this.status_DESC.push({ value: statusId, viewValue: statusDesc })
+        const value = jsonObj['value'];
+        const viewValue = jsonObj['viewValue'];
+        this.status_DESC.push({ value: value, viewValue: viewValue })
+      }
+    });
+  }
+
+  //狀態第二層
+  changeStatsCode(codeTag: string) {
+    this.statusDescSecond = [];
+    let jsonObject : any = {};
+    jsonObject['statusCode'] = codeTag;
+    this.f02001Service.changeStatsCode(jsonObject).subscribe(data => {
+      this.statusDescSecond.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody) {
+        const value = jsonObj['codeNo'];
+        const viewValue = jsonObj['codeNo'] + jsonObj['codeDesc'];
+        this.statusDescSecond.push({ value: value, viewValue: viewValue })
       }
     });
   }
@@ -166,7 +182,7 @@ export class F02001Component implements OnInit {
     this.jsonObject['custCname'] = this.cust_CNAME;//客戶姓名
     this.jsonObject['l3EmpNo'] = this.l3EMPNO;//徵信員員編姓名
     this.jsonObject['creditResult'] = this.credit_RESULT_Value;//審核結果
-    this.jsonObject['statusDesc'] = this.status_DESC_Value;//案件狀態
+    this.jsonObject['statusDesc'] = this.statusDescSecondValue;//案件狀態--有修改
     this.jsonObject['custFlag'] = this.cust_FLAG_Value;//客群標籤
     this.jsonObject['riskGrade'] = this.risk_GRADE_Value;//風險等級分群
     this.jsonObject['productName'] = this.product_NAME;//產品名稱
