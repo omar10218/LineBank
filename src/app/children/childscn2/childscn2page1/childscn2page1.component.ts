@@ -39,10 +39,10 @@ export class Childscn2page1Component implements OnInit {
     jsonObject['per_page'] = pageSize;
     this.childscn2Service.getTransLog(baseUrl, jsonObject)
     .subscribe(data => {
-      this.loading = false;
       this.total = data.rspBody.size;
       this.transactionLogSource = data.rspBody.items;
     });
+    this.loading = false;
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -51,6 +51,7 @@ export class Childscn2page1Component implements OnInit {
   }
 
   formatDate(date: string) {
-    return date.split("T")[0]+" "+date.split("T")[1].split(".")[0];
+    // return date.split("T")[0]+" "+date.split("T")[1].split(".")[0];
+    return date.split(".")[0];
   }
 }

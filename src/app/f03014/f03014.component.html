@@ -22,12 +22,12 @@
         <!-- (ngModelChange)="dateNull()" -->
 
         <div style="padding:10px "><span class="form-title">生效日</span>
-          <nz-range-picker [(ngModel)]="Efficient" name="Efficient "></nz-range-picker>
+          <nz-range-picker [(ngModel)]="Efficient" name="Efficient "(ngModelChange)="dateNull(Efficient,'Efficient')"></nz-range-picker>
         </div>
       </div>
       <div nz-col nzSpan="5">
         <div style="padding:10px"><span class="form-title">失效日</span>
-          <nz-range-picker [(ngModel)]="Invalidation" name="Invalidation">
+          <nz-range-picker [(ngModel)]="Invalidation" name="Invalidation" (ngModelChange)="dateNull(Invalidation,'Invalidation')">
           </nz-range-picker>
         </div>
       </div>

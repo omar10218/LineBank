@@ -1,6 +1,7 @@
 <div class="line_bank_card_no_padding">
+  <div class="line_bank_form_header_title">照會資訊</div>
   <!-- 表格 -->
-  <nz-table nzSize="small" nzTitle="照會資訊" [nzNoResult]="'  '">
+  <nz-table nzSize="small" [nzNoResult]="'  '">
     <thead>
       <tr>
         <th class="table-header" style="width:10%">聯絡方式</th>
@@ -35,10 +36,32 @@
         <textarea style="height:84px;"></textarea>
       </td>
       <td class="table-data">
-        <input type="text">
+        <nz-date-picker style="display:block">
+        </nz-date-picker>
       </td>
       <td class="table-data">
-        <input type="text">
+        <div nz-row>
+          <div nz-col nzSpan="12">
+            <div class="form" >
+              <div><span class="form-title-actions">時</span>
+                <mat-select >
+                  <mat-option >
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="12">
+            <div class="form" >
+              <div><span class="form-title-actions">分</span>
+                <mat-select >
+                  <mat-option >
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+        </div>
       </td>
     </tbody>
   </nz-table>

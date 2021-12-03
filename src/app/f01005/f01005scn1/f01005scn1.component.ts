@@ -176,7 +176,7 @@ export class F01005scn1Component implements OnInit {
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = 'L3';
+    jsonObject['level'] = 'Fraud';
 
     this.approveAmt = sessionStorage.getItem('resultApproveAmt');
     this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');

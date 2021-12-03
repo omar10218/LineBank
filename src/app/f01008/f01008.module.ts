@@ -15,6 +15,7 @@ import { F01008scn2Component } from './f01008scn2/f01008scn2.component';
 import { F01008scn3Component } from './f01008scn3/f01008scn3.component';
 import { F01008scn4Component } from './f01008scn4/f01008scn4.component';
 import { F01008scn3page1Component } from './f01008scn3/f01008scn3page1/f01008scn3page1.component';
+import { JcictableComponent } from './f01008scn3/jcictable/jcictable.component';
 registerLocaleData(zh);
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ registerLocaleData(zh);
     F01008scn3Component,
     F01008scn4Component,
     F01008scn3page1Component,
+    JcictableComponent,
   ],
   imports: [
     NzButtonModule,

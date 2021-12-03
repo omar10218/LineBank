@@ -60,6 +60,9 @@ export class F02001Component implements OnInit {
 
   ngOnInit(): void {
     this.getStatusDesc();
+    this.getCreditResult();
+    this.getCustFlag();
+    this.getRiskGrade();
     this.credit_RESULT_Value = '';
     this.status_DESC_Value = '';
     this.cust_FLAG_Value = '';
@@ -78,8 +81,8 @@ export class F02001Component implements OnInit {
   }
   // test()
   // {
-  //   console.log(this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd'))
-  //   console.log(this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd'))
+  //   console.log(this.status_DESC_Value)
+
   // }
   changePage() {
     this.pageIndex = 1;
@@ -88,15 +91,13 @@ export class F02001Component implements OnInit {
   }
 
   getStatusDesc() {
-    this.getCreditResult();
-    this.getCustFlag();
-    this.getRiskGrade();
-    this.f02001Service.getStatusDesc().subscribe(data => {
+    this.f02001Service.getSysTypeCode('STATUS_CODE').subscribe(data => {
+      console.log(data)
       this.status_DESC.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody) {
-        const value = jsonObj['value'];
-        const viewValue = jsonObj['viewValue'];
-        this.status_DESC.push({ value: value, viewValue: viewValue })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj['codeNo'];
+        const desc = jsonObj['codeDesc'];
+        this.status_DESC.push({ value: codeNo, viewValue: desc })
       }
     });
   }
@@ -104,8 +105,8 @@ export class F02001Component implements OnInit {
   //狀態第二層
   changeStatsCode(codeTag: string) {
     this.statusDescSecond = [];
-    let jsonObject : any = {};
-    jsonObject['statusCode'] = codeTag;
+    let jsonObject: any = {};
+    jsonObject['statusDesc'] = codeTag;
     this.f02001Service.changeStatsCode(jsonObject).subscribe(data => {
       this.statusDescSecond.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
@@ -185,7 +186,7 @@ export class F02001Component implements OnInit {
     this.jsonObject['l3EmpNo'] = this.l3EMPNO;//徵信員員編姓名
     this.jsonObject['creditResult'] = this.credit_RESULT_Value;//審核結果
     this.jsonObject['statusDesc'] = this.status_DESC_Value;//案件狀態--有修改第一層
-    this.jsonObject['statusDescSecond'] = this.statusDescSecondValue;//案件狀態--有修改第二層
+    this.jsonObject['opDesc'] = this.statusDescSecondValue;//案件狀態--有修改第二層
     this.jsonObject['custFlag'] = this.cust_FLAG_Value;//客群標籤
     this.jsonObject['riskGrade'] = this.risk_GRADE_Value;//風險等級分群
     this.jsonObject['productName'] = this.product_NAME;//產品名稱
@@ -395,6 +396,7 @@ export class F02001Component implements OnInit {
     this.l3EMPNO = '';
     this.credit_RESULT_Value = '';
     this.status_DESC_Value = '';
+    this.statusDescSecondValue = ''
     this.cust_FLAG_Value = '';
     this.risk_GRADE_Value = '';
     this.apply_TIME = null;
@@ -406,12 +408,13 @@ export class F02001Component implements OnInit {
     this.credit_TIME = null;
     this.resultData = [];
     this.jsonObject = {};
+    this.total = 0;
   }
-  // test()//測試
-  // {
-  //   console.log( this.total)
+  test()//測試
+  {
+    console.log( this.apply_TIME)
 
-  // }
+  }
 
   conditionCheck() {
     if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == ''
@@ -419,6 +422,7 @@ export class F02001Component implements OnInit {
       && this.cust_FLAG_Value == '' && this.risk_GRADE_Value == '' && this.apply_TIME == null
       && this.proof_DOCUMENT_TIME == null && this.sign_UP_TIME == null && this.product_NAME == ''
       && this.project_NAME == '' && this.marketing_CODE == '' && this.credit_TIME == null) {
+        this.total = 0;
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項條件" }
       });
@@ -436,5 +440,26 @@ export class F02001Component implements OnInit {
     console.log(e)
     this.resultData = e === 'ascend' ? this.resultData.sort(
       (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+  }
+  dateNull(t:[Date, Date],name:string)
+   {
+
+    if ( t.length < 1 ) {
+      switch(name)
+      {
+        case 'apply_TIME':
+          this.apply_TIME =null;
+          break;
+          case 'proof_DOCUMENT_TIME':
+          this.proof_DOCUMENT_TIME =null;
+          break;
+          case 'sign_UP_TIME':
+            this.sign_UP_TIME =null;
+            break;
+            case 'credit_TIME':
+              this.credit_TIME =null;
+              break;
+      }
+    }
   }
 }
