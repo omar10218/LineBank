@@ -54,9 +54,9 @@ export class F01006Component implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.total = 2;
-    // this.cusinfoDataSource = this.elements;
-    // this.getCaseList(this.applno, this.nationalId, this.custId, this.pageIndex, this.pageSize);
+    this.total = 2;
+    this.cusinfoDataSource = this.elements;
+    this.getCaseList(this.applno, this.nationalId, this.custId, this.pageIndex, this.pageSize);
 
   }
 

@@ -34,6 +34,7 @@ export class Childscn3Component implements OnInit {
 
   private applno: string;
   private search: string;
+  private stepName: string;
   chkArray: checkBox[] = [];
   level1: string[] = [];//裝第一層checkbox
   data: any;//裝一開始的資料表
@@ -46,10 +47,12 @@ export class Childscn3Component implements OnInit {
   loading = false;
   pageSize = 50;
   pageIndex = 1;
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
     this.no = localStorage.getItem("empNo");
+    this.search = sessionStorage.getItem('search');
     this.getTable()//抓取資料表
   }
 
@@ -162,5 +165,10 @@ export class Childscn3Component implements OnInit {
       this.i = data.rspBody.fraudIsLocked;
     })
   }
+   //檢查是否是徵信
+   getSearch(): string {
+    return this.search;
+  }
+
 }
 

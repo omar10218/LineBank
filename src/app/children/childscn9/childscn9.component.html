@@ -19,6 +19,20 @@
         </nz-breadcrumb-item>
       </nz-breadcrumb>
     </nz-page-header>
+    <div style="padding-left: 35px; padding-top: 0px;">
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="padding:3px"><span class="form-title">查詢日期時間</span><input matInput #input class="form-control"
+              [(ngModel)]="queryDate" readonly disabled></div>
+        </div>
+        <div nz-col nzFlex="1"></div>
+        <div nz-col nzFlex="1"></div>
+        <div nz-col nzFlex="1"></div>
+        <div nz-col nzFlex="1"></div>
+        <div nz-col nzFlex="1"></div>
+      </div>
+    </div>
+    
     <ng-container appDynamic></ng-container>
     <!-- <button class="btn" nz-button nzType="primary" [class.active]="nowPage === Page.Page1"
       (click)="changePage(Page.Page1)">核心系統客戶資料 </button>

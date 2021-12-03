@@ -15,7 +15,7 @@
           <tr *ngFor="let item of data ;let  k= index">
             <td>{{k+1}}</td>
             <td>
-              <input class="inpu1" type="checkbox" [(ngModel)]="item.check" name={{item.reasonDesc}} value={{item.reasonDesc}} (click)="chkArray1($event.target.checked,item.reasonDesc,item.reasonCode);"[disabled]="i == 'N' ? false:true">{{item.reasonDesc}}
+              <input class="inpu1" type="checkbox" [(ngModel)]="item.check" name={{item.reasonDesc}} value={{item.reasonDesc}} (click)="chkArray1($event.target.checked,item.reasonDesc,item.reasonCode);"[disabled]="i == 'N' && getSearch() == 'N'  ? false:true">{{item.reasonDesc}}
             </td>
             <td>
               <div *ngFor="let it of item.child"><input class="inpu1" type="checkbox" [disabled]="item.check && i=='N'?  false : true "  [(ngModel)]="it.check" name={{it.reasonDesc}}  class={{item.reasonCode}} >{{it.reasonDesc}}</div> <!--第二層(可複選)-->
@@ -25,9 +25,9 @@
         <!-- </ng-container> -->
       </tbody>
     </nz-table>
-    <div style="padding-bottom:10px;text-align: center;">
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="seve()"  [disabled]="i == 'N' ? false:true">儲存</button>&nbsp;
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="seveFraud()"[disabled]="i == 'N' ? false:true" >發送Fraud Team</button>
+    <div style="padding-bottom:10px;text-align: center;" >
+      <button nz-button [nzSize]="'large'" nzType="primary" (click)="seve()"  [disabled]="i == 'N' && getSearch() == 'N' ? false:true" >儲存</button>&nbsp;
+      <button nz-button [nzSize]="'large'" nzType="primary" (click)="seveFraud()"[disabled]="i == 'N'  && getSearch() == 'N' ? false:true" >發送Fraud Team</button>
     </div>
   </div>
 </div>

@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Data, Router } from '@angular/router';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { Alert } from 'selenium-webdriver';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F02001Service } from './f02001.service';
 
@@ -63,7 +64,7 @@ export class F02001Component implements OnInit {
     this.status_DESC_Value = '';
     this.cust_FLAG_Value = '';
     this.risk_GRADE_Value = '';
-    this.apply_TIME= [this.dealwithData14(new Date()),new Date()]
+    this.apply_TIME = [this.dealwithData14(new Date()), new Date()]
 
   }
 
@@ -156,7 +157,7 @@ export class F02001Component implements OnInit {
   {
     sessionStorage.setItem('applno', id);
     sessionStorage.setItem('cuid', nationalId);
-    sessionStorage.setItem('search','Y');
+    sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('queryDate', '');
     sessionStorage.setItem('winClose', 'Y');
     sessionStorage.setItem('page', '0');
@@ -173,6 +174,7 @@ export class F02001Component implements OnInit {
   }
 
   selectData(pageIndex: number, pageSize: number) {
+
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
     let url = "f02/f02001action1";
@@ -189,40 +191,44 @@ export class F02001Component implements OnInit {
     this.jsonObject['projectName'] = this.project_NAME;//專案名稱
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
     this.jsonObject['approveAmt'] = '';//核准金額/額度
-    if (this.national_ID != '' || this.cust_ID != '')
-    {
+    if (this.national_ID != '' || this.cust_ID != '') {
+
       if (this.apply_TIME != null)//進件日期
       {
-        if(this.dealwithData365(this.apply_TIME))
-        {
+
+        if (this.dealwithData365(this.apply_TIME)) {
           this.jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
           this.jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
         }
-        else
-        {
+        else {
+
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "進件日期查詢區間最多一年內!" }
+
           });
+          return;
         }
+
       }
       else {
+
         this.jsonObject['applyTimeStart'] = '';
         this.jsonObject['applyTimeEnd'] = '';
       }
 
       if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
       {
-        if(this.dealwithData365(this.proof_DOCUMENT_TIME))
-        {
+        if (this.dealwithData365(this.proof_DOCUMENT_TIME)) {
           this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyy-MM-dd');
           this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyy-MM-dd');
 
         }
-        else
-        {
+        else {
+
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "上傳財力日期查詢區間最多一年內!" }
           });
+          return;
         }
       }
       else {
@@ -232,16 +238,15 @@ export class F02001Component implements OnInit {
 
       if (this.sign_UP_TIME != null)//簽約完成日期
       {
-        if(this.dealwithData365(this.sign_UP_TIME))
-        {
+        if (this.dealwithData365(this.sign_UP_TIME)) {
           this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyy-MM-dd');
           this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyy-MM-dd');
         }
-        else
-        {
+        else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "簽約完成日期查詢區間最多一年內!" }
           });
+          return;
         }
 
       }
@@ -252,16 +257,15 @@ export class F02001Component implements OnInit {
 
       if (this.credit_TIME != null)//准駁日期時間
       {
-        if(this.dealwithData365(this.credit_TIME))
-        {
+        if (this.dealwithData365(this.credit_TIME)) {
           this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
           this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
         }
-        else
-        {
+        else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "准駁日期時間查詢區間最多一年內!" }
           });
+          return;
         }
       }
       else {
@@ -269,20 +273,18 @@ export class F02001Component implements OnInit {
         this.jsonObject['creditTimeEnd'] = '';
       }
     }
-    else
-     {
+    else {
       if (this.apply_TIME != null)//進件日期
       {
-        if(this.dealwithData90(this.apply_TIME))
-        {
+        if (this.dealwithData90(this.apply_TIME)) {
           this.jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
           this.jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
         }
-        else
-        {
+        else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "進件日期查詢區間最多三個內!" }
           });
+          return;
         }
 
       }
@@ -293,16 +295,15 @@ export class F02001Component implements OnInit {
 
       if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
       {
-        if(this.dealwithData90(this.proof_DOCUMENT_TIME))
-        {
+        if (this.dealwithData90(this.proof_DOCUMENT_TIME)) {
           this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyy-MM-dd');
           this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyy-MM-dd');
         }
-        else
-        {
+        else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "上傳財力日期查詢區間最多三個內!" }
           });
+          return;
         }
 
       }
@@ -310,19 +311,17 @@ export class F02001Component implements OnInit {
         this.jsonObject['proofDocumentTimeStart'] = '';
         this.jsonObject['proofDocumentTimeEnd'] = '';
       }
-
       if (this.sign_UP_TIME != null)//簽約完成日期
       {
-        if(this.dealwithData90(this.sign_UP_TIME))
-        {
+        if (this.dealwithData90(this.sign_UP_TIME)) {
           this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyy-MM-dd');
           this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyy-MM-dd');
         }
-        else
-        {
+        else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "簽約完成日期查詢區間最多三個內!" }
           });
+          return;
         }
       }
       else {
@@ -331,16 +330,15 @@ export class F02001Component implements OnInit {
       }
       if (this.credit_TIME != null)//准駁日期時間
       {
-        if(this.dealwithData90(this.credit_TIME))
-        {
+        if (this.dealwithData90(this.credit_TIME)) {
           this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
           this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
         }
-        else
-        {
+        else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "准駁日期時間查詢區間最多三個內!" }
           });
+          return;
         }
       }
       else {
@@ -348,48 +346,42 @@ export class F02001Component implements OnInit {
         this.jsonObject['creditTimeEnd'] = '';
       }
 
-      this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
-        console.log(data)
-        this.resultData = data.rspBody.item;
-        this.total = data.rspBody.size;
-        this.firstFlag = 2;
-      }
-      )
     }
+
+    this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
+      console.log(data)
+      this.resultData = data.rspBody.item;
+      this.total = data.rspBody.size;
+      this.firstFlag = 2;
+    }
+    )
   }
-  dealwithData14(time:Date)
-  {
+  dealwithData14(time: Date) {
     var startDate
     startDate = new Date();
-    return new Date(Date.now()-(13*24*60*60*1000));
+    return new Date(Date.now() - (13 * 24 * 60 * 60 * 1000));
 
   }
-  dealwithData365(stime:any)
-  {
+  dealwithData365(stime: any) {
     var startDate, endDate;
     startDate = new Date(stime[0]);
     endDate = new Date(stime[1]);
-    if((endDate - startDate) / 1000 / 60 / 60 / 24 > 365)
-    {
+    if ((endDate - startDate) / 1000 / 60 / 60 / 24 > 365) {
       return false;
     }
-    else
-    {
-        return true;
+    else {
+      return true;
     }
   }
-  dealwithData90(stime:any)
-  {
+  dealwithData90(stime: any) {
     var startDate, endDate;
     startDate = new Date(stime[0]);
     endDate = new Date(stime[1]);
-    if((endDate - startDate) / 1000 / 60 / 60 / 24 > 90)
-    {
+    if ((endDate - startDate) / 1000 / 60 / 60 / 24 > 90) {
       return false;
     }
-    else
-    {
-        return true;
+    else {
+      return true;
     }
   }
 
@@ -414,10 +406,11 @@ export class F02001Component implements OnInit {
     this.resultData = [];
     this.jsonObject = {};
   }
-  leave()//離開
-  {
+  // test()//測試
+  // {
+  //   console.log( this.total)
 
-  }
+  // }
 
   conditionCheck() {
     if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == ''
@@ -433,6 +426,12 @@ export class F02001Component implements OnInit {
     }
   }
   sortChange(e: string) {
+    console.log(e)
+    this.resultData = e === 'ascend' ? this.resultData.sort(
+      (a, b) => a.APPLY_TIME.localeCompare(b.APPLY_TIME)) : this.resultData.sort((a, b) => b.APPLY_TIME.localeCompare(a.APPLY_TIME))
+  }
+  Serial(e: string)//序號排序
+  {
     console.log(e)
     this.resultData = e === 'ascend' ? this.resultData.sort(
       (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))

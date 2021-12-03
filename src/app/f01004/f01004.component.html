@@ -96,7 +96,7 @@
                     [disabled]="true">
                     {{data.swcApplno}}
                   </button>
-                  <button nz-button [nzSize]="'middle'" nzLeft nzType="link" 
+                  <button nz-button [nzSize]="'middle'" nzLeft nzType="link" *ngIf="data.swcReadyForReview=='Y'||data.swcReadyForReview==''"
                     (click)="getLockCase(data.swcApplno, data.swcNationalId)">
                     {{data.swcApplno}}
                   </button>

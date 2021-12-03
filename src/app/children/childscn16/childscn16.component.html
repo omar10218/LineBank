@@ -2,33 +2,52 @@
   <div class="line_bank_card_no_padding">
     <!-- 表格 -->
     <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzData]="ruleParamCondition"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="歷史資料"  (nzQueryParams)="onQueryParamsChange($event)">
+      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="歷史案件清單"  (nzQueryParams)="onQueryParamsChange($event)">
       <thead>
         <tr>
+          <th class="table-header" (nzSortOrderChange)="sortChange($event)"  [nzSortFn]="true"
+          [nzSortOrder]="'ascend'" >NO</th>
           <th class="table-header">案件編號</th>
-          <th class="table-header">客戶編號</th>
-          <th class="table-header">申請人ID</th>
+          <th class="table-header">客戶ID</th>
+          <th class="table-header">身分證號</th>
           <th class="table-header">產品代碼</th>
+          <th class="table-header">案件狀態</th>
           <th class="table-header">審核結果</th>
-          <th class="table-header">原因碼</th>
+          <th class="table-header">曾因特定原因婉拒</th>
+          <th class="table-header">徵審代碼</th>
+          <th class="table-header">徵審評估月收入</th>
+          <th class="table-header">原始申請金額</th>
+          <th class="table-header">本行核准金額/額度</th>
+          <th class="table-header">合約金額/額度</th>
+          <th class="table-header">實際撥款金額/建立額度</th>
           <th class="table-header">徵信員</th>
           <th class="table-header">授信員</th>
           <th class="table-header">准入時間</th>
-          <th class="table-header">徵審核決時間</th>
+          <th class="table-header">信用資訊發查日期時間</th>
+          <th class="table-header">准駁日期時間</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of ruleParamCondition">
-          <td style="text-align: center;"><button nz-button [nzSize]="'small'" nzType="primary" (click)="Inquire(data.applnoOld)">查詢</button></td>
+        <tr *ngFor="let data of ruleParamCondition;let  i= index;">
+          <td class="table-data">{{ i+1 }}</td>
+          <td style="text-align: center;"><button nz-button [nzSize]="'small'" nzType="primary" (click)="Inquire(data.applnoOld)">{{data.applno}}</button></td>
           <td class="table-data">{{ data.applnoOld }}</td>
           <td class="table-data">{{ data.custId }}</td>
           <td class="table-data">{{ data.nationalId }}</td>
+          <td class="table-data"></td>
           <td class="table-data">{{ data.prodCode }}</td>
+          <td class="table-data"></td>
           <td class="table-data">{{ data.creditResult }}</td>
           <td class="table-data">{{ data.reasonCode }}</td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>
           <td class="table-data">{{ data.l3empno }}</td>
           <td class="table-data">{{ data.l4empno }}</td>
           <td class="table-data">{{ data.applyTime| date: 'yyyy-MM-dd' }}</td>
+          <td class="table-data"></td>
           <td class="table-data">{{ data.creditTime | date: 'yyyy-MM-dd'}}</td>
         </tr>
       </tbody>
