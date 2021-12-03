@@ -76,22 +76,22 @@
     <div nz-row>
       <div nz-col nzFlex="1">
         <div style="padding:2px"><span class="form-title">進件日期</span>
-          <nz-range-picker [(ngModel)]="apply_TIME" name="apply_TIME" ></nz-range-picker>
+          <nz-range-picker [(ngModel)]="apply_TIME" name="apply_TIME" (ngModelChange)="dateNull(apply_TIME,'apply_TIME')"></nz-range-picker>
         </div>
       </div>
       <div nz-col nzFlex="1">
         <div style="padding:2px"><span class="form-title">上傳財力日期</span>
-          <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME" name="proof_DOCUMENT_TIME"></nz-range-picker>
+          <nz-range-picker [(ngModel)]="proof_DOCUMENT_TIME" name="proof_DOCUMENT_TIME" (ngModelChange)="dateNull(proof_DOCUMENT_TIME,'proof_DOCUMENT_TIME')"></nz-range-picker>
         </div>
       </div>
       <div nz-col nzFlex="1">
         <div style="padding:2px"><span class="form-title">簽約完成日期</span>
-          <nz-range-picker [(ngModel)]="sign_UP_TIME" name="sign_UP_TIME"></nz-range-picker>
+          <nz-range-picker [(ngModel)]="sign_UP_TIME" name="sign_UP_TIME" (ngModelChange)="dateNull(sign_UP_TIME,'sign_UP_TIME')"></nz-range-picker>
         </div>
       </div>
       <div nz-col nzFlex="1">
         <div style="padding:2px"><span class="form-title">准駁日期時間</span>
-          <nz-range-picker [(ngModel)]="credit_TIME" name="credit_TIME"></nz-range-picker>
+          <nz-range-picker [(ngModel)]="credit_TIME" name="credit_TIME" (ngModelChange)="dateNull(credit_TIME,'credit_TIME')"></nz-range-picker>
         </div>
       </div>
       <div nz-col nzFlex="1">
@@ -109,7 +109,7 @@
       <!-- (click)="add()" -->
       <button nz-button [nzSize]="'large'" nzType="primary" (click)="select()">查詢資料</button>&nbsp;
       <button nz-button [nzSize]="'large'" nzType="primary" (click)="Clear()">清除資料</button>&nbsp;
-      <!-- <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()" >離開</button>&nbsp; -->
+      <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()" >離開</button>&nbsp;
     </div>
     <!-- 表格 -->
   </div>

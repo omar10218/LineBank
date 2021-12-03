@@ -408,12 +408,13 @@ export class F02001Component implements OnInit {
     this.credit_TIME = null;
     this.resultData = [];
     this.jsonObject = {};
+    this.total = 0;
   }
-  // test()//測試
-  // {
-  //   console.log( this.total)
+  test()//測試
+  {
+    console.log( this.apply_TIME)
 
-  // }
+  }
 
   conditionCheck() {
     if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == ''
@@ -421,6 +422,7 @@ export class F02001Component implements OnInit {
       && this.cust_FLAG_Value == '' && this.risk_GRADE_Value == '' && this.apply_TIME == null
       && this.proof_DOCUMENT_TIME == null && this.sign_UP_TIME == null && this.product_NAME == ''
       && this.project_NAME == '' && this.marketing_CODE == '' && this.credit_TIME == null) {
+        this.total = 0;
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項條件" }
       });
@@ -438,5 +440,26 @@ export class F02001Component implements OnInit {
     console.log(e)
     this.resultData = e === 'ascend' ? this.resultData.sort(
       (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+  }
+  dateNull(t:[Date, Date],name:string)
+   {
+
+    if ( t.length < 1 ) {
+      switch(name)
+      {
+        case 'apply_TIME':
+          this.apply_TIME =null;
+          break;
+          case 'proof_DOCUMENT_TIME':
+          this.proof_DOCUMENT_TIME =null;
+          break;
+          case 'sign_UP_TIME':
+            this.sign_UP_TIME =null;
+            break;
+            case 'credit_TIME':
+              this.credit_TIME =null;
+              break;
+      }
+    }
   }
 }

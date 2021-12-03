@@ -304,4 +304,22 @@ export class F03014Component implements OnInit {
       this.Invalidation=null;//失效
       this.ruleParamCondition = null;
   }
+  dateNull(t:[Date, Date],name:string)
+  {
+    alert("a")
+   if ( t.length < 1 )
+    {
+     switch(name)
+     {
+       case 'Efficient':
+         this.Efficient =null;
+         break;
+         case 'Invalidation':
+         this.Invalidation =null;
+         break;
+     }
+
+
+   }
+  }
 }
