@@ -14,6 +14,7 @@ import { F01008RoutingModule } from '../routing/f01008-routing.module';
 import { F01008scn2Component } from './f01008scn2/f01008scn2.component';
 import { F01008scn3Component } from './f01008scn3/f01008scn3.component';
 import { F01008scn4Component } from './f01008scn4/f01008scn4.component';
+import { F01008scn3page1Component } from './f01008scn3/f01008scn3page1/f01008scn3page1.component';
 registerLocaleData(zh);
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ registerLocaleData(zh);
     F01008scn2Component,
     F01008scn3Component,
     F01008scn4Component,
+    F01008scn3page1Component,
   ],
   imports: [
     NzButtonModule,
