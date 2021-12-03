@@ -60,6 +60,9 @@ export class F02001Component implements OnInit {
 
   ngOnInit(): void {
     this.getStatusDesc();
+    this.getCreditResult();
+    this.getCustFlag();
+    this.getRiskGrade();
     this.credit_RESULT_Value = '';
     this.status_DESC_Value = '';
     this.cust_FLAG_Value = '';
@@ -88,16 +91,13 @@ export class F02001Component implements OnInit {
   }
 
   getStatusDesc() {
-    this.getCreditResult();
-    this.getCustFlag();
-    this.getRiskGrade();
-    this.f02001Service.getStatusDesc().subscribe(data => {
+    this.f02001Service.getSysTypeCode('STATUS_CODE').subscribe(data => {
       console.log(data)
       this.status_DESC.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody) {
-        const value = jsonObj['value'];
-        const viewValue = jsonObj['viewValue'];
-        this.status_DESC.push({ value: value, viewValue: viewValue })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj['codeNo'];
+        const desc = jsonObj['codeDesc'];
+        this.status_DESC.push({ value: codeNo, viewValue: desc })
       }
     });
   }
@@ -105,7 +105,7 @@ export class F02001Component implements OnInit {
   //狀態第二層
   changeStatsCode(codeTag: string) {
     this.statusDescSecond = [];
-    let jsonObject : any = {};
+    let jsonObject: any = {};
     jsonObject['statusCode'] = codeTag;
     this.f02001Service.changeStatsCode(jsonObject).subscribe(data => {
       this.statusDescSecond.push({ value: '', viewValue: '請選擇' })
