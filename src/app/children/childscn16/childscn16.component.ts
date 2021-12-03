@@ -69,7 +69,7 @@ export class Childscn16Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = this.applno;
     this.childscn16Service.selectCustomer(url, jsonObject).subscribe(data => {
-      console.log(data);
+
       // if ( data.rspBody.length > 0 ) {
       //   this.fds = data.rspBody[0].fds
       // }
@@ -91,7 +91,8 @@ export class Childscn16Component implements OnInit {
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
     this.childscn16Service.selectCustomer(url, this.jsonObject).subscribe(data => {
-      console.log(data.rspBody.size)
+      console.log("123")
+      console.log(data.rspBody.items)
       this.total = data.rspBody.size;
       this.ruleParamCondition = data.rspBody.items;
     })
@@ -99,5 +100,9 @@ export class Childscn16Component implements OnInit {
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
     this.initial(pageIndex, pageSize);
+  }
+  sortChange(e: string) {
+    this.ruleParamCondition = e === 'ascend' ? this.ruleParamCondition.sort(
+      (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.ruleParamCondition.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
   }
 }
