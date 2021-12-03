@@ -20,7 +20,8 @@ enum Page {
   styleUrls: ['./childscn9.component.css','../../../assets/css/child.css']
 })
 export class Childscn9Component implements OnInit {
-
+  
+  queryDate:string //查詢時間
   constructor(
     private childscn9Service: Childscn9Service,
     private componenFactoryResolver: ComponentFactoryResolver,
