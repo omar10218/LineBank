@@ -7,8 +7,7 @@
   </div>
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">照會資訊</div>
-    <!-- 表格 -->
-    <nz-table nzSize="small"  [nzNoResult]="'  '">
+    <!-- <nz-table nzSize="small"  [nzNoResult]="'  '">
       <thead>
         <tr>
           <th class="table-header" style="width:10%"></th>
@@ -43,14 +42,13 @@
               <mat-radio-button [value]="4">其他(備註)</mat-radio-button>
             </mat-radio-group>
           </td>
-          <td><input type="text" style="height: 100px;"></td>
+          <td><textarea style="width:200px ;height: 100px;"></textarea></td>
           <td><input type="text"></td>
           <td><input type="text"></td>
         </tr>
       </tbody>
-    </nz-table>
-      <!-- 表格 -->
-      <nz-table nzSize="small"  [nzNoResult]="'  '">
+     </nz-table>       -->
+      <nz-table nzSize="small" [nzData]="dataSource">
         <thead>
           <tr>
             <th class="table-header" style="width:12.5%">聯絡方式</th>
@@ -63,14 +61,14 @@
           </tr>
         </thead>
         <tbody>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-              <td>5</td>
-              <td>6</td>
-              <td>7</td>
+            <tr *ngFor="let data of dataSource;">
+              <td class="table-data">{{data.CON_TYPE}}</td>
+              <td class="table-data">{{data.CON_TYPE}}</td>
+              <td class="table-data">{{data.codeDesc}}</td>
+              <td class="table-data">{{data.CON_TYPE}}</td>
+              <td class="table-data">{{data.CON_TYPE}}</td>
+              <td class="table-data">{{data.CON_TYPE}}</td>
+              <td class="table-data">{{data.CON_TYPE}}</td>
             </tr>
         </tbody>
       </nz-table>
@@ -132,6 +130,7 @@
         </th>
       </thead>
       <tbody>
+        <br>
         <tr>
           <td>
             <button nz-button [nzSize]="'large'" nzType="primary">儲存</button>

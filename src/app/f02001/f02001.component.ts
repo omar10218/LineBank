@@ -78,8 +78,8 @@ export class F02001Component implements OnInit {
   }
   // test()
   // {
-  //   console.log(this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd'))
-  //   console.log(this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd'))
+  //   console.log(this.status_DESC_Value)
+
   // }
   changePage() {
     this.pageIndex = 1;
@@ -92,6 +92,7 @@ export class F02001Component implements OnInit {
     this.getCustFlag();
     this.getRiskGrade();
     this.f02001Service.getStatusDesc().subscribe(data => {
+      console.log(data)
       this.status_DESC.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
         const value = jsonObj['value'];
