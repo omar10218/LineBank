@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
+import { F01006Service } from '../f01006.service';
 
 //20210928 alvin.lee 案件申覆
 
@@ -11,43 +13,42 @@ import { OptionsCode } from 'src/app/interface/base';
   styleUrls: ['./f01006restart.component.css']
 })
 export class F01006restartComponent implements OnInit {
-
   reasonCode: OptionsCode[] = []; //申覆原因下拉
   reason: string;                 //申覆原因
   restartContent: string;         //申覆說明
+  empNo: string = localStorage.getItem("empNo");
   constructor(
-    private fb: FormBuilder,
+    public dialog: MatDialog,
+    private f01006Service: F01006Service,
     public dialogRef: MatDialogRef<F01006restartComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-    ) { }
+  ) { }
 
-  //該案件內容
-  restartForm: FormGroup = this.fb.group({
-    applno: ['', []],
-    nationalId: ['', []],
-    custId: ['', []],
-    name: ['', []],
-    limit: ['', []],
-    periods: ['', []],
-    rates: ['', []],
-    rates_1: ['', []],
-    rates_2: ['', []]
-  });
   ngOnInit(): void {
-    this.restartForm.patchValue({ applno: this.data.applno })
-    this.restartForm.patchValue({ nationalId: this.data.nationalId })
-    this.restartForm.patchValue({ custId: this.data.custId })
-    this.restartForm.patchValue({ name: this.data.name })
-    this.restartForm.patchValue({ limit: this.data.limit })
-    this.restartForm.patchValue({ periods: this.data.periods })
-    this.restartForm.patchValue({ rates: this.data.rates })
+    // 查詢申覆原因
+    this.f01006Service.getSysTypeCode('').subscribe(data => {
+      this.reasonCode.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.reasonCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
   }
-  restart(){
+  public async restart(): Promise<void> {
     let jsonObject: any = {};
-
+    jsonObject['applno'] = this.data.applno;
     jsonObject['reason'] = this.reason;
     jsonObject['restartContent'] = this.restartContent;
-
+    jsonObject['empno'] = this.empNo;
+    let msgStr: string = "";
+    msgStr = await this.f01006Service.addRestart(jsonObject);
+    if (msgStr == 'success') {
+      msgStr = '儲存成功！'
+    }
+    this.dialog.open(ConfirmComponent, {
+      data: { msgStr: msgStr }
+    });
   }
 
   cancel(): void {
