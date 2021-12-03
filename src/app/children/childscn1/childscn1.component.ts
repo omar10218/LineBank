@@ -133,7 +133,7 @@ export class Childscn1Component implements OnInit {
           const desc = jsonObj.codeDesc;
           this.periodTypeCode.push({ value: codeNo, viewValue: desc })
         }
-        this.periodType = '1';
+        // this.periodType = '1';
       });
 
     this.childscn1Service.getSysTypeCode('INTEREST_TYPE')//利率型態下拉選單

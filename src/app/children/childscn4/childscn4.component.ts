@@ -7,7 +7,7 @@ import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Childscn4Service } from './childscn4.service';
 
-
+//Jay 案件歷程
 @Component({
   selector: 'app-childscn4',
   templateUrl: './childscn4.component.html',
