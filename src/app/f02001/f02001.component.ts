@@ -106,7 +106,7 @@ export class F02001Component implements OnInit {
   changeStatsCode(codeTag: string) {
     this.statusDescSecond = [];
     let jsonObject: any = {};
-    jsonObject['statusCode'] = codeTag;
+    jsonObject['statusDesc'] = codeTag;
     this.f02001Service.changeStatsCode(jsonObject).subscribe(data => {
       this.statusDescSecond.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
@@ -186,7 +186,7 @@ export class F02001Component implements OnInit {
     this.jsonObject['l3EmpNo'] = this.l3EMPNO;//徵信員員編姓名
     this.jsonObject['creditResult'] = this.credit_RESULT_Value;//審核結果
     this.jsonObject['statusDesc'] = this.status_DESC_Value;//案件狀態--有修改第一層
-    this.jsonObject['statusDescSecond'] = this.statusDescSecondValue;//案件狀態--有修改第二層
+    this.jsonObject['opDesc'] = this.statusDescSecondValue;//案件狀態--有修改第二層
     this.jsonObject['custFlag'] = this.cust_FLAG_Value;//客群標籤
     this.jsonObject['riskGrade'] = this.risk_GRADE_Value;//風險等級分群
     this.jsonObject['productName'] = this.product_NAME;//產品名稱
