@@ -34,7 +34,7 @@ export class F01011Component implements OnInit {
 
   public async confirmAdd(): Promise<void> {
 
-    if ( this.fileToUpload == null ) {
+    if (this.fileToUpload == null) {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "請上傳正確檔案!!" });
     } else {
       const formdata: FormData = new FormData();
@@ -42,17 +42,17 @@ export class F01011Component implements OnInit {
       let msgStr: string = "";
       let baseUrl = 'f01/f01011action1';
       this.f01011Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
+        console.log(data)
         let msg = "";
         let errorMsg = "";
-        msg = data.rspMsg;
-        if ( data.rspBody != null ) {
-          if ( data.rspMsg.length > 0 ) {
-            msg = data.rspMsg + "\n 錯誤清單：\n";
-            for( let i = 0 ; i < data.rspBody.length ; i++ ) {
-              errorMsg += "第" + data.rspBody[i].index + "筆,身分證字號：" + data.rspBody[i].nationalId+ ",客戶ID：" + data.rspBody[i].custId + " 匯入失敗, 錯誤訊息：" + data.rspBody[i].errorMsg + "\n";
-            }
-            msg = msg + errorMsg;
+        if (data.rspBody.length > 0) {
+          msg = "\n 錯誤清單：\n";
+          for (let i = 0; i < data.rspBody.length; i++) {
+            errorMsg += "第" + data.rspBody[i].index + "筆,身分證字號：" + data.rspBody[i].nationalId + ",客戶ID：" + data.rspBody[i].custId + " 匯入失敗, 錯誤訊息：" + data.rspBody[i].errorMsg + "\n";
           }
+          msg = msg + errorMsg;
+        } else {
+          msg = data.rspMsg;
         }
         this.uploadForm.patchValue({ ERROR_MESSAGE: msg });
       });
