@@ -257,6 +257,8 @@ export class Childscn1Component implements OnInit {
 
       //creditInterestPeriod
       if (data.rspBody.creditInterestPeriodList.length > 0) {
+        console.log("creditInterestPeriodList===>");
+        console.log(data.rspBody.creditInterestPeriodList)
         this.period = data.rspBody.creditInterestPeriodList[0].period;
         sessionStorage.setItem('period', data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '');
         this.interestType = data.rspBody.creditInterestPeriodList[0].interestType;
@@ -429,7 +431,8 @@ export class Childscn1Component implements OnInit {
   }
 
   getStyle(value: string) {
-    value = this.toNumber(value);
+    // value = this.toNumber(value);
+    value = value != null ? value.replace(',' , '') : value;
     return {
       'text-align': this.isNumber(value) ? 'right' : 'left'
     }
@@ -462,6 +465,6 @@ export class Childscn1Component implements OnInit {
 
   //去除符號/中英文
   toNumber(data: string) {
-    return data != null ? data.replace(/[^\d]/g, '') : data;
+    return data != null ? data.replace(/[^\w\s]|_/g, '') : data;
   }
 }
