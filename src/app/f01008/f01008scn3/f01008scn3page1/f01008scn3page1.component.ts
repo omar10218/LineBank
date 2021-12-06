@@ -164,67 +164,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
     });
   }
 
-  // getJCIC( pageIndex: number, pageSize: number, code: string ) {
-  //   let jsonObject: any = {};
-  //   jsonObject['applno'] = this.applno;
-  //   jsonObject['nationalId'] = this.cuid;
-  //   jsonObject['code'] = code;
-  //   jsonObject['queryDate'] = this.queryDate;
-  //   jsonObject['page'] = pageIndex;
-  //   jsonObject['per_page'] = pageSize;
-  //   this.childscn6Service.getJCICSearch(jsonObject).subscribe(data => {
-  //     if ( code == 'KCM012' ) { this.total1 = data.rspBody.size; this.KCM012Source = data.rspBody.items; }
-  //     if ( code == 'DAM001' ) { this.total2 = data.rspBody.size; this.DAM001Source = data.rspBody.items; }
-  //     if ( code == 'BAM061' ) { this.total3 = data.rspBody.size; this.BAM061Source = data.rspBody.items; }
-  //     if ( code == 'KRM043' ) { this.total4 = data.rspBody.size; this.KRM043Source = data.rspBody.items; }
-  //     if ( code == 'BAM062' ) { this.total5 = data.rspBody.size; this.BAM062Source = data.rspBody.items; }
-  //     if ( code == 'VAM020' ) { this.total6 = data.rspBody.size; this.VAM020Source = data.rspBody.items; }
-  //     if ( code == 'VAM201' ) { this.total7 = data.rspBody.size; this.VAM201Source = data.rspBody.items; }
-  //     if ( code == 'VAM106' ) { this.total8 = data.rspBody.size; this.VAM106Source = data.rspBody.items; }
-  //     if ( code == 'VAM107' ) { this.total9 = data.rspBody.size; this.VAM107Source = data.rspBody.items; }
-  //     if ( code == 'VAM108' ) { this.total10 = data.rspBody.size; this.VAM108Source = data.rspBody.items; }
-  //     if ( code == 'BAM029' ) { this.total11 = data.rspBody.size; this.BAM029Source = data.rspBody.items; }
-  //     if ( code == 'BAM501' ) { this.total12 = data.rspBody.size; this.BAM501Source = data.rspBody.items; }
-  //     if ( code == 'BAM502' ) { this.total13 = data.rspBody.size; this.BAM502Source = data.rspBody.items; }
-  //     if ( code == 'BAM504' ) { this.total14 = data.rspBody.size; this.BAM504Source = data.rspBody.items; }
-  //     if ( code == 'BAM505' ) { this.total15 = data.rspBody.size; this.BAM505Source = data.rspBody.items; }
-  //     if ( code == 'BAM032' ) { this.total16 = data.rspBody.size; this.BAM032Source = data.rspBody.items; }
-  //     if ( code == 'BAM067' ) { this.total18 = data.rspBody.size; this.BAM067Source = data.rspBody.items; }
-  //     if ( code == 'BAM070' ) { this.total19 = data.rspBody.size; this.BAM070Source = data.rspBody.items; }
-  //     if ( code == 'BAM101' ) { this.total20 = data.rspBody.size; this.BAM101Source = data.rspBody.items; }
-  //     if ( code == 'BAM421' ) { this.total21 = data.rspBody.size; this.BAM421Source = data.rspBody.items; }
-  //     if ( code == 'BAM305' ) { this.total22 = data.rspBody.size; this.BAM305Source = data.rspBody.items; }
-  //     if ( code == 'BAM306' ) { this.total23 = data.rspBody.size; this.BAM306Source = data.rspBody.items; }
-  //     if ( code == 'BAM307' ) { this.total24 = data.rspBody.size; this.BAM307Source = data.rspBody.items; }
-  //     if ( code == 'BAM608' ) { this.total25 = data.rspBody.size; this.BAM608Source = data.rspBody.items; }
-  //     if ( code == 'KRM046' ) { this.total26 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
-  //     if ( code == 'KRM048' ) { this.total27 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
-  //     if ( code == 'STM022' ) { this.total28 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
-  //     if ( code == 'STM008' ) { this.total29 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
-  //     if ( code == 'STM025' ) { this.total30 = data.rspBody.size; this.STM025Source = data.rspBody.items; }
-  //   });
-  // }
-
-  // onQueryParamsChange(params: NzTableQueryParams, code: string): void {
-  //   const { pageSize, pageIndex } = params;
-  //   this.getJCIC(pageIndex, pageSize, code);
-  // }
-
-  // getKRI002() {
-  //   this.KRI002Source.data = null;
-  //   const formdata: FormData = new FormData();
-  //   formdata.append('applno', this.applno);
-  //   formdata.append('cuid', this.cuid);
-  //   formdata.append('code', 'KRI002');
-  //   formdata.append('queryDate', this.queryDate);
-  //   formdata.append('page', `${this.currentPage.pageIndex + 1}`);
-  //   formdata.append('per_page', `${this.currentPage.pageSize}`);
-  //   this.childscn6Service.getJCICSearch(formdata).subscribe(data => {
-  //     this.totalCount = data.rspBody.size;
-  //     this.KRI002Source.data = data.rspBody.items;
-  //   });
-  // }
-
+  
   setBooleanTrue() {
     this.hideJCICMASTER = true;
     this.hideBAM061 = true;
@@ -305,33 +245,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
   exist() {
     for (let index = 0; index < this.list.length; index++) {
       if (this.list[index] == "JCICMASTER") { this.hideJCICMASTER = !this.hideJCICMASTER; }
-      // if (this.list[index] == "BAM061") { this.hideBAM061 = !this.hideBAM061; }
-      // if (this.list[index] == "KRM043") { this.hideKRM043 = !this.hideKRM043; }
-      // if (this.list[index] == "BAM062") { this.hideBAM062 = !this.hideBAM062; }
      
-    
-      // if (this.list[index] == "BAM032") { this.hideBAM032 = !this.hideBAM032; }
-      // if (this.list[index] == "BAM033") { this.hideBAM033 = !this.hideBAM033; }
-      // if (this.list[index] == "BAM034") { this.hideBAM034 = !this.hideBAM034; }
-      // if (this.list[index] == "BAS010") { this.hideBAS010 = !this.hideBAS010; }
-   
-      // if (this.list[index] == "STM022") { this.hideSTM022 = !this.hideSTM022; }
-      // if (this.list[index] == "STM008") { this.hideSTM008 = !this.hideSTM008; }
-      // if (this.list[index] == "STM025") { this.hideSTM025 = !this.hideSTM025; }
-      // if (this.list[index] == "BAM421") { this.hideBAM421 = !this.hideBAM421; }
-      // if (this.list[index] == "BAM101") { this.hideBAM101 = !this.hideBAM101; }
-      // if (this.list[index] == "BAM305") { this.hideBAM305 = !this.hideBAM305; }
-      // if (this.list[index] == "BAM306") { this.hideBAM306 = !this.hideBAM306; }
-      // if (this.list[index] == "BAM307") { this.hideBAM307 = !this.hideBAM307; }
-      // if (this.list[index] == "BAM067") { this.hideBAM067 = !this.hideBAM067; }
-      // if (this.list[index] == "BAM070") { this.hideBAM070 = !this.hideBAM070; }
-      // if (this.list[index] == "KRM046") { this.hideKRM046 = !this.hideKRM046; }
-      // if (this.list[index] == "KRM048") { this.hideKRM048 = !this.hideKRM048; }
-
-      // if (this.list[index] == "KCM012") { this.hideKCM012 = !this.hideKCM012; }
-      // if (this.list[index] == "DAM001") { this.hideDAM001 = !this.hideDAM001; }
-      // if (this.list[index] == "VAM020") { this.hideVAM020 = !this.hideVAM020; }
-      // if (this.list[index] == "VAM201") { this.hideVAM201 = !this.hideVAM201; }
       if (this.list[index] == "BAM501") { this.hideBAM501 = !this.hideBAM501; }
       if (this.list[index] == "BAM502") { this.hideBAM502 = !this.hideBAM502; }
       if (this.list[index] == "BAM504") { this.hideBAM504 = !this.hideBAM504; }
@@ -340,8 +254,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
       if (this.list[index] == "VAM106") { this.hideVAM106 = !this.hideVAM106; }
       if (this.list[index] == "VAM107") { this.hideVAM107 = !this.hideVAM107; }
       if (this.list[index] == "VAM108") { this.hideVAM108 = !this.hideVAM108; }
-      // if (this.list[index] == "BAM032") { this.hideBAM032 = !this.hideBAM032; }
-      // if (this.list[index] == "BAM608") { this.hideBAM608 = !this.hideBAM608; }
+    
     }
   }
 
