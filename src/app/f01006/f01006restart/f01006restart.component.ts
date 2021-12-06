@@ -15,7 +15,7 @@ import { F01006Service } from '../f01006.service';
 export class F01006restartComponent implements OnInit {
   reasonCode: OptionsCode[] = []; //申覆原因下拉
   reason: string;                 //申覆原因
-  restartContent: string;         //申覆說明
+  content: string;                //申覆說明
   empNo: string = localStorage.getItem("empNo");
   constructor(
     public dialog: MatDialog,
@@ -25,7 +25,7 @@ export class F01006restartComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // 查詢申覆原因
+    // 申覆原因下拉
     this.f01006Service.getSysTypeCode('').subscribe(data => {
       this.reasonCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
@@ -35,11 +35,12 @@ export class F01006restartComponent implements OnInit {
       }
     });
   }
+
   public async restart(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.data.applno;
     jsonObject['reason'] = this.reason;
-    jsonObject['restartContent'] = this.restartContent;
+    jsonObject['content'] = this.content;
     jsonObject['empno'] = this.empNo;
     let msgStr: string = "";
     msgStr = await this.f01006Service.addRestart(jsonObject);
@@ -49,6 +50,9 @@ export class F01006restartComponent implements OnInit {
     this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });
+    setTimeout(() => {
+      this.dialog.closeAll();
+    },1500);
   }
 
   cancel(): void {
