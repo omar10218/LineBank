@@ -94,6 +94,9 @@ import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesom
 import { faFolderOpen} from '@fortawesome/free-solid-svg-icons';
 import { FormatNumberPipe, ToNumberPipe } from './pipe/customFormatterPipe';
 import { F04003Component } from './f04003/f04003.component';
+import { F02005Component } from './f02005/f02005.component';
+import { F02006Component } from './f02006/f02006.component';
+import { F02007Component } from './f02007/f02007.component';
 
 
 
@@ -185,6 +188,9 @@ export const TW_FORMATS = {
     childbwscn2page1Component,
     childbwscn2page2Component,
     F04003Component,
+    F02005Component,
+    F02006Component,
+    F02007Component,
   ],
   imports: [
     NzIconModule,
