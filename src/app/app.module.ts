@@ -79,8 +79,6 @@ import { F03017uploadComponent } from './f03017/f03017upload/f03017upload.compon
 import { F02002Component } from './f02002/f02002.component';
 import { F01008Component } from './f01008/f01008.component';
 import { NZ_I18N, zh_TW } from 'ng-zorro-antd/i18n';
-import { F01008addComponent } from './f01008/f01008add/f01008add.component';
-import { F01008deleteComponent } from './f01008/f01008delete/f01008delete.component';
 import { F03006amtComponent } from './f03006/f03006amt/f03006amt.component';
 import { F03006prjComponent } from './f03006/f03006prj/f03006prj.component';
 import { F03013createComponent } from './f03013/f03013create/f03013create.component';
@@ -172,8 +170,6 @@ export const TW_FORMATS = {
     F03017uploadComponent,
     F02002Component,
     F01008Component,
-    F01008addComponent,
-    F01008deleteComponent,
     F03006amtComponent,
     F03006prjComponent,
     F02003Component,

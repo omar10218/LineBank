@@ -1,3 +1,5 @@
+import { F01008deleteComponent } from './f01008delete/f01008delete.component';
+import { F01008addComponent } from './f01008add/f01008add.component';
 import { F01008scn1Component } from './f01008scn1/f01008scn1.component';
 import { ChildrenModule } from './../children/children.module';
 import { NgModule } from '@angular/core';
@@ -25,6 +27,8 @@ registerLocaleData(zh);
     F01008scn4Component,
     F01008scn3page1Component,
     JcictableComponent,
+    F01008addComponent,
+    F01008deleteComponent
   ],
   imports: [
     NzButtonModule,
@@ -37,6 +41,9 @@ registerLocaleData(zh);
     ChildrenModule,
     NzTableModule,
     CommonLibModule
+  ],
+  exports: [
+    F01008addComponent
   ]
 })
 export class F01008Module { }
