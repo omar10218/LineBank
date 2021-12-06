@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -9,6 +9,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class F01008addComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<F01008addComponent>) { }
+
+  @Input() data: any;
 
   ngOnInit(): void {
   }

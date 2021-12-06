@@ -165,8 +165,8 @@ export class Childscn1Component implements OnInit {
         this.custId = data.rspBody.CreditAuditinfoList[0].custId;
         this.nationalId = data.rspBody.CreditAuditinfoList[0].nationalId;
         this.prodCode = data.rspBody.CreditAuditinfoList[0].prodCode;
-        this.applicationAmount = this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
-        this.caApplicationAmount = this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
+        this.applicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount == null ? '' : this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
+        this.caApplicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount == null ? '' : this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
         if (data.rspBody.CreditAuditinfoList[0].caApplicationAmount != 0 || data.rspBody.CreditAuditinfoList[0].caApplicationAmount != '' || data.rspBody.CreditAuditinfoList[0].caApplicationAmount != null) {
           this.caApplicationAmount = this.toCurrency(data.rspBody.CreditAuditinfoList[0].caApplicationAmount.toString());
         }
@@ -245,7 +245,7 @@ export class Childscn1Component implements OnInit {
         this.resultPrjCode = data.rspBody.resultList[0].prjCode;
         this.creditResult = data.rspBody.resultList[0].creditResult;
         sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult ? data.rspBody.resultList[0].creditResult : '');
-        this.resultApproveAmt = this.toCurrency(data.rspBody.resultList[0].approveAmt.toString());
+        this.resultApproveAmt = data.rspBody.resultList[0].approveAmt == null ? '' : this.toCurrency(data.rspBody.resultList[0].approveAmt.toString());
         sessionStorage.setItem('resultApproveAmt', data.rspBody.resultList[0].approveAmt ? data.rspBody.resultList[0].approveAmt : '');
         this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
         sessionStorage.setItem('resultLowestPayRate', data.rspBody.resultList[0].lowestPayRate ? data.rspBody.resultList[0].lowestPayRate : '');
@@ -256,6 +256,8 @@ export class Childscn1Component implements OnInit {
       }
 
       //creditInterestPeriod
+      console.log("creditInterestPeriodList===>");
+      console.log(data.rspBody.creditInterestPeriodList)
       if (data.rspBody.creditInterestPeriodList.length > 0) {
         this.period = data.rspBody.creditInterestPeriodList[0].period;
         sessionStorage.setItem('period', data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '');
@@ -429,7 +431,8 @@ export class Childscn1Component implements OnInit {
   }
 
   getStyle(value: string) {
-    value = this.toNumber(value);
+    // value = this.toNumber(value);
+    value = value != null ? value.replace(',' , '') : value;
     return {
       'text-align': this.isNumber(value) ? 'right' : 'left'
     }
@@ -462,6 +465,6 @@ export class Childscn1Component implements OnInit {
 
   //去除符號/中英文
   toNumber(data: string) {
-    return data != null ? data.replace(/[^\d]/g, '') : data;
+    return data != null ? data.replace(/[^\w\s]|_/g, '') : data;
   }
 }

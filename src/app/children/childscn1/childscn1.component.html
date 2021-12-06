@@ -34,7 +34,7 @@
       </div>
       <div nz-col nzFlex="1">
         <div style="padding:3px"><span class="form-title">徵信修改申請金額</span><input matInput #input class="form-control"
-            [(ngModel)]="caApplicationAmount" name="caApplicationAmount" [ngStyle]="getStyle(caApplicationAmount)"
+            [(ngModel)]="caApplicationAmount" name="caApplicationAmount" [ngStyle]="getStyle(toNumber(caApplicationAmount))"
             (keypress)="numberOnly($event)" (keyup)="caApplicationAmount = toCurrency(toNumber(caApplicationAmount))" (ngModelChange)="change(toNumber(caApplicationAmount),'caApplicationAmount')" required
             placeholder="輸入金額"></div>
       </div>
