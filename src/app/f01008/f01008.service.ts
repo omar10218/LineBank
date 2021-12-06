@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { BaseService } from '../base.service';
+import { OptionsCode } from '../interface/base';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +16,18 @@ export class F01008Service extends BaseService {
   JCICSource$ = this.JCICSource.asObservable();
   private JCICAddSource = new Subject<any>();
   JCICAddSource$ = this.JCICAddSource.asObservable();
+  sCON_TYPE_Code: OptionsCode[] = [];//聯絡方式下拉選單
+  sTEL_CONDITION_Code: OptionsCode[] = [];//電話狀況下拉選單
+  sTEL_CHECK_Code: OptionsCode[] = [];//電話種類下拉選單
+  sHOURS_Code: OptionsCode[] = [];//時下拉選單
+  sMINUTES_Code: OptionsCode[] = [];//分下拉選單
 
   setJCICSource(data): void {
     this.JCICSource.next(data);
   }
 
   setJCICAddSource(data): void {
-    console.log('我進來了2');
-    console.log(data)
+
     this.JCICAddSource.next(data);
   }
 
@@ -47,5 +53,62 @@ export class F01008Service extends BaseService {
 
     return  this.postJsonObject(url, jsonObject);
   }
-
+   //時下拉選單
+   getHOURS() {
+    if (this.sHOURS_Code == null || this.sHOURS_Code.length == 0) {
+      this.sHOURS_Code.push({ value: "", viewValue: "" })
+      this.getSysTypeCode('HOURS')
+        .subscribe(data => {
+          for (const jsonObj of data.rspBody.mappingList) {
+            const codeNo = jsonObj.codeNo;
+            const desc = jsonObj.codeDesc;
+            this.sHOURS_Code.push({ value: codeNo, viewValue: desc })
+          }
+        });
+    }
+    return this.sHOURS_Code;
+  }
+  //分下拉選單
+  getMINUTES() {
+    if (this.sMINUTES_Code == null || this.sMINUTES_Code.length == 0) {
+      this.sMINUTES_Code.push({ value: "", viewValue: "" })
+      this.getSysTypeCode('MINUTES')
+        .subscribe(data => {
+          for (const jsonObj of data.rspBody.mappingList) {
+            const codeNo = jsonObj.codeNo;
+            const desc = jsonObj.codeDesc;
+            this.sMINUTES_Code.push({ value: codeNo, viewValue: desc })
+          }
+        });
+    }
+    return this.sMINUTES_Code;
+  }
+  //聯絡方式下拉選單
+  getCON_TYPE() {
+    if (this.sCON_TYPE_Code == null || this.sCON_TYPE_Code.length == 0) {
+      this.getSysTypeCode('CON_TYPE')
+        .subscribe(data => {
+          for (const jsonObj of data.rspBody.mappingList) {
+            const codeNo = jsonObj.codeNo;
+            const desc = jsonObj.codeDesc;
+            this.sCON_TYPE_Code.push({ value: codeNo, viewValue: desc })
+          }
+        });
+    }
+    return this.sCON_TYPE_Code;
+  }
+  //電話狀況下拉選單
+  getTEL_CONDITION() {
+    if (this.sTEL_CONDITION_Code == null || this.sTEL_CONDITION_Code.length == 0) {
+      this.getSysTypeCode('TEL_CONDITION')
+        .subscribe(data => {
+          for (const jsonObj of data.rspBody.mappingList) {
+            const codeNo = jsonObj.codeNo;
+            const desc = jsonObj.codeDesc;
+            this.sTEL_CONDITION_Code.push({ value: codeNo, viewValue: desc })
+          }
+        });
+    }
+    return this.sTEL_CONDITION_Code;
+  }
 }

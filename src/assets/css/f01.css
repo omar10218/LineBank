@@ -121,3 +121,10 @@ input:disabled{
 :host::ng-deep.ant-table.ant-table-small .ant-table-tbody>tr>td{
   padding:0px;
 }
+.input-textarea{
+  width: 100%;
+  height:200px;
+  background-color:white;
+  border-radius:5px;
+  border:1px solid #c9c9c9;
+}

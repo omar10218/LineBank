@@ -25,8 +25,7 @@ export class F01008scn1Component implements OnInit {
   addData: any;
   editData: any;
   ngOnInit(): void {
-    console.log(this.addData)
-    console.log("123")
+
   }
 
   ngAfterViewInit() {

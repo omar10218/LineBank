@@ -30,7 +30,7 @@ export class F01008scn2Component implements OnInit {
   dataSource: Data[] = [];
   tYPE: sysCode[] = [];
   cONDITION: sysCode[] = [];
-
+  search: string;
 
   empNo: string;//員編
 
@@ -51,9 +51,10 @@ export class F01008scn2Component implements OnInit {
     this.cONDITION.push({value:'2',viewValue:'他人接'})
     this.cONDITION.push({value:'3',viewValue:'無人接'})
     this.cONDITION.push({value:'4',viewValue:'其他(備註)'})
+
+    this.search = sessionStorage.getItem('search');
   }
   add() {
-    console.log('我進來了1');
     this.showAdd = !this.showAdd;
     this.f01008Service.setJCICAddSource({
       minHeight: '70vh',
@@ -78,6 +79,9 @@ export class F01008scn2Component implements OnInit {
 
     })
   }
+  getSearch() {
+    return this.search;
+  }
   set() {
     let jsonObject: any = {};
     let url = 'f01/f01008scn2';
@@ -98,5 +102,13 @@ export class F01008scn2Component implements OnInit {
       }
     }
     return codeVal;
+  }
+  deleteItem(id:string)
+  {
+    console.log(id);
+  }
+  startEdit()
+  {
+
   }
 }
