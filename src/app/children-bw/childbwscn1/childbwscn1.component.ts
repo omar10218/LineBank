@@ -7,6 +7,31 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childbwscn1Service } from './childbwscn1.service';
 import { Childbwscn1editComponent } from './childbwscn1edit/childbwscn1edit.component';
 
+//bwCreditMainList 覆審資訊
+interface bwCreditMainList_View {
+  applno: string//案件編號
+  nationalId: string//身分證字號
+  custId: string//客戶ID
+  cuCname: string//姓名
+  abnormalFlag: string//符合貸後異常名單
+  //客戶身分名單註記
+}
+//bwCreditAuditinfoList DSS決策結果
+interface bwCreditAuditinfoList_View {
+  rvprcscd: string//系統流程
+  rvstatcd: string//本次貸後管理狀態
+  rvcollflag: string//本次貸後管理註記
+  rvcrl: string//本次客戶風險等級CRL
+  jcicdatadt: string//本次執行審查使用之JCIC資料日期
+  rvRiskmdsub: string//風險模型子模型
+  rvRiskmdscore: string//分數
+  rvRiskmdgrade: string//等級
+  rvRiskmdgradeGp: string//等級分群
+  rvRiskmdgradeAdj: string//等級(策略調整後)
+  rvRiskmdgradeGpAdj: string//等級分群(策略調整後)
+}
+
+//Nick 審核資料
 @Component({
   selector: 'app-childbwscn1',
   templateUrl: './childbwscn1.component.html',
@@ -36,7 +61,9 @@ export class Childbwscn1Component implements OnInit {
   //Creditmemo
   creditmemoSource: Data[] = [];
   bwCreditAuditinfoList: Data[] = [];
+  add_bwCreditAuditinfoList: any;
   bwCreditMainList: Data[] = [];
+  add_bwCreditMainList: any;
   total = 1;
   pageIndex = 1;
   pageSize = 50;
@@ -48,11 +75,11 @@ export class Childbwscn1Component implements OnInit {
     , { value: 'NEX', viewValue: 'NEX' }, { value: 'N00', viewValue: 'N00' }, { value: 'XXX', viewValue: 'XXX' }, { value: '000', viewValue: '000' }];
 
   ngOnInit(): void {
+    this.page = sessionStorage.getItem('page');
+    this.applno = sessionStorage.getItem('applno');
     sessionStorage.setItem('BW_creditResult', "");
     sessionStorage.setItem('size', "0");
     sessionStorage.setItem('creditaction', "");
-    this.page = sessionStorage.getItem('page');
-    this.applno = sessionStorage.getItem('applno');
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
     this.creditlevel = this.page == "10" ? "L3" : this.creditlevel;
     this.getCreditmemo(this.pageIndex, this.pageSize);
@@ -103,6 +130,33 @@ export class Childbwscn1Component implements OnInit {
       // console.log(data)
       this.bwCreditAuditinfoList = data.rspBody.bwCreditAuditinfoList;
       this.bwCreditMainList = data.rspBody.bwCreditMainList;
+      if (this.bwCreditAuditinfoList.length < 1) {
+        this.add_bwCreditAuditinfoList = {
+          rvprcscd: '',//系統流程
+          rvstatcd: '',//本次貸後管理狀態
+          rvcollflag: '',//本次貸後管理註記
+          rvcrl: '',//本次客戶風險等級CRL
+          jcicdatadt: '',//本次執行審查使用之JCIC資料日期
+          rvRiskmdsub: '',//風險模型子模型
+          rvRiskmdscore: '',//分數
+          rvRiskmdgrade: '',//等級
+          rvRiskmdgradeGp: '',//等級分群
+          rvRiskmdgradeAdj: '',//等級(策略調整後)
+          rvRiskmdgradeGpAdj: ''//等級分群(策略調整後)}]
+        }
+        this.bwCreditAuditinfoList.push(this.add_bwCreditAuditinfoList);
+      }
+      if (this.bwCreditMainList.length < 1) {
+        this.add_bwCreditMainList = {
+          applno: this.applno,//案件編號
+          nationalId: '',//身分證字號
+          custId: '',//客戶ID
+          cuCname: '',//姓名
+          abnormalFlag: '' //符合貸後異常名單
+          //客戶身分名單註記
+        }
+        this.bwCreditMainList.push(this.add_bwCreditMainList);
+      }
       console.log('bwCreditAuditinfoList')
       console.log(this.bwCreditAuditinfoList)
       console.log('bwCreditMainList')
