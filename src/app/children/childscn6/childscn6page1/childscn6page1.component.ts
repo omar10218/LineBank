@@ -363,7 +363,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
     if (this.list.length == 0) {
       this.setBooleanFalse();
-    } else if (this.list.length == 34) {
+    } else if (this.list.length == 25) {
       this.setBooleanFalse();
       this.list = [];
     } else {

@@ -273,10 +273,10 @@ export class Childscn1Component implements OnInit {
         this.prodCode = data.rspBody.CreditAuditinfoList[0].prodCode;
         this.applicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount == null ? '' : this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
         this.caApplicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount == null ? '' : this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
-        if (data.rspBody.CreditAuditinfoList[0].caApplicationAmount != 0 || data.rspBody.CreditAuditinfoList[0].caApplicationAmount != '' || data.rspBody.CreditAuditinfoList[0].caApplicationAmount != null) {
+        if (data.rspBody.CreditAuditinfoList[0].caApplicationAmount != 0 && data.rspBody.CreditAuditinfoList[0].caApplicationAmount != '' && data.rspBody.CreditAuditinfoList[0].caApplicationAmount != null) {
           this.caApplicationAmount = this.toCurrency(data.rspBody.CreditAuditinfoList[0].caApplicationAmount.toString());
         }
-        sessionStorage.setItem('caApplicationAmount', data.rspBody.CreditAuditinfoList[0].caApplicationAmount);
+        sessionStorage.setItem('caApplicationAmount', this.toNumber(this.caApplicationAmount));
         this.purposeCode = data.rspBody.CreditAuditinfoList[0].purposeCode;
       }
 
