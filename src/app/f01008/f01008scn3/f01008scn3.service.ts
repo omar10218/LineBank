@@ -553,45 +553,46 @@ export class F01008scn3Service extends BaseService {
     //   ];
     //   title = 'VAM201 通報案件紀錄資訊-案件通報(多筆Z07)'
     // }
+
     // VAM106
-    // if (code === JCICCode.VAM106) {
-    //   dataList = [
-    //     { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
-    //     { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
-    //     { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
-    //     { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
-    //     { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
-    //     { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
-    //     { name: '訊息內容', bodyKey: 'NOTE' },
-    //   ];
-    //   title = 'VAM106 消債條例信用註記資訊(含個別協商)(多筆Z13，MAINCODE A(前協)、B(更生)、C(清算)、E(調解))、8(個別協商)'
-    // }
+    if (code === JCICCode.VAM106) {
+      dataList = [
+        { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
+        { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
+        { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
+        { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
+        { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
+        { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
+        { name: '訊息內容', bodyKey: 'NOTE' },
+      ];
+      title = 'VAM106 消債條例信用註記資訊(含個別協商)(多筆Z13，MAINCODE A(前協)、B(更生)、C(清算)、E(調解))、8(個別協商)'
+    }
     // VAM107
-    // if (code === JCICCode.VAM107) {
-    //   dataList = [
-    //     { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
-    //     { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
-    //     { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
-    //     { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
-    //     { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
-    //     { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
-    //     { name: '訊息內容', bodyKey: 'NOTE' },
-    //   ];
-    //   title = 'VAM107 銀行公會消金案件債務協商補充註記(多筆Z13，MAINCODE7)'
-    // }
+    if (code === JCICCode.VAM107) {
+      dataList = [
+        { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
+        { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
+        { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
+        { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
+        { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
+        { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
+        { name: '訊息內容', bodyKey: 'NOTE' },
+      ];
+      title = 'VAM107 銀行公會消金案件債務協商補充註記(多筆Z13，MAINCODE7)'
+    }
     // VAM108
-    // if (code === JCICCode.VAM108) {
-    //   dataList = [
-    //     { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
-    //     { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
-    //     { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
-    //     { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
-    //     { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
-    //     { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
-    //     { name: '訊息內容', bodyKey: 'NOTE' },
-    //   ];
-    //   title = 'VAM108 其它補充註記資訊(多筆Z13，非屬消債條例及銀行公會債務協商之註記資訊)'
-    // }
+    if (code === JCICCode.VAM108) {
+      dataList = [
+        { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
+        { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
+        { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
+        { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
+        { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
+        { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
+        { name: '訊息內容', bodyKey: 'NOTE' },
+      ];
+      title = 'VAM108 其它補充註記資訊(多筆Z13，非屬消債條例及銀行公會債務協商之註記資訊)'
+    }
     // BAM608
     // if (code === JCICCode.BAM608) {
     //   dataList = [

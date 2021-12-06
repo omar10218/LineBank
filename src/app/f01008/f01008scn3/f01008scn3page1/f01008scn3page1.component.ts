@@ -48,15 +48,12 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
   hideBAM061 = false;
   hideKRM043 = false;
   hideBAM062 = false;
-  hideBAM501 = false;
-  hideBAM502 = false;
-  hideBAM504 = false;
-  hideBAM505 = false;
+ 
   hideBAM032 = false;
   hideBAM033 = false;
   hideBAM034 = false;
   hideBAS010 = false;
-  hideBAM029 = false;
+  
   hideSTM022 = false;
   hideSTM008 = false;
   hideSTM025 = false;
@@ -70,13 +67,18 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
   hideKRM046 = false;
   hideKRM048 = false;
 
-  // hideKCM012 = false;
-  // hideDAM001 = false;
-  // hideVAM020 = false;
-  // hideVAM201 = false;
-  // hideVAM106 = false;
-  // hideVAM107 = false;
-  // hideVAM108 = false;
+  hideKCM012 = false;
+  hideDAM001 = false;
+  hideVAM020 = false;
+  hideVAM201 = false;
+  hideBAM501 = false;
+  hideBAM502 = false;
+  hideBAM504 = false;
+  hideBAM505 = false;
+  hideBAM029 = false;
+  hideVAM106 = false;
+  hideVAM107 = false;
+  hideVAM108 = false;
   // hideBAM608 = false;
 
 
@@ -158,6 +160,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
       if ( data.rspBody[0].BAS008.length == 0 ) { this.BAS008.push(''); } else { this.BAS008 = data.rspBody[0].BAS008; };
       if ( data.rspBody[0].BAS006.length == 0 ) { this.BAS006.push(''); } else { this.BAS006 = data.rspBody[0].BAS006; };
       if ( data.rspBody[0].STS007.length == 0 ) { this.STS007.push(''); } else { this.STS007 = data.rspBody[0].STS007; };
+      if ( data.rspBody[0].STS007.length == 0 ) { this.STS007.push(''); } else { this.STS007 = data.rspBody[0].STS007; };
     });
   }
 
@@ -227,15 +230,10 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
     this.hideBAM061 = true;
     this.hideKRM043 = true;
     this.hideBAM062 = true;
-    this.hideBAM501 = true;
-    this.hideBAM502 = true;
-    this.hideBAM504 = true;
-    this.hideBAM505 = true;
     this.hideBAM032 = true;
     this.hideBAM033 = true;
     this.hideBAM034 = true;
     this.hideBAS010 = true;
-    this.hideBAM029 = true;
     this.hideSTM022 = true;
     this.hideSTM008 = true;
     this.hideSTM025 = true;
@@ -249,13 +247,18 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
     this.hideKRM046 = true;
     this.hideKRM048 = true;
 
-    // this.hideKCM012 = true;
-    // this.hideDAM001 = true;
-    // this.hideVAM020 = true;
-    // this.hideVAM201 = true;
-    // this.hideVAM106 = true;
-    // this.hideVAM107 = true;
-    // this.hideVAM108 = true;
+    this.hideKCM012 = true;
+    this.hideDAM001 = true;
+    this.hideVAM020 = true;
+    this.hideVAM201 = true;
+    this.hideBAM501 = true;
+    this.hideBAM502 = true;
+    this.hideBAM504 = true;
+    this.hideBAM505 = true;
+    this.hideBAM029 = true;
+    this.hideVAM106 = true;
+    this.hideVAM107 = true;
+    this.hideVAM108 = true;
     // this.hideBAM608 = true;
   }
 
@@ -264,15 +267,13 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
     this.hideBAM061 = false;
     this.hideKRM043 = false;
     this.hideBAM062 = false;
-    this.hideBAM501 = false;
-    this.hideBAM502 = false;
-    this.hideBAM504 = false;
-    this.hideBAM505 = false;
+    
+   
     this.hideBAM032 = false;
     this.hideBAM033 = false;
     this.hideBAM034 = false;
     this.hideBAS010 = false;
-    this.hideBAM029 = false;
+  
     this.hideSTM022 = false;
     this.hideSTM008 = false;
     this.hideSTM025 = false;
@@ -286,51 +287,59 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
     this.hideKRM046 = false;
     this.hideKRM048 = false;
 
-    // this.hideKCM012 = false;
-    // this.hideDAM001 = false;
-    // this.hideVAM020 = false;
-    // this.hideVAM201 = false;
-    // this.hideVAM106 = false;
-    // this.hideVAM107 = false;
-    // this.hideVAM108 = false;
+    this.hideKCM012 = false;
+    this.hideDAM001 = false;
+    this.hideVAM020 = false;
+    this.hideVAM201 = false;
+    this.hideBAM501 = false;
+    this.hideBAM502 = false;
+    this.hideBAM504 = false;
+    this.hideBAM505 = false;
+    this.hideBAM029 = false;
+    this.hideVAM106 = false;
+    this.hideVAM107 = false;
+    this.hideVAM108 = false;
     // this.hideBAM608 = false;
   }
 
   exist() {
     for (let index = 0; index < this.list.length; index++) {
       if (this.list[index] == "JCICMASTER") { this.hideJCICMASTER = !this.hideJCICMASTER; }
-      if (this.list[index] == "BAM061") { this.hideBAM061 = !this.hideBAM061; }
-      if (this.list[index] == "KRM043") { this.hideKRM043 = !this.hideKRM043; }
-      if (this.list[index] == "BAM062") { this.hideBAM062 = !this.hideBAM062; }
-      if (this.list[index] == "BAM501") { this.hideBAM501 = !this.hideBAM501; }
-      if (this.list[index] == "BAM502") { this.hideBAM502 = !this.hideBAM502; }
-      if (this.list[index] == "BAM504") { this.hideBAM504 = !this.hideBAM504; }
-      if (this.list[index] == "BAM505") { this.hideBAM505 = !this.hideBAM505; }
-      if (this.list[index] == "BAM032") { this.hideBAM032 = !this.hideBAM032; }
-      if (this.list[index] == "BAM033") { this.hideBAM033 = !this.hideBAM033; }
-      if (this.list[index] == "BAM034") { this.hideBAM034 = !this.hideBAM034; }
-      if (this.list[index] == "BAS010") { this.hideBAS010 = !this.hideBAS010; }
-      if (this.list[index] == "BAM029") { this.hideBAM029 = !this.hideBAM029; }
-      if (this.list[index] == "STM022") { this.hideSTM022 = !this.hideSTM022; }
-      if (this.list[index] == "STM008") { this.hideSTM008 = !this.hideSTM008; }
-      if (this.list[index] == "STM025") { this.hideSTM025 = !this.hideSTM025; }
-      if (this.list[index] == "BAM421") { this.hideBAM421 = !this.hideBAM421; }
-      if (this.list[index] == "BAM101") { this.hideBAM101 = !this.hideBAM101; }
-      if (this.list[index] == "BAM305") { this.hideBAM305 = !this.hideBAM305; }
-      if (this.list[index] == "BAM306") { this.hideBAM306 = !this.hideBAM306; }
-      if (this.list[index] == "BAM307") { this.hideBAM307 = !this.hideBAM307; }
-      if (this.list[index] == "BAM067") { this.hideBAM067 = !this.hideBAM067; }
-      if (this.list[index] == "BAM070") { this.hideBAM070 = !this.hideBAM070; }
-      if (this.list[index] == "KRM046") { this.hideKRM046 = !this.hideKRM046; }
-      if (this.list[index] == "KRM048") { this.hideKRM048 = !this.hideKRM048; }
+      // if (this.list[index] == "BAM061") { this.hideBAM061 = !this.hideBAM061; }
+      // if (this.list[index] == "KRM043") { this.hideKRM043 = !this.hideKRM043; }
+      // if (this.list[index] == "BAM062") { this.hideBAM062 = !this.hideBAM062; }
+     
+    
+      // if (this.list[index] == "BAM032") { this.hideBAM032 = !this.hideBAM032; }
+      // if (this.list[index] == "BAM033") { this.hideBAM033 = !this.hideBAM033; }
+      // if (this.list[index] == "BAM034") { this.hideBAM034 = !this.hideBAM034; }
+      // if (this.list[index] == "BAS010") { this.hideBAS010 = !this.hideBAS010; }
+   
+      // if (this.list[index] == "STM022") { this.hideSTM022 = !this.hideSTM022; }
+      // if (this.list[index] == "STM008") { this.hideSTM008 = !this.hideSTM008; }
+      // if (this.list[index] == "STM025") { this.hideSTM025 = !this.hideSTM025; }
+      // if (this.list[index] == "BAM421") { this.hideBAM421 = !this.hideBAM421; }
+      // if (this.list[index] == "BAM101") { this.hideBAM101 = !this.hideBAM101; }
+      // if (this.list[index] == "BAM305") { this.hideBAM305 = !this.hideBAM305; }
+      // if (this.list[index] == "BAM306") { this.hideBAM306 = !this.hideBAM306; }
+      // if (this.list[index] == "BAM307") { this.hideBAM307 = !this.hideBAM307; }
+      // if (this.list[index] == "BAM067") { this.hideBAM067 = !this.hideBAM067; }
+      // if (this.list[index] == "BAM070") { this.hideBAM070 = !this.hideBAM070; }
+      // if (this.list[index] == "KRM046") { this.hideKRM046 = !this.hideKRM046; }
+      // if (this.list[index] == "KRM048") { this.hideKRM048 = !this.hideKRM048; }
 
       // if (this.list[index] == "KCM012") { this.hideKCM012 = !this.hideKCM012; }
       // if (this.list[index] == "DAM001") { this.hideDAM001 = !this.hideDAM001; }
       // if (this.list[index] == "VAM020") { this.hideVAM020 = !this.hideVAM020; }
       // if (this.list[index] == "VAM201") { this.hideVAM201 = !this.hideVAM201; }
-      // if (this.list[index] == "VAM106") { this.hideVAM106 = !this.hideVAM106; }
-      // if (this.list[index] == "VAM107") { this.hideVAM107 = !this.hideVAM107; }
-      // if (this.list[index] == "VAM108") { this.hideVAM108 = !this.hideVAM108; }
+      if (this.list[index] == "BAM501") { this.hideBAM501 = !this.hideBAM501; }
+      if (this.list[index] == "BAM502") { this.hideBAM502 = !this.hideBAM502; }
+      if (this.list[index] == "BAM504") { this.hideBAM504 = !this.hideBAM504; }
+      if (this.list[index] == "BAM505") { this.hideBAM505 = !this.hideBAM505; }
+      if (this.list[index] == "BAM029") { this.hideBAM029 = !this.hideBAM029; }
+      if (this.list[index] == "VAM106") { this.hideVAM106 = !this.hideVAM106; }
+      if (this.list[index] == "VAM107") { this.hideVAM107 = !this.hideVAM107; }
+      if (this.list[index] == "VAM108") { this.hideVAM108 = !this.hideVAM108; }
       // if (this.list[index] == "BAM032") { this.hideBAM032 = !this.hideBAM032; }
       // if (this.list[index] == "BAM608") { this.hideBAM608 = !this.hideBAM608; }
     }
