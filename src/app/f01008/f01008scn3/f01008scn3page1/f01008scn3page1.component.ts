@@ -110,7 +110,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
 
   }
   getQueryDate() {
-    const url = 'f01/childscn6';
+    const url = 'f01/f01008scn3';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['cuid'] = this.cuid;
@@ -146,51 +146,28 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['nationalId'] = this.cuid;
-    jsonObject['code'] = 'AAS003,JAS002,APS001,ACI001,BAI001,KRI001,BAI004,KRI002,BAS008,BAS006,STS007';
+    jsonObject['code'] = 'BAI001,BAI004,KRI002,BAS006';
     // jsonObject['queryDate'] = this.queryDate;
     this.childscn6Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
-      if ( data.rspBody[0].AAS003.length == 0 ) { this.AAS003.push(''); } else { this.AAS003 = data.rspBody[0].AAS003; };
-      if ( data.rspBody[0].JAS002.length == 0 ) { this.JAS002.push(''); } else { this.JAS002 = data.rspBody[0].JAS002; };
-      if ( data.rspBody[0].APS001.length == 0 ) { this.APS001.push(''); } else { this.APS001 = data.rspBody[0].APS001; };
-      if ( data.rspBody[0].ACI001.length == 0 ) { this.ACI001.push(''); } else { this.ACI001 = data.rspBody[0].ACI001; };
+      // if ( data.rspBody[0].AAS003.length == 0 ) { this.AAS003.push(''); } else { this.AAS003 = data.rspBody[0].AAS003; };
+      // if ( data.rspBody[0].JAS002.length == 0 ) { this.JAS002.push(''); } else { this.JAS002 = data.rspBody[0].JAS002; };
+      // if ( data.rspBody[0].APS001.length == 0 ) { this.APS001.push(''); } else { this.APS001 = data.rspBody[0].APS001; };
+      // if ( data.rspBody[0].ACI001.length == 0 ) { this.ACI001.push(''); } else { this.ACI001 = data.rspBody[0].ACI001; };
+      // if ( data.rspBody[0].KRI001.length == 0 ) { this.KRI001.push(''); } else { this.KRI001 = data.rspBody[0].KRI001; };
       if ( data.rspBody[0].BAI001.length == 0 ) { this.BAI001.push(''); } else { this.BAI001 = data.rspBody[0].BAI001; };
-      if ( data.rspBody[0].KRI001.length == 0 ) { this.KRI001.push(''); } else { this.KRI001 = data.rspBody[0].KRI001; };
       if ( data.rspBody[0].BAI004.length == 0 ) { this.BAI004.push(''); } else { this.BAI004 = data.rspBody[0].BAI004; };
-      if ( data.rspBody[0].KRI002.length == 0 ) { this.KRI002.push(''); } else { this.KRI002 = data.rspBody[0].KRI002; };
-      if ( data.rspBody[0].BAS008.length == 0 ) { this.BAS008.push(''); } else { this.BAS008 = data.rspBody[0].BAS008; };
+      // if ( data.rspBody[0].KRI002.length == 0 ) { this.KRI002.push(''); } else { this.KRI002 = data.rspBody[0].KRI002; };
+      // if ( data.rspBody[0].BAS008.length == 0 ) { this.BAS008.push(''); } else { this.BAS008 = data.rspBody[0].BAS008; };
       if ( data.rspBody[0].BAS006.length == 0 ) { this.BAS006.push(''); } else { this.BAS006 = data.rspBody[0].BAS006; };
-      if ( data.rspBody[0].STS007.length == 0 ) { this.STS007.push(''); } else { this.STS007 = data.rspBody[0].STS007; };
-      if ( data.rspBody[0].STS007.length == 0 ) { this.STS007.push(''); } else { this.STS007 = data.rspBody[0].STS007; };
+      // if ( data.rspBody[0].STS007.length == 0 ) { this.STS007.push(''); } else { this.STS007 = data.rspBody[0].STS007; };
+      // if ( data.rspBody[0].STS007.length == 0 ) { this.STS007.push(''); } else { this.STS007 = data.rspBody[0].STS007; };
     });
   }
 
   
   setBooleanTrue() {
     this.hideJCICMASTER = true;
-    this.hideBAM061 = true;
-    this.hideKRM043 = true;
-    this.hideBAM062 = true;
-    this.hideBAM032 = true;
-    this.hideBAM033 = true;
-    this.hideBAM034 = true;
-    this.hideBAS010 = true;
-    this.hideSTM022 = true;
-    this.hideSTM008 = true;
-    this.hideSTM025 = true;
-    this.hideBAM421 = true;
-    this.hideBAM101 = true;
-    this.hideBAM305 = true;
-    this.hideBAM306 = true;
-    this.hideBAM307 = true;
-    this.hideBAM067 = true;
-    this.hideBAM070 = true;
-    this.hideKRM046 = true;
-    this.hideKRM048 = true;
 
-    this.hideKCM012 = true;
-    this.hideDAM001 = true;
-    this.hideVAM020 = true;
-    this.hideVAM201 = true;
     this.hideBAM501 = true;
     this.hideBAM502 = true;
     this.hideBAM504 = true;
@@ -204,10 +181,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
 
   setBooleanFalse() {
     this.hideJCICMASTER = false;
-    this.hideBAM061 = false;
-    this.hideKRM043 = false;
-    this.hideBAM062 = false;
-    
+   
    
     this.hideBAM032 = false;
     this.hideBAM033 = false;
@@ -280,7 +254,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
 
     if (this.list.length == 0) {
       this.setBooleanFalse();
-    } else if (this.list.length == 34) {
+    } else if (this.list.length == 8) {
       this.setBooleanFalse();
       this.list = [];
     } else {

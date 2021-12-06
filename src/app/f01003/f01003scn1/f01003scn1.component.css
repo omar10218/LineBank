@@ -1,3 +1,65 @@
 .resultBtn{
     background: #3378ff;
 }
+.classA{
+    position:fixed;
+    top:50px;
+    width:100%;
+    z-index:50;
+  }
+  .classB{
+    position:fixed;
+    top:28px;
+    width:100%;
+    z-index:50;
+  }
+  /* 功能按鈕樣式 */
+  #firstBtn{
+    color:#FF602E;
+    background:white;
+    border-color:#FF602E;
+    border-radius:5px;
+  
+  }
+  #firstBtn:hover{
+    color:#ffffff;
+    background:#FF602E;
+    border-color:#FF602E;
+    border-radius:5px;
+    box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+  }
+  #firstBtn:active{
+    color:#ffffff;
+    background:#FF602E;
+    border-color:#FF602E;
+    border-radius:5px;
+  }
+  #secondBtn{
+    color:#FF602E;
+    background:white;
+    border-color:#FF602E;
+    border-radius:5px;
+  
+  }
+  #secondBtn:hover{
+    color:#ffffff;
+    background:#FF602E;
+    border-color:#FF602E;
+    border-radius:5px;
+    box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+  }
+  #secondBtn:active{
+    color:#ffffff;
+    background:#FF602E;
+    border-color:#FF602E;
+    border-radius:5px;
+  }
+  :host::ng-deep .ant-tabs > .ant-tabs-nav,
+  .ant-tabs > div > .ant-tabs-nav {
+    background: #f5f5f5;
+    overflow: hidden;
+    padding: 0px;
+  }
+  :host::ng-deep.ant-tabs-tab + .ant-tabs-tab {
+    margin-left: 10px;
+  }
