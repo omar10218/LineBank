@@ -27,6 +27,7 @@ export class Childscn1Component implements OnInit {
   ) { }
 
   mark: string;
+  search: string;
 
   //申請資訊
   applno: string;                               //案編
@@ -218,6 +219,7 @@ export class Childscn1Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    this.search = sessionStorage.getItem('search');
     this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -419,6 +421,10 @@ export class Childscn1Component implements OnInit {
       corner2 = L.latLng(25.07824532440103, 121.57678659801286),
       bounds = L.latLngBounds(corner1, corner2);
     this.map.fitBounds(bounds);
+  }
+
+  getSearch() {
+    return this.search;
   }
 
   getCreditmemo(pageIndex: number, pageSize: number) {

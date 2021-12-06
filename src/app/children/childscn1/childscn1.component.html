@@ -36,7 +36,7 @@
         <div style="padding:3px"><span class="form-title">徵信修改申請金額</span><input matInput #input class="form-control"
           [(ngModel)]="caApplicationAmount" name="caApplicationAmount" [ngStyle]="getStyle(toNumber(caApplicationAmount))"
             (keypress)="numberOnly($event)" (keyup)="caApplicationAmount = toCurrency(toNumber(caApplicationAmount))" (ngModelChange)="change(toNumber(caApplicationAmount),'caApplicationAmount')" required
-            placeholder="輸入金額"></div>
+            placeholder="輸入金額" [disabled]="getSearch() == 'Y'"></div>
       </div>
       <div nz-col nzFlex="1">
         <div style="padding:3px"><span class="form-title">貸款用途</span><input matInput #input class="form-control"
@@ -1110,7 +1110,7 @@
     <div nz-col nzFlex="1">
       <div style="padding:2px"><span class="form-title">核決結果</span>
         <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px"
-          (ngModelChange)="change(creditResult,'creditResult')">
+          (ngModelChange)="change(creditResult,'creditResult')" [disabled]="getSearch() == 'Y'">
           <mat-option *ngFor="let code of creditResultCode" [value]="code.value">
             {{code.viewValue}}
           </mat-option>
@@ -1128,41 +1128,41 @@
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">核准額度</span><input matInput #input class="form-control"
           [(ngModel)]="resultApproveAmt" placeholder="輸入額度" [ngStyle]="getStyle(resultApproveAmt)"
-          (keypress)="numberOnly($event)" (keyup)="resultApproveAmt = toCurrency(toNumber(resultApproveAmt))"  (ngModelChange)="change(toNumber(resultApproveAmt),'resultApproveAmt')"></div>
+          (keypress)="numberOnly($event)" (keyup)="resultApproveAmt = toCurrency(toNumber(resultApproveAmt))"  (ngModelChange)="change(toNumber(resultApproveAmt),'resultApproveAmt')" [disabled]="getSearch() == 'Y'"></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">每月最低還款比率</span><input matInput #input class="form-control"
           [(ngModel)]="resultLowestPayRate" placeholder="輸入還款比率"
-          (ngModelChange)="change(resultLowestPayRate,'resultLowestPayRate')" (keypress)="numberOnly($event)"></div>
+          (ngModelChange)="change(resultLowestPayRate,'resultLowestPayRate')" (keypress)="numberOnly($event)" [disabled]="getSearch() == 'Y'"></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">人員記錄-PM策略客群</span><input matInput #input class="form-control"
-          [(ngModel)]="caPmcus" (ngModelChange)="change(caPmcus,'caPmcus')"></div>
+          [(ngModel)]="caPmcus" (ngModelChange)="change(caPmcus,'caPmcus')" [disabled]="getSearch() == 'Y'"></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">人員記錄-風險等級</span><input matInput #input class="form-control"
-          [(ngModel)]="caRisk" (ngModelChange)="change(caRisk,'caRisk')"></div>
+          [(ngModel)]="caRisk" (ngModelChange)="change(caRisk,'caRisk')" [disabled]="getSearch() == 'Y'"></div>
     </div>
   </div>
 
   <div nz-row style="padding:5px">
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">序號</span><input matInput #input class="form-control" value="1"
-          placeholder="輸入序號">
+          placeholder="輸入序號" [disabled]="getSearch() == 'Y'">
       </div>
     </div>
     <div nz-col nzFlex="1">
       <div class="form" style="padding:3px">
         <div><span class="form-title">分段起始期數</span>
           <input matInput #input class="form-control" [(ngModel)]="period" name="period"
-            (ngModelChange)="change(period,'period')" (keypress)="numberOnly($event)" placeholder="輸入期數">
+            (ngModelChange)="change(period,'period')" (keypress)="numberOnly($event)" placeholder="輸入期數" [disabled]="getSearch() == 'Y'">
         </div>
       </div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:1px"><span class="form-title">期別</span>
         <mat-select [(ngModel)]="periodType" name="periodType" style="height:25px"
-          (ngModelChange)="change(periodType,'periodType')">
+          (ngModelChange)="change(periodType,'periodType')" [disabled]="getSearch() == 'Y'">
           <mat-option *ngFor="let code of periodTypeCode" [value]="code.value">
             {{code.viewValue}}
           </mat-option>
@@ -1172,7 +1172,7 @@
     <div nz-col nzFlex="1">
       <div style="padding:1px"><span class="form-title">利率型態</span>
         <mat-select [(ngModel)]="interestType" name="interestType" style="height:25px"
-          (ngModelChange)="changeInterest()">
+          (ngModelChange)="changeInterest()" [disabled]="getSearch() == 'Y'">
           <mat-option *ngFor="let code of interestTypeCode" [value]="code.value">
             {{code.viewValue}}
           </mat-option>
@@ -1201,7 +1201,7 @@
       <div class="form" style="padding:3px">
         <div><span class="form-title">利率</span>
           <input matInput #input class="form-control" [(ngModel)]="interest" name="interest"
-            (ngModelChange)="caluclate()" placeholder="輸入利率" placeholder="輸入利率">
+            (ngModelChange)="caluclate()" placeholder="輸入利率" placeholder="輸入利率" [disabled]="getSearch() == 'Y'">
         </div>
       </div>
     </div>
@@ -1218,20 +1218,17 @@
 <!-- 審核註記 -->
 <div class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
   <div class="line_bank_form_header_title">審核註記</div>
-
   <div nz-row style="padding:5px;text-align: center;">
     <div nz-col nzSpan="24">
       <div class="form">
         <div><span class="form-title"></span><textarea matInput class="input-textarea" style="text-align: left;"
-            [(ngModel)]="mark" name="mark" (ngModelChange)="change(mark,'mark')"></textarea>
+            [(ngModel)]="mark" name="mark" (ngModelChange)="change(mark,'mark')" [disabled]="getSearch() == 'Y'"></textarea>
         </div>
       </div>
     </div>
-
-
   </div>
   <div style="padding:3px;text-align: center;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()" [disabled]="getSearch() == 'Y'">儲存</button>
   </div>
 
   <!-- 表格 -->
@@ -1253,7 +1250,7 @@
         <td class="table-data">{{ data.CREDITACTION }}</td>
         <td class="table-data" style="text-align: center;">
           <button id="test" nz-button [nzSize]="'small'" nzType="primary"
-            (click)="startEdit(data.CREDITACTION , data.ID)">編輯</button>
+            (click)="startEdit(data.CREDITACTION , data.ID)" [disabled]="getSearch() == 'Y'">編輯</button>
         </td>
       </tr>
     </tbody>
