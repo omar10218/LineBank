@@ -31,6 +31,7 @@ export class Childscn14Component implements OnInit {
 
   @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
   private applno: string;
+  private search: string;
   private docKey: string;
   private cuid: string;
   private cuNm: string;
@@ -52,6 +53,7 @@ export class Childscn14Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    this.search = sessionStorage.getItem('search');
     this.host = this.getHost();
 
     const baseUrl = 'f01/childscn6action2';
@@ -65,6 +67,10 @@ export class Childscn14Component implements OnInit {
 
   ngAfterViewInit() {
     // this.changePage(this.nowPage);
+  }
+
+  getSearch() {
+    return this.search;
   }
 
   // changePage( page: Page ): void {

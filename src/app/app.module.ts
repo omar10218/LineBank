@@ -79,8 +79,6 @@ import { F03017uploadComponent } from './f03017/f03017upload/f03017upload.compon
 import { F02002Component } from './f02002/f02002.component';
 import { F01008Component } from './f01008/f01008.component';
 import { NZ_I18N, zh_TW } from 'ng-zorro-antd/i18n';
-import { F01008addComponent } from './f01008/f01008add/f01008add.component';
-import { F01008deleteComponent } from './f01008/f01008delete/f01008delete.component';
 import { F03006amtComponent } from './f03006/f03006amt/f03006amt.component';
 import { F03006prjComponent } from './f03006/f03006prj/f03006prj.component';
 import { F03013createComponent } from './f03013/f03013create/f03013create.component';
@@ -96,6 +94,9 @@ import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesom
 import { faFolderOpen} from '@fortawesome/free-solid-svg-icons';
 import { FormatNumberPipe, ToNumberPipe } from './pipe/customFormatterPipe';
 import { F04003Component } from './f04003/f04003.component';
+import { F02005Component } from './f02005/f02005.component';
+import { F02006Component } from './f02006/f02006.component';
+import { F02007Component } from './f02007/f02007.component';
 
 
 
@@ -172,8 +173,6 @@ export const TW_FORMATS = {
     F03017uploadComponent,
     F02002Component,
     F01008Component,
-    F01008addComponent,
-    F01008deleteComponent,
     F03006amtComponent,
     F03006prjComponent,
     F02003Component,
@@ -189,6 +188,9 @@ export const TW_FORMATS = {
     childbwscn2page1Component,
     childbwscn2page2Component,
     F04003Component,
+    F02005Component,
+    F02006Component,
+    F02007Component,
   ],
   imports: [
     NzIconModule,

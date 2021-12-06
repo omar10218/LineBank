@@ -23,7 +23,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of callOutDataSource;let i =index" >
-                            <td class="table-data">{{ i }}</td>
+                            <td class="table-data" [nzAlign]="'center'">{{ i+1 }}</td>
                             <td class="table-data">
                                 <button nz-button [nzSize]="'middle'" nzType="link" (click)="toCalloutPage(data.APPLNO)">
                                     {{data.APPLNO}}

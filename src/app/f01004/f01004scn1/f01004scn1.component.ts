@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
 import { Childscn24Component } from 'src/app/children/childscn24/childscn24.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
@@ -16,16 +17,39 @@ export class F01004scn1Component implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private f01004Scn1Service:F01004Scn1Service,
+    private f01004Scn1Service: F01004Scn1Service,
     private childscn1Service: Childscn1Service,
-  ) { }
-
+  ) {
+    this.JCICAddSource$ = this.f01004Scn1Service.JCICAddSource$.subscribe((data) => {
+      this.addData = data;
+      this.isShowAdd = data.show;
+    });
+    this.JCICSource$ = this.f01004Scn1Service.JCICSource$.subscribe((data) => {
+      this.editData = data;
+      this.isShowEdit = data.show;
+    });
+    this.JCICSource$ = this.f01004Scn1Service.JCICItemsSource$.subscribe((data) => {
+      this.isShowItems = data.show;
+    });
+  }
+  
+  
   private creditLevel: string = 'APPLCreditL1';
   private applno: string;
   private search: string;
   private cuid: string;
   fds: string;
   private winClose: string = '';
+
+  addData: any;
+  editData: any;
+  isShowAdd: boolean;
+  isShowEdit: boolean;
+  isShowItems: boolean;
+  JCICSource$: Subscription;
+  JCICAddSource$: Subscription;
+
+  creditResult: string;
   level: string;
   creditMemo: string;
   approveAmt: string;
@@ -33,7 +57,6 @@ export class F01004scn1Component implements OnInit {
   approveInterest: string;
   interest: string;
   interestType: string;
-  creditResult: string;
   period: string;
   periodType: string;
   interestBase: string;
@@ -41,14 +64,17 @@ export class F01004scn1Component implements OnInit {
   caPmcus: string;
   caRisk: string;
   mark: string;
-  stepName:string;
+
+  changeValue: boolean = true;
+  
+  stepName: string;
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
     this.cuid = sessionStorage.getItem('cuid');
     this.fds = sessionStorage.getItem('fds');
     this.level = sessionStorage.getItem('level');
-    this.stepName= sessionStorage.getItem('stepName');
+    this.stepName = sessionStorage.getItem('stepName');
   }
 
   ngAfterViewInit() {
@@ -134,18 +160,22 @@ export class F01004scn1Component implements OnInit {
       }
     }
   }
-   // 退件
-   sendBack() {
+  // 退件
+  sendBack() {
     const dialogRef = this.dialog.open(Childscn24Component, {
       panelClass: 'mat-dialog-transparent',
       minHeight: '50%',
       width: '50%',
       data: {
         applno: this.applno,
-        level:sessionStorage.getItem('level'),
-        stepName:sessionStorage.getItem('stepName'),
+        level: sessionStorage.getItem('level'),
+        stepName: sessionStorage.getItem('stepName'),
       }
     });
+  }
+
+  saveResult(url: string, json: JSON): string {
+    return this.f01004Scn1Service.saveOrEditMsgJson(url, json);
   }
 
   result(baseUrl: string, jsonObject: JSON, result: string) {
@@ -184,5 +214,16 @@ export class F01004scn1Component implements OnInit {
     jsonObject['creditaction'] = this.mark;
     jsonObject['creditlevel'] = sessionStorage.getItem('stepName').split('t')[1];
     msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
+  }
+
+
+  
+  //判斷是否需要顯示案件完成列
+  changeRoute(route: boolean) {
+    this.changeValue = route;
+  }
+
+  getWinClose(): String {
+    return this.winClose;
   }
 }

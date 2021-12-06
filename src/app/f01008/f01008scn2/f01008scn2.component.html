@@ -48,30 +48,45 @@
         </tr>
       </tbody>
      </nz-table>       -->
-      <nz-table nzSize="small" [nzData]="dataSource">
-        <thead>
-          <tr>
-            <th class="table-header" style="width:12.5%">聯絡方式</th>
-            <th class="table-header" style="width:10%">手機/市話</th>
-            <th class="table-header" style="width:12.5%">電話狀況</th>
-            <th class="table-header" style="width:10%">備註</th>
-            <th class="table-header" style="width:10%">確認時間</th>
-            <th class="table-header" style="width:10%">設定下次聯絡時間</th>
-            <th class="table-header" style="width:10%">確認人員</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let data of dataSource;">
-              <td class="table-data">{{getOptionDesc(tYPE,data.CON_TYPE)}}</td>
-              <td class="table-data">{{data.PHONE}}</td>
-              <td class="table-data">{{getOptionDesc(cONDITION,data.TEL_CONDITION)}}</td>
-              <td class="table-data">{{data.CON_MEMO}}</td>
-              <td class="table-data">{{data.CALLOUT_SETTIME}}</td>
-              <td class="table-data">{{data.CALLOUT_DATE}}</td>
-              <td class="table-data">{{data.CALLOUT_EMPNO}}</td>
-            </tr>
-        </tbody>
-      </nz-table>
+    <nz-table nzSize="small" [nzData]="dataSource">
+      <thead>
+        <tr>
+          <th class="table-header" style="width:12.5%">聯絡方式</th>
+          <th class="table-header" style="width:10%">手機/市話</th>
+          <th class="table-header" style="width:12.5%">電話狀況</th>
+          <th class="table-header" style="width:10%">備註</th>
+          <th class="table-header" style="width:10%">確認時間</th>
+          <th class="table-header" style="width:10%">設定下次聯絡時間</th>
+          <th class="table-header" style="width:10%">確認人員</th>
+          <th class="table-header">編輯</th>
+          <th class="table-header">刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of dataSource;">
+          <td class="table-data">{{getOptionDesc(tYPE,data.CON_TYPE)}}</td>
+          <td class="table-data">{{data.PHONE}}</td>
+          <td class="table-data">{{getOptionDesc(cONDITION,data.TEL_CONDITION)}}</td>
+          <td class="table-data">{{data.CON_MEMO}}</td>
+          <td class="table-data">{{data.CALLOUT_SETTIME|date:"yyyy-MM-dd HH:mm"}}</td>
+          <td class="table-data">{{data.CALLOUT_DATE|date:"yyyy-MM-dd HH:mm"}}</td>
+          <td class="table-data">{{data.CALLOUT_EMPNO}}</td>
+          <td class="table-data">
+            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'small'" nzType="primary"
+              (click)="startEdit(data.ID,data.CON_TYPE,data.CON_MEMO)">編輯</button>
+
+            <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'small'" nzType="primary"
+            (click)="startEdit(data.ID,data.CON_TYPE,data.CON_MEMO)">編輯</button>
+          </td>
+          <td class="table-data" style="text-align: center;">
+            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'small'" nzType="default" nzDanger
+              (click)="deleteItem(data.ID)">刪除</button>
+            <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'small'" nzType="default"
+              (click)="deleteItem(data.ID  )" disabled>刪除</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
   </div>
   <div class="line_bank_card_no_padding">
     <nz-table nzSize="small" [nzNoResult]="'  '">
@@ -157,3 +172,5 @@
     </nz-table>
   </div>
 </div>
+<!-- <app-f01008add *ngIf="isShowAdd" cdkDrag [data]="addData"></app-f01008add>
+<app-childscn8edit *ngIf="isShowEdit" cdkDrag [data]="editData"></app-childscn8edit> -->

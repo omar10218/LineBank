@@ -59,37 +59,7 @@ export class F03013Component implements OnInit {
         }
       });
     }
-
-
-
-    //   if (this.selectedValue == null) {
-    //     return alert('請選擇需創建年份')
-    //   }
-    //   var yes = confirm('建立該年度行事曆,會刪除原設定,請確認');
-    //   if (yes) {
-    //     this.jsonObject['year'] = this.selectedValue;
-    //     this.f03013Service.createCalendar(this.jsonObject).subscribe(data => {
-    //       if (data.rspMsg == 'success') {
-    //         alert('新增' + this.selectedValue + '年度行事曆成功!')
-    //       }
-    //     });
-    //   } else {
-    //     return;
-    //   }
   }
-  // if (this.selectedValue == null) {
-  //   const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-  //     data: { msgStr: "請選擇需創建年份" }
-  //   });
-  // }else if(this.selectedValue!=null){
-  //   const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-  //     data: { msgStr: "建立該年度行事曆,會刪除原設定,請確認" }
-  //   });
-  // } if 
-
-
-
-
 
   // 查詢選擇之年度與月份
   queryIsWorkDay() {
@@ -153,7 +123,6 @@ export class F03013Component implements OnInit {
       }
     });
   }
-
 }
 
 
