@@ -180,7 +180,7 @@ export class F01007scn1Component implements OnInit {
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = 'L3';
+    jsonObject['level'] = 'L1';
 
     this.approveAmt = sessionStorage.getItem('resultApproveAmt');
     this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');
