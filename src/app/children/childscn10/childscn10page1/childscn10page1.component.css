@@ -5,6 +5,7 @@
       background: white;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
       border-radius: 10px;
+      margin:0px;
 }
 
 
@@ -17,12 +18,13 @@
   background-color: #BFECD0;
   padding:5px 5px 5px 10px;
   border-radius: 10px 10px 0 0;
+  margin:0px;
 }
 
 .EL_DSS_form_header_title2{
   text-align: left;
   padding:5px 5px 5px 10px;
-  margin:5px 0;
+  margin:0px;
   font-weight:500;
   font-size: 16px;
   color:#2E4765;
