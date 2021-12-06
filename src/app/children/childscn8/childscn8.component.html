@@ -2,10 +2,10 @@
 
 <div class="line_bank_bankground_color">
   <div style="padding-left: 50px; padding-top: 20px;">
-    <div *ngIf="getSearch() == 'N'">
+    <div *ngIf="getPage() == '2'">
       <button nz-button [nzSize]="'large'" nzType="primary" (click)="Add()">新增</button>
     </div>
-    <div *ngIf="getSearch() != 'N'">
+    <div *ngIf="getPage() != '2'">
       <button nz-button [nzSize]="'large'" nzType="primary" (click)="Add()" disabled >新增</button>
     </div>
   </div>
@@ -42,16 +42,16 @@
           <td class="table-data">{{ row.CALLOUT_DATE | date:"yyyy-MM-dd HH:mm" }}</td>
           <td class="table-data">{{ row.CALLOUT_YN_View }}</td>
           <td class="table-data" style="text-align: center;">
-            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
+            <button *ngIf="getPage() == '2'" nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
               row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)">編輯</button>
 
-              <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
+              <button *ngIf="getPage() != '2'" nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
               row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" disabled >編輯</button>
           </td>
           <td class="table-data" style="text-align: center;">
-            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="deleteItem(
+            <button *ngIf="getPage() == '2'" nz-button [nzSize]="'small'" nzType="default" nzDanger (click)="deleteItem(
               row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)">刪除</button>
-              <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'small'" nzType="default" (click)="deleteItem(
+              <button *ngIf="getPage() != '2'" nz-button [nzSize]="'small'" nzType="default" (click)="deleteItem(
                 row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" disabled >刪除</button>
           </td>
         </tr>
@@ -59,11 +59,11 @@
     </nz-table>
   </div>
 
-  <div *ngIf="getSearch() == 'N'" style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="getPage() == '2'" style="padding-left: 50px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="items()">編輯</button>
   </div>
 
-  <div *ngIf="getSearch() != 'N'" style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="getPage() != '2'" style="padding-left: 50px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save()" disabled >編輯</button>
   </div>
   <!-- 最外層卡片包覆 -->
