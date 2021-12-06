@@ -45,6 +45,7 @@ export class F01002scn1Component implements OnInit {
   private routerCase: string;
   fds: string
   private winClose: string = '';
+  private page: string;//判斷哪一頁進入用
 
   addData: any;
   editData: any;
@@ -78,6 +79,7 @@ export class F01002scn1Component implements OnInit {
     this.cuid = sessionStorage.getItem('cuid');
     this.fds = sessionStorage.getItem('fds');
     this.level = sessionStorage.getItem('level');
+    this.page = sessionStorage.getItem('page');
     this.winClose = sessionStorage.getItem('winClose');
   }
 
@@ -131,7 +133,7 @@ export class F01002scn1Component implements OnInit {
       width: '30%',
       data: {
         applno: this.applno,
-        level:sessionStorage.getItem('level'),
+        level: sessionStorage.getItem('level'),
       }
     });
   }
@@ -234,15 +236,15 @@ export class F01002scn1Component implements OnInit {
     // } else {
     //   if (this.creditResult == 'A') {
     //     if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '' && this.periodType != '' && this.period != '' && this.mark != '' && this.mark != null) {
-          this.result(baseUrl, jsonObject, result);
-        // } else {
-          // const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          //   data: { msgStr: '審核結果未填寫' }
-          // });
-        // }
-      // } else {
-        // this.result(baseUrl, jsonObject, result);
-      // }
+    this.result(baseUrl, jsonObject, result);
+    // } else {
+    // const childernDialogRef = this.dialog.open(ConfirmComponent, {
+    //   data: { msgStr: '審核結果未填寫' }
+    // });
+    // }
+    // } else {
+    // this.result(baseUrl, jsonObject, result);
+    // }
     // }
   }
 
@@ -293,4 +295,10 @@ export class F01002scn1Component implements OnInit {
   changeRoute(route: boolean) {
     this.changeValue = route;
   }
+
+  //取Page
+  getPage() {
+    return this.page;
+  }
+
 }
