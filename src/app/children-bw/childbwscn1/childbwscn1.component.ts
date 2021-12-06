@@ -24,11 +24,11 @@ export class Childbwscn1Component implements OnInit {
   custId: string;
   nationalId: string;
   mark: string;
-  size=0//此層級是否有資料
+  size = 0//此層級是否有資料
 
   private page: string;
   //覆審:L4 覆審主管:L3
-  private creditlevel =""; //儲存層級
+  private creditlevel = ""; //儲存層級
   creditaction: ""; //審核註記
 
   ynCode: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
@@ -67,9 +67,9 @@ export class Childbwscn1Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childbwscn1Service.postJson(url, jsonObject).subscribe(data => {
-      this.creditmemoSource=data.rspBody.list;
-      for(const data of this.creditmemoSource){
-        this.size=(data.CREDITLEVEL!=null&&data.CREDITLEVEL==this.creditlevel)?this.size+1:this.size;//判斷是否有資料
+      this.creditmemoSource = data.rspBody.list;
+      for (const data of this.creditmemoSource) {
+        this.size = (data.CREDITLEVEL != null && data.CREDITLEVEL == this.creditlevel) ? this.size + 1 : this.size;//判斷是否有資料
       }
       sessionStorage.setItem('size', this.size.toString());
       console.log('getCreditmemo')
@@ -78,11 +78,11 @@ export class Childbwscn1Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-		const {pageSize, pageIndex} = params
-		this.pageSize = pageSize
-		this.pageIndex = pageIndex
-		this.getCreditmemo(pageIndex, pageSize)
-	}
+    const { pageSize, pageIndex } = params
+    this.pageSize = pageSize
+    this.pageIndex = pageIndex
+    this.getCreditmemo(pageIndex, pageSize)
+  }
 
   //0查詢 1文審 2徵信 3授信 4主管 5Fraud 6申覆 8產生合約前回查 9複審人員 10複審主管
   getPage() {
@@ -91,8 +91,8 @@ export class Childbwscn1Component implements OnInit {
     // return '0'
   }
 
-   //查詢 上方主資料
-   getCreditMainList() {
+  //查詢 上方主資料
+  getCreditMainList() {
     const url = 'f01/childbwscn1';
     let jsonObject: any = {};
     // jsonObject['applno'] = this.applno;
@@ -101,8 +101,8 @@ export class Childbwscn1Component implements OnInit {
     this.childbwscn1Service.postJson(url, jsonObject).subscribe(data => {
       // console.log('getCreditMainList')
       // console.log(data)
-      this.bwCreditAuditinfoList=data.rspBody.bwCreditAuditinfoList;
-      this.bwCreditMainList=data.rspBody.bwCreditMainList;
+      this.bwCreditAuditinfoList = data.rspBody.bwCreditAuditinfoList;
+      this.bwCreditMainList = data.rspBody.bwCreditMainList;
       console.log('bwCreditAuditinfoList')
       console.log(this.bwCreditAuditinfoList)
       console.log('bwCreditMainList')
@@ -111,8 +111,8 @@ export class Childbwscn1Component implements OnInit {
   }
 
   //儲存
-  save() {
-    if(this.creditaction==""||this.creditaction==null){
+  async save() {
+    if (this.creditaction == "" || this.creditaction == null) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入審核意見' }
       });
@@ -124,45 +124,46 @@ export class Childbwscn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['creditaction'] = this.creditaction;
     jsonObject['creditlevel'] = this.creditlevel;
-    console.log('jsonObject')
-    console.log(jsonObject)
-    this.childbwscn1Service.postJson(url, jsonObject).subscribe(data => {
-      if(data.rspMsg=="儲存成功!"){this.getCreditmemo(this.pageIndex, this.pageSize);}
-      msg = data.rspMsg ;
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: msg }
-      });
-      // console.log('savedata')
-      // console.log(data)
+    msg = await this.childbwscn1Service.saveCreditmemo(url, jsonObject);
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
+      data: { msgStr: msg }
+    });
+    this.changePage();
+    this.getCreditmemo(this.pageIndex, this.pageSize);
+  }
+
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
+  }
+
+  //審核註記編輯
+  startEdit(creditaction: string, rowId: string) {
+    const dialogRef = this.dialog.open(Childbwscn1editComponent, {
+      minHeight: '70vh',
+      width: '50%',
+      panelClass: 'mat-dialog-transparent',
+      data: {
+        creditaction: creditaction,
+        applno: this.applno,
+        level: this.creditlevel,
+        rowId: rowId
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCreditmemo(this.pageIndex, this.pageSize);
     });
   }
 
-    //審核註記編輯
-    startEdit(creditaction: string, rowId: string) {
-      const dialogRef = this.dialog.open(Childbwscn1editComponent, {
-        minHeight: '70vh',
-        width: '50%',
-        panelClass: 'mat-dialog-transparent',
-        data: {
-          creditaction: creditaction,
-          applno: this.applno,
-          level:this.creditlevel,
-          rowId: rowId
-        }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        this.getCreditmemo(this.pageIndex, this.pageSize);
-      });
-    }
+  //審核結果 資料改變
+  radio_change() {
+    sessionStorage.setItem('BW_creditResult', this.BW_creditResult);
+    // alert(sessionStorage.getItem('BW_creditResult'));
+  }
 
-    //審核結果 資料改變
-    radio_change(){
-      sessionStorage.setItem('BW_creditResult', this.BW_creditResult);
-      // alert(sessionStorage.getItem('BW_creditResult'));
-    }
-
-    creditaction_keyup(){
-      sessionStorage.setItem('creditaction', this.creditaction);
-    }
+  creditaction_keyup() {
+    sessionStorage.setItem('creditaction', this.creditaction);
+  }
 
 }
