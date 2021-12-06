@@ -256,9 +256,9 @@ export class Childscn1Component implements OnInit {
       }
 
       //creditInterestPeriod
+      console.log("creditInterestPeriodList===>");
+      console.log(data.rspBody.creditInterestPeriodList)
       if (data.rspBody.creditInterestPeriodList.length > 0) {
-        console.log("creditInterestPeriodList===>");
-        console.log(data.rspBody.creditInterestPeriodList)
         this.period = data.rspBody.creditInterestPeriodList[0].period;
         sessionStorage.setItem('period', data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '');
         this.interestType = data.rspBody.creditInterestPeriodList[0].interestType;
