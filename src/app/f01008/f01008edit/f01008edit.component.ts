@@ -10,6 +10,7 @@ import { F01008Service } from '../f01008.service';
   templateUrl: './f01008edit.component.html',
   styleUrls: ['./f01008edit.component.css','../../../assets/css/f01.css']
 })
+//Jay 審核資料編輯
 export class F01008editComponent implements OnInit {
 
   constructor( private f01008Service: F01008Service,

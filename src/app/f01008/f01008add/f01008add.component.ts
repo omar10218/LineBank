@@ -11,6 +11,7 @@ import { F01008Service } from '../f01008.service';
   templateUrl: './f01008add.component.html',
   styleUrls: ['./f01008add.component.css','../../../assets/css/f01.css']
 })
+//Jay 審核資料新增
 export class F01008addComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<F01008addComponent>,

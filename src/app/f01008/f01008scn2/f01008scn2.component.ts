@@ -7,12 +7,13 @@ import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import{F01008deleteComponent}from'../f01008delete/f01008delete.component'
+import { F01008scn2editComponent } from './f01008scn2edit/f01008scn2edit.component';
 
 interface sysCode {
   value: string;
   viewValue: string;
 }
-
+//Jay 審核資料
 @Component({
   selector: 'app-f01008scn2',
   templateUrl: './f01008scn2.component.html',
@@ -37,13 +38,14 @@ export class F01008scn2Component implements OnInit {
   search: string;
   ma:string;
   empNo: string;//員編
-
+  macrSource: Data[] = [];
   showAdd: boolean = false;
   showEdit: boolean = false;
+  Sendcheck:string;
+  jaicSource: Data[] = [];
   ngOnInit(): void {
-    // this.applno = sessionStorage.getItem('applno');
-    this.applno = "20211125A00002";
-    console.log(this.applno)
+    this.applno = sessionStorage.getItem('applno');
+    // this.applno = "20211125A00002";
     this.empNo = localStorage.getItem("empNo");
     this.set();//初始查詢
     this.tYPE.push({value:'1',viewValue:'公司電話'})
@@ -119,14 +121,22 @@ export class F01008scn2Component implements OnInit {
   }
   set() //查詢
   {
+    // researchDate
+    // researchNum
     let jsonObject: any = {};
     let url = 'f01/f01008scn2';
-    jsonObject['applno'] = '20211125A00002';
+    jsonObject['applno'] = this.applno;
     jsonObject['page'] = this.page;
     jsonObject['pei_page'] = this.pei_page;
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
       console.log(data)
-      this.dataSource = data.rspBody.list;
+      if(data.rspBody.list !=null)
+      {
+        this.dataSource = data.rspBody.list;
+      }
+      this.macrSource = data.rspBody.creditmemoList;
+      this.jaicSource = data.rspBody.creditMainList;
+
 
     })
   }
@@ -177,23 +187,32 @@ export class F01008scn2Component implements OnInit {
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
       if(data.rspCode === '0000'||data.rspMsg ==='儲存成功')
       {
-
+        this.set();
       }
-      console.log(data)
     })
   }
-  edit(ID:string)//註記編輯
+  edit(ID:string,CREDITACTION:string)//註記編輯
+  {
+    const dialogRef = this.dialog.open(F01008scn2editComponent, {
+      minHeight: '70vh',
+      width: '50%',
+      panelClass: 'mat-dialog-transparent',
+      data: {
+        creditaction: CREDITACTION,
+        applno: this.applno,
+        empNo:this.empNo,
+        rowId: ID
+      }
+    })
+  }
+  jcic()//立即重查
   {
     let jsonObject: any = {};
-    let url = 'f01/f01008scn2action5';
+    let url = 'f01/f01008scn0';
     jsonObject['applno'] = this.applno;
-    jsonObject['userId'] = this.empNo;
-    jsonObject['creditaction'] = this.ma;
-    jsonObject['creditlevel'] = 'L2';
-    jsonObject['rowId'] = ID
-    console.log(jsonObject)
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      console.log(data)
+     console.log(data)
+     console.log("222222")
     })
   }
 }

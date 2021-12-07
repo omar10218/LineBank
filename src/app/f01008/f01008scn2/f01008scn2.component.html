@@ -1,6 +1,6 @@
 <div class="line_bank_bankground_color" style="min-height: 100vh;">
   <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'large'" nzType="primary">立即重查JCIC</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="jcic()">立即重查JCIC</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <!-- (click)="Inquire(data.applnoOld)" -->
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="add()">新增</button>
   </div>
@@ -98,12 +98,14 @@
         </th>
       </thead>
       <tbody>
-        <td>
-          <nz-date-picker></nz-date-picker>
-        </td>
-        <td>
-          <input type="text">
-        </td>
+        <tr *ngFor="let data of jaicSource;">
+          <td>
+            <nz-date-picker [(ngModel)]="data.researchDate" name="Sendcheck" disabled></nz-date-picker>
+          </td>
+          <td>
+            <input type="text" value="{{data.researchNum != null? data.researchNum:0}}" disabled>
+          </td>
+        </tr>
       </tbody>
     </nz-table>
   </div>
@@ -136,11 +138,14 @@
         <th class="table-header" style="width:10%">Edit</th>
       </thead>
       <tbody>
-        <tr *ngFor="let data of dataSource;">
-          <td>{{data.CREDITDATE|date:"yyyy-MM-dd HH:mm"}}</td>
-          <td>{{data.CREDITUSER}}</td>
-          <td>{{data.CREDITACTION}}</td>
-          <td (click)="edit(data.ID)">編輯</td>
+        <tr *ngFor="let data of macrSource;">
+          <td class="table-data">{{data.CREDITDATE|date:"yyyy-MM-dd HH:mm"}}</td>
+          <td class="table-data">{{data.CREDITUSER}}</td>
+          <td class="table-data" >{{data.CREDITACTION}}</td>
+          <td class="table-data" style="text-align: center;">
+            <button id="test" nz-button [nzSize]="'small'" nzType="primary"
+              (click)="edit(data.ID,data.CREDITACTION)" [disabled]="getSearch() == 'Y'">編輯</button>
+          </td>
         </tr>
       </tbody>
     </nz-table>

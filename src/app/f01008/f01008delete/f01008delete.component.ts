@@ -9,6 +9,7 @@ import { F01008Service } from '../f01008.service';
   templateUrl: './f01008delete.component.html',
   styleUrls: ['./f01008delete.component.css','../../../assets/css/f01.css']
 })
+//Jay 審核資料刪除
 export class F01008deleteComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<F01008deleteComponent>,
