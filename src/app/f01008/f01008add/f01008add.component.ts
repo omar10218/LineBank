@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { F01008Service } from '../f01008.service';
 
@@ -14,7 +15,8 @@ export class F01008addComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<F01008addComponent>,
     private f01008Service: F01008Service,
-    public datepipe: DatePipe) { }
+    public datepipe: DatePipe,
+    public dialog: MatDialog,) { }
 
   @Input() data: any;
     //欄位驗證
@@ -40,12 +42,14 @@ export class F01008addComponent implements OnInit {
     this.empNo = localStorage.getItem("empNo");
     console.log(this.empNo)
   }
-  save()
+  save()//新增
   {
+    let msgStr: string = "";
+    let codeStr: string = "";
     let jsonObject: any = {};
     let url = 'f01/f01008scn2action1';
     jsonObject['userId'] = this.empNo;
-    jsonObject['applno'] = this.applno;
+    jsonObject['applno'] = '20211125A00002';
     jsonObject['conType'] = this.data.CON_TYPE;
     jsonObject['phone'] = this.data.PHONE;
     jsonObject['telCondition'] = this.data.TEL_CONDITION;
@@ -54,8 +58,17 @@ export class F01008addComponent implements OnInit {
     jsonObject['hour'] = this.data.HOURS;
     jsonObject['min'] = this.data.MINUTES;
     this.f01008Service.f01008scn2(jsonObject,url).subscribe(data =>{
-      console.log(data);
-    })
+      codeStr = data.rspCode;
+      msgStr = data.rspMsg;
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      if (msgStr === '新增成功!' && codeStr === '0000') {
+        // this.dialogRef.close({ event: 'success' });
+        this.f01008Service.setJCICAddSource({ show: false });
+        window.location.reload();
+      }
+    });
     console.log(jsonObject)
 
   }

@@ -35,7 +35,7 @@ export class F01008scn2Component implements OnInit {
   tYPE: sysCode[] = [];
   cONDITION: sysCode[] = [];
   search: string;
-
+  ma:string;
   empNo: string;//員編
 
   showAdd: boolean = false;
@@ -45,7 +45,7 @@ export class F01008scn2Component implements OnInit {
     this.applno = "20211125A00002";
     console.log(this.applno)
     this.empNo = localStorage.getItem("empNo");
-    this.set();
+    this.set();//初始查詢
     this.tYPE.push({value:'1',viewValue:'公司電話'})
     this.tYPE.push({value:'2',viewValue:'手機號碼'})
     this.tYPE.push({value:'3',viewValue:'住家號碼'})
@@ -58,7 +58,8 @@ export class F01008scn2Component implements OnInit {
 
     this.search = sessionStorage.getItem('search');
   }
-  add() {
+  add() //新增
+  {
     this.showAdd = !this.showAdd;
     this.f01008Service.setJCICAddSource({
       minHeight: '70vh',
@@ -111,14 +112,16 @@ export class F01008scn2Component implements OnInit {
 
     });
   }
-  getSearch() {
+  getSearch() //判斷是否鎖按鈕
+  {
     // return this.search;
     return 'N';
   }
-  set() {
+  set() //查詢
+  {
     let jsonObject: any = {};
     let url = 'f01/f01008scn2';
-    jsonObject['applno'] = this.applno;
+    jsonObject['applno'] = '20211125A00002';
     jsonObject['page'] = this.page;
     jsonObject['pei_page'] = this.pei_page;
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
@@ -127,6 +130,7 @@ export class F01008scn2Component implements OnInit {
 
     })
   }
+
   getOptionDesc(option: sysCode[], codeVal: string): string {
     for (const data of option) {
       if (data.value == codeVal) {
@@ -136,6 +140,7 @@ export class F01008scn2Component implements OnInit {
     }
     return codeVal;
   }
+  //刪除
   deleteItem(ID:string,CON_TYPE:string,CON_MEMO:string,PHONE:string,TEL_CONDITION:string,CALLOUT_SETTIME:string,CALLOUT_DATE:string)
   {
     const dialogRef = this.dialog.open(F01008deleteComponent, {
@@ -159,5 +164,36 @@ export class F01008scn2Component implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && (result.event == 'success' || result == '1')) { this.set(); }
     });
+  }
+  macr()//註記新增
+  {
+    let jsonObject: any = {};
+    let url = 'f01/f01008scn2action4';
+    jsonObject['applno'] = this.applno;
+    jsonObject['userId'] = this.empNo;
+    jsonObject['creditaction'] = this.ma;
+    jsonObject['creditlevel'] = 'L2';
+    console.log(jsonObject)
+    this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+      if(data.rspCode === '0000'||data.rspMsg ==='儲存成功')
+      {
+
+      }
+      console.log(data)
+    })
+  }
+  edit(ID:string)//註記編輯
+  {
+    let jsonObject: any = {};
+    let url = 'f01/f01008scn2action5';
+    jsonObject['applno'] = this.applno;
+    jsonObject['userId'] = this.empNo;
+    jsonObject['creditaction'] = this.ma;
+    jsonObject['creditlevel'] = 'L2';
+    jsonObject['rowId'] = ID
+    console.log(jsonObject)
+    this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+      console.log(data)
+    })
   }
 }
