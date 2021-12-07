@@ -8,39 +8,48 @@ import { Childbwscn5Component } from '../children-bw/childbwscn5/childbwscn5.com
 import { Childbwscn6Component } from '../children-bw/childbwscn6/childbwscn6.component';
 import { Childbwscn7Component } from '../children-bw/childbwscn7/childbwscn7.component';
 import { Childbwscn8Component } from '../children-bw/childbwscn8/childbwscn8.component';
+import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
   {
     path: 'CHILDBWSCN1',
-    component: Childbwscn1Component
+    component: Childbwscn1Component,
+    canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN2',
     component: Childbwscn2Component,
+    canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN3',
-    component: Childbwscn3Component
+    component: Childbwscn3Component,
+    canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN4',
-    component: Childbwscn4Component
+    component: Childbwscn4Component,
+    canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN5',
-    component: Childbwscn5Component
+    component: Childbwscn5Component,
+    canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN6',
     component: Childbwscn6Component,
+    canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN7',
-    component: Childbwscn7Component
+    component: Childbwscn7Component,
+    canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN8',
-    component: Childbwscn8Component
+    component: Childbwscn8Component,
+    canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: '',
