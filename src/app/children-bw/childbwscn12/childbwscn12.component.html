@@ -10,14 +10,14 @@
   </thead>
   <tbody>
     <tr>
-     <td>申請人-{{swcID!=undefined? '':swcID}}</td>
-     <td><input class="inpu1" type="checkbox"></td>
-     <td><input class="inpu1" type="checkbox"></td>
+     <td>申請人-{{swcID}}</td>
+     <td><input class="inpu1" type="checkbox" value="swcBank" (click)="chkArray($event.target.checked,'swcBank')"></td>
+     <td><input class="inpu1" type="checkbox" value="swcJCIC"(click)="chkArray($event.target.checked,'swcJCIC')"></td>
     </tr>
   </tbody>
 </nz-table>
 <div style="padding:10px;text-align:center">
-  <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" >重查</button>
+  <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="recheck()" >重查</button>
   <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="closure()">關閉</button>
 </div>
 </div>

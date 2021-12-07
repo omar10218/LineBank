@@ -59,6 +59,7 @@ export class F01008scn2Component implements OnInit {
     this.cONDITION.push({value:'4',viewValue:'其他(備註)'})
 
     this.search = sessionStorage.getItem('search');
+    console.log(this.applno)
   }
   add() //新增
   {
@@ -136,7 +137,14 @@ export class F01008scn2Component implements OnInit {
       }
       this.macrSource = data.rspBody.creditmemoList;
       this.jaicSource = data.rspBody.creditMainList;
-
+      for (const jsonObj of data.rspBody.conType)
+      {
+        this.tYPE.push({value:jsonObj.codeNo,viewValue:jsonObj.codeDesc})
+      }
+      for (const js of data.rspBody.telCondition)
+      {
+        this.cONDITION.push({value:js.codeNo,viewValue:js.codeDesc})
+      }
 
     })
   }
@@ -211,8 +219,7 @@ export class F01008scn2Component implements OnInit {
     let url = 'f01/f01008scn0';
     jsonObject['applno'] = this.applno;
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-     console.log(data)
-     console.log("222222")
+
     })
   }
 }
