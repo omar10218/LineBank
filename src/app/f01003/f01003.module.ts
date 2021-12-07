@@ -1,3 +1,4 @@
+import { BlockModule } from './../block/block.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
@@ -23,7 +24,8 @@ import { NgZorroAntdModule } from '../ngzorro/ng-zorro-antd.module';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    F01003RoutingModule
+    F01003RoutingModule,
+    BlockModule
   ]
 })
 export class F01003Module { }

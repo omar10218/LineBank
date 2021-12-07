@@ -1,3 +1,4 @@
+import { BlockModule } from './../block/block.module';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { ChildrenModule } from './../children/children.module';
 import { NgModule } from '@angular/core';
@@ -33,7 +34,8 @@ registerLocaleData(zh);
     NgZorroAntdModule,
     ChildrenModule,
     NzTableModule,
-    CommonLibModule
+    CommonLibModule,
+    BlockModule
   ]
 })
 export class F01005Module { }

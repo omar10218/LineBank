@@ -1,3 +1,4 @@
+import { BlockModule } from './../block/block.module';
 import { F01008deleteComponent } from './f01008delete/f01008delete.component';
 import { F01008addComponent } from './f01008add/f01008add.component';
 import { F01008scn1Component } from './f01008scn1/f01008scn1.component';
@@ -44,7 +45,8 @@ registerLocaleData(zh);
     NgZorroAntdModule,
     ChildrenModule,
     NzTableModule,
-    CommonLibModule
+    CommonLibModule,
+    BlockModule
   ],
   exports: [
     F01008addComponent

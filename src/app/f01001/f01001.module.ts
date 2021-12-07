@@ -1,3 +1,4 @@
+import { BlockModule } from './../block/block.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
@@ -23,7 +24,8 @@ import { NzTableModule } from 'ng-zorro-antd/table';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    F01001RoutingModule
+    F01001RoutingModule,
+    BlockModule
   ]
 })
 export class F01001Module { }

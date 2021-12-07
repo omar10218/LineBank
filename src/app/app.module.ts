@@ -92,7 +92,6 @@ import { F02004Component } from './f02004/f02004.component';
 import { F01011Component } from './f01011/f01011.component';
 import { FontAwesomeModule,FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faFolderOpen} from '@fortawesome/free-solid-svg-icons';
-import { FormatNumberPipe, ToNumberPipe } from './pipe/customFormatterPipe';
 import { F04003Component } from './f04003/f04003.component';
 import { F02005Component } from './f02005/f02005.component';
 import { F02006Component } from './f02006/f02006.component';
@@ -209,7 +208,6 @@ export const TW_FORMATS = {
     NzButtonModule,
     GoogleMapsModule,
     FontAwesomeModule,
-
   ],
   providers: [
     BnNgIdleService,
