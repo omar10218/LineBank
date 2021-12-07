@@ -16,4 +16,9 @@ export class Childscn1Service extends BaseService {
   saveCreditmemo(baseUrl: string, json: JSON): any {
     return this.saveOrEditMsgJson(baseUrl, json);
   }
+
+  getDate_Json(baseUrl: string,  json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
+  }
+
 }

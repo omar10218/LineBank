@@ -65,6 +65,7 @@ export class Childscn8Component implements OnInit {
 
   private applno: string;
   private search: string;
+  private page: string;
   private empNo: string;
 
   listOfData: readonly Data[] = [];//表單資料筆數設定
@@ -126,6 +127,7 @@ export class Childscn8Component implements OnInit {
     this.getCALLOUTFunction(this.pageIndex, this.pageSize);//載入頁面
     this.search = sessionStorage.getItem('search');
     this.empNo = localStorage.getItem("empNo");
+    this.page = sessionStorage.getItem('page');
 
      this.HOURS_Code=this.childscn8Service.getHOURS();//時下拉選單
      this.MINUTES_Code=this.childscn8Service.getMINUTES();//分下拉選單
@@ -167,6 +169,9 @@ export class Childscn8Component implements OnInit {
 
   getSearch() {
     return this.search;
+  }
+  getPage() {
+    return this.page;
   }
 
   //totalCount: any;//表單資料筆數設定

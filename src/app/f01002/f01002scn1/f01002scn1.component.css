@@ -93,3 +93,62 @@ span:hover::before {
   background-color: rgb(190, 190, 190);
   color: #333;
 }
+.selected {
+  position:fixed;
+  top:68px;
+  width:100%;
+  z-index:50;
+}
+.classA{
+  position:fixed;
+  top:50px;
+  width:100%;
+  z-index:50;
+}
+.classB{
+  position:fixed;
+  top:28px;
+  width:100%;
+  z-index:50;
+}
+/* 功能按鈕樣式 */
+#firstBtn{
+  color:#FF602E;
+  background:white;
+  border-color:#FF602E;
+  border-radius:5px;
+
+}
+#firstBtn:hover{
+  color:#ffffff;
+  background:#FF602E;
+  border-color:#FF602E;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+#firstBtn:active{
+  color:#ffffff;
+  background:#FF602E;
+  border-color:#FF602E;
+  border-radius:5px;
+}
+#secondBtn{
+  color:#FF602E;
+  background:white;
+  border-color:#FF602E;
+  border-radius:5px;
+
+}
+#secondBtn:hover{
+  color:#ffffff;
+  background:#FF602E;
+  border-color:#FF602E;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+#secondBtn:active{
+  color:#ffffff;
+  background:#FF602E;
+  border-color:#FF602E;
+  border-radius:5px;
+}

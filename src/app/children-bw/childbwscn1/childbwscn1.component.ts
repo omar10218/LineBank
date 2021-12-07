@@ -7,6 +7,31 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childbwscn1Service } from './childbwscn1.service';
 import { Childbwscn1editComponent } from './childbwscn1edit/childbwscn1edit.component';
 
+//bwCreditMainList 覆審資訊
+interface bwCreditMainList_View {
+  applno: string//案件編號
+  nationalId: string//身分證字號
+  custId: string//客戶ID
+  cuCname: string//姓名
+  abnormalFlag: string//符合貸後異常名單
+  //客戶身分名單註記
+}
+//bwCreditAuditinfoList DSS決策結果
+interface bwCreditAuditinfoList_View {
+  rvprcscd: string//系統流程
+  rvstatcd: string//本次貸後管理狀態
+  rvcollflag: string//本次貸後管理註記
+  rvcrl: string//本次客戶風險等級CRL
+  jcicdatadt: string//本次執行審查使用之JCIC資料日期
+  rvRiskmdsub: string//風險模型子模型
+  rvRiskmdscore: string//分數
+  rvRiskmdgrade: string//等級
+  rvRiskmdgradeGp: string//等級分群
+  rvRiskmdgradeAdj: string//等級(策略調整後)
+  rvRiskmdgradeGpAdj: string//等級分群(策略調整後)
+}
+
+//Nick 審核資料
 @Component({
   selector: 'app-childbwscn1',
   templateUrl: './childbwscn1.component.html',
@@ -24,11 +49,11 @@ export class Childbwscn1Component implements OnInit {
   custId: string;
   nationalId: string;
   mark: string;
-  size=0//此層級是否有資料
+  size = 0//此層級是否有資料
 
   private page: string;
   //覆審:L4 覆審主管:L3
-  private creditlevel =""; //儲存層級
+  private creditlevel = ""; //儲存層級
   creditaction: ""; //審核註記
 
   ynCode: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
@@ -36,7 +61,9 @@ export class Childbwscn1Component implements OnInit {
   //Creditmemo
   creditmemoSource: Data[] = [];
   bwCreditAuditinfoList: Data[] = [];
+  add_bwCreditAuditinfoList: any;
   bwCreditMainList: Data[] = [];
+  add_bwCreditMainList: any;
   total = 1;
   pageIndex = 1;
   pageSize = 50;
@@ -48,11 +75,11 @@ export class Childbwscn1Component implements OnInit {
     , { value: 'NEX', viewValue: 'NEX' }, { value: 'N00', viewValue: 'N00' }, { value: 'XXX', viewValue: 'XXX' }, { value: '000', viewValue: '000' }];
 
   ngOnInit(): void {
+    this.page = sessionStorage.getItem('page');
+    this.applno = sessionStorage.getItem('applno');
     sessionStorage.setItem('BW_creditResult', "");
     sessionStorage.setItem('size', "0");
     sessionStorage.setItem('creditaction', "");
-    this.page = sessionStorage.getItem('page');
-    this.applno = sessionStorage.getItem('applno');
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
     this.creditlevel = this.page == "10" ? "L3" : this.creditlevel;
     this.getCreditmemo(this.pageIndex, this.pageSize);
@@ -67,9 +94,9 @@ export class Childbwscn1Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childbwscn1Service.postJson(url, jsonObject).subscribe(data => {
-      this.creditmemoSource=data.rspBody.list;
-      for(const data of this.creditmemoSource){
-        this.size=(data.CREDITLEVEL!=null&&data.CREDITLEVEL==this.creditlevel)?this.size+1:this.size;//判斷是否有資料
+      this.creditmemoSource = data.rspBody.list;
+      for (const data of this.creditmemoSource) {
+        this.size = (data.CREDITLEVEL != null && data.CREDITLEVEL == this.creditlevel) ? this.size + 1 : this.size;//判斷是否有資料
       }
       sessionStorage.setItem('size', this.size.toString());
       console.log('getCreditmemo')
@@ -78,11 +105,11 @@ export class Childbwscn1Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-		const {pageSize, pageIndex} = params
-		this.pageSize = pageSize
-		this.pageIndex = pageIndex
-		this.getCreditmemo(pageIndex, pageSize)
-	}
+    const { pageSize, pageIndex } = params
+    this.pageSize = pageSize
+    this.pageIndex = pageIndex
+    this.getCreditmemo(pageIndex, pageSize)
+  }
 
   //0查詢 1文審 2徵信 3授信 4主管 5Fraud 6申覆 8產生合約前回查 9複審人員 10複審主管
   getPage() {
@@ -91,8 +118,8 @@ export class Childbwscn1Component implements OnInit {
     // return '0'
   }
 
-   //查詢 上方主資料
-   getCreditMainList() {
+  //查詢 上方主資料
+  getCreditMainList() {
     const url = 'f01/childbwscn1';
     let jsonObject: any = {};
     // jsonObject['applno'] = this.applno;
@@ -101,8 +128,35 @@ export class Childbwscn1Component implements OnInit {
     this.childbwscn1Service.postJson(url, jsonObject).subscribe(data => {
       // console.log('getCreditMainList')
       // console.log(data)
-      this.bwCreditAuditinfoList=data.rspBody.bwCreditAuditinfoList;
-      this.bwCreditMainList=data.rspBody.bwCreditMainList;
+      this.bwCreditAuditinfoList = data.rspBody.bwCreditAuditinfoList;
+      this.bwCreditMainList = data.rspBody.bwCreditMainList;
+      if (this.bwCreditAuditinfoList.length < 1) {
+        this.add_bwCreditAuditinfoList = {
+          rvprcscd: '',//系統流程
+          rvstatcd: '',//本次貸後管理狀態
+          rvcollflag: '',//本次貸後管理註記
+          rvcrl: '',//本次客戶風險等級CRL
+          jcicdatadt: '',//本次執行審查使用之JCIC資料日期
+          rvRiskmdsub: '',//風險模型子模型
+          rvRiskmdscore: '',//分數
+          rvRiskmdgrade: '',//等級
+          rvRiskmdgradeGp: '',//等級分群
+          rvRiskmdgradeAdj: '',//等級(策略調整後)
+          rvRiskmdgradeGpAdj: ''//等級分群(策略調整後)}]
+        }
+        this.bwCreditAuditinfoList.push(this.add_bwCreditAuditinfoList);
+      }
+      if (this.bwCreditMainList.length < 1) {
+        this.add_bwCreditMainList = {
+          applno: this.applno,//案件編號
+          nationalId: '',//身分證字號
+          custId: '',//客戶ID
+          cuCname: '',//姓名
+          abnormalFlag: '' //符合貸後異常名單
+          //客戶身分名單註記
+        }
+        this.bwCreditMainList.push(this.add_bwCreditMainList);
+      }
       console.log('bwCreditAuditinfoList')
       console.log(this.bwCreditAuditinfoList)
       console.log('bwCreditMainList')
@@ -111,8 +165,8 @@ export class Childbwscn1Component implements OnInit {
   }
 
   //儲存
-  save() {
-    if(this.creditaction==""||this.creditaction==null){
+  async save() {
+    if (this.creditaction == "" || this.creditaction == null) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入審核意見' }
       });
@@ -124,45 +178,46 @@ export class Childbwscn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['creditaction'] = this.creditaction;
     jsonObject['creditlevel'] = this.creditlevel;
-    console.log('jsonObject')
-    console.log(jsonObject)
-    this.childbwscn1Service.postJson(url, jsonObject).subscribe(data => {
-      if(data.rspMsg=="儲存成功!"){this.getCreditmemo(this.pageIndex, this.pageSize);}
-      msg = data.rspMsg ;
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: msg }
-      });
-      // console.log('savedata')
-      // console.log(data)
+    msg = await this.childbwscn1Service.saveCreditmemo(url, jsonObject);
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
+      data: { msgStr: msg }
+    });
+    this.changePage();
+    this.getCreditmemo(this.pageIndex, this.pageSize);
+  }
+
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
+  }
+
+  //審核註記編輯
+  startEdit(creditaction: string, rowId: string) {
+    const dialogRef = this.dialog.open(Childbwscn1editComponent, {
+      minHeight: '70vh',
+      width: '50%',
+      panelClass: 'mat-dialog-transparent',
+      data: {
+        creditaction: creditaction,
+        applno: this.applno,
+        level: this.creditlevel,
+        rowId: rowId
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getCreditmemo(this.pageIndex, this.pageSize);
     });
   }
 
-    //審核註記編輯
-    startEdit(creditaction: string, rowId: string) {
-      const dialogRef = this.dialog.open(Childbwscn1editComponent, {
-        minHeight: '70vh',
-        width: '50%',
-        panelClass: 'mat-dialog-transparent',
-        data: {
-          creditaction: creditaction,
-          applno: this.applno,
-          level:this.creditlevel,
-          rowId: rowId
-        }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        this.getCreditmemo(this.pageIndex, this.pageSize);
-      });
-    }
+  //審核結果 資料改變
+  radio_change() {
+    sessionStorage.setItem('BW_creditResult', this.BW_creditResult);
+    // alert(sessionStorage.getItem('BW_creditResult'));
+  }
 
-    //審核結果 資料改變
-    radio_change(){
-      sessionStorage.setItem('BW_creditResult', this.BW_creditResult);
-      // alert(sessionStorage.getItem('BW_creditResult'));
-    }
-
-    creditaction_keyup(){
-      sessionStorage.setItem('creditaction', this.creditaction);
-    }
+  creditaction_keyup() {
+    sessionStorage.setItem('creditaction', this.creditaction);
+  }
 
 }

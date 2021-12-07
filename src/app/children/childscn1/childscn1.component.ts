@@ -9,6 +9,8 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import * as L from 'leaflet';
 import { DatePipe } from '@angular/common';
 import { Childscn1editComponent } from './childscn1edit/childscn1edit.component';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-childscn1',
@@ -18,12 +20,14 @@ import { Childscn1editComponent } from './childscn1edit/childscn1edit.component'
 export class Childscn1Component implements OnInit {
 
   constructor(
+    private fb: FormBuilder,
     private childscn1Service: Childscn1Service,
     public dialog: MatDialog,
     private pipe: DatePipe
   ) { }
 
   mark: string;
+  search: string;
 
   //申請資訊
   applno: string;                               //案編
@@ -115,8 +119,107 @@ export class Childscn1Component implements OnInit {
   pageIndex = 1;
   pageSize = 50;
 
+
+  EL_DSS1_UNDW_LIST1 = new MatTableDataSource<any>();//dss1徵審代碼
+  EL_DSS2_UNDW_LIST1 = new MatTableDataSource<any>();//dss2徵審代碼
+  EL_DSS2_CFC_LIMIT1 = new MatTableDataSource<any>();//試算額度策略
+  EL_DSS2_STRGY_SRATE1 = new MatTableDataSource<any>();//試算利率(多階)
+  EL_DSS2_STRGY_MERG1 = new MatTableDataSource<any>();//試算授信策略_債整明細
+
+  dss1Form1: FormGroup = this.fb.group({
+    //系統決策
+    SYSFLOWCD: ['', []],//系統流程
+    RESLTCD: ['', []],//決策結果
+
+    //案件資訊
+    CALV: ['', []],//案件等級
+    GOODBEHAV_MORT: ['', []],//往來優質特徵註記(房貸)
+    GOODBEHAV_CC: ['', []],//往來優質特徵註記(信用卡)
+    OCUPATN_CUST_STGP1: ['', []],//策略客群1(客戶填寫)
+    OCUPATN_CUST_STGP2: ['', []],//策略客群2(客戶填寫)
+    OCUPATN_CUST_GP: ['', []],//行職業代碼分群(客戶填寫)
+    OCUPATN_CUST_STGP1_PM: ['', []],//策略客群1(客戶填寫) (PM分群)
+    OCUPATN_CUST_STGP2_PM: ['', []],//策略客群2(客戶填寫) (PM分群)
+    OCUPATN_CUST_GP_PM: ['', []],//行職業代碼分群(客戶填寫) (PM分群)
+    CUST_TAG: ['', []],//客群標籤
+    CUST_TAG_DESC: ['', []],//客群標籤說明
+
+    //風險
+    RISKMDSUB_A0: ['', []],//風險模型子模型代碼
+    RISKMDGRADE_A0_ADJ: ['', []],//風險模型等級(策略調整後)
+    RISKMDGRADE_A0_GP_ADJ: ['', []],//風險模型等級分群(策略調整後)
+
+  });
+
+  dss2Form1: FormGroup = this.fb.group({
+    //系統決策
+    SYSFLOWCD: ['', []],//系統流程
+    RESLTCD: ['', []],//決策結果
+
+    //案件資訊
+    CALV: ['', []],//案件等級
+    GOODBEHAV_MORT: ['', []],//往來優質特徵註記(房貸)
+    GOODBEHAV_CC: ['', []],//往來優質特徵註記(信用卡)
+    OCUPATN_CUST_STGP1: ['', []],//策略客群1(客戶填寫)
+    OCUPATN_CUST_STGP2: ['', []],//策略客群2(客戶填寫)
+    OCUPATN_CUST_GP: ['', []],//行職業代碼分群(客戶填寫)
+    OCUPATN_CUST_STGP1_PM: ['', []],//策略客群1(客戶填寫) (PM分群)
+    OCUPATN_CUST_STGP2_PM: ['', []],//策略客群2(客戶填寫) (PM分群)
+    OCUPATN_CUST_GP_PM: ['', []],//行職業代碼分群(客戶填寫) (PM分群)
+    CUST_TAG: ['', []],//客群標籤
+    CUST_TAG_DESC: ['', []],//客群標籤說明
+
+    //策略模板資訊
+    STRGY_MDUL: ['', []],//試算授信策略模板分類
+    STRGY_MDUL_ATVDT: ['', []],//授信策略模板生效日期時間
+    STRGY_RATE_ATVDT: ['', []],//利率模板生效日期時間
+
+    //授信及產品條件
+    //1.2.3共用
+    STRGY_PRDCD: ['', []],//產品名稱
+    STRGY_APRFRJ: ['', []],//試算授信策略_准駁
+    STRGY_PERIOD_MIN: ['', []],//期數最小值
+    STRGY_PERIOD_MAX: ['', []],//期數最大值
+    //期數=STRGY_PERIOD_MIN ~ STRGY_PERIOD_MAX
+    STRGY_LIMIT_REVING: ['', []],//循環信貸額度
+    STRGY_LIMIT_INST: ['', []],//分期信貸金額
+    STRGY_LIMIT_CASH: ['', []],//分期信貸-現金額度
+    STRGY_LIMIT_MERG: ['', []],//分期信貸-債整額度
+    STRGY_MINPAYRT: ['', []],//每月最低還款比例(僅限循環信貸)
+    STRGY_DISB_BTCR_YN: ['', []],//結帳日至還款日間客戶可申請動撥Y
+    STRGY_RL_DISB_THRHLD: ['', []],//循環信貸簡易檢核動撥金額門檻
+    STRGY_ORIGINFEE: ['', []],//開辦費(首次簽約用)
+    STRGY_LOANEXTFEE: ['', []],//帳戶管理費(續約用)
+
+    //額度限額資訊 3種方案相同
+    LIMIT_DBR: ['', []],//限額_DBR
+    LIMIT_PRDMUE: ['', []],//限額_產品MUE
+    LIMIT_LAW32: ['', []],//限額_本行利害關係人(銀行法第32條)
+    LIMIT_LAW33_UNS: ['', []],//限額_同一自然人無擔保授信限額(銀行法第33條)
+    LIMIT_PROD_MAX: ['', []],//限額_產品/專案額度上限
+    LIMIT_PROD_MIN: ['', []],//限額_產品/專案額度下限
+    LIMIT_CUSTAPPLY: ['', []],//限額_客戶申請金額
+    LIMIT_DTI: ['', []],//限額_月付收支比
+    LIMIT_NIDMUE: ['', []],//限額_歸戶MUE
+    LIMIT_MERGEAMT: ['', []],//限額_債整額度
+    STRGY_NIDMUEX: ['', []],//試算授信策略_歸戶MUE倍數
+    STRGY_NIDMUECAP: ['', []],//試算授信策略_歸戶MUECAP
+    STRGY_PRDMUEX: ['', []],//試算授信策略_產品MUE倍數
+    STRGY_PRDMUEXCAP: ['', []],//試算授信策略_產品MUECAP
+    STRGY_DBRX: ['', []],//試算授信策略_DBR限額倍數
+    STRGY_DTIX: ['', []],//試算授信策略_DTI參數
+
+    //風險
+    RISKMDSUB_A1: ['', []],//風險模型子模型代碼
+    RISKMDGRADE_A1_ADJ: ['', []],//風險模型等級(策略調整後)
+    RISKMDGRADE_A1_GP_ADJ: ['', []],//風險模型等級分群(策略調整後)
+
+  });
+
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    this.search = sessionStorage.getItem('search');
     this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -159,6 +262,9 @@ export class Childscn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
 
+      console.log('data');
+      console.log(data);
+
       //CreditAuditinfo
       if (data.rspBody.CreditAuditinfoList.length > 0) {
         this.cuCName = data.rspBody.CreditAuditinfoList[0].cuCname;
@@ -167,10 +273,10 @@ export class Childscn1Component implements OnInit {
         this.prodCode = data.rspBody.CreditAuditinfoList[0].prodCode;
         this.applicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount == null ? '' : this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
         this.caApplicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount == null ? '' : this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
-        if (data.rspBody.CreditAuditinfoList[0].caApplicationAmount != 0 || data.rspBody.CreditAuditinfoList[0].caApplicationAmount != '' || data.rspBody.CreditAuditinfoList[0].caApplicationAmount != null) {
+        if (data.rspBody.CreditAuditinfoList[0].caApplicationAmount != 0 && data.rspBody.CreditAuditinfoList[0].caApplicationAmount != '' && data.rspBody.CreditAuditinfoList[0].caApplicationAmount != null) {
           this.caApplicationAmount = this.toCurrency(data.rspBody.CreditAuditinfoList[0].caApplicationAmount.toString());
         }
-        sessionStorage.setItem('caApplicationAmount', data.rspBody.CreditAuditinfoList[0].caApplicationAmount);
+        sessionStorage.setItem('caApplicationAmount', this.toNumber(this.caApplicationAmount));
         this.purposeCode = data.rspBody.CreditAuditinfoList[0].purposeCode;
       }
 
@@ -276,6 +382,8 @@ export class Childscn1Component implements OnInit {
 
     })
     this.getCreditmemo(this.pageIndex, this.pageSize);
+    this.getDSS11();
+    this.getDSS21();
   }
 
   map: any;
@@ -313,6 +421,10 @@ export class Childscn1Component implements OnInit {
       corner2 = L.latLng(25.07824532440103, 121.57678659801286),
       bounds = L.latLngBounds(corner1, corner2);
     this.map.fitBounds(bounds);
+  }
+
+  getSearch() {
+    return this.search;
   }
 
   getCreditmemo(pageIndex: number, pageSize: number) {
@@ -432,7 +544,7 @@ export class Childscn1Component implements OnInit {
 
   getStyle(value: string) {
     // value = this.toNumber(value);
-    value = value != null ? value.replace(',' , '') : value;
+    value = value != null ? value.replace(',', '') : value;
     return {
       'text-align': this.isNumber(value) ? 'right' : 'left'
     }
@@ -467,4 +579,131 @@ export class Childscn1Component implements OnInit {
   toNumber(data: string) {
     return data != null ? data.replace(/[^\w\s]|_/g, '') : data;
   }
+
+  //取決策1Table
+  getDSS11() {
+    const url = 'f01/childscn10action';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['strgy'] = "1";
+    //測試用
+    // jsonObject['applno'] = '20211129A000005';
+    this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
+      // console.log('getDSS11data');
+      // console.log(data);
+      if (data.rspBody.DSS1.length > 0) {
+        //系統決策
+        this.dss1Form1.patchValue({ SYSFLOWCD: data.rspBody.DSS1[0].SYSFLOWCD })//系統流程
+        this.dss1Form1.patchValue({ RESLTCD: data.rspBody.DSS1[0].RESLTCD })//決策結果
+
+        //案件資訊
+        this.dss1Form1.patchValue({ CALV: data.rspBody.DSS1[0].CALV })//案件等級
+        this.dss1Form1.patchValue({ GOODBEHAV_MORT: data.rspBody.DSS1[0].GOODBEHAV_MORT })//往來優質特徵註記(房貸)
+        this.dss1Form1.patchValue({ GOODBEHAV_CC: data.rspBody.DSS1[0].GOODBEHAV_CC })//往來優質特徵註記(信用卡)
+        this.dss1Form1.patchValue({ OCUPATN_CUST_STGP1: data.rspBody.DSS1[0].OCUPATN_CUST_STGP1 })//策略客群1(客戶填寫)
+        this.dss1Form1.patchValue({ OCUPATN_CUST_STGP2: data.rspBody.DSS1[0].OCUPATN_CUST_STGP2 })//策略客群2(客戶填寫)
+        this.dss1Form1.patchValue({ OCUPATN_CUST_GP: data.rspBody.DSS1[0].OCUPATN_CUST_GP })//行職業代碼分群(客戶填寫)
+        this.dss1Form1.patchValue({ OCUPATN_CUST_STGP1_PM: data.rspBody.DSS1[0].OCUPATN_CUST_STGP1_PM })//策略客群1(客戶填寫) (PM分群)
+        this.dss1Form1.patchValue({ OCUPATN_CUST_STGP2_PM: data.rspBody.DSS1[0].OCUPATN_CUST_STGP2_PM })//策略客群2(客戶填寫) (PM分群)
+        this.dss1Form1.patchValue({ OCUPATN_CUST_GP_PM: data.rspBody.DSS1[0].OCUPATN_CUST_GP_PM })//行職業代碼分群(客戶填寫) (PM分群)
+        this.dss1Form1.patchValue({ CUST_TAG: data.rspBody.DSS1[0].CUST_TAG })//客群標籤
+        this.dss1Form1.patchValue({ CUST_TAG_DESC: data.rspBody.DSS1[0].CUST_TAG_DESC })//客群標籤說明
+
+        //風險 後期新增三欄位
+        this.dss1Form1.patchValue({ RISKMDSUB_A0: data.rspBody.DSS1[0].RISKMDSUB_A0 })//風險模型子模型代碼
+        this.dss1Form1.patchValue({ RISKMDGRADE_A0_ADJ: data.rspBody.DSS1[0].RISKMDGRADE_A0_ADJ })//風險模型等級(策略調整後)
+        this.dss1Form1.patchValue({ RISKMDGRADE_A0_GP_ADJ: data.rspBody.DSS1[0].RISKMDGRADE_A0_GP_ADJ })//風險模型等級分群(策略調整後)
+
+
+      }
+      this.EL_DSS1_UNDW_LIST1.data = data.rspBody.DSS1UNDWLIST;//徵審代碼
+
+    });
+  }
+
+  //取決策1Table
+  getDSS21() {
+    this.applno = sessionStorage.getItem('applno');
+    const url = 'f01/childscn10action3';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['strgy'] = "1";
+    //測試用
+    // jsonObject['applno'] = '20211116A000003';
+    this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
+      // console.log('getDSS21data');
+      // console.log(data);
+      if (data.rspBody.DSS2.length > 0) {
+        //系統決策
+        this.dss2Form1.patchValue({ SYSFLOWCD: data.rspBody.DSS2[0].SYSFLOWCD })//系統流程
+        this.dss2Form1.patchValue({ RESLTCD: data.rspBody.DSS2[0].RESLTCD })//決策結果
+
+        //案件資訊
+        this.dss2Form1.patchValue({ CALV: data.rspBody.DSS2[0].CALV })//案件等級
+        this.dss2Form1.patchValue({ GOODBEHAV_MORT: data.rspBody.DSS2[0].GOODBEHAV_MORT })//往來優質特徵註記(房貸)
+        this.dss2Form1.patchValue({ GOODBEHAV_CC: data.rspBody.DSS2[0].GOODBEHAV_CC })//往來優質特徵註記(信用卡)
+        this.dss2Form1.patchValue({ OCUPATN_CUST_STGP1: data.rspBody.DSS2[0].OCUPATN_CUST_STGP1 })//策略客群1(客戶填寫)
+        this.dss2Form1.patchValue({ OCUPATN_CUST_STGP2: data.rspBody.DSS2[0].OCUPATN_CUST_STGP2 })//策略客群2(客戶填寫)
+        this.dss2Form1.patchValue({ OCUPATN_CUST_GP: data.rspBody.DSS2[0].OCUPATN_CUST_GP })//行職業代碼分群(客戶填寫)
+        this.dss2Form1.patchValue({ OCUPATN_CUST_STGP1_PM: data.rspBody.DSS2[0].OCUPATN_CUST_STGP1_PM })//策略客群1(客戶填寫) (PM分群)
+        this.dss2Form1.patchValue({ OCUPATN_CUST_STGP2_PM: data.rspBody.DSS2[0].OCUPATN_CUST_STGP2_PM })//策略客群2(客戶填寫) (PM分群)
+        this.dss2Form1.patchValue({ OCUPATN_CUST_GP_PM: data.rspBody.DSS2[0].OCUPATN_CUST_GP_PM })//行職業代碼分群(客戶填寫) (PM分群)
+        this.dss2Form1.patchValue({ CUST_TAG: data.rspBody.DSS2[0].CUST_TAG })//客群標籤
+        this.dss2Form1.patchValue({ CUST_TAG_DESC: data.rspBody.DSS2[0].CUST_TAG_DESC })//客群標籤說明
+
+        //策略模板資訊
+        this.dss2Form1.patchValue({ STRGY_MDUL: data.rspBody.DSS2[0].STRGY_MDUL })//試算授信策略模板分類
+        this.dss2Form1.patchValue({ STRGY_MDUL_ATVDT: data.rspBody.DSS2[0].STRGY_MDUL_ATVDT })//授信策略模板生效日期時間
+        this.dss2Form1.patchValue({ STRGY_RATE_ATVDT: data.rspBody.DSS2[0].STRGY_RATE_ATVDT })//利率模板生效日期時間
+
+        //風險
+        this.dss2Form1.patchValue({ RISKMDSUB_A1: data.rspBody.DSS2[0].RISKMDSUB_A1 })//風險模型子模型代碼
+        this.dss2Form1.patchValue({ RISKMDGRADE_A1_ADJ: data.rspBody.DSS2[0].RISKMDGRADE_A1_ADJ })//風險模型等級(策略調整後)
+        this.dss2Form1.patchValue({ RISKMDGRADE_A1_GP_ADJ: data.rspBody.DSS2[0].RISKMDGRADE_A1_GP_ADJ })//風險模型等級分群(策略調整後)
+
+      }
+      if (data.rspBody.DSS2STRGY.length > 0) {
+        //授信及產品條件
+        //1.2.3共用
+        this.dss2Form1.patchValue({ STRGY_PRDCD: data.rspBody.DSS2STRGY[0].STRGY_PRDCD })//產品名稱
+        this.dss2Form1.patchValue({ STRGY_APRFRJ: data.rspBody.DSS2STRGY[0].STRGY_APRFRJ })//試算授信策略_准駁
+        this.dss2Form1.patchValue({ STRGY_PERIOD_MIN: data.rspBody.DSS2STRGY[0].STRGY_PERIOD_MIN })//期數最小值
+        this.dss2Form1.patchValue({ STRGY_PERIOD_MAX: data.rspBody.DSS2STRGY[0].STRGY_PERIOD_MAX })//期數最大值
+        //期數=STRGY_PERIOD_MIN ~ STRGY_PERIOD_MAX
+        this.dss2Form1.patchValue({ STRGY_LIMIT_REVING: data.rspBody.DSS2STRGY[0].STRGY_LIMIT_REVING })//循環信貸額度
+        this.dss2Form1.patchValue({ STRGY_LIMIT_INST: data.rspBody.DSS2STRGY[0].STRGY_LIMIT_INST })//分期信貸金額
+        this.dss2Form1.patchValue({ STRGY_LIMIT_CASH: data.rspBody.DSS2STRGY[0].STRGY_LIMIT_CASH })//分期信貸-現金額度
+        this.dss2Form1.patchValue({ STRGY_LIMIT_MERG: data.rspBody.DSS2STRGY[0].STRGY_LIMIT_MERG })//分期信貸-債整額度
+        this.dss2Form1.patchValue({ STRGY_MINPAYRT: data.rspBody.DSS2STRGY[0].STRGY_MINPAYRT })//每月最低還款比例(僅限循環信貸)
+        this.dss2Form1.patchValue({ STRGY_DISB_BTCR_YN: data.rspBody.DSS2STRGY[0].STRGY_DISB_BTCR_YN })//結帳日至還款日間客戶可申請動撥Y
+        this.dss2Form1.patchValue({ STRGY_RL_DISB_THRHLD: data.rspBody.DSS2STRGY[0].STRGY_RL_DISB_THRHLD })//循環信貸簡易檢核動撥金額門檻
+        this.dss2Form1.patchValue({ STRGY_ORIGINFEE: data.rspBody.DSS2STRGY[0].STRGY_ORIGINFEE })//開辦費(首次簽約用)
+        this.dss2Form1.patchValue({ STRGY_LOANEXTFEE: data.rspBody.DSS2STRGY[0].STRGY_LOANEXTFEE })//帳戶管理費(續約用)
+
+        //額度限額資訊 3種方案相同
+        this.dss2Form1.patchValue({ LIMIT_DBR: data.rspBody.DSS2STRGY[0].LIMIT_DBR })//限額_DBR
+        this.dss2Form1.patchValue({ LIMIT_PRDMUE: data.rspBody.DSS2STRGY[0].LIMIT_PRDMUE })//限額_產品MUE
+        this.dss2Form1.patchValue({ LIMIT_LAW32: data.rspBody.DSS2STRGY[0].LIMIT_LAW32 })//限額_本行利害關係人(銀行法第32條)
+        this.dss2Form1.patchValue({ LIMIT_LAW33_UNS: data.rspBody.DSS2STRGY[0].LIMIT_LAW33_UNS })//限額_同一自然人無擔保授信限額(銀行法第33條)
+        this.dss2Form1.patchValue({ LIMIT_PROD_MAX: data.rspBody.DSS2STRGY[0].LIMIT_PROD_MAX })//限額_產品/專案額度上限
+        this.dss2Form1.patchValue({ LIMIT_PROD_MIN: data.rspBody.DSS2STRGY[0].LIMIT_PROD_MIN })//限額_產品/專案額度下限
+        this.dss2Form1.patchValue({ LIMIT_CUSTAPPLY: data.rspBody.DSS2STRGY[0].LIMIT_CUSTAPPLY })//限額_客戶申請金額
+        this.dss2Form1.patchValue({ LIMIT_DTI: data.rspBody.DSS2STRGY[0].LIMIT_DTI })//限額_月付收支比
+        this.dss2Form1.patchValue({ LIMIT_NIDMUE: data.rspBody.DSS2STRGY[0].LIMIT_NIDMUE })//限額_歸戶MUE
+        this.dss2Form1.patchValue({ LIMIT_MERGEAMT: data.rspBody.DSS2STRGY[0].LIMIT_MERGEAMT })//限額_債整額度
+        this.dss2Form1.patchValue({ STRGY_NIDMUEX: data.rspBody.DSS2STRGY[0].STRGY_NIDMUEX })//試算授信策略_歸戶MUE倍數
+        this.dss2Form1.patchValue({ STRGY_NIDMUECAP: data.rspBody.DSS2STRGY[0].STRGY_NIDMUECAP })//試算授信策略_歸戶MUECAP
+        this.dss2Form1.patchValue({ STRGY_PRDMUEX: data.rspBody.DSS2STRGY[0].STRGY_PRDMUEX })//試算授信策略_產品MUE倍數
+        this.dss2Form1.patchValue({ STRGY_PRDMUEXCAP: data.rspBody.DSS2STRGY[0].STRGY_PRDMUEXCAP })//試算授信策略_產品MUECAP
+        this.dss2Form1.patchValue({ STRGY_DBRX: data.rspBody.DSS2STRGY[0].STRGY_DBRX })//試算授信策略_DBR限額倍數
+        this.dss2Form1.patchValue({ STRGY_DTIX: data.rspBody.DSS2STRGY[0].STRGY_DTIX })//試算授信策略_DTI參數 注意名稱差異
+
+      }
+      this.EL_DSS2_UNDW_LIST1.data = data.rspBody.DSS2UNDWLIST;//徵審代碼
+      this.EL_DSS2_CFC_LIMIT1.data = data.rspBody.DSS2CFCLIMIT;//試算額度策略
+      this.EL_DSS2_STRGY_SRATE1.data = data.rspBody.DSS2STRGYSRATE;//試算利率(多階)
+      this.EL_DSS2_STRGY_MERG1.data = data.rspBody.DSS2STRGYMERG;//試算授信策略_債整明細
+    });
+  }
+
 }
