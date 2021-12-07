@@ -77,7 +77,8 @@ export class Childbwscn1Component implements OnInit {
   ngOnInit(): void {
     this.page = sessionStorage.getItem('page');
     this.applno = sessionStorage.getItem('applno');
-    this.nationalId = sessionStorage.getItem('cuid');
+    this.nationalId = sessionStorage.getItem('swcNationalId');
+    this.custId = sessionStorage.getItem('swcCustId');
     sessionStorage.setItem('BW_creditResult', "");
     sessionStorage.setItem('size', "0");
     sessionStorage.setItem('creditaction', "");

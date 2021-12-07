@@ -189,7 +189,7 @@ export class F01009Component implements OnInit, AfterViewInit {
   }
 
   // 案件子頁籤
-  getLockCase(swcApplno: string, swcNationalId: string) {
+  getLockCase(swcApplno: string, swcNationalId: string, swcCustId: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
     this.f01009Service.getLockCase(jsonObject).subscribe(data => {
@@ -198,7 +198,8 @@ export class F01009Component implements OnInit, AfterViewInit {
       }
       if (data.rspMsg == '案件鎖定成功') {
         sessionStorage.setItem('applno', swcApplno);
-        sessionStorage.setItem('cuid', swcNationalId);
+        sessionStorage.setItem('swcNationalId', swcNationalId);
+        sessionStorage.setItem('swcCustId', swcCustId);
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');

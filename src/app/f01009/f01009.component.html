@@ -108,7 +108,7 @@
               </div>
             </div>
           </div>
-          
+
           <div nz-col nzSpan="4" style="margin-top:15px;">
             <div>
               <button nz-button [nzSize]="'middle'" nzType="primary" (click)="clear()">清除資料</button>
@@ -161,7 +161,7 @@
                   </button>
                   <button nz-button [nzSize]="'middle'" nzType="link"
                     *ngIf="data.swcReadyForReview=='Y'||data.swcReadyForReview==''"
-                    (click)="getLockCase(data.swcApplno, data.swcNationalId)">
+                    (click)="getLockCase(data.swcApplno, data.swcNationalId, data.swcCustId)">
                     {{data.swcApplno}}
                   </button>
                 </td>
