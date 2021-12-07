@@ -32,4 +32,5 @@
   <router-outlet style="display: block;"></router-outlet>
 </div>
 <app-f01008add *ngIf="isShowAdd" cdkDrag [data]="addData"></app-f01008add>
-<!-- <app-childscn8edit *ngIf="isShowEdit" cdkDrag [data]="editData"></app-childscn8edit> -->
+<app-f01008edit *ngIf="isShowEdit" cdkDrag [data]="editData"></app-f01008edit>
+<app-f01008delete *ngIf="isShowdel" cdkDrag ></app-f01008delete>

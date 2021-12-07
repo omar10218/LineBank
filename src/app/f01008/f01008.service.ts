@@ -16,6 +16,8 @@ export class F01008Service extends BaseService {
   JCICSource$ = this.JCICSource.asObservable();
   private JCICAddSource = new Subject<any>();
   JCICAddSource$ = this.JCICAddSource.asObservable();
+  private JCICItemsSource = new Subject<any>();
+  JCICItemsSource$ = this.JCICItemsSource.asObservable();
   sCON_TYPE_Code: OptionsCode[] = [];//聯絡方式下拉選單
   sTEL_CONDITION_Code: OptionsCode[] = [];//電話狀況下拉選單
   sTEL_CHECK_Code: OptionsCode[] = [];//電話種類下拉選單
@@ -29,6 +31,10 @@ export class F01008Service extends BaseService {
   setJCICAddSource(data): void {
 
     this.JCICAddSource.next(data);
+  }
+  setJCICDelSource(data): void {
+
+    this.JCICItemsSource.next(data);
   }
 
   getEmpNo(jsonObject: JSON): Observable<any> {
