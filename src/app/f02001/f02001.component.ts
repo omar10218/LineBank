@@ -72,10 +72,14 @@ export class F02001Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
-      const { pageSize, pageIndex } = params;
-      this.selectData(pageIndex, pageSize);
-
+    const { pageIndex } = params;
+    // alert('2');
+    console.log(params)
+    if (this.pageIndex !== pageIndex) {
+      if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
+        const { pageSize, pageIndex } = params;
+        this.selectData(pageIndex, pageSize);
+      }
     }
   }
   // test()
@@ -408,7 +412,6 @@ export class F02001Component implements OnInit {
   }
   test()//測試
   {
-
   }
 
   conditionCheck() {
@@ -417,7 +420,7 @@ export class F02001Component implements OnInit {
       && this.cust_FLAG_Value == '' && this.risk_GRADE_Value == '' && this.apply_TIME == null
       && this.proof_DOCUMENT_TIME == null && this.sign_UP_TIME == null && this.product_NAME == ''
       && this.project_NAME == '' && this.marketing_CODE == '' && this.credit_TIME == null) {
-        this.total = 0;
+      this.total = 0;
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項條件" }
       });
@@ -426,33 +429,33 @@ export class F02001Component implements OnInit {
     }
   }
   sortChange(e: string) {
-
     this.resultData = e === 'ascend' ? this.resultData.sort(
-      (a, b) => a.APPLY_TIME.localeCompare(b.APPLY_TIME)) : this.resultData.sort((a, b) => b.APPLY_TIME.localeCompare(a.APPLY_TIME))
+      (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+    // alert('1');
+    // console.log(this.resultData);
+    console.log('-----------------');
   }
   Serial(e: string)//序號排序
   {
     this.resultData = e === 'ascend' ? this.resultData.sort(
       (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
   }
-  dateNull(t:[Date, Date],name:string)
-   {
+  dateNull(t: [Date, Date], name: string) {
 
-    if ( t.length < 1 ) {
-      switch(name)
-      {
+    if (t.length < 1) {
+      switch (name) {
         case 'apply_TIME':
-          this.apply_TIME =null;
+          this.apply_TIME = null;
           break;
-          case 'proof_DOCUMENT_TIME':
-          this.proof_DOCUMENT_TIME =null;
+        case 'proof_DOCUMENT_TIME':
+          this.proof_DOCUMENT_TIME = null;
           break;
-          case 'sign_UP_TIME':
-            this.sign_UP_TIME =null;
-            break;
-            case 'credit_TIME':
-              this.credit_TIME =null;
-              break;
+        case 'sign_UP_TIME':
+          this.sign_UP_TIME = null;
+          break;
+        case 'credit_TIME':
+          this.credit_TIME = null;
+          break;
       }
     }
   }
