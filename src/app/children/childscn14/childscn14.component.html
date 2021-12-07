@@ -18,16 +18,16 @@
         nzTitle="本案影像">
         <thead>
           <tr>
-            <th class="table-header"></th>
-            <th class="table-header">文件類型</th>
-            <th class="table-header">文件Key值</th>
-            <th class="table-header">備註</th>
-            <th class="table-header">上傳日期時間</th>
+            <th class="table-header" style="width:5%">No</th>
+            <th class="table-header" style="width:15%">文件類型</th>
+            <th class="table-header" style="width:10%">文件Key值</th>
+            <th class="table-header"style="width:30%">備註</th>
+            <th class="table-header" style="width:25%">上傳日期時間</th>
             <th class="table-header">上傳人員</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of imageSource">
+          <tr *ngFor="let data of imageSource;let i = index">
             <td class="table-data">
               <button class="btn" nz-button [nzSize]="'middle'" nzType="primary"
                 style="margin-bottom: 5px; margin-left: 5px;">
@@ -35,6 +35,7 @@
                   target="_blank">本案影像</a>
               </button>
             </td>
+            <td class="table-data">{{i+1 }}</td>
             <td class="table-data">{{ data.docId }}</td>
             <td class="table-data">{{ data.fileAttachmentId }}</td>
             <td class="table-data">{{ data.remark }}</td>

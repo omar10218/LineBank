@@ -72,10 +72,10 @@
     <nz-table [nzData]="MDtable" nzSize="small" nzTitle="照會項目">
       <thead>
         <tr>
-          <th class="table-header" style="width:10%">No</th>
+          <th class="table-header" style="width:4%">No</th>
           <th class="table-header" style="width:10%">項目</th>
-          <th class="table-header" style="width:10%">提問</th>
-          <th class="table-header" style="width:10%">核對資料</th>
+          <th class="table-header" style="width:2%">提問</th>
+          <th class="table-header" style="width:20%">核對資料</th>
           <th class="table-header" style="width:15%">回答狀況</th>
           <th class="table-header" style="width:25%">其他備註</th>
           <th class="table-header" style="width:10%">確認時間</th>
@@ -571,7 +571,7 @@
           <td class="table-data">{{ MDtable[16]?.MD_NO.viewValue }}</td>
           <td class="table-data">{{MDtable[16]?.txt}}</td>
           <td class="table-data"></td>
-          <td class="table-data">此區提供可複選
+          <td class="table-data">此區提供可複選<br>
             <nz-checkbox-wrapper  *ngFor="let data of REPLY_CONDITION17code;" disabled>
               <div nz-row>
                 <label nz-checkbox nzDisabled nzValue={{data.viewValue}} [(ngModel)]="data.checked" name={{data.viewValue}}>{{data.viewValue}}</label>
@@ -646,9 +646,7 @@
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[19].REPLY_CONDITION" name="REPLY_CONDITION20" disabled>
-              <label nz-radio nzValue="7">有(備註)</label>
-              <label nz-radio nzValue="8">無</label>
-              <label nz-radio nzValue="Z">其他:</label>
+             
             </nz-radio-group>
           </td>
           <td class="table-data">
