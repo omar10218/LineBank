@@ -52,15 +52,6 @@
                 </div>
 
               </nz-radio-group>
-
-
-              <!-- <mat-radio-group *ngFor="let code of data.TEL_CHECK_Code" fxLayout="column" [(ngModel)]="data.TEL_CHECK"
-                name="TEL_CHECK" required>
-                <mat-radio-button [value]="code.value">
-                  {{code.viewValue}}
-                </mat-radio-button>
-                <br>
-              </mat-radio-group> -->
             </div>
             <mat-error *ngIf="formControl.invalid && (data.TEL_CHECK=='' || data.TEL_CHECK== null) ">{{getErrorMessage()}}</mat-error>
           </div>
@@ -69,11 +60,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">電話狀況</span>
-              <!-- <nz-radio-group *ngFor="let code of data.TEL_CONDITION_Code" fxLayout="column"
-                [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" required>
-                <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
-              </nz-radio-group> -->
-              <nz-radio-group [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION">
+              <nz-radio-group [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" disabled>
                 <div nz-row>
                   <div nz-col nzSpan="12" *ngFor="let code of TEL_CONDITION_Code">
                     <label nz-radio  required [nzValue]="code.value">{{code.viewValue}}</label>
@@ -81,13 +68,6 @@
                 </div>
 
               </nz-radio-group>
-              <!-- <mat-radio-group *ngFor="let code of data.TEL_CONDITION_Code" fxLayout="column"
-                [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" required>
-                <mat-radio-button [value]="code.value">
-                  {{code.viewValue}}
-                </mat-radio-button>
-                <br>
-              </mat-radio-group> -->
             </div>
             <mat-error *ngIf="formControl.invalid && (data.TEL_CONDITION=='' || data.TEL_CONDITION== null) ">{{getErrorMessage()}}</mat-error>
           </div>

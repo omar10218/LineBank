@@ -4,6 +4,9 @@ import { F01008addComponent } from '../f01008add/f01008add.component'
 import { F01008Service } from '../f01008.service';
 import { Data } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import{F01008deleteComponent}from'../f01008delete/f01008delete.component'
 
 interface sysCode {
   value: string;
@@ -19,7 +22,8 @@ export class F01008scn2Component implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private f01008Service: F01008Service)
+    private f01008Service: F01008Service,
+    public datepipe: DatePipe)
     {
 
     }
@@ -79,8 +83,37 @@ export class F01008scn2Component implements OnInit {
 
     })
   }
+  //編輯
+  startEdit(ID:string,CON_TYPE:string,CON_MEMO:string,PHONE:string,TEL_CONDITION:string,CALLOUT_SETTIME:string,CALLOUT_DATE:string) {
+    this.showEdit = !this.showEdit;
+    this.f01008Service.setJCICSource({
+      minHeight: '70vh',
+			width: '50%',
+      show: this.showEdit,
+      applno: this.applno,//案件編號
+      // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+      CON_TYPE: CON_TYPE,//聯絡方式
+      // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+      TEL_CONDITION: TEL_CONDITION,//電話狀況
+      // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+      // TEL_CHECK: TEL_CHECK,//電話種類
+      // HOURS_Code: this.HOURS_Code,//時下拉選單
+      HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
+      // MINUTES_Code: this.MINUTES_Code,//分下拉選單
+      MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
+      PHONE: PHONE,//手機/市話
+      CON_MEMO: CON_MEMO,//備註
+      CALLOUT_DATE: CALLOUT_DATE,//設定下次照會時間
+      ID: ID,//java用row ID
+      CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
+      CALLOUT_EMPNO: this.empNo,//徵信員編
+
+
+    });
+  }
   getSearch() {
-    return this.search;
+    // return this.search;
+    return 'N';
   }
   set() {
     let jsonObject: any = {};
@@ -103,12 +136,28 @@ export class F01008scn2Component implements OnInit {
     }
     return codeVal;
   }
-  deleteItem(id:string)
+  deleteItem(ID:string,CON_TYPE:string,CON_MEMO:string,PHONE:string,TEL_CONDITION:string,CALLOUT_SETTIME:string,CALLOUT_DATE:string)
   {
-    console.log(id);
-  }
-  startEdit()
-  {
-
+    const dialogRef = this.dialog.open(F01008deleteComponent, {
+      minHeight: '70vh',
+      width: '70%',
+      data: {
+        show: this.showEdit,
+        applno: this.applno,//案件編號
+        CON_TYPE: CON_TYPE,//聯絡方式
+        TEL_CONDITION: TEL_CONDITION,//電話狀況
+        HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
+        MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
+        PHONE: PHONE,//手機/市話
+        CON_MEMO: CON_MEMO,//備註
+        CALLOUT_DATE: CALLOUT_DATE,//設定下次照會時間
+        ID: ID,//java用row ID
+        CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
+        CALLOUT_EMPNO: this.empNo,//徵信員編
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && (result.event == 'success' || result == '1')) { this.set(); }
+    });
   }
 }

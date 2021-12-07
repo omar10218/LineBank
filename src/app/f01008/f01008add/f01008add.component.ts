@@ -50,7 +50,7 @@ export class F01008addComponent implements OnInit {
     jsonObject['phone'] = this.data.PHONE;
     jsonObject['telCondition'] = this.data.TEL_CONDITION;
     jsonObject['conMemo'] = this.data.CON_MEMO;
-    jsonObject['date'] = this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyyMMdd');;
+    jsonObject['date'] = this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyyMMdd');
     jsonObject['hour'] = this.data.HOURS;
     jsonObject['min'] = this.data.MINUTES;
     this.f01008Service.f01008scn2(jsonObject,url).subscribe(data =>{

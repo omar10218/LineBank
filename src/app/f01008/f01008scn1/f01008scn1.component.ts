@@ -17,13 +17,19 @@ export class F01008scn1Component implements OnInit {
       this.editData = data;
       this.isShowEdit = data.show;
     });
+    this.JCICSource$ = this.f01008Service.JCICItemsSource$.subscribe((data) => {
+      this.f01008Service = data.show;
+      this.isShowdel = data.show;
+    });
   }
   JCICSource$: Subscription;
   JCICAddSource$: Subscription;
   isShowAdd: boolean;
   isShowEdit: boolean;
+  isShowdel: boolean;
   addData: any;
   editData: any;
+  deltData:any;
   ngOnInit(): void {
 
   }
