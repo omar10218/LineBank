@@ -21,8 +21,6 @@ export class F03006amtComponent {
 	constructor(public dialogRef: MatDialogRef<F03006amtComponent>, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any, public f03006Service: F03006Service) {}
 	submit() {}
 	ngOnInit(): void {
-		console.log(this.data)
-		console.log(this.data.SOURCE)
 		this.getCheckList()
 	}
 
@@ -32,9 +30,6 @@ export class F03006amtComponent {
 		if (x.length > 0) {
 			x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 		}
-    console.log(x)
-    console.log(name)
-
 				switch (name) {
 					case 'MAX_APPROVE_AMT':
 						this.data.MAX_APPROVE_AMT = x
@@ -50,7 +45,6 @@ export class F03006amtComponent {
 	setAll(completed: boolean) {
 		for (const obj of this.data.CHECKBOX) {
 			obj.completed = completed
-			console.log(this.data)
 		}
 	}
 
@@ -70,9 +64,6 @@ export class F03006amtComponent {
 	public async confirmAdd(): Promise<void> {
 		const baseUrl = 'f03/f03006action9'
 		var valArray: string[] = []
-
-		console.log(this.data)
-		console.log(this.data.SOURCE)
 		let jsonObject: any = {}
 		// let jsonObjects: any = [];
 		// let array: [];
@@ -83,11 +74,8 @@ export class F03006amtComponent {
 			maxApproveAmt: item.MAX_APPROVE_AMT,
 		}))
 
-
-		console.log(array)
 		let msgStr = ''
 		this.f03006Service.saveEmployeeRole(baseUrl, array).subscribe(data => {
-			console.log(data)
 			msgStr = data.rspCode === '0000' && data.rspMsg === '成功' ? '儲存成功！' : '儲存失敗！'
 			const childernDialogRef = this.dialog.open(ConfirmComponent, {
 				data: {msgStr: msgStr},

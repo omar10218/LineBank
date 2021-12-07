@@ -1,3 +1,4 @@
+<app-block *ngIf="block"></app-block>
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
   <br>
@@ -33,7 +34,7 @@
     </ng-container>
   </div>
   <div  [ngClass]="{'classA': changeValue==true,'classB': changeValue==false}">
-    
+
     <br>
     <nz-tabset nzLinkRouter >
       <nz-tab>
@@ -107,7 +108,7 @@
             申覆資料</button>
         </a>
       </nz-tab>
-      
+
 
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN10']">
@@ -156,21 +157,21 @@
             DBR/月收支比</button>
         </a>
       </nz-tab> -->
-      
-     
-     
-     
-     
-    
-      
-     
-      
-      
-     
-     
-    
-      
-      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <ng-container *ngIf="fds == 'D'">
         <nz-tab>
           <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN15']">
@@ -179,8 +180,8 @@
           </a>
         </nz-tab>
       </ng-container>
-     
-     
+
+
     </nz-tabset>
   </div>
   <router-outlet style="padding-top: 70px;display: block;"></router-outlet>

@@ -39,8 +39,6 @@ export class F01008deleteComponent implements OnInit {
     this.MINUTES_Code = this.f01008Service.getMINUTES();//分下拉選單
     this.CON_TYPE_Code = this.f01008Service.getCON_TYPE();//聯絡方式下拉選單
     this.TEL_CONDITION_Code = this.f01008Service.getTEL_CONDITION();//電話狀況下拉選單
-
-    console.log(this.data)
   }
 
   deleteAction(ID: string)//刪除
@@ -50,7 +48,6 @@ export class F01008deleteComponent implements OnInit {
     let codeStr: string = "";
     let jsonObject: any = {};
     jsonObject['rowID'] = ID;
-    console.log(ID  )
     this.f01008Service.f01008scn2(jsonObject,url).subscribe(data =>{
       codeStr = data.rspCode;
       msgStr = data.rspMsg;

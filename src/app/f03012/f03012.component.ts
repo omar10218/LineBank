@@ -80,7 +80,6 @@ export class F03012Component implements OnInit {
 		})
 	}
 	onQueryParamsChange(params: NzTableQueryParams): void {
-		console.log(params)
 		const {pageSize, pageIndex} = params
 		this.getComePareDataSetList(pageIndex, pageSize)
 	}
@@ -92,7 +91,6 @@ export class F03012Component implements OnInit {
 			this.currentPage = page
 			this.getComePareDataSetList(this.pageIndex, this.pageSize)
 		})
-		console.log(this.selectedValue1)
 	}
 
 	totalCount: any
@@ -109,15 +107,12 @@ export class F03012Component implements OnInit {
 		jsonObject['page'] = pageIndex
 		jsonObject['per_page'] = pageSize
 		this.f03012Service.getComePareDataSetList(baseUrl, jsonObject).subscribe(data => {
-			console.log(data)
 			this.total = data.rspBody.size
 			this.compareDataSetSource.data = data.rspBody.items
 			this.compareTableOption = data.rspBody.compareTable
 			this.compareColumnOption = data.rspBody.comparColumn
 			this.one = data.rspBody.items
 			// this.limit2()
-			console.log(data.rspBody.comparColumn)
-			console.log('one', this.one)
 			this.useFlag = false
 		})
 	}
@@ -268,12 +263,10 @@ export class F03012Component implements OnInit {
 		let msg = ''
 		const url = 'f03/f03012action4'
 		const formdata: FormData = new FormData()
-		console.log(compareTable)
 		formdata.append('compareTable', compareTable)
 
 		this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
 			// msg = data.rspMsg;
-			console.log(data)
 			// const items = data.rspBody.items.filter(item => item.compareType !== null && item.setValueHight !== null && item.setValueLow !== null)
 			const items = data.rspBody.items
 			this.totalCount = items.length
@@ -288,17 +281,14 @@ export class F03012Component implements OnInit {
 
 	// checkBox狀態變化時觸發此function，改變checkBox狀態同時存取該項目入checked陣列
 	changeChkStatus(id) {
-		console.log(id)
 		// if(this.useFlag == false) {
 		//   return false
 		// }
 
 		this.compareDataSetSource.data.forEach(chk => {
 			if (chk.id === id) {
-				console.log(chk.id)
 				chk.isChk = !chk.isChk
 				// this.getCompareDataSet();
-				console.log(chk.isChk)
 			}
 		})
 	}
@@ -317,7 +307,6 @@ export class F03012Component implements OnInit {
 		}
 
 		for (let obj of this.checked) {
-			console.log(obj)
 			let jsonObject: any = {}
 			jsonObject['compareTable'] = obj.compareTable
 			jsonObject['compareColumn'] = obj.compareColumn
@@ -336,7 +325,6 @@ export class F03012Component implements OnInit {
 			jsonObjects.push(jsonObject)
 			// obj = {};
 		}
-		console.log(jsonObjects)
 		this.f03012Service.submit(url, jsonObjects).subscribe(data => {
 			alert((msg = data.rspMsg))
 			this.changePage()

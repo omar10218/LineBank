@@ -34,8 +34,6 @@ export class F03014editComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log()
-
   }
   formControl = new FormControl('', [
     Validators.required

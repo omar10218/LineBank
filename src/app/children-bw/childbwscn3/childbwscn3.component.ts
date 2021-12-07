@@ -382,8 +382,6 @@ hideJAS002= false;
 		jsonObject['applno'] = this.applno
 		// jsonObject['queryDate'] = this.queryDate
 		this.childbwscn3Service.getMASTERJCICList(jsonObject).subscribe(data => {
-      console.log("data")
-      console.log(data)
 			this.listSource = data.rspBody;
 		})
 	}

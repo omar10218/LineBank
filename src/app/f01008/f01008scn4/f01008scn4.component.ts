@@ -180,8 +180,6 @@ export class F01008scn4Component implements OnInit {
     //測試用
     // jsonObject['applno'] = '20211125A00002';
     this.f01008scn4Service.postJson(url, jsonObject).subscribe(data => {
-      console.log('data');
-      console.log(data);
       if (data.rspBody.elDss3List.length > 0) {
         //系統決策
         this.dss3Form1.patchValue({ QUERY_DATE: data.rspBody.elDss3List[0].queryDate })//DSS交易日期時間

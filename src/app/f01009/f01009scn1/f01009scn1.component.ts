@@ -27,6 +27,7 @@ export class F01009scn1Component implements OnInit {
   creditaction:string;
 
   changeValue: boolean = true;
+  block: boolean = false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -84,9 +85,9 @@ export class F01009scn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['creditaction'] = this.creditaction;
     jsonObject['creditlevel'] = this.creditlevel;
-    console.log('jsonObject')
-    console.log(jsonObject)
+    this.block = true;
     this.f01009Service.postJson(url, jsonObject).subscribe(data => {
+      this.block = false;
       // if(data.rspMsg=="儲存成功!"){this.getCreditmemo(this.pageIndex, this.pageSize);}
       // msg = data.rspMsg ;
       // const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -116,6 +117,7 @@ export class F01009scn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.creditlevel;
     jsonObject['creditResult'] = sessionStorage.getItem('BW_creditResult');
+    this.block = true;
     this.f01009Service.postJson(url, jsonObject).subscribe(data => {
       // if(data.rspMsg=="儲存成功!"){this.getCreditmemo(this.pageIndex, this.pageSize);}
       msg = data.rspMsg ;
@@ -124,6 +126,7 @@ export class F01009scn1Component implements OnInit {
       });
       // console.log('savedata')
       // console.log(data)
+      this.block = false;
       this.router.navigate(['./F01009']);
     });
   }

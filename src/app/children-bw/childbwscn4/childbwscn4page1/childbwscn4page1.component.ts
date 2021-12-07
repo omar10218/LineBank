@@ -67,7 +67,6 @@ export class Childbwscn4page1Component implements OnInit {
     jsonObject['cuid'] = this.cuid;
     jsonObject['code'] = 'CORE_CUS_INFO';
     this.Childbwscn4Service.getDate(url, jsonObject).subscribe(data => {
-      console.log(data)
       if (data.rspBody.items.length > 0) {
          for (let i = 0; i < data.rspBody.items.length; i++) {
          this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
@@ -86,7 +85,6 @@ export class Childbwscn4page1Component implements OnInit {
     jsonObject['code'] = 'CORE_CUS_INFO';
 
     this.Childbwscn4Service.getCoreCusInfo(jsonObject).subscribe(data => {
-      console.log(data)
       this.coreCustInfoForm.patchValue({ APPLNO: data.rspBody.items[0].APPLNO })
       this.coreCustInfoForm.patchValue({ AGE: data.rspBody.items[0].AGE })
       this.coreCustInfoForm.patchValue({ STAR_SIGN: data.rspBody.items[0].STAR_SIGN })

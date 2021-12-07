@@ -33,7 +33,7 @@ export class Childscn14page3Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn14Service.getImageInfo(baseUrl, jsonObject).subscribe(data => {
-      console.log(data);
+
     });
 
   }

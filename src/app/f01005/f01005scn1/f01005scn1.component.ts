@@ -67,6 +67,9 @@ export class F01005scn1Component implements OnInit {
   caPmcus: string;
   caRisk: string;
   mark: string;
+
+  block: boolean = false;
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
@@ -173,7 +176,6 @@ export class F01005scn1Component implements OnInit {
 
   save(url: string, result: string) {
     const baseUrl = url;
-    let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'Fraud';
@@ -239,12 +241,14 @@ export class F01005scn1Component implements OnInit {
   }
 
   result(baseUrl: string, jsonObject: JSON, result: string) {
+    this.block = true;
     this.saveMemo();
     this.f01005scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       this.removeSession();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
+      this.block = false;
       this.router.navigate(['./F01005']);
     });
   }
@@ -278,5 +282,5 @@ export class F01005scn1Component implements OnInit {
   }
 }
 
-  
+
 

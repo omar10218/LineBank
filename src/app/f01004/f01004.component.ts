@@ -43,7 +43,7 @@ export class F01004Component implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     // 查詢案件分類
-    
+
     this.f01004Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
       this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
@@ -72,7 +72,6 @@ export class F01004Component implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.getCaseList();
-    console.log( sessionStorage.setItem('applno', this.swcApplno))
   }
 
   // 查詢案件清單
@@ -83,10 +82,8 @@ export class F01004Component implements OnInit, AfterViewInit {
     jsonObject['swcL0EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
-    console.log(this.swcApplno)
     jsonObject['caseType'] = this.caseType;
     this.f01004Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
       this.stepName = data.rspBody.items[0].F_StepName;
@@ -117,11 +114,10 @@ export class F01004Component implements OnInit, AfterViewInit {
     this.f01004Service.getLockCase(jsonObject).subscribe(data => {
       if (data.rspBody.length > 0) {
         this.fds = data.rspBody[0].fds
-        console.log(data.rspMsg)
       }
       if (data.rspMsg == '案件鎖定成功') {
         sessionStorage.setItem('applno', swcApplno);
-       
+
         sessionStorage.setItem('cuid', swcNationalId);
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
@@ -186,7 +182,6 @@ export class F01004Component implements OnInit, AfterViewInit {
 
   // 排序
   sortChange(e: string) {
-    console.log(e)
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
   }

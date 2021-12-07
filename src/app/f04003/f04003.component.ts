@@ -68,8 +68,7 @@ export class F04003Component implements OnInit {
   }
   Inquire()//查詢
   {
-    console.log(this.Level)
-    console.log(this.personnel)
+
     if(this.Level != '' || this.personnel !='')
     {
       this.checkboxArray=[];
@@ -179,9 +178,5 @@ export class F04003Component implements OnInit {
 
   }
   tes() {
-    console.log(this.Transfer)
-    console.log(this.checkboxArray)
-    console.log(this.setDataSource)
-    console.log(this.assignArray)
   }
 }

@@ -43,6 +43,7 @@ export class F01003scn1Component implements OnInit {
   mark: string;
 
   changeValue: boolean = true;
+  block: boolean = false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -142,7 +143,6 @@ export class F01003scn1Component implements OnInit {
 
   save(url: string, result: string) {
     const baseUrl = url;
-    let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'L2';
@@ -240,12 +240,14 @@ export class F01003scn1Component implements OnInit {
   }
 
   result(baseUrl: string, jsonObject: JSON, result: string) {
+    this.block = true;
     this.saveMemo();
     this.f01003Scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       this.removeSession();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
+      this.block = false;
       this.router.navigate(['./F01003']);
     });
   }

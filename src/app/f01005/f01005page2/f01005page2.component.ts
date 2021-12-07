@@ -51,7 +51,6 @@ export class F01005page2Component implements OnInit {
     jsonObject['per_page'] = this.pageSize;
     this.loading = false;
     this.f01005Service.getCalloutList(jsonObject).subscribe(data => {
-      console.log(data)
       this.total = data.rspBody.length;
       this.callOutDataSource = data.rspBody;
       this.update(this.total);

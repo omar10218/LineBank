@@ -33,6 +33,7 @@ export class F01001scn1Component implements OnInit {
   level: string;
 
   changeValue: boolean = true;
+  block: boolean = false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -131,22 +132,23 @@ export class F01001scn1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'L4';
-
     this.creditResult = sessionStorage.getItem('creditResult');
     // if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
     //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
     //     data: { msgStr: '請填寫核決結果!' }
     //   });
     // } else {
-      let json: any = {};
-      json['creditResult'] = this.creditResult;
-      jsonObject['creditResult'] = json;
-      this.f01001Scn1Service.send( baseUrl, jsonObject ).subscribe(data => {
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: data.rspMsg }
-        });
-        this.router.navigate(['./F01001']);
+    let json: any = {};
+    json['creditResult'] = this.creditResult;
+    jsonObject['creditResult'] = json;
+    this.block = true;
+    this.f01001Scn1Service.send(baseUrl, jsonObject).subscribe(data => {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: data.rspMsg }
       });
+      this.block = false;
+      this.router.navigate(['./F01001']);
+    });
     // }
   }
 

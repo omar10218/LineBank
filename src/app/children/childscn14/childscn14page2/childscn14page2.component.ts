@@ -50,7 +50,6 @@ export class Childscn14page2Component implements OnInit {
   getHost(): String {
     var origin = window.location.origin;
     var host = origin.substring(0, origin.lastIndexOf(":"));
-    console.log(host)
     return host;
   }
 }

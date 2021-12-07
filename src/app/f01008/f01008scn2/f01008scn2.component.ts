@@ -43,6 +43,9 @@ export class F01008scn2Component implements OnInit {
   showEdit: boolean = false;
   Sendcheck:string;
   jaicSource: Data[] = [];
+
+  block: boolean = true;
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     // this.applno = "20211125A00002";
@@ -59,7 +62,6 @@ export class F01008scn2Component implements OnInit {
     this.cONDITION.push({value:'4',viewValue:'其他(備註)'})
 
     this.search = sessionStorage.getItem('search');
-    console.log(this.applno)
   }
   add() //新增
   {
@@ -111,8 +113,6 @@ export class F01008scn2Component implements OnInit {
       ID: ID,//java用row ID
       CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
       CALLOUT_EMPNO: this.empNo,//徵信員編
-
-
     });
   }
   getSearch() //判斷是否鎖按鈕
@@ -130,7 +130,6 @@ export class F01008scn2Component implements OnInit {
     jsonObject['page'] = this.page;
     jsonObject['pei_page'] = this.pei_page;
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      console.log(data)
       if(data.rspBody.list !=null)
       {
         this.dataSource = data.rspBody.list;
@@ -191,10 +190,11 @@ export class F01008scn2Component implements OnInit {
     jsonObject['userId'] = this.empNo;
     jsonObject['creditaction'] = this.ma;
     jsonObject['creditlevel'] = 'L2';
-    console.log(jsonObject)
+    this.block = true;
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
       if(data.rspCode === '0000'||data.rspMsg ==='儲存成功')
       {
+        this.block = false;
         this.set();
       }
     })
@@ -218,8 +218,9 @@ export class F01008scn2Component implements OnInit {
     let jsonObject: any = {};
     let url = 'f01/f01008scn0';
     jsonObject['applno'] = this.applno;
+    this.block = true;
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-
+      this.block = false;
     })
   }
 }

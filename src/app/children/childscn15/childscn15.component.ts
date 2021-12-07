@@ -49,7 +49,7 @@ export class Childscn15Component implements OnInit {
 
     const baseUrl = 'f01/childscn15';
     this.childscn15Service.getReason(baseUrl, this.applno).subscribe(data => {
-      console.log(data);
+
       this.manageHigh = data.rspBody.manageHigh;//fm高度偽冒風險
       this.manageOther = data.rspBody.manageOther;//fm其他
       this.delayOther = data.rspBody.delayOther;//fd其他
@@ -78,14 +78,6 @@ export class Childscn15Component implements OnInit {
 
     var fdString: string = "";// fd表單儲存用字串
     var fdL1String = ""; // fd判斷此列是否儲存過
-
-
-    console.log(this.fmData)
-    console.log(this.fdData)
-    console.log(this.manageHigh)
-    console.log(this.manageOther)
-    console.log(this.delayOther)
-    console.log(this.delayOtherTwo)
 
     //fm資料儲存格式 一列三格 以-分隔多筆資料       無資料以''代替
     // 1,1,1-1,1,2                            1,1,1-1,1,2-2,'',''
@@ -134,11 +126,6 @@ export class Childscn15Component implements OnInit {
     //有資料則消除最後一筆分隔記號
     fmString = fmString.length > 0 ? fmString.slice(0, fmString.length - 1) : fmString;
     fdString = fdString.length > 0 ? fdString.slice(0, fdString.length - 1) : fdString;
-
-    console.log("fmString");
-    console.log(fmString);
-    console.log("fdString");
-    console.log(fdString);
 
     //有資料才儲存
     if (fmString == "" && fdString == "") {

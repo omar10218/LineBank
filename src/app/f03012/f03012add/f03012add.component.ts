@@ -87,7 +87,6 @@ export class F03012addComponent implements OnInit {
 		jsonObject['compareTable'] = this.selectedValue1;
 		this.f03012Service.getColumn(jsonObject)
 			.subscribe(data => {
-				console.log(data)
 				for (const jsonObj of data.rspBody.mappingList) {
 					const codeNo = jsonObj.codeNo;
 					const desc = jsonObj.codeDesc;
@@ -109,7 +108,6 @@ export class F03012addComponent implements OnInit {
 	add() {
 		let msg = ''
 		this.submitted = true
-		console.log(this.alert)
 		// if (!this.compareTableSetForm.valid) {
 		//   msg = '資料格式有誤，請修正!';
 		// } else {

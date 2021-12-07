@@ -135,7 +135,6 @@ export class F03017Component implements OnInit {
 			jsonObject['bkColumn'] = this.bkColumnValue
 			jsonObject['bkContent'] = this.bkContentValue
 			await this.f03017Service.getReturn('f03/f03017', jsonObject).subscribe(data => {
-				console.log(data)
 				this.total = data.rspBody.size
 				this.bkIncomeDataSource = data.rspBody.items
 			})
@@ -168,7 +167,6 @@ export class F03017Component implements OnInit {
 				isUpdate: false,
 			},
 		})
-		console.log(isInsert)
 		dialogRef.afterClosed().subscribe(result => {
 			if (result != null && result.event == 'success') {
 				this.refreshTable()
@@ -178,10 +176,7 @@ export class F03017Component implements OnInit {
 
 	//編輯
 	update(isUpdate: boolean, data: any, row: any) {
-		console.log(data)
-		console.log(row)
 		this.chkArray.forEach(element => {
-			console.log(element)
 			var checked: boolean = true
 			if (element === 'CU_CNAME') {
 				this.contentArray.push(this.bkIncomeForm.value.CU_CNAME)

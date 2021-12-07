@@ -101,8 +101,6 @@ export class Childbwscn1Component implements OnInit {
         this.size = (data.CREDITLEVEL != null && data.CREDITLEVEL == this.creditlevel) ? this.size + 1 : this.size;//判斷是否有資料
       }
       sessionStorage.setItem('size', this.size.toString());
-      console.log('getCreditmemo')
-      console.log(data)
     });
   }
 
@@ -159,10 +157,6 @@ export class Childbwscn1Component implements OnInit {
         }
         this.bwCreditMainList.push(this.add_bwCreditMainList);
       }
-      console.log('bwCreditAuditinfoList')
-      console.log(this.bwCreditAuditinfoList)
-      console.log('bwCreditMainList')
-      console.log(this.bwCreditMainList)
     });
   }
 

@@ -313,8 +313,7 @@ export class Childscn10page1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['strgy'] = "2";
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
-      // console.log('data');
-      // console.log(data);
+
       if (data.rspBody.DSS1.length > 0) {
         //系統決策
         this.dss1Form2.patchValue({ SYSFLOWCD: data.rspBody.DSS1[0].SYSFLOWCD })//系統流程
@@ -391,8 +390,6 @@ export class Childscn10page1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['strgy'] = "3";
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
-      // console.log('data');
-      // console.log(data);
       if (data.rspBody.DSS1.length > 0) {
         //系統決策
         this.dss1Form3.patchValue({ SYSFLOWCD: data.rspBody.DSS1[0].SYSFLOWCD })//系統流程
@@ -603,15 +600,11 @@ export class Childscn10page1Component implements OnInit {
   //   jsonObject['mthpayBam029'] = this.save_data_number(this.fmData.data[0].mthpay_BAM029_B);
   //   jsonObject['mthpayKrm048'] = this.save_data_number(this.fmData.data[0].mthpay_KRM048_B);
   //   jsonObject['mthpayNonjcic'] = this.save_data_number2(this.fmData.data[0].mthpay_NONJCIC_B);
-  //   console.log('jsonObject')
-  //   console.log(jsonObject)
   //   this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
   //     msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
   //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
   //       data: { msgStr: msg }
   //     });
-  //     console.log('savedata')
-  //     console.log(data)
   //   });
   // }
 

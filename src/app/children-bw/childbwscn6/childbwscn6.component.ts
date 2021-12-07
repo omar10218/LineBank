@@ -47,13 +47,8 @@ export class Childbwscn6Component implements OnInit {
     // jsonObject['applno'] = '1111111';
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
-    console.log('jsonObject');
-    console.log(jsonObject);
     this.childbwscn6Service.selectCustomer(baseUrl, jsonObject).subscribe(data => {
-      console.log('data')
-      console.log(data)
       this.total = data.rspBody.size
-      console.log(this.total)
       this.ruleParamCondition = data.rspBody.items
     })
     this.loading = false

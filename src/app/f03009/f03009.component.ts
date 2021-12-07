@@ -52,10 +52,7 @@ export class F03009Component implements OnInit {
     const baseUrl = 'f03/f03009action1';
     let jsonObject: any = {};
     jsonObject['tvNo'] = this.selectedValue;
-    console.log(this.selectedValue);
     this.f03009Service.TvFunction(baseUrl, jsonObject).subscribe(data => {
-      console.log(data);
-      console.log(this.chkArray);
       if (this.chkArray.length > 0) {
         let i: number = 0;
         for (const jsonObj of data.rspBody) {

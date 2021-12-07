@@ -53,6 +53,8 @@ export class Childscn19Component implements OnInit {
   rescanDataSource = new MatTableDataSource<any>(); //補件資訊檔
   smsDataSource = new MatTableDataSource<any>();    //簡訊資訊檔
 
+  block: boolean = false;
+
   ngOnInit(): void {
 
     //取案編,客編,客戶手機
@@ -146,6 +148,7 @@ export class Childscn19Component implements OnInit {
         });
       }
       else {
+        this.block = true;
         let jsonObject: any = {};
         jsonObject['applno'] = this.applno;
         jsonObject['messageContent'] = this.messageContent;
@@ -155,7 +158,8 @@ export class Childscn19Component implements OnInit {
         let msgStr: string = "";
         msgStr = await this.childscn19Service.addSms(jsonObject);
         if (msgStr == 'success') {
-          msgStr = '儲存成功！'
+          msgStr = '儲存成功！';
+          this.block = false;
         }
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }

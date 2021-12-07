@@ -29,6 +29,8 @@ export class F01011Component implements OnInit {
   JsonBool = false;
   ExcelSource: any;
 
+  block: boolean = false;
+
   ngOnInit(): void {
   }
 
@@ -41,8 +43,8 @@ export class F01011Component implements OnInit {
       formdata.append('file', this.fileToUpload);
       let msgStr: string = "";
       let baseUrl = 'f01/f01011action1';
+      this.block = true;
       this.f01011Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
-        console.log(data)
         let msg = "";
         let errorMsg = "";
         if (data.rspBody.length > 0) {
@@ -54,6 +56,7 @@ export class F01011Component implements OnInit {
         } else {
           msg = data.rspMsg;
         }
+        this.block = false;
         this.uploadForm.patchValue({ ERROR_MESSAGE: msg });
       });
     }

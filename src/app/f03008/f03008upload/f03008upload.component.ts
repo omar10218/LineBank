@@ -33,7 +33,6 @@ export class F03008uploadComponent implements OnInit {
   ExcelSource: any;
 
   ngOnInit(): void {
-    console.log(this.data)
   }
 
   public async confirmAdd(): Promise<void> {
@@ -67,7 +66,6 @@ export class F03008uploadComponent implements OnInit {
 
   //檢查上傳檔案格式
   onChange(evt) {
-    console.log(evt)
     this.msg = "請選擇檔案";
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isExcelFile = !!target.files[0].name.match(/(.xls|.xlsx)/);

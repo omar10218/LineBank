@@ -32,7 +32,6 @@ export class Childscn18Component implements OnInit {
     this.empNo = localStorage.getItem("empNo");
   }
   log(value: string[]): void {
-    console.log(value)
     this.searchArray = value;
   }
   close() {
@@ -40,7 +39,6 @@ export class Childscn18Component implements OnInit {
   }
 
   checkboxSelect(check: boolean, item: string) {
-    console.log(item)
     if ( check ) {
       this.searchArray.push( item );
     } else {

@@ -27,7 +27,7 @@ export class F03008deleteComponent implements OnInit {
   empNo: string = localStorage.getItem("empNo");
 
   ngOnInit(): void {
-    console.log(this.data)
+
   }
 
   submit() {
@@ -50,8 +50,6 @@ export class F03008deleteComponent implements OnInit {
         data: { msgStr: data.rspMsg }
       });
       // this.refreshTable();
-      console.log("我是msgStr");
-      console.log(msgStr);
       if (msgStr === '刪除成功!!') { this.dialogRef.close({ event: 'success' }); }
     });
 

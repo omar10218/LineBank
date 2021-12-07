@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn22Service } from './childscn22.service';
 
@@ -19,6 +20,9 @@ export class Childscn22Component implements OnInit {
   applno: string;     // 案件編號
   cuid: string;       // 身分證字號
   stepName: string;   // 目前關卡
+
+  block: boolean = false;
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
@@ -34,14 +38,18 @@ export class Childscn22Component implements OnInit {
     // jsonObject['applno'] = this.applno;
     // jsonObject['swcNationalId'] = this.cuid;
     let msgStr: string = '';
+    this.block = true;
     if (this.stepName == 'APPLCreditL3') {
       msgStr = await this.childsnc22Service.doDss1Search(jsonObject);
+      this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     } else if (this.stepName == 'APPLCreditL2') {
       msgStr = await this.childsnc22Service.doDss2Search(jsonObject);
+      this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     } else {
       msgStr = await this.childsnc22Service.doDss4Search(jsonObject);
+      this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     }
 

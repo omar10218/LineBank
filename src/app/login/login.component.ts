@@ -52,7 +52,6 @@ export class LoginComponent {
     //------------------------------------------------------------------
 
     if (await this.loginService.initData(this.no, this.pwd)) {
-      console.log(this.no, this.pwd);
       localStorage.setItem("empNo", this.no);
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();

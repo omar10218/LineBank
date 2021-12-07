@@ -30,7 +30,6 @@ export class F03006addComponent implements OnInit {
     this.dateType = this.data.levelStartDateTypeCode;
     this.data.levelStartDateTypeCode = [];
     this.data.levelEndDateTypeCode = [];
-    console.log( this.data.empunitlistCode)
   }
 
   formControl = new FormControl('', [

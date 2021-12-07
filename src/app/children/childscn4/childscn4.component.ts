@@ -44,7 +44,6 @@ export class Childscn4Component implements OnInit {
     jsonObject['per_page'] = this.pageSize;
     this.childscn4Service.getCaseStep( baseUrl, jsonObject ).subscribe(data => {
       this.loading = false;
-      console.log(data)
       this.total = data.rspBody.size;
       this.caseStepSource = data.rspBody.items;
     });
