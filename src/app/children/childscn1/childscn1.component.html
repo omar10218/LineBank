@@ -1127,13 +1127,13 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">核准額度</span><input matInput #input class="form-control"
-          [(ngModel)]="resultApproveAmt" placeholder="輸入額度" [ngStyle]="getStyle(resultApproveAmt)"
-          (keypress)="numberOnly($event)" (keyup)="resultApproveAmt = toCurrency(toNumber(resultApproveAmt))"  (ngModelChange)="change(toNumber(resultApproveAmt),'resultApproveAmt')" [disabled]="getSearch() == 'Y'"></div>
+          [(ngModel)]="resultApproveAmt" name="resultApproveAmt" placeholder="輸入額度" [ngStyle]="getStyle(toNumber(resultApproveAmt))"
+          (keypress)="numberOnly($event)" (keyup)="resultApproveAmt = toCurrency(toNumber(resultApproveAmt))"  (ngModelChange)="change(toNumber(resultApproveAmt),'resultApproveAmt')" [disabled]="getSearch() == 'Y'" required></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">每月最低還款比率</span><input matInput #input class="form-control"
-          [(ngModel)]="resultLowestPayRate" placeholder="輸入還款比率"
-          (ngModelChange)="change(resultLowestPayRate,'resultLowestPayRate')" (keypress)="numberOnly($event)" [disabled]="getSearch() == 'Y'"></div>
+          [(ngModel)]="resultLowestPayRate" name="resultLowestPayRate" placeholder="輸入還款比率" [ngStyle]="getStyle(resultLowestPayRate)"
+          (keypress)="numberOnly($event)" (ngModelChange)="change(resultLowestPayRate,'resultLowestPayRate')" [disabled]="getSearch() == 'Y'"></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">人員記錄-PM策略客群</span><input matInput #input class="form-control"
@@ -1147,15 +1147,14 @@
 
   <div nz-row style="padding:5px">
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">序號</span><input matInput #input class="form-control" value="1"
-          placeholder="輸入序號" [disabled]="getSearch() == 'Y'">
+      <div style="padding:3px"><span class="form-title">序號</span><input matInput #input class="form-control" value="1" disabled>
       </div>
     </div>
     <div nz-col nzFlex="1">
       <div class="form" style="padding:3px">
         <div><span class="form-title">分段起始期數</span>
-          <input matInput #input class="form-control" [(ngModel)]="period" name="period"
-            (ngModelChange)="change(period,'period')" (keypress)="numberOnly($event)" placeholder="輸入期數" [disabled]="getSearch() == 'Y'">
+          <input matInput #input class="form-control" [(ngModel)]="period" name="period" placeholder="輸入期數" [ngStyle]="getStyle(period)"
+          (keypress)="numberOnly($event)" (ngModelChange)="change(period,'period')" [disabled]="getSearch() == 'Y'">
         </div>
       </div>
     </div>
@@ -1200,15 +1199,15 @@
     <div nz-col nzFlex="1">
       <div class="form" style="padding:3px">
         <div><span class="form-title">利率</span>
-          <input matInput #input class="form-control" [(ngModel)]="interest" name="interest"
-            (ngModelChange)="caluclate()" placeholder="輸入利率" placeholder="輸入利率" [disabled]="getSearch() == 'Y'">
+          <input matInput #input class="form-control" [(ngModel)]="interest" name="interest" placeholder="輸入利率" [ngStyle]="getStyle(interest)"
+          (keypress)="numberOnly($event)" (ngModelChange)="caluclate()" [disabled]="getSearch() == 'Y'">
         </div>
       </div>
     </div>
     <div nz-col nzFlex="1">
       <div class="form" style="padding:3px">
         <div><span class="form-title">核准利率</span>
-          <input matInput #input class="form-control" [(ngModel)]="approveInterest" name="approveInterest" disabled>
+          <input matInput #input class="form-control" [(ngModel)]="approveInterest" name="approveInterest" style="text-align: right;" disabled>
         </div>
       </div>
     </div>
