@@ -77,8 +77,6 @@ export class Childscn13Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn13Service.getWebInfo( baseurl, jsonObject ).subscribe(data => {
-      console.log('data.rspBody.items')
-      console.log(data.rspBody.items)
       this.total = data.rspBody.size;
       this.webInfoSource = data.rspBody.items;
       this.webInfoSource2= data.rspBody.items;

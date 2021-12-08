@@ -1,3 +1,4 @@
+import { BlockModule } from './../block/block.module';
 import { F01008deleteComponent } from './f01008delete/f01008delete.component';
 import { F01008addComponent } from './f01008add/f01008add.component';
 import { F01008scn1Component } from './f01008scn1/f01008scn1.component';
@@ -19,6 +20,7 @@ import { F01008scn4Component } from './f01008scn4/f01008scn4.component';
 import { F01008scn3page1Component } from './f01008scn3/f01008scn3page1/f01008scn3page1.component';
 import { JcictableComponent } from './f01008scn3/jcictable/jcictable.component';
 import { F01008editComponent } from './f01008edit/f01008edit.component';
+import { F01008scn2editComponent } from './f01008scn2/f01008scn2edit/f01008scn2edit.component';
 registerLocaleData(zh);
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ registerLocaleData(zh);
     JcictableComponent,
     F01008addComponent,
     F01008deleteComponent,
-    F01008editComponent
+    F01008editComponent,
+    F01008scn2editComponent
   ],
   imports: [
     NzButtonModule,
@@ -42,7 +45,8 @@ registerLocaleData(zh);
     NgZorroAntdModule,
     ChildrenModule,
     NzTableModule,
-    CommonLibModule
+    CommonLibModule,
+    BlockModule
   ],
   exports: [
     F01008addComponent

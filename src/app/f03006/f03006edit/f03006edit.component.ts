@@ -159,8 +159,6 @@ export class F03006editComponent {
     let msgStr: string = "";
     let baseUrl = 'f03/f03006action3';
     msgStr = await this.f03006Service.addorEditSystemCodeSet(baseUrl, this.data);
-    console.log(this.data);
-    console.log(msgStr)
     const childernDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: msgStr }
     });

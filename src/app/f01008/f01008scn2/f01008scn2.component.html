@@ -1,8 +1,8 @@
+<app-block *ngIf="block"></app-block>
 <div class="line_bank_bankground_color" style="min-height: 100vh;">
   <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'large'" nzType="primary">案件完成</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="jcic()">立即重查JCIC</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <!-- (click)="Inquire(data.applnoOld)" -->
-    <button nz-button [nzSize]="'large'" nzType="primary">暫存</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="add()">新增</button>
   </div>
   <div class="line_bank_card_no_padding">
@@ -51,6 +51,7 @@
     <nz-table nzSize="small" [nzData]="dataSource">
       <thead>
         <tr>
+          <th class="table-header" style="width:5%">NO</th>
           <th class="table-header" style="width:12.5%">聯絡方式</th>
           <th class="table-header" style="width:10%">手機/市話</th>
           <th class="table-header" style="width:12.5%">電話狀況</th>
@@ -63,7 +64,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of dataSource;">
+        <tr *ngFor="let data of dataSource;let i =index ">
+          <td class="table-data">{{ i+1 }}</td>
           <td class="table-data">{{getOptionDesc(tYPE,data.CON_TYPE)}}</td>
           <td class="table-data">{{data.PHONE}}</td>
           <td class="table-data">{{getOptionDesc(cONDITION,data.TEL_CONDITION)}}</td>
@@ -99,12 +101,14 @@
         </th>
       </thead>
       <tbody>
-        <td>
-          <nz-date-picker></nz-date-picker>
-        </td>
-        <td>
-          <input type="text">
-        </td>
+        <tr *ngFor="let data of jaicSource;">
+          <td>
+            <nz-date-picker [(ngModel)]="data.researchDate" name="Sendcheck" disabled></nz-date-picker>
+          </td>
+          <td>
+            <input type="text" value="{{data.researchNum != null? data.researchNum:0}}" disabled>
+          </td>
+        </tr>
       </tbody>
     </nz-table>
   </div>
@@ -119,10 +123,10 @@
         <br>
         <tr>
           <td>
-            <button nz-button [nzSize]="'large'" nzType="primary">儲存</button>
+            <button nz-button [nzSize]="'large'" nzType="primary" (click)="macr()">儲存</button>
             <br>
             <br>
-            &nbsp;<textarea style="width:800px;height: 100px;"></textarea>
+            &nbsp;<textarea style="width:800px;height: 100px;" [(ngModel)]="ma" name="ma"></textarea>
           </td>
         </tr>
       </tbody>
@@ -134,11 +138,18 @@
         <th class="table-header" style="width:10%">Date</th>
         <th class="table-header" style="width:10%">User</th>
         <th class="table-header" style="width:10%">Action</th>
+        <th class="table-header" style="width:10%">Edit</th>
       </thead>
       <tbody>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
+        <tr *ngFor="let data of macrSource;">
+          <td class="table-data">{{data.CREDITDATE|date:"yyyy-MM-dd HH:mm"}}</td>
+          <td class="table-data">{{data.CREDITUSER}}</td>
+          <td class="table-data" >{{data.CREDITACTION}}</td>
+          <td class="table-data" style="text-align: center;">
+            <button id="test" nz-button [nzSize]="'small'" nzType="primary"
+              (click)="edit(data.ID,data.CREDITACTION)" [disabled]="getSearch() == 'Y'">編輯</button>
+          </td>
+        </tr>
       </tbody>
     </nz-table>
   </div>

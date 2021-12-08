@@ -1,3 +1,4 @@
+import { BlockModule } from './../block/block.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { NgZorroAntdModule } from './../ngzorro/ng-zorro-antd.module';
 import { NgModule } from '@angular/core';
@@ -60,7 +61,8 @@ import { Childbwscn1editComponent } from './childbwscn1/childbwscn1edit/childbws
     GoogleMapsModule,
     NzTableModule,
     ChildrenBwRoutingModule,
-    NgxWatermarkModule
+    NgxWatermarkModule,
+    BlockModule
   ]
 })
 export class ChildrenBwModule {

@@ -92,8 +92,6 @@ export class childbwscn2page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
-      console.log('data');
-      console.log(data);
       //系統決策
       this.dss1Form1.patchValue({ RVPRCSCD: data.rspBody.bwDss4List[0].rvprcscd })//系統流程
       this.dss1Form1.patchValue({ RVSTATCD: data.rspBody.bwDss4List[0].rvstatcd })//本次貸後管理狀態(策略調整後)
@@ -141,13 +139,7 @@ export class childbwscn2page1Component implements OnInit {
        this.dss1Form1.patchValue({ DBR: data.rspBody.bwDss4List[0].dbr })//無擔保倍數
 
       this.UNDW_CD_LIST.data = data.rspBody.bwDss4UndwList ;//徵審代碼
-      console.log('this.UNDW_CD_LIST.data');
-      console.log(this.UNDW_CD_LIST.data);
       this.CFC_LIMIT_AMT_LIST.data = data.rspBody.bwDss4CfcLimit ;//試算額度策略
-      console.log('CFC_LIMIT_AMT_LIST');
-      console.log(this.CFC_LIMIT_AMT_LIST.data);
-
-
     });
   }
 

@@ -102,13 +102,6 @@ export class F03017editComponent implements OnInit {
 				'';
 	}
 	ngOnInit(): void {
-		
-		console.log(this.data)
-		console.log(this.blockListForm)
-		console.log(this.data.BK_CONTENT)
-		console.log(this.data.BK_COLUMN)
-		console.log(this.data.ROWID)
-
 		this.selectCustInfo()
 		this.route.queryParams.subscribe(params => {
 			this.no = localStorage.getItem('empNo')
@@ -143,12 +136,10 @@ export class F03017editComponent implements OnInit {
 		if (this.data.BK_COLUMN === "CU_CNAME") {
 			this.CU_CNAME.nativeElement.checked = checked
 			this.switchstatus(true, this.data.BK_COLUMN)
-			console.log(this.CU_CNAME.nativeElement.checked)
 		}
 		else if (this.data.BK_COLUMN === "NATIONAL_ID") {
 			this.NATIONAL_ID.nativeElement.checked = checked
 			this.switchstatus(true, this.data.BK_COLUMN)
-			console.log(this.NATIONAL_ID.nativeElement.checked)
 		}
 		else if (this.data.BK_COLUMN === "CU_H_TEL") {
 			this.CU_H_TEL.nativeElement.checked = checked
@@ -169,23 +160,21 @@ export class F03017editComponent implements OnInit {
 		var checked: boolean;
 		if (id == "CU_CNAME") {
 			checked = this.CU_CNAME.nativeElement.checked
-			
+
 		} else if (id == "NATIONAL_ID") {
 			checked = this.NATIONAL_ID.nativeElement.checked
-			
+
 		} else if (id == "CU_H_TEL") {
 			checked = this.CU_H_TEL.nativeElement.checked
-			
+
 		} else if (id == "CU_CP_TEL") {
 			checked = this.CU_CP_TEL.nativeElement.checked
-			
+
 		} else if (id = "CU_M_TEL") {
 			checked = this.CU_M_TEL.nativeElement.checked
-			
+
 		}
-		console.log(this.CU_CNAME.nativeElement.checked)
 		var data = id;
-		console.log(checked, data, value)
 		this.checkboxSelect(checked, data, value);
 
 	}
@@ -196,7 +185,7 @@ export class F03017editComponent implements OnInit {
 	}
 	// 轉換input值狀態
 	switchstatus(check: boolean, data: any){
-		
+
 		this.testArray.push(this.data.bkContent)
 		switch (data) {
 			case 'CU_CNAME':
@@ -222,12 +211,6 @@ export class F03017editComponent implements OnInit {
       this.switchstatus(check, data)
 		// 取最後的輸入值
 		this.testArray[data] = value;
-		console.log(this.testArray);
-		console.log(this.testArray[data]);
-
-		console.log(check)
-		console.log(data)
-		console.log(value)
 		if (check && value != null) {
 			this.chkArray.push(data)
 			this.contentArray.push(value)
@@ -264,7 +247,6 @@ export class F03017editComponent implements OnInit {
 		}
 		else {
 			this.chkArray.forEach(element => {
-				console.log(element)
 				if (element.value === 'CU_CNAME') {
 					this.contentArray.push(this.blockListForm.value.CU_CNAME)
 				}
@@ -282,11 +264,9 @@ export class F03017editComponent implements OnInit {
 				}
 			})
 			this.chkArray.forEach(element => {
-				console.log(element)
 				if (element.value === 'CU_NAME') {
 					this.CU_CNAME.nativeElement.checked = true
 				}
-				console.log(this.CU_CNAME.nativeElement.checked)
 			})
 			this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
 			this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
@@ -297,18 +277,13 @@ export class F03017editComponent implements OnInit {
 			const content = []
 			Object.keys(this.testArray).forEach(key => {
 				content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked });
-				console.log(this.CU_CNAME.nativeElement.checked)
-				console.log(this.data.ROWID)
 			});
 
 			this.jsonObject['content'] = content;
-			console.log(this.chkArray)
-			console.log(this.contentArray)
-			
+
 			const url = 'f03/f03017action2'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 				let msgStr = '';
-				console.log(data)
 				msgStr = (data.rspCode === '0000' && data.rspMsg === '儲存成功!') ? '儲存成功！' : '儲存失敗！';
 				const childernDialogRef = this.dialog.open(ConfirmComponent, {
 					data: { msgStr: msgStr }
@@ -330,9 +305,6 @@ export class F03017editComponent implements OnInit {
 				this.CU_CNAME.nativeElement.checked = true
 			}
 		})
-		console.log(this.blockListForm)
-		console.log(this.blockListForm.value)
-		console.log(this.blockListForm.value.ROWID)
 
 		this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
 		this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
@@ -347,16 +319,11 @@ export class F03017editComponent implements OnInit {
 		Object.keys(this.testArray).forEach(key => {
 			this.content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked, rowID: this.data.ROWID });
 		});
-		console.log(this.chkArray)
-		console.log(this.contentArray)
 		this.jsonObject['content'] = this.content;
 		const url = 'f03/f03017action2'
 
-		console.log('this.jsonObject')
-		console.log(this.jsonObject)
 
 		await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
-			console.log(data)
 			// if (data.rspMsg == '儲存成功') {
 				this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } })
 				// this.dialogRef.close({ event: 'success' });

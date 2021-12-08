@@ -72,6 +72,7 @@ export class F01002scn1Component implements OnInit {
   mark: string;
 
   changeValue: boolean = true;
+  block: boolean = false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -86,6 +87,10 @@ export class F01002scn1Component implements OnInit {
   ngAfterViewInit() {
     // let element: HTMLElement = document.getElementById('firstBtn') as HTMLElement;
     // element.click();
+  }
+
+  test() {
+    this.block = true;
   }
 
   ngOnDestroy() {
@@ -187,7 +192,6 @@ export class F01002scn1Component implements OnInit {
 
   save(url: string, result: string) {
     const baseUrl = url;
-    let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'L3';
@@ -246,6 +250,10 @@ export class F01002scn1Component implements OnInit {
     // this.result(baseUrl, jsonObject, result);
     // }
     // }
+
+    // setTimeout(() => {
+      // this.block = false;
+    // }, 2000);
   }
 
   saveResult(url: string, json: JSON): string {
@@ -253,12 +261,14 @@ export class F01002scn1Component implements OnInit {
   }
 
   result(baseUrl: string, jsonObject: JSON, result: string) {
+    this.block = true;
     this.saveMemo();
     this.f01002scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       this.removeSession();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
+      this.block = false;
       this.router.navigate(['./F01002']);
     });
   }

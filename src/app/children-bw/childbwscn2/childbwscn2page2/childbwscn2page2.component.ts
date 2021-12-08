@@ -34,13 +34,8 @@ export class childbwscn2page2Component implements OnInit {
 		let jsonObject: any = {}
 		jsonObject['applno'] = this.applno
 		this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
-			console.log('data')
-			console.log(data)
 			//系統決策
 			this.BW_DSS4_RISKDSUB_LIST = data.rspBody.bwDss4Riskdsub //風險模型變數設定
-
-			console.log('this.BW_DSS4_RISKDSUB_LIST.data')
-			console.log(this.BW_DSS4_RISKDSUB_LIST)
 		})
 	}
 

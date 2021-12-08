@@ -1,3 +1,4 @@
+import { BlockModule } from './../block/block.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { NgZorroAntdModule } from './../ngzorro/ng-zorro-antd.module';
 import { NgModule } from '@angular/core';
@@ -144,7 +145,8 @@ import { Childscn25Component } from './childscn25/childscn25.component';
     GoogleMapsModule,
     NgxWatermarkModule,
     NzTableModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BlockModule
   ],
   exports: [
     Childscn8addComponent,

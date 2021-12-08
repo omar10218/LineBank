@@ -85,7 +85,6 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01002Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
       this.stepName = data.rspBody.items[0].F_StepName;

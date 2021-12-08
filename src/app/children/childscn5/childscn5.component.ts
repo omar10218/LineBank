@@ -218,7 +218,6 @@ export class Childscn5Component implements OnInit {
         break;
       }
     }
-    console.log(codeVal)
     return codeVal;
   }
 

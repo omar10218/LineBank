@@ -21,12 +21,10 @@ export class Childscn17Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.getRestartList();
   }
-  
+
   getRestartList() {
     this.childscn17Service.getRestartList(this.applno).subscribe(data => {
-      console.log(data)
       this.restartDataSource = data.rspBody.items;
-
     });
   }
 }

@@ -71,7 +71,6 @@ export class F03003Component implements OnInit {
 
     const baseUrl = 'f03/f03003?name=' + this.selectedValue;
     this.f03003Service.getLine(baseUrl).subscribe(data => {
-      console.log(data.rspBody[0]);
       for (let i = 0; i < this.backgroundSearch.length; i++) { this.backgroundSearch[i].check = false; }
       for (let i = 0; i < this.backgroundClass.length; i++) { this.backgroundClass[i].check = false; }
       for (let i = 0; i < this.persons.length; i++) { this.persons[i].check = false; }

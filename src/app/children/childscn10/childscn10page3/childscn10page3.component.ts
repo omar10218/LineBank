@@ -92,8 +92,6 @@ export class Childscn10page3Component implements OnInit {
   //   // 測試用
   //   // jsonObject['applno'] = '20210827E001';
   //   this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
-  //     console.log('data');
-  //     console.log(data);
   //     if (data.rspBody.length > 0) {
   //       this.fmData.data = data.rspBody
 
@@ -126,8 +124,6 @@ export class Childscn10page3Component implements OnInit {
   //       // this.fmData.data[0].dbr_2 = "14";
   //       // this.fmData.data[0].dbr_0 = "15";
   //       // this.fmData.data[0].dbr_0CK = "17";
-
-  //       console.log(this.fmData.data);
 
   //       this.fmData.data[0].unsdebt_AMT_501EX_B = this.fmData.data[0].unsdebt_AMT_501EX_B == null ? this.fmData.data[0].unsdebt_AMT_501EX : this.fmData.data[0].unsdebt_AMT_501EX_B;
   //       this.fmData.data[0].unsdebt_AMT_504EX_B = this.fmData.data[0].unsdebt_AMT_504EX_B == null ? this.fmData.data[0].unsdebt_AMT_504EX : this.fmData.data[0].unsdebt_AMT_504EX_B;
@@ -211,11 +207,7 @@ export class Childscn10page3Component implements OnInit {
   //   jsonObject['unsdebtNonjcic'] = this.save_data_number2(this.fmData.data[0].unsdebt_NONJCIC_B);
   //   jsonObject['unsdebtPayamt029Ex'] = this.save_data_number(this.fmData.data[0].unsdebt_PAYAMT_029EX_B);
 
-  //   console.log('jsonObject')
-  //   console.log(jsonObject)
   //   this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
-  //     console.log('savedata')
-  //     console.log(data)
   //   });
   // }
 }

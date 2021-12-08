@@ -120,11 +120,11 @@
       [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
       <thead>
         <tr>
-          <th nzLeft (nzSortOrderChange)="Serial($event)" [nzSortFn]="true"  [nzSortOrder]="'ascend'">序號</th>
+          <th nzLeft >序號</th>
           <th nzLeft>累進</th>
           <th nzLeft (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"  [nzSortOrder]="'ascend'">進件日期時間</th>
           <th nzLeft>客群標籤</th>
-          <th nzLeft>案件編號</th>
+          <th nzLeft (nzSortOrderChange)="Serial($event,true)" [nzSortFn]="true"  [nzSortOrder]="'ascend'">案件編號</th>
           <th>身分證字號</th>
           <th>客戶ID</th>
           <th>客戶姓名</th>

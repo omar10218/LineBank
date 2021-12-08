@@ -99,7 +99,6 @@ export class F04002Component implements OnInit {
     for (const obj of this.chkArray) {
       if (obj.completed) { valArray.push(obj.value); }
     }
-    console.log(valArray);
     if (valArray.length < 1) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請選擇案件' }
@@ -124,7 +123,6 @@ export class F04002Component implements OnInit {
     for (const obj of this.chkArray) {
       if (obj.completed) { valArray.push(obj.value); }
     }
-    console.log(valArray);
     if (valArray.length < 1) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請選擇案件' }
@@ -170,14 +168,11 @@ export class F04002Component implements OnInit {
 
   //取得表單
   private async getSTEP_ERRORFunction(pageIndex: number, pageSize: number) {
-    console.log(this.pageIndex)
-    console.log(this.pageSize)
 
     const baseUrl = 'f04/f04002fn1';
     this.f04002Service.getSTEP_ERRORFunction(baseUrl, this.selectedValue, this.pageIndex , this.pageSize).subscribe(data => {
 
       // data.rspBody.items=dataList;
-      console.log(data);
       if (this.chkArray.length > 0) {
         let i: number = 0;
         for (const jsonObj of data.rspBody.items) {

@@ -32,8 +32,8 @@ export class F01004scn1Component implements OnInit {
       this.isShowItems = data.show;
     });
   }
-  
-  
+
+
   private creditLevel: string = 'APPLCreditL1';
   private applno: string;
   private search: string;
@@ -66,7 +66,8 @@ export class F01004scn1Component implements OnInit {
   mark: string;
 
   changeValue: boolean = true;
-  
+  block: boolean = false;
+
   stepName: string;
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -179,12 +180,14 @@ export class F01004scn1Component implements OnInit {
   }
 
   result(baseUrl: string, jsonObject: JSON, result: string) {
+    this.block = true;
     this.saveMemo();
     this.f01004Scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       this.removeSession();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
+      this.block = false;
       this.router.navigate(['./F01004']);
     });
   }
@@ -217,7 +220,7 @@ export class F01004scn1Component implements OnInit {
   }
 
 
-  
+
   //判斷是否需要顯示案件完成列
   changeRoute(route: boolean) {
     this.changeValue = route;

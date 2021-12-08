@@ -65,7 +65,6 @@ export class F03014uploadComponent implements OnInit {
       let msgStr: string = "";
       let baseUrl = 'f03/f03014action05';
       this.f03014Service.postExcel(baseUrl,this.fileToUpload).subscribe(data => {
-        console.log(data)
         this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
       });
     }
@@ -88,7 +87,6 @@ export class F03014uploadComponent implements OnInit {
     }
   }
   onNoClick(): void {
-    console.log(this.fileToUpload)
     this.dialogRef.close();
   }
 

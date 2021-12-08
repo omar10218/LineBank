@@ -232,8 +232,6 @@ export class Childscn10page2Component implements OnInit {
     //測試用
     // jsonObject['applno'] = '20211116A000003';
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
-      // console.log('data');
-      // console.log(data);
       if (data.rspBody.DSS2.length > 0) {
         //系統決策
         this.dss2Form1.patchValue({ SYSFLOWCD: data.rspBody.DSS2[0].SYSFLOWCD })//系統流程
@@ -314,8 +312,6 @@ export class Childscn10page2Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['strgy'] = "2";
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
-      // console.log('data');
-      // console.log(data);
       if (data.rspBody.DSS2.length > 0) {
         //系統決策
         this.dss2Form2.patchValue({ SYSFLOWCD: data.rspBody.DSS2[0].SYSFLOWCD })//系統流程
@@ -392,8 +388,6 @@ export class Childscn10page2Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['strgy'] = "3";
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
-      // console.log('data');
-      // console.log(data);
       if (data.rspBody.DSS2.length > 0) {
         //系統決策
         this.dss2Form3.patchValue({ SYSFLOWCD: data.rspBody.DSS2[0].SYSFLOWCD })//系統流程
@@ -525,8 +519,6 @@ export class Childscn10page2Component implements OnInit {
 
 
   //     }
-  //     console.log('DBR_DTI_Data');
-  //     console.log(this.fmData.data);
   //   });
   // }
 
@@ -587,15 +579,11 @@ export class Childscn10page2Component implements OnInit {
   //   jsonObject['mthpayBam029'] = this.save_data_number(this.fmData.data[0].mthpay_BAM029_C);
   //   jsonObject['mthpayKrm048'] = this.save_data_number(this.fmData.data[0].mthpay_KRM048_C);
   //   jsonObject['mthpayNonjcic'] = this.save_data_number2(this.fmData.data[0].mthpay_NONJCIC_C);
-  //   console.log('jsonObject')
-  //   console.log(jsonObject)
   //   this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
   //     msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
   //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
   //       data: { msgStr: msg }
   //     });
-  //     console.log('savedata')
-  //     console.log(data)
   //   });
   // }
 

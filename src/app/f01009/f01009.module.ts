@@ -1,3 +1,4 @@
+import { BlockModule } from './../block/block.module';
 import { F01009Component } from './f01009.component';
 import { ChildrenModule } from './../children/children.module';
 import { NgModule } from '@angular/core';
@@ -27,7 +28,8 @@ registerLocaleData(zh);
     NgZorroAntdModule,
     ChildrenModule,
     NzTableModule,
-    CommonLibModule
+    CommonLibModule,
+    BlockModule
   ]
 })
 export class F01009Module { }

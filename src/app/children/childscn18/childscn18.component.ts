@@ -23,6 +23,7 @@ export class Childscn18Component implements OnInit {
   swcID: string;  //身分證字號
   custID: string;  //客戶編號
   searchArray: string[] = [];  //查詢項目
+  block: boolean = false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -31,7 +32,6 @@ export class Childscn18Component implements OnInit {
     this.empNo = localStorage.getItem("empNo");
   }
   log(value: string[]): void {
-    console.log(value)
     this.searchArray = value;
   }
   close() {
@@ -39,7 +39,6 @@ export class Childscn18Component implements OnInit {
   }
 
   checkboxSelect(check: boolean, item: string) {
-    console.log(item)
     if ( check ) {
       this.searchArray.push( item );
     } else {
@@ -49,6 +48,7 @@ export class Childscn18Component implements OnInit {
   }
 
   reSearch() {
+    this.block = true;
     const url = "f01/childscn18action1";  //API
     let jsonObject: any = {};
     jsonObject['empNo'] = this.empNo;
@@ -60,6 +60,7 @@ export class Childscn18Component implements OnInit {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
+      this.block = false;
       this.router.navigate(['./F01002']);
       this.dialogRef.close();
     });

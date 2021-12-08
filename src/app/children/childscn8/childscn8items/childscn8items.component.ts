@@ -160,11 +160,6 @@ export class Childscn8itemsComponent implements OnInit {
       this.MDtable[16].REPLY_CONDITION.slice(0, this.MDtable[16].REPLY_CONDITION.length - 1) :
       this.MDtable[16].REPLY_CONDITION;
 
-    console.log('this.MDtable[13].REPLY_CONDITION');
-    console.log(this.MDtable[13].REPLY_CONDITION);
-    console.log('this.MDtable[16].REPLY_CONDITION');
-    console.log(this.MDtable[16].REPLY_CONDITION);
-
     for (const calloutData of this.MDtable) {
       checkItem += calloutData.MD_NO.value + ",";
       checkData += (calloutData.CHECK_DATA != "" && calloutData.CHECK_DATA != null) ? calloutData.CHECK_DATA + "," : "*,";
@@ -185,11 +180,7 @@ export class Childscn8itemsComponent implements OnInit {
     jsonObject['checkData'] = checkData;
     jsonObject['replyCondition'] = replyCondition;
     jsonObject['checkNote'] = checkNote;
-    console.log('console.log(jsonObject);');
-    console.log(jsonObject);
     await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
-      console.log('data');
-      console.log(data);
       codeStr = data.rspCode;
       msgStr = data.rspMsg;
       const childernDialogRef = this.dialog.open(ConfirmComponent, {

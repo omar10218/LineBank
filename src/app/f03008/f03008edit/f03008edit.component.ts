@@ -27,7 +27,6 @@ export class F03008editComponent   {
   empNo: string = localStorage.getItem("empNo");
 
   ngOnInit(): void {
-    console.log(this.data)
   }
 
   submit() {

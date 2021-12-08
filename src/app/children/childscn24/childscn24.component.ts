@@ -17,76 +17,85 @@ export class Childscn24Component implements OnInit {
   ) { }
   applno: string;     // 案件編號
   level: string;   // 目前關卡
-stepName:string;
+  stepName: string;
+
+  block: boolean = false;
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.level = sessionStorage.getItem('level');
-    this.stepName= sessionStorage.getItem('stepName');
-    console.log('L'+this.level)
-    console.log(this.applno)
-    console.log(this.stepName)
+    this.stepName = sessionStorage.getItem('stepName');
   }
   cancel(): void {
     this.dialogRef.close();
   }
-    // 授信案件退回徵信
+  // 授信案件退回徵信
   public async confirm(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);;
-  
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L2') {
+      this.block = true;
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+      this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     }
 
   }
   // 主管案件退回徵信
-  public async L0sendbackL3():Promise<void>{
-    let jsonObject:any ={};
+  public async L0sendbackL3(): Promise<void> {
+    let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L0') {
+      this.block = true;
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+      this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     }
   }
   // 主管案件退回徵信
-  public async L0sendbackL2():Promise<void>{
-    let jsonObject:any ={};
+  public async L0sendbackL2(): Promise<void> {
+    let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L2';
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L0') {
+      this.block = true;
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+      this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     }
   }
   // 主管案件退回徵信
-  public async L1sendbackL3():Promise<void>{
-    let jsonObject:any ={};
+  public async L1sendbackL3(): Promise<void> {
+    let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L1') {
+      this.block = true;
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+      this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     }
   }
   // 主管案件退回徵信
-  public async L1sendbackL2():Promise<void>{
-    let jsonObject:any ={};
+  public async L1sendbackL2(): Promise<void> {
+    let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L2';
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L1') {
+      this.block = true;
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+      this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     }
   }

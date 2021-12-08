@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { JSEncrypt } from 'jsencrypt/lib';
 import { sha256 } from 'js-sha256';
+import { AuthService } from '../auth/auth.service';
 
 
 
@@ -27,6 +28,7 @@ export class LoginComponent {
   public iv: string;
   // private bnIdle: BnNgIdleService = null;
   constructor(
+    private authService: AuthService,
     private router: Router,
     private loginService: LoginService,
     private bnIdle: BnNgIdleService
@@ -50,7 +52,6 @@ export class LoginComponent {
     //------------------------------------------------------------------
 
     if (await this.loginService.initData(this.no, this.pwd)) {
-      console.log(this.no, this.pwd);
       localStorage.setItem("empNo", this.no);
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();
@@ -66,6 +67,7 @@ export class LoginComponent {
       sessionStorage.setItem('ParmDim', JSON.stringify(await this.loginService.getRuleCode('PARM_DIM')));
       sessionStorage.setItem('ParmClass', JSON.stringify(await this.loginService.getRuleCode('PARM_CLASS')));
       sessionStorage.setItem('Condition', JSON.stringify(await this.loginService.getCondition()));
+      this.authService.login();//登入紀錄
       //sessionStorage.setItem('RuleStep', JSON.stringify(await this.loginService.getRuleStep()));
       //sessionStorage.setItem('PolicyId', JSON.stringify(await this.loginService.getPolicyId()));
     } else {
