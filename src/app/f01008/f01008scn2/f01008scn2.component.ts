@@ -194,11 +194,8 @@ export class F01008scn2Component implements OnInit {
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
       if(data.rspCode === '0000'||data.rspMsg ==='儲存成功')
       {
-<<<<<<< HEAD
         this.ma ='';
-=======
-        this.block = false;
->>>>>>> be711f0c51c80ce8400fa6f6e8ccff72d01a616a
+        this.block=false;
         this.set();
       }
     })
