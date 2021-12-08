@@ -195,7 +195,7 @@ export class F01008scn2Component implements OnInit {
       if(data.rspCode === '0000'||data.rspMsg ==='儲存成功')
       {
         this.ma ='';
-        this.block=false;
+        this.block = false;
         this.set();
       }
     })
