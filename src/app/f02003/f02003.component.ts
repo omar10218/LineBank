@@ -68,13 +68,10 @@ export class F02003Component implements OnInit {
     jsonObject['l3EmpNo'] = this.l3EMPNO;
     jsonObject['creditResult'] = this.credit;
     jsonObject['inputType'] = this.input;
-    // jsonObject['startTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-    // jsonObject['startTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
-    // jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
-    // jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
+
     if (this.nationalId != '' || this.custId != '')
     {
-      alert("1")
+
       if (this.apply_TIME != null)//進件日期
       {
         if (this.dealwithData365(this.apply_TIME)) {
@@ -153,8 +150,6 @@ export class F02003Component implements OnInit {
       this.quantity = data.rspBody.size
       console.log(data)
     })
-    console.log(jsonObject)
-
 
   }
 
@@ -275,6 +270,11 @@ export class F02003Component implements OnInit {
       this.changePage();
       this.search(this.pageIndex, this.pageSize);
     }
+
+  }
+  sortChange(e: string) {
+    this.resultData = e === 'ascend' ? this.resultData.sort(
+      (a, b) => a.START_TIME.localeCompare(b.START_TIME)) : this.resultData.sort((a, b) => b.START_TIME.localeCompare(a.START_TIME))
 
   }
 }
