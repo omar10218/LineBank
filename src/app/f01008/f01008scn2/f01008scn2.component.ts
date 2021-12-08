@@ -44,7 +44,7 @@ export class F01008scn2Component implements OnInit {
   Sendcheck:string;
   jaicSource: Data[] = [];
 
-  block: boolean = true;
+  block: boolean = false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');

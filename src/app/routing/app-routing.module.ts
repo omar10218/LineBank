@@ -7,7 +7,6 @@ import { F03014Component } from '../f03014/f03014.component';
 import { F02001Component } from './../f02001/f02001.component';
 import { F03001Component } from './../f03001/f03001.component';
 import { F03002Component } from './../f03002/f03002.component';
-import { F03003Component } from './../f03003/f03003.component';
 import { F03004Component } from './../f03004/f03004.component';
 import { F03005Component } from './../f03005/f03005.component';
 import { F03006Component } from './../f03006/f03006.component';
@@ -26,8 +25,6 @@ import { MenuListComponent } from './../menu-list/menu-list.component';
 import { F01006Component } from '../f01006/f01006.component';
 import { F03017Component } from '../f03017/f03017.component';
 import { F02002Component } from '../f02002/f02002.component';
-import { F01007Component } from '../f01007/f01007.component';
-import { F01008Component } from '../f01008/f01008.component';
 import { F02003Component } from '../f02003/f02003.component';
 import { Inputloanpage1Component } from '../inputloan/inputloanpage1/inputloanpage1.component';
 import { Inputloanpage2Component } from '../inputloan/inputloanpage2/inputloanpage2.component';
@@ -41,6 +38,7 @@ import { F02007Component } from '../f02007/f02007.component';
 import { F01011Component } from '../f01011/f01011.component';
 import { F04003Component } from '../f04003/f04003.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { F03003Component } from '../f03003/f03003.component';
 
 
 const routes: Routes = [
