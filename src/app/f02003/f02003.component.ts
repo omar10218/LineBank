@@ -27,8 +27,8 @@ export class F02003Component implements OnInit {
   loading = false;
   pageSize: number;
   pageIndex: number;
-  l3EMPNO: string = '';//複審人員
-  l3EMPNOArry: sysCode[] = [];//複審人員陣列
+  l4EMPNO: string = '';//複審人員
+  l4EMPNOArry: sysCode[] = [];//複審人員陣列
   input: string = '';//進件類型
   inputArry: sysCode[] = [];//進件類型陣列
   credit: string ='';//審核結果
@@ -65,7 +65,7 @@ export class F02003Component implements OnInit {
     jsonObject['nationalId'] = this.nationalId;
     jsonObject['custId'] = this.custId;
     jsonObject['custCname'] = this.custName;
-    jsonObject['l3EmpNo'] = this.l3EMPNO;
+    jsonObject['l4EmpNo'] = this.l4EMPNO;
     jsonObject['creditResult'] = this.credit;
     jsonObject['inputType'] = this.input;
 
@@ -159,7 +159,7 @@ export class F02003Component implements OnInit {
     this.nationalId = '';
     this.custId = '';
     this.custName = '';
-    this.l3EMPNO = '';
+    this.l4EMPNO = '';
     this.input = '';
     this.credit = '';
     this.apply_TIME = null;
@@ -172,11 +172,11 @@ export class F02003Component implements OnInit {
     let url = "f02/f02003"
     let jsonObject: any = {};
     this.f02003Service.inquiry(url, jsonObject).subscribe(data => {
-      this.l3EMPNOArry.push({ value: '', viewValue: '請選擇' })
+      this.l4EMPNOArry.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj.EMP_NO;
         const desc = jsonObj.EMP_NAME;
-        this.l3EMPNOArry.push({ value: codeNo, viewValue: desc })
+        this.l4EMPNOArry.push({ value: codeNo, viewValue: desc })
       }
       console.log(data);
     })
@@ -261,7 +261,7 @@ export class F02003Component implements OnInit {
   }
   conditionCheck() //擋空白查詢
   {
-    if (this.applno == '' && this.nationalId == '' && this.custId == '' && this.custName == '' && this.l3EMPNO == '' && this.input == ''
+    if (this.applno == '' && this.nationalId == '' && this.custId == '' && this.custName == '' && this.l4EMPNO == '' && this.input == ''
       && this.credit == '' && this.apply_TIME == null && this.credit_TIME == null
     ) {
       this.dialog.open(ConfirmComponent, {
