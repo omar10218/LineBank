@@ -145,6 +145,7 @@ export class F02003Component implements OnInit {
       }
 
     }
+    console.log(jsonObject)
     this.f02003Service.inquiry(url,jsonObject).subscribe(data=>{
       this.resultData = data.rspBody.item
       this.quantity = data.rspBody.size
