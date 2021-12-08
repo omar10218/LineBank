@@ -437,12 +437,7 @@ export class F02001Component implements OnInit {
   }
   Serial(e: string, a:boolean)//序號排序
   {
-<<<<<<< HEAD
-    console.log(a)
-    this.resultData = a !=false ? this.resultData.sort(
-=======
     this.resultData = e === 'ascend' ? this.resultData.sort(
->>>>>>> be711f0c51c80ce8400fa6f6e8ccff72d01a616a
       (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
   }
   dateNull(t: [Date, Date], name: string) {
