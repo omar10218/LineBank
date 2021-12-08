@@ -147,9 +147,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of resultData">
+        <tr *ngFor="let data of resultData;let i = index">
            <!--序號-->
-          <td nzLeft></td>
+          <td nzLeft>{{i+1}}</td>
           <!--累計進件數-->
           <td nzLeft></td>
            <!--進件日期-->

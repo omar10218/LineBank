@@ -1,5 +1,9 @@
 import { OptionsCode } from './../interface/base';
 import { Component, OnInit } from '@angular/core';
+import { F02003Service } from './f02003.service';
+import { DatePipe } from '@angular/common';
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { MatDialog } from '@angular/material/dialog';
 // Jay 複審案件查詢
 interface sysCode {
   value: string;
@@ -13,65 +17,190 @@ interface sysCode {
 
 export class F02003Component implements OnInit {
 
-  constructor() { }
+  constructor(private f02003Service: F02003Service, public pipe: DatePipe, public dialog: MatDialog) { }
 
-
-  nationalId: string = '';
-  custId: string = '';
-  custName: string = '';
+  applno: string = ''; //案件編號
+  nationalId: string = '';//身分證字號
+  custId: string = '';//客戶ID
+  custName: string = '';//客戶姓名
   total: number;
   loading = false;
   pageSize: number;
   pageIndex: number;
+  l3EMPNO: string = '';//複審人員
+  l3EMPNOArry: sysCode[] = [];//複審人員陣列
+  input: string = '';//進件類型
+  inputArry: sysCode[] = [];//進件類型陣列
+  credit: string ='';//審核結果
+  creditArry: sysCode[] = [];//審核結果陣列
+  apply_TIME: [Date, Date];//進件日期
+  credit_TIME: [Date, Date];//核決日期
   firstFlag = 1;
   //test
-  applno: string = ''; //案件編號
-  national_ID: string = ''; //身分證字號
-  cust_ID: string = ''; //客戶ID
-  cust_CNAME: string = ''; //客戶姓名
-  l3EMPNO: string = ''; //徵信員員編姓名
-  credit_RESULT: sysCode[] = []; //審核結果陣列
-  credit_RESULT_Value: string = '';//審核結果值
-  status_DESC: sysCode[] = []; //案件狀態
-  status_DESC_Value: string = '';//案件狀態值
-  statusDescSecond: sysCode[] = [];//案件狀態第二層
-  statusDescSecondValue: string = '';//案件狀態值第二層
-  cust_FLAG: sysCode[] = []; //客群標籤
-  cust_FLAG_Value: string = '';//客群標籤值
-  risk_GRADE: sysCode[] = [];//風險等級分群
-  risk_GRADE_Value: string = '';//風險等級分群值
-  apply_TIME: [Date, Date];//進件日期
-  proof_DOCUMENT_TIME: [Date, Date];//上傳財力日期
-  sign_UP_TIME: [Date, Date];//簽約完成日期
-  product_NAME: string = '';//產品名稱
-  project_NAME: string = '';//專案名稱
-  marketing_CODE: string = '';//行銷代碼
-  credit_TIME: [Date, Date];//准駁日期時間
-  rescanEmpno: string;
-  rescanEmpnoCode: OptionsCode[] = [];
+  resultData = [];
 
-  date: [Date, Date];
-  dateFormat = 'yyyy/MM/dd';
+
+  quantity: number;
+
 
   ngOnInit(): void {
+    this.quantity = 0;
+    this.review();
+    this.getCREDIT();
+    this.getINPUT();
   }
 
-  search() {
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 50;
+    this.total = 1;
+  }
+
+  search(pageIndex: number, pageSize: number) {
+    let url = "f02/f02003action1"
+    let jsonObject: any = {};
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    jsonObject['applno'] = this.applno;
+    jsonObject['nationalId'] = this.nationalId;
+    jsonObject['custId'] = this.custId;
+    jsonObject['custCname'] = this.custName;
+    jsonObject['l3EmpNo'] = this.l3EMPNO;
+    jsonObject['creditResult'] = this.credit;
+    jsonObject['inputType'] = this.input;
+    // jsonObject['startTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
+    // jsonObject['startTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+    // jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
+    // jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
+    if (this.nationalId != '' || this.custId != '')
+    {
+      alert("1")
+      if (this.apply_TIME != null)//進件日期
+      {
+        if (this.dealwithData365(this.apply_TIME)) {
+          jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
+          jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+        }
+        else {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "進件日期查詢區間最多一年內!" }
+          });
+          return;
+        }
+      }
+      else {
+        jsonObject['applyTimeStart'] = '';
+        jsonObject['applyTimeEnd'] = '';
+      }
+      if (this.credit_TIME != null)//核決日期
+      {
+        if (this.dealwithData365(this.credit_TIME)) {
+          jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
+          jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
+        }
+        else {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "核決日期查詢區間最多一年內!" }
+          });
+          return;
+        }
+      }
+      else {
+        jsonObject['creditTimeStart'] = '';
+        jsonObject['creditTimeEnd'] = '';
+      }
+
+    }
+    else {
+      if (this.apply_TIME != null)//進件日期
+      {
+        if (this.dealwithData90(this.apply_TIME)) {
+          jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
+          jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+        }
+        else {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "進件日期查詢區間最多三個月內!" }
+          });
+          return;
+        }
+      }
+      else {
+        jsonObject['applyTimeStart'] = '';
+        jsonObject['applyTimeEnd'] = '';
+      }
+      if (this.credit_TIME != null)//核決日期
+      {
+        if (this.dealwithData90(this.credit_TIME)) {
+          jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
+          jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
+        }
+        else {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "核決日期查詢區間最多三個月內!" }
+          });
+          return;
+        }
+      }
+      else {
+        jsonObject['creditTimeStart'] = '';
+        jsonObject['creditTimeEnd'] = '';
+      }
+
+    }
+    this.f02003Service.inquiry(url,jsonObject).subscribe(data=>{
+      this.resultData = data.rspBody.item
+      this.quantity = data.rspBody.size
+      console.log(data)
+    })
+    console.log(jsonObject)
+
 
   }
 
   clear() {
+    this.applno = '';
+    this.nationalId = '';
+    this.custId = '';
+    this.custName = '';
+    this.l3EMPNO = '';
+    this.input = '';
+    this.credit = '';
+    this.apply_TIME = null;
+    this.credit_TIME = null;
+    this.resultData = [];
 
   }
 
+  review() {
+    let url = "f02/f02003"
+    let jsonObject: any = {};
+    this.f02003Service.inquiry(url, jsonObject).subscribe(data => {
+      this.l3EMPNOArry.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody) {
+        const codeNo = jsonObj.EMP_NO;
+        const desc = jsonObj.EMP_NAME;
+        this.l3EMPNOArry.push({ value: codeNo, viewValue: desc })
+      }
+      console.log(data);
+    })
+  }
 
-  changeStatsCode(codeTag: string)
-  {
+  changeStatsCode(codeTag: string) {
 
   }
   dateNull(t: [Date, Date], name: string)
   {
-
+    if (t.length < 1) {
+      switch (name) {
+        case 'apply_TIME':
+          this.apply_TIME = null;
+          break;
+        case 'credit_TIME':
+          this.credit_TIME = null;
+          break;
+      }
+    }
   }
   Detail(id: string, nationalId: string)//明細
   {
@@ -86,4 +215,67 @@ export class F02003Component implements OnInit {
     const url = window.location.href.split("/#");
     window.open(url[0] + "/#/F01002/F01002SCN1");
   }
+  getCREDIT()//審核結果
+  {
+    this.f02003Service.getSysTypeCode('BW_MGR_STATUS')
+      .subscribe(data => {
+        this.creditArry.push({ value: '', viewValue: '請選擇' })
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.creditArry.push({ value: codeNo, viewValue: desc })
+        }
+      });
+  }
+  getINPUT()//進件類型
+  {
+    this.f02003Service.getSysTypeCode('BW_INPUT_TYPE')
+      .subscribe(data => {
+        this.inputArry.push({ value: '', viewValue: '請選擇' })
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.inputArry.push({ value: codeNo, viewValue: desc })
+        }
+      });
+  }
+  dealwithData365(stime: any)//判斷一年時間
+   {
+    var startDate, endDate;
+    startDate = new Date(stime[0]);
+    endDate = new Date(stime[1]);
+    if ((endDate - startDate) / 1000 / 60 / 60 / 24 > 365) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  dealwithData90(stime: any)//判斷三個月時間
+   {
+    var startDate, endDate;
+    startDate = new Date(stime[0]);
+    endDate = new Date(stime[1]);
+    if ((endDate - startDate) / 1000 / 60 / 60 / 24 > 90) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  conditionCheck() //擋空白查詢
+  {
+    if (this.applno == '' && this.nationalId == '' && this.custId == '' && this.custName == '' && this.l3EMPNO == '' && this.input == ''
+      && this.credit == '' && this.apply_TIME == null && this.credit_TIME == null
+    ) {
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請至少選擇一項條件" }
+      });
+    } else {
+      this.changePage();
+      this.search(this.pageIndex, this.pageSize);
+    }
+
+  }
 }
+
