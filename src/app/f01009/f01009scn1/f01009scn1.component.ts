@@ -127,7 +127,7 @@ export class F01009scn1Component implements OnInit {
       // console.log('savedata')
       // console.log(data)
       this.block = false;
-      this.router.navigate(['./F01009']);
+      this.router.navigate(['./F01009'], { skipLocationChange: true });
     });
   }
 

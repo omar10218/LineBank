@@ -102,7 +102,7 @@ const routes: Routes = [
       {
         path: 'F01002',
         loadChildren: () => import('../f01002/f01002.module').then(m => m.F01002Module),
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01003',

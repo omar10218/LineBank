@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Data, Router } from '@angular/router';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { config } from 'process';
 import { Alert } from 'selenium-webdriver';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F02001Service } from './f02001.service';
@@ -168,7 +169,7 @@ export class F02001Component implements OnInit {
     sessionStorage.setItem('stepName', '0');
     //開啟徵審主畫面
     const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F01002/F01002SCN1");
+    window.open(url[0] + "/#/F01002/F01002SCN1", "", "location: no");
   }
 
   select()//查詢
