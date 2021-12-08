@@ -62,11 +62,10 @@ export class LoginComponent implements OnInit {
 
     if (await this.loginService.initData(this.no, this.pwd)) {
       localStorage.setItem("empNo", this.no);
+      this.authService.login();//登入紀錄
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();
 
-       // 登入時設定值 提供監聽
-       window.localStorage.setItem("empNo", this.no);
 
       // if (!this.bnIdle['idle$']) {
       //   this.bnIdle.startWatching( 60 * 10 ).subscribe((isTimedOut: boolean) => {
@@ -80,7 +79,10 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem('ParmDim', JSON.stringify(await this.loginService.getRuleCode('PARM_DIM')));
       sessionStorage.setItem('ParmClass', JSON.stringify(await this.loginService.getRuleCode('PARM_CLASS')));
       sessionStorage.setItem('Condition', JSON.stringify(await this.loginService.getCondition()));
-      this.authService.login();//登入紀錄
+
+       // 登入時設定值 提供監聽
+       window.localStorage.setItem("empNo", this.no);
+
       //sessionStorage.setItem('RuleStep', JSON.stringify(await this.loginService.getRuleStep()));
       //sessionStorage.setItem('PolicyId', JSON.stringify(await this.loginService.getPolicyId()));
     } else {

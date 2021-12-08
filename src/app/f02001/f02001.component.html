@@ -109,12 +109,12 @@
       <!-- (click)="add()" -->
       <button nz-button [nzSize]="'large'" nzType="primary" (click)="select()">查詢資料</button>&nbsp;
       <button nz-button [nzSize]="'large'" nzType="primary" (click)="Clear()">清除資料</button>&nbsp;
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()" >離開</button>&nbsp;
+      <!-- <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()" >離開</button>&nbsp; -->
     </div>
     <!-- 表格 -->
   </div>
   <div class="line_bank_card_no_padding">
-    <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{total}}件)</div>
+    <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{quantity}}件)</div>
     <nz-table nzShowSizeChanger [nzData]="resultData" [nzFrontPagination]="false" [nzSimple]="true"
       [nzScroll]="{ x: '3800px', y: '240px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
       [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
@@ -124,7 +124,7 @@
           <th nzLeft>累進</th>
           <th nzLeft (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"  [nzSortOrder]="'ascend'">進件日期時間</th>
           <th nzLeft>客群標籤</th>
-          <th nzLeft (nzSortOrderChange)="Serial($event,true)" [nzSortFn]="true"  [nzSortOrder]="'ascend'">案件編號</th>
+          <th nzLeft (nzSortOrderChange)="Serial($event)" [nzSortFn]="true"  [nzSortOrder]="'ascend'">案件編號</th>
           <th>身分證字號</th>
           <th>客戶ID</th>
           <th>客戶姓名</th>
