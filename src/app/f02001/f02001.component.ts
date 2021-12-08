@@ -45,6 +45,7 @@ export class F02001Component implements OnInit {
   jsonObject: any = {};
   resultData = [];
   total: number;
+  quantity:number;
   loading = false;
   pageSize: number;
   pageIndex: number;
@@ -68,6 +69,7 @@ export class F02001Component implements OnInit {
     this.cust_FLAG_Value = '';
     this.risk_GRADE_Value = '';
     this.apply_TIME = [this.dealwithData14(new Date()), new Date()]
+    this.quantity = 0;
 
   }
 
@@ -354,6 +356,7 @@ export class F02001Component implements OnInit {
     this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
       this.resultData = data.rspBody.item;
       this.total = data.rspBody.size;
+      this.quantity = data.rspBody.size;
       this.firstFlag = 2;
     }
     )
@@ -408,11 +411,12 @@ export class F02001Component implements OnInit {
     this.credit_TIME = null;
     this.resultData = [];
     this.jsonObject = {};
-    this.total = 0;
+    this.quantity = 0;
   }
-  test()//測試
-  {
-  }
+
+  // test()//測試
+  // {
+  // }
 
   conditionCheck() {
     if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == ''
@@ -435,7 +439,7 @@ export class F02001Component implements OnInit {
     // console.log(this.resultData);
     console.log('-----------------');
   }
-  Serial(e: string, a:boolean)//序號排序
+  Serial(e: string)//序號排序
   {
     this.resultData = e === 'ascend' ? this.resultData.sort(
       (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
