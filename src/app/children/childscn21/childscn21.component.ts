@@ -17,6 +17,7 @@ export class Childscn21Component implements OnInit {
   ) { this.nzI18nService.setLocale(zh_TW) }
 
   private applno: string;
+  nowDateTime = new Date();
 
   PERSONSource = [];//table資料
   limitTypeCode: OptionsCode[] = [];
