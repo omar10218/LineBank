@@ -535,7 +535,7 @@ export class Childscn1Component implements OnInit {
     return true;
   }
 
-  getStyle(value: string) {
+  getStyle(value: any) {
     // value = this.toNumber(value);
     value = value != null ? value.replace(',', '') : value;
     return {

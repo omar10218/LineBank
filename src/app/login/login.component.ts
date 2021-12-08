@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { BnNgIdleService } from 'bn-ng-idle';
@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   jsEncrypt: JSEncrypt = new JSEncrypt({});
   hash: string;
@@ -34,6 +34,15 @@ export class LoginComponent {
     private bnIdle: BnNgIdleService
   ) { }
 
+  ngOnInit() {
+    //Nick 設定同時只能登入一個帳號
+    window.addEventListener("storage", (e) => { //監聽帳號
+      alert('請勿重複登入帳號');
+      this.router.navigate(['./']);
+    });
+  }
+
+
   async onClickMe(): Promise<void> {
     // this.bnIdle = new BnNgIdleService();
 
@@ -53,8 +62,11 @@ export class LoginComponent {
 
     if (await this.loginService.initData(this.no, this.pwd)) {
       localStorage.setItem("empNo", this.no);
+      this.authService.login();//登入紀錄
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();
+
+
       // if (!this.bnIdle['idle$']) {
       //   this.bnIdle.startWatching( 60 * 10 ).subscribe((isTimedOut: boolean) => {
       //     if (isTimedOut) { this.routerGoUrl(); }
@@ -67,7 +79,10 @@ export class LoginComponent {
       sessionStorage.setItem('ParmDim', JSON.stringify(await this.loginService.getRuleCode('PARM_DIM')));
       sessionStorage.setItem('ParmClass', JSON.stringify(await this.loginService.getRuleCode('PARM_CLASS')));
       sessionStorage.setItem('Condition', JSON.stringify(await this.loginService.getCondition()));
-      this.authService.login();//登入紀錄
+
+       // 登入時設定值 提供監聽
+       window.localStorage.setItem("empNo", this.no);
+
       //sessionStorage.setItem('RuleStep', JSON.stringify(await this.loginService.getRuleStep()));
       //sessionStorage.setItem('PolicyId', JSON.stringify(await this.loginService.getPolicyId()));
     } else {
