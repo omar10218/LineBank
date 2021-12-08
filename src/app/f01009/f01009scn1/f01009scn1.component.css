@@ -82,3 +82,15 @@ span:hover::before {
 ::ng-deep.ant-tabs-tab + .ant-tabs-tab {
   margin-left: 10px;
 }
+.classA{
+  position:fixed;
+  top:50px;
+  width:100%;
+  z-index:50;
+}
+.classB{
+  position:fixed;
+  top:28px;
+  width:100%;
+  z-index:50;
+}

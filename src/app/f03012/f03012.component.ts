@@ -72,6 +72,7 @@ export class F03012Component implements OnInit {
 
 	getCompareTable() {
 		this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
+			console.log(data)
 			for (const jsonObj of data.rspBody.mappingList) {
 				const codeNo = jsonObj.codeNo
 				const desc = jsonObj.codeDesc
