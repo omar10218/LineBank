@@ -195,6 +195,7 @@ export class F01008scn2Component implements OnInit {
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
       if(data.rspCode === '0000'||data.rspMsg ==='儲存成功')
       {
+        this.ma ='';
         this.set();
       }
     })

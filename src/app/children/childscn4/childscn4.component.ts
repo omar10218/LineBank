@@ -30,18 +30,20 @@ export class Childscn4Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+
   }
 
   ngAfterViewInit() {
     this.getCaseStep( this.pageIndex, this.pageSize );
   }
 
-  getCaseStep( pageIndex: number, pageSize: number ){
+  getCaseStep( pageIndex: number, pageSize: number )//查詢
+  {
     const baseUrl = 'f01/childscn4';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['page'] = this.pageIndex;
-    jsonObject['per_page'] = this.pageSize;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
     this.childscn4Service.getCaseStep( baseUrl, jsonObject ).subscribe(data => {
       this.loading = false;
       console.log(data)
@@ -53,5 +55,9 @@ export class Childscn4Component implements OnInit {
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
     this.getCaseStep(pageIndex, pageSize);
+  }
+  sortChange(e: string) {
+    this.caseStepSource = e === 'ascend' ? this.caseStepSource.sort(
+      (a, b) => a.startDate.localeCompare(b.startDate)) : this.caseStepSource.sort((a, b) => b.startDate.localeCompare(a.startDate))
   }
 }

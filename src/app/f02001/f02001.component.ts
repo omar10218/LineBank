@@ -444,10 +444,10 @@ export class F02001Component implements OnInit {
     // console.log(this.resultData);
     console.log('-----------------');
   }
-  Serial(e: string)//序號排序
+  Serial(e: string, a:boolean)//序號排序
   {
-    console.log(e)
-    this.resultData = e === 'ascend' ? this.resultData.sort(
+    console.log(a)
+    this.resultData = a !=false ? this.resultData.sort(
       (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
   }
   dateNull(t: [Date, Date], name: string) {
