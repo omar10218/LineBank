@@ -1132,7 +1132,7 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">每月最低還款比率</span><input matInput #input class="form-control"
-          [(ngModel)]="resultLowestPayRate" name="resultLowestPayRate" placeholder="輸入還款比率" [ngStyle]="getStyle(resultLowestPayRate)"
+          [(ngModel)]="resultLowestPayRate" name="resultLowestPayRate" placeholder="輸入還款比率" style="text-align: right;"
           (keypress)="numberOnly($event)" (ngModelChange)="change(resultLowestPayRate,'resultLowestPayRate')" [disabled]="getSearch() == 'Y'"></div>
     </div>
     <div nz-col nzFlex="1">
@@ -1199,7 +1199,7 @@
     <div nz-col nzFlex="1">
       <div class="form" style="padding:3px">
         <div><span class="form-title">利率</span>
-          <input matInput #input class="form-control" [(ngModel)]="interest" name="interest" placeholder="輸入利率" [ngStyle]="getStyle(interest)"
+          <input matInput #input class="form-control" [(ngModel)]="interest" name="interest" placeholder="輸入利率" style="text-align: right;"
           (keypress)="numberOnly($event)" (ngModelChange)="caluclate()" [disabled]="getSearch() == 'Y'">
         </div>
       </div>
