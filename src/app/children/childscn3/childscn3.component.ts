@@ -108,7 +108,6 @@ export class Childscn3Component implements OnInit {
 
     let msgStr: string = "";
     this.l1 = [];
-    console.log(this.data)
     for (var i of this.data) {
       if (i.check == true) {
         if (i.child.length < 1)
@@ -139,8 +138,6 @@ export class Childscn3Component implements OnInit {
     this.jsonObject['applno'] = this.applno;
     this.jsonObject['result'] = this.l1;
     const url = 'f01/childscn3action1';
-    console.log(this.applno)
-    console.log(this.l1)
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
       if (this.K == 0) {
         msgStr = "已儲存成功";
@@ -158,9 +155,7 @@ export class Childscn3Component implements OnInit {
     const url = 'f01/childscn3';
     jsonOb['applno'] = this.applno;
     // const applno = this.applno;
-    console.log(this.applno);
     this.childsc3Service.oneseve(url, jsonOb).subscribe(data => {
-      console.log(data)
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;
     })

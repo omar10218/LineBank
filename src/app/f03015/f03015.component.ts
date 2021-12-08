@@ -89,7 +89,6 @@ export class F03015Component implements OnInit {
     this.inducLevel1Value = "";
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody.items) {
-        console.log(jsonObj)
         const codeNo = jsonObj['INDUC_LEVEL1'];
         const desc = jsonObj['INDUC_LEVEL1_DESC'];
         this.inducLevel1.push({ value: codeNo, viewValue: desc });

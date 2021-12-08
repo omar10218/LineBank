@@ -84,7 +84,6 @@ export class F01007Component implements OnInit {
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01007Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
       this.stepName = data.rspBody.items[0].F_StepName;

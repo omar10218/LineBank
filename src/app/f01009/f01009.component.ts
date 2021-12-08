@@ -167,7 +167,6 @@ export class F01009Component implements OnInit, AfterViewInit {
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01009Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
     });
@@ -230,7 +229,6 @@ saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
   let msg = '';
   let jsonObject: any = {};
   jsonObject['swcApplno'] = swcApplno;
-  console.log(swcCaseMemo)
   jsonObject['swcCaseMemo'] = swcCaseMemo;
 
   this.f01009Service.saveCaseMemo(jsonObject).subscribe(data => {

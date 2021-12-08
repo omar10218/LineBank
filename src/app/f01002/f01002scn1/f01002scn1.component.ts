@@ -191,11 +191,7 @@ export class F01002scn1Component implements OnInit {
   // }
 
   save(url: string, result: string) {
-
-    this.block = true;
-
     const baseUrl = url;
-    let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'L3';
@@ -265,6 +261,7 @@ export class F01002scn1Component implements OnInit {
   }
 
   result(baseUrl: string, jsonObject: JSON, result: string) {
+    this.block = true;
     this.saveMemo();
     this.f01002scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       this.removeSession();

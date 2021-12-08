@@ -63,7 +63,6 @@ export class F03016Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params)
     // const { pageSize, pageIndex } = params;
     let pageSize = params.pageSize;
     const pageIndex = params.pageIndex;
@@ -77,7 +76,6 @@ export class F03016Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.f03016Service.getImpertmentParameter(baseUrl, jsonObject).subscribe(data => {
-      console.log(data)
       this.DssJcicSet = data.rspBody.ipList[0].dssJcicSet;
       this.DssMailDay = data.rspBody.ipList[0].dssMailDay;
       this.BasicLimit = data.rspBody.ipList[0].basicLimit;
@@ -123,7 +121,6 @@ export class F03016Component implements OnInit {
     let baseUrl = 'f03/f03016action1';
 
     msgStr = await this.f03016Service.update(baseUrl, jsonObject);
-    console.log(baseUrl);
     if (msgStr == 'success') {
       msgStr = '儲存成功！'
       this.dialog.open(ConfirmComponent, {
@@ -136,7 +133,7 @@ export class F03016Component implements OnInit {
 
   }
   onChange(result: Date): void {
-    console.log('onChange: ', result);
+
   }
 
   changePage() {

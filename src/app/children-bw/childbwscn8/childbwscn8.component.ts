@@ -27,11 +27,9 @@ export class Childbwscn8Component implements OnInit {
     let jsonObject: any = {}
     jsonObject['applno'] = this.applno
     this.Childbwscn8Service.getmaterial(jsonObject).subscribe(data=>{
-    console.log(data)
       if(data.rspMsg == 'success')
       {
         this.materialSource = data.rspBody.bwTransactionLog
-        console.log(this.materialSource)
       }
 
     })

@@ -73,7 +73,6 @@ export class F02007Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params)
     if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
       const { pageSize, pageIndex } = params;
       this.selectData(pageIndex, pageSize);
@@ -93,7 +92,6 @@ export class F02007Component implements OnInit {
 
   getStatusDesc() {
     this.f02007Service.getSysTypeCode('STATUS_CODE').subscribe(data => {
-      console.log(data)
       this.status_DESC.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
@@ -120,7 +118,6 @@ export class F02007Component implements OnInit {
 
   getCreditResult() {
     this.f02007Service.getSysTypeCode('CREDIT_RESULT').subscribe(data => {
-      console.log(data)
       this.credit_RESULT.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
@@ -132,7 +129,6 @@ export class F02007Component implements OnInit {
 
   getCustFlag() {
     this.f02007Service.getSysTypeCode('CUST_FLAG').subscribe(data => {
-      console.log(data)
       this.cust_FLAG.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
@@ -144,7 +140,7 @@ export class F02007Component implements OnInit {
 
   getRiskGrade() {
     this.f02007Service.getSysTypeCode('RISK_GRADE').subscribe(data => {
-      console.log(data)
+
       this.risk_GRADE.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
@@ -411,7 +407,6 @@ export class F02007Component implements OnInit {
   }
   test()//測試
   {
-    console.log( this.apply_TIME)
 
   }
 
@@ -430,13 +425,11 @@ export class F02007Component implements OnInit {
     }
   }
   sortChange(e: string) {
-    console.log(e)
     this.resultData = e === 'ascend' ? this.resultData.sort(
       (a, b) => a.APPLY_TIME.localeCompare(b.APPLY_TIME)) : this.resultData.sort((a, b) => b.APPLY_TIME.localeCompare(a.APPLY_TIME))
   }
   Serial(e: string)//序號排序
   {
-    console.log(e)
     this.resultData = e === 'ascend' ? this.resultData.sort(
       (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
   }

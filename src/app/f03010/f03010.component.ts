@@ -50,7 +50,6 @@ export class F03010Component implements OnInit {
 
   //取話術Table
   getSpeaking(pageIndex: number, pageSize: number) {
-    console.log("pageIndex="+pageIndex+",pageSize"+pageSize)
     const baseUrl = "f03/f03010";
     let jsonObject: any = {};
     jsonObject['page'] = pageIndex;
@@ -72,7 +71,6 @@ export class F03010Component implements OnInit {
 
   //修改
   startEdit(speakingAbbreviation: string, speakingContent: string, stopFlag: string) {
-    console.log(speakingAbbreviation,speakingContent,stopFlag)
     const dialogRef = this.dialog.open(F03010editComponent, {
       minHeight: '70vh',
       width: '50%',

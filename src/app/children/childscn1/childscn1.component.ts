@@ -262,9 +262,6 @@ export class Childscn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
 
-      console.log('data');
-      console.log(data);
-
       //CreditAuditinfo
       if (data.rspBody.CreditAuditinfoList.length > 0) {
         this.cuCName = data.rspBody.CreditAuditinfoList[0].cuCname;
@@ -362,8 +359,6 @@ export class Childscn1Component implements OnInit {
       }
 
       //creditInterestPeriod
-      console.log("creditInterestPeriodList===>");
-      console.log(data.rspBody.creditInterestPeriodList)
       if (data.rspBody.creditInterestPeriodList.length > 0) {
         this.period = data.rspBody.creditInterestPeriodList[0].period;
         sessionStorage.setItem('period', data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '');
@@ -478,13 +473,11 @@ export class Childscn1Component implements OnInit {
     } else {
       this.interestValue = '';
       this.interestBase = 0
-      console.log("====1====>" + this.interestBase)
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
     }
     sessionStorage.setItem('approveInterest', this.approveInterest.toString());
     sessionStorage.setItem('interestType', this.interestType);
     sessionStorage.setItem('interest', this.interest.toString());
-    console.log("====2====>" + this.interestBase)
     sessionStorage.setItem('interestBase', this.interestBase.toString());
   }
 
@@ -589,8 +582,7 @@ export class Childscn1Component implements OnInit {
     //測試用
     // jsonObject['applno'] = '20211129A000005';
     this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
-      // console.log('getDSS11data');
-      // console.log(data);
+
       if (data.rspBody.DSS1.length > 0) {
         //系統決策
         this.dss1Form1.patchValue({ SYSFLOWCD: data.rspBody.DSS1[0].SYSFLOWCD })//系統流程
@@ -631,8 +623,6 @@ export class Childscn1Component implements OnInit {
     //測試用
     // jsonObject['applno'] = '20211116A000003';
     this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
-      // console.log('getDSS21data');
-      // console.log(data);
       if (data.rspBody.DSS2.length > 0) {
         //系統決策
         this.dss2Form1.patchValue({ SYSFLOWCD: data.rspBody.DSS2[0].SYSFLOWCD })//系統流程

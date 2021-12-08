@@ -25,7 +25,6 @@ export class Childscn12Service extends BaseService {
   }
 
   postJson(baseUrl: string, json: JSON) {
-    console.log('1');
     return this.postJsonObject(baseUrl, json);
   }
 

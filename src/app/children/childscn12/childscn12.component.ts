@@ -165,7 +165,6 @@ export class Childscn12Component implements OnInit {
     this.chkArray.push({ value: "C5", completed: false });
     this.chkArray.push({ value: "C6", completed: false });
     this.chkArray.push({ value: "C7", completed: false });
-    // console.log(this.INCOME_DETAILS_List);
     this.applno = sessionStorage.getItem('applno');
     this.stepName = sessionStorage.getItem('stepName');
     this.getData();
@@ -184,13 +183,9 @@ export class Childscn12Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno
     this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
-      // console.log('data.rspBody');
-      // console.log(data);
       //------------------以下總表處理
       if (data.rspBody.income != null) {
         this.EL_INCOME_Source.data = data.rspBody.income;
-        // console.log('this.EL_INCOME_Source.data');
-        // console.log(this.EL_INCOME_Source.data);
         //轉換checkbox
         if (data.rspBody.income.length == 7) {
           if (this.EL_INCOME_Source.data[6].checkIncome != null) {
@@ -232,9 +227,6 @@ export class Childscn12Component implements OnInit {
             break;
         }
       }
-      // console.log('this.INCOME_DETAILS_List');
-      // console.log(this.INCOME_DETAILS_List);
-
     });
     this.loading = false;
     this.loading6 = false;
@@ -397,11 +389,7 @@ export class Childscn12Component implements OnInit {
       jsonObject['income'] = this.toNumber(this.EL_INCOME_Source.data[6].income);
       jsonObject['check'] = check
       jsonObject['mark'] = this.EL_INCOME_Source.data[6].mark
-      // console.log('jsonObject');
-      // console.log(jsonObject);
       this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
-        // console.log('data.rspBody');
-        // console.log(data);
         msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msg }
@@ -426,13 +414,9 @@ export class Childscn12Component implements OnInit {
       jsonObject['paySlipList'] = save_INCOME_DETAILS_List[3];
       jsonObject['laborDetailsList'] = save_INCOME_DETAILS_List[4];
       jsonObject['bankerList'] = save_INCOME_DETAILS_List[5];
-      // console.log('jsonObject1');
-      // console.log(jsonObject);
       this.loading6 = true
       this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
         this.loading6 = false
-        // console.log('data.rspBody');
-        // console.log(data);
         if (data.rspMsg == "success") {
           msg = "儲存成功!";
           this.getData();
@@ -443,10 +427,7 @@ export class Childscn12Component implements OnInit {
           data: { msgStr: msg }
         });
       });
-      // console.log('save');
-      // console.log(this.INCOME_DETAILS_List);
     }
-
   }
 
   //去除符號中文 並更新小計欄位

@@ -61,8 +61,6 @@ export class Childscn10page4Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['strgy'] = '1';
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
-      console.log('data');
-      console.log(data);
       if (data.rspBody.DSS1LIST.length > 0) {
         this.DSS1_DataSource.data = data.rspBody.DSS1LIST
         //系統決策
@@ -76,8 +74,6 @@ export class Childscn10page4Component implements OnInit {
       }
       this.EL_DSS1_RISKDSUB.data = data.rspBody.DSS1RISKDSUB;
       //this.total = data.rspBody.DSS1RISKDSUB.size;
-      console.log('this.EL_DSS1_RISKDSUB');
-      console.log(this.EL_DSS1_RISKDSUB.data);
 
       this.DSS2_DataSource.data = data.rspBody.DSS2LIST
       if (data.rspBody.DSS2LIST.length > 0) {
@@ -91,9 +87,6 @@ export class Childscn10page4Component implements OnInit {
         this.DSS2DataForm.patchValue({ RISKMDGRADE_A1_GP_ADJ: data.rspBody.DSS2LIST[0].RISKMDGRADE_A1_GP_ADJ })//風險模型等級分群(策略調整後)
       }
       this.EL_DSS2_RISKDSUB.data = data.rspBody.DSS2RISKDSUB;
-      console.log('this.EL_DSS2_RISKDSUB');
-      console.log(this.EL_DSS2_RISKDSUB.data);
-
     });
   }
 

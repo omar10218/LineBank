@@ -181,7 +181,6 @@ export class F01001Component implements OnInit, AfterViewInit {
 
   // 排序
   sortChange(e: string) {
-    console.log(e)
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
   }

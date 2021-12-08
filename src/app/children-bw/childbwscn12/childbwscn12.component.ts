@@ -25,12 +25,13 @@ export class Childbwscn12Component implements OnInit {
   search: any[] = [];
   chk :string[] = [];
 
+  block: boolean = false;
+
   ngOnInit(): void {
     this.swcID = sessionStorage.getItem('swcNationalId');
     this.swcApplno = sessionStorage.getItem('applno');
     this.empNo = localStorage.getItem("empNo");
     this.swcCustId = sessionStorage.getItem('swcCustId');
-    console.log(sessionStorage.getItem('swcNationalId'))
   }
   closure() //關閉
   {
@@ -55,11 +56,12 @@ export class Childbwscn12Component implements OnInit {
     jsonObject['search'] = this.chk.toString();
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['userId'] = this.empNo;
+    this.block = true;
     this.childbwscn12Service.selectCustomer(Url,jsonObject).subscribe(data=>{
-      console.log(data);
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
+      this.block = false;
       this.router.navigate(['./F01009']);
       this.dialogRef.close();
     });

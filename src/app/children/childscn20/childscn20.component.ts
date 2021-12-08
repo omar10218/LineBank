@@ -79,6 +79,8 @@ export class Childscn20Component implements OnInit {
   pageSize = 5;
   pageIndex = 1;
 
+  block: boolean = false;
+
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.applno = sessionStorage.getItem('applno');//案件代碼
@@ -144,10 +146,11 @@ export class Childscn20Component implements OnInit {
       this.jsonObject['BK_COLUMN'] = this.chkArray;
       this.jsonObject['BK_CONTENT'] = this.contentArray;
       const url = 'f01/childscn20action3';
+      this.block = true;
       this.childscn20Service.onsave(url, this.jsonObject).subscribe(data => {
-
         if (data.rspMsg == "儲存成功") {
           this.dialog.open(ConfirmComponent, { data: { msgStr: "儲存成功" } });
+          this.block = false;
           this.selectBlockList(this.pageIndex, this.pageSize);
         }
       })

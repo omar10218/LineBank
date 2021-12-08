@@ -98,8 +98,6 @@ export class Childscn23Component implements OnInit {
     let url = 'f01/childscn23action1'
     this.jsonObject3['applno'] = this.applno;
     this.childscn23Service.AddUpDel(url, this.jsonObject3).subscribe(data => {
-      // console.log('data23')
-      // console.log(data)
       if (data.rspBody.items.length > 0) {
         this.one = data.rspBody.items
         this.suject = data.rspBody.items[0].ACCOUNT_CODE;
@@ -206,8 +204,6 @@ export class Childscn23Component implements OnInit {
           }
 
           if (item.ACCOUNT_CODE == 'CC') {
-            console.log(item.CAL_YEARS)
-            console.log(item.CAL_PERIOD)
             this.jsonObject['applno'] = item.APPLNO;
             this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
             // jsonObject['rowId'] = item.ID;
@@ -235,11 +231,7 @@ export class Childscn23Component implements OnInit {
       }
     }
     this.jsonObject1['dataList'] = this.seveData
-    console.log("1111111")
-    console.log(this.seveData)
     this.childscn23Service.AddUpDel(url, this.jsonObject1).subscribe(data => {
-      console.log(this.seveData)
-      console.log(data)
       if (data.rspCode == '0000') {
         this.set();
         this.checkboxAny = [];
@@ -248,7 +240,6 @@ export class Childscn23Component implements OnInit {
         this.Monthly029 = 0;//BAM029月付金
         this.Monthlycc = 0;//信用卡付月金
       }
-
     })
     for (const item of this.one) {
       if (item.ID == '1') {
@@ -272,7 +263,6 @@ export class Childscn23Component implements OnInit {
     jsonObject['result'] = this.checkboxAny;
     let url = 'f01/childscn23action4';
     this.childscn23Service.AddUpDel(url, jsonObject).subscribe(data => {
-      console.log(data)
       if (data.rspMsg == '刪除成功') {
         this.set();
         this.checkboxAny = []
@@ -315,10 +305,6 @@ export class Childscn23Component implements OnInit {
   }
   test() {
     // Math.pow()
-    console.log('this.data')
-    console.log(this.checkboxAny)
-    console.log(this.seveData)
-    console.log(this.Monthlycc)
   }
 
 
@@ -360,8 +346,6 @@ export class Childscn23Component implements OnInit {
     this.childscn23Service.getDate_Json(url, jsonObject).subscribe(data => {
       if (data.rspBody.length > 0) {
         this.fmData_B.data = data.rspBody
-        // console.log('Bdata');
-        // console.log(data);
 
         this.fmData_B.data[0].unsdebt_AMT_501EX_B = this.fmData_B.data[0].unsdebt_AMT_501EX_B == null ? this.fmData_B.data[0].unsdebt_AMT_501EX : this.fmData_B.data[0].unsdebt_AMT_501EX_B;
         this.fmData_B.data[0].unsdebt_AMT_504EX_B = this.fmData_B.data[0].unsdebt_AMT_504EX_B == null ? this.fmData_B.data[0].unsdebt_AMT_504EX : this.fmData_B.data[0].unsdebt_AMT_504EX_B;
@@ -483,9 +467,6 @@ export class Childscn23Component implements OnInit {
     jsonObject['mthpayBam029_C'] = this.save_data_number(this.fmData_B.data[0].mthpay_BAM029_C);
     jsonObject['mthpayKrm048_C'] = this.save_data_number(this.fmData_B.data[0].mthpay_KRM048_C);
     jsonObject['mthpayNonjcic_C'] = this.save_data_number2(this.fmData_B.data[0].mthpay_NONJCIC_C);
-
-    console.log('jsonObject');
-    console.log(jsonObject);
     this.childscn23Service.getDate_Json(url, jsonObject).subscribe(data => {
       msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -505,8 +486,6 @@ export class Childscn23Component implements OnInit {
     // jsonObject['applno'] = '20210827E000';
     jsonObject['dssType'] = "Dss2";
     this.childscn23Service.getDate_Json(url, jsonObject).subscribe(data => {
-      // console.log('Cdata');
-      // console.log(data);
       if (data.rspBody.length > 0) {
         this.fmData_C.data= key?this.fmData_C.data:data.rspBody; //key 判斷資料結構是否建立
         // this.fmData_C.data = data.rspBody
@@ -545,8 +524,6 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].mthpay_KRM048_C = this.data_number2(data.rspBody[0].mthpay_KRM048_C);
         this.fmData_B.data[0].mthpay_NONJCIC_C = this.data_number2(data.rspBody[0].mthpay_NONJCIC_C);
 
-        // console.log(this.fmData_B);
-        // console.log('dataB');
       }
     });
   }

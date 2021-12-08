@@ -45,7 +45,6 @@ export class Childscn16Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
-    console.log(sessionStorage.getItem('cuid'))
   }
   ngAfterViewInit() {
     //this.initial( this.pageIndex, this.pageSize );
@@ -91,7 +90,10 @@ export class Childscn16Component implements OnInit {
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
     this.childscn16Service.selectCustomer(url, this.jsonObject).subscribe(data => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> be711f0c51c80ce8400fa6f6e8ccff72d01a616a
       this.total = data.rspBody.size;
       this.ruleParamCondition = data.rspBody.items;
     })

@@ -56,7 +56,6 @@ export class F03012editComponent implements OnInit {
     this.getData()
   }
 	getData() {
-		console.log(this.data)
 		// console.log(this.data.setValue)
 		this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
 			for (const jsonObj of data.rspBody.mappingList) {
@@ -78,13 +77,11 @@ export class F03012editComponent implements OnInit {
     let jsonObj:any={};
     jsonObj['compareTable']=this.data.compareTable;
     this.f03012Service.getColumn(jsonObj).subscribe(data =>{
-    console.log(data)
       for(const jsonObj of data.rspBody.mappingList){
         const codeNo= jsonObj.codeNo
         const desc = jsonObj.codeDesc
         this.compareColumnCode.push({value: codeNo, viewValue: desc})
       }
-      console.log(this.compareColumnCode)
     })
 
 		this.oldCompareTable = this.data.compareTable
@@ -102,9 +99,6 @@ export class F03012editComponent implements OnInit {
 		let msgStr: string = ''
 		let baseUrl = 'f03/f03012action2'
 		msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.setValueLow, this.setValueHight, this.compareType, this.oldCompareType)
-		console.log(this.data)
-		console.log(this.compareType)
-		console.log(this.setValueHight)
 		const childernDialogRef = this.dialog.open(ConfirmComponent, {
 			data: {msgStr: msgStr},
 		})
@@ -128,7 +122,6 @@ export class F03012editComponent implements OnInit {
     // })
 
 		this.f03012Service.getSysTypeCode(this.data.compareTable).subscribe(data => {
-      console.log(data)
 			for (const jsonObj of data.rspBody.mappingList) {
 				const codeNo = jsonObj.codeNo
 				const desc = jsonObj.codeDesc

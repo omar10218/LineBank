@@ -68,11 +68,7 @@ export class Childscn8deleteComponent implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.data.applno;
     jsonObject['rowID'] = this.data.ID;
-    console.log('console.log(jsonObject);');
-    console.log(jsonObject);
     await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
-      console.log('data');
-      console.log(data);
       codeStr = data.rspCode;
       msgStr = data.rspMsg;
       const childernDialogRef = this.dialog.open(ConfirmComponent, {

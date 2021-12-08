@@ -475,11 +475,6 @@ export class Childscn8Component implements OnInit {
   //     this.MDtable[16].REPLY_CONDITION.slice(0, this.MDtable[16].REPLY_CONDITION.length - 1) :
   //     this.MDtable[16].REPLY_CONDITION;
 
-  //   console.log('this.MDtable[13].REPLY_CONDITION');
-  //   console.log(this.MDtable[13].REPLY_CONDITION);
-  //   console.log('this.MDtable[16].REPLY_CONDITION');
-  //   console.log(this.MDtable[16].REPLY_CONDITION);
-
   //   for (const calloutData of this.MDtable) {
   //     checkItem += calloutData.MD_NO.value + ",";
   //     checkData += (calloutData.CHECK_DATA != "" && calloutData.CHECK_DATA != null) ? calloutData.CHECK_DATA + "," : "*,";
