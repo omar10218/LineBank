@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     //Nick 設定同時只能登入一個帳號
     window.addEventListener("storage", (e) => { //監聽帳號
-      alert('請勿重複登入帳號');
+      // alert('請勿重複登入帳號');
       this.router.navigate(['./']);
     });
   }
