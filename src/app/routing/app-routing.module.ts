@@ -91,7 +91,8 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
+        canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01001',
