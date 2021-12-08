@@ -45,7 +45,7 @@ const routes: Routes = [
   {
     path: 'CHILDSCN1',
     component: Childscn1Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN2',

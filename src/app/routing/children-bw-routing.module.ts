@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: 'CHILDBWSCN1',
     component: Childbwscn1Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN2',

@@ -122,7 +122,7 @@ export class F01007Component implements OnInit {
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('stepName', this.stepName);
-        this.router.navigate(['./F01007/F01007SCN1']);
+        this.router.navigate(['./F01007/F01007SCN1'], { skipLocationChange: true });
       }
     });
   }
