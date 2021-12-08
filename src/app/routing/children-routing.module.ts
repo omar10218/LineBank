@@ -223,7 +223,7 @@ const routes: Routes = [
   {
     path: 'CHILDSCN16',
     component: Childscn16Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN17',

@@ -152,37 +152,37 @@ const routes: Routes = [
       {
         path: 'F02001',
         component: F02001Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F02002',
         component: F02002Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F02003',
         component: F02003Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F02004',
         component: F02004Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F02005',
         component: F02005Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F02006',
         component: F02006Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F02007',
         component: F02007Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03001',
