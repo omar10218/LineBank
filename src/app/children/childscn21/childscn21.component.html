@@ -5,7 +5,7 @@
 
   <div class="line_bank_card_no_padding">
 
-    <nz-table  [nzData]="PERSONSource" nzSize="small" nzTitle="額度資訊">
+    <nz-table  nzSize="small" nzTitle="額度資訊">
       <thead>
         <tr>
           <th class="table-header">層級</th>
@@ -22,11 +22,12 @@
           <th class="table-header">停用日期</th>
           <th class="table-header">循環別</th>
           <th class="table-header">是否可撤銷</th>
-          <th class="table-header">專案代碼</th>
+          <th class="table-header">案件編號</th>
+          <th class="table-header">Product Code</th>
           <th class="table-header">額度狀態</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style="height:20vh">
         <tr *ngFor="let row of PERSONSource.data">
           <td class="table-data">{{ row.levelNo }}</td>
           <td class="table-data">{{ row.limitNo }}</td>
@@ -43,6 +44,7 @@
           <td class="table-data">{{ row.cycleType }}</td>
           <td class="table-data">{{ row.cancelFlag }}</td>
           <td class="table-data">{{ row.projectCode }}</td>
+          <td class="table-data">{{ row.statusFlag }}</td>
           <td class="table-data">{{ row.statusFlag }}</td>
         </tr>
       </tbody>

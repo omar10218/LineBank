@@ -33,6 +33,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
+  test:any ;
 
   // 計算剩餘table資料長度
   get tableHeight(): string {
@@ -181,8 +182,11 @@ export class F01002page1Component implements OnInit, AfterViewInit {
 
   // 排序
   sortChange(e: string) {
+    console.log(e)
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+     
+      console.log(this.cusinfoDataSource)
   }
 
    // 清除資料
