@@ -172,7 +172,7 @@ export class F02001Component implements OnInit {
     sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('queryDate', '');
     sessionStorage.setItem('winClose', 'Y');
-    sessionStorage.setItem('page', '0');
+    sessionStorage.setItem('page', '0');//申請案件查詢
     sessionStorage.setItem('stepName', '0');
     //開啟徵審主畫面
     const url = window.location.href.split("/#");
