@@ -118,7 +118,7 @@
     <nz-table nzShowSizeChanger [nzData]="resultData" [nzFrontPagination]="false" [nzSimple]="true"
       [nzScroll]="{ x: '3800px', y: '240px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
       [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
-      <thead>
+      <thead >
         <tr>
           <th nzLeft >序號</th>
           <th nzLeft>累進</th>
@@ -170,27 +170,27 @@
           <!--審核結果-->
           <td>{{ data.CREDIT_RESULT }}</td>
            <!--風險等級分群-->
-           <td>{{ data.risk_GRADE }}</td>
+           <td>{{ data.RISK_GRADE }}</td>
             <!--案件狀態-->
           <td>{{ data.STATUS_DESC }}</td>
             <!--系統狀態-->
             <td>{{ data.OP_DESC }}</td>
             <!--上傳財力日期-->
-          <td>{{ data.proof_DOCUMENT_TIME }}</td>
+          <td>{{ data.PROOF_DOCUMENT_TIME }}</td>
           <!--准駁日期時間-->
-          <td></td>
+          <td>{{data.CREDIT_TIME}}</td>
           <!--簽約完成日期-->
-          <td>{{ data.sign_UP_TIME }}</td>
+          <td>{{ data.SIGN_UP_TIME }}</td>
            <!--產品名稱-->
-           <td></td>
+           <td>{{data.PROD_CODE}}</td>
             <!--申請金額/額度-->
-          <td></td>
+          <td>{{data.APPLICATION_AMOUNT}}</td>
            <!--核准金額/額度-->
-           <td>{{ data.approve_AMT }}</td>
+           <td>{{ data.APPROVE_AMT }}</td>
              <!--合約金額/額度-->
           <td></td>
            <!--專案名稱-->
-           <td></td>
+           <td>{{data.PRJ_CODE}}</td>
             <!--行銷代碼-->
           <td></td>
           <!--徵信員姓名-->
