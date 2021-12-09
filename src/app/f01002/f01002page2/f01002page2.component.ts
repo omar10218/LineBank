@@ -58,7 +58,10 @@ export class F01002page2Component implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getCalloutList(pageIndex, pageSize);
+    if(this.pageIndex !==pageIndex){// 判斷是否為第一次進頁面
+      const { pageSize, pageIndex } = params;
+      this.getCalloutList(pageIndex, pageSize);
+    }
   }
 
   // 照會提醒清單
