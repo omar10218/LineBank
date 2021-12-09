@@ -4,11 +4,10 @@
   <br>
   <div  style="position:fixed;top:48px;width:100%;z-index:100">
     <ng-container *ngIf="getSearch() == 'Y' && getWinClose() == 'Y' ">
-      <div style="padding:0 10px;background-color:white">
-        <div style="background-color:white;margin:0px -8px -20px -8px;">
-          <button class="leave" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-            (click)="leave()">離開</button>
-        </div>
+      <div style="padding:0 10px;background-color:white;" *ngIf="changeValue">
+        <mat-grid-list cols="9" rowHeight="3:0.5" style="background-color:white;margin:0px -8px -20px -8px;padding:0px">
+          <mat-grid-tile><span style="font-size: 10px;" (click)="leave()">離開</span></mat-grid-tile>
+        </mat-grid-list>
       </div>
     </ng-container>
     <ng-container *ngIf="getSearch() == 'Y' && getWinClose() == 'N' ">
@@ -36,7 +35,6 @@
   </div>
 
   <div [ngClass]="{'classA': changeValue==true,'classB': changeValue==false}">
-
     <br>
     <nz-tabset nzLinkRouter>
       <nz-tab>
