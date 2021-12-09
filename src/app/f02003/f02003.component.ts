@@ -147,8 +147,18 @@ export class F02003Component implements OnInit {
     }
     console.log(jsonObject)
     this.f02003Service.inquiry(url,jsonObject).subscribe(data=>{
-      this.resultData = data.rspBody.item
-      this.quantity = data.rspBody.size
+
+      if(data.rspBody.size == 0)
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查無資料" }})
+      }
+      else
+      {
+        this.resultData = data.rspBody.item
+        this.quantity = data.rspBody.size
+      }
+
       console.log(data)
     })
 
