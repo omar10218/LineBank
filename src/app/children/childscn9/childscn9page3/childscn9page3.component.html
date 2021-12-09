@@ -8,8 +8,8 @@
     <thead>
       <tr>
         <th class="table-header" nzWidth="100px">產品</th>
-        <th class="table-header" nzWidth="100px">目前狀態正常帳戶數</th>
-        <th class="table-header" nzWidth="100px">目前逾期狀態（各產品最嚴重）</th>
+        <th class="table-header" nzWidth="50px">帳戶數</th>
+        <th class="table-header" nzWidth="50px">逾期狀態</th>
         <th class="table-header" nzWidth="100px">最早轉催日期</th>
         <th class="table-header" nzWidth="100px">最早轉呆日期</th>
         <th class="table-header" nzWidth="100px">最早行內協議成立日期</th>
@@ -43,6 +43,7 @@
     [nzPageIndex]="pageIndex" nzSize="small" [nzScroll]="{ x: '300px', y: '240px' }" nzTitle="分期信貸產品資訊">
     <thead>
       <tr>
+        <th class="table-header" nzWidth="100px">No</th>
         <th class="table-header" nzWidth="100px">產品</th>
         <th class="table-header" nzWidth="100px">合約確定日期時間</th>
         <th class="table-header" nzWidth="100px">合約截止日期時間</th>
@@ -54,13 +55,13 @@
         <th class="table-header" nzWidth="100px">目前放款餘額</th>
         <th class="table-header" nzWidth="100px">佔額比</th>
         <th class="table-header" nzWidth="100px">結清日期時間</th>
-        <th class="table-header" nzWidth="100px">往來月數( 年 月)</th>
+        <th class="table-header" nzWidth="100px">往來月數</th>
         <th class="table-header" nzWidth="100px">合約剩餘期數</th>
         <th class="table-header" nzWidth="100px">多階利率說明</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of INSTALLMENT_ACCSource">
+      <tr *ngFor="let data of INSTALLMENT_ACCSource;let i = index">
         <td class="table-data">{{ data.PROD_TYPE }}</td>
         <td class="table-data">{{ data.CT_CFM_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
         <td class="table-data">{{ data.CT_EXP_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
