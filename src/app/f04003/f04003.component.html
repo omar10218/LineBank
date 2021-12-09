@@ -28,7 +28,8 @@
         </div>
         <div nz-col nzSpan="8">
           <div style="padding-left: 20px; margin-top: 30px;">
-            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Inquire()">查詢</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+              (click)="Inquire()">查詢</button>
             <!-- <button (click)="tes()">111111</button> -->
           </div>
         </div>
@@ -50,35 +51,38 @@
           </div>
         </div>
       </div>
-      <!-- 表格 -->
-      <nz-table nzShowSizeChanger [nzData]="setDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small">
-        <thead>
-          <tr>
-            <th class="table-header" style="width: 100px;"><mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox></th>
-            <th class="table-header" style="width:150px">處理人員</th>
-            <th class="table-header" style="width: 100px;">處理人員姓名</th>
-            <th class="table-header" style="width: 200px;">案件編號</th>
-            <th class="table-header" style="width: 200px;">身份證號</th>
-            <th class="table-header" style="width: 100px;">客戶姓名</th>
-            <th class="table-header" style="width: 300px;">公司名稱</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of setDataSource;let i = index;">
-            <td class="table-data" *ngIf="Transfer==''" >
-              <mat-checkbox  disabled ></mat-checkbox>
-            </td>
-            <td class="table-data" *ngIf="Transfer!=''" >
-              <mat-checkbox [(ngModel)]="checkboxArray[i].completed" ></mat-checkbox>
-            </td>
-            <td class="table-data">{{ data.empNo }}</td>
-            <td class="table-data">{{ data.empName }}</td>
-            <td class="table-data">{{ data.swcApplno }}</td>
-            <td class="table-data">{{ data.reasonDesc }}</td>
-            <td class="table-data">{{ data.swcName }}</td>
-            <td class="table-data">{{ data.swcCompany }}</td>
-          </tr>
-        </tbody>
-      </nz-table>
     </div>
+
+    <nz-table nzShowSizeChanger [nzData]="setDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small">
+      <thead>
+        <tr>
+          <th class="table-header" style="width: 100px;">
+            <mat-checkbox color="primary" [(ngModel)]="isAllCheck" (change)="setAll($event.checked)">全選</mat-checkbox>
+          </th>
+          <th class="table-header" style="width:150px">處理人員</th>
+          <th class="table-header" style="width: 100px;">處理人員姓名</th>
+          <th class="table-header" style="width: 200px;">案件編號</th>
+          <th class="table-header" style="width: 200px;">身份證號</th>
+          <th class="table-header" style="width: 100px;">客戶姓名</th>
+          <th class="table-header" style="width: 300px;">公司名稱</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of setDataSource;let i = index;">
+          <td class="table-data" *ngIf="Transfer==''">
+            <mat-checkbox disabled></mat-checkbox>
+          </td>
+          <td class="table-data" *ngIf="Transfer!=''">
+            <mat-checkbox [(ngModel)]="checkboxArray[i].completed"></mat-checkbox>
+          </td>
+          <td class="table-data">{{ data.empNo }}</td>
+          <td class="table-data">{{ data.empName }}</td>
+          <td class="table-data">{{ data.swcApplno }}</td>
+          <td class="table-data">{{ data.reasonDesc }}</td>
+          <td class="table-data">{{ data.swcName }}</td>
+          <td class="table-data">{{ data.swcCompany }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
   </div>
+</div>
