@@ -355,6 +355,7 @@ export class F02001Component implements OnInit {
     }
 
     this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
+      console.log(data)
       this.resultData = data.rspBody.item;
       this.total = data.rspBody.size;
       this.quantity = data.rspBody.size;
@@ -435,7 +436,7 @@ export class F02001Component implements OnInit {
   }
   sortChange(e: string) {
     this.resultData = e === 'ascend' ? this.resultData.sort(
-      (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+      (a, b) => a.APPLY_TIME.localeCompare(b.APPLY_TIME)) : this.resultData.sort((a, b) => b.APPLY_TIME.localeCompare(a.APPLY_TIME))
     // alert('1');
     // console.log(this.resultData);
     console.log('-----------------');
