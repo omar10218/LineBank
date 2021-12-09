@@ -72,6 +72,7 @@ export class F02001Component implements OnInit {
     this.apply_TIME = [this.dealwithData14(new Date()), new Date()]
     this.quantity = 0;
 
+
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -149,11 +150,16 @@ export class F02001Component implements OnInit {
   getRiskGrade() {
     this.f02001Service.getSysTypeCode('RISK_GRADE').subscribe(data => {
       this.risk_GRADE.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.risk_GRADE.push({ value: codeNo, viewValue: desc })
-      }
+      this.risk_GRADE.push({value: 'R1', viewValue: 'R1' })
+      this.risk_GRADE.push({value: 'R2', viewValue: 'R2' })
+      this.risk_GRADE.push({value: 'R3', viewValue: 'R3' })
+      this.risk_GRADE.push({value: 'R4', viewValue: 'R4' })
+      this.risk_GRADE.push({value: 'R5', viewValue: 'R5' })
+      // for (const jsonObj of data.rspBody.mappingList) {
+      //   const codeNo = jsonObj['codeNo'];
+      //   const desc = jsonObj['codeDesc'];
+      //   this.risk_GRADE.push({ value: codeNo, viewValue: desc })
+      // }
     });
   }
 
@@ -465,4 +471,5 @@ export class F02001Component implements OnInit {
       }
     }
   }
+
 }
