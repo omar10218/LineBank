@@ -58,11 +58,23 @@ export class F04003Component implements OnInit {
     LevelJson['level'] = this.Level;
     this.f04003Service.Set(url, LevelJson).subscribe(data => {
       this.personnelCode.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody) {
-        const id = jsonObj['EMP_NAME'];
-        const name = jsonObj['EMP_NAME'];
-        this.personnelCode.push({ value: id, viewValue: name })
+      console.log("111111")
+      console.log(data  )
+      if(data.rspMsg != "該層級查無人員")
+      {
+        for (const jsonObj of data.rspBody)
+        {
+         const id = jsonObj['EMP_NAME'];
+         const name = jsonObj['EMP_NAME'];
+         this.personnelCode.push({ value: id, viewValue: name })
+       }
       }
+      else
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: data.rspMsg }})
+      }
+
     })
 
   }

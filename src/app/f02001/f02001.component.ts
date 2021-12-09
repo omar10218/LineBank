@@ -51,6 +51,7 @@ export class F02001Component implements OnInit {
   pageSize: number;
   pageIndex: number;
   firstFlag = 1;
+  sortArry=['ascend', 'descend']
   constructor(private router: Router,
     private f02001Service: F02001Service,
     public pipe: DatePipe,
@@ -362,10 +363,19 @@ export class F02001Component implements OnInit {
 
     this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
       console.log(data)
-      this.resultData = data.rspBody.item;
-      this.total = data.rspBody.size;
-      this.quantity = data.rspBody.size;
-      this.firstFlag = 2;
+      if(data.rspBody.size == 0)
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查無資料" }})
+      }
+      else
+      {
+        this.resultData = data.rspBody.item;
+        this.total = data.rspBody.size;
+        this.quantity = data.rspBody.size;
+        this.firstFlag = 2;
+      }
+
     }
     )
   }
