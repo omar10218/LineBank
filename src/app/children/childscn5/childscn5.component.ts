@@ -88,6 +88,7 @@ export class Childscn5Component implements OnInit {
       });
     //取公司白名單下拉
     this.childscn5Service.getSysTypeCode('COMPANY_WHITELIST')
+    
       .subscribe(data => {
         this.companyWhitelistCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.mappingList) {
@@ -166,8 +167,16 @@ export class Childscn5Component implements OnInit {
     this.jobCodeCaValue = '';
     let jsonObject: any = {};
     jsonObject['inducLevel1'] = this.cuLevel1CaValue;
-
+  
+    var foo = document.getElementById('cuLevel2Ca');
+    if( jsonObject['inducLevel1']==undefined){
+      foo.style['background-color'] = '#E6E6E6';
+    }
+    else{
+      foo.style['background-color'] = '	#FFFFFF';
+    }
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+     
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj['INDUC_LEVEL2'];
         const desc = jsonObj['INDUC_LEVEL2_DESC'];
@@ -183,6 +192,15 @@ export class Childscn5Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['inducLevel1'] = this.cuLevel1CaValue;
     jsonObject['inducLevel2'] = this.cuLevel2CaValue;
+   
+    var v00 = document.getElementById('jobCodeCa');
+    if( jsonObject['inducLevel2']==undefined||jsonObject['inducLevel2']==""||jsonObject['inducLevel2']==null){
+      v00.style['background-color'] = '#E6E6E6';
+      
+    }
+    else{
+      v00.style['background-color'] = '	#FFFFFF';
+    }
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj['JOB_CODE'];
