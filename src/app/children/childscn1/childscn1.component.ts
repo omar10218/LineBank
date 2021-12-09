@@ -465,10 +465,13 @@ export class Childscn1Component implements OnInit {
     return date.split("T")[0] + " " + date.split("T")[1].split(".")[0];
   }
 
-  changeInterest() {
+  async changeInterest() {
     if (this.interestType == '02') {
       this.interestValue = '1';
-      this.interestBase = 2;
+      let jsonObject: any = {};
+      const baseUrl = 'f01/childscn1action3';
+      this.interestBase = await this.childscn1Service.getInterestBase(baseUrl, jsonObject);
+      // this.interestBase = 2;
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
     } else {
       this.interestValue = '';
