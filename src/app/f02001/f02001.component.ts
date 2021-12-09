@@ -51,6 +51,7 @@ export class F02001Component implements OnInit {
   pageSize: number;
   pageIndex: number;
   firstFlag = 1;
+  sortArry=['ascend', 'descend']
   constructor(private router: Router,
     private f02001Service: F02001Service,
     public pipe: DatePipe,
