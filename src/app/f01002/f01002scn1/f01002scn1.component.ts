@@ -85,8 +85,8 @@ export class F01002scn1Component implements OnInit {
   }
 
   ngAfterViewInit() {
-    // let element: HTMLElement = document.getElementById('firstBtn') as HTMLElement;
-    // element.click();
+    let element: HTMLElement = document.getElementById('firstBtn') as HTMLElement;
+    element.click();
   }
 
   test() {
@@ -269,7 +269,7 @@ export class F01002scn1Component implements OnInit {
         data: { msgStr: data.rspMsg }
       });
       this.block = false;
-      this.router.navigate(['./F01002']);
+      this.router.navigate(['./F01002'], { skipLocationChange: true });
     });
   }
 

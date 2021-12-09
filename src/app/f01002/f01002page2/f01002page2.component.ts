@@ -122,7 +122,7 @@ sortChange(e: string) {
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('level', '3');
     sessionStorage.setItem('page', '2');//0查詢 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8產生合約前回查 9複審人員 10複審主管
-    this.router.navigate(['./F01002/F01002SCN1/CHILDSCN8']);
+    this.router.navigate(['./F01002/F01002SCN1/CHILDSCN8'], { skipLocationChange: true });
   }
 
   refreshTable() {

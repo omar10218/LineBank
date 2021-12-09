@@ -203,7 +203,7 @@ export class F01009Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('page', '9'); //0查詢 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8產生合約前回查 9複審人員 10複審主管
-        this.router.navigate(['./F01009/F01009SCN1']);
+        this.router.navigate(['./F01009/F01009SCN1'], { skipLocationChange: true });
       }
     });
   }

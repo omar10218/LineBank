@@ -110,7 +110,7 @@ export class F01008Component implements OnInit {
         // sessionStorage.setItem('level', '8');//
         sessionStorage.setItem('page', '8'); //0查詢 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8產生合約前回查 9複審人員 10複審主管
         sessionStorage.setItem('stepName', this.stepName);
-        this.router.navigate(['./F01008/F01008SCN1']);
+        this.router.navigate(['./F01008/F01008SCN1'], { skipLocationChange: true });
       }
     });
   }

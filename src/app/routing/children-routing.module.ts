@@ -45,180 +45,180 @@ const routes: Routes = [
   {
     path: 'CHILDSCN1',
     component: Childscn1Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN2',
     component: Childscn2Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
     children: [
       {
         path: 'CHILDSCN2PAGE1',
         component: Childscn2page1Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       }
     ]
   },
   {
     path: 'CHILDSCN3',
     component: Childscn3Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN4',
     component: Childscn4Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN5',
     component: Childscn5Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN6',
     component: Childscn6Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
     children: [
       {
         path: 'CHILDSCN6PAGE1',
         component: Childscn6page1Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
     ]
   },
   {
     path: 'CHILDSCN7',
     component: Childscn7Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN8',
     component: Childscn8Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN9',
     component: Childscn9Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
     children: [
       {
         path: 'CHILDSCN9PAGE1',
         component: Childscn9page1Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'CHILDSCN9PAGE2',
         component: Childscn9page2Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'CHILDSCN9PAGE3',
         component: Childscn9page3Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'CHILDSCN9PAGE4',
         component: Childscn9page4Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       }
     ]
   },
   {
     path: 'CHILDSCN10',
     component: Childscn10Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
     children: [
       {
         path: 'CHILDSCN10PAGE1',
         component: Childscn10page1Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'CHILDSCN10PAGE2',
         component: Childscn10page2Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'CHILDSCN10PAGE3',
         component: Childscn10page3Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       }
       ,
       {
         path: 'CHILDSCN10PAGE4',
         component: Childscn10page4Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       }
     ]
   },
   {
     path: 'CHILDSCN11',
     component: Childscn11Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
     children: [
       {
         path: 'CHILDSCN11PAGE1',
         component: Childscn11page1Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'CHILDSCN11PAGE2',
         component: Childscn11page2Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'CHILDSCN11PAGE3',
         component: Childscn11page3Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'CHILDSCN11PAGE4',
         component: Childscn11page4Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'CHILDSCN11PAGE5',
         component: Childscn11page5Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
     ]
   },
   {
     path: 'CHILDSCN12',
     component: Childscn12Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN13',
     component: Childscn13Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN14',
     component: Childscn14Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
     children: [
       {
         path: 'CHILDSCN14PAGE1',
         component: Childscn14page1Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'CHILDSCN14PAGE2',
         component: Childscn14page2Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'CHILDSCN14PAGE3',
         component: Childscn14page3Component,
-        canActivate: [AuthGuard], // 守衛路由
+        //canActivate: [AuthGuard], // 守衛路由
       },
     ]
   },
   {
     path: 'CHILDSCN15',
     component: Childscn15Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN16',
@@ -228,22 +228,22 @@ const routes: Routes = [
   {
     path: 'CHILDSCN17',
     component: Childscn17Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN21',
     component: Childscn21Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN23',
     component: Childscn23Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDSCN25',
     component: Childscn25Component,
-    canActivate: [AuthGuard], // 守衛路由
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: '',
