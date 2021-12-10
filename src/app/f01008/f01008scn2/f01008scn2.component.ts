@@ -6,7 +6,7 @@ import { Data } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
-import{F01008deleteComponent}from'../f01008delete/f01008delete.component'
+import { F01008deleteComponent } from '../f01008delete/f01008delete.component'
 import { F01008scn2editComponent } from './f01008scn2edit/f01008scn2edit.component';
 
 interface sysCode {
@@ -24,10 +24,9 @@ export class F01008scn2Component implements OnInit {
   constructor(
     public dialog: MatDialog,
     private f01008Service: F01008Service,
-    public datepipe: DatePipe)
-    {
+    public datepipe: DatePipe) {
 
-    }
+  }
 
   applno: string;
   page = 1;
@@ -36,39 +35,42 @@ export class F01008scn2Component implements OnInit {
   tYPE: sysCode[] = [];
   cONDITION: sysCode[] = [];
   search: string;
-  ma:string;
+  ma: string;
   empNo: string;//員編
   macrSource: Data[] = [];
   showAdd: boolean = false;
   showEdit: boolean = false;
-  Sendcheck:string;
+  Sendcheck: string;
   jaicSource: Data[] = [];
 
   block: boolean = false;
 
   ngOnInit(): void {
-    this.applno = sessionStorage.getItem('applno');
-    // this.applno = "20211125A00002";
+    // this.applno = sessionStorage.getItem('applno');
+    this.applno = "20211125A00002";
     this.empNo = localStorage.getItem("empNo");
     this.set();//初始查詢
-    this.tYPE.push({value:'1',viewValue:'公司電話'})
-    this.tYPE.push({value:'2',viewValue:'手機號碼'})
-    this.tYPE.push({value:'3',viewValue:'住家號碼'})
-    this.tYPE.push({value:'4',viewValue:'其他'})
+    this.tYPE.push({ value: '1', viewValue: '公司電話' })
+    this.tYPE.push({ value: '2', viewValue: '手機號碼' })
+    this.tYPE.push({ value: '3', viewValue: '住家號碼' })
+    this.tYPE.push({ value: '4', viewValue: '其他' })
 
-    this.cONDITION.push({value:'1',viewValue:'本人接'})
-    this.cONDITION.push({value:'2',viewValue:'他人接'})
-    this.cONDITION.push({value:'3',viewValue:'無人接'})
-    this.cONDITION.push({value:'4',viewValue:'其他(備註)'})
+    this.cONDITION.push({ value: '1', viewValue: '本人接' })
+    this.cONDITION.push({ value: '2', viewValue: '他人接' })
+    this.cONDITION.push({ value: '3', viewValue: '無人接' })
+    this.cONDITION.push({ value: '4', viewValue: '其他(備註)' })
 
     this.search = sessionStorage.getItem('search');
+  }
+  test() {
+    console.log(this.showAdd)
   }
   add() //新增
   {
     this.showAdd = !this.showAdd;
     this.f01008Service.setJCICAddSource({
       minHeight: '70vh',
-			width: '50%',
+      width: '50%',
       show: this.showAdd,
       applno: this.applno,//案件編號
       // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
@@ -90,11 +92,11 @@ export class F01008scn2Component implements OnInit {
     })
   }
   //編輯
-  startEdit(ID:string,CON_TYPE:string,CON_MEMO:string,PHONE:string,TEL_CONDITION:string,CALLOUT_SETTIME:string,CALLOUT_DATE:string) {
+  startEdit(ID: string, CON_TYPE: string, CON_MEMO: string, PHONE: string, TEL_CONDITION: string, CALLOUT_SETTIME: string, CALLOUT_DATE: string) {
     this.showEdit = !this.showEdit;
     this.f01008Service.setJCICSource({
       minHeight: '70vh',
-			width: '50%',
+      width: '50%',
       show: this.showEdit,
       applno: this.applno,//案件編號
       // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
@@ -108,7 +110,7 @@ export class F01008scn2Component implements OnInit {
       // MINUTES_Code: this.MINUTES_Code,//分下拉選單
       MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
       PHONE: PHONE,//手機/市話
-      CON_MEMO: CON_MEMO,//備註
+      CON_MEMO: CON_MEMO,//備註RF
       CALLOUT_DATE: CALLOUT_DATE,//設定下次照會時間
       ID: ID,//java用row ID
       CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
@@ -122,6 +124,7 @@ export class F01008scn2Component implements OnInit {
   }
   set() //查詢
   {
+    alert("123")
     // researchDate
     // researchNum
     let jsonObject: any = {};
@@ -129,20 +132,21 @@ export class F01008scn2Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['page'] = this.page;
     jsonObject['pei_page'] = this.pei_page;
+    console.log("123")
+    console.log(jsonObject);
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      if(data.rspBody.list !=null)
-      {
+      alert("2")
+      console.log(data)
+      if (data.rspBody.list != null) {
         this.dataSource = data.rspBody.list;
       }
       this.macrSource = data.rspBody.creditmemoList;
       this.jaicSource = data.rspBody.creditMainList;
-      for (const jsonObj of data.rspBody.conType)
-      {
-        this.tYPE.push({value:jsonObj.codeNo,viewValue:jsonObj.codeDesc})
+      for (const jsonObj of data.rspBody.conType) {
+        this.tYPE.push({ value: jsonObj.codeNo, viewValue: jsonObj.codeDesc })
       }
-      for (const js of data.rspBody.telCondition)
-      {
-        this.cONDITION.push({value:js.codeNo,viewValue:js.codeDesc})
+      for (const js of data.rspBody.telCondition) {
+        this.cONDITION.push({ value: js.codeNo, viewValue: js.codeDesc })
       }
 
     })
@@ -158,8 +162,7 @@ export class F01008scn2Component implements OnInit {
     return codeVal;
   }
   //刪除
-  deleteItem(ID:string,CON_TYPE:string,CON_MEMO:string,PHONE:string,TEL_CONDITION:string,CALLOUT_SETTIME:string,CALLOUT_DATE:string)
-  {
+  deleteItem(ID: string, CON_TYPE: string, CON_MEMO: string, PHONE: string, TEL_CONDITION: string, CALLOUT_SETTIME: string, CALLOUT_DATE: string) {
     const dialogRef = this.dialog.open(F01008deleteComponent, {
       minHeight: '70vh',
       width: '70%',
@@ -192,15 +195,14 @@ export class F01008scn2Component implements OnInit {
     jsonObject['creditlevel'] = 'L2';
     this.block = true;
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      if(data.rspCode === '0000'||data.rspMsg ==='儲存成功')
-      {
-        this.ma ='';
+      if (data.rspCode === '0000' || data.rspMsg === '儲存成功') {
+        this.ma = '';
         this.block = false;
         this.set();
       }
     })
   }
-  edit(ID:string,CREDITACTION:string)//註記編輯
+  edit(ID: string, CREDITACTION: string)//註記編輯
   {
     const dialogRef = this.dialog.open(F01008scn2editComponent, {
       minHeight: '70vh',
@@ -209,7 +211,7 @@ export class F01008scn2Component implements OnInit {
       data: {
         creditaction: CREDITACTION,
         applno: this.applno,
-        empNo:this.empNo,
+        empNo: this.empNo,
         rowId: ID
       }
     })
