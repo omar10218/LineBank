@@ -337,6 +337,7 @@ export class Childscn8Component implements OnInit {
     jsonObject['per_page'] = pageSize
     jsonObject['applno'] = this.applno
     this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
+      console.log(data)
       this.rspBodyData = data.rspBody;
       this.rspBodyList = data.rspBody.list;
       this.speakingData = data.rspBody.speaking;
