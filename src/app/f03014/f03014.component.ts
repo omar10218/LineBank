@@ -69,8 +69,7 @@ export class F03014Component implements OnInit {
         data: { msgStr: "請至少選擇一項條件" }
       });
     }
-    else
-    {
+    else {
       this.changePage()
       this.Inquire(this.pageIndex, this.pageSize)
     }
@@ -110,95 +109,77 @@ export class F03014Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
 
-    if (this.IdentityValue != null && this.IdentityValue != '')
-    {
-      if (this.Efficient != null)
-       {
-        if(!this.dealwithData365(this.Efficient))
-        {
+    if (this.IdentityValue != null && this.IdentityValue != '') {
+      if (this.Efficient != null) {
+        if (!this.dealwithData365(this.Efficient)) {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "生效日查詢區間最多一年內!" }
           });
           return
         }
-        else
-        {
+        else {
           jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyy-MM-dd');
           jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyy-MM-dd');
         }
 
       }
-      else
-      {
+      else {
         jsonObject['effectiveDate_start'] = '';
         jsonObject['effectiveDate_end'] = '';
       }
 
-      if (this.Invalidation != null)
-      {
-        if(!this.dealwithData365(this.Invalidation))
-        {
+      if (this.Invalidation != null) {
+        if (!this.dealwithData365(this.Invalidation)) {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "失效日查詢區間最多一年內!" }
           });
           return
         }
-        else
-        {
+        else {
           jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyy-MM-dd');
           jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyy-MM-dd');
         }
       }
-      else
-      {
+      else {
         jsonObject['expirationDate_start'] = '';
         jsonObject['expirationDate_end'] = '';
       }
     }
-    else
-    {
-      if (this.Efficient != null)
-      {
-       if(!this.dealwithData90(this.Efficient))
-       {
-         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-           data: { msgStr: "生效日查詢區間最多三個月內!" }
-         });
-         return
-       }
-       else
-       {
-         jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyy-MM-dd');
-         jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyy-MM-dd');
-       }
+    else {
+      if (this.Efficient != null) {
+        if (!this.dealwithData90(this.Efficient)) {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "生效日查詢區間最多三個月內!" }
+          });
+          return
+        }
+        else {
+          jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyy-MM-dd');
+          jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyy-MM-dd');
+        }
 
-     }
-     else
-     {
-       jsonObject['effectiveDate_start'] = '';
-       jsonObject['effectiveDate_end'] = '';
-     }
+      }
+      else {
+        jsonObject['effectiveDate_start'] = '';
+        jsonObject['effectiveDate_end'] = '';
+      }
 
-     if (this.Invalidation != null)
-     {
-       if(!this.dealwithData90(this.Invalidation))
-       {
-         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-           data: { msgStr: "失效日查詢區間最多三個月內!" }
-         });
-         return
-       }
-       else
-       {
-         jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyy-MM-dd');
-         jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyy-MM-dd');
-       }
-     }
-     else
-     {
-       jsonObject['expirationDate_start'] = '';
-       jsonObject['expirationDate_end'] = '';
-     }
+      if (this.Invalidation != null) {
+        if (!this.dealwithData90(this.Invalidation)) {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "失效日查詢區間最多三個月內!" }
+          });
+          return
+        }
+        else {
+          jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyy-MM-dd');
+          jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyy-MM-dd');
+        }
+      }
+      else {
+        jsonObject['expirationDate_start'] = '';
+        jsonObject['expirationDate_end'] = '';
+      }
     }
     // if (this.Invalidation != null) {
     //   jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyy-MM-dd');
@@ -217,8 +198,17 @@ export class F03014Component implements OnInit {
 
     this.f03014Service.selectCustomer(url, jsonObject).subscribe(data => {
 
-      this.ruleParamCondition = data.rspBody.item;
-      this.total = data.rspBody.size;
+      if (data.rspBody.size === 0) {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查無資料" }
+        });
+      }
+      else {
+        this.ruleParamCondition = data.rspBody.item;
+        this.total = data.rspBody.size;
+      }
+      console.log(data.rspBody.size)
+
 
     }
     )
@@ -238,7 +228,7 @@ export class F03014Component implements OnInit {
   {
     const dialogRef = this.dialog.open(F03014addComponent, {
       panelClass: 'mat-dialog-transparent',
-      minHeight:'80%',
+      minHeight: '80%',
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -257,7 +247,7 @@ export class F03014Component implements OnInit {
   {
     const dialogRef = this.dialog.open(F03014editComponent, {
       panelClass: 'mat-dialog-transparent',
-      minHeight:'80%',
+      minHeight: '80%',
       data: {
         rid: parmArry[0],
         CUST_NAME: parmArry[1],
@@ -275,8 +265,8 @@ export class F03014Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
 
-      if (result != null && (result.event == 'success'||result=='1'))
-      { this.search();
+      if (result != null && (result.event == 'success' || result == '1')) {
+        this.search();
 
       }
 
