@@ -24,17 +24,6 @@ export class F01007scn1Component implements OnInit {
     private f01007scn1Service: F01007scn1Service,
     private childscn1Service: Childscn1Service,
   ) {
-    this.JCICAddSource$ = this.f01007scn1Service.JCICAddSource$.subscribe((data) => {
-      this.addData = data;
-      this.isShowAdd = data.show;
-    });
-    this.JCICSource$ = this.f01007scn1Service.JCICSource$.subscribe((data) => {
-      this.editData = data;
-      this.isShowEdit = data.show;
-    });
-    this.JCICSource$ = this.f01007scn1Service.JCICItemsSource$.subscribe((data) => {
-      this.isShowItems = data.show;
-    });
   }
 
   private applno: string;
@@ -43,14 +32,7 @@ export class F01007scn1Component implements OnInit {
   private routerCase: string;
   fds: string
   private winClose: string = '';
-
-  addData: any;
-  editData: any;
-  isShowAdd: boolean;
-  isShowEdit: boolean;
-  isShowItems: boolean;
-  JCICSource$: Subscription;
-  JCICAddSource$: Subscription;
+  private page: string;//判斷哪一頁進入用
 
   creditResult: string;
   level: string;
@@ -68,6 +50,7 @@ export class F01007scn1Component implements OnInit {
   caRisk: string;
   mark: string;
 
+  changeValue: boolean = true;
   block: boolean = false;
 
   ngOnInit(): void {
@@ -76,11 +59,10 @@ export class F01007scn1Component implements OnInit {
     this.cuid = sessionStorage.getItem('cuid');
     this.fds = sessionStorage.getItem('fds');
     this.level = sessionStorage.getItem('level');
+    this.page = sessionStorage.getItem('page');
     this.winClose = sessionStorage.getItem('winClose');
   }
-  ngOnDestroy() {
-    this.JCICSource$.unsubscribe();
-  }
+
   reScan() {
     const dialogRef = this.dialog.open(Childscn19Component, {
       panelClass: 'mat-dialog-transparent',
@@ -218,23 +200,58 @@ export class F01007scn1Component implements OnInit {
     jsonObject['creditResult'] = jsoncreditResult;
     jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
     jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
-    // if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
-    //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
-    //     data: { msgStr: '請填寫核決結果!' }
-    //   });
-    // } else {
-    //   if (this.creditResult == 'A') {
-    //     if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '' && this.periodType != '' && this.period != '' && this.mark != '' && this.mark != null) {
+    if (url == 'f01/childscn0action1') {
+      this.result(baseUrl, jsonObject, result);
+    } else {
+      if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '請填寫核決結果!' }
+        });
+      } else {
+        if (this.creditResult == 'A') {
+          if (this.approveAmt == '' || this.approveAmt == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '核准額度未填寫' }
+            });
+            return;
+          } else if (this.lowestPayRate == '' || this.lowestPayRate == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '每月最低還款比率未填寫' }
+            });
+            return;
+          } else if (this.approveInterest == '' || this.approveInterest == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '核准利率未填寫' }
+            });
+            return;
+          } else if (this.interest == '' || this.interest == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '利率未填寫' }
+            });
+            return;
+          } else if (this.interestType == '' || this.interestType == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '利率型態未填寫' }
+            });
+            return;
+          } else if (this.periodType == '' || this.periodType == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '期別未填寫' }
+            });
+            return;
+          } else if (this.mark == '' || this.mark == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '審核註記未填寫' }
+            });
+            return;
+          } else {
+            this.result(baseUrl, jsonObject, result);
+          }
+        } else {
           this.result(baseUrl, jsonObject, result);
-        // } else {
-          // const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          //   data: { msgStr: '審核結果未填寫' }
-          // });
-        // }
-      // } else {
-        // this.result(baseUrl, jsonObject, result);
-      // }
-    // }
+        }
+      }
+    }
   }
 
   saveResult(url: string, json: JSON): string {
@@ -280,5 +297,15 @@ export class F01007scn1Component implements OnInit {
     jsonObject['creditaction'] = this.mark;
     jsonObject['creditlevel'] = sessionStorage.getItem('stepName').split('t')[1];
     msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
+  }
+
+   //判斷是否需要顯示案件完成列
+   changeRoute(route: boolean) {
+    this.changeValue = route;
+  }
+
+  //取Page
+  getPage() {
+    return this.page;
   }
 }
