@@ -19,37 +19,37 @@ const routes: Routes = [
   {
     path: 'CHILDBWSCN2',
     component: Childbwscn2Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN3',
     component: Childbwscn3Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN4',
     component: Childbwscn4Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN5',
     component: Childbwscn5Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN6',
     component: Childbwscn6Component,
-    //canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN7',
     component: Childbwscn7Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'CHILDBWSCN8',
     component: Childbwscn8Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: '',

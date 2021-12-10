@@ -67,13 +67,13 @@ export class Childscn8editComponent implements OnInit {
       this.data.HOURS = ""
       this.data.MINUTES = ""
     } else {
-      if (this.data.HOURS = "" || this.data.HOURS == null) {
+      if (this.data.HOURS == "" || this.data.HOURS == null) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "請輸入時間欄位" }
         });
         return;
       }
-      if (this.data.MINUTES = "" || this.data.MINUTES == null) {
+      if (this.data.MINUTES == "" || this.data.MINUTES == null) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "請輸入時間欄位" }
         });

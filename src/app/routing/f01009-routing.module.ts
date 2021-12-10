@@ -8,17 +8,17 @@ const routes: Routes = [
   {
     path: '',
     component: F01009Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'F01009SCN1',
     component: F01009scn1Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
     children: [
       {
         path: '',
         loadChildren: () => import ('../children-bw/children-bw.module').then(m => m.ChildrenBwModule),
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       }
     ]
   }

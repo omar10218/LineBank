@@ -82,7 +82,9 @@ export class F03014editComponent implements OnInit {
       {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }});
-          if(data.rspMsg ==='成功'){this.dialogRef.close({ event:'success' }); }
+          if(data.rspMsg ==='成功')
+          {
+            this.dialogRef.close({ event:'success' }); }
 
 
       }

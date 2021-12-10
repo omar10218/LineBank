@@ -110,7 +110,7 @@
             申覆資料</button>
         </a>
       </nz-tab>
-      <nz-tab>
+      <nz-tab *ngIf="getPage()!='07'">
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN10']" skipLocationChange>
           <button nz-button nzType="primary"  nzSize="small" (click)="changeRoute(false)">
             決策結果</button>
@@ -122,7 +122,7 @@
             額度資訊</button>
         </a>
       </nz-tab>
-      <nz-tab>
+      <nz-tab *ngIf="getPage()!='07'">
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN11']" skipLocationChange>
           <button nz-button nzType="primary"nzSize="small" (click)="changeRoute(false)">
             資料比對</button>

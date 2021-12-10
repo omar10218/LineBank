@@ -237,6 +237,8 @@ export class F03014Component implements OnInit {
   AddTable()//新增
   {
     const dialogRef = this.dialog.open(F03014addComponent, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight:'80%',
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -254,6 +256,8 @@ export class F03014Component implements OnInit {
   EditTable(i: number, parmArry: string[])//編輯
   {
     const dialogRef = this.dialog.open(F03014editComponent, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight:'80%',
       data: {
         rid: parmArry[0],
         CUST_NAME: parmArry[1],
@@ -270,7 +274,11 @@ export class F03014Component implements OnInit {
 
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && (result.event == 'success')) { this.search(); }
+
+      if (result != null && (result.event == 'success'||result=='1'))
+      { this.search();
+
+      }
 
     });
   }

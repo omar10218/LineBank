@@ -12,27 +12,27 @@ const routes: Routes = [
   {
     path: '',
     component: F01008Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'F01008SCN1',
     component: F01008scn1Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
     children: [
       {
         path: 'F01008SCN2',
         component: F01008scn2Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01008SCN3',
         component: F01008scn3Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01008SCN4',
         component: F01008scn4Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
     ]
   }

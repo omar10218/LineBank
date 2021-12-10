@@ -134,6 +134,7 @@ export class F02004Component implements OnInit {
       sessionStorage.setItem( 'fds', data.rspBody[0].fds );
       sessionStorage.setItem( 'queryDate', '' );
       sessionStorage.setItem( 'winClose', 'Y' );
+      sessionStorage.setItem('page', '04');//04動撥紀錄查詢
       //開啟徵審主畫面
       const url = window.location.href.split("/#");
       window.open( url[0] + "/#/F01002/F01002SCN1" );

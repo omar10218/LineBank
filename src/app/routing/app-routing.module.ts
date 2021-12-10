@@ -92,12 +92,12 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01001',
         loadChildren: () => import('../f01001/f01001.module').then(m => m.F01001Module),
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01002',
@@ -107,17 +107,17 @@ const routes: Routes = [
       {
         path: 'F01003',
         loadChildren: () => import('../f01003/f01003.module').then(m => m.F01003Module),
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01004',
         loadChildren: () => import('../f01004/f01004.module').then(m => m.F01004Module),
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01005',
         loadChildren: () => import ('../f01005/f01005.module').then(m => m.F01005Module),
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01006',
@@ -126,27 +126,27 @@ const routes: Routes = [
       {
         path: 'F01007',
         loadChildren: () => import ('../f01007/f01007.module').then(m => m.F01007Module),
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01008',
         loadChildren: () => import('../f01008/f01008.module').then(m => m.F01008Module),
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01009',
         loadChildren: () => import('../f01009/f01009.module').then(m => m.F01009Module),
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01010',
         loadChildren: () => import('../f01010/f01010.module').then(m => m.F01010Module),
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F01011',
         component: F01011Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F02001',
@@ -186,102 +186,102 @@ const routes: Routes = [
       {
         path: 'F03001',
         component: F03001Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03002',
         component: F03002Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03003',
         component: F03003Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03004',
         component: F03004Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03005',
         component: F03005Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03006',
         component: F03006Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03007',
         component: F03007Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03008',
         component: F03008Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03009',
         component: F03009Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03010',
         component: F03010Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03011',
         component: F03011Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03012',
         component: F03012Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03013',
         component: F03013Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03014',
         component: F03014Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03015',
         component: F03015Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03016',
         component: F03016Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F03017',
         component: F03017Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F04001',
         component: F04001Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F04002',
         component: F04002Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
       {
         path: 'F04003',
         component: F04003Component,
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       },
     ]
   }
