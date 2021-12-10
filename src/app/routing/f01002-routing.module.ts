@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: F01002Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'F01002SCN1',
