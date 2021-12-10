@@ -13,7 +13,7 @@ interface sysCode {
 interface checkBox {
   value: string;
   completed: boolean;
-  empno:string;
+  empno: string;
 }
 interface assign {
   F_WobNum: string;
@@ -26,7 +26,11 @@ interface assign {
 })
 export class F04003Component implements OnInit {
 
-  constructor(private f04003Service: F04003Service,public dialog: MatDialog) { }
+  test123 = true;
+
+  constructor(
+    private f04003Service: F04003Service,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.LevelCode.push({ value: 'L0', viewValue: 'L0' });
@@ -39,15 +43,15 @@ export class F04003Component implements OnInit {
   }
   LevelCode: any[] = [];
   setDataSource: readonly Data[] = [];
-  Level: string =''//層級
+  Level: string = ''//層級
   personnelCode: sysCode[] = [];;
-  personnel: string =''//人員
+  personnel: string = ''//人員
   chkArray: any[] = [];
   checkboxArray: checkBox[] = [];
   assignArray: assign[] = [];
   i = 0;
   isAllCheck: boolean = false;
-  Transfer:string = '';//轉件
+  Transfer: string = '';//轉件
   TransferCode: sysCode[] = [];
 
   Dispatch()//搜尋派件人員
@@ -59,20 +63,18 @@ export class F04003Component implements OnInit {
     this.f04003Service.Set(url, LevelJson).subscribe(data => {
       this.personnelCode.push({ value: '', viewValue: '請選擇' })
       console.log("111111")
-      console.log(data  )
-      if(data.rspMsg != "該層級查無人員")
-      {
-        for (const jsonObj of data.rspBody)
-        {
-         const id = jsonObj['EMP_NAME'];
-         const name = jsonObj['EMP_NAME'];
-         this.personnelCode.push({ value: id, viewValue: name })
-       }
+      console.log(data)
+      if (data.rspMsg != "該層級查無人員") {
+        for (const jsonObj of data.rspBody) {
+          const id = jsonObj['EMP_NAME'];
+          const name = jsonObj['EMP_NAME'];
+          this.personnelCode.push({ value: id, viewValue: name })
+        }
       }
-      else
-      {
+      else {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: data.rspMsg }})
+          data: { msgStr: data.rspMsg }
+        })
       }
 
     })
@@ -81,11 +83,10 @@ export class F04003Component implements OnInit {
   Inquire()//查詢
   {
 
-    if(this.Level != '' || this.personnel !='')
-    {
-      this.checkboxArray=[];
-      this.TransferCode=[];
-      this.setDataSource=[];
+    if (this.Level != '' || this.personnel != '') {
+      this.checkboxArray = [];
+      this.TransferCode = [];
+      this.setDataSource = [];
       this.i = 0;
       let url = 'f04/f04003action2'
       let personnelJson: any = {};
@@ -93,33 +94,28 @@ export class F04003Component implements OnInit {
       personnelJson['EMP_NAME'] = this.personnel;
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
 
-        if(data.rspBody.empList.length>0)
-        {
-          for(const obj of data.rspBody.empList)
-          {
+        if (data.rspBody.empList.length > 0) {
+          for (const obj of data.rspBody.empList) {
             const id = obj['EMP_NO'];
             const name = obj['EMP_NAME'];
-             this.TransferCode.push({ value: id, viewValue: name })
+            this.TransferCode.push({ value: id, viewValue: name })
           }
         }
 
-        if (data.rspBody.dataList.length > 0)
-        {
-          for (const jsonObj of data.rspBody.dataList)
-          {
+        if (data.rspBody.dataList.length > 0) {
+          for (const jsonObj of data.rspBody.dataList) {
             const id = jsonObj['empNo'];
             // const name = jsonObj.empList['empName'];
             const member = jsonObj['F_WobNum'];
             // this.TransferCode.push({ value: id, viewValue: name })
             this.setDataSource = data.rspBody.dataList;
-            this.checkboxArray.push({ value: member, completed: false ,empno:id})
+            this.checkboxArray.push({ value: member, completed: false, empno: id })
           }
           this.i = 1;
         }
       })
     }
-    else
-    {
+    else {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請選擇派件層級" }
       });
@@ -128,15 +124,22 @@ export class F04003Component implements OnInit {
   }
   setAll(completed: boolean) //全選
   {
-    for (const obj of this.checkboxArray)
-    {
+
+    if (this.Transfer == '') {
+      this.dialog.open(
+        ConfirmComponent, {
+        data: { msgStr: "請選擇轉件人員" }
+      });
+      return;
+    }
+    for (const obj of this.checkboxArray) {
       if (obj.empno != this.Transfer) {
         obj.completed = completed;
       }
     }
   }
-  block(check: boolean, x: string)
-  {
+
+  block(check: boolean, x: string) {
     if (check) {
       this.chkArray.push(x);
 
@@ -147,24 +150,18 @@ export class F04003Component implements OnInit {
     }
 
   }
- change()//轉件
-   {
-    if(this.Transfer =='')
-    {
+  change()//轉件
+  {
+    if (this.Transfer == '') {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請填轉件人員" }
       });
     }
-    else
-    {
-      for (const obj of this.checkboxArray)
-      {
-        for (const jsonObj of this.setDataSource)
-        {
-          if (obj.completed==true)
-          {
-            if (obj.value == jsonObj['F_WobNum'])
-            {
+    else {
+      for (const obj of this.checkboxArray) {
+        for (const jsonObj of this.setDataSource) {
+          if (obj.completed == true) {
+            if (obj.value == jsonObj['F_WobNum']) {
               this.assignArray.push({ F_WobNum: jsonObj['F_WobNum'], swcApplno: jsonObj['swcApplno'] })
             }
           }
@@ -175,20 +172,18 @@ export class F04003Component implements OnInit {
       changeJson['level'] = this.Level;
       changeJson['roleNo'] = this.Transfer;
       changeJson['assign'] = this.assignArray;
-      this.f04003Service.Set(url,changeJson).subscribe(data=>
-      {
-        if(data.rspCode=='0000')
-        {
-          this.Inquire();
-          this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "轉件成功" }
-          });
-        }
-      })
+      if (this.assignArray.length > 0) {
+        this.f04003Service.Set(url, changeJson).subscribe(data => {
+          if (data.rspCode == '0000') {
+            this.Inquire();
+            this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "轉件成功" }
+            });
+          }
+        })
+      }
 
     }
 
-  }
-  tes() {
   }
 }
