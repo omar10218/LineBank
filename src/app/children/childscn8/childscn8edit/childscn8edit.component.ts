@@ -96,6 +96,8 @@ export class Childscn8editComponent implements OnInit {
     jsonObject['rowID'] = this.data.ID;
     jsonObject['empNo'] = this.data.CALLOUT_EMPNO;
     jsonObject['calloutYn'] = this.data.CALLOUT_YN;
+    const url = window.location.href.split("/#");
+    alert(url)
     await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
       codeStr = data.rspCode;
       msgStr = data.rspMsg;

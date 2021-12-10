@@ -260,7 +260,7 @@ export class Childscn1Component implements OnInit {
     const baseUrl = 'f01/childscn1'
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
+    this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(async data => {
 
       //CreditAuditinfo
       if (data.rspBody.CreditAuditinfoList.length > 0) {
@@ -366,13 +366,16 @@ export class Childscn1Component implements OnInit {
         sessionStorage.setItem('interestType', data.rspBody.creditInterestPeriodList[0].interestType ? data.rspBody.creditInterestPeriodList[0].interestType : '');
         this.interest = data.rspBody.creditInterestPeriodList[0].interest;
         sessionStorage.setItem('interest', data.rspBody.creditInterestPeriodList[0].interest ? data.rspBody.creditInterestPeriodList[0].interest : '');
-        this.periodType = data.rspBody.creditInterestPeriodList[0].periodType;
-        sessionStorage.setItem('periodType', data.rspBody.creditInterestPeriodList[0].periodType ? data.rspBody.creditInterestPeriodList[0].periodType : '');
-        this.interestBase = data.rspBody.creditInterestPeriodList[0].interestBase;
+        this.periodType = '1';
+        sessionStorage.setItem('periodType', this.periodType);
+        if (this.interestType == '02') {
+          this.interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
+        }
+        //this.interestBase = data.rspBody.creditInterestPeriodList[0].interestBase;
         sessionStorage.setItem('interestBase', data.rspBody.creditInterestPeriodList[0].interestBase ? data.rspBody.creditInterestPeriodList[0].interestBase : '');
         this.interestCode = data.rspBody.creditInterestPeriodList[0].interestCode;
-        this.approveInterest = data.rspBody.creditInterestPeriodList[0].approveInterest;
-        sessionStorage.setItem('approveInterest', data.rspBody.creditInterestPeriodList[0].approveInterest ? data.rspBody.creditInterestPeriodList[0].approveInterest : '');
+        this.approveInterest = Number(this.interestBase) + Number(this.interest)
+        sessionStorage.setItem('approveInterest', this.approveInterest.toString());
       }
 
     })
