@@ -108,7 +108,7 @@ export class Childscn8editComponent implements OnInit {
         // this.dialogRef.close({ event: 'success' });
         this.f01002scn1Service.setJCICSource({ show: false });
         // window.location.reload();
-        this.router.navigate(['./F01002/F01002SCN1'], { skipLocationChange: true });
+        // this.router.navigate(['./F01002/F01002SCN1'], { skipLocationChange: true });
       }
     });
   }
