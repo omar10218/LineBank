@@ -1131,7 +1131,7 @@
           (keypress)="numberOnly($event)" (keyup)="resultApproveAmt = toCurrency(toNumber(resultApproveAmt))"  (ngModelChange)="change(toNumber(resultApproveAmt),'resultApproveAmt')" [disabled]="getSearch() == 'Y'" required></div>
     </div>
     <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">每月最低還款比率</span><input matInput #input class="form-control"
+      <div style="padding:3px"><span class="form-title">每月最低還款比率(%)</span><input matInput #input class="form-control"
           [(ngModel)]="resultLowestPayRate" name="resultLowestPayRate" placeholder="輸入還款比率" style="text-align: right;"
           (keypress)="numberOnly($event)" (ngModelChange)="change(resultLowestPayRate,'resultLowestPayRate')" [disabled]="getSearch() == 'Y'"></div>
     </div>
@@ -1160,8 +1160,8 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:1px"><span class="form-title">期別</span>
-        <mat-select [(ngModel)]="periodType" name="periodType" style="width:100%;height:25px;border-radius:5px;border:none;padding:4px;background-color:#E6E6E6"
-          (ngModelChange)="change(periodType,'periodType')" disabled>
+        <mat-select [(ngModel)]="periodType" name="periodType"
+          (ngModelChange)="change(periodType,'periodType')">
           <mat-option *ngFor="let code of periodTypeCode" [value]="code.value">
             {{code.viewValue}}
           </mat-option>
@@ -1191,14 +1191,14 @@
       </div> -->
     <div nz-col nzFlex="2">
       <div class="form" style="padding:3px">
-        <div><span class="form-title">當時的指數,基放,郵儲利率</span>
+        <div><span class="form-title">當時的指數,基放,郵儲利率(%)</span>
           <input matInput #input class="form-control" [(ngModel)]="interestBase" name="interestBase" readonly>
         </div>
       </div>
     </div>
     <div nz-col nzFlex="1">
       <div class="form" style="padding:3px">
-        <div><span class="form-title">利率</span>
+        <div><span class="form-title">利率(%)</span>
           <input matInput #input class="form-control" [(ngModel)]="interest" name="interest" placeholder="輸入利率" style="text-align: right;"
           (keypress)="numberOnly($event)" (ngModelChange)="caluclate()" [disabled]="getSearch() == 'Y'">
         </div>
@@ -1206,7 +1206,7 @@
     </div>
     <div nz-col nzFlex="1">
       <div class="form" style="padding:3px">
-        <div><span class="form-title">核准利率</span>
+        <div><span class="form-title">核准利率(%)</span>
           <input matInput #input class="form-control" [(ngModel)]="approveInterest" name="approveInterest" style="text-align: right;" disabled>
         </div>
       </div>
