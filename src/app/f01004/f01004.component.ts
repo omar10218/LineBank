@@ -84,9 +84,11 @@ export class F01004Component implements OnInit, AfterViewInit {
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01004Service.getCaseList(jsonObject).subscribe(data => {
-      this.total = data.rspBody.size;
-      this.cusinfoDataSource = data.rspBody.items;
-      this.stepName = data.rspBody.items[0].F_StepName;
+      if (data.rspBody.size > 0) {
+        this.total = data.rspBody.size;
+        this.cusinfoDataSource = data.rspBody.items;
+        this.stepName = data.rspBody.items[0].F_StepName;
+      }
     });
   }
 

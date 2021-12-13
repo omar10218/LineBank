@@ -70,9 +70,11 @@ export class F01008Component implements OnInit {
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
     this.f01008Service.getCaseList(jsonObject).subscribe(data => {
-      this.total = data.rspBody.size;
-      this.cusinfoDataSource = data.rspBody.items;
-      this.stepName = data.rspBody.items[0].F_StepName;
+      if (data.rspBody.size > 0) {
+        this.total = data.rspBody.size;
+        this.cusinfoDataSource = data.rspBody.items;
+        this.stepName = data.rspBody.items[0].F_StepName;
+      }
     });
   }
 
