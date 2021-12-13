@@ -91,6 +91,7 @@ export class Childscn6Service extends BaseService {
         { name: '年收入資料年月', bodyKey: 'DATA_YYYMM' },
         { name: '年收入(仟元)', bodyKey: 'SALARY' },
         { name: '資料更新年月', bodyKey: 'UPD_YYYMM' },
+        { name: '', bodyKey: '', width: '30%' },
       ];
       title = 'BAM062 最近二年年收入資訊(多筆B68)'
     }
@@ -103,6 +104,7 @@ export class Childscn6Service extends BaseService {
         { name: '現金卡放款(仟元)', bodyKey: 'Y_AMT' },
         { name: '信用卡循環信用(仟元)', bodyKey: 'C1_AMT' },
         { name: '未到期待付款(仟元)', bodyKey: 'C2_AMT' },
+        { name: '', bodyKey: '', width: '30%' },
       ];
       title = 'BAM501 應計入DBR22倍規範之無擔保債務餘額彙總(多筆B68)'
     }
@@ -128,6 +130,7 @@ export class Childscn6Service extends BaseService {
         { name: '行庫代號', bodyKey: 'BANK_CODE' },
         { name: '行庫名稱', bodyKey: 'BANK_NAME' },
         { name: '金額(千元)', bodyKey: 'AMT' },
+        { name: '', bodyKey: '', width: '30%' },
       ];
       title = 'BAM504 應計入DBR22倍規範之貸款餘額(應計入DBR22倍規範之貸款餘額(擔保放款餘額加上部分擔保、負擔保貸款餘額)扣除擔保品鑑估值之金額彙總)'
     }
@@ -139,6 +142,7 @@ export class Childscn6Service extends BaseService {
         { name: '行庫名稱', bodyKey: 'BANK_NAME' },
         { name: '新增核准額度訂約金額(千元)', bodyKey: 'CONTRACT_AMT' },
         { name: '應計入DBR22倍規範之金額(千元)', bodyKey: 'DBR22_AMT' },
+        { name: '', bodyKey: '', width: '30%' },
       ];
       title = 'BAM505 新增核准額度中應計入DBR22倍之金額明細(多筆B68)'
     }
@@ -197,6 +201,7 @@ export class Childscn6Service extends BaseService {
     if (code === JCICCode.BAS010) {
       dataList = [
         { name: '最新授信總餘額（千元）', bodyKey: 'TOT_BAL_AMT' },
+        { name: '', bodyKey: '', width: '50%' },
       ];
       title = 'BAS010 截至查詢當日止金融機構報送之最新授信總餘'
     }
@@ -238,6 +243,7 @@ export class Childscn6Service extends BaseService {
         { name: '查詢單位名稱', bodyKey: 'BANK_NAME' },
         { name: '查詢理由碼', bodyKey: 'INQ_PURPOSE_1' },
         { name: '查詢理由碼(中文註解)', bodyKey: 'INQ_PURPOSE' },
+        { name: '', bodyKey: '', width: '50%' },
       ];
       title = 'STM008 當日非Z類產品被查詢紀錄(多筆)'
     }
@@ -404,6 +410,7 @@ export class Childscn6Service extends BaseService {
         { name: '銀行代碼', bodyKey: 'BANK_CODE' },
         { name: '銀行名稱', bodyKey: 'BANK_NAME' },
         { name: '發卡日期', bodyKey: 'START_DATE' },
+        { name: '', bodyKey: '', width: '50%' },
       ];
       title = 'BAM067 現金卡日報發卡日期資訊(多筆B66)'
     }
