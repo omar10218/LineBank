@@ -74,7 +74,7 @@ export class F01008editComponent implements OnInit {
       });
       if (msgStr === '編輯成功' && data.rspCode === '0000') {
         this.f01008Service.setJCICSource({ show: false });
-        window.location.reload();
+        // window.location.reload();
       }
     })
   }

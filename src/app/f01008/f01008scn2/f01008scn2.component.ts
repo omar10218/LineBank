@@ -24,7 +24,20 @@ export class F01008scn2Component implements OnInit {
   constructor(
     public dialog: MatDialog,
     private f01008Service: F01008Service,
-    public datepipe: DatePipe) {
+    public datepipe: DatePipe)
+    {
+      this.JCICSource$ = this.f01008Service.JCICAddSource$.subscribe((data)=>{
+        if(!data.show)
+        {
+          this.set();
+        }
+      });
+      this.JCICSource$ = this.f01008Service.JCICSource$.subscribe((data)=>{
+        if(!data.show)
+        {
+          this.set();
+        }
+      })
 
   }
 
@@ -42,8 +55,10 @@ export class F01008scn2Component implements OnInit {
   showEdit: boolean = false;
   Sendcheck: string;
   jaicSource: Data[] = [];
-
   block: boolean = false;
+
+   //判斷是否更新表單
+   JCICSource$: Subscription;
 
   ngOnInit(): void {
     // this.applno = sessionStorage.getItem('applno');
@@ -124,9 +139,6 @@ export class F01008scn2Component implements OnInit {
   }
   set() //查詢
   {
-    alert("123")
-    // researchDate
-    // researchNum
     let jsonObject: any = {};
     let url = 'f01/f01008scn2';
     jsonObject['applno'] = this.applno;
@@ -135,7 +147,6 @@ export class F01008scn2Component implements OnInit {
     console.log("123")
     console.log(jsonObject);
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      alert("2")
       console.log(data)
       if (data.rspBody.list != null) {
         this.dataSource = data.rspBody.list;
