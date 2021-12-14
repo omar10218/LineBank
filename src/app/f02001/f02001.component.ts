@@ -484,7 +484,8 @@ export class F02001Component implements OnInit {
       }
     }
   }
-  data_number(p: number) {
+  data_number(p: number)//千分號
+   {
     this.x = '';
     this.x = (p + "")
     if (this.x != null) {
