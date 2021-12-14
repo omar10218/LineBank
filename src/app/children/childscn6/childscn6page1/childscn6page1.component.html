@@ -17,125 +17,157 @@
       </nz-tab>
       <nz-tab [nzTitle]="JCICMASTER">
         <ng-template #JCICMASTER let-visible="visible">
-          <a href="#JCICMASTER" nz-button nzSize="small" [ngClass]="hideJCICMASTER ? 'nohide' : 'hide'"
+          <button nz-button nzSize="small" [ngClass]="hideJCICMASTER ? 'nohide' : 'hide'"
             (click)="show('JCICMASTER')">
             JCICMASTER<h style="display: block; font-size: 3px;">-</h>
-          </a>
+          </button>
         </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM061">
         <ng-template #BAM061 let-visible="visible">
-          <a href="#BAM061" nz-button nzSize="small" [ngClass]="hideBAM061 ? 'nohide' : 'hide'"
+          <button nz-button nzSize="small" [ngClass]="hideBAM061 ? 'nohide' : 'hide'"
             (click)="show('BAM061')">
             B67授信基本資料<h style="display: block; font-size: 3px;">(BAM061)</h>
-          </a>
+          </button>
         </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="KRM043">
-        <ng-template #KRM043 let-visible="visible"><a href="#KRM043" nz-button nzSize="small"
+        <ng-template #KRM043 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideKRM043 ? 'nohide' : 'hide'" (click)="show('KRM043')">
             K22信用卡基本資料<h style="display: block; font-size: 3px;">(KRM043)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM062">
-        <ng-template #BAM062 let-visible="visible"><a href="#BAM062" nz-button nzSize="small"
+        <ng-template #BAM062 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM062 ? 'nohide' : 'hide'" (click)="show('BAM062')">
             B68近兩年年收入<h style="display: block; font-size: 3px;">(BAM062)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM501">
-        <ng-template #BAM501 let-visible="visible"><a href="#BAM501" nz-button nzSize="small"
+        <ng-template #BAM501 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM501 ? 'nohide' : 'hide'" (click)="show('BAM501')">
             B68無擔保債務餘額<h style="display: block; font-size: 3px;">(BAM501)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM502">
-        <ng-template #BAM502 let-visible="visible"><a href="#BAM502" nz-button nzSize="small"
+        <ng-template #BAM502 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM502 ? 'nohide' : 'hide'" (click)="show('BAM502')">
             B68無擔放款明細<h style="display: block; font-size: 3px;">(BAM502)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM504">
-        <ng-template #BAM504 let-visible="visible"><a href="#BAM504" nz-button nzSize="small"
+        <ng-template #BAM504 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM504 ? 'nohide' : 'hide'" (click)="show('BAM504')">
             B68貸款餘額扣除擔保<h style="display: block; font-size: 3px;">(BAM504)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM505">
-        <ng-template #BAM505 let-visible="visible"><a href="#BAM505" nz-button nzSize="small"
+        <ng-template #BAM505 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM505 ? 'nohide' : 'hide'" (click)="show('BAM505')">
             新增核准額度<h style="display: block; font-size: 3px;">(BAM505)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
 
       <!-- BAM群 -->
       <nz-tab [nzTitle]="BAM">
-        <ng-template #BAM let-visible="visible"><a href="#BAM" nz-button nzSize="small"
+        <ng-template #BAM let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM032 ? 'nohide' : 'hide'"
             (click)="show('BAM032');show('BAM033');show('BAM034');show('BAS010')">
             B33每日餘額變動<h style="display: block; font-size: 3px;">(BAM032/BAM033/BAM034/BAS010)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
 
       <nz-tab [nzTitle]="BAM029">
-        <ng-template #BAM029 let-visible="visible"><a href="#BAM029" nz-button nzSize="small"
+        <ng-template #BAM029 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM029 ? 'nohide' : 'hide'" (click)="show('BAM029')">
             B29新增額度及清償<h style="display: block; font-size: 3px;">(BAM029)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
 
       <!-- STM群 -->
       <nz-tab [nzTitle]="STM">
-        <ng-template #STM let-visible="visible"><a href="#STM" nz-button nzSize="small"
+        <ng-template #STM let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideSTM025 ? 'nohide' : 'hide'" (click)="show('STM022');show('STM008');show('STM025')">
             非Z類被查詢/當事人查詢<h style="display: block; font-size: 3px;">(STM022/STM008/STM025)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
 
       <nz-tab [nzTitle]="BAM421">
-        <ng-template #BAM421 let-visible="visible"><a href="#BAM421" nz-button nzSize="small"
+        <ng-template #BAM421 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM421 ? 'nohide' : 'hide'" (click)="show('BAM421')">
             B42授信放款明細<h style="display: block; font-size: 3px;">(BAM421)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM101">
-        <ng-template #BAM101 let-visible="visible"><a href="#BAM101" nz-button nzSize="small"
+        <ng-template #BAM101 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM101 ? 'nohide' : 'hide'" (click)="show('BAM101')">
             B05授信餘額變動<h style="display: block; font-size: 3px;">(BAM101)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
 
       <!-- B33群 -->
       <nz-tab [nzTitle]="B33">
-        <ng-template #B33 let-visible="visible"><a href="#B33" nz-button nzSize="small"
+        <ng-template #B33 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM305 ? 'nohide' : 'hide'" (click)="show('BAM305');show('BAM306');show('BAM307')">
             B33授信保證<h style="display: block; font-size: 3px;">(BAM305/BAM306/BAM307)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
 
       <nz-tab [nzTitle]="BAM067">
-        <ng-template #BAM067 let-visible="visible"><a href="#BAM067" nz-button nzSize="small"
+        <ng-template #BAM067 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM067 ? 'nohide' : 'hide'" (click)="show('BAM067')">
             B66現金卡發卡<h style="display: block; font-size: 3px;">(BAM067)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM070">
-        <ng-template #BAM070 let-visible="visible"><a href="#BAM070" nz-button nzSize="small"
+        <ng-template #BAM070 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideBAM070 ? 'nohide' : 'hide'" (click)="show('BAM070')">
             B66現金卡放款/還款<h style="display: block; font-size: 3px;">(BAM070)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="KRM046">
-        <ng-template #KRM046 let-visible="visible"><a href="#KRM046" nz-button nzSize="small"
+        <ng-template #KRM046 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideKRM046 ? 'nohide' : 'hide'" (click)="show('KRM046')">
             K21信用卡正附卡<h style="display: block; font-size: 3px;">(KRM046)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="KRM048">
-        <ng-template #KRM048 let-visible="visible"><a href="#KRM048" nz-button nzSize="small"
+        <ng-template #KRM048 let-visible="visible">
+          <button nz-button nzSize="small"
             [ngClass]="hideKRM048 ? 'nohide' : 'hide'" (click)="show('KRM048')">
             K34信用卡帳款<h style="display: block; font-size: 3px;">(KRM048)</h>
-          </a></ng-template>
+          </button>
+        </ng-template>
       </nz-tab>
 
 

@@ -1,16 +1,17 @@
-import {Component, OnInit, ViewChild} from '@angular/core'
-import {MatDialog} from '@angular/material/dialog'
-import {MatPaginator, PageEvent} from '@angular/material/paginator'
-import {MatSort, Sort} from '@angular/material/sort'
-import {MatTableDataSource} from '@angular/material/table'
-import {ConfirmComponent} from '../common-lib/confirm/confirm.component'
-import {OptionsCode} from '../interface/base'
-import {MappingCode} from '../mappingcode.model'
-import {F03012Service} from './f03012.service'
-import {F03012addComponent} from './f03012add/f03012add.component'
-import {F03012editComponent} from './f03012edit/f03012edit.component'
-import {NzTableQueryParams} from 'ng-zorro-antd/table'
-import {NzAlertModule} from 'ng-zorro-antd/alert'
+import { Component, OnInit, ViewChild } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
+import { MatPaginator, PageEvent } from '@angular/material/paginator'
+import { MatSort, Sort } from '@angular/material/sort'
+import { MatTableDataSource } from '@angular/material/table'
+import { ConfirmComponent } from '../common-lib/confirm/confirm.component'
+import { OptionsCode } from '../interface/base'
+import { MappingCode } from '../mappingcode.model'
+import { F03012Service } from './f03012.service'
+import { F03012addComponent } from './f03012add/f03012add.component'
+import { F03012editComponent } from './f03012edit/f03012edit.component'
+import { NzTableQueryParams } from 'ng-zorro-antd/table'
+import { NzAlertModule } from 'ng-zorro-antd/alert'
+
 interface checkBox {
 	id: number
 	setValueHight: number
@@ -26,6 +27,7 @@ interface checkBox {
 	templateUrl: './f03012.component.html',
 	styleUrls: ['./f03012.component.css', '../../assets/css/f03.css'],
 })
+
 export class F03012Component implements OnInit {
 	isAllCheck: boolean = false
 	chkArray: checkBox[] = []
@@ -47,13 +49,14 @@ export class F03012Component implements OnInit {
 	height: string
 	low: string
 	index = []
+	aaa:string
 	// 20211005 新增
 	checked = [] //存取被選到的物件
 	compareItems = [] //物件陣列
 	useFlag: boolean //用來控制元件是否顯示於頁面
 	isEdit: boolean = true
 
-	constructor(private f03012Service: F03012Service, public dialog: MatDialog, private alert: NzAlertModule) {}
+	constructor(private f03012Service: F03012Service, public dialog: MatDialog, private alert: NzAlertModule) { }
 
 	ngOnInit(): void {
 		this.getCompareTable()
@@ -76,12 +79,12 @@ export class F03012Component implements OnInit {
 			for (const jsonObj of data.rspBody.mappingList) {
 				const codeNo = jsonObj.codeNo
 				const desc = jsonObj.codeDesc
-				this.compareTableCode.push({value: codeNo, viewValue: desc})
+				this.compareTableCode.push({ value: codeNo, viewValue: desc })
 			}
 		})
 	}
 	onQueryParamsChange(params: NzTableQueryParams): void {
-		const {pageSize, pageIndex} = params
+		const { pageSize, pageIndex } = params
 		this.getComePareDataSetList(pageIndex, pageSize)
 	}
 
@@ -95,8 +98,8 @@ export class F03012Component implements OnInit {
 	}
 
 	totalCount: any
-	@ViewChild('paginator', {static: true}) paginator: MatPaginator
-	@ViewChild('sortTable', {static: true}) sortTable: MatSort
+	@ViewChild('paginator', { static: true }) paginator: MatPaginator
+	@ViewChild('sortTable', { static: true }) sortTable: MatSort
 	compareDataSetSource = new MatTableDataSource<any>()
 
 	compareTableOption: MappingCode[]
@@ -136,22 +139,22 @@ export class F03012Component implements OnInit {
 	// 		}
 	// 	}
 	// }
-// 取得資料轉換千分位
+	// 取得資料轉換千分位
 	// limit2() {
 	// 	for (const item of this.one) {
 	// 		item.setValueHight = item.setValueHight != undefined ? (item.setValueHight + '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.setValueHight
 	// 		item.setValueLow = item.setValueLow != undefined ? (item.setValueLow + '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.setValueLow
 	// 	}
 	// }
-//儲存前處理千分位
-  // Cut(s: string)  {
-  //   if(s!=null)
-  //   {
-  //     s = s.replace(/,/g, "")
-  //   }
+	//儲存前處理千分位
+	// Cut(s: string)  {
+	//   if(s!=null)
+	//   {
+	//     s = s.replace(/,/g, "")
+	//   }
 
-  //   return s
-  // }
+	//   return s
+	// }
 	delete(compareTable: string, compareColumn: string, compareType: string, setValueHight: string, setValueLow: string) {
 		let msg = ''
 		const url = 'f03/f03012action3'
@@ -171,13 +174,13 @@ export class F03012Component implements OnInit {
 		})
 
 		setTimeout(() => {
-			const DialogRef = this.dialog.open(ConfirmComponent, {data: {msgStr: msg}})
+			const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } })
 			window.location.reload()
 		}, 1500)
 	}
 	add() {
 		const dialogRef = this.dialog.open(F03012addComponent, {
-      panelClass: 'mat-dialog-transparent',
+			panelClass: 'mat-dialog-transparent',
 			minHeight: '70vh',
 			width: '50%',
 		})
@@ -192,7 +195,7 @@ export class F03012Component implements OnInit {
 
 	edit(compareTable: string, compareColumn: string, setValueLow: string, setValueHight: string, compareType: string) {
 		const dialogRef = this.dialog.open(F03012editComponent, {
-      panelClass: 'mat-dialog-transparent',
+			panelClass: 'mat-dialog-transparent',
 			minHeight: '70vh',
 			width: '50%',
 			data: {
@@ -219,10 +222,10 @@ export class F03012Component implements OnInit {
 	private refreshTable() {
 		this.paginator._changePageSize(this.paginator.pageSize)
 	}
-  Clear(){
-    this.compareTableCode = null;
-    this.getComePareDataSetList(this.pageIndex, this.pageSize)
-}
+	Clear() {
+		this.compareTableCode = null;
+		this.getComePareDataSetList(this.pageIndex, this.pageSize)
+	}
 	getOptionCompareTable(codeVal: string): string {
 		for (const data of this.compareTableOption) {
 			if (data.codeNo == codeVal) {
@@ -312,8 +315,8 @@ export class F03012Component implements OnInit {
 			jsonObject['compareTable'] = obj.compareTable
 			jsonObject['compareColumn'] = obj.compareColumn
 			jsonObject['compareType'] = obj.compareType
-			jsonObject['setValueHight'] =   obj.setValueHight
-			jsonObject['setValueLow'] =   obj.setValueLow
+			jsonObject['setValueHight'] = obj.setValueHight
+			jsonObject['setValueLow'] = obj.setValueLow
 			// jsonObject['setValueHight'] =   obj.setValueHight != "" ? this.Cut( obj.setValueHight) : "0";
 			// jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
 
@@ -341,4 +344,15 @@ export class F03012Component implements OnInit {
 	test(option: number, value: 1): boolean {
 		return option === value
 	}
+	// 千分號標點符號
+	data_number(p: number) {
+		this.x = '';
+		this.x = (p + "")
+		if (this.x != null) {
+			this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		}
+		return this.x
+	}
+	
+
 }

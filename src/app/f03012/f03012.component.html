@@ -19,6 +19,7 @@
 
       </div>
       <div nz-col nzSpan="6">
+        
         <button nz-button [nzSize]="'middle'" nzType="primary" style="margin-top:25px" (click)="add()">新增</button>
         &nbsp;&nbsp;
         <button nz-button [nzSize]="'middle'"  nzDanger style="margin-top:25px" (click)="Clear()">清除資料</button>
@@ -106,10 +107,10 @@
             </ng-template> -->
             <div *ngIf="row.isChk == true;">
               <!-- <input [(ngModel)]="row.setValueLow"  name="setValueLow" (keyup)="limit(row.setValueLow,row.id,'setValueLow')"> -->
-              <input [(ngModel)]="row.setValueLow"  name="setValueLow" >
+              <input [(ngModel)]="row.setValueLow"   name="setValueLow" >
             </div>
             <div *ngIf="row.isChk == false;">
-              {{ row.setValueLow }}
+              {{row.setValueLow != undefined? data_number(row.setValueLow):row.setValueLow}}
             </div>
           </td>
           <td class="table-data">
@@ -120,11 +121,11 @@
               {{ row.setValueHight }}
             </ng-template> -->
             <div *ngIf="row.isChk == true;">
-              <input [(ngModel)]="row.setValueHight" name="setValueHight" >
+              <input [(ngModel)]="row.setValueHight"    name="setValueHight" >
               <!-- <input [(ngModel)]="row.setValueHight" name="setValueHight" (keyup)="limit(row.setValueHight,row.id,'setValueHight')"> -->
             </div>
             <div *ngIf="row.isChk == false;">
-              {{ row.setValueHight }}
+              {{row.setValueHight != undefined? data_number(row.setValueHight):row.setValueHight}} 
             </div>
           </td>
           <td class="table-data" *ngIf="row.compareTable==selectedValue1; else elseBlock" style="text-align: center">
