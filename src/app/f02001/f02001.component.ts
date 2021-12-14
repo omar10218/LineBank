@@ -52,6 +52,8 @@ export class F02001Component implements OnInit {
   pageIndex: number;
   firstFlag = 1;
   sortArry=['ascend', 'descend']
+  x: string;
+
   constructor(private router: Router,
     private f02001Service: F02001Service,
     public pipe: DatePipe,
@@ -374,6 +376,7 @@ export class F02001Component implements OnInit {
         this.total = data.rspBody.size;
         this.quantity = data.rspBody.size;
         this.firstFlag = 2;
+        console.log(this.resultData)
       }
 
     }
@@ -481,5 +484,12 @@ export class F02001Component implements OnInit {
       }
     }
   }
-
+  data_number(p: number) {
+    this.x = '';
+    this.x = (p + "")
+    if (this.x != null) {
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
+  }
 }
