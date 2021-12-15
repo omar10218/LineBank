@@ -5,6 +5,7 @@ import { OptionsCode } from 'src/app/interface/base'
 import { F03012Service } from '../f03012.service'
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { FADE_CLASS_NAME_MAP } from 'ng-zorro-antd/modal'
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component'
 @Component({
 	selector: 'app-f03012add',
 	templateUrl: './f03012add.component.html',
@@ -104,6 +105,15 @@ export class F03012addComponent implements OnInit {
 		// })
 	}
 
+	//儲存前處理千分位
+	Cut(s: string)  {
+		if(s!=null)
+		{
+		  s = s.replace(/,/g, "")
+		}
+  
+		return s
+	  }
 
 	add() {
 		let msg = ''
@@ -117,8 +127,8 @@ export class F03012addComponent implements OnInit {
 		jsonObject['compareTable'] = this.selectedValue1
 		jsonObject['compareColumn'] = this.selectedValue2
 		jsonObject['compareType'] = this.compareType
-		jsonObject['setValueLow'] = this.setValueLow
-		jsonObject['setValueHight'] = this.setValueHight
+		jsonObject['setValueLow'] = this.setValueLow != "" ? this.Cut( this.setValueLow) : "0";
+		jsonObject['setValueHight'] = this.setValueHight != "" ? this.Cut( this.setValueHight) : "0";
 
 		this.error = 'test'
 		this.f03012Service.submit(url, jsonObject).subscribe(data => {
@@ -160,6 +170,30 @@ export class F03012addComponent implements OnInit {
 		this.setValueHight = ''
 		this.setValueLow = ''
 
+	}
+	isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
+
+	//去除符號/中英文
+	toNumber(data: string) {
+		return data != null ? data.replace(/[^\w\s]|_/g, '') : data;
+
+	}
+	// 只允許輸入數字
+	numberOnly(event: { which: any; keyCode: any; }): boolean {
+		console.log(event)
+		const charCode = (event.which) ? event.which : event.keyCode;
+		if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode < 110 && charCode > 110) {
+			const childernDialogRef = this.dialog.open(ConfirmComponent, {
+				data: { msgStr: '請輸入數字!' }
+			});
+			return false;
+		}
+		return true;
+	}
+
+	//+逗號
+	toCurrency(amount: string) {
+		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
 	}
 
 	ngAfterViewInit(): void { }

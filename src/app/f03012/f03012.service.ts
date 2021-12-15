@@ -23,6 +23,14 @@ export class F03012Service extends BaseService {
 		let targetUrl = `${baseUrl}?roleNo=${roleNo}`
 		return this.postHttpClient(targetUrl)
 	}
+		//儲存前處理千分位
+		Cut(s: string)  {
+			if (s != null) {
+				s = s.replace(/,/g, "")
+			}
+
+			return s
+		}
 	update(baseUrl: string, data: any, oldCompareTable: string, oldCompareColumn: string, setValueLow: string, setValueHight: string, compareType: string, oldCompareType: string): any {
 		const formdata: FormData = new FormData()
 		// formdata.append('setValue', data.setValue);
@@ -34,8 +42,8 @@ export class F03012Service extends BaseService {
 
 		formdata.append('compareTable', data.compareTable)
 		formdata.append('compareColumn', data.compareColumn)
-		formdata.append('setValueLow', data.setValueLow)
-		formdata.append('setValueHight', data.setValueHight)
+		formdata.append('setValueLow',this.Cut( data.setValueLow))
+		formdata.append('setValueHight', this.Cut(data.setValueHight))
 		formdata.append('compareType', data.compareType)
 		return this.saveOrEditMsgString(baseUrl, formdata)
 	}

@@ -49,7 +49,7 @@ export class F03012Component implements OnInit {
 	height: string
 	low: string
 	index = []
-	aaa:string
+	aaa: string
 	// 20211005 新增
 	checked = [] //存取被選到的物件
 	compareItems = [] //物件陣列
@@ -73,6 +73,7 @@ export class F03012Component implements OnInit {
 		}
 	}
 
+// 取得資料比對下拉項目
 	getCompareTable() {
 		this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
 			console.log(data)
@@ -83,12 +84,15 @@ export class F03012Component implements OnInit {
 			}
 		})
 	}
+
+	// 分頁切換
 	onQueryParamsChange(params: NzTableQueryParams): void {
 		const { pageSize, pageIndex } = params
 		this.getComePareDataSetList(pageIndex, pageSize)
 	}
 
 	mappingCodeSource = new MatTableDataSource<any>()
+
 	ngAfterViewInit(): void {
 		this.getComePareDataSetList(this.pageIndex, this.pageSize)
 		this.paginator.page.subscribe((page: PageEvent) => {
@@ -101,10 +105,10 @@ export class F03012Component implements OnInit {
 	@ViewChild('paginator', { static: true }) paginator: MatPaginator
 	@ViewChild('sortTable', { static: true }) sortTable: MatSort
 	compareDataSetSource = new MatTableDataSource<any>()
-
 	compareTableOption: MappingCode[]
 	compareColumnOption: MappingCode[]
 
+// 取得資料比對資料
 	getComePareDataSetList(pageIndex: number, pageSize: number) {
 		const baseUrl = 'f03/f03012scn1'
 		let jsonObject: any = {}
@@ -146,15 +150,18 @@ export class F03012Component implements OnInit {
 	// 		item.setValueLow = item.setValueLow != undefined ? (item.setValueLow + '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.setValueLow
 	// 	}
 	// }
-	//儲存前處理千分位
-	// Cut(s: string)  {
-	//   if(s!=null)
-	//   {
-	//     s = s.replace(/,/g, "")
-	//   }
 
-	//   return s
-	// }
+	//儲存前處理千分位
+	Cut(s: string)  {
+	  if(s!=null)
+	  {
+	    s = s.replace(/,/g, "")
+	  }
+
+	  return s
+	}
+
+	// 刪除
 	delete(compareTable: string, compareColumn: string, compareType: string, setValueHight: string, setValueLow: string) {
 		let msg = ''
 		const url = 'f03/f03012action3'
@@ -178,6 +185,8 @@ export class F03012Component implements OnInit {
 			window.location.reload()
 		}, 1500)
 	}
+
+	// 新增
 	add() {
 		const dialogRef = this.dialog.open(F03012addComponent, {
 			panelClass: 'mat-dialog-transparent',
@@ -192,7 +201,7 @@ export class F03012Component implements OnInit {
 			this.getCompareTable()
 		})
 	}
-
+	// 編輯
 	edit(compareTable: string, compareColumn: string, setValueLow: string, setValueHight: string, compareType: string) {
 		const dialogRef = this.dialog.open(F03012editComponent, {
 			panelClass: 'mat-dialog-transparent',
@@ -208,24 +217,27 @@ export class F03012Component implements OnInit {
 				oldSetValueHight: setValueHight,
 				oldCompareColumn: compareColumn,
 				oldCompareType: compareType,
-				// setValue: setValue
+				
 			},
 		})
 		dialogRef.afterClosed().subscribe(result => {
 			if (result != null && result.event == 'success') {
 				this.refreshTable()
 			}
-			// window.location.reload();
 			this.getCompareTable()
 		})
 	}
 	private refreshTable() {
 		this.paginator._changePageSize(this.paginator.pageSize)
 	}
+
+	// 清除資料
 	Clear() {
-		this.compareTableCode = null;
+		// this.compareTableCode = null;
 		this.getComePareDataSetList(this.pageIndex, this.pageSize)
+		this.getCompareTable()
 	}
+
 	getOptionCompareTable(codeVal: string): string {
 		for (const data of this.compareTableOption) {
 			if (data.codeNo == codeVal) {
@@ -317,8 +329,8 @@ export class F03012Component implements OnInit {
 			jsonObject['compareType'] = obj.compareType
 			jsonObject['setValueHight'] = obj.setValueHight
 			jsonObject['setValueLow'] = obj.setValueLow
-			// jsonObject['setValueHight'] =   obj.setValueHight != "" ? this.Cut( obj.setValueHight) : "0";
-			// jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
+			jsonObject['setValueHight'] =   obj.setValueHight != "" ? this.Cut( obj.setValueHight) : "0";
+			jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
 
 
 			if (obj.compareType == null || obj.setValueHight == null || obj.setValueLow == null || obj.compareType == '' || obj.setValueHight == '' || obj.setValueLow == '') {
@@ -344,7 +356,7 @@ export class F03012Component implements OnInit {
 	test(option: number, value: 1): boolean {
 		return option === value
 	}
-	// 千分號標點符號
+	// 千分號標點符號(form顯示用)
 	data_number(p: number) {
 		this.x = '';
 		this.x = (p + "")
@@ -353,6 +365,37 @@ export class F03012Component implements OnInit {
 		}
 		return this.x
 	}
-	
+	// 數字靠右
+	getStyle(value: string) {
+		// value = this.toNumber(value);
+		value = value != null ? value.replace(',', '') : value;
+		return {
+			'text-align': this.isNumber(value) ? 'right' : 'left'
+		}
+	}
+	isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
+
+	//去除符號/中英文
+	toNumber(data: string) {
+		return data != null ? data.replace(/[^\w\s]|_/g, '') : data;
+
+	}
+	// 只允許輸入數字
+	numberOnly(event: { which: any; keyCode: any; }): boolean {
+		console.log(event)
+		const charCode = (event.which) ? event.which : event.keyCode;
+		if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode < 110 && charCode > 110) {
+			const childernDialogRef = this.dialog.open(ConfirmComponent, {
+				data: { msgStr: '請輸入數字!' }
+			});
+			return false;
+		}
+		return true;
+	}
+
+	//+逗號
+	toCurrency(amount: string) {
+		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
+	}
 
 }
