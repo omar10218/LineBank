@@ -151,8 +151,12 @@ export class F02002Component implements OnInit {
       sessionStorage.setItem( 'winClose', 'Y' );
       sessionStorage.setItem('page', '02');//02補件資訊查詢
       //開啟徵審主畫面
-      const url = window.location.href.split("/#");
-      window.open( url[0] + "/#/F01002/F01002SCN1" );
+      // const url = window.location.href.split("/#");
+      // window.open( url[0] + "/#/F01002/F01002SCN1", "", "location=no");
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree(["./F01002/F01002SCN1"])
+      );
+      window.open(url, "", "location=no");
       // this.router.navigate(['./F01002/F01002SCN1']);
       // const childernDialogRef = this.dialog.open(F01002scn1Component, {
       //   minHeight: '30%',
