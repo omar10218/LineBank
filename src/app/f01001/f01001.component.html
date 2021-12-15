@@ -16,8 +16,8 @@
           <div nz-col nzSpan="5">
             <span class="form-title line_bank_h4">身分證號</span>
             <div class="form" style="margin:0 auto;width:90%">
-              <div><input matInput #input class="form-control" [(ngModel)]="swcNationalId" name="swcNationalId" placeholder="請輸入身分證編號"
-                  required>
+              <div><input matInput #input class="form-control" [(ngModel)]="swcNationalId" name="swcNationalId"
+                  placeholder="請輸入身分證編號" required>
               </div>
             </div>
           </div>
@@ -65,12 +65,11 @@
         <div class="line_bank_card_no_padding">
           <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
             [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
-            [nzScroll]="{ x: '1500px', y:tableHeight}"
-            (nzQueryParams)="onQueryParamsChange($event)">
+            [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
               <tr>
-                <th class="table-header" nzLeft (nzSortOrderChange)="sortChange($event)"
-                [nzSortFn]="true" [nzWidth]="'160px'">案件編號</th>
+                <th class="table-header" nzLeft (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
+                  [nzWidth]="'160px'">案件編號</th>
                 <th class="table-header">流程別</th>
                 <th class="table-header">重查完成</th>
                 <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
@@ -101,7 +100,10 @@
                     {{data.swcApplno}}
                   </button>
                 </td>
-                <td class="table-data">{{ getOptionCaseType(data.swcFlowType) }}</td>
+                <td *ngIf="data.swcCreditLevel == 'T';else template" class="table-data">暫存件</td>
+                <ng-template #template>
+                  <td class="table-data">{{ getOptionCaseType(data.swcFlowType) }}</td>
+                </ng-template>
                 <td class="table-data">{{ data.swcReadyForReview }}</td>
                 <td class="table-data" nzWidth="'70px'">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}
                 </td>
