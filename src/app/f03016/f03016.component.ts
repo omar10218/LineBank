@@ -28,7 +28,7 @@ export class F03016Component implements OnInit {
   pageIndex = 1;
   selectedValue: string;
   compareTableCode: sysCode[] = [];
-  DssJcicSet: number;
+  DssJcicSet:number;
   DssMailDay: number;
   BasicLimit: number;
   CssPassStart: Date;
@@ -50,8 +50,12 @@ export class F03016Component implements OnInit {
 
   ngOnInit(): void {
     this.getImpertmentParameterInfo(this.pageIndex, this.pageSize);
+    
   }
 
+  ngAfterViewInit(){
+    
+  }
   formControl = new FormControl('', [
     Validators.required
   ]);
@@ -70,18 +74,23 @@ export class F03016Component implements OnInit {
     this.getImpertmentParameterInfo(params.pageIndex, params.pageSize);
   }
   //取得資料
-  getImpertmentParameterInfo(pageIndex: number, pageSize: number) {
+   getImpertmentParameterInfo(pageIndex: number, pageSize: number) {
+
+    const date = new Date();
+
     const baseUrl = 'f03/f03016';
     let jsonObject: any = {};
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
-    this.f03016Service.getImpertmentParameter(baseUrl, jsonObject).subscribe(data => {
+   this.f03016Service.getImpertmentParameter(baseUrl, jsonObject).subscribe(data => {
       this.DssJcicSet = data.rspBody.ipList[0].dssJcicSet;
       this.DssMailDay = data.rspBody.ipList[0].dssMailDay;
       this.BasicLimit = data.rspBody.ipList[0].basicLimit;
       this.IsJcic = data.rspBody.ipList[0].isJcic;
-      this.CssPassStart = data.rspBody.ipList[0].cssPassStart;
-      this.CssPassEnd = data.rspBody.ipList[0].cssPassEnd;
+      this.CssPassStart=new Date(this.pipe.transform(new Date( data.rspBody.ipList[0].cssPassStart), 'yyyy-MM-dd'))
+      this.CssPassStart.setDate(this.CssPassStart.getDate() - 1);
+      this.CssPassEnd=new Date(this.pipe.transform(new Date(data.rspBody.ipList[0].cssPassEnd), 'yyyy-MM-dd'))
+      this.CssPassEnd.setDate(this.CssPassEnd.getDate() - 1);
       this.ChangeSource = data.rspBody.tlList;
       this.columnName = data.rspBody.tlList[0].columnName;
       this.originalValue = data.rspBody.tlList[0].originalValue;
@@ -102,8 +111,8 @@ export class F03016Component implements OnInit {
     this.CssPassStart = new Date(this.CssPassStart);
     this.CssPassEnd = new Date(this.CssPassEnd);
     if (this.CssPassStart < this.CssPassEnd) {
-    let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart), 'yyyy-MM-dd');
-    let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy-MM-dd');
+    let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart).setDate(this.CssPassStart.getDate() +1), 'yyyy-MM-dd');
+    let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd).setDate(this.CssPassStart.getDate() +1), 'yyyy-MM-dd');
       if (CssPassStartString != '1970-01-01' && CssPassEndString != '1970-01-01'
       ) {
         jsonObject['cssPassStart'] = CssPassStartString;
@@ -117,10 +126,14 @@ export class F03016Component implements OnInit {
     }
     jsonObject['isJcic'] = this.IsJcic;
     jsonObject['transEmpNo'] = this.transEmpNo;
+    console.log('jsonObject');
+    console.log(jsonObject);
+    console.log(this.CssPassEnd);
     let msgStr: string = "";
     let baseUrl = 'f03/f03016action1';
 
     msgStr = await this.f03016Service.update(baseUrl, jsonObject);
+    console.log(msgStr)
     if (msgStr == 'success') {
       msgStr = '儲存成功！'
       this.dialog.open(ConfirmComponent, {
@@ -128,9 +141,12 @@ export class F03016Component implements OnInit {
       });
       this.changePage();
       this.getImpertmentParameterInfo(this.pageIndex, this.pageSize);
-
+    } else {
+      msgStr = '資料無更改!'
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
     }
-
   }
   onChange(result: Date): void {
 

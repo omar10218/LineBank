@@ -147,8 +147,18 @@ export class F02003Component implements OnInit {
     }
     console.log(jsonObject)
     this.f02003Service.inquiry(url,jsonObject).subscribe(data=>{
-      this.resultData = data.rspBody.item
-      this.quantity = data.rspBody.size
+
+      if(data.rspBody.size == 0)
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查無資料" }})
+      }
+      else
+      {
+        this.resultData = data.rspBody.item
+        this.quantity = data.rspBody.size
+      }
+
       console.log(data)
     })
 
@@ -205,7 +215,7 @@ export class F02003Component implements OnInit {
     sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('queryDate', '');
     sessionStorage.setItem('winClose', 'Y');
-    sessionStorage.setItem('page', '0');
+    sessionStorage.setItem('page', '3');//複審案件查詢
     sessionStorage.setItem('stepName', '0');
     //開啟徵審主畫面
     const url = window.location.href.split("/#");

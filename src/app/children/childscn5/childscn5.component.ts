@@ -29,6 +29,7 @@ export class Childscn5Component implements OnInit {
   companyWhitelistValue: string;//公司是否為白名單
   genderCode: sysCode[] = [];           //性別下拉
   genderValue: string;                  //性別
+  cuCpNameCa: string;                  //徵信確認公司名稱
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -69,7 +70,8 @@ export class Childscn5Component implements OnInit {
     CU_LEVEL1_CA: ['', []],     // 徵信認列行業Level1
     CU_LEVEL2_CA: ['', []],     // 徵信認列行業Level2
     JOB_CODE_CA: ['', []],      // 徵信認列行業職業碼
-    COMPANY_WHITELIST: ['', []] // 公司是否為白名單
+    COMPANY_WHITELIST: ['', []], // 公司是否為白名單
+    CU_CP_NAME_CA: ['', []] // 徵信確認公司名單
 
 
   });
@@ -88,6 +90,7 @@ export class Childscn5Component implements OnInit {
       });
     //取公司白名單下拉
     this.childscn5Service.getSysTypeCode('COMPANY_WHITELIST')
+    
       .subscribe(data => {
         this.companyWhitelistCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.mappingList) {
@@ -117,8 +120,9 @@ export class Childscn5Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['custId'] = this.cuid;
-
+   
     this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
+      console.log(data)
       this.customerInfoForm.patchValue({ CUCNAME: data.rspBody.items[0].cuCname })
       this.customerInfoForm.patchValue({ NATIONAL_ID: data.rspBody.items[0].nationalId })
       this.customerInfoForm.patchValue({ CU_SEX: this.getGender(data.rspBody.items[0].cuSex) })
@@ -166,8 +170,16 @@ export class Childscn5Component implements OnInit {
     this.jobCodeCaValue = '';
     let jsonObject: any = {};
     jsonObject['inducLevel1'] = this.cuLevel1CaValue;
-
+  
+    var foo = document.getElementById('cuLevel2Ca');
+    if( jsonObject['inducLevel1']==undefined){
+      foo.style['background-color'] = '#E6E6E6';
+    }
+    else{
+      foo.style['background-color'] = '	#FFFFFF';
+    }
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+     
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj['INDUC_LEVEL2'];
         const desc = jsonObj['INDUC_LEVEL2_DESC'];
@@ -183,6 +195,15 @@ export class Childscn5Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['inducLevel1'] = this.cuLevel1CaValue;
     jsonObject['inducLevel2'] = this.cuLevel2CaValue;
+   
+    var v00 = document.getElementById('jobCodeCa');
+    if( jsonObject['inducLevel2']==undefined||jsonObject['inducLevel2']==""||jsonObject['inducLevel2']==null){
+      v00.style['background-color'] = '#E6E6E6';
+      
+    }
+    else{
+      v00.style['background-color'] = '	#FFFFFF';
+    }
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj['JOB_CODE'];
@@ -201,8 +222,11 @@ export class Childscn5Component implements OnInit {
     jsonObject['cuLevel2Ca'] = this.cuLevel2CaValue;
     jsonObject['jobCodeCa'] = this.jobCodeCaValue;
     jsonObject['companyWhitelist'] = this.companyWhitelistValue;
+    jsonObject['cuCpNameCa'] = this.cuCpNameCa;
+    console.log(jsonObject)
 
     this.childscn5Service.update(jsonObject).subscribe(data => {
+      console.log(data)
       msg = data.rspMsg;
     });
     setTimeout(() => {

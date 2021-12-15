@@ -39,6 +39,7 @@ export class Childbwscn7Component implements OnInit {
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
     this.childscn7Service.getCaseStep( baseUrl, jsonObject ).subscribe(data => {
+      console.log(data)
       this.loading = false;
       this.total = data.rspBody.size;
       this.caseStepSource = data.rspBody.items;

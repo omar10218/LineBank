@@ -260,7 +260,7 @@ export class Childscn1Component implements OnInit {
     const baseUrl = 'f01/childscn1'
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
+    this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(async data => {
 
       //CreditAuditinfo
       if (data.rspBody.CreditAuditinfoList.length > 0) {
@@ -366,13 +366,16 @@ export class Childscn1Component implements OnInit {
         sessionStorage.setItem('interestType', data.rspBody.creditInterestPeriodList[0].interestType ? data.rspBody.creditInterestPeriodList[0].interestType : '');
         this.interest = data.rspBody.creditInterestPeriodList[0].interest;
         sessionStorage.setItem('interest', data.rspBody.creditInterestPeriodList[0].interest ? data.rspBody.creditInterestPeriodList[0].interest : '');
-        this.periodType = data.rspBody.creditInterestPeriodList[0].periodType;
-        sessionStorage.setItem('periodType', data.rspBody.creditInterestPeriodList[0].periodType ? data.rspBody.creditInterestPeriodList[0].periodType : '');
-        this.interestBase = data.rspBody.creditInterestPeriodList[0].interestBase;
+        this.periodType = '1';
+        sessionStorage.setItem('periodType', this.periodType);
+        if (this.interestType == '02') {
+          this.interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
+        }
+        //this.interestBase = data.rspBody.creditInterestPeriodList[0].interestBase;
         sessionStorage.setItem('interestBase', data.rspBody.creditInterestPeriodList[0].interestBase ? data.rspBody.creditInterestPeriodList[0].interestBase : '');
         this.interestCode = data.rspBody.creditInterestPeriodList[0].interestCode;
-        this.approveInterest = data.rspBody.creditInterestPeriodList[0].approveInterest;
-        sessionStorage.setItem('approveInterest', data.rspBody.creditInterestPeriodList[0].approveInterest ? data.rspBody.creditInterestPeriodList[0].approveInterest : '');
+        this.approveInterest = Number(this.interestBase) + Number(this.interest)
+        sessionStorage.setItem('approveInterest', this.approveInterest.toString());
       }
 
     })
@@ -465,10 +468,13 @@ export class Childscn1Component implements OnInit {
     return date.split("T")[0] + " " + date.split("T")[1].split(".")[0];
   }
 
-  changeInterest() {
+  async changeInterest() {
     if (this.interestType == '02') {
       this.interestValue = '1';
-      this.interestBase = 2;
+      let jsonObject: any = {};
+      const baseUrl = 'f01/childscn1action3';
+      this.interestBase = await this.childscn1Service.getInterestBase(baseUrl, jsonObject);
+      // this.interestBase = 2;
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
     } else {
       this.interestValue = '';
@@ -526,7 +532,7 @@ export class Childscn1Component implements OnInit {
 
   numberOnly(event: { which: any; keyCode: any; }): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode < 110 && charCode > 110) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入數字!' }
       });

@@ -5,19 +5,20 @@
     <div class="line_bank_form_header_title">產生合約前回查值設定</div>
     <form class="mat-dialog-content" #formControl="ngForm">
       <div nz-row>
+        
         <div nz-col nzSpan="12">
           <div style="padding:10px">
             <span class="form-title" style="width:100%">DSS3落人再送JCIC時間設定 </span>
-            <input nz-input placeholder="輸入數字" [(ngModel)]="DssJcicSet" id="dss_jcic_set"
+            <input nz-input placeholder="輸入數字" [(ngModel)]="DssJcicSet" name="dss_jcic_set" id="dss_jcic_set"
               oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" required>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMess/age()}}</mat-error>
 
           </div>
         </div>
         <div nz-col nzSpan="12">
           <div style="padding:10px">
             <span class="form-title" style="width:100%">DSS3落人後email提醒天數</span>
-            <input nz-input placeholder="輸入天數" [(ngModel)]="DssMailDay" id="dss_mail_day"
+            <input nz-input placeholder="輸入天數" [(ngModel)]="DssMailDay" name="dss_mail_day" id="dss_mail_day"
               oninput="value=value.replace(/[^\d]/g,'')" maxlength="2"required >
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
@@ -29,14 +30,14 @@
           <div style="padding:10px">
             <span class="form-title" style="width:100%">基本門檻
             </span>
-            <input nz-input placeholder="輸入金額" [(ngModel)]="BasicLimit" id="basic_limit" style="display: block;" required>
+            <input nz-input placeholder="輸入金額" [(ngModel)]="BasicLimit" id="basic_limit " name="basic_limit" style="display: block;" required>
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
         <div nz-col nzSpan="12">
           <div style="padding:10px">
             <span class="form-title" style="width:100%">是否查詢JCIC</span>
-            <mat-radio-group aria-label="Select an option" [(ngModel)]="IsJcic" style="display: block;" required>
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="IsJcic" name="IsJcic" style="display: block;" required>
               <mat-radio-button [value]="'Y'">是</mat-radio-button>
               <mat-radio-button [value]="'N'">否</mat-radio-button>
             </mat-radio-group>

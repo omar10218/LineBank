@@ -775,7 +775,7 @@ export class Childscn12Component implements OnInit {
       //(A1+A2)*0.5跟Btotal比較 選最小
       INCOME_DETAILS.D = BB ? (A1_A2 * 0.5) > B ? this.toCurrency(this.toINT(B).toString()) :
         this.toCurrency(this.toINT(A1_A2 * 0.5).toString()) :
-        this.toCurrency(this.toINT(A1_A2 * 0.5).toString());
+        INCOME_DETAILS.D;
 
       INCOME_DETAILS.C = CB ? INCOME_DETAILS.D : INCOME_DETAILS.C;
     }

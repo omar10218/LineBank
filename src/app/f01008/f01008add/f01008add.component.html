@@ -75,7 +75,6 @@
 <div class="line_bank_card_no_padding" style="min-height:50vh;width:70vw">
   <div class="line_bank_form_header_title">徵信照會-新增</div>
   <div class="container" style="padding:15px;">
-    <form class="mat-dialog-content" #formControl="ngForm">
       <div nz-row>
         <div nz-col nzSpan="12">
           <div class="form">
@@ -112,8 +111,8 @@
           </div>
         </div>
       </div>
-      <div nz-row>
-        <div nz-col nzSpan="6">
+      <div nz-row style="margin-top: 10px;">
+        <div nz-col nzSpan="4">
           <div class="form">
             <div><span class="form-title" style="margin:0px;">設定下次照會時間</span>
               <nz-date-picker style="display:block;width: 60%;" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" >
@@ -132,6 +131,7 @@
             </div>
           </div>
         </div>
+        <div nz-col nzSpan="1"></div>
         <div nz-col nzSpan="3">
           <div class="form">
             <div><span class="form-title-actions">分</span>
@@ -143,6 +143,7 @@
             </div>
           </div>
         </div>
+        <div nz-col nzSpan="1"></div>
         <div nz-col nzSpan="12">
           <div class="form">
             <div><span class="form-title-actions">手機/市話</span>
@@ -163,12 +164,11 @@
           </div>
         </div>
       </div>
-      <div mat-dialog-actions style="text-align: center">
+      <div  style="text-align: center ; padding: 20px;">
         <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1"
           style="margin:0px 5px" (click)="save()">儲存</button>
         <button nz-button [nzSize]="'middle'" nzDanger (click)="onNoClick()" tabindex="-1"
           style="margin:0px 5px">取消</button>
       </div>
-    </form>
   </div>
 </div>

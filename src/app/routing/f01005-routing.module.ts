@@ -11,17 +11,17 @@ const routes: Routes = [
   {
     path: '',
     component: F01005Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: 'F01005SCN1',
     component: F01005scn1Component,
-    canActivate: [AuthGuard], // 守衛路由
+    // canActivate: [AuthGuard], // 守衛路由
     children: [
       {
         path: '',
         loadChildren: () => import ('../children/children.module').then(m => m.ChildrenModule),
-        canActivate: [AuthGuard], // 守衛路由
+        // canActivate: [AuthGuard], // 守衛路由
       }
     ]
   }

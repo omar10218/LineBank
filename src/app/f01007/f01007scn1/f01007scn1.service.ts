@@ -10,25 +10,6 @@ export class F01007scn1Service extends BaseService {
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  private JCICSource = new Subject<any>();
-  JCICSource$ = this.JCICSource.asObservable();
-  private JCICAddSource = new Subject<any>();
-  JCICAddSource$ = this.JCICAddSource.asObservable();
-  private JCICItemsSource = new Subject<any>();
-  JCICItemsSource$ = this.JCICItemsSource.asObservable();
-
-  setJCICSource(data): void {
-    this.JCICSource.next(data);
-  }
-
-  setJCICAddSource(data): void {
-    this.JCICAddSource.next(data);
-  }
-
-  setJCICItemsSource(data): void {
-    this.JCICItemsSource.next(data);
-  }
-
   dialogData: any;
 
   saveOrEditMsgJson(baseUrl: string, json: JSON): any {

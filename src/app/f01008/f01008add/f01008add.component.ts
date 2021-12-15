@@ -69,7 +69,7 @@ export class F01008addComponent implements OnInit {
       if (msgStr === '新增成功!' && codeStr === '0000') {
         // this.dialogRef.close({ event: 'success' });
         this.f01008Service.setJCICAddSource({ show: false });
-        window.location.reload();
+        // window.location.reload();
       }
     });
   }

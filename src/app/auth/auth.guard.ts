@@ -16,6 +16,8 @@ export class AuthGuard implements CanActivate {
   }
 
   checkLogin(url: string): boolean {
+
+    // return true
     if (this.authService.isLoggedIn) { return true; }
 
     // 儲存原始的請求地址,登入後跳轉到該地址

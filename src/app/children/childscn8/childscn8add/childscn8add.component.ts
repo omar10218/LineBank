@@ -6,6 +6,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common'
 import { OptionsCode } from 'src/app/interface/base';
 import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
+import { Router } from '@angular/router';
 
 //Nick 徵信照會 新增
 @Component({
@@ -21,7 +22,8 @@ export class Childscn8addComponent implements OnInit {
     // @Inject(MAT_DIALOG_DATA) public data: any,
     public childscn8Service: Childscn8Service,
     public datepipe: DatePipe,
-    private f01002scn1Service: F01002Scn1Service
+    private f01002scn1Service: F01002Scn1Service,
+    private router: Router,
   ) { }
 
   @Input() data: any;
@@ -102,7 +104,8 @@ export class Childscn8addComponent implements OnInit {
       if (msgStr === '新增成功!' && codeStr === '0000') {
         // this.dialogRef.close({ event: 'success' });
         this.f01002scn1Service.setJCICAddSource({ show: false });
-        window.location.reload();
+        // window.location.reload();
+        // this.router.navigate(['./F01002/F01002SCN1'], { skipLocationChange: true });
       }
     });
   }

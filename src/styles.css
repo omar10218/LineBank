@@ -71,7 +71,7 @@ html {
   text-align: left;
   font-weight:500;
   font-size: 16px;
-  margin:5px 0;
+  margin-top:5px;
   color:#2E4765;
   background-color: #BFECD0;
   padding:5px 5px 5px 10px;
@@ -165,4 +165,7 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
   margin-bottom: 0px;
   font-size: 5px;
 } */
-
+.ant-picker{
+  border:1px solid #c9c9c9;
+  border-radius: 5px;
+}

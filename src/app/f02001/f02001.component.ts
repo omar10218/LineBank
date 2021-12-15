@@ -51,6 +51,9 @@ export class F02001Component implements OnInit {
   pageSize: number;
   pageIndex: number;
   firstFlag = 1;
+  sortArry=['ascend', 'descend']
+  x: string;
+
   constructor(private router: Router,
     private f02001Service: F02001Service,
     public pipe: DatePipe,
@@ -71,6 +74,7 @@ export class F02001Component implements OnInit {
     this.risk_GRADE_Value = '';
     this.apply_TIME = [this.dealwithData14(new Date()), new Date()]
     this.quantity = 0;
+
 
   }
 
@@ -149,11 +153,16 @@ export class F02001Component implements OnInit {
   getRiskGrade() {
     this.f02001Service.getSysTypeCode('RISK_GRADE').subscribe(data => {
       this.risk_GRADE.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.risk_GRADE.push({ value: codeNo, viewValue: desc })
-      }
+      this.risk_GRADE.push({value: 'R1', viewValue: 'R1' })
+      this.risk_GRADE.push({value: 'R2', viewValue: 'R2' })
+      this.risk_GRADE.push({value: 'R3', viewValue: 'R3' })
+      this.risk_GRADE.push({value: 'R4', viewValue: 'R4' })
+      this.risk_GRADE.push({value: 'R5', viewValue: 'R5' })
+      // for (const jsonObj of data.rspBody.mappingList) {
+      //   const codeNo = jsonObj['codeNo'];
+      //   const desc = jsonObj['codeDesc'];
+      //   this.risk_GRADE.push({ value: codeNo, viewValue: desc })
+      // }
     });
   }
 
@@ -165,11 +174,11 @@ export class F02001Component implements OnInit {
     sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('queryDate', '');
     sessionStorage.setItem('winClose', 'Y');
-    sessionStorage.setItem('page', '0');
+    sessionStorage.setItem('page', '0');//申請案件查詢
     sessionStorage.setItem('stepName', '0');
     //開啟徵審主畫面
     const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F01002/F01002SCN1", "", "location: no");
+    window.open(url[0] + "/#/F01002/F01002SCN1");
   }
 
   select()//查詢
@@ -355,10 +364,21 @@ export class F02001Component implements OnInit {
     }
 
     this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
-      this.resultData = data.rspBody.item;
-      this.total = data.rspBody.size;
-      this.quantity = data.rspBody.size;
-      this.firstFlag = 2;
+      console.log(data)
+      if(data.rspBody.size == 0)
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查無資料" }})
+      }
+      else
+      {
+        this.resultData = data.rspBody.item;
+        this.total = data.rspBody.size;
+        this.quantity = data.rspBody.size;
+        this.firstFlag = 2;
+        console.log(this.resultData)
+      }
+
     }
     )
   }
@@ -435,7 +455,7 @@ export class F02001Component implements OnInit {
   }
   sortChange(e: string) {
     this.resultData = e === 'ascend' ? this.resultData.sort(
-      (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+      (a, b) => a.APPLY_TIME.localeCompare(b.APPLY_TIME)) : this.resultData.sort((a, b) => b.APPLY_TIME.localeCompare(a.APPLY_TIME))
     // alert('1');
     // console.log(this.resultData);
     console.log('-----------------');
@@ -463,5 +483,14 @@ export class F02001Component implements OnInit {
           break;
       }
     }
+  }
+  data_number(p: number)//千分號
+   {
+    this.x = '';
+    this.x = (p + "")
+    if (this.x != null) {
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
   }
 }

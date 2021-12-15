@@ -11,6 +11,8 @@ import { DatePipe } from '@angular/common'
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
+import { Subscription } from 'rxjs';
+
 
 
 //徵信照會table框架
@@ -61,12 +63,25 @@ export class Childscn8Component implements OnInit {
     private childscn8Service: Childscn8Service,
     public datepipe: DatePipe,
     private f01002scn1Service: F01002Scn1Service
-  ) { }
+  ) {
+    this.JCICAddSource$ = this.f01002scn1Service.JCICAddSource$.subscribe((data) => {
+      if(!data.show){    this.getCALLOUTFunction(this.pageIndex, this.pageSize);}
+    });
+    this.JCICAddSource$ = this.f01002scn1Service.JCICSource$.subscribe((data) => {
+      if(!data.show){    this.getCALLOUTFunction(this.pageIndex, this.pageSize);}
+    });
+   }
 
   private applno: string;
   private search: string;
   private page: string;
   private empNo: string;
+
+  //判斷是否更新表單
+  JCICAddSource$: Subscription;
+  // addData: any;
+  // editData: any;
+  // isShowAdd: boolean;
 
   listOfData: readonly Data[] = [];//表單資料筆數設定
   total = 1;
@@ -337,6 +352,7 @@ export class Childscn8Component implements OnInit {
     jsonObject['per_page'] = pageSize
     jsonObject['applno'] = this.applno
     this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
+      console.log(data)
       this.rspBodyData = data.rspBody;
       this.rspBodyList = data.rspBody.list;
       this.speakingData = data.rspBody.speaking;

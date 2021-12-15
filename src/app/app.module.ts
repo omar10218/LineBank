@@ -96,6 +96,7 @@ import { F04003Component } from './f04003/f04003.component';
 import { F02005Component } from './f02005/f02005.component';
 import { F02006Component } from './f02006/f02006.component';
 import { F02007Component } from './f02007/f02007.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -208,6 +209,9 @@ export const TW_FORMATS = {
     NzButtonModule,
     GoogleMapsModule,
     FontAwesomeModule,
+    RouterModule.forRoot([
+      { path : '*', component : HomeComponent }
+    ], { enableTracing : false })
   ],
   providers: [
     BnNgIdleService,
