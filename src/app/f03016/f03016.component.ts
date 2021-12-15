@@ -30,7 +30,7 @@ export class F03016Component implements OnInit {
   compareTableCode: sysCode[] = [];
   DssJcicSet:number;
   DssMailDay: number;
-  BasicLimit: number;
+  BasicLimit: string;
   CssPassStart: Date;
   CssPassEnd: Date;
   IsJcic: string = '';
@@ -88,9 +88,9 @@ export class F03016Component implements OnInit {
       this.BasicLimit = data.rspBody.ipList[0].basicLimit;
       this.IsJcic = data.rspBody.ipList[0].isJcic;
       this.CssPassStart=new Date(this.pipe.transform(new Date( data.rspBody.ipList[0].cssPassStart), 'yyyy-MM-dd'))
-      this.CssPassStart.setDate(this.CssPassStart.getDate() - 1);
+      // this.CssPassStart.setDate(this.CssPassStart.getDate() - 1);
       this.CssPassEnd=new Date(this.pipe.transform(new Date(data.rspBody.ipList[0].cssPassEnd), 'yyyy-MM-dd'))
-      this.CssPassEnd.setDate(this.CssPassEnd.getDate() - 1);
+      // this.CssPassEnd.setDate(this.CssPassEnd.getDate() - 1);
       this.ChangeSource = data.rspBody.tlList;
       this.columnName = data.rspBody.tlList[0].columnName;
       this.originalValue = data.rspBody.tlList[0].originalValue;
@@ -107,12 +107,14 @@ export class F03016Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['dssJcicSet'] = this.DssJcicSet;
     jsonObject['dssMailDay'] = this.DssMailDay;
-    jsonObject['basicLimit'] = this.BasicLimit;
+    jsonObject['basicLimit'] = this.BasicLimit!= "" ? this.Cut( this.BasicLimit) : "0";
     this.CssPassStart = new Date(this.CssPassStart);
     this.CssPassEnd = new Date(this.CssPassEnd);
     if (this.CssPassStart < this.CssPassEnd) {
-    let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart).setDate(this.CssPassStart.getDate() +1), 'yyyy-MM-dd');
-    let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd).setDate(this.CssPassStart.getDate() +1), 'yyyy-MM-dd');
+    // let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart).setDate(this.CssPassStart.getDate() +1), 'yyyy-MM-dd');
+    // let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd).setDate(this.CssPassStart.getDate() +1), 'yyyy-MM-dd');
+    let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart), 'yyyy-MM-dd');
+    let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy-MM-dd');
       if (CssPassStartString != '1970-01-01' && CssPassEndString != '1970-01-01'
       ) {
         jsonObject['cssPassStart'] = CssPassStartString;
@@ -157,4 +159,53 @@ export class F03016Component implements OnInit {
     this.pageSize = 10;
     this.total = 1;
   }
+
+  //儲存前處理千分位
+  Cut(s: string)  {
+	  if(s!=null)
+	  {
+	    s = s.replace(/,/g, "")
+	  }
+
+	  return s
+	}
+
+  isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
+
+	//去除符號/中英文
+	toNumber(data: string) {
+		return data != null ? data.replace(/[^\w\s]|_/g, '') : data;
+
+	}
+	// 只允許輸入數字
+	numberOnly(event: { which: any; keyCode: any; }): boolean {
+		console.log(event)
+		const charCode = (event.which) ? event.which : event.keyCode;
+		if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode < 110 && charCode > 110) {
+			const childernDialogRef = this.dialog.open(ConfirmComponent, {
+				data: { msgStr: '請輸入數字!' }
+			});
+			return false;
+		}
+		return true;
+	}
+
+	//+逗號
+	toCurrency(amount: string) {
+		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
+	}
+  data_number(p: string) {
+    console.log(p);
+    p = p.replace(/,/g, "")
+    if (p!= null)
+    {
+      p = p.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    console.log(p);
+    this.BasicLimit =p;
+
+  }
+
+  
+
 }

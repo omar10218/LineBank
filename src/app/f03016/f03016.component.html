@@ -30,7 +30,7 @@
           <div style="padding:10px">
             <span class="form-title" style="width:100%">基本門檻
             </span>
-            <input nz-input placeholder="輸入金額" [(ngModel)]="BasicLimit" id="basic_limit " name="basic_limit" style="display: block;" required>
+            <input nz-input placeholder="輸入金額" [(ngModel)]="BasicLimit" id="basic_limit "(keyup)="data_number(BasicLimit)" name="basic_limit" style="display: block;" required>
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
