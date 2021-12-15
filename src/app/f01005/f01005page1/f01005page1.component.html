@@ -74,7 +74,10 @@
                     {{data.swcApplno}}
                   </button>
                 </td>
+                <td *ngIf="data.swcCreditLevel == 'T';else template" class="table-data">暫存件</td>
+                <ng-template #template>
                 <td class="table-data">{{ getOptionCaseType(data.swcFlowType) }}</td>
+              </ng-template>
                 <td class="table-data">{{ data.swcReadyForReview }}</td>
                 <td class="table-data">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}
                 </td>

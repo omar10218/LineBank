@@ -165,8 +165,10 @@
                     {{data.swcApplno}}
                   </button>
                 </td>
-                <td *ngIf="data.swcCreditLevel == 'T';" class="table-data">暫存件</td>
-                <td *ngIf="data.swcCreditLevel == '';" class="table-data">{{ getOptionCaseType(data.swcFlowType) }}</td>
+                <td *ngIf="data.swcCreditLevel == 'T';else template" class="table-data">暫存件</td>
+                <ng-template #template>
+                  <td class="table-data">{{ getOptionCaseType(data.swcFlowType) }}</td>
+                </ng-template>
                 <td class="table-data">{{ data.swcReadyForReview }}</td>
                 <td class="table-data">{{ data.swcNationalId }}</td>
                 <td class="table-data">{{ data.swcCustId }}</td>

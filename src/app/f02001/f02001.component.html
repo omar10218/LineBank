@@ -184,9 +184,9 @@
            <!--產品名稱-->
            <td>{{data.PROD_CODE}}</td>
             <!--申請金額/額度-->
-          <td>{{data.APPLICATION_AMOUNT}}</td>
+          <td>{{data.APPLICATION_AMOUNT != undefined? data_number(data.APPLICATION_AMOUNT):data.APPLICATION_AMOUNT}}</td>
            <!--核准金額/額度-->
-           <td>{{ data.APPROVE_AMT }}</td>
+           <td>{{data.APPROVE_AMT != undefined? data_number(data.APPROVE_AMT):data.APPROVE_AMT}}</td>
              <!--合約金額/額度-->
           <td></td>
            <!--專案名稱-->

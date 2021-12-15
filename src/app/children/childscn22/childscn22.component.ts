@@ -20,6 +20,7 @@ export class Childscn22Component implements OnInit {
   applno: string;     // 案件編號
   cuid: string;       // 身分證字號
   stepName: string;   // 目前關卡
+  empNo: string = localStorage.getItem("empNo");
 
   block: boolean = false;
 
@@ -37,6 +38,7 @@ export class Childscn22Component implements OnInit {
     let jsonObject: any = {};
     // jsonObject['applno'] = this.applno;
     // jsonObject['swcNationalId'] = this.cuid;
+    jsonObject['empno'] = this.empNo;
     let msgStr: string = '';
     this.block = true;
     if (this.stepName == 'APPLCreditL3') {

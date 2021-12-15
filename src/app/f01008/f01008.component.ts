@@ -70,10 +70,17 @@ export class F01008Component implements OnInit {
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
     this.f01008Service.getCaseList(jsonObject).subscribe(data => {
-      if (data.rspBody.size > 0) {
+      if (data.rspBody.size > 0)
+      {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
         this.stepName = data.rspBody.items[0].F_StepName;
+      }
+      else
+      {
+        this.cusinfoDataSource = null;
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查無資料" }})
       }
     });
   }

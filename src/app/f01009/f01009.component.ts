@@ -167,8 +167,17 @@ export class F01009Component implements OnInit, AfterViewInit {
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01009Service.getCaseList(jsonObject).subscribe(data => {
-      this.total = data.rspBody.size;
-      this.cusinfoDataSource = data.rspBody.items;
+      if (data.rspBody.size > 0)
+      {
+        this.total = data.rspBody.size;
+        this.cusinfoDataSource = data.rspBody.items;
+      }
+      else
+      {
+        this.cusinfoDataSource = null;
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查無資料" }})
+      }
     });
   }
 
