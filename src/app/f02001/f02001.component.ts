@@ -175,8 +175,13 @@ export class F02001Component implements OnInit {
     sessionStorage.setItem('page', '0');//申請案件查詢
     sessionStorage.setItem('stepName', '0');
     //開啟徵審主畫面
-    const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F01002/F01002SCN1");
+
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(["./F01002/F01002SCN1"])
+    );
+
+    // const url = window.location.href.split("/#");
+    window.open(url, "", "location=no");
   }
 
   select()//查詢

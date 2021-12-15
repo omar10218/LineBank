@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { Data } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 @Component({
@@ -15,6 +15,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 export class Childbwscn6Component implements OnInit {
 
   constructor(
+    private router: Router,
     public childbwscn6Service: Childbwscn6Service,
     public dialog: MatDialog,) { }
   applno: string;
@@ -68,7 +69,14 @@ export class Childbwscn6Component implements OnInit {
     sessionStorage.setItem('queryDate', '');
     sessionStorage.setItem('winClose', 'Y');
     //開啟徵審主畫面
-    const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F01009/F01009SCN1");
+    // const url = window.location.href.split("/#");
+    // window.open(url[0] + "/#/F01009/F01009SCN1");
+
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(["./F01009/F01009SCN1"])
+    );
+
+    // const url = window.location.href.split("/#");
+    window.open(url, "", "location=no");
   }
 }

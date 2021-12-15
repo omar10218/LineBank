@@ -8,7 +8,7 @@ import { Childscn1Component } from '../childscn1/childscn1.component'
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { environment } from 'src/environments/environment';
-import { Data } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 //Jay 歷史資料
@@ -21,6 +21,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 export class Childscn16Component implements OnInit {
 
   constructor(
+    private router: Router,
     private childscn16Service: Childscn16Service,
     private pipe: DatePipe,
     public childService: ChildrenService,
@@ -78,8 +79,12 @@ export class Childscn16Component implements OnInit {
       sessionStorage.setItem('queryDate', '');
       sessionStorage.setItem('winClose', 'Y');
       //開啟徵審主畫面
-      const url = window.location.href.split("/#");
-      window.open(url[0] + "/#/F01002/F01002SCN1");
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree(["./F01002/F01002SCN1"])
+      );
+
+      // const url = window.location.href.split("/#");
+      window.open(url, "", "location=no");
 
     })
   }
