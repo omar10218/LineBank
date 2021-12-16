@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     if (await this.loginService.initData(this.no, this.pwd)) {
       localStorage.setItem("empNo", this.no);
       this.authService.login();//登入紀錄
-      this.router.navigate(['./home'], { queryParams: { empNo: this.no }, skipLocationChange : true });
+      this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();
 
 

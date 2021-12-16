@@ -62,7 +62,7 @@ export class Childbwscn12Component implements OnInit {
         data: { msgStr: data.rspMsg }
       });
       this.block = false;
-      this.router.navigate(['./F01009'], { skipLocationChange: true });
+      this.router.navigate(['./F01009']);
       this.dialogRef.close();
     });
   }

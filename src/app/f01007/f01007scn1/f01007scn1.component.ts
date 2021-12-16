@@ -277,7 +277,7 @@ export class F01007scn1Component implements OnInit {
         data: { msgStr: data.rspMsg }
       });
       this.block = false;
-      this.router.navigate(['./F01007'], { skipLocationChange: true });
+      this.router.navigate(['./F01007']);
     });
   }
 

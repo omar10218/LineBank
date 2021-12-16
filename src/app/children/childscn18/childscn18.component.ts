@@ -61,8 +61,8 @@ export class Childscn18Component implements OnInit {
         data: { msgStr: data.rspMsg }
       });
       this.block = false;
-      this.router.navigate(['./F01002'], { skipLocationChange: true });
-      // this.router.navigate(['./F01002']);
+      // this.router.navigate(['./F01002'], { skipLocationChange: true });
+      this.router.navigate(['./F01002']);
       this.dialogRef.close();
     });
   }

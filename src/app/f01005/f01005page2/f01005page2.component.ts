@@ -65,7 +65,7 @@ export class F01005page2Component implements OnInit {
      sessionStorage.setItem('winClose', 'N');
      sessionStorage.setItem('level', '3');
      sessionStorage.setItem('page', '5');
-    this.router.navigate(['./F01002/F01002SCN1/CHILDSCN15'], { skipLocationChange: true });
+    this.router.navigate(['./F01002/F01002SCN1/CHILDSCN15']);
   }
 
   refreshTable() {
