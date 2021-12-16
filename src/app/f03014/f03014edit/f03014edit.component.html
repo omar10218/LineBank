@@ -1,13 +1,13 @@
 <div class="line_bank_card_no_padding" style="min-height:300px;min-width: 500px;">
   <div class="line_bank_form_header_title">客戶身份名單註記-編輯</div>
   <div class="container" style="padding:35px;height: 50vh;">
-
+    <form class="mat-dialog-content" #formControl="ngForm">
       <div nz-row>
         <div nz-col nzSpan="6">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">客戶身分證字號</span>
               <input matInput #input class="form-control" [(ngModel)]="IdentityValue" name="IdentityValue"
-                onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10" required>
+                onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9]/g,'')" maxlength="10"  required>
                 <mat-error *ngIf="formControl.invalid && (IdentityValue=='' || IdentityValue== null) ">{{getErrorMessage()}}</mat-error>
               </div>
           </div>
@@ -15,7 +15,7 @@
         <div nz-col nzSpan="6">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">客戶姓名</span>
-              <input matInput #input class="form-control" [(ngModel)]="NameValue" name="NameValue" required>
+              <input matInput #input class="form-control" [(ngModel)]="NameValue" name="NameValue"  required>
               <mat-error *ngIf="formControl.invalid && (NameValue=='' || NameValue== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
@@ -72,13 +72,13 @@
         </div>
       </div>
 <div style="text-align: center;">
-  <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+  <button nz-button [nzSize]="'middle'" nzType="primary"  [mat-dialog-close]="1" [disabled]="!formControl.valid"
   style="margin:0px 5px" (click)="seve()">儲存</button>
 <button nz-button [nzSize]="'middle'" nzDanger (click)="onNoClick()" tabindex="-1"
   style="margin:0px 5px">取消</button>
 
 </div>
-
+</form>
   </div>
 </div>
 <!-- <form>

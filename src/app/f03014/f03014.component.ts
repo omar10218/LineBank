@@ -297,11 +297,83 @@ export class F03014Component implements OnInit {
       jsonObject['custNid'] = this.IdentityValue;
       jsonObject['custName'] = this.NameValue;
       jsonObject['content1'] = this.NarrateValue;
-      jsonObject['effectiveDate'] = this.Efficient;
-      jsonObject['expirationDate'] = this.Invalidation;
       jsonObject['useFlag'] = this.usingValue;
+      if (this.IdentityValue != null && this.IdentityValue != '') {
+        if (this.Efficient != null) {
+          if (!this.dealwithData365(this.Efficient)) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "生效日查詢區間最多一年內!" }
+            });
+            return
+          }
+          else {
+            jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyy-MM-dd');
+            jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyy-MM-dd');
+          }
+
+        }
+        else {
+          jsonObject['effectiveDate_start'] = '';
+          jsonObject['effectiveDate_end'] = '';
+        }
+
+        if (this.Invalidation != null) {
+          if (!this.dealwithData365(this.Invalidation)) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "失效日查詢區間最多一年內!" }
+            });
+            return
+          }
+          else {
+            jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyy-MM-dd');
+            jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyy-MM-dd');
+          }
+        }
+        else {
+          jsonObject['expirationDate_start'] = '';
+          jsonObject['expirationDate_end'] = '';
+        }
+      }
+      else {
+        if (this.Efficient != null) {
+          if (!this.dealwithData90(this.Efficient)) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "生效日查詢區間最多三個月內!" }
+            });
+            return
+          }
+          else {
+            jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyy-MM-dd');
+            jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyy-MM-dd');
+          }
+
+        }
+        else {
+          jsonObject['effectiveDate_start'] = '';
+          jsonObject['effectiveDate_end'] = '';
+        }
+
+        if (this.Invalidation != null) {
+          if (!this.dealwithData90(this.Invalidation)) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "失效日查詢區間最多三個月內!" }
+            });
+            return
+          }
+          else {
+            jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyy-MM-dd');
+            jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyy-MM-dd');
+          }
+        }
+        else {
+          jsonObject['expirationDate_start'] = '';
+          jsonObject['expirationDate_end'] = '';
+        }
+      }
+      console.log(jsonObject)
       let opton = { responseType: 'blob' as 'json' };
       this.f03014Service.downloadExcel(url, jsonObject).subscribe(data => {
+        console.log(data)
         blob = new Blob([data], { type: ' application/xlsx' });
         let downloadURL = window.URL.createObjectURL(blob);
         let link = document.createElement('a');
