@@ -1,8 +1,14 @@
 <app-block *ngIf="block"></app-block>
 <br>
 <div >
+  <!-- <div style="padding:10px;text-align:center">
 
+
+  </div> -->
   <div class="line_bank_card_no_padding" style="margin:20px 0px;width:100%">
+    <br>
+    <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="cancel()">離開</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" >案件送出</button>
     <!-- 補件功能 -->
     <div class="line_bank_form_header_title">補件</div>
     <div nz-row>
@@ -127,10 +133,6 @@
         </tr>
       </tbody>
     </nz-table>
-    <div style="padding:10px;text-align:center">
-
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="cancel()">離開</button>
-    </div>
     <br>
     <br>
   </div>
