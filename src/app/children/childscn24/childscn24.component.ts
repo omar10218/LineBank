@@ -33,7 +33,10 @@ export class Childscn24Component implements OnInit {
   public async confirm(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = this.stepName.substring(10);;
+    jsonObject['level'] = this.stepName.substring(10);
+    jsonObject['reject'] = 'L3';
+    console.log(this.applno)
+    console.log(this.stepName.substring(10))
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L2') {
       this.block = true;
@@ -62,6 +65,7 @@ export class Childscn24Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
+   
     jsonObject['reject'] = 'L2';
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L0') {
@@ -71,7 +75,7 @@ export class Childscn24Component implements OnInit {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     }
   }
-  // 主管案件退回徵信
+  // 授信覆核退回徵信
   public async L1sendbackL3(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
@@ -85,7 +89,7 @@ export class Childscn24Component implements OnInit {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     }
   }
-  // 主管案件退回徵信
+  // 授信覆核退回徵信
   public async L1sendbackL2(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
