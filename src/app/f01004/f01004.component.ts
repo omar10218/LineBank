@@ -134,7 +134,7 @@ export class F01004Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('level', '4');
         sessionStorage.setItem('page', '4');//0查詢 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8產生合約前回查 9複審人員 10複審主管
         sessionStorage.setItem('stepName', this.stepName);
-        this.router.navigate(['./F01004/F01004SCN1'], { skipLocationChange: true });
+        this.router.navigate(['./F01004/F01004SCN1']);
       }
     });
   }

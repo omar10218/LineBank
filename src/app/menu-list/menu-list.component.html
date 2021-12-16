@@ -17,7 +17,7 @@
 
       {{menu.getTitle()}}
       <mat-menu #aboveMenu="matMenu" yPosition="below" style="font-size:25px">
-        <button mat-menu-item *ngFor="let map of menu.getMenuList() | keyvalue: returnZero" [routerLink]="map.value" skipLocationChange>
+        <button mat-menu-item *ngFor="let map of menu.getMenuList() | keyvalue: returnZero" [routerLink]="map.value">
           {{map.key}}
         </button>
       </mat-menu>
@@ -72,7 +72,7 @@
 
     <!-- <a nz-dropdown [nzDropdownMenu]="menu"> -->
 
-      <button style="padding-right: 30px; background-color: transparent; border: transparent;" [routerLink]="'./F01002'" skipLocationChange (click)="bell()">
+      <button style="padding-right: 30px; background-color: transparent; border: transparent;" [routerLink]="'./F01002'" (click)="bell()">
         <nz-badge [(nzCount)]="total" [nzTitle]="null" [nzOffset]="[10, -1]">
           <fa-icon [icon]="['far', 'bell']"></fa-icon>
         </nz-badge>

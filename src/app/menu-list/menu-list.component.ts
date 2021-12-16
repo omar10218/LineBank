@@ -51,17 +51,17 @@ export class MenuListComponent implements OnInit, OnDestroy {
   returnZero() { return 0; }
   logOut() {
     window.sessionStorage.clear();
-    this.router.navigate(['./logOut'], { skipLocationChange : true } ).then(() => {
+    this.router.navigate(['./logOut']).then(() => {
       window.location.reload();
     });
   }
 
   goHome() {
-    this.router.navigate(['./home'], { skipLocationChange : true } );
+    this.router.navigate(['./home']);
   }
 
   input() {
-    this.router.navigate(['./input'], { skipLocationChange : true } );
+    this.router.navigate(['./input']);
   }
 
   //取照會提醒
