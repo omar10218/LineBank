@@ -23,7 +23,7 @@ export class Childscn19Service extends BaseService {
   addRescan(jsonObject: any): any {
     const baseUrl = 'f01/childscn19action2';
     let targetUrl = `${baseUrl}`;
-    return this.saveOrEditMsgString(targetUrl, jsonObject);
+    return this.saveOrEditMsgJson(targetUrl, jsonObject);
   }
 
   deleteRescanByRowid(jsonObject: any): any {

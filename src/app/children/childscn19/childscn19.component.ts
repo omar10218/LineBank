@@ -68,7 +68,7 @@ export class Childscn19Component implements OnInit {
     this.cuid = sessionStorage.getItem('cuid');
     this.checkpoint = sessionStorage.getItem('checkpoint');
     this.queryCusMobile();
-
+    console.log(sessionStorage.getItem('cuid'))
     //取sms樣板下拉
     this.childscn19Service.getSysTypeCode('SMS_SET').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
