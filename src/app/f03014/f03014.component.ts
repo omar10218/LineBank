@@ -56,9 +56,10 @@ export class F03014Component implements OnInit {
   }
   ngOnInit(): void //最開始處理的地方
   {
+    this.usingType.push({ value: '', viewValue: '請選擇' });
     this.usingType.push({ value: '1', viewValue: 'Y' });
     this.usingType.push({ value: '2', viewValue: 'N' });
-
+    console.log(this.ruleParamCondition)
   }
 
   search()//查詢

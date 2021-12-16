@@ -63,7 +63,7 @@
     [nzData]="ruleParamCondition" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" nzSize="small"> -->
       <thead>
         <tr>
-          <th class="table-header" [width]="80"></th>
+          <th class="table-header" [width]="80" ></th>
           <th class="table-header" [width]="100">客戶姓名</th>
           <th class="table-header" [width]="100">客戶身分證字號</th>
           <th class="table-header"[width]="200">簡述1</th>
@@ -77,7 +77,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let row of ruleParamCondition;">
-          <td style="text-align: center;"><button nz-button [nzSize]="'middle'" nzType="primary"
+          <td style="text-align: center;" ><button nz-button [nzSize]="'middle'" nzType="primary"
               (click)="EditTable(i, [row.ROW_ID,row.CUST_NAME,row.CUST_NID,row.CONTENT1,row.CONTENT2,row.REMARK,row.EFFECTIVE_DATE,row.EXPIRATION_DATE,row.USE_FLAG,row.CHANGE_DATE])">編輯</button>
           </td>
           <td class="table-data">{{ row.CUST_NAME }}</td>
@@ -87,7 +87,7 @@
           <td class="table-data">{{ row.REMARK }}</td>
           <td class="table-data">{{ row.EFFECTIVE_DATE |date: 'yyyy-MM-dd' }}</td>
           <td class="table-data">{{ row.EXPIRATION_DATE |date: 'yyyy-MM-dd' }}</td>
-          <td class="table-data">{{ getOptionDesc(usingType, row.USE_FLAG) }}</td>
+          <td class="table-data" style="text-align:center">{{ getOptionDesc(usingType, row.USE_FLAG) }}</td>
           <td class="table-data">{{ row.CHANGE_DATE|date: 'yyyy-MM-dd' }}</td>
         </tr>
       </tbody>
