@@ -69,14 +69,12 @@ export class Childbwscn6Component implements OnInit {
     sessionStorage.setItem('queryDate', '');
     sessionStorage.setItem('winClose', 'Y');
     //開啟徵審主畫面
-    // const url = window.location.href.split("/#");
-    // window.open(url[0] + "/#/F01009/F01009SCN1");
+    const url = window.location.href.split("/#");
+    window.open(url[0] + "/#/F01009/F01009SCN1", "", "location=no");
 
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree(["./F01009/F01009SCN1"])
-    );
-
-    // const url = window.location.href.split("/#");
-    window.open(url, "", "location=no");
+    // const url = this.router.serializeUrl(
+    //   this.router.createUrlTree(["./F01009/F01009SCN1"])
+    // );
+    // window.open(url);
   }
 }
