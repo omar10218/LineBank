@@ -9,7 +9,7 @@ import { BaseService } from 'src/app/base.service';
 export class Childscn19Service extends BaseService {
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
-  
+
   getCustomerInfoSearch(formData: FormData): Observable<any> {
     const baseUrl = 'f01/childscn5';
     return this.postFormData(baseUrl, formData);
@@ -43,12 +43,14 @@ export class Childscn19Service extends BaseService {
     let targetUrl = `${baseUrl}?codeNo=${codeNo}`;
     return this.postHttpClient(targetUrl);
   }
-  
+
   addSms(jsonObject: any): any {
     const baseUrl = 'f01/childscn19action6';
     let targetUrl = `${baseUrl}`;
     return this.saveOrEditMsgString(targetUrl, jsonObject);
   }
-
+  setrepair(baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
+  }
 
 }

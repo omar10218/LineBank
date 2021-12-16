@@ -1,3 +1,4 @@
+import { logging } from 'protractor';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -54,12 +55,15 @@ export class Childscn19Component implements OnInit {
   smsDataSource = new MatTableDataSource<any>();    //簡訊資訊檔
 
   block: boolean = false;
+  send:boolean = true;//案件送出判斷是否鎖起來
 
+  checkpoint:string;
   ngOnInit(): void {
 
     //取案編,客編,客戶手機
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
+    this.checkpoint = sessionStorage.getItem('checkpoint');
     this.queryCusMobile();
 
     //取sms樣板下拉
@@ -182,6 +186,13 @@ export class Childscn19Component implements OnInit {
   //取該案件補件資訊
   getRescanList() {
     this.childscn19Service.getRescanSearch().subscribe(data => {
+      console.log("123")
+      console.log(data)
+      console.log(data.rspBody.items.length)
+     if(data.rspBody.items.length>0)
+     {
+      this.send = false;
+     }
       this.rescanDataSource = data.rspBody.items;
     })
   };
@@ -194,7 +205,7 @@ export class Childscn19Component implements OnInit {
   };
 
   //刪除該案件補件資訊
-  delRescan(ID: string) {
+  delRescan(ID:string) {
     let msg = '';
     this.childscn19Service.deleteRescanByRowid(ID).subscribe(data => {
       msg = data.rspMsg;
@@ -215,6 +226,16 @@ export class Childscn19Component implements OnInit {
   // 離開該彈窗
   cancel(): void {
     this.dialogRef.close();
+  }
+
+  repair()//補件送出
+  {
+    let  url = '';
+    let jsonObject: any = {};
+    this.childscn19Service.setrepair(url,jsonObject).subscribe(data=>{
+
+    })
+
   }
 }
 

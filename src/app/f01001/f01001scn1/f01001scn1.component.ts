@@ -78,7 +78,8 @@ export class F01001scn1Component implements OnInit {
       width: '70%',
       data: {
         applno: this.applno,
-        cuid: this.cuid
+        cuid: this.cuid,
+        checkpoint:"L4"
       }
     });
   }

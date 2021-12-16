@@ -8,7 +8,7 @@
   <div class="line_bank_card_no_padding" style="margin:20px 0px;width:100%">
     <br>
     <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="cancel()">離開</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" >案件送出</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="repair()" [disabled]=send>補件送出</button>
     <!-- 補件功能 -->
     <div class="line_bank_form_header_title">補件</div>
     <div nz-row>
