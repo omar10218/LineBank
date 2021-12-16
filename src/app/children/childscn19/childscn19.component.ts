@@ -251,6 +251,7 @@ export class Childscn19Component implements OnInit {
         });
         this.block = false;
         this.router.navigate(['./F01001'], { skipLocationChange: true });
+        this.dialogRef.close();
       }
       else
       {
