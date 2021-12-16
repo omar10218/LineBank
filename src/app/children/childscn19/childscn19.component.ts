@@ -1,13 +1,14 @@
 import { logging } from 'protractor';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { ChildrenService } from '../children.service';
 import { Childscn5Service } from '../childscn5/childscn5.service';
 import { Childscn19Service } from './childscn19.service';
+import { Router } from '@angular/router';
 //alvin.lee 20210915 補件/發簡訊
 
 interface sysCode {
@@ -30,6 +31,8 @@ export class Childscn19Component implements OnInit {
     public dialogRef: MatDialogRef<Childscn19Component>,
     private pipe: DatePipe,
     private nzI18nService: NzI18nService,
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) public da: any,
   ) {
     this.nzI18nService.setLocale(zh_TW) //元件簡體字轉繁體字
   }
@@ -234,10 +237,27 @@ export class Childscn19Component implements OnInit {
 
   repair()//補件送出
   {
-    let  url = '';
+    let  url = 'f01/childscn19action7';
     let jsonObject: any = {};
+    jsonObject['applno'] = this.da.applno;
+    jsonObject['swcCreditLevel'] = this.da.checkpoint;
     this.childscn19Service.setrepair(url,jsonObject).subscribe(data=>{
-
+      console.log(data)
+      this.block = true;
+      if(data.rspMsg =='成功')
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: data.rspMsg }
+        });
+        this.block = false;
+        this.router.navigate(['./F01001'], { skipLocationChange: true });
+      }
+      else
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: data.rspMsg }
+        });
+      }
     })
 
   }
