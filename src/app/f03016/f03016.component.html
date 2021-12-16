@@ -11,7 +11,7 @@
             <span class="form-title" style="width:100%">DSS3落人再送JCIC時間設定 </span>
             <input nz-input placeholder="輸入數字" [(ngModel)]="DssJcicSet" name="dss_jcic_set" id="dss_jcic_set"
               oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" required>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMess/age()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
 
           </div>
         </div>

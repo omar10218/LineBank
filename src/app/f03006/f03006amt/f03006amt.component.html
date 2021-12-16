@@ -1,5 +1,5 @@
 <div class="line_bank_card_no_padding">
-  <div class="line_bank_form_header_title" >組織人員維護-角色設定  </div>
+  <div class="line_bank_form_header_title" >組織人員維護-產品及授權額度  </div>
 
       <nz-table [nzData]="data.SOURCE" [nzFrontPagination]="false" [nzSimple]="true">
         <thead>
@@ -24,7 +24,7 @@
             <td class="table-data">{{ row.PROD_CODE }}</td>
             <td class="table-data">{{ row.PROD_NAME }}</td>
             <!-- <td class="table-data">{{ row.MAX_APPROVE_AMT }}</td> -->
-            <td class="table-data"><input style="display: block;" placeholder="請輸入金額" [(ngModel)]="row.MAX_APPROVE_AMT"[value]=" row.MAX_APPROVE_AMT"name="MAX_APPROVE_AMT" (keyup)="limit(row.MAX_APPROVE_AMT,'MAX_APPROVE_AMT')" ></td>
+            <td class="table-data"><input style="display: block;" placeholder="請輸入金額" [(ngModel)]="row.MAX_APPROVE_AMT"[value]=" row.MAX_APPROVE_AMT"name="MAX_APPROVE_AMT" (keyup)="limit(row.MAX_APPROVE_AMT,row.PROD_CODE,row.PROD_CODE)" ></td>
           </tr>
 
 
@@ -33,7 +33,7 @@
       <div style="text-align: center;padding:10px">
         <button nz-button [nzSize]="'middle'" nzType="primary"  style="margin:0px 5px"
           (click)="confirmAdd()">儲存</button>
-        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="onNoClick()" tabindex="-1"
+        <button nz-button [nzSize]="'middle'" nzDanger (click)="onNoClick()" tabindex="-1"
           style="margin:0px 5px">取消</button>
       </div>
 

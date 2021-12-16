@@ -85,7 +85,7 @@ export class F03016Component implements OnInit {
    this.f03016Service.getImpertmentParameter(baseUrl, jsonObject).subscribe(data => {
       this.DssJcicSet = data.rspBody.ipList[0].dssJcicSet;
       this.DssMailDay = data.rspBody.ipList[0].dssMailDay;
-      this.BasicLimit = data.rspBody.ipList[0].basicLimit;
+      this.BasicLimit = data.rspBody.ipList[0].basicLimit =  data.rspBody.ipList[0].basicLimit != undefined ? (data.rspBody.ipList[0].basicLimit + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',') : data.rspBody.ipList[0].basicLimit;
       this.IsJcic = data.rspBody.ipList[0].isJcic;
       this.CssPassStart=new Date(this.pipe.transform(new Date( data.rspBody.ipList[0].cssPassStart), 'yyyy-MM-dd'))
       // this.CssPassStart.setDate(this.CssPassStart.getDate() - 1);
@@ -102,6 +102,7 @@ export class F03016Component implements OnInit {
     });
   }
 
+  
   // 儲存資料
   public async save(): Promise<void> {
     let jsonObject: any = {};
@@ -160,15 +161,17 @@ export class F03016Component implements OnInit {
     this.total = 1;
   }
 
-  //儲存前處理千分位
-  Cut(s: string)  {
-	  if(s!=null)
-	  {
-	    s = s.replace(/,/g, "")
-	  }
+ //儲存前處理千分位
+ Cut(s: string)  {
+  if(s!=null)
+  {
+    s = s.replace(/,/g, "")
+  }
 
-	  return s
-	}
+  return s
+}
+
+
 
   isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
 
