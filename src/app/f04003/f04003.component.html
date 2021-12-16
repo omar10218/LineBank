@@ -8,7 +8,7 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px"><span class="form-title">派件層級</span>
             <mat-select [(ngModel)]="Level" name="Level" placeholder="請選擇" (ngModelChange)="Dispatch()"
-              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#ffffff;box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19)">
               <mat-option *ngFor="let code of LevelCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
@@ -18,7 +18,7 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px"><span class="form-title">派件人員</span>
             <mat-select [(ngModel)]="personnel" name="personnel" placeholder="請選擇"
-              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#ffffff;box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19)">
               <mat-option *ngFor="let code of personnelCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
@@ -37,7 +37,7 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px"><span class="form-title">選擇轉件人員</span>
             <mat-select [(ngModel)]="Transfer" name="Transfer" placeholder="請選擇"
-              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+              style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#ffffff;box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19)">
               <mat-option *ngFor="let code of TransferCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
