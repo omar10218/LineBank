@@ -207,7 +207,9 @@ export class Childscn19Component implements OnInit {
   //刪除該案件補件資訊
   delRescan(ID:string) {
     let msg = '';
-    this.childscn19Service.deleteRescanByRowid(ID).subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['rowID'] = ID;
+    this.childscn19Service.deleteRescanByRowid(jsonObject).subscribe(data => {
       msg = data.rspMsg;
     });
     setTimeout(() => {
