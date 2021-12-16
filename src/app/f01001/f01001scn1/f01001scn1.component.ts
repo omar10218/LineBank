@@ -7,6 +7,7 @@ import { Childscn19Component } from 'src/app/children/childscn19/childscn19.comp
 import { Childscn20Component } from 'src/app/children/childscn20/childscn20.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01001Scn1Service } from './f01001scn1.service';
+import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 
 @Component({
   selector: 'app-f01001scn1',
@@ -127,27 +128,35 @@ export class F01001scn1Component implements OnInit {
   }
 
   save(url: string, result: string) {
-    const baseUrl = url;
-    let msg = '';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['level'] = 'L4';
-    this.creditResult = sessionStorage.getItem('creditResult');
-    // if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
-    //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
-    //     data: { msgStr: '請填寫核決結果!' }
-    //   });
-    // } else {
-    let json: any = {};
-    json['creditResult'] = this.creditResult;
-    jsonObject['creditResult'] = json;
-    this.block = true;
-    this.f01001Scn1Service.send(baseUrl, jsonObject).subscribe(data => {
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: data.rspMsg }
-      });
-      this.block = false;
-      this.router.navigate(['./F01001'], { skipLocationChange: true });
+    const dialogRef = this.dialog.open(Childscn26Component, {
+      minHeight: '50%',
+      width: '30%'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.value == 'confirm') {
+        const baseUrl = url;
+        let msg = '';
+        let jsonObject: any = {};
+        jsonObject['applno'] = this.applno;
+        jsonObject['level'] = 'L4';
+        this.creditResult = sessionStorage.getItem('creditResult');
+        // if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
+        //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        //     data: { msgStr: '請填寫核決結果!' }
+        //   });
+        // } else {
+        let json: any = {};
+        json['creditResult'] = this.creditResult;
+        jsonObject['creditResult'] = json;
+        this.block = true;
+        this.f01001Scn1Service.send(baseUrl, jsonObject).subscribe(data => {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: data.rspMsg }
+          });
+          this.block = false;
+          this.router.navigate(['./F01001'], { skipLocationChange: true });
+        });
+      }
     });
     // }
   }

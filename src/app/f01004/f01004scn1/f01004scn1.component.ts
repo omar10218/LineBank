@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
 import { Childscn24Component } from 'src/app/children/childscn24/childscn24.component';
+import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01004Scn1Service } from './f01004scn1.service';
 
@@ -87,103 +88,112 @@ export class F01004scn1Component implements OnInit {
   }
 
   save(url: string, result: string) {
-    const baseUrl = url;
-    let msg = '';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['level'] = 'L0';
+    const dialogRef = this.dialog.open(Childscn26Component, {
+      minHeight: '50%',
+      width: '30%'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.value == 'confirm') {
+        const baseUrl = url;
+        let msg = '';
+        let jsonObject: any = {};
+        jsonObject['applno'] = this.applno;
+        jsonObject['level'] = 'L0';
 
-    this.approveAmt = sessionStorage.getItem('resultApproveAmt');
-    this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');
+        this.approveAmt = sessionStorage.getItem('resultApproveAmt');
+        this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');
 
-    this.period = sessionStorage.getItem('period');
-    this.periodType = sessionStorage.getItem('periodType');
-    this.interestType = sessionStorage.getItem('interestType');
-    this.approveInterest = sessionStorage.getItem('approveInterest');
-    this.interest = sessionStorage.getItem('interest');
-    this.interestBase = sessionStorage.getItem('interestBase');
-    this.creditResult = sessionStorage.getItem('creditResult');
-    this.caApplicationAmount = sessionStorage.getItem('caApplicationAmount');
-    this.caPmcus = sessionStorage.getItem('caPmcus');
-    this.caRisk = sessionStorage.getItem('caRisk');
-    this.mark = sessionStorage.getItem('mark');
+        this.period = sessionStorage.getItem('period');
+        this.periodType = sessionStorage.getItem('periodType');
+        this.interestType = sessionStorage.getItem('interestType');
+        this.approveInterest = sessionStorage.getItem('approveInterest');
+        this.interest = sessionStorage.getItem('interest');
+        this.interestBase = sessionStorage.getItem('interestBase');
+        this.creditResult = sessionStorage.getItem('creditResult');
+        this.caApplicationAmount = sessionStorage.getItem('caApplicationAmount');
+        this.caPmcus = sessionStorage.getItem('caPmcus');
+        this.caRisk = sessionStorage.getItem('caRisk');
+        this.mark = sessionStorage.getItem('mark');
 
-    let jsoncreditResult: any = {};
-    jsoncreditResult['approveAmt'] = this.approveAmt;
-    jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
-    jsoncreditResult['caPmcus'] = this.caPmcus;
-    jsoncreditResult['caRisk'] = this.caRisk;
-    jsoncreditResult['creditResult'] = this.creditResult;
+        let jsoncreditResult: any = {};
+        jsoncreditResult['approveAmt'] = this.approveAmt;
+        jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
+        jsoncreditResult['caPmcus'] = this.caPmcus;
+        jsoncreditResult['caRisk'] = this.caRisk;
+        jsoncreditResult['creditResult'] = this.creditResult;
 
-    let jsonCreditInterestPeriod: any = {};
-    jsonCreditInterestPeriod['period'] = this.period;
-    jsonCreditInterestPeriod['periodType'] = this.periodType;
-    jsonCreditInterestPeriod['interestType'] = this.interestType;
-    jsonCreditInterestPeriod['interestCode'] = '1';
-    jsonCreditInterestPeriod['approveInterest'] = this.approveInterest; // 核准利率
-    jsonCreditInterestPeriod['interest'] = this.interest; // 固定利率
-    jsonCreditInterestPeriod['interestBase'] = this.interestBase; // 基放利率
+        let jsonCreditInterestPeriod: any = {};
+        jsonCreditInterestPeriod['period'] = this.period;
+        jsonCreditInterestPeriod['periodType'] = this.periodType;
+        jsonCreditInterestPeriod['interestType'] = this.interestType;
+        jsonCreditInterestPeriod['interestCode'] = '1';
+        jsonCreditInterestPeriod['approveInterest'] = this.approveInterest; // 核准利率
+        jsonCreditInterestPeriod['interest'] = this.interest; // 固定利率
+        jsonCreditInterestPeriod['interestBase'] = this.interestBase; // 基放利率
 
-    let jsonElApplicationInfo: any = {};
-    jsonElApplicationInfo['caApplicationAmount'] = this.caApplicationAmount;
+        let jsonElApplicationInfo: any = {};
+        jsonElApplicationInfo['caApplicationAmount'] = this.caApplicationAmount;
 
-    jsonObject['creditResult'] = jsoncreditResult;
-    jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
-    jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
-    if (url == 'f01/childscn0action1') {
-      this.result(baseUrl, jsonObject, result);
-    } else {
-      if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: '請填寫核決結果!' }
-        });
-      } else {
-        // if (this.creditResult == 'A') {
-        //   if (this.approveAmt == '' || this.approveAmt == null) {
-        //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        //       data: { msgStr: '核准額度未填寫' }
-        //     });
-        //     return;
-        //   } else if (this.lowestPayRate == '' || this.lowestPayRate == null) {
-        //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        //       data: { msgStr: '每月最低還款比率未填寫' }
-        //     });
-        //     return;
-        //   } else if (this.approveInterest == '' || this.approveInterest == null) {
-        //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        //       data: { msgStr: '核准利率未填寫' }
-        //     });
-        //     return;
-        //   } else if (this.interest == '' || this.interest == null) {
-        //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        //       data: { msgStr: '利率未填寫' }
-        //     });
-        //     return;
-        //   } else if (this.interestType == '' || this.interestType == null) {
-        //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        //       data: { msgStr: '利率型態未填寫' }
-        //     });
-        //     return;
-        //   } else if (this.periodType == '' || this.periodType == null) {
-        //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        //       data: { msgStr: '期別未填寫' }
-        //     });
-        //     return;
-        //   } else if (this.mark == '' || this.mark == null) {
-        //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        //       data: { msgStr: '審核註記未填寫' }
-        //     });
-        //     return;
-        //   } else {
-        //     this.result(baseUrl, jsonObject, result);
-        //   }
-        // } else {
-        //   this.result(baseUrl, jsonObject, result);
-        // }
-        this.result(baseUrl, jsonObject, result);
+        jsonObject['creditResult'] = jsoncreditResult;
+        jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
+        jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
+        if (url == 'f01/childscn0action1') {
+          this.result(baseUrl, jsonObject, result);
+        } else {
+          if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '請填寫核決結果!' }
+            });
+          } else {
+            // if (this.creditResult == 'A') {
+            //   if (this.approveAmt == '' || this.approveAmt == null) {
+            //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            //       data: { msgStr: '核准額度未填寫' }
+            //     });
+            //     return;
+            //   } else if (this.lowestPayRate == '' || this.lowestPayRate == null) {
+            //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            //       data: { msgStr: '每月最低還款比率未填寫' }
+            //     });
+            //     return;
+            //   } else if (this.approveInterest == '' || this.approveInterest == null) {
+            //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            //       data: { msgStr: '核准利率未填寫' }
+            //     });
+            //     return;
+            //   } else if (this.interest == '' || this.interest == null) {
+            //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            //       data: { msgStr: '利率未填寫' }
+            //     });
+            //     return;
+            //   } else if (this.interestType == '' || this.interestType == null) {
+            //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            //       data: { msgStr: '利率型態未填寫' }
+            //     });
+            //     return;
+            //   } else if (this.periodType == '' || this.periodType == null) {
+            //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            //       data: { msgStr: '期別未填寫' }
+            //     });
+            //     return;
+            //   } else if (this.mark == '' || this.mark == null) {
+            //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            //       data: { msgStr: '審核註記未填寫' }
+            //     });
+            //     return;
+            //   } else {
+            //     this.result(baseUrl, jsonObject, result);
+            //   }
+            // } else {
+            //   this.result(baseUrl, jsonObject, result);
+            // }
+            this.result(baseUrl, jsonObject, result);
+          }
+        }
       }
-    }
+    });
   }
+
   // 退件
   sendBack() {
     const dialogRef = this.dialog.open(Childscn24Component, {

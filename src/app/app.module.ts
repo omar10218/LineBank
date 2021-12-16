@@ -209,9 +209,9 @@ export const TW_FORMATS = {
     NzButtonModule,
     GoogleMapsModule,
     FontAwesomeModule,
-    RouterModule.forRoot([
-      { path : '*', component : HomeComponent }
-    ], { enableTracing : false })
+    // RouterModule.forRoot([
+    //   { path : '*', component : HomeComponent }
+    // ], { enableTracing : false })
   ],
   providers: [
     BnNgIdleService,

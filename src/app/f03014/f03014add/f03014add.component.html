@@ -1,6 +1,7 @@
 <div class="line_bank_card_no_padding" style="min-height:300px;min-width: 500px;">
   <div class="line_bank_form_header_title">客戶身份名單註記-新增</div>
   <div class="container" style="padding:20px">
+    <form class="mat-dialog-content" #formControl="ngForm">
       <div nz-row>
         <div nz-col nzSpan="6">
           <div class="form" style="padding:20px">
@@ -69,12 +70,13 @@
         </div>
       </div>
       <div style="text-align: center;">
-        <button nz-button [nzSize]="'middle'" nzType="primary"
+        <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid"
           style="margin:0px 5px" (click)="seve()">儲存</button>
         <button nz-button [nzSize]="'middle'" nzDanger (click)="onNoClick()" tabindex="-1"
           style="margin:0px 5px">取消</button>
           <!-- <button nz-button [nzSize]="'middle'" nzType="primary" (click)="test()" tabindex="-1"
           style="margin:0px 5px">測試</button> -->
       </div>
+    </form>
   </div>
 </div>
