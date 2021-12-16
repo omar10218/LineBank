@@ -15,9 +15,9 @@ export class Childscn19Service extends BaseService {
     return this.postFormData(baseUrl, formData);
   }
 
-  getRescanSearch(): Observable<any> {
+  getRescanSearch(jsonObject: any): any {
     const baseUrl = 'f01/childscn19action1';
-    return this.postHttpClient(baseUrl);
+    return this.postJsonObject(baseUrl, jsonObject);
   }
 
   addRescan(jsonObject: any): any {

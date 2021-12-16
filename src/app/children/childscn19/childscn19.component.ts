@@ -185,7 +185,9 @@ export class Childscn19Component implements OnInit {
 
   //取該案件補件資訊
   getRescanList() {
-    this.childscn19Service.getRescanSearch().subscribe(data => {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
       console.log("123")
       console.log(data)
       console.log(data.rspBody.items.length)
@@ -209,7 +211,7 @@ export class Childscn19Component implements OnInit {
     let msg = '';
     let jsonObject: any = {};
     jsonObject['rowID'] = ID;
-    this.childscn19Service.deleteRescanByRowid(jsonObject).subscribe(data => {
+    this.childscn19Service.deleteRescanByRowid(jsonObject).subscribe((data: { rspMsg: string; }) => {
       msg = data.rspMsg;
     });
     setTimeout(() => {
