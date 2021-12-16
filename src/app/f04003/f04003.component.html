@@ -54,10 +54,7 @@
     <nz-table nzShowSizeChanger [nzData]="setDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small">
       <thead>
         <tr>
-          <th class="table-header" style="width: 50px;" *ngIf="Transfer == ''">
-            <mat-checkbox color="primary"   (change)="setAll($event.checked)"  [(ngModel)]="isAllCheck" name="isAllCheck" disabled>全選</mat-checkbox>
-          </th>
-          <th class="table-header" style="width: 50px;" *ngIf="Transfer != ''">
+          <th class="table-header" style="width: 50px;" >
             <mat-checkbox color="primary"   (change)="setAll($event.checked)"  [(ngModel)]="isAllCheck" name="isAllCheck" >全選</mat-checkbox>
           </th>
           <th class="table-header" style="width:150px">處理人員</th>
@@ -70,10 +67,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of setDataSource;let i = index;">
-          <td class="table-data" *ngIf="Transfer==''">
-            <mat-checkbox disabled></mat-checkbox>
-          </td>
-          <td class="table-data" *ngIf="Transfer!=''">
+          <td class="table-data">
             <mat-checkbox color="primary" [(ngModel)]="checkboxArray[i].completed"></mat-checkbox>
           </td>
           <td class="table-data">{{ data.empNo }}</td>
