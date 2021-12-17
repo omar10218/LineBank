@@ -198,7 +198,6 @@ export class F03012Component implements OnInit {
 				this.refreshTable()
 			}
 			// window.location.reload();
-			this.getCompareTable()
 		})
 	}
 	// 編輯
@@ -217,14 +216,13 @@ export class F03012Component implements OnInit {
 				oldSetValueHight: setValueHight,
 				oldCompareColumn: compareColumn,
 				oldCompareType: compareType,
-				
+
 			},
 		})
 		dialogRef.afterClosed().subscribe(result => {
 			if (result != null && result.event == 'success') {
 				this.refreshTable()
 			}
-			this.getCompareTable()
 		})
 	}
 	private refreshTable() {
@@ -235,7 +233,6 @@ export class F03012Component implements OnInit {
 	Clear() {
 		// this.compareTableCode = null;
 		this.getComePareDataSetList(this.pageIndex, this.pageSize)
-		this.getCompareTable()
 	}
 
 	getOptionCompareTable(codeVal: string): string {
@@ -345,7 +342,6 @@ export class F03012Component implements OnInit {
 			alert((msg = data.rspMsg))
 			this.changePage()
 			//  window.location.reload();
-			this.getCompareTable()
 		})
 	}
 	changePage() {
