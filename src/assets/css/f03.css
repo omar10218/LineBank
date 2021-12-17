@@ -197,11 +197,11 @@ input:disabled{
   color:gray;
 }
 .table-data{
-  background-color:white;
-  border: 1px solid #e8e8e8;
-  color:rgb(87, 87, 87);
+  font-size: 12px;
+  border:1px solid #e8e8e8;
+  background-color: white;
+  color: rgba(87,87,87);
   margin-bottom: 0px;
-  font-size: 5px;
 }
 :host::ng-deep.ant-table.ant-table-small .ant-table-tbody>tr>td{
   padding:0px;

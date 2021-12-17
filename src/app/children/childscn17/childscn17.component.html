@@ -2,6 +2,7 @@
     <br>
     <div class="line_bank_card_no_padding">
       <nz-table nzShowSizeChanger [nzData]="restartDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+      nzFooter=" "
         nzSize="small" nzTitle="申覆資料檔">
         <thead>
           <tr>
@@ -14,11 +15,11 @@
         </thead>
         <tbody>
           <tr *ngFor="let data of restartDataSource;let i = index" >
-            <!-- <td class="table-data">{{ i+1 }}</td>
+            <td class="table-data">{{ i+1 }}</td>
             <td class="table-data">{{ data.REASON_DESC }}</td>
             <td class="table-data">{{ data.RESTART_CONTENT }}</td>
             <td class="table-data">{{ data.RESTART_EMPNO }}</td>
-            <td class="table-data">{{ data.RESTART_DATE }}</td> -->
+            <td class="table-data">{{ data.RESTART_DATE }}</td>
           </tr>
         </tbody>
       </nz-table>

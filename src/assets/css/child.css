@@ -188,7 +188,7 @@ input:disabled{
   border: 1px solid #e8e8e8;
   color:rgb(87, 87, 87);
   margin-bottom: 0px;
-  font-size: 5px;
+  font-size: 12px;
 }
 :host::ng-deep.ant-table.ant-table-small .ant-table-tbody>tr>td{
   padding:0px;

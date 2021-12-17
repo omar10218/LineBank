@@ -105,6 +105,12 @@ span:hover::before {
   width:100%;
   z-index:50;
 }
+.classC{
+  position:fixed;
+  top:25px;
+  width:100%;
+  z-index:50;
+}
 .classB{
   position:fixed;
   top:28px;

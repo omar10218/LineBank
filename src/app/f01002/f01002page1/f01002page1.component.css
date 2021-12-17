@@ -183,7 +183,7 @@ border:1px solid  #c9c9c9;
 }
 :host::ng-deep.mat-select-value{
   color:gray;
-}
+} 
 .table-data{
   background-color:white;
   border: 1px solid #e8e8e8;
@@ -193,6 +193,7 @@ border:1px solid  #c9c9c9;
 }
 :host::ng-deep.ant-table.ant-table-small .ant-table-tbody>tr>td{
   padding:0px;
+  font-size: 12px;
 }
 
 .form-title{

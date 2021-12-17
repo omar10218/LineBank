@@ -18,6 +18,7 @@
         nzTitle="本案影像">
         <thead>
           <tr>
+            <th class="table-header" style="width:5%"></th>
             <th class="table-header" style="width:5%">No</th>
             <th class="table-header" style="width:15%">文件類型</th>
             <th class="table-header" style="width:10%">文件Key值</th>
@@ -41,6 +42,7 @@
             <td class="table-data">{{ data.remark }}</td>
             <td class="table-data">{{ data.uploadDate | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
             <td class="table-data">{{ data.uploadPerson }}</td>
+          
           </tr>
         </tbody>
       </nz-table>

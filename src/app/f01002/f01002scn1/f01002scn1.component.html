@@ -34,7 +34,7 @@
     </ng-container>
   </div>
 
-  <div [ngClass]="{'classA': changeValue==true,'classB': changeValue==false}">
+  <div [ngClass]="{'classA': changeValue==true,'classB': changeValue==false,'classC':getSearch() == 'Y' && getWinClose() == 'N'}">
     <br>
     <nz-tabset nzLinkRouter>
       <nz-tab>

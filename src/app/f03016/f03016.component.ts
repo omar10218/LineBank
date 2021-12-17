@@ -34,7 +34,7 @@ export class F03016Component implements OnInit {
   CssPassStart: Date;
   CssPassEnd: Date;
   IsJcic: string = '';
-  TableName: string = '';
+  TableName: string = ''; 
   columnName: string = '';
   originalValue: string;
   currentValue: string;
