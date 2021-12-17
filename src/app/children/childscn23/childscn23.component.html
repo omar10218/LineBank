@@ -1153,11 +1153,11 @@
   <div style="padding:10px;text-align:center">
     <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="add()"
       [disabled]="search == 'N' ? false:true">新增</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="seve()"
-      [disabled]="search == 'N' ? false:true">儲存</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="del()"
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="seve() "
+      [disabled]="search == 'N' && checkboxAny.length > 0 ? false:true">儲存</button>
+    <button nz-button [nzSize]="'middle'" nzDanger style="border-radius: 5px;" (click)="del()"
       [disabled]="search == 'N' ? false:true">刪除</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="test()">測試</button>
+    <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="test()">測試</button> -->
   </div>
 </div>
 <br>
