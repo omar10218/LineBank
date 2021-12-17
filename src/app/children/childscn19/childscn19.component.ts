@@ -58,9 +58,9 @@ export class Childscn19Component implements OnInit {
   smsDataSource = new MatTableDataSource<any>();    //簡訊資訊檔
 
   block: boolean = false;
-  send:boolean = true;//案件送出判斷是否鎖起來
+  send: boolean = true;//案件送出判斷是否鎖起來
 
-  checkpoint:string;
+  checkpoint: string;
   ngOnInit(): void {
 
     //取案編,客編,客戶手機
@@ -194,10 +194,9 @@ export class Childscn19Component implements OnInit {
       console.log("123")
       console.log(data)
       console.log(data.rspBody.items.length)
-     if(data.rspBody.items.length>0)
-     {
-      this.send = false;
-     }
+      if (data.rspBody.items.length > 0) {
+        this.send = false;
+      }
       this.rescanDataSource = data.rspBody.items;
     })
   };
@@ -210,7 +209,7 @@ export class Childscn19Component implements OnInit {
   };
 
   //刪除該案件補件資訊
-  delRescan(ID:string) {
+  delRescan(ID: string) {
     let msg = '';
     let jsonObject: any = {};
     jsonObject['rowID'] = ID;
@@ -237,15 +236,14 @@ export class Childscn19Component implements OnInit {
 
   repair()//補件送出
   {
-    let  url = 'f01/childscn19action7';
+    let url = 'f01/childscn19action7';
     let jsonObject: any = {};
     jsonObject['applno'] = this.da.applno;
     jsonObject['swcCreditLevel'] = this.da.checkpoint;
-    this.childscn19Service.setrepair(url,jsonObject).subscribe(data=>{
+    this.childscn19Service.setrepair(url, jsonObject).subscribe(data => {
       console.log(data)
       this.block = true;
-      if(data.rspMsg =='成功')
-      {
+      if (data.rspMsg == '成功') {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: data.rspMsg }
         });
@@ -253,14 +251,16 @@ export class Childscn19Component implements OnInit {
         this.router.navigate(['./F01001']);
         this.dialogRef.close();
       }
-      else
-      {
+      else {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: data.rspMsg }
         });
       }
     })
 
+  }
+  disabledDate(time) {
+    return time.getTime() < Date.now() - 8.64e7;
   }
 }
 

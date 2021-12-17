@@ -15,7 +15,7 @@
       <div nz-col nzSpan="8">
         <div style="padding:10px 10px 10px 80px;">
           <span class="form-title">待補文件日期</span>
-          <nz-date-picker [(ngModel)]="restartDate"></nz-date-picker>
+          <nz-date-picker  name="restartDate" [(ngModel)]="restartDate" [nzDisabledDate]="disabledDate" ></nz-date-picker>
         </div>
       </div>
       <div nz-col nzSpan="8">
