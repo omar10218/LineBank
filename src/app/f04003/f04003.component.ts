@@ -167,21 +167,33 @@ export class F04003Component implements OnInit {
           }
         }
       }
-      let url = 'f04/f04003action3'
-      let changeJson: any = {};
-      changeJson['level'] = this.Level;
-      changeJson['roleNo'] = this.Transfer;
-      changeJson['assign'] = this.assignArray;
-      if (this.assignArray.length > 0) {
-        this.f04003Service.Set(url, changeJson).subscribe(data => {
-          if (data.rspCode == '0000') {
-            this.Inquire();
-            this.dialog.open(ConfirmComponent, {
-              data: { msgStr: "轉件成功" }
-            });
-          }
-        })
+      console.log(this.assignArray.length)
+      if(this.assignArray.length>0)
+      {
+        let url = 'f04/f04003action3'
+        let changeJson: any = {};
+        changeJson['level'] = this.Level;
+        changeJson['roleNo'] = this.Transfer;
+        changeJson['assign'] = this.assignArray;
+        if (this.assignArray.length > 0) {
+          this.f04003Service.Set(url, changeJson).subscribe(data => {
+            if (data.rspCode == '0000') {
+              this.Inquire();
+              this.assignArray=[]
+              this.dialog.open(ConfirmComponent, {
+                data: { msgStr: "轉件成功" }
+              });
+            }
+          })
+        }
       }
+      else
+      {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請勾選案件" }
+        });
+      }
+
 
     }
 
