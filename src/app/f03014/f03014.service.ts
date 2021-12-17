@@ -37,4 +37,7 @@ export class F03014Service extends BaseService {
     formData.append('file', fileToUpload, fileToUpload.name);
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formData);
   }
-}
+  public async seve(baseUrl: string, json: JSON):Promise<Observable<any>> {
+    return this.postJsonObject(baseUrl, json).toPromise();
+  }
+  }
