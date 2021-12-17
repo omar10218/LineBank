@@ -353,7 +353,9 @@ export class F03006Component implements OnInit {
     const baseUrl = 'f03/f03006action8'
     let jsonObject: any = {}
     jsonObject['empNo'] = empNo //員工編號
+    console.log(empNo)
     await this.f03006Service.getEmployeeList(baseUrl, jsonObject).subscribe(data => {
+      console.log(data)
       this.empAmtSource.data = data.rspBody
       // this.getAmtList(empNo)
       this.chkArray = []

@@ -40,25 +40,25 @@ console.log(name)
 			if (item.PROD_CODE == id) {
 
 				switch (name) {
-					case "CC":
+					case "02010010023":
 						item.MAX_APPROVE_AMT = x;
 						break;
 				}
 				switch (name) {
-					case "MR":
+					case "02010020006":
 						item.MAX_APPROVE_AMT = x;
 						break;
 				}
-				switch (name) {
-					case "PLI":
-						item.MAX_APPROVE_AMT = x;
-						break;
-				}
-				switch (name) {
-					case "PLR":
-						item.MAX_APPROVE_AMT = x;
-						break;
-				}
+				// switch (name) {
+				// 	case "PLI":
+				// 		item.MAX_APPROVE_AMT = x;
+				// 		break;
+				// }
+				// switch (name) {
+				// 	case "PLR":
+				// 		item.MAX_APPROVE_AMT = x;
+				// 		break;
+				// }
 
 			}
 		}
