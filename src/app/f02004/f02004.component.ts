@@ -9,7 +9,7 @@ import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
-// Jay 案件查詢
+
 interface sysCode {
   value: string;
   viewValue: string;
@@ -66,6 +66,7 @@ export class F02004Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.f02004Service.f02002( baseUrl, jsonObject ).subscribe(data => {
+      console.log(data)
       this.loading = false;
       if ( data.rspBody.size == 0 ) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
