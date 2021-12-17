@@ -237,8 +237,12 @@ export class Childscn23Component implements OnInit {
       }
     }
     this.jsonObject1['dataList'] = this.seveData
-    this.childscn23Service.AddUpDel(url, this.jsonObject1).subscribe(data => {
-      if (data.rspCode == '0000') {
+    this.childscn23Service.AddUpDel(url, this.jsonObject1).subscribe(data =>
+      {
+
+      if (data.rspCode == '0000')
+      {
+        alert('1')
         this.set();
         this.checkboxAny = [];
         this.seveData = [];
