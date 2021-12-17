@@ -242,7 +242,6 @@ export class Childscn23Component implements OnInit {
 
       if (data.rspCode == '0000')
       {
-        alert('1')
         this.set();
         this.checkboxAny = [];
         this.seveData = [];
