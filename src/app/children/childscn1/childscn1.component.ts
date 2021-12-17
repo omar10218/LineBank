@@ -220,6 +220,9 @@ export class Childscn1Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
+
+    this.setBlank();
+
     this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -702,4 +705,19 @@ export class Childscn1Component implements OnInit {
     });
   }
 
+  setBlank() {
+    sessionStorage.setItem("resultApproveAmt" , "");
+    sessionStorage.setItem("resultLowestPayRate" , "");
+    sessionStorage.setItem("period" , "");
+    sessionStorage.setItem("periodType" , "");
+    sessionStorage.setItem("interestType" , "");
+    sessionStorage.setItem("approveInterest" , "");
+    sessionStorage.setItem("interest" , "");
+    sessionStorage.setItem("interestBase" , "");
+    sessionStorage.setItem("creditResult" , "");
+    sessionStorage.setItem("caApplicationAmount" , "");
+    sessionStorage.setItem("caPmcus" , "");
+    sessionStorage.setItem("caRisk" , "");
+    sessionStorage.setItem("mark" , "");
+  }
 }

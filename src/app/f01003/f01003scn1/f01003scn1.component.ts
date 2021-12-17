@@ -88,7 +88,10 @@ export class F01003scn1Component implements OnInit {
   save(url: string, result: string) {
     const dialogRef = this.dialog.open(Childscn26Component, {
       minHeight: '50%',
-      width: '30%'
+      width: '30%',
+      data: {
+        value: result
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result.value == 'confirm') {
@@ -138,6 +141,7 @@ export class F01003scn1Component implements OnInit {
         if (url == 'f01/childscn0action1') {
           this.result(baseUrl, jsonObject, result);
         } else {
+          alert(this.creditResult);
           if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: '請填寫核決結果!' }

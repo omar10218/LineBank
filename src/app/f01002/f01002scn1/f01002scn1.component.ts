@@ -171,7 +171,10 @@ export class F01002scn1Component implements OnInit {
   save(url: string, result: string) {
     const dialogRef = this.dialog.open(Childscn26Component, {
       minHeight: '50%',
-      width: '30%'
+      width: '30%',
+      data: {
+        value: result
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result.value == 'confirm') {
