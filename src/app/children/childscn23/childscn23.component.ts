@@ -95,13 +95,19 @@ export class Childscn23Component implements OnInit {
     }
   }
   set() {
+
     let url = 'f01/childscn23action1'
     this.jsonObject3['applno'] = this.applno;
     this.childscn23Service.AddUpDel(url, this.jsonObject3).subscribe(data => {
-      if (data.rspBody.items.length > 0) {
+      if (data.rspBody.items.length > 0)
+      {
         this.one = data.rspBody.items
         this.suject = data.rspBody.items[0].ACCOUNT_CODE;
         this.limit2();
+      }
+      else
+      {
+        this.one = data.rspBody.items
       }
     })
   }
@@ -262,9 +268,13 @@ export class Childscn23Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['result'] = this.checkboxAny;
     let url = 'f01/childscn23action4';
+    console.log(jsonObject)
+    console.log(this.checkboxAny)
     this.childscn23Service.AddUpDel(url, jsonObject).subscribe(data => {
+      console.log(data)
       if (data.rspMsg == '刪除成功') {
         this.set();
+        alert('1')
         this.checkboxAny = []
         this.Monthly421 = 0;//BAM421月付金
         this.Monthly029 = 0;//BAM029月付金
@@ -305,6 +315,7 @@ export class Childscn23Component implements OnInit {
   }
   test() {
     // Math.pow()
+    console.log(this.checkboxAny)
   }
 
 

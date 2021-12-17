@@ -143,10 +143,18 @@ export class F02002Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = applno;
     this.f02002Service.f02002( url, jsonObject).subscribe(data => {
+      console.log(data)
       sessionStorage.setItem( 'applno', applno );
       sessionStorage.setItem( 'cuid', nationalId );
       sessionStorage.setItem( 'search', 'Y' );
-      sessionStorage.setItem( 'fds', data.rspBody[0].fds );
+      if(data.rspBody.length > 0 )
+      {
+        sessionStorage.setItem( 'fds', data.rspBody[0].fds != null?  data.rspBody[0].fds:'' );
+      }else
+      {
+        sessionStorage.setItem( 'fds', '' );
+      }
+
       sessionStorage.setItem( 'queryDate', '' );
       sessionStorage.setItem( 'winClose', 'Y' );
       sessionStorage.setItem('page', '02');//02補件資訊查詢

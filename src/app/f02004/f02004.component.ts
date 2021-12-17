@@ -132,7 +132,13 @@ export class F02004Component implements OnInit {
       sessionStorage.setItem( 'applno', applno );
       sessionStorage.setItem( 'cuid', nationalId );
       sessionStorage.setItem( 'search', 'Y' );
-      sessionStorage.setItem( 'fds', data.rspBody[0].fds );
+      if(data.rspBody.length > 0 )
+      {
+        sessionStorage.setItem( 'fds', data.rspBody[0].fds != null?  data.rspBody[0].fds:'' );
+      }else
+      {
+        sessionStorage.setItem( 'fds', '' );
+      }
       sessionStorage.setItem( 'queryDate', '' );
       sessionStorage.setItem( 'winClose', 'Y' );
       sessionStorage.setItem('page', '04');//04動撥紀錄查詢
