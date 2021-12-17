@@ -274,7 +274,7 @@ export class Childscn23Component implements OnInit {
       console.log(data)
       if (data.rspMsg == '刪除成功') {
         this.set();
-        alert('1')
+        // alert('1')
         this.checkboxAny = []
         this.Monthly421 = 0;//BAM421月付金
         this.Monthly029 = 0;//BAM029月付金
