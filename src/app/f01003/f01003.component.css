@@ -217,6 +217,7 @@
 }
 :host::ng-deep.ant-table.ant-table-small .ant-table-tbody>tr>td{
   padding:0px;
+  font-size: 12px;
 }
 
 .form-title{
