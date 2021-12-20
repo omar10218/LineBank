@@ -87,7 +87,8 @@ export class Childscn23Component implements OnInit {
   add()//新增一筆
   {
 
-    if (this.i == true) {
+    if (this.i == true)
+    {
       this.AddData = { APPLNO: this.applno, ACCOUNT_CODE: '', ID: '1', MONTHLY_PAY_421: '', MONTHLY_PAY_029: '', MONTHLY_PAY_CC: '', CAL_RATE: '', CAL_YEARS: '', CAL_PERIOD: '', CONTRACT_AMT_421: '', CONTRACT_AMT_029: '', CONTRACT_AMT_CC: '' };
       this.one.push(this.AddData)
       this.i = false;
@@ -542,42 +543,6 @@ export class Childscn23Component implements OnInit {
     });
   }
 
-  // //儲存 DBR收支表資料 授信
-  // save_C() {
-  //   if(this.fmData_C.data.length<1){
-  //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-  //       data: { msgStr: '查無資料' }
-  //     });
-  //     return;
-  //   }
-  //   let msg = "";
-  //   const url = 'f01/childscn10action5';
-  //   let jsonObject: any = {};
-  //   jsonObject['applno'] = this.applno;
-  //   //測試用
-  //   // jsonObject['applno'] = '20210827E000';
-  //   jsonObject['dssType'] = "Dss2";
-  //   jsonObject['unsdebtAmt501Ex'] = this.save_data_number(this.fmData_C.data[0].unsdebt_AMT_501EX_C);
-  //   jsonObject['unsdebtAmt504Ex'] = this.save_data_number(this.fmData_C.data[0].unsdebt_AMT_504EX_C);
-  //   jsonObject['unsdebtAmtnew505Ex'] = this.save_data_number(this.fmData_C.data[0].unsdebt_AMTNEW_505EX_C);
-  //   jsonObject['unsdebtAmtnew029Ex'] = this.save_data_number(this.fmData_C.data[0].unsdebt_AMTNEW_029EX_C);
-  //   jsonObject['unsdebt824Rllimit'] = this.save_data_number(this.fmData_C.data[0].unsdebt_824_RLLIMIT_C);
-  //   jsonObject['unsdebt824Rlbal'] = this.save_data_number(this.fmData_C.data[0].unsdebt_824_RLBAL_C);
-  //   jsonObject['unsdebt824Ilbal'] = this.save_data_number(this.fmData_C.data[0].unsdebt_824_ILBAL_C);
-  //   jsonObject['unsdebt824Ccrbal'] = this.save_data_number(this.fmData_C.data[0].unsdebt_824_CCRBAL_C);
-  //   jsonObject['unsdebtNonjcic'] = this.save_data_number2(this.fmData_C.data[0].unsdebt_NONJCIC_C);
-  //   jsonObject['unsdebtPayamt029Ex'] = this.save_data_number(this.fmData_C.data[0].unsdebt_PAYAMT_029EX_C);
-  //   jsonObject['mthpayBam421'] = this.save_data_number(this.fmData_C.data[0].mthpay_BAM421_C);
-  //   jsonObject['mthpayBam029'] = this.save_data_number(this.fmData_C.data[0].mthpay_BAM029_C);
-  //   jsonObject['mthpayKrm048'] = this.save_data_number(this.fmData_C.data[0].mthpay_KRM048_C);
-  //   jsonObject['mthpayNonjcic'] = this.save_data_number2(this.fmData_C.data[0].mthpay_NONJCIC_C);
-  //   this.childscn23Service.getDate_Json(url, jsonObject).subscribe(data => {
-  //     msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
-  //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-  //       data: { msgStr: msg }
-  //     });
-  //   });
-  // }
 
   //取DBR收支表資料 產生合約前回查 _M前端欄位改取_B
   getDBR_DTI_M() {
