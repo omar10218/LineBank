@@ -45,15 +45,17 @@ export class Childscn4Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn4Service.getCaseStep( baseUrl, jsonObject ).subscribe(data => {
+      console.log("123")
+      console.log(data)
       this.loading = false;
       this.total = data.rspBody.size;
-      this.caseStepSource = data.rspBody.items;
+      this.caseStepSource = data.rspBody;
     });
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getCaseStep(pageIndex, pageSize);
+    // this.getCaseStep(pageIndex, pageSize);
   }
   sortChange(e: string) {
     this.caseStepSource = e === 'ascend' ? this.caseStepSource.sort(

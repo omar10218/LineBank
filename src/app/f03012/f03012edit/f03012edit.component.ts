@@ -42,7 +42,11 @@ export class F03012editComponent implements OnInit {
 		{ option: '2', opDesc: '相對值' },
 	]
 
-	constructor(public dialogRef: MatDialogRef<F03012editComponent>, private f03012Service: F03012Service, public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
+	constructor(
+		public dialogRef: MatDialogRef<F03012editComponent>, 
+		private f03012Service: F03012Service, 
+		public dialog: MatDialog, 
+		@Inject(MAT_DIALOG_DATA) public data: any) { }
 
 	formControl = new FormControl('', [
 		Validators.required,
@@ -101,22 +105,24 @@ export class F03012editComponent implements OnInit {
 		//儲存前處理千分位
 		Cut(s: string)  {
 			if (s != null) {
+        s.toString();
 				s = s.replace(/,/g, "")
 			}
 
 			return s
 		}
+
 	public async save(): Promise<void> {
 		let msgStr: string = ''
 		let baseUrl = 'f03/f03012action2'
-		msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.setValueLow, this.setValueHight, this.compareType, this.oldCompareType)
+		msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.setValueLow.toString(), this.setValueHight.toString(), this.compareType, this.oldCompareType)
 		const childernDialogRef = this.dialog.open(ConfirmComponent, {
 			data: { msgStr: msgStr },
 		})
 		if (msgStr === '儲存成功！') {
 			this.dialogRef.close({ event: 'success' })
 		}
-		this.getData()
+		// this.getData()
 	}
 
 	changeSelect() {
@@ -144,15 +150,20 @@ export class F03012editComponent implements OnInit {
 // 取消
 	onNoClick(): void {
 		this.dialogRef.close()
-			window.location.reload();
+			// window.location.reload();
 	}
 	isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
 
 	//去除符號/中英文
 	toNumber(data: string) {
-		return data != null ? data.replace(/[^\w\s]|_/g, '') : data;
-
-	}
+		if(data != null)
+		{
+		  data.toString();
+		  data.replace(/[^\w\s]|_/g, '')
+		}
+			return  data
+	
+		}
 	// 只允許輸入數字
 	numberOnly(event: { which: any; keyCode: any; }): boolean {
 		console.log(event)

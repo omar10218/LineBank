@@ -194,7 +194,9 @@ export class F03012Component implements OnInit {
 			width: '50%',
 		})
 		dialogRef.afterClosed().subscribe(result => {
-			if (result != null && result.event == 'success') {
+			console.log('result');
+			console.log(result);
+			if (result != null && (result.event == 'success' || result == '1')) {
 				this.refreshTable()
 			}
 			// window.location.reload();

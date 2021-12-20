@@ -147,7 +147,6 @@ export class F01008scn2Component implements OnInit {
     console.log("123")
     console.log(jsonObject);
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      console.log(data)
       if (data.rspBody.list != null) {
         this.dataSource = data.rspBody.list;
       }
