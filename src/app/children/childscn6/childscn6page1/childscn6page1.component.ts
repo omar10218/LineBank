@@ -140,7 +140,9 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
       // if(data.rspCode!='0000')
       // { this.listSource.push('')}
       // else{
+        console.log(data)
         this.listSource = data.rspBody;
+        console.log(data.rspBody)
       // }
 		})
 	}
