@@ -229,6 +229,10 @@ export class Childscn5Component implements OnInit {
       console.log(data)
       msg = data.rspMsg;
     });
+    this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
+      console.log(data)
+      msg = data.rspMsg;
+    });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       if (msg != null && msg == '延長成功') { this.getCustomerInfo(); }
