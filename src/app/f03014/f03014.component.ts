@@ -239,7 +239,10 @@ export class F03014Component implements OnInit {
 
         }
         else {
-          this.search();
+
+            this.search();
+
+
         }
       }
     });
@@ -268,9 +271,12 @@ export class F03014Component implements OnInit {
 
       // console.log(result)
       // alert(result)
-      if (result != null && (result.event == 'success' || result == 1||result==18))
+      if (result != null && (result.event == 'success' || result == 1 || result == 18))
       {
-        this.search();
+        setTimeout(() => {
+          this.search();
+          // alert("123")
+        }, 500);
 
       }
 

@@ -76,6 +76,7 @@ export class F01003scn1Component implements OnInit {
 
   recalculate() {
     const dialogRef = this.dialog.open(Childscn22Component, {
+      panelClass:'mat-dialog-transparent',
       minHeight: '50%',
       width: '30%',
       data: {
@@ -141,7 +142,6 @@ export class F01003scn1Component implements OnInit {
         if (url == 'f01/childscn0action1') {
           this.result(baseUrl, jsonObject, result);
         } else {
-          alert(this.creditResult);
           if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: '請填寫核決結果!' }

@@ -53,7 +53,7 @@ export class F03014editComponent implements OnInit {
     var j = a.setDate(a.getDate());
     this.daytest = this.pipe.transform( new Date(j+k) ,'yyyy-MM-dd')//三個月後的失效日期
   }
-  seve()//儲存
+  async seve()//儲存
   {
     if(this.IdentityValue == '' || this.NameValue == '' || this.NarrateValue1 == '' ||this.NarrateValue2 == null || this.remakrValue == null || this.Efficient == '' || this.Invalidation == '' || this.usingValue == '')
     {
@@ -63,6 +63,7 @@ export class F03014editComponent implements OnInit {
    else
    {
     let msgStr: string = "";
+    let codeStr: string = "";
     let jsonObject: any = {};
     const url = 'f03/f03014action03';
     // let formData = new FormData();
@@ -76,26 +77,37 @@ export class F03014editComponent implements OnInit {
     jsonObject['expirationDate'] = this.Invalidation != null ? this.Invalidation : '';
     jsonObject['useFlag'] = this.usingValue != null ? this.usingValue : '';
 
-    this.f03014Service.update(url,jsonObject).subscribe(data=>{
+    await this.f03014Service.seve(url,jsonObject).then((data: any) => {
+      codeStr = data.rspCode;
       msgStr = data.rspMsg;
-      if(data.rspCode =='0000'|| data.rspMsg =='成功')
-      {
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: msgStr }});
-          if(data.rspMsg ==='成功')
-          {
-            this.dialogRef.close({ event:'success' }); }
+    });
+
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
+      data: { msgStr: msgStr }
+    });
+
+      if (msgStr === '成功' && codeStr === '0000') { this.dialogRef.close({ event:'success' }); }
 
 
-      }
-      else
-      {
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: msgStr }
-        });
 
-      }
-    })
+    //   if(data.rspCode =='0000'|| data.rspMsg =='成功')
+    //   {
+    //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+    //       data: { msgStr: msgStr }});
+    //       if(data.rspMsg ==='成功')
+    //       {
+    //         this.dialogRef.close({ event:'success' }); }
+
+
+    //   }
+    //   else
+    //   {
+    //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+    //       data: { msgStr: msgStr }
+    //     });
+
+    //   }
+    // })
    }
 
   }

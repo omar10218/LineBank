@@ -42,7 +42,7 @@ export class Childbwscn7Component implements OnInit {
       console.log(data)
       this.loading = false;
       this.total = data.rspBody.size;
-      this.caseStepSource = data.rspBody.items;
+      this.caseStepSource = data.rspBody;
     });
   }
 

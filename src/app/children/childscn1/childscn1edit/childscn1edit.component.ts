@@ -38,7 +38,7 @@ export class Childscn1editComponent implements OnInit {
       let jsonObject: any = {};
       jsonObject['applno'] = this.data.applno;
       jsonObject['creditaction'] = this.data.creditaction;
-      jsonObject['creditlevel'] = this.data.level;
+      jsonObject['creditlevel'] = this.data.creditlevel;
       jsonObject['rowId'] = this.data.rowId;
       msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, this.data);
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
