@@ -141,3 +141,15 @@ input{
 #td_height{
   height:37px;
 }
+#del
+{
+  color: tomato;
+  border-color: tomato;
+
+}
+#del:hover
+{
+    color: white;
+    border-color: tomato;
+    background-color: tomato;
+}
