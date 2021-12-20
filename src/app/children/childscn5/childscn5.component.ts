@@ -212,7 +212,9 @@ export class Childscn5Component implements OnInit {
       }
     });
   }
-
+insertHistory(){
+  let msg ='';
+  let jsonObject: any = {};}
   save() {
     let msg = '';
     let jsonObject: any = {};
