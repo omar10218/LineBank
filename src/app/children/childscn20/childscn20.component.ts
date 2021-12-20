@@ -150,6 +150,7 @@ export class Childscn20Component implements OnInit {
       const url = 'f01/childscn20action3';
       this.block = true;
       this.childscn20Service.onsave(url, this.jsonObject).subscribe(data => {
+        console.log(data)
         if (data.rspMsg == "儲存成功") {
           this.dialog.open(ConfirmComponent, { data: { msgStr: "儲存成功" } });
           this.block = false;
@@ -184,6 +185,7 @@ export class Childscn20Component implements OnInit {
 
     this.childscn20Service.gettable(url, applno, jsonObject).subscribe(data => {
       this.blockListDataSource = data.rspBody.list;
+      console.log(data.rspBody.list)
       for(const items of this.blockListDataSource){
         if(items.bkColumn=="CU_CNAME")
         switch(items.bkColumn){

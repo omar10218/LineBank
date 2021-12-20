@@ -20,7 +20,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.getJcicList()
+        // this.getJcicList()
         this.getJcicMultiple();
         this.setBooleanFalse();
         this.list = [];
@@ -139,10 +139,16 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 		this.childscn6Service.getMASTERJCICList(jsonObject).subscribe(data => {
       // if(data.rspCode!='0000')
       // { this.listSource.push('')}
+      console.log(data)
       // else{
-        console.log(data)
-        this.listSource = data.rspBody;
-        console.log(data.rspBody)
+        if (data.rspBody.length >0 ){
+          this.listSource = data.rspBody[0];
+          
+        }
+        console.log('------------------------')
+        console.log(this.listSource)
+        console.log('------------------------')
+        console.log( data.rspBody[0])
       // }
 		})
 	}
