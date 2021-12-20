@@ -65,8 +65,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of rescanDataSource">
-          <td class="table-data" style="text-align:center"><button nz-button [nzSize]="'small'" nzType="primary"
-              (click)="delRescan(data.RID)">刪除</button></td>
+          <td class="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"
+              (click)="delRescan(data.ROWID)">刪除</button></td>
           <td class="table-data">{{ data.RESTART_DATE|date: 'yyyy-MM-dd' }}</td>
           <td class="table-data">{{ data.RESCAN_TYPE }}</td>
           <td class="table-data">{{ data.RESCAN_ITEM }}</td>

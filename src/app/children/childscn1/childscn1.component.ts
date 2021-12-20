@@ -28,6 +28,7 @@ export class Childscn1Component implements OnInit {
 
   mark: string;
   search: string;
+  userId: string;
 
   //申請資訊
   applno: string;                               //案編
@@ -220,6 +221,7 @@ export class Childscn1Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
+    this.userId = localStorage.getItem("empNo");
 
     this.setBlank();
 
@@ -555,21 +557,28 @@ export class Childscn1Component implements OnInit {
   isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
 
   //審核註記編輯
-  startEdit(creditaction: string, rowId: string) {
-    const dialogRef = this.dialog.open(Childscn1editComponent, {
-      minHeight: '70vh',
-      width: '50%',
-      panelClass: 'mat-dialog-transparent',
-      data: {
-        creditaction: creditaction,
-        level: sessionStorage.getItem('stepName').split('t')[1],
-        applno: this.applno,
-        rowId: rowId
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getCreditmemo(this.pageIndex, this.pageSize);
-    });
+  startEdit(creditaction: string, rowId: string, creditUser: string) {
+    if (creditUser == this.userId) {
+      const dialogRef = this.dialog.open(Childscn1editComponent, {
+        minHeight: '70vh',
+        width: '50%',
+        panelClass: 'mat-dialog-transparent',
+        data: {
+          creditaction: creditaction,
+          creditlevel: sessionStorage.getItem('stepName').split('t')[1],
+          applno: this.applno,
+          rowId: rowId
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.getCreditmemo(this.pageIndex, this.pageSize);
+      });
+    } else {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請修改同User註記!' }
+      });
+      return false;
+    }
   }
 
   //+逗號
