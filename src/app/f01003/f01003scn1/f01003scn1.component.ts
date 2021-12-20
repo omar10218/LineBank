@@ -76,6 +76,7 @@ export class F01003scn1Component implements OnInit {
 
   recalculate() {
     const dialogRef = this.dialog.open(Childscn22Component, {
+      panelClass:'mat-dialog-transparent',
       minHeight: '50%',
       width: '30%',
       data: {
