@@ -191,9 +191,6 @@ export class Childscn19Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
-      console.log("123")
-      console.log(data)
-      console.log(data.rspBody.items.length)
       if (data.rspBody.items.length > 0) {
         this.send = false;
       }
@@ -209,18 +206,16 @@ export class Childscn19Component implements OnInit {
   };
 
   //刪除該案件補件資訊
-  delRescan(ID: string) {
+  public async delRescan(ID: string): Promise<void> {
     let msg = '';
     let jsonObject: any = {};
     jsonObject['rowID'] = ID;
-    this.childscn19Service.deleteRescanByRowid(jsonObject).subscribe((data: { rspMsg: string; }) => {
-      msg = data.rspMsg;
-    });
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == '刪除成功') { this.getRescanList(); }
-    }, 1500);
-  }
+    let msgStr: string = "";
+    msgStr = await this.childscn19Service.deleteRescanByRowid(jsonObject);
+    if (msg != null && msg == '刪除成功'){msgStr = '刪除成功'}
+    this.dialog.open(ConfirmComponent, {data: { msgStr: msgStr }});
+    this.getRescanList();
+}
 
   // 選取sms模板後會將內容代入sms內容
   changeSelect(smsSet: string) {
@@ -241,7 +236,6 @@ export class Childscn19Component implements OnInit {
     jsonObject['applno'] = this.da.applno;
     jsonObject['swcCreditLevel'] = this.da.checkpoint;
     this.childscn19Service.setrepair(url, jsonObject).subscribe(data => {
-      console.log(data)
       this.block = true;
       if (data.rspMsg == '成功') {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
