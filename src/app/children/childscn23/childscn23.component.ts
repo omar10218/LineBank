@@ -57,7 +57,7 @@ export class Childscn23Component implements OnInit {
   search: string;
   // Source = new MatTableDataSource<any>() //產品Table
   x: string;
-
+isAllCheck: boolean = false;
   private stepName: string;
   private page: string;
   fmData_B = new MatTableDataSource<any>();//DBR收支表資料 徵信
@@ -87,8 +87,7 @@ export class Childscn23Component implements OnInit {
   add()//新增一筆
   {
 
-    if (this.i == true)
-    {
+    if (this.i == true) {
       this.AddData = { APPLNO: this.applno, ACCOUNT_CODE: '', ID: '1', MONTHLY_PAY_421: '', MONTHLY_PAY_029: '', MONTHLY_PAY_CC: '', CAL_RATE: '', CAL_YEARS: '', CAL_PERIOD: '', CONTRACT_AMT_421: '', CONTRACT_AMT_029: '', CONTRACT_AMT_CC: '' };
       this.one.push(this.AddData)
       this.i = false;
@@ -100,14 +99,12 @@ export class Childscn23Component implements OnInit {
     let url = 'f01/childscn23action1'
     this.jsonObject3['applno'] = this.applno;
     this.childscn23Service.AddUpDel(url, this.jsonObject3).subscribe(data => {
-      if (data.rspBody.items.length > 0)
-      {
+      if (data.rspBody.items.length > 0) {
         this.one = data.rspBody.items
         this.suject = data.rspBody.items[0].ACCOUNT_CODE;
         this.limit2();
       }
-      else
-      {
+      else {
         this.one = data.rspBody.items
       }
     })
@@ -213,7 +210,7 @@ export class Childscn23Component implements OnInit {
           if (item.ACCOUNT_CODE == 'CC') {
             this.jsonObject['applno'] = item.APPLNO;
             this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
-            // jsonObject['rowId'] = item.ID;
+            // this.jsonObject['rowId'] = item.ID;
             this.jsonObject['calRate'] = parseInt(item.CAL_RATE) / 100;
             this.jsonObject['contractAmt421'] = "0";
             this.jsonObject['contractAmt029'] = "0";
@@ -223,12 +220,10 @@ export class Childscn23Component implements OnInit {
           else {
             this.jsonObject['applno'] = item.APPLNO;
             this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
-            // jsonObject['rowId'] = item.ID;
+            // this.jsonObject['rowId'] = item.ID;
             this.jsonObject['calRate'] = parseInt(item.CAL_RATE) / 100;
-            this.jsonObject['calYears'] = item.CAL_YEARS != undefined ? item.CAL_YEARS : "0";
-            if (item.CAL_PERIOD != undefined) {
-              this.jsonObject['calPeriod'] = item.CAL_PERIOD != undefined ? item.CAL_PERIOD : "0";
-            }
+            this.jsonObject['calyears'] = item.CAL_YEARS == undefined ?  0 : item.CAL_YEARS;
+            this.jsonObject['calPeriod'] = item.CAL_PERIOD == undefined ? 0 : item.CAL_PERIOD;
             this.jsonObject['contractAmt421'] = item.CONTRACT_AMT_421 != "" ? this.Cut(item.CONTRACT_AMT_421) : "0";
             this.jsonObject['contractAmt029'] = item.CONTRACT_AMT_029 != "" ? this.Cut(item.CONTRACT_AMT_029) : "0";
             this.jsonObject['contractAmtCc'] = "0";
@@ -238,14 +233,17 @@ export class Childscn23Component implements OnInit {
       }
     }
     this.jsonObject1['dataList'] = this.seveData
-    this.childscn23Service.AddUpDel(url, this.jsonObject1).subscribe(data =>
-      {
+    console.log("json")
+    console.log(this.jsonObject)
+    this.childscn23Service.AddUpDel(url, this.jsonObject1).subscribe(data => {
+      console.log("123")
+      console.log(data)
 
-      if (data.rspCode == '0000')
-      {
+      if (data.rspCode == '0000') {
         this.set();
         this.checkboxAny = [];
         this.seveData = [];
+        this.jsonObject = {};
         this.Monthly421 = 0;//BAM421月付金
         this.Monthly029 = 0;//BAM029月付金
         this.Monthlycc = 0;//信用卡付月金
@@ -319,7 +317,7 @@ export class Childscn23Component implements OnInit {
   }
   test() {
     // Math.pow()
-    console.log(this.checkboxAny)
+    console.log(this.jsonObject)
   }
 
 
@@ -337,7 +335,7 @@ export class Childscn23Component implements OnInit {
     // 偽冒案件 APPLFraud
     // 0查詢
     return this.stepName;
-     //測試用
+    //測試用
     //  return 'APPLCreditL2';
   }
 
@@ -396,7 +394,7 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].mthpay_NONJCIC_B = this.data_number2(this.fmData_B.data[0].mthpay_NONJCIC_B);
         this.getDBR_DTI_C(true);
       }
-      else{
+      else {
         this.getDBR_DTI_C(false);
       }
 
@@ -492,7 +490,7 @@ export class Childscn23Component implements OnInit {
 
 
   //取DBR收支表資料 授信
-  getDBR_DTI_C(key:boolean) {
+  getDBR_DTI_C(key: boolean) {
     this.applno = sessionStorage.getItem('applno');
     const url = 'f01/childscn10action4';
     let jsonObject: any = {};
@@ -502,24 +500,10 @@ export class Childscn23Component implements OnInit {
     jsonObject['dssType'] = "Dss2";
     this.childscn23Service.getDate_Json(url, jsonObject).subscribe(data => {
       if (data.rspBody.length > 0) {
-        this.fmData_C.data= key?this.fmData_C.data:data.rspBody; //key 判斷資料結構是否建立
+        this.fmData_C.data = key ? this.fmData_C.data : data.rspBody; //key 判斷資料結構是否建立
         // this.fmData_C.data = data.rspBody
 
-        // this.fmData_C.data[0].unsdebt_AMT_501EX_C = this.data_number2(this.fmData_C.data[0].unsdebt_AMT_501EX_C);
-        // this.fmData_C.data[0].unsdebt_AMT_504EX_C = this.data_number2(this.fmData_C.data[0].unsdebt_AMT_504EX_C);
-        // this.fmData_C.data[0].unsdebt_AMTNEW_505EX_C = this.data_number2(this.fmData_C.data[0].unsdebt_AMTNEW_505EX_C);
-        // this.fmData_C.data[0].unsdebt_AMTNEW_029EX_C = this.data_number2(this.fmData_C.data[0].unsdebt_AMTNEW_029EX_C);
-        // this.fmData_C.data[0].unsdebt_824_RLLIMIT_C = this.data_number2(this.fmData_C.data[0].unsdebt_824_RLLIMIT_C);
-        // this.fmData_C.data[0].unsdebt_824_RLBAL_C = this.data_number2(this.fmData_C.data[0].unsdebt_824_RLBAL_C);
-        // this.fmData_C.data[0].unsdebt_824_ILBAL_C = this.data_number2(this.fmData_C.data[0].unsdebt_824_ILBAL_C);
-        // this.fmData_C.data[0].unsdebt_824_CCRBAL_C = this.data_number2(this.fmData_C.data[0].unsdebt_824_CCRBAL_C);
-        // this.fmData_C.data[0].unsdebt_NONJCIC_C = this.data_number2(this.fmData_C.data[0].unsdebt_NONJCIC_C);
-        // this.fmData_C.data[0].unsdebt_PAYAMT_029EX_C = this.data_number2(this.fmData_C.data[0].unsdebt_PAYAMT_029EX_C);
 
-        // this.fmData_C.data[0].mthpay_BAM421_C = this.data_number2(this.fmData_C.data[0].mthpay_BAM421_C);
-        // this.fmData_C.data[0].mthpay_BAM029_C = this.data_number2(this.fmData_C.data[0].mthpay_BAM029_C);
-        // this.fmData_C.data[0].mthpay_KRM048_C = this.data_number2(this.fmData_C.data[0].mthpay_KRM048_C);
-        // this.fmData_C.data[0].mthpay_NONJCIC_C = this.data_number2(this.fmData_C.data[0].mthpay_NONJCIC_C);
 
         //改版 放在一起
         // this.fmData_B.data = data.rspBody
@@ -615,5 +599,12 @@ export class Childscn23Component implements OnInit {
       });
     });
   }
+  // setAll(completed: boolean)
+  // {
+  //   for(const obj of this.checkboxAny)
+  //   {
+  //     obj.completed = completed;
+  //   }
+  // }
 
 }
