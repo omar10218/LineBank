@@ -1,3 +1,4 @@
+import { Sort } from '@angular/material/sort';
 import { Childscn1Component } from './../children/childscn1/childscn1.component';
 import { F01002scn1Component } from './../f01002/f01002scn1/f01002scn1.component';
 import { F02002Service } from './f02002.service';
@@ -9,6 +10,7 @@ import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import {F02002returnComponent} from '../f02002/f02002return/f02002return.component'
 
 @Component({
   selector: 'app-f02002',
@@ -32,7 +34,7 @@ export class F02002Component implements OnInit {
 
   date: [Date, Date];
   dateFormat = 'yyyy/MM/dd';
-
+  Pieces=0;
   rescanData: Data[] = [];
   total = 0;
   pageIndex = 1;
@@ -75,7 +77,7 @@ export class F02002Component implements OnInit {
           data: { msgStr: "查無資料" }
         });
       } else {
-        this.total = data.rspBody.size;
+        this.Pieces = data.rspBody.size;
         this.rescanData = data.rspBody.items;
       }
     });
@@ -122,8 +124,8 @@ export class F02002Component implements OnInit {
     this.nationalId = '';
     this.custId = '';
     this.rescanEmpno = '';
-    this.total = 1;
-    this.pageSize = 10;
+    this.Pieces = 0;
+    this.pageSize = 50;
     this.pageIndex = 1;
     this.rescanData = null;
     this.date = null;
@@ -181,7 +183,15 @@ export class F02002Component implements OnInit {
   }
 
   //補回
-  return() {
-
+  return(APPLNO:Data)
+  {
+    const dialogRef = this.dialog.open(F02002returnComponent, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno:APPLNO,
+      }
+    });
   }
 }
