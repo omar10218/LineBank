@@ -234,6 +234,8 @@ export class F03012Component implements OnInit {
 	// 清除資料
 	Clear() {
 		// this.compareTableCode = null;
+    this.compareTableCode = [];
+    this.getCompareTable();
 		this.getComePareDataSetList(this.pageIndex, this.pageSize)
 	}
 
