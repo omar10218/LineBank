@@ -30,6 +30,7 @@ export class Childscn5Component implements OnInit {
   genderCode: sysCode[] = [];           //性別下拉
   genderValue: string;                  //性別
   cuCpNameCa: string;                  //徵信確認公司名稱
+
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -90,7 +91,7 @@ export class Childscn5Component implements OnInit {
       });
     //取公司白名單下拉
     this.childscn5Service.getSysTypeCode('COMPANY_WHITELIST')
-    
+
       .subscribe(data => {
         this.companyWhitelistCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.mappingList) {
@@ -120,7 +121,7 @@ export class Childscn5Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['custId'] = this.cuid;
-   
+
     this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
       console.log(data)
       this.customerInfoForm.patchValue({ CUCNAME: data.rspBody.items[0].cuCname })
@@ -170,16 +171,16 @@ export class Childscn5Component implements OnInit {
     this.jobCodeCaValue = '';
     let jsonObject: any = {};
     jsonObject['inducLevel1'] = this.cuLevel1CaValue;
-  
+
     var foo = document.getElementById('cuLevel2Ca');
-    if( jsonObject['inducLevel1']==undefined){
+    if (jsonObject['inducLevel1'] == undefined) {
       foo.style['background-color'] = '#E6E6E6';
     }
-    else{
+    else {
       foo.style['background-color'] = '	#FFFFFF';
     }
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
-     
+
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj['INDUC_LEVEL2'];
         const desc = jsonObj['INDUC_LEVEL2_DESC'];
@@ -195,13 +196,13 @@ export class Childscn5Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['inducLevel1'] = this.cuLevel1CaValue;
     jsonObject['inducLevel2'] = this.cuLevel2CaValue;
-   
+
     var v00 = document.getElementById('jobCodeCa');
-    if( jsonObject['inducLevel2']==undefined||jsonObject['inducLevel2']==""||jsonObject['inducLevel2']==null){
+    if (jsonObject['inducLevel2'] == undefined || jsonObject['inducLevel2'] == "" || jsonObject['inducLevel2'] == null) {
       v00.style['background-color'] = '#E6E6E6';
-      
+
     }
-    else{
+    else {
       v00.style['background-color'] = '	#FFFFFF';
     }
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
@@ -212,9 +213,48 @@ export class Childscn5Component implements OnInit {
       }
     });
   }
-insertHistory(){
-  let msg ='';
-  let jsonObject: any = {};}
+  insertHistory() {
+    const content = []
+    let msg = '';
+    let jsonObject: any = {};
+    content.push(
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: 'CU_CP_NAME',
+        currentValue: this.cuCpNameCa,
+        transAPname: 'childScn5',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: 'CU_LRVEL1_CA',
+        currentValue: this.cuLevel1CaValue,
+        transAPname: 'childScn5',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: 'CU_LRVEL2_CA',
+        currentValue: this.cuLevel2CaValue,
+        transAPname: 'childScn5',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: 'JOB_CODE_CA',
+        currentValue: this.jobCodeCaValue,
+        transAPname: 'childScn5',
+      }
+    )
+
+    jsonObject['content'] = content;
+    this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
+      console.log(data)
+      msg = data.rspMsg;
+    });
+
+  }
   save() {
     let msg = '';
     let jsonObject: any = {};
@@ -231,10 +271,11 @@ insertHistory(){
       console.log(data)
       msg = data.rspMsg;
     });
-    this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
-      console.log(data)
-      msg = data.rspMsg;
-    });
+    this.insertHistory()
+    // this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
+    //   console.log(data)
+    //   msg = data.rspMsg;
+    // });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       if (msg != null && msg == '延長成功') { this.getCustomerInfo(); }
