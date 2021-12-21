@@ -8,6 +8,8 @@ import { Childscn20Component } from 'src/app/children/childscn20/childscn20.comp
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01001Scn1Service } from './f01001scn1.service';
 import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
+import { Childscn27Component } from './../../children/childscn27/childscn27.component';
+import { Childscn28Component } from './../../children/childscn28/childscn28.component';
 
 @Component({
   selector: 'app-f01001scn1',
@@ -80,6 +82,32 @@ export class F01001scn1Component implements OnInit {
         applno: this.applno,
         cuid: this.cuid,
         checkpoint:"L4"
+      }
+    });
+  }
+
+  reSMS() {
+    const dialogRef = this.dialog.open(Childscn27Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint:"L3"
+      }
+    });
+  }
+
+  reMail() {
+    const dialogRef = this.dialog.open(Childscn28Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint:"L3"
       }
     });
   }

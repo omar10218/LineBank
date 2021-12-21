@@ -10,7 +10,7 @@ import { Childscn5Service } from '../childscn5/childscn5.service';
 import { Childscn19Service } from './childscn19.service';
 import { Router } from '@angular/router';
 //alvin.lee 20210915 補件/發簡訊
-
+//Nick SMS簡訊
 interface sysCode {
   value: string;
   viewValue: string;
@@ -56,6 +56,7 @@ export class Childscn19Component implements OnInit {
   mytime: Date | null = null;                       //預計發送時間(時分)
   rescanDataSource = new MatTableDataSource<any>(); //補件資訊檔
   smsDataSource = new MatTableDataSource<any>();    //簡訊資訊檔
+  sms_M_Code = new MatTableDataSource<any>();    //sms mappingcode
 
   block: boolean = false;
   send: boolean = true;//案件送出判斷是否鎖起來
@@ -67,7 +68,7 @@ export class Childscn19Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.checkpoint = sessionStorage.getItem('checkpoint');
-    this.queryCusMobile();
+    // this.queryCusMobile();
     console.log(sessionStorage.getItem('cuid'))
     //取sms樣板下拉
     this.childscn19Service.getSysTypeCode('SMS_SET').subscribe(data => {
@@ -76,6 +77,7 @@ export class Childscn19Component implements OnInit {
         const desc = jsonObj.codeDesc;
         this.smsSetCode.push({ value: codeNo, viewValue: desc })
       }
+      this.sms_M_Code.data = data.rspBody.mappingList;
     });
 
     //取補件項目下拉
@@ -96,7 +98,7 @@ export class Childscn19Component implements OnInit {
       }
     });
     this.getRescanList();         //取該案件補件資訊
-    this.getSmsList(this.applno); //取該案件簡訊發送資訊
+    this.getSmsList(); //取該案件簡訊發送資訊
   }
 
   //新增補件資訊
@@ -133,8 +135,52 @@ export class Childscn19Component implements OnInit {
     return;
   }
 
-  //發送簡訊檔
-  public async addSms(): Promise<void> {
+  // //發送簡訊檔
+  // public async addSms(): Promise<void> {
+  //   this.messageContent = this.content;
+  //   if (this.realSmsTime == null) {
+  //     const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+  //       data: { msgStr: "請輸入日期" }
+  //     });
+  //   } else if (this.realSmsTime != null && this.mytime == null) {
+  //     const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+  //       data: { msgStr: "請輸入時間" }
+  //     });
+  //   } else if (this.content == null) {
+  //     const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+  //       data: { msgStr: "請輸入SMS內容" }
+  //     });
+  //   } else if (this.content != null) {
+  //     if (this.content.indexOf('徵審人員修改') >= 0) {
+  //       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+  //         data: { msgStr: "不得有徵審人員修改字樣" }
+  //       });
+  //     }
+  //     else {
+  //       this.block = true;
+  //       let jsonObject: any = {};
+  //       jsonObject['applno'] = this.applno;
+  //       jsonObject['messageContent'] = this.messageContent;
+  //       jsonObject['empno'] = localStorage.getItem("empNo");
+  //       jsonObject['mobile'] = this.mobile;
+  //       jsonObject['realSmstime'] = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd') + this.pipe.transform(this.mytime, ' HH:mm');
+  //       let msgStr: string = "";
+  //       msgStr = await this.childscn19Service.addSms(jsonObject);
+  //       if (msgStr == 'success') {
+  //         msgStr = '儲存成功！';
+  //         this.block = false;
+  //       }
+  //       this.dialog.open(ConfirmComponent, {
+  //         data: { msgStr: msgStr }
+  //       });
+  //       this.getSmsList(this.applno);
+  //     }
+  //     return;
+  //   }
+  // }
+
+  //發送簡訊
+  async addSms() {
     this.messageContent = this.content;
     if (this.realSmsTime == null) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
@@ -155,36 +201,36 @@ export class Childscn19Component implements OnInit {
         });
       }
       else {
-        this.block = true;
+        let msgStr: string = "";
+        const baseUrl = 'f01/childscn27action1';
         let jsonObject: any = {};
         jsonObject['applno'] = this.applno;
         jsonObject['messageContent'] = this.messageContent;
         jsonObject['empno'] = localStorage.getItem("empNo");
         jsonObject['mobile'] = this.mobile;
-        jsonObject['realSmstime'] = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd') + this.pipe.transform(this.mytime, ' HH:mm');
-        let msgStr: string = "";
-        msgStr = await this.childscn19Service.addSms(jsonObject);
-        if (msgStr == 'success') {
-          msgStr = '儲存成功！';
-          this.block = false;
-        }
-        this.dialog.open(ConfirmComponent, {
-          data: { msgStr: msgStr }
+        jsonObject['realSmsTime'] = this.pipe.transform(this.realSmsTime, 'yyyyMMdd') + this.pipe.transform(this.mytime, 'HHmm');
+        await this.childscn19Service.postJson(baseUrl, jsonObject).subscribe(data => {
+          msgStr = data.rspMsg == "success" ? "新增成功!" : ""
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: msgStr }
+          });
+          if (data.rspMsg == "success" && data.rspCode === '0000') {
+            this.getSmsList();
+          }
         });
-        this.getSmsList(this.applno);
       }
-      return;
     }
   }
-  //從客戶資訊查詢客戶手機
-  queryCusMobile() {
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['custId'] = this.cuid;
-    this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
-      this.mobile = data.rspBody.items[0].cuMTel;
-    });
-  }
+
+  // //從客戶資訊查詢客戶手機
+  // queryCusMobile() {
+  //   let jsonObject: any = {};
+  //   jsonObject['applno'] = this.applno;
+  //   jsonObject['custId'] = this.cuid;
+  //   this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
+  //     this.mobile = data.rspBody.items[0].cuMTel;
+  //   });
+  // }
 
   //取該案件補件資訊
   getRescanList() {
@@ -198,11 +244,19 @@ export class Childscn19Component implements OnInit {
     })
   };
 
-  //取該案件簡訊發送資訊
-  getSmsList(applno: string) {
-    this.childscn19Service.getSmsSearch(applno).subscribe(data => {
+  
+  //取該案件簡訊發送資訊/從客戶資訊查詢客戶手機
+  getSmsList() {
+    const baseUrl = 'f01/childscn27';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    this.childscn19Service.postJson(baseUrl, jsonObject).subscribe(data => {
       this.smsDataSource = data.rspBody.items;
-    })
+      this.mobile = data.rspBody.phone;
+    });
+    // this.childscn19Service.getSmsSearch(applno).subscribe(data => {
+    //   this.smsDataSource = data.rspBody.items;
+    // })
   };
 
   //刪除該案件補件資訊
@@ -219,9 +273,12 @@ export class Childscn19Component implements OnInit {
 
   // 選取sms模板後會將內容代入sms內容
   changeSelect(smsSet: string) {
-    this.childscn19Service.getSmsContent(smsSet).subscribe(data => {
-      this.content = data.rspBody[0].codeTag;
-    })
+    for (const jsonObj of this.sms_M_Code.data) {
+      this.content = jsonObj.codeNo == smsSet ? jsonObj.codeTag : this.content;
+    }
+    // this.childscn19Service.getSmsContent(smsSet).subscribe(data => {
+    //   this.content = data.rspBody[0].codeTag;
+    // })
   };
 
   // 離開該彈窗
@@ -256,5 +313,7 @@ export class Childscn19Component implements OnInit {
   disabledDate(time) {
     return time.getTime() < Date.now() - 8.64e7;
   }
+
+
 }
 
