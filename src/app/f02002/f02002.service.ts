@@ -16,4 +16,9 @@ export class F02002Service extends BaseService {
   f02002(baseUrl: string, json: JSON): Observable<any> {
     return this.postJsonObject(baseUrl, json);
   }
+
+  postJson(baseUrl: string, json: JSON)
+  {
+    return this.postJsonObject(baseUrl,json);
+  }
 }

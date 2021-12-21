@@ -138,40 +138,55 @@ export class F02002Component implements OnInit {
     }
   }
 
-  detail( applno: string, nationalId: string) {
-    const url = 'f02/f02002action2';
-    let jsonObject: any = {};
-    jsonObject['applno'] = applno;
-    this.f02002Service.f02002( url, jsonObject).subscribe(data => {
-      console.log(data)
-      sessionStorage.setItem( 'applno', applno );
-      sessionStorage.setItem( 'cuid', nationalId );
-      sessionStorage.setItem( 'search', 'Y' );
-      if(data.rspBody.length > 0 )
-      {
-        sessionStorage.setItem( 'fds', data.rspBody[0].fds != null?  data.rspBody[0].fds:'' );
-      }else
-      {
-        sessionStorage.setItem( 'fds', '' );
-      }
+  detail(applno: string, nationalId: string) {
+    let jsonObject1: any = {};
+    jsonObject1['applno'] = applno;
+    jsonObject1['nationalID'] = nationalId;
+    jsonObject1['searchKind'] = '3';//查詢種類1:案件查詢2:客服案件查詢3:補件資訊查詢
+    let apiurl = 'f02/f02001action2';
+    this.f02002Service.postJson(apiurl, jsonObject1).subscribe(data => {
+      if (data.rspMsg == "success" && data.rspBody == "儲存成功!") {
+        const url = 'f02/f02002action2';
+        let jsonObject: any = {};
+        jsonObject['applno'] = applno;
+        this.f02002Service.f02002( url, jsonObject).subscribe(data => {
+          console.log(data)
+          sessionStorage.setItem( 'applno', applno );
+          sessionStorage.setItem( 'cuid', nationalId );
+          sessionStorage.setItem( 'search', 'Y' );
+          if(data.rspBody.length > 0 )
+          {
+            sessionStorage.setItem( 'fds', data.rspBody[0].fds != null?  data.rspBody[0].fds:'' );
+          }else
+          {
+            sessionStorage.setItem( 'fds', '' );
+          }
 
-      sessionStorage.setItem( 'queryDate', '' );
-      sessionStorage.setItem( 'winClose', 'Y' );
-      sessionStorage.setItem('page', '02');//02補件資訊查詢
-      //開啟徵審主畫面
-      const url = window.location.href.split("/#");
-      window.open( url[0] + "/#/F01002/F01002SCN1", "", "location=no");
-      // const url = this.router.serializeUrl(
-      //   this.router.createUrlTree(["./F01002/F01002SCN1"])
-      // );
-      // window.open(url);
-      // this.router.navigate(['./F01002/F01002SCN1']);
-      // const childernDialogRef = this.dialog.open(F01002scn1Component, {
-      //   minHeight: '30%',
-      //   width: '70%',
-      //   maxHeight: '65vh'
-      // });
-    });
+          sessionStorage.setItem( 'queryDate', '' );
+          sessionStorage.setItem( 'winClose', 'Y' );
+          sessionStorage.setItem('page', '02');//02補件資訊查詢
+          //開啟徵審主畫面
+          const url = window.location.href.split("/#");
+          window.open( url[0] + "/#/F01002/F01002SCN1", "", "location=no");
+          // const url = this.router.serializeUrl(
+          //   this.router.createUrlTree(["./F01002/F01002SCN1"])
+          // );
+          // window.open(url);
+          // this.router.navigate(['./F01002/F01002SCN1']);
+          // const childernDialogRef = this.dialog.open(F01002scn1Component, {
+          //   minHeight: '30%',
+          //   width: '70%',
+          //   maxHeight: '65vh'
+          // });
+        });
+      } else {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查詢案件紀錄異常" }
+        });
+      }
+    })
+
+
   }
 
   dateNull() {
