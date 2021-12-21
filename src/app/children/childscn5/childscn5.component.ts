@@ -30,7 +30,6 @@ export class Childscn5Component implements OnInit {
   genderCode: sysCode[] = [];           //性別下拉
   genderValue: string;                  //性別
   cuCpNameCa: string;                  //徵信確認公司名稱
-
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -90,16 +89,14 @@ export class Childscn5Component implements OnInit {
         }
       });
     //取公司白名單下拉
-    this.childscn5Service.getSysTypeCode('COMPANY_WHITELIST')
-
-      .subscribe(data => {
-        this.companyWhitelistCode.push({ value: '', viewValue: '請選擇' })
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.companyWhitelistCode.push({ value: codeNo, viewValue: desc })
-        }
-      });
+    this.childscn5Service.getSysTypeCode('COMPANY_WHITELIST').subscribe(data => {
+      this.companyWhitelistCode.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.companyWhitelistCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
 
     // 取徵信認列行業Level1下拉
     let jsonObject: any = {};
@@ -108,6 +105,26 @@ export class Childscn5Component implements OnInit {
         const codeNo = jsonObj['INDUC_LEVEL1'];
         const desc = jsonObj['INDUC_LEVEL1_DESC'];
         this.cuLevel1CaCode.push({ value: codeNo, viewValue: desc });
+      }
+    });
+
+    this.cuLevel2CaValue = '';
+    jsonObject['inducLevel1'] = this.cuLevel1CaValue;
+    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+      for (const jsonObj of data.rspBody.items) {
+        const codeNo = jsonObj['INDUC_LEVEL2'];
+        const desc = jsonObj['INDUC_LEVEL2_DESC'];
+        this.cuLevel2CaCode.push({ value: codeNo, viewValue: desc });
+      }
+    });
+    this.cuLevel2CaValue = '';
+    jsonObject['inducLevel1'] = this.cuLevel1CaValue;
+    jsonObject['inducLevel2'] = this.cuLevel2CaValue;
+    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+      for (const jsonObj of data.rspBody.items) {
+        const codeNo = jsonObj['JOB_CODE'];
+        const desc = jsonObj['JOB_CODE_DESC'];
+        this.jobCodeCaCode.push({ value: codeNo, viewValue: desc });
       }
     });
 
@@ -123,7 +140,6 @@ export class Childscn5Component implements OnInit {
     jsonObject['custId'] = this.cuid;
 
     this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
-      console.log(data)
       this.customerInfoForm.patchValue({ CUCNAME: data.rspBody.items[0].cuCname })
       this.customerInfoForm.patchValue({ NATIONAL_ID: data.rspBody.items[0].nationalId })
       this.customerInfoForm.patchValue({ CU_SEX: this.getGender(data.rspBody.items[0].cuSex) })
@@ -171,7 +187,7 @@ export class Childscn5Component implements OnInit {
     this.jobCodeCaValue = '';
     let jsonObject: any = {};
     jsonObject['inducLevel1'] = this.cuLevel1CaValue;
-
+    // const index: number = this.list.indexOf(who);
     var foo = document.getElementById('cuLevel2Ca');
     if (jsonObject['inducLevel1'] == undefined) {
       foo.style['background-color'] = '#E6E6E6';
@@ -185,6 +201,7 @@ export class Childscn5Component implements OnInit {
         const codeNo = jsonObj['INDUC_LEVEL2'];
         const desc = jsonObj['INDUC_LEVEL2_DESC'];
         this.cuLevel2CaCode.push({ value: codeNo, viewValue: desc });
+        this.cuLevel2CaCode = this.cuLevel2CaCode.filter(c => c.viewValue != undefined);
       }
     });
   }
@@ -200,7 +217,6 @@ export class Childscn5Component implements OnInit {
     var v00 = document.getElementById('jobCodeCa');
     if (jsonObject['inducLevel2'] == undefined || jsonObject['inducLevel2'] == "" || jsonObject['inducLevel2'] == null) {
       v00.style['background-color'] = '#E6E6E6';
-
     }
     else {
       v00.style['background-color'] = '	#FFFFFF';
@@ -210,9 +226,12 @@ export class Childscn5Component implements OnInit {
         const codeNo = jsonObj['JOB_CODE'];
         const desc = jsonObj['JOB_CODE_DESC'];
         this.jobCodeCaCode.push({ value: codeNo, viewValue: desc });
+        console.log(this.jobCodeCaCode)
+        this.jobCodeCaCode = this.jobCodeCaCode.filter(c => c.viewValue != undefined);
       }
     });
   }
+
   insertHistory() {
     const content = []
     let msg = '';
@@ -247,14 +266,13 @@ export class Childscn5Component implements OnInit {
         transAPname: 'childScn5',
       }
     )
-
     jsonObject['content'] = content;
     this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
       console.log(data)
       msg = data.rspMsg;
     });
-
   }
+
   save() {
     let msg = '';
     let jsonObject: any = {};
@@ -272,10 +290,6 @@ export class Childscn5Component implements OnInit {
       msg = data.rspMsg;
     });
     this.insertHistory()
-    // this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
-    //   console.log(data)
-    //   msg = data.rspMsg;
-    // });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       if (msg != null && msg == '延長成功') { this.getCustomerInfo(); }

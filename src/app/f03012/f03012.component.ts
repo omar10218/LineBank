@@ -76,7 +76,7 @@ export class F03012Component implements OnInit {
 // 取得資料比對下拉項目
 	getCompareTable() {
 		this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
-
+			console.log(data)
 			for (const jsonObj of data.rspBody.mappingList) {
 				const codeNo = jsonObj.codeNo
 				const desc = jsonObj.codeDesc
@@ -234,8 +234,6 @@ export class F03012Component implements OnInit {
 	// 清除資料
 	Clear() {
 		// this.compareTableCode = null;
-    this.compareTableCode = [];
-    this.getCompareTable();
 		this.getComePareDataSetList(this.pageIndex, this.pageSize)
 	}
 
@@ -397,8 +395,5 @@ export class F03012Component implements OnInit {
 	toCurrency(amount: string) {
 		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
 	}
-  te()
-  {
-    console.log(	this.compareTableCode)
-  }
+
 }

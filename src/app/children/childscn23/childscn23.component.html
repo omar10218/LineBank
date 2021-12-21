@@ -1073,9 +1073,8 @@
 <div class="line_bank_card_no_padding">
   <nz-table [nzData]="one" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="月付金試算">
     <thead>
-
       <tr>
-        <th class="table-header"></th>
+        <th class="table-header"> </th>
         <th class="table-header" nzWidth="120px">科目</th>
         <th class="table-header">BAM421<br>預設本金</th>
         <th class="table-header">BAM029<br>預設本金</th>
@@ -1117,9 +1116,9 @@
         </td>
         <td><input class="inpu2" type="text" [attr.disabled]="item.ACCOUNT_CODE=='CC'? null:'' "
             [(ngModel)]="item.CONTRACT_AMT_CC" name="gold" (keyup)="limit(item.CONTRACT_AMT_CC,item.ID,'gold')"></td>
-        <td>{{item.CAL_RATE !=undefined? item.CAL_RATE:0}}</td>
-        <td>{{item.CAL_YEARS !=undefined? item.CAL_YEARS:0}}</td>
-        <td>{{item.CAL_PERIOD !=undefined? item.CAL_PERIOD:0}}</td>
+        <td>{{item.CAL_RATE !=undefined? item.CAL_RATE:"0"}}</td>
+        <td>{{item.CAL_YEARS !=undefined? item.CAL_YEARS:"0"}}</td>
+        <td>{{item.CAL_PERIOD !=undefined? item.CAL_PERIOD:"0"}}</td>
         <td>{{item.MONTHLY_PAY_421 !=undefined? item.MONTHLY_PAY_421:"0"}}</td>
         <td>{{item.MONTHLY_PAY_029 !=undefined? item.MONTHLY_PAY_029:"0"}}</td>
         <td>{{item.MONTHLY_PAY_CC !=undefined? item.MONTHLY_PAY_CC:"0"}}</td>
