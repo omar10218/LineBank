@@ -169,21 +169,29 @@ export class F02001Component implements OnInit {
 
   Detail(id: string, nationalId: string)//明細
   {
-    sessionStorage.setItem('applno', id);
-    sessionStorage.setItem('cuid', nationalId);
-    sessionStorage.setItem('search', 'Y');
-    sessionStorage.setItem('queryDate', '');
-    sessionStorage.setItem('winClose', 'Y');
-    sessionStorage.setItem('page', '0');//申請案件查詢
-    sessionStorage.setItem('stepName', '0');
-    //開啟徵審主畫面
-    const url = window.location.href.split("/#");
-    window.open( url[0] + "/#/F01002/F01002SCN1", "", "location=no");
-
-    // const url = this.router.serializeUrl(
-    //   this.router.createUrlTree(["./F01002/F01002SCN1"])
-    // );
-    // window.open(url);
+    let jsonObject: any = {};
+    jsonObject['applno'] = id;
+    jsonObject['nationalID'] = nationalId;
+    jsonObject['searchKind'] = '1';//查詢種類1:案件查詢2:客服案件查詢3:補件資訊查詢
+    let apiurl = 'f02/f02001action2';
+    this.f02001Service.postJson(apiurl, jsonObject).subscribe(data => {
+      if(data.rspMsg=="success"&& data.rspBody=="儲存成功!"){
+        sessionStorage.setItem('applno', id);
+        sessionStorage.setItem('cuid', nationalId);
+        sessionStorage.setItem('search', 'Y');
+        sessionStorage.setItem('queryDate', '');
+        sessionStorage.setItem('winClose', 'Y');
+        sessionStorage.setItem('page', '0');//申請案件查詢
+        sessionStorage.setItem('stepName', '0');
+        //開啟徵審主畫面
+        const url = window.location.href.split("/#");
+        window.open( url[0] + "/#/F01002/F01002SCN1", "", "location=no");
+      }else{
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查詢案件紀錄異常" }
+        });
+      }
+    })
   }
 
   select()//查詢

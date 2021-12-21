@@ -197,8 +197,8 @@ export class Childscn8Component implements OnInit {
   Add() {
     this.showAdd = !this.showAdd;
     this.f01002scn1Service.setJCICAddSource({
-      minHeight: '70vh',
-			width: '50%',
+      // minHeight: '70vh',
+      // width: '90%',
       show: this.showAdd,
       applno: this.applno,//案件編號
       // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
@@ -216,7 +216,7 @@ export class Childscn8Component implements OnInit {
       CALLOUT_DATE: '',//設定下次照會時間
       CALLOUT_SETTIME: '',//確認時間
       CALLOUT_EMPNO: this.empNo,//徵信員編
-      //CALLOUT_YN:''//照會完成
+      CALLOUT_YN: '',//照會完成
       speakingData: this.speakingData//照會話術
     })
     // const dialogRef = this.dialog.open(Childscn8addComponent, {
@@ -274,35 +274,7 @@ export class Childscn8Component implements OnInit {
       // CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
       speakingData: this.speakingData//照會話術
     });
-    // const dialogRef = this.dialog.open(Childscn8editComponent, {
-    //   minHeight: '70vh',
-    //   width: '70%',
-    //   data: {
-    //     applno: this.applno,//案件編號
-    //     // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
-    //     CON_TYPE: CON_TYPE,//聯絡方式
-    //     // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
-    //     TEL_CONDITION: TEL_CONDITION,//電話狀況
-    //     // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
-    //     TEL_CHECK: TEL_CHECK,//電話種類
-    //     // HOURS_Code: this.HOURS_Code,//時下拉選單
-    //     HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
-    //     // MINUTES_Code: this.MINUTES_Code,//分下拉選單
-    //     MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
-    //     PHONE: PHONE,//手機/市話
-    //     CON_MEMO: CON_MEMO,//備註
-    //     CALLOUT_DATE: CALLOUT_DATE,//設定下次照會時間
-    //     ID: ID,//java用row ID
-    //     CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
-    //     CALLOUT_EMPNO: this.empNo,//徵信員編
-    //     CALLOUT_YN: CALLOUT_YN,//照會完成
-    //     // CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
-    //     speakingData:this.speakingData//照會話術
-    //   }
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
-    // });
+
   }
 
   //刪除
@@ -310,6 +282,7 @@ export class Childscn8Component implements OnInit {
     const dialogRef = this.dialog.open(Childscn8deleteComponent, {
       minHeight: '70vh',
       width: '70%',
+      panelClass: 'mat-dialog-transparent',
       data: {
         applno: this.applno,//案件編號
         CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
@@ -352,7 +325,7 @@ export class Childscn8Component implements OnInit {
     jsonObject['per_page'] = pageSize
     jsonObject['applno'] = this.applno
     this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
-      console.log(data)
+      // console.log(data)
       this.rspBodyData = data.rspBody;
       this.rspBodyList = data.rspBody.list;
       this.speakingData = data.rspBody.speaking;

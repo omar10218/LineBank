@@ -29,4 +29,10 @@ export class F02007Service extends BaseService {
     let targetUrl = baseUrl;
     return this.postJsonObject(targetUrl, jsonObject);
   }
+
+  postJson(baseUrl: string, json: JSON)
+  {
+    return this.postJsonObject(baseUrl,json);
+  }
+
 }
