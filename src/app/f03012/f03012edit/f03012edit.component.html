@@ -37,23 +37,21 @@
     <div nz-col nzSpan="8">
       <div style="padding:10px">
         <span class="form-title">設定最低門檻</span>
-        <input matInput [(ngModel)]="low" (keypress)="numberOnly($event)"
-          (keyup)="low = toCurrency(low)" name="setValueLow" required>
+        <input matInput [(ngModel)]="data.setValueLow" (keypress)="numberOnly($event)"
+          (keyup)="data.setValueLow = toCurrency(toNumber(data.setValueLow))" name="setValueLow" required>
       </div>
     </div>
     <div nz-col nzSpan="8">
       <div style="padding:10px">
         <span class="form-title">設定最高高檻</span>
-        <input matInput [(ngModel)]="hingt" (keypress)="numberOnly($event)"
-          (keyup)="hingt = toCurrency(hingt)" name="setValueHight" required>
+        <input matInput [(ngModel)]="data.setValueHight" (keypress)="numberOnly($event)"
+          (keyup)="data.setValueHight = toCurrency(toNumber(data.setValueHight))" name="setValueHight" required>
       </div>
     </div>
     <div mat-dialog-actions style="margin:5px auto">
       <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
       &nbsp;&nbsp;
       <button nz-button [nzSize]="'middle'" nzDanger tabindex="-1" (click)="onNoClick()">取消</button>
-
-      <button nz-button [nzSize]="'middle'" nzDanger tabindex="-1" (click)="test()">測試</button>
     </div>
   </div>
   <!-- <div class="container">
