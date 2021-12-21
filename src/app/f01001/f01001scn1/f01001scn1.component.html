@@ -25,8 +25,8 @@
           <mat-grid-tile><span (click)="save('f01/childscn0','是否案件完成')">案件完成</span></mat-grid-tile>
           <mat-grid-tile><span (click)="reScan()">補件</span></mat-grid-tile>
           <mat-grid-tile><span (click)="save('f01/childscn0action1','是否暫存')">暫存</span></mat-grid-tile>
-          <mat-grid-tile><span>發送簡訊</span></mat-grid-tile>
-          <mat-grid-tile><span>發送Email</span></mat-grid-tile>
+          <mat-grid-tile><span (click)="reSMS()">發送簡訊</span></mat-grid-tile>
+          <mat-grid-tile><span (click)="reMail()">發送Email</span></mat-grid-tile>
           <mat-grid-tile><span>退件</span></mat-grid-tile>
           <mat-grid-tile><span (click)="blockList()">提報黑名單</span></mat-grid-tile>
         </mat-grid-list>
