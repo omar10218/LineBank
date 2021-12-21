@@ -115,7 +115,7 @@ export class F03012editComponent implements OnInit {
 	public async save(): Promise<void> {
 		let msgStr: string = ''
 		let baseUrl = 'f03/f03012action2'
-		msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.setValueLow.toString(), this.setValueHight.toString(), this.compareType, this.oldCompareType)
+		msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.data.setValueLow.toString(), this.data.setValueHight.toString(), this.compareType, this.oldCompareType)
 		const childernDialogRef = this.dialog.open(ConfirmComponent, {
 			data: { msgStr: msgStr },
 		})
@@ -126,7 +126,6 @@ export class F03012editComponent implements OnInit {
 	}
 
 	changeSelect() {
-		// let jsonObject:any={};
 		// jsonObject['compareTable']=this.selectedValue1;
 		// this.f03012Service.getColumn(jsonObject)
 		// .subscribe(data => {

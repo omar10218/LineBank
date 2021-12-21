@@ -153,16 +153,31 @@ export class F02007Component implements OnInit {
 
   Detail(id: string, nationalId: string)//明細
   {
-    sessionStorage.setItem('applno', id);
-    sessionStorage.setItem('cuid', nationalId);
-    sessionStorage.setItem('search', 'Y');
-    sessionStorage.setItem('queryDate', '');
-    sessionStorage.setItem('winClose', 'Y');
-    sessionStorage.setItem('page', '07');//07客服案件查詢
-    sessionStorage.setItem('stepName', '0');//查詢
-    //開啟徵審主畫面
-    const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F01002/F01002SCN1");
+    let jsonObject: any = {};
+    jsonObject['applno'] = id;
+    jsonObject['nationalID'] = nationalId;
+    jsonObject['searchKind'] = '2';//查詢種類1:案件查詢2:客服案件查詢3:補件資訊查詢
+    let apiurl = 'f02/f02001action2';
+    this.f02007Service.postJson(apiurl, jsonObject).subscribe(data => {
+      if (data.rspMsg == "success" && data.rspBody == "儲存成功!") {
+        sessionStorage.setItem('applno', id);
+        sessionStorage.setItem('cuid', nationalId);
+        sessionStorage.setItem('search', 'Y');
+        sessionStorage.setItem('queryDate', '');
+        sessionStorage.setItem('winClose', 'Y');
+        sessionStorage.setItem('page', '07');//07客服案件查詢
+        sessionStorage.setItem('stepName', '0');//查詢
+        //開啟徵審主畫面
+        const url = window.location.href.split("/#");
+        window.open(url[0] + "/#/F01002/F01002SCN1");
+      } else {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查詢案件紀錄異常" }
+        });
+      }
+    })
+
+
   }
 
   select()//查詢
@@ -416,7 +431,7 @@ export class F02007Component implements OnInit {
       && this.cust_FLAG_Value == '' && this.risk_GRADE_Value == '' && this.apply_TIME == null
       && this.proof_DOCUMENT_TIME == null && this.sign_UP_TIME == null && this.product_NAME == ''
       && this.project_NAME == '' && this.marketing_CODE == '' && this.credit_TIME == null) {
-        this.total = 0;
+      this.total = 0;
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項條件" }
       });
@@ -433,24 +448,22 @@ export class F02007Component implements OnInit {
     this.resultData = e === 'ascend' ? this.resultData.sort(
       (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
   }
-  dateNull(t:[Date, Date],name:string)
-   {
+  dateNull(t: [Date, Date], name: string) {
 
-    if ( t.length < 1 ) {
-      switch(name)
-      {
+    if (t.length < 1) {
+      switch (name) {
         case 'apply_TIME':
-          this.apply_TIME =null;
+          this.apply_TIME = null;
           break;
-          case 'proof_DOCUMENT_TIME':
-          this.proof_DOCUMENT_TIME =null;
+        case 'proof_DOCUMENT_TIME':
+          this.proof_DOCUMENT_TIME = null;
           break;
-          case 'sign_UP_TIME':
-            this.sign_UP_TIME =null;
-            break;
-            case 'credit_TIME':
-              this.credit_TIME =null;
-              break;
+        case 'sign_UP_TIME':
+          this.sign_UP_TIME = null;
+          break;
+        case 'credit_TIME':
+          this.credit_TIME = null;
+          break;
       }
     }
   }
