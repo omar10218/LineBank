@@ -1,6 +1,7 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { F02002Service } from '../f02002.service'
 
 @Component({
   selector: 'app-f02002return',
@@ -13,12 +14,15 @@ export class F02002returnComponent implements OnInit {
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<F02002returnComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private f02002Service: F02002Service,
   ) { }
 
   ngOnInit(): void {
     console.log(this.data)
+    this.set();
   }
   i=1;
+  F02002Data = [];//初始陣列
   cancel()//離開
   {
     this.dialogRef.close();
@@ -28,8 +32,20 @@ export class F02002returnComponent implements OnInit {
   {
 
   }
+  set()
+  {
+    let url = 'f02/f02002action3'
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.data.applno;
+    console.log(jsonObject)
+    this.f02002Service.postJson(url,jsonObject).subscribe(data=>{
+      this.F02002Data = data.rspBody;
+      console.log(this.F02002Data)
+    })
+  }
   test()
   {
+
 
     if(this.i==0)
     {

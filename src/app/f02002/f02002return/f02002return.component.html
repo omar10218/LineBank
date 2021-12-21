@@ -1,9 +1,9 @@
 <div class="line_bank_card_no_padding" style="min-height: 37vh;">
   <div class="line_bank_form_header_title">補件</div>
-  <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"  >
+  <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" [nzData]="F02002Data" >
     <thead>
       <tr>
-        <!-- <th class="table-header">NO</th> -->
+        <th class="table-header">NO</th>
         <th class="table-header">待補文件日期</th>
         <th class="table-header">補件原因</th>
         <th class="table-header">補件項目</th>
@@ -13,11 +13,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr  >
-        <!-- <td class="table-data"></td> -->
-        <td class="table-data"></td>
-        <td class="table-data"></td>
-        <td class="table-data"></td>
+      <tr  *ngFor="let data of F02002Data; let index = index;">
+        <td class="table-data">{{i+1}}</td>
+        <td class="table-data">{{data.RESTART_DATE|date: 'yyyy-MM-dd'}}</td>
+        <td class="table-data">{{data.RESCAN_TYPE}}</td>
+        <td class="table-data">{{data.RESCAN_ITEM}}</td>
         <td class="table-data"></td>
         <td class="table-data" *ngIf="i==0"><input type="file" (change)="onChange($event)" /></td>
         <td class="table-data" *ngIf="i>0"><label>123456</label></td>
