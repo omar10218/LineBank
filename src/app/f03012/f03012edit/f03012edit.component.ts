@@ -36,16 +36,17 @@ export class F03012editComponent implements OnInit {
 	compareType: string
 	setValueLow: string
 	setValueHight: string
-
+  low:string;
+  hingt:string;
 	options: option[] = [
 		{ option: '1', opDesc: '絕對值' },
 		{ option: '2', opDesc: '相對值' },
 	]
 
 	constructor(
-		public dialogRef: MatDialogRef<F03012editComponent>, 
-		private f03012Service: F03012Service, 
-		public dialog: MatDialog, 
+		public dialogRef: MatDialogRef<F03012editComponent>,
+		private f03012Service: F03012Service,
+		public dialog: MatDialog,
 		@Inject(MAT_DIALOG_DATA) public data: any) { }
 
 	formControl = new FormControl('', [
@@ -79,7 +80,7 @@ export class F03012editComponent implements OnInit {
 		//     console.log(this.compareColumnCode)
 		// 	}
 		// })
-	
+
 
 		let jsonObj: any = {};
 		jsonObj['compareTable'] = this.data.compareTable;
@@ -115,7 +116,7 @@ export class F03012editComponent implements OnInit {
 	public async save(): Promise<void> {
 		let msgStr: string = ''
 		let baseUrl = 'f03/f03012action2'
-		msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.data.setValueLow.toString(), this.data.setValueHight.toString(), this.compareType, this.oldCompareType)
+    msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.low, this.hingt, this.compareType, this.oldCompareType)
 		const childernDialogRef = this.dialog.open(ConfirmComponent, {
 			data: { msgStr: msgStr },
 		})
@@ -161,7 +162,7 @@ export class F03012editComponent implements OnInit {
 		  data.replace(/[^\w\s]|_/g, '')
 		}
 			return  data
-	
+
 		}
 	// 只允許輸入數字
 	numberOnly(event: { which: any; keyCode: any; }): boolean {
@@ -178,6 +179,7 @@ export class F03012editComponent implements OnInit {
 
 	//+逗號
 	toCurrency(amount: string) {
+    amount = amount.replace(/\D/g, '')
 		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
 	}
 
