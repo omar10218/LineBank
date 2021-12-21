@@ -234,6 +234,8 @@ export class F03012Component implements OnInit {
 	// 清除資料
 	Clear() {
 		// this.compareTableCode = null;
+    this.compareTableCode = [];
+    this.getCompareTable();
 		this.getComePareDataSetList(this.pageIndex, this.pageSize)
 	}
 
@@ -395,5 +397,8 @@ export class F03012Component implements OnInit {
 	toCurrency(amount: string) {
 		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
 	}
-
+  // te()
+  // {
+  //   console.log(	this.compareTableCode)
+  // }
 }

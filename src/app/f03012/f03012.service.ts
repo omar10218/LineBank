@@ -40,10 +40,11 @@ export class F03012Service extends BaseService {
 		formdata.append('oldSetValueHight', data.oldSetValueHight)
 		formdata.append('oldSetValueLow', data.oldSetValueLow)
 
+
 		formdata.append('compareTable', data.compareTable)
 		formdata.append('compareColumn', data.compareColumn)
-		formdata.append('setValueLow',this.Cut( data.setValueLow))
-		formdata.append('setValueHight', this.Cut(data.setValueHight))
+    formdata.append('setValueLow',this.Cut( setValueLow))
+		formdata.append('setValueHight', this.Cut(setValueHight))
 		formdata.append('compareType', data.compareType)
 		return this.saveOrEditMsgString(baseUrl, formdata)
 	}

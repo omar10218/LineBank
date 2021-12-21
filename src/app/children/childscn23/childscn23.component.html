@@ -1116,9 +1116,9 @@
         </td>
         <td><input class="inpu2" type="text" [attr.disabled]="item.ACCOUNT_CODE=='CC'? null:'' "
             [(ngModel)]="item.CONTRACT_AMT_CC" name="gold" (keyup)="limit(item.CONTRACT_AMT_CC,item.ID,'gold')"></td>
-        <td>{{item.CAL_RATE !=undefined? item.CAL_RATE:0}}</td>
-        <td>{{item.CAL_YEARS !=undefined? item.CAL_YEARS:0}}</td>
-        <td>{{item.CAL_PERIOD !=undefined? item.CAL_PERIOD:0}}</td>
+        <td>{{item.CAL_RATE !=undefined? item.CAL_RATE:"0"}}</td>
+        <td>{{item.CAL_YEARS !=undefined? item.CAL_YEARS:"0"}}</td>
+        <td>{{item.CAL_PERIOD !=undefined? item.CAL_PERIOD:"0"}}</td>
         <td>{{item.MONTHLY_PAY_421 !=undefined? item.MONTHLY_PAY_421:"0"}}</td>
         <td>{{item.MONTHLY_PAY_029 !=undefined? item.MONTHLY_PAY_029:"0"}}</td>
         <td>{{item.MONTHLY_PAY_CC !=undefined? item.MONTHLY_PAY_CC:"0"}}</td>
