@@ -120,7 +120,6 @@ export class F03012editComponent implements OnInit {
 	}
 
 	changeSelect() {
-		// let jsonObject:any={};
 		// jsonObject['compareTable']=this.selectedValue1;
 		// this.f03012Service.getColumn(jsonObject)
 		// .subscribe(data => {
