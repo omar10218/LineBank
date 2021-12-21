@@ -60,6 +60,8 @@ export class F03012editComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getData()
+    this.low=this.toCurrency(this.data.setValueLow+'')
+    this.hingt=this.toCurrency(this.data.setValueHight+'')
 	}
 	getData() {
 		// console.log(this.data.setValue)
