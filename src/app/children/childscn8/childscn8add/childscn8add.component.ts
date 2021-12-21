@@ -46,6 +46,7 @@ export class Childscn8addComponent implements OnInit {
   TEL_CHECK_Code: OptionsCode[] = null;//電話種類下拉選單
   HOURS_Code: OptionsCode[] = null;//時下拉選單
   MINUTES_Code: OptionsCode[] = null //分下拉選單
+  CALLOUT_YN_Code: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' },];//照會完成下拉選單
 
   CALLOUT_DATE: Date; //設定下次照會時間
   CON_TEL_Selected: string;//電話種類
@@ -95,6 +96,7 @@ export class Childscn8addComponent implements OnInit {
     jsonObject['hour'] = this.data.HOURS;
     jsonObject['min'] = this.data.MINUTES;
     jsonObject['empNo'] = this.data.CALLOUT_EMPNO;
+    jsonObject['calloutYn'] = this.data.CALLOUT_YN;
     await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
       codeStr = data.rspCode;
       msgStr = data.rspMsg;
