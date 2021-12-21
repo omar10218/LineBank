@@ -108,7 +108,7 @@ export class Childscn5Component implements OnInit {
       }
     });
 
-    this.cuLevel2CaValue ='';
+    this.cuLevel2CaValue = '';
     jsonObject['inducLevel1'] = this.cuLevel1CaValue;
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody.items) {
@@ -117,7 +117,7 @@ export class Childscn5Component implements OnInit {
         this.cuLevel2CaCode.push({ value: codeNo, viewValue: desc });
       }
     });
-    this.cuLevel2CaValue ='';
+    this.cuLevel2CaValue = '';
     jsonObject['inducLevel1'] = this.cuLevel1CaValue;
     jsonObject['inducLevel2'] = this.cuLevel2CaValue;
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
@@ -201,7 +201,7 @@ export class Childscn5Component implements OnInit {
         const codeNo = jsonObj['INDUC_LEVEL2'];
         const desc = jsonObj['INDUC_LEVEL2_DESC'];
         this.cuLevel2CaCode.push({ value: codeNo, viewValue: desc });
-        this.cuLevel2CaCode=this.cuLevel2CaCode.filter(c=>c.viewValue!=undefined);
+        this.cuLevel2CaCode = this.cuLevel2CaCode.filter(c => c.viewValue != undefined);
       }
     });
   }
@@ -217,8 +217,6 @@ export class Childscn5Component implements OnInit {
     var v00 = document.getElementById('jobCodeCa');
     if (jsonObject['inducLevel2'] == undefined || jsonObject['inducLevel2'] == "" || jsonObject['inducLevel2'] == null) {
       v00.style['background-color'] = '#E6E6E6';
-     
-
     }
     else {
       v00.style['background-color'] = '	#FFFFFF';
@@ -229,14 +227,52 @@ export class Childscn5Component implements OnInit {
         const desc = jsonObj['JOB_CODE_DESC'];
         this.jobCodeCaCode.push({ value: codeNo, viewValue: desc });
         console.log(this.jobCodeCaCode)
-        this.jobCodeCaCode=this.jobCodeCaCode.filter(c=>c.viewValue!=undefined);
+        this.jobCodeCaCode = this.jobCodeCaCode.filter(c => c.viewValue != undefined);
       }
     });
   }
+
   insertHistory() {
+    const content = []
     let msg = '';
     let jsonObject: any = {};
+    content.push(
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: 'CU_CP_NAME',
+        currentValue: this.cuCpNameCa,
+        transAPname: 'childScn5',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: 'CU_LRVEL1_CA',
+        currentValue: this.cuLevel1CaValue,
+        transAPname: 'childScn5',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: 'CU_LRVEL2_CA',
+        currentValue: this.cuLevel2CaValue,
+        transAPname: 'childScn5',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: 'JOB_CODE_CA',
+        currentValue: this.jobCodeCaValue,
+        transAPname: 'childScn5',
+      }
+    )
+    jsonObject['content'] = content;
+    this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
+      console.log(data)
+      msg = data.rspMsg;
+    });
   }
+
   save() {
     let msg = '';
     let jsonObject: any = {};
@@ -253,15 +289,11 @@ export class Childscn5Component implements OnInit {
       console.log(data)
       msg = data.rspMsg;
     });
-    this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
-      console.log(data)
-      msg = data.rspMsg;
-    });
+    this.insertHistory()
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       if (msg != null && msg == '延長成功') { this.getCustomerInfo(); }
     }, 1000);
-    
   }
 
   getGender(codeVal: string): string {
