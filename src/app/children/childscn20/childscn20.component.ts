@@ -95,6 +95,8 @@ export class Childscn20Component implements OnInit {
     //取Customer_info資料
     this.selectCustInfo();
 
+    
+
     //取下拉選單資料
     this.childscn20Service.getSysTypeCode('BK_REASON')//通報原因下拉選單
       .subscribe(data => {
@@ -130,11 +132,11 @@ export class Childscn20Component implements OnInit {
       this.dialog.open(ConfirmComponent, { data: { msgStr: "請選擇通報原因1" } });
     } else {
       this.chkArray.forEach((element) => {
-          if (element === "CU_CNAME") { this.contentArray.push(this.blockListForm.value.CU_CNAME); }
-          if (element === "NATIONAL_ID") { this.contentArray.push(this.blockListForm.value.NATIONAL_ID); }
-          if (element === "CU_H_TEL") { this.contentArray.push(this.blockListForm.value.CU_H_TEL); }
-          if (element === "CU_CP_TEL") { this.contentArray.push(this.blockListForm.value.CU_CP_TEL); }
-          if (element === "CU_M_TEL") { this.contentArray.push(this.blockListForm.value.CU_M_TEL); }
+        if (element === "CU_CNAME") { this.contentArray.push(this.blockListForm.value.CU_CNAME); }
+        if (element === "NATIONAL_ID") { this.contentArray.push(this.blockListForm.value.NATIONAL_ID); }
+        if (element === "CU_H_TEL") { this.contentArray.push(this.blockListForm.value.CU_H_TEL); }
+        if (element === "CU_CP_TEL") { this.contentArray.push(this.blockListForm.value.CU_CP_TEL); }
+        if (element === "CU_M_TEL") { this.contentArray.push(this.blockListForm.value.CU_M_TEL); }
       });
       this.jsonObject['applno'] = this.applno;
       this.jsonObject['REPORT_UNIT'] = this.blockListForm.value.REPORT_UNIT;
@@ -148,6 +150,7 @@ export class Childscn20Component implements OnInit {
       const url = 'f01/childscn20action3';
       this.block = true;
       this.childscn20Service.onsave(url, this.jsonObject).subscribe(data => {
+        console.log(data)
         if (data.rspMsg == "儲存成功") {
           this.dialog.open(ConfirmComponent, { data: { msgStr: "儲存成功" } });
           this.block = false;
@@ -182,6 +185,40 @@ export class Childscn20Component implements OnInit {
 
     this.childscn20Service.gettable(url, applno, jsonObject).subscribe(data => {
       this.blockListDataSource = data.rspBody.list;
+      console.log(data.rspBody.list)
+      for(const items of this.blockListDataSource){
+        if(items.bkColumn=="CU_CNAME")
+        switch(items.bkColumn){
+          case "CU_CNAME":
+            items.bkColumn="姓名"
+            break;
+        }
+        if(items.bkColumn=="NATIONAL_ID")
+        switch(items.bkColumn){
+          case "NATIONAL_ID":
+            items.bkColumn="身分證字號"
+            break;
+        }
+        if(items.bkColumn=="CU_H_TEL")
+        switch(items.bkColumn){
+          case "CU_H_TEL":
+            items.bkColumn="住家電話"
+            break;
+        }
+        if(items.bkColumn=="CU_CP_TEL")
+        switch(items.bkColumn){
+          case "CU_CP_TEL":
+            items.bkColumn="公司電話"
+            break;
+        }
+        if(items.bkColumn=="CU_M_TEL")
+        switch(items.bkColumn){
+          case "CU_M_TEL":
+            items.bkColumn="手機號碼"
+            break;
+        }
+  
+      }
       this.total = data.rspBody.size;
       this.loading = false;
     })

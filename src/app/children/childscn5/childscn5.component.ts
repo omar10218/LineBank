@@ -212,7 +212,9 @@ export class Childscn5Component implements OnInit {
       }
     });
   }
-
+insertHistory(){
+  let msg ='';
+  let jsonObject: any = {};}
   save() {
     let msg = '';
     let jsonObject: any = {};
@@ -226,6 +228,10 @@ export class Childscn5Component implements OnInit {
     console.log(jsonObject)
 
     this.childscn5Service.update(jsonObject).subscribe(data => {
+      console.log(data)
+      msg = data.rspMsg;
+    });
+    this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
       console.log(data)
       msg = data.rspMsg;
     });

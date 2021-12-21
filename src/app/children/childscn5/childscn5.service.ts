@@ -23,5 +23,11 @@ export class Childscn5Service extends BaseService {
 
     return this.postJsonObject(baseUrl, jsonObject);
   }
+  insertHistory(jsonObject: JSON): any {
+
+    const baseUrl = 'f01/childscn2action2';
+
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
 
 }

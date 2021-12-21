@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
-import { MatDialog } from '@angular/material/dialog'
+import { MatDialog,MatDialogRef } from '@angular/material/dialog'
 import { OptionsCode } from 'src/app/interface/base'
 import { F03012Service } from '../f03012.service'
 import { NzAlertModule } from 'ng-zorro-antd/alert';
@@ -33,7 +33,12 @@ export class F03012addComponent implements OnInit {
   // 	setValueLow: ['', [Validators.required]],
   // })
 
-  constructor(private fb: FormBuilder, private f03012Service: F03012Service, public dialog: MatDialog, private alert: NzAlertModule) { }
+  constructor(
+	public dialogRef: MatDialogRef<F03012addComponent>,
+	private fb: FormBuilder,
+	 private f03012Service: F03012Service, 
+	 public dialog: MatDialog, 
+	 private alert: NzAlertModule) { }
 
   ngOnInit(): void {
     this.getData()
@@ -131,14 +136,20 @@ export class F03012addComponent implements OnInit {
 
     this.error = 'test'
     this.f03012Service.submit(url, jsonObject).subscribe(data => {
-      alert((msg = data.rspMsg))
-      this.getData()
-      this.error = data.rspMsg
-      if (data.rspMsg == '成功新增') {
-        this.dialog.closeAll();
-      }
-
-    })
+		// alert((msg = data.rspMsg))
+		const childernDialogRef = this.dialog.open(ConfirmComponent, {
+		  data: { msgStr: data.rspMsg }
+		});
+		// this.getData()
+		this.error = data.rspMsg
+		if (data.rspMsg == '成功新增')
+		{ this.dialogRef.close({ event: 'success' }); }
+		// if (data.rspMsg == '成功新增') {
+  
+		//   this.dialog.closeAll();
+		// }
+  
+	  })
     // const formdata: FormData = new FormData();
     // formdata.append('elCompareDataSet[0].compareTable', this.compareTableSetForm.value.compareTable);
     // formdata.append('elCompareDataSet[0].compareColumn', this.compareTableSetForm.value.compareColumn);
