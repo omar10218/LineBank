@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F02002Service } from '../f02002.service'
-=======
-import { Component, OnInit } from '@angular/core';
->>>>>>> e7bc0871fa52dbc31aa0c6be81232f815e089795
 
 @Component({
   selector: 'app-f02002return',
@@ -14,7 +10,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class F02002returnComponent implements OnInit {
 
-<<<<<<< HEAD
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<F02002returnComponent>,
@@ -61,11 +56,4 @@ export class F02002returnComponent implements OnInit {
       this.i=0;
     }
   }
-=======
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
->>>>>>> e7bc0871fa52dbc31aa0c6be81232f815e089795
 }

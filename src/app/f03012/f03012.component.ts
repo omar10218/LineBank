@@ -395,12 +395,8 @@ export class F03012Component implements OnInit {
 	toCurrency(amount: string) {
 		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
 	}
-<<<<<<< HEAD
   // te()
   // {
   //   console.log(	this.compareTableCode)
   // }
-=======
-
->>>>>>> e7bc0871fa52dbc31aa0c6be81232f815e089795
 }
