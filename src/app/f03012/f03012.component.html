@@ -23,13 +23,14 @@
         <button nz-button [nzSize]="'middle'" nzType="primary" style="margin-top:25px" (click)="add()">新增</button>
         &nbsp;&nbsp;
         <button nz-button [nzSize]="'middle'" nzDanger style="margin-top:25px" (click)="Clear()">清除資料</button>
+        <!-- <button (click)="te()">測試</button> -->
       </div>
 
     </div>
 
 
   </div>
- 
+
 
   <section class="example-section">
     <!-- list -->
@@ -59,7 +60,7 @@
             <mat-checkbox [(ngModel)]="row.isChk" (click)="$event.preventDefault()" [disabled]="useFlag">
             </mat-checkbox>
           </td>
-          
+
           <td class="table-data">{{ getOptionCompareTable(row.compareTable) }}</td>
           <td class="table-data">{{row.codeDesc }}</td>
           <td class="table-data">
@@ -108,7 +109,7 @@
           </td>
           <ng-template #elseBlock>
             <td class="table-data" style="text-align: center">
-              <button *ngIf="row.isChk == false;" nz-button [nzSize]="'small'" nzType="primary" (click)="edit( 
+              <button *ngIf="row.isChk == false;" nz-button [nzSize]="'small'" nzType="primary" (click)="edit(
                 row.compareTable, row.compareColumn, row.setValueLow,row.setValueHight, row.compareType )">編輯</button>
             </td>
           </ng-template>

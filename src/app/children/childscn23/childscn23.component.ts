@@ -57,7 +57,7 @@ export class Childscn23Component implements OnInit {
   search: string;
   // Source = new MatTableDataSource<any>() //產品Table
   x: string;
-
+isAllCheck: boolean = false;
   private stepName: string;
   private page: string;
   fmData_B = new MatTableDataSource<any>();//DBR收支表資料 徵信
@@ -599,5 +599,12 @@ export class Childscn23Component implements OnInit {
       });
     });
   }
+  // setAll(completed: boolean)
+  // {
+  //   for(const obj of this.checkboxAny)
+  //   {
+  //     obj.completed = completed;
+  //   }
+  // }
 
 }
