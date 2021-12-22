@@ -145,7 +145,7 @@ export class F02002Component implements OnInit {
     jsonObject1['applno'] = applno;
     jsonObject1['nationalID'] = nationalId;
     jsonObject1['searchKind'] = '3';//查詢種類1:案件查詢2:客服案件查詢3:補件資訊查詢
-    jsonObject1['cuCname'] = cuCname;//客戶姓名CU_CNAME
+    jsonObject1['custCname'] = cuCname;//客戶姓名CU_CNAME
     let apiurl = 'f02/f02001action2';
     this.f02002Service.postJson(apiurl, jsonObject1).subscribe(data => {
       if (data.rspMsg == "success" && data.rspBody == "儲存成功!") {
