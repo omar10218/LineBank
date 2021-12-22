@@ -1,5 +1,6 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F02002Service } from '../f02002.service'
 
@@ -15,14 +16,21 @@ export class F02002returnComponent implements OnInit {
     public dialogRef: MatDialogRef<F02002returnComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private f02002Service: F02002Service,
+    private fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data)
     this.set();
   }
   i=1;
   F02002Data = [];//初始陣列
+  isValidFile: boolean;
+  fileToUpload: File | null = null;
+  uploadForm: FormGroup = this.fb.group({
+    DOC_TYPE_CODE: [this.data.DOC_ID, []],
+    REMARK: [this.data.REMARK, []],
+    ERROR_MESSAGE: []
+  });
   cancel()//離開
   {
     this.dialogRef.close();
@@ -30,20 +38,38 @@ export class F02002returnComponent implements OnInit {
 
   onChange(evt)
   {
+    const target: DataTransfer = <DataTransfer>(evt.target);
 
+    this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/);
+    if (this.isValidFile) {
+      this.fileToUpload = target.files.item(0);
+    } else {
+      this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法圖檔，請檢查檔案格式重新上傳" });
+      alert(this.uploadForm.value.ERROR_MESSAGE);
+    }
   }
-  set()
+  set()//查詢
   {
     let url = 'f02/f02002action3'
     let jsonObject: any = {};
     jsonObject['applno'] = this.data.applno;
-    console.log(jsonObject)
     this.f02002Service.postJson(url,jsonObject).subscribe(data=>{
-      console.log(data)
       this.F02002Data = data.rspBody;
-      console.log(this.F02002Data)
     })
   }
+  public async store(): Promise<void>//儲存
+  {
+    let url ='f02/f02002action4';
+    let docTypeCode = this.uploadForm.value.DOC_TYPE_CODE;
+    const formdata: FormData = new FormData();
+    if (docTypeCode != "" && docTypeCode != null)
+    {
+      formdata.append('applno',this.data.applno);
+    }
+
+
+  }
+
   test()
   {
 
