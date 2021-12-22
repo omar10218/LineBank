@@ -38,7 +38,12 @@ export class Childscn10page2Component implements OnInit {
   dss2Source3 = new MatTableDataSource<any>();//table資料
 
   //策略1
-  EL_DSS2_UNDW_LIST1 = new MatTableDataSource<any>();//徵審代碼
+  EL_DSS2_UNDW_LIST = new MatTableDataSource<any>();//徵審代碼
+  EL_DSS2_UNDW_LIST1 = new MatTableDataSource<any>();//徵審代碼-信用異常資訊
+  EL_DSS2_UNDW_LIST2 = new MatTableDataSource<any>();//徵審代碼-整體往來
+  EL_DSS2_UNDW_LIST3 = new MatTableDataSource<any>();//徵審代碼-信用卡往來
+  EL_DSS2_UNDW_LIST4 = new MatTableDataSource<any>();//徵審代碼-授信往來
+  EL_DSS2_UNDW_LIST5 = new MatTableDataSource<any>();//徵審代碼-其他
   EL_DSS2_CFC_LIMIT1 = new MatTableDataSource<any>();//試算額度策略
   EL_DSS2_STRGY_SRATE1 = new MatTableDataSource<any>();//試算利率(多階)
   EL_DSS2_STRGY_MERG1 = new MatTableDataSource<any>();//試算授信策略_債整明細
@@ -231,6 +236,7 @@ export class Childscn10page2Component implements OnInit {
     jsonObject['strgy'] = "1";
     //測試用
     // jsonObject['applno'] = '20211116A000003';
+    // jsonObject['applno'] = '20211126A000001';
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
       if (data.rspBody.DSS2.length > 0) {
         //系統決策
@@ -298,7 +304,15 @@ export class Childscn10page2Component implements OnInit {
         this.dss2Form1.patchValue({ STRGY_DTIX: data.rspBody.DSS2STRGY[0].STRGY_DTIX })//試算授信策略_DTI參數 注意名稱差異
 
       }
-      this.EL_DSS2_UNDW_LIST1.data = data.rspBody.DSS2UNDWLIST;//徵審代碼
+      // this.EL_DSS2_UNDW_LIST1.data = data.rspBody.DSS2UNDWLIST;//徵審代碼
+      this.EL_DSS2_UNDW_LIST.data = data.rspBody.DSS2UNDWLIST;//徵審代碼
+      if(data.rspBody.DSS2UNDWLIST.length>0){
+        this.EL_DSS2_UNDW_LIST1.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='1');//1	信用異常資訊
+        this.EL_DSS2_UNDW_LIST2.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='2');//2	整體往來
+        this.EL_DSS2_UNDW_LIST3.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='3');//3	信用卡往來
+        this.EL_DSS2_UNDW_LIST4.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='4');//4	授信往來
+        this.EL_DSS2_UNDW_LIST5.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='9');//9	其他
+      }
       this.EL_DSS2_CFC_LIMIT1.data = data.rspBody.DSS2CFCLIMIT;//試算額度策略
       this.EL_DSS2_STRGY_SRATE1.data = data.rspBody.DSS2STRGYSRATE;//試算利率(多階)
       this.EL_DSS2_STRGY_MERG1.data = data.rspBody.DSS2STRGYMERG;//試算授信策略_債整明細

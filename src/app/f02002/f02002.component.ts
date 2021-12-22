@@ -38,7 +38,7 @@ export class F02002Component implements OnInit {
   total = 0;
   pageIndex = 1;
   pageSize = 50;
-
+  Pieces = 0;
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
     this.f02002Service.getRescanEmpno(baseUrl).subscribe(data => {
@@ -76,7 +76,7 @@ export class F02002Component implements OnInit {
           data: { msgStr: "查無資料" }
         });
       } else {
-        this.total = data.rspBody.size;
+        this.Pieces = data.rspBody.size;
         this.rescanData = data.rspBody.items;
       }
     });
@@ -128,6 +128,7 @@ export class F02002Component implements OnInit {
     this.pageIndex = 1;
     this.rescanData = null;
     this.date = null;
+    this.Pieces = 0;
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -205,5 +206,9 @@ export class F02002Component implements OnInit {
         applno: APPLNO,
       }
     });
+  }
+  test()
+  {
+    alert(this.Pieces)
   }
 }

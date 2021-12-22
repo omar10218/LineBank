@@ -132,14 +132,14 @@
             <tbody>
               <tr *ngFor="let row of EL_DSS1_UNDW_LIST1.data">
                 <td class="table-data">{{ row.UNDW_CD }}</td>
-                <td class="table-data"></td>
+                <td class="table-data">{{row.REASON_DESC}}</td>
               </tr>
             </tbody>
           </nz-table>
         </div>
         <div nz-col nzFlex="1">
           <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">整體往來</div>
-          <nz-table nzShowSizeChanger [nzData]="EL_DSS1_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS1_UNDW_LIST2.data" [nzFrontPagination]="false" [nzSimple]="true"
           nzSize="small">
           <thead>
             <tr>
@@ -148,16 +148,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let row of EL_DSS1_UNDW_LIST1.data">
+            <tr *ngFor="let row of EL_DSS1_UNDW_LIST2.data">
               <td class="table-data">{{ row.UNDW_CD }}</td>
-              <td class="table-data"></td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
             </tr>
           </tbody>
         </nz-table>
         </div>
         <div nz-col nzFlex="1">
           <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">信用卡往來</div>
-          <nz-table nzShowSizeChanger [nzData]="EL_DSS1_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS1_UNDW_LIST3.data" [nzFrontPagination]="false" [nzSimple]="true"
           nzSize="small">
           <thead>
             <tr>
@@ -166,16 +166,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let row of EL_DSS1_UNDW_LIST1.data">
+            <tr *ngFor="let row of EL_DSS1_UNDW_LIST3.data">
               <td class="table-data">{{ row.UNDW_CD }}</td>
-              <td class="table-data"></td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
             </tr>
           </tbody>
         </nz-table>
         </div>
         <div nz-col nzFlex="1">
           <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">授信往來</div>
-          <nz-table nzShowSizeChanger [nzData]="EL_DSS1_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS1_UNDW_LIST4.data" [nzFrontPagination]="false" [nzSimple]="true"
           nzSize="small">
           <thead>
             <tr>
@@ -184,16 +184,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let row of EL_DSS1_UNDW_LIST1.data">
+            <tr *ngFor="let row of EL_DSS1_UNDW_LIST4.data">
               <td class="table-data">{{ row.UNDW_CD }}</td>
-              <td class="table-data"></td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
             </tr>
           </tbody>
         </nz-table>
         </div>
         <div nz-col nzFlex="1">
           <div style="margin:0;" class="EL_DSS_form_header_title4">其他</div>
-          <nz-table nzShowSizeChanger [nzData]="EL_DSS1_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS1_UNDW_LIST5.data" [nzFrontPagination]="false" [nzSimple]="true"
           nzSize="small">
           <thead>
             <tr>
@@ -202,9 +202,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let row of EL_DSS1_UNDW_LIST1.data">
+            <tr *ngFor="let row of EL_DSS1_UNDW_LIST5.data">
               <td class="table-data">{{ row.UNDW_CD }}</td>
-              <td class="table-data"></td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
             </tr>
           </tbody>
         </nz-table>

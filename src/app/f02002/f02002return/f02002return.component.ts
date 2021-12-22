@@ -69,6 +69,10 @@ export class F02002returnComponent implements OnInit {
 
 
   }
+  SendBack()//送回案件
+  {
+
+  }
 
   test()
   {
