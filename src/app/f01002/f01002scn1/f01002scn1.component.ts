@@ -1,5 +1,7 @@
 import { Subscription } from 'rxjs';
 import { Childscn19Component } from './../../children/childscn19/childscn19.component';
+import { Childscn27Component } from './../../children/childscn27/childscn27.component';
+import { Childscn28Component } from './../../children/childscn28/childscn28.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Childscn18Component } from 'src/app/children/childscn18/childscn18.component';
@@ -100,6 +102,32 @@ export class F01002scn1Component implements OnInit {
 
   reScan() {
     const dialogRef = this.dialog.open(Childscn19Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint:"L3"
+      }
+    });
+  }
+
+  reSMS() {
+    const dialogRef = this.dialog.open(Childscn27Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint:"L3"
+      }
+    });
+  }
+
+  reMail() {
+    const dialogRef = this.dialog.open(Childscn28Component, {
       panelClass: 'mat-dialog-transparent',
       height: '100%',
       width: '70%',

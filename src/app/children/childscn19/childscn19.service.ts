@@ -52,4 +52,8 @@ export class Childscn19Service extends BaseService {
     return this.postJsonObject(baseUrl, json);
   }
 
+  postJson(baseUrl: string, json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
+  }
+  
 }

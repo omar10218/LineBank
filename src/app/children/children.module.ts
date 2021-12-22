@@ -70,6 +70,8 @@ import { Childscn1editComponent } from './childscn1/childscn1edit/childscn1edit.
 import { Childscn24Component } from './childscn24/childscn24.component';
 import { Childscn25Component } from './childscn25/childscn25.component';
 import { Childscn26Component } from './childscn26/childscn26.component';
+import { Childscn27Component } from './childscn27/childscn27.component';
+import { Childscn28Component } from './childscn28/childscn28.component';
 
 
 
@@ -134,7 +136,9 @@ import { Childscn26Component } from './childscn26/childscn26.component';
     Childscn1editComponent,
     Childscn24Component,
     Childscn25Component,
-    Childscn26Component
+    Childscn26Component,
+    Childscn27Component,
+    Childscn28Component
   ],
   imports: [
     CommonModule,

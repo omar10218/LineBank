@@ -18,13 +18,13 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of transactionLogSource;let i=index">
-        <td>{{i+1}}</td>
-        <td class="table-data">{{ data.COLUMN_NAME }}</td>
-        <td class="table-data">{{ data.ORIGINAL_VALUE }}</td>
-        <td class="table-data">{{ data.CURRENT_VALUE }}</td>
-        <td class="table-data">{{ data.TRANS_AP_NAME }}</td>
-        <td class="table-data">{{ formatDate( data.TRANS_DATE ) }}</td>
-        <td class="table-data">{{ data.TRANS_EMP_NO+data.EMP_NAME }}</td>
+        <td style="text-align: center;">{{i+1}}</td>
+        <td class="table-data" >{{ data.columnName }}</td>
+        <td class="table-data">{{ data.originalValue }}</td>
+        <td class="table-data">{{ data.currentValue }}</td>
+        <td class="table-data">{{ data.transApName }}</td>
+        <td class="table-data">{{ data.transDate| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
+        <td class="table-data">{{ data.transEmpNo+empName }}</td>
       </tr>
     </tbody>
   </nz-table>

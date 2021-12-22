@@ -31,8 +31,8 @@ export class Childscn14page3Component implements OnInit {
 
   ngOnInit(): void {
 
-    // this.applno = sessionStorage.getItem('applno');
-    // this.cuid = sessionStorage.getItem('cuid');
+    this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('cuid');
     // const baseUrl = 'f01/childscn14action1';
     // let jsonObject: any = {};
     // jsonObject['applno'] = this.applno;
@@ -71,7 +71,7 @@ export class Childscn14page3Component implements OnInit {
         alert(data.rspMsg);
         } else {
           alert(data.rspMsg);
-          this.dialogRef.close();
+          this.dialogRef.close({ event: 'success' });
         }
       });
 
