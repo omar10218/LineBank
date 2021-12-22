@@ -40,28 +40,28 @@ export class Childscn14page3Component implements OnInit {
     // });
 
     this.childscn1Service.getSysTypeCode('DOC_TYPE').subscribe(data => {        //文件類型下拉選單
-        for (const jsonObj of data.rspBody.mappingList) {
-          const codeNo = jsonObj.codeNo;
-          const desc = jsonObj.codeDesc;
-          this.imageTypeCode.push({ value: codeNo, viewValue: desc })
-        }
-      });
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.imageTypeCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
 
   }
   uploadForm: FormGroup = this.fb.group({
-    DOC_TYPE_CODE: [this.data.DOC_ID, []],
+    DOC_ID: [this.data.DOC_ID, []],
     REMARK: [this.data.REMARK, []],
     ERROR_MESSAGE: []
   });
 
   public async upload(): Promise<void> {
-    let docTypeCode = this.uploadForm.value.DOC_TYPE_CODE;
-    if (docTypeCode != "" && docTypeCode != null) {
+    let docId = this.uploadForm.value.DOC_ID;
+    if (docId != "" && docId != null) {
       const formdata: FormData = new FormData();
       formdata.append('file', this.fileToUpload, this.fileToUpload.name);
       formdata.append('applno', this.applno);
       formdata.append('cuId', this.cuid);
-      formdata.append('docTypeCode', this.uploadForm.value.DOC_TYPE_CODE);
+      formdata.append('docId', this.uploadForm.value.DOC_ID);
       formdata.append('remark', this.uploadForm.value.REMARK);
       let baseUrl = 'f01/childscn14action2';
 
