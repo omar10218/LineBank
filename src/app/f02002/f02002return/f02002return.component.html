@@ -18,16 +18,16 @@
         <td class="table-data">{{data.RESTART_DATE|date: 'yyyy-MM-dd'}}</td>
         <td class="table-data">{{data.RESCAN_TYPE}}</td>
         <td class="table-data">{{data.RESCAN_ITEM}}</td>
-        <td class="table-data"></td>
+        <td class="table-data">{{data.RESCAN_CONTENT}}</td>
         <td class="table-data" ><input type="file" (change)="onChange($event)" /></td>
         <!-- <td class="table-data" *ngIf="i>0"><label>123456</label></td> -->
-        <td class="table-data"><input type="text"> </td>
+        <td class="table-data"><input type="text"></td>
       </tr>
     </tbody>
   </nz-table>
   <div style="text-align: center;margin-top: 10px ;">
     <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="cancel()">離開</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px">儲存</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="store()">儲存</button>
     <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px">送回案件清單</button>
     <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="test()">測試</button>
   </div>

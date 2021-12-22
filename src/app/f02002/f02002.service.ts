@@ -21,4 +21,7 @@ export class F02002Service extends BaseService {
   {
     return this.postJsonObject(baseUrl,json);
   }
+  public async fromUp(baseUrl: string, formData: FormData): Promise<Observable<any>> {
+    return await this.postFormData(baseUrl, formData).toPromise();
+  }
 }

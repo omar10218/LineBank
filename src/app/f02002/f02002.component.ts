@@ -9,6 +9,7 @@ import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
+import { F02002returnComponent } from './f02002return/f02002return.component';
 
 @Component({
   selector: 'app-f02002',
@@ -40,37 +41,37 @@ export class F02002Component implements OnInit {
 
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
-    this.f02002Service.getRescanEmpno( baseUrl ).subscribe(data => {
-      if (data.rspBody.length > 0 ) {
+    this.f02002Service.getRescanEmpno(baseUrl).subscribe(data => {
+      if (data.rspBody.length > 0) {
         for (let i = 0; i < data.rspBody.length; i++) {
           if (data.rspBody[i].RESCANEMPNO != null) {
-            this.rescanEmpnoCode.push( { value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO } );
+            this.rescanEmpnoCode.push({ value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO });
           }
         }
       } else {
-        this.rescanEmpnoCode.push( { value: '', viewValue: '無補件人員' } );
+        this.rescanEmpnoCode.push({ value: '', viewValue: '無補件人員' });
       }
     });
   }
 
-  getRescanData( pageIndex: number, pageSize: number ) {
+  getRescanData(pageIndex: number, pageSize: number) {
     const baseUrl = 'f02/f02002action1';
-    let jsonObject : any = {};
+    let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['nationalId'] = this.nationalId;
     jsonObject['custId'] = this.custId;
     jsonObject['rescanEmpno'] = this.rescanEmpno;
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
-    if ( this.date != null ) {
-      jsonObject['startDate'] = this.datepipe.transform( new Date(this.date[0]).toString() , 'yyyyMMdd' );
-      jsonObject['endDate'] = this.datepipe.transform( new Date(this.date[1]).toString() , 'yyyyMMdd' );
+    if (this.date != null) {
+      jsonObject['startDate'] = this.datepipe.transform(new Date(this.date[0]).toString(), 'yyyyMMdd');
+      jsonObject['endDate'] = this.datepipe.transform(new Date(this.date[1]).toString(), 'yyyyMMdd');
     } else {
       jsonObject['startDate'] = '';
       jsonObject['endDate'] = '';
     }
-    this.f02002Service.f02002( baseUrl, jsonObject ).subscribe(data => {
-      if ( data.rspBody.size == 0 ) {
+    this.f02002Service.f02002(baseUrl, jsonObject).subscribe(data => {
+      if (data.rspBody.size == 0) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         });
@@ -83,36 +84,36 @@ export class F02002Component implements OnInit {
 
   search() {
     var startDate, endDate;
-    if ( this.applno == '' && this.nationalId == '' && this.custId == '' && this.rescanEmpno == '' && this.date == null ) {
+    if (this.applno == '' && this.nationalId == '' && this.custId == '' && this.rescanEmpno == '' && this.date == null) {
       this.clear();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項" }
       });
     } else {
-      if ( this.date != null ) {
-        startDate = new Date( this.date[0] );
-        endDate =  new Date( this.date[1] );
-        if ( this.nationalId != '' || this.custId != '') {
-          if ( ( endDate - startDate ) / 1000 / 60 / 60 / 24 > 365 ) {
+      if (this.date != null) {
+        startDate = new Date(this.date[0]);
+        endDate = new Date(this.date[1]);
+        if (this.nationalId != '' || this.custId != '') {
+          if ((endDate - startDate) / 1000 / 60 / 60 / 24 > 365) {
             this.clear();
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: "查詢區間最多一年內!" }
             });
           } else {
-            this.getRescanData( this.pageIndex, this.pageSize );
+            this.getRescanData(this.pageIndex, this.pageSize);
           }
         } else {
-          if ( ( endDate - startDate ) / 1000 / 60 / 60 / 24 > 90 ) {
+          if ((endDate - startDate) / 1000 / 60 / 60 / 24 > 90) {
             this.clear();
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: "查詢區間最多三個月內!" }
             });
           } else {
-            this.getRescanData( this.pageIndex, this.pageSize );
+            this.getRescanData(this.pageIndex, this.pageSize);
           }
         }
       } else {
-        this.getRescanData( this.pageIndex, this.pageSize );
+        this.getRescanData(this.pageIndex, this.pageSize);
       }
     }
   }
@@ -130,7 +131,7 @@ export class F02002Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    if ( this.applno == '' && this.nationalId == '' && this.custId == '' && this.rescanEmpno == '' ) {
+    if (this.applno == '' && this.nationalId == '' && this.custId == '' && this.rescanEmpno == '') {
 
     } else {
       const { pageSize, pageIndex } = params;
@@ -150,25 +151,23 @@ export class F02002Component implements OnInit {
         const url = 'f02/f02002action2';
         let jsonObject: any = {};
         jsonObject['applno'] = applno;
-        this.f02002Service.f02002( url, jsonObject).subscribe(data => {
+        this.f02002Service.f02002(url, jsonObject).subscribe(data => {
           console.log(data)
-          sessionStorage.setItem( 'applno', applno );
-          sessionStorage.setItem( 'cuid', nationalId );
-          sessionStorage.setItem( 'search', 'Y' );
-          if(data.rspBody.length > 0 )
-          {
-            sessionStorage.setItem( 'fds', data.rspBody[0].fds != null?  data.rspBody[0].fds:'' );
-          }else
-          {
-            sessionStorage.setItem( 'fds', '' );
+          sessionStorage.setItem('applno', applno);
+          sessionStorage.setItem('cuid', nationalId);
+          sessionStorage.setItem('search', 'Y');
+          if (data.rspBody.length > 0) {
+            sessionStorage.setItem('fds', data.rspBody[0].fds != null ? data.rspBody[0].fds : '');
+          } else {
+            sessionStorage.setItem('fds', '');
           }
 
-          sessionStorage.setItem( 'queryDate', '' );
-          sessionStorage.setItem( 'winClose', 'Y' );
+          sessionStorage.setItem('queryDate', '');
+          sessionStorage.setItem('winClose', 'Y');
           sessionStorage.setItem('page', '02');//02補件資訊查詢
           //開啟徵審主畫面
           const url = window.location.href.split("/#");
-          window.open( url[0] + "/#/F01002/F01002SCN1", "", "location=no");
+          window.open(url[0] + "/#/F01002/F01002SCN1", "", "location=no");
           // const url = this.router.serializeUrl(
           //   this.router.createUrlTree(["./F01002/F01002SCN1"])
           // );
@@ -191,13 +190,20 @@ export class F02002Component implements OnInit {
   }
 
   dateNull() {
-    if ( this.date.length < 1 ) {
+    if (this.date.length < 1) {
       this.date = null;
     }
   }
 
   //補回
-  return() {
-
+  return(APPLNO: Data) {
+    const dialogRef = this.dialog.open(F02002returnComponent, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: APPLNO,
+      }
+    });
   }
 }
