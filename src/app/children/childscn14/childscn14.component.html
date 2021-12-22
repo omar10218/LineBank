@@ -32,17 +32,16 @@
             <td class="table-data">
               <button class="btn" nz-button [nzSize]="'middle'" nzType="primary"
                 style="margin-bottom: 5px; margin-left: 5px;">
-                <a href="{{ host }}:8080/LineBankViewOne/system/viewer.html?docKey={{ docKey }}&cuId={{ cuid }}&cuNm={{ cuNm }}"
-                  target="_blank">本案影像</a>
+                <a href="{{ host }}:18443/LineBankViewOne/system/viewer.html?docKey={{ data.FILE_ATTACHMENT_ID }}&cuId={{ cuid }}&cuNm={{ cuNm }}"
+                 target="_blank">本案影像</a>
               </button>
             </td>
             <td class="table-data">{{i+1 }}</td>
-            <td class="table-data">{{ data.docId }}</td>
-            <td class="table-data">{{ data.fileAttachmentId }}</td>
-            <td class="table-data">{{ data.remark }}</td>
-            <td class="table-data">{{ data.uploadDate | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
-            <td class="table-data">{{ data.uploadPerson }}</td>
-          
+            <td class="table-data">{{ data.CODE_DESC }}</td>
+            <td class="table-data">{{ data.FILE_ATTACHMENT_ID }}</td>
+            <td class="table-data">{{ data.REMARK }}</td>
+            <td class="table-data">{{ data.UPLOAD_TIME | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
+            <td class="table-data">{{ data.UPLOAD_USER }}</td>
           </tr>
         </tbody>
       </nz-table>

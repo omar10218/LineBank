@@ -70,7 +70,9 @@ export class Childscn28Component implements OnInit {
     jsonObject['applno'] = this.applno;
     this.childscn28Service.postJson(baseUrl, jsonObject).subscribe(data => {
       this.emailDataSource = data.rspBody.items;
-      this.email = data.rspBody.email;
+      if(this.email==null||this.email==""){
+        this.email = data.rspBody.email;
+      }
     });
   };
 
@@ -80,7 +82,7 @@ export class Childscn28Component implements OnInit {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入EMAIL" }
       });
-    } else if (this.emailTitle == null || this.email == "") {
+    } else if (this.emailTitle == null || this.emailTitle == "") {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入主旨" }
       });
@@ -103,12 +105,14 @@ export class Childscn28Component implements OnInit {
         jsonObject['emailTitle'] = this.emailTitle;
         jsonObject['messageContent'] = this.content;
         this.childscn28Service.postJson(baseUrl, jsonObject).subscribe(data => {
-          msgStr = data.rspMsg == "success" ? "新增成功!" : ""
+          msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
           this.dialog.open(ConfirmComponent, {
             data: { msgStr: msgStr }
           });
           if (data.rspMsg == "success" && data.rspCode === '0000') {
             this.getEmailList();
+            this.emailTitle=null;
+            this.content=null;
           }
         });
       }

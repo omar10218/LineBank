@@ -44,7 +44,7 @@ export class Childscn1editComponent implements OnInit {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
-      if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
+      if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success', value: this.data.creditaction }); }
   }
 
   //取消

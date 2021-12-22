@@ -24,4 +24,8 @@ export class Childscn1Service extends BaseService {
   getInterestBase(baseUrl: string, json: JSON): any {
     return this.saveOrEditMsgJson(baseUrl, json);
   }
+
+  insertHistory(baseUrl: string, json: JSON){
+    return this.postJsonObject(baseUrl, json);
+  }
 }

@@ -71,6 +71,7 @@ export class F03012addComponent implements OnInit {
 
   getData() {
     this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
+      console.log(data)
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo
         const desc = jsonObj.codeDesc
@@ -78,6 +79,7 @@ export class F03012addComponent implements OnInit {
       }
       for (let i = 0; i < this.compareTableCode.length; i++) {
         this.f03012Service.getSysTypeCode(this.compareTableCode[i].value).subscribe(data => {
+          console.log(data)
           for (const jsonObj of data.rspBody.mappingList) {
             const codeNo = jsonObj.codeNo
             const desc = jsonObj.codeDesc
@@ -99,7 +101,7 @@ export class F03012addComponent implements OnInit {
           this.selectedColumn.push({ value: codeNo, viewValue: desc })
         }
       })
-    // 		this.selectedColumn = []
+    		this.selectedColumn = []
     // this.f03012Service.getSysTypeCode(this.selectedValue1).subscribe(data => {
     // 	console.log(data)
     // 	for (const jsonObj of data.rspBody.mappingList) {

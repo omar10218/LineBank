@@ -1,3 +1,4 @@
+import { BaseService } from 'src/app/base.service';
 import { map } from 'rxjs/operators';
 import { OptionsCode } from './../../interface/base';
 import { Component, OnInit } from '@angular/core';
@@ -120,9 +121,18 @@ export class Childscn1Component implements OnInit {
   pageIndex = 1;
   pageSize = 50;
 
-
-  EL_DSS1_UNDW_LIST1 = new MatTableDataSource<any>();//dss1徵審代碼
-  EL_DSS2_UNDW_LIST1 = new MatTableDataSource<any>();//dss2徵審代碼
+  EL_DSS1_UNDW_LIST = new MatTableDataSource<any>();//dss1徵審代碼
+  EL_DSS1_UNDW_LIST1 = new MatTableDataSource<any>();//dss1徵審代碼-信用異常資訊
+  EL_DSS1_UNDW_LIST2 = new MatTableDataSource<any>();//dss1徵審代碼-整體往來
+  EL_DSS1_UNDW_LIST3 = new MatTableDataSource<any>();//dss1徵審代碼-信用卡往來
+  EL_DSS1_UNDW_LIST4 = new MatTableDataSource<any>();//dss1徵審代碼-授信往來
+  EL_DSS1_UNDW_LIST5 = new MatTableDataSource<any>();//dss1徵審代碼-其他
+  EL_DSS2_UNDW_LIST = new MatTableDataSource<any>();//dss2徵審代碼
+  EL_DSS2_UNDW_LIST1 = new MatTableDataSource<any>();//dss2徵審代碼-信用異常資訊
+  EL_DSS2_UNDW_LIST2 = new MatTableDataSource<any>();//dss2徵審代碼-整體往來
+  EL_DSS2_UNDW_LIST3 = new MatTableDataSource<any>();//dss2徵審代碼-信用卡往來
+  EL_DSS2_UNDW_LIST4 = new MatTableDataSource<any>();//dss2徵審代碼-授信往來
+  EL_DSS2_UNDW_LIST5 = new MatTableDataSource<any>();//dss2徵審代碼-其他
   EL_DSS2_CFC_LIMIT1 = new MatTableDataSource<any>();//試算額度策略
   EL_DSS2_STRGY_SRATE1 = new MatTableDataSource<any>();//試算利率(多階)
   EL_DSS2_STRGY_MERG1 = new MatTableDataSource<any>();//試算授信策略_債整明細
@@ -467,6 +477,7 @@ export class Childscn1Component implements OnInit {
     });
     this.changePage();
     this.getCreditmemo(this.pageIndex, this.pageSize);
+    this.insertHistory(this.mark);
   }
 
   formatDate(date: string) {
@@ -572,6 +583,7 @@ export class Childscn1Component implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         this.getCreditmemo(this.pageIndex, this.pageSize);
+        this.insertHistory(result.value);
       });
     } else {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -599,6 +611,7 @@ export class Childscn1Component implements OnInit {
     jsonObject['strgy'] = "1";
     //測試用
     // jsonObject['applno'] = '20211129A000005';
+    // jsonObject['applno'] = '20211126A000001';
     this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
 
       if (data.rspBody.DSS1.length > 0) {
@@ -626,8 +639,14 @@ export class Childscn1Component implements OnInit {
 
 
       }
-      this.EL_DSS1_UNDW_LIST1.data = data.rspBody.DSS1UNDWLIST;//徵審代碼
-
+      this.EL_DSS1_UNDW_LIST.data = data.rspBody.DSS1UNDWLIST;//徵審代碼
+      if(data.rspBody.DSS1UNDWLIST.length>0){
+        this.EL_DSS1_UNDW_LIST1.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='1');//1	信用異常資訊
+        this.EL_DSS1_UNDW_LIST2.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='2');//2	整體往來
+        this.EL_DSS1_UNDW_LIST3.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='3');//3	信用卡往來
+        this.EL_DSS1_UNDW_LIST4.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='4');//4	授信往來
+        this.EL_DSS1_UNDW_LIST5.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='9');//9	其他
+      }
     });
   }
 
@@ -640,6 +659,7 @@ export class Childscn1Component implements OnInit {
     jsonObject['strgy'] = "1";
     //測試用
     // jsonObject['applno'] = '20211116A000003';
+    // jsonObject['applno'] = '20211126A000001';
     this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
       if (data.rspBody.DSS2.length > 0) {
         //系統決策
@@ -707,7 +727,14 @@ export class Childscn1Component implements OnInit {
         this.dss2Form1.patchValue({ STRGY_DTIX: data.rspBody.DSS2STRGY[0].STRGY_DTIX })//試算授信策略_DTI參數 注意名稱差異
 
       }
-      this.EL_DSS2_UNDW_LIST1.data = data.rspBody.DSS2UNDWLIST;//徵審代碼
+      this.EL_DSS2_UNDW_LIST.data = data.rspBody.DSS2UNDWLIST;//徵審代碼
+      if(data.rspBody.DSS2UNDWLIST.length>0){
+        this.EL_DSS2_UNDW_LIST1.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='1');//1	信用異常資訊
+        this.EL_DSS2_UNDW_LIST2.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='2');//2	整體往來
+        this.EL_DSS2_UNDW_LIST3.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='3');//3	信用卡往來
+        this.EL_DSS2_UNDW_LIST4.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='4');//4	授信往來
+        this.EL_DSS2_UNDW_LIST5.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='9');//9	其他
+      }
       this.EL_DSS2_CFC_LIMIT1.data = data.rspBody.DSS2CFCLIMIT;//試算額度策略
       this.EL_DSS2_STRGY_SRATE1.data = data.rspBody.DSS2STRGYSRATE;//試算利率(多階)
       this.EL_DSS2_STRGY_MERG1.data = data.rspBody.DSS2STRGYMERG;//試算授信策略_債整明細
@@ -728,5 +755,26 @@ export class Childscn1Component implements OnInit {
     sessionStorage.setItem("caPmcus" , "");
     sessionStorage.setItem("caRisk" , "");
     sessionStorage.setItem("mark" , "");
+  }
+
+   //新增審核註記歷史資料
+   insertHistory(value: string): any {
+    const baseUrl = 'f01/childscn2action2';
+    const content = []
+    let msg = '';
+    let jsonObject: any = {};
+    content.push(
+      {
+        applno: this.applno,
+        tableName: 'EL_CREDITMEMO',
+        columnName: '審核意見',
+        currentValue: value,
+        transAPname: '審核資料',
+      }
+    )
+    jsonObject['content'] = content;
+    this.childscn1Service.insertHistory(baseUrl, jsonObject).subscribe(data => {
+
+    });
   }
 }
