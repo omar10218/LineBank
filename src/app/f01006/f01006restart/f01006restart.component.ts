@@ -17,6 +17,17 @@ export class F01006restartComponent implements OnInit {
   reason: string;                 //申覆原因
   content: string;                //申覆說明
   empNo: string = localStorage.getItem("empNo");
+  interestData = [];
+  seq: string;
+  period: string;
+  periodType: string;
+  interestType: string;
+  interestCode: string;
+  interestBase: string;
+  interest: string;
+  approveInterest: string;
+
+  
   constructor(
     public dialog: MatDialog,
     private f01006Service: F01006Service,
@@ -25,6 +36,7 @@ export class F01006restartComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getInterestData();
     // 申覆原因下拉
     this.f01006Service.getSysTypeCode('').subscribe(data => {
       this.reasonCode.push({ value: '', viewValue: '請選擇' })
@@ -42,6 +54,7 @@ export class F01006restartComponent implements OnInit {
     jsonObject['reason'] = this.reason;
     jsonObject['content'] = this.content;
     jsonObject['empno'] = this.empNo;
+    jsonObject['opid'] = this.data.opid;
     let msgStr: string = "";
     msgStr = await this.f01006Service.addRestart(jsonObject);
     if (msgStr == 'success') {
@@ -53,6 +66,22 @@ export class F01006restartComponent implements OnInit {
     setTimeout(() => {
       this.dialog.closeAll();
     },1500);
+  }
+
+  getInterestData(){
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.data.applno;
+    this.f01006Service.getInterestData(jsonObject).subscribe(data => {
+      this.interestData = data.rspBody.items;
+      this.seq = this.interestData[0].SEQ;
+      this.period = this.interestData[0].PERIOD;
+      this.periodType = this.interestData[0].PERIOD_TYPE;
+      this.interestType = this.interestData[0].INTEREST_TYPE;
+      this.interestCode = this.interestData[0].INTEREST_CODE;
+      this.interestBase = this.interestData[0].INTEREST_BASE;
+      this.interest = this.interestData[0].INTEREST;
+      this.approveInterest = this.interestData[0].APPORVE_INTEREST;
+    });
   }
 
   cancel(): void {
