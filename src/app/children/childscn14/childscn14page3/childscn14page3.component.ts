@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Childscn1Service } from '../../childscn1/childscn1.service';
+import { Childscn6Service } from '../../childscn6/childscn6.service';
 import { Childscn14Service } from '../childscn14.service';
 
 interface sysCode {
@@ -23,16 +24,18 @@ export class Childscn14page3Component implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private childscn14Service: Childscn14Service,
     private childscn1Service: Childscn1Service,
+    private childscn6Service: Childscn6Service,
     ) { }
   fileToUpload: File | null = null;
   private applno: string;
-  private cuid: string;
+  private cuId: string;
+  private cuNm: string;
   isValidFile: boolean;
 
   ngOnInit(): void {
 
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuId = sessionStorage.getItem('cuid');
     // const baseUrl = 'f01/childscn14action1';
     // let jsonObject: any = {};
     // jsonObject['applno'] = this.applno;
@@ -45,6 +48,13 @@ export class Childscn14page3Component implements OnInit {
         const desc = jsonObj.codeDesc;
         this.imageTypeCode.push({ value: codeNo, viewValue: desc })
       }
+    });
+
+    const baseUrl = 'f01/childscn6action2';
+    let jsonObject: any = {};
+    this.childscn6Service.getDate(baseUrl, jsonObject).subscribe(data => {
+      this.cuId = data.rspBody[0].empNo;
+      this.cuNm = data.rspBody[0].empName;
     });
 
   }
@@ -60,7 +70,8 @@ export class Childscn14page3Component implements OnInit {
       const formdata: FormData = new FormData();
       formdata.append('file', this.fileToUpload, this.fileToUpload.name);
       formdata.append('applno', this.applno);
-      formdata.append('cuId', this.cuid);
+      formdata.append('cuId', this.cuId);
+      formdata.append('cuNm', this.cuNm);
       formdata.append('docId', this.uploadForm.value.DOC_ID);
       formdata.append('remark', this.uploadForm.value.REMARK);
       let baseUrl = 'f01/childscn14action2';

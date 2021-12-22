@@ -7,8 +7,7 @@ import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive
 import { Childscn1Service } from '../childscn1/childscn1.service';
 import { Childscn6Service } from '../childscn6/childscn6.service';
 import { Childscn14Service } from './childscn14.service';
-// import { Childscn14page1Component } from './childscn14page1/childscn14page1.component';
-// import { Childscn14page2Component } from './childscn14page2/childscn14page2.component';
+
 import { Childscn14page3Component } from './childscn14page3/childscn14page3.component';
 @Component({
   selector: 'app-childscn14',
