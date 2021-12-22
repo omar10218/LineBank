@@ -4,6 +4,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F02002Service } from '../f02002.service'
 
+interface sysCode {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-f02002return',
   templateUrl: './f02002return.component.html',
@@ -21,6 +26,17 @@ export class F02002returnComponent implements OnInit {
 
   ngOnInit(): void {
     this.set();
+    this.f02002Service.getSysTypeCode('DOC_TYPE').subscribe(data => {
+      this.type.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const id = jsonObj['codeNo'];
+        const name = jsonObj['codeDesc'];
+        this.type.push({ value: id, viewValue: name })
+      }
+
+    })
+
+
   }
   i=1;
   F02002Data = [];//初始陣列
@@ -31,6 +47,11 @@ export class F02002returnComponent implements OnInit {
     REMARK: [this.data.REMARK, []],
     ERROR_MESSAGE: []
   });
+  remark:string;//註記
+  docType:string;
+  typeString:string ='';//補件類型
+  type:sysCode[] = [];//補件類型陣列
+  s=0;
   cancel()//離開
   {
     this.dialogRef.close();
@@ -71,20 +92,21 @@ export class F02002returnComponent implements OnInit {
   }
   SendBack()//送回案件
   {
-
+    let url = 'f02/f02002action5'
+    const formdata: FormData = new FormData();
+    console.log(this.F02002Data)
   }
 
   test()
   {
 
-
-    if(this.i==0)
+    if(this.s==0)
     {
-      this.i=1;
+      this.s=1;
     }
     else
     {
-      this.i=0;
+      this.s=0;
     }
   }
 }
