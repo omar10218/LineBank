@@ -240,30 +240,30 @@ export class Childscn5Component implements OnInit {
       {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: 'CU_CP_NAME',
+        columnName: '徵信確認公司名稱',
         currentValue: this.cuCpNameCa,
-        transAPname: 'childScn5',
+        transAPname: '基本資料',
       },
       {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: 'CU_LRVEL1_CA',
+        columnName: '徵信認列行業Level1',
         currentValue: this.cuLevel1CaValue,
-        transAPname: 'childScn5',
+        transAPname: '基本資料',
       },
       {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: 'CU_LRVEL2_CA',
+        columnName: '徵信認列行業Level2',
         currentValue: this.cuLevel2CaValue,
-        transAPname: 'childScn5',
+        transAPname: '基本資料',
       },
       {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: 'JOB_CODE_CA',
+        columnName: '徵信認列職業碼',
         currentValue: this.jobCodeCaValue,
-        transAPname: 'childScn5',
+        transAPname: '基本資料',
       }
     )
     jsonObject['content'] = content;

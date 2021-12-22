@@ -77,11 +77,11 @@
         <tr *ngFor="let data of rescanData; let index = index;">
           <td class="table-data">{{ index + 1 }}</td>
           <td class="table-data" style="text-align: center;">
-            <button nz-button [nzSize]="'small'" nzType="primary" (click)="return()">補回</button>
+            <button nz-button [nzSize]="'small'" nzType="primary" (click)="return(data.APPLNO)">補回</button>
           </td>
           <td class="table-data">
             <button nz-button [nzSize]="'middle'" nzLeft nzType="link"
-              (click)="detail(data.APPLNO, data.NATIONAL_ID)">
+              (click)="detail(data.APPLNO, data.NATIONAL_ID,data.CU_CNAME)">
               {{ data.APPLNO }}
             </button>
           </td>

@@ -21,6 +21,12 @@ export class F01006Service extends BaseService {
     return this.saveOrEditMsgString(targetUrl, jsonObject);
   }
 
+  getInterestData(jsonObject: any): any {
+    const baseUrl = 'f01/f01006action2';
+    let targetUrl = `${baseUrl}`;
+    return this.postJsonObject(targetUrl, jsonObject);
+
+  }
 
 
 

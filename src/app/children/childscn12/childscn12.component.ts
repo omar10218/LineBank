@@ -382,6 +382,11 @@ export class Childscn12Component implements OnInit {
           check = chk.completed ? check + "," + chk.value : check;
         }
       }
+      if(check==""){
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請勾選徵審確認後年收入" }
+        });
+        return;};
       const baseUrl = 'f01/childscn12action2';
       let jsonObject: any = {};
       let msg = "";
