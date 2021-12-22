@@ -3,7 +3,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Childscn28Service } from './childscn28.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
-import { DatePipe } from '@angular/common';
 
 interface sysCode {
   value: string;
@@ -21,7 +20,6 @@ export class Childscn28Component implements OnInit {
     private childscn28Service: Childscn28Service,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<Childscn28Component>,
-    private pipe: DatePipe,
   ) { }
 
   private applno: string;     //案編
@@ -29,9 +27,9 @@ export class Childscn28Component implements OnInit {
   emailCode: sysCode[] = [];  //EMAIL模板下拉
   emailSet: string;           //EMAIL設定值
   emailTitle: string;         //主旨
-  content: string;         //E-MAIL內容
+  content: string;            //E-MAIL內容
 
-  emailDataSource = new MatTableDataSource<any>();    //簡訊資訊檔
+  emailDataSource = new MatTableDataSource<any>();    //email資訊檔
   email_M_Code = new MatTableDataSource<any>();    //email mappingcode
 
   ngOnInit(): void {
@@ -46,7 +44,7 @@ export class Childscn28Component implements OnInit {
       }
       this.email_M_Code.data = data.rspBody.mappingList;
     });
-    this.getSmsList();
+    this.getEmailList();
   }
 
   // 離開該彈窗
@@ -65,33 +63,34 @@ export class Childscn28Component implements OnInit {
     }
   };
 
-  //取該案件簡訊發送資訊
-  getSmsList() {
+  //取該案件email發送資訊
+  getEmailList() {
     const baseUrl = 'f01/childscn28';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn28Service.postJson(baseUrl, jsonObject).subscribe(data => {
       this.emailDataSource = data.rspBody.items;
+      this.email = data.rspBody.email;
     });
   };
 
 
   addMail() {
     if (this.email == null || this.email == "") {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+      this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入EMAIL" }
       });
     } else if (this.emailTitle == null || this.email == "") {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+      this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入主旨" }
       });
     } else if (this.content == null || this.content == "") {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請輸入SMS內容" }
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請輸入EMAIL內容" }
       });
     } else if (this.content != null) {
       if (this.content.indexOf('徵信員輸入文字') >= 0) {
-        const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        this.dialog.open(ConfirmComponent, {
           data: { msgStr: "不得有徵信員輸入文字" }
         });
       }
@@ -105,15 +104,14 @@ export class Childscn28Component implements OnInit {
         jsonObject['messageContent'] = this.content;
         this.childscn28Service.postJson(baseUrl, jsonObject).subscribe(data => {
           msgStr = data.rspMsg == "success" ? "新增成功!" : ""
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          this.dialog.open(ConfirmComponent, {
             data: { msgStr: msgStr }
           });
           if (data.rspMsg == "success" && data.rspCode === '0000') {
-            this.getSmsList();
+            this.getEmailList();
           }
         });
       }
     }
   }
-
 }

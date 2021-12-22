@@ -119,7 +119,9 @@ export class Childscn14Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') { this.getImageDetail(this.pageIndex, this.pageSize); }
+      if (result != null && result.event == 'success') {
+        console.log("重整")
+        this.getImageDetail(this.pageIndex, this.pageSize); }
     });
   }
 }

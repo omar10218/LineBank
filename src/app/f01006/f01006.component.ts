@@ -76,10 +76,11 @@ export class F01006Component implements OnInit, AfterViewInit {
     name: string,
     limit: string,
     periods: string,
-    rates: string) {
+    rates: string,
+    opid: string) {
     const dialogRef = this.dialog.open(F01006restartComponent, {
       minHeight: '30%',
-      width: '70%',
+      width: '150%',
       panelClass: 'mat-dialog-transparent',
       data: {
         applno: applno,
@@ -88,7 +89,8 @@ export class F01006Component implements OnInit, AfterViewInit {
         name: name,
         limit: limit,
         periods: periods,
-        rates: rates
+        rates: rates,
+        opid: opid
       }
     });
   }
@@ -108,6 +110,7 @@ export class F01006Component implements OnInit, AfterViewInit {
     jsonObject['nationalID'] = this.nationalID;
     jsonObject['custID'] = this.custID;
     this.f01006Service.getCaseList(jsonObject).subscribe(data => {
+      console.log(data)
       this.total = data.rspBody.size;
       this.cusinfoDataSource = data.rspBody.items;
     });
