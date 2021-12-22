@@ -1,3 +1,4 @@
+import { BaseService } from 'src/app/base.service';
 import { map } from 'rxjs/operators';
 import { OptionsCode } from './../../interface/base';
 import { Component, OnInit } from '@angular/core';
@@ -467,6 +468,7 @@ export class Childscn1Component implements OnInit {
     });
     this.changePage();
     this.getCreditmemo(this.pageIndex, this.pageSize);
+    this.insertHistory(this.mark);
   }
 
   formatDate(date: string) {
@@ -572,6 +574,7 @@ export class Childscn1Component implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         this.getCreditmemo(this.pageIndex, this.pageSize);
+        this.insertHistory(result.value);
       });
     } else {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -728,5 +731,26 @@ export class Childscn1Component implements OnInit {
     sessionStorage.setItem("caPmcus" , "");
     sessionStorage.setItem("caRisk" , "");
     sessionStorage.setItem("mark" , "");
+  }
+
+   //新增審核註記歷史資料
+   insertHistory(value: string): any {
+    const baseUrl = 'f01/childscn2action2';
+    const content = []
+    let msg = '';
+    let jsonObject: any = {};
+    content.push(
+      {
+        applno: this.applno,
+        tableName: 'EL_CREDITMEMO',
+        columnName: '審核意見',
+        currentValue: value,
+        transAPname: '審核資料',
+      }
+    )
+    jsonObject['content'] = content;
+    this.childscn1Service.insertHistory(baseUrl, jsonObject).subscribe(data => {
+
+    });
   }
 }

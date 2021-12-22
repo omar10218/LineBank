@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from './../environments/environment';
-import { CommonRes, Mapping } from './interface/base';
+import { CommonRes, Mapping, history } from './interface/base';
 
 @Injectable({
   providedIn: 'root'
@@ -154,5 +154,26 @@ export class BaseService {
       }
       return false
     }
+  }
+
+  //案件完成用歷史資料
+  public async setHistory(value: history[], transAPname: string, applno: string): Promise<string> {
+    const baseUrl = 'f01/childscn2action2';
+    const content = []
+    let msg = '';
+    let jsonObject: any = {};
+    for (let index = 0; index < value.length; index++) {
+      content.push(
+        {
+          applno: applno,
+          tableName: value[index].tableName,
+          columnName: value[index].valueInfo,
+          currentValue: value[index].value,
+          transAPname: transAPname,
+        }
+      )
+    }
+    jsonObject['content'] = content;
+    return await this.postJsonObject(baseUrl, jsonObject).toPromise();
   }
 }

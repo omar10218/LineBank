@@ -121,3 +121,9 @@ export interface DataItem {
   nzLeft?: boolean;
   nzRight?: boolean;
 }
+
+export interface history {
+  value: string; //currentValue
+  tableName: string; //tableName
+  valueInfo: string; //columnName
+}
