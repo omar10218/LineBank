@@ -63,11 +63,14 @@ export class Childscn8Component implements OnInit {
     private childscn8Service: Childscn8Service,
     public datepipe: DatePipe,
     private f01002scn1Service: F01002Scn1Service
-  ) {
+  ) {//訂閱彈出視窗 更新Table
     this.JCICAddSource$ = this.f01002scn1Service.JCICAddSource$.subscribe((data) => {
       if(!data.show){    this.getCALLOUTFunction(this.pageIndex, this.pageSize);}
     });
     this.JCICAddSource$ = this.f01002scn1Service.JCICSource$.subscribe((data) => {
+      if(!data.show){    this.getCALLOUTFunction(this.pageIndex, this.pageSize);}
+    });
+    this.JCICAddSource$ = this.f01002scn1Service.JCICItemsSource$.subscribe((data) => {
       if(!data.show){    this.getCALLOUTFunction(this.pageIndex, this.pageSize);}
     });
    }

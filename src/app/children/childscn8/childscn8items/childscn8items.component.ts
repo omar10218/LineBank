@@ -188,7 +188,7 @@ export class Childscn8itemsComponent implements OnInit {
       });
       if (msgStr != null && (msgStr == '儲存成功!' || msgStr == '1')) {
         this.f01002scn1Service.setJCICItemsSource({ show : false });
-        window.location.reload();
+        // window.location.reload();
        }
     });
   }
