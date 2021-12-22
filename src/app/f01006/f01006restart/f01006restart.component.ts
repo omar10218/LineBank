@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { F01006Service } from '../f01006.service';
+import { F01006Component } from '../f01006.component';
 
 //20210928 alvin.lee 案件申覆
 
@@ -31,6 +32,7 @@ export class F01006restartComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private f01006Service: F01006Service,
+    // private F01006Component: F01006Component,
     public dialogRef: MatDialogRef<F01006restartComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -38,14 +40,17 @@ export class F01006restartComponent implements OnInit {
   ngOnInit(): void {
     this.getInterestData();
     // 申覆原因下拉
-    this.f01006Service.getSysTypeCode('').subscribe(data => {
+    let jsonObject: any = {};
+    this.f01006Service.getReasonData(jsonObject).subscribe(data => {
+      console.log(data)
       this.reasonCode.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj.codeNo;
-        const desc = jsonObj.codeDesc;
+      for (const jsonObj of data.rspBody.items) {
+        const codeNo = jsonObj.reasonCode;
+        const desc = jsonObj.reasonDesc;
         this.reasonCode.push({ value: codeNo, viewValue: desc })
       }
     });
+    this.reason = '';
   }
 
   public async restart(): Promise<void> {
@@ -66,6 +71,7 @@ export class F01006restartComponent implements OnInit {
     setTimeout(() => {
       this.dialog.closeAll();
     },1500);
+    this.f01006Service.restartfn();
   }
 
   getInterestData(){

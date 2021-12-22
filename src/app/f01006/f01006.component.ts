@@ -10,6 +10,8 @@ import zh from '@angular/common/locales/zh';
 import { registerLocaleData } from '@angular/common';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { Subscription } from 'rxjs';
+
 registerLocaleData(zh);
 
 
@@ -27,12 +29,17 @@ export class F01006Component implements OnInit, AfterViewInit {
   readonly pageSize = 50;
   pageIndex = 1;
   cusinfoDataSource = [];
+  restart$: Subscription;
   constructor(
     public dialog: MatDialog,
     private f01006Service: F01006Service,
     public childService: ChildrenService,
-  ) { }
-
+    
+  ) {
+    this.restart$ = this.f01006Service.restart$.subscribe((data) => {
+       this.getCaseList();
+    });
+  }
   // 計算剩餘table資料長度
   get tableHeight(): string {
     if (this.absBox) {

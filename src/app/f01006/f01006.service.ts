@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { BaseService } from '../base.service';
 
 @Injectable({
@@ -8,8 +8,14 @@ import { BaseService } from '../base.service';
 })
 export class F01006Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
+  private restart = new Subject<any>();
+  restart$ = this.restart.asObservable();
 
-  getCaseList(jsonObject:JSON): Observable<any> {
+  restartfn(): void {
+    this.restart.next()
+  }
+
+  getCaseList(jsonObject: JSON): Observable<any> {
     const baseUrl = 'f01/f01006';
     let targetUrl = `${baseUrl}`;
     return this.postJsonObject(targetUrl, jsonObject);
@@ -28,6 +34,12 @@ export class F01006Service extends BaseService {
 
   }
 
+  getReasonData(jsonObject: any): any {
+    const baseUrl = 'f01/f01006action3';
+    let targetUrl = `${baseUrl}`;
 
+    return this.postJsonObject(targetUrl, jsonObject);
+
+  }
 
 }
