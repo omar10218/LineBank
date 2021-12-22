@@ -6,7 +6,7 @@ import { F02002Service } from '../f02002.service'
 @Component({
   selector: 'app-f02002return',
   templateUrl: './f02002return.component.html',
-  styleUrls: ['./f02002return.component.css']
+  styleUrls: ['./f02002return.component.css','../../../assets/css/f02.css']
 })
 export class F02002returnComponent implements OnInit {
 
@@ -39,6 +39,7 @@ export class F02002returnComponent implements OnInit {
     jsonObject['applno'] = this.data.applno;
     console.log(jsonObject)
     this.f02002Service.postJson(url,jsonObject).subscribe(data=>{
+      console.log(data)
       this.F02002Data = data.rspBody;
       console.log(this.F02002Data)
     })
