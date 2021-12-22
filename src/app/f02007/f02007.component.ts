@@ -151,12 +151,13 @@ export class F02007Component implements OnInit {
   }
 
 
-  Detail(id: string, nationalId: string)//明細
+  Detail(id: string, nationalId: string,cuCname:string)//明細
   {
     let jsonObject: any = {};
     jsonObject['applno'] = id;
     jsonObject['nationalID'] = nationalId;
     jsonObject['searchKind'] = '2';//查詢種類1:案件查詢2:客服案件查詢3:補件資訊查詢
+    jsonObject['cuCname'] = cuCname;//客戶姓名CU_CNAME
     let apiurl = 'f02/f02001action2';
     this.f02007Service.postJson(apiurl, jsonObject).subscribe(data => {
       if (data.rspMsg == "success" && data.rspBody == "儲存成功!") {
