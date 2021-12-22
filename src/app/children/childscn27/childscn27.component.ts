@@ -64,7 +64,11 @@ export class Childscn27Component implements OnInit {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入時間" }
       });
-    } else if (this.content == null) {
+    }else if (this.mobile == null || this.mobile == "" || this.mobile.length!=10) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請輸入手機號碼" }
+      });
+    } else if (this.content == null || this.content=="") {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入SMS內容" }
       });
@@ -75,6 +79,16 @@ export class Childscn27Component implements OnInit {
         });
       }
       else {
+        //判斷日期時間是否在現在以前
+        var date = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd') + this.pipe.transform(this.mytime, ' HH:mm') + ":00";
+        var newDate = date.replace(/-/g, '/'); // 變成"2012/01/01 12:30:10";
+        var keyDate = new Date(newDate)
+        if (keyDate.getTime() < Date.now()) {
+          const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "請輸入正確日期時間" }
+          });
+          return;
+        }
         let msgStr: string = "";
         const baseUrl = 'f01/childscn27action1';
         let jsonObject: any = {};
@@ -84,12 +98,15 @@ export class Childscn27Component implements OnInit {
         jsonObject['mobile'] = this.mobile;
         jsonObject['realSmsTime'] = this.pipe.transform(this.realSmsTime, 'yyyyMMdd') + this.pipe.transform(this.mytime, 'HHmm');
         await this.childscn27Service.postJson(baseUrl, jsonObject).subscribe(data => {
-          msgStr = data.rspMsg == "success" ? "新增成功!" : ""
+          msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: msgStr }
           });
           if (data.rspMsg == "success" && data.rspCode === '0000') {
             this.getSmsList();
+            this.realSmsTime=null;
+            this.mytime=null;
+            this.content=null;
           }
         });
       }
@@ -113,7 +130,9 @@ export class Childscn27Component implements OnInit {
     jsonObject['applno'] = this.applno;
     this.childscn27Service.postJson(baseUrl, jsonObject).subscribe(data => {
       this.smsDataSource = data.rspBody.items;
-      this.mobile = data.rspBody.phone;
+      if(this.mobile==null||this.mobile==""){
+        this.mobile = data.rspBody.phone;
+      }
     });
   };
 
@@ -121,5 +140,14 @@ export class Childscn27Component implements OnInit {
   cancel(): void {
     this.dialogRef.close();
   }
+
+    //只能數字
+    data_number(x: string) {
+      if (x != null) {
+        x = x.replace(/[^\d]/g, '');
+      }
+      return x
+    }
+
 
 }

@@ -91,7 +91,8 @@
       </div>
       <div nz-col nzSpan="7">
         <div style="padding:10px"><span class="form-title">發送手機</span>
-          <input style="display: block; background-color: #ffffff;" [(ngModel)]="this.mobile">
+          <input style="display: block; background-color: #ffffff;" [(ngModel)]="this.mobile" (keyup)="this.mobile=data_number(this.mobile)"
+          maxlength="10">
         </div>
       </div>
       <div nz-col nzSpan="7">
