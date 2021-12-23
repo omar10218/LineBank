@@ -130,6 +130,8 @@ export class F03012editComponent implements OnInit {
 			data: { msgStr: msgStr },
 		})
 		console.log(this.data)
+		console.log(this.oldCompareType)
+		console.log(this.compareType)
 		console.log(this.oldSetValueLow)
 		console.log(this.oldSetValueHight)
 		console.log(this.low)
@@ -197,7 +199,8 @@ export class F03012editComponent implements OnInit {
 	}
 	// 判斷比對方式來去鎖住最高門檻
 	test123(a) {
-		console.log
+		this.compareType =a
+		console.log(this.compareType)
 		if (a == 1) {
 			return this.myDiv = true
 		}
