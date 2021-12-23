@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F02002Service } from '../f02002.service'
-import {F02008return2Component} from '../f02002return/f02008return2/f02008return2.component'
+import { F02008return2Component } from '../f02002return/f02008return2/f02008return2.component'
 interface sysCode {
   value: string;
   viewValue: string;
@@ -12,7 +12,7 @@ interface sysCode {
 @Component({
   selector: 'app-f02002return',
   templateUrl: './f02002return.component.html',
-  styleUrls: ['./f02002return.component.css','../../../assets/css/f02.css']
+  styleUrls: ['./f02002return.component.css', '../../../assets/css/f02.css']
 })
 export class F02002returnComponent implements OnInit {
 
@@ -38,7 +38,7 @@ export class F02002returnComponent implements OnInit {
 
 
   }
-  i=1;
+  i = 1;
   F02002Data = [];//初始陣列
   isValidFile: boolean;
   fileToUpload: File | null = null;
@@ -47,10 +47,10 @@ export class F02002returnComponent implements OnInit {
     REMARK: [this.data.REMARK, []],
     ERROR_MESSAGE: []
   });
-  remark:string;//註記
-  docType:string;
-  typeString:string ='';//補件類型
-  type:sysCode[] = [];//補件類型陣列
+  remark: string;//註記
+  docType: string;
+  typeString: string = '';//補件類型
+  type: sysCode[] = [];//補件類型陣列
   // s=0;
   formdata: FormData = new FormData();
   formdata2: FormData = new FormData();
@@ -59,15 +59,14 @@ export class F02002returnComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onChange(evt,ROWID:string)
-  {
+  onChange(evt, ROWID: string) {
 
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/);
     if (this.isValidFile) {
       this.fileToUpload = target.files.item(0);
-      this.formdata2.append('rowId',ROWID);
-      this.formdata2.append('file',this.fileToUpload);
+      this.formdata2.append('rowId', ROWID);
+      this.formdata2.append('file', this.fileToUpload);
       // alert(this.fileToUpload)
     } else {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法圖檔，請檢查檔案格式重新上傳" });
@@ -79,7 +78,7 @@ export class F02002returnComponent implements OnInit {
     let url = 'f02/f02002action3'
     let jsonObject: any = {};
     jsonObject['applno'] = this.data.applno;
-    this.f02002Service.postJson(url,jsonObject).subscribe(data=>{
+    this.f02002Service.postJson(url, jsonObject).subscribe(data => {
       console.log(data)
       this.F02002Data = data.rspBody;
     })
@@ -89,33 +88,39 @@ export class F02002returnComponent implements OnInit {
     const dialogRef = this.dialog.open(F02008return2Component, {
       minHeight: '50%',
       width: '30%',
-      panelClass:'mat-dialog-transparent',
+      panelClass: 'mat-dialog-transparent',
       data: {
         value: result
       }
     });
 
 
-    let url ='f02/f02002action4';
+    let url = 'f02/f02002action4';
     let jsonObject: any = {};
     let docTypeCode = this.uploadForm.value.DOC_TYPE_CODE;
+    alert(this.fileToUpload)
     // const formdata: FormData = new FormData();
-    if (docTypeCode != "" && docTypeCode != null)
-    {
+    if (this.fileToUpload != null) {
+      for (const it of this.F02002Data)
+      {
 
+        // jsonObject['applno'] = it.applno;
+        jsonObject['rowId'] = it.ROW_ID;
+        jsonObject['rescanReason'] = it.rescanReason;
+        jsonObject['remark'] = it.IMAGE_CONTENT;
+      }
     }
-    for(const it of this.F02002Data)
-    {
-      this.formdata.append('applno',it.applno);
-      this.formdata.append('rowId',it.ROW_ID);
-      this.formdata.append('rescanReason',it.rescanReason);
-      this.formdata.append('remark',it.IMAGE_CONTENT);
+    for (const it of this.F02002Data) {
+      this.formdata.append('applno', it.APPLNO);
+      this.formdata.append('rowId', it.ROW_ID);
+      this.formdata.append('rescanReason', it.rescanReason);
+      this.formdata.append('remark', it.IMAGE_CONTENT);
 
     }
     console.log("11111111111")
     console.log(this.formdata2.getAll('rowId'))
     console.log(this.formdata2.getAll('file'))
-
+    console.log(jsonObject)
     // console.log(this.fileToUpload)
     // console.log(this.formdata)
     //  console.log(this.formdata.getAll('file'))
@@ -128,8 +133,7 @@ export class F02002returnComponent implements OnInit {
     console.log(this.F02002Data)
   }
 
-  test()
-  {
+  test() {
 
-      }
+  }
 }
