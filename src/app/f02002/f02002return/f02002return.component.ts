@@ -97,18 +97,28 @@ export class F02002returnComponent implements OnInit {
 
     let url = 'f02/f02002action4';
     let jsonObject: any = {};
+    const content = []
     let docTypeCode = this.uploadForm.value.DOC_TYPE_CODE;
     alert(this.fileToUpload)
     // const formdata: FormData = new FormData();
     if (this.fileToUpload != null) {
       for (const it of this.F02002Data)
       {
+        content.push(
+          {
+            rowId:it.ROW_ID,
+            rescanReason:it.rescanReason,
+            remark:it.IMAGE_CONTENT,
+          }
+        )
+
 
         // jsonObject['applno'] = it.applno;
         jsonObject['rowId'] = it.ROW_ID;
         jsonObject['rescanReason'] = it.rescanReason;
         jsonObject['remark'] = it.IMAGE_CONTENT;
       }
+      jsonObject['']
     }
     for (const it of this.F02002Data) {
       this.formdata.append('applno', it.APPLNO);
