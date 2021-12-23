@@ -100,8 +100,8 @@ export class F03012editComponent implements OnInit {
 		this.oldCompareTable = this.data.compareTable
 		this.compareColumn = this.data.compareColumn
 		this.oldCompareColumn = this.data.oldCompareColumn
-		this.compareType = this.data.compareType
-		console.log(this.compareType)
+		this.oldCompareType = this.data.compareType
+		console.log(this.oldCompareType)
 		if(this.compareType=="1"){
 			this.setValueLow = this.data.setValueLow
 		}else if(this.compareType=="2"){
