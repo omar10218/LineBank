@@ -60,10 +60,9 @@ export class F03012editComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getData()
+		this.test123(this.compareType)
 		this.low = this.toCurrency(this.data.setValueLow + '')
 		this.hingt = this.toCurrency(this.data.setValueHight + '')
-		this.test123(this.compareType)
-		
 		
 	}
 	getData() {
@@ -127,10 +126,14 @@ export class F03012editComponent implements OnInit {
 		let msgStr: string = ''
 		let baseUrl = 'f03/f03012action2'
 		msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn,this.oldSetValueLow,this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
-		console.log(this.data)
 		const childernDialogRef = this.dialog.open(ConfirmComponent, {
 			data: { msgStr: msgStr },
 		})
+		console.log(this.data)
+		console.log(this.oldSetValueLow)
+		console.log(this.oldSetValueHight)
+		console.log(this.low)
+		console.log(this.hingt)
 		if (msgStr === '儲存成功！') {
 			this.dialogRef.close({ event: 'success' })
 		}
