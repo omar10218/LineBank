@@ -61,8 +61,8 @@ export class F01008scn2Component implements OnInit {
    JCICSource$: Subscription;
 
   ngOnInit(): void {
-    // this.applno = sessionStorage.getItem('applno');
-    this.applno = "20211125A00002";
+    this.applno = sessionStorage.getItem('applno');
+    // this.applno = "20211125A00002";
     this.empNo = localStorage.getItem("empNo");
     this.set();//初始查詢
     this.tYPE.push({ value: '1', viewValue: '公司電話' })
