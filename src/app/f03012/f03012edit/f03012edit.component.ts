@@ -22,7 +22,7 @@ export class F03012editComponent implements OnInit {
 	selectedValue2: string
 	setValue: string
 	selectedColumn: OptionsCode[] = []
-
+	myDiv: boolean //最高門檻是否啟動判斷
 	compareTableCode: OptionsCode[] = []
 	compareColumnCode: OptionsCode[] = []
 	pageSize = 10
@@ -36,8 +36,8 @@ export class F03012editComponent implements OnInit {
 	compareType: string
 	setValueLow: string
 	setValueHight: string
-  low:string;
-  hingt:string;
+	low: string;
+	hingt: string;
 	options: option[] = [
 		{ option: '1', opDesc: '絕對值' },
 		{ option: '2', opDesc: '相對值' },
@@ -60,8 +60,11 @@ export class F03012editComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getData()
-    this.low=this.toCurrency(this.data.setValueLow+'')
-    this.hingt=this.toCurrency(this.data.setValueHight+'')
+		this.low = this.toCurrency(this.data.setValueLow + '')
+		this.hingt = this.toCurrency(this.data.setValueHight + '')
+		this.test123(this.compareType)
+		
+		
 	}
 	getData() {
 		// console.log(this.data.setValue)
@@ -97,28 +100,34 @@ export class F03012editComponent implements OnInit {
 		this.oldCompareTable = this.data.compareTable
 		this.compareColumn = this.data.compareColumn
 		this.oldCompareColumn = this.data.oldCompareColumn
-		// this.oldSetValue = this.data.setValue;
 		this.compareType = this.data.compareType
-		this.setValueLow = this.data.setValueLow
-		this.setValueHight = this.data.setValueHight
-		this.oldSetValueLow = this.data.oldSetValueLow
-		this.oldSetValueHight = this.data.oldSetValueHight
-
-	}
-		//儲存前處理千分位
-		Cut(s: string)  {
-			if (s != null) {
-        s.toString();
-				s = s.replace(/,/g, "")
-			}
-
-			return s
+		console.log(this.compareType)
+		if(this.compareType=="1"){
+			this.setValueLow = this.data.setValueLow
+		}else if(this.compareType=="2"){
+			this.setValueLow = this.data.setValueLow
+			this.setValueHight = this.data.setValueHight
 		}
+		this.oldSetValueLow = this.data.oldSetValueLow
+		console.log(this.oldSetValueLow)
+		this.oldSetValueHight = this.data.oldSetValueHight
+		console.log(this.oldSetValueHight)
+	}
+	//儲存前處理千分位
+	Cut(s: string) {
+		if (s != null) {
+			s.toString();
+			s = s.replace(/,/g, "")
+		}
+
+		return s
+	}
 
 	public async save(): Promise<void> {
 		let msgStr: string = ''
 		let baseUrl = 'f03/f03012action2'
-    msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.low, this.hingt, this.compareType, this.oldCompareType)
+		msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn,this.oldSetValueLow,this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
+		console.log(this.data)
 		const childernDialogRef = this.dialog.open(ConfirmComponent, {
 			data: { msgStr: msgStr },
 		})
@@ -149,23 +158,22 @@ export class F03012editComponent implements OnInit {
 		})
 	}
 
-// 取消
+	// 取消
 	onNoClick(): void {
 		this.dialogRef.close()
-			// window.location.reload();
+		window.location.reload();
 	}
 	isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
 
 	//去除符號/中英文
 	toNumber(data: string) {
-		if(data != null)
-		{
-		  data.toString();
-		  data.replace(/[^\w\s]|_/g, '')
+		if (data != null) {
+			data.toString();
+			data.replace(/[^\w\s]|_/g, '')
 		}
-			return  data
+		return data
 
-		}
+	}
 	// 只允許輸入數字
 	numberOnly(event: { which: any; keyCode: any; }): boolean {
 		console.log(event)
@@ -181,8 +189,17 @@ export class F03012editComponent implements OnInit {
 
 	//+逗號
 	toCurrency(amount: string) {
-    amount = amount.replace(/\D/g, '')
+		amount = amount.replace(/\D/g, '')
 		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
 	}
-
+	// 判斷比對方式來去鎖住最高門檻
+	test123(a) {
+		console.log
+		if (a == 1) {
+			return this.myDiv = true
+		}
+		else {
+			return this.myDiv = false
+		}
+	}
 }

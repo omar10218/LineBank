@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http'
 import {Injectable} from '@angular/core'
-import {Observable} from 'rxjs'
+import {Observable, Subject} from 'rxjs'
 import {BaseService} from '../base.service'
 
 @Injectable({
@@ -9,6 +9,14 @@ import {BaseService} from '../base.service'
 export class F03012Service extends BaseService {
 	constructor(protected httpClient: HttpClient) {
 		super(httpClient)
+	}
+	//rxjs中繼站
+	private addreset = new Subject<any>();
+	addreset$ = this.addreset.asObservable();
+
+    //rxjs監聽 add頁面更新
+	resetfn():void{
+		this.addreset.next()
 	}
 
 	getComePareDataSetList(baseUrl: string, jsonObject: JSON): Observable<any> {
@@ -31,21 +39,21 @@ export class F03012Service extends BaseService {
 
 			return s
 		}
-	update(baseUrl: string, data: any, oldCompareTable: string, oldCompareColumn: string, setValueLow: string, setValueHight: string, compareType: string, oldCompareType: string): any {
+	update(baseUrl: string, data: any, oldCompareTable: string, oldCompareColumn: string, setValueLow: string, setValueHight: string,oldSetValueLow:string,oldSetValueHight:string, compareType: string, oldCompareType: string): any {
 		const formdata: FormData = new FormData()
 		// formdata.append('setValue', data.setValue);
 		formdata.append('oldCompareTable', oldCompareTable)
 		formdata.append('oldCompareColumn', oldCompareColumn)
-		formdata.append('oldCompareType', data.oldCompareType)
-		formdata.append('oldSetValueHight', data.oldSetValueHight)
-		formdata.append('oldSetValueLow', data.oldSetValueLow)
+		formdata.append('oldCompareType', oldCompareType)
+		formdata.append('oldSetValueHight', oldSetValueHight)
+		formdata.append('oldSetValueLow', oldSetValueLow)
 
 
 		formdata.append('compareTable', data.compareTable)
 		formdata.append('compareColumn', data.compareColumn)
-    formdata.append('setValueLow',this.Cut( setValueLow))
-		formdata.append('setValueHight', this.Cut(setValueHight))
-		formdata.append('compareType', data.compareType)
+    formdata.append('setValueLow',setValueLow)
+		formdata.append('setValueHight', setValueHight)
+		formdata.append('compareType', compareType)
 		return this.saveOrEditMsgString(baseUrl, formdata)
 	}
 

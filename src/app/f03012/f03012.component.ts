@@ -11,6 +11,7 @@ import { F03012addComponent } from './f03012add/f03012add.component'
 import { F03012editComponent } from './f03012edit/f03012edit.component'
 import { NzTableQueryParams } from 'ng-zorro-antd/table'
 import { NzAlertModule } from 'ng-zorro-antd/alert'
+import { Subscription } from 'rxjs'
 
 interface checkBox {
 	id: number
@@ -41,12 +42,14 @@ export class F03012Component implements OnInit {
 	compareTableCode: OptionsCode[] = []
 	compareColumnCode: OptionsCode[] = []
 	compareType: OptionsCode[] = []
+	compareTypeValue:any []=[]
 	currentPage: PageEvent
 	currentSort: Sort
 	allComplete: boolean = false
 	one: any[] = [] //裝一開始的資料表
 	x: string
 	height: string
+	addreset$:Subscription //rxjs訂閱者 
 	low: string
 	index = []
 	aaa: string
@@ -56,7 +59,11 @@ export class F03012Component implements OnInit {
 	useFlag: boolean //用來控制元件是否顯示於頁面
 	isEdit: boolean = true
 
-	constructor(private f03012Service: F03012Service, public dialog: MatDialog, private alert: NzAlertModule) { }
+	constructor(private f03012Service: F03012Service, public dialog: MatDialog, private alert: NzAlertModule) {
+		this.addreset$ = this.f03012Service.addreset$.subscribe((data) => {
+			this.getComePareDataSetList(this.pageIndex, this.pageSize);
+		 });
+	 }
 
 	ngOnInit(): void {
 		this.getCompareTable()
@@ -72,6 +79,8 @@ export class F03012Component implements OnInit {
 			direction: '',
 		}
 	}
+
+	
 
 // 取得資料比對下拉項目
 	getCompareTable() {
@@ -114,7 +123,16 @@ export class F03012Component implements OnInit {
 		let jsonObject: any = {}
 		jsonObject['page'] = pageIndex
 		jsonObject['per_page'] = pageSize
+		 
 		this.f03012Service.getComePareDataSetList(baseUrl, jsonObject).subscribe(data => {
+			// 取得items裡面的單一值
+			// console.log(data)
+			// for(const j of data.rspBody.items)
+			// {
+			// 	this.compareTypeValue.push(j['codeDesc'])
+			// }
+			// console.log(this.compareTypeValue)
+			console.log( data.rspBody.items)
 			this.total = data.rspBody.size
 			this.compareDataSetSource.data = data.rspBody.items
 			this.compareTableOption = data.rspBody.compareTable
@@ -169,14 +187,14 @@ export class F03012Component implements OnInit {
 		formdata.append('compareTable', compareTable)
 		formdata.append('compareColumn', compareColumn)
 		formdata.append('compareType', compareType)
-		formdata.append('setValueHight', setValueHight)
-		formdata.append('setValueLow', setValueLow)
-		if (compareType == null || setValueHight == null || setValueLow == null) {
-			alert('有欄位為空值，刪除失敗')
-
-			return false
+		if (compareType == '1') {
+			formdata.append('setValueLow', setValueLow)
+		}else if(compareType == '2'){
+			formdata.append('setValueHight', setValueHight)
+			formdata.append('setValueLow', setValueLow)
 		}
-		this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
+		this.f03012Service.saveComePareDataSetList(url, formdata).subscribe (data => {
+			console.log(data)
 			msg = data.rspMsg
 		})
 
@@ -328,10 +346,15 @@ export class F03012Component implements OnInit {
 			jsonObject['compareTable'] = obj.compareTable
 			jsonObject['compareColumn'] = obj.compareColumn
 			jsonObject['compareType'] = obj.compareType
-			jsonObject['setValueHight'] = obj.setValueHight
-			jsonObject['setValueLow'] = obj.setValueLow
-			jsonObject['setValueHight'] =   obj.setValueHight != "" ? this.Cut( obj.setValueHight) : "0";
-			jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
+			// jsonObject['setValueHight'] = obj.setValueHight
+			// jsonObject['setValueLow'] = obj.setValueLow
+			if(obj.compareType=='1'){
+				jsonObject['setValueHight'] =   obj.setValueHight != "" ? this.Cut( obj.setValueHight) : "0";
+			}else if(obj.compareType=='2'){
+				jsonObject['setValueHight'] =   obj.setValueHight != "" ? this.Cut( obj.setValueHight) : "0";
+				jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
+			}
+		
 
 
 			if (obj.compareType == null || obj.setValueHight == null || obj.setValueLow == null || obj.compareType == '' || obj.setValueHight == '' || obj.setValueLow == '') {
@@ -345,7 +368,7 @@ export class F03012Component implements OnInit {
 		this.f03012Service.submit(url, jsonObjects).subscribe(data => {
 			alert((msg = data.rspMsg))
 			this.changePage()
-			//  window.location.reload();
+			 window.location.reload();
 		})
 	}
 	changePage() {
@@ -397,8 +420,5 @@ export class F03012Component implements OnInit {
 	toCurrency(amount: string) {
 		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
 	}
-  // te()
-  // {
-  //   console.log(	this.compareTableCode)
-  // }
+ 
 }
