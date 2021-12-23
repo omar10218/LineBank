@@ -39,6 +39,7 @@ import { F01011Component } from '../f01011/f01011.component';
 import { F04003Component } from '../f04003/f04003.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { F03003Component } from '../f03003/f03003.component';
+import { F03018Component } from '../f03018/f03018.component';
 
 
 const routes: Routes = [
@@ -266,6 +267,11 @@ const routes: Routes = [
       {
         path: 'F03017',
         component: F03017Component,
+        // canActivate: [AuthGuard], // 守衛路由
+      },
+      {
+        path: 'F03018',
+        component: F03018Component,
         // canActivate: [AuthGuard], // 守衛路由
       },
       {
