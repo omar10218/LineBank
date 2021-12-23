@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F02002Service } from '../f02002.service'
-
+import {F02008return2Component} from '../f02002return/f02008return2/f02008return2.component'
 interface sysCode {
   value: string;
   viewValue: string;
@@ -51,19 +51,24 @@ export class F02002returnComponent implements OnInit {
   docType:string;
   typeString:string ='';//補件類型
   type:sysCode[] = [];//補件類型陣列
-  s=0;
+  // s=0;
+  formdata: FormData = new FormData();
+  formdata2: FormData = new FormData();
   cancel()//離開
   {
     this.dialogRef.close();
   }
 
-  onChange(evt)
+  onChange(evt,ROWID:string)
   {
-    const target: DataTransfer = <DataTransfer>(evt.target);
 
+    const target: DataTransfer = <DataTransfer>(evt.target);
     this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/);
     if (this.isValidFile) {
       this.fileToUpload = target.files.item(0);
+      this.formdata2.append('rowId',ROWID);
+      this.formdata2.append('file',this.fileToUpload);
+      // alert(this.fileToUpload)
     } else {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法圖檔，請檢查檔案格式重新上傳" });
       alert(this.uploadForm.value.ERROR_MESSAGE);
@@ -75,20 +80,46 @@ export class F02002returnComponent implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.data.applno;
     this.f02002Service.postJson(url,jsonObject).subscribe(data=>{
+      console.log(data)
       this.F02002Data = data.rspBody;
     })
   }
-  public async store(): Promise<void>//儲存
+  public async store(result: string): Promise<void>//儲存
   {
+    const dialogRef = this.dialog.open(F02008return2Component, {
+      minHeight: '50%',
+      width: '30%',
+      panelClass:'mat-dialog-transparent',
+      data: {
+        value: result
+      }
+    });
+
+
     let url ='f02/f02002action4';
+    let jsonObject: any = {};
     let docTypeCode = this.uploadForm.value.DOC_TYPE_CODE;
-    const formdata: FormData = new FormData();
+    // const formdata: FormData = new FormData();
     if (docTypeCode != "" && docTypeCode != null)
     {
-      formdata.append('applno',this.data.applno);
+
     }
+    for(const it of this.F02002Data)
+    {
+      this.formdata.append('applno',it.applno);
+      this.formdata.append('rowId',it.ROW_ID);
+      this.formdata.append('rescanReason',it.rescanReason);
+      this.formdata.append('remark',it.IMAGE_CONTENT);
 
+    }
+    console.log("11111111111")
+    console.log(this.formdata2.getAll('rowId'))
+    console.log(this.formdata2.getAll('file'))
 
+    // console.log(this.fileToUpload)
+    // console.log(this.formdata)
+    //  console.log(this.formdata.getAll('file'))
+    // console.log(this.formdata.getAll('rowId'))
   }
   SendBack()//送回案件
   {
@@ -100,13 +131,5 @@ export class F02002returnComponent implements OnInit {
   test()
   {
 
-    if(this.s==0)
-    {
-      this.s=1;
-    }
-    else
-    {
-      this.s=0;
-    }
-  }
+      }
 }
