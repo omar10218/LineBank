@@ -32,7 +32,6 @@ export class F01006restartComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private f01006Service: F01006Service,
-    // private F01006Component: F01006Component,
     public dialogRef: MatDialogRef<F01006restartComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }

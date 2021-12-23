@@ -1,0 +1,92 @@
+<div class="line_bank_bankground_color">
+    <br>
+    <div class="line_bank_card_no_padding">
+        <div nz-row>
+            <div nz-col nzSpan="4">
+                <div style="padding:10px"><span class="form-title">公司統編:</span><input style="display: block;"
+                        [(ngModel)]="cuCpNo" name="cuCpNo"></div>
+            </div>
+            <div nz-col nzSpan="4">
+                <div style="padding:10px"><span class="form-title">公司名稱：</span><input style="display: block;"
+                        [(ngModel)]="cuCpName" name="cuCpName"></div>
+            </div>
+            <div nz-col nzSpan="4">
+                <div style="padding:10px"><span class="form-title">公司簡稱：</span><input style="display: block;"
+                        [(ngModel)]="cuCpSname" name="cuCpSname"></div>
+            </div>
+            <div nz-col nzSpan="4">
+                <div style="padding:10px"><span class="form-title">分類1:</span>
+                    <mat-select [(ngModel)]="cuCpType1Value" name="cuCpType1Value">
+                        <mat-option *ngFor="let code of cuCpType1Code" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <div nz-col nzSpan="4">
+                <div style="padding:10px"><span class="form-title">分類2:</span>
+                    <mat-select [(ngModel)]="cuCpType2Value" name="cuCpType2Value">
+                        <mat-option *ngFor="let code of cuCpType2Code" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+
+            <div nz-col nzSpan="4">
+                <div style="padding:10px"><span class="form-title">使用中</span>
+                    <mat-select [(ngModel)]="useFlagValue" name="useFlagValue">
+                        <mat-option *ngFor="let code of useFlagCode" [value]="code.value">
+                            {{code.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+        </div>
+        <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+                (click)="changeSelect()">查詢</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
+        </div>
+    </div>
+  <div class="line_bank_card_no_padding">
+
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true"
+     
+      nzSize="small" nzTitle="千大企業名單維護">
+      <thead>
+        <tr>
+          <th class="table-header">公司統編</th>
+          <th class="table-header">公司名稱</th>
+          <th class="table-header">公司簡稱</th>
+          <th class="table-header">分類1</th>
+          <th class="table-header">分類2</th>
+          <th class="table-header">分類3</th>
+          <th class="table-header">使用中</th>
+          <th class="table-header">備註</th>
+          <th class="table-header">更新日期時間</th>
+          <th class="table-header">編輯</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td class="table-data" style="text-align: center;">
+                <button nz-button [nzSize]="'small'" nzType="primary" (click)="edit
+                ()">編輯</button>
+              </td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>
+          <td class="table-data"></td>  
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

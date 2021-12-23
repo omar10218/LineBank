@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
-import { MatDialog,MatDialogRef } from '@angular/material/dialog'
+import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { OptionsCode } from 'src/app/interface/base'
 import { F03012Service } from '../f03012.service'
 import { NzAlertModule } from 'ng-zorro-antd/alert';
@@ -15,12 +15,13 @@ export class F03012addComponent implements OnInit {
   selectedValue1: string
   selectedValue2: string
   error: string
-
+  myDiv: boolean //最高門檻是否啟動判斷
   //下拉
   selectedColumn: OptionsCode[] = []
   setValueHight: string
   compareType: string
   setValueLow: string
+
   compareTableCode: OptionsCode[] = []
   compareColumnCode: OptionsCode[] = []
 
@@ -34,11 +35,11 @@ export class F03012addComponent implements OnInit {
   // })
 
   constructor(
-	public dialogRef: MatDialogRef<F03012addComponent>,
-	private fb: FormBuilder,
-	 private f03012Service: F03012Service, 
-	 public dialog: MatDialog, 
-	 private alert: NzAlertModule) { }
+    public dialogRef: MatDialogRef<F03012addComponent>,
+    private fb: FormBuilder,
+    private f03012Service: F03012Service,
+    public dialog: MatDialog,
+    private alert: NzAlertModule) { }
 
   ngOnInit(): void {
     this.getData()
@@ -101,7 +102,7 @@ export class F03012addComponent implements OnInit {
           this.selectedColumn.push({ value: codeNo, viewValue: desc })
         }
       })
-    		this.selectedColumn = []
+    this.selectedColumn = []
     // this.f03012Service.getSysTypeCode(this.selectedValue1).subscribe(data => {
     // 	console.log(data)
     // 	for (const jsonObj of data.rspBody.mappingList) {
@@ -133,25 +134,31 @@ export class F03012addComponent implements OnInit {
     jsonObject['compareTable'] = this.selectedValue1
     jsonObject['compareColumn'] = this.selectedValue2
     jsonObject['compareType'] = this.compareType
-    jsonObject['setValueLow'] = this.setValueLow != "" ? this.Cut(this.setValueLow) : "0";
-    jsonObject['setValueHight'] = this.setValueHight != "" ? this.Cut(this.setValueHight) : "0";
+    if (this.compareType == '1') {
+      jsonObject['setValueLow'] = this.setValueLow != "" ? this.Cut(this.setValueLow) : "0";
+    }
+    else {
+      jsonObject['setValueLow'] = this.setValueLow != "" ? this.Cut(this.setValueLow) : "0";
+      jsonObject['setValueHight'] = this.setValueHight != "" ? this.Cut(this.setValueHight) : "0";
+    }
 
+    console.log(this.compareType)
     this.error = 'test'
     this.f03012Service.submit(url, jsonObject).subscribe(data => {
-		// alert((msg = data.rspMsg))
-		const childernDialogRef = this.dialog.open(ConfirmComponent, {
-		  data: { msgStr: data.rspMsg }
-		});
-		// this.getData()
-		this.error = data.rspMsg
-		if (data.rspMsg == '成功新增')
-		{ this.dialogRef.close({ event: 'success' }); }
-		// if (data.rspMsg == '成功新增') {
-  
-		//   this.dialog.closeAll();
-		// }
-  
-	  })
+      // alert((msg = data.rspMsg))
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: data.rspMsg }
+      });
+      // this.getData()
+      this.error = data.rspMsg
+      if (data.rspMsg == '成功新增') { this.dialogRef.close({ event: 'success' }); }
+      this.f03012Service.resetfn(); // 儲存成功後通知f03012頁面啟動呼叫table function
+      // if (data.rspMsg == '成功新增') {
+
+      //   this.dialog.closeAll();
+      // }
+
+    })
     // const formdata: FormData = new FormData();
     // formdata.append('elCompareDataSet[0].compareTable', this.compareTableSetForm.value.compareTable);
     // formdata.append('elCompareDataSet[0].compareColumn', this.compareTableSetForm.value.compareColumn);
@@ -202,6 +209,17 @@ export class F03012addComponent implements OnInit {
   toCurrency(amount: string) {
     return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
   }
-
-  ngAfterViewInit(): void { }
+// 判斷比對方式來去鎖住最高門檻
+  test123(a) {
+    console.log
+    if (a == 1) {
+      return this.myDiv = true
+    }
+    else {
+      return this.myDiv = false
+    }
+  }
+  ngAfterViewInit(): void {
+    console.log(this.compareType)
+  }
 }

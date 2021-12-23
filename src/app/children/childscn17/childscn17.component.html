@@ -15,7 +15,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let data of restartDataSource;let i = index" >
-            <td class="table-data">{{ i+1 }}</td>
+            <td class="table-data"[nzAlign]="'center'">{{ i+1 }}</td>
             <td class="table-data">{{ data.REASON_DESC }}</td>
             <td class="table-data">{{ data.RESTART_CONTENT }}</td>
             <td class="table-data">{{ data.RESTART_EMPNO }}</td>

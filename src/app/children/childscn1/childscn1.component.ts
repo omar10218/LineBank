@@ -489,7 +489,14 @@ export class Childscn1Component implements OnInit {
       this.interestValue = '1';
       let jsonObject: any = {};
       const baseUrl = 'f01/childscn1action3';
-      this.interestBase = await this.childscn1Service.getInterestBase(baseUrl, jsonObject);
+      if ('查無基放利率!' == await this.childscn1Service.getInterestBase(baseUrl, jsonObject)) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '查無基放利率!' }
+        });
+        this.interestType = '';
+      } else {
+        this.interestBase = await this.childscn1Service.getInterestBase(baseUrl, jsonObject);
+      }
       // this.interestBase = 2;
       this.approveInterest = Number(this.interestBase) + Number(this.interest);
     } else {
