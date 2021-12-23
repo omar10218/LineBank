@@ -200,7 +200,35 @@ export class F01002scn1Component implements OnInit {
     window.close();
   }
 
+  //Nick 徵審代碼/AML邏輯
   save(url: string, result: string) {
+
+    //AML檢核
+    var msgSave: boolean = true;
+    if (sessionStorage.getItem('PURPOSEOTHER_MESSAGE2') == "Z" && sessionStorage.getItem('otherMessage2') == "") { msgSave = false };
+    if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "Z" && sessionStorage.getItem('otherMessage3') == "") { msgSave = false };
+    if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "Z" && sessionStorage.getItem('otherMessage4') == "") { msgSave = false };
+    if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "Z" && sessionStorage.getItem('otherMessage5') == "") { msgSave = false };
+    if (!msgSave) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "提供AML資訊點選其他時，輸入框為必填!" }
+      });
+      return;
+    }
+    //AML檢核
+    var save: boolean = true;
+    if (sessionStorage.getItem('MAIN_INCOME') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('PURPOSEOTHER_MESSAGE2') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (!save) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "徵信完成時AML資訊為必填!" }
+      });
+      return;
+    }
+
     const dialogRef = this.dialog.open(Childscn26Component, {
       minHeight: '50%',
       width: '30%',
@@ -352,4 +380,38 @@ export class F01002scn1Component implements OnInit {
     this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK' }); //人員記錄-風險等級
     this.history.push({ value: this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION' }); //審核意見
   }
+
+  //儲存 SUPPLY_AML 
+  saveSUPPLY_AML() {
+    var save: boolean = true;
+    if (sessionStorage.getItem('PURPOSEOTHER_MESSAGE2') == "Z" && sessionStorage.getItem('otherMessage2') == "") { save = false };
+    if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "Z" && sessionStorage.getItem('otherMessage3') == "") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "Z" && sessionStorage.getItem('otherMessage4') == "") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "Z" && sessionStorage.getItem('otherMessage5') == "") { save = false };
+    if (save) {
+      const url = 'f01/childscn1action7';
+      let jsonObject: any = {};
+      jsonObject['applno'] = this.applno;
+      jsonObject['mainIncome'] = sessionStorage.getItem('MAIN_INCOME');
+      jsonObject['purpose'] = sessionStorage.getItem('PURPOSEOTHER_MESSAGE2');
+      jsonObject['otherMessage2'] = sessionStorage.getItem('otherMessage2');
+      jsonObject['nonTrade'] = sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3');
+      jsonObject['otherMessage3'] = sessionStorage.getItem('otherMessage3');
+      jsonObject['tradeNonCc'] = sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4');
+      jsonObject['otherMessage4'] = sessionStorage.getItem('otherMessage4');
+      jsonObject['tradeNonPurpose'] = sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5');
+      jsonObject['otherMessage5'] = sessionStorage.getItem('otherMessage5');
+      console.log('jsonObject')
+      console.log(jsonObject)
+      this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
+        console.log('data');
+        console.log(data);
+      });
+    } else {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "提供AML資訊點選其他時，輸入框為必填!" }
+      });
+    }
+  }
+
 }
