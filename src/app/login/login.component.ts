@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("empNo", this.no);
       this.authService.login();//登入紀錄
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
-      this.loginService.setBnIdle();
+      this.loginService.setBnIdle();//登入閒置登出
 
 
       // if (!this.bnIdle['idle$']) {
