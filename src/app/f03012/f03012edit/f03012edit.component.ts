@@ -60,9 +60,14 @@ export class F03012editComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getData()
-		this.test123(this.compareType)
-		this.low = this.toCurrency(this.data.setValueLow + '')
-		this.hingt = this.toCurrency(this.data.setValueHight + '')
+		this.test123(this.oldCompareType)
+		if(this.oldCompareType=="1"){
+			this.low = this.toCurrency(this.data.setValueLow + '')
+		}else{
+
+			this.low = this.toCurrency(this.data.setValueLow + '')
+			this.hingt = this.toCurrency(this.data.setValueHight + '')
+		}
 		
 	}
 	getData() {
@@ -101,9 +106,9 @@ export class F03012editComponent implements OnInit {
 		this.oldCompareColumn = this.data.oldCompareColumn
 		this.oldCompareType = this.data.compareType
 		console.log(this.oldCompareType)
-		if(this.compareType=="1"){
+		if(this.oldCompareType=="1"){
 			this.setValueLow = this.data.setValueLow
-		}else if(this.compareType=="2"){
+		}else if(this.oldCompareType=="2"){
 			this.setValueLow = this.data.setValueLow
 			this.setValueHight = this.data.setValueHight
 		}
