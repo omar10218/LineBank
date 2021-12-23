@@ -1,7 +1,7 @@
 import { BaseService } from 'src/app/base.service';
 import { map } from 'rxjs/operators';
 import { OptionsCode } from './../../interface/base';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Childscn1Service } from './childscn1.service';
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
@@ -12,20 +12,48 @@ import { DatePipe } from '@angular/common';
 import { Childscn1editComponent } from './childscn1edit/childscn1edit.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
+import { Subscription } from 'rxjs';
 
+//原因碼框架
+interface CREDIT_View {
+  key:string;
+  upCreditCode: string//上層原因碼
+  upCreditCodeList: OptionsCode[];//上層原因碼下拉選單
+  reasonCode: string;//原因碼
+  creditCodeList: OptionsCode[];//原因碼下拉選單
+  resonContent: string;//徵審註記
+}
+
+interface reCREDIT_View {
+  reasonCode: string;//原因碼
+  resonContent: string;//徵審註記
+}
+
+//Nick 	徵審代碼/dss1/dss2
 @Component({
   selector: 'app-childscn1',
   templateUrl: './childscn1.component.html',
   styleUrls: ['./childscn1.component.css', '../../../assets/css/child.css']
 })
-export class Childscn1Component implements OnInit {
+export class Childscn1Component implements OnInit,OnDestroy {
 
   constructor(
     private fb: FormBuilder,
     private childscn1Service: Childscn1Service,
     public dialog: MatDialog,
-    private pipe: DatePipe
-  ) { }
+    private pipe: DatePipe,
+    private f01002scn1Service: F01002Scn1Service
+  ) {//訂閱 案件完成/暫存時 新增資料
+    this.CREDITSource$ = this.f01002scn1Service.CREDITSource$.subscribe((data) => {
+      if (data.key) {
+        // alert('1');
+        this.saveCREDIT_Data();
+      }
+    });
+  }
+
+  CREDITSource$: Subscription;
 
   mark: string;
   search: string;
@@ -121,6 +149,7 @@ export class Childscn1Component implements OnInit {
   pageIndex = 1;
   pageSize = 50;
 
+  //徵審代碼Table
   EL_DSS1_UNDW_LIST = new MatTableDataSource<any>();//dss1徵審代碼
   EL_DSS1_UNDW_LIST1 = new MatTableDataSource<any>();//dss1徵審代碼-信用異常資訊
   EL_DSS1_UNDW_LIST2 = new MatTableDataSource<any>();//dss1徵審代碼-整體往來
@@ -136,6 +165,12 @@ export class Childscn1Component implements OnInit {
   EL_DSS2_CFC_LIMIT1 = new MatTableDataSource<any>();//試算額度策略
   EL_DSS2_STRGY_SRATE1 = new MatTableDataSource<any>();//試算利率(多階)
   EL_DSS2_STRGY_MERG1 = new MatTableDataSource<any>();//試算授信策略_債整明細
+
+  //徵審代碼
+  CREDIT_View_List: CREDIT_View[] = [];
+  reCREDIT_View_List: reCREDIT_View[] = [];
+  CREDITrowId: string;
+
 
   dss1Form1: FormGroup = this.fb.group({
     //系統決策
@@ -227,11 +262,22 @@ export class Childscn1Component implements OnInit {
 
   });
 
+  //頁面離開時觸發
+  ngOnDestroy() {
+    // this.CREDITSource$=null;
+  }
 
   ngOnInit(): void {
+
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
     this.userId = localStorage.getItem("empNo");
+
+    //先建立徵審代碼框架
+    for (let i = 0; i < 10; i++) {
+      var Add_CREDIT_View: CREDIT_View = { key:(i+1).toString(),upCreditCode: null, reasonCode: null, resonContent: null, upCreditCodeList: [], creditCodeList: [] };
+      this.CREDIT_View_List.push(Add_CREDIT_View);
+    }
 
     this.setBlank();
 
@@ -397,6 +443,8 @@ export class Childscn1Component implements OnInit {
     this.getCreditmemo(this.pageIndex, this.pageSize);
     this.getDSS11();
     this.getDSS21();
+    this.getADR_CODE();
+    this.getCREDIT_Data();
   }
 
   map: any;
@@ -647,19 +695,18 @@ export class Childscn1Component implements OnInit {
 
       }
       this.EL_DSS1_UNDW_LIST.data = data.rspBody.DSS1UNDWLIST;//徵審代碼
-      if(data.rspBody.DSS1UNDWLIST.length>0){
-        this.EL_DSS1_UNDW_LIST1.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='1');//1	信用異常資訊
-        this.EL_DSS1_UNDW_LIST2.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='2');//2	整體往來
-        this.EL_DSS1_UNDW_LIST3.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='3');//3	信用卡往來
-        this.EL_DSS1_UNDW_LIST4.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='4');//4	授信往來
-        this.EL_DSS1_UNDW_LIST5.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='9');//9	其他
+      if (data.rspBody.DSS1UNDWLIST.length > 0) {
+        this.EL_DSS1_UNDW_LIST1.data = this.EL_DSS1_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '1');//1	信用異常資訊
+        this.EL_DSS1_UNDW_LIST2.data = this.EL_DSS1_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '2');//2	整體往來
+        this.EL_DSS1_UNDW_LIST3.data = this.EL_DSS1_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '3');//3	信用卡往來
+        this.EL_DSS1_UNDW_LIST4.data = this.EL_DSS1_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '4');//4	授信往來
+        this.EL_DSS1_UNDW_LIST5.data = this.EL_DSS1_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '9');//9	其他
       }
     });
   }
 
   //取決策1Table
   getDSS21() {
-    this.applno = sessionStorage.getItem('applno');
     const url = 'f01/childscn10action3';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
@@ -735,12 +782,12 @@ export class Childscn1Component implements OnInit {
 
       }
       this.EL_DSS2_UNDW_LIST.data = data.rspBody.DSS2UNDWLIST;//徵審代碼
-      if(data.rspBody.DSS2UNDWLIST.length>0){
-        this.EL_DSS2_UNDW_LIST1.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='1');//1	信用異常資訊
-        this.EL_DSS2_UNDW_LIST2.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='2');//2	整體往來
-        this.EL_DSS2_UNDW_LIST3.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='3');//3	信用卡往來
-        this.EL_DSS2_UNDW_LIST4.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='4');//4	授信往來
-        this.EL_DSS2_UNDW_LIST5.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='9');//9	其他
+      if (data.rspBody.DSS2UNDWLIST.length > 0) {
+        this.EL_DSS2_UNDW_LIST1.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '1');//1	信用異常資訊
+        this.EL_DSS2_UNDW_LIST2.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '2');//2	整體往來
+        this.EL_DSS2_UNDW_LIST3.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '3');//3	信用卡往來
+        this.EL_DSS2_UNDW_LIST4.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '4');//4	授信往來
+        this.EL_DSS2_UNDW_LIST5.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '9');//9	其他
       }
       this.EL_DSS2_CFC_LIMIT1.data = data.rspBody.DSS2CFCLIMIT;//試算額度策略
       this.EL_DSS2_STRGY_SRATE1.data = data.rspBody.DSS2STRGYSRATE;//試算利率(多階)
@@ -749,23 +796,23 @@ export class Childscn1Component implements OnInit {
   }
 
   setBlank() {
-    sessionStorage.setItem("resultApproveAmt" , "");
-    sessionStorage.setItem("resultLowestPayRate" , "");
-    sessionStorage.setItem("period" , "");
-    sessionStorage.setItem("periodType" , "");
-    sessionStorage.setItem("interestType" , "");
-    sessionStorage.setItem("approveInterest" , "");
-    sessionStorage.setItem("interest" , "");
-    sessionStorage.setItem("interestBase" , "");
-    sessionStorage.setItem("creditResult" , "");
-    sessionStorage.setItem("caApplicationAmount" , "");
-    sessionStorage.setItem("caPmcus" , "");
-    sessionStorage.setItem("caRisk" , "");
-    sessionStorage.setItem("mark" , "");
+    sessionStorage.setItem("resultApproveAmt", "");
+    sessionStorage.setItem("resultLowestPayRate", "");
+    sessionStorage.setItem("period", "");
+    sessionStorage.setItem("periodType", "");
+    sessionStorage.setItem("interestType", "");
+    sessionStorage.setItem("approveInterest", "");
+    sessionStorage.setItem("interest", "");
+    sessionStorage.setItem("interestBase", "");
+    sessionStorage.setItem("creditResult", "");
+    sessionStorage.setItem("caApplicationAmount", "");
+    sessionStorage.setItem("caPmcus", "");
+    sessionStorage.setItem("caRisk", "");
+    sessionStorage.setItem("mark", "");
   }
 
-   //新增審核註記歷史資料
-   insertHistory(value: string): any {
+  //新增審核註記歷史資料
+  insertHistory(value: string): any {
     const baseUrl = 'f01/childscn2action2';
     const content = []
     let msg = '';
@@ -784,4 +831,94 @@ export class Childscn1Component implements OnInit {
 
     });
   }
+
+  //取得徵審代碼  上層原因碼
+  getADR_CODE() {
+    const url = 'f01/childscn1action4';
+    let jsonObject: any = {};
+    this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
+      if (data.rspCode == "0000") {
+        console.log(this.CREDIT_View_List)
+        console.log(data.rspBody)
+        for (const row of this.CREDIT_View_List) {
+          for (const jsonObj of data.rspBody) {
+            const codeNo = jsonObj.reasonCode;
+            const desc = jsonObj.reasonDesc;
+            row.upCreditCodeList.push({ value: codeNo, viewValue: desc })
+          }
+        }
+      }
+    });
+  }
+
+  //取得徵審代碼   UP_CREDIT_CODE=上層原因碼
+  getCREDIT(row: CREDIT_View) {
+    const url = 'f01/childscn1action4';
+    let jsonObject: any = {};
+    jsonObject['reasonCode'] = row.upCreditCode;
+    this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
+      if (data.rspCode == "0000") {
+        row.creditCodeList = [];
+        for (const jsonObj of data.rspBody) {
+          const codeNo = jsonObj.reasonCode;
+          const desc = jsonObj.reasonDesc;
+          row.creditCodeList.push({ value: codeNo, viewValue: desc })
+        }
+      }
+    });
+  }
+
+  //取已儲存 CREDIT_CODE 資料 
+  getCREDIT_Data() {
+    const url = 'f01/childscn1action6';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
+      if (data.rspCode == "0000") {
+        for (const row of this.CREDIT_View_List) {
+          for (const dataRow of data.rspBody) {
+            if(row.key==dataRow.item){
+              row.upCreditCode= dataRow.upReasonCode!=null?dataRow.upReasonCode:row.upCreditCode;
+              if(row.upCreditCode!=null){this.getCREDIT(row)};
+              row.reasonCode= dataRow.creditCodes!=null?dataRow.creditCodes:row.reasonCode;
+              row.resonContent= dataRow.creditMemo!=null?dataRow.creditMemo:row.resonContent;
+              this.CREDITrowId= dataRow.rowId!=null?dataRow.rowId:this.CREDITrowId;  
+            }
+          }
+        }
+      }
+    });
+  }
+
+  //儲存 CREDIT_CODE 資料  由案件完成及暫存使用
+  saveCREDIT_Data() {
+    const url = 'f01/childscn1action5';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['rowId'] = this.CREDITrowId;
+    this.reCREDIT_View_List=[];
+    for (const row of this.CREDIT_View_List) {
+      this.reCREDIT_View_List.push({ reasonCode:row.reasonCode==""?null:row.reasonCode, resonContent: row.resonContent })
+    }
+    jsonObject['result'] = this.reCREDIT_View_List;
+    console.log(jsonObject)
+    this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
+    });
+  }
+
+  //ReasonCode不可重複
+  checkReasonCode(dataRow:CREDIT_View){
+    for (const row of this.CREDIT_View_List) {
+      if(row.key!=dataRow.key && row.reasonCode==dataRow.reasonCode){
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "徵審代碼不可重複!" }
+        });
+        dataRow.reasonCode="";
+        return;
+      }
+    }
+  }
+
+
+
 }

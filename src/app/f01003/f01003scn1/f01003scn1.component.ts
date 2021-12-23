@@ -8,6 +8,7 @@ import { F01003Scn1Service } from './f01003scn1.service';
 import { Childscn24Component } from 'src/app/children/childscn24/childscn24.component';
 import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 import { history } from './../../interface/base';
+import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
 
 @Component({
   selector: 'app-f01003scn1',
@@ -21,6 +22,7 @@ export class F01003scn1Component implements OnInit {
     private router: Router,
     private f01003Scn1Service: F01003Scn1Service,
     private childscn1Service: Childscn1Service,
+    private f01002Scn1Service: F01002Scn1Service
   ) { }
 
   private creditLevel: string = 'APPLCreditL2';
@@ -101,6 +103,7 @@ export class F01003scn1Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result.value == 'confirm') {
+        this.f01002Scn1Service.setCREDITSource({ key: true });
         const baseUrl = url;
         let jsonObject: any = {};
         jsonObject['applno'] = this.applno;

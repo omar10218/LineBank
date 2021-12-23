@@ -112,7 +112,7 @@ export class F01002scn1Component implements OnInit {
       data: {
         applno: this.applno,
         cuid: this.cuid,
-        checkpoint:"L3"
+        checkpoint: "L3"
       }
     });
   }
@@ -125,7 +125,7 @@ export class F01002scn1Component implements OnInit {
       data: {
         applno: this.applno,
         cuid: this.cuid,
-        checkpoint:"L3"
+        checkpoint: "L3"
       }
     });
   }
@@ -138,7 +138,7 @@ export class F01002scn1Component implements OnInit {
       data: {
         applno: this.applno,
         cuid: this.cuid,
-        checkpoint:"L3"
+        checkpoint: "L3"
       }
     });
   }
@@ -210,6 +210,7 @@ export class F01002scn1Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result.value == 'confirm') {
+        this.f01002scn1Service.setCREDITSource({ key: true });
         const baseUrl = url;
         let jsonObject: any = {};
         jsonObject['applno'] = this.applno;
@@ -337,18 +338,18 @@ export class F01002scn1Component implements OnInit {
 
   //設定歷史資料紀錄參數 20211222
   setHistory() {
-    this.history.push({value: this.approveAmt, tableName: 'EL_CREDITMAIN', valueInfo: 'APPROVE_AMT'}); //核准額度
-    this.history.push({value: this.lowestPayRate, tableName: 'EL_CREDITMAIN', valueInfo: 'LOWEST_PAY_RATE'}); //最低還款比例(循環型)
-    this.history.push({value:  this.period, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD'}); //分段起始期數
-    this.history.push({value:  this.periodType, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD_TYPE'}); //期別
-    this.history.push({value:  this.interestType, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_TYPE'}); //利率型態
-    this.history.push({value:  this.approveInterest, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'APPROVE_INTEREST'}); //核准利率
-    this.history.push({value:  this.interest, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST'}); //固定利率
-    this.history.push({value:  this.interestBase, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_BASE'}); //當時的指數,基放,郵儲利率
-    this.history.push({value:  this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT'}); //核決結果
-    this.history.push({value:  this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT'}); //徵信修改申貸金額
-    this.history.push({value:  this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS'}); //人員記錄-PM策略客群
-    this.history.push({value:  this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK'}); //人員記錄-風險等級
-    this.history.push({value:  this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION'}); //審核意見
+    this.history.push({ value: this.approveAmt, tableName: 'EL_CREDITMAIN', valueInfo: 'APPROVE_AMT' }); //核准額度
+    this.history.push({ value: this.lowestPayRate, tableName: 'EL_CREDITMAIN', valueInfo: 'LOWEST_PAY_RATE' }); //最低還款比例(循環型)
+    this.history.push({ value: this.period, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD' }); //分段起始期數
+    this.history.push({ value: this.periodType, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD_TYPE' }); //期別
+    this.history.push({ value: this.interestType, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_TYPE' }); //利率型態
+    this.history.push({ value: this.approveInterest, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'APPROVE_INTEREST' }); //核准利率
+    this.history.push({ value: this.interest, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST' }); //固定利率
+    this.history.push({ value: this.interestBase, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_BASE' }); //當時的指數,基放,郵儲利率
+    this.history.push({ value: this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT' }); //核決結果
+    this.history.push({ value: this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT' }); //徵信修改申貸金額
+    this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS' }); //人員記錄-PM策略客群
+    this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK' }); //人員記錄-風險等級
+    this.history.push({ value: this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION' }); //審核意見
   }
 }
