@@ -98,6 +98,9 @@ import { F02006Component } from './f02006/f02006.component';
 import { F02007Component } from './f02007/f02007.component';
 import { RouterModule } from '@angular/router';
 import { F02002returnComponent } from './f02002/f02002return/f02002return.component';
+import { F03018Component } from './f03018/f03018.component';
+import { F03018uploadComponent } from './f03018/f03018upload/f03018upload.component';
+import { F03018editComponent } from './f03018/f03018edit/f03018edit.component';
 
 
 
@@ -193,6 +196,9 @@ export const TW_FORMATS = {
     F02006Component,
     F02007Component,
     F02002returnComponent,
+    F03018Component,
+    F03018uploadComponent,
+    F03018editComponent,
   ],
   imports: [
     NzIconModule,

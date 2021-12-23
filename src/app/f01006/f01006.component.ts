@@ -34,10 +34,10 @@ export class F01006Component implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private f01006Service: F01006Service,
     public childService: ChildrenService,
-    
+
   ) {
     this.restart$ = this.f01006Service.restart$.subscribe((data) => {
-       this.getCaseList();
+      this.getCaseList();
     });
   }
   // 計算剩餘table資料長度
@@ -117,12 +117,27 @@ export class F01006Component implements OnInit, AfterViewInit {
     jsonObject['nationalID'] = this.nationalID;
     jsonObject['custID'] = this.custID;
     this.f01006Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
-      this.total = data.rspBody.size;
-      this.cusinfoDataSource = data.rspBody.items;
+      if (data.rspBody.size > 0) {
+        this.total = data.rspBody.size;
+        this.cusinfoDataSource = data.rspBody.items;
+      }
+      else {
+        this.cusinfoDataSource = null;
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查無資料" }
+        })
+      }
     });
-
   }
+
+
+
+
+
+
+
+
+
 
   // 排序
   sortChange(e: string) {

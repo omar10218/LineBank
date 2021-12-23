@@ -36,8 +36,7 @@ export class Childscn22Component implements OnInit {
 
   public async confirm(): Promise<void> {
     let jsonObject: any = {};
-    // jsonObject['applno'] = this.applno;
-    // jsonObject['swcNationalId'] = this.cuid;
+    jsonObject['applno'] = this.applno;
     jsonObject['empno'] = this.empNo;
     let msgStr: string = '';
     this.block = true;
@@ -45,15 +44,20 @@ export class Childscn22Component implements OnInit {
       msgStr = await this.childsnc22Service.doDss1Search(jsonObject);
       this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      setTimeout(() => {
+        this.dialog.closeAll();
+      }, 2000);
     } else if (this.stepName == 'APPLCreditL2') {
       msgStr = await this.childsnc22Service.doDss2Search(jsonObject);
       this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-    } else {
-      msgStr = await this.childsnc22Service.doDss4Search(jsonObject);
-      this.block = false;
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      setTimeout(() => {
+        this.dialog.closeAll();
+      }, 2000);
+      // } else {
+      //   msgStr = await this.childsnc22Service.doDss4Search(jsonObject);
+      //   this.block = false;
+      //   const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      }
     }
-
   }
-}
