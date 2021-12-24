@@ -78,4 +78,7 @@ export class Childscn21Component implements OnInit {
     }
     return codeVal;
   }
+  test123(){
+    alert("123s")
+  }
 }
