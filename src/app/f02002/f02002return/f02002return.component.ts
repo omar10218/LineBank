@@ -118,7 +118,7 @@ export class F02002returnComponent implements OnInit {
         jsonObject['rescanReason'] = it.rescanReason;
         jsonObject['remark'] = it.IMAGE_CONTENT;
       }
-      jsonObject['']
+      jsonObject[''] =content;
     }
     for (const it of this.F02002Data) {
       this.formdata.append('applno', it.APPLNO);
