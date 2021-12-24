@@ -251,7 +251,7 @@
           <div style="padding:3px">
             <span class="form-title">公司是否為白名單</span>
             <mat-select [(ngModel)]="companyWhitelistValue" name="companyWhitelist" formControlName="COMPANY_WHITELIST" id="companyWhitelist"
-              style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6">
+              style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:rgba(255,255,255);color:white">
               <mat-option *ngFor="let code of companyWhitelistCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
@@ -259,8 +259,8 @@
           </div>
         </div>
       </div>
-      <div class="line_bank_form_header_title_middle" style="margin-bottom:0px">客戶資料</div>
-        <nz-table nzSize="small" [nzData]="setmaterial">
+      <div class="line_bank_form_header_title_middle" style="margin-bottom:0px">公司是否為白名單(系統比對)</div>
+        <nz-table nzSize="small" [nzData]="setmaterial" nzTemplateMode>
           <thead>
             <th class="table-header" style="width:10%">公司統編</th>
             <th class="table-header" style="width:10%">公司名稱</th>
