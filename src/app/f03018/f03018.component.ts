@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { OptionsCode } from '../interface/base';
 import { F03018editComponent } from './f03018edit/f03018edit.component';
@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog'
 import { F03018Service } from './f03018.service'
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F03018addComponent } from './f03018add/f03018add.component';
+import { F03018uploadComponent } from './f03018upload/f03018upload.component';
+import { MatPaginator } from '@angular/material/paginator';
 
 interface sysCode {
 	value: string
@@ -34,6 +36,7 @@ export class F03018Component implements OnInit {
   cuCpType3Code: sysCode[] = [] //分類3
   useFlagCode: sysCode[] = [] //使用中
 
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator
   constructor(
     private f03018Service: F03018Service,
     public dialog: MatDialog,
@@ -81,10 +84,28 @@ getTypeselect(){
 
 
 
-//查詢
-changeSelect(){
+	//上傳EXCEL
+	uploadExcel() {
+		const dialogRef = this.dialog.open(F03018uploadComponent, {
+      panelClass: 'mat-dialog-transparent',
+    
+			data: {
+				ABNORMAL_NID: '',
+				ABNORMAL_NAME: '',
+				ON_CHECK: 'Y',
+				TRANSFER_EMPNO: '',
+			},
+		})
+		dialogRef.afterClosed().subscribe(result => {
+			if (result != null && result.event == 'success') {
+				this.refreshTable()
+			}
+		})
+	}
+	private refreshTable() {
+		this.paginator._changePageSize(this.paginator.pageSize)
+	}
 
-}
 
 //取得資料表
 getElBigCompanyList() {
