@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild , OnDestroy} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -56,7 +56,7 @@ interface checkboxCode {
   templateUrl: './childscn8.component.html',
   styleUrls: ['./childscn8.component.css', '../../../assets/css/f03.css']
 })
-export class Childscn8Component implements OnInit {
+export class Childscn8Component implements OnInit , OnDestroy{
 
   constructor(
     public dialog: MatDialog,
@@ -139,6 +139,11 @@ export class Childscn8Component implements OnInit {
   showAdd: boolean = false;
   showEdit: boolean = false;
   showItems: boolean = false;
+
+    //頁面離開時觸發
+    ngOnDestroy() {
+      this.JCICAddSource$.unsubscribe();
+    }
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
