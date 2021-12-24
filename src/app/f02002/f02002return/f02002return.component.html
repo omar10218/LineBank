@@ -22,7 +22,7 @@
         <td class="table-data">{{data.RESCAN_CONTENT}}</td>
         <td class="table-data">
           <div style="padding:10px">
-            <mat-select [(ngModel)]="data.rescanReason" name="data.rescanReason" [disabled]="data.IMAGE_NAME!=null? true:false">
+            <mat-select [(ngModel)]="data.rescanReason" name="data.rescanReason" [disabled]="data.IMAGE_NAME!=null? true:false ">
               <mat-option *ngFor="let code of type" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>

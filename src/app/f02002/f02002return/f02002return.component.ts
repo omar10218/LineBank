@@ -72,6 +72,7 @@ export class F02002returnComponent implements OnInit {
       this.formdata2.append('files', this.fileToUpload);
       this.formdata2.append('rescanReason',rescanReason)
       this.formdata2.append('userId', localStorage.getItem("empNo"))
+      // this.formdata2.append('applno', localStorage.getItem("empNo"))
 
       this.formdata.append('applno', this.data.applno);
       this.formdata.append('rowId', ROWID);
@@ -117,11 +118,13 @@ export class F02002returnComponent implements OnInit {
           remark: it.IMAGE_CONTENT,
         }
       )
-
+      // this.formdata2.append('rescanReason',it.rescanReason)
     }
+
     jsonObject['F02002req'] = content;
     if (this.fileToUpload != null)
     {
+
       this.f02002Service.test(ur, this.formdata2).subscribe(data => {
 
 
