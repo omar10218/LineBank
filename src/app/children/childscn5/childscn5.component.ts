@@ -91,6 +91,7 @@ export class Childscn5Component implements OnInit {
       });
     //取公司白名單下拉
     this.childscn5Service.getSysTypeCode('COMPANY_WHITELIST').subscribe(data => {
+      
       this.companyWhitelistCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
