@@ -64,7 +64,7 @@ export class F02002returnComponent implements OnInit {
 
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/);
-    console.log(!!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/))
+    // console.log(!!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/))
     if (this.isValidFile)
     {
       this.fileToUpload = target.files.item(0);

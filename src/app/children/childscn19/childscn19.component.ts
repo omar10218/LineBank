@@ -39,7 +39,7 @@ export class Childscn19Component implements OnInit {
 
   private applno: string;                           //案編
   private cuid: string;                             //客編
-  restartDate: number;                              //待補文件日期
+  restartDate: Date;                              //待補文件日期
   restartDateValue: Date;                           //待補文件日期類型
   rescanTypeCode: sysCode[] = [];                   //補件原因下拉
   rescanType: string;                               //補件原因
@@ -64,6 +64,7 @@ export class Childscn19Component implements OnInit {
   checkpoint: string;
   ngOnInit(): void {
 
+    this.restartDate = this.dealwithData3(new Date());
     //取案編,客編,客戶手機
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
@@ -121,11 +122,15 @@ export class Childscn19Component implements OnInit {
       jsonObject['rescanType'] = this.rescanType;
       jsonObject['rescanContent'] = this.rescanContent;
       jsonObject['rescanItem'] = this.rescanItem;
-      jsonObject['restartDate'] = this.pipe.transform(this.restartDate, 'yyyy-MM-dd');
+      jsonObject['restartDate'] = this.pipe.transform(new Date(this.restartDate), 'yyyy-MM-dd');
       let msgStr: string = "";
       msgStr = await this.childscn19Service.addRescan(jsonObject);
       if (msgStr == 'success') {
-        msgStr = '儲存成功！'
+        msgStr = '儲存成功！';
+        this.restartDate = null;
+        this.rescanType = '';
+        this.rescanItem = '';
+        this.rescanContent = '';
       }
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
@@ -255,8 +260,13 @@ export class Childscn19Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
-      if (data.rspBody.items.length > 0) {
+      if (data.rspBody.items.length > 0)
+      {
         this.send = false;
+      }
+      else
+      {
+        this.send = true;
       }
       this.rescanDataSource = data.rspBody.items;
     })
@@ -286,7 +296,11 @@ export class Childscn19Component implements OnInit {
     jsonObject['rowID'] = ID;
     let msgStr: string = "";
     msgStr = await this.childscn19Service.deleteRescanByRowid(jsonObject);
-    if (msg != null && msg == '刪除成功') { msgStr = '刪除成功' }
+    if (msg != null && msg == '刪除成功')
+    {
+      msgStr = '刪除成功'
+      this.getRescanList();
+     }
     this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     this.getRescanList();
   }
@@ -315,12 +329,14 @@ export class Childscn19Component implements OnInit {
     this.childscn19Service.setrepair(url, jsonObject).subscribe(data => {
       this.block = true;
       if (data.rspMsg == '成功') {
+
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: data.rspMsg }
         });
         this.block = false;
         this.router.navigate(['./F01001']);
         this.dialogRef.close();
+
       }
       else {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -341,7 +357,11 @@ export class Childscn19Component implements OnInit {
     }
     return x
   }
+  dealwithData3(time: Date) {
 
+    return new Date(Date.now() + (3 * 24 * 60 * 60 * 1000));
+
+  }
 
 }
 
