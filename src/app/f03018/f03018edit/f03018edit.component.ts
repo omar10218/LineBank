@@ -74,7 +74,7 @@ console.log(this.cuCpType2Code)
     console.log(this.cuCpType1Value)
     console.log(this.cuCpType3Value)
     console.log(this.codeTag)
-     await this.f03018Service.oneseve(url, jsonObject).subscribe(data => {
+     await this.f03018Service.onesave(jsonObject).subscribe(data => {
       let msgStr = '';
       msgStr = (data.rspCode === '0000' && data.rspMsg === '儲存成功!') ? '儲存成功！' : '儲存失敗！';
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
