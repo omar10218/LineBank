@@ -11,6 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { Subscription } from 'rxjs';
+import {  OnDestroy } from '@angular/core';
 
 registerLocaleData(zh);
 
@@ -20,7 +21,7 @@ registerLocaleData(zh);
   templateUrl: './f01006.component.html',
   styleUrls: ['./f01006.component.css', '../../assets/css/f01.css']
 })
-export class F01006Component implements OnInit, AfterViewInit {
+export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('absBox') absBox: ElementRef             // 抓取table id
   applno: string;                                     // 案件編號
   nationalID: string;                                 // 身分證字號
@@ -54,6 +55,10 @@ export class F01006Component implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.getCaseList();
+  }
+
+  ngOnDestroy() {
+    this.restart$.unsubscribe();
   }
 
   //代入條件查詢

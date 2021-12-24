@@ -80,7 +80,7 @@ export class F04002Component implements OnInit {
 
 
   total = 1;
-  loading = true;
+  // loading = true;
   pageSize = 10;
   pageIndex = 1;
 
@@ -192,7 +192,7 @@ export class F04002Component implements OnInit {
       this.roleFunctionSource.data = data.rspBody.items;
       this.total = data.rspBody.size;
       this.isAllCheck = false;
-      this.loading = false;
+      // this.loading = false;
     });
   }
 

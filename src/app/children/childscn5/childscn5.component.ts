@@ -78,6 +78,7 @@ export class Childscn5Component implements OnInit {
   });
 
   ngOnInit(): void {
+    console.log()
     this.companyWhitelistValue = '';
     this.search = sessionStorage.getItem('search');
     //取性別
@@ -91,6 +92,7 @@ export class Childscn5Component implements OnInit {
       });
     //取公司白名單下拉
     this.childscn5Service.getSysTypeCode('COMPANY_WHITELIST').subscribe(data => {
+      
       this.companyWhitelistCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
@@ -132,6 +134,7 @@ export class Childscn5Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.getCustomerInfo();
+    console.log(this.companyWhitelistValue) 
   }
 
   getCustomerInfo() {
@@ -180,7 +183,7 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ CU_LEVEL1_CA: data.rspBody.items[0].cuLevel1Ca })
       this.customerInfoForm.patchValue({ CU_LEVEL2_CA: data.rspBody.items[0].cuLevel2Ca })
       this.customerInfoForm.patchValue({ JOB_CODE_CA: data.rspBody.items[0].jobCodeCa })
-
+      this.customerInfoForm.patchValue({ COMPANY_WHITELIST: data.rspBody.items[0].companyWhitelist })
     });
   }
 
