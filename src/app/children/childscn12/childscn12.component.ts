@@ -427,35 +427,48 @@ export class Childscn12Component implements OnInit {
     }
   }
   save2() {
-    
+
     this.INCOME_DETAILS_List[2].A1 = this.toNumber(this.INCOME_DETAILS_List[2].A11) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A12) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A13) + "," +
     this.toNumber(this.INCOME_DETAILS_List[2].A14) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A15) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A16);
-    
+    this.INCOME_DETAILS_List[2].A1=this.INCOME_DETAILS_List[2].A1==",,,,,"?"":this.INCOME_DETAILS_List[2].A1
+
     this.INCOME_DETAILS_List[2].A2 = this.toNumber(this.INCOME_DETAILS_List[2].A21) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A22) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A23) + "," +
     this.toNumber(this.INCOME_DETAILS_List[2].A24) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A25) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A26);
+    this.INCOME_DETAILS_List[2].A2=this.INCOME_DETAILS_List[2].A2==",,,,,"?"":this.INCOME_DETAILS_List[2].A2
 
     this.INCOME_DETAILS_List[2].A4 = this.toNumber(this.INCOME_DETAILS_List[2].A41) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A42) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A43);
+    this.INCOME_DETAILS_List[2].A4=this.INCOME_DETAILS_List[2].A4==",,"?"":this.INCOME_DETAILS_List[2].A4
 
     this.INCOME_DETAILS_List[2].A5 = this.toNumber(this.INCOME_DETAILS_List[2].A51) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A52) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A53) + "," +
     this.toNumber(this.INCOME_DETAILS_List[2].A54) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A55) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A56);
+    this.INCOME_DETAILS_List[2].A5=this.INCOME_DETAILS_List[2].A5==",,,,,"?"":this.INCOME_DETAILS_List[2].A5
 
     this.INCOME_DETAILS_List[2].A6 = this.toNumber(this.INCOME_DETAILS_List[2].A61) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A62) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A63) + "," +
     this.toNumber(this.INCOME_DETAILS_List[2].A64) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A65) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A66);
+    this.INCOME_DETAILS_List[2].A6=this.INCOME_DETAILS_List[2].A6==",,,,,"?"":this.INCOME_DETAILS_List[2].A6
 
     this.INCOME_DETAILS_List[2].A8 = this.toNumber(this.INCOME_DETAILS_List[2].A81) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A82) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A83) ;
+    this.INCOME_DETAILS_List[2].A8=this.INCOME_DETAILS_List[2].A8==",,"?"":this.INCOME_DETAILS_List[2].A8
 
 
     this.INCOME_DETAILS_List[3].A1 = this.toNumber(this.INCOME_DETAILS_List[3].A11) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A12) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A13) + "," +
     this.toNumber(this.INCOME_DETAILS_List[3].A14) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A15) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A16);
+    this.INCOME_DETAILS_List[3].A1=this.INCOME_DETAILS_List[3].A1==",,,,,"?"":this.INCOME_DETAILS_List[3].A1
 
     this.INCOME_DETAILS_List[3].A2 = this.toNumber(this.INCOME_DETAILS_List[3].A21) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A22) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A23) + "," +
     this.toNumber(this.INCOME_DETAILS_List[3].A24) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A25) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A26);
+    this.INCOME_DETAILS_List[3].A2=this.INCOME_DETAILS_List[3].A2==",,,,,"?"":this.INCOME_DETAILS_List[3].A2
 
     this.INCOME_DETAILS_List[3].A5 = this.toNumber(this.INCOME_DETAILS_List[3].A51) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A52) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A53) + "," +
     this.toNumber(this.INCOME_DETAILS_List[3].A54) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A55) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A56);
+    this.INCOME_DETAILS_List[3].A5=this.INCOME_DETAILS_List[3].A5==",,,,,"?"":this.INCOME_DETAILS_List[3].A5
 
     this.INCOME_DETAILS_List[3].A6 = this.toNumber(this.INCOME_DETAILS_List[3].A61) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A62) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A63) + "," +
     this.toNumber(this.INCOME_DETAILS_List[3].A64) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A65) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A66);
+    this.INCOME_DETAILS_List[3].A6=this.INCOME_DETAILS_List[3].A6==",,,,,"?"":this.INCOME_DETAILS_List[3].A6
+
+    
+
 
     if(!this.loading6){
       let save_INCOME_DETAILS_List: INCOME_DETAILS[] = []
