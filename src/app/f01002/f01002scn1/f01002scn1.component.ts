@@ -238,6 +238,7 @@ export class F01002scn1Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result.value == 'confirm') {
+        this.saveSUPPLY_AML();
         this.f01002scn1Service.setCREDITSource({ key: true });
         const baseUrl = url;
         let jsonObject: any = {};
