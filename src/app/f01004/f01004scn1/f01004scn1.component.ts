@@ -221,7 +221,6 @@ export class F01004scn1Component implements OnInit {
 
   result(baseUrl: string, jsonObject: JSON, result: string) {
     this.block = true;
-    this.saveMemo();
     this.f01004Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
       await this.childscn1Service.setHistory(this.history, "主管案件完成", this.applno);
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -230,6 +229,7 @@ export class F01004scn1Component implements OnInit {
       if ( data.rspMsg.includes('處理案件異常') ) { } else {
         //儲存歷史資料
         this.setHistory();
+        this.saveMemo();
         this.removeSession();
         this.router.navigate(['./F01004']);
       }
@@ -254,7 +254,7 @@ export class F01004scn1Component implements OnInit {
 
   //儲存
   public async saveMemo(): Promise<void> {
-    this.removeSession();
+    // this.removeSession();
     let msgStr: string = "";
     const baseUrl = 'f01/childscn1action1';
     let jsonObject: any = {};
