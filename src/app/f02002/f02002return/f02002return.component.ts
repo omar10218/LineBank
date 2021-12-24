@@ -52,6 +52,7 @@ export class F02002returnComponent implements OnInit {
   typeString: string = '';//補件類型
   type: sysCode[] = [];//補件類型陣列
   // s=0;
+  // s :string;
   formdata: FormData = new FormData();
   formdata2: FormData = new FormData();
   cancel()//離開
@@ -66,7 +67,9 @@ export class F02002returnComponent implements OnInit {
     if (this.isValidFile) {
       this.fileToUpload = target.files.item(0);
       this.formdata2.append('rowId', ROWID);
-      this.formdata2.append('file', this.fileToUpload);
+      this.formdata2.append('files', this.fileToUpload);
+      this.formdata2.append('userId',localStorage.getItem("empNo"))
+      // this.formdata2.append('rileName',)
       // alert(this.fileToUpload)
     } else {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法圖檔，請檢查檔案格式重新上傳" });
@@ -83,6 +86,8 @@ export class F02002returnComponent implements OnInit {
       this.F02002Data = data.rspBody;
     })
   }
+
+
   public async store(result: string): Promise<void>//儲存
   {
     const dialogRef = this.dialog.open(F02008return2Component, {
@@ -96,6 +101,8 @@ export class F02002returnComponent implements OnInit {
 
 
     let url = 'f02/f02002action4';
+    let ur = 'f02/f02002action6';
+    // (await this.f02002Service.fromUp(ur,this.formdata2)).subscribe
     let jsonObject: any = {};
     const content = []
     let docTypeCode = this.uploadForm.value.DOC_TYPE_CODE;
@@ -127,14 +134,7 @@ export class F02002returnComponent implements OnInit {
       this.formdata.append('remark', it.IMAGE_CONTENT);
 
     }
-    console.log("11111111111")
-    console.log(this.formdata2.getAll('rowId'))
-    console.log(this.formdata2.getAll('file'))
-    console.log(jsonObject)
-    // console.log(this.fileToUpload)
-    // console.log(this.formdata)
-    //  console.log(this.formdata.getAll('file'))
-    // console.log(this.formdata.getAll('rowId'))
+
   }
   SendBack()//送回案件
   {
@@ -144,6 +144,9 @@ export class F02002returnComponent implements OnInit {
   }
 
   test() {
-
+    let ur = 'f02/f02002action6';
+    this.f02002Service.test(ur,this.formdata2).subscribe(data=>{
+      console.log(data)
+    })
   }
 }
