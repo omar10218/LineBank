@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChildrenService } from '../children.service';
 import { Childscn16Service } from './childscn16.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { Childscn1Component } from '../childscn1/childscn1.component'
@@ -46,6 +46,7 @@ export class Childscn16Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
+    this.initial(this.pageIndex,this.pageSize)
   }
   ngAfterViewInit() {
     //this.initial( this.pageIndex, this.pageSize );
@@ -90,16 +91,27 @@ export class Childscn16Component implements OnInit {
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
     this.childscn16Service.selectCustomer(url, this.jsonObject).subscribe(data => {
+      console.log(data)
       this.total = data.rspBody.size;
       this.ruleParamCondition = data.rspBody.items;
+      this.limit();
     })
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.initial(pageIndex, pageSize);
+    // this.initial(pageIndex, pageSize);
   }
   sortChange(e: string) {
     this.ruleParamCondition = e === 'ascend' ? this.ruleParamCondition.sort(
-      (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.ruleParamCondition.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+      (a, b) => a.applnoOld.localeCompare(b.applnoOld)) : this.ruleParamCondition.sort((a, b) => b.applnoOld.localeCompare(a.applnoOld))
+  }
+  limit()
+  {
+    for(const item of this.ruleParamCondition)
+    {
+      item.income = item.income != undefined ? (item.income + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.income;
+      item.applicationAmount = item.applicationAmount != undefined ? (item.applicationAmount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.applicationAmount;
+      item.approveAmt = item.approveAmt != undefined ? (item.approveAmt + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.approveAmt;
+    }
   }
 }

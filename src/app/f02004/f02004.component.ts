@@ -28,19 +28,21 @@ export class F02004Component implements OnInit {
     private router: Router,
   ) { }
 
-  account: string = ''//循環帳戶
+  loanAccount: string //循環帳戶
   date: [Date, Date];//時間
   dateFormat = 'yyyy/MM/dd';
-  drFlag:  string = '';//動撥狀態
+  drFlag:  string ;//動撥狀態
   drFlagCode: OptionsCode[] = [];
-  rescanData: Data[] = [];
+  drCreditMianData: Data[] = [];
   total = 1;
+  x: string;
   loading = true;
   pageIndex = 1;
   pageSize = 50;
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
     this.f02004Service.getRescanEmpno( baseUrl ).subscribe(data => {
+      console.log(data)
       for (let i = 0; i < data.rspBody.length; i++) {
         if (data.rspBody[i].RESCANEMPNO != null) {
           this.drFlagCode.push( { value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO } );
@@ -51,20 +53,21 @@ export class F02004Component implements OnInit {
   }
 
 
-  getRescanData( pageIndex: number, pageSize: number ) {
-    const baseUrl = 'f02/f02002action1';
+  getDrCreditMainData( ) {
+    const baseUrl = 'dr/drSearch';
     let jsonObject : any = {};
-    jsonObject['account'] = this.account;
+    jsonObject['loanAccount'] = this.loanAccount;
     jsonObject['drFlag'] = this.drFlag;
     if ( this.date != null ) {
       jsonObject['startDate'] = this.datepipe.transform( new Date(this.date[0]).toString() , 'yyyyMMdd' );
       jsonObject['endDate'] = this.datepipe.transform( new Date(this.date[1]).toString() , 'yyyyMMdd' );
+ 
     } else {
       jsonObject['startDate'] = '';
       jsonObject['endDate'] = '';
     }
-    jsonObject['page'] = pageIndex;
-    jsonObject['per_page'] = pageSize;
+    jsonObject['page'] = this.pageIndex;
+    jsonObject['per_page'] = this.pageSize;
     this.f02004Service.f02002( baseUrl, jsonObject ).subscribe(data => {
       console.log(data)
       this.loading = false;
@@ -74,14 +77,15 @@ export class F02004Component implements OnInit {
         });
       } else {
         this.total = data.rspBody.size;
-        this.rescanData = data.rspBody.items;
+        this.drCreditMianData = data.rspBody.list;  
       }
     });
   }
 
   search() {
+    
     var startDate, endDate;
-    if ( this.account == '' && this.drFlag == ''  && this.date == null ) {
+    if (this.loanAccount == '' && this.drFlag == ''  && this.date == null  ) {
       this.clear();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項" }
@@ -96,67 +100,49 @@ export class F02004Component implements OnInit {
             data: { msgStr: "查詢區間最多三個月內!" }
           });
         } else {
-          this.getRescanData( this.pageIndex, this.pageSize );
+          this.getDrCreditMainData( );
         }
       } else {
-        this.getRescanData( this.pageIndex, this.pageSize );
+        this.getDrCreditMainData( );
       }
     }
+    
   }
 
   clear() {
-    this.account = '';
+    this.loanAccount = '';
     this.drFlag = '';
     this.total = 1;
     this.loading = false;
     this.pageSize = 10;
     this.pageIndex = 1;
-    this.rescanData = null;
+    this.drCreditMianData = null;
     this.date = null;
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    if ( this.account == '' && this.drFlag == ''  ) {
+    if ( this.loanAccount == '' && this.drFlag == ''  ) {
 
     } else {
       const { pageSize, pageIndex } = params;
-      this.getRescanData(pageIndex, pageSize);
+      // this.getDrCreditMainData();
     }
   }
 
-  detail( applno: string, nationalId: string, custId: string) {
-    const url = 'f02/f02002action2';
-    let jsonObject: any = {};
-    jsonObject['applno'] = applno;
-    this.f02004Service.f02002( url, jsonObject).subscribe(data => {
-      sessionStorage.setItem( 'applno', applno );
-      sessionStorage.setItem( 'cuid', nationalId );
-      sessionStorage.setItem( 'search', 'Y' );
-      if(data.rspBody.length > 0 )
-      {
-        sessionStorage.setItem( 'fds', data.rspBody[0].fds != null?  data.rspBody[0].fds:'' );
-      }else
-      {
-        sessionStorage.setItem( 'fds', '' );
-      }
-      sessionStorage.setItem( 'queryDate', '' );
-      sessionStorage.setItem( 'winClose', 'Y' );
-      sessionStorage.setItem('page', '04');//04動撥紀錄查詢
-      //開啟徵審主畫面
-      const url = window.location.href.split("/#");
-      window.open( url[0] + "/#/F01002/F01002SCN1" );
-      // this.router.navigate(['./F01002/F01002SCN1']);
-      // const childernDialogRef = this.dialog.open(F01002scn1Component, {
-      //   minHeight: '30%',
-      //   width: '70%',
-      //   maxHeight: '65vh'
-      // });
-    });
-  }
+ 
 
   dateNull() {
     if ( this.date.length < 1 ) {
       this.date = null;
     }
+  }
+  data_number(p: number)//千分號
+   {
+    this.x = '';
+    this.x = (p + "")
+    if (this.x != null) {
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
   }
 }

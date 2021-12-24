@@ -27,7 +27,7 @@
     <div nz-col nzSpan="8">
       <div style="padding:10px">
         <span class="form-title">比對方式</span>
-        <mat-select [(ngModel)]="data.compareType" name="compareType" [value]="data.compareType">
+        <mat-select [(ngModel)]="data.compareType" name="compareType" [value]="data.compareType"  (ngModelChange)="test123($event)">
           <mat-option *ngFor="let code of options" [value]="code.option">
             {{code.opDesc}}
           </mat-option>
@@ -44,7 +44,7 @@
     <div nz-col nzSpan="8">
       <div style="padding:10px">
         <span class="form-title">設定最高高檻</span>
-        <input matInput [(ngModel)]="hingt" (keypress)="numberOnly($event)"
+        <input matInput [(ngModel)]="hingt" (keypress)="numberOnly($event)" [disabled]="myDiv"
         (keyup)="hingt = toCurrency(hingt)" name="setValueHight" required>
       </div>
     </div>
@@ -52,6 +52,7 @@
       <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
       &nbsp;&nbsp;
       <button nz-button [nzSize]="'middle'" nzDanger tabindex="-1" (click)="onNoClick()">取消</button>
+ 
     </div>
   </div>
   <!-- <div class="container">

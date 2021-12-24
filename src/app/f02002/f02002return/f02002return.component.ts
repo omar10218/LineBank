@@ -3,11 +3,16 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F02002Service } from '../f02002.service'
+import { F02008return2Component } from '../f02002return/f02008return2/f02008return2.component'
+interface sysCode {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-f02002return',
   templateUrl: './f02002return.component.html',
-  styleUrls: ['./f02002return.component.css','../../../assets/css/f02.css']
+  styleUrls: ['./f02002return.component.css', '../../../assets/css/f02.css']
 })
 export class F02002returnComponent implements OnInit {
 
@@ -21,8 +26,19 @@ export class F02002returnComponent implements OnInit {
 
   ngOnInit(): void {
     this.set();
+    this.f02002Service.getSysTypeCode('DOC_TYPE').subscribe(data => {
+      this.type.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const id = jsonObj['codeNo'];
+        const name = jsonObj['codeDesc'];
+        this.type.push({ value: id, viewValue: name })
+      }
+
+    })
+
+
   }
-  i=1;
+  i = 1;
   F02002Data = [];//初始陣列
   isValidFile: boolean;
   fileToUpload: File | null = null;
@@ -31,18 +47,27 @@ export class F02002returnComponent implements OnInit {
     REMARK: [this.data.REMARK, []],
     ERROR_MESSAGE: []
   });
+  remark: string;//註記
+  docType: string;
+  typeString: string = '';//補件類型
+  type: sysCode[] = [];//補件類型陣列
+  // s=0;
+  formdata: FormData = new FormData();
+  formdata2: FormData = new FormData();
   cancel()//離開
   {
     this.dialogRef.close();
   }
 
-  onChange(evt)
-  {
-    const target: DataTransfer = <DataTransfer>(evt.target);
+  onChange(evt, ROWID: string) {
 
+    const target: DataTransfer = <DataTransfer>(evt.target);
     this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/);
     if (this.isValidFile) {
       this.fileToUpload = target.files.item(0);
+      this.formdata2.append('rowId', ROWID);
+      this.formdata2.append('file', this.fileToUpload);
+      // alert(this.fileToUpload)
     } else {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法圖檔，請檢查檔案格式重新上傳" });
       alert(this.uploadForm.value.ERROR_MESSAGE);
@@ -53,38 +78,72 @@ export class F02002returnComponent implements OnInit {
     let url = 'f02/f02002action3'
     let jsonObject: any = {};
     jsonObject['applno'] = this.data.applno;
-    this.f02002Service.postJson(url,jsonObject).subscribe(data=>{
+    this.f02002Service.postJson(url, jsonObject).subscribe(data => {
+      console.log(data)
       this.F02002Data = data.rspBody;
     })
   }
-  public async store(): Promise<void>//儲存
+  public async store(result: string): Promise<void>//儲存
   {
-    let url ='f02/f02002action4';
+    const dialogRef = this.dialog.open(F02008return2Component, {
+      minHeight: '50%',
+      width: '30%',
+      panelClass: 'mat-dialog-transparent',
+      data: {
+        value: result
+      }
+    });
+
+
+    let url = 'f02/f02002action4';
+    let jsonObject: any = {};
+    const content = []
     let docTypeCode = this.uploadForm.value.DOC_TYPE_CODE;
-    const formdata: FormData = new FormData();
-    if (docTypeCode != "" && docTypeCode != null)
-    {
-      formdata.append('applno',this.data.applno);
+    alert(this.fileToUpload)
+    // const formdata: FormData = new FormData();
+    if (this.fileToUpload != null) {
+      for (const it of this.F02002Data)
+      {
+        content.push(
+          {
+            rowId:it.ROW_ID,
+            rescanReason:it.rescanReason,
+            remark:it.IMAGE_CONTENT,
+          }
+        )
+
+
+        // jsonObject['applno'] = it.applno;
+        jsonObject['rowId'] = it.ROW_ID;
+        jsonObject['rescanReason'] = it.rescanReason;
+        jsonObject['remark'] = it.IMAGE_CONTENT;
+      }
+      jsonObject['']
     }
+    for (const it of this.F02002Data) {
+      this.formdata.append('applno', it.APPLNO);
+      this.formdata.append('rowId', it.ROW_ID);
+      this.formdata.append('rescanReason', it.rescanReason);
+      this.formdata.append('remark', it.IMAGE_CONTENT);
 
-
+    }
+    console.log("11111111111")
+    console.log(this.formdata2.getAll('rowId'))
+    console.log(this.formdata2.getAll('file'))
+    console.log(jsonObject)
+    // console.log(this.fileToUpload)
+    // console.log(this.formdata)
+    //  console.log(this.formdata.getAll('file'))
+    // console.log(this.formdata.getAll('rowId'))
   }
   SendBack()//送回案件
   {
-
+    let url = 'f02/f02002action5'
+    const formdata: FormData = new FormData();
+    console.log(this.F02002Data)
   }
 
-  test()
-  {
+  test() {
 
-
-    if(this.i==0)
-    {
-      this.i=1;
-    }
-    else
-    {
-      this.i=0;
-    }
   }
 }

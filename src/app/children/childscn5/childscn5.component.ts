@@ -30,6 +30,7 @@ export class Childscn5Component implements OnInit {
   genderCode: sysCode[] = [];           //性別下拉
   genderValue: string;                  //性別
   cuCpNameCa: string;                  //徵信確認公司名稱
+  setmaterial=[];
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -140,6 +141,10 @@ export class Childscn5Component implements OnInit {
     jsonObject['custId'] = this.cuid;
 
     this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
+      this.setmaterial = data.rspBody.compareCompanies;
+      console.log(this.setmaterial)
+      console.log("111111111")
+      console.log(data)
       this.customerInfoForm.patchValue({ CUCNAME: data.rspBody.items[0].cuCname })
       this.customerInfoForm.patchValue({ NATIONAL_ID: data.rspBody.items[0].nationalId })
       this.customerInfoForm.patchValue({ CU_SEX: this.getGender(data.rspBody.items[0].cuSex) })
@@ -309,4 +314,5 @@ export class Childscn5Component implements OnInit {
   getSearch() {
     return this.search;
   }
+
 }

@@ -86,19 +86,19 @@
                 (keypress)="numberOnly($event)" (keyup)="row.setValueLow = toCurrency(toNumber(row.setValueLow))">
             </div>
             <!-- checkbox為false不能修改 -->
-            <div *ngIf="row.isChk == false;" class="data_right">
+            <div *ngIf="row.isChk == false|| row.compareType==2;" class="data_right">
              {{row.setValueLow != undefined? data_number(row.setValueLow):row.setValueLow}}
             </div>
           </td>
           <td class="table-data">
             <!-- checkbox為true修改最高值 -->
-            <div *ngIf="row.isChk == true;">
+            <div *ngIf="row.isChk == true;" >
               <input [(ngModel)]="row.setValueHight"    name="setValueHight"
                 [ngStyle]="getStyle(toNumber(row.setValueHight))" (keypress)="numberOnly($event)"
-                (keyup)="row.setValueHight = toCurrency(toNumber(row.setValueHight))">
+                (keyup)="row.setValueHight = toCurrency(toNumber(row.setValueHight))" [disabled] = "row.compareType == 1? true:false" >
             </div>
               <!-- checkbox為false不能修改 -->
-            <div *ngIf="row.isChk == false;" class="data_right">
+            <div *ngIf="row.isChk == false&& row.compareType==2" class="data_right">
               {{row.setValueHight != undefined? data_number(row.setValueHight):row.setValueHight}}
             </div>
           </td>

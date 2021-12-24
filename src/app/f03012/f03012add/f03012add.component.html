@@ -2,7 +2,7 @@
   <div class="line_bank_form_header_title">資料比對設定維護--新增</div>
   <form class="mat-dialog-content" #formControl="ngForm">
 
-    <div style="margin:10px">
+    <div style="margin:10px" >
       <div nz-row>
         <div nz-col nzSpan="12">
           <div style="padding:10px">
@@ -31,7 +31,7 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">比對方式</span>
-            <mat-select [(ngModel)]="compareType" required name="compareType">
+            <mat-select [(ngModel)]="compareType" required name="compareType" (ngModelChange)="test123($event)">
               <mat-option [value]=1>絕對值</mat-option>
               <mat-option [value]=2>相對值</mat-option>
             </mat-select>
@@ -50,7 +50,7 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">設定最高高檻</span>
-            <input matInput [(ngModel)]="setValueHight" (keypress)="numberOnly($event)"
+            <input matInput  [(ngModel)]="setValueHight" (keypress)="numberOnly($event)" [disabled]="myDiv"
               (keyup)="setValueHight = toCurrency(toNumber(setValueHight))" required name="setValueHight">
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>

@@ -10,3 +10,6 @@ td
 {
   border: 1px solid #e8e8e8;
 }
+:host::ng-deep.ant-table-pagination.ant-pagination {
+  margin: 5px;
+}

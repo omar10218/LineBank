@@ -201,7 +201,7 @@ export class F02002Component implements OnInit {
     const dialogRef = this.dialog.open(F02002returnComponent, {
       panelClass: 'mat-dialog-transparent',
       height: '100%',
-      width: '70%',
+      width: '100%',
       data: {
         applno: APPLNO,
       }
