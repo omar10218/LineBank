@@ -69,6 +69,12 @@ export class F02002returnComponent implements OnInit {
       this.formdata2.append('rowId', ROWID);
       this.formdata2.append('files', this.fileToUpload);
       this.formdata2.append('userId', localStorage.getItem("empNo"))
+
+      this.formdata.append('applno', this.data.applno);
+      this.formdata.append('rowId', ROWID);
+      this.formdata.append('files', this.fileToUpload);
+      this.formdata.append('userId', localStorage.getItem("empNo"))
+
       // this.formdata2.append('rileName',)
       // alert(this.fileToUpload)
     } else {
@@ -87,16 +93,9 @@ export class F02002returnComponent implements OnInit {
   }
 
 
-  store(result: string)//儲存
+  store()//儲存
   {
-    const dialogRef = this.dialog.open(F02008return2Component, {
-      minHeight: '50%',
-      width: '30%',
-      panelClass: 'mat-dialog-transparent',
-      data: {
-        value: result
-      }
-    });
+
 
     let url = 'f02/f02002action4';
     let ur = 'f02/f02002action6';
@@ -115,41 +114,70 @@ export class F02002returnComponent implements OnInit {
         }
       )
 
+    }
+    jsonObject['F02002req'] = content;
+    if (this.fileToUpload != null) {
+      this.f02002Service.test(ur, this.formdata2).subscribe(data => {
 
-      // jsonObject['applno'] = it.applno;
-      jsonObject['rowId'] = it.ROW_ID;
-      jsonObject['rescanReason'] = it.rescanReason;
-      jsonObject['remark'] = it.IMAGE_CONTENT;
+
+      });
+    }
+    this.f02002Service.f02002(url, jsonObject).subscribe(data => {
+
+    })
+
+
+    this.dialogRef.close();
+
+
+
+  }
+
+
+  SendBack(result: string)//送回案件
+  {
+    const dialogRef = this.dialog.open(F02008return2Component, {
+      minHeight: '50%',
+      width: '30%',
+      panelClass: 'mat-dialog-transparent',
+      data: {
+        value: result
+      }
+    });
+
+    let u = 'f02/f02002action4';
+    let url = 'f02/f02002action5'
+    let jsonObject: any = {};
+    const content = []
+    for (const it of this.F02002Data) {
+      content.push(
+        {
+          rowId: it.ROW_ID,
+          rescanReason: it.rescanReason,
+          remark: it.IMAGE_CONTENT,
+        }
+      )
+
     }
     jsonObject['F02002req'] = content;
 
+
     dialogRef.afterClosed().subscribe(result => {
-      if (result.value == 'confirm')
-      {
-        if (this.fileToUpload != null)
-        {
-         this.f02002Service.test(ur, this.formdata2).subscribe(data => {
+      if (result.value == 'confirm') {
 
+        this.f02002Service.f02002(u, jsonObject).subscribe(data => {
 
-         });
-       }
-       this.f02002Service.f02002(url,jsonObject).subscribe(data => {
+        })
+        this.f02002Service.test(url, this.formdata).subscribe(data => {
+          console.log("111111111")
+          console.log(data)
 
-       })
+        })
 
       }
       this.dialogRef.close();
 
     })
-
-  }
-
-
-  SendBack()//送回案件
-  {
-    let url = 'f02/f02002action5'
-    const formdata: FormData = new FormData();
-    console.log(this.F02002Data)
   }
 
 

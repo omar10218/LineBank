@@ -197,7 +197,8 @@ export class F02002Component implements OnInit {
   }
 
   //補回
-  return(APPLNO: Data) {
+  return(APPLNO: Data)
+   {
     const dialogRef = this.dialog.open(F02002returnComponent, {
       panelClass: 'mat-dialog-transparent',
       height: '100%',
@@ -205,6 +206,9 @@ export class F02002Component implements OnInit {
       data: {
         applno: APPLNO,
       }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getRescanData(this.pageIndex, this.pageSize);
     });
   }
   test()
