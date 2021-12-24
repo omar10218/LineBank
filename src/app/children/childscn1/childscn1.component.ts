@@ -47,7 +47,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
   ) {//訂閱 案件完成/暫存時 新增資料
     this.CREDITSource$ = this.f01002scn1Service.CREDITSource$.subscribe((data) => {
       if (data.key) {
-        // alert('1');
         this.saveCREDIT_Data();
       }
     });
@@ -301,7 +300,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   //頁面離開時觸發
   ngOnDestroy() {
-    // this.CREDITSource$=null;
+    this.CREDITSource$.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -932,6 +931,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['rowId'] = this.CREDITrowId;
+    jsonObject['creditlevel'] = sessionStorage.getItem('stepName').split('t')[1];
     this.reCREDIT_View_List = [];
     for (const row of this.CREDIT_View_List) {
       this.reCREDIT_View_List.push({ reasonCode: row.reasonCode == "" ? null : row.reasonCode, resonContent: row.resonContent })
