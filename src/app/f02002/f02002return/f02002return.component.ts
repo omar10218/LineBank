@@ -60,7 +60,7 @@ export class F02002returnComponent implements OnInit {
     this.dialogRef.close({ event: 'success' });
   }
 
-  onChange(evt, ROWID: string) {
+  onChange(evt, ROWID: string,rescanReason:string) {
 
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/);
@@ -70,12 +70,14 @@ export class F02002returnComponent implements OnInit {
       this.fileToUpload = target.files.item(0);
       this.formdata2.append('rowId', ROWID);
       this.formdata2.append('files', this.fileToUpload);
+      this.formdata2.append('rescanReason',rescanReason)
       this.formdata2.append('userId', localStorage.getItem("empNo"))
 
       this.formdata.append('applno', this.data.applno);
       this.formdata.append('rowId', ROWID);
       this.formdata.append('files', this.fileToUpload);
       this.formdata.append('userId', localStorage.getItem("empNo"))
+
 
       // this.formdata2.append('rileName',)
       // alert(this.fileToUpload)
@@ -99,8 +101,6 @@ export class F02002returnComponent implements OnInit {
 
   store()//儲存
   {
-
-
     let url = 'f02/f02002action4';
     let ur = 'f02/f02002action6';
     let jsonObject: any = {};
@@ -171,7 +171,8 @@ export class F02002returnComponent implements OnInit {
       {
 
         this.f02002Service.f02002(u, jsonObject).subscribe(data => {
-
+          console.log("22222222222222222222222222")
+          console.log(data)
         })
         if(this.fileToUpload == null)
         {
