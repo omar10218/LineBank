@@ -55,16 +55,20 @@ export class F03018Service extends BaseService {
     // return this.postHttpClient(targetUrl);
   }
   getElBigCompanyList(baseUrl: string, jsonObject: JSON): Observable<any> {
-		return this.postJsonObject(baseUrl, jsonObject)
-		// let targetUrl = `${baseUrl}?page=${pageIndex}&per_page=${pageSize}`;
-		// return this.postHttpClient(targetUrl);
-	}
+  return this.postJsonObject(baseUrl, jsonObject)
+  // let targetUrl = `${baseUrl}?page=${pageIndex}&per_page=${pageSize}`;
+  // return this.postHttpClient(targetUrl);
+ }
   getValueTypeselect(baseUrl: string, jsonObject: JSON): Observable<any> {
-		return this.postJsonObject(baseUrl, jsonObject)
-		// let targetUrl = `${baseUrl}?page=${pageIndex}&per_page=${pageSize}`;
-		// return this.postHttpClient(targetUrl);
-	}
+  return this.postJsonObject(baseUrl, jsonObject)
+  // let targetUrl = `${baseUrl}?page=${pageIndex}&per_page=${pageSize}`;
+  // return this.postHttpClient(targetUrl);
+ }
 
+  onesave(jsonObject: any): any {
+    const baseUrl = 'f03/f03018action3';
+    let targetUrl = `${baseUrl}`;
+    return this.saveOrEditMsgString(targetUrl, jsonObject);
+  }
 
 }
-
