@@ -63,6 +63,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   cuCName: string;                              //姓名
   custId: string;                               //客戶ID
   nationalId: string;                           //身分證
+  page: string         //頁面
   //客戶身分名單註記(待確認)
   prodCode: string;                             //申請產品
   applicationAmount: string;                    //申請金額
@@ -308,6 +309,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
     this.userId = localStorage.getItem("empNo");
+    this.page = sessionStorage.getItem("page");
 
     //先建立徵審代碼框架
     for (let i = 0; i < 10; i++) {
@@ -1034,6 +1036,12 @@ export class Childscn1Component implements OnInit, OnDestroy {
         sessionStorage.setItem('otherMessage5', data.rspBody.OtherMessage5 != null ? data.rspBody.OtherMessage5 : '');
       }
     });
+  }
+
+  //判斷頁面是否顯示
+  // 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8徵審後落人 9複審人員
+  getPage() {
+    return this.page
   }
 
 }

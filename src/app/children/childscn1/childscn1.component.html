@@ -1264,10 +1264,94 @@
     </ng-container>
   </div>
 
-  <!-- 提供AML資訊 -->
-  <div class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
+  <!-- 提供AML資訊 徵信以外 -->
+  <div *ngIf="getPage()!='2'" class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
     <div class="line_bank_form_header_title">提供AML資訊</div>
 
+    <div nz-row style="padding:5px">
+      <span class="form-title">主要收入來源</span>
+      <nz-radio-group [(ngModel)]="MAIN_INCOME" name="MAIN_INCOME" required>
+        <div nz-row>
+          <div *ngFor="let code of MAIN_INCOME_LIST">
+            <div>
+              <label [nzDisabled]="getPage()!='2'" (click)="checkRadio()" nz-radio
+                [nzValue]="code.value">{{code.viewValue}}</label>
+            </div>
+          </div>
+        </div>
+      </nz-radio-group>
+    </div>
+
+    <div nz-row style="padding:5px">
+      <span class="form-title">本次來往目的</span>
+      <nz-radio-group [(ngModel)]="PURPOSEOTHER_MESSAGE2" name="PURPOSEOTHER_MESSAGE2" required>
+        <div nz-row>
+          <div *ngFor="let code of PURPOSEOTHER_MESSAGE2_LIST">
+            <div>
+              <label [nzDisabled]="getPage()!='2'" (click)="checkRadio()" nz-radio
+                [nzValue]="code.value">{{code.viewValue}}</label>
+            </div>
+          </div>
+        </div>
+      </nz-radio-group>
+      <div><input [(ngModel)]="otherMessage2" matInput #input class="form-control" width="10%" [disabled]="true"
+          (keyup)="checkRadio()"></div>
+    </div>
+
+    <div nz-row style="padding:5px">
+      <span class="form-title">客戶近半年無交易(排除付息交易)</span>
+      <nz-radio-group [(ngModel)]="NON_TRADEOTHER_MESSAGE3" name="NON_TRADEOTHER_MESSAGE3" required>
+        <div nz-row>
+          <div *ngFor="let code of NON_TRADEOTHER_MESSAGE3_LIST">
+            <div>
+              <label [nzDisabled]="getPage()!='2'" (click)="checkRadio()" nz-radio
+                [nzValue]="code.value">{{code.viewValue}}</label>
+            </div>
+          </div>
+        </div>
+      </nz-radio-group>
+      <div><input [(ngModel)]="otherMessage3" matInput #input class="form-control" width="10%" [disabled]="true"
+          (keyup)="checkRadio()"></div>
+    </div>
+
+
+    <div nz-row style="padding:5px">
+      <span class="form-title">客戶近年交易金額與身分或行職業顯不相當</span>
+      <nz-radio-group [(ngModel)]="TRADE_NON_CCOTHER_MESSAGE4" name="TRADE_NON_CCOTHER_MESSAGE4" required>
+        <div nz-row>
+          <div *ngFor="let code of TRADE_NON_CCOTHER_MESSAGE4_LIST">
+            <div>
+              <label [nzDisabled]="getPage()!='2'" (click)="checkRadio()" nz-radio
+                [nzValue]="code.value">{{code.viewValue}}</label>
+            </div>
+          </div>
+        </div>
+      </nz-radio-group>
+      <div><input [(ngModel)]="otherMessage4" matInput #input class="form-control" width="10%" [disabled]="true"
+          (keyup)="checkRadio()"></div>
+    </div>
+
+    <div nz-row style="padding:5px">
+      <span class="form-title">客戶近半年交易是否與首次(活期)開戶目的不相稱</span>
+      <nz-radio-group [(ngModel)]="TRADE_NON_PURPOSEOTHER_MESSAGE5" name="TRADE_NON_PURPOSEOTHER_MESSAGE5" required>
+        <div nz-row>
+          <div *ngFor="let code of TRADE_NON_PURPOSEOTHER_MESSAGE5_LIST">
+            <div>
+              <label [nzDisabled]="getPage()!='2'" (click)="checkRadio()" nz-radio
+                [nzValue]="code.value">{{code.viewValue}}</label>
+            </div>
+          </div>
+        </div>
+      </nz-radio-group>
+      <div><input [(ngModel)]="otherMessage5" matInput #input class="form-control" width="10%" [disabled]="true"
+          (keyup)="checkRadio()"></div>
+    </div>
+
+  </div>
+
+  <!-- 提供AML資訊 徵信-->
+  <div *ngIf="getPage()=='2'" class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
+    <div class="line_bank_form_header_title">提供AML資訊</div>
     <div nz-row style="padding:5px">
       <span class="form-title">主要收入來源</span>
       <nz-radio-group [(ngModel)]="MAIN_INCOME" name="MAIN_INCOME" required>
@@ -1287,12 +1371,13 @@
         <div nz-row>
           <div *ngFor="let code of PURPOSEOTHER_MESSAGE2_LIST">
             <div>
-              <label   (click)="checkRadio()"  nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+              <label (click)="checkRadio()" nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
             </div>
           </div>
         </div>
       </nz-radio-group>
-      <div><input [(ngModel)]="otherMessage2" matInput #input class="form-control" width="10%" [disabled]="PURPOSEOTHER_MESSAGE2!='Z'" (keyup)="checkRadio()"  ></div>
+      <div><input [(ngModel)]="otherMessage2" matInput #input class="form-control" width="10%"
+          [disabled]="PURPOSEOTHER_MESSAGE2!='Z'" (keyup)="checkRadio()"></div>
     </div>
 
     <div nz-row style="padding:5px">
@@ -1306,7 +1391,8 @@
           </div>
         </div>
       </nz-radio-group>
-      <div><input [(ngModel)]="otherMessage3" matInput #input class="form-control" width="10%" [disabled]="NON_TRADEOTHER_MESSAGE3!='Z'" (keyup)="checkRadio()" ></div>
+      <div><input [(ngModel)]="otherMessage3" matInput #input class="form-control" width="10%"
+          [disabled]="NON_TRADEOTHER_MESSAGE3!='Z'" (keyup)="checkRadio()"></div>
     </div>
 
 
@@ -1321,7 +1407,8 @@
           </div>
         </div>
       </nz-radio-group>
-      <div><input [(ngModel)]="otherMessage4" matInput #input class="form-control" width="10%" [disabled]="TRADE_NON_CCOTHER_MESSAGE4!='Z'" (keyup)="checkRadio()" ></div>
+      <div><input [(ngModel)]="otherMessage4" matInput #input class="form-control" width="10%"
+          [disabled]="TRADE_NON_CCOTHER_MESSAGE4!='Z'" (keyup)="checkRadio()"></div>
     </div>
 
     <div nz-row style="padding:5px">
@@ -1335,9 +1422,9 @@
           </div>
         </div>
       </nz-radio-group>
-      <div><input [(ngModel)]="otherMessage5" matInput #input class="form-control"  width="10%" [disabled]="TRADE_NON_PURPOSEOTHER_MESSAGE5!='Z'" (keyup)="checkRadio()" ></div>
+      <div><input [(ngModel)]="otherMessage5" matInput #input class="form-control" width="10%"
+          [disabled]="TRADE_NON_PURPOSEOTHER_MESSAGE5!='Z'" (keyup)="checkRadio()"></div>
     </div>
-
 
   </div>
 
