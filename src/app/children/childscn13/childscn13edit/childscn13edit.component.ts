@@ -19,6 +19,7 @@ export class Childscn13editComponent implements OnInit {
   imageSrc: string;
   rowId: string;
   msg: string = "";
+  applno: string;
 
   constructor(public dialogRef: MatDialogRef<Childscn13editComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public childscn13Service: Childscn13Service, public dialog: MatDialog) {
     this.fileControl = new FormControl(this.files, [
@@ -28,6 +29,7 @@ export class Childscn13editComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.applno = sessionStorage.getItem('applno');
     this.rowId = this.data.rowId;
     this.imageSrc = 'data:image/png;base64,' + this.data.base64;
     this.fileControl.valueChanges.subscribe((files: any) => {
@@ -66,6 +68,7 @@ export class Childscn13editComponent implements OnInit {
         return;
 
       } else {
+        formdata.append('applno', this.applno);
         formdata.append('web', this.data.webAddrValue.split('=')[0]);
         formdata.append('webAddr', this.data.webAddrUrl);
         formdata.append('messageContent', this.data.webInfoContent);
@@ -75,6 +78,7 @@ export class Childscn13editComponent implements OnInit {
         formdata.append('userId',localStorage.getItem("empNo") );
       }
     } else {
+      formdata.append('applno', this.applno);
       formdata.append('web', this.data.webAddrValue.split('=')[0]);
       formdata.append('webAddr', this.data.webAddrUrl);
       formdata.append('messageContent', this.data.webInfoContent);
