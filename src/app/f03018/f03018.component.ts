@@ -28,7 +28,7 @@ export class F03018Component implements OnInit {
   cuCpType3Value: string //分類3
   useFlagValue: string //使用中
   empNo: string;  //上傳員編
-
+  myDate: any = new Date();
   cuCpSource = new MatTableDataSource<any>() //千大企業Table
 
   cuCpType1Code: sysCode[] = [] //分類1
@@ -88,7 +88,7 @@ getTypeselect(){
 	uploadExcel() {
 		const dialogRef = this.dialog.open(F03018uploadComponent, {
       panelClass: 'mat-dialog-transparent',
-    
+      width: '50%',
 			data: {
 				ABNORMAL_NID: '',
 				ABNORMAL_NAME: '',
@@ -147,7 +147,7 @@ getElBigCompanyList() {
 }
 
 // 編輯
-edit(isUpdate: boolean, row: any){
+edit(isUpdate: boolean, row: any,rowID:string){
 const dialogRef = this.dialog.open(F03018editComponent,{
   panelClass: 'mat-dialog-transparent',
 			minHeight: '70vh',
@@ -163,7 +163,8 @@ const dialogRef = this.dialog.open(F03018editComponent,{
         useFlagValue:row.USE_FLAG,
         content:row.CONTENT,
         cuCpType1Code:this.cuCpType1Code,
-        cuCpType2Code:this.cuCpType2Code
+        cuCpType2Code:this.cuCpType2Code,
+        rowID:rowID
       }
       
 })
@@ -175,8 +176,44 @@ const dialogRef = this.dialog.open(F03018editComponent,{
     this.cuCpSname = '' //員工ID
     this.cuCpType1Value = '' //代理人
     this.cuCpType2Value = '' //email
+    this.cuCpType1Code = [] //email
+    this.cuCpType2Code = [] //email
     this.useFlagValue = '' //是否在職
-
     this.cuCpSource.data = null
+    this.getTypeselect()
   }
+   //匯出EXCEL
+   exportExcel() {
+    if ((this.cuCpNo== null || this.cuCpNo== '') && (this.cuCpName == undefined || this.cuCpName == '')
+      && (this.cuCpSname == undefined || this.cuCpSname == '') && (this.cuCpType1Value == undefined || this.cuCpType1Value == '')
+      && (this.cuCpType2Value == undefined || this.cuCpType2Value == '')&& (this.cuCpType3Value == undefined || this.cuCpType3Value == '')
+      && (this.useFlagValue == undefined || this.useFlagValue == '')
+      ) {
+      const cconfirmDialogRef = this.dialog.open(F03018addComponent, {
+        data: { msgStr: "請至少選擇一項查詢條件並至少選擇一項查詢條件" }
+      });
+    } else {
+      let jsonObject: any = {};
+      let blob: Blob;
+      jsonObject['cuCpNo'] = this.cuCpNo
+      jsonObject['cuCpName'] = this.cuCpName
+      jsonObject['cuCpSname'] = this.cuCpSname
+      jsonObject['cuCpType1'] = this.cuCpType1Value
+      jsonObject['cuCpType2'] = this.cuCpType2Value
+      jsonObject['cuCpType3'] = this.cuCpType3Value
+      jsonObject['useFlag'] = this.useFlagValue
+    
+
+      this.f03018Service.downloadExcel('f03/f03018action4', jsonObject).subscribe(data => {
+        blob = new Blob([data], { type: 'application/xlsx' });
+        let downloadURL = window.URL.createObjectURL(blob);
+        let link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = "ELBigCompany" + this.myDate + ".xlsx"; //瀏覽器下載時的檔案名稱
+        link.click();
+
+      });
+    }
+  }
+
 }

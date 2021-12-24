@@ -81,7 +81,7 @@
                     <td class="table-data">{{row.FRST_CRTN_TMSTMP}}</td>
                     <td class="table-data" style="text-align: center;">
                         <button nz-button [nzSize]="'small'" nzType="primary" (click)="edit
-            (true,row)">編輯</button>
+            (true,row,row.RID)">編輯</button>
                     </td>
                 </tr>
             </tbody>
@@ -90,6 +90,8 @@
             <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
             <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
                 (click)="uploadExcel()">上傳Excel</button>
+                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+          (click)="exportExcel()">匯出Excel</button>
         </div>
     </div>
 </div>

@@ -19,6 +19,7 @@ export class F03018editComponent implements OnInit {
   cuCpType3Value:string//分類3
   useFlagValue: string //使用中
   codeTag:string //備註
+  
   cuCpSource = new MatTableDataSource<any>() //千大企業Table
 
   cuCpType1Code: OptionsCode[] = [] //分類1
@@ -52,6 +53,7 @@ this.useFlagValue=this.data.useFlagValue
 this.codeTag=this.data.content
 this.cuCpType1Code=this.data.cuCpType1Code;
 this.cuCpType2Code=this.data.cuCpType2Code;
+
 console.log(this.cuCpType1Code)
 console.log(this.cuCpType2Code)
 }
@@ -68,15 +70,18 @@ console.log(this.cuCpType2Code)
     jsonObject['cuCpType3'] = this.cuCpType3Value
     jsonObject['useFlag'] = this.useFlagValue
     jsonObject['codeTag'] = this.codeTag
+    jsonObject['rid'] = this.data.rowID
     console.log(this.codeTag)
     console.log(this.cuCpNo)
     console.log(this.cuCpName)
     console.log(this.cuCpType1Value)
     console.log(this.cuCpType3Value)
     console.log(this.codeTag)
-     await this.f03018Service.onesave(jsonObject).subscribe(data => {
+    console.log(this.data.rowID)
+     await this.f03018Service.oneseve(url,jsonObject).subscribe(data => {
+       console.log(data)
       let msgStr = '';
-      msgStr = (data.rspCode === '0000' && data.rspMsg === '儲存成功!') ? '儲存成功！' : '儲存失敗！';
+      msgStr = (data.rspCode === '0000' && data.rspMsg === 'success') ? '儲存成功！' : '儲存失敗！';
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
@@ -88,22 +93,10 @@ console.log(this.cuCpType2Code)
     })
   }
   //離開
-  onNoClick() {
-
+   //取消
+   onNoClick(): void {
+    this.dialogRef.close();
   }
-  min = 1;
-  max = 1;
-  test1() {
-    // this.min = 10;
-    // this.min = this.data.codeTag.length / (document.getElementById('test').clientWidth / 10)
-  }
-
-  test2() {
-  //  this.min = 1;
-  }
-
-  change() {
-    // this.min = this.data.codeTag.length / (document.getElementById('test').clientWidth / 10)
-  }
+ 
 }
 
