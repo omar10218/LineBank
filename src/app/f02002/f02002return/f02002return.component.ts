@@ -138,7 +138,10 @@ export class F02002returnComponent implements OnInit {
        })
 
       }
+      this.dialogRef.close();
+
     })
+
   }
 
 
@@ -149,7 +152,9 @@ export class F02002returnComponent implements OnInit {
     console.log(this.F02002Data)
   }
 
-  test() {
+
+  test() //測試用
+  {
     let ur = 'f02/f02002action6';
     let url = 'f02/f02002action4';
     this.f02002Service.test(ur, this.formdata2).subscribe(data => {
