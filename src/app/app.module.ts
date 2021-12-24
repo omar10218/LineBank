@@ -102,6 +102,7 @@ import { F02008return2Component } from './f02002/f02002return/f02008return2/f020
 import { F03018Component } from './f03018/f03018.component';
 import { F03018uploadComponent } from './f03018/f03018upload/f03018upload.component';
 import { F03018editComponent } from './f03018/f03018edit/f03018edit.component';
+import { F03018addComponent } from './f03018/f03018add/f03018add.component';
 
 
 
@@ -201,6 +202,7 @@ export const TW_FORMATS = {
     F03018Component,
     F03018uploadComponent,
     F03018editComponent,
+    F03018addComponent,
   ],
   imports: [
     NzIconModule,

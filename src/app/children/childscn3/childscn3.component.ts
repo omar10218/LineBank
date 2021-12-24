@@ -121,7 +121,18 @@ export class Childscn3Component implements OnInit {
               this.l1.push({ announceReason1: i.reasonCode, announceReason2: k.reasonCode })
             }
             else {
-              this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
+              // if(k.length>1)
+              // {
+              //   this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
+              // }
+              var xxxx= this.l1.filter(c=>c.announceReason1==i.reasonCode);
+              if(xxxx!=null&& xxxx.length<1){
+                this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
+              }
+              // for (var j=0 of this.data)
+
+
+
             }
             // }
           }
@@ -138,6 +149,7 @@ export class Childscn3Component implements OnInit {
     this.jsonObject['applno'] = this.applno;
     this.jsonObject['result'] = this.l1;
     const url = 'f01/childscn3action1';
+    console.log(this.l1)
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
       if (this.K == 0) {
         msgStr = "已儲存成功";
@@ -156,6 +168,7 @@ export class Childscn3Component implements OnInit {
     jsonOb['applno'] = this.applno;
     // const applno = this.applno;
     this.childsc3Service.oneseve(url, jsonOb).subscribe(data => {
+      console.log(data)
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;
     })
