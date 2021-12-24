@@ -176,9 +176,11 @@ const dialogRef = this.dialog.open(F03018editComponent,{
     this.cuCpSname = '' //員工ID
     this.cuCpType1Value = '' //代理人
     this.cuCpType2Value = '' //email
+    this.cuCpType1Code = [] //email
+    this.cuCpType2Code = [] //email
     this.useFlagValue = '' //是否在職
-
     this.cuCpSource.data = null
+    this.getTypeselect()
   }
    //匯出EXCEL
    exportExcel() {

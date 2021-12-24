@@ -93,22 +93,10 @@ console.log(this.cuCpType2Code)
     })
   }
   //離開
-  onNoClick() {
-
+   //取消
+   onNoClick(): void {
+    this.dialogRef.close();
   }
-  min = 1;
-  max = 1;
-  test1() {
-    // this.min = 10;
-    // this.min = this.data.codeTag.length / (document.getElementById('test').clientWidth / 10)
-  }
-
-  test2() {
-  //  this.min = 1;
-  }
-
-  change() {
-    // this.min = this.data.codeTag.length / (document.getElementById('test').clientWidth / 10)
-  }
+ 
 }
 
