@@ -30,7 +30,7 @@ export class F03018uploadComponent implements OnInit {
     const formdata: FormData = new FormData();
     formdata.append('file', this.fileToUpload);
     let msgStr: string = "";
-    let baseUrl = 'f03/f03017action3';
+    let baseUrl = 'f03/f03018action2';
     // const childernDialogRef = this.dialog.open(ConfirmComponent, {
     //   data: { msgStr: "傳送" }
     // });

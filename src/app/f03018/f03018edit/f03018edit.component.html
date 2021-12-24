@@ -74,22 +74,20 @@
             
             <div nz-row>
                 <div nz-col nzSpan="24">
-                    <div class="form" style="padding:20px">
+                    <div class="form" style="padding:20px;">
                         <div><span class="form-title-actions">分類3</span>
-                            <textarea matInput  name="codeTag" required matTextareaAutosize
-                                (mouseover)="test1()"
-                                (mouseleave)="test2()" (ngModelChange)="change()" id="textarea"></textarea>
+                            <textarea matInput class="input-textarea" [(ngModel)]="cuCpType3Value" name="codeTag" required 
+                                id="textarea"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
             <div nz-row>
                 <div nz-col nzSpan="24">
-                    <div class="form" style="padding:20px">
+                    <div class="form" style="padding:20px;">
                         <div><span class="form-title-actions">備註</span>
-                            <textarea matInput  name="codeTag" required matTextareaAutosize
-                                (mouseover)="test1()"
-                                (mouseleave)="test2()" (ngModelChange)="change()" id="textarea"></textarea>
+                            <textarea matInput class="input-textarea"  [(ngModel)]="codeTag" name="codeTag" required 
+                                id="textarea"></textarea>
                         </div>
                     </div>
                 </div>

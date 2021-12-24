@@ -21,7 +21,7 @@ import { history } from './../../interface/base';
   templateUrl: './f01002scn1.component.html',
   styleUrls: ['./f01002scn1.component.css', '../../../assets/css/f01.css']
 })
-export class F01002scn1Component implements OnInit {
+export class F01002scn1Component implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
@@ -102,6 +102,7 @@ export class F01002scn1Component implements OnInit {
 
   ngOnDestroy() {
     this.JCICSource$.unsubscribe();
+    this.JCICAddSource$.unsubscribe();
   }
 
   reScan() {
