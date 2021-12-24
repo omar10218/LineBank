@@ -24,7 +24,6 @@ export class F03018Service extends BaseService {
 
     return this.postGetFile(targetUrl, jsonObject);
   }
-
   insert(baseUrl: string, jsonObject: JSON): Observable<any> {
     let targetUrl = `${baseUrl}`;
 
@@ -47,11 +46,7 @@ export class F03018Service extends BaseService {
   let targetUrl = baseUrl;
   return this.postJsonObject(targetUrl,json);
   }
-  onesave(jsonObject: any): any {
-    const baseUrl = 'f03/f03018action3';
-    let targetUrl = `${baseUrl}`;
-    return this.saveOrEditMsgString(targetUrl, jsonObject);
-  }
+  
   getImpertmentParameter(jsonObject:JSON): Observable<any> {
     const baseUrl = 'f03/f03017';
     let targetUrl = `${baseUrl}`;
@@ -75,5 +70,6 @@ export class F03018Service extends BaseService {
     let targetUrl = `${baseUrl}`;
     return this.saveOrEditMsgString(targetUrl, jsonObject);
   }
+
 }
 
