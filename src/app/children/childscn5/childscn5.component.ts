@@ -196,13 +196,13 @@ export class Childscn5Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['inducLevel1'] = this.cuLevel1CaValue;
     // const index: number = this.list.indexOf(who);
-    var foo = document.getElementById('cuLevel2Ca');
-    if (jsonObject['inducLevel1'] == undefined) {
-      foo.style['background-color'] = '#E6E6E6';
-    }
-    else {
-      foo.style['background-color'] = '	#FFFFFF';
-    }
+    // var foo = document.getElementById('cuLevel2Ca');
+    // if (jsonObject['inducLevel1'] == undefined) {
+    //   foo.style['background-color'] = '#E6E6E6';
+    // }
+    // else {
+    //   foo.style['background-color'] = '	#FFFFFF';
+    // }
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
 
       for (const jsonObj of data.rspBody.items) {
@@ -222,13 +222,13 @@ export class Childscn5Component implements OnInit {
     jsonObject['inducLevel1'] = this.cuLevel1CaValue;
     jsonObject['inducLevel2'] = this.cuLevel2CaValue;
 
-    var v00 = document.getElementById('jobCodeCa');
-    if (jsonObject['inducLevel2'] == undefined || jsonObject['inducLevel2'] == "" || jsonObject['inducLevel2'] == null) {
-      v00.style['background-color'] = '#E6E6E6';
-    }
-    else {
-      v00.style['background-color'] = '	#FFFFFF';
-    }
+    // var v00 = document.getElementById('jobCodeCa');
+    // if (jsonObject['inducLevel2'] == undefined || jsonObject['inducLevel2'] == "" || jsonObject['inducLevel2'] == null) {
+    //   v00.style['background-color'] = '#E6E6E6';
+    // }
+    // else {
+    //   v00.style['background-color'] = '	#FFFFFF';
+    // }
     this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj['JOB_CODE'];
