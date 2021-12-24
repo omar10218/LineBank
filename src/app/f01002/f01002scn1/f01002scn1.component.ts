@@ -112,7 +112,7 @@ export class F01002scn1Component implements OnInit {
       data: {
         applno: this.applno,
         cuid: this.cuid,
-        checkpoint:"L3"
+        checkpoint: "L3"
       }
     });
   }
@@ -125,7 +125,7 @@ export class F01002scn1Component implements OnInit {
       data: {
         applno: this.applno,
         cuid: this.cuid,
-        checkpoint:"L3"
+        checkpoint: "L3"
       }
     });
   }
@@ -138,7 +138,7 @@ export class F01002scn1Component implements OnInit {
       data: {
         applno: this.applno,
         cuid: this.cuid,
-        checkpoint:"L3"
+        checkpoint: "L3"
       }
     });
   }
@@ -200,7 +200,35 @@ export class F01002scn1Component implements OnInit {
     window.close();
   }
 
+  //Nick 徵審代碼/AML邏輯
   save(url: string, result: string) {
+
+    //AML檢核
+    var msgSave: boolean = true;
+    if (sessionStorage.getItem('PURPOSEOTHER_MESSAGE2') == "Z" && sessionStorage.getItem('otherMessage2') == "") { msgSave = false };
+    if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "Z" && sessionStorage.getItem('otherMessage3') == "") { msgSave = false };
+    if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "Z" && sessionStorage.getItem('otherMessage4') == "") { msgSave = false };
+    if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "Z" && sessionStorage.getItem('otherMessage5') == "") { msgSave = false };
+    if (!msgSave) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "提供AML資訊點選其他時，輸入框為必填!" }
+      });
+      return;
+    }
+    //AML檢核
+    var save: boolean = true;
+    if (sessionStorage.getItem('MAIN_INCOME') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('PURPOSEOTHER_MESSAGE2') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (!save) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "徵信完成時AML資訊為必填!" }
+      });
+      return;
+    }
+
     const dialogRef = this.dialog.open(Childscn26Component, {
       minHeight: '50%',
       width: '30%',
@@ -210,6 +238,7 @@ export class F01002scn1Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result.value == 'confirm') {
+        this.f01002scn1Service.setCREDITSource({ key: true });
         const baseUrl = url;
         let jsonObject: any = {};
         jsonObject['applno'] = this.applno;
@@ -337,18 +366,52 @@ export class F01002scn1Component implements OnInit {
 
   //設定歷史資料紀錄參數 20211222
   setHistory() {
-    this.history.push({value: this.approveAmt, tableName: 'EL_CREDITMAIN', valueInfo: 'APPROVE_AMT'}); //核准額度
-    this.history.push({value: this.lowestPayRate, tableName: 'EL_CREDITMAIN', valueInfo: 'LOWEST_PAY_RATE'}); //最低還款比例(循環型)
-    this.history.push({value:  this.period, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD'}); //分段起始期數
-    this.history.push({value:  this.periodType, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD_TYPE'}); //期別
-    this.history.push({value:  this.interestType, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_TYPE'}); //利率型態
-    this.history.push({value:  this.approveInterest, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'APPROVE_INTEREST'}); //核准利率
-    this.history.push({value:  this.interest, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST'}); //固定利率
-    this.history.push({value:  this.interestBase, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_BASE'}); //當時的指數,基放,郵儲利率
-    this.history.push({value:  this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT'}); //核決結果
-    this.history.push({value:  this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT'}); //徵信修改申貸金額
-    this.history.push({value:  this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS'}); //人員記錄-PM策略客群
-    this.history.push({value:  this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK'}); //人員記錄-風險等級
-    this.history.push({value:  this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION'}); //審核意見
+    this.history.push({ value: this.approveAmt, tableName: 'EL_CREDITMAIN', valueInfo: 'APPROVE_AMT' }); //核准額度
+    this.history.push({ value: this.lowestPayRate, tableName: 'EL_CREDITMAIN', valueInfo: 'LOWEST_PAY_RATE' }); //最低還款比例(循環型)
+    this.history.push({ value: this.period, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD' }); //分段起始期數
+    this.history.push({ value: this.periodType, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD_TYPE' }); //期別
+    this.history.push({ value: this.interestType, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_TYPE' }); //利率型態
+    this.history.push({ value: this.approveInterest, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'APPROVE_INTEREST' }); //核准利率
+    this.history.push({ value: this.interest, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST' }); //固定利率
+    this.history.push({ value: this.interestBase, tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_BASE' }); //當時的指數,基放,郵儲利率
+    this.history.push({ value: this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT' }); //核決結果
+    this.history.push({ value: this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT' }); //徵信修改申貸金額
+    this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS' }); //人員記錄-PM策略客群
+    this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK' }); //人員記錄-風險等級
+    this.history.push({ value: this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION' }); //審核意見
   }
+
+  //儲存 SUPPLY_AML 
+  saveSUPPLY_AML() {
+    var save: boolean = true;
+    if (sessionStorage.getItem('PURPOSEOTHER_MESSAGE2') == "Z" && sessionStorage.getItem('otherMessage2') == "") { save = false };
+    if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "Z" && sessionStorage.getItem('otherMessage3') == "") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "Z" && sessionStorage.getItem('otherMessage4') == "") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "Z" && sessionStorage.getItem('otherMessage5') == "") { save = false };
+    if (save) {
+      const url = 'f01/childscn1action7';
+      let jsonObject: any = {};
+      jsonObject['applno'] = this.applno;
+      jsonObject['mainIncome'] = sessionStorage.getItem('MAIN_INCOME');
+      jsonObject['purpose'] = sessionStorage.getItem('PURPOSEOTHER_MESSAGE2');
+      jsonObject['otherMessage2'] = sessionStorage.getItem('otherMessage2');
+      jsonObject['nonTrade'] = sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3');
+      jsonObject['otherMessage3'] = sessionStorage.getItem('otherMessage3');
+      jsonObject['tradeNonCc'] = sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4');
+      jsonObject['otherMessage4'] = sessionStorage.getItem('otherMessage4');
+      jsonObject['tradeNonPurpose'] = sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5');
+      jsonObject['otherMessage5'] = sessionStorage.getItem('otherMessage5');
+      console.log('jsonObject')
+      console.log(jsonObject)
+      this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
+        console.log('data');
+        console.log(data);
+      });
+    } else {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "提供AML資訊點選其他時，輸入框為必填!" }
+      });
+    }
+  }
+
 }
