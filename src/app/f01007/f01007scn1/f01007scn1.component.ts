@@ -279,15 +279,17 @@ export class F01007scn1Component implements OnInit {
     this.block = true;
     this.saveMemo();
     this.f01007scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
-      //儲存歷史資料
-      this.setHistory();
       await this.childscn1Service.setHistory(this.history, "授信覆核案件完成", this.applno);
-      this.removeSession();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
+      if ( data.rspMsg.includes('處理案件異常') ) { } else {
+         //儲存歷史資料
+        this.setHistory();
+        this.removeSession();
+        this.router.navigate(['./F01007']);
+      }
       this.block = false;
-      this.router.navigate(['./F01007']);
     });
   }
 

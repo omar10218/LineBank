@@ -163,15 +163,17 @@ export class BaseService {
     let msg = '';
     let jsonObject: any = {};
     for (let index = 0; index < value.length; index++) {
-      content.push(
-        {
-          applno: applno,
-          tableName: value[index].tableName,
-          columnName: value[index].valueInfo,
-          currentValue: value[index].value,
-          transAPname: transAPname,
-        }
-      )
+      if ( !(value[index].value == null || value[index].value == '' || value[index].value == 'null' )) {
+        content.push(
+          {
+            applno: applno,
+            tableName: value[index].tableName,
+            columnName: value[index].valueInfo,
+            currentValue: value[index].value,
+            transAPname: transAPname,
+          }
+        )
+      }
     }
     jsonObject['content'] = content;
     return await this.postJsonObject(baseUrl, jsonObject).toPromise();
