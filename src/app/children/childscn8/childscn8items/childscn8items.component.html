@@ -8,8 +8,8 @@
           <th class="table-header" style="width:4%">No</th>
           <th class="table-header" style="width:10%">項目</th>
           <th class="table-header" style="width:2%">提問</th>
-          <th class="table-header" style="width:20%">核對資料</th>
-          <th class="table-header" style="width:15%">回答狀況</th>
+          <th class="table-header" style="width:20%">核對資料(雙擊取消)</th>
+          <th class="table-header" style="width:15%">回答狀況(雙擊取消)</th>
           <th class="table-header" style="width:25%">其他備註</th>
           <th class="table-header" style="width:10%">確認時間</th>
           <th class="table-header" style="width:10%">確認人員</th>
@@ -22,20 +22,20 @@
           <td class="table-data">{{MDtable[0]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[0].CHECK_DATA" name="CHECK_DATA1">
-              <label nz-radio nzValue="1">身分證號</label>
-              <label nz-radio nzValue="2">出生日期</label>
-              <label nz-radio nzValue="3">居住地址</label>
-              <label nz-radio nzValue="4">公司電話</label>
-              <label nz-radio nzValue="5">E-MAIL</label>
-              <label nz-radio nzValue="6">手機</label>
-              <label nz-radio nzValue="7">其他不限</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[0],'CHECK_DATA')" nzValue="1">身分證號</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[0],'CHECK_DATA')" nzValue="2">出生日期</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[0],'CHECK_DATA')" nzValue="3">居住地址</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[0],'CHECK_DATA')" nzValue="4">公司電話</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[0],'CHECK_DATA')" nzValue="5">E-MAIL</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[0],'CHECK_DATA')" nzValue="6">手機</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[0],'CHECK_DATA')" nzValue="7">其他不限</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[0].REPLY_CONDITION" name="REPLY_CONDITION1">
-              <label nz-radio nzValue="1">正確</label>
-              <label nz-radio nzValue="2">不清楚</label>
-              <label nz-radio nzValue="3">錯誤</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[0],'REPLY_CONDITION')" nzValue="1">正確</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[0],'REPLY_CONDITION')" nzValue="2">不清楚</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[0],'REPLY_CONDITION')" nzValue="3">錯誤</label>
               <br>
               <label nz-radio nzValue="Z">其他:</label>
             </nz-radio-group>
@@ -57,20 +57,20 @@
           <td class="table-data">{{MDtable[1]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[1].CHECK_DATA" name="CHECK_DATA2">
-              <label nz-radio nzValue="1">身分證號</label>
-              <label nz-radio nzValue="2">出生日期</label>
-              <label nz-radio nzValue="3">居住地址</label>
-              <label nz-radio nzValue="4">公司電話</label>
-              <label nz-radio nzValue="5">E-MAIL</label>
-              <label nz-radio nzValue="6">手機</label>
-              <label nz-radio nzValue="7">其他不限</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[1],'CHECK_DATA')"  nzValue="1">身分證號</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[1],'CHECK_DATA')"  nzValue="2">出生日期</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[1],'CHECK_DATA')" nzValue="3">居住地址</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[1],'CHECK_DATA')" nzValue="4">公司電話</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[1],'CHECK_DATA')" nzValue="5">E-MAIL</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[1],'CHECK_DATA')" nzValue="6">手機</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[1],'CHECK_DATA')" nzValue="7">其他不限</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[1].REPLY_CONDITION" name="REPLY_CONDITION2">
-              <label nz-radio nzValue="1">正確</label>
-              <label nz-radio nzValue="2">不清楚</label>
-              <label nz-radio nzValue="3">錯誤</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[1],'REPLY_CONDITION')"  nzValue="1">正確</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[1],'REPLY_CONDITION')"  nzValue="2">不清楚</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[1],'REPLY_CONDITION')"  nzValue="3">錯誤</label>
               <br>
               <label nz-radio nzValue="Z">其他:</label>
             </nz-radio-group>
@@ -92,20 +92,20 @@
           <td class="table-data">{{MDtable[2]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[2].CHECK_DATA" name="CHECK_DATA3">
-              <label nz-radio nzValue="1">身分證號</label>
-              <label nz-radio nzValue="2">出生日期</label>
-              <label nz-radio nzValue="3">居住地址</label>
-              <label nz-radio nzValue="4">公司電話</label>
-              <label nz-radio nzValue="5">E-MAIL</label>
-              <label nz-radio nzValue="6">手機</label>
-              <label nz-radio nzValue="7">其他不限</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[2],'CHECK_DATA')"  nzValue="1">身分證號</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[2],'CHECK_DATA')"  nzValue="2">出生日期</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[2],'CHECK_DATA')"  nzValue="3">居住地址</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[2],'CHECK_DATA')"  nzValue="4">公司電話</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[2],'CHECK_DATA')"  nzValue="5">E-MAIL</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[2],'CHECK_DATA')"  nzValue="6">手機</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[2],'CHECK_DATA')"  nzValue="7">其他不限</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[2].REPLY_CONDITION" name="REPLY_CONDITION3">
-              <label nz-radio nzValue="1">正確</label>
-              <label nz-radio nzValue="2">不清楚</label>
-              <label nz-radio nzValue="3">錯誤</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[2],'REPLY_CONDITION')" nzValue="1">正確</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[2],'REPLY_CONDITION')" nzValue="2">不清楚</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[2],'REPLY_CONDITION')" nzValue="3">錯誤</label>
               <br>
               <label nz-radio nzValue="Z">其他:</label>
             </nz-radio-group>
@@ -129,9 +129,9 @@
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[3].REPLY_CONDITION" name="REPLY_CONDITION4">
-              <label nz-radio nzValue="4">願意提供(備註)</label>
-              <label nz-radio nzValue="5">不願提供</label>
-              <label nz-radio nzValue="Z">其他:</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[3],'REPLY_CONDITION')" nzValue="4">願意提供(備註)</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[3],'REPLY_CONDITION')" nzValue="5">不願提供</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[3],'REPLY_CONDITION')" nzValue="Z">其他:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
@@ -152,19 +152,19 @@
           <td class="table-data">{{MDtable[4]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[4].CHECK_DATA" name="CHECK_DATA5">
-              <label nz-radio nzValue="7">信用卡</label>
-              <label nz-radio nzValue="8">信貸</label>
-              <label nz-radio nzValue="9">房貸</label>
-              <label nz-radio nzValue="10">車貸</label>
-              <label nz-radio nzValue="11">從債務</label>
-              <label nz-radio nzValue="Z">其他不限:</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[4],'CHECK_DATA')"  nzValue="7">信用卡</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[4],'CHECK_DATA')"  nzValue="8">信貸</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[4],'CHECK_DATA')"  nzValue="9">房貸</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[4],'CHECK_DATA')"  nzValue="10">車貸</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[4],'CHECK_DATA')"  nzValue="11">從債務</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[4],'CHECK_DATA')"  nzValue="Z">其他不限:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[4].REPLY_CONDITION" name="REPLY_CONDITION5">
-              <label nz-radio nzValue="1">正確</label>
-              <label nz-radio nzValue="2">不清楚</label>
-              <label nz-radio nzValue="3">錯誤</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[4],'REPLY_CONDITION')" nzValue="1">正確</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[4],'REPLY_CONDITION')" nzValue="2">不清楚</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[4],'REPLY_CONDITION')" nzValue="3">錯誤</label>
               <br>
               <label nz-radio nzValue="Z">其他:</label>
             </nz-radio-group>
@@ -186,19 +186,19 @@
           <td class="table-data">{{MDtable[5]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[5].CHECK_DATA" name="CHECK_DATA6">
-              <label nz-radio nzValue="7">信用卡</label>
-              <label nz-radio nzValue="8">信貸</label>
-              <label nz-radio nzValue="9">房貸</label>
-              <label nz-radio nzValue="10">車貸</label>
-              <label nz-radio nzValue="11">從債務</label>
-              <label nz-radio nzValue="Z">其他不限:</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[5],'CHECK_DATA')"  nzValue="7">信用卡</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[5],'CHECK_DATA')"  nzValue="8">信貸</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[5],'CHECK_DATA')"  nzValue="9">房貸</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[5],'CHECK_DATA')"  nzValue="10">車貸</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[5],'CHECK_DATA')"  nzValue="11">從債務</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[5],'CHECK_DATA')"  nzValue="Z">其他不限:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[5].REPLY_CONDITION" name="REPLY_CONDITION6">
-              <label nz-radio nzValue="1">正確</label>
-              <label nz-radio nzValue="2">不清楚</label>
-              <label nz-radio nzValue="3">錯誤</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[5],'REPLY_CONDITION')" nzValue="1">正確</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[5],'REPLY_CONDITION')" nzValue="2">不清楚</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[5],'REPLY_CONDITION')" nzValue="3">錯誤</label>
               <br>
               <label nz-radio nzValue="Z">其他:</label>
             </nz-radio-group>
@@ -220,19 +220,19 @@
           <td class="table-data">{{MDtable[6]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[6].CHECK_DATA" name="CHECK_DATA7">
-              <label nz-radio nzValue="7">信用卡</label>
-              <label nz-radio nzValue="8">信貸</label>
-              <label nz-radio nzValue="9">房貸</label>
-              <label nz-radio nzValue="10">車貸</label>
-              <label nz-radio nzValue="11">從債務</label>
-              <label nz-radio nzValue="Z">其他不限:</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[6],'CHECK_DATA')"  nzValue="7">信用卡</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[6],'CHECK_DATA')"  nzValue="8">信貸</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[6],'CHECK_DATA')"  nzValue="9">房貸</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[6],'CHECK_DATA')"  nzValue="10">車貸</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[6],'CHECK_DATA')"  nzValue="11">從債務</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[6],'CHECK_DATA')"  nzValue="Z">其他不限:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[6].REPLY_CONDITION" name="REPLY_CONDITION7">
-              <label nz-radio nzValue="1">正確</label>
-              <label nz-radio nzValue="2">不清楚</label>
-              <label nz-radio nzValue="3">錯誤</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[6],'REPLY_CONDITION')" nzValue="1">正確</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[6],'REPLY_CONDITION')" nzValue="2">不清楚</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[6],'REPLY_CONDITION')" nzValue="3">錯誤</label>
               <br>
               <label nz-radio nzValue="Z">其他:</label>
             </nz-radio-group>
@@ -255,14 +255,14 @@
           <td class="table-data">{{MDtable[7]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[7].CHECK_DATA" name="CHECK_DATA8">
-              <label nz-radio nzValue="12">高中以下</label>
-              <label nz-radio nzValue="13">專科大學</label>
-              <label nz-radio nzValue="14">碩士以上</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[7],'CHECK_DATA')"  nzValue="12">高中以下</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[7],'CHECK_DATA')"  nzValue="13">專科大學</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[7],'CHECK_DATA')"  nzValue="14">碩士以上</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[7].REPLY_CONDITION" name="REPLY_CONDITION8">
-              <label nz-radio nzValue="6">畢業學校(備註)</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[7],'REPLY_CONDITION')" nzValue="6">畢業學校(備註)</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
@@ -283,17 +283,17 @@
           <td class="table-data">{{MDtable[8]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[8].CHECK_DATA" name="CHECK_DATA9">
-              <label nz-radio nzValue="15">比對相符</label>
-              <label nz-radio nzValue="16">比對不符</label>
-              <label nz-radio nzValue="17">無需確認</label>
-              <label nz-radio nzValue="Y">其他:</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[8],'CHECK_DATA')"  nzValue="15">比對相符</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[8],'CHECK_DATA')"  nzValue="16">比對不符</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[8],'CHECK_DATA')"  nzValue="17">無需確認</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[8],'CHECK_DATA')"  nzValue="Y">其他:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[8].REPLY_CONDITION" name="REPLY_CONDITION9">
-              <label nz-radio nzValue="1">正確</label>
-              <label nz-radio nzValue="2">不清楚</label>
-              <label nz-radio nzValue="3">錯誤</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[8],'REPLY_CONDITION')" nzValue="1">正確</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[8],'REPLY_CONDITION')" nzValue="2">不清楚</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[8],'REPLY_CONDITION')" nzValue="3">錯誤</label>
               <br>
               <label nz-radio nzValue="Z">其他:</label>
             </nz-radio-group>
@@ -316,17 +316,17 @@
           <td class="table-data">{{MDtable[9]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[9].CHECK_DATA" name="CHECK_DATA10">
-              <label nz-radio nzValue="15">比對相符</label>
-              <label nz-radio nzValue="16">比對不符</label>
-              <label nz-radio nzValue="17">無需確認</label>
-              <label nz-radio nzValue="Y">其他:</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[9],'CHECK_DATA')"  nzValue="15">比對相符</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[9],'CHECK_DATA')"  nzValue="16">比對不符</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[9],'CHECK_DATA')"  nzValue="17">無需確認</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[9],'CHECK_DATA')"  nzValue="Y">其他:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[9].REPLY_CONDITION" name="REPLY_CONDITION10">
-              <label nz-radio nzValue="1">正確</label>
-              <label nz-radio nzValue="2">不清楚</label>
-              <label nz-radio nzValue="3">錯誤</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[9],'REPLY_CONDITION')" nzValue="1">正確</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[9],'REPLY_CONDITION')" nzValue="2">不清楚</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[9],'REPLY_CONDITION')" nzValue="3">錯誤</label>
               <br>
               <label nz-radio nzValue="Z">其他:</label>
             </nz-radio-group>
@@ -349,17 +349,17 @@
           <td class="table-data">{{MDtable[10]?.txt}}</td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[10].CHECK_DATA" name="CHECK_DATA11">
-              <label nz-radio nzValue="15">比對相符</label>
-              <label nz-radio nzValue="16">比對不符</label>
-              <label nz-radio nzValue="17">無需確認</label>
-              <label nz-radio nzValue="Y">其他:</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[10],'CHECK_DATA')"  nzValue="15">比對相符</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[10],'CHECK_DATA')"  nzValue="16">比對不符</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[10],'CHECK_DATA')"  nzValue="17">無需確認</label>
+              <label nz-radio  (dblclick)="dblclick(MDtable[10],'CHECK_DATA')"  nzValue="Y">其他:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[10].REPLY_CONDITION" name="REPLY_CONDITION11">
-              <label nz-radio nzValue="1">正確</label>
-              <label nz-radio nzValue="2">不清楚</label>
-              <label nz-radio nzValue="3">錯誤</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[10],'REPLY_CONDITION')" nzValue="1">正確</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[10],'REPLY_CONDITION')" nzValue="2">不清楚</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[10],'REPLY_CONDITION')" nzValue="3">錯誤</label>
               <br>
               <label nz-radio nzValue="Z">其他:</label>
             </nz-radio-group>
@@ -383,9 +383,9 @@
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[11].REPLY_CONDITION" name="REPLY_CONDITION12">
-              <label nz-radio nzValue="1">正確</label>
-              <label nz-radio nzValue="2">不清楚</label>
-              <label nz-radio nzValue="3">錯誤</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[11],'REPLY_CONDITION')" nzValue="1">正確</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[11],'REPLY_CONDITION')" nzValue="2">不清楚</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[11],'REPLY_CONDITION')" nzValue="3">錯誤</label>
               <br>
               <label nz-radio nzValue="Z">其他:</label>
             </nz-radio-group>
@@ -409,9 +409,9 @@
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[12].REPLY_CONDITION" name="REPLY_CONDITION13">
-              <label nz-radio nzValue="1">正確</label>
-              <label nz-radio nzValue="2">不清楚</label>
-              <label nz-radio nzValue="3">錯誤</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[12],'REPLY_CONDITION')" nzValue="1">正確</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[12],'REPLY_CONDITION')" nzValue="2">不清楚</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[12],'REPLY_CONDITION')" nzValue="3">錯誤</label>
               <br>
               <label nz-radio nzValue="Z">其他:</label>
             </nz-radio-group>
@@ -460,9 +460,9 @@
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[14].REPLY_CONDITION" name="REPLY_CONDITION15">
-              <label nz-radio nzValue="7">有(備註)</label>
-              <label nz-radio nzValue="8">無</label>
-              <label nz-radio nzValue="Z">其他:</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[14],'REPLY_CONDITION')" nzValue="7">有(備註)</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[14],'REPLY_CONDITION')" nzValue="8">無</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[14],'REPLY_CONDITION')" nzValue="Z">其他:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
@@ -483,9 +483,9 @@
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[15].REPLY_CONDITION" name="REPLY_CONDITION16">
-              <label nz-radio nzValue="7">有(備註)</label>
-              <label nz-radio nzValue="8">無</label>
-              <label nz-radio nzValue="Z">其他:</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[15],'REPLY_CONDITION')" nzValue="7">有(備註)</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[15],'REPLY_CONDITION')" nzValue="8">無</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[15],'REPLY_CONDITION')" nzValue="Z">其他:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
@@ -533,9 +533,9 @@
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[17].REPLY_CONDITION" name="REPLY_CONDITION18">
-              <label nz-radio nzValue="7">有(備註)</label>
-              <label nz-radio nzValue="8">無</label>
-              <label nz-radio nzValue="Z">其他:</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[17],'REPLY_CONDITION')" nzValue="7">有(備註)</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[17],'REPLY_CONDITION')" nzValue="8">無</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[17],'REPLY_CONDITION')" nzValue="Z">其他:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
@@ -557,9 +557,9 @@
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[18].REPLY_CONDITION" name="REPLY_CONDITION19">
-              <label nz-radio nzValue="7">有(備註)</label>
-              <label nz-radio nzValue="8">無</label>
-              <label nz-radio nzValue="Z">其他:</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[18],'REPLY_CONDITION')" nzValue="7">有(備註)</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[18],'REPLY_CONDITION')" nzValue="8">無</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[18],'REPLY_CONDITION')" nzValue="Z">其他:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
@@ -581,9 +581,9 @@
           <td class="table-data"></td>
           <td class="table-data">
             <nz-radio-group [(ngModel)]="MDtable[19].REPLY_CONDITION" name="REPLY_CONDITION20">
-              <label nz-radio nzValue="7">有(備註)</label>
-              <label nz-radio nzValue="8">無</label>
-              <label nz-radio nzValue="Z">其他:</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[19],'REPLY_CONDITION')" nzValue="7">有(備註)</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[19],'REPLY_CONDITION')" nzValue="8">無</label>
+              <label nz-radio (dblclick)="dblclick(MDtable[19],'REPLY_CONDITION')" nzValue="Z">其他:</label>
             </nz-radio-group>
           </td>
           <td class="table-data">
