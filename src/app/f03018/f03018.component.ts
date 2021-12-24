@@ -5,6 +5,7 @@ import { F03018editComponent } from './f03018edit/f03018edit.component';
 import { MatDialog } from '@angular/material/dialog'
 import { F03018Service } from './f03018.service'
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { F03018addComponent } from './f03018add/f03018add.component';
 
 interface sysCode {
 	value: string
@@ -68,8 +69,16 @@ getTypeselect(){
 }
 //新增
   addNew(){
+    const dialogRef = this.dialog.open(F03018addComponent,{
+      panelClass: 'mat-dialog-transparent',
+          minHeight: '70vh',
+          width: '50%',
+    })
+    }
 
-  }
+
+
+
 
 
 //查詢
