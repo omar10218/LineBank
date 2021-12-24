@@ -22,7 +22,7 @@
         <td class="table-data">{{data.RESCAN_CONTENT}}</td>
         <td class="table-data">
           <div style="padding:10px">
-            <mat-select [(ngModel)]="data.rescanReason" name="data.rescanReason" [disabled]="data.IMAGE_NAME!=''? true:false">
+            <mat-select [(ngModel)]="data.rescanReason" name="data.rescanReason" [disabled]="data.IMAGE_NAME!=null? true:false">
               <mat-option *ngFor="let code of type" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
@@ -31,7 +31,7 @@
         </td>
         <td class="table-data"  *ngIf="data.IMAGE_NAME == null"><input type="file" name="file" (change)="onChange($event,data.ROW_ID)"/></td>
         <!-- <td class="table-data" *ngIf="expression"><input type="text" [(ngModel)]="docType" name="docType" /></td> -->
-        <td class="table-data" *ngIf="data.IMAGE_NAME!=null && data.IMAGE_NAME !=''"><label>{{data.IMAGE_NAME}}</label></td>
+        <td class="table-data" *ngIf="data.IMAGE_NAME!=null "><label>{{data.IMAGE_NAME}}</label></td>
         <td class="table-data"><input type="text" [(ngModel)]="data.IMAGE_CONTENT" name="data.IMAGE_CONTENT"></td>
       </tr>
     </tbody>

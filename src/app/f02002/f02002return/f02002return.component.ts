@@ -100,7 +100,7 @@ export class F02002returnComponent implements OnInit {
     });
 
 
-    let url = 'f02/f02002action4';
+    let url ='f02/f02002action4';
     let ur = 'f02/f02002action6';
     // (await this.f02002Service.fromUp(ur,this.formdata2)).subscribe
     let jsonObject: any = {};
@@ -145,8 +145,31 @@ export class F02002returnComponent implements OnInit {
 
   test() {
     let ur = 'f02/f02002action6';
-    this.f02002Service.test(ur,this.formdata2).subscribe(data=>{
-      console.log(data)
-    })
+    let url ='f02/f02002action4';
+    // this.f02002Service.test(ur,this.formdata2).subscribe(data=>{
+    //   console.log(data)
+    // })
+
+    let jsonObject: any = {};
+    const content = []
+      for (const it of this.F02002Data)
+      {
+        content.push(
+          {
+            rowId:it.ROW_ID,
+            rescanReason:it.rescanReason,
+            remark:it.IMAGE_CONTENT,
+          }
+        )
+      }
+      jsonObject['F02002req'] =content;
+
+    console.log(jsonObject)
+    console.log(content)
+    this.f02002Service.f02002(url,jsonObject).subscribe(data=>
+      {
+        console.log(data)
+      })
+
   }
 }
