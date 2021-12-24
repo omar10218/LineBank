@@ -202,7 +202,6 @@ export class Childscn12Component implements OnInit {
       }
 
       //--------------------以上總表處理
-
       // this.EL_INCOME_DETAILS_Source.data = data.rspBody.incomeDetail;
       for (const INCOME_DETAILS of this.INCOME_DETAILS_List) {
 
@@ -248,7 +247,12 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A15 = strArray[4];
           INCOME_DETAILS.A16 = strArray[5];
           //觸發資料計算 BCD
-          data.A11 != null ? this.data_number(data.A11.toString(), INCOME_DETAILS.key, "A11") : this.data_number("", INCOME_DETAILS.key, "A11");
+          INCOME_DETAILS.A11 != null ? this.data_number(INCOME_DETAILS.A11.toString(), INCOME_DETAILS.key, "A11") : this.data_number("", INCOME_DETAILS.key, "A11");
+          INCOME_DETAILS.A12 != null ? this.data_number(INCOME_DETAILS.A12.toString(), INCOME_DETAILS.key, "A12") : this.data_number("", INCOME_DETAILS.key, "A12");
+          INCOME_DETAILS.A13 != null ? this.data_number(INCOME_DETAILS.A13.toString(), INCOME_DETAILS.key, "A13") : this.data_number("", INCOME_DETAILS.key, "A13");
+          INCOME_DETAILS.A14 != null ? this.data_number(INCOME_DETAILS.A14.toString(), INCOME_DETAILS.key, "A14") : this.data_number("", INCOME_DETAILS.key, "A14");
+          INCOME_DETAILS.A15 != null ? this.data_number(INCOME_DETAILS.A15.toString(), INCOME_DETAILS.key, "A15") : this.data_number("", INCOME_DETAILS.key, "A15");
+          INCOME_DETAILS.A16 != null ? this.data_number(INCOME_DETAILS.A16.toString(), INCOME_DETAILS.key, "A16") : this.data_number("", INCOME_DETAILS.key, "A16");
         }
         if (data.A2 != null) {
           let strArray = data.A2.split(',');
@@ -259,7 +263,12 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A25 = strArray[4];
           INCOME_DETAILS.A26 = strArray[5];
           //觸發資料計算BCD
-          data.A21 != null ? this.data_number(data.A21.toString(), INCOME_DETAILS.key, "A21") : this.data_number("", INCOME_DETAILS.key, "A21");
+          INCOME_DETAILS.A21 != null ? this.data_number(INCOME_DETAILS.A21.toString(), INCOME_DETAILS.key, "A21") : this.data_number("", INCOME_DETAILS.key, "A21");
+          INCOME_DETAILS.A22 != null ? this.data_number(INCOME_DETAILS.A22.toString(), INCOME_DETAILS.key, "A22") : this.data_number("", INCOME_DETAILS.key, "A22");
+          INCOME_DETAILS.A23 != null ? this.data_number(INCOME_DETAILS.A23.toString(), INCOME_DETAILS.key, "A23") : this.data_number("", INCOME_DETAILS.key, "A23");
+          INCOME_DETAILS.A24 != null ? this.data_number(INCOME_DETAILS.A24.toString(), INCOME_DETAILS.key, "A24") : this.data_number("", INCOME_DETAILS.key, "A24");
+          INCOME_DETAILS.A25 != null ? this.data_number(INCOME_DETAILS.A25.toString(), INCOME_DETAILS.key, "A25") : this.data_number("", INCOME_DETAILS.key, "A25");
+          INCOME_DETAILS.A26 != null ? this.data_number(INCOME_DETAILS.A26.toString(), INCOME_DETAILS.key, "A26") : this.data_number("", INCOME_DETAILS.key, "A26");
         }
         if (data.A4 != null) {
           let strArray = data.A4.split(',');
@@ -267,7 +276,9 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A42 = strArray[1];
           INCOME_DETAILS.A43 = strArray[2];
           //觸發資料計算 BCD
-          data.A41 != null ? this.data_number(data.A41.toString(), INCOME_DETAILS.key, "A41") : this.data_number("", INCOME_DETAILS.key, "A41");
+          INCOME_DETAILS.A41 != null ? this.data_number(INCOME_DETAILS.A41.toString(), INCOME_DETAILS.key, "A41") : this.data_number("", INCOME_DETAILS.key, "A41");
+          INCOME_DETAILS.A42 != null ? this.data_number(INCOME_DETAILS.A42.toString(), INCOME_DETAILS.key, "A42") : this.data_number("", INCOME_DETAILS.key, "A42");
+          INCOME_DETAILS.A43 != null ? this.data_number(INCOME_DETAILS.A43.toString(), INCOME_DETAILS.key, "A43") : this.data_number("", INCOME_DETAILS.key, "A43");
         }
         if (data.A5 != null) {
           let strArray = data.A5.split(',');
@@ -278,7 +289,12 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A55 = strArray[4];
           INCOME_DETAILS.A56 = strArray[5];
           //觸發資料計算 BCD
-          data.A51 != null ? this.data_number(data.A51.toString(), INCOME_DETAILS.key, "A51") : this.data_number("", INCOME_DETAILS.key, "A51");
+          INCOME_DETAILS.A51 != null ? this.data_number(INCOME_DETAILS.A51.toString(), INCOME_DETAILS.key, "A51") : this.data_number("", INCOME_DETAILS.key, "A51");
+          INCOME_DETAILS.A52 != null ? this.data_number(INCOME_DETAILS.A52.toString(), INCOME_DETAILS.key, "A52") : this.data_number("", INCOME_DETAILS.key, "A52");
+          INCOME_DETAILS.A53 != null ? this.data_number(INCOME_DETAILS.A53.toString(), INCOME_DETAILS.key, "A53") : this.data_number("", INCOME_DETAILS.key, "A53");
+          INCOME_DETAILS.A54 != null ? this.data_number(INCOME_DETAILS.A54.toString(), INCOME_DETAILS.key, "A54") : this.data_number("", INCOME_DETAILS.key, "A54");
+          INCOME_DETAILS.A55 != null ? this.data_number(INCOME_DETAILS.A55.toString(), INCOME_DETAILS.key, "A55") : this.data_number("", INCOME_DETAILS.key, "A55");
+          INCOME_DETAILS.A56 != null ? this.data_number(INCOME_DETAILS.A56.toString(), INCOME_DETAILS.key, "A56") : this.data_number("", INCOME_DETAILS.key, "A56");
         }
         if (data.A6 != null) {
           let strArray = data.A6.split(',');
@@ -289,7 +305,12 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A65 = strArray[4];
           INCOME_DETAILS.A66 = strArray[5];
           //觸發資料計算 BCD
-          data.A61 != null ? this.data_number(data.A61.toString(), INCOME_DETAILS.key, "A61") : this.data_number("", INCOME_DETAILS.key, "A61");
+          INCOME_DETAILS.A61 != null ? this.data_number(INCOME_DETAILS.A61.toString(), INCOME_DETAILS.key, "A61") : this.data_number("", INCOME_DETAILS.key, "A61");
+          INCOME_DETAILS.A62 != null ? this.data_number(INCOME_DETAILS.A62.toString(), INCOME_DETAILS.key, "A62") : this.data_number("", INCOME_DETAILS.key, "A62");
+          INCOME_DETAILS.A63 != null ? this.data_number(INCOME_DETAILS.A63.toString(), INCOME_DETAILS.key, "A63") : this.data_number("", INCOME_DETAILS.key, "A63");
+          INCOME_DETAILS.A64 != null ? this.data_number(INCOME_DETAILS.A64.toString(), INCOME_DETAILS.key, "A64") : this.data_number("", INCOME_DETAILS.key, "A64");
+          INCOME_DETAILS.A65 != null ? this.data_number(INCOME_DETAILS.A65.toString(), INCOME_DETAILS.key, "A65") : this.data_number("", INCOME_DETAILS.key, "A65");
+          INCOME_DETAILS.A66 != null ? this.data_number(INCOME_DETAILS.A66.toString(), INCOME_DETAILS.key, "A66") : this.data_number("", INCOME_DETAILS.key, "A66");
         }
         if (data.A8 != null) {
           let strArray = data.A8.split(',');
@@ -297,7 +318,10 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A82 = strArray[1];
           INCOME_DETAILS.A83 = strArray[2];
           //觸發資料計算 BCD
-          data.A81 != null ? this.data_number(data.A81.toString(), INCOME_DETAILS.key, "A81") : this.data_number("", INCOME_DETAILS.key, "A81");
+          INCOME_DETAILS.A81 != null ? this.data_number(INCOME_DETAILS.A81.toString(), INCOME_DETAILS.key, "A81") : this.data_number("", INCOME_DETAILS.key, "A81");
+          INCOME_DETAILS.A82 != null ? this.data_number(INCOME_DETAILS.A82.toString(), INCOME_DETAILS.key, "A82") : this.data_number("", INCOME_DETAILS.key, "A82");
+          INCOME_DETAILS.A83 != null ? this.data_number(INCOME_DETAILS.A83.toString(), INCOME_DETAILS.key, "A83") : this.data_number("", INCOME_DETAILS.key, "A83");
+
         }
       }
       INCOME_DETAILS.A1 = (data.A1 != null) ? this.toCurrency(data.A1.toString()) : INCOME_DETAILS.A1;
@@ -403,6 +427,36 @@ export class Childscn12Component implements OnInit {
     }
   }
   save2() {
+    
+    this.INCOME_DETAILS_List[2].A1 = this.toNumber(this.INCOME_DETAILS_List[2].A11) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A12) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A13) + "," +
+    this.toNumber(this.INCOME_DETAILS_List[2].A14) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A15) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A16);
+    
+    this.INCOME_DETAILS_List[2].A2 = this.toNumber(this.INCOME_DETAILS_List[2].A21) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A22) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A23) + "," +
+    this.toNumber(this.INCOME_DETAILS_List[2].A24) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A25) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A26);
+
+    this.INCOME_DETAILS_List[2].A4 = this.toNumber(this.INCOME_DETAILS_List[2].A41) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A42) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A43);
+
+    this.INCOME_DETAILS_List[2].A5 = this.toNumber(this.INCOME_DETAILS_List[2].A51) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A52) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A53) + "," +
+    this.toNumber(this.INCOME_DETAILS_List[2].A54) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A55) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A56);
+
+    this.INCOME_DETAILS_List[2].A6 = this.toNumber(this.INCOME_DETAILS_List[2].A61) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A62) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A63) + "," +
+    this.toNumber(this.INCOME_DETAILS_List[2].A64) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A65) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A66);
+
+    this.INCOME_DETAILS_List[2].A8 = this.toNumber(this.INCOME_DETAILS_List[2].A81) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A82) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A83) ;
+
+
+    this.INCOME_DETAILS_List[3].A1 = this.toNumber(this.INCOME_DETAILS_List[3].A11) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A12) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A13) + "," +
+    this.toNumber(this.INCOME_DETAILS_List[3].A14) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A15) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A16);
+
+    this.INCOME_DETAILS_List[3].A2 = this.toNumber(this.INCOME_DETAILS_List[3].A21) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A22) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A23) + "," +
+    this.toNumber(this.INCOME_DETAILS_List[3].A24) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A25) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A26);
+
+    this.INCOME_DETAILS_List[3].A5 = this.toNumber(this.INCOME_DETAILS_List[3].A51) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A52) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A53) + "," +
+    this.toNumber(this.INCOME_DETAILS_List[3].A54) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A55) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A56);
+
+    this.INCOME_DETAILS_List[3].A6 = this.toNumber(this.INCOME_DETAILS_List[3].A61) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A62) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A63) + "," +
+    this.toNumber(this.INCOME_DETAILS_List[3].A64) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A65) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A66);
+
     if(!this.loading6){
       let save_INCOME_DETAILS_List: INCOME_DETAILS[] = []
       save_INCOME_DETAILS_List = JSON.parse(JSON.stringify(this.INCOME_DETAILS_List))
@@ -1089,5 +1143,6 @@ export class Childscn12Component implements OnInit {
     data.D5 = this.toNumber(data.D5); data.D7 = this.toNumber(data.D6); data.D7 = this.toNumber(data.D7); data.D8 = this.toNumber(data.D8);
     data.C = this.toNumber(data.C);
   }
+
 
 }
