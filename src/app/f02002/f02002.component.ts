@@ -206,10 +206,16 @@ export class F02002Component implements OnInit {
       data: {
         applno: APPLNO,
       }
-    });
+    })
     dialogRef.afterClosed().subscribe(result => {
-      this.getRescanData(this.pageIndex, this.pageSize);
-    });
+
+      if(result.event == 'success')
+      {
+
+        this.search();
+      }
+
+    })
   }
   test()
   {

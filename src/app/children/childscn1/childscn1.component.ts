@@ -365,6 +365,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
       if (data.rspBody.CreditAuditinfoList.length > 0) {
         this.cuCName = data.rspBody.CreditAuditinfoList[0].cuCname;
         this.custId = data.rspBody.CreditAuditinfoList[0].custId;
+        sessionStorage.setItem('custId', this.custId);
         this.nationalId = data.rspBody.CreditAuditinfoList[0].nationalId;
         this.prodCode = data.rspBody.CreditAuditinfoList[0].prodCode;
         this.applicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount == null ? '' : this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
@@ -905,7 +906,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     });
   }
 
-  //取已儲存 CREDIT_CODE 資料 
+  //取已儲存 CREDIT_CODE 資料
   getCREDIT_Data() {
     const url = 'f01/childscn1action6';
     let jsonObject: any = {};
@@ -974,7 +975,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     sessionStorage.setItem('otherMessage5', this.otherMessage5);
   }
 
-  // //儲存 SUPPLY_AML 
+  // //儲存 SUPPLY_AML
   // saveSUPPLY_AML() {
   //   var save: boolean = true;
   //   if (this.PURPOSEOTHER_MESSAGE2 == "Z" && this.otherMessage2 == "") { save = false };
@@ -1007,7 +1008,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   //   }
   // }
 
-  //取已儲存 CREDIT_CODE 資料 
+  //取已儲存 CREDIT_CODE 資料
   getSUPPLY_AML() {
     const url = 'f01/childscn1action8';
     let jsonObject: any = {};

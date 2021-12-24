@@ -57,14 +57,16 @@ export class F02002returnComponent implements OnInit {
   formdata2: FormData = new FormData();
   cancel()//離開
   {
-    this.dialogRef.close();
+    this.dialogRef.close({ event: 'success' });
   }
 
   onChange(evt, ROWID: string) {
 
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/);
-    if (this.isValidFile) {
+    // console.log(!!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/))
+    if (this.isValidFile)
+    {
       this.fileToUpload = target.files.item(0);
       this.formdata2.append('rowId', ROWID);
       this.formdata2.append('files', this.fileToUpload);
@@ -77,8 +79,10 @@ export class F02002returnComponent implements OnInit {
 
       // this.formdata2.append('rileName',)
       // alert(this.fileToUpload)
-    } else {
+    } else
+    {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法圖檔，請檢查檔案格式重新上傳" });
+      alert(this.uploadForm.value.ERROR_MESSAGE);
     }
   }
   set()//查詢
@@ -116,7 +120,8 @@ export class F02002returnComponent implements OnInit {
 
     }
     jsonObject['F02002req'] = content;
-    if (this.fileToUpload != null) {
+    if (this.fileToUpload != null)
+    {
       this.f02002Service.test(ur, this.formdata2).subscribe(data => {
 
 
@@ -127,14 +132,13 @@ export class F02002returnComponent implements OnInit {
     })
 
 
-    this.dialogRef.close();
-
+    this.dialogRef.close({ event: 'success' });
 
 
   }
 
 
-  SendBack(result: string)//送回案件
+  SendBack(result: string, ROWID: string)//送回案件
   {
     const dialogRef = this.dialog.open(F02008return2Component, {
       minHeight: '50%',
@@ -163,19 +167,33 @@ export class F02002returnComponent implements OnInit {
 
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result.value == 'confirm') {
+      if (result.value == 'confirm')
+      {
 
         this.f02002Service.f02002(u, jsonObject).subscribe(data => {
 
         })
-        this.f02002Service.test(url, this.formdata).subscribe(data => {
-          console.log("111111111")
-          console.log(data)
+        if(this.fileToUpload == null)
+        {
+          this.formdata.append('applno', this.data.applno);
+          this.formdata.append('rowId', ROWID);
+          // this.formdata.append('files', this.fileToUpload);
+          this.formdata.append('userId', localStorage.getItem("empNo"))
+          this.f02002Service.test(url, this.formdata).subscribe(data => {
 
-        })
+
+          })
+        }
+        else
+        {
+          this.f02002Service.test(url, this.formdata).subscribe(data => {
+
+
+          })
+        }
 
       }
-      this.dialogRef.close();
+      this.dialogRef.close({ event: 'success' });
 
     })
   }

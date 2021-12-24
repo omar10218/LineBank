@@ -211,20 +211,19 @@ export class F01003scn1Component implements OnInit {
 
   result(baseUrl: string, jsonObject: JSON, result: string) {
     this.block = true;
-    this.saveMemo();
     this.f01003Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
-      //儲存歷史資料
-      this.setHistory();
       await this.childscn1Service.setHistory(this.history, "授信案件完成", this.applno);
-      this.removeSession();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
-      this.block = false;
-      if (!this.block) {
-
+      if ( data.rspMsg.includes('處理案件異常') ) { } else {
+        //儲存歷史資料
+        this.setHistory();
+        this.saveMemo();
+        this.removeSession();
+        this.router.navigate(['./F01003']);
       }
-      this.router.navigate(['./F01003']);
+      this.block = false;
     });
   }
 
@@ -257,7 +256,7 @@ export class F01003scn1Component implements OnInit {
   }
   //儲存
   public async saveMemo(): Promise<void> {
-    this.removeSession();
+    // this.removeSession();
     let msgStr: string = "";
     const baseUrl = 'f01/childscn1action1';
     let jsonObject: any = {};
