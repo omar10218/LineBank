@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { F03018Service } from '../f03018.service';
-
+interface sysCode {
+	viewValue: string
+}
 @Component({
   selector: 'app-f03018add',
   templateUrl: './f03018add.component.html',
@@ -18,16 +20,16 @@ export class F03018addComponent implements OnInit {
   cuCpType3Value: string//分類3
   useFlagValue: string //使用中
   content: string //備註
-  cuCpType1Code: OptionsCode[] = [] //分類1
-  cuCpType2Code: OptionsCode[] = [] //分類2
-  useFlagCode: OptionsCode[] = [] //使用中
+  cuCpType1Code: sysCode[] = [] //分類1
+  cuCpType2Code: sysCode[] = [] //分類2
+  useFlagCode: sysCode[] = [] //使用中
   constructor(
     public dialog: MatDialog,
     public f03018Service: F03018Service
   ) { }
 
   ngOnInit(): void {
-
+    this.getTypeselect()
   }
 
   onNoClick() {
@@ -61,11 +63,27 @@ export class F03018addComponent implements OnInit {
 
 
 
-
+    getTypeselect(){
+      const url = "f03/f03018"; 
+      let jsonObject: any = {}
+      this.f03018Service.getValueTypeselect(url,jsonObject).subscribe(data => {
+        console.log(data)
+        for (const jsonObj of data.rspBody.cuCpType1) {
+          const desc = jsonObj.CU_CP_TYPE1;
+          this.cuCpType1Code.push({ viewValue: desc})
+        }
+        console.log(this.cuCpType1Code)
+        for (const jsonObj of data.rspBody.cuCpType2) {
+         
+          const desc = jsonObj.CU_CP_TYPE2;
+          this.cuCpType2Code.push({ viewValue: desc})
+        }
+        console.log(this.cuCpType2Code)
+      });
+    }
 
 
     public async onesave(): Promise<void> {
-      alert("")
       let jsonObject: any = {};
       jsonObject['cuCpNo'] = this.cuCpNo;
       jsonObject['cuCpName'] = this.cuCpName;

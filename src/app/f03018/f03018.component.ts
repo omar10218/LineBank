@@ -2,15 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { OptionsCode } from '../interface/base';
 import { F03018editComponent } from './f03018edit/f03018edit.component';
-import { MatDialog } from '@angular/material/dialog'
+import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { F03018Service } from './f03018.service'
+import { F03015confirmComponent } from './../f03015/f03015confirm/f03015confirm.component';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F03018addComponent } from './f03018add/f03018add.component';
 import { F03018uploadComponent } from './f03018upload/f03018upload.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { DatePipe } from '@angular/common';
 
 interface sysCode {
-	value: string
 	viewValue: string
 }
 //Kim 千大企業名單維護
@@ -40,6 +41,9 @@ export class F03018Component implements OnInit {
   constructor(
     private f03018Service: F03018Service,
     public dialog: MatDialog,
+    public dialogRef: MatDialogRef<F03015confirmComponent>,
+    private datePipe: DatePipe,
+    // this.myDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
   ) { }
 
   ngOnInit(): void {
@@ -56,16 +60,29 @@ getTypeselect(){
   let jsonObject: any = {}
   this.f03018Service.getValueTypeselect(url,jsonObject).subscribe(data => {
     console.log(data)
+      // var new1 = data.rspBody.cuCpType1
+      // console.log('new1=======================')
+      // console.log(new1)
+      // var new2 = new1.filter(i=>i!==null)
+      // console.log(new2)
     for (const jsonObj of data.rspBody.cuCpType1) {
-      const codeNo = jsonObj.codeNo;
-      const desc = jsonObj.CU_CP_TYPE1;
-      this.cuCpType1Code.push({value: codeNo, viewValue: desc})
+    
+      if(jsonObj!=null){
+        const desc = jsonObj.CU_CP_TYPE1;
+        this.cuCpType1Code.push({ viewValue: desc})
+      }
+  //  const desc = jsonObj.CU_CP_TYPE1;
+  //       this.cuCpType1Code.push({ viewValue: desc})
+    
     }
+  
     console.log(this.cuCpType1Code)
     for (const jsonObj of data.rspBody.cuCpType2) {
-      const codeNo = jsonObj.codeNo;
-      const desc = jsonObj.CU_CP_TYPE2;
-      this.cuCpType2Code.push({value: codeNo, viewValue: desc})
+      if(jsonObj!=null){
+        const desc = jsonObj.CU_CP_TYPE2;
+        this.cuCpType2Code.push({ viewValue: desc})
+      }
+     
     }
     console.log(this.cuCpType2Code)
   });
@@ -109,7 +126,9 @@ getTypeselect(){
 
 //取得資料表
 getElBigCompanyList() {
-  if(this.cuCpNo==''|| this.cuCpName==''||this.cuCpSname==''||this.cuCpType1Value==''||this.cuCpType2Value==''||this.useFlagValue==''){
+  if(this.cuCpNo==undefined&& this.cuCpName==undefined&&this.cuCpSname==undefined&&this.cuCpType1Value==undefined&&this.cuCpType2Value==undefined&&this.useFlagValue==undefined
+    
+    ){
     const confirmDialogRef = this.dialog.open(ConfirmComponent, {
       data: { msgStr: "請選擇建檔項目" }
     });
@@ -171,15 +190,15 @@ const dialogRef = this.dialog.open(F03018editComponent,{
 }
   //清除資料
   Clear() {
-    this.cuCpNo = '' //員工編號
-    this.cuCpName = '' //員工姓名
-    this.cuCpSname = '' //員工ID
-    this.cuCpType1Value = '' //代理人
-    this.cuCpType2Value = '' //email
+    this.cuCpNo = undefined //員工編號
+    this.cuCpName = undefined //員工姓名
+    this.cuCpSname = undefined //員工ID
+    this.cuCpType1Value = undefined //代理人
+    this.cuCpType2Value = undefined //email
     this.cuCpType1Code = [] //email
     this.cuCpType2Code = [] //email
-    this.useFlagValue = '' //是否在職
-    this.cuCpSource.data = null
+    this.useFlagValue = undefined //是否在職
+    this.cuCpSource =  undefined
     this.getTypeselect()
   }
    //匯出EXCEL
@@ -189,7 +208,7 @@ const dialogRef = this.dialog.open(F03018editComponent,{
       && (this.cuCpType2Value == undefined || this.cuCpType2Value == '')&& (this.cuCpType3Value == undefined || this.cuCpType3Value == '')
       && (this.useFlagValue == undefined || this.useFlagValue == '')
       ) {
-      const cconfirmDialogRef = this.dialog.open(F03018addComponent, {
+      const cconfirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項查詢條件並至少選擇一項查詢條件" }
       });
     } else {

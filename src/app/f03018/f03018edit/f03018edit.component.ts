@@ -40,19 +40,19 @@ export class F03018editComponent implements OnInit {
   }
 
 getData(){
-this.cuCpNo=this.data.cuCpNo
-this.cuCpName=this.data.cuCpName
+this.cuCpNo=this.data.cuCpNo//公司統編
+this.cuCpName=this.data.cuCpName//公司名稱
 console.log(this.cuCpNo)
-this.cuCpSname=this.data.cuCpSname
-this.cuCpType1Value=this.data.cuCpType1Value
-this.cuCpType2Value=this.data.cuCpType2Value
+this.cuCpSname=this.data.cuCpSname//公司簡稱
+this.cuCpType1Value=this.data.cuCpType1Value//類別1值
+this.cuCpType2Value=this.data.cuCpType2Value//類別2值
 console.log(this.cuCpType2Value)
-this.cuCpType3Value=this.data.cuCpType3Value
+this.cuCpType3Value=this.data.cuCpType3Value//類別3值
 console.log(this.data.cuCpType3Value)
-this.useFlagValue=this.data.useFlagValue
-this.codeTag=this.data.content
-this.cuCpType1Code=this.data.cuCpType1Code;
-this.cuCpType2Code=this.data.cuCpType2Code;
+this.useFlagValue=this.data.useFlagValue//使用中值
+this.codeTag=this.data.content//備註值
+this.cuCpType1Code=this.data.cuCpType1Code;//類別1下拉
+this.cuCpType2Code=this.data.cuCpType2Code;//類別2下拉
 
 console.log(this.cuCpType1Code)
 console.log(this.cuCpType2Code)
@@ -69,7 +69,7 @@ console.log(this.cuCpType2Code)
     jsonObject['cuCpType2'] = this.cuCpType2Value
     jsonObject['cuCpType3'] = this.cuCpType3Value
     jsonObject['useFlag'] = this.useFlagValue
-    jsonObject['codeTag'] = this.codeTag
+    jsonObject['content'] = this.codeTag
     jsonObject['rid'] = this.data.rowID
     console.log(this.codeTag)
     console.log(this.cuCpNo)
