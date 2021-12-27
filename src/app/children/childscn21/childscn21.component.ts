@@ -86,12 +86,13 @@ export class Childscn21Component implements OnInit {
   }
   //測試用
   public async callTest(): Promise<void> {
+    alert('test')
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['empno'] = this.empNo;
     let msgStr: string = '';
     if (this.stepName == 'APPLCreditL3') {
-      msgStr = await this.childsnc22Service.doDss1Search(jsonObject);
+      msgStr = await this.childsnc22Service.doDss3Search(jsonObject);
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
       setTimeout(() => {
         this.dialog.closeAll();

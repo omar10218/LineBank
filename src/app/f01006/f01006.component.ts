@@ -54,7 +54,6 @@ export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.getCaseList();
   }
 
   ngOnDestroy() {

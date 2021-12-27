@@ -10,7 +10,7 @@ export class Childscn22Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   doDss1Search(jsonObject: any): any {
-    const baseUrl = 'f01/childscn22action1';
+    const baseUrl = 'f01/childscn22action3';
     let targetUrl = `${baseUrl}`;
     return this.saveOrEditMsgString(targetUrl, jsonObject);
   }
@@ -22,6 +22,12 @@ export class Childscn22Service extends BaseService {
   }
 
   doDss4Search(jsonObject: any): any {
+    const baseUrl = 'f01/childscn22action3';
+    let targetUrl = `${baseUrl}`;
+    return this.saveOrEditMsgString(targetUrl, jsonObject);
+  }
+
+  doDss3Search(jsonObject: any): any {
     const baseUrl = 'f01/childscn22action3';
     let targetUrl = `${baseUrl}`;
     return this.saveOrEditMsgString(targetUrl, jsonObject);

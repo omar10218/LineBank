@@ -59,18 +59,25 @@ export class F01006restartComponent implements OnInit {
     jsonObject['content'] = this.content;
     jsonObject['empno'] = this.empNo;
     jsonObject['opid'] = this.data.opid;
+
     let msgStr: string = "";
-    msgStr = await this.f01006Service.addRestart(jsonObject);
-    if (msgStr == 'success') {
-      msgStr = '儲存成功！'
-    }
-    this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
-    });
-    setTimeout(() => {
-      this.dialog.closeAll();
-    },1500);
-    this.f01006Service.restartfn();
+    if (this.content == null || this.content == '') {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請填入申覆說明' }
+      });
+      } else{
+        msgStr = await this.f01006Service.addRestart(jsonObject);
+        if (msgStr == 'success') {
+          msgStr = '儲存成功！'
+        }
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: msgStr }
+        });
+        setTimeout(() => {
+          this.dialog.closeAll();
+        },1500);
+        // this.f01006Service.restartfn();
+      }
   }
 
   getInterestData(){
