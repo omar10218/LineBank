@@ -42,10 +42,12 @@ export class Childscn15Component implements OnInit {
 
   private applno: string;
   private search: string;
+  private page: string;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
+    this.page = sessionStorage.getItem('page');
 
     const baseUrl = 'f01/childscn15';
     this.childscn15Service.getReason(baseUrl, this.applno).subscribe(data => {
@@ -66,6 +68,10 @@ export class Childscn15Component implements OnInit {
 
   getSearch(): string {
     return this.search;
+  }
+
+  getPage(): string {
+    return this.page;
   }
 
   //儲存 雙表單
