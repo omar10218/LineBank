@@ -100,6 +100,14 @@ export class F01008scn4Component implements OnInit {
     return x
   }
 
+   //去掉小數
+   toINT(x: string) {
+    if (x != null) {
+      x = x.toString().split('.')[0];
+    }
+    return x
+  }
+
    //取DBR收支表資料 產生合約前回查 _M前端欄位改取_B
    getDBR_DTI_M() {
 
@@ -111,6 +119,18 @@ export class F01008scn4Component implements OnInit {
     this.f01008scn4Service.postJson(url, jsonObject).subscribe(data => {
       if (data.rspBody.length > 0) {
         this.fmData_M.data = data.rspBody
+
+        this.fmData_M.data[0].unsdebt_AMT_501EX = this.toINT(this.fmData_M.data[0].unsdebt_AMT_501EX);
+        this.fmData_M.data[0].unsdebt_AMT_504EX = this.toINT(this.fmData_M.data[0].unsdebt_AMT_504EX);
+        this.fmData_M.data[0].unsdebt_AMTNEW_505EX = this.toINT(this.fmData_M.data[0].unsdebt_AMTNEW_505EX);
+        this.fmData_M.data[0].unsdebt_AMTNEW_029EX = this.toINT(this.fmData_M.data[0].unsdebt_AMTNEW_029EX);
+        this.fmData_M.data[0].unsdebt_824_RLLIMIT = this.toINT(this.fmData_M.data[0].unsdebt_824_RLLIMIT);
+        this.fmData_M.data[0].unsdebt_824_RLBAL = this.toINT(this.fmData_M.data[0].unsdebt_824_RLBAL);
+        this.fmData_M.data[0].unsdebt_824_ILBAL = this.toINT(this.fmData_M.data[0].unsdebt_824_ILBAL);
+        this.fmData_M.data[0].unsdebt_824_CCRBAL = this.toINT(this.fmData_M.data[0].unsdebt_824_CCRBAL);
+        this.fmData_M.data[0].unsdebt_NONJCIC = this.toINT(this.fmData_M.data[0].unsdebt_NONJCIC);
+        this.fmData_M.data[0].unsdebt_PAYAMT_029EX = this.toINT(this.fmData_M.data[0].unsdebt_PAYAMT_029EX);
+        
 
         this.fmData_M.data[0].unsdebt_AMT_501EX_B = this.fmData_M.data[0].unsdebt_AMT_501EX_B == null ? this.fmData_M.data[0].unsdebt_AMT_501EX : this.fmData_M.data[0].unsdebt_AMT_501EX_B;
         this.fmData_M.data[0].unsdebt_AMT_504EX_B = this.fmData_M.data[0].unsdebt_AMT_504EX_B == null ? this.fmData_M.data[0].unsdebt_AMT_504EX : this.fmData_M.data[0].unsdebt_AMT_504EX_B;
