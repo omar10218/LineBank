@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
@@ -56,6 +57,15 @@ export class Childscn3Component implements OnInit {
     this.getTable()//抓取資料表
   }
 
+  formControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  //欄位驗證
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+        '';
+  }
   getOptionDesc(option: OptionsCode[], codeVal: string): string //代碼跑名稱
   {
     for (const data of option) {
@@ -126,7 +136,9 @@ export class Childscn3Component implements OnInit {
               //   this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
               // }
               var xxxx= this.l1.filter(c=>c.announceReason1==i.reasonCode);
-              if(xxxx!=null&& xxxx.length<1){
+              if(xxxx!=null&& xxxx.length<1)
+              {
+
                 this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
               }
               // for (var j=0 of this.data)

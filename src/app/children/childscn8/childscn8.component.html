@@ -1,7 +1,14 @@
 <!-- 頁面背景 -->
 
 <div class="line_bank_bankground_color">
-  
+  <div style="text-align: left;padding-bottom:10px ;padding-left: 3%">
+    <div *ngIf="getPage() == '2'">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="Add()">新增</button>
+    </div>
+    <div *ngIf="getPage() != '2'">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="Add()" disabled >新增</button>
+    </div>
+  </div>
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">
     <!-- 表格 -->
@@ -52,13 +59,14 @@
     </nz-table>
    
   </div>
-  <div style="text-align: center;padding-bottom:10px">
-    <div *ngIf="getPage() == '2'">
-      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="Add()">新增</button>
-    </div>
-    <div *ngIf="getPage() != '2'">
-      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="Add()" disabled >新增</button>
-    </div>
+
+
+  <div *ngIf="getPage() == '2'" style="padding:10px ;padding-left: 3% ;text-align: left;">
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="items()">編輯</button>
+  </div>
+
+  <div *ngIf="getPage() != '2'" style="padding:10px;padding-left: 3%;text-align: left;">
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" disabled >編輯</button>
   </div>
 
   
@@ -659,11 +667,5 @@
       </tbody>
     </nz-table>
   </div>
-  <div *ngIf="getPage() == '2'" style="padding:10px;text-align: center;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="items()">編輯</button>
-  </div>
-
-  <div *ngIf="getPage() != '2'" style="padding:10px;text-align: center;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" disabled >編輯</button>
-  </div>
+ 
 </div>

@@ -36,7 +36,8 @@
             <div nz-row>
                 <div nz-col nzSpan="8">
                     <div class="form" style="padding:20px">
-                        <div><span class="form-title-actions">分類1</span>
+                        <div>
+                            <span class="form-title-actions">分類1</span>
                             <mat-select [(ngModel)]="cuCpType1Value" name="cuCpType1Value">
                                 <mat-option *ngFor="let code of cuCpType1Code" [value]="code.viewValue">
                                     {{code.viewValue}}
@@ -76,7 +77,7 @@
                 <div nz-col nzSpan="24">
                     <div class="form" style="padding:20px;">
                         <div><span class="form-title-actions">分類3</span>
-                            <textarea matInput class="input-textarea" [(ngModel)]="cuCpType3Value" name="codeTag" required 
+                            <textarea matInput class="input-textarea" [(ngModel)]="cuCpType3Value" name="cuCpType3Value" required 
                                 id="textarea"></textarea>
                         </div>
                     </div>

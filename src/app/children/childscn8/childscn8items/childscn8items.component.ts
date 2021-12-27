@@ -56,27 +56,27 @@ export class Childscn8itemsComponent implements OnInit {
 
   private applno: string;
 
-   //照會項目 複選額外處理
-   MDtable: MDtable[] = [];
-   REPLY_CONDITION14code: checkboxCode[]
-     = [{ value: 'A', viewValue: '生活費用', checked: false },
-     { value: 'B', viewValue: '修繕房屋、汽車', checked: false },
-     { value: 'C', viewValue: '購置汽車', checked: false },
-     { value: 'D', viewValue: '教育、旅遊費用', checked: false },
-     { value: 'E', viewValue: '結婚基金', checked: false },
-     { value: 'F', viewValue: '代償他行', checked: false },
-     { value: 'G', viewValue: '醫療費用', checked: false },
-     { value: 'H', viewValue: '投資理財', checked: false },
-     { value: 'I', viewValue: '非本人使用', checked: false },
-     { value: 'J', viewValue: '週轉金', checked: false },
-     { value: 'Z', viewValue: '其他:', checked: false },];
-   REPLY_CONDITION17code: checkboxCode[]
-     = [{ value: 'K', viewValue: '網路得知', checked: false },
-     { value: 'L', viewValue: 'LINE Corp. 推播', checked: false },
-     { value: 'M', viewValue: '電視報章雜誌廣告', checked: false },
-     { value: 'N', viewValue: '他人介紹', checked: false },
-     { value: 'O', viewValue: 'LINE BANK 開戶', checked: false },
-     { value: 'Z', viewValue: '其他:', checked: false },];
+  //照會項目 複選額外處理
+  MDtable: MDtable[] = [];
+  REPLY_CONDITION14code: checkboxCode[]
+    = [{ value: 'A', viewValue: '生活費用', checked: false },
+    { value: 'B', viewValue: '修繕房屋、汽車', checked: false },
+    { value: 'C', viewValue: '購置汽車', checked: false },
+    { value: 'D', viewValue: '教育、旅遊費用', checked: false },
+    { value: 'E', viewValue: '結婚基金', checked: false },
+    { value: 'F', viewValue: '代償他行', checked: false },
+    { value: 'G', viewValue: '醫療費用', checked: false },
+    { value: 'H', viewValue: '投資理財', checked: false },
+    { value: 'I', viewValue: '非本人使用', checked: false },
+    { value: 'J', viewValue: '週轉金', checked: false },
+    { value: 'Z', viewValue: '其他:', checked: false },];
+  REPLY_CONDITION17code: checkboxCode[]
+    = [{ value: 'K', viewValue: '網路得知', checked: false },
+    { value: 'L', viewValue: 'LINE Corp. 推播', checked: false },
+    { value: 'M', viewValue: '電視報章雜誌廣告', checked: false },
+    { value: 'N', viewValue: '他人介紹', checked: false },
+    { value: 'O', viewValue: 'LINE BANK 開戶', checked: false },
+    { value: 'Z', viewValue: '其他:', checked: false },];
 
   ngOnInit(): void {
 
@@ -88,14 +88,14 @@ export class Childscn8itemsComponent implements OnInit {
     jsonObject['applno'] = this.applno
 
     this.childscn8Service.getSysTypeCode('MD_NO')//項目
-    .subscribe(data => {
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj.codeNo;
-        const desc = jsonObj.codeDesc;
-        let mdno: OptionsCode = { value: codeNo, viewValue: desc }
-        this.MDtable.push({ MD_NO: mdno, CHECK_DATA: '', REPLY_CONDITION: '', CHECK_NOTE: '', CHECK_DATE: '', CHECK_EMPNO: '', txt: '' })
-      }
-    });
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          let mdno: OptionsCode = { value: codeNo, viewValue: desc }
+          this.MDtable.push({ MD_NO: mdno, CHECK_DATA: '', REPLY_CONDITION: '', CHECK_NOTE: '', CHECK_DATE: '', CHECK_EMPNO: '', txt: '' })
+        }
+      });
 
     this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
       //照會項目
@@ -187,15 +187,28 @@ export class Childscn8itemsComponent implements OnInit {
         data: { msgStr: msgStr }
       });
       if (msgStr != null && (msgStr == '儲存成功!' || msgStr == '1')) {
-        this.f01002scn1Service.setJCICItemsSource({ show : false });
+        this.f01002scn1Service.setJCICItemsSource({ show: false });
         // window.location.reload();
-       }
+      }
     });
   }
 
   //取消
   onNoClick(): void {
     // this.dialogRef.close();
-    this.f01002scn1Service.setJCICItemsSource({ show : false });
+    this.f01002scn1Service.setJCICItemsSource({ show: false });
   }
+
+  //雙擊取消單選
+  dblclick(MDtable:MDtable,key:string) {
+    if(key=="CHECK_DATA"){
+      MDtable.CHECK_DATA=null;
+    }else
+    {
+      MDtable.REPLY_CONDITION=null;
+    }
+  }
+
+
+
 }

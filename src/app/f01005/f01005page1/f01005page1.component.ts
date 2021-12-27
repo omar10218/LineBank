@@ -115,6 +115,7 @@ export class F01005page1Component implements OnInit {
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('stepName', this.stepName);
+        sessionStorage.setItem('page', '5');
         this.router.navigate(['./F01005/F01005SCN1']);
       }
     });
