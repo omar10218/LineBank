@@ -130,7 +130,7 @@ getElBigCompanyList() {
     
     ){
     const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: "請選擇建檔項目" }
+      data: { msgStr: "請選擇一項查詢項目" }
     });
   }
   else{
