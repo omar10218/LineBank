@@ -54,12 +54,14 @@ export class Childscn3Component implements OnInit {
   s = 0;
   r: string;
   tes =0;
+  pag:string
   TeamArry: string[] = []; //初始判斷是否為空
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
     this.no = localStorage.getItem("empNo");
     this.search = sessionStorage.getItem('search');
+    this.pag = sessionStorage.getItem('page');
     this.getTable()//抓取資料表
   }
 
@@ -134,7 +136,7 @@ export class Childscn3Component implements OnInit {
       if (data.rspCode == '0000')
        {
         this.childsc3Service.oneseve(ul, this.jsonObject).subscribe(data => {
-          msgStr = "已儲存,並完成發送";
+          msgStr = data.msgStr
           if (data.rspCode == '0000') {
             this.getTable()
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -154,7 +156,7 @@ export class Childscn3Component implements OnInit {
   }
 
   test() {
-    console.log(this.l1)
+    console.log( this.pag )
     console.log(this.level1)
     console.log(this.level1.length)
 
@@ -231,7 +233,6 @@ export class Childscn3Component implements OnInit {
       msgStr = "已儲存成功";
       if (data.rspCode == '0000')
        {
-
         this.tes = 1;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
@@ -246,6 +247,8 @@ export class Childscn3Component implements OnInit {
     const url = 'f01/childscn3';
     jsonOb['applno'] = this.applno;
     // const applno = this.applno;
+    console.log('this.search')
+    console.log(this.search)
     this.childsc3Service.oneseve(url, jsonOb).subscribe(data => {
       console.log(data)
       this.data = data.rspBody.list;
