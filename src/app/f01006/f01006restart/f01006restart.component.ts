@@ -76,7 +76,7 @@ export class F01006restartComponent implements OnInit {
         setTimeout(() => {
           this.dialog.closeAll();
         },1500);
-        // this.f01006Service.restartfn();
+        window.location.reload();
       }
   }
 
