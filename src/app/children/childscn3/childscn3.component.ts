@@ -1,3 +1,4 @@
+import { logging } from 'protractor';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -43,12 +44,17 @@ export class Childscn3Component implements OnInit {
   jsonObject: any = {};
   i: string;
   K = 0;
+  ss: string[] = [];
   no: string;//會員帳號
   total = 1;
   loading = false;
   pageSize = 50;
   pageIndex = 1;
-
+  na = '';
+  s = 0;
+  r: string;
+  tes =0;
+  TeamArry: string[] = []; //初始判斷是否為空
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
@@ -57,15 +63,6 @@ export class Childscn3Component implements OnInit {
     this.getTable()//抓取資料表
   }
 
-  formControl = new FormControl('', [
-    Validators.required
-  ]);
-
-  //欄位驗證
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? '此欄位必填!' :
-        '';
-  }
   getOptionDesc(option: OptionsCode[], codeVal: string): string //代碼跑名稱
   {
     for (const data of option) {
@@ -81,6 +78,7 @@ export class Childscn3Component implements OnInit {
   {
     if (check) {
       this.level1.push(id)
+      this.s = 1;
     }
     else {
       this.level1.splice(this.level1.indexOf(id), 1)
@@ -91,26 +89,75 @@ export class Childscn3Component implements OnInit {
           }
         }
       }
+      if (this.level1.length == 0) {
+        this.s = 0;
+      }
     }
   }
 
   seveFraud()//發送Fraud Team
   {
-    this.K = 1;
     let msgStr: string = "";
-    const url = 'f01/childscn3action2';
+    const ul = 'f01/childscn3action2';
     this.jsonObject['applno'] = this.applno;
     this.jsonObject['announceEmpno'] = this.no;
-    this.seve();
+    this.l1 = [];
+    for (var i of this.data) {
+      if (i.check == true) {
+        if (i.child.length < 1) {
+          this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
+        }
+        else {
+          this.ss = [];
+          for (var k of i.child) {
+
+            if (k.check == true) {
+              this.l1.push({ announceReason1: i.reasonCode, announceReason2: k.reasonCode })
+              this.ss.push(k.check.reasonCode)
+            }
+
+          }
+          if (this.ss.length == 0) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "第二層未勾選，儲存失敗!" }
+            });
+            return;
+          }
+        }
+      }
+    }
+    this.jsonObject['applno'] = this.applno;
+    this.jsonObject['result'] = this.l1;
+    const url = 'f01/childscn3action1';
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
-      msgStr = "已儲存,並完成發送";
-      if (data.rspCode == '0000') {
-        this.getTable()
+      msgStr = data.msgStr
+      if (data.rspCode == '0000')
+       {
+        this.childsc3Service.oneseve(ul, this.jsonObject).subscribe(data => {
+          msgStr = "已儲存,並完成發送";
+          if (data.rspCode == '0000') {
+            this.getTable()
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: msgStr }
+            });
+          }
+        })
+      }
+      else
+      {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
         });
       }
+
     })
+  }
+
+  test() {
+    console.log(this.l1)
+    console.log(this.level1)
+    console.log(this.level1.length)
+
   }
 
   seve()//儲存
@@ -120,57 +167,77 @@ export class Childscn3Component implements OnInit {
     this.l1 = [];
     for (var i of this.data) {
       if (i.check == true) {
-        if (i.child.length < 1)
-         {
+        if (i.child.length < 1) {
           this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
         }
-        else
-        {
+        else {
+          this.ss = [];
           for (var k of i.child) {
+
             if (k.check == true) {
               this.l1.push({ announceReason1: i.reasonCode, announceReason2: k.reasonCode })
+              this.ss.push(k.check.reasonCode)
             }
             else {
+
+
               // if(k.length>1)
               // {
               //   this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
               // }
-              var xxxx= this.l1.filter(c=>c.announceReason1==i.reasonCode);
-              if(xxxx!=null&& xxxx.length<1)
-              {
-
-                this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
-              }
-              // for (var j=0 of this.data)
-
-
-
+              // var xxxx = this.l1.filter(c => c.announceReason1 == i.reasonCode);
+              // if (xxxx != null && xxxx.length < 1  && k==i.child.length-1) {
+              //   console.log('第一層')
+              //   console.log(i.reasonCode)
+              //   // console.log('第二層')
+              //   // console.log())
+              //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              //     data: { msgStr: "第一層勾選時，第二層為必填!" }
+              //   });
+              //   return;
+              //   // this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
+              // }
+              // // for (var j=0 of this.data)
+              // for(var s of this.data)
+              // {
+              //   if(s.check ==true)
+              //   {
+              //     this.na = this.na+''+ s.reasonDesc;
+              //   }
+              //   break ;
+              // }
             }
-            // }
+
+          }
+          // console.log(this.ss.includes('true'))
+          // console.log(this.ss);
+          // console.log("11111");
+          // console.log(this.ss.length);
+          if (this.ss.length == 0) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "第二層未勾選，儲存失敗!" }
+            });
+            return;
           }
         }
-        // if(i.child.check ==false)
-        // {
-        //   this.l1.push({announceReason1: i.reasonCode,announceReason2:null})
-        // }
-        // else
-        // {
+
 
       }
     }
     this.jsonObject['applno'] = this.applno;
     this.jsonObject['result'] = this.l1;
     const url = 'f01/childscn3action1';
-    console.log(this.l1)
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
-      if (this.K == 0) {
-        msgStr = "已儲存成功";
-        if (data.rspCode == '0000') {
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: msgStr }
-          });
-        }
+      msgStr = "已儲存成功";
+      if (data.rspCode == '0000')
+       {
+
+        this.tes = 1;
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: msgStr }
+        });
       }
+
     })
   }
   getTable()//抓取資料表
@@ -183,10 +250,18 @@ export class Childscn3Component implements OnInit {
       console.log(data)
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;
+      for (const item of data.rspBody.list) {
+        if (item.check == true) {
+          this.TeamArry.push(item.check)
+        }
+      }
+      this.s = this.TeamArry.length;
+
+
     })
   }
-   //檢查是否是徵信
-   getSearch(): string {
+  //檢查是否是徵信
+  getSearch(): string {
     return this.search;
   }
 
