@@ -17,7 +17,7 @@
             <tr *ngFor="let data of AMLSource">
               <td class="table-data">{{ data.AML }}</td>
               <td class="table-data">{{ data.CODE_DESC }}</td>
-              <td class="table-data">{{ data.AML_DATE }}</td>
+              <td class="table-data">{{ data.AML_DATE | date:'yyyy-MM-dd HH:mm:ss'}}</td>
             </tr>
           </tbody>
         </nz-table>
@@ -38,7 +38,7 @@
             <tr *ngFor="let data of FDSSource">
               <td class="table-data">{{ data.FDS }}</td>
               <td class="table-data">{{ data.CODE_DESC }}</td>
-              <td class="table-data">{{ data.FDS_DATE }}</td>
+              <td class="table-data">{{ data.FDS_DATE | date:'yyyy-MM-dd HH:mm:ss'}}</td>
             </tr>
           </tbody>
         </nz-table>
@@ -61,7 +61,7 @@
               <td class="table-data">{{ data.cssScore }}</td>
               <td class="table-data">{{ data.cssGrade }}</td>
               <td class="table-data">{{ data.cssModelId }}</td>
-              <td class="table-data">{{ data.cssDate | date:'yyyy-MM-dd hh:mm:ss' }}</td>
+              <td class="table-data">{{ data.cssDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
             </tr>
           </tbody>
         </nz-table>

@@ -1,6 +1,7 @@
+import { logging } from 'protractor';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F02002Service } from '../f02002.service'
 import { F02008return2Component } from '../f02002return/f02008return2/f02008return2.component'
@@ -51,10 +52,24 @@ export class F02002returnComponent implements OnInit {
   docType: string;
   typeString: string = '';//補件類型
   type: sysCode[] = [];//補件類型陣列
-  // s=0;
-  // s :string;
+  quantity:number;
+
   formdata: FormData = new FormData();
   formdata2: FormData = new FormData();
+
+  formControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  //欄位驗證
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+        '';
+  }
+
+
+
+
   cancel()//離開
   {
     this.dialogRef.close({ event: 'success' });
@@ -73,6 +88,7 @@ export class F02002returnComponent implements OnInit {
       this.formdata2.append('rescanReason',rescanReason)
       this.formdata2.append('userId', localStorage.getItem("empNo"))
       // this.formdata2.append('applno', localStorage.getItem("empNo"))
+      this.quantity = this.quantity -1;
 
       this.formdata.append('applno', this.data.applno);
       this.formdata.append('rowId', ROWID);
@@ -96,6 +112,16 @@ export class F02002returnComponent implements OnInit {
     this.f02002Service.postJson(url, jsonObject).subscribe(data => {
       console.log(data)
       this.F02002Data = data.rspBody;
+      this.quantity = data.rspBody.length
+
+      for(const i of data.rspBody)
+      {
+        if(i.IMAGE_NAME !=null)
+        {
+          this.quantity =this.quantity - 1
+        }
+      }
+      // console.log(data.rspBody.length)
     })
   }
 
@@ -174,8 +200,7 @@ export class F02002returnComponent implements OnInit {
       {
 
         this.f02002Service.f02002(u, jsonObject).subscribe(data => {
-          console.log("22222222222222222222222222")
-          console.log(data)
+
         })
         if(this.fileToUpload == null)
         {
@@ -205,30 +230,7 @@ export class F02002returnComponent implements OnInit {
 
   test() //測試用
   {
-    let ur = 'f02/f02002action6';
-    let url = 'f02/f02002action4';
-    this.f02002Service.test(ur, this.formdata2).subscribe(data => {
-      console.log(data)
-    })
-
-    let jsonObject: any = {};
-    const content = []
-    for (const it of this.F02002Data) {
-      content.push(
-        {
-          rowId: it.ROW_ID,
-          rescanReason: it.rescanReason,
-          remark: it.IMAGE_CONTENT,
-        }
-      )
-    }
-    jsonObject['F02002req'] = content;
-
-    console.log(jsonObject)
-    console.log(content)
-    this.f02002Service.f02002(url, jsonObject).subscribe(data => {
-      console.log(data)
-    })
-
+    console.log( this.quantity )
+    // alert( this.fileToUpload)
   }
 }
