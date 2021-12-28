@@ -64,35 +64,35 @@
   <div nz-row style="padding:5px">
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">申請時GPS</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
+        [(ngModel)]="cuGps1" [ngStyle]="getStyle(cuGps1)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">申請時IP Address</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
+          [(ngModel)]="cuIpAddr1" [ngStyle]="getStyle(cuIpAddr1)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">申請時手機型號</span><input matInput #input class="form-control"
-          value="" readonly disabled> </div>
+          [(ngModel)]="cuDeviceName1" [ngStyle]="getStyle(cuDeviceName1)" readonly disabled> </div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">申請時Device ID</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
+          [(ngModel)]="cuDeviceId1" [ngStyle]="getStyle(cuDeviceId1)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">上傳時GPS</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
+          [(ngModel)]="cuGps2" [ngStyle]="getStyle(cuGps2)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">上傳時IP Address</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
+          [(ngModel)]="cuIpAddr2" [ngStyle]="getStyle(cuIpAddr2)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">上傳時手機型號</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
+          [(ngModel)]="cuDeviceName2" [ngStyle]="getStyle(cuDeviceName2)" readonly disabled></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">上傳時Device ID</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
+          [(ngModel)]="cuDeviceId2" [ngStyle]="getStyle(cuDeviceId2)" readonly disabled></div>
     </div>
   </div>
   <div nz-row style="padding:0px">
