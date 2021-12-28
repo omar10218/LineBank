@@ -61,11 +61,11 @@ export class F01005page2Component implements OnInit {
    //透過案編跳轉至徵信照會
    toCalloutPage(applno:string) {
      sessionStorage.setItem('applno',applno)
-     sessionStorage.setItem('search','Y')
+     sessionStorage.setItem('search','N')
      sessionStorage.setItem('winClose', 'N');
      sessionStorage.setItem('level', '3');
      sessionStorage.setItem('page', '5');
-    this.router.navigate(['./F01002/F01002SCN1/CHILDSCN15']);
+    this.router.navigate(['./F01005/F01005SCN1/CHILDSCN15']);
   }
 
   refreshTable() {
