@@ -75,6 +75,14 @@ export class Childscn1Component implements OnInit, OnDestroy {
   //行銷代碼(待確認)
 
   //Channel資訊
+  cuGps1: string;                               //GPS1
+  cuGps2: string;                               //GPS2
+  cuIpAddr1: string;                            //ADDR1
+  cuIpAddr2: string;                            //ADDR2
+  cuDeviceName1: string;                        //申請時手機型號
+  cuDeviceName2: string;                        //上傳時手機型號
+  cuDeviceId1: string;                          //申請時Device
+  cuDeviceId2: string;                          //上傳時Device
 
   //AML/FDS/CSS/RPM
   aml: string;                                  //AML代碼
@@ -299,6 +307,10 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   });
 
+  //地圖參數
+  map: any;
+  distance: any;
+
   //頁面離開時觸發
   ngOnDestroy() {
     this.CREDITSource$.unsubscribe();
@@ -478,6 +490,50 @@ export class Childscn1Component implements OnInit, OnDestroy {
         sessionStorage.setItem('approveInterest', this.approveInterest.toString());
       }
 
+      //CustomerInfo Channel資訊
+      if (data.rspBody.customerInfoList.length > 0) {
+        this.cuGps1 = data.rspBody.customerInfoList[0].cuGps1 ? data.rspBody.customerInfoList[0].cuGps1 : '0,0';
+        this.cuGps2 = data.rspBody.customerInfoList[0].cuGps2 ? data.rspBody.customerInfoList[0].cuGps2 : '0,0';
+        this.cuIpAddr1 = data.rspBody.customerInfoList[0].cuIpAddr1 ? data.rspBody.customerInfoList[0].cuIpAddr1 : '';
+        this.cuIpAddr2 = data.rspBody.customerInfoList[0].cuIpAddr2 ? data.rspBody.customerInfoList[0].cuIpAddr2 : '';
+        this.cuDeviceName1 = data.rspBody.customerInfoList[0].cuDeviceName1 ? data.rspBody.customerInfoList[0].cuDeviceName1 : '';
+        this.cuDeviceName2 = data.rspBody.customerInfoList[0].cuDeviceName2 ? data.rspBody.customerInfoList[0].cuDeviceName2 : '';
+        this.cuDeviceId1 = data.rspBody.customerInfoList[0].cuDeviceId1 ? data.rspBody.customerInfoList[0].cuDeviceId1 : '';
+        this.cuDeviceId2 = data.rspBody.customerInfoList[0].cuDeviceId2 ? data.rspBody.customerInfoList[0].cuDeviceId2 : '';
+
+        //map
+        // this.map = L.map('map', { center: [25.0249211, 121.5075035], zoom: 12 });//指定欲繪製地圖在id為map的元素中，中心座標為[25.0249211,121.5075035]，縮放程度為16
+        //生成地圖S
+        this.map = L.map('map').setView([Number(this.cuGps1.split(',')[0]), Number(this.cuGps1.split(',')[1])], 12);
+        const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          // attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        });
+        tiles.addTo(this.map);
+
+        //標點
+        const marker1 = L
+          .marker([Number(this.cuGps1.split(',')[0]), Number(this.cuGps1.split(',')[1])], { title: '' })
+          .addTo(this.map).openPopup();//開啟彈出視窗
+
+        const marker2 = L.marker([Number(this.cuGps2.split(',')[0]), Number(this.cuGps2.split(',')[1])], { title: '' })
+          .addTo(this.map).openPopup();//開啟彈出視窗
+
+        this.map.invalidateSize(true);
+
+        //計算兩點座標距離
+        var markerFrom = L.circleMarker([Number(this.cuGps1.split(',')[0]), Number(this.cuGps1.split(',')[1])], { color: "#F00", radius: 10 });
+        var markerTo = L.circleMarker([Number(this.cuGps2.split(',')[0]), Number(this.cuGps2.split(',')[1])], { color: "#4AFF00", radius: 10 });
+        var from = markerFrom.getLatLng();
+        var to = markerTo.getLatLng();
+        this.distance = (from.distanceTo(to)).toFixed(0) / 1000;
+
+        //取兩點座標中心
+        var corner1 = L.latLng(Number(this.cuGps1.split(',')[0]), Number(this.cuGps1.split(',')[1])),
+          corner2 = L.latLng(Number(this.cuGps2.split(',')[0]), Number(this.cuGps2.split(',')[1])),
+          bounds = L.latLngBounds(corner1, corner2);
+        this.map.fitBounds(bounds);
+      }
     })
     this.getCreditmemo(this.pageIndex, this.pageSize);
     this.getDSS11();
@@ -487,41 +543,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     this.getSUPPLY_AML();
   }
 
-  map: any;
-  distance: any;
   ngAfterViewInit(): void {
-
-    // this.map = L.map('map', { center: [25.0249211, 121.5075035], zoom: 12 });//指定欲繪製地圖在id為map的元素中，中心座標為[25.0249211,121.5075035]，縮放程度為16
-    //生成地圖S
-    this.map = L.map('map').setView([25.0249211, 121.5075035], 12);
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      // attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
-    tiles.addTo(this.map);
-
-    //標點
-    const marker1 = L
-      .marker([25.0249211, 121.5075035], { title: '' })
-      .addTo(this.map).openPopup();//開啟彈出視窗
-
-    const marker2 = L.marker([25.07824532440103, 121.57678659801286], { title: '' })
-      .addTo(this.map).openPopup();//開啟彈出視窗
-
-    this.map.invalidateSize(true);
-
-    //計算兩點座標距離
-    var markerFrom = L.circleMarker([25.0249211, 121.5075035], { color: "#F00", radius: 10 });
-    var markerTo = L.circleMarker([25.07824532440103, 121.57678659801286], { color: "#4AFF00", radius: 10 });
-    var from = markerFrom.getLatLng();
-    var to = markerTo.getLatLng();
-    this.distance = (from.distanceTo(to)).toFixed(0) / 1000;
-
-    //取兩點座標中心
-    var corner1 = L.latLng(25.0249211, 121.5075035),
-      corner2 = L.latLng(25.07824532440103, 121.57678659801286),
-      bounds = L.latLngBounds(corner1, corner2);
-    this.map.fitBounds(bounds);
   }
 
   getSearch() {
