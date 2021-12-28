@@ -23,6 +23,7 @@ export class F01008Component implements OnInit {
   empNo: string = localStorage.getItem("empNo");
   swcNationalId: string;                              // 身分證字號
   swcApplno: string;                                  // 案件編號
+  swcCustId: string;                                  // 客戶ID
   caseType: string;                                   // 案件分類
   caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
   agentEmpNo: string;                                 // 代理人
@@ -57,6 +58,7 @@ export class F01008Component implements OnInit {
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
+    this.swcCustId = '';
     this.caseType = '';
   }
   ngAfterViewInit() {
@@ -68,6 +70,7 @@ export class F01008Component implements OnInit {
     jsonObject['per_page'] = this.pageSize;
     jsonObject['swcD2EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
+    jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
     this.f01008Service.getCaseList(jsonObject).subscribe(data => {
       if (data.rspBody.size > 0)
@@ -79,6 +82,7 @@ export class F01008Component implements OnInit {
       else
       {
         this.cusinfoDataSource = null;
+        this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }})
       }
@@ -148,6 +152,7 @@ export class F01008Component implements OnInit {
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
+    this.swcCustId = '';
     this.caseType = '';
     this.empNo = localStorage.getItem("empNo");
     this.getCaseList();
