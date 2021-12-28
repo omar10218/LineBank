@@ -78,7 +78,7 @@ export class Childscn5Component implements OnInit {
   });
 
   ngOnInit(): void {
-    console.log()
+ 
     this.companyWhitelistValue = '';
     this.search = sessionStorage.getItem('search');
     //取性別
@@ -109,6 +109,7 @@ export class Childscn5Component implements OnInit {
         const desc = jsonObj['INDUC_LEVEL1_DESC'];
         this.cuLevel1CaCode.push({ value: codeNo, viewValue: desc });
       }
+      console.log(this.cuLevel1CaCode)
     });
 
     this.cuLevel2CaValue = '';
@@ -118,6 +119,7 @@ export class Childscn5Component implements OnInit {
         const codeNo = jsonObj['INDUC_LEVEL2'];
         const desc = jsonObj['INDUC_LEVEL2_DESC'];
         this.cuLevel2CaCode.push({ value: codeNo, viewValue: desc });
+        console.log(this.cuLevel2CaCode)
       }
     });
     this.cuLevel2CaValue = '';
@@ -128,9 +130,10 @@ export class Childscn5Component implements OnInit {
         const codeNo = jsonObj['JOB_CODE'];
         const desc = jsonObj['JOB_CODE_DESC'];
         this.jobCodeCaCode.push({ value: codeNo, viewValue: desc });
+        console.log(this.jobCodeCaCode)
       }
     });
-
+    jsonObject['inducCode'] = this.cuLevel1CaValue+this.cuLevel2CaValue+this.jobCodeCaValue;
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.getCustomerInfo();
@@ -146,8 +149,8 @@ export class Childscn5Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['custId'] = this.cuid;
-
     this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
+
       this.setmaterial = data.rspBody.compareCompanies;
       console.log(this.setmaterial)
       console.log("111111111")
@@ -188,7 +191,19 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ CU_LEVEL2_CA: data.rspBody.items[0].cuLevel2Ca })
       this.customerInfoForm.patchValue({ JOB_CODE_CA: data.rspBody.items[0].jobCodeCa })
       this.customerInfoForm.patchValue({ COMPANY_WHITELIST: data.rspBody.items[0].companyWhitelist })
+     
+      
+      console.log(this.cuLevel1CaValue)
+      console.log(this.cuLevel2CaValue)
+      console.log(this.jobCodeCaValue)
+      jsonObject['inducCode'] = this.cuLevel1CaValue+this.cuLevel2CaValue+this.jobCodeCaValue;
+      console.log(jsonObject['inducCode'])
+      this.childscn5Service.getCuListSearch(jsonObject).subscribe(data=>
+        {
+          console.log(data)
+        })
     });
+  
   }
 
   // 取徵信認列行業Level2下拉
