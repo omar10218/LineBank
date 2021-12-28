@@ -247,7 +247,7 @@ export class F01005scn1Component implements OnInit {
         data: { msgStr: data.rspMsg }
       });
       if ( data.rspMsg.includes('處理案件異常') ) { } else {
-        this.saveMemo();
+        // this.saveMemo();
         this.removeSession();
         this.router.navigate(['./F01005']);
       }
@@ -272,16 +272,16 @@ export class F01005scn1Component implements OnInit {
   }
 
   //儲存
-  public async saveMemo(): Promise<void> {
-    // this.removeSession();
-    let msgStr: string = "";
-    const baseUrl = 'f01/childscn1action1';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['creditaction'] = this.mark;
-    jsonObject['creditlevel'] = sessionStorage.getItem('stepName').split('t')[1];
-    msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
-  }
+  // public async saveMemo(): Promise<void> {
+  //   // this.removeSession();
+  //   let msgStr: string = "";
+  //   const baseUrl = 'f01/childscn1action1';
+  //   let jsonObject: any = {};
+  //   jsonObject['applno'] = this.applno;
+  //   jsonObject['creditaction'] = this.mark;
+  //   jsonObject['creditlevel'] = sessionStorage.getItem('stepName').split('t')[1];
+  //   msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
+  // }
 }
 
 

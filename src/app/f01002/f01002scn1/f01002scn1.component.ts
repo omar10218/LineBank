@@ -322,7 +322,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
       if ( data.rspMsg.includes('處理案件異常') ) { } else {
         //儲存歷史資料
         this.setHistory();
-        this.saveMemo();
+        // this.saveMemo();
         this.removeSession();
         this.router.navigate(['./F01002']);
       }
@@ -347,16 +347,16 @@ export class F01002scn1Component implements OnInit, OnDestroy {
   }
 
   //儲存
-  public async saveMemo(): Promise<void> {
-    // this.removeSession();
-    let msgStr: string = "";
-    const baseUrl = 'f01/childscn1action1';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['creditaction'] = this.mark;
-    jsonObject['creditlevel'] = sessionStorage.getItem('stepName').split('t')[1];
-    msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
-  }
+  // public async saveMemo(): Promise<void> {
+  //   // this.removeSession();
+  //   let msgStr: string = "";
+  //   const baseUrl = 'f01/childscn1action1';
+  //   let jsonObject: any = {};
+  //   jsonObject['applno'] = this.applno;
+  //   jsonObject['creditaction'] = this.mark;
+  //   jsonObject['creditlevel'] = sessionStorage.getItem('stepName').split('t')[1];
+  //   msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
+  // }
 
   //判斷是否需要顯示案件完成列
   changeRoute(route: boolean) {
