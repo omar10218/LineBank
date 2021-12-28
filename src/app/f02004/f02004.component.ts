@@ -31,8 +31,8 @@ export class F02004Component implements OnInit {
   loanAccount: string //循環帳戶
   date: [Date, Date];//時間
   dateFormat = 'yyyy/MM/dd';
-  drFlag:  string ;//動撥狀態
-  drFlagCode: OptionsCode[] = [];
+  drFlag: string;//動撥狀態
+  drFlagCode: OptionsCode[] = [];//員編
   drCreditMianData: Data[] = [];
   total = 1;
   x: string;
@@ -41,11 +41,13 @@ export class F02004Component implements OnInit {
   pageSize = 50;
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
-    this.f02004Service.getRescanEmpno( baseUrl ).subscribe(data => {
+this.onQueryParamsChange
+    //員編
+    this.f02004Service.getRescanEmpno(baseUrl).subscribe(data => {
       console.log(data)
       for (let i = 0; i < data.rspBody.length; i++) {
         if (data.rspBody[i].RESCANEMPNO != null) {
-          this.drFlagCode.push( { value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO } );
+          this.drFlagCode.push({ value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO });
         }
       }
       this.loading = false;
@@ -53,62 +55,69 @@ export class F02004Component implements OnInit {
   }
 
 
-  getDrCreditMainData( ) {
+//取得表單
+  getDrCreditMainData() {
     const baseUrl = 'dr/drSearch';
-    let jsonObject : any = {};
+    let jsonObject: any = {};
     jsonObject['loanAccount'] = this.loanAccount;
     jsonObject['drFlag'] = this.drFlag;
-    if ( this.date != null ) {
-      jsonObject['startDate'] = this.datepipe.transform( new Date(this.date[0]).toString() , 'yyyyMMdd' );
-      jsonObject['endDate'] = this.datepipe.transform( new Date(this.date[1]).toString() , 'yyyyMMdd' );
- 
+    console.log('loanAccount')
+    console.log(this.loanAccount)
+    console.log('drFlag')
+    console.log(this.drFlag)
+    if (this.date != null) {
+      jsonObject['startDate'] = this.datepipe.transform(new Date(this.date[0]).toString(), 'yyyyMMdd');
+      jsonObject['endDate'] = this.datepipe.transform(new Date(this.date[1]).toString(), 'yyyyMMdd');
+     
+
     } else {
       jsonObject['startDate'] = '';
       jsonObject['endDate'] = '';
     }
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    this.f02004Service.f02002( baseUrl, jsonObject ).subscribe(data => {
-      console.log(data)
+    this.f02004Service.f02002(baseUrl, jsonObject).subscribe(data => {
+      console.log(jsonObject)
       this.loading = false;
-      if ( data.rspBody.size == 0 ) {
+      if (data.rspBody.size == 0) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         });
       } else {
         this.total = data.rspBody.size;
-        this.drCreditMianData = data.rspBody.list;  
+        this.drCreditMianData = data.rspBody.list;
       }
     });
   }
 
+  //查詢
   search() {
-    
     var startDate, endDate;
-    if (this.loanAccount == '' && this.drFlag == ''  && this.date == null  ) {
+    if (this.loanAccount == '' && this.drFlag == '' && this.date == null) {
       this.clear();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項" }
       });
     } else {
-      if ( this.date != null ) {
-        startDate = new Date( this.date[0] );
-        endDate =  new Date( this.date[1] );
-        if ( ( endDate - startDate ) / 1000 / 60 / 60 / 24 > 90 ) {
+      if (this.date != null) {
+        startDate = new Date(this.date[0]);
+        endDate = new Date(this.date[1]);
+        if ((endDate - startDate) / 1000 / 60 / 60 / 24 > 90) {
           this.clear();
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "查詢區間最多三個月內!" }
           });
         } else {
-          this.getDrCreditMainData( );
+          this.getDrCreditMainData();
         }
       } else {
-        this.getDrCreditMainData( );
+        this.getDrCreditMainData();
       }
     }
-    
+
   }
 
+  //清除資料
   clear() {
     this.loanAccount = '';
     this.drFlag = '';
@@ -121,7 +130,8 @@ export class F02004Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    if ( this.loanAccount == '' && this.drFlag == ''  ) {
+    console.log(params)
+    if (this.loanAccount == '' && this.drFlag == '') {
 
     } else {
       const { pageSize, pageIndex } = params;
@@ -129,15 +139,17 @@ export class F02004Component implements OnInit {
     }
   }
 
- 
+
 
   dateNull() {
-    if ( this.date.length < 1 ) {
+    if (this.date.length < 1) {
       this.date = null;
     }
   }
-  data_number(p: number)//千分號
-   {
+
+  //千分號
+  data_number(p: number)
+  {
     this.x = '';
     this.x = (p + "")
     if (this.x != null) {

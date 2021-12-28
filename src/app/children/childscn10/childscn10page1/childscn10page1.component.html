@@ -416,7 +416,7 @@
             <td class="table-data">{{ row.ACCOUNT_CODE }}</td>
             <td class="table-data">{{ row.ACCOUNT_CODE2 }}</td>
             <td class="table-data">{{ row.PURPOSE_CODE }}</td>
-            <td class="table-data">{{ row.MERG_DEBT_AMT }}</td>
+            <td class="table-data">{{ row.MERG_DEBT_AMT|number: '1.0-0' }}</td>
             <td class="table-data">{{ row.MERG_DEBT_FLAG }}</td>
           </tr>
         </tbody>
@@ -1054,7 +1054,7 @@
             <td class="table-data">{{ row.ACCOUNT_CODE }}</td>
             <td class="table-data">{{ row.ACCOUNT_CODE2 }}</td>
             <td class="table-data">{{ row.PURPOSE_CODE }}</td>
-            <td class="table-data">{{ row.MERG_DEBT_AMT }}</td>
+            <td class="table-data">{{ row.MERG_DEBT_AMT|number: '1.0-0' }}</td>
             <td class="table-data">{{ row.MERG_DEBT_FLAG }}</td>
           </tr>
         </tbody>
@@ -1331,7 +1331,7 @@
             <td class="table-data">{{ row.ACCOUNT_CODE }}</td>
             <td class="table-data">{{ row.ACCOUNT_CODE2 }}</td>
             <td class="table-data">{{ row.PURPOSE_CODE }}</td>
-            <td class="table-data">{{ row.MERG_DEBT_AMT }}</td>
+            <td class="table-data">{{ row.MERG_DEBT_AMT|number: '1.0-0' }}</td>
             <td class="table-data">{{ row.MERG_DEBT_FLAG }}</td>
           </tr>
         </tbody>

@@ -885,34 +885,32 @@
           </tr>
         </tbody>
       </nz-table>
-
-      <div class="EL_DSS_form_header_title3">授信策略_債整明細</div>
-      <nz-table nzShowSizeChanger [nzData]="EL_DSS2_STRGY_MERG1.data" [nzFrontPagination]="false" [nzSimple]="true"
-        nzSize="small">
-        <thead>
-          <tr>
-            <th class="table-header">銀行代碼</th>
-            <th class="table-header">債整產品</th>
-            <th class="table-header">可債整-科目別</th>
-            <th class="table-header">可債整-科目別註記</th>
-            <th class="table-header">可債整-用途</th>
-            <th class="table-header">可債整-金額</th>
-            <th class="table-header">預留註記</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let row of EL_DSS2_STRGY_MERG1.data">
-            <td class="table-data">{{ row.BANK_CODE }}</td>
-            <td class="table-data">{{ row.MERG_DEBT_PROD }}</td>
-            <td class="table-data">{{ row.ACCOUNT_CODE }}</td>
-            <td class="table-data">{{ row.ACCOUNT_CODE2 }}</td>
-            <td class="table-data">{{ row.PURPOSE_CODE }}</td>
-            <td class="table-data">{{ row.MERG_DEBT_AMT }}</td>
-            <td class="table-data">{{ row.MERG_DEBT_FLAG }}</td>
-          </tr>
-        </tbody>
-      </nz-table>
-
+    <div class="EL_DSS_form_header_title3">授信策略_債整明細</div>
+    <nz-table nzShowSizeChanger [nzData]="EL_DSS2_STRGY_MERG1.data" [nzFrontPagination]="false" [nzSimple]="true"
+      nzSize="small">
+      <thead>
+        <tr>
+          <th class="table-header">銀行代碼</th>
+          <th class="table-header">債整產品</th>
+          <th class="table-header">可債整-科目別</th>
+          <th class="table-header">可債整-科目別註記</th>
+          <th class="table-header">可債整-用途</th>
+          <th class="table-header">可債整-金額</th>
+          <th class="table-header">預留註記</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of EL_DSS2_STRGY_MERG1.data">
+          <td class="table-data">{{ row.BANK_CODE }}</td>
+          <td class="table-data">{{ row.MERG_DEBT_PROD }}</td>
+          <td class="table-data">{{ row.ACCOUNT_CODE }}</td>
+          <td class="table-data">{{ row.ACCOUNT_CODE2 }}</td>
+          <td class="table-data">{{ row.PURPOSE_CODE }}</td>
+          <td class="table-data">{{ row.MERG_DEBT_AMT|number: '1.0-0' }}</td>
+          <td class="table-data">{{ row.MERG_DEBT_FLAG }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
       <div class="line_bank_form_header_child_title">額度限額資訊</div>
       <div nz-row>
         <div nz-col nzFlex="1">
