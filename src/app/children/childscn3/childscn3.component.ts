@@ -132,12 +132,24 @@ export class Childscn3Component implements OnInit {
     this.jsonObject['result'] = this.l1;
     const url = 'f01/childscn3action1';
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
+
       msgStr = data.msgStr
       if (data.rspCode == '0000')
        {
+
         this.childsc3Service.oneseve(ul, this.jsonObject).subscribe(data => {
           msgStr = data.msgStr
-          if (data.rspCode == '0000') {
+
+          if (data.rspCode == '0000')
+          {
+
+            this.getTable()
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: msgStr }
+            });
+          }
+          else if(data.rspCode == 'E9999')
+          {
             this.getTable()
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: msgStr }
@@ -147,6 +159,7 @@ export class Childscn3Component implements OnInit {
       }
       else
       {
+        this.getTable()
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
         });
@@ -250,6 +263,7 @@ export class Childscn3Component implements OnInit {
     console.log('this.search')
     console.log(this.search)
     this.childsc3Service.oneseve(url, jsonOb).subscribe(data => {
+      console.log("=======================")
       console.log(data)
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;

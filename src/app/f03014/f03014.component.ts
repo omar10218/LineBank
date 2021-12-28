@@ -42,6 +42,8 @@ export class F03014Component implements OnInit {
   ruleParamCondition: Data[] = [];
   i = 1;
   condition = 1;
+  firstFlag = 1;
+  sortArry=['ascend', 'descend']
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;
   @ViewChild('sortTable', { static: true }) sortTable: MatSort;
   currentPage: PageEvent;
@@ -431,4 +433,15 @@ export class F03014Component implements OnInit {
 
     }
   }
+  sortChange(e: string) {
+    this.ruleParamCondition = e === 'ascend' ? this.ruleParamCondition.sort(
+      (a, b) => a.EFFECTIVE_DATE.localeCompare(b.EFFECTIVE_DATE)) : this.ruleParamCondition.sort((a, b) => b.EFFECTIVE_DATE.localeCompare(a.EFFECTIVE_DATE))
+
+  }
+  sortCHANGEDATE(e: string) {
+    this.ruleParamCondition = e === 'ascend' ? this.ruleParamCondition.sort(
+      (a, b) => a.CHANGE_DATE.localeCompare(b.CHANGE_DATE)) : this.ruleParamCondition.sort((a, b) => b.CHANGE_DATE.localeCompare(a.CHANGE_DATE))
+
+  }
+
 }

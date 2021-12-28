@@ -57,8 +57,8 @@
   <div class="line_bank_form_header_title">客戶身份名單註記</div>
     <!-- 表格 -->
     <nz-table nzShowSizeChanger [nzData]="ruleParamCondition" [nzFrontPagination]="false" [nzSimple]="true"
-      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"
-      nzSize="small" >
+      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+      nzSize="small" (nzQueryParams)="onQueryParamsChange($event)">
       <!-- <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total"
     [nzData]="ruleParamCondition" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" nzSize="small"> -->
       <thead>
@@ -69,10 +69,10 @@
           <th class="table-header"[width]="200">簡述1</th>
           <th class="table-header"[width]="200">簡述2</th>
           <th class="table-header"[width]="200">備註資訊</th>
-          <th class="table-header"[width]="100">生效日</th>
+          <th class="table-header"[width]="100" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true" [nzSortDirections]="sortArry">生效日</th>
           <th class="table-header"[width]="100">失效日</th>
           <th class="table-header"[width]="50">使用中</th>
-          <th class="table-header"[width]="100">更新日期時間</th>
+          <th class="table-header"[width]="100"(nzSortOrderChange)="sortCHANGEDATE($event)" [nzSortFn]="true" [nzSortDirections]="sortArry">更新日期時間</th>
         </tr>
       </thead>
       <tbody>
