@@ -30,7 +30,10 @@ export class Childscn5Component implements OnInit {
   genderCode: sysCode[] = [];           //性別下拉
   genderValue: string;                  //性別
   cuCpNameCa: string;                  //徵信確認公司名稱
-  setmaterial=[];
+  cuLevel1: string;                    //行職業代碼
+  cuType: string;                     //行業別
+  jobCode: string;                     //職稱
+  setmaterial = [];
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -72,13 +75,14 @@ export class Childscn5Component implements OnInit {
     CU_LEVEL2_CA: ['', []],     // 徵信認列行業Level2
     JOB_CODE_CA: ['', []],      // 徵信認列行業職業碼
     COMPANY_WHITELIST: ['', []], // 公司是否為白名單
-    CU_CP_NAME_CA: ['', []] // 徵信確認公司名單
+    CU_CP_NAME_CA: ['', []], // 徵信確認公司名單
+    CU_TYPE: ['', []] // 行業別
 
 
   });
 
   ngOnInit(): void {
- 
+
     this.companyWhitelistValue = '';
     this.search = sessionStorage.getItem('search');
     //取性別
@@ -133,7 +137,7 @@ export class Childscn5Component implements OnInit {
         console.log(this.jobCodeCaCode)
       }
     });
-    jsonObject['inducCode'] = this.cuLevel1CaValue+this.cuLevel2CaValue+this.jobCodeCaValue;
+    jsonObject['inducCode'] = this.cuLevel1CaValue + this.cuLevel2CaValue + this.jobCodeCaValue;
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.getCustomerInfo();
@@ -181,6 +185,7 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ ANNUAL_INCOME: data.rspBody.items[0].annualIncome })
       this.customerInfoForm.patchValue({ CU_EMAIL: data.rspBody.items[0].cuEmail })
       this.customerInfoForm.patchValue({ CU_M_TEL: data.rspBody.items[0].cuMTel })
+
       this.customerInfoForm.patchValue({
         CU_LEVEL1: data.rspBody.items[0].cuLevel1 +
           data.rspBody.items[0].cuLevel2
@@ -191,19 +196,22 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ CU_LEVEL2_CA: data.rspBody.items[0].cuLevel2Ca })
       this.customerInfoForm.patchValue({ JOB_CODE_CA: data.rspBody.items[0].jobCodeCa })
       this.customerInfoForm.patchValue({ COMPANY_WHITELIST: data.rspBody.items[0].companyWhitelist })
-     
-      
+
+
       console.log(this.cuLevel1CaValue)
       console.log(this.cuLevel2CaValue)
       console.log(this.jobCodeCaValue)
-      jsonObject['inducCode'] = this.cuLevel1CaValue+this.cuLevel2CaValue+this.jobCodeCaValue;
+      jsonObject['inducCode'] = this.cuLevel1CaValue + this.cuLevel2CaValue + this.jobCodeCaValue;
       console.log(jsonObject['inducCode'])
-      this.childscn5Service.getCuListSearch(jsonObject).subscribe(data=>
-        {
-          console.log(data)
-        })
+      this.childscn5Service.getCuListSearch(jsonObject).subscribe(data => {
+        console.log(data)
+        this.customerInfoForm.patchValue({ CU_TYPE: data.rspBody.eroxyIncomeList[0].inducLevel1Desc + data.rspBody.eroxyIncomeList[0].inducLevel2Desc })
+        this.cuLevel1 = data.rspBody.eroxyIncomeList[0].inducCode
+        this.cuType = data.rspBody.eroxyIncomeList[0].inducLevel1Desc + data.rspBody.eroxyIncomeList[0].inducLevel2Desc
+        this, this.jobCode = data.rspBody.eroxyIncomeList[0].jobCodeDesc
+      })
     });
-  
+
   }
 
   // 取徵信認列行業Level2下拉
