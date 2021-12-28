@@ -206,5 +206,10 @@ input:disabled{
   border-radius:10px;
 }
 
+.all-disable input{
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 
 
