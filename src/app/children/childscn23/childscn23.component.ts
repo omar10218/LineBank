@@ -75,6 +75,11 @@ export class Childscn23Component implements OnInit {
     // this.getDBR_DTI_C();
     this.getDBR_DTI_M();
   }
+
+  getStepName() {
+    return sessionStorage.getItem('stepName');
+  }
+
   getOptionDesc(option: sysCode[], codeVal: string): string {
     for (const data of option) {
       if (data.value == codeVal) {

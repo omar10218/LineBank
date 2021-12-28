@@ -9,7 +9,10 @@ interface sysCode {
   value: string;
   viewValue: string;
 }
-
+interface code {
+  value: string;
+  viewValue: File;
+}
 @Component({
   selector: 'app-f02002return',
   templateUrl: './f02002return.component.html',
@@ -53,7 +56,7 @@ export class F02002returnComponent implements OnInit {
   typeString: string = '';//補件類型
   type: sysCode[] = [];//補件類型陣列
   quantity:number;
-
+  fileList:code []=[];
   formdata: FormData = new FormData();
   formdata2: FormData = new FormData();
 
@@ -68,8 +71,6 @@ export class F02002returnComponent implements OnInit {
   }
 
 
-
-
   cancel()//離開
   {
     this.dialogRef.close({ event: 'success' });
@@ -78,22 +79,25 @@ export class F02002returnComponent implements OnInit {
   onChange(evt, ROWID: string,rescanReason:string) {
 
     const target: DataTransfer = <DataTransfer>(evt.target);
-    this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/);
+    this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG|.PNG)/);
     // console.log(!!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/))
     if (this.isValidFile)
     {
+
       this.fileToUpload = target.files.item(0);
-      this.formdata2.append('rowId', ROWID);
-      this.formdata2.append('files', this.fileToUpload);
-      this.formdata2.append('rescanReason',rescanReason)
-      this.formdata2.append('userId', localStorage.getItem("empNo"))
+      this.fileList.push({value:ROWID,viewValue:this.fileToUpload})
+
+      // this.formdata2.append('rowId', ROWID);
+      // this.formdata2.append('files', this.fileToUpload);
+      // this.formdata2.append('rescanReason',rescanReason)
+      // this.formdata2.append('userId', localStorage.getItem("empNo"))
       // this.formdata2.append('applno', localStorage.getItem("empNo"))
       this.quantity = this.quantity -1;
 
-      this.formdata.append('applno', this.data.applno);
-      this.formdata.append('rowId', ROWID);
-      this.formdata.append('files', this.fileToUpload);
-      this.formdata.append('userId', localStorage.getItem("empNo"))
+      // this.formdata.append('applno', this.data.applno);
+      // this.formdata.append('rowId', ROWID);
+      // this.formdata.append('files', this.fileToUpload);
+      // this.formdata.append('userId', localStorage.getItem("empNo"))
 
 
       // this.formdata2.append('rileName',)
@@ -128,46 +132,59 @@ export class F02002returnComponent implements OnInit {
 
   store()//儲存
   {
-    let url = 'f02/f02002action4';
-    let ur = 'f02/f02002action6';
-    let jsonObject: any = {};
-    const content = []
+    let url = 'f02/f02002action5';
+    // let ur = 'f02/f02002action6';
+    // let jsonObject: any = {};
+    // const content = []
     // let docTypeCode = this.uploadForm.value.DOC_TYPE_CODE;
 
     // const formdata: FormData = new FormData();
 
-    for (const it of this.F02002Data) {
-      content.push(
+    for (const it of this.F02002Data)
+    {
+      for(let iit of this.fileList)
+      {
+        if(it.ROW_ID == iit.value)
         {
-          rowId: it.ROW_ID,
-          rescanReason: it.rescanReason,
-          remark: it.IMAGE_CONTENT,
+          this.formdata.append('rowId',iit.value)
+          this.formdata.append('userId', localStorage.getItem("empNo"))
+          this.formdata.append('rescanReason',it.rescanReason)
+          this.formdata.append('applno',this.data.applno)
+          this.formdata.append('files',iit.viewValue)
+          this.formdata.append('imageContent',it.IMAGE_CONTENT)
         }
-      )
+      }
+      // content.push(
+      //   {
+      //     rowId: it.ROW_ID,
+      //     rescanReason: it.rescanReason,
+      //     remark: it.IMAGE_CONTENT,
+      //   }
+      // )
       // this.formdata2.append('rescanReason',it.rescanReason)
     }
 
-    jsonObject['F02002req'] = content;
-    if (this.fileToUpload != null)
-    {
+    // jsonObject['F02002req'] = content;
+    // if (this.fileToUpload != null)
+    // {
 
-      this.f02002Service.test(ur, this.formdata2).subscribe(data => {
+      this.f02002Service.test(url, this.formdata).subscribe(data => {
 
-
+        console.log(data)
       });
-    }
-    this.f02002Service.f02002(url, jsonObject).subscribe(data => {
+    // }
+    // this.f02002Service.f02002(url, jsonObject).subscribe(data => {
 
-    })
+    // })
 
 
-    this.dialogRef.close({ event: 'success' });
+    // this.dialogRef.close({ event: 'success' });
 
 
   }
 
 
-  SendBack(result: string, ROWID: string)//送回案件
+  SendBack(result: string)//送回案件
   {
     const dialogRef = this.dialog.open(F02008return2Component, {
       minHeight: '50%',
@@ -194,29 +211,31 @@ export class F02002returnComponent implements OnInit {
     }
     jsonObject['F02002req'] = content;
 
-
     dialogRef.afterClosed().subscribe(result => {
       if (result.value == 'confirm')
       {
-
         this.f02002Service.f02002(u, jsonObject).subscribe(data => {
 
         })
         if(this.fileToUpload == null)
         {
           this.formdata.append('applno', this.data.applno);
-          this.formdata.append('rowId', ROWID);
+          // this.formdata.append('rowId', ROWID);
           // this.formdata.append('files', this.fileToUpload);
           this.formdata.append('userId', localStorage.getItem("empNo"))
           this.f02002Service.test(url, this.formdata).subscribe(data => {
-
+            console.log("111111111")
+            console.log(data)
 
           })
         }
         else
         {
+          // this.formdata.append('applno', this.data.applno);
+          // this.formdata.append('rowId', ROWID);
           this.f02002Service.test(url, this.formdata).subscribe(data => {
-
+            console.log("222222")
+            console.log(data)
 
           })
         }
@@ -230,7 +249,9 @@ export class F02002returnComponent implements OnInit {
 
   test() //測試用
   {
-    console.log( this.quantity )
+    console.log(this.formdata.getAll('rowId') )
+    console.log(this.formdata.getAll('applno') )
+    console.log(this.F02002Data )
     // alert( this.fileToUpload)
   }
 }

@@ -92,7 +92,7 @@ export class Childscn5Component implements OnInit {
       });
     //取公司白名單下拉
     this.childscn5Service.getSysTypeCode('COMPANY_WHITELIST').subscribe(data => {
-      
+
       this.companyWhitelistCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
@@ -137,7 +137,11 @@ export class Childscn5Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.getCustomerInfo();
-   
+    console.log(this.companyWhitelistValue)
+  }
+
+  getStepName() {
+    return sessionStorage.getItem('stepName');
   }
 
   getCustomerInfo() {

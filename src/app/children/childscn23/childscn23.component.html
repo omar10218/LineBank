@@ -1,36 +1,36 @@
-<div class="line_bank_bankground_color">
-  <br>
-</div>
+<div [ngClass]="getStepName() == 'APPLFraud' ? 'all-disable' : ''">
+  <div class="line_bank_bankground_color">
+    <br>
+  </div>
+  <div style="padding-left: 20%;">
+    <button *ngIf="getSearch() == 'N' && (getstepName()=='APPLCreditL3'||getstepName()=='APPLCreditL2'  )" nz-button
+      [nzSize]="'large'" nzType="primary" (click)="save_B()">儲存</button>
+    <button
+      *ngIf="(getSearch() != 'N' || getstepName()!='APPLCreditL4') && getstepName()!='APPLCreditL3'&& getstepName()!='APPLCreditL2' "
+      nz-button [nzSize]="'large'" nzType="primary" (click)="save_B()" disabled>儲存</button>
+  </div>
 
-
-<div style="padding-left: 20%;">
-  <button *ngIf="getSearch() == 'N' && (getstepName()=='APPLCreditL3'||getstepName()=='APPLCreditL2'  )" nz-button [nzSize]="'large'" nzType="primary"
-    (click)="save_B()">儲存</button>
-  <button *ngIf="(getSearch() != 'N' || getstepName()!='APPLCreditL4') && getstepName()!='APPLCreditL3'&& getstepName()!='APPLCreditL2' " nz-button [nzSize]="'large'" nzType="primary"
-    (click)="save_B()" disabled>儲存</button>
-</div>
-
-<div *ngIf="getstepName()!='APPLCreditL4'" class="line_bank_card_no_padding" style="width:60%;" >
-  <nz-table  nzShowSizeChanger [nzData]="fmData_B.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
-    nzTitle="徵信DBR計算">
-    <thead>
-      <tr *ngIf="fmData_B.data.length>0">
-        <th style="width:26%" class="table-header" colspan="2">項目</th>
-        <th style="width:15%" class="table-header">DSS計算結果</th>
-        <th style="width:10%" class="table-header">徵信手動調整</th>
-        <th style="width:10%" class="table-header">授信手動調整</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr *ngIf="fmData_B.data.length>0">
-        <td>(DBR分子)無擔保負債金額</td>
-        <td>(A)無擔保負債(不含本行)_BAM501月報</td >
-        <td class="data_right">
-          {{fmData_B.data[0].unsdebt_AMT_501EX}}
-        </td>
-        <td>
-          <!-- 另一種寫法 -->
-          <!-- <div *ngIf="getstepName()=='APPLCreditL3'" style="padding:0px"> <input class="data_right"
+  <div *ngIf="getstepName()!='APPLCreditL4'" class="line_bank_card_no_padding" style="width:60%;">
+    <nz-table nzShowSizeChanger [nzData]="fmData_B.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      nzTitle="徵信DBR計算">
+      <thead>
+        <tr *ngIf="fmData_B.data.length>0">
+          <th style="width:26%" class="table-header" colspan="2">項目</th>
+          <th style="width:15%" class="table-header">DSS計算結果</th>
+          <th style="width:10%" class="table-header">徵信手動調整</th>
+          <th style="width:10%" class="table-header">授信手動調整</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="fmData_B.data.length>0">
+          <td>(DBR分子)無擔保負債金額</td>
+          <td>(A)無擔保負債(不含本行)_BAM501月報</td>
+          <td class="data_right">
+            {{fmData_B.data[0].unsdebt_AMT_501EX}}
+          </td>
+          <td>
+            <!-- 另一種寫法 -->
+            <!-- <div *ngIf="getstepName()=='APPLCreditL3'" style="padding:0px"> <input class="data_right"
               [value]="fmData_B.data[0].unsdebt_AMT_501EX_B | toNumber | number: '2.'" [(ngModel)]="fmData_B.data[0].unsdebt_AMT_501EX_B" type="text"
               maxlength="20" /></div>
           <div *ngIf="getstepName()!='APPLCreditL3'" style="padding:0px"> <input  class="data_right"
@@ -308,13 +308,13 @@
       </tr>
       <tr *ngIf="fmData_B.data.length>0">
         <td id="td_height" colspan="2">(DBR分母)客戶填寫年收入</td>
-        <td></td>
+        <td>{{fmData_B.data[0].annual_INCOME}}</td>
         <td></td>
         <td></td>
       </tr>
       <tr *ngIf="fmData_B.data.length>0">
         <td id="td_height" colspan="2">(DBR分母)徵審確認後年收入</td>
-        <td></td>
+        <td>{{fmData_B.data[0].income}}</td>
         <td></td>
         <td></td>
       </tr>
@@ -486,13 +486,13 @@
       </tr>
       <tr *ngIf="fmData_B.data.length>0">
         <td id="td_height" colspan="2">(收支比分母)客戶填寫年收入</td>
-        <td></td>
+        <td>{{fmData_B.data[0].annual_INCOME}}</td>
         <td></td>
         <td></td>
       </tr>
       <tr *ngIf="fmData_B.data.length>0">
         <td id="td_height" colspan="2">(收支比分母)徵審確認後年收入</td>
-        <td></td>
+        <td>{{fmData_B.data[0].income}}</td>
         <td></td>
         <td></td>
       </tr>
@@ -518,7 +518,7 @@
   </nz-table>
 </div>
 
-<!-- <div style="padding-left: 50px;">
+  <!-- <div style="padding-left: 50px;">
   <button *ngIf="getSearch() == 'N' && getstepName()=='APPLCreditL2'" nz-button [nzSize]="'large'" nzType="primary"
     (click)="save_C()">授信儲存</button>
   <button *ngIf="getSearch() != 'N' || getstepName()=='APPLCreditL1' || getPage()=='8' " nz-button [nzSize]="'large'" nzType="primary"
@@ -864,7 +864,7 @@
   </nz-table>
 </div> -->
 
-<!--
+  <!--
 <div style="padding-left: 20%;">
   <button *ngIf="getPage()=='8'" nz-button [nzSize]="'large'" nzType="primary"
     (click)="save_M()">產生合約前回查儲存</button>
@@ -1070,89 +1070,92 @@
 
 
 
-<div class="line_bank_card_no_padding">
-  <nz-table [nzData]="one" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="月付金試算">
-    <thead>
-      <tr>
-        <th class="table-header"> </th>
-        <th class="table-header" nzWidth="120px">科目</th>
-        <th class="table-header">BAM421<br>預設本金</th>
-        <th class="table-header">BAM029<br>預設本金</th>
-        <th class="table-header">信用卡<br>近一期循環預借未到期金額 </th>
-        <th class="table-header">預設利率</th>
-        <th class="table-header">預設貸款年數</th>
-        <th class="table-header">預設貸款期數</th>
-        <th class="table-header">月付金<br>[BAM421]</th>
-        <th class="table-header">月付金<br>[BAM029]<br>新增核准額度</th>
-        <th class="table-header">月付金<br>[KRM048]<br>信用卡循環預借<br>未到期</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of one">
-        <td>
-          <!-- <input class="inpu1" type="checkbox" checked="true"  (change)="test($event)"> -->
-          <input class="inpu1" type="checkbox"
-            (change)="addcheckbox($event.target.checked,item.ID,item.MONTHLY_PAY_029,item.MONTHLY_PAY_421,item.MONTHLY_PAY_CC)">
-        </td>
-        <td>
-          <div nz-col nzSpan="6">
-            <mat-select [(ngModel)]="item.ACCOUNT_CODE" name="ACCOUNT_CODE" placeholder="請選擇"
-              (ngModelChange)="sujectSelect(item.ID)"
-              style="width:120px;height:25px;border-radius:5px;background-color:white; border:1px solid #c9c9c9;">
-              <mat-option *ngFor="let code of sysCode" [value]="code.value">
-                {{code.viewValue}}
-              </mat-option>
-            </mat-select>
-          </div>
-        </td>
-        <!-- <td><input class="inpu2" type="text"[attr.disabled]="null" [(ngModel)]="gold421" (keyup)="limit(gold421,'gold421')"></td> -->
-        <td><input class="inpu2" type="text"
-            [attr.disabled]="item.ACCOUNT_CODE=='CC'|| item.ACCOUNT_CODE==''? '' : null"
-            [(ngModel)]="item.CONTRACT_AMT_421" name="gold421" (keyup)="limit(item.CONTRACT_AMT_421,item.ID,'gold421')">
-        </td>
-        <td><input class="inpu2" type="text"
-            [attr.disabled]="item.ACCOUNT_CODE=='CC'|| item.ACCOUNT_CODE==''? '' : null"
-            [(ngModel)]="item.CONTRACT_AMT_029" name="gold029" (keyup)="limit(item.CONTRACT_AMT_029,item.ID,'gold029')">
-        </td>
-        <td><input class="inpu2" type="text" [attr.disabled]="item.ACCOUNT_CODE=='CC'? null:'' "
-            [(ngModel)]="item.CONTRACT_AMT_CC" name="gold" (keyup)="limit(item.CONTRACT_AMT_CC,item.ID,'gold')"></td>
-        <td>{{item.CAL_RATE !=undefined? item.CAL_RATE:"0"}}</td>
-        <td>{{item.CAL_YEARS !=undefined? item.CAL_YEARS:"0"}}</td>
-        <td>{{item.CAL_PERIOD !=undefined? item.CAL_PERIOD:"0"}}</td>
-        <td>{{item.MONTHLY_PAY_421 !=undefined? item.MONTHLY_PAY_421:"0"}}</td>
-        <td>{{item.MONTHLY_PAY_029 !=undefined? item.MONTHLY_PAY_029:"0"}}</td>
-        <td>{{item.MONTHLY_PAY_CC !=undefined? item.MONTHLY_PAY_CC:"0"}}</td>
-        <!-- <td><button  (click)="test(item.ACCOUNT_CODE)">測試</button></td> -->
-      </tr>
-    </tbody>
-  </nz-table>
-  <div style="padding:10px;text-align:center">
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="add()"
-      [disabled]="search == 'N' ? false:true">新增</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="seve() "
-      [disabled]="search == 'N' && checkboxAny.length > 0 ? false:true">儲存</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" id="del" style="border-radius: 5px;" (click)="del()"
-      [disabled]="search == 'N' && checkboxAny.length > 0 ? false:true">刪除</button>
-    <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="test()">測試</button> -->
+  <div class="line_bank_card_no_padding">
+    <nz-table [nzData]="one" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="月付金試算">
+      <thead>
+        <tr>
+          <th class="table-header"> </th>
+          <th class="table-header" nzWidth="120px">科目</th>
+          <th class="table-header">BAM421<br>預設本金</th>
+          <th class="table-header">BAM029<br>預設本金</th>
+          <th class="table-header">信用卡<br>近一期循環預借未到期金額 </th>
+          <th class="table-header">預設利率</th>
+          <th class="table-header">預設貸款年數</th>
+          <th class="table-header">預設貸款期數</th>
+          <th class="table-header">月付金<br>[BAM421]</th>
+          <th class="table-header">月付金<br>[BAM029]<br>新增核准額度</th>
+          <th class="table-header">月付金<br>[KRM048]<br>信用卡循環預借<br>未到期</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of one">
+          <td>
+            <!-- <input class="inpu1" type="checkbox" checked="true"  (change)="test($event)"> -->
+            <input class="inpu1" type="checkbox"
+              (change)="addcheckbox($event.target.checked,item.ID,item.MONTHLY_PAY_029,item.MONTHLY_PAY_421,item.MONTHLY_PAY_CC)">
+          </td>
+          <td>
+            <div nz-col nzSpan="6">
+              <mat-select [(ngModel)]="item.ACCOUNT_CODE" name="ACCOUNT_CODE" placeholder="請選擇"
+                (ngModelChange)="sujectSelect(item.ID)"
+                style="width:120px;height:25px;border-radius:5px;background-color:white; border:1px solid #c9c9c9;">
+                <mat-option *ngFor="let code of sysCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </td>
+          <!-- <td><input class="inpu2" type="text"[attr.disabled]="null" [(ngModel)]="gold421" (keyup)="limit(gold421,'gold421')"></td> -->
+          <td><input class="inpu2" type="text"
+              [attr.disabled]="item.ACCOUNT_CODE=='CC'|| item.ACCOUNT_CODE==''? '' : null"
+              [(ngModel)]="item.CONTRACT_AMT_421" name="gold421"
+              (keyup)="limit(item.CONTRACT_AMT_421,item.ID,'gold421')">
+          </td>
+          <td><input class="inpu2" type="text"
+              [attr.disabled]="item.ACCOUNT_CODE=='CC'|| item.ACCOUNT_CODE==''? '' : null"
+              [(ngModel)]="item.CONTRACT_AMT_029" name="gold029"
+              (keyup)="limit(item.CONTRACT_AMT_029,item.ID,'gold029')">
+          </td>
+          <td><input class="inpu2" type="text" [attr.disabled]="item.ACCOUNT_CODE=='CC'? null:'' "
+              [(ngModel)]="item.CONTRACT_AMT_CC" name="gold" (keyup)="limit(item.CONTRACT_AMT_CC,item.ID,'gold')"></td>
+          <td>{{item.CAL_RATE !=undefined? item.CAL_RATE:"0"}}</td>
+          <td>{{item.CAL_YEARS !=undefined? item.CAL_YEARS:"0"}}</td>
+          <td>{{item.CAL_PERIOD !=undefined? item.CAL_PERIOD:"0"}}</td>
+          <td>{{item.MONTHLY_PAY_421 !=undefined? item.MONTHLY_PAY_421:"0"}}</td>
+          <td>{{item.MONTHLY_PAY_029 !=undefined? item.MONTHLY_PAY_029:"0"}}</td>
+          <td>{{item.MONTHLY_PAY_CC !=undefined? item.MONTHLY_PAY_CC:"0"}}</td>
+          <!-- <td><button  (click)="test(item.ACCOUNT_CODE)">測試</button></td> -->
+        </tr>
+      </tbody>
+    </nz-table>
+    <div style="padding:10px;text-align:center">
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="add()"
+        [disabled]="search == 'N' ? false:true">新增</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="seve() "
+        [disabled]="search == 'N' && checkboxAny.length > 0 ? false:true">儲存</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" id="del" style="border-radius: 5px;" (click)="del()"
+        [disabled]="search == 'N' && checkboxAny.length > 0 ? false:true">刪除</button>
+      <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="test()">測試</button> -->
+    </div>
   </div>
-</div>
-<br>
-<div class="line_bank_card_no_padding">
-  <nz-table nzShowSizeChanger [nzData]="" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="合計金額"
-    nzTemplateMode >
-    <thead>
-      <tr>
-        <th class="table-header">BAM421月付金</th>
-        <th class="table-header">BAM029月付金</th>
-        <th class="table-header">KRM048月付金</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{data_number(Monthly421)}}</td>
-        <td>{{data_number(Monthly029)}}</td>
-        <td>{{data_number(Monthlycc)}}</td>
-      </tr>
-    </tbody>
-  </nz-table>
+  <br>
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="合計金額"
+      nzTemplateMode>
+      <thead>
+        <tr>
+          <th class="table-header">BAM421月付金</th>
+          <th class="table-header">BAM029月付金</th>
+          <th class="table-header">KRM048月付金</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{data_number(Monthly421)}}</td>
+          <td>{{data_number(Monthly029)}}</td>
+          <td>{{data_number(Monthlycc)}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
 </div>
