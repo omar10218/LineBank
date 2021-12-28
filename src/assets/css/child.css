@@ -206,7 +206,7 @@ input:disabled{
   border-radius:10px;
 }
 
-.all-disable input, textarea, mat-select, button{
+.all-disable {
   pointer-events: none;
   opacity: 0.5;
 }
