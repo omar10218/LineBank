@@ -216,7 +216,7 @@ export class F01003scn1Component implements OnInit {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
-      if ( data.rspMsg.includes('處理案件異常') ) { } else {
+      if ( data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1' ) { } else {
         //儲存歷史資料
         this.setHistory();
         // this.saveMemo();
