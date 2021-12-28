@@ -33,6 +33,7 @@ export class F01008Component implements OnInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
+  x: string
 
   // 計算剩餘table資料長度
   get tableHeight(): string {
@@ -73,18 +74,17 @@ export class F01008Component implements OnInit {
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
     this.f01008Service.getCaseList(jsonObject).subscribe(data => {
-      if (data.rspBody.size > 0)
-      {
+      if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
         this.stepName = data.rspBody.items[0].F_StepName;
       }
-      else
-      {
+      else {
         this.cusinfoDataSource = null;
         this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "查無資料" }})
+          data: { msgStr: "查無資料" }
+        })
       }
     });
   }
@@ -157,4 +157,13 @@ export class F01008Component implements OnInit {
     this.empNo = localStorage.getItem("empNo");
     this.getCaseList();
   }
+  // 千分號標點符號(form顯示用)
+data_number(p: number) {
+  this.x = '';
+  this.x = (p + "")
+  if (this.x != null) {
+    this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  return this.x
+}
 }

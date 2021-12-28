@@ -121,7 +121,7 @@
                 <td class="table-data">{{ data.swcCustId }}</td>
                 <td class="table-data">{{ data.swcName }}</td>
                 <td class="table-data">{{ data.swcCompany }}</td>
-                <td class="table-data">{{ data.swcApplyAmount }}</td>
+                <td class="table-data">{{ data.swcApplyAmount != undefined? data_number( data.swcApplyAmount): data.swcApplyAmount }}</td>
                 <td class="table-data">{{ data.swcCustTag }}</td>
                 <td class="table-data">{{ data.swcRiskGrade }}</td>
                 <td class="table-data">{{ data.swcApplyNum }}</td>

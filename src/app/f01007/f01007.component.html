@@ -111,7 +111,7 @@
                 <td class="table-data" >{{ data.swcNationalId }}</td>
                 <td class="table-data">{{ data.swcName }}</td>
                 <td class="table-data">{{ data.swcCompany }}</td>
-                <td class="table-data">{{ data.swcCreditLimit }}</td>
+                <td class="table-data">{{  data.swcCreditLimit != undefined? data_number( data.swcCreditLimit): data.swcCreditLimit }}</td>
                 <td class="table-data">{{ data.swcCusGroupTag }}</td>
                 <td class="table-data">{{ data.swcRiskLevelGroup }}</td>
                 <td class="table-data">{{ data.swcEnterCount }}</td>

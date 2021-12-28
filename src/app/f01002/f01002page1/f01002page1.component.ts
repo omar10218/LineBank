@@ -34,6 +34,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
+	x: string
 
   // 計算剩餘table資料長度
   get tableHeight(): string {
@@ -156,7 +157,15 @@ export class F01002page1Component implements OnInit, AfterViewInit {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       if (msg != null && msg == 'success') { window.location.reload(); }}, 1000);
   }
-
+// 千分號標點符號(form顯示用)
+data_number(p: number) {
+  this.x = '';
+  this.x = (p + "")
+  if (this.x != null) {
+    this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  return this.x
+}
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageIndex } = params;
     if (this.pageIndex !== pageIndex) {
