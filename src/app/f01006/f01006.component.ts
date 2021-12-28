@@ -127,6 +127,7 @@ export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
       }
       else {
         this.cusinfoDataSource = null;
+        this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         })

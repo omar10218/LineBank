@@ -246,7 +246,7 @@ export class F01005scn1Component implements OnInit {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
-      if ( data.rspMsg.includes('處理案件異常') ) { } else {
+      if ( data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1' ) { } else {
         // this.saveMemo();
         this.removeSession();
         this.router.navigate(['./F01005']);
