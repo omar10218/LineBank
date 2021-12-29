@@ -24,6 +24,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   empNo: string = localStorage.getItem("empNo");      // 當前員編
   swcNationalId: string;                              // 身分證字號
   swcApplno: string;                                  // 案件編號
+  swcCustId: string;                                  // 客戶ID
   caseType: string;                                   // 案件分類
   caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
   agentEmpNo: string;                                 // 代理人
@@ -33,7 +34,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
-  test:any ;
+	x: string
 
   // 計算剩餘table資料長度
   get tableHeight(): string {
@@ -68,6 +69,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
+    this.swcCustId = '';
     this.caseType = '';
   }
 
@@ -82,6 +84,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     jsonObject['per_page'] = this.pageSize;
     jsonObject['swcL3EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
+    jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01002Service.getCaseList(jsonObject).subscribe(data => {
@@ -94,6 +97,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
       else
       {
         this.cusinfoDataSource = null;
+        this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }})
       }
@@ -153,7 +157,15 @@ export class F01002page1Component implements OnInit, AfterViewInit {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
       if (msg != null && msg == 'success') { window.location.reload(); }}, 1000);
   }
-
+// 千分號標點符號(form顯示用)
+data_number(p: number) {
+  this.x = '';
+  this.x = (p + "")
+  if (this.x != null) {
+    this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  return this.x
+}
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageIndex } = params;
     if (this.pageIndex !== pageIndex) {
@@ -203,6 +215,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
+    this.swcCustId = '';
     this.caseType = '';
     this.empNo = localStorage.getItem("empNo");
     this.getCaseList();

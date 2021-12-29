@@ -76,7 +76,7 @@
                 <td class="table-data">{{ data.NATIONAL_ID }}</td>
                 <td class="table-data">{{ data.CUST_ID }}</td>
                 <td class="table-data">{{ data.CU_CNAME }}</td>
-                <td class="table-data">{{ data.APPROVE_AMT }}</td>
+                <td class="table-data">{{  data.APPROVE_AMT != undefined? data_number( data.APPROVE_AMT): data.APPROVE_AMT }}</td>
                 <td class="table-data">{{ data.APPLICATION_PERIOD }}</td>
                 <td class="table-data">{{ data.PROD_CODE }}</td>
               </tr>

@@ -4,7 +4,7 @@
     <div class="search_row_header">
       <div nz-col>
         <div nz-row>
-          <div nz-col nzSpan="5">
+          <div nz-col nzSpan="4">
             <span class="form-title line_bank_h4"> 案件編號</span>
             <div class="form" style="margin:0 auto;width:90%">
               <div><input matInput #input class="form-control" [(ngModel)]="swcApplno" name="swcApplno"
@@ -12,7 +12,7 @@
               </div>
             </div>
           </div>
-          <div nz-col nzSpan="5">
+          <div nz-col nzSpan="4">
             <span class="form-title line_bank_h4">身分證號</span>
             <div class="form" style="margin:0 auto;width:90%">
               <div><input matInput #input class="form-control" [(ngModel)]="swcNationalId" name="swcNationalId"
@@ -20,7 +20,15 @@
               </div>
             </div>
           </div>
-          <div nz-col nzSpan="5">
+          <div nz-col nzSpan="4">
+            <span class="form-title line_bank_h4">客戶ID</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="swcCustId" name="swcCustId"
+                  placeholder="請輸入客戶ID" required>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="4">
             <span class="form-title line_bank_h4">案件類別</span>
             <div class="form" style="width:90%;height:25px;margin:0 auto;color:gray">
               <div style="color:gray">
@@ -32,7 +40,7 @@
               </div>
             </div>
           </div>
-          <div nz-col nzSpan="5">
+          <div nz-col nzSpan="4">
             <span class="form-title line_bank_h4">代理人別</span>
             <div class="form" style="width:90%;height:25px;margin:0 auto">
               <div>
@@ -69,18 +77,19 @@
             <thead style="max-height: 100vh;">
               <tr>
                 <th class="table-header" nzLeft (nzSortOrderChange)="sortChange($event)" [nzSortFn]="false"
-                  [nzSortOrder]="test" [nzWidth]="'160px'">案件編號</th>
+                  [nzWidth]="'160px'">案件編號</th>
                 <th class="table-header">流程別</th>
                 <th class="table-header">重查完成</th>
                 <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
                   [nzSortOrder]="'ascend'">進件時間</th>
                 <th class="table-header">身分證號</th>
+                <th class="table-header">客戶ID</th>
                 <th class="table-header">姓名</th>
                 <th class="table-header" [nzWidth]="'140px'">公司名稱</th>
-                <th class="table-header">申請金額</th>
+                <th class="table-header">申請金額/額度</th>
                 <th class="table-header">客群標籤</th>
                 <th class="table-header" [nzWidth]="'100px'">風險等級分群</th>
-                <th class="table-header">累積進件</th>
+                <th class="table-header">累計進件</th>
                 <th class="table-header">審核結果</th>
                 <th class="table-header">通知</th>
                 <th class="table-header" [nzWidth]="'140px'" nzRight>案件註記</th>
@@ -108,12 +117,13 @@
                 <td class="table-data" nzWidth="'70px'">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}
                 </td>
                 <td class="table-data">{{ data.swcNationalId }}</td>
+                <td class="table-data">{{ data.swcCustId }}</td>
                 <td class="table-data">{{ data.swcName }}</td>
                 <td class="table-data">{{ data.swcCompany }}</td>
-                <td class="table-data">{{ data.swcCreditLimit }}</td>
-                <td class="table-data">{{ data.swcCusGroupTag }}</td>
-                <td class="table-data">{{ data.swcRiskLevelGroup }}</td>
-                <td class="table-data">{{ data.swcEnterCount }}</td>
+                <td class="table-data">{{  data.swcApplyAmount != undefined? data_number( data.swcApplyAmount): data.swcApplyAmount }}</td>
+                <td class="table-data">{{ data.swcCustTag }}</td>
+                <td class="table-data">{{ data.swcRiskGrade }}</td>
+                <td class="table-data">{{ data.swcApplyNum }}</td>
                 <td class="table-data">{{ data.swcResult }}</td>
                 <td class="table-data" style="text-align: center;">
                   <button nz-button id="test" nzSize='small' *ngIf="data.swcNotifyMsg==''" [disabled]="true"

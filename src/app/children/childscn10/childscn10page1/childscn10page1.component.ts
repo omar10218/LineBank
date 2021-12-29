@@ -277,10 +277,10 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form1.patchValue({ STRGY_TMP_PERIOD_MIN: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PERIOD_MIN })//期數最小值
         this.dss1Form1.patchValue({ STRGY_TMP_PERIOD_MAX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PERIOD_MAX })//期數最大值
         //期數=STRGY_TMP_PERIOD_MIN ~ STRGY_TMP_PERIOD_MAX
-        this.dss1Form1.patchValue({ STRGY_TMP_LIMIT_REVING: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_REVING })//循環信貸額度
-        this.dss1Form1.patchValue({ STRGY_TMP_LIMIT_INST: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_INST })//分期信貸金額
-        this.dss1Form1.patchValue({ STRGY_TMP_LIMIT_CASH: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_CASH })//分期信貸-現金額度
-        this.dss1Form1.patchValue({ STRGY_TMP_LIMIT_MERG: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_MERG })//分期信貸-債整額度
+        this.dss1Form1.patchValue({ STRGY_TMP_LIMIT_REVING: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_REVING) })//循環信貸額度
+        this.dss1Form1.patchValue({ STRGY_TMP_LIMIT_INST: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_INST) })//分期信貸金額
+        this.dss1Form1.patchValue({ STRGY_TMP_LIMIT_CASH: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_CASH) })//分期信貸-現金額度
+        this.dss1Form1.patchValue({ STRGY_TMP_LIMIT_MERG: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_MERG) })//分期信貸-債整額度
         this.dss1Form1.patchValue({ STRGY_TMP_MINPAYRT: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_MINPAYRT })//每月最低還款比例(僅限循環信貸)
         this.dss1Form1.patchValue({ STRGY_TMP_DISB_BTCR_YN: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_DISB_BTCR_YN })//結帳日至還款日間客戶可申請動撥Y
         this.dss1Form1.patchValue({ STRGY_TMP_RL_DISB_THRHLD: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_RL_DISB_THRHLD })//循環信貸簡易檢核動撥金額門檻
@@ -288,16 +288,16 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form1.patchValue({ STRGY_TMP_LOANEXTFEE: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LOANEXTFEE })//帳戶管理費(續約用)
 
         //額度限額資訊 3種方案相同
-        this.dss1Form1.patchValue({ LIMIT_TMP_DBR: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DBR })//限額_DBR
-        this.dss1Form1.patchValue({ LIMIT_TMP_PRDMUE: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PRDMUE })//限額_產品MUE
-        this.dss1Form1.patchValue({ LIMIT_TMP_LAW32: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW32 })//限額_本行利害關係人(銀行法第32條)
-        this.dss1Form1.patchValue({ LIMIT_TMP_LAW33_UNS: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW33_UNS })//限額_同一自然人無擔保授信限額(銀行法第33條)
-        this.dss1Form1.patchValue({ LIMIT_TMP_PROD_MAX: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MAX })//限額_產品/專案額度上限
-        this.dss1Form1.patchValue({ LIMIT_TMP_PROD_MIN: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MIN })//限額_產品/專案額度下限
-        this.dss1Form1.patchValue({ LIMIT_TMP_CUSTAPPLY: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_CUSTAPPLY })//限額_客戶申請金額
-        this.dss1Form1.patchValue({ LIMIT_TMP_DTI: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DTI })//限額_月付收支比
-        this.dss1Form1.patchValue({ LIMIT_TMP_NIDMUE: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_NIDMUE })//限額_歸戶MUE
-        this.dss1Form1.patchValue({ LIMIT_TMP_MERGEAMT: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_MERGEAMT })//限額_債整額度
+        this.dss1Form1.patchValue({ LIMIT_TMP_DBR: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DBR) })//限額_DBR
+        this.dss1Form1.patchValue({ LIMIT_TMP_PRDMUE: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PRDMUE) })//限額_產品MUE
+        this.dss1Form1.patchValue({ LIMIT_TMP_LAW32: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW32) })//限額_本行利害關係人(銀行法第32條)
+        this.dss1Form1.patchValue({ LIMIT_TMP_LAW33_UNS: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW33_UNS) })//限額_同一自然人無擔保授信限額(銀行法第33條)
+        this.dss1Form1.patchValue({ LIMIT_TMP_PROD_MAX: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MAX) })//限額_產品/專案額度上限
+        this.dss1Form1.patchValue({ LIMIT_TMP_PROD_MIN: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MIN) })//限額_產品/專案額度下限
+        this.dss1Form1.patchValue({ LIMIT_TMP_CUSTAPPLY: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_CUSTAPPLY) })//限額_客戶申請金額
+        this.dss1Form1.patchValue({ LIMIT_TMP_DTI: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DTI) })//限額_月付收支比
+        this.dss1Form1.patchValue({ LIMIT_TMP_NIDMUE: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_NIDMUE) })//限額_歸戶MUE
+        this.dss1Form1.patchValue({ LIMIT_TMP_MERGEAMT: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_MERGEAMT) })//限額_債整額度
         this.dss1Form1.patchValue({ STRGY_TMP_NIDMUEX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_NIDMUEX })//試算授信策略_歸戶MUE倍數
         this.dss1Form1.patchValue({ STRGY_TMP_NIDMUECAP: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_NIDMUECAP })//試算授信策略_歸戶MUECAP
         this.dss1Form1.patchValue({ STRGY_TMP_PRDMUEX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PRDMUEX })//試算授信策略_產品MUE倍數
@@ -307,12 +307,12 @@ export class Childscn10page1Component implements OnInit {
       }
       // this.EL_DSS1_UNDW_LIST1.data = data.rspBody.DSS1UNDWLIST;//徵審代碼
       this.EL_DSS1_UNDW_LIST.data = data.rspBody.DSS1UNDWLIST;//徵審代碼
-      if(data.rspBody.DSS1UNDWLIST.length>0){
-        this.EL_DSS1_UNDW_LIST1.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='1');//1	信用異常資訊
-        this.EL_DSS1_UNDW_LIST2.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='2');//2	整體往來
-        this.EL_DSS1_UNDW_LIST3.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='3');//3	信用卡往來
-        this.EL_DSS1_UNDW_LIST4.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='4');//4	授信往來
-        this.EL_DSS1_UNDW_LIST5.data=this.EL_DSS1_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='9');//9	其他
+      if (data.rspBody.DSS1UNDWLIST.length > 0) {
+        this.EL_DSS1_UNDW_LIST1.data = this.EL_DSS1_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '1');//1	信用異常資訊
+        this.EL_DSS1_UNDW_LIST2.data = this.EL_DSS1_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '2');//2	整體往來
+        this.EL_DSS1_UNDW_LIST3.data = this.EL_DSS1_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '3');//3	信用卡往來
+        this.EL_DSS1_UNDW_LIST4.data = this.EL_DSS1_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '4');//4	授信往來
+        this.EL_DSS1_UNDW_LIST5.data = this.EL_DSS1_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '9');//9	其他
       }
       this.EL_DSS1_CFC_LIMIT1.data = data.rspBody.DSS1CFCLIMIT;//試算額度策略
       this.EL_DSS1_STRGY_SRATE1.data = data.rspBody.DSS1STRGYSRATE;//試算利率(多階)
@@ -360,10 +360,10 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form2.patchValue({ STRGY_TMP_PERIOD_MIN: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PERIOD_MIN })//期數最小值
         this.dss1Form2.patchValue({ STRGY_TMP_PERIOD_MAX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PERIOD_MAX })//期數最大值
         //期數=STRGY_TMP_PERIOD_MIN ~ STRGY_TMP_PERIOD_MAX
-        this.dss1Form2.patchValue({ STRGY_TMP_LIMIT_REVING: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_REVING })//循環信貸額度
-        this.dss1Form2.patchValue({ STRGY_TMP_LIMIT_INST: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_INST })//分期信貸金額
-        this.dss1Form2.patchValue({ STRGY_TMP_LIMIT_CASH: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_CASH })//分期信貸-現金額度
-        this.dss1Form2.patchValue({ STRGY_TMP_LIMIT_MERG: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_MERG })//分期信貸-債整額度
+        this.dss1Form2.patchValue({ STRGY_TMP_LIMIT_REVING: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_REVING) })//循環信貸額度
+        this.dss1Form2.patchValue({ STRGY_TMP_LIMIT_INST: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_INST) })//分期信貸金額
+        this.dss1Form2.patchValue({ STRGY_TMP_LIMIT_CASH: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_CASH) })//分期信貸-現金額度
+        this.dss1Form2.patchValue({ STRGY_TMP_LIMIT_MERG: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_MERG) })//分期信貸-債整額度
         this.dss1Form2.patchValue({ STRGY_TMP_MINPAYRT: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_MINPAYRT })//每月最低還款比例(僅限循環信貸)
         this.dss1Form2.patchValue({ STRGY_TMP_DISB_BTCR_YN: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_DISB_BTCR_YN })//結帳日至還款日間客戶可申請動撥Y
         this.dss1Form2.patchValue({ STRGY_TMP_RL_DISB_THRHLD: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_RL_DISB_THRHLD })//循環信貸簡易檢核動撥金額門檻
@@ -373,16 +373,16 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form2.patchValue({ STRGY_TMP_EXPIRDATE: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_EXPIRDATE })//效期截止日  注意名稱差異
 
         //額度限額資訊 3種方案相同
-        this.dss1Form2.patchValue({ LIMIT_TMP_DBR: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DBR })//限額_DBR
-        this.dss1Form2.patchValue({ LIMIT_TMP_PRDMUE: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PRDMUE })//限額_產品MUE
-        this.dss1Form2.patchValue({ LIMIT_TMP_LAW32: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW32 })//限額_本行利害關係人(銀行法第32條)
-        this.dss1Form2.patchValue({ LIMIT_TMP_LAW33_UNS: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW33_UNS })//限額_同一自然人無擔保授信限額(銀行法第33條)
-        this.dss1Form2.patchValue({ LIMIT_TMP_PROD_MAX: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MAX })//限額_產品/專案額度上限
-        this.dss1Form2.patchValue({ LIMIT_TMP_PROD_MIN: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MIN })//限額_產品/專案額度下限
-        this.dss1Form2.patchValue({ LIMIT_TMP_CUSTAPPLY: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_CUSTAPPLY })//限額_客戶申請金額
-        this.dss1Form2.patchValue({ LIMIT_TMP_DTI: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DTI })//限額_月付收支比
-        this.dss1Form2.patchValue({ LIMIT_TMP_NIDMUE: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_NIDMUE })//限額_歸戶MUE
-        this.dss1Form2.patchValue({ LIMIT_TMP_MERGEAMT: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_MERGEAMT })//限額_債整額度
+        this.dss1Form2.patchValue({ LIMIT_TMP_DBR: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DBR) })//限額_DBR
+        this.dss1Form2.patchValue({ LIMIT_TMP_PRDMUE: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PRDMUE) })//限額_產品MUE
+        this.dss1Form2.patchValue({ LIMIT_TMP_LAW32: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW32) })//限額_本行利害關係人(銀行法第32條)
+        this.dss1Form2.patchValue({ LIMIT_TMP_LAW33_UNS: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW33_UNS) })//限額_同一自然人無擔保授信限額(銀行法第33條)
+        this.dss1Form2.patchValue({ LIMIT_TMP_PROD_MAX: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MAX) })//限額_產品/專案額度上限
+        this.dss1Form2.patchValue({ LIMIT_TMP_PROD_MIN: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MIN) })//限額_產品/專案額度下限
+        this.dss1Form2.patchValue({ LIMIT_TMP_CUSTAPPLY: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_CUSTAPPLY) })//限額_客戶申請金額
+        this.dss1Form2.patchValue({ LIMIT_TMP_DTI: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DTI) })//限額_月付收支比
+        this.dss1Form2.patchValue({ LIMIT_TMP_NIDMUE: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_NIDMUE) })//限額_歸戶MUE
+        this.dss1Form2.patchValue({ LIMIT_TMP_MERGEAMT: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_MERGEAMT) })//限額_債整額度
         this.dss1Form2.patchValue({ STRGY_TMP_NIDMUEX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_NIDMUEX })//試算授信策略_歸戶MUE倍數
         this.dss1Form2.patchValue({ STRGY_TMP_NIDMUECAP: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_NIDMUECAP })//試算授信策略_歸戶MUECAP
         this.dss1Form2.patchValue({ STRGY_TMP_PRDMUEX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PRDMUEX })//試算授信策略_產品MUE倍數
@@ -437,10 +437,10 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form3.patchValue({ STRGY_TMP_PERIOD_MIN: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PERIOD_MIN })//期數最小值
         this.dss1Form3.patchValue({ STRGY_TMP_PERIOD_MAX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PERIOD_MAX })//期數最大值
         //期數=STRGY_TMP_PERIOD_MIN ~ STRGY_TMP_PERIOD_MAX
-        this.dss1Form3.patchValue({ STRGY_TMP_LIMIT_REVING: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_REVING })//循環信貸額度
-        this.dss1Form3.patchValue({ STRGY_TMP_LIMIT_INST: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_INST })//分期信貸金額
-        this.dss1Form3.patchValue({ STRGY_TMP_LIMIT_CASH: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_CASH })//分期信貸-現金額度
-        this.dss1Form3.patchValue({ STRGY_TMP_LIMIT_MERG: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_MERG })//分期信貸-債整額度
+        this.dss1Form3.patchValue({ STRGY_TMP_LIMIT_REVING: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_REVING) })//循環信貸額度
+        this.dss1Form3.patchValue({ STRGY_TMP_LIMIT_INST: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_INST) })//分期信貸金額
+        this.dss1Form3.patchValue({ STRGY_TMP_LIMIT_CASH: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_CASH) })//分期信貸-現金額度
+        this.dss1Form3.patchValue({ STRGY_TMP_LIMIT_MERG: this.data_number(data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_LIMIT_MERG) })//分期信貸-債整額度
         this.dss1Form3.patchValue({ STRGY_TMP_MINPAYRT: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_MINPAYRT })//每月最低還款比例(僅限循環信貸)
         this.dss1Form3.patchValue({ STRGY_TMP_DISB_BTCR_YN: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_DISB_BTCR_YN })//結帳日至還款日間客戶可申請動撥Y
         this.dss1Form3.patchValue({ STRGY_TMP_RL_DISB_THRHLD: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_RL_DISB_THRHLD })//循環信貸簡易檢核動撥金額門檻
@@ -450,16 +450,16 @@ export class Childscn10page1Component implements OnInit {
         this.dss1Form3.patchValue({ STRGY_TMP_EXPIRDATE: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_EXPIRDATE })//效期截止日 注意名稱差異
 
         //額度限額資訊 3種方案相同
-        this.dss1Form3.patchValue({ LIMIT_TMP_DBR: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DBR })//限額_DBR
-        this.dss1Form3.patchValue({ LIMIT_TMP_PRDMUE: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PRDMUE })//限額_產品MUE
-        this.dss1Form3.patchValue({ LIMIT_TMP_LAW32: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW32 })//限額_本行利害關係人(銀行法第32條)
-        this.dss1Form3.patchValue({ LIMIT_TMP_LAW33_UNS: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW33_UNS })//限額_同一自然人無擔保授信限額(銀行法第33條)
-        this.dss1Form3.patchValue({ LIMIT_TMP_PROD_MAX: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MAX })//限額_產品/專案額度上限
-        this.dss1Form3.patchValue({ LIMIT_TMP_PROD_MIN: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MIN })//限額_產品/專案額度下限
-        this.dss1Form3.patchValue({ LIMIT_TMP_CUSTAPPLY: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_CUSTAPPLY })//限額_客戶申請金額
-        this.dss1Form3.patchValue({ LIMIT_TMP_DTI: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DTI })//限額_月付收支比
-        this.dss1Form3.patchValue({ LIMIT_TMP_NIDMUE: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_NIDMUE })//限額_歸戶MUE
-        this.dss1Form3.patchValue({ LIMIT_TMP_MERGEAMT: data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_MERGEAMT })//限額_債整額度
+        this.dss1Form3.patchValue({ LIMIT_TMP_DBR: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DBR) })//限額_DBR
+        this.dss1Form3.patchValue({ LIMIT_TMP_PRDMUE: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PRDMUE) })//限額_產品MUE
+        this.dss1Form3.patchValue({ LIMIT_TMP_LAW32: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW32) })//限額_本行利害關係人(銀行法第32條)
+        this.dss1Form3.patchValue({ LIMIT_TMP_LAW33_UNS: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_LAW33_UNS) })//限額_同一自然人無擔保授信限額(銀行法第33條)
+        this.dss1Form3.patchValue({ LIMIT_TMP_PROD_MAX: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MAX) })//限額_產品/專案額度上限
+        this.dss1Form3.patchValue({ LIMIT_TMP_PROD_MIN: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_PROD_MIN) })//限額_產品/專案額度下限
+        this.dss1Form3.patchValue({ LIMIT_TMP_CUSTAPPLY: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_CUSTAPPLY) })//限額_客戶申請金額
+        this.dss1Form3.patchValue({ LIMIT_TMP_DTI: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_DTI) })//限額_月付收支比
+        this.dss1Form3.patchValue({ LIMIT_TMP_NIDMUE: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_NIDMUE) })//限額_歸戶MUE
+        this.dss1Form3.patchValue({ LIMIT_TMP_MERGEAMT: this.data_number(data.rspBody.DSS1STRGYTMP[0].LIMIT_TMP_MERGEAMT) })//限額_債整額度
         this.dss1Form3.patchValue({ STRGY_TMP_NIDMUEX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_NIDMUEX })//試算授信策略_歸戶MUE倍數
         this.dss1Form3.patchValue({ STRGY_TMP_NIDMUECAP: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_NIDMUECAP })//試算授信策略_歸戶MUECAP
         this.dss1Form3.patchValue({ STRGY_TMP_PRDMUEX: data.rspBody.DSS1STRGYTMP[0].STRGY_TMP_PRDMUEX })//試算授信策略_產品MUE倍數
@@ -622,5 +622,15 @@ export class Childscn10page1Component implements OnInit {
   //   });
   // }
 
+
+  //去除符號中文+千分位
+  data_number(x: string) {
+    if (x != null) {
+      x = x.toString();
+      x = x.replace(/[^\d]/g, '');
+      x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return x
+  }
 
 }

@@ -27,6 +27,7 @@ export class F01005page1Component implements OnInit {
   currentSort: Sort;                                  // 排序
   empNo: string = localStorage.getItem("empNo");      // 當前員編
   swcNationalId: string;                              // 身分證字號
+  swcCustId: string;                                  // 客戶ID
   swcApplno: string;                                  // 案件編號
   caseType: string;                                   // 案件分類
   caseTypeCode: OptionsCode[] = [];                   // 案件分類下拉
@@ -37,6 +38,7 @@ export class F01005page1Component implements OnInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
+	x: string
 
   // 計算剩餘table資料長度
   get tableHeight(): string {
@@ -50,6 +52,7 @@ export class F01005page1Component implements OnInit {
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
+    this.swcCustId = '';
     this.caseType = '';
   }
   ngAfterViewInit() {
@@ -62,6 +65,7 @@ export class F01005page1Component implements OnInit {
     jsonObject['per_page'] = this.pageSize;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['swcNationalId'] = this.swcNationalId;
+    jsonObject['swcCustId'] = this.swcCustId;
     this.f01005Service.getCaseList(jsonObject).subscribe(data => {
       if (data.rspBody.size > 0)
       {
@@ -72,6 +76,7 @@ export class F01005page1Component implements OnInit {
       else
       {
         this.cusinfoDataSource = null;
+        this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }})
       }
@@ -120,7 +125,15 @@ export class F01005page1Component implements OnInit {
       }
     });
   }
-
+// 千分號標點符號(form顯示用)
+data_number(p: number) {
+  this.x = '';
+  this.x = (p + "")
+  if (this.x != null) {
+    this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  return this.x
+}
   // 儲存案件註記
   saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
     let msg = '';
@@ -174,6 +187,7 @@ export class F01005page1Component implements OnInit {
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
+    this.swcCustId = '';
     this.empNo = localStorage.getItem("empNo");
     this.getCaseList();
   }

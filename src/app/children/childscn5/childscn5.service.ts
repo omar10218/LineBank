@@ -10,7 +10,13 @@ export class Childscn5Service extends BaseService {
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getCustomerInfoSearch(jsonObject: JSON): Observable<any>  {
+   getCustomerInfoSearch(jsonObject: JSON): Observable<any>  {
+
+    const baseUrl = 'f01/childscn5';
+
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
+  getCuListSearch(jsonObject: JSON): Observable<any>  {
 
     const baseUrl = 'f01/childscn5';
 

@@ -55,7 +55,6 @@ export class Childscn23Component implements OnInit {
   checkboxAny: any[] = [];//判斷是否回傳
   seveData: any[] = [];
   search: string;
-  // Source = new MatTableDataSource<any>() //產品Table
   x: string;
 
   private stepName: string;
@@ -72,8 +71,6 @@ export class Childscn23Component implements OnInit {
     this.dropdown();
     this.set();
     this.getDBR_DTI_B();
-    // this.getDBR_DTI_C();
-    this.getDBR_DTI_M();
   }
   getOptionDesc(option: sysCode[], codeVal: string): string {
     for (const data of option) {
@@ -433,17 +430,21 @@ export class Childscn23Component implements OnInit {
 
   //去除符號/中文 可負號 儲存用
   save_data_number(x: string) {
-    if (x != null) {
-      x = x.replace(/[^\d]/g, '');
+    //不可空白null 自動補0
+    if (x == null || x == "") {
+      return '0'
     }
+    x = x.replace(/[^\d]/g, '');
     return x
   }
 
   //去除符號/中文 可負號 儲存用
   save_data_number2(x: string) {
-    if (x != null) {
-      x = x.replace(/[^\d-]/g, '');
+    //不可空白null 自動補0
+    if (x == null || x == "") {
+      return '0'
     }
+    x = x.replace(/[^\d-]/g, '');
     return x
   }
 
@@ -471,35 +472,38 @@ export class Childscn23Component implements OnInit {
     //測試用
     // jsonObject['applno'] = '20210827E000';
     // jsonObject['dssType'] = "Dss1";
-    jsonObject['unsdebtAmt501Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_501EX_B);
-    jsonObject['unsdebtAmt504Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_504EX_B);
-    jsonObject['unsdebtAmtnew505Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMTNEW_505EX_B);
-    jsonObject['unsdebtAmtnew029Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMTNEW_029EX_B);
-    jsonObject['unsdebt824Rllimit'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_RLLIMIT_B);
-    jsonObject['unsdebt824Rlbal'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_RLBAL_B);
-    jsonObject['unsdebt824Ilbal'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_ILBAL_B);
-    jsonObject['unsdebt824Ccrbal'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_CCRBAL_B);
-    jsonObject['unsdebtNonjcic'] = this.save_data_number2(this.fmData_B.data[0].unsdebt_NONJCIC_B);
-    jsonObject['unsdebtPayamt029Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_PAYAMT_029EX_B);
-    jsonObject['mthpayBam421'] = this.save_data_number(this.fmData_B.data[0].mthpay_BAM421_B);
-    jsonObject['mthpayBam029'] = this.save_data_number(this.fmData_B.data[0].mthpay_BAM029_B);
-    jsonObject['mthpayKrm048'] = this.save_data_number(this.fmData_B.data[0].mthpay_KRM048_B);
-    jsonObject['mthpayNonjcic'] = this.save_data_number2(this.fmData_B.data[0].mthpay_NONJCIC_B);
+    if (this.getPage() == '2') {
+      jsonObject['unsdebtAmt501Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_501EX_B);
+      jsonObject['unsdebtAmt504Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_504EX_B);
+      jsonObject['unsdebtAmtnew505Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMTNEW_505EX_B);
+      jsonObject['unsdebtAmtnew029Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMTNEW_029EX_B);
+      jsonObject['unsdebt824Rllimit'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_RLLIMIT_B);
+      jsonObject['unsdebt824Rlbal'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_RLBAL_B);
+      jsonObject['unsdebt824Ilbal'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_ILBAL_B);
+      jsonObject['unsdebt824Ccrbal'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_CCRBAL_B);
+      jsonObject['unsdebtNonjcic'] = this.save_data_number2(this.fmData_B.data[0].unsdebt_NONJCIC_B);
+      jsonObject['unsdebtPayamt029Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_PAYAMT_029EX_B);
+      jsonObject['mthpayBam421'] = this.save_data_number(this.fmData_B.data[0].mthpay_BAM421_B);
+      jsonObject['mthpayBam029'] = this.save_data_number(this.fmData_B.data[0].mthpay_BAM029_B);
+      jsonObject['mthpayKrm048'] = this.save_data_number(this.fmData_B.data[0].mthpay_KRM048_B);
+      jsonObject['mthpayNonjcic'] = this.save_data_number2(this.fmData_B.data[0].mthpay_NONJCIC_B);
+    } else if (this.getPage() == '3') {
+      jsonObject['unsdebtAmt501Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_501EX_C);
+      jsonObject['unsdebtAmt504Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_504EX_C);
+      jsonObject['unsdebtAmtnew505Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMTNEW_505EX_C);
+      jsonObject['unsdebtAmtnew029Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMTNEW_029EX_C);
+      jsonObject['unsdebt824Rllimit_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_RLLIMIT_C);
+      jsonObject['unsdebt824Rlbal_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_RLBAL_C);
+      jsonObject['unsdebt824Ilbal_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_ILBAL_C);
+      jsonObject['unsdebt824Ccrbal_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_CCRBAL_C);
+      jsonObject['unsdebtNonjcic_C'] = this.save_data_number2(this.fmData_B.data[0].unsdebt_NONJCIC_C);
+      jsonObject['unsdebtPayamt029Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_PAYAMT_029EX_C);
+      jsonObject['mthpayBam421_C'] = this.save_data_number(this.fmData_B.data[0].mthpay_BAM421_C);
+      jsonObject['mthpayBam029_C'] = this.save_data_number(this.fmData_B.data[0].mthpay_BAM029_C);
+      jsonObject['mthpayKrm048_C'] = this.save_data_number(this.fmData_B.data[0].mthpay_KRM048_C);
+      jsonObject['mthpayNonjcic_C'] = this.save_data_number2(this.fmData_B.data[0].mthpay_NONJCIC_C);
+    }
 
-    jsonObject['unsdebtAmt501Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_501EX_C);
-    jsonObject['unsdebtAmt504Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_504EX_C);
-    jsonObject['unsdebtAmtnew505Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMTNEW_505EX_C);
-    jsonObject['unsdebtAmtnew029Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMTNEW_029EX_C);
-    jsonObject['unsdebt824Rllimit_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_RLLIMIT_C);
-    jsonObject['unsdebt824Rlbal_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_RLBAL_C);
-    jsonObject['unsdebt824Ilbal_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_ILBAL_C);
-    jsonObject['unsdebt824Ccrbal_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_824_CCRBAL_C);
-    jsonObject['unsdebtNonjcic_C'] = this.save_data_number2(this.fmData_B.data[0].unsdebt_NONJCIC_C);
-    jsonObject['unsdebtPayamt029Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_PAYAMT_029EX_C);
-    jsonObject['mthpayBam421_C'] = this.save_data_number(this.fmData_B.data[0].mthpay_BAM421_C);
-    jsonObject['mthpayBam029_C'] = this.save_data_number(this.fmData_B.data[0].mthpay_BAM029_C);
-    jsonObject['mthpayKrm048_C'] = this.save_data_number(this.fmData_B.data[0].mthpay_KRM048_C);
-    jsonObject['mthpayNonjcic_C'] = this.save_data_number2(this.fmData_B.data[0].mthpay_NONJCIC_C);
     this.childscn23Service.getDate_Json(url, jsonObject).subscribe(data => {
       msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -521,26 +525,8 @@ export class Childscn23Component implements OnInit {
     this.childscn23Service.getDate_Json(url, jsonObject).subscribe(data => {
       if (data.rspBody.length > 0) {
         this.fmData_C.data = key ? this.fmData_C.data : data.rspBody; //key 判斷資料結構是否建立
-        // this.fmData_C.data = data.rspBody
-
-        // this.fmData_C.data[0].unsdebt_AMT_501EX_C = this.data_number2(this.fmData_C.data[0].unsdebt_AMT_501EX_C);
-        // this.fmData_C.data[0].unsdebt_AMT_504EX_C = this.data_number2(this.fmData_C.data[0].unsdebt_AMT_504EX_C);
-        // this.fmData_C.data[0].unsdebt_AMTNEW_505EX_C = this.data_number2(this.fmData_C.data[0].unsdebt_AMTNEW_505EX_C);
-        // this.fmData_C.data[0].unsdebt_AMTNEW_029EX_C = this.data_number2(this.fmData_C.data[0].unsdebt_AMTNEW_029EX_C);
-        // this.fmData_C.data[0].unsdebt_824_RLLIMIT_C = this.data_number2(this.fmData_C.data[0].unsdebt_824_RLLIMIT_C);
-        // this.fmData_C.data[0].unsdebt_824_RLBAL_C = this.data_number2(this.fmData_C.data[0].unsdebt_824_RLBAL_C);
-        // this.fmData_C.data[0].unsdebt_824_ILBAL_C = this.data_number2(this.fmData_C.data[0].unsdebt_824_ILBAL_C);
-        // this.fmData_C.data[0].unsdebt_824_CCRBAL_C = this.data_number2(this.fmData_C.data[0].unsdebt_824_CCRBAL_C);
-        // this.fmData_C.data[0].unsdebt_NONJCIC_C = this.data_number2(this.fmData_C.data[0].unsdebt_NONJCIC_C);
-        // this.fmData_C.data[0].unsdebt_PAYAMT_029EX_C = this.data_number2(this.fmData_C.data[0].unsdebt_PAYAMT_029EX_C);
-
-        // this.fmData_C.data[0].mthpay_BAM421_C = this.data_number2(this.fmData_C.data[0].mthpay_BAM421_C);
-        // this.fmData_C.data[0].mthpay_BAM029_C = this.data_number2(this.fmData_C.data[0].mthpay_BAM029_C);
-        // this.fmData_C.data[0].mthpay_KRM048_C = this.data_number2(this.fmData_C.data[0].mthpay_KRM048_C);
-        // this.fmData_C.data[0].mthpay_NONJCIC_C = this.data_number2(this.fmData_C.data[0].mthpay_NONJCIC_C);
 
         //改版 放在一起
-        // this.fmData_B.data = data.rspBody
         this.fmData_B.data[0].unsdebt_AMT_501EX_C = this.data_number2(data.rspBody[0].unsdebt_AMT_501EX_C);
         this.fmData_B.data[0].unsdebt_AMT_504EX_C = this.data_number2(data.rspBody[0].unsdebt_AMT_504EX_C);
         this.fmData_B.data[0].unsdebt_AMTNEW_505EX_C = this.data_number2(data.rspBody[0].unsdebt_AMTNEW_505EX_C);
@@ -562,76 +548,9 @@ export class Childscn23Component implements OnInit {
   }
 
 
-  //取DBR收支表資料 產生合約前回查 _M前端欄位改取_B
-  getDBR_DTI_M() {
-
-    const url = 'f01/childscn10action6';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    // 測試用
-    // jsonObject['applno'] = '20210827E001';
-    this.childscn23Service.getDate_Json(url, jsonObject).subscribe(data => {
-      if (data.rspBody.length > 0) {
-        this.fmData_M.data = data.rspBody
-
-        this.fmData_M.data[0].unsdebt_AMT_501EX_B = this.fmData_M.data[0].unsdebt_AMT_501EX_B == null ? this.fmData_M.data[0].unsdebt_AMT_501EX : this.fmData_M.data[0].unsdebt_AMT_501EX_B;
-        this.fmData_M.data[0].unsdebt_AMT_504EX_B = this.fmData_M.data[0].unsdebt_AMT_504EX_B == null ? this.fmData_M.data[0].unsdebt_AMT_504EX : this.fmData_M.data[0].unsdebt_AMT_504EX_B;
-        this.fmData_M.data[0].unsdebt_AMTNEW_505EX_B = this.fmData_M.data[0].unsdebt_AMTNEW_505EX_B == null ? this.fmData_M.data[0].unsdebt_AMTNEW_505EX : this.fmData_M.data[0].unsdebt_AMTNEW_505EX_B;
-        this.fmData_M.data[0].unsdebt_AMTNEW_029EX_B = this.fmData_M.data[0].unsdebt_AMTNEW_029EX_B == null ? this.fmData_M.data[0].unsdebt_AMTNEW_029EX : this.fmData_M.data[0].unsdebt_AMTNEW_029EX_B;
-        this.fmData_M.data[0].unsdebt_824_RLLIMIT_B = this.fmData_M.data[0].unsdebt_824_RLLIMIT_B == null ? this.fmData_M.data[0].unsdebt_824_RLLIMIT : this.fmData_M.data[0].unsdebt_824_RLLIMIT_B;
-        this.fmData_M.data[0].unsdebt_824_RLBAL_B = this.fmData_M.data[0].unsdebt_824_RLBAL_B == null ? this.fmData_M.data[0].unsdebt_824_RLBAL : this.fmData_M.data[0].unsdebt_824_RLBAL_B;
-        this.fmData_M.data[0].unsdebt_824_ILBAL_B = this.fmData_M.data[0].unsdebt_824_ILBAL_B == null ? this.fmData_M.data[0].unsdebt_824_ILBAL : this.fmData_M.data[0].unsdebt_824_ILBAL_B;
-        this.fmData_M.data[0].unsdebt_824_CCRBAL_B = this.fmData_M.data[0].unsdebt_824_CCRBAL_B == null ? this.fmData_M.data[0].unsdebt_824_CCRBAL : this.fmData_M.data[0].unsdebt_824_CCRBAL_B;
-        this.fmData_M.data[0].unsdebt_NONJCIC_B = this.fmData_M.data[0].unsdebt_NONJCIC_B == null ? this.fmData_M.data[0].unsdebt_NONJCIC : this.fmData_M.data[0].unsdebt_NONJCIC_B;
-        this.fmData_M.data[0].unsdebt_PAYAMT_029EX_B = this.fmData_M.data[0].unsdebt_PAYAMT_029EX_B == null ? this.fmData_M.data[0].unsdebt_PAYAMT_029EX : this.fmData_M.data[0].unsdebt_PAYAMT_029EX_B;
-
-        this.fmData_M.data[0].unsdebt_AMT_501EX_B = this.data_number2(this.fmData_M.data[0].unsdebt_AMT_501EX_B);
-        this.fmData_M.data[0].unsdebt_AMT_504EX_B = this.data_number2(this.fmData_M.data[0].unsdebt_AMT_504EX_B);
-        this.fmData_M.data[0].unsdebt_AMTNEW_505EX_B = this.data_number2(this.fmData_M.data[0].unsdebt_AMTNEW_505EX_B);
-        this.fmData_M.data[0].unsdebt_AMTNEW_029EX_B = this.data_number2(this.fmData_M.data[0].unsdebt_AMTNEW_029EX_B);
-        this.fmData_M.data[0].unsdebt_824_RLLIMIT_B = this.data_number2(this.fmData_M.data[0].unsdebt_824_RLLIMIT_B);
-        this.fmData_M.data[0].unsdebt_824_RLBAL_B = this.data_number2(this.fmData_M.data[0].unsdebt_824_RLBAL_B);
-        this.fmData_M.data[0].unsdebt_824_ILBAL_B = this.data_number2(this.fmData_M.data[0].unsdebt_824_ILBAL_B);
-        this.fmData_M.data[0].unsdebt_824_CCRBAL_B = this.data_number2(this.fmData_M.data[0].unsdebt_824_CCRBAL_B);
-        this.fmData_M.data[0].unsdebt_NONJCIC_B = this.data_number2(this.fmData_M.data[0].unsdebt_NONJCIC_B);
-        this.fmData_M.data[0].unsdebt_PAYAMT_029EX_B = this.data_number2(this.fmData_M.data[0].unsdebt_PAYAMT_029EX_B);
-      }
-
-    });
+  getStepName() {
+    return sessionStorage.getItem('stepName');
   }
 
-  //儲存 DBR收支表資料 產生合約前回查
-  save_M() {
-    if (this.fmData_M.data.length < 1) {
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '查無資料' }
-      });
-      return;
-    }
-    let msg = "";
-    this.applno = sessionStorage.getItem('applno');
-    const url = 'f01/childscn10action7';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    //測試用
-    // jsonObject['applno'] = '20210827E001';
-    jsonObject['unsdebtAmt501Ex'] = this.save_data_number(this.fmData_M.data[0].unsdebt_AMT_501EX_B);
-    jsonObject['unsdebtAmt504Ex'] = this.save_data_number(this.fmData_M.data[0].unsdebt_AMT_504EX_B);
-    jsonObject['unsdebtAmtnew505Ex'] = this.save_data_number(this.fmData_M.data[0].unsdebt_AMTNEW_505EX_B);
-    jsonObject['unsdebtAmtnew029Ex'] = this.save_data_number(this.fmData_M.data[0].unsdebt_AMTNEW_029EX_B);
-    jsonObject['unsdebt824Rllimit'] = this.save_data_number(this.fmData_M.data[0].unsdebt_824_RLLIMIT_B);
-    jsonObject['unsdebt824Rlbal'] = this.save_data_number(this.fmData_M.data[0].unsdebt_824_RLBAL_B);
-    jsonObject['unsdebt824Ilbal'] = this.save_data_number(this.fmData_M.data[0].unsdebt_824_ILBAL_B);
-    jsonObject['unsdebt824Ccrbal'] = this.save_data_number(this.fmData_M.data[0].unsdebt_824_CCRBAL_B);
-    jsonObject['unsdebtNonjcic'] = this.save_data_number2(this.fmData_M.data[0].unsdebt_NONJCIC_B);
-    jsonObject['unsdebtPayamt029Ex'] = this.save_data_number(this.fmData_M.data[0].unsdebt_PAYAMT_029EX_B);
-
-    this.childscn23Service.getDate_Json(url, jsonObject).subscribe(data => {
-      msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: msg }
-      });
-    });
-  }
 
 }

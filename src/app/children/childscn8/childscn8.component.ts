@@ -193,6 +193,11 @@ export class Childscn8Component implements OnInit , OnDestroy{
   getSearch() {
     return this.search;
   }
+
+  getStepName() {
+    return sessionStorage.getItem('stepName');
+  }
+
   getPage() {
     return this.page;
   }

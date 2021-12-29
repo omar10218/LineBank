@@ -44,14 +44,14 @@ export class F03008uploadComponent implements OnInit {
       let baseUrl = 'f03/f03008action2';
       this.f03008Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
         let msg = "";
-        if (data.rspCode != "0000") {
+        // if (data.rspCode != "0000") {
           // if (data.rspBody.ErrorInformation.length > 0) {
           //   for (const Information of data.rspBody.ErrorInformation) {
           //     msg += Information.repeatValue + "\n";
           //   }
           // }
-          msg = data.rspMsg;
-        }
+        //   msg = data.rspMsg;
+        // }
         msg += data.rspMsg;
         this.uploadForm.patchValue({ ERROR_MESSAGE: msg });
       });

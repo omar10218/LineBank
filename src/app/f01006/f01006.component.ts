@@ -31,6 +31,8 @@ export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
   pageIndex = 1;
   cusinfoDataSource = [];
   restart$: Subscription;
+  x:string
+
   constructor(
     public dialog: MatDialog,
     private f01006Service: F01006Service,
@@ -127,6 +129,7 @@ export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
       }
       else {
         this.cusinfoDataSource = null;
+        this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         })
@@ -139,7 +142,15 @@ export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-
+// 千分號標點符號(form顯示用)
+data_number(p: number) {
+  this.x = '';
+  this.x = (p + "")
+  if (this.x != null) {
+    this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+  return this.x
+}
 
 
 
