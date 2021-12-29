@@ -2,7 +2,7 @@
 <!-- 最外層卡片包覆 -->
 <div class="line_bank_card_no_padding">
   <!-- 表格 -->
-  <nz-table nzShowSizeChanger [nzData]="transactionLogSource" [nzFrontPagination]="false" [nzSimple]="true"
+  <nz-table nzShowSizeChanger [nzData]="transactionLogSource" nzFrontPagination="false" nzSimple="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
     (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="資料異動歷程">
     <thead>
@@ -20,8 +20,8 @@
       <tr *ngFor="let data of transactionLogSource;let i=index">
         <td style="text-align: center;">{{i+1}}</td>
        
-        <td class="table-data" > {{   data.columnName != null?  data.columnName: " " }}</td>
-        <td class="table-data">{{ data.originalValue != null?  data.originalValue: " "}}</td>
+        <td class="table-data" > {{ data.columnName != 'null'?  data.columnName: " " }}</td>
+        <td class="table-data">{{ data.originalValue != 'null'?  data.originalValue: " "}}</td>
         <td class="table-data">{{ data.currentValue }}</td>
         <td class="table-data">{{ data.transApName }}</td>
         <td class="table-data">{{ data.transDate| date: 'yyyy/MM/dd HH:mm:ss' }}</td>

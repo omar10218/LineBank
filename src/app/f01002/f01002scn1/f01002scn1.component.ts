@@ -15,7 +15,7 @@ import { F01001Scn1Service } from 'src/app/f01001/f01001scn1/f01001scn1.service'
 import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
 import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 import { history } from './../../interface/base';
-interface interestPeriod{
+interface interestPeriod {
   id: string,
   period: string,
   periodType: string
@@ -290,7 +290,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
         for (let index = 1; index <= Number(count); index++) {
           creditInterestPeriodArray.push(
             {
-              id : sessionStorage.getItem('id' + index),
+              id: sessionStorage.getItem('id' + index),
               period: sessionStorage.getItem('period' + index),
               periodType: sessionStorage.getItem('periodType' + index),
               interestType: sessionStorage.getItem('interestType' + index),
@@ -318,24 +318,14 @@ export class F01002scn1Component implements OnInit, OnDestroy {
         // jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
         jsonObject['creditInterestPeriodArray'] = creditInterestPeriodArray;
         jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
-        // if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
-        //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        //     data: { msgStr: '請填寫核決結果!' }
-        //   });
-        // } else {
-        //   if (this.creditResult == 'A') {
-        //     if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '' && this.periodType != '' && this.period != '' && this.mark != '' && this.mark != null) {
-        this.result(baseUrl, jsonObject, result, count);
-        // } else {
-        // const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        //   data: { msgStr: '審核結果未填寫' }
-        // });
-        // }
-        // } else {
-        // this.result(baseUrl, jsonObject, result);
-        // }
-        // }
-
+        if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '請填寫核決結果!' }
+          });
+          return;
+        } else {
+            this.result(baseUrl, jsonObject, result, count);
+        }
         // setTimeout(() => {
         // this.block = false;
         // }, 2000);
@@ -354,7 +344,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
-      if ( data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1' ) { } else {
+      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { } else {
         //儲存歷史資料
         this.setHistory(count);
         // this.saveMemo();

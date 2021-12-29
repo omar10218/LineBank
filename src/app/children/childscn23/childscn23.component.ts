@@ -60,6 +60,7 @@ export class Childscn23Component implements OnInit {
   seveData: any[] = [];
   search: string;
   x: string;
+  t = 0;
   isAllCheck: boolean = false;
   checkboxArray: checkBox[] = [];
   private stepName: string;
@@ -93,11 +94,14 @@ export class Childscn23Component implements OnInit {
       this.AddData = { APPLNO: this.applno, ACCOUNT_CODE: '', ID: '1', MONTHLY_PAY_421: '', MONTHLY_PAY_029: '', MONTHLY_PAY_CC: '', CAL_RATE: '', CAL_YEARS: '', CAL_PERIOD: '', CONTRACT_AMT_421: '', CONTRACT_AMT_029: '', CONTRACT_AMT_CC: '' };
       this.one.push(this.AddData)
       this.i = false;
+      this.t = this.t + 1
+      this.checkboxArray.push({ num: this.t.toString(), completed: false })
 
     }
   }
   set() {
-
+    this.t = 0;
+    this.checkboxArray = [];
     let url = 'f01/childscn23action1'
     this.jsonObject3['applno'] = this.applno;
     this.childscn23Service.AddUpDel(url, this.jsonObject3).subscribe(data => {
@@ -107,13 +111,11 @@ export class Childscn23Component implements OnInit {
         this.one = data.rspBody.items
         this.suject = data.rspBody.items[0].ACCOUNT_CODE;
         this.limit2();
-        let t = 0;
-        if(data.rspBody.items.length > 0)
-        {
-          for(var i of data.rspBody.items)
-          {
-            t=t+1
-            this.checkboxAny.push({num:t,completed: false})
+
+        if (data.rspBody.items.length > 0) {
+          for (var i of data.rspBody.items) {
+            this.t = this.t + 1
+            this.checkboxArray.push({ num: this.t.toString(), completed: false })
           }
         }
       }
@@ -569,11 +571,29 @@ export class Childscn23Component implements OnInit {
   }
   setAll(completed: boolean) //全選
   {
+    this.Monthly421 = 0;//BAM421月付金
+    this.Monthly029 = 0;//BAM029月付金
+    this.Monthlycc = 0;//信用卡付月金
     for (const obj of this.checkboxArray) {
 
-        obj.completed = completed;
+      obj.completed = completed;
+    }
+    if (completed) {
+      for (const w of this.one) {
+        this.Monthly421 = this.Monthly421 + parseInt(this.Cut(w.MONTHLY_PAY_421 ? w.MONTHLY_PAY_421 : "0"));//BAM421月付金
+        this.Monthly029 = this.Monthly029 + parseInt(this.Cut(w.MONTHLY_PAY_029 ? w.MONTHLY_PAY_029 : "0"));//BAM029月付金
+        this.Monthlycc = this.Monthlycc + parseInt(this.Cut(w.MONTHLY_PAY_CC ? w.MONTHLY_PAY_CC : "0"));//信用卡付月金
+      }
 
     }
+    else {
+
+      this.Monthly421 = 0;//BAM421月付金
+      this.Monthly029 = 0;//BAM029月付金
+      this.Monthlycc = 0;//信用卡付月金
+
+    }
+
   }
 
 
