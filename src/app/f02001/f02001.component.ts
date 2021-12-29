@@ -383,6 +383,8 @@ export class F02001Component implements OnInit {
       {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }})
+          this.resultData = [];
+
       }
       else
       {
