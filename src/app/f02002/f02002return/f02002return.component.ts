@@ -16,8 +16,6 @@ interface test {
 }
 interface te {
   rowId: string;
-  userId: string;
-  applno: string;
   rescanReason: string;
   imageContent: string;
 }
@@ -119,6 +117,37 @@ export class F02002returnComponent implements OnInit {
   }
 
 
+  // store()//儲存
+  // {
+  //   const formdata = new FormData();
+  //   // const formdata: FormData = new FormData();
+  //   let url = 'f02/f02002action5';
+  //   console.log(this.F02002Data.length);
+  //   let jsonarry: string[] = []
+  //   for (const it of this.F02002Data) {
+  //     this.list = [];
+  //     const fileObj = this.formdata2.get(it.ROW_ID);
+  //     this.list.push({ rowId: it.ROW_ID, userId: localStorage.getItem("empNo"), applno: this.data.applno, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT })
+  //     this.jsonstr = JSON.stringify(this.list);
+  //     jsonarry.push(this.jsonstr);
+  //     formdata.append("file", fileObj != null ? fileObj : new Blob);
+  //   }
+  //   formdata.append("jsonArray", jsonarry.toString());
+  //   this.f02002Service.setformdata(url, formdata).subscribe(data => {
+  //     console.log(data)
+  //     if(data.rspCode ==='0000')
+  //     {
+  //       this.dialogRef.close({ event: 'success' });
+  //     }
+  //     else
+  //     {
+  //       this.dialog.open(ConfirmComponent, {
+  //         data: { msgStr:data.rspMsg}
+  //       });
+  //     }
+  //   });
+  //   // this.dialogRef.close({ event: 'success' });
+  // }
   store()//儲存
   {
     const formdata = new FormData();
@@ -129,22 +158,23 @@ export class F02002returnComponent implements OnInit {
     for (const it of this.F02002Data) {
       this.list = [];
       const fileObj = this.formdata2.get(it.ROW_ID);
-      this.list.push({ rowId: it.ROW_ID, userId: localStorage.getItem("empNo"), applno: this.data.applno, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT })
+      this.list.push({rowId: it.ROW_ID,rescanReason: it.rescanReason,imageContent: it.IMAGE_CONTENT});
       this.jsonstr = JSON.stringify(this.list);
       jsonarry.push(this.jsonstr);
-      formdata.append("file", fileObj != null ? fileObj : new Blob);
+      formdata.append('file', fileObj != null ? fileObj : new Blob);
     }
-    formdata.append("jsonArray", jsonarry.toString());
+    formdata.append('jsonArray', jsonarry.toString());
+    formdata.append('userId', localStorage.getItem('empNo'));
+    formdata.append('applno', this.data.applno);
+
     this.f02002Service.setformdata(url, formdata).subscribe(data => {
       console.log(data)
-      if(data.rspCode ==='0000')
-      {
-        this.dialogRef.close({ event: 'success' });
+      if (data.rspCode === '0000') {
+        this.dialogRef.close({event: 'success'});
       }
-      else
-      {
+      else {
         this.dialog.open(ConfirmComponent, {
-          data: { msgStr:data.rspMsg}
+          data: {msgStr: data.rspMsg}
         });
       }
     });
