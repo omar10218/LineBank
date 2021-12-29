@@ -40,8 +40,8 @@
               [(ngModel)]="caApplicationAmount" name="caApplicationAmount"
               [ngStyle]="getStyle(toNumber(caApplicationAmount))" (keypress)="numberOnly($event)"
               (keyup)="caApplicationAmount = toCurrency(toNumber(caApplicationAmount))"
-              (ngModelChange)="change(toNumber(caApplicationAmount),'caApplicationAmount','')" required placeholder="輸入金額"
-              [disabled]="getSearch() == 'Y' || getLevel() == 'L1'"></div>
+              (ngModelChange)="change(toNumber(caApplicationAmount),'caApplicationAmount','')" required
+              placeholder="輸入金額" [disabled]="getSearch() == 'Y' || getLevel() == 'L1'"></div>
         </div>
         <div nz-col nzFlex="1">
           <div style="padding:3px"><span class="form-title">貸款用途</span><input matInput #input class="form-control"
@@ -1160,67 +1160,64 @@
         </div>
       </div>
 
-      <!-- 最外層卡片包覆 -->
-      <div class="line_bank_card_no_padding">
-        <!-- 表格 -->
-        <nz-table nzShowSizeChanger [nzData]="CreditInterestPeriodSource" [nzFrontPagination]="false" [nzSimple]="true"
-          [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-          (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="多階利率">
-          <thead style="max-height: 100vh;">
-            <tr>
-              <th class="table-header">序號</th>
-              <th class="table-header">分段起始期數</th>
-              <th class="table-header">期別</th>
-              <th class="table-header">利率型態</th>
-              <th class="table-header">當時的指數,基放,郵儲利率(%)</th>
-              <th class="table-header">利率(%)</th>
-              <th class="table-header">核准利率(%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of CreditInterestPeriodSource; let i = index">
-              <td class="table-data">
-                <input matInput #input class="form-control" [(ngModel)]="CreditInterestPeriodSource[i].seq" disabled>
-              </td>
-              <td class="table-data">
-                <input matInput #input class="form-control" [(ngModel)]="data.period" name="period" placeholder="輸入期數"
-                  [ngStyle]="getStyle(data.period)" (keypress)="numberOnly($event)" (ngModelChange)="change(data.period,'period',i + 1)"
-                  [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
-              </td>
-              <td class="table-data">
-                <mat-select [(ngModel)]="data.periodType" name="periodType"
-                  (ngModelChange)="change(data.periodType,'periodType',i + 1)"
-                  [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
-                  <mat-option *ngFor="let code of periodTypeCode" [value]="code.value">
-                    {{code.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </td>
-              <td class="table-data">
-                <mat-select [(ngModel)]="data.interestType" name="interestType" (ngModelChange)="changeInterest(data)"
-                  [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
-                  <mat-option *ngFor="let code of interestTypeCode" [value]="code.value">
-                    {{code.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </td>
-              <td class="table-data">
-                <input matInput #input class="form-control" [(ngModel)]="data.interestBase" name="interestBase"
-                  readonly>
-              </td>
-              <td class="table-data">
-                <input matInput #input class="form-control" [(ngModel)]="data.interest" name="interest"
-                  placeholder="輸入利率" style="text-align: right;" (keypress)="numberOnly($event)"
-                  (ngModelChange)="caluclate(data)" [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
-              </td>
-              <td class="table-data">
-                <input matInput #input class="form-control" [(ngModel)]="data.approveInterest" name="approveInterest"
-                  style="text-align: right;" disabled>
-              </td>
-            </tr>
-          </tbody>
-        </nz-table>
-      </div>
+      <!-- 表格 -->
+      <nz-table nzShowSizeChanger [nzData]="CreditInterestPeriodSource" [nzFrontPagination]="false" [nzSimple]="true"
+        [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+        (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="多階利率">
+        <thead style="max-height: 100vh;">
+          <tr>
+            <th class="table-header">序號</th>
+            <th class="table-header">分段起始期數</th>
+            <th class="table-header">期別</th>
+            <th class="table-header">利率型態</th>
+            <th class="table-header">當時的指數,基放,郵儲利率(%)</th>
+            <th class="table-header">利率(%)</th>
+            <th class="table-header">核准利率(%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of CreditInterestPeriodSource; let i = index">
+            <td class="table-data">
+              <input matInput #input class="form-control" [(ngModel)]="CreditInterestPeriodSource[i].seq" disabled>
+            </td>
+            <td class="table-data">
+              <input matInput #input class="form-control" [(ngModel)]="data.period" name="period" placeholder="輸入期數"
+                [ngStyle]="getStyle(data.period)" (keypress)="numberOnly($event)"
+                (ngModelChange)="change(data.period,'period',i + 1)"
+                [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
+            </td>
+            <td class="table-data">
+              <mat-select [(ngModel)]="data.periodType" name="periodType"
+                (ngModelChange)="change(data.periodType,'periodType',i + 1)"
+                [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
+                <mat-option *ngFor="let code of periodTypeCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </td>
+            <td class="table-data">
+              <mat-select [(ngModel)]="data.interestType" name="interestType" (ngModelChange)="changeInterest(data)"
+                [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
+                <mat-option *ngFor="let code of interestTypeCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </td>
+            <td class="table-data">
+              <input matInput #input class="form-control" [(ngModel)]="data.interestBase" name="interestBase" readonly>
+            </td>
+            <td class="table-data">
+              <input matInput #input class="form-control" [(ngModel)]="data.interest" name="interest" placeholder="輸入利率"
+                style="text-align: right;" (keypress)="numberOnly($event)" (ngModelChange)="caluclate(data)"
+                [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
+            </td>
+            <td class="table-data">
+              <input matInput #input class="form-control" [(ngModel)]="data.approveInterest" name="approveInterest"
+                style="text-align: right;" disabled>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
 
       <!-- <div nz-row style="padding:5px">
         <div nz-col nzFlex="1">
@@ -1258,7 +1255,7 @@
           </div>
         </div> -->
 
-        <!-- <div nz-col nzFlex="1">
+      <!-- <div nz-col nzFlex="1">
         <div style="padding:3px"><span class="form-title">基準利率型態</span>
           <mat-select [(ngModel)]="interestValue" name="interestValue"
             style="width:30%;height:25px;border-radius:3px;border:none;padding:4px;background-color:#E6E6E6"
@@ -1270,7 +1267,7 @@
         </div>
       </div> -->
 
-        <!-- <div nz-col nzFlex="2">
+      <!-- <div nz-col nzFlex="2">
           <div class="form" style="padding:3px">
             <div><span class="form-title">當時的指數,基放,郵儲利率(%)</span>
               <input matInput #input class="form-control" [(ngModel)]="interestBase" name="interestBase" readonly>
