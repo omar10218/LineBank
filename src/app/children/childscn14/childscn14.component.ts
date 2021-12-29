@@ -145,13 +145,18 @@ export class Childscn14Component implements OnInit {
     jsonObject['docKey'] = docKey;
     jsonObject['cuId'] = this.cuid;
     jsonObject['cuNm'] = this.cuNm;
+    this.childscn14Service.childscn14('f01/childscn14action4', jsonObject).subscribe(data => {
+      const byteCharacters = atob(data.rspBody.file);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], {type: data.rspBody.type});
 
-    this.childscn14Service.downloadFile('f01/childscn14action4', jsonObject).subscribe(data => {
-      blob = new Blob([data], { type: 'application/xlsx' });
       let downloadURL = window.URL.createObjectURL(blob);
       let link = document.createElement('a');
       link.href = downloadURL;
-      // link.download = "ProxyIncome_" + this.myDate + ".xlsx"; //瀏覽器下載時的檔案名稱
       link.click();
 
     });
