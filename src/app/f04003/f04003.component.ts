@@ -90,7 +90,7 @@ export class F04003Component implements OnInit {
       let url = 'f04/f04003action2'
       let personnelJson: any = {};
       personnelJson['level'] = this.Level;
-      personnelJson['EMP_NAME'] = this.personnel;
+      personnelJson['EMP_NO'] = this.personnel;
       console.log(this.Level)
       console.log(this.personnel)
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
