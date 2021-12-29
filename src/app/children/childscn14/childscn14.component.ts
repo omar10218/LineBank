@@ -7,6 +7,7 @@ import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive
 import { Childscn1Service } from '../childscn1/childscn1.service';
 import { Childscn6Service } from '../childscn6/childscn6.service';
 import { Childscn14Service } from './childscn14.service';
+import { Childscn14page1Component } from './childscn14page1/childscn14page1.component';
 
 import { Childscn14page3Component } from './childscn14page3/childscn14page3.component';
 @Component({
@@ -80,7 +81,7 @@ export class Childscn14Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['cuid'] = this.cuid;
     jsonObject['cuNm'] = this.cuNm;
-    this.childscn14Service.getImageInfo(baseUrl, jsonObject).subscribe(data => {
+    this.childscn14Service.childscn14(baseUrl, jsonObject).subscribe(data => {
       this.imageSource = data.rspBody.items;
       this.total = data.rspBody.items.size;
     });
@@ -109,4 +110,56 @@ export class Childscn14Component implements OnInit {
         this.getImageDetail(this.pageIndex, this.pageSize); }
     });
   }
+
+  //刪除影像
+  async deleteFile(uploadId: string, docKey: string) {
+    if(this.cuid != uploadId) {
+      const deleteDialogRef = this.dialog.open(Childscn14page1Component, {
+        data: { msgStr: "無法刪除非本人上傳之圖檔" }
+      });
+      return;
+    }
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['docKey'] = docKey;
+    jsonObject['cuId'] = this.cuid;
+    jsonObject['cuNm'] = this.cuNm;
+
+    this.childscn14Service.childscn14('f01/childscn14action3', jsonObject).subscribe(data => {
+      if (data.rspCode == '0000') {
+        const deleteDialogRef = this.dialog.open(Childscn14page1Component, {
+          data: { msgStr: data.rspMsg }
+        });
+        deleteDialogRef.afterClosed().subscribe(result => {
+          this.getImageDetail(this.pageIndex, this.pageSize);
+        });
+      }
+    });
+  }
+
+  //下載影像
+  downloadFile(docKey: string) {
+    let jsonObject: any = {};
+    let blob: Blob;
+    jsonObject['applno'] = this.applno;
+    jsonObject['docKey'] = docKey;
+    jsonObject['cuId'] = this.cuid;
+    jsonObject['cuNm'] = this.cuNm;
+    this.childscn14Service.childscn14('f01/childscn14action4', jsonObject).subscribe(data => {
+      const byteCharacters = atob(data.rspBody.file);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], {type: data.rspBody.type});
+
+      let downloadURL = window.URL.createObjectURL(blob);
+      let link = document.createElement('a');
+      link.href = downloadURL;
+      link.click();
+
+    });
+  }
+
 }

@@ -72,7 +72,7 @@ export class Childscn13editComponent implements OnInit {
         formdata.append('web', this.data.webAddrValue.split('=')[0]);
         formdata.append('webAddr', this.data.webAddrUrl);
         formdata.append('messageContent', this.data.webInfoContent);
-        formdata.append('empno', '9901890');
+        formdata.append('empno',localStorage.getItem("empNo"));
         formdata.append('rowid', this.data.rowId);
         formdata.append('file', this.files);
         formdata.append('userId',localStorage.getItem("empNo") );
@@ -82,7 +82,7 @@ export class Childscn13editComponent implements OnInit {
       formdata.append('web', this.data.webAddrValue.split('=')[0]);
       formdata.append('webAddr', this.data.webAddrUrl);
       formdata.append('messageContent', this.data.webInfoContent);
-      formdata.append('empno', '9901890');
+      formdata.append('empno', localStorage.getItem("empNo"));
       formdata.append('rowid', this.rowId);
       formdata.append('userId',localStorage.getItem("empNo") );
     }

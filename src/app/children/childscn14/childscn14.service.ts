@@ -16,22 +16,19 @@ export class Childscn14Service extends BaseService {
   // }
 
   //取Table資料
-  getImageInfo(baseUrl: string, jsonObject: JSON) {
-    // let jsonObject: any = {};
-    // jsonObject['applno'] = applno;
+  childscn14(baseUrl: string, jsonObject: JSON) {
     return this.postJsonObject(baseUrl, jsonObject);
   }
 
   //上傳圖檔
-  // uploadFile(baseUrl: string, fileToUpload: File): Observable<any> {
-  //   const formData: FormData = new FormData();
-  //   formData.append('file', fileToUpload, fileToUpload.name);
-  //   formData.append('', )
-  //   return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formData);
-  // }
-
-  public async childscn14Action(baseUrl: string, formData: FormData): Promise<Observable<any>> {
+  public async childscn14Action2(baseUrl: string, formData: FormData): Promise<Observable<any>> {
     return await this.postFormData(baseUrl, formData).toPromise();
   }
 
+  //下載檔案
+  downloadFile(baseUrl: string, jsonObject: JSON): Observable<any> {
+    let targetUrl = `${baseUrl}`;
+
+    return this.postGetFile(targetUrl, jsonObject);
+  }
 }

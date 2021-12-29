@@ -76,7 +76,7 @@ export class Childscn14page3Component implements OnInit {
       formdata.append('remark', this.uploadForm.value.REMARK);
       let baseUrl = 'f01/childscn14action2';
 
-      this.childscn14Service.childscn14Action(baseUrl, formdata).then((data: any) => {
+      this.childscn14Service.childscn14Action2(baseUrl, formdata).then((data: any) => {
         if (data.rspMsg != '文件上傳成功') {
         this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
         alert(data.rspMsg);
@@ -98,8 +98,7 @@ export class Childscn14page3Component implements OnInit {
   //檢查上傳檔案格式
   onChange(evt) {
     const target: DataTransfer = <DataTransfer>(evt.target);
-
-    this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/);
+    this.isValidFile = !!target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
     if (this.isValidFile) {
       this.fileToUpload = target.files.item(0);
     } else {
