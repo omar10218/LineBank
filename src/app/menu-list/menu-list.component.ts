@@ -44,7 +44,13 @@ export class MenuListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.winClose = sessionStorage.getItem('winClose');
-
+    if (localStorage.getItem('empNo') == null || localStorage.getItem('empNo') == '') {
+      window.sessionStorage.clear();
+      localStorage.clear();
+      this.router.navigate(['./logOut']).then(() => {
+        window.location.reload();
+      });
+    }
     this.loginService.setBnIdle();
     this.getCalloutList();
     //設定5分鐘刷新照會提醒
@@ -62,6 +68,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
   returnZero() { return 0; }
   logOut() {
     window.sessionStorage.clear();
+    localStorage.clear();
     this.router.navigate(['./logOut']).then(() => {
       window.location.reload();
     });
