@@ -47,6 +47,7 @@ mat-grid-tile {
 }
 
 .table-header{
+  text-align: center;
   background-color:#ededed;
   color:#848E9C;
   margin-bottom: 1px;
@@ -205,4 +206,24 @@ border:1px solid  #c9c9c9;
 }
 :host::ng-deep.ant-table{
   border-radius:10px;
+}
+.ant-btn-dangerous{
+  color: #f80000;;
+  background:white;
+  border-color:#f80000;
+  border-radius:5px;
+
+}
+.ant-btn-dangerous:hover{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+.ant-btn-dangerous:active{
+  color:#ffffff;
+  background:#f80000;
+  border-color:#f80000;
+  border-radius:5px;
 }
