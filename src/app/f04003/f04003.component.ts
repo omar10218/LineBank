@@ -61,10 +61,12 @@ export class F04003Component implements OnInit {
     let url = 'f04/f04003action1'
     LevelJson['level'] = this.Level;
     this.f04003Service.Set(url, LevelJson).subscribe(data => {
+      console.log("=================")
+      console.log(data)
       this.personnelCode.push({ value: '', viewValue: '請選擇' })
       if (data.rspMsg != "該層級查無人員") {
         for (const jsonObj of data.rspBody) {
-          const id = jsonObj['EMP_NAME'];
+          const id = jsonObj['EMP_NO'];
           const name = jsonObj['EMP_NAME'];
           this.personnelCode.push({ value: id, viewValue: name })
         }
@@ -80,7 +82,6 @@ export class F04003Component implements OnInit {
   }
   Inquire()//查詢
   {
-
     if (this.Level != '' || this.personnel != '') {
       this.checkboxArray = [];
       this.TransferCode = [];
@@ -90,10 +91,14 @@ export class F04003Component implements OnInit {
       let personnelJson: any = {};
       personnelJson['level'] = this.Level;
       personnelJson['EMP_NAME'] = this.personnel;
+      console.log(this.Level)
+      console.log(this.personnel)
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
-
-        if (data.rspBody.empList.length > 0) {
-          for (const obj of data.rspBody.empList) {
+        console.log(data)
+        if (data.rspBody.empList.length > 0)
+        {
+          for (const obj of data.rspBody.empList)
+           {
             const id = obj['EMP_NO'];
             const name = obj['EMP_NAME'];
             this.TransferCode.push({ value: id, viewValue: name })
@@ -195,5 +200,10 @@ export class F04003Component implements OnInit {
 
     }
 
+  }
+  test()
+  {
+    console.log(this.personnelCode)
+    console.log(this.personnel)
   }
 }
