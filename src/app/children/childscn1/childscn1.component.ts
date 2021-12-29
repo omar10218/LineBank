@@ -477,7 +477,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
         for (let index = 1; index <= this.CreditInterestPeriodSource.length; index++) {
           if (this.CreditInterestPeriodSource[index - 1].interestType == '02') {
             this.CreditInterestPeriodSource[index - 1].interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
-            sessionStorage.setItem('interestBase' + index, this.CreditInterestPeriodSource[index - 1].interestBase ? this.CreditInterestPeriodSource[index - 1].interestBase : 0);
+            sessionStorage.setItem('interestBase' + index, this.CreditInterestPeriodSource[index - 1].interestBase);
+          } else {
+            sessionStorage.setItem('interestBase' + index, '0');
           }
           sessionStorage.setItem('id' + index, this.CreditInterestPeriodSource[index - 1].id);
           sessionStorage.setItem('period' + index, this.CreditInterestPeriodSource[index - 1].period ? this.CreditInterestPeriodSource[index - 1].period : '');
