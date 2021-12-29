@@ -163,15 +163,17 @@ export class F02002returnComponent implements OnInit {
     // const formdata: FormData = new FormData();
     let url = 'f02/f02002action5';
     console.log(this.F02002Data.length);
-    for (const it of this.F02002Data)
-    {
+    let idx :number = 0;
+
+    for (const it of this.F02002Data) {
+      idx = idx + 1;
       const fileObj = this.formdata2.get(it.ROW_ID);
       this.list.push({rowId:it.ROW_ID,userId:localStorage.getItem("empNo"),applno:this.data.applno,rescanReason:it.rescanReason,imageContent:it.IMAGE_CONTENT})
-      this.jsonstr =JSON.stringify(this.list);
-
-      formdata.append(this.jsonstr, fileObj != null ? fileObj : "");
-
-
+      this.jsonstr = JSON.stringify(this.list);
+      let jsonName = "json" + idx.toString;
+      let fileName = "file" + idx.toString;
+      formdata.append(jsonName, this.jsonstr);
+      formdata.append(fileName, fileObj != null ? fileObj : null);
     }
 
       this.f02002Service.setformdata(url, formdata).subscribe(data => {
