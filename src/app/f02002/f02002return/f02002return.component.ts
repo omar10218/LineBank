@@ -83,7 +83,7 @@ export class F02002returnComponent implements OnInit {
     this.dialogRef.close({ event: 'success' });
   }
 
-  onChange(evt, rid: string, ) {
+  onChange(evt, rid: string,) {
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG|.PNG)/);
     var rid = rid;
@@ -158,7 +158,7 @@ export class F02002returnComponent implements OnInit {
     for (const it of this.F02002Data) {
       this.list = [];
       const fileObj = this.formdata2.get(it.ROW_ID);
-      this.list.push({rowId: it.ROW_ID,rescanReason: it.rescanReason,imageContent: it.IMAGE_CONTENT});
+      this.list.push({ rowId: it.ROW_ID, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT });
       this.jsonstr = JSON.stringify(this.list);
       jsonarry.push(this.jsonstr);
       formdata.append('file', fileObj != null ? fileObj : new Blob);
@@ -170,11 +170,11 @@ export class F02002returnComponent implements OnInit {
     this.f02002Service.setformdata(url, formdata).subscribe(data => {
       console.log(data)
       if (data.rspCode === '0000') {
-        this.dialogRef.close({event: 'success'});
+        this.dialogRef.close({ event: 'success' });
       }
       else {
         this.dialog.open(ConfirmComponent, {
-          data: {msgStr: data.rspMsg}
+          data: { msgStr: data.rspMsg }
         });
       }
     });
@@ -184,6 +184,20 @@ export class F02002returnComponent implements OnInit {
 
   SendBack(result: string)//送回案件
   {
+    const formdata = new FormData();
+    console.log(this.F02002Data.length);
+    let jsonarry: string[] = []
+    for (const it of this.F02002Data) {
+      this.list = [];
+      const fileObj = this.formdata2.get(it.ROW_ID);
+      this.list.push({ rowId: it.ROW_ID, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT });
+      this.jsonstr = JSON.stringify(this.list);
+      jsonarry.push(this.jsonstr);
+      formdata.append('file', fileObj != null ? fileObj : new Blob);
+    }
+    formdata.append('jsonArray', jsonarry.toString());
+    formdata.append('userId', localStorage.getItem('empNo'));
+    formdata.append('applno', this.data.applno);
     const dialogRef = this.dialog.open(F02008return2Component, {
       minHeight: '50%',
       width: '30%',
@@ -192,40 +206,35 @@ export class F02002returnComponent implements OnInit {
         value: result
       }
     });
-
-    let u = 'f02/f02002action4';
-    let url = 'f02/f02002action5'
-    let jsonObject: any = {};
-    const content = []
-    jsonObject['F02002req'] = content;
+    let ul = 'f02/f02002action4';
+    let url = 'f02/f02002action5';
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.value == 'confirm') {
-        this.f02002Service.f02002(u, jsonObject).subscribe(data => {
+        this.f02002Service.setformdata(url, formdata).subscribe(data => {
+
+          if (data.rspCode === '0000') {
+            this.f02002Service.setformdata(ul, formdata).subscribe(data => {
+              if (data.rspCode === '0000') {
+                this.dialogRef.close({ event: 'success' });
+              }
+              else {
+                this.dialog.open(ConfirmComponent, {
+                  data: { msgStr: data.rspMsg }
+                });
+              }
+            })
+          }
+          else {
+            this.dialog.open(ConfirmComponent, {
+              data: { msgStr: data.rspMsg }
+            });
+          }
 
         })
-        if (this.fileToUpload == null) {
-          this.formdata.append('applno', this.data.applno);
-          this.formdata.append('userId', localStorage.getItem("empNo"))
-          this.f02002Service.setformdata(url, this.formdata).subscribe(data => {
-            console.log("111111111")
-            console.log(data)
-
-          })
-        }
-        else {
-
-          this.f02002Service.setformdata(url, this.formdata).subscribe(data => {
-            console.log("222222")
-            console.log(data)
-
-          })
-        }
-
       }
-      this.dialogRef.close({ event: 'success' });
-
     })
+
   }
 
 

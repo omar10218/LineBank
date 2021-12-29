@@ -14,6 +14,7 @@ import { DatePipe } from '@angular/common';
 })
 // '../../../../assets/css/child.css'
 export class Childbwscn3Component implements OnInit , AfterViewInit {
+  Childbwscn3Service: any;
 
   constructor(
     private childbwscn3Service: Childbwscn3Service,
@@ -88,7 +89,7 @@ hideJAS002= false;
 
   private applno: string;
   private cuid: string;
-
+  queryDate: string;
   // private queryDate: string = '2021-10-25 11:52:57.301' // 現在時間
   // private queryDate: string  // 現在時間
   listSource: any = []
@@ -369,12 +370,30 @@ hideJAS002= false;
     this.getJcicMultiple();
     this.setBooleanFalse();
     this.getJcicList()
+    this.getQueryDate();
   }
 
   ngAfterViewInit() {
 
   }
-
+  getQueryDate() {
+    const url = 'f01/childscn6';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['cuid'] = this.cuid;
+    jsonObject['code'] = 'MASTER';
+    this.Childbwscn3Service.getDate(url, jsonObject).subscribe(data => {
+      if (data.rspBody.items.length > 0) {
+        // for (let i = 0; i < data.rspBody.items.length; i++) {
+        //   this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
+        // }
+        // this.dateValue = data.rspBody.items[0].QUERYDATE
+        // sessionStorage.setItem('queryDate', this.dateValue);
+        this.queryDate = data.rspBody.items[0].QUERYDATE;
+        //this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase, fds: this.fds} });
+      }
+    });
+  }
   // 取得聯徵彙整清單
 	getJcicList() {
 

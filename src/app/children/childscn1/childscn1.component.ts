@@ -408,14 +408,14 @@ export class Childscn1Component implements OnInit, OnDestroy {
       if (data.rspBody.cssList.length > 0) {
         this.cssScore = data.rspBody.cssList[0].cssScore;
         this.cssGrade = data.rspBody.cssList[0].cssGrade;
-        this.cssDate = this.pipe.transform(new Date(data.rspBody.cssList[0].cssDate), 'yyyy-MM-dd hh:mm:ss');
+        this.cssDate = this.pipe.transform(new Date(data.rspBody.cssList[0].cssDate), 'yyyy-MM-dd HH:mm:ss');
       }
 
       //RPM
       if (data.rspBody.rpmList.length > 0) {
         this.isRpm = data.rspBody.rpmList[0].isRpm;
         this.rpmTypeDescribe = data.rspBody.rpmList[0].rpmTypeDescribe;
-        this.rpmDate = this.pipe.transform(new Date(data.rspBody.rpmList[0].rpmDate), 'yyyy-MM-dd hh:mm:ss');
+        this.rpmDate = this.pipe.transform(new Date(data.rspBody.rpmList[0].rpmDate), 'yyyy-MM-dd HH:mm:ss');
         this.rpmId = data.rspBody.rpmList[0].rpmId;
       }
 
@@ -586,6 +586,11 @@ export class Childscn1Component implements OnInit, OnDestroy {
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.creditmemoSource = data.rspBody.list;
+      for (let index = 0; index < this.creditmemoSource.length; index++) {
+        if (this.creditmemoSource[index].CREDITLEVEL == sessionStorage.getItem('stepName').split('t')[1] && this.creditmemoSource[index].CREDITUSER == this.userId) {
+          this.mark = this.creditmemoSource[index].CREDITACTION;
+        }
+      }
     })
   }
 
