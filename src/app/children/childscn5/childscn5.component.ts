@@ -71,7 +71,8 @@ export class Childscn5Component implements OnInit {
     CU_CP_TEL: ['', []],        // 公司電話
     CU_CP_NAME: ['', []],       // 公司名稱
     CU_CP_NO: ['', []],         // 公司統編
-    HIRED_DATE: ['', []],       // 到職日
+    CURR_JOB_YEAR: ['', []],       // 目前工作年資(年數)
+    CURR_JOB_MONTH: ['', []],       // 目前工作年資(月數)
     CU_CP_TEL_EXT: ['', []],        // 其他-公司電話分機
     ANNUAL_INCOME: ['', []],    // 年收入
     CU_EMAIL: ['', []],         // eMail
@@ -191,7 +192,8 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ CU_CP_TEL: data.rspBody.items[0].cuCpTel })
       this.customerInfoForm.patchValue({ CU_CP_NAME: data.rspBody.items[0].cuCpName })
       this.customerInfoForm.patchValue({ CU_CP_NO: data.rspBody.items[0].cuCpNo })
-      this.customerInfoForm.patchValue({ HIRED_DATE: data.rspBody.items[0].hiredDate })
+      this.customerInfoForm.patchValue({ CURR_JOB_YEAR: data.rspBody.items[0].currJobYear })
+      this.customerInfoForm.patchValue({ CURR_JOB_MONTH: data.rspBody.items[0].currJobMonth })
       this.customerInfoForm.patchValue({ CU_CP_TEL_EXT: data.rspBody.items[0].cuCpTelExt })
       this.customerInfoForm.patchValue({ ANNUAL_INCOME: this.data_number(data.rspBody.items[0].annualIncome) })
       this.customerInfoForm.patchValue({ CU_EMAIL: data.rspBody.items[0].cuEmail })
@@ -328,6 +330,55 @@ export class Childscn5Component implements OnInit {
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '徵信認列職業碼',
         currentValue: this.jobCodeCaValue,
+        transAPname: '基本資料',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: '其他-手機(非本行主要)',
+        currentValue: this.cuMTelOther,
+        transAPname: '基本資料',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: '其他-聯絡資訊',
+        currentValue: this.contactOther,
+        transAPname: '基本資料',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: '其他-公司電話分機',
+        currentValue: this.cuCpTelExt,
+        transAPname: '基本資料',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: '前一份工作名稱',
+        currentValue: this.preCompNm,
+        transAPname: '基本資料',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: '前一份工作公司職稱',
+        currentValue: this.preJobTitle,
+        transAPname: '基本資料',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: '前一份工作在職時長(年數)',
+        currentValue: this.preJobYear,
+        transAPname: '基本資料',
+      },
+      {
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
+        columnName: '前一份工作在職時長(月數)',
+        currentValue: this.preJobMonth,
         transAPname: '基本資料',
       }
     )

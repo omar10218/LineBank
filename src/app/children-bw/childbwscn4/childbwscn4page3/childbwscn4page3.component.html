@@ -24,13 +24,13 @@
         <td class="table-data">{{ data.PROD_TYPE }}</td>
         <td class="table-data">{{ data.CU_NORMAL_ACC }}</td>
         <td class="table-data">{{ data.OVERDUE_STATUS }}</td>
-        <td class="table-data">{{ data.TURN_COLLECT_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
-        <td class="table-data">{{ data.TURN_BAD_DEBIT_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
-        <td class="table-data">{{ data.INTER_AGGR_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
-        <td class="table-data">{{ data.NEGO_APPL_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
-        <td class="table-data">{{ data.NEGO_SETUP_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
-        <td class="table-data">{{ data.REOPEN_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
-        <td class="table-data">{{ data.LIQ_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
+        <td class="table-data">{{ data.TURN_COLLECT_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.TURN_BAD_DEBIT_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.INTER_AGGR_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.NEGO_APPL_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.NEGO_SETUP_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.REOPEN_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.LIQ_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -62,8 +62,8 @@
     <tbody>
       <tr *ngFor="let data of INSTALLMENT_ACCSource">
         <td class="table-data">{{ data.PROD_TYPE }}</td>
-        <td class="table-data">{{ data.CT_CFM_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
-        <td class="table-data">{{ data.CT_EXP_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
+        <td class="table-data">{{ data.CT_CFM_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.CT_EXP_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
         <td class="table-data">{{ data.NUM_OF_INST }}</td>
         <td class="table-data">{{ data.LOAN_ACC}}</td>
         <td class="table-data">{{ data.ACC_STATUS }}</td>
@@ -71,7 +71,7 @@
         <td class="table-data">{{ data.APPR_AMOUNT }}</td>
         <td class="table-data">{{ data.LOAN_BAL }}</td>
         <td class="table-data">{{ data.PERCENTAGE }}</td>
-        <td class="table-data">{{ data.CLOSED_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
+        <td class="table-data">{{ data.CLOSED_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
         <td class="table-data">{{ data.TRANS_MONTHS }}</td>
         <td class="table-data">{{ data.CT_MONTHS_REMAIN }}</td>
         <td class="table-data">{{ data.MULTI_LEVEL_RATE_DES }}</td>
@@ -106,8 +106,8 @@
     <tbody>
       <tr *ngFor="let data of REVOLVING_ACCSource">
         <td class="table-data">{{ data.PROD_TYPE }}</td>
-        <td class="table-data">{{ data.CT_CFM_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
-        <td class="table-data">{{ data.CT_EXP_DATE | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
+        <td class="table-data">{{ data.CT_CFM_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.CT_EXP_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
         <td class="table-data">{{ data.NUM_OF_REVOL }}</td>
         <td class="table-data">{{ data.LOAN_ACC}}</td>
         <td class="table-data">{{ data.ACC_STATUS }}</td>
@@ -116,7 +116,7 @@
         <td class="table-data">{{ data.LOAN_BAL }}</td>
         <td class="table-data">{{ data.PERCENTAGE }}</td>
         <td class="table-data">{{ data.AVAIL_BAL}}</td>
-        <td class="table-data">{{ data.CLOSED_DATE | date: 'yyyy-MM-dd hh：mm：ss'}}</td>
+        <td class="table-data">{{ data.CLOSED_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
         <td class="table-data">{{ data.TRANS_MONTHS }}</td>
         <td class="table-data">{{ data.IS_AVAILABLE }}</td>
         <td class="table-data">{{ data.MULTI_LEVEL_RATE_DES }}</td>
@@ -154,7 +154,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of INST_TRANS_DETAILSource">
-        <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd hh：mm：ss'}}</td>
+        <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
         <td class="table-data">{{ data.LOAN_ACC }}</td>
         <td class="table-data">{{ data.PROD_TYPE }}</td>
         <td class="table-data">{{ data.LOAN_MONTHS }}</td>
@@ -171,7 +171,7 @@
         <td class="table-data">{{ data.OVERDUE_INTE }}</td>
         <td class="table-data">{{ data.OVERDUE_PRIN }}</td>
         <td class="table-data">{{ data.DUE_DATE }}</td>
-        <td class="table-data">{{ data.NEXT_DUE_DATE | date: 'yyyy-MM-dd hh：mm：ss'}}</td>
+        <td class="table-data">{{ data.NEXT_DUE_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
         <td class="table-data">{{ data.PAY_ACC }}</td>
       </tr>
     </tbody>
@@ -201,7 +201,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of REV_TRANS_DETAILSource">
-        <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd hh：mm：ss'}}</td>
+        <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
         <td class="table-data">{{ data.LOAN_ACC }}</td>
         <td class="table-data">{{ data.PROD_TYPE }}</td>
         <td class="table-data">{{ data.QUOTA }}</td>
