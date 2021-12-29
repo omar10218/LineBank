@@ -11,7 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { Subscription } from 'rxjs';
-import {  OnDestroy } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 
 registerLocaleData(zh);
 
@@ -31,7 +31,7 @@ export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
   pageIndex = 1;
   cusinfoDataSource = [];
   restart$: Subscription;
-  x:string
+  x: string
 
   constructor(
     public dialog: MatDialog,
@@ -137,22 +137,15 @@ export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-
-
-
-
-
-// 千分號標點符號(form顯示用)
-data_number(p: number) {
-  this.x = '';
-  this.x = (p + "")
-  if (this.x != null) {
-    this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // 千分號標點符號(form顯示用)
+  data_number(p: number) {
+    this.x = '';
+    this.x = (p + "")
+    if (this.x != null) {
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
   }
-  return this.x
-}
-
-
 
   // 排序
   sortChange(e: string) {
@@ -165,6 +158,6 @@ data_number(p: number) {
     this.applno = '';
     this.nationalID = '';
     this.custID = '';
-    this.getCaseList();
+    this.cusinfoDataSource = [];
   }
 }

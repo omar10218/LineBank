@@ -41,7 +41,7 @@ export class F01006restartComponent implements OnInit {
     // 申覆原因下拉
     let jsonObject: any = {};
     this.f01006Service.getReasonData(jsonObject).subscribe(data => {
-      console.log(data)
+      
       this.reasonCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj.reasonCode;
@@ -92,7 +92,7 @@ export class F01006restartComponent implements OnInit {
       this.interestCode = this.interestData[0].INTEREST_CODE;
       this.interestBase = this.interestData[0].INTEREST_BASE;
       this.interest = this.interestData[0].INTEREST;
-      this.approveInterest = this.interestData[0].APPORVE_INTEREST;
+      this.approveInterest = this.interestData[0].APPROVE_INTEREST;
     });
   }
 
