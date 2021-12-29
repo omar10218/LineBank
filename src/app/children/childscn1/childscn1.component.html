@@ -1184,12 +1184,12 @@
               </td>
               <td class="table-data">
                 <input matInput #input class="form-control" [(ngModel)]="data.period" name="period" placeholder="輸入期數"
-                  [ngStyle]="getStyle(data.period)" (keypress)="numberOnly($event)" (ngModelChange)="change(data.period,'period',index + 1)"
+                  [ngStyle]="getStyle(data.period)" (keypress)="numberOnly($event)" (ngModelChange)="change(data.period,'period',i + 1)"
                   [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
               </td>
               <td class="table-data">
                 <mat-select [(ngModel)]="data.periodType" name="periodType"
-                  (ngModelChange)="change(data.periodType,'periodType',index + 1)"
+                  (ngModelChange)="change(data.periodType,'periodType',i + 1)"
                   [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
                   <mat-option *ngFor="let code of periodTypeCode" [value]="code.value">
                     {{code.viewValue}}

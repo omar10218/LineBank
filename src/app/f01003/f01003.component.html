@@ -60,7 +60,7 @@
           </div>
           <div nz-col nzSpan="2" style="margin-top:18px;">
             <div>
-              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="clear()">清除資料</button>
+              <button nz-button [nzSize]="'middle'" nzDanger (click)="clear()">清除資料</button>
             </div>
           </div>
         </div>
@@ -121,7 +121,7 @@
                 <td class="table-data">{{ data.swcCustId }}</td>
                 <td class="table-data">{{ data.swcName }}</td>
                 <td class="table-data">{{ data.swcCompany }}</td>
-                <td class="table-data">{{ data.swcApplyAmount != undefined? data_number( data.swcApplyAmount): data.swcApplyAmount }}</td>
+                <td class="table-data" style="text-align: right;">{{ data.swcApplyAmount != undefined? data_number( data.swcApplyAmount): data.swcApplyAmount }}</td>
                 <td class="table-data">{{ data.swcCustTag }}</td>
                 <td class="table-data">{{ data.swcRiskGrade }}</td>
                 <td class="table-data">{{ data.swcApplyNum }}</td>

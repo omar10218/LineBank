@@ -66,9 +66,17 @@
 :host::ng-deep.mat-select-value{
   color:gray;
 }
+.table-header{
+  background-color:#ededed;
+  color:#848E9C;
+  text-align: center;
+  margin-bottom: 1px;
+  font-size: 14px;
+}
 .table-data{
   background-color:white;
   border: 1px solid #e8e8e8;
+  text-align: center;
   color:rgb(87, 87, 87);
   margin-bottom: 0px;
   font-size: 5px;
