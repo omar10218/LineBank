@@ -4,6 +4,8 @@ import { MenuListService } from './menu-list.service';
 import { Menu } from './menu.model';
 import { LoginService } from '../login/login.service';
 import { F01002Service } from '../f01002/f01002.service';
+import { Subscription } from 'rxjs';
+import { HandleSubscribeService } from '../services/handle-subscribe.service';
 
 
 //Nick icon/時間登出/照會提醒
@@ -19,11 +21,16 @@ export class MenuListComponent implements OnInit, OnDestroy {
     private menuListService: MenuListService,
     private loginService: LoginService,
     private f01002Service: F01002Service,
-  ) { }
+    private handleSubscribeS: HandleSubscribeService
+  ) { 
+    this.calloutSource$ = this.handleSubscribeS.calloutSource$.subscribe(() => {
+      this.getCalloutList();
+    });
+  }
 
   total: string;
   applno= [];
-
+  calloutSource$: Subscription;
   @HostListener('document:mousemove', ['$event'])
   @HostListener('document:keyup', ['$event'])
   @HostListener('document:click', ['$event'])
