@@ -134,6 +134,7 @@ export class Childscn3Component implements OnInit {
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
       console.log('=========')
       console.log(data)
+      msgStr = data.rspMsg
       if (data.rspCode == '0000')
        {
 
@@ -145,7 +146,6 @@ export class Childscn3Component implements OnInit {
 
           if (data.rspCode == '0000')
           {
-
             this.getTable()
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: msgStr }
