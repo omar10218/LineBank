@@ -522,7 +522,8 @@
     <nz-table [nzData]="one" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="月付金試算">
       <thead>
         <tr>
-          <th class="table-header"> </th>
+          <th class="table-header"><mat-checkbox color="primary"   (change)="setAll($event.checked)"  [(ngModel)]="isAllCheck" name="isAllCheck" >全選</mat-checkbox>
+          </th>
           <th class="table-header" nzWidth="120px">科目</th>
           <th class="table-header">BAM421<br>預設本金</th>
           <th class="table-header">BAM029<br>預設本金</th>
@@ -539,8 +540,7 @@
         <tr *ngFor="let item of one">
           <td>
             <!-- <input class="inpu1" type="checkbox" checked="true"  (change)="test($event)"> -->
-            <input class="inpu1" type="checkbox"
-              (change)="addcheckbox($event.target.checked,item.ID,item.MONTHLY_PAY_029,item.MONTHLY_PAY_421,item.MONTHLY_PAY_CC)">
+            <mat-checkbox [(ngModel)]="checkboxArray[i].completed" (change)="addcheckbox($event.checked,item.ID,item.MONTHLY_PAY_029,item.MONTHLY_PAY_421,item.MONTHLY_PAY_CC)"></mat-checkbox>
           </td>
           <td>
             <div nz-col nzSpan="6">
@@ -583,7 +583,7 @@
         [disabled]="search == 'N' && checkboxAny.length > 0 ? false:true">儲存</button>
       <button nz-button [nzSize]="'middle'" nzType="primary" id="del" style="border-radius: 5px;" (click)="del()"
         [disabled]="search == 'N' && checkboxAny.length > 0 ? false:true">刪除</button>
-      <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="test()">測試</button> -->
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="test()">測試</button>
     </div>
   </div>
   <br>

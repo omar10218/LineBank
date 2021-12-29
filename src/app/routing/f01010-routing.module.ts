@@ -11,7 +11,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard], // 守衛路由
   },
   {
-    path: 'F01002SCN1',
+    path: 'F01010SCN1',
     component: F01010scn1Component,
     // canActivate: [AuthGuard], // 守衛路由
     children: [
