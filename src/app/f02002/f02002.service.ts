@@ -25,7 +25,7 @@ export class F02002Service extends BaseService {
     return await this.postFormData(baseUrl, formData).toPromise();
   }
 
-  test(baseUrl: string, formData: FormData)
+  setformdata(baseUrl: string, formData: FormData)
   {
     return this.postFormData(baseUrl,formData);
   }

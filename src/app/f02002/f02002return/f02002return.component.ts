@@ -1,4 +1,4 @@
-import { logging } from 'protractor';
+import { Key, logging } from 'protractor';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,10 +9,24 @@ interface sysCode {
   value: string;
   viewValue: string;
 }
-interface code {
+interface test {
   value: string;
   viewValue: File;
 }
+interface te {
+  rowId:string;
+  userId:string;
+  applno:string;
+  rescanReason:string;
+  imageContent:string;
+}
+
+// formdata.append('rowId',iit.value)
+// formdata.append('userId', localStorage.getItem("empNo"))
+// formdata.append('rescanReason',it.rescanReason)
+// formdata.append('applno',this.data.applno)
+// formdata.append('files',iit.viewValue)
+// formdata.append('imageContent',it.IMAGE_CONTENT)
 @Component({
   selector: 'app-f02002return',
   templateUrl: './f02002return.component.html',
@@ -56,10 +70,11 @@ export class F02002returnComponent implements OnInit {
   typeString: string = '';//補件類型
   type: sysCode[] = [];//補件類型陣列
   quantity:number;
-  fileList:code []=[];
-  formdata: FormData = new FormData();
+  fileList:test []=[];
+  formdata: FormData;
   formdata2: FormData = new FormData();
-
+  list:te []=[];
+  jsonstr: string;
   formControl = new FormControl('', [
     Validators.required
   ]);
@@ -76,16 +91,28 @@ export class F02002returnComponent implements OnInit {
     this.dialogRef.close({ event: 'success' });
   }
 
-  onChange(evt, ROWID: string,rescanReason:string) {
+  onChange(evt, rid: string,rescanReason:string) {
 
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG|.PNG)/);
     // console.log(!!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/))
+    var rid = rid;
     if (this.isValidFile)
     {
+      // for(let u of this.fileList)
+      // {
+      //   if(u.value === rid)
+      //   {
 
+
+      //   }
+      // }
+      this.fileList = this.fileList.filter(e=>e.value !=rid);
       this.fileToUpload = target.files.item(0);
-      this.fileList.push({value:ROWID,viewValue:this.fileToUpload})
+      this.formdata2.append(rid,this.fileToUpload)
+      // this.fileList.push({value:rid,viewValue:this.fileToUpload})
+      // this.level1.splice(this.level1.indexOf(id), 1)
+
 
       // this.formdata2.append('rowId', ROWID);
       // this.formdata2.append('files', this.fileToUpload);
@@ -132,50 +159,25 @@ export class F02002returnComponent implements OnInit {
 
   store()//儲存
   {
-    let url = 'f02/f02002action5';
-    // let ur = 'f02/f02002action6';
-    // let jsonObject: any = {};
-    // const content = []
-    // let docTypeCode = this.uploadForm.value.DOC_TYPE_CODE;
-
+    const formdata = new FormData();
     // const formdata: FormData = new FormData();
-
+    let url = 'f02/f02002action5';
+    console.log(this.F02002Data.length);
     for (const it of this.F02002Data)
     {
-      for(let iit of this.fileList)
-      {
-        if(it.ROW_ID == iit.value)
-        {
-          this.formdata.append('rowId',iit.value)
-          this.formdata.append('userId', localStorage.getItem("empNo"))
-          this.formdata.append('rescanReason',it.rescanReason)
-          this.formdata.append('applno',this.data.applno)
-          this.formdata.append('files',iit.viewValue)
-          this.formdata.append('imageContent',it.IMAGE_CONTENT)
-        }
-      }
-      // content.push(
-      //   {
-      //     rowId: it.ROW_ID,
-      //     rescanReason: it.rescanReason,
-      //     remark: it.IMAGE_CONTENT,
-      //   }
-      // )
-      // this.formdata2.append('rescanReason',it.rescanReason)
+      const fileObj = this.formdata2.get(it.ROW_ID);
+      this.list.push({rowId:it.ROW_ID,userId:localStorage.getItem("empNo"),applno:this.data.applno,rescanReason:it.rescanReason,imageContent:it.IMAGE_CONTENT})
+      this.jsonstr =JSON.stringify(this.list);
+
+      formdata.append(this.jsonstr, fileObj != null ? fileObj : "");
+
+
     }
 
-    // jsonObject['F02002req'] = content;
-    // if (this.fileToUpload != null)
-    // {
-
-      this.f02002Service.test(url, this.formdata).subscribe(data => {
+      this.f02002Service.setformdata(url, formdata).subscribe(data => {
 
         console.log(data)
       });
-    // }
-    // this.f02002Service.f02002(url, jsonObject).subscribe(data => {
-
-    // })
 
 
     // this.dialogRef.close({ event: 'success' });
@@ -223,7 +225,7 @@ export class F02002returnComponent implements OnInit {
           // this.formdata.append('rowId', ROWID);
           // this.formdata.append('files', this.fileToUpload);
           this.formdata.append('userId', localStorage.getItem("empNo"))
-          this.f02002Service.test(url, this.formdata).subscribe(data => {
+          this.f02002Service.setformdata(url, this.formdata).subscribe(data => {
             console.log("111111111")
             console.log(data)
 
@@ -233,7 +235,7 @@ export class F02002returnComponent implements OnInit {
         {
           // this.formdata.append('applno', this.data.applno);
           // this.formdata.append('rowId', ROWID);
-          this.f02002Service.test(url, this.formdata).subscribe(data => {
+          this.f02002Service.setformdata(url, this.formdata).subscribe(data => {
             console.log("222222")
             console.log(data)
 
@@ -250,8 +252,8 @@ export class F02002returnComponent implements OnInit {
   test() //測試用
   {
     console.log(this.formdata.getAll('rowId') )
-    console.log(this.formdata.getAll('applno') )
-    console.log(this.F02002Data )
+    console.log(this.formdata.getAll('files') )
+    console.log(this.list )
     // alert( this.fileToUpload)
   }
 }
