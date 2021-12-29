@@ -125,6 +125,11 @@ export class F01005scn1Component implements OnInit {
         level:sessionStorage.getItem('level'),
       }
     });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') {
+        this.router.navigate(['./F01005']);
+      }
+    });
   }
 
   blockList() {

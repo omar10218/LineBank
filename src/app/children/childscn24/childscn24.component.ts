@@ -43,6 +43,7 @@ export class Childscn24Component implements OnInit {
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      this.dialogRef.close({ event: 'success' });
     }
 
   }
@@ -58,6 +59,7 @@ export class Childscn24Component implements OnInit {
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      this.dialogRef.close({ event: 'success' });
     }
   }
   // 主管案件退回徵信
@@ -65,7 +67,7 @@ export class Childscn24Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
-   
+
     jsonObject['reject'] = 'L2';
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L0') {
@@ -73,6 +75,7 @@ export class Childscn24Component implements OnInit {
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      this.dialogRef.close({ event: 'success' });
     }
   }
   // 授信覆核退回徵信
@@ -87,6 +90,7 @@ export class Childscn24Component implements OnInit {
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      this.dialogRef.close({ event: 'success' });
     }
   }
   // 授信覆核退回徵信
@@ -101,6 +105,7 @@ export class Childscn24Component implements OnInit {
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      this.dialogRef.close({ event: 'success' });
     }
   }
 }

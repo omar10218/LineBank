@@ -82,7 +82,7 @@ export class Childscn13addComponent implements OnInit {
         formdata.append('web', this.webAddrValue.split('=')[0]);
         formdata.append('webAddr', this.webAddrUrl);
         formdata.append('messageContent', this.webInfoContent);
-        formdata.append('empno', '9901890');
+        formdata.append('empno', localStorage.getItem("empNo"));
         formdata.append('file', this.files);
         formdata.append('userId',localStorage.getItem("empNo") );
         const baseUrl = 'f01/childscn13action1';
