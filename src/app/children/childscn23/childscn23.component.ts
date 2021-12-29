@@ -11,6 +11,10 @@ interface sysCode {
   value: string;
   viewValue: string;
 }
+interface checkBox {
+  num: string;
+  completed: boolean;
+}
 //jay 月付金試算
 
 @Component({
@@ -56,7 +60,8 @@ export class Childscn23Component implements OnInit {
   seveData: any[] = [];
   search: string;
   x: string;
-
+  isAllCheck: boolean = false;
+  checkboxArray: checkBox[] = [];
   private stepName: string;
   private page: string;
   fmData_B = new MatTableDataSource<any>();//DBR收支表資料 徵信
@@ -97,9 +102,20 @@ export class Childscn23Component implements OnInit {
     this.jsonObject3['applno'] = this.applno;
     this.childscn23Service.AddUpDel(url, this.jsonObject3).subscribe(data => {
       if (data.rspBody.items.length > 0) {
+        console.log("=========================")
+        console.log(data)
         this.one = data.rspBody.items
         this.suject = data.rspBody.items[0].ACCOUNT_CODE;
         this.limit2();
+        let t = 0;
+        if(data.rspBody.items.length > 0)
+        {
+          for(var i of data.rspBody.items)
+          {
+            t=t+1
+            this.checkboxAny.push({num:t,completed: false})
+          }
+        }
       }
       else {
         this.one = data.rspBody.items
@@ -550,6 +566,14 @@ export class Childscn23Component implements OnInit {
 
   getStepName() {
     return sessionStorage.getItem('stepName');
+  }
+  setAll(completed: boolean) //全選
+  {
+    for (const obj of this.checkboxArray) {
+
+        obj.completed = completed;
+
+    }
   }
 
 
