@@ -48,7 +48,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of DM_DEP_TRANS_DETAILSource">
-        <td class="table-data">{{ data.TRANS_DATE | date: HH：mm：ss'}}</td>
+        <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
         <td class="table-data">{{ data.ACC_NAME }}</td>
         <td class="table-data">{{ data.ACC_NO }}</td>
         <!-- <td class="table-data">{{ data.ACC_STATUS}}</td> -->
