@@ -98,7 +98,7 @@ export class Childscn14page3Component implements OnInit {
   //檢查上傳檔案格式
   onChange(evt) {
     const target: DataTransfer = <DataTransfer>(evt.target);
-    this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG|.xls|.xlsx|.doc|.docx)/);
+    this.isValidFile = !!target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
     if (this.isValidFile) {
       this.fileToUpload = target.files.item(0);
     } else {
