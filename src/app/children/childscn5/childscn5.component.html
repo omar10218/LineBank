@@ -44,14 +44,14 @@
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
-              <span class="form-title">房屋所有權者</span>
-              <input style="display: block;" formControlName="HOUSE_OWNER" readonly disabled>
+              <span class="form-title">現居狀況</span>
+              <input style="display: block;" formControlName="LIVING_STATUS" readonly disabled>
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
-              <span class="form-title">住家型態</span>
-              <input style="display: block;" formControlName="CU_RDTL" readonly disabled>
+              <span class="form-title">已居住年數</span>
+              <input style="display: block;" formControlName="RESIDENCE_YEAR" readonly disabled>
             </div>
           </div>
           <div nz-col nzFlex="1">
@@ -110,13 +110,13 @@
           <div nz-col nzSpan="5">
             <div style="padding:3px">
               <span class="form-title">其他-手機(非本行主要)</span>
-              <input style="display: block;" formControlName="CU_H_TEL_INO" readonly disabled>
+              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther" formControlName="CU_M_TEL_OTHER" >
             </div>
           </div>
           <div nz-col nzSpan="5">
             <div style="padding:3px">
               <span class="form-title">其他-聯絡資訊</span>
-              <input style="display: block;" formControlName="CU_H_TEL_INO" readonly disabled>
+              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther" formControlName="CONTACT_OTHER" >
             </div>
           </div>
         </div>
@@ -191,7 +191,7 @@
           <div nz-col nzSpan="4">
             <div style="padding:3px">
               <span class="form-title">其他-公司電話分機</span>
-              <input style="display: block;" formControlName="SENIORITY" readonly disabled>
+              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" formControlName="CU_CP_TEL_EXT" >
             </div>
           </div>
           
@@ -263,6 +263,33 @@
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
+            </div>
+          </div>
+        </div>
+        <div class="line_bank_form_header_title">前職資訊</div>
+        <div nz-row style="padding:5px">
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作名稱</span>
+              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn">
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作公司職稱</span>
+              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle" name="preJobTitle">
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作在職時長(年數)</span>
+              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear">
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作在職時長(月數)</span>
+              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth" name="preJobMonth">
             </div>
           </div>
         </div>

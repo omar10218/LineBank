@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F02002Service } from '../f02002.service'
 import { F02008return2Component } from '../f02002return/f02008return2/f02008return2.component'
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 interface sysCode {
   value: string;
   viewValue: string;
@@ -14,11 +15,9 @@ interface test {
   viewValue: File;
 }
 interface te {
-  rowId:string;
-  userId:string;
-  applno:string;
-  rescanReason:string;
-  imageContent:string;
+  rowId: string;
+  rescanReason: string;
+  imageContent: string;
 }
 
 @Component({
@@ -63,11 +62,11 @@ export class F02002returnComponent implements OnInit {
   docType: string;
   typeString: string = '';//補件類型
   type: sysCode[] = [];//補件類型陣列
-  quantity:number;
-  fileList:test []=[];
+  quantity: number;
+  fileList: test[] = [];
   formdata: FormData;
   formdata2: FormData = new FormData();
-  list:te []=[];
+  list: te[] = [];
   jsonstr: string;
   formControl = new FormControl('', [
     Validators.required
@@ -76,47 +75,24 @@ export class F02002returnComponent implements OnInit {
   //欄位驗證
   getErrorMessage() {
     return this.formControl.hasError('required') ? '此欄位必填!' :
-        '';
+      '';
   }
-
 
   cancel()//離開
   {
     this.dialogRef.close({ event: 'success' });
   }
 
-  onChange(evt, rid: string,rescanReason:string) {
-
+  onChange(evt, rid: string, ) {
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG|.PNG)/);
-    // console.log(!!target.files[0].name.match(/(.jpg|.png|.tif|.JPG)/))
     var rid = rid;
-    if (this.isValidFile)
-    {
-      this.fileList = this.fileList.filter(e=>e.value !=rid);
+    if (this.isValidFile) {
+      this.fileList = this.fileList.filter(e => e.value != rid);
       this.fileToUpload = target.files.item(0);
-      this.formdata2.append(rid,this.fileToUpload)
-      // this.fileList.push({value:rid,viewValue:this.fileToUpload})
-      // this.level1.splice(this.level1.indexOf(id), 1)
-
-
-      // this.formdata2.append('rowId', ROWID);
-      // this.formdata2.append('files', this.fileToUpload);
-      // this.formdata2.append('rescanReason',rescanReason)
-      // this.formdata2.append('userId', localStorage.getItem("empNo"))
-      // this.formdata2.append('applno', localStorage.getItem("empNo"))
-      this.quantity = this.quantity -1;
-
-      // this.formdata.append('applno', this.data.applno);
-      // this.formdata.append('rowId', ROWID);
-      // this.formdata.append('files', this.fileToUpload);
-      // this.formdata.append('userId', localStorage.getItem("empNo"))
-
-
-      // this.formdata2.append('rileName',)
-      // alert(this.fileToUpload)
-    } else
-    {
+      this.formdata2.append(rid, this.fileToUpload)
+      this.quantity = this.quantity - 1;
+    } else {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法圖檔，請檢查檔案格式重新上傳" });
       alert(this.uploadForm.value.ERROR_MESSAGE);
     }
@@ -131,11 +107,9 @@ export class F02002returnComponent implements OnInit {
       this.F02002Data = data.rspBody;
       this.quantity = data.rspBody.length
 
-      for(const i of data.rspBody)
-      {
-        if(i.IMAGE_NAME !=null)
-        {
-          this.quantity =this.quantity - 1
+      for (const i of data.rspBody) {
+        if (i.IMAGE_NAME != null) {
+          this.quantity = this.quantity - 1
         }
       }
       // console.log(data.rspBody.length)
@@ -143,33 +117,68 @@ export class F02002returnComponent implements OnInit {
   }
 
 
+  // store()//儲存
+  // {
+  //   const formdata = new FormData();
+  //   // const formdata: FormData = new FormData();
+  //   let url = 'f02/f02002action5';
+  //   console.log(this.F02002Data.length);
+  //   let jsonarry: string[] = []
+  //   for (const it of this.F02002Data) {
+  //     this.list = [];
+  //     const fileObj = this.formdata2.get(it.ROW_ID);
+  //     this.list.push({ rowId: it.ROW_ID, userId: localStorage.getItem("empNo"), applno: this.data.applno, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT })
+  //     this.jsonstr = JSON.stringify(this.list);
+  //     jsonarry.push(this.jsonstr);
+  //     formdata.append("file", fileObj != null ? fileObj : new Blob);
+  //   }
+  //   formdata.append("jsonArray", jsonarry.toString());
+  //   this.f02002Service.setformdata(url, formdata).subscribe(data => {
+  //     console.log(data)
+  //     if(data.rspCode ==='0000')
+  //     {
+  //       this.dialogRef.close({ event: 'success' });
+  //     }
+  //     else
+  //     {
+  //       this.dialog.open(ConfirmComponent, {
+  //         data: { msgStr:data.rspMsg}
+  //       });
+  //     }
+  //   });
+  //   // this.dialogRef.close({ event: 'success' });
+  // }
   store()//儲存
   {
-
     const formdata = new FormData();
     // const formdata: FormData = new FormData();
     let url = 'f02/f02002action5';
     console.log(this.F02002Data.length);
-    let jsonarry:string []=[]
+    let jsonarry: string[] = []
     for (const it of this.F02002Data) {
       this.list = [];
       const fileObj = this.formdata2.get(it.ROW_ID);
-      this.list.push({rowId:it.ROW_ID,userId:localStorage.getItem("empNo"),applno:this.data.applno,rescanReason:it.rescanReason,imageContent:it.IMAGE_CONTENT})
+      this.list.push({rowId: it.ROW_ID,rescanReason: it.rescanReason,imageContent: it.IMAGE_CONTENT});
       this.jsonstr = JSON.stringify(this.list);
       jsonarry.push(this.jsonstr);
-      formdata.append("file[]", fileObj != null ? fileObj : null);
+      formdata.append('file', fileObj != null ? fileObj : new Blob);
     }
-    formdata.append("jsonArray", jsonarry.toString());
+    formdata.append('jsonArray', jsonarry.toString());
+    formdata.append('userId', localStorage.getItem('empNo'));
+    formdata.append('applno', this.data.applno);
 
-      this.f02002Service.setformdata(url, formdata).subscribe(data => {
-
-        console.log(data)
-      });
-
-
+    this.f02002Service.setformdata(url, formdata).subscribe(data => {
+      console.log(data)
+      if (data.rspCode === '0000') {
+        this.dialogRef.close({event: 'success'});
+      }
+      else {
+        this.dialog.open(ConfirmComponent, {
+          data: {msgStr: data.rspMsg}
+        });
+      }
+    });
     // this.dialogRef.close({ event: 'success' });
-
-
   }
 
 
@@ -188,29 +197,15 @@ export class F02002returnComponent implements OnInit {
     let url = 'f02/f02002action5'
     let jsonObject: any = {};
     const content = []
-    for (const it of this.F02002Data) {
-      content.push(
-        {
-          rowId: it.ROW_ID,
-          rescanReason: it.rescanReason,
-          remark: it.IMAGE_CONTENT,
-        }
-      )
-
-    }
     jsonObject['F02002req'] = content;
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result.value == 'confirm')
-      {
+      if (result.value == 'confirm') {
         this.f02002Service.f02002(u, jsonObject).subscribe(data => {
 
         })
-        if(this.fileToUpload == null)
-        {
+        if (this.fileToUpload == null) {
           this.formdata.append('applno', this.data.applno);
-          // this.formdata.append('rowId', ROWID);
-          // this.formdata.append('files', this.fileToUpload);
           this.formdata.append('userId', localStorage.getItem("empNo"))
           this.f02002Service.setformdata(url, this.formdata).subscribe(data => {
             console.log("111111111")
@@ -218,10 +213,8 @@ export class F02002returnComponent implements OnInit {
 
           })
         }
-        else
-        {
-          // this.formdata.append('applno', this.data.applno);
-          // this.formdata.append('rowId', ROWID);
+        else {
+
           this.f02002Service.setformdata(url, this.formdata).subscribe(data => {
             console.log("222222")
             console.log(data)
@@ -238,9 +231,9 @@ export class F02002returnComponent implements OnInit {
 
   test() //測試用
   {
-    console.log(this.formdata.getAll('rowId') )
-    console.log(this.formdata.getAll('files') )
-    console.log(this.list )
+    console.log(this.formdata.getAll('rowId'))
+    console.log(this.formdata.getAll('files'))
+    console.log(this.list)
     // alert( this.fileToUpload)
   }
 }
