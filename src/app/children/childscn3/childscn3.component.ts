@@ -132,13 +132,16 @@ export class Childscn3Component implements OnInit {
     this.jsonObject['result'] = this.l1;
     const url = 'f01/childscn3action1';
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
-
-      msgStr = data.msgStr
+      console.log('=========')
+      console.log(data)
       if (data.rspCode == '0000')
        {
 
         this.childsc3Service.oneseve(ul, this.jsonObject).subscribe(data => {
-          msgStr = data.msgStr
+          console.log('=========')
+          console.log(data)
+          console.log(data.rspMsg)
+          msgStr = data.rspMsg
 
           if (data.rspCode == '0000')
           {
@@ -148,7 +151,7 @@ export class Childscn3Component implements OnInit {
               data: { msgStr: msgStr }
             });
           }
-          else if(data.rspCode == 'E9999')
+          else
           {
             this.getTable()
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -159,6 +162,7 @@ export class Childscn3Component implements OnInit {
       }
       else
       {
+        alert('11111')
         this.getTable()
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
@@ -195,39 +199,10 @@ export class Childscn3Component implements OnInit {
             }
             else {
 
-
-              // if(k.length>1)
-              // {
-              //   this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
-              // }
-              // var xxxx = this.l1.filter(c => c.announceReason1 == i.reasonCode);
-              // if (xxxx != null && xxxx.length < 1  && k==i.child.length-1) {
-              //   console.log('第一層')
-              //   console.log(i.reasonCode)
-              //   // console.log('第二層')
-              //   // console.log())
-              //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
-              //     data: { msgStr: "第一層勾選時，第二層為必填!" }
-              //   });
-              //   return;
-              //   // this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
-              // }
-              // // for (var j=0 of this.data)
-              // for(var s of this.data)
-              // {
-              //   if(s.check ==true)
-              //   {
-              //     this.na = this.na+''+ s.reasonDesc;
-              //   }
-              //   break ;
-              // }
             }
 
           }
-          // console.log(this.ss.includes('true'))
-          // console.log(this.ss);
-          // console.log("11111");
-          // console.log(this.ss.length);
+
           if (this.ss.length == 0) {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: "第二層未勾選，儲存失敗!" }
@@ -260,11 +235,8 @@ export class Childscn3Component implements OnInit {
     const url = 'f01/childscn3';
     jsonOb['applno'] = this.applno;
     // const applno = this.applno;
-    console.log('this.search')
-    console.log(this.search)
     this.childsc3Service.oneseve(url, jsonOb).subscribe(data => {
-      console.log("=======================")
-      console.log(data)
+
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;
       for (const item of data.rspBody.list) {

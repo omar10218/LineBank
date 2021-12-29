@@ -586,6 +586,11 @@ export class Childscn1Component implements OnInit, OnDestroy {
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.creditmemoSource = data.rspBody.list;
+      for (let index = 0; index < this.creditmemoSource.length; index++) {
+        if (this.creditmemoSource[index].CREDITLEVEL == sessionStorage.getItem('stepName').split('t')[1] && this.creditmemoSource[index].CREDITUSER == this.userId) {
+          this.mark = this.creditmemoSource[index].CREDITACTION;
+        }
+      }
     })
   }
 
