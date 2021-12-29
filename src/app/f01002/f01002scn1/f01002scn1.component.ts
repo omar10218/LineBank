@@ -282,7 +282,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
         jsoncreditResult['caRisk'] = this.caRisk;
         jsoncreditResult['creditResult'] = this.creditResult;
 
-        let jsonCreditInterestPeriod: any = {};
+        // let jsonCreditInterestPeriod: any = {};
         let creditInterestPeriodArray: interestPeriod[] = [];
         let count: number = Number(sessionStorage.getItem('count'));
 
@@ -302,7 +302,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
           )
         }
 
-        jsonCreditInterestPeriod['creditInterestPeriodArray'] = creditInterestPeriodArray;
+        // jsonCreditInterestPeriod['creditInterestPeriodArray'] = creditInterestPeriodArray;
         // jsonCreditInterestPeriod['period'] = this.period;
         // jsonCreditInterestPeriod['periodType'] = this.periodType;
         // jsonCreditInterestPeriod['interestType'] = this.interestType;
@@ -315,7 +315,8 @@ export class F01002scn1Component implements OnInit, OnDestroy {
         jsonElApplicationInfo['caApplicationAmount'] = this.caApplicationAmount;
 
         jsonObject['creditResult'] = jsoncreditResult;
-        jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
+        // jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
+        jsonObject['creditInterestPeriodArray'] = creditInterestPeriodArray;
         jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
         // if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
         //   const childernDialogRef = this.dialog.open(ConfirmComponent, {

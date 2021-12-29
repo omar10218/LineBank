@@ -139,7 +139,7 @@ export class F01004scn1Component implements OnInit {
         jsoncreditResult['caRisk'] = this.caRisk;
         jsoncreditResult['creditResult'] = this.creditResult;
 
-        let jsonCreditInterestPeriod: any = {};
+        // let jsonCreditInterestPeriod: any = {};
         let creditInterestPeriodArray: interestPeriod[] = [];
         let count: number = Number(sessionStorage.getItem('count'));
 
@@ -159,7 +159,7 @@ export class F01004scn1Component implements OnInit {
           )
         }
 
-        jsonCreditInterestPeriod['creditInterestPeriodArray'] = creditInterestPeriodArray;
+        // jsonCreditInterestPeriod['creditInterestPeriodArray'] = creditInterestPeriodArray;
         // jsonCreditInterestPeriod['period'] = this.period;
         // jsonCreditInterestPeriod['periodType'] = this.periodType;
         // jsonCreditInterestPeriod['interestType'] = this.interestType;
@@ -172,7 +172,8 @@ export class F01004scn1Component implements OnInit {
         jsonElApplicationInfo['caApplicationAmount'] = this.caApplicationAmount;
 
         jsonObject['creditResult'] = jsoncreditResult;
-        jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
+        // jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
+        jsonObject['creditInterestPeriodArray'] = creditInterestPeriodArray;
         jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
         if (url == 'f01/childscn0action1') {
           this.result(baseUrl, jsonObject, result, count);
