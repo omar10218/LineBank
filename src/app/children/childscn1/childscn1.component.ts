@@ -485,8 +485,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
           sessionStorage.setItem('period' + index, this.CreditInterestPeriodSource[index - 1].period ? this.CreditInterestPeriodSource[index - 1].period : '');
           sessionStorage.setItem('interestType' + index, this.CreditInterestPeriodSource[index - 1].interestType ? this.CreditInterestPeriodSource[index - 1].interestType : '');
           sessionStorage.setItem('interest' + index, this.CreditInterestPeriodSource[index - 1].interest ? this.CreditInterestPeriodSource[index - 1].interest : '');
-          this.periodType = '1';
-          sessionStorage.setItem('periodType' + index, this.periodType);
+          this.CreditInterestPeriodSource[index - 1].periodType = this.CreditInterestPeriodSource[index - 1].periodType != null && this.CreditInterestPeriodSource[index - 1].periodType != '' ? this.CreditInterestPeriodSource[index - 1].periodType : '1';
+          sessionStorage.setItem('periodType' + index, this.CreditInterestPeriodSource[index - 1].periodType);
           this.approveInterest = Number(this.CreditInterestPeriodSource[index - 1].interestBase) + Number(this.CreditInterestPeriodSource[index - 1].interest)
           sessionStorage.setItem('approveInterest' + index, this.approveInterest.toString());
         }
@@ -687,7 +687,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
   }
 
   change(value: any, valueName: string, index: string) {
-    console.log(index)
     if (index != '') {
       sessionStorage.setItem(valueName + index, value);
     } else {
