@@ -415,7 +415,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
       if (data.rspBody.rpmList.length > 0) {
         this.isRpm = data.rspBody.rpmList[0].isRpm;
         this.rpmTypeDescribe = data.rspBody.rpmList[0].rpmTypeDescribe;
-        this.rpmDate = this.formatDate(data.rspBody.rpmList[0].rpmDate);
+        this.rpmDate = this.pipe.transform(new Date(data.rspBody.rpmList[0].rpmDate), 'yyyy-MM-dd hh:mm:ss');
         this.rpmId = data.rspBody.rpmList[0].rpmId;
       }
 
