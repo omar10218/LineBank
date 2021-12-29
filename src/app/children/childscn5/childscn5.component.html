@@ -235,7 +235,7 @@
               <span class="form-title">徵信認列行業Level2</span>
               <mat-select [(ngModel)]="cuLevel2CaValue" (ngModelChange)="changeLevel2Select()" name="cuLevel2Ca"
                 id="cuLevel2Ca" formControlName="CU_LEVEL2_CA"
-                style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6">
+                style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:white">
                 <mat-option *ngFor="let code of cuLevel2CaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
@@ -246,7 +246,7 @@
             <div style="padding:3px">
               <span class="form-title">徵信認列職業碼</span>
               <mat-select [(ngModel)]="jobCodeCaValue" name="jobCodeCa" formControlName="JOB_CODE_CA" id="jobCodeCa"
-                style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6">
+                style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:white">
                 <mat-option *ngFor="let code of jobCodeCaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
