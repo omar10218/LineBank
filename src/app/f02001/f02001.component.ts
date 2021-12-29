@@ -187,6 +187,7 @@ export class F02001Component implements OnInit {
         //開啟徵審主畫面
         const url = window.location.href.split("/#");
         window.open( url[0] + "/#/F01002/F01002SCN1", "", "location=no");
+        sessionStorage.setItem('winClose', 'N');
       }else{
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查詢案件紀錄異常" }
