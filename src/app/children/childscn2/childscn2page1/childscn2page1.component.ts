@@ -38,6 +38,7 @@ export class Childscn2page1Component implements OnInit {
     const baseUrl = "f01/childscn2";
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
+    console.log(this.applno)
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn2Service.getTransLog(baseUrl, jsonObject)

@@ -569,8 +569,8 @@ export class Childscn23Component implements OnInit {
   }
   setAll(completed: boolean) //全選
   {
-    for (const obj of this.checkboxArray) {
-
+    console.log(this.checkboxArray)
+    for (const obj of this.checkboxArray ) {
         obj.completed = completed;
 
     }
