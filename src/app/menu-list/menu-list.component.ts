@@ -40,7 +40,11 @@ export class MenuListComponent implements OnInit, OnDestroy {
   }
   intervalRef: any;
 
+  private winClose: string = '';//判斷是否顯示menu (查詢不顯示)
+
   ngOnInit() {
+    this.winClose = sessionStorage.getItem('winClose');
+
     this.loginService.setBnIdle();
     this.getCalloutList();
     //設定5分鐘刷新照會提醒
@@ -83,6 +87,10 @@ export class MenuListComponent implements OnInit, OnDestroy {
 
   bell() {
     sessionStorage.setItem('bell', 'Y')
+  }
+
+  getWinClose(): String {
+    return this.winClose;
   }
 
 

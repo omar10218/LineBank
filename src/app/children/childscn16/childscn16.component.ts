@@ -82,6 +82,7 @@ export class Childscn16Component implements OnInit {
       //開啟徵審主畫面
       const url = window.location.href.split("/#");
       window.open( url[0] + "/#/F01002/F01002SCN1", "", "location=no");
+      sessionStorage.setItem('winClose', 'N');
     })
   }
   initial(pageIndex: number, pageSize: number)//初始查詢

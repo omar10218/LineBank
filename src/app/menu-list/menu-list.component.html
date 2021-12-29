@@ -1,5 +1,6 @@
 <mat-toolbar class="line_bank_form_header_title_color" style="z-index:50;position:fixed">
-  <mat-toolbar-row>
+  <mat-toolbar-row *ngIf=" getWinClose() != 'Y' ">
+    <!-- <mat-toolbar-row> -->
     <img src="assets\images\LineBank.png" width="10%" (click)="goHome()">
     <button mat-button [matMenuTriggerFor]="aboveMenu" *ngFor="let menu of getMenu()"
       style="width:11%;text-align: center;">
