@@ -152,6 +152,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
   interest: number = 0;
   approveInterest: number;
 
+  CreditInterestPeriodSource: Data[] = [];
+
   //Creditmemo
   creditmemoSource: Data[] = [];
   total = 1;
@@ -213,10 +215,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
   otherMessage3: string = "";
   otherMessage4: string = "";
   otherMessage5: string = "";
-
-
-
-
 
   dss1Form1: FormGroup = this.fb.group({
     //系統決策
@@ -331,8 +329,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
       this.CREDIT_View_List.push(Add_CREDIT_View);
     }
 
-    this.setBlank();
-
     this.childscn1Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -374,6 +370,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(async data => {
+
+      this.setBlank(data.rspBody.creditInterestPeriodList.length);
+      sessionStorage.setItem('count', data.rspBody.creditInterestPeriodList.length);
 
       //CreditAuditinfo
       if (data.rspBody.CreditAuditinfoList.length > 0) {
@@ -474,22 +473,38 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
       //creditInterestPeriod
       if (data.rspBody.creditInterestPeriodList.length > 0) {
-        this.period = data.rspBody.creditInterestPeriodList[0].period;
-        sessionStorage.setItem('period', data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '');
-        this.interestType = data.rspBody.creditInterestPeriodList[0].interestType;
-        sessionStorage.setItem('interestType', data.rspBody.creditInterestPeriodList[0].interestType ? data.rspBody.creditInterestPeriodList[0].interestType : '');
-        this.interest = data.rspBody.creditInterestPeriodList[0].interest;
-        sessionStorage.setItem('interest', data.rspBody.creditInterestPeriodList[0].interest ? data.rspBody.creditInterestPeriodList[0].interest : '');
-        this.periodType = '1';
-        sessionStorage.setItem('periodType', this.periodType);
-        if (this.interestType == '02') {
-          this.interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
+        this.CreditInterestPeriodSource = data.rspBody.creditInterestPeriodList;
+        for (let index = 1; index <= this.CreditInterestPeriodSource.length; index++) {
+          if (this.CreditInterestPeriodSource[index - 1].interestType == '02') {
+            this.CreditInterestPeriodSource[index - 1].interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
+            sessionStorage.setItem('interestBase' + index, this.CreditInterestPeriodSource[index - 1].interestBase ? this.CreditInterestPeriodSource[index - 1].interestBase : 0);
+          }
+          sessionStorage.setItem('id' + index, this.CreditInterestPeriodSource[index - 1].id);
+          sessionStorage.setItem('period' + index, this.CreditInterestPeriodSource[index - 1].period ? this.CreditInterestPeriodSource[index - 1].period : '');
+          sessionStorage.setItem('interestType' + index, this.CreditInterestPeriodSource[index - 1].interestType ? this.CreditInterestPeriodSource[index - 1].interestType : '');
+          sessionStorage.setItem('interest' + index, this.CreditInterestPeriodSource[index - 1].interest ? this.CreditInterestPeriodSource[index - 1].interest : '');
+          this.periodType = '1';
+          sessionStorage.setItem('periodType' + index, this.periodType);
+          this.approveInterest = Number(this.CreditInterestPeriodSource[index - 1].interestBase) + Number(this.CreditInterestPeriodSource[index - 1].interest)
+          sessionStorage.setItem('approveInterest' + index, this.approveInterest.toString());
         }
+
+        // this.period = data.rspBody.creditInterestPeriodList[0].period;
+        // sessionStorage.setItem('period', data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '');
+        // this.interestType = data.rspBody.creditInterestPeriodList[0].interestType;
+        // sessionStorage.setItem('interestType', data.rspBody.creditInterestPeriodList[0].interestType ? data.rspBody.creditInterestPeriodList[0].interestType : '');
+        // this.interest = data.rspBody.creditInterestPeriodList[0].interest;
+        // sessionStorage.setItem('interest', data.rspBody.creditInterestPeriodList[0].interest ? data.rspBody.creditInterestPeriodList[0].interest : '');
+        // this.periodType = '1';
+        // sessionStorage.setItem('periodType', this.periodType);
+        // if (this.interestType == '02') {
+        //   this.interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
+        // }
         //this.interestBase = data.rspBody.creditInterestPeriodList[0].interestBase;
-        sessionStorage.setItem('interestBase', data.rspBody.creditInterestPeriodList[0].interestBase ? data.rspBody.creditInterestPeriodList[0].interestBase : '');
-        this.interestCode = data.rspBody.creditInterestPeriodList[0].interestCode;
-        this.approveInterest = Number(this.interestBase) + Number(this.interest)
-        sessionStorage.setItem('approveInterest', this.approveInterest.toString());
+        // sessionStorage.setItem('interestBase', data.rspBody.creditInterestPeriodList[0].interestBase ? data.rspBody.creditInterestPeriodList[0].interestBase : '');
+        // this.interestCode = data.rspBody.creditInterestPeriodList[0].interestCode;
+        // this.approveInterest = Number(this.interestBase) + Number(this.interest)
+        // sessionStorage.setItem('approveInterest', this.approveInterest.toString());
       }
 
       //CustomerInfo Channel資訊
@@ -604,30 +619,30 @@ export class Childscn1Component implements OnInit, OnDestroy {
     return date.split("T")[0] + " " + date.split("T")[1].split(".")[0];
   }
 
-  async changeInterest() {
-    if (this.interestType == '02') {
-      this.interestValue = '1';
+  async changeInterest(value: any) {
+    if (value.interestType == '02') {
+      value.interestValue = '1';
       let jsonObject: any = {};
       const baseUrl = 'f01/childscn1action3';
       if ('查無基放利率!' == await this.childscn1Service.getInterestBase(baseUrl, jsonObject)) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: '查無基放利率!' }
         });
-        this.interestType = '';
+        value.interestType = '';
       } else {
-        this.interestBase = await this.childscn1Service.getInterestBase(baseUrl, jsonObject);
+        value.interestBase = await this.childscn1Service.getInterestBase(baseUrl, jsonObject);
       }
       // this.interestBase = 2;
-      this.approveInterest = Number(this.interestBase) + Number(this.interest);
+      value.approveInterest = Number(value.interestBase) + Number(value.interest);
     } else {
-      this.interestValue = '';
-      this.interestBase = 0
-      this.approveInterest = Number(this.interestBase) + Number(this.interest);
+      value.interestValue = '';
+      value.interestBase = 0
+      value.approveInterest = Number(value.interestBase) + Number(value.interest);
     }
-    sessionStorage.setItem('approveInterest', this.approveInterest.toString());
-    sessionStorage.setItem('interestType', this.interestType);
-    sessionStorage.setItem('interest', this.interest.toString());
-    sessionStorage.setItem('interestBase', this.interestBase.toString());
+    sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
+    sessionStorage.setItem('interestType' + value.seq, value.interestType);
+    sessionStorage.setItem('interest' + value.seq, value.interest.toString());
+    sessionStorage.setItem('interestBase' + value.seq, value.interestBase.toString());
   }
 
   changeInterestValue() {
@@ -643,24 +658,24 @@ export class Childscn1Component implements OnInit, OnDestroy {
     }
   }
 
-  caluclate() {
-    if (isNaN(this.interest)) {
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+  caluclate(value: any) {
+    if (isNaN(value.interest)) {
+      const childernDialogRef = value.dialog.open(ConfirmComponent, {
         data: { msgStr: '利率請輸入數字!' }
       });
       childernDialogRef.afterClosed().subscribe(result => {
-        this.interest = null;
-        this.approveInterest = null;
+        value.interest = null;
+        value.approveInterest = null;
       });
     } else {
-      if (this.interestBase == null) {
-        this.approveInterest = Number(this.interest);
+      if (value.interestBase == null) {
+        value.approveInterest = Number(value.interest);
       } else {
-        this.approveInterest = Number(this.interestBase) + Number(this.interest);
+        value.approveInterest = Number(value.interestBase) + Number(value.interest);
       }
-      sessionStorage.setItem('approveInterest', this.approveInterest.toString());
-      sessionStorage.setItem('interest', this.interest.toString());
-      sessionStorage.setItem('interestBase', this.interestBase.toString());
+      sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
+      sessionStorage.setItem('interest' + value.seq, value.interest.toString());
+      sessionStorage.setItem('interestBase' + value.seq, value.interestBase != null ? value.interestBase.toString() : '');
     }
   }
 
@@ -669,8 +684,13 @@ export class Childscn1Component implements OnInit, OnDestroy {
     window.open(url[0] + "/#/MAP");
   }
 
-  change(value: any, valueName: string) {
-    sessionStorage.setItem(valueName, value);
+  change(value: any, valueName: string, index: string) {
+    console.log(index)
+    if (index != '') {
+      sessionStorage.setItem(valueName + index, value);
+    } else {
+      sessionStorage.setItem(valueName, value);
+    }
   }
 
   numberOnly(event: { which: any; keyCode: any; }): boolean {
@@ -867,15 +887,18 @@ export class Childscn1Component implements OnInit, OnDestroy {
     });
   }
 
-  setBlank() {
+  setBlank(size: number) {
+    for (let index = 1; index <= size; index++) {
+      sessionStorage.setItem("approveInterest" + index, "");
+      sessionStorage.setItem("interestType" + index, "");
+      sessionStorage.setItem("interest" + index, "");
+      sessionStorage.setItem("interestBase" + index, "");
+      sessionStorage.setItem("id" + index, "");
+      sessionStorage.setItem("period" + index, "");
+      sessionStorage.setItem("periodType" + index, "");
+    }
     sessionStorage.setItem("resultApproveAmt", "");
     sessionStorage.setItem("resultLowestPayRate", "");
-    sessionStorage.setItem("period", "");
-    sessionStorage.setItem("periodType", "");
-    sessionStorage.setItem("interestType", "");
-    sessionStorage.setItem("approveInterest", "");
-    sessionStorage.setItem("interest", "");
-    sessionStorage.setItem("interestBase", "");
     sessionStorage.setItem("creditResult", "");
     sessionStorage.setItem("caApplicationAmount", "");
     sessionStorage.setItem("caPmcus", "");
@@ -1087,4 +1110,12 @@ export class Childscn1Component implements OnInit, OnDestroy {
     return x
   }
 
+  //取基放利率
+  async getBase(value: string): Promise<void> {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    if (this.interestType == '02') {
+      value = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
+    }
+  }
 }
