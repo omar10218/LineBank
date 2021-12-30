@@ -42,6 +42,8 @@ export class Childscn5Component implements OnInit {
   cuCpTelExt: string;                 //其他-公司電話分機
   setmaterial = [];
   x:string
+  pag:string
+  y:boolean
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -96,7 +98,10 @@ export class Childscn5Component implements OnInit {
   });
 
   ngOnInit(): void {
-
+    this.pag = sessionStorage.getItem('page');
+    this.test3()
+    console.log("----------------")
+    console.log(this.y)
     this.companyWhitelistValue = '';
     this.search = sessionStorage.getItem('search');
     //取性別
@@ -157,10 +162,7 @@ export class Childscn5Component implements OnInit {
     this.getCustomerInfo();
     console.log(this.companyWhitelistValue)
   }
-  ngAfterViewInit() {
-    console.log("--------------------------")
-    console.log(this.customerInfoForm)
-    }
+  
   getStepName() {
     return sessionStorage.getItem('stepName');
   }
@@ -466,5 +468,11 @@ export class Childscn5Component implements OnInit {
   getSearch() {
     return this.search;
   }
-
+test3(){
+  if(this.pag=='3'){
+    this.y= true
+  }else{
+    this.y=false
+  }
+}
 }
