@@ -101,7 +101,7 @@ interface INCOME_DETAILS {
 }
 
 
-//Nick 財務試算
+//Nick 收入試算
 @Component({
   selector: 'app-childscn12',
   templateUrl: './childscn12.component.html',
@@ -138,6 +138,8 @@ export class Childscn12Component implements OnInit {
     this.keylist.push("paySlipList");//電腦列印薪資單 儲存時須注意欄位對照3 故跳過A4,A8
     this.keylist.push("laborDetailsList"); // 勞保投保及勞退提撥明細
     this.keylist.push("bankerList");//本行行員
+    console.log("=========================")
+    console.log(sessionStorage.getItem('stepName'))
     //建立資料架構
     for (const key of this.keylist) {
       this.AddData = {
@@ -176,6 +178,13 @@ export class Childscn12Component implements OnInit {
     // return true;
     return this.stepName == "APPLCreditL3" ? true : false;
   }
+
+    //檢查是否是徵信或授信
+    getStepName23() {
+      //測試用
+      // return true;
+      return (this.stepName == "APPLCreditL3" || this.stepName == "APPLCreditL2") ? true : false;
+    }
 
   //取得資料
   getData() {
@@ -467,7 +476,7 @@ export class Childscn12Component implements OnInit {
     this.toNumber(this.INCOME_DETAILS_List[3].A64) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A65) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A66);
     this.INCOME_DETAILS_List[3].A6=this.INCOME_DETAILS_List[3].A6==",,,,,"?"":this.INCOME_DETAILS_List[3].A6
 
-    
+
 
 
     if(!this.loading6){
@@ -1156,6 +1165,9 @@ export class Childscn12Component implements OnInit {
     data.D5 = this.toNumber(data.D5); data.D7 = this.toNumber(data.D6); data.D7 = this.toNumber(data.D7); data.D8 = this.toNumber(data.D8);
     data.C = this.toNumber(data.C);
   }
-
+  getBlueClass()//class
+  {
+    return 'ngtbody'
+  }
 
 }

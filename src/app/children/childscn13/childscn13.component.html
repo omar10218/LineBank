@@ -35,7 +35,7 @@
               <fa-icon class="icon_size" [icon]="['fas', 'image']"></fa-icon>
             </button>
           </td>
-          <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
+          <ng-container *ngIf="getSearch() == 'N' && getPage() == '2'; else elseTemplate">
             <td class="table-data" style="text-align: center;">
               <button nz-button [nzSize]="'small'" nzType="primary" (click)="startEdit(
                 data.rowId, data.web, data.webAddr, data.messageContent, data.webImg)">編輯</button>
@@ -59,7 +59,7 @@
       </tbody>
     </nz-table>
     <div style="padding:10px;text-align:center">
-      <ng-container *ngIf="getSearch() == 'N'; else elseTemplate">
+      <ng-container *ngIf="getSearch() == 'N' && getPage() == '2'; else elseTemplate">
         <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
       </ng-container>
       <ng-template #elseTemplate>

@@ -37,6 +37,8 @@ export class Childscn13Component implements OnInit {
   private applno: string;
   private search: string;
   private cuid: string;
+  private page: string;
+
   imageSrcB:string="outline_photo_black_48dp";
   imageSrcW:string="outline_image_white_48dp";
   imageSrc:string;
@@ -55,6 +57,7 @@ export class Childscn13Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.search = sessionStorage.getItem('search');
+    this.page = sessionStorage.getItem('page');
     this.imageSrc=this.imageSrcB;
   }
 
@@ -64,6 +67,10 @@ export class Childscn13Component implements OnInit {
 
   getSearch(): String {
     return this.search;
+  }
+
+  getPage(): String {
+    return this.page;
   }
 
   ngAfterViewInit() {

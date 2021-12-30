@@ -1,13 +1,13 @@
 <div class="line_bank_bankground_color">
   <br>
-  <div *ngIf="getStepName() && this.EL_INCOME_Source.data.length==7" style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="getStepName23() && this.EL_INCOME_Source.data.length==7" style="padding-left: 50px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_income()">儲存</button>
   </div>
-  <div *ngIf="!getStepName() || this.EL_INCOME_Source.data.length!=7" style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="!getStepName23() || this.EL_INCOME_Source.data.length!=7" style="padding-left: 50px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_income()" disabled>儲存</button>
   </div>
   <div class="line_bank_card_no_padding">
-    <nz-table [nzData]="EL_INCOME_Source" nzSize="small" nzTitle="財務試算" [nzLoading]="loading" nzFrontPagination="true"
+    <nz-table [nzData]="EL_INCOME_Source" nzSize="small" nzTitle="收入試算" [nzLoading]="loading" nzFrontPagination="true"
       nzSimple="true">
       <thead>
         <tr>
@@ -130,11 +130,11 @@
 
   <!-- 所得清單/報稅證明 -->
   <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
-    <nz-collapse-panel [nzHeader]="'所得清單/報稅證明'" [nzActive]="false" [nzDisabled]="!getStepName()">
+    <nz-collapse-panel [nzHeader]="'所得清單/報稅證明'" [nzActive]="false" >
 
       <div class="line_bank_card_no_padding">
         <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="所得清單/報稅證明" nzFrontPagination="false"
-          nzSimple="false">
+          nzSimple="false"  >
           <thead>
             <tr>
               <th class="table-header" style="width:2%">序號</th>
@@ -149,7 +149,7 @@
               <th class="table-header" style="width:18%">說明</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody [ngClass]="getStepName() ? '' : getBlueClass()">
             <!-- 1 -->
             <tr>
               <td rowspan="15">1</td>
@@ -424,7 +424,7 @@
 
   <!-- 扣繳憑單 -->
   <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
-    <nz-collapse-panel [nzHeader]="'扣繳憑單'" [nzActive]="false" [nzDisabled]="!getStepName()">
+    <nz-collapse-panel [nzHeader]="'扣繳憑單'" [nzActive]="false" >
 
       <div class="line_bank_card_no_padding">
         <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="扣繳憑單" nzFrontPagination="false"
@@ -443,7 +443,7 @@
               <th class="table-header" style="width:18%">說明</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody  [ngClass]="getStepName() ? '' : getBlueClass()">
             <!-- 2 -->
             <tr>
               <td rowspan="14">2</td>
@@ -698,7 +698,7 @@
 
   <!-- 薪轉存褶 -->
   <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
-    <nz-collapse-panel [nzHeader]="'薪轉存褶'" [nzActive]="false" [nzDisabled]="!getStepName()">
+    <nz-collapse-panel [nzHeader]="'薪轉存褶'" [nzActive]="false" >
 
       <div class="line_bank_card_no_padding">
         <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="薪轉存褶" nzFrontPagination="false"
@@ -717,7 +717,7 @@
               <th class="table-header" style="width:18%">說明</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody  [ngClass]="getStepName() ? '' : getBlueClass()">
             <!-- 3 -->
             <tr>
               <td rowspan="8">3</td>
@@ -993,7 +993,7 @@
 
   <!-- 電腦列印薪資單 -->
   <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
-    <nz-collapse-panel [nzHeader]="'電腦列印薪資單'" [nzActive]="false" [nzDisabled]="!getStepName()">
+    <nz-collapse-panel [nzHeader]="'電腦列印薪資單'" [nzActive]="false" >
 
       <div class="line_bank_card_no_padding">
         <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="電腦列印薪資單" nzFrontPagination="false"
@@ -1012,7 +1012,7 @@
               <th class="table-header" style="width:18%">說明</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody  [ngClass]="getStepName() ? '' : getBlueClass()">
             <!-- 4 -->
             <tr>
               <td rowspan="6">4</td>
@@ -1244,7 +1244,7 @@
 
   <!-- 勞保投保及勞退提撥明細 -->
   <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
-    <nz-collapse-panel [nzHeader]="'勞保投保及勞退提撥明細'" [nzActive]="false" [nzDisabled]="!getStepName()">
+    <nz-collapse-panel [nzHeader]="'勞保投保及勞退提撥明細'" [nzActive]="false" >
 
       <div class="line_bank_card_no_padding">
         <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="勞保投保及勞退提撥明細" nzFrontPagination="false"
@@ -1263,7 +1263,7 @@
               <th class="table-header" style="width:18%">說明</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody  [ngClass]="getStepName() ? '' : getBlueClass()">
             <!-- 5 -->
             <tr>
               <td rowspan="4">5</td>
@@ -1372,7 +1372,7 @@
 
   <!-- 本行行員 -->
   <nz-collapse style="width:90%;position: relative;margin:10px auto;border-radius: 10px 10px 0  0 ;">
-    <nz-collapse-panel [nzHeader]="'本行行員'" [nzActive]="false" [nzDisabled]="!getStepName()">
+    <nz-collapse-panel [nzHeader]="'本行行員'" [nzActive]="false" >
 
       <div class="line_bank_card_no_padding">
         <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="本行行員" nzFrontPagination="false"
@@ -1391,7 +1391,7 @@
               <th class="table-header" style="width:18%">說明</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody  [ngClass]="getStepName() ? '' : getBlueClass()">
 
             <!-- 6 -->
             <tr>
