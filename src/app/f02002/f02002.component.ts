@@ -159,11 +159,12 @@ export class F02002Component implements OnInit {
           sessionStorage.setItem('applno', applno);
           sessionStorage.setItem('cuid', nationalId);
           sessionStorage.setItem('search', 'Y');
-          if (data.rspBody.length > 0) {
-            sessionStorage.setItem('fds', data.rspBody[0].fds != null ? data.rspBody[0].fds : '');
-          } else {
-            sessionStorage.setItem('fds', '');
-          }
+          console.log(sessionStorage.setItem('fds', ''))
+          // if (data.rspBody.length > 0) {
+          //   sessionStorage.setItem('fds', data.rspBody[0].fds != 'undefined' ? data.rspBody[0].fds : '');
+          // } else {
+          //   sessionStorage.setItem('fds', '');
+          // }
 
           sessionStorage.setItem('queryDate', '');
           sessionStorage.setItem('winClose', 'Y');
