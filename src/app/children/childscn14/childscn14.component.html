@@ -19,11 +19,12 @@
         <thead>
           <tr>
             <th class="table-header" style="width:5%"></th>
-            <th class="table-header" style="width:5%">No</th>
+            <th class="table-header" style="width:3%">No</th>
             <th class="table-header" style="width:15%">文件類型</th>
+            <th class="table-header" style="width:15%">文件名稱</th>
             <th class="table-header" style="width:10%">文件Key值</th>
             <th class="table-header"style="width:30%">備註</th>
-            <th class="table-header" style="width:25%">上傳日期時間</th>
+            <th class="table-header" style="width:15%">上傳日期時間</th>
             <th class="table-header">上傳人員</th>
           </tr>
         </thead>
@@ -44,6 +45,7 @@
             </td>
             <td class="table-data">{{i+1 }}</td>
             <td class="table-data">{{ data.CODE_DESC }}</td>
+            <td class="table-data">{{ data.DOC_NAME }}</td>
             <td class="table-data">{{ data.FILE_ATTACHMENT_ID }}</td>
             <td class="table-data">{{ data.REMARK }}</td>
             <td class="table-data">{{ data.UPLOAD_TIME | date: 'yyyy-MM-dd HH：mm：ss' }}</td>

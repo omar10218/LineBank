@@ -147,6 +147,8 @@ export class Childscn14Component implements OnInit {
     jsonObject['cuNm'] = this.cuNm;
     this.childscn14Service.childscn14('f01/childscn14action4', jsonObject).subscribe(data => {
       const byteCharacters = atob(data.rspBody.file);
+      const fileName = data.rspBody.fileName;
+      console.log(fileName);
       const byteNumbers = new Array(byteCharacters.length);
       for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
@@ -157,6 +159,7 @@ export class Childscn14Component implements OnInit {
       let downloadURL = window.URL.createObjectURL(blob);
       let link = document.createElement('a');
       link.href = downloadURL;
+      link.download = fileName;
       link.click();
 
     });
