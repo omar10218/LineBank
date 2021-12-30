@@ -101,7 +101,7 @@ interface INCOME_DETAILS {
 }
 
 
-//Nick 財務試算
+//Nick 收入試算
 @Component({
   selector: 'app-childscn12',
   templateUrl: './childscn12.component.html',
@@ -178,6 +178,13 @@ export class Childscn12Component implements OnInit {
     // return true;
     return this.stepName == "APPLCreditL3" ? true : false;
   }
+
+    //檢查是否是徵信或授信
+    getStepName23() {
+      //測試用
+      // return true;
+      return (this.stepName == "APPLCreditL3" || this.stepName == "APPLCreditL2") ? true : false;
+    }
 
   //取得資料
   getData() {
