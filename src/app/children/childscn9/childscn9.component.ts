@@ -53,7 +53,7 @@ export class Childscn9Component implements OnInit {
     formdata.append('cuid', this.cuid);
     //this.router.navigate(['./'+this.routerCase+'/CHILDSCN9/CHILDSCN9PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });
 
-    const baseUrl = '/f01/childscn9';
+    const baseUrl = 'f01/childscn9';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn9Service.getDate(baseUrl, jsonObject).subscribe(data => {
