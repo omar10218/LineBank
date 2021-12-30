@@ -132,6 +132,8 @@ export class F01007Component implements OnInit {
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('stepName', this.stepName);
+        // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
+        sessionStorage.setItem('page','7');
         this.router.navigate(['./F01007/F01007SCN1']);
       }
     });

@@ -215,12 +215,14 @@ export class F02003Component implements OnInit {
     sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('queryDate', '');
     sessionStorage.setItem('winClose', 'Y');
-    sessionStorage.setItem('page', '3');//複審案件查詢
+    // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
+    sessionStorage.setItem('page', '03');
     sessionStorage.setItem('stepName', '0');
     //開啟徵審主畫面
     const url = window.location.href.split("/#");
     window.open(url[0] + "/#/F01002/F01002SCN1");
     sessionStorage.setItem('winClose', 'N');
+    sessionStorage.setItem('search', 'N');
   }
   getCREDIT()//審核結果
   {
