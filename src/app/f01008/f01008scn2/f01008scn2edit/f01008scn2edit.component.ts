@@ -39,9 +39,12 @@ export class F01008scn2editComponent implements OnInit {
     jsonObject['creditlevel'] = 'L2';
     this.block = true;
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      if (data.rspCode === '0000' || data.rspMsg === '儲存成功') {
+      if (data.rspCode === '0000' || data.rspMsg === '儲存成功')
+      {
         this.block = false;
-        window.location.reload();
+        this.dialogRef.close({ event: 'success' });
+        // window.location.reload();
+
       }
     })
   }
