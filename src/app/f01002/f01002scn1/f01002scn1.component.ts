@@ -50,6 +50,9 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     this.JCICSource$ = this.f01002scn1Service.JCICItemsSource$.subscribe((data) => {
       this.isShowItems = data.show;
     });
+    this.JCICSource$ = this.f01002scn1Service.HISTORYSource$.subscribe((data) => {
+      this.historyData = data;
+    });
   }
 
   private creditLevel: string = 'APPLCreditL3';
@@ -68,6 +71,8 @@ export class F01002scn1Component implements OnInit, OnDestroy {
   isShowItems: boolean;
   JCICSource$: Subscription;
   JCICAddSource$: Subscription;
+
+  historyData: any;
 
   creditResult: string;
   level: string;
@@ -324,7 +329,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
           });
           return;
         } else {
-            this.result(baseUrl, jsonObject, result, count);
+          this.result(baseUrl, jsonObject, result, count);
         }
         // setTimeout(() => {
         // this.block = false;
@@ -340,13 +345,13 @@ export class F01002scn1Component implements OnInit, OnDestroy {
   result(baseUrl: string, jsonObject: JSON, result: string, count: number) {
     this.block = true;
     this.f01002scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
+      //儲存歷史資料
+      this.setHistory(count);
       await this.childscn1Service.setHistory(this.history, "徵信案件完成", this.applno);
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
       if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { } else {
-        //儲存歷史資料
-        this.setHistory(count);
         // this.saveMemo();
         this.removeSession(count);
         this.router.navigate(['./F01002']);
@@ -399,20 +404,22 @@ export class F01002scn1Component implements OnInit, OnDestroy {
   //設定歷史資料紀錄參數 20211222
   setHistory(count: number) {
     if (count > 0) {
-      this.history.push({ value: sessionStorage.getItem('period' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD' }); //分段起始期數
-      this.history.push({ value: sessionStorage.getItem('periodType' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD_TYPE' }); //期別
-      this.history.push({ value: sessionStorage.getItem('interestType' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_TYPE' }); //利率型態
-      this.history.push({ value: sessionStorage.getItem('approveInterest' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'APPROVE_INTEREST' }); //核准利率
-      this.history.push({ value: sessionStorage.getItem('interest' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST' }); //固定利率
-      this.history.push({ value: sessionStorage.getItem('interestBase' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_BASE' }); //當時的指數,基放,郵儲利率
+      for (let index = 1; index <= count; index++) {
+        this.history.push({ value: sessionStorage.getItem('period' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].period }); //分段起始期數
+        this.history.push({ value: sessionStorage.getItem('periodType' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD_TYPE', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].periodType }); //期別
+        this.history.push({ value: sessionStorage.getItem('interestType' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_TYPE', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].interestType }); //利率型態
+        this.history.push({ value: sessionStorage.getItem('approveInterest' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'APPROVE_INTEREST', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].approveInterest }); //核准利率
+        this.history.push({ value: sessionStorage.getItem('interest' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].interest }); //固定利率
+        this.history.push({ value: sessionStorage.getItem('interestBase' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_BASE', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].interestBase }); //當時的指數,基放,郵儲利率
+      }
     }
-    this.history.push({ value: this.approveAmt, tableName: 'EL_CREDITMAIN', valueInfo: 'APPROVE_AMT' }); //核准額度
-    this.history.push({ value: this.lowestPayRate, tableName: 'EL_CREDITMAIN', valueInfo: 'LOWEST_PAY_RATE' }); //最低還款比例(循環型)
-    this.history.push({ value: this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT' }); //核決結果
-    this.history.push({ value: this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT' }); //徵信修改申貸金額
-    this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS' }); //人員記錄-PM策略客群
-    this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK' }); //人員記錄-風險等級
-    this.history.push({ value: this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION' }); //審核意見
+    this.history.push({ value: this.approveAmt, tableName: 'EL_CREDITMAIN', valueInfo: 'APPROVE_AMT', originalValue: this.historyData.approveAmt }); //核准額度
+    this.history.push({ value: this.lowestPayRate, tableName: 'EL_CREDITMAIN', valueInfo: 'LOWEST_PAY_RATE', originalValue: this.historyData.lowestPayRate }); //最低還款比例(循環型)
+    this.history.push({ value: this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT', originalValue: this.historyData.creditResult }); //核決結果
+    this.history.push({ value: this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT', originalValue: this.historyData.caApplicationAmount }); //徵信修改申貸金額
+    this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS', originalValue: this.historyData.caPmcus }); //人員記錄-PM策略客群
+    this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK', originalValue: this.historyData.caRisk }); //人員記錄-風險等級
+    // this.history.push({ value: this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION' }); //審核意見
   }
 
   //儲存 SUPPLY_AML

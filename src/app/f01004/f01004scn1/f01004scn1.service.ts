@@ -8,13 +8,16 @@ import { BaseService } from 'src/app/base.service';
 })
 export class F01004Scn1Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
-  
+
   private JCICSource = new Subject<any>();
   JCICSource$ = this.JCICSource.asObservable();
   private JCICAddSource = new Subject<any>();
   JCICAddSource$ = this.JCICAddSource.asObservable();
   private JCICItemsSource = new Subject<any>();
   JCICItemsSource$ = this.JCICItemsSource.asObservable();
+  //歷史資料參數
+  private HISTORYSource = new Subject<any>();
+  HISTORYSource$ = this.HISTORYSource.asObservable();
 
   setJCICSource(data): void {
     this.JCICSource.next(data);
@@ -26,6 +29,11 @@ export class F01004Scn1Service extends BaseService {
 
   setJCICItemsSource(data): void {
     this.JCICItemsSource.next(data);
+  }
+
+  //設定歷史資料原值參數
+  setHistorySource(data): void {
+    this.HISTORYSource.next(data);
   }
 
   dialogData: any;
