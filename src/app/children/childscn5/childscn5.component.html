@@ -1,7 +1,7 @@
 <div [ngClass]="getStepName() == 'APPLFraud' ? 'all-disable' : ''">
   <div class="line_bank_bankground_color">
     <br>
-    <form [formGroup]="customerInfoForm" style="width:95%;margin:10px auto">
+    <form [formGroup]="customerInfoForm" style="width:95%;margin:10px auto" #formControl="ngForm">
       <div class="line_bank_card_no_padding_child">
         <!-- 基本資料 -->
         <div class="line_bank_form_header_title">基本資料</div>
@@ -330,25 +330,29 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作名稱</span>
-              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn" >
+              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作公司職稱</span>
-              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle" name="preJobTitle" >
+              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle" name="preJobTitle" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(年數)</span>
-              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear">
+              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(月數)</span>
-              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth" name="preJobMonth" >
+              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth" name="preJobMonth" required>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
@@ -401,10 +405,10 @@
         </nz-table>
         <div style="padding:10px;text-align: center">
           <div *ngIf="getSearch() == 'N'">
-            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()">儲存</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" [disabled]="!formControl.valid && pag == 2? true:false ">儲存</button>
           </div>
           <div *ngIf="getSearch() != 'N'">
-            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" disabled>儲存</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" [disabled]="!formControl.valid && pag == 2? false:true ">儲存</button>
           </div>
         </div>
       </div>
