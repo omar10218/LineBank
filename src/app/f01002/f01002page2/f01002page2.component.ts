@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { OptionsCode } from 'src/app/interface/base';
 import { HandleSubscribeService } from 'src/app/services/handle-subscribe.service';
 import { F01002Service } from '../f01002.service';
 import { F01002page2updateComponent } from './f01002page2update/f01002page2update.component';
@@ -30,8 +31,11 @@ interface callout {
 
 export class F01002page2Component implements OnInit {
   applno: string;
-  callOutDataSource = [];  // 照會提醒清單
-  rspBodyList: callout[] = [];//table資料
+  callOutDataSource = [];           // 照會提醒清單
+  rspBodyList: callout[] = [];      //table資料
+  telCheck: OptionsCode[] = [];     // 電話驗證
+  telCondition: OptionsCode[] = []; // 電話狀況
+  conType: OptionsCode[] = [];      // 聯絡方式
   total = 1;
   loading = true;
   pageSize = 50;
@@ -51,6 +55,28 @@ export class F01002page2Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.f01002Service.getSysTypeCode('TEL_CHECK').subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.telCheck.push({ value: codeNo, viewValue: desc })
+      }
+    });
+    this.f01002Service.getSysTypeCode('TEL_CONDITION').subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.telCondition.push({ value: codeNo, viewValue: desc })
+      }
+    });
+    this.f01002Service.getSysTypeCode('CON_TYPE').subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.conType.push({ value: codeNo, viewValue: desc })
+      }
+    });
+
     // this.search = sessionStorage.getItem('search');
     // this.empNo = localStorage.getItem("empNo");
     this.getCalloutList(this.pageIndex, this.pageSize);
@@ -128,6 +154,37 @@ sortChange(e: string) {
 
   refreshTable() {
     this.getCalloutList(this.pageIndex, this.pageSize);
+  }
+
+  // 將案件類型轉成中文
+  getTelCheck(codeVal: string): string {
+    for (const data of this.telCheck) {
+      if (data.value == codeVal) {
+        return data.viewValue;
+        break;
+      }
+    }
+    return codeVal;
+  }
+
+  getTelCondition(codeVal: string): string {
+    for (const data of this.telCheck) {
+      if (data.value == codeVal) {
+        return data.viewValue;
+        break;
+      }
+    }
+    return codeVal;
+  }
+
+  getConType(codeVal: string): string {
+    for (const data of this.conType) {
+      if (data.value == codeVal) {
+        return data.viewValue;
+        break;
+      }
+    }
+    return codeVal;
   }
 
 }

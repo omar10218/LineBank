@@ -29,12 +29,12 @@
                                     {{data.APPLNO}}
                                 </button>
                             </td>
-                            <td class="table-data">{{ data.CON_TYPE }}</td>
+                            <td class="table-data">{{ data.CON_TYPE }} - {{ getConType(data.CON_TYPE) }}</td>
                             <td class="table-data">{{ data.PHONE }}</td>
-                            <td class="table-data">{{ data.TEL_CONDITION }}</td>
-                            <td class="table-data">{{ data.TEL_CHECK }}</td>
+                            <td class="table-data">{{ data.TEL_CONDITION }} - {{ getTelCondition(data.TEL_CONDITION) }}</td>
+                            <td class="table-data">{{data.TEL_CHECK}} - {{ getTelCheck(data.TEL_CHECK) }}</td>
                             <td class="table-data">{{ data.CON_MEMO }}</td>
-                            <td class="table-data">{{ data.CALLOUT_DATE | date: 'yyyy-MM-dd.hh:mm' }}</td>
+                            <td class="table-data">{{ data.CALLOUT_DATE | date: 'yyyy-MM-dd HH:mm' }}</td>
                             <td class="table-data">
                                 <nz-radio-group [(ngModel)]="data.CALLOUT_RDO"
                                     (ngModelChange)="extendTime(data.RID, data.CALLOUT_RDO)" name="extendTimeValue">
