@@ -42,6 +42,8 @@ export class F02002Component implements OnInit {
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
     this.f02002Service.getRescanEmpno(baseUrl).subscribe(data => {
+      console.log("================================")
+      console.log(data)
       if (data.rspBody.length > 0) {
         for (let i = 0; i < data.rspBody.length; i++) {
           if (data.rspBody[i].RESCANEMPNO != null) {
@@ -157,11 +159,12 @@ export class F02002Component implements OnInit {
           sessionStorage.setItem('applno', applno);
           sessionStorage.setItem('cuid', nationalId);
           sessionStorage.setItem('search', 'Y');
-          if (data.rspBody.length > 0) {
-            sessionStorage.setItem('fds', data.rspBody[0].fds != null ? data.rspBody[0].fds : '');
-          } else {
-            sessionStorage.setItem('fds', '');
-          }
+          console.log(sessionStorage.setItem('fds', ''))
+          // if (data.rspBody.length > 0) {
+          //   sessionStorage.setItem('fds', data.rspBody[0].fds != 'undefined' ? data.rspBody[0].fds : '');
+          // } else {
+          //   sessionStorage.setItem('fds', '');
+          // }
 
           sessionStorage.setItem('queryDate', '');
           sessionStorage.setItem('winClose', 'Y');

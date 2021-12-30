@@ -92,6 +92,7 @@ export class F02002returnComponent implements OnInit {
       this.fileToUpload = target.files.item(0);
       this.formdata2.append(rid, this.fileToUpload)
       this.quantity = this.quantity - 1;
+      console.log(this.fileToUpload)
     } else {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法檔，請檢查檔案格式重新上傳" });
       alert(this.uploadForm.value.ERROR_MESSAGE);
