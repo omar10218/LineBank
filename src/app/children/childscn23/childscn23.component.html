@@ -538,9 +538,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of one;let i =index;">
-          <td>
+          <td style="text-align:center">
             <!-- <input class="inpu1" type="checkbox" checked="true"  (change)="test($event)"> -->
-            <mat-checkbox color="primary" [(ngModel)]="checkboxArray[i].completed" (change)="addcheckbox($event.checked,item.ID,item.MONTHLY_PAY_029,item.MONTHLY_PAY_421,item.MONTHLY_PAY_CC)" ></mat-checkbox>
+            <mat-checkbox  color="primary" [(ngModel)]="checkboxArray[i].completed" (change)="addcheckbox($event.checked,item.ID,item.MONTHLY_PAY_029,item.MONTHLY_PAY_421,item.MONTHLY_PAY_CC)" ></mat-checkbox>
           </td>
           <td>
             <div nz-col nzSpan="6">
@@ -583,7 +583,7 @@
         [disabled]="search == 'N' && checkboxAny.length > 0 ? false:true">儲存</button>
       <button nz-button [nzSize]="'middle'" nzType="primary" id="del" style="border-radius: 5px;" (click)="del()"
         [disabled]="search == 'N' && checkboxAny.length > 0 ? false:true">刪除</button>
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="test()">測試</button>
+      <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"(click)="test()">測試</button> -->
     </div>
   </div>
   <br>

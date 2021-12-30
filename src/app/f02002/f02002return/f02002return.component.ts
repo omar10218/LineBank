@@ -85,7 +85,7 @@ export class F02002returnComponent implements OnInit {
 
   onChange(evt, rid: string,) {
     const target: DataTransfer = <DataTransfer>(evt.target);
-    this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG|.PNG)/);
+    this.isValidFile = !!target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
     var rid = rid;
     if (this.isValidFile) {
       this.fileList = this.fileList.filter(e => e.value != rid);
@@ -93,7 +93,7 @@ export class F02002returnComponent implements OnInit {
       this.formdata2.append(rid, this.fileToUpload)
       this.quantity = this.quantity - 1;
     } else {
-      this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法圖檔，請檢查檔案格式重新上傳" });
+      this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法檔，請檢查檔案格式重新上傳" });
       alert(this.uploadForm.value.ERROR_MESSAGE);
     }
   }

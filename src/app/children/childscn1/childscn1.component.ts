@@ -625,7 +625,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     });
     this.changePage();
     this.getCreditmemo(this.pageIndex, this.pageSize);
-    this.insertHistory(this.mark);
+    // this.insertHistory(this.mark);
   }
 
   formatDate(date: string) {

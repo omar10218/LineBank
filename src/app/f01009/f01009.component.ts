@@ -135,6 +135,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.swcRiskLevel = '';
     this.swcCollFlag = '';
     this.swcInputType = '';
+    this.swcCusFlag = '';
   }
 
   ngAfterViewInit() {
@@ -166,17 +167,21 @@ export class F01009Component implements OnInit, AfterViewInit {
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
+    jsonObject['swcCollStatus'] = this.swcCollStatus;
+    jsonObject['swcCollFlag'] = this.swcCollFlag;
+    jsonObject['swcRiskLevel'] = this.swcRiskLevel;
+    jsonObject['swcInputType'] = this.swcInputType;
+    jsonObject['swcCusFlag'] = this.swcCusFlag;
     this.f01009Service.getCaseList(jsonObject).subscribe(data => {
-      if (data.rspBody.size > 0)
-      {
+      if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
       }
-      else
-      {
+      else {
         this.cusinfoDataSource = null;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "查無資料" }})
+          data: { msgStr: "查無資料" }
+        })
       }
     });
   }
@@ -233,23 +238,23 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.total = 1;
   }
 
-// 儲存案件註記
-saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
-  let msg = '';
-  let jsonObject: any = {};
-  jsonObject['swcApplno'] = swcApplno;
-  jsonObject['swcCaseMemo'] = swcCaseMemo;
+  // 儲存案件註記
+  saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
+    let msg = '';
+    let jsonObject: any = {};
+    jsonObject['swcApplno'] = swcApplno;
+    jsonObject['swcCaseMemo'] = swcCaseMemo;
 
-  this.f01009Service.saveCaseMemo(jsonObject).subscribe(data => {
-    msg = data.rspMsg;
-  });
-  setTimeout(() => {
-    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-    if (msg != null && msg == 'success') { window.location.reload(); }
-  }, 1000);
-}
-   // 清除資料
-   clear() {
+    this.f01009Service.saveCaseMemo(jsonObject).subscribe(data => {
+      msg = data.rspMsg;
+    });
+    setTimeout(() => {
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
+      if (msg != null && msg == 'success') { window.location.reload(); }
+    }, 1000);
+  }
+  // 清除資料
+  clear() {
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
@@ -259,6 +264,7 @@ saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
     this.swcRiskLevel = '';
     this.caseType = '';
     this.swcInputType = '';
+    this.swcCusFlag = '';
     this.empNo = localStorage.getItem("empNo");
     this.getCaseList();
   }
