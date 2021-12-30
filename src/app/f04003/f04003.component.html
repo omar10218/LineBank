@@ -56,7 +56,7 @@
       <thead>
         <tr>
           <th class="table-header" style="width: 50px;" >
-            <mat-checkbox color="primary"   (change)="setAll($event.checked)"  [(ngModel)]="isAllCheck" name="isAllCheck" >全選</mat-checkbox>
+            <mat-checkbox color="primary"   (change)="setAll($event.checked)"  [(ngModel)]="isAllCheck" name="isAllCheck"  [disabled]="Transfer ==''? true:false">全選</mat-checkbox>
           </th>
           <th class="table-header" style="width:150px">處理人員</th>
           <th class="table-header" style="width: 100px;">處理人員姓名</th>
