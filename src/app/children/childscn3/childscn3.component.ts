@@ -132,16 +132,13 @@ export class Childscn3Component implements OnInit {
     this.jsonObject['result'] = this.l1;
     const url = 'f01/childscn3action1';
     this.childsc3Service.oneseve(url, this.jsonObject).subscribe(data => {
-      console.log('=========')
-      console.log(data)
+
       msgStr = data.rspMsg
       if (data.rspCode == '0000')
        {
 
         this.childsc3Service.oneseve(ul, this.jsonObject).subscribe(data => {
-          console.log('=========')
-          console.log(data)
-          console.log(data.rspMsg)
+
           msgStr = data.rspMsg
 
           if (data.rspCode == '0000')
@@ -162,7 +159,6 @@ export class Childscn3Component implements OnInit {
       }
       else
       {
-        alert('11111')
         this.getTable()
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
