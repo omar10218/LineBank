@@ -1297,15 +1297,13 @@
     <!-- 徵審代碼 -->
     <div class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
       <div class="line_bank_form_header_title">徵審代碼</div>
+      <div style="padding-top:5px;"></div>
+      <ng-container  *ngFor="let row of CREDIT_View_List;let i = index">
 
-      <ng-container *ngFor="let row of CREDIT_View_List;let i = index">
-
-        <div nz-row style="padding:5px;padding-top: 0px;">
-          <div nz-col nzSpan="1" style="padding:15px;text-align:center;">
-            <h2 style="text-align:center;">{{i+1}}</h2>
-          </div>
+        <div nz-row style="padding-left:5px;padding-right: 5px;">
+            <h3 style="padding-left:5px;padding-top:10px; width:25px;">{{i+1}}</h3>
           <div nz-col nzSpan="3">
-            <div style="padding:5px"><span class="form-title">徵審代碼類別</span>
+            <div style="padding-left:5px;padding-right: 5px;"><span class="form-title">徵審代碼類別</span>
               <mat-select [(ngModel)]="row.upCreditCode" name="upCreditCode" (ngModelChange)="getCREDIT(row)">
                 <mat-option *ngFor="let code of row.upCreditCodeList" [value]="code.value">
                   {{code.viewValue}}
@@ -1314,7 +1312,7 @@
             </div>
           </div>
           <div nz-col nzSpan="6">
-            <div style="padding:5px"><span class="form-title">徵審代碼</span>
+            <div style="padding-left:5px;padding-right: 5px;"><span class="form-title">徵審代碼</span>
               <mat-select [(ngModel)]="row.reasonCode" name="reasonCode" (ngModelChange)="checkReasonCode(row)">
                 <mat-option *ngFor="let code of row.creditCodeList" [value]="code.value">
                   {{code.viewValue}}
@@ -1323,11 +1321,12 @@
             </div>
           </div>
           <div nz-col nzSpan="8">
-            <div style="padding:5px"><span class="form-title">徵審註記</span><input matInput #input class="form-control"
+            <div style="padding-left:5px;padding-right: 5px;"><span class="form-title">徵審註記</span><input matInput #input class="form-control"
                 [(ngModel)]="row.resonContent" name="resonContent" placeholder="輸入註記" maxlength="40"></div>
           </div>
         </div>
       </ng-container>
+      <div style="padding-top:10px;"></div>
     </div>
 
     <!-- 提供AML資訊 徵信以外 -->
