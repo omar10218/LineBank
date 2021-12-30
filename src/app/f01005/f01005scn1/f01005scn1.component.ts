@@ -180,48 +180,20 @@ export class F01005scn1Component implements OnInit {
   // }
 
   save(url: string, result: string) {
+
+    let count: number = Number(sessionStorage.getItem('count'));
+
     const baseUrl = url;
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = 'Fraud';
 
-    this.approveAmt = sessionStorage.getItem('resultApproveAmt');
-    this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');
-
-    this.period = sessionStorage.getItem('period');
-    this.periodType = sessionStorage.getItem('periodType');
-    this.interestType = sessionStorage.getItem('interestType');
-    this.approveInterest = sessionStorage.getItem('approveInterest');
-    this.interest = sessionStorage.getItem('interest');
-    this.interestBase = sessionStorage.getItem('interestBase');
     this.creditResult = sessionStorage.getItem('creditResult');
-    this.caApplicationAmount = sessionStorage.getItem('caApplicationAmount');
-    this.caPmcus = sessionStorage.getItem('caPmcus');
-    this.caRisk = sessionStorage.getItem('caRisk');
-    this.mark = sessionStorage.getItem('mark');
 
     let jsoncreditResult: any = {};
-    jsoncreditResult['approveAmt'] = this.approveAmt;
-    jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
-    jsoncreditResult['caPmcus'] = this.caPmcus;
-    jsoncreditResult['caRisk'] = this.caRisk;
     jsoncreditResult['creditResult'] = this.creditResult;
 
-    let jsonCreditInterestPeriod: any = {};
-    jsonCreditInterestPeriod['period'] = this.period;
-    jsonCreditInterestPeriod['periodType'] = this.periodType;
-    jsonCreditInterestPeriod['interestType'] = this.interestType;
-    jsonCreditInterestPeriod['interestCode'] = '1';
-    jsonCreditInterestPeriod['approveInterest'] = this.approveInterest; // 核准利率
-    jsonCreditInterestPeriod['interest'] = this.interest; // 固定利率
-    jsonCreditInterestPeriod['interestBase'] = this.interestBase; // 基放利率
-
-    let jsonElApplicationInfo: any = {};
-    jsonElApplicationInfo['caApplicationAmount'] = this.caApplicationAmount;
-
     jsonObject['creditResult'] = jsoncreditResult;
-    jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
-    jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
     // if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
     //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
     //     data: { msgStr: '請填寫核決結果!' }
@@ -229,7 +201,7 @@ export class F01005scn1Component implements OnInit {
     // } else {
     //   if (this.creditResult == 'A') {
     //     if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '' && this.periodType != '' && this.period != '' && this.mark != '' && this.mark != null) {
-          this.result(baseUrl, jsonObject, result);
+          this.result(baseUrl, jsonObject, result, count);
         // } else {
           // const childernDialogRef = this.dialog.open(ConfirmComponent, {
           //   data: { msgStr: '審核結果未填寫' }
@@ -245,7 +217,7 @@ export class F01005scn1Component implements OnInit {
     return this.f01005scn1Service.saveOrEditMsgJson(url, json);
   }
 
-  result(baseUrl: string, jsonObject: JSON, result: string) {
+  result(baseUrl: string, jsonObject: JSON, result: string, count: number) {
     this.block = true;
     this.f01005scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -253,22 +225,25 @@ export class F01005scn1Component implements OnInit {
       });
       if ( data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1' ) { } else {
         // this.saveMemo();
-        this.removeSession();
+        this.removeSession(count);
         this.router.navigate(['./F01005']);
       }
       this.block = false;
     });
   }
 
-  removeSession() {
+  removeSession(count: number) {
+    for (let index = 1; index <= count; index++) {
+      sessionStorage.removeItem("period" + index);
+      sessionStorage.removeItem("periodType" + index);
+      sessionStorage.removeItem("interestType" + index);
+      sessionStorage.removeItem("approveInterest" + index);
+      sessionStorage.removeItem("interest" + index);
+      sessionStorage.removeItem("interestBase" + index);
+      sessionStorage.removeItem("id" + index);
+    }
     sessionStorage.removeItem("resultApproveAmt");
     sessionStorage.removeItem("resultLowestPayRate");
-    sessionStorage.removeItem("period");
-    sessionStorage.removeItem("periodType");
-    sessionStorage.removeItem("interestType");
-    sessionStorage.removeItem("approveInterest");
-    sessionStorage.removeItem("interest");
-    sessionStorage.removeItem("interestBase");
     sessionStorage.removeItem("creditResult");
     sessionStorage.removeItem("caApplicationAmount");
     sessionStorage.removeItem("caPmcus");
