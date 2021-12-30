@@ -88,6 +88,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01002Service.getCaseList(jsonObject).subscribe(data => {
+      console.log(data)
       if (data.rspBody.size > 0)
       {
         this.total = data.rspBody.size;
@@ -220,4 +221,5 @@ data_number(p: number) {
     this.empNo = localStorage.getItem("empNo");
     this.getCaseList();
   }
+
 }

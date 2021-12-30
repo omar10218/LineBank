@@ -229,3 +229,37 @@ border:1px solid  #c9c9c9;
   border-color:#f80000;
   border-radius:5px;
 }
+.submit{
+  cursor: pointer;
+  height:32px;
+  width:70%;
+  padding: 4px 15px;
+  color: #24C875;
+  background:white;
+  transition: all .3s cubic-bezier(.645,.045,.355,1);
+  border-color:#24C875;
+  border-radius:5px;
+}
+.submit:hover{
+  height:32px;
+  width:70%;
+  cursor: pointer;
+  color:#ffffff;
+  padding: 4px 15px;
+  background:#24C875;
+  border-color:#24C875;
+  transition: all .3s cubic-bezier(.645,.045,.355,1);
+  border-radius:5px;
+  box-shadow:0 2px 0 rgb(0 0 0 / 5%);
+}
+.submit:active{
+  height:32px;
+  width:70%;
+  cursor: pointer;
+  color:#ffffff;
+  padding: 4px 15px;
+  transition: all .3s cubic-bezier(.645,.045,.355,1);
+  background:#24C875;
+  border-color:#24C875;
+  border-radius:5px;
+}
