@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F03015Service } from 'src/app/f03015/f03015.service';
@@ -43,6 +43,7 @@ export class Childscn5Component implements OnInit {
   setmaterial = [];
   thous: string                         // 千分位處理
   yn: boolean                           // 判斷是否為授信
+  pag:string;
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -99,6 +100,9 @@ export class Childscn5Component implements OnInit {
   ngOnInit(): void {
     this.companyWhitelistValue = '';
     this.search = sessionStorage.getItem('search');
+    this.pag = sessionStorage.getItem('page');
+    console.log("++++++++++++++++++++++++++==")
+    console.log(sessionStorage.getItem('page'))
     //取性別
     this.childscn5Service.getSysTypeCode('GENDER')
       .subscribe(data => {
@@ -463,4 +467,14 @@ export class Childscn5Component implements OnInit {
     return this.search;
   }
 
+  formControl = new FormControl('', [
+    Validators.required
+    // Validators.email,
+  ]);
+
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
 }
