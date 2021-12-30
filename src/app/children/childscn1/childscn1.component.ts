@@ -334,12 +334,18 @@ export class Childscn1Component implements OnInit, OnDestroy {
         for (const jsonObj of data.rspBody.mappingList) {
           const codeNo = jsonObj.codeNo;
           const desc = jsonObj.codeDesc;
-          if (this.page == '2') {
+          if (this.level == 'L4') {
+            if (codeNo == 'W') {
+              this.creditResultCode.push({ value: codeNo, viewValue: desc });
+            }
+          } else if (this.level == 'L3') {
             if (codeNo == 'C' || codeNo == 'D') {
               this.creditResultCode.push({ value: codeNo, viewValue: desc });
             }
           } else {
-            this.creditResultCode.push({ value: codeNo, viewValue: desc });
+            if (codeNo == 'A' || codeNo == 'D') {
+              this.creditResultCode.push({ value: codeNo, viewValue: desc });
+            }
           }
         }
       });
