@@ -16,11 +16,11 @@ import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
 import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 import { history } from './../../interface/base';
 interface interestPeriod {
-  id: string,
+  id?: string,
   period: string,
   periodType: string
   interestType: string
-  interestCode: string
+  interestCode?: string
   approveInterest: string
   interest: string
   interestBase: string
@@ -351,7 +351,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
-      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { } else {
+      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') {} else {
         // this.saveMemo();
         this.removeSession(count);
         this.router.navigate(['./F01002']);
@@ -403,6 +403,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
 
   //設定歷史資料紀錄參數 20211222
   setHistory(count: number) {
+    this.history = [];
     if (count > 0) {
       for (let index = 1; index <= count; index++) {
         this.history.push({ value: sessionStorage.getItem('period' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].period }); //分段起始期數
@@ -420,6 +421,30 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS', originalValue: this.historyData.caPmcus }); //人員記錄-PM策略客群
     this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK', originalValue: this.historyData.caRisk }); //人員記錄-風險等級
     // this.history.push({ value: this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION' }); //審核意見
+
+    let newHistory: interestPeriod[] = [];
+    for (let index = 1; index <= count; index++) {
+      newHistory.push(
+        {
+          period: sessionStorage.getItem('period' + index),
+          periodType: sessionStorage.getItem('periodType' + index),
+          interestType: sessionStorage.getItem('interestType' + index),
+          approveInterest: sessionStorage.getItem('approveInterest' + index),
+          interest: sessionStorage.getItem('interest' + index),
+          interestBase: sessionStorage.getItem('interestBase' + index)
+        }
+      );
+    }
+
+    this.f01002scn1Service.setHistorySource({
+      creditResult: this.creditResult,
+      lowestPayRate: this.lowestPayRate,
+      approveAmt: this.approveAmt,
+      caApplicationAmount: this.caApplicationAmount,
+      caPmcus: this.caPmcus,
+      caRisk: this.caRisk,
+      CreditInterestPeriodSource: newHistory
+    })
   }
 
   //儲存 SUPPLY_AML
