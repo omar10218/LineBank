@@ -241,5 +241,6 @@ export class F01001scn1Component implements OnInit {
   //設定歷史資料紀錄參數 20211222
   setHistory() {
     this.history.push({ value: this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT', originalValue: this.historyData.creditResult }); //核決結果
+    sessionStorage.setItem('creditResult', this.creditResult);
   }
 }

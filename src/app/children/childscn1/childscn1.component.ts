@@ -162,6 +162,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   CreditInterestPeriodSource: Data[] = [];
 
+  //歷史紀錄
+  historySource: Data[] = [];
+
   //Creditmemo
   creditmemoSource: Data[] = [];
   total = 1;
@@ -574,6 +577,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
         this.map.fitBounds(bounds);
       }
 
+      this.historySource = JSON.parse(JSON.stringify(this.CreditInterestPeriodSource))
       //依照人員層級存資料異動 20211230
       if (this.level == 'L4') {
         this.f01001Scn1Service.setHistorySource({
@@ -587,7 +591,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           caApplicationAmount: this.caApplicationAmount,
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
-          CreditInterestPeriodSource: this.CreditInterestPeriodSource
+          CreditInterestPeriodSource: this.historySource
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
           // interestType: this.CreditInterestPeriodSource[0].interestType,
@@ -602,7 +606,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           approveAmt: this.resultApproveAmt,
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
-          CreditInterestPeriodSource: this.CreditInterestPeriodSource
+          CreditInterestPeriodSource: this.historySource
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
           // interestType: this.CreditInterestPeriodSource[0].interestType,
@@ -617,7 +621,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           approveAmt: this.resultApproveAmt,
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
-          CreditInterestPeriodSource: this.CreditInterestPeriodSource,
+          CreditInterestPeriodSource: this.historySource,
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
           // interestType: this.CreditInterestPeriodSource[0].interestType,
@@ -632,7 +636,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           approveAmt: this.resultApproveAmt,
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
-          CreditInterestPeriodSource: this.CreditInterestPeriodSource,
+          CreditInterestPeriodSource: this.historySource,
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
           // interestType: this.CreditInterestPeriodSource[0].interestType,

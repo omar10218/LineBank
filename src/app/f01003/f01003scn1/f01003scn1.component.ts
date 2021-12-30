@@ -11,11 +11,11 @@ import { history } from './../../interface/base';
 import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
 import { Subscription } from 'rxjs';
 interface interestPeriod {
-  id: string,
+  id?: string,
   period: string,
   periodType: string
   interestType: string
-  interestCode: string
+  interestCode?: string
   approveInterest: string
   interest: string
   interestBase: string
@@ -349,5 +349,29 @@ export class F01003scn1Component implements OnInit {
     this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS', originalValue: this.historyData.caPmcus }); //人員記錄-PM策略客群
     this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK', originalValue: this.historyData.caRisk }); //人員記錄-風險等級
     // this.history.push({value:  this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION'}); //審核意見
+
+    let newHistory: interestPeriod[] = [];
+    for (let index = 1; index <= count; index++) {
+      newHistory.push(
+        {
+          period: sessionStorage.getItem('period' + index),
+          periodType: sessionStorage.getItem('periodType' + index),
+          interestType: sessionStorage.getItem('interestType' + index),
+          approveInterest: sessionStorage.getItem('approveInterest' + index),
+          interest: sessionStorage.getItem('interest' + index),
+          interestBase: sessionStorage.getItem('interestBase' + index)
+        }
+      );
+    }
+
+    this.f01003Scn1Service.setHistorySource({
+      creditResult: this.creditResult,
+      lowestPayRate: this.lowestPayRate,
+      approveAmt: this.approveAmt,
+      caApplicationAmount: this.caApplicationAmount,
+      caPmcus: this.caPmcus,
+      caRisk: this.caRisk,
+      CreditInterestPeriodSource: newHistory
+    })
   }
 }
