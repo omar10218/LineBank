@@ -135,6 +135,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.swcRiskLevel = '';
     this.swcCollFlag = '';
     this.swcInputType = '';
+    this.swcCusFlag = '';
   }
 
   ngAfterViewInit() {
@@ -263,6 +264,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.swcRiskLevel = '';
     this.caseType = '';
     this.swcInputType = '';
+    this.swcCusFlag = '';
     this.empNo = localStorage.getItem("empNo");
     this.getCaseList();
   }

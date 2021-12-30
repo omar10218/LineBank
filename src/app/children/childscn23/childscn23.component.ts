@@ -580,6 +580,7 @@ export class Childscn23Component implements OnInit {
     }
     if (completed) {
       for (const w of this.one) {
+        this.checkboxAny.push(w.ID)
         this.Monthly421 = this.Monthly421 + parseInt(this.Cut(w.MONTHLY_PAY_421 ? w.MONTHLY_PAY_421 : "0"));//BAM421月付金
         this.Monthly029 = this.Monthly029 + parseInt(this.Cut(w.MONTHLY_PAY_029 ? w.MONTHLY_PAY_029 : "0"));//BAM029月付金
         this.Monthlycc = this.Monthlycc + parseInt(this.Cut(w.MONTHLY_PAY_CC ? w.MONTHLY_PAY_CC : "0"));//信用卡付月金
@@ -591,6 +592,10 @@ export class Childscn23Component implements OnInit {
       this.Monthly421 = 0;//BAM421月付金
       this.Monthly029 = 0;//BAM029月付金
       this.Monthlycc = 0;//信用卡付月金
+      for(const f of this.one)
+      {
+        this.checkboxAny.splice(this.checkboxAny.indexOf(f.ID),1)
+      }
 
     }
 

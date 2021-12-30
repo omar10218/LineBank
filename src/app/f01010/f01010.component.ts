@@ -136,6 +136,7 @@ export class F01010Component implements OnInit {
     this.swcRiskLevel = '';
     this.swcCollFlag = '';
     this.swcInputType = '';
+    this.swcCusFlag = '';
   }
   ngAfterViewInit() {
     this.getCaseList();
@@ -164,17 +165,21 @@ export class F01010Component implements OnInit {
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
+    jsonObject['swcCollStatus'] = this.swcCollStatus;
+    jsonObject['swcCollFlag'] = this.swcCollFlag;
+    jsonObject['swcRiskLevel'] = this.swcRiskLevel;
+    jsonObject['swcInputType'] = this.swcInputType;
+    jsonObject['swcCusFlag'] = this.swcCusFlag;
     this.f01010Service.getCaseList(jsonObject).subscribe(data => {
-      if (data.rspBody.size > 0)
-      {
+      if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
       }
-      else
-      {
+      else {
         this.cusinfoDataSource = null;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "查無資料" }})
+          data: { msgStr: "查無資料" }
+        })
       }
     });
   }
@@ -256,6 +261,7 @@ export class F01010Component implements OnInit {
     this.swcRiskLevel = '';
     this.caseType = '';
     this.swcInputType = '';
+    this.swcCusFlag = '';
     this.empNo = localStorage.getItem("empNo");
     this.getCaseList();
   }
