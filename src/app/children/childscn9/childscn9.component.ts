@@ -20,7 +20,7 @@ enum Page {
   styleUrls: ['./childscn9.component.css','../../../assets/css/child.css']
 })
 export class Childscn9Component implements OnInit {
-  
+
   queryDate:string //查詢時間
   constructor(
     private childscn9Service: Childscn9Service,
@@ -46,12 +46,12 @@ export class Childscn9Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
-    const url = 'f01/childscn9';
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    //this.router.navigate(['./'+this.routerCase+'/CHILDSCN9/CHILDSCN9PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });
+    const baseUrl = 'f01/childscn9';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    this.childscn9Service.getDate(baseUrl, jsonObject).subscribe(data => {
+      this.queryDate = data.rspBody.queryDate;
+    });
   }
 
   ngAfterViewInit() {
