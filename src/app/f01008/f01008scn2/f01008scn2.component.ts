@@ -226,8 +226,6 @@ export class F01008scn2Component implements OnInit {
       }
     })
     dialogRef.afterClosed().subscribe(result => {
-      console.log("111111111111111111")
-      console.log(result)
 
       if (result.event == 'success' || result ==1) {
         this.set();
