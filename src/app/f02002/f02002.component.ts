@@ -42,6 +42,8 @@ export class F02002Component implements OnInit {
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
     this.f02002Service.getRescanEmpno(baseUrl).subscribe(data => {
+      console.log("================================")
+      console.log(data)
       if (data.rspBody.length > 0) {
         for (let i = 0; i < data.rspBody.length; i++) {
           if (data.rspBody[i].RESCANEMPNO != null) {

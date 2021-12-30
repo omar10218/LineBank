@@ -60,9 +60,10 @@ export class Childscn3Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
     this.no = localStorage.getItem("empNo");
-    this.search = sessionStorage.getItem('search');
+    // this.search = sessionStorage.getItem('search');
     this.pag = sessionStorage.getItem('page');
     this.getTable()//抓取資料表
+
   }
 
   getOptionDesc(option: OptionsCode[], codeVal: string): string //代碼跑名稱
