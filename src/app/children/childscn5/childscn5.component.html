@@ -109,15 +109,23 @@
         </div>
         <div nz-row style="padding:5px">
           <div nz-col nzSpan="5">
-            <div style="padding:3px">
+            <div style="padding:3px" *ngIf="yn==false">
               <span class="form-title">其他-手機(非本行主要)</span>
-              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther" formControlName="CU_M_TEL_OTHER" disabled="yn">
+              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther" formControlName="CU_M_TEL_OTHER" >
+            </div>
+            <div style="padding:3px" *ngIf="yn==true">
+              <span class="form-title">其他-手機(非本行主要)</span>
+              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther" formControlName="CU_M_TEL_OTHER" disabled>
             </div>
           </div>
           <div nz-col nzSpan="5">
-            <div style="padding:3px">
+            <div style="padding:3px" *ngIf="yn==false">
               <span class="form-title">其他-聯絡資訊</span>
-              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther" formControlName="CONTACT_OTHER" disabled="yn">
+              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther" formControlName="CONTACT_OTHER" >
+            </div>
+            <div style="padding:3px" *ngIf="yn==true">
+              <span class="form-title">其他-聯絡資訊</span>
+              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther" formControlName="CONTACT_OTHER" disabled >
             </div>
           </div>
         </div>
@@ -131,9 +139,13 @@
             </div>
           </div>
           <div nz-col nzSpan="6">
-            <div style="padding:3px">
+            <div style="padding:3px" *ngIf="yn==false">
               <span class="form-title">徵信確認公司名稱</span>
-              <input style="display: block;" formControlName="CU_CP_NAME" [(ngModel)]="cuCpNameCa" name="cuCpNameCa" disabled="yn">
+              <input style="display: block;" formControlName="CU_CP_NAME" [(ngModel)]="cuCpNameCa" name="cuCpNameCa" >
+            </div>
+            <div style="padding:3px" *ngIf="yn==true">
+              <span class="form-title">徵信確認公司名稱</span>
+              <input style="display: block;" formControlName="CU_CP_NAME" [(ngModel)]="cuCpNameCa" name="cuCpNameCa" disabled >
             </div>
           </div>
           <div nz-col nzSpan="4">
@@ -227,20 +239,31 @@
         </div>
         <div nz-row style="padding:5px">
           <div nz-col nzFlex="1">
-            <div style="padding:3px">
+            <div style="padding:3px" *ngIf="yn==false">
               <span class="form-title">徵信認列行業Level1</span>
-              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca" disabled="yn"
+              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca" 
                 formControlName="CU_LEVEL1_CA">
                 <mat-option *ngFor="let code of cuLevel1CaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
               </mat-select>
             </div>
+            <div style="padding:3px"  *ngIf="yn==true">
+              <span class="form-title">徵信認列行業Level1</span>
+              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca" disabled
+                formControlName="CU_LEVEL1_CA"
+                style=" width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6;
+              ">
+                <mat-option *ngFor="let code of cuLevel1CaCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
           </div>
-          <div nz-col nzFlex="1">
-            <div style="padding:3px">
+          <div nz-col nzFlex="1" >
+            <div style="padding:3px" *ngIf="yn==false">
               <span class="form-title">徵信認列行業Level2</span>
-              <mat-select [(ngModel)]="cuLevel2CaValue" (ngModelChange)="changeLevel2Select()" name="cuLevel2Ca"
+              <mat-select [(ngModel)]="cuLevel2CaValue" (ngModelChange)="changeLevel2Select()" name="cuLevel2Ca" 
                 id="cuLevel2Ca" formControlName="CU_LEVEL2_CA"
                 style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:white">
                 <mat-option *ngFor="let code of cuLevel2CaCode" [value]="code.value">
@@ -248,9 +271,19 @@
                 </mat-option>
               </mat-select>
             </div>
+            <div style="padding:3px" *ngIf="yn==true">
+              <span class="form-title">徵信認列行業Level2</span>
+              <mat-select [(ngModel)]="cuLevel2CaValue" (ngModelChange)="changeLevel2Select()" name="cuLevel2Ca"
+                id="cuLevel2Ca" formControlName="CU_LEVEL2_CA"  disabled
+                style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6">
+              </mat-select>
+              <mat-option *ngFor="let code of cuLevel2CaCode" [value]="code.value">
+                {{code.value}} - {{code.viewValue}}
+              </mat-option>
+            </div>
           </div>
           <div nz-col nzFlex="1">
-            <div style="padding:3px">
+            <div style="padding:3px" *ngIf="yn==false">
               <span class="form-title">徵信認列職業碼</span>
               <mat-select [(ngModel)]="jobCodeCaValue" name="jobCodeCa" formControlName="JOB_CODE_CA" id="jobCodeCa"
                 style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:white">
@@ -259,9 +292,18 @@
                 </mat-option>
               </mat-select>
             </div>
+            <div style="padding:3px" *ngIf="yn==true">
+              <span class="form-title">徵信認列職業碼</span>
+              <mat-select [(ngModel)]="jobCodeCaValue" name="jobCodeCa" formControlName="JOB_CODE_CA" id="jobCodeCa" disabled
+                style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6">
+              </mat-select>
+              <mat-option *ngFor="let code of jobCodeCaCode" [value]="code.value">
+                {{code.value}} - {{code.viewValue}}
+              </mat-option>
+            </div>
           </div>
           <div nz-col nzFlex="1">
-            <div style="padding:3px">
+            <div style="padding:3px"  *ngIf="yn==false">
               <span class="form-title">公司是否為白名單</span>
               <mat-select [(ngModel)]="companyWhitelistValue" name="companyWhitelist"
                 formControlName="COMPANY_WHITELIST" id="companyWhitelist"
@@ -271,32 +313,68 @@
                 </mat-option>
               </mat-select>
             </div>
+            <div style="padding:3px"  *ngIf="yn==true">
+              <span class="form-title">公司是否為白名單</span>
+              <mat-select [(ngModel)]="companyWhitelistValue" name="companyWhitelist" disabled
+                formControlName="COMPANY_WHITELIST" id="companyWhitelist"
+                style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#E6E6E6;color:white">
+                <mat-option *ngFor="let code of companyWhitelistCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
           </div>
         </div>
         <div class="line_bank_form_header_title">前職資訊</div>
-        <div nz-row style="padding:5px">
+        <div nz-row style="padding:5px" *ngIf="yn==false">
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作名稱</span>
-              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn" disabled="yn">
+              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn" >
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作公司職稱</span>
-              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle" name="preJobTitle" disabled="yn">
+              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle" name="preJobTitle" >
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(年數)</span>
-              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear" disabled="yn">
+              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear">
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(月數)</span>
-              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth" name="preJobMonth" disabled="yn">
+              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth" name="preJobMonth" >
+            </div>
+          </div>
+        </div>
+        <div nz-row style="padding:5px" *ngIf="yn==true">
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作名稱</span>
+              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn" disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作公司職稱</span>
+              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle" name="preJobTitle" disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作在職時長(年數)</span>
+              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear" disabled>
+            </div>
+          </div>
+          <div nz-col nzFlex="1">
+            <div style="padding:3px">
+              <span class="form-title">前一份工作在職時長(月數)</span>
+              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth" name="preJobMonth" disabled>
             </div>
           </div>
         </div>

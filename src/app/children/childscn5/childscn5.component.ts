@@ -299,6 +299,7 @@ export class Childscn5Component implements OnInit {
   }
 
   insertHistory() {
+    console.log(this.customerInfoForm.value.CU_CP_NAME)
     const content = []
     let msg = '';
     let jsonObject: any = {};
@@ -307,7 +308,7 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '徵信確認公司名稱',
+        columnName: 'CU_CP_NAME_CA',
         originalValue: this.customerInfoForm.value.CU_CP_NAME,
         currentValue: this.cuCpNameCa,
         transAPname: '基本資料',
@@ -316,7 +317,7 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '徵信認列行業Level1',
+        columnName: 'CU_LEVEL1_CA',
         originalValue: this.customerInfoForm.value.CU_LEVEL1_CA,
         currentValue: this.cuLevel1CaValue,
         transAPname: '基本資料',
@@ -325,7 +326,7 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '徵信認列行業Level2',
+        columnName: 'CU_LEVEL2_CA',
         originalValue: this.customerInfoForm.value.CU_LEVEL2_CA,
         currentValue: this.cuLevel2CaValue,
         transAPname: '基本資料',
@@ -334,7 +335,7 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '徵信認列職業碼',
+        columnName: 'JOB_CODE_CA',
         originalValue: this.customerInfoForm.value.JOB_CODE_CA,
         currentValue: this.jobCodeCaValue,
         transAPname: '基本資料',
@@ -343,7 +344,7 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '公司是否為白名單',
+        columnName: 'COMPANY_WHITELIST',
         originalValue: this.customerInfoForm.value.COMPANY_WHITELIST,
         currentValue: this.companyWhitelistValue,
         transAPname: '基本資料',
@@ -352,7 +353,7 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '其他-手機(非本行主要)',
+        columnName: 'CU_M_TEL_OTHER',
         originalValue: this.customerInfoForm.value.CU_M_TEL_OTHER,
         currentValue: this.cuMTelOther,
         transAPname: '基本資料',
@@ -361,7 +362,7 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '其他-聯絡資訊',
+        columnName: 'CONTACT_OTHER',
         originalValue: this.customerInfoForm.value.CONTACT_OTHER,
         currentValue: this.contactOther,
         transAPname: '基本資料',
@@ -370,7 +371,7 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '其他-公司電話分機',
+        columnName: 'CU_CP_TEL_EXT',
         originalValue: this.customerInfoForm.value.CU_CP_TEL_EXT,
         currentValue: this.cuCpTelExt,
         transAPname: '基本資料',
@@ -379,7 +380,7 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '前一份工作名稱',
+        columnName: 'PRV_COMP_NM',
         originalValue: this.customerInfoForm.value.PRE_COMP_NM,
         currentValue: this.preCompNm,
         transAPname: '基本資料',
@@ -388,7 +389,7 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '前一份工作公司職稱',
+        columnName: 'PRV_JOB_TITLE',
         originalValue: this.customerInfoForm.value.PRE_JOB_TITLE,
         currentValue: this.preJobTitle,
         transAPname: '基本資料',
@@ -397,7 +398,7 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '前一份工作在職時長(年數)',
+        columnName: 'PREV_JOB_YEAR',
         originalValue: this.customerInfoForm.value.PRE_JOB_YEAR,
         currentValue: this.preJobYear,
         transAPname: '基本資料',
@@ -406,13 +407,14 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         userId: localStorage.getItem('empNo'),
         tableName: 'EL_CUSTOMER_INFO',
-        columnName: '前一份工作在職時長(月數)',
+        columnName: 'PRV_JOB_MONTH',
         originalValue: this.customerInfoForm.value.PRE_JOB_MONTH,
         currentValue: this.preJobMonth,
         transAPname: '基本資料',
       }
     )
     jsonObject['content'] = content;
+    console.log(content)
     this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
       console.log(data)
       msg = data.rspMsg;
