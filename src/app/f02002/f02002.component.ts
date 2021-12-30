@@ -215,7 +215,7 @@ export class F02002Component implements OnInit {
 
       if(result.event == 'success')
       {
-
+        this.rescanData = [];
         this.search();
       }
 

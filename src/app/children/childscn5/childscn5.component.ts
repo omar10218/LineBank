@@ -26,24 +26,23 @@ export class Childscn5Component implements OnInit {
   jobCodeCaCode: sysCode[] = [];        //職業代碼下拉
   jobCodeCaValue: string;               //職業代碼
   companyWhitelistCode: sysCode[] = []; //公司是否為白名單下拉
-  companyWhitelistValue: string;//公司是否為白名單
+  companyWhitelistValue: string;        //公司是否為白名單
   genderCode: sysCode[] = [];           //性別下拉
   genderValue: string;                  //性別
-  cuCpNameCa: string;                  //徵信確認公司名稱
+  cuCpNameCa: string;                   //徵信確認公司名稱
   cuMTelOther: string;                  //其他-手機(非本行主要)
-  contactOther: string;                  //其他-聯絡資訊
-  cuLevel1: string;                    //行職業代碼
-  cuType: string;                     //行業別
-  jobCode: string;                     //職稱
-  preCompNm: string;                     //前一份工作名稱
-  preJobTitle: string;                //前一份工作公司職稱
-  preJobYear: string;                     //前一份工作在職時長(年數)
-  preJobMonth: string;                     //前一份工作在職時長(月數)
-  cuCpTelExt: string;                 //其他-公司電話分機
+  contactOther: string;                 //其他-聯絡資訊
+  cuLevel1: string;                     //行職業代碼
+  cuType: string;                       //行業別
+  jobCode: string;                      //職稱
+  preCompNm: string;                    //前一份工作名稱
+  preJobTitle: string;                  //前一份工作公司職稱
+  preJobYear: string;                   //前一份工作在職時長(年數)
+  preJobMonth: string;                  //前一份工作在職時長(月數)
+  cuCpTelExt: string;                   //其他-公司電話分機
   setmaterial = [];
-  x:string
-  pag:string
-  y:boolean
+  thous: string                         // 千分位處理
+  yn: boolean                           // 判斷是否為授信
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -98,10 +97,6 @@ export class Childscn5Component implements OnInit {
   });
 
   ngOnInit(): void {
-    this.pag = sessionStorage.getItem('page');
-    this.test3()
-    console.log("----------------")
-    console.log(this.y)
     this.companyWhitelistValue = '';
     this.search = sessionStorage.getItem('search');
     //取性別
@@ -160,9 +155,9 @@ export class Childscn5Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.getCustomerInfo();
-    console.log(this.companyWhitelistValue)
+    this.yn = sessionStorage.getItem('page') == '3' ? true : false;
   }
-  
+
   getStepName() {
     return sessionStorage.getItem('stepName');
   }
@@ -221,7 +216,7 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ PRE_JOB_YEAR: data.rspBody.items[0].prevJobYear })
       this.customerInfoForm.patchValue({ PRE_JOB_MONTH: data.rspBody.items[0].prvJobMonth })
 
-      
+
       jsonObject['inducCode'] = this.cuLevel1CaValue + this.cuLevel2CaValue + this.jobCodeCaValue;
       console.log(jsonObject['inducCode'])
       this.childscn5Service.getCuListSearch(jsonObject).subscribe(data => {
@@ -229,8 +224,7 @@ export class Childscn5Component implements OnInit {
         this.customerInfoForm.patchValue({ CU_TYPE: data.rspBody.eroxyIncomeList[0].inducLevel1Desc + data.rspBody.eroxyIncomeList[0].inducLevel2Desc })
         this.cuLevel1 = data.rspBody.eroxyIncomeList[0].inducCode
         this.cuType = data.rspBody.eroxyIncomeList[0].inducLevel1Desc + data.rspBody.eroxyIncomeList[0].inducLevel2Desc
-        this.test( this.cuType)
-        console.log( this.test( this.cuType))
+        this.trans(this.cuType)
         this, this.jobCode = data.rspBody.eroxyIncomeList[0].jobCodeDesc
       })
     });
@@ -240,16 +234,16 @@ export class Childscn5Component implements OnInit {
 
   // 千分號標點符號(form顯示用)
   data_number(p: number) {
-    this.x = '';
-    this.x = (p + "")
-    if (this.x != null) {
-      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    this.thous = '';
+    this.thous = (p + "")
+    if (this.thous != null) {
+      this.thous = this.thous.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
-    return this.x
+    return this.thous;
   }
-  test(p:string){
-    var w:string
-    w=p.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  trans(p: string) {
+    var w: string
+    w = p.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
   // 取徵信認列行業Level2下拉
   changeLevel1Select() {
@@ -310,110 +304,110 @@ export class Childscn5Component implements OnInit {
     let jsonObject: any = {};
     content.push(
       {
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '徵信確認公司名稱',
-        originalValue:this.customerInfoForm.value.CU_CP_NAME,
+        originalValue: this.customerInfoForm.value.CU_CP_NAME,
         currentValue: this.cuCpNameCa,
         transAPname: '基本資料',
       },
       {
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '徵信認列行業Level1',
-        originalValue:this.customerInfoForm.value.CU_LEVEL1_CA,
+        originalValue: this.customerInfoForm.value.CU_LEVEL1_CA,
         currentValue: this.cuLevel1CaValue,
         transAPname: '基本資料',
       },
       {
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '徵信認列行業Level2',
-        originalValue:this.customerInfoForm.value.CU_LEVEL2_CA,
+        originalValue: this.customerInfoForm.value.CU_LEVEL2_CA,
         currentValue: this.cuLevel2CaValue,
         transAPname: '基本資料',
       },
       {
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '徵信認列職業碼',
-        originalValue:this.customerInfoForm.value.JOB_CODE_CA,
+        originalValue: this.customerInfoForm.value.JOB_CODE_CA,
         currentValue: this.jobCodeCaValue,
         transAPname: '基本資料',
       },
       {
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '公司是否為白名單',
-        originalValue:this.customerInfoForm.value.COMPANY_WHITELIST,
+        originalValue: this.customerInfoForm.value.COMPANY_WHITELIST,
         currentValue: this.companyWhitelistValue,
         transAPname: '基本資料',
       },
       {
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '其他-手機(非本行主要)',
-        originalValue:this.customerInfoForm.value.CU_M_TEL_OTHER,
+        originalValue: this.customerInfoForm.value.CU_M_TEL_OTHER,
         currentValue: this.cuMTelOther,
         transAPname: '基本資料',
       },
       {
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '其他-聯絡資訊',
-        originalValue:this.customerInfoForm.value.CONTACT_OTHER,
+        originalValue: this.customerInfoForm.value.CONTACT_OTHER,
         currentValue: this.contactOther,
         transAPname: '基本資料',
       },
       {
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '其他-公司電話分機',
-        originalValue:this.customerInfoForm.value.CU_CP_TEL_EXT,
+        originalValue: this.customerInfoForm.value.CU_CP_TEL_EXT,
         currentValue: this.cuCpTelExt,
         transAPname: '基本資料',
       },
       {
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '前一份工作名稱',
-        originalValue:this.customerInfoForm.value.PRE_COMP_NM,
+        originalValue: this.customerInfoForm.value.PRE_COMP_NM,
         currentValue: this.preCompNm,
         transAPname: '基本資料',
       },
       {
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '前一份工作公司職稱',
-        originalValue:this.customerInfoForm.value.PRE_JOB_TITLE,
+        originalValue: this.customerInfoForm.value.PRE_JOB_TITLE,
         currentValue: this.preJobTitle,
         transAPname: '基本資料',
       },
       {
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '前一份工作在職時長(年數)',
-        originalValue:this.customerInfoForm.value.PRE_JOB_YEAR,
+        originalValue: this.customerInfoForm.value.PRE_JOB_YEAR,
         currentValue: this.preJobYear,
         transAPname: '基本資料',
       },
       {
         applno: this.applno,
-        userId:localStorage.getItem('empNo'),
+        userId: localStorage.getItem('empNo'),
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '前一份工作在職時長(月數)',
-        originalValue:this.customerInfoForm.value.PRE_JOB_MONTH,
+        originalValue: this.customerInfoForm.value.PRE_JOB_MONTH,
         currentValue: this.preJobMonth,
         transAPname: '基本資料',
       }
@@ -468,11 +462,5 @@ export class Childscn5Component implements OnInit {
   getSearch() {
     return this.search;
   }
-test3(){
-  if(this.pag=='3'){
-    this.y= true
-  }else{
-    this.y=false
-  }
-}
+
 }

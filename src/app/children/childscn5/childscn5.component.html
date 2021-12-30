@@ -111,14 +111,13 @@
           <div nz-col nzSpan="5">
             <div style="padding:3px">
               <span class="form-title">其他-手機(非本行主要)</span>
-              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther" formControlName="CU_M_TEL_OTHER" 
-              [disabled]="y">
+              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther" formControlName="CU_M_TEL_OTHER" disabled="yn">
             </div>
           </div>
           <div nz-col nzSpan="5">
             <div style="padding:3px">
               <span class="form-title">其他-聯絡資訊</span>
-              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther" formControlName="CONTACT_OTHER" >
+              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther" formControlName="CONTACT_OTHER" disabled="yn">
             </div>
           </div>
         </div>
@@ -134,7 +133,7 @@
           <div nz-col nzSpan="6">
             <div style="padding:3px">
               <span class="form-title">徵信確認公司名稱</span>
-              <input style="display: block;" formControlName="CU_CP_NAME" [(ngModel)]="cuCpNameCa" name="cuCpNameCa">
+              <input style="display: block;" formControlName="CU_CP_NAME" [(ngModel)]="cuCpNameCa" name="cuCpNameCa" disabled="yn">
             </div>
           </div>
           <div nz-col nzSpan="4">
@@ -194,7 +193,7 @@
           <div nz-col nzSpan="4">
             <div style="padding:3px">
               <span class="form-title">其他-公司電話分機</span>
-              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" formControlName="CU_CP_TEL_EXT" >
+              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" formControlName="CU_CP_TEL_EXT" disabled="yn">
             </div>
           </div>
           
@@ -230,9 +229,8 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">徵信認列行業Level1</span>
-              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca"
-                formControlName="CU_LEVEL1_CA"
-                style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#ffff;">
+              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca" disabled="yn"
+                formControlName="CU_LEVEL1_CA">
                 <mat-option *ngFor="let code of cuLevel1CaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
@@ -280,25 +278,25 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作名稱</span>
-              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn">
+              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn" disabled="yn">
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作公司職稱</span>
-              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle" name="preJobTitle">
+              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle" name="preJobTitle" disabled="yn">
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(年數)</span>
-              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear">
+              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear" disabled="yn">
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(月數)</span>
-              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth" name="preJobMonth">
+              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth" name="preJobMonth" disabled="yn">
             </div>
           </div>
         </div>
