@@ -10,6 +10,9 @@ import { F01001Scn1Service } from './f01001scn1.service';
 import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 import { Childscn27Component } from './../../children/childscn27/childscn27.component';
 import { Childscn28Component } from './../../children/childscn28/childscn28.component';
+import { Subscription } from 'rxjs';
+import { history } from './../../interface/base';
+import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
 
 @Component({
   selector: 'app-f01001scn1',
@@ -21,8 +24,14 @@ export class F01001scn1Component implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
-    private f01001Scn1Service: F01001Scn1Service
-  ) { }
+    private f01001Scn1Service: F01001Scn1Service,
+    private childscn1Service: Childscn1Service,
+  ) {
+    this.JCICSource$ = this.f01001Scn1Service.HISTORYSource$.subscribe((data) => {
+      this.historyData = data;
+    });
+   }
+
   private creditLevel: string = 'APPLCreditL4';
   private applno: string;
   private search: string;
@@ -37,6 +46,11 @@ export class F01001scn1Component implements OnInit {
 
   changeValue: boolean = true;
   block: boolean = false;
+
+  //歷史資料 20211222
+  history: history[] = [];
+  JCICSource$: Subscription;
+  historyData: any;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -177,15 +191,20 @@ export class F01001scn1Component implements OnInit {
         //     data: { msgStr: '請填寫核決結果!' }
         //   });
         // } else {
+        let count: number = Number(sessionStorage.getItem('count'));
         let json: any = {};
         json['creditResult'] = this.creditResult;
         jsonObject['creditResult'] = json;
         this.block = true;
-        this.f01001Scn1Service.send(baseUrl, jsonObject).subscribe(data => {
+        this.f01001Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
+          //儲存歷史資料
+          this.setHistory();
+          await this.childscn1Service.setHistory(this.history, "文審案件完成", this.applno);
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: data.rspMsg }
           });
           if ( data.rspMsg.includes('處理案件異常') || url == 'f01/childscn0action1' ) { } else {
+            this.removeSession(count);
             this.router.navigate(['./F01001']);
           }
           this.block = false;
@@ -198,5 +217,29 @@ export class F01001scn1Component implements OnInit {
   //判斷是否需要顯示案件完成列
   changeRoute(route: boolean) {
     this.changeValue = route;
+  }
+
+  removeSession(count: number) {
+    for (let index = 1; index <= count; index++) {
+      sessionStorage.removeItem("period" + index);
+      sessionStorage.removeItem("periodType" + index);
+      sessionStorage.removeItem("interestType" + index);
+      sessionStorage.removeItem("approveInterest" + index);
+      sessionStorage.removeItem("interest" + index);
+      sessionStorage.removeItem("interestBase" + index);
+      sessionStorage.removeItem("id" + index);
+    }
+    sessionStorage.removeItem("resultApproveAmt");
+    sessionStorage.removeItem("resultLowestPayRate");
+    sessionStorage.removeItem("creditResult");
+    sessionStorage.removeItem("caApplicationAmount");
+    sessionStorage.removeItem("caPmcus");
+    sessionStorage.removeItem("caRisk");
+    sessionStorage.removeItem("mark");
+  }
+
+  //設定歷史資料紀錄參數 20211222
+  setHistory() {
+    this.history.push({ value: this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT', originalValue: this.historyData.creditResult }); //核決結果
   }
 }

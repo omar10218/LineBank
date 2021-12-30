@@ -156,7 +156,7 @@ export class BaseService {
     }
   }
 
-  //案件完成用歷史資料
+  //案件完成用歷史資料20211230
   public async setHistory(value: history[], transAPname: string, applno: string): Promise<string> {
     const baseUrl = 'f01/childscn2action2';
     const content = []
@@ -169,6 +169,7 @@ export class BaseService {
             applno: applno,
             tableName: value[index].tableName,
             columnName: value[index].valueInfo,
+            originalValue: value[index].originalValue,
             currentValue: value[index].value,
             transAPname: transAPname,
           }

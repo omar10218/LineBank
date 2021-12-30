@@ -126,4 +126,5 @@ export interface history {
   value: string; //currentValue
   tableName: string; //tableName
   valueInfo: string; //columnName
+  originalValue: string; //originalValue
 }

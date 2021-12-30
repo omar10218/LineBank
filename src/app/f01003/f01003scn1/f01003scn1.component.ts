@@ -9,7 +9,8 @@ import { Childscn24Component } from 'src/app/children/childscn24/childscn24.comp
 import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 import { history } from './../../interface/base';
 import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
-interface interestPeriod{
+import { Subscription } from 'rxjs';
+interface interestPeriod {
   id: string,
   period: string,
   periodType: string
@@ -33,7 +34,11 @@ export class F01003scn1Component implements OnInit {
     private f01003Scn1Service: F01003Scn1Service,
     private childscn1Service: Childscn1Service,
     private f01002Scn1Service: F01002Scn1Service
-  ) { }
+  ) {
+    this.JCICSource$ = this.f01003Scn1Service.HISTORYSource$.subscribe((data) => {
+      this.historyData = data;
+    });
+  }
 
   private creditLevel: string = 'APPLCreditL2';
   private applno: string;
@@ -62,8 +67,10 @@ export class F01003scn1Component implements OnInit {
   changeValue: boolean = true;
   block: boolean = false;
 
-  //歷史資料陣列 20211222
+  //歷史資料 20211222
   history: history[] = [];
+  JCICSource$: Subscription;
+  historyData: any;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -93,7 +100,7 @@ export class F01003scn1Component implements OnInit {
 
   recalculate() {
     const dialogRef = this.dialog.open(Childscn22Component, {
-      panelClass:'mat-dialog-transparent',
+      panelClass: 'mat-dialog-transparent',
       minHeight: '50%',
       width: '30%',
       data: {
@@ -146,11 +153,11 @@ export class F01003scn1Component implements OnInit {
         let creditInterestPeriodArray: interestPeriod[] = [];
         let count: number = Number(sessionStorage.getItem('count'));
 
-         //多階利率存放陣列
-         for (let index = 1; index <= count; index++) {
+        //多階利率存放陣列
+        for (let index = 1; index <= count; index++) {
           creditInterestPeriodArray.push(
             {
-              id : sessionStorage.getItem('id' + index),
+              id: sessionStorage.getItem('id' + index),
               period: sessionStorage.getItem('period' + index),
               periodType: sessionStorage.getItem('periodType' + index),
               interestType: sessionStorage.getItem('interestType' + index),
@@ -202,27 +209,27 @@ export class F01003scn1Component implements OnInit {
                 for (let index = 1; index <= count; index++) {
                   if (creditInterestPeriodArray[index - 1].approveInterest == '' || creditInterestPeriodArray[index - 1].approveInterest == null) {
                     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                      data: { msgStr: '序號'+ index +',核准利率未填寫' }
+                      data: { msgStr: '序號' + index + ',核准利率未填寫' }
                     });
                     return;
                   } else if (creditInterestPeriodArray[index - 1].interest == '' || creditInterestPeriodArray[index - 1].interest == null) {
                     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                      data: { msgStr: '序號'+ index +',利率未填寫' }
+                      data: { msgStr: '序號' + index + ',利率未填寫' }
                     });
                     return;
                   } else if (creditInterestPeriodArray[index - 1].interestType == '' || creditInterestPeriodArray[index - 1].interestType == null) {
                     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                      data: { msgStr: '序號'+ index +',利率型態未填寫' }
+                      data: { msgStr: '序號' + index + ',利率型態未填寫' }
                     });
                     return;
                   } else if (creditInterestPeriodArray[index - 1].period == '' || creditInterestPeriodArray[index - 1].period == null) {
                     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                      data: { msgStr: '序號'+ index +',期數未填寫' }
+                      data: { msgStr: '序號' + index + ',期數未填寫' }
                     });
                     return;
                   } else if (creditInterestPeriodArray[index - 1].periodType == '' || creditInterestPeriodArray[index - 1].periodType == null) {
                     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                      data: { msgStr: '序號'+ index +',期別未填寫' }
+                      data: { msgStr: '序號' + index + ',期別未填寫' }
                     });
                     return;
                   }
@@ -251,13 +258,13 @@ export class F01003scn1Component implements OnInit {
   result(baseUrl: string, jsonObject: JSON, result: string, count: number) {
     this.block = true;
     this.f01003Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
+      //儲存歷史資料
+      this.setHistory(count);
       await this.childscn1Service.setHistory(this.history, "授信案件完成", this.applno);
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
-      if ( data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1' ) { } else {
-        //儲存歷史資料
-        this.setHistory(count);
+      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { } else {
         // this.saveMemo();
         this.removeSession(count);
         this.router.navigate(['./F01003']);
@@ -326,19 +333,21 @@ export class F01003scn1Component implements OnInit {
   //設定歷史資料紀錄參數 20211222
   setHistory(count: number) {
     if (count > 0) {
-      this.history.push({ value: sessionStorage.getItem('period' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD' }); //分段起始期數
-      this.history.push({ value: sessionStorage.getItem('periodType' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD_TYPE' }); //期別
-      this.history.push({ value: sessionStorage.getItem('interestType' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_TYPE' }); //利率型態
-      this.history.push({ value: sessionStorage.getItem('approveInterest' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'APPROVE_INTEREST' }); //核准利率
-      this.history.push({ value: sessionStorage.getItem('interest' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST' }); //固定利率
-      this.history.push({ value: sessionStorage.getItem('interestBase' + count), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_BASE' }); //當時的指數,基放,郵儲利率
+      for (let index = 1; index <= count; index++) {
+        this.history.push({ value: sessionStorage.getItem('period' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].period }); //分段起始期數
+        this.history.push({ value: sessionStorage.getItem('periodType' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD_TYPE', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].periodType }); //期別
+        this.history.push({ value: sessionStorage.getItem('interestType' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_TYPE', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].interestType }); //利率型態
+        this.history.push({ value: sessionStorage.getItem('approveInterest' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'APPROVE_INTEREST', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].approveInterest }); //核准利率
+        this.history.push({ value: sessionStorage.getItem('interest' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].interest }); //固定利率
+        this.history.push({ value: sessionStorage.getItem('interestBase' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'INTEREST_BASE', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].interestBase }); //當時的指數,基放,郵儲利率
+      }
     }
-    this.history.push({value: this.approveAmt, tableName: 'EL_CREDITMAIN', valueInfo: 'APPROVE_AMT'}); //核准額度
-    this.history.push({value: this.lowestPayRate, tableName: 'EL_CREDITMAIN', valueInfo: 'LOWEST_PAY_RATE'}); //最低還款比例(循環型)
-    this.history.push({value:  this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT'}); //核決結果
-    this.history.push({value:  this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT'}); //徵信修改申貸金額
-    this.history.push({value:  this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS'}); //人員記錄-PM策略客群
-    this.history.push({value:  this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK'}); //人員記錄-風險等級
-    this.history.push({value:  this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION'}); //審核意見
+    this.history.push({ value: this.approveAmt, tableName: 'EL_CREDITMAIN', valueInfo: 'APPROVE_AMT', originalValue: this.historyData.approveAmt }); //核准額度
+    this.history.push({ value: this.lowestPayRate, tableName: 'EL_CREDITMAIN', valueInfo: 'LOWEST_PAY_RATE', originalValue: this.historyData.lowestPayRate }); //最低還款比例(循環型)
+    this.history.push({ value: this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT', originalValue: this.historyData.creditResult }); //核決結果
+    // this.history.push({value:  this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT'}); //徵信修改申貸金額
+    this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS', originalValue: this.historyData.caPmcus }); //人員記錄-PM策略客群
+    this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK', originalValue: this.historyData.caRisk }); //人員記錄-風險等級
+    // this.history.push({value:  this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION'}); //審核意見
   }
 }

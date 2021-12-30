@@ -17,10 +17,12 @@ export class F01002Scn1Service extends BaseService {
   //徵信照會項目
   private JCICItemsSource = new Subject<any>();
   JCICItemsSource$ = this.JCICItemsSource.asObservable();
-
   //徵審代碼
   private CREDITSource = new Subject<any>();
   CREDITSource$ = this.CREDITSource.asObservable();
+  //歷史資料參數
+  private HISTORYSource = new Subject<any>();
+  HISTORYSource$ = this.HISTORYSource.asObservable();
 
 
   //徵信照會編輯
@@ -39,6 +41,11 @@ export class F01002Scn1Service extends BaseService {
   //徵審代碼
   setCREDITSource(data): void {
     this.CREDITSource.next(data);
+  }
+
+  //設定歷史資料原值參數
+  setHistorySource(data): void {
+    this.HISTORYSource.next(data);
   }
 
   dialogData: any;

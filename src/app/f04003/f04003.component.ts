@@ -129,6 +129,7 @@ export class F04003Component implements OnInit {
   {
 
     if (this.Transfer == '') {
+      this.isAllCheck = false;
       this.dialog.open(
         ConfirmComponent, {
         data: { msgStr: "請選擇轉件人員" }

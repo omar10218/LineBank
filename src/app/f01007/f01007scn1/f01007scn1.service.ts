@@ -12,6 +12,15 @@ export class F01007scn1Service extends BaseService {
 
   dialogData: any;
 
+  //歷史資料參數
+  private HISTORYSource = new Subject<any>();
+  HISTORYSource$ = this.HISTORYSource.asObservable();
+
+   //設定歷史資料原值參數
+   setHistorySource(data): void {
+    this.HISTORYSource.next(data);
+  }
+
   saveOrEditMsgJson(baseUrl: string, json: JSON): any {
     return this.saveOrEditMsgJson(baseUrl, json);
   }
