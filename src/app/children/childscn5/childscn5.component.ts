@@ -157,7 +157,10 @@ export class Childscn5Component implements OnInit {
     this.getCustomerInfo();
     console.log(this.companyWhitelistValue)
   }
-
+  ngAfterViewInit() {
+    console.log("--------------------------")
+    console.log(this.customerInfoForm)
+    }
   getStepName() {
     return sessionStorage.getItem('stepName');
   }
@@ -309,6 +312,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '徵信確認公司名稱',
+        originalValue:this.customerInfoForm.value.CU_CP_NAME,
         currentValue: this.cuCpNameCa,
         transAPname: '基本資料',
       },
@@ -317,6 +321,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '徵信認列行業Level1',
+        originalValue:this.customerInfoForm.value.CU_LEVEL1_CA,
         currentValue: this.cuLevel1CaValue,
         transAPname: '基本資料',
       },
@@ -325,6 +330,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '徵信認列行業Level2',
+        originalValue:this.customerInfoForm.value.CU_LEVEL2_CA,
         currentValue: this.cuLevel2CaValue,
         transAPname: '基本資料',
       },
@@ -333,6 +339,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '徵信認列職業碼',
+        originalValue:this.customerInfoForm.value.JOB_CODE_CA,
         currentValue: this.jobCodeCaValue,
         transAPname: '基本資料',
       },
@@ -340,7 +347,17 @@ export class Childscn5Component implements OnInit {
         userId:localStorage.getItem('empNo'),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
+        columnName: '公司是否為白名單',
+        originalValue:this.customerInfoForm.value.COMPANY_WHITELIST,
+        currentValue: this.companyWhitelistValue,
+        transAPname: '基本資料',
+      },
+      {
+        userId:localStorage.getItem('empNo'),
+        applno: this.applno,
+        tableName: 'EL_CUSTOMER_INFO',
         columnName: '其他-手機(非本行主要)',
+        originalValue:this.customerInfoForm.value.CU_M_TEL_OTHER,
         currentValue: this.cuMTelOther,
         transAPname: '基本資料',
       },
@@ -349,6 +366,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '其他-聯絡資訊',
+        originalValue:this.customerInfoForm.value.CONTACT_OTHER,
         currentValue: this.contactOther,
         transAPname: '基本資料',
       },
@@ -357,6 +375,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '其他-公司電話分機',
+        originalValue:this.customerInfoForm.value.CU_CP_TEL_EXT,
         currentValue: this.cuCpTelExt,
         transAPname: '基本資料',
       },
@@ -365,6 +384,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '前一份工作名稱',
+        originalValue:this.customerInfoForm.value.PRE_COMP_NM,
         currentValue: this.preCompNm,
         transAPname: '基本資料',
       },
@@ -373,6 +393,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '前一份工作公司職稱',
+        originalValue:this.customerInfoForm.value.PRE_JOB_TITLE,
         currentValue: this.preJobTitle,
         transAPname: '基本資料',
       },
@@ -381,6 +402,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '前一份工作在職時長(年數)',
+        originalValue:this.customerInfoForm.value.PRE_JOB_YEAR,
         currentValue: this.preJobYear,
         transAPname: '基本資料',
       },
@@ -389,6 +411,7 @@ export class Childscn5Component implements OnInit {
         userId:localStorage.getItem('empNo'),
         tableName: 'EL_CUSTOMER_INFO',
         columnName: '前一份工作在職時長(月數)',
+        originalValue:this.customerInfoForm.value.PRE_JOB_MONTH,
         currentValue: this.preJobMonth,
         transAPname: '基本資料',
       }

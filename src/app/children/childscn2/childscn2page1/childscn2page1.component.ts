@@ -21,7 +21,7 @@ export class Childscn2page1Component implements OnInit {
   ) { }
 
   transactionLogSource: Data[] = [];
-  total = 1;
+  total :1;
   loading = true;
   pageIndex = 1;
   pageSize = 50;
@@ -31,14 +31,13 @@ export class Childscn2page1Component implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.getTransLog( this.applno, this.pageIndex, this.pageSize );
+    this.getTransLog(  this.pageIndex, this.pageSize );
   }
 
-  getTransLog(applno:string, pageIndex: number, pageSize: number ){
+  getTransLog( pageIndex: number, pageSize: number ){
     const baseUrl = "f01/childscn2";
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    console.log(this.applno)
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn2Service.getTransLog(baseUrl, jsonObject)
@@ -51,9 +50,16 @@ export class Childscn2page1Component implements OnInit {
     this.loading = false;
   }
 
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
+  }
+
+  
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getTransLog(this.applno,pageIndex, pageSize);
+    this.getTransLog(pageIndex, pageSize);
   }
 
   formatDate(date: string) {
