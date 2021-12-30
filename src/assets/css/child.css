@@ -180,6 +180,16 @@ input:disabled{
   padding:4px;
   background-color:#ffffff;
 }
+.mat-select:disabled{
+  width:100%;
+  display:inline-block;
+  height:25px;
+  font-size:14px;
+  border-radius:5px;
+  border:1px solid #c9c9c9;
+  padding:4px;
+  background-color:#ff0000;
+}
 :host::ng-deep.mat-select-value{
   color:gray;
 }
