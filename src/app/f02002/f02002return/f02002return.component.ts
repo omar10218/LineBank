@@ -85,7 +85,7 @@ export class F02002returnComponent implements OnInit {
 
   onChange(evt, rid: string,) {
     const target: DataTransfer = <DataTransfer>(evt.target);
-    this.isValidFile = !!target.files[0].name.match(/(.jpg|.png|.tif|.JPG|.PNG)/);
+    this.isValidFile = !!target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
     var rid = rid;
     if (this.isValidFile) {
       this.fileList = this.fileList.filter(e => e.value != rid);
