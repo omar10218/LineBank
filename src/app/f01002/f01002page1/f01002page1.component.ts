@@ -34,7 +34,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
-	x: string
+  x: string
 
   // 計算剩餘table資料長度
   get tableHeight(): string {
@@ -89,18 +89,17 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     jsonObject['caseType'] = this.caseType;
     this.f01002Service.getCaseList(jsonObject).subscribe(data => {
       console.log(data)
-      if (data.rspBody.size > 0)
-      {
+      if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
         this.stepName = data.rspBody.items[0].F_StepName;
       }
-      else
-      {
+      else {
         this.cusinfoDataSource = null;
         this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "查無資料" }})
+          data: { msgStr: "查無資料" }
+        })
       }
     });
   }
@@ -137,7 +136,8 @@ export class F01002page1Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('level', '3');
-        sessionStorage.setItem('page', '2');//0查詢 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8產生合約前回查 9複審人員 10複審主管
+        // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
+        sessionStorage.setItem('page', '2');
         sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01002/F01002SCN1']);
       }
@@ -156,17 +156,18 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == 'success') { window.location.reload(); }}, 1000);
+      if (msg != null && msg == 'success') { window.location.reload(); }
+    }, 1000);
   }
-// 千分號標點符號(form顯示用)
-data_number(p: number) {
-  this.x = '';
-  this.x = (p + "")
-  if (this.x != null) {
-    this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // 千分號標點符號(form顯示用)
+  data_number(p: number) {
+    this.x = '';
+    this.x = (p + "")
+    if (this.x != null) {
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
   }
-  return this.x
-}
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageIndex } = params;
     if (this.pageIndex !== pageIndex) {
@@ -208,11 +209,11 @@ data_number(p: number) {
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
 
-      console.log(this.cusinfoDataSource)
+    console.log(this.cusinfoDataSource)
   }
 
-   // 清除資料
-   clear() {
+  // 清除資料
+  clear() {
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';

@@ -142,7 +142,7 @@ export class F02002Component implements OnInit {
     }
   }
 
-  detail(applno: string, nationalId: string,cuCname:string) {
+  detail(applno: string, nationalId: string, cuCname: string) {
     let jsonObject1: any = {};
     jsonObject1['applno'] = applno;
     jsonObject1['nationalID'] = nationalId;
@@ -168,11 +168,13 @@ export class F02002Component implements OnInit {
 
           sessionStorage.setItem('queryDate', '');
           sessionStorage.setItem('winClose', 'Y');
-          sessionStorage.setItem('page', '02');//02補件資訊查詢
+          // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
+          sessionStorage.setItem('page', '02');
           //開啟徵審主畫面
           const url = window.location.href.split("/#");
           window.open(url[0] + "/#/F01002/F01002SCN1", "", "location=no");
           sessionStorage.setItem('winClose', 'N');
+          sessionStorage.setItem('search', 'N');
           // const url = this.router.serializeUrl(
           //   this.router.createUrlTree(["./F01002/F01002SCN1"])
           // );
@@ -201,8 +203,7 @@ export class F02002Component implements OnInit {
   }
 
   //補回
-  return(APPLNO: Data)
-   {
+  return(APPLNO: Data) {
     const dialogRef = this.dialog.open(F02002returnComponent, {
       panelClass: 'mat-dialog-transparent',
       height: '100%',
@@ -213,16 +214,14 @@ export class F02002Component implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result => {
 
-      if(result.event == 'success')
-      {
-
+      if (result.event == 'success') {
+        this.rescanData = [];
         this.search();
       }
 
     })
   }
-  test()
-  {
+  test() {
     alert(this.Pieces)
   }
 }

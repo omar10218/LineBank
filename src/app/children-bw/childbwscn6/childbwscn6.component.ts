@@ -72,6 +72,7 @@ export class Childbwscn6Component implements OnInit {
     const url = window.location.href.split("/#");
     window.open(url[0] + "/#/F01009/F01009SCN1", "", "location=no");
     sessionStorage.setItem('winClose', 'N');
+    sessionStorage.setItem('search', 'N');
 
     // const url = this.router.serializeUrl(
     //   this.router.createUrlTree(["./F01009/F01009SCN1"])

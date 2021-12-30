@@ -212,7 +212,8 @@ export class F01010Component implements OnInit {
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
-        sessionStorage.setItem('page', '10'); //0查詢 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8產生合約前回查 9複審人員 10複審主管
+        // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
+        sessionStorage.setItem('page', '10');
         this.router.navigate(['./F01010/F01010SCN1']);
       }
     });

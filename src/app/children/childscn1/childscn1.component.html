@@ -41,7 +41,7 @@
               [ngStyle]="getStyle(toNumber(caApplicationAmount))" (keypress)="numberOnly($event)"
               (keyup)="caApplicationAmount = toCurrency(toNumber(caApplicationAmount))"
               (ngModelChange)="change(toNumber(caApplicationAmount),'caApplicationAmount','')" required
-              placeholder="輸入金額" [disabled]="getSearch() == 'Y' || getLevel() == 'L1'"></div>
+              placeholder="輸入金額" [disabled]="getSearch() == 'Y' ||  getPage() != '2'"></div>
         </div>
         <div nz-col nzFlex="1">
           <div style="padding:3px"><span class="form-title">貸款用途</span><input matInput #input class="form-control"

@@ -225,6 +225,13 @@ export class F01008scn2Component implements OnInit {
         rowId: ID
       }
     })
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result.event == 'success' || result ==1) {
+        this.set();
+      }
+
+    })
   }
   jcic()//立即重查
   {

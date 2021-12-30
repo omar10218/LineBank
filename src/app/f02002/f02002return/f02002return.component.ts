@@ -216,10 +216,12 @@ export class F02002returnComponent implements OnInit {
 
           if (data.rspCode === '0000') {
             this.f02002Service.setformdata(ul, formdata).subscribe(data => {
-              if (data.rspCode === '0000') {
+              if (data.rspCode === '0000')
+              {
                 this.dialogRef.close({ event: 'success' });
               }
-              else {
+              else
+              {
                 this.dialog.open(ConfirmComponent, {
                   data: { msgStr: data.rspMsg }
                 });
