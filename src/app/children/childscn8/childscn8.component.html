@@ -65,27 +65,27 @@
     </div>
 
 
-    <div *ngIf="getPage() == '2'" style="padding:10px ;padding-left: 3% ;text-align: left;">
+    <div *ngIf="getPage() == '2'" style="padding:10px ;padding-left: 10% ;text-align: left;">
       <button nz-button [nzSize]="'middle'" nzType="primary" (click)="items()">編輯</button>
     </div>
 
-    <div *ngIf="getPage() != '2'" style="padding:10px;padding-left: 3%;text-align: left;">
+    <div *ngIf="getPage() != '2'" style="padding:10px;padding-left: 10%;text-align: left;">
       <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" disabled>編輯</button>
     </div>
 
 
     <!-- 最外層卡片包覆 -->
-    <div class="line_bank_card_no_padding">
+    <div class="line_bank_card_no_padding" style="width: 80%;">
       <!-- 表格 -->
       <nz-table [nzData]="MDtable" nzSize="small" nzTitle="照會項目">
         <thead>
           <tr>
-            <th class="table-header" style="width:4%">No</th>
-            <th class="table-header" style="width:10%">項目</th>
+            <th class="table-header" style="width:1%">No</th>
+            <th class="table-header" style="width:6%">項目</th>
             <th class="table-header" style="width:2%">提問</th>
-            <th class="table-header" style="width:20%">核對資料</th>
-            <th class="table-header" style="width:15%">回答狀況</th>
-            <th class="table-header" style="width:25%">其他備註</th>
+            <th class="table-header" style="width:18%">核對資料</th>
+            <th class="table-header" style="width:20%">回答狀況</th>
+            <th class="table-header" style="width:29%">其他備註</th>
             <th class="table-header" style="width:10%">確認時間</th>
             <th class="table-header" style="width:10%">確認人員</th>
           </tr>
