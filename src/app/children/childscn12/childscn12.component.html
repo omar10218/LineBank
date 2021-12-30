@@ -134,7 +134,7 @@
 
       <div class="line_bank_card_no_padding">
         <nz-table [nzData]="INCOME_DETAILS_List" [nzLoading]="loading6" nzSize="small" nzTitle="所得清單/報稅證明" nzFrontPagination="false"
-          nzSimple="false">
+          nzSimple="false"  >
           <thead>
             <tr>
               <th class="table-header" style="width:2%">序號</th>
@@ -149,7 +149,7 @@
               <th class="table-header" style="width:18%">說明</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody [ngClass]="getBlueClass()">
             <!-- 1 -->
             <tr>
               <td rowspan="15">1</td>
