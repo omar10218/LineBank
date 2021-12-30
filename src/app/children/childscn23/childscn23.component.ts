@@ -253,6 +253,7 @@ export class Childscn23Component implements OnInit {
     this.childscn23Service.AddUpDel(url, this.jsonObject1).subscribe(data => {
 
       if (data.rspCode == '0000') {
+        this.isAllCheck = false;
         this.set();
         this.checkboxAny = [];
         this.seveData = [];
@@ -286,9 +287,11 @@ export class Childscn23Component implements OnInit {
     console.log(this.checkboxAny)
     this.childscn23Service.AddUpDel(url, jsonObject).subscribe(data => {
       console.log(data)
-      if (data.rspMsg == '刪除成功') {
+      if (data.rspMsg == '刪除成功')
+       {
         this.set();
         // alert('1')
+        this.isAllCheck = false;
         this.checkboxAny = []
         this.Monthly421 = 0;//BAM421月付金
         this.Monthly029 = 0;//BAM029月付金
