@@ -36,7 +36,7 @@
           <!-- <td class="table-data">{{ data.custId }}</td> -->
           <td class="table-data">{{ data.nationalId }}</td>
           <td class="table-data">{{ data.prodCode }}</td>
-          <td class="table-data">{{data.opId}}</td>
+          <td class="table-data">{{data.opId}} {{data.opDesc}} </td>
           <!-- <td class="table-data"></td> -->
           <td class="table-data">{{ data.creditResult }}</td>
           <td class="table-data">{{ data.reasonCode }}</td>
@@ -47,8 +47,8 @@
           <td class="table-data">{{ data.l3empno }}</td>
           <td class="table-data">{{ data.l4empno }}</td>
           <!-- <td class="table-data"></td> -->
-          <td class="table-data">{{ data.applyTime| date: 'yyyy-MM-dd' }}</td>
-          <td class="table-data">{{ data.creditTime | date: 'yyyy-MM-dd'}}</td>
+          <td class="table-data">{{ data.applyTime| date:'yyyy-MM-dd hh:mm' }}</td>
+          <td class="table-data">{{ data.creditTime | date:'yyyy-MM-dd hh:mm'}}</td>
         </tr>
       </tbody>
     </nz-table>
