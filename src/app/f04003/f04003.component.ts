@@ -116,6 +116,12 @@ export class F04003Component implements OnInit {
           }
           this.i = 1;
         }
+        else
+        {
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "查無案件" }
+          });
+        }
       })
     }
     else {

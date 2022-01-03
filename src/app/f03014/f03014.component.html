@@ -88,7 +88,7 @@
           <td class="table-data">{{ row.EFFECTIVE_DATE |date: 'yyyy-MM-dd' }}</td>
           <td class="table-data">{{ row.EXPIRATION_DATE |date: 'yyyy-MM-dd' }}</td>
           <td class="table-data" style="text-align:center">{{ getOptionDesc(usingType, row.USE_FLAG) }}</td>
-          <td class="table-data">{{ row.CHANGE_DATE|date: 'yyyy-MM-dd' }}</td>
+          <td class="table-data">{{ row.CHANGE_DATE| date: 'yyyy-MM-dd hh:mm' }}</td>
         </tr>
       </tbody>
     </nz-table>
