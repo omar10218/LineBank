@@ -157,6 +157,31 @@ export class F01008scn4Component implements OnInit {
         this.fmData_M.data[0].unsdebt_824_CCRBAL_B = this.data_number2(this.fmData_M.data[0].unsdebt_824_CCRBAL_B);
         this.fmData_M.data[0].unsdebt_NONJCIC_B = this.data_number2(this.fmData_M.data[0].unsdebt_NONJCIC_B);
         this.fmData_M.data[0].unsdebt_PAYAMT_029EX_B = this.data_number2(this.fmData_M.data[0].unsdebt_PAYAMT_029EX_B);
+
+        //以下 資料加千分位
+        this.fmData_M.data[0].unsdebt_AMT_501EX = this.data_number2(this.fmData_M.data[0].unsdebt_AMT_501EX);
+        this.fmData_M.data[0].unsdebt_AMT_504EX = this.data_number2(this.fmData_M.data[0].unsdebt_AMT_504EX);
+        this.fmData_M.data[0].unsdebt_AMTNEW_505EX = this.data_number2(this.fmData_M.data[0].unsdebt_AMTNEW_505EX);
+        this.fmData_M.data[0].unsdebt_AMTNEW_029EX = this.data_number2(this.fmData_M.data[0].unsdebt_AMTNEW_029EX);
+        this.fmData_M.data[0].unsdebt_824_RLLIMIT = this.data_number2(this.fmData_M.data[0].unsdebt_824_RLLIMIT);
+        this.fmData_M.data[0].unsdebt_824_RLBAL = this.data_number2(this.fmData_M.data[0].unsdebt_824_RLBAL);
+        this.fmData_M.data[0].unsdebt_824_ILBAL = this.data_number2(this.fmData_M.data[0].unsdebt_824_ILBAL);
+        this.fmData_M.data[0].unsdebt_824_CCRBAL = this.data_number2(this.fmData_M.data[0].unsdebt_824_CCRBAL);
+        this.fmData_M.data[0].unsdebt_NONJCIC = this.data_number2(this.fmData_M.data[0].unsdebt_NONJCIC);
+        this.fmData_M.data[0].unsdebt_PAYAMT_029EX = this.data_number2(this.fmData_M.data[0].unsdebt_PAYAMT_029EX);
+
+
+        this.fmData_M.data[0].unsdebt_SUM_0 = this.data_number2(this.fmData_M.data[0].unsdebt_SUM_0);
+        this.fmData_M.data[0].unsdebt_SUM_0CK_B = this.data_number2(this.fmData_M.data[0].unsdebt_SUM_0CK_B);
+        this.fmData_M.data[0].annual_INCOME = this.data_number2(this.fmData_M.data[0].annual_INCOME);
+        this.fmData_M.data[0].income = this.data_number2(this.fmData_M.data[0].income);
+        this.fmData_M.data[0].approve_AMT = this.data_number2(this.fmData_M.data[0].approve_AMT);
+        this.fmData_M.data[0].dbr_0 = this.data_number2(this.fmData_M.data[0].dbr_0);
+        this.fmData_M.data[0].dbr_0CK = this.data_number2(this.fmData_M.data[0].dbr_0CK);
+        this.fmData_M.data[0].dbr_2 = this.data_number2(this.fmData_M.data[0].dbr_2);
+        this.fmData_M.data[0].dbr_2CK = this.data_number2(this.fmData_M.data[0].dbr_2CK);
+
+
       }
 
     });

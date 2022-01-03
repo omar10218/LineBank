@@ -303,8 +303,8 @@
         <td></td>
         <td  id="td_height">(J)無擔保負債(不含本筆核准)合計</td>
         <td class="data_right">{{fmData_B.data[0].unsdebt_SUM_0}}</td>
-        <td class="data_right">{{fmData_B.data[0].mthpay_SUM_0CK_B}}</td>
-        <td class="data_right">{{fmData_B.data[0].mthpay_SUM_0CK_C}}</td>
+        <td class="data_right">{{fmData_B.data[0].unsdebt_SUM_0CK_B}}</td>
+        <td class="data_right">{{fmData_B.data[0].unsdebt_SUM_0CK_C}}</td>
       </tr>
       <tr *ngIf="fmData_B.data.length>0">
         <td id="td_height" colspan="2">(DBR分母)客戶填寫年收入</td>
@@ -320,7 +320,7 @@
       </tr>
       <tr *ngIf="fmData_B.data.length>0">
         <td id="td_height" colspan="2">本筆建議核准金額/額度</td>
-        <td></td>
+        <td class="data_right" >{{fmData_B.data[0].approve_AMT}}</td>
         <td></td>
         <td></td>
       </tr>

@@ -135,21 +135,24 @@ data_number(p: number) {
   }
   return this.x
 }
-  // 儲存案件註記
-  saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
-    let msg = '';
-    let jsonObject: any = {};
-    jsonObject['swcApplno'] = swcApplno;
-    jsonObject['swcCaseMemo'] = swcCaseMemo;
+ // 儲存案件註記
+ saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
+  let msg = '';
+  let jsonObject: any = {};
+  jsonObject['swcApplno'] = swcApplno;
+  jsonObject['swcCaseMemo'] = swcCaseMemo;
 
-    this.f01005Service.saveCaseMemo(jsonObject).subscribe(data => {
-      msg = data.rspMsg;
-    });
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == 'success') { window.location.reload(); }
-    }, 1000);
-  }
+  this.f01005Service.saveCaseMemo(jsonObject).subscribe(data => {
+    msg = data.rspMsg;
+  });
+  setTimeout(() => {
+    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
+    if (msg != null && msg == 'success') { this.getCaseList }
+  }, 1000);
+  setTimeout(() => {
+    this.dialog.closeAll();
+  }, 2500)
+}
 
   // 參數
   onQueryParamsChange(params: NzTableQueryParams): void {
