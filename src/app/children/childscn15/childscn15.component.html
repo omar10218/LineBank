@@ -24,20 +24,20 @@
           <!-- 格式1 單列 -->
           <tr
             *ngIf="reasonData.level2.length <='1' && reasonData.REASON_DESC!='高度偽冒風險' && reasonData.REASON_DESC!='其他'">
-            <td class="table-data">{{reasonData.sort}}</td>
-            <td class="table-data">
+            <td>{{reasonData.sort}}</td>
+            <td>
               <input type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC}}
                 value={{reasonData.REASON_DESC}}
                 (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
             </td>
-            <td class="table-data">
+            <td>
               <div *ngFor="let reasonData_level2 of reasonData.level2;let i = index"><input type="checkbox"
                   [(ngModel)]="reasonData_level2.checkbox" [disabled]="reasonData.checkbox ? false : true"
                   value={{reasonData_level2.REASON_DESC}}
                   (click)="checkboxSelect($event.target.checked,reasonData_level2.REASON_DESC,reasonData_level2.REASON_LEVEL,reasonData_level2.UP_REASON_CODE,reasonData_level2.REASON_CODE,'fm');">{{reasonData_level2.REASON_DESC}}
               </div>
             </td>
-            <td class="table-data">
+            <td>
               <ng-container *ngFor="let reasonData_level2 of reasonData.level2;let i = index">
                 <ng-container *ngFor="let reasonData_level3 of reasonData_level2.level3;let i = index">
                   {{reasonData_level3.REASON_DESC}}
@@ -125,20 +125,20 @@
           <!-- 格式1 單列 -->
           <tr
             *ngIf="reasonData.level2.length <='1' && reasonData.REASON_DESC!='高度偽冒風險' && reasonData.REASON_DESC!='其他'">
-            <td class="table-data">{{reasonData.sort}}</td>
-            <td class="table-data">
+            <td>{{reasonData.sort}}</td>
+            <td>
               <input disabled type="checkbox" [(ngModel)]="reasonData.checkbox" name={{reasonData.REASON_DESC}}
                 value={{reasonData.REASON_DESC}}
                 (click)="checkboxSelect($event.target.checked,reasonData);">{{reasonData.REASON_DESC}}
             </td>
-            <td class="table-data">
+            <td>
               <div disabled *ngFor="let reasonData_level2 of reasonData.level2;let i = index"><input type="checkbox"
                   [(ngModel)]="reasonData_level2.checkbox" [disabled]="reasonData.checkbox ? false : true"
                   value={{reasonData_level2.REASON_DESC}}
                   (click)="checkboxSelect($event.target.checked,reasonData_level2.REASON_DESC,reasonData_level2.REASON_LEVEL,reasonData_level2.UP_REASON_CODE,reasonData_level2.REASON_CODE,'fm');">{{reasonData_level2.REASON_DESC}}
               </div>
             </td>
-            <td class="table-data">
+            <td>
               <ng-container *ngFor="let reasonData_level2 of reasonData.level2;let i = index">
                 <ng-container *ngFor="let reasonData_level3 of reasonData_level2.level3;let i = index">
                   {{reasonData_level3.REASON_DESC}}
