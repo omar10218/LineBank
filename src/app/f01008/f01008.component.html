@@ -51,7 +51,7 @@
           </div>
           <div nz-col nzSpan="2" style="margin-top:12px;">
             <div>
-              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="clear()">清除資料</button>
+              <button nz-button [nzSize]="'middle'" nzDanger (click)="clear()">清除資料</button>
             </div>
           </div>
         </div>
@@ -68,34 +68,36 @@
             [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
               <tr>
-                <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true">案件編號</th>
+                <th class="table-header" [nzWidth]="'60px'" nzLeft>No</th>
                 <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
-                  [nzSortOrder]="'ascend'">進件時間</th>
+                  [nzSortOrder]="'ascend'" nzLeft>進件時間</th>
+                <th class="table-header" nzLeft>客群標籤</th>
+                <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true" nzLeft>案件編號</th>
+                <th class="table-header">等級gp</th>
                 <th class="table-header">身分證號</th>
                 <th class="table-header">客戶ID</th>
                 <th class="table-header">姓名</th>
                 <th class="table-header" [nzWidth]="'140px'">公司名稱</th>
                 <th class="table-header">申請金額/額度</th>
-                <th class="table-header">客群標籤</th>
-                <th class="table-header">風險等級分群</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let data of cusinfoDataSource">
+              <tr *ngFor="let data of cusinfoDataSource; let i =index">
+                <td class="table-data" [nzAlign]="'center'" nzLeft>{{ i+1 }}</td>
+                <td class="table-data">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}</td>
+                <td class="table-data">{{ data.swcCustTag }}</td>
                 <td class="table-data">
                   <button nz-button [nzSize]="'middle'" nzType="link"
                     (click)="getLockCase(data.swcApplno, data.swcNationalId)">
                     {{data.swcApplno}}
                   </button>
                 </td>
-                <td class="table-data">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}</td>
+                <td class="table-data">{{ data.swcRiskGrade }}</td>
                 <td class="table-data">{{ data.swcNationalId }}</td>
                 <td class="table-data">{{ data.swcCustId }}</td>
                 <td class="table-data">{{ data.swcName }}</td>
                 <td class="table-data">{{ data.swcCompany }}</td>
                 <td class="table-data">{{  data.swcApplyAmount != undefined? data_number( data.swcApplyAmount): data.swcApplyAmount }}</td>
-                <td class="table-data">{{ data.swcCustTag }}</td>
-                <td class="table-data">{{ data.swcRiskGrade }}</td>
               </tr>
             </tbody>
           </nz-table>

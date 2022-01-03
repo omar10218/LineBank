@@ -151,8 +151,11 @@ export class F01007Component implements OnInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == 'success') { window.location.reload(); }
+      if (msg != null && msg == 'success') { this.getCaseList }
     }, 1000);
+    setTimeout(() => {
+      this.dialog.closeAll();
+    }, 2500)
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {

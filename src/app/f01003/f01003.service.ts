@@ -29,6 +29,6 @@ export class F01003Service extends BaseService {
   
   saveCaseMemo(jsonObject: JSON): any  {
     const baseUrl = 'f01/f01003fn3';
-    return this.saveOrEditMsgJson(baseUrl, jsonObject);
+    return this.postJsonObject(baseUrl, jsonObject);
   }
 }

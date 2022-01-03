@@ -66,55 +66,59 @@
         <div class="line_bank_card_no_padding">
           <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
             [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
-            [nzScroll]="{ x: '1500px', y:tableHeight}"
-            (nzQueryParams)="onQueryParamsChange($event)">
+            [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)">
             <thead style="max-height: 100vh;">
               <tr>
-                <th class="table-header" nzLeft (nzSortOrderChange)="sortChange($event)"
-                [nzSortFn]="true" [nzWidth]="'160px'">案件編號</th>
-                <th class="table-header">流程別</th>
-                <th class="table-header">重查完成</th>
-                <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"
-                  [nzSortOrder]="'ascend'">進件時間</th>
+                <th class="table-header" [nzWidth]="'60px'" nzLeft>No</th>
+                <th class="table-header" [nzWidth]="'90px'" nzLeft>案件類別</th>
+                <th class="table-header" [nzSortFn]="false" [nzWidth]="'80px'" nzLeft>累進</th>
+                <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzWidth]="'100px'" [nzSortFn]="true"
+                  [nzSortOrder]="'ascend'" nzLeft>進件時間</th>
+                <th class="table-header" [nzSortFn]="false" [nzWidth]="'100px'" nzLeft>客群標籤</th>
+                <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="false" [nzWidth]="'160px'"
+                  nzLeft>案件編號</th>
+                <th class="table-header" [nzWidth]="'90px'">重查完成</th>
+                <th class="table-header" [nzSortFn]="false" [nzWidth]="'80px'">等級gp</th>
                 <th class="table-header">身分證號</th>
+                <th class="table-header">客戶ID</th>
                 <th class="table-header">姓名</th>
-                <th class="table-header" [nzWidth]="'140px'">公司名稱</th>
-                <th class="table-header">申請金額</th>
-                <th class="table-header">客群標籤</th>
-                <th class="table-header" [nzWidth]="'100px'">風險等級分群</th>
-                <th class="table-header">累積進件</th>
+                <th class="table-header">公司名稱</th>
+                <th class="table-header">申請金額/額度</th>
                 <th class="table-header">審核結果</th>
                 <th class="table-header">通知</th>
-                <th class="table-header"[nzWidth]="'140px'" nzRight>案件註記</th>
+                <th class="table-header" [nzWidth]="'140px'" nzRight>案件註記</th>
                 <th class="table-header" nzRight>儲存</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let data of cusinfoDataSource">
-                <td class="table-data" nzLeft >
+              <tr *ngFor="let data of cusinfoDataSource; let i =index">
+                <td class="table-data" [nzAlign]="'center'" nzLeft>{{ i+1 }}</td>
+                <td *ngIf="data.swcCreditLevel == 'T';else template" class="table-data" nzLeft>暫存件</td>
+                <ng-template #template>
+                  <td class="table-data" nzLeft>{{ getOptionCaseType(data.swcFlowType) }}</td>
+                </ng-template>
+                <td class="table-data" nzLeft>{{ data.swcApplyNum }}</td>
+                <td class="table-data" nzWidth="'70px'" nzLeft>{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}</td>
+                <td class="table-data" nzLeft>{{ data.swcCustTag }}</td>
+                <td class="table-data" nzLeft>
                   <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='N'"
                     [disabled]="true">
                     {{data.swcApplno}}
                   </button>
-                  <button nz-button [nzSize]="'middle'" nzLeft nzType="link" *ngIf="data.swcReadyForReview=='Y'||data.swcReadyForReview==''"
+                  <button nz-button [nzSize]="'middle'" nzType="link"
+                    *ngIf="data.swcReadyForReview=='Y'||data.swcReadyForReview==''"
                     (click)="getLockCase(data.swcApplno, data.swcNationalId)">
                     {{data.swcApplno}}
                   </button>
                 </td>
-                <td *ngIf="data.swcCreditLevel == 'T';else template" class="table-data">暫存件</td>
-                <ng-template #template>
-                  <td class="table-data">{{ getOptionCaseType(data.swcFlowType) }}</td>
-                </ng-template>
                 <td class="table-data">{{ data.swcReadyForReview }}</td>
-                <td class="table-data" nzWidth="'70px'">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}
-                </td>
-                <td class="table-data" >{{ data.swcNationalId }}</td>
+                <td class="table-data">{{ data.swcRiskGrade }}</td>
+                <td class="table-data">{{ data.swcNationalId }}</td>
+                <td class="table-data">{{ data.swcCustId }}</td>
                 <td class="table-data">{{ data.swcName }}</td>
                 <td class="table-data">{{ data.swcCompany }}</td>
-                <td class="table-data">{{  data.swcCreditLimit != undefined? data_number( data.swcCreditLimit): data.swcCreditLimit }}</td>
-                <td class="table-data">{{ data.swcCusGroupTag }}</td>
-                <td class="table-data">{{ data.swcRiskLevelGroup }}</td>
-                <td class="table-data">{{ data.swcEnterCount }}</td>
+                <td class="table-data" style="text-align: right;">{{ data.swcApplyAmount != undefined? data_number(
+                  data.swcApplyAmount): data.swcApplyAmount }}</td>
                 <td class="table-data">{{ data.swcResult }}</td>
                 <td class="table-data" style="text-align: center;">
                   <button nz-button id="test" nzSize='small' *ngIf="data.swcNotifyMsg==''" [disabled]="true"
@@ -126,7 +130,7 @@
                   <input matInput id="input" class="form-control" [(ngModel)]="data.swcCaseMemo" name="note"
                     placeholder="請輸入註記" required>
                 </td>
-                <td class="table-data btn_test" nzRight  style="text-align: center;">
+                <td class="table-data btn_test" nzRight style="text-align: center;">
                   <button nz-button id="test" nzType="primary" nzSize='small'
                     (click)="saveCaseMemo(data.swcApplno, data.swcCaseMemo)">儲存</button>
                 </td>
