@@ -26,7 +26,7 @@ export class Childscn2page1Component implements OnInit {
   loading = true;
   currentPage: PageEvent;
   pageIndex = 1;
-  pageSize = 2  ;
+  pageSize = 50  ;
   empName: string;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator
 
