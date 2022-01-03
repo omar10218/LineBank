@@ -131,6 +131,7 @@ export class F04003Component implements OnInit {
     }
 
   }
+
   setAll(completed: boolean) //全選
   {
 
@@ -210,8 +211,7 @@ export class F04003Component implements OnInit {
   }
   test()
   {
-    console.log(this.personnelCode)
-    console.log(this.personnel)
+    return false;
   }
   Select()
   {
