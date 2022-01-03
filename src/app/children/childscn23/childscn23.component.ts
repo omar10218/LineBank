@@ -372,6 +372,7 @@ export class Childscn23Component implements OnInit {
     // jsonObject['applno'] = '20210827E000';
     jsonObject['dssType'] = "Dss1";
     this.childscn23Service.getDate_Json(url, jsonObject).subscribe(data => {
+      // console.log(data);
       if (data.rspBody.length > 0) {
         this.fmData_B.data = data.rspBody
 
@@ -422,6 +423,41 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].mthpay_BAM029_B = this.data_number2(this.fmData_B.data[0].mthpay_BAM029_B);
         this.fmData_B.data[0].mthpay_KRM048_B = this.data_number2(this.fmData_B.data[0].mthpay_KRM048_B);
         this.fmData_B.data[0].mthpay_NONJCIC_B = this.data_number2(this.fmData_B.data[0].mthpay_NONJCIC_B);
+
+        //以下 資料加千分位
+        this.fmData_B.data[0].unsdebt_AMT_501EX = this.data_number2(this.fmData_B.data[0].unsdebt_AMT_501EX);
+        this.fmData_B.data[0].unsdebt_AMT_504EX = this.data_number2(this.fmData_B.data[0].unsdebt_AMT_504EX);
+        this.fmData_B.data[0].unsdebt_AMTNEW_505EX = this.data_number2(this.fmData_B.data[0].unsdebt_AMTNEW_505EX);
+        this.fmData_B.data[0].unsdebt_AMTNEW_029EX = this.data_number2(this.fmData_B.data[0].unsdebt_AMTNEW_029EX);
+        this.fmData_B.data[0].unsdebt_824_RLLIMIT = this.data_number2(this.fmData_B.data[0].unsdebt_824_RLLIMIT);
+        this.fmData_B.data[0].unsdebt_824_RLBAL = this.data_number2(this.fmData_B.data[0].unsdebt_824_RLBAL);
+        this.fmData_B.data[0].unsdebt_824_ILBAL = this.data_number2(this.fmData_B.data[0].unsdebt_824_ILBAL);
+        this.fmData_B.data[0].unsdebt_824_CCRBAL = this.data_number2(this.fmData_B.data[0].unsdebt_824_CCRBAL);
+        this.fmData_B.data[0].unsdebt_NONJCIC = this.data_number2(this.fmData_B.data[0].unsdebt_NONJCIC);
+        this.fmData_B.data[0].unsdebt_PAYAMT_029EX = this.data_number2(this.fmData_B.data[0].unsdebt_PAYAMT_029EX);
+        this.fmData_B.data[0].unsdebt_SUM_0 = this.data_number2(this.fmData_B.data[0].unsdebt_SUM_0);
+        this.fmData_B.data[0].annual_INCOME = this.data_number2(this.fmData_B.data[0].annual_INCOME);
+        this.fmData_B.data[0].income = this.data_number2(this.fmData_B.data[0].income);
+        this.fmData_B.data[0].dbr_0X = this.data_number2(this.fmData_B.data[0].dbr_0X);
+        this.fmData_B.data[0].dbr_0XCK_B = this.data_number2(this.fmData_B.data[0].dbr_0XCK_B);
+        this.fmData_B.data[0].dbr_0 = this.data_number2(this.fmData_B.data[0].dbr_0);
+        this.fmData_B.data[0].dbr_0CK_B = this.data_number2(this.fmData_B.data[0].dbr_0CK_B);
+        this.fmData_B.data[0].dbr_1 = this.data_number2(this.fmData_B.data[0].dbr_1);
+        this.fmData_B.data[0].dbr_1CK_B = this.data_number2(this.fmData_B.data[0].dbr_1CK_B);
+        this.fmData_B.data[0].approve_AMT = this.data_number2(this.fmData_B.data[0].approve_AMT);
+        this.fmData_B.data[0].mthpay_SUM_0CK_B = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0CK_B);
+        this.fmData_B.data[0].mthpay_SUM_0CK_C = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0CK_C);
+        
+        
+
+        this.fmData_B.data[0].mthpay_BAM421 = this.data_number2(this.fmData_B.data[0].mthpay_BAM421);
+        this.fmData_B.data[0].mthpay_BAM029 = this.data_number2(this.fmData_B.data[0].mthpay_BAM029);
+        this.fmData_B.data[0].mthpay_KRM048 = this.data_number2(this.fmData_B.data[0].mthpay_KRM048);
+        this.fmData_B.data[0].mthpay_NONJCIC = this.data_number2(this.fmData_B.data[0].mthpay_NONJCIC);
+        this.fmData_B.data[0].mthpay_SUM_0 = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0);
+
+        
+
         this.getDBR_DTI_C(true);
       }
       else {
@@ -563,6 +599,14 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].mthpay_BAM029_C = this.data_number2(data.rspBody[0].mthpay_BAM029_C);
         this.fmData_B.data[0].mthpay_KRM048_C = this.data_number2(data.rspBody[0].mthpay_KRM048_C);
         this.fmData_B.data[0].mthpay_NONJCIC_C = this.data_number2(data.rspBody[0].mthpay_NONJCIC_C);
+
+          //以下 資料加千分位
+        this.fmData_B.data[0].mthpay_SUM_0CK_C = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0CK_C);
+        this.fmData_B.data[0].dbr_0XCK_C = this.data_number2(this.fmData_B.data[0].dbr_0XCK_C);
+        this.fmData_B.data[0].dbr_0CK_C = this.data_number2(this.fmData_B.data[0].dbr_0CK_C);
+        this.fmData_B.data[0].dbr_1CK_C = this.data_number2(this.fmData_B.data[0].dbr_1CK_C);
+        this.fmData_B.data[0].approve_AMT = this.data_number2(this.fmData_B.data[0].approve_AMT);
+
 
       }
     });
