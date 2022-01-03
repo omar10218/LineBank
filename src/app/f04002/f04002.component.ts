@@ -64,11 +64,18 @@ interface checkBox {
 })
 export class F04002Component implements OnInit {
 
+  pagCode= [
+    { value: '1', label: '徵審' },
+    { value: '2', label: '複審' },
+  ];
   sysCode: OptionsCode[] = [];
   selectedValue: string;
+  selectedPagValue:string
   isAllCheck: boolean = false;
   roleFunctionSource = new MatTableDataSource<any>();
   level: string;   // 目前關卡
+  pag:string;
+
   chkArray: checkBox[] = [];
 
   constructor(private f04002Service: F04002Service,
@@ -85,17 +92,48 @@ export class F04002Component implements OnInit {
   pageIndex = 1;
 
   ngOnInit(): void {
-    this.level = sessionStorage.getItem('level');
-    console.log(this.level)
-    this.f04002Service.getSysTypeCode('STEP_ERROR').subscribe(data => {
-      console.log(data)
-      this.sysCode.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj.codeNo;
-        const desc = jsonObj.codeDesc;
-        this.sysCode.push({ value: codeNo, viewValue: desc })
-      }
-    });
+
+    
+    // this.f04002Service.getSysTypeCode('STEP_ERROR').subscribe(data => {
+    //   console.log(data)
+    //   this.sysCode.push({ value: '', viewValue: '請選擇' })
+    //   for (const jsonObj of data.rspBody.mappingList) {
+    //     const codeNo = jsonObj.codeNo;
+    //     const desc = jsonObj.codeDesc;
+    //     this.sysCode.push({ value: codeNo, viewValue: desc })
+    //   }
+    // });
+  }
+  ngAfterViewInit():void{
+  }
+  
+  //選擇關卡
+  choosePoint(){
+    if(this.selectedPagValue=='1'){
+      console.log(this.selectedPagValue)
+      this.f04002Service.getSysTypeCode('STEP_ERROR').subscribe(data => {
+        console.log(data)
+        this.sysCode.push({ value: '', viewValue: '請選擇' })
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.sysCode.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    }
+    else if(this.selectedPagValue=='2'){
+      console.log(this.selectedPagValue)
+      this.f04002Service.getSysTypeCode('BW_STEP_ERROR').subscribe(data => {
+        console.log(data)
+        this.sysCode.push({ value: '', viewValue: '請選擇' })
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.sysCode.push({ value: codeNo, viewValue: desc })
+        }
+      });
+    }
+    this.sysCode=[]
   }
   //重查
   newSearch() {
