@@ -44,6 +44,7 @@ export class Childscn5Component implements OnInit {
   thous: string                         // 千分位處理
   yn: boolean                           // 判斷是否為授信
   pag:string;
+  originalData:any                      // 舊值
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -101,8 +102,6 @@ export class Childscn5Component implements OnInit {
     this.companyWhitelistValue = '';
     this.search = sessionStorage.getItem('search');
     this.pag = sessionStorage.getItem('page');
-    console.log("++++++++++++++++++++++++++==")
-    console.log(sessionStorage.getItem('page'))
     //取性別
     this.childscn5Service.getSysTypeCode('GENDER')
       .subscribe(data => {
@@ -175,6 +174,7 @@ export class Childscn5Component implements OnInit {
 
       this.setmaterial = data.rspBody.compareCompanies;
       console.log(data)
+      this.originalData=data.rspBody.items[0]
       this.customerInfoForm.patchValue({ CUCNAME: data.rspBody.items[0].cuCname })
       this.customerInfoForm.patchValue({ NATIONAL_ID: data.rspBody.items[0].nationalId })
       this.customerInfoForm.patchValue({ CU_SEX: this.getGender(data.rspBody.items[0].cuSex) })
@@ -313,7 +313,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_CP_NAME_CA',
-        originalValue: this.customerInfoForm.value.CU_CP_NAME,
+        originalValue: this.originalData.cuCpNameCa,
         currentValue: this.cuCpNameCa,
         transAPname: '基本資料',
       },
@@ -322,7 +322,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_LEVEL1_CA',
-        originalValue: this.customerInfoForm.value.CU_LEVEL1_CA,
+        originalValue: this.originalData.cuLevel1Ca,
         currentValue: this.cuLevel1CaValue,
         transAPname: '基本資料',
       },
@@ -331,7 +331,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_LEVEL2_CA',
-        originalValue: this.customerInfoForm.value.CU_LEVEL2_CA,
+        originalValue: this.originalData.cuLevel2Ca,
         currentValue: this.cuLevel2CaValue,
         transAPname: '基本資料',
       },
@@ -340,7 +340,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'JOB_CODE_CA',
-        originalValue: this.customerInfoForm.value.JOB_CODE_CA,
+        originalValue: this.originalData.jobCodeCa,
         currentValue: this.jobCodeCaValue,
         transAPname: '基本資料',
       },
@@ -349,7 +349,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'COMPANY_WHITELIST',
-        originalValue: this.customerInfoForm.value.COMPANY_WHITELIST,
+        originalValue: this.originalData.companyWhitelist,
         currentValue: this.companyWhitelistValue,
         transAPname: '基本資料',
       },
@@ -358,7 +358,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_M_TEL_OTHER',
-        originalValue: this.customerInfoForm.value.CU_M_TEL_OTHER,
+        originalValue: this.originalData.cuMTelOther,
         currentValue: this.cuMTelOther,
         transAPname: '基本資料',
       },
@@ -367,7 +367,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CONTACT_OTHER',
-        originalValue: this.customerInfoForm.value.CONTACT_OTHER,
+        originalValue: this.originalData.contactOther,
         currentValue: this.contactOther,
         transAPname: '基本資料',
       },
@@ -376,7 +376,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_CP_TEL_EXT',
-        originalValue: this.customerInfoForm.value.CU_CP_TEL_EXT,
+        originalValue: this.originalData.cuCpTelExt,
         currentValue: this.cuCpTelExt,
         transAPname: '基本資料',
       },
@@ -385,7 +385,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'PRV_COMP_NM',
-        originalValue: this.customerInfoForm.value.PRE_COMP_NM,
+        originalValue: this.originalData.prvCompNm,
         currentValue: this.preCompNm,
         transAPname: '基本資料',
       },
@@ -394,7 +394,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'PRV_JOB_TITLE',
-        originalValue: this.customerInfoForm.value.PRE_JOB_TITLE,
+        originalValue: this.originalData.prvJobTitle,
         currentValue: this.preJobTitle,
         transAPname: '基本資料',
       },
@@ -403,7 +403,7 @@ export class Childscn5Component implements OnInit {
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'PREV_JOB_YEAR',
-        originalValue: this.customerInfoForm.value.PRE_JOB_YEAR,
+        originalValue: this.originalData.prevJobYear,
         currentValue: this.preJobYear,
         transAPname: '基本資料',
       },
@@ -412,13 +412,13 @@ export class Childscn5Component implements OnInit {
         userId: localStorage.getItem('empNo'),
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'PRV_JOB_MONTH',
-        originalValue: this.customerInfoForm.value.PRE_JOB_MONTH,
+        originalValue: this.originalData.prvJobMonth,
         currentValue: this.preJobMonth,
         transAPname: '基本資料',
       }
     )
     jsonObject['content'] = content;
-    console.log(content)
+    console.log(this.originalData.prvCompNm)
     this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
       console.log(data)
       msg = data.rspMsg;

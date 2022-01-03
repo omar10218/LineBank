@@ -13,25 +13,35 @@ import { Childscn2Service } from '../childscn2.service';
   styleUrls: ['./childscn2page1.component.css','../../../../assets/css/child.css']
 })
 export class Childscn2page1Component implements OnInit {
-  private applno: string;               //案件編號
 
   constructor(
     private route: ActivatedRoute,
     private childscn2Service: Childscn2Service
   ) { }
 
+
+  private applno: string;               //案件編號
   transactionLogSource: Data[] = [];
   total :1;
   loading = true;
+  currentPage: PageEvent;
   pageIndex = 1;
-  pageSize = 50;
+  pageSize = 10;
   empName: string;
+  @ViewChild('paginator', { static: true }) paginator: MatPaginator
+
+
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    this.getTransLog( this.pageIndex, this.pageSize );
   }
 
-  ngAfterViewInit() {
-    this.getTransLog(  this.pageIndex, this.pageSize );
+  ngAfterViewInit(): void  {
+    this.getTransLog(this.pageIndex, this.pageSize)
+		this.paginator.page.subscribe((page: PageEvent) => {
+			this.currentPage = page
+			this.getTransLog(this.pageIndex, this.pageSize)
+		})
   }
 
   getTransLog( pageIndex: number, pageSize: number ){
