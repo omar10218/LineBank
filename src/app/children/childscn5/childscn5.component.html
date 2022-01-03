@@ -83,8 +83,6 @@
             </div>
           </div>
 
-
-
         </div>
         <div nz-row style="padding:5px">
           <div nz-col nzSpan="4">
@@ -246,6 +244,7 @@
                 <mat-option *ngFor="let code of cuLevel1CaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               </mat-select>
             </div>
             <div style="padding:3px"  *ngIf="yn==true">
@@ -257,6 +256,7 @@
                 <mat-option *ngFor="let code of cuLevel1CaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
+               
               </mat-select>
             </div>
           </div>
@@ -270,6 +270,7 @@
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
             <div style="padding:3px" *ngIf="yn==true">
               <span class="form-title">徵信認列行業Level2</span>
@@ -291,6 +292,8 @@
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
             </div>
             <div style="padding:3px" *ngIf="yn==true">
               <span class="form-title">徵信認列職業碼</span>
@@ -312,6 +315,7 @@
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
             <div style="padding:3px"  *ngIf="yn==true">
               <span class="form-title">公司是否為白名單</span>
@@ -322,6 +326,7 @@
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
+              
             </div>
           </div>
         </div>

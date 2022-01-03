@@ -83,9 +83,9 @@ export class Childscn5Component implements OnInit {
     CU_LEVEL1: ['', []],        // 行業Level1
     CU_LEVEL2: ['', []],        // 行業Level2
     JOB_CODE: ['', []],         // 職業碼
-    CU_LEVEL1_CA: ['', []],     // 徵信認列行業Level1
-    CU_LEVEL2_CA: ['', []],     // 徵信認列行業Level2
-    JOB_CODE_CA: ['', []],      // 徵信認列行業職業碼
+    CU_LEVEL1_CA: ['', [Validators.required]],     // 徵信認列行業Level1
+    CU_LEVEL2_CA: ['', [Validators.required]],     // 徵信認列行業Level2
+    JOB_CODE_CA: ['', [Validators.required]],      // 徵信認列行業職業碼
     COMPANY_WHITELIST: ['', []], // 公司是否為白名單
     CU_CP_NAME_CA: ['', []], // 徵信確認公司名單
     CU_TYPE: ['', []], // 行業別
@@ -114,7 +114,6 @@ export class Childscn5Component implements OnInit {
     //取公司白名單下拉
     this.childscn5Service.getSysTypeCode('COMPANY_WHITELIST').subscribe(data => {
 
-      this.companyWhitelistCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
         const desc = jsonObj.codeDesc;
