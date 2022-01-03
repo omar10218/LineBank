@@ -46,7 +46,7 @@ export class Childscn9Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    const baseUrl = 'f01/childscn9';
+    const baseUrl = 'f01/childscn9action2';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn9Service.getDate(baseUrl, jsonObject).subscribe(data => {
