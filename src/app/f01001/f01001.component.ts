@@ -34,7 +34,8 @@ export class F01001Component implements OnInit, AfterViewInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
-	x: string
+  x: string
+  sort: string;                                       // 排序
 
   // 計算剩餘table資料長度
   get tableHeight(): string {
@@ -65,6 +66,7 @@ export class F01001Component implements OnInit, AfterViewInit {
         this.agentEmpNoCode.push({ value: empNo, viewValue: empName })
       }
     });
+    this.sort = 'ascend';
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
@@ -88,18 +90,17 @@ export class F01001Component implements OnInit, AfterViewInit {
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01001Service.getCaseList(jsonObject).subscribe(data => {
-      if (data.rspBody.size > 0)
-      {
+      if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
         this.stepName = data.rspBody.items[0].F_StepName;
       }
-      else
-      {
+      else {
         this.cusinfoDataSource = null;
         this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "查無資料" }})
+          data: { msgStr: "查無資料" }
+        })
       }
     });
   }
@@ -119,15 +120,15 @@ export class F01001Component implements OnInit, AfterViewInit {
       this.getCaseList();
     }
   }
-// 千分號標點符號(form顯示用)
-data_number(p: number) {
-  this.x = '';
-  this.x = (p + "")
-  if (this.x != null) {
-    this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // 千分號標點符號(form顯示用)
+  data_number(p: number) {
+    this.x = '';
+    this.x = (p + "")
+    if (this.x != null) {
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
   }
-  return this.x
-}
   // 案件子頁籤
   getLockCase(swcApplno: string, swcNationalId: string) {
     let jsonObject: any = {};
@@ -145,7 +146,7 @@ data_number(p: number) {
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('level', '4');
         // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
-        sessionStorage.setItem('page', '1'); 
+        sessionStorage.setItem('page', '1');
         sessionStorage.setItem('stepName', this.stepName);
         this.router.navigate(['./F01001/F01001SCN1']);
       }
@@ -207,9 +208,30 @@ data_number(p: number) {
   }
 
   // 排序
-  sortChange(e: string) {
-    this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
-      (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+  sortChange(e: string, param: string) {
+    this.sort = '';
+    switch (param) {
+      case "swcApplyNum":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcApplyNum.localeCompare(b.swcApplyNum)) : this.cusinfoDataSource.sort((a, b) => b.swcApplyNum.localeCompare(a.swcApplyNum))
+        break;
+      case "swcZ21PassDate":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcZ21PassDate.localeCompare(b.swcZ21PassDate)) : this.cusinfoDataSource.sort((a, b) => b.swcZ21PassDate.localeCompare(a.swcZ21PassDate))
+        break;
+      case "swcCustTag":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcCustTag.localeCompare(b.swcCustTag)) : this.cusinfoDataSource.sort((a, b) => b.swcCustTag.localeCompare(a.swcCustTag))
+        break;
+      case "swcApplno":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+        break;
+      case "swcRiskGrade":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcRiskGrade.localeCompare(b.swcRiskGrade)) : this.cusinfoDataSource.sort((a, b) => b.swcRiskGrade.localeCompare(a.swcRiskGrade))
+        break;
+    }
   }
 
   // 清除資料

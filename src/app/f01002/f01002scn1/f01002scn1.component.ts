@@ -107,8 +107,8 @@ export class F01002scn1Component implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    let element: HTMLElement = document.getElementById('firstBtn') as HTMLElement;
-    element.click();
+    // let element: HTMLElement = document.getElementById('firstBtn') as HTMLElement;
+    // element.click();
   }
 
   test() {

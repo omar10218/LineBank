@@ -34,7 +34,8 @@ export class F01007Component implements OnInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
-	x: string
+	x: string;
+  sort: string;
 
   // 計算剩餘table資料長度
   get tableHeight(): string {
@@ -65,6 +66,7 @@ export class F01007Component implements OnInit {
         this.agentEmpNoCode.push({ value: empNo, viewValue: empName })
       }
     });
+    this.sort = 'ascend';
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
@@ -203,9 +205,30 @@ data_number(p: number) {
   }
 
   // 排序
-  sortChange(e: string) {
-    this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
-      (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+  sortChange(e: string, param: string) {
+    this.sort = '';
+    switch (param) {
+      case "swcApplyNum":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcApplyNum.localeCompare(b.swcApplyNum)) : this.cusinfoDataSource.sort((a, b) => b.swcApplyNum.localeCompare(a.swcApplyNum))
+        break;
+      case "swcZ21PassDate":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcZ21PassDate.localeCompare(b.swcZ21PassDate)) : this.cusinfoDataSource.sort((a, b) => b.swcZ21PassDate.localeCompare(a.swcZ21PassDate))
+        break;
+      case "swcCustTag":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcCustTag.localeCompare(b.swcCustTag)) : this.cusinfoDataSource.sort((a, b) => b.swcCustTag.localeCompare(a.swcCustTag))
+        break;
+      case "swcApplno":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+        break;
+      case "swcRiskGrade":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcRiskGrade.localeCompare(b.swcRiskGrade)) : this.cusinfoDataSource.sort((a, b) => b.swcRiskGrade.localeCompare(a.swcRiskGrade))
+        break;
+    }
   }
 
   // 清除資料

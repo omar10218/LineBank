@@ -34,7 +34,8 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
-  x: string
+  x: string;
+  sort: string;
 
   // 計算剩餘table資料長度
   get tableHeight(): string {
@@ -44,6 +45,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
     // 查詢案件分類
     this.f01002Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
       this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
@@ -66,6 +68,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
         this.agentEmpNoCode.push({ value: empNo, viewValue: empName })
       }
     });
+    this.sort = 'ascend';
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
@@ -162,7 +165,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
       this.dialog.closeAll();
     }, 2500)
   }
-  
+
   // 千分號標點符號(form顯示用)
   data_number(p: number) {
     this.x = '';
@@ -208,12 +211,30 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   }
 
   // 排序
-  sortChange(e: string) {
-    console.log(e)
-    this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
-      (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
-
-    console.log(this.cusinfoDataSource)
+  sortChange(e: string, param: string) {
+    this.sort = '';
+    switch (param) {
+      case "swcApplyNum":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcApplyNum.localeCompare(b.swcApplyNum)) : this.cusinfoDataSource.sort((a, b) => b.swcApplyNum.localeCompare(a.swcApplyNum))
+        break;
+      case "swcZ21PassDate":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcZ21PassDate.localeCompare(b.swcZ21PassDate)) : this.cusinfoDataSource.sort((a, b) => b.swcZ21PassDate.localeCompare(a.swcZ21PassDate))
+        break;
+      case "swcCustTag":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcCustTag.localeCompare(b.swcCustTag)) : this.cusinfoDataSource.sort((a, b) => b.swcCustTag.localeCompare(a.swcCustTag))
+        break;
+      case "swcApplno":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+        break;
+      case "swcRiskGrade":
+        this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
+          (a, b) => a.swcRiskGrade.localeCompare(b.swcRiskGrade)) : this.cusinfoDataSource.sort((a, b) => b.swcRiskGrade.localeCompare(a.swcRiskGrade))
+        break;
+    }
   }
 
   // 清除資料
