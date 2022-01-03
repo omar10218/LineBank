@@ -22,11 +22,11 @@ export class Childscn2page1Component implements OnInit {
 
   private applno: string;               //案件編號
   transactionLogSource: Data[] = [];
-  total :1;
+  total :any;
   loading = true;
   currentPage: PageEvent;
   pageIndex = 1;
-  pageSize = 10;
+  pageSize = 2  ;
   empName: string;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator
 
@@ -36,13 +36,13 @@ export class Childscn2page1Component implements OnInit {
     this.getTransLog( this.pageIndex, this.pageSize );
   }
 
-  ngAfterViewInit(): void  {
-    this.getTransLog(this.pageIndex, this.pageSize)
-		this.paginator.page.subscribe((page: PageEvent) => {
-			this.currentPage = page
-			this.getTransLog(this.pageIndex, this.pageSize)
-		})
-  }
+  // ngAfterViewInit(): void  {
+  //   this.getTransLog(this.pageIndex, this.pageSize)
+	// 	this.paginator.page.subscribe((page: PageEvent) => {
+	// 		this.currentPage = page
+	// 		this.getTransLog(this.pageIndex, this.pageSize)
+	// 	})
+  // }
 
   getTransLog( pageIndex: number, pageSize: number ){
     const baseUrl = "f01/childscn2";
@@ -59,17 +59,19 @@ export class Childscn2page1Component implements OnInit {
     });
     this.loading = false;
   }
+  private refreshTable() {
+		this.paginator._changePageSize(this.paginator.pageSize)
+	}
+  // changePage() {
+  //   this.pageIndex = 1;
+  //   this.pageSize = 10;
+  //   this.total = 1;
+  // }
 
-  changePage() {
-    this.pageIndex = 1;
-    this.pageSize = 10;
-    this.total = 1;
-  }
-
-  
+  // 切換分頁
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getTransLog(pageIndex, pageSize);
+    this.getTransLog(pageIndex, pageSize)
   }
 
   formatDate(date: string) {

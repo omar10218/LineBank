@@ -1,25 +1,35 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
-  <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="newSearch()">重查</button>
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="Decline()">婉拒</button>
-  </div>
-
+  
   <br>
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">錯誤件處理</div>
 
     <div nz-row>
       <div nz-col nzSpan="6">
-        <div style="padding:10px"><span class="form-title">錯誤關卡：</span>
-          <mat-select [(ngModel)]="selectedValue" name="sysCode" (ngModelChange)="changeSelect()"
-            style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+        <div style="padding:10px"><span class="form-title">選擇流程:</span>
+          <mat-select [(ngModel)]="selectedValue" placeholder="請選擇" name="sysCode" (ngModelChange)="changeSelect()">
             <mat-option *ngFor="let code of sysCode" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
           </mat-select>
         </div>
       </div>
+      <div nz-col nzSpan="6">
+        <div style="padding:10px"><span class="form-title">錯誤關卡：</span>
+          <mat-select [(ngModel)]="selectedValue" placeholder="請選擇"  name="sysCode" (ngModelChange)="changeSelect()">
+            <mat-option *ngFor="let code of sysCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div style="padding-left: 30px; padding-top: 30px;">
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="newSearch()">重查</button>
+        &nbsp;&nbsp;
+       <button nz-button [nzSize]="'middle'"nzDanger (click)="Decline()">婉拒</button>
+      </div>
+    
     </div>
   </div>
 

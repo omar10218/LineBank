@@ -2,7 +2,7 @@
 <!-- 最外層卡片包覆 -->
 <div class="line_bank_card_no_padding">
   <!-- 表格 -->
-  <nz-table nzShowSizeChanger [nzData]="transactionLogSource" [nzFrontPagination]="true" [nzSimple]="true"
+  <nz-table  [nzData]="transactionLogSource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
     (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="資料異動歷程">
     <thead>

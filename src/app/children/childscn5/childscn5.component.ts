@@ -418,7 +418,7 @@ export class Childscn5Component implements OnInit {
       }
     )
     jsonObject['content'] = content;
-    console.log(this.originalData.prvCompNm)
+    console.log(content)
     this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
       console.log(data)
       msg = data.rspMsg;
