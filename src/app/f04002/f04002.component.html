@@ -8,10 +8,10 @@
     <div nz-row>
       <div nz-col nzSpan="6">
         <div style="padding:10px"><span class="form-title">選擇流程:</span>
-          <mat-select [(ngModel)]="selectedValue" placeholder="請選擇" name="sysCode" (ngModelChange)="changeSelect()">
-            <mat-option *ngFor="let code of sysCode" [value]="code.value">
-              {{code.viewValue}}
-            </mat-option>
+          <mat-select [(ngModel)]="selectedPagValue" placeholder="請選擇" name="pagCode" (ngModelChange)="choosePoint()">
+            <mat-option *ngFor="let code of pagCode"  
+            [value]="code.value">{{code.label}}</mat-option>
+          
           </mat-select>
         </div>
       </div>
