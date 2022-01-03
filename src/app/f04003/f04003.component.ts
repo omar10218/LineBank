@@ -213,4 +213,13 @@ export class F04003Component implements OnInit {
     console.log(this.personnelCode)
     console.log(this.personnel)
   }
+  Select()
+  {
+    for (const obj of this.checkboxArray) {
+      if (obj.empno == this.Transfer) {
+        obj.completed = false;
+        this.isAllCheck = false;
+      }
+    }
+  }
 }
