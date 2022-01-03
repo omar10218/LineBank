@@ -86,7 +86,7 @@ export class Childscn5Component implements OnInit {
     CU_LEVEL1_CA: ['', [Validators.required]],     // 徵信認列行業Level1
     CU_LEVEL2_CA: ['', [Validators.required]],     // 徵信認列行業Level2
     JOB_CODE_CA: ['', [Validators.required]],      // 徵信認列行業職業碼
-    COMPANY_WHITELIST: ['', []], // 公司是否為白名單
+    COMPANY_WHITELIST: ['', [Validators.required]], // 公司是否為白名單
     CU_CP_NAME_CA: ['', []], // 徵信確認公司名單
     CU_TYPE: ['', []], // 行業別
     CU_M_TEL_OTHER: ['', []], // 其他-手機(非本行主要)
