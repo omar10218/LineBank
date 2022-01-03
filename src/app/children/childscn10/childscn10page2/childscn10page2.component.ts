@@ -281,9 +281,9 @@ export class Childscn10page2Component implements OnInit {
         this.dss2Form1.patchValue({ STRGY_LIMIT_MERG: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_LIMIT_MERG) })//分期信貸-債整額度
         this.dss2Form1.patchValue({ STRGY_MINPAYRT: data.rspBody.DSS2STRGY[0].STRGY_MINPAYRT })//每月最低還款比例(僅限循環信貸)
         this.dss2Form1.patchValue({ STRGY_DISB_BTCR_YN: data.rspBody.DSS2STRGY[0].STRGY_DISB_BTCR_YN })//結帳日至還款日間客戶可申請動撥Y
-        this.dss2Form1.patchValue({ STRGY_RL_DISB_THRHLD: data.rspBody.DSS2STRGY[0].STRGY_RL_DISB_THRHLD })//循環信貸簡易檢核動撥金額門檻
-        this.dss2Form1.patchValue({ STRGY_ORIGINFEE: data.rspBody.DSS2STRGY[0].STRGY_ORIGINFEE })//開辦費(首次簽約用)
-        this.dss2Form1.patchValue({ STRGY_LOANEXTFEE: data.rspBody.DSS2STRGY[0].STRGY_LOANEXTFEE })//帳戶管理費(續約用)
+        this.dss2Form1.patchValue({ STRGY_RL_DISB_THRHLD: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_RL_DISB_THRHLD )})//循環信貸簡易檢核動撥金額門檻
+        this.dss2Form1.patchValue({ STRGY_ORIGINFEE: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_ORIGINFEE) })//開辦費(首次簽約用)
+        this.dss2Form1.patchValue({ STRGY_LOANEXTFEE: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_LOANEXTFEE) })//帳戶管理費(續約用)
 
         //額度限額資訊 3種方案相同
         this.dss2Form1.patchValue({ LIMIT_DBR: this.data_number(data.rspBody.DSS2STRGY[0].LIMIT_DBR) })//限額_DBR
@@ -314,6 +314,10 @@ export class Childscn10page2Component implements OnInit {
         this.EL_DSS2_UNDW_LIST5.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='9');//9	其他
       }
       this.EL_DSS2_CFC_LIMIT1.data = data.rspBody.DSS2CFCLIMIT;//試算額度策略
+      for(const data of this.EL_DSS2_CFC_LIMIT1.data){
+        if(data.CFC_LIMIT_DT_REF=='1'){data.CFC_LIMIT_DT_REF+=' : 使用【額度起日】及【額度迄日】欄位';}
+        if(data.CFC_LIMIT_DT_REF=='2'){data.CFC_LIMIT_DT_REF+=' : 使用【期限月數】';}
+      }
       this.EL_DSS2_STRGY_SRATE1.data = data.rspBody.DSS2STRGYSRATE;//試算利率(多階)
       this.EL_DSS2_STRGY_MERG1.data = data.rspBody.DSS2STRGYMERG;//試算授信策略_債整明細
     });
@@ -364,9 +368,9 @@ export class Childscn10page2Component implements OnInit {
         this.dss2Form2.patchValue({ STRGY_LIMIT_MERG: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_LIMIT_MERG) })//分期信貸-債整額度
         this.dss2Form2.patchValue({ STRGY_MINPAYRT: data.rspBody.DSS2STRGY[0].STRGY_MINPAYRT })//每月最低還款比例(僅限循環信貸)
         this.dss2Form2.patchValue({ STRGY_DISB_BTCR_YN: data.rspBody.DSS2STRGY[0].STRGY_DISB_BTCR_YN })//結帳日至還款日間客戶可申請動撥Y
-        this.dss2Form2.patchValue({ STRGY_RL_DISB_THRHLD: data.rspBody.DSS2STRGY[0].STRGY_RL_DISB_THRHLD })//循環信貸簡易檢核動撥金額門檻
-        this.dss2Form2.patchValue({ STRGY_ORIGINFEE: data.rspBody.DSS2STRGY[0].STRGY_ORIGINFEE })//開辦費(首次簽約用)
-        this.dss2Form2.patchValue({ STRGY_LOANEXTFEE: data.rspBody.DSS2STRGY[0].STRGY_LOANEXTFEE })//帳戶管理費(續約用)
+        this.dss2Form2.patchValue({ STRGY_RL_DISB_THRHLD: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_RL_DISB_THRHLD) })//循環信貸簡易檢核動撥金額門檻
+        this.dss2Form2.patchValue({ STRGY_ORIGINFEE: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_ORIGINFEE) })//開辦費(首次簽約用)
+        this.dss2Form2.patchValue({ STRGY_LOANEXTFEE: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_LOANEXTFEE) })//帳戶管理費(續約用)
         //2.3用
         this.dss2Form2.patchValue({ STRGY_EXPIRDATE: data.rspBody.DSS2STRGY[0].STRGY_EXPIRDATE })//效期截止日  注意名稱差異
 
@@ -440,9 +444,9 @@ export class Childscn10page2Component implements OnInit {
         this.dss2Form3.patchValue({ STRGY_LIMIT_MERG: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_LIMIT_MERG) })//分期信貸-債整額度
         this.dss2Form3.patchValue({ STRGY_MINPAYRT: data.rspBody.DSS2STRGY[0].STRGY_MINPAYRT })//每月最低還款比例(僅限循環信貸)
         this.dss2Form3.patchValue({ STRGY_DISB_BTCR_YN: data.rspBody.DSS2STRGY[0].STRGY_DISB_BTCR_YN })//結帳日至還款日間客戶可申請動撥Y
-        this.dss2Form3.patchValue({ STRGY_RL_DISB_THRHLD: data.rspBody.DSS2STRGY[0].STRGY_RL_DISB_THRHLD })//循環信貸簡易檢核動撥金額門檻
-        this.dss2Form3.patchValue({ STRGY_ORIGINFEE: data.rspBody.DSS2STRGY[0].STRGY_ORIGINFEE })//開辦費(首次簽約用)
-        this.dss2Form3.patchValue({ STRGY_LOANEXTFEE: data.rspBody.DSS2STRGY[0].STRGY_LOANEXTFEE })//帳戶管理費(續約用)
+        this.dss2Form3.patchValue({ STRGY_RL_DISB_THRHLD: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_RL_DISB_THRHLD) })//循環信貸簡易檢核動撥金額門檻
+        this.dss2Form3.patchValue({ STRGY_ORIGINFEE: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_ORIGINFEE) })//開辦費(首次簽約用)
+        this.dss2Form3.patchValue({ STRGY_LOANEXTFEE: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_LOANEXTFEE) })//帳戶管理費(續約用)
         //2.3用
         this.dss2Form3.patchValue({ STRGY_EXPIRDATE: data.rspBody.DSS2STRGY[0].STRGY_EXPIRDATE })//效期截止日 注意名稱差異
 
