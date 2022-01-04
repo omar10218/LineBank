@@ -244,19 +244,16 @@
                 <mat-option *ngFor="let code of cuLevel1CaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               </mat-select>
+              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
             <div style="padding:3px"  *ngIf="yn==true">
               <span class="form-title">徵信認列行業Level1</span>
-              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca" disabled
-                formControlName="CU_LEVEL1_CA"
-                style=" width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6;
-              ">
+              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca" disabled formControlName="CU_LEVEL1_CA"
+                style=" width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6;">
                 <mat-option *ngFor="let code of cuLevel1CaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
-               
               </mat-select>
             </div>
           </div>
@@ -277,10 +274,10 @@
               <mat-select [(ngModel)]="cuLevel2CaValue" (ngModelChange)="changeLevel2Select()" name="cuLevel2Ca"
                 id="cuLevel2Ca" formControlName="CU_LEVEL2_CA"  disabled
                 style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6">
+                <mat-option *ngFor="let code of cuLevel2CaCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
               </mat-select>
-              <mat-option *ngFor="let code of cuLevel2CaCode" [value]="code.value">
-                {{code.value}} - {{code.viewValue}}
-              </mat-option>
             </div>
           </div>
           <div nz-col nzFlex="1">
@@ -299,10 +296,10 @@
               <span class="form-title">徵信認列職業碼</span>
               <mat-select [(ngModel)]="jobCodeCaValue" name="jobCodeCa" formControlName="JOB_CODE_CA" id="jobCodeCa" disabled
                 style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6">
+                <mat-option *ngFor="let code of jobCodeCaCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
               </mat-select>
-              <mat-option *ngFor="let code of jobCodeCaCode" [value]="code.value">
-                {{code.value}} - {{code.viewValue}}
-              </mat-option>
             </div>
           </div>
           <div nz-col nzFlex="1">
