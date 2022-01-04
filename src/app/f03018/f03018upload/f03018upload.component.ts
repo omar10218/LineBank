@@ -56,6 +56,7 @@ export class F03018uploadComponent implements OnInit {
 
   //檢查上傳檔案格式
   onChange(evt) {
+    this.uploadForm.patchValue({ ERROR_MESSAGE: "" });
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isExcelFile = !!target.files[0].name.match(/(.xls|.xlsx)/);
     if (this.isExcelFile) {
