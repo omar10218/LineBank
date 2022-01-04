@@ -118,6 +118,7 @@ export class Childscn12Component implements OnInit {
 
   private applno: string;
   private stepName: string;
+  private search: string;
   EL_INCOME_Source = new MatTableDataSource<any>();//下方儲存table資料
   INCOME_DETAILS_List: INCOME_DETAILS[] = [];
   AddData: any;
@@ -126,7 +127,7 @@ export class Childscn12Component implements OnInit {
   strArray: any;
   loading = true
   loading6 = true;//六個table用
-  income:string;
+  income: string;
 
   test1 = "1"; test2 = "2"; test3 = false; test4 = "文字";
 
@@ -138,8 +139,6 @@ export class Childscn12Component implements OnInit {
     this.keylist.push("paySlipList");//電腦列印薪資單 儲存時須注意欄位對照3 故跳過A4,A8
     this.keylist.push("laborDetailsList"); // 勞保投保及勞退提撥明細
     this.keylist.push("bankerList");//本行行員
-    console.log("=========================")
-    console.log(sessionStorage.getItem('stepName'))
     //建立資料架構
     for (const key of this.keylist) {
       this.AddData = {
@@ -169,6 +168,7 @@ export class Childscn12Component implements OnInit {
     this.chkArray.push({ value: "C7", completed: false });
     this.applno = sessionStorage.getItem('applno');
     this.stepName = sessionStorage.getItem('stepName');
+    this.search = sessionStorage.getItem('search');
     this.getData();
   }
 
@@ -179,12 +179,17 @@ export class Childscn12Component implements OnInit {
     return this.stepName == "APPLCreditL3" ? true : false;
   }
 
-    //檢查是否是徵信或授信
-    getStepName23() {
-      //測試用
-      // return true;
-      return (this.stepName == "APPLCreditL3" || this.stepName == "APPLCreditL2") ? true : false;
-    }
+  //檢查是否是徵信或授信
+  getStepName23() {
+    //測試用
+    // return true;
+    return (this.stepName == "APPLCreditL3" || this.stepName == "APPLCreditL2") ? true : false;
+  }
+
+  //檢查是否是徵信或授信
+  getSearch() {
+    return this.search;
+  }
 
   //取得資料
   getData() {
@@ -415,11 +420,12 @@ export class Childscn12Component implements OnInit {
           check = chk.completed ? check + "," + chk.value : check;
         }
       }
-      if(check==""){
+      if (check == "") {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "請勾選徵審確認後年收入" }
         });
-        return;};
+        return;
+      };
       const baseUrl = 'f01/childscn12action2';
       let jsonObject: any = {};
       let msg = "";
@@ -438,48 +444,48 @@ export class Childscn12Component implements OnInit {
   save2() {
 
     this.INCOME_DETAILS_List[2].A1 = this.toNumber(this.INCOME_DETAILS_List[2].A11) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A12) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A13) + "," +
-    this.toNumber(this.INCOME_DETAILS_List[2].A14) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A15) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A16);
-    this.INCOME_DETAILS_List[2].A1=this.INCOME_DETAILS_List[2].A1==",,,,,"?"":this.INCOME_DETAILS_List[2].A1
+      this.toNumber(this.INCOME_DETAILS_List[2].A14) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A15) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A16);
+    this.INCOME_DETAILS_List[2].A1 = this.INCOME_DETAILS_List[2].A1 == ",,,,," ? "" : this.INCOME_DETAILS_List[2].A1
 
     this.INCOME_DETAILS_List[2].A2 = this.toNumber(this.INCOME_DETAILS_List[2].A21) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A22) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A23) + "," +
-    this.toNumber(this.INCOME_DETAILS_List[2].A24) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A25) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A26);
-    this.INCOME_DETAILS_List[2].A2=this.INCOME_DETAILS_List[2].A2==",,,,,"?"":this.INCOME_DETAILS_List[2].A2
+      this.toNumber(this.INCOME_DETAILS_List[2].A24) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A25) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A26);
+    this.INCOME_DETAILS_List[2].A2 = this.INCOME_DETAILS_List[2].A2 == ",,,,," ? "" : this.INCOME_DETAILS_List[2].A2
 
     this.INCOME_DETAILS_List[2].A4 = this.toNumber(this.INCOME_DETAILS_List[2].A41) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A42) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A43);
-    this.INCOME_DETAILS_List[2].A4=this.INCOME_DETAILS_List[2].A4==",,"?"":this.INCOME_DETAILS_List[2].A4
+    this.INCOME_DETAILS_List[2].A4 = this.INCOME_DETAILS_List[2].A4 == ",," ? "" : this.INCOME_DETAILS_List[2].A4
 
     this.INCOME_DETAILS_List[2].A5 = this.toNumber(this.INCOME_DETAILS_List[2].A51) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A52) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A53) + "," +
-    this.toNumber(this.INCOME_DETAILS_List[2].A54) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A55) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A56);
-    this.INCOME_DETAILS_List[2].A5=this.INCOME_DETAILS_List[2].A5==",,,,,"?"":this.INCOME_DETAILS_List[2].A5
+      this.toNumber(this.INCOME_DETAILS_List[2].A54) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A55) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A56);
+    this.INCOME_DETAILS_List[2].A5 = this.INCOME_DETAILS_List[2].A5 == ",,,,," ? "" : this.INCOME_DETAILS_List[2].A5
 
     this.INCOME_DETAILS_List[2].A6 = this.toNumber(this.INCOME_DETAILS_List[2].A61) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A62) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A63) + "," +
-    this.toNumber(this.INCOME_DETAILS_List[2].A64) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A65) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A66);
-    this.INCOME_DETAILS_List[2].A6=this.INCOME_DETAILS_List[2].A6==",,,,,"?"":this.INCOME_DETAILS_List[2].A6
+      this.toNumber(this.INCOME_DETAILS_List[2].A64) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A65) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A66);
+    this.INCOME_DETAILS_List[2].A6 = this.INCOME_DETAILS_List[2].A6 == ",,,,," ? "" : this.INCOME_DETAILS_List[2].A6
 
-    this.INCOME_DETAILS_List[2].A8 = this.toNumber(this.INCOME_DETAILS_List[2].A81) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A82) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A83) ;
-    this.INCOME_DETAILS_List[2].A8=this.INCOME_DETAILS_List[2].A8==",,"?"":this.INCOME_DETAILS_List[2].A8
+    this.INCOME_DETAILS_List[2].A8 = this.toNumber(this.INCOME_DETAILS_List[2].A81) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A82) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A83);
+    this.INCOME_DETAILS_List[2].A8 = this.INCOME_DETAILS_List[2].A8 == ",," ? "" : this.INCOME_DETAILS_List[2].A8
 
 
     this.INCOME_DETAILS_List[3].A1 = this.toNumber(this.INCOME_DETAILS_List[3].A11) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A12) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A13) + "," +
-    this.toNumber(this.INCOME_DETAILS_List[3].A14) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A15) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A16);
-    this.INCOME_DETAILS_List[3].A1=this.INCOME_DETAILS_List[3].A1==",,,,,"?"":this.INCOME_DETAILS_List[3].A1
+      this.toNumber(this.INCOME_DETAILS_List[3].A14) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A15) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A16);
+    this.INCOME_DETAILS_List[3].A1 = this.INCOME_DETAILS_List[3].A1 == ",,,,," ? "" : this.INCOME_DETAILS_List[3].A1
 
     this.INCOME_DETAILS_List[3].A2 = this.toNumber(this.INCOME_DETAILS_List[3].A21) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A22) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A23) + "," +
-    this.toNumber(this.INCOME_DETAILS_List[3].A24) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A25) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A26);
-    this.INCOME_DETAILS_List[3].A2=this.INCOME_DETAILS_List[3].A2==",,,,,"?"":this.INCOME_DETAILS_List[3].A2
+      this.toNumber(this.INCOME_DETAILS_List[3].A24) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A25) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A26);
+    this.INCOME_DETAILS_List[3].A2 = this.INCOME_DETAILS_List[3].A2 == ",,,,," ? "" : this.INCOME_DETAILS_List[3].A2
 
     this.INCOME_DETAILS_List[3].A5 = this.toNumber(this.INCOME_DETAILS_List[3].A51) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A52) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A53) + "," +
-    this.toNumber(this.INCOME_DETAILS_List[3].A54) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A55) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A56);
-    this.INCOME_DETAILS_List[3].A5=this.INCOME_DETAILS_List[3].A5==",,,,,"?"":this.INCOME_DETAILS_List[3].A5
+      this.toNumber(this.INCOME_DETAILS_List[3].A54) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A55) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A56);
+    this.INCOME_DETAILS_List[3].A5 = this.INCOME_DETAILS_List[3].A5 == ",,,,," ? "" : this.INCOME_DETAILS_List[3].A5
 
     this.INCOME_DETAILS_List[3].A6 = this.toNumber(this.INCOME_DETAILS_List[3].A61) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A62) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A63) + "," +
-    this.toNumber(this.INCOME_DETAILS_List[3].A64) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A65) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A66);
-    this.INCOME_DETAILS_List[3].A6=this.INCOME_DETAILS_List[3].A6==",,,,,"?"":this.INCOME_DETAILS_List[3].A6
+      this.toNumber(this.INCOME_DETAILS_List[3].A64) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A65) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A66);
+    this.INCOME_DETAILS_List[3].A6 = this.INCOME_DETAILS_List[3].A6 == ",,,,," ? "" : this.INCOME_DETAILS_List[3].A6
 
 
 
 
-    if(!this.loading6){
+    if (!this.loading6) {
       let save_INCOME_DETAILS_List: INCOME_DETAILS[] = []
       save_INCOME_DETAILS_List = JSON.parse(JSON.stringify(this.INCOME_DETAILS_List))
       for (const INCOME_DETAILS of save_INCOME_DETAILS_List) {

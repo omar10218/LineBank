@@ -1,9 +1,9 @@
 <div class="line_bank_bankground_color">
   <br>
-  <div *ngIf="getStepName23() && this.EL_INCOME_Source.data.length==7" style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="getStepName23() && this.EL_INCOME_Source.data.length==7 && getSearch()!='Y' " style="padding-left: 50px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_income()">儲存</button>
   </div>
-  <div *ngIf="!getStepName23() || this.EL_INCOME_Source.data.length!=7" style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') " style="padding-left: 50px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_income()" disabled>儲存</button>
   </div>
   <div class="line_bank_card_no_padding">
@@ -26,16 +26,16 @@
             <td class="data_right" *ngIf="i!=6">{{toCurrency(item.checkIncome.toString())}}</td>
             <td *ngIf="i==6">
               <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="item.income" (keyup)="item.income=data_number(item.income)"
-                  maxlength="20" /></div>
+                  maxlength="20" [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" /></div>
             </td>
             <td>
               <nz-checkbox-wrapper>
-                <label nz-checkbox [(ngModel)]="chkArray[i].completed" name={{chkArray[i].value}}></label>
+                <label [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" nz-checkbox [(ngModel)]="chkArray[i].completed" name={{chkArray[i].value}}  ></label>
               </nz-checkbox-wrapper>
             </td>
             <td *ngIf="i==0" rowspan="7">
               <textarea style=" width: 95%;height:20vh;margin:0 12px;border-radius:5px;" [(ngModel)]="EL_INCOME_Source.data[6].mark"
-                name="EL_INCOME_Source.data[6].mark"></textarea>
+                name="EL_INCOME_Source.data[6].mark" [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" ></textarea>
             </td>
           </tr>
         </ng-container>
@@ -46,11 +46,11 @@
             <td></td>
             <td>
               <nz-checkbox-wrapper>
-                <label nz-checkbox ></label>
+                <label nzDisabled  nz-checkbox ></label>
               </nz-checkbox-wrapper>
             </td>
             <td rowspan="7">
-              <textarea style=" width: 95%;height:20vh;margin:0 12px;border-radius:5px;" ></textarea>
+              <textarea [disabled]="true" style=" width: 95%;height:20vh;margin:0 12px;border-radius:5px;" ></textarea>
             </td>
           </tr>
           <tr>
@@ -59,7 +59,7 @@
             <td></td>
             <td>
               <nz-checkbox-wrapper>
-                <label nz-checkbox ></label>
+                <label nzDisabled  nz-checkbox ></label>
               </nz-checkbox-wrapper>
             </td>
           </tr>
@@ -69,7 +69,7 @@
             <td></td>
             <td>
               <nz-checkbox-wrapper>
-                <label nz-checkbox ></label>
+                <label nzDisabled  nz-checkbox ></label>
               </nz-checkbox-wrapper>
             </td>
           </tr>
@@ -79,7 +79,7 @@
             <td></td>
             <td>
               <nz-checkbox-wrapper>
-                <label nz-checkbox ></label>
+                <label nzDisabled  nz-checkbox ></label>
               </nz-checkbox-wrapper>
             </td>
           </tr>
@@ -89,7 +89,7 @@
             <td></td>
             <td>
               <nz-checkbox-wrapper>
-                <label nz-checkbox ></label>
+                <label nzDisabled  nz-checkbox ></label>
               </nz-checkbox-wrapper>
             </td>
           </tr>
@@ -99,7 +99,7 @@
             <td></td>
             <td>
               <nz-checkbox-wrapper>
-                <label nz-checkbox ></label>
+                <label nzDisabled  nz-checkbox ></label>
               </nz-checkbox-wrapper>
             </td>
           </tr>
@@ -108,11 +108,11 @@
             <td>其他試算結果</td>
             <td>
               <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="income" (keyup)="income=data_number(income)"
-                maxlength="20" /></div>
+                maxlength="20"  [disabled]="true" /></div>
             </td>
             <td>
               <nz-checkbox-wrapper>
-                <label nz-checkbox ></label>
+                <label nzDisabled nz-checkbox ></label>
               </nz-checkbox-wrapper>
             </td>
           </tr>
