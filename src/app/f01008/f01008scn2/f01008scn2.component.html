@@ -1,53 +1,13 @@
 <app-block *ngIf="block"></app-block>
 <div class="line_bank_bankground_color" style="min-height: 100vh;">
   <div style="padding-left: 20px; padding-top: 20px;">
+    <button nz-button [nzSize]="'large'" nzType="primary" >案件完成</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="jcic()">立即重查JCIC</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <!-- (click)="Inquire(data.applnoOld)" -->
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="add()">新增</button>
   </div>
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">照會資訊</div>
-    <!-- <nz-table nzSize="small"  [nzNoResult]="'  '">
-      <thead>
-        <tr>
-          <th class="table-header" style="width:10%"></th>
-          <th class="table-header" style="width:12.5%">聯絡方式</th>
-          <th class="table-header" style="width:10%">手機/市話</th>
-          <th class="table-header" style="width:12.5%">電話狀況</th>
-          <th class="table-header" style="width:10%">備註</th>
-          <th class="table-header" style="width:10%">確認時間</th>
-          <th class="table-header" style="width:10%">設定下次聯絡時間</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <button nz-button [nzSize]="'middle'" nzType="primary">編輯</button>&nbsp;&nbsp;
-            <button nz-button [nzSize]="'middle'" nzType="primary">刪除</button>
-          </td>
-          <td>
-            <mat-radio-group formControlName="angularLikeScore">
-              <mat-radio-button [value]="1">公司電話</mat-radio-button>
-              <mat-radio-button [value]="2">手機電話號碼</mat-radio-button>
-              <mat-radio-button [value]="3">住家號碼</mat-radio-button>
-              <mat-radio-button [value]="4">其他</mat-radio-button>
-            </mat-radio-group>
-          </td>
-          <td><input type="text"></td>
-          <td>
-            <mat-radio-group formControlName="angularLikeScore">
-              <mat-radio-button [value]="1">本人接</mat-radio-button>
-              <mat-radio-button [value]="2">他人接</mat-radio-button>
-              <mat-radio-button [value]="3">無人接</mat-radio-button>
-              <mat-radio-button [value]="4">其他(備註)</mat-radio-button>
-            </mat-radio-group>
-          </td>
-          <td><textarea style="width:200px ;height: 100px;"></textarea></td>
-          <td><input type="text"></td>
-          <td><input type="text"></td>
-        </tr>
-      </tbody>
-     </nz-table>       -->
     <nz-table nzSize="small" [nzData]="dataSource">
       <thead>
         <tr>
@@ -133,26 +93,18 @@
     </nz-table>
   </div>
   <div class="line_bank_card_no_padding">
-    <nz-table nzSize="small" [nzNoResult]="'  '">
+    <nz-table nzSize="small"  [nzData]="macrSource">
       <thead>
         <th class="table-header" style="width:10%">Date</th>
         <th class="table-header" style="width:10%">User</th>
         <th class="table-header" style="width:10%">Action</th>
-        <th class="table-header" style="width:10%">Edit</th>
-      </thead>
       <tbody>
         <tr *ngFor="let data of macrSource;">
           <td class="table-data">{{data.CREDITDATE|date:"yyyy-MM-dd HH:mm"}}</td>
           <td class="table-data">{{data.CREDITUSER}}</td>
           <td class="table-data" >{{data.CREDITACTION}}</td>
-          <td class="table-data" style="text-align: center;">
-            <button id="test" nz-button [nzSize]="'small'" nzType="primary"
-              (click)="edit(data.ID,data.CREDITACTION)" [disabled]="getSearch() == 'Y'">編輯</button>
-          </td>
         </tr>
       </tbody>
     </nz-table>
   </div>
 </div>
-<!-- <app-f01008add *ngIf="isShowAdd" cdkDrag [data]="addData"></app-f01008add>
-<app-childscn8edit *ngIf="isShowEdit" cdkDrag [data]="editData"></app-childscn8edit> -->

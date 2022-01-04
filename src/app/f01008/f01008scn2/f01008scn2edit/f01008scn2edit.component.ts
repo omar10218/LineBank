@@ -36,7 +36,7 @@ export class F01008scn2editComponent implements OnInit {
     jsonObject['applno'] = this.data.applno;
     jsonObject['userId'] = this.data.empNo;
     jsonObject['creditaction'] = this.data.creditaction;
-    jsonObject['creditlevel'] = 'L2';
+    jsonObject['creditlevel'] = 'D2';
     this.block = true;
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
       if (data.rspCode === '0000' || data.rspMsg === '儲存成功')
