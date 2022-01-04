@@ -33,6 +33,7 @@ export class Childscn10Component implements OnInit {
   private applno: string;
   private cuid: string;
   private routerCase: string;
+  rskmdl: boolean = false; //判斷是否有風險模型權限
   // private level: string;
   // private stepName: string;
   private page: string;
@@ -48,6 +49,7 @@ export class Childscn10Component implements OnInit {
   readonly Page = Page;
 
   ngOnInit(): void {
+    this.checkRskmdl();
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     // this.level = sessionStorage.getItem('level');
@@ -84,7 +86,7 @@ export class Childscn10Component implements OnInit {
   // }
 
   //判斷頁面是否顯示
- // 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8徵審後落人 9複審人員
+  // 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8徵審後落人 9複審人員
   getPage() {
     return this.page
   }
@@ -100,4 +102,16 @@ export class Childscn10Component implements OnInit {
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
   }
+
+  //確認User是否有風險模型權限
+  checkRskmdl() {
+    const url = 'f01/childscn10action8';
+    let jsonObject: any = {};
+    this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
+      // data.rspBody=1;
+      if (data.rspBody != null && data.rspBody > 0) { this.rskmdl = true; }
+      // alert(data.rspBody);
+    });
+  }
+
 }
