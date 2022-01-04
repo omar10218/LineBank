@@ -323,11 +323,16 @@ export class F01002scn1Component implements OnInit, OnDestroy {
         // jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
         jsonObject['creditInterestPeriodArray'] = creditInterestPeriodArray;
         jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
-        if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: '請填寫核決結果!' }
-          });
-          return;
+
+        if (baseUrl != 'f01/childscn0action1') {
+          if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '請填寫核決結果!' }
+            });
+            return;
+          } else {
+            this.result(baseUrl, jsonObject, result, count);
+          }
         } else {
           this.result(baseUrl, jsonObject, result, count);
         }
