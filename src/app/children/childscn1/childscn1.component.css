@@ -82,3 +82,8 @@ color: red;
 text-align:right;
 }
 
+/* //CSS設 div裡面 disable */
+.ngtbody{
+    pointer-events: none;
+    opacity: 0.5;
+}

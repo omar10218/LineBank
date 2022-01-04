@@ -1295,7 +1295,7 @@
     </div>
 
     <!-- 徵審代碼 -->
-    <div class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
+    <div  [ngClass]="getPage()=='2' || getPage()=='3' ? '' : 'ngtbody' " class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
       <div class="line_bank_form_header_title">徵審代碼</div>
       <div style="padding-top:5px;"></div>
       <ng-container  *ngFor="let row of CREDIT_View_List;let i = index">
