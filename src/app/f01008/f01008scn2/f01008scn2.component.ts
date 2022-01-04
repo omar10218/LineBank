@@ -191,8 +191,14 @@ export class F01008scn2Component implements OnInit {
         CALLOUT_EMPNO: this.empNo,//徵信員編
       }
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result != null && (result.event == 'success' || result == '1')) { this.set(); }
+    dialogRef.afterClosed().subscribe(result =>
+      {
+      if (result.event === 'success' || result ===1)
+      {   setTimeout(() => {
+        this.set();
+        // alert("123")
+      }, 500);
+      }
     });
   }
   macr()//註記新增

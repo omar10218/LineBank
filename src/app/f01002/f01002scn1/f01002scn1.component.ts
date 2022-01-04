@@ -250,6 +250,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     }
 
     const dialogRef = this.dialog.open(Childscn26Component, {
+      panelClass: 'mat-dialog-transparent',
       minHeight: '50%',
       width: '30%',
       data: {
