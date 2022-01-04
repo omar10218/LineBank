@@ -18,7 +18,7 @@ interface ANNOUNCE_REASON {
 }
 
 
-//Jay 偽案通報
+//Jay 偽冒通報
 
 @Component({
   selector: 'app-childscn3',
@@ -36,7 +36,6 @@ export class Childscn3Component implements OnInit {
 
   private applno: string;
   private search: string;
-  private stepName: string;
   chkArray: checkBox[] = [];
   level1: string[] = [];//裝第一層checkbox
   data: any;//裝一開始的資料表
