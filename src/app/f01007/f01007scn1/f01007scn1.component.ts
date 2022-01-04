@@ -330,13 +330,15 @@ export class F01007scn1Component implements OnInit {
   result(baseUrl: string, jsonObject: JSON, result: string, count: number) {
     this.block = true;
     this.f01007scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
+      //儲存歷史資料
+      if (count > 0) {
+        this.setHistory(count);
+      }
       await this.childscn1Service.setHistory(this.history, "授信覆核案件完成", this.applno);
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
       if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { } else {
-        //儲存歷史資料
-        this.setHistory(count);
         // this.saveMemo();
         this.removeSession(count);
         this.router.navigate(['./F01007']);

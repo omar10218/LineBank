@@ -351,7 +351,9 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     this.block = true;
     this.f01002scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
       //儲存歷史資料
-      this.setHistory(count);
+      if (count > 0) {
+        this.setHistory(count);
+      }
       await this.childscn1Service.setHistory(this.history, "徵信案件完成", this.applno);
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
