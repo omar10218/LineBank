@@ -18,7 +18,7 @@ interface ANNOUNCE_REASON {
 }
 
 
-//Jay 偽案通報
+//Jay 偽冒通報
 
 @Component({
   selector: 'app-childscn3',
