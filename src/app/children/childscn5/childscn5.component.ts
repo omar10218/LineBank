@@ -89,7 +89,7 @@ export class Childscn5Component implements OnInit {
     COMPANY_WHITELIST: ['', [Validators.required]], // 公司是否為白名單
     CU_CP_NAME_CA: ['', []], // 徵信確認公司名單
     CU_TYPE: ['', []], // 行業別
-    CU_M_TEL_OTHER: ['', []], // 其他-手機(非本行主要)
+    CU_M_TEL_OTHER: ['',[Validators.required]], // 其他-手機(非本行主要)
     CONTACT_OTHER: ['', []], // 其他-聯絡資訊
     PRE_COMP_NM: ['', []], // 前一份工作名稱
     PRE_JOB_TITLE: ['', []], // 前一份工作公司職稱
@@ -97,7 +97,9 @@ export class Childscn5Component implements OnInit {
     PRE_JOB_MONTH: ['', []], // 前一份工作在職時長(月數)
 
   });
-
+validationMessage={
+  'CU_M_TEL_OTHER':{'required':'請填寫用戶名'}
+}
   ngOnInit(): void {
     this.companyWhitelistValue = '';
     this.search = sessionStorage.getItem('search');
