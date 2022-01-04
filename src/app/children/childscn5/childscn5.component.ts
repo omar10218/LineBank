@@ -157,7 +157,7 @@ export class Childscn5Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.getCustomerInfo();
-    this.yn = sessionStorage.getItem('page') == '3' ? true : false;
+    this.yn = sessionStorage.getItem('page') != '2' ? true : false;
   }
 
   getStepName() {
