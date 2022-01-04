@@ -55,7 +55,6 @@
             nzTitle="千大企業名單維護">
             <thead>
                 <tr>
-                    <th class="table-header">NO</th>
                     <th class="table-header">公司統編</th>
                     <th class="table-header">公司名稱</th>
                     <th class="table-header">公司簡稱</th>
@@ -70,8 +69,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let row of cuCpSource;let i =index ">
-                    <td class="table-data">{{i+1}}</td>
+                <tr *ngFor="let row of cuCpSource ">
                     <td class="table-data">{{row.CU_CP_NO}}</td>
                     <td class="table-data">{{row.CU_CP_NAME}}</td>
                     <td class="table-data">{{row.CU_CP_SNAME}}</td>
