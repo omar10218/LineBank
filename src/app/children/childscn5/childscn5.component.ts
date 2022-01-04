@@ -18,7 +18,7 @@ interface sysCode {
 export class Childscn5Component implements OnInit {
   private applno: string;               //案件編號
   private cuid: string;                 //客戶編號
-  private search: string;
+  search: string;
   cuLevel1CaCode: sysCode[] = [];       //徵信認列行業Level1下拉
   cuLevel1CaValue: string;              //徵信認列行業Level1
   cuLevel2CaCode: sysCode[] = [];       //徵信認列行業Level2下拉
@@ -157,7 +157,7 @@ export class Childscn5Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('cuid');
     this.getCustomerInfo();
-    this.yn = sessionStorage.getItem('page') != '2' ? true : false;
+    this.yn = sessionStorage.getItem('page') == '2' ? true : false;
   }
 
   getStepName() {
