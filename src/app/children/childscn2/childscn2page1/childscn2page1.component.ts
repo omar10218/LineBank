@@ -28,13 +28,28 @@ export class Childscn2page1Component implements OnInit {
   pageIndex = 1;
   pageSize = 50  ;
   empName: string;
+  sort: string;
+
   @ViewChild('paginator', { static: true }) paginator: MatPaginator
 
 
   ngOnInit(): void {
+    this.sort = 'ascend';
     this.applno = sessionStorage.getItem('applno');
     this.getTransLog( this.pageIndex, this.pageSize );
   }
+// 排序
+sortChange(e: string, param: string) {
+  this.sort = '';
+  switch (param) {
+
+    case "transDate":
+      this.transactionLogSource = e === 'ascend' ? this.transactionLogSource.sort(
+        (a, b) => a.transDate.localeCompare(b.transDate)) : this.transactionLogSource.sort((a, b) => b.transDate.localeCompare(a.transDate))
+      break;
+   
+  }
+}
 
   // ngAfterViewInit(): void  {
   //   this.getTransLog(this.pageIndex, this.pageSize)

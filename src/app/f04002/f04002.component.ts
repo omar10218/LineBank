@@ -66,7 +66,7 @@ export class F04002Component implements OnInit {
 
   pagCode= [
     { value: '1', label: '徵審' },
-    { value: '2', label: '複審' },
+    { value: '2', label: '覆審' },
   ];
   sysCode: OptionsCode[] = [];
   selectedValue: string;
