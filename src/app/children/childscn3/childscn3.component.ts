@@ -36,7 +36,6 @@ export class Childscn3Component implements OnInit {
 
   private applno: string;
   private search: string;
-  private stepName: string;
   chkArray: checkBox[] = [];
   level1: string[] = [];//裝第一層checkbox
   data: any;//裝一開始的資料表
