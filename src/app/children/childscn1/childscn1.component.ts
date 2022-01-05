@@ -395,7 +395,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(async data => {
 
       this.setBlank(data.rspBody.creditInterestPeriodList.length);
-      sessionStorage.setItem('count', data.rspBody.creditInterestPeriodList.length);
+      sessionStorage.setItem('count', data.rspBody.creditInterestPeriodList.length ? data.rspBody.creditInterestPeriodList.length : 0);
 
       //CreditAuditinfo
       if (data.rspBody.CreditAuditinfoList.length > 0) {
