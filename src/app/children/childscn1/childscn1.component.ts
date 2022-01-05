@@ -581,16 +581,18 @@ export class Childscn1Component implements OnInit, OnDestroy {
       //依照人員層級存資料異動 20211230
       if (this.level == 'L4') {
         this.f01001Scn1Service.setHistorySource({
-          creditResult: this.creditResult
+          creditResult: this.creditResult != null && this.creditResult != '' ? this.creditResult : 0
         })
       } else if (this.level == 'L3') {
+        console.log("==================");
+        console.log(this.resultLowestPayRate);
         this.f01002scn1Service.setHistorySource({
-          creditResult: this.creditResult,
-          lowestPayRate: this.resultLowestPayRate,
-          approveAmt: this.resultApproveAmt,
-          caApplicationAmount: this.caApplicationAmount,
-          caPmcus: this.caPmcus,
-          caRisk: this.caRisk,
+          creditResult: this.creditResult != null && this.creditResult != '' ? this.creditResult : 0,
+          lowestPayRate: this.resultLowestPayRate != null && this.resultLowestPayRate.toString() != '' ? this.resultLowestPayRate : 0,
+          approveAmt: this.resultApproveAmt != null && this.resultApproveAmt != '' ? this.resultApproveAmt : 0,
+          caApplicationAmount: this.caApplicationAmount != null && this.caApplicationAmount != '' ? this.caApplicationAmount : 0,
+          caPmcus: this.caPmcus != null && this.caPmcus != '' ? this.caPmcus : 0,
+          caRisk: this.caRisk != null && this.caRisk != '' ? this.caRisk : 0,
           CreditInterestPeriodSource: this.historySource
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
@@ -601,11 +603,11 @@ export class Childscn1Component implements OnInit, OnDestroy {
         })
       } else if (this.level == 'L2') {
         this.f01003scn1Service.setHistorySource({
-          creditResult: this.creditResult,
-          lowestPayRate: this.resultLowestPayRate,
-          approveAmt: this.resultApproveAmt,
-          caPmcus: this.caPmcus,
-          caRisk: this.caRisk,
+          creditResult: this.creditResult != null && this.creditResult != '' ? this.creditResult : 0,
+          lowestPayRate: this.resultLowestPayRate != null && this.resultLowestPayRate.toString() != '' ? this.resultLowestPayRate : 0,
+          approveAmt: this.resultApproveAmt != null && this.resultApproveAmt != '' ? this.resultApproveAmt : 0,
+          caPmcus: this.caPmcus != null && this.caPmcus != '' ? this.caPmcus : 0,
+          caRisk: this.caRisk != null && this.caRisk != '' ? this.caRisk : 0,
           CreditInterestPeriodSource: this.historySource
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
@@ -616,11 +618,11 @@ export class Childscn1Component implements OnInit, OnDestroy {
         })
       } else if (this.level == 'L1') {
         this.f01004scn1Service.setHistorySource({
-          creditResult: this.creditResult,
-          lowestPayRate: this.resultLowestPayRate,
-          approveAmt: this.resultApproveAmt,
-          caPmcus: this.caPmcus,
-          caRisk: this.caRisk,
+          creditResult: this.creditResult != null && this.creditResult != '' ? this.creditResult : 0,
+          lowestPayRate: this.resultLowestPayRate != null && this.resultLowestPayRate.toString() != '' ? this.resultLowestPayRate : 0,
+          approveAmt: this.resultApproveAmt != null && this.resultApproveAmt != '' ? this.resultApproveAmt : 0,
+          caPmcus: this.caPmcus != null && this.caPmcus != '' ? this.caPmcus : 0,
+          caRisk: this.caRisk != null && this.caRisk != '' ? this.caRisk : 0,
           CreditInterestPeriodSource: this.historySource,
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
@@ -631,11 +633,11 @@ export class Childscn1Component implements OnInit, OnDestroy {
         })
       } else if (this.level == 'L0') {
         this.f01007scn1Service.setHistorySource({
-          creditResult: this.creditResult,
-          lowestPayRate: this.resultLowestPayRate,
-          approveAmt: this.resultApproveAmt,
-          caPmcus: this.caPmcus,
-          caRisk: this.caRisk,
+          creditResult: this.creditResult != null && this.creditResult != '' ? this.creditResult : 0,
+          lowestPayRate: this.resultLowestPayRate != null && this.resultLowestPayRate.toString() != '' ? this.resultLowestPayRate : 0,
+          approveAmt: this.resultApproveAmt != null && this.resultApproveAmt != '' ? this.resultApproveAmt : 0,
+          caPmcus: this.caPmcus != null && this.caPmcus != '' ? this.caPmcus : 0,
+          caRisk: this.caRisk != null && this.caRisk != '' ? this.caRisk : 0,
           CreditInterestPeriodSource: this.historySource,
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
