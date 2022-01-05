@@ -95,13 +95,13 @@ export class Childscn9page1Component implements OnInit {
       this.coreCustInfoForm.patchValue({ BLOCKING_CODE: data.rspBody.items[0].BLOCKING_CODE })
       this.coreCustInfoForm.patchValue({ ACCIDENT_RECORD: data.rspBody.items[0].ACCIDENT_RECORD })
       this.coreCustInfoForm.patchValue({ NAME: data.rspBody.items[0].NAME })
-      this.coreCustInfoForm.patchValue({ BIRTHDAY: data.rspBody.items[0].BIRTHDAY })
+      this.coreCustInfoForm.patchValue({ BIRTHDAY: this.pipe.transform(data.rspBody.items[0].BIRTHDAY, 'yyyy-MM-dd') })
       this.coreCustInfoForm.patchValue({ EDUCATION: data.rspBody.items[0].EDUCATION })
       this.coreCustInfoForm.patchValue({ ACC_OPEN_DATE: this.pipe.transform(data.rspBody.items[0].ACC_OPEN_DATE, 'yyyy-MM-dd HH：mm：ss') })
       this.coreCustInfoForm.patchValue({ ACC_TYPE: data.rspBody.items[0].ACC_TYPE })
       this.coreCustInfoForm.patchValue({ LOGIN_ID: data.rspBody.items[0].LOGIN_ID })
       this.coreCustInfoForm.patchValue({ EMAIL: data.rspBody.items[0].EMAIL })
-      this.coreCustInfoForm.patchValue({ SALARY_YEAR: data.rspBody.items[0].SALARY_YEAR })
+      this.coreCustInfoForm.patchValue({ SALARY_YEAR: this.toCurrency(data.rspBody.items[0].SALARY_YEAR) })
       this.coreCustInfoForm.patchValue({ CP_NO: data.rspBody.items[0].CP_NO })
       this.coreCustInfoForm.patchValue({ CP_NAME: data.rspBody.items[0].CP_NAME })
       this.coreCustInfoForm.patchValue({ CP_TEL: data.rspBody.items[0].CP_TEL })
@@ -121,5 +121,8 @@ export class Childscn9page1Component implements OnInit {
   }
   changeDate() {
     this.getCoreCusInfo(this.dateValue);
+  }
+  toCurrency(amount: string) {
+    return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
   }
 }
