@@ -148,7 +148,7 @@
         <div nz-col nzSpan="12">
           <div class="form">
             <div><span class="form-title-actions">手機/市話</span>
-              <input matInput #input class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') "
+              <input matInput #input class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') "  maxlength="10"
                 [(ngModel)]="data.PHONE" name="PHONE" required>
               <mat-error *ngIf="formControl.invalid && (data.PHONE=='' || data.PHONE== null) ">{{getErrorMessage()}}
               </mat-error>
