@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Childscn9Service } from '../childscn9.service';
+import { DatePipe } from '@angular/common';
 interface dateCode {
   value: string;
   viewValue: string;
@@ -13,9 +14,11 @@ interface dateCode {
 })
 export class Childscn9page1Component implements OnInit {
 
+
   constructor(
     private fb: FormBuilder,
     private childscn9Service: Childscn9Service,
+    private pipe: DatePipe,
   ) { }
 
   coreCustInfoForm: FormGroup = this.fb.group({
@@ -77,6 +80,7 @@ export class Childscn9page1Component implements OnInit {
 
   getCoreCusInfo(dateValue: string) {
     let jsonObject: any = {};
+    const date= new Date()
     jsonObject['applno'] = this.applno;
     jsonObject['cuid'] = this.cuid;
     jsonObject['code'] = 'CORE_CUS_INFO';
@@ -93,7 +97,7 @@ export class Childscn9page1Component implements OnInit {
       this.coreCustInfoForm.patchValue({ NAME: data.rspBody.items[0].NAME })
       this.coreCustInfoForm.patchValue({ BIRTHDAY: data.rspBody.items[0].BIRTHDAY })
       this.coreCustInfoForm.patchValue({ EDUCATION: data.rspBody.items[0].EDUCATION })
-      this.coreCustInfoForm.patchValue({ ACC_OPEN_DATE: data.rspBody.items[0].ACC_OPEN_DATE })
+      this.coreCustInfoForm.patchValue({ ACC_OPEN_DATE: this.pipe.transform(data.rspBody.items[0].ACC_OPEN_DATE, 'yyyy-MM-dd HH：mm：ss') })
       this.coreCustInfoForm.patchValue({ ACC_TYPE: data.rspBody.items[0].ACC_TYPE })
       this.coreCustInfoForm.patchValue({ LOGIN_ID: data.rspBody.items[0].LOGIN_ID })
       this.coreCustInfoForm.patchValue({ EMAIL: data.rspBody.items[0].EMAIL })
