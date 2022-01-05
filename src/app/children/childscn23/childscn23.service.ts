@@ -11,7 +11,7 @@ export class Childscn23Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
   getdropdown( baseUrl: string ): Observable<any> {
-    return this.getLine(baseUrl);
+    return this.postHttpClient(baseUrl);
   }
   AddUpDel(baseUrl: string, json: JSON)
   {
