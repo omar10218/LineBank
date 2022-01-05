@@ -56,6 +56,9 @@ export class Childscn9page4Component implements OnInit {
     this.pageIndex = pageIndex;
     this.getCoreCusInfo('DC_TRANS_DETAIL', this.pageIndex, this.pageSize);
   }
+  toCurrency(amount: string) {
+    return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
+  }
 }
 function ngAfterViewInit() {
   throw new Error('Function not implemented.');

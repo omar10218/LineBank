@@ -1,49 +1,28 @@
  <div class="line_bank_bankground_color_test" style="padding-top: 10px;">
   <div class="line_bank_card_no_padding_child" style="width:90%;">
-    <form [formGroup]="dss3Form1">
       <div class="EL_DSS_form_header_title2" style="border-radius: 10px 10px 0 0;">系統決策</div>
       <div nz-row>
         <div nz-col nzSpan="4">
           <div style="padding:3px">
             <span class="form-title">DSS交易日期時間</span>
-            <input formControlName="QUERY_DATE" disabled>
+            <input [(ngModel)]="QUERY_DATE" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:3px">
             <span class="form-title">系統流程</span>
-            <input formControlName="SYSFLOWCD" disabled>
+            <input [(ngModel)]="SYSFLOWCD" disabled>
           </div>
         </div>
         <div nz-col nzSpan="4">
           <div style="padding:3px">
             <span class="form-title">決策結果</span>
-            <input style="display: block;" formControlName="RESLTCD" disabled>
+            <input style="display: block;" [(ngModel)]="RESLTCD" disabled>
           </div>
         </div>
       </div>
       <br>
 
-      <!-- <div style="margin:0;border-radius: 0px 10px 0px 0px;" class="EL_DSS_form_header_title3">徵審代碼</div>
-      <nz-table nzShowSizeChanger [nzData]="EL_DSS3_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
-        nzSize="small">
-        <thead>
-          <tr>
-            <th class="table-header" style="width: 25%;">徵審代碼</th>
-            <th class="table-header" style="width: 25%;">徵審代碼中文</th>
-            <th class="table-header" style="width: 25%;"></th>
-            <th class="table-header" style="width: 25%;"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let row of EL_DSS3_UNDW_LIST1.data">
-            <td class="table-data">{{ row.undwCd }}</td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-          </tr>
-        </tbody>
-      </nz-table> -->
       <div style="margin:0;" class="EL_DSS_form_header_title3">徵審代碼</div>
       <div nz-row>
         <div nz-col nzFlex="1">
@@ -137,7 +116,6 @@
         </nz-table>
         </div>
       </div>
-    </form>
   </div>
 
 
