@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01008deleteComponent } from '../f01008delete/f01008delete.component'
 import { F01008scn2editComponent } from './f01008scn2edit/f01008scn2edit.component';
+import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 
 interface sysCode {
   value: string;
@@ -239,14 +240,27 @@ export class F01008scn2Component implements OnInit {
 
     })
   }
-  jcic()//立即重查
+  jcic(result: string)//立即重查
   {
-    let jsonObject: any = {};
-    let url = 'f01/f01008scn0';
-    jsonObject['applno'] = this.applno;
-    this.block = true;
-    this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      this.block = false;
+    const dialogRef = this.dialog.open(Childscn26Component, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight: '50%',
+      width: '30%',
+      data: {
+        value: result
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.value == 'confirm')
+      {
+        let jsonObject: any = {};
+        let url = 'f01/f01008scn0';
+        jsonObject['applno'] = this.applno;
+        this.block = true;
+        this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+          this.block = false;
+        })
+      }
     })
   }
 }
