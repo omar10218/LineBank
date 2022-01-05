@@ -43,6 +43,7 @@ export class F01008scn2Component implements OnInit {
   }
 
   applno: string;
+  custId: string;
   page = 1;
   pei_page = 50;
   dataSource: Data[] = [];
@@ -65,6 +66,7 @@ export class F01008scn2Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     // this.applno = "20211125A00002";
     this.empNo = localStorage.getItem("empNo");
+    this.custId = sessionStorage.getItem('custId');
     this.set();//初始查詢
     this.tYPE.push({ value: '1', viewValue: '公司電話' })
     this.tYPE.push({ value: '2', viewValue: '手機號碼' })
@@ -256,8 +258,11 @@ export class F01008scn2Component implements OnInit {
         let jsonObject: any = {};
         let url = 'f01/f01008scn0';
         jsonObject['applno'] = this.applno;
+        jsonObject['custId'] = this.custId;
         this.block = true;
         this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+          console.log("====================");
+          console.log(data);
           this.block = false;
         })
       }
