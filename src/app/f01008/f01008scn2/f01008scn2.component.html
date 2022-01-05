@@ -1,10 +1,10 @@
 <app-block *ngIf="block"></app-block>
 <div class="line_bank_bankground_color" style="min-height: 100vh;">
   <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'large'" nzType="primary" >案件完成</button>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="jcic('是否案件完成')">立即重查JCIC</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button nz-button [nzSize]="'middle'" nzType="primary" >案件完成</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="jcic('是否案件完成')">立即重查JCIC</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <!-- (click)="Inquire(data.applnoOld)" -->
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="add()">新增</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()">新增</button>
   </div>
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">照會資訊</div>
@@ -33,14 +33,14 @@
           <td class="table-data">{{data.CALLOUT_SETTIME|date:"yyyy-MM-dd HH:mm"}}</td>
           <td class="table-data">{{data.CALLOUT_DATE|date:"yyyy-MM-dd HH:mm"}}</td>
           <td class="table-data">{{data.CALLOUT_EMPNO}}</td>
-          <td class="table-data">
+          <td class="table-data"  style="text-align: center;">
             <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'small'" nzType="primary"
               (click)="startEdit(data.ID,data.CON_TYPE,data.CON_MEMO,data.PHONE,data.TEL_CONDITION,data.CALLOUT_SETTIME,data.CALLOUT_DATE)">編輯</button>
 
             <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'small'" nzType="primary"
             (click)="startEdit(data.ID,data.CON_TYPE,data.CON_MEMO,data.PHONE,data.TEL_CONDITION,data.CALLOUT_SETTIME,data.CALLOUT_DATE)">編輯</button>
           </td>
-          <td class="table-data">
+          <td class="table-data" style="text-align: center;">
             <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'small'" style="border-radius: 5px;" nzDanger
               (click)="deleteItem(data.ID,data.CON_TYPE,data.CON_MEMO,data.PHONE,data.TEL_CONDITION,data.CALLOUT_SETTIME,data.CALLOUT_DATE)">刪除</button>
             <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'small'" style="border-radius: 5px;"
@@ -53,19 +53,19 @@
   <div class="line_bank_card_no_padding">
     <nz-table nzSize="small" [nzData]="jaicSource" nzTemplateMode>
       <thead>
-        <th class="table-header" style="width:50%">
+        <th class="table-header-sub" style="width:50%;padding-left:10px;border-radius: 5px 0px 0px 0px;">
           重新發查日期時間
         </th>
-        <th class="table-header" style="width:50%">
+        <th class="table-header-sub" style="width:50%;border-radius: 0px 5px 0px 0px;">
           目前已發查次數(最大可發查3次)
         </th>
       </thead>
       <tbody>
         <tr *ngFor="let data of jaicSource;">
-          <td>
+          <td style="padding: 5px;">
             <nz-date-picker [(ngModel)]="data.researchDate" name="Sendcheck" disabled></nz-date-picker>
           </td>
-          <td>
+          <td style="padding: 5px;">
             <input type="text" value="{{data.researchNum != null? data.researchNum:0}}" disabled>
           </td>
         </tr>
@@ -75,18 +75,19 @@
   <div class="line_bank_card_no_padding">
     <nz-table nzSize="small" [nzNoResult]="'  '">
       <thead>
-        <th class="table-header" style="width:50%">
+        <th class="table-header-sub" style="width:50%;padding-left:10px;border-radius: 5px 5px 0px 0px;">
           審核註記
         </th>
       </thead>
       <tbody>
         <br>
-        <tr>
+        <tr style="text-align: center;">
           <td>
-            <button nz-button [nzSize]="'large'" nzType="primary" (click)="macr()">儲存</button>
+           
+            
+            <textarea [(ngModel)]="ma" name="ma"></textarea>
             <br>
-            <br>
-            &nbsp;<textarea style="width:800px;height: 100px;" [(ngModel)]="ma" name="ma"></textarea>
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="macr()">儲存</button>
           </td>
         </tr>
       </tbody>
@@ -95,9 +96,9 @@
   <div class="line_bank_card_no_padding">
     <nz-table nzSize="small"  [nzData]="macrSource" nzTemplateMode>
       <thead>
-        <th class="table-header" style="width:10%">Date</th>
-        <th class="table-header" style="width:10%">User</th>
-        <th class="table-header" style="width:10%">Action</th>
+        <th class="table-header-sub" style="width:10%;border-radius: 5px 0px 0px 0px;">Date</th>
+        <th class="table-header-sub" style="width:10%">User</th>
+        <th class="table-header-sub" style="width:10%;border-radius: 0px 5px 0px 0px;">Action</th>
       <tbody>
         <tr *ngFor="let data of macrSource;">
           <td class="table-data">{{data.CREDITDATE|date:"yyyy-MM-dd HH:mm"}}</td>
