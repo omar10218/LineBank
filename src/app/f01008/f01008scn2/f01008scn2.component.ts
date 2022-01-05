@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { F01008addComponent } from '../f01008add/f01008add.component'
 import { F01008Service } from '../f01008.service';
-import { Data } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
@@ -23,6 +23,7 @@ interface sysCode {
 export class F01008scn2Component implements OnInit {
 
   constructor(
+    private router: Router,
     public dialog: MatDialog,
     private f01008Service: F01008Service,
     public datepipe: DatePipe)
@@ -263,6 +264,7 @@ export class F01008scn2Component implements OnInit {
         this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
           console.log("====================");
           console.log(data);
+          this.router.navigate(['./F01008']);
           this.block = false;
         })
       }
