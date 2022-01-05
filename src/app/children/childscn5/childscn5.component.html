@@ -245,7 +245,7 @@
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <!-- <mat-error *ngIf="formControl.invalid && (cuLevel1CaValue=='' || cuLevel1CaValue== null)">{{getErrorMessage()}}</mat-error> -->
+              <mat-error *ngIf="formControl.invalid && (cuLevel1CaValue=='' || cuLevel1CaValue== null)">{{getErrorMessage()}}</mat-error>
             </div>
             <div style="padding:3px"  *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">徵信認列行業Level1</span>
@@ -267,7 +267,7 @@
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <!-- <mat-error *ngIf="formControl.invalid && (cuLevel2CaValue=='' || cuLevel2CaValue== null)">{{getErrorMessage()}}</mat-error> -->
+              <mat-error *ngIf="formControl.invalid && (cuLevel2CaValue=='' || cuLevel2CaValue== null)">{{getErrorMessage()}}</mat-error>
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">徵信認列行業Level2</span>
@@ -289,7 +289,7 @@
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <!-- <mat-error *ngIf="formControl.invalid && (jobCodeCaValue=='' || jobCodeCaValue== null)">{{getErrorMessage()}}</mat-error> -->
+              <mat-error *ngIf="formControl.invalid && (jobCodeCaValue=='' || jobCodeCaValue== null)">{{getErrorMessage()}}</mat-error>
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">徵信認列職業碼</span>
@@ -311,7 +311,7 @@
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <!-- <mat-error *ngIf="formControl.invalid && (companyWhitelistValue=='' || companyWhitelistValue== null)">{{getErrorMessage()}}</mat-error> -->
+              <mat-error *ngIf="formControl.invalid && (companyWhitelistValue=='' || companyWhitelistValue== null)">{{getErrorMessage()}}</mat-error>
             </div>
             <div style="padding:3px"  *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">公司是否為白名單</span>
@@ -405,10 +405,10 @@
         </nz-table>
         <div style="padding:10px;text-align: center">
           <div *ngIf="getSearch() == 'N'">
-            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" [disabled]="pag == 2? false:true ">儲存</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" [disabled]="formControl.valid && pag == 2? false:true ">儲存</button>
           </div>
           <div *ngIf="getSearch() != 'N'">
-            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" [disabled]="pag == 2? false:true ">儲存</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" [disabled]="formControl.valid && pag == 2? false:true ">儲存</button>
           </div>
         </div>
       </div>
