@@ -21,6 +21,8 @@ import { F01008scn3page1Component } from './f01008scn3/f01008scn3page1/f01008scn
 import { JcictableComponent } from './f01008scn3/jcictable/jcictable.component';
 import { F01008editComponent } from './f01008edit/f01008edit.component';
 import { F01008scn2editComponent } from './f01008scn2/f01008scn2edit/f01008scn2edit.component';
+import { F01008scn4page1Component } from './f01008scn4/f01008scn4page1/f01008scn4page1.component';
+import { F01008scn4page2Component } from './f01008scn4/f01008scn4page2/f01008scn4page2.component';
 registerLocaleData(zh);
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ registerLocaleData(zh);
     F01008addComponent,
     F01008deleteComponent,
     F01008editComponent,
-    F01008scn2editComponent
+    F01008scn2editComponent,
+    F01008scn4page1Component,
+    F01008scn4page2Component
   ],
   imports: [
     NzButtonModule,

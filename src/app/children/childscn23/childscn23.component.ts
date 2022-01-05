@@ -391,21 +391,21 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].mthpay_KRM048 = this.toINT(this.fmData_B.data[0].mthpay_KRM048);
         this.fmData_B.data[0].mthpay_NONJCIC = this.toINT(this.fmData_B.data[0].mthpay_NONJCIC);
 
-        this.fmData_B.data[0].unsdebt_AMT_501EX_B = this.fmData_B.data[0].unsdebt_AMT_501EX_B == null ? this.fmData_B.data[0].unsdebt_AMT_501EX : this.fmData_B.data[0].unsdebt_AMT_501EX_B;
-        this.fmData_B.data[0].unsdebt_AMT_504EX_B = this.fmData_B.data[0].unsdebt_AMT_504EX_B == null ? this.fmData_B.data[0].unsdebt_AMT_504EX : this.fmData_B.data[0].unsdebt_AMT_504EX_B;
-        this.fmData_B.data[0].unsdebt_AMTNEW_505EX_B = this.fmData_B.data[0].unsdebt_AMTNEW_505EX_B == null ? this.fmData_B.data[0].unsdebt_AMTNEW_505EX : this.fmData_B.data[0].unsdebt_AMTNEW_505EX_B;
-        this.fmData_B.data[0].unsdebt_AMTNEW_029EX_B = this.fmData_B.data[0].unsdebt_AMTNEW_029EX_B == null ? this.fmData_B.data[0].unsdebt_AMTNEW_029EX : this.fmData_B.data[0].unsdebt_AMTNEW_029EX_B;
-        this.fmData_B.data[0].unsdebt_824_RLLIMIT_B = this.fmData_B.data[0].unsdebt_824_RLLIMIT_B == null ? this.fmData_B.data[0].unsdebt_824_RLLIMIT : this.fmData_B.data[0].unsdebt_824_RLLIMIT_B;
-        this.fmData_B.data[0].unsdebt_824_RLBAL_B = this.fmData_B.data[0].unsdebt_824_RLBAL_B == null ? this.fmData_B.data[0].unsdebt_824_RLBAL : this.fmData_B.data[0].unsdebt_824_RLBAL_B;
-        this.fmData_B.data[0].unsdebt_824_ILBAL_B = this.fmData_B.data[0].unsdebt_824_ILBAL_B == null ? this.fmData_B.data[0].unsdebt_824_ILBAL : this.fmData_B.data[0].unsdebt_824_ILBAL_B;
-        this.fmData_B.data[0].unsdebt_824_CCRBAL_B = this.fmData_B.data[0].unsdebt_824_CCRBAL_B == null ? this.fmData_B.data[0].unsdebt_824_CCRBAL : this.fmData_B.data[0].unsdebt_824_CCRBAL_B;
-        this.fmData_B.data[0].unsdebt_NONJCIC_B = this.fmData_B.data[0].unsdebt_NONJCIC_B == null ? this.fmData_B.data[0].unsdebt_NONJCIC : this.fmData_B.data[0].unsdebt_NONJCIC_B;
-        this.fmData_B.data[0].unsdebt_PAYAMT_029EX_B = this.fmData_B.data[0].unsdebt_PAYAMT_029EX_B == null ? this.fmData_B.data[0].unsdebt_PAYAMT_029EX : this.fmData_B.data[0].unsdebt_PAYAMT_029EX_B;
+        this.fmData_B.data[0].unsdebt_AMT_501EX_B = this.toINT(this.fmData_B.data[0].unsdebt_AMT_501EX_B == null ? this.fmData_B.data[0].unsdebt_AMT_501EX : this.fmData_B.data[0].unsdebt_AMT_501EX_B);
+        this.fmData_B.data[0].unsdebt_AMT_504EX_B = this.toINT(this.fmData_B.data[0].unsdebt_AMT_504EX_B == null ? this.fmData_B.data[0].unsdebt_AMT_504EX : this.fmData_B.data[0].unsdebt_AMT_504EX_B);
+        this.fmData_B.data[0].unsdebt_AMTNEW_505EX_B = this.toINT(this.fmData_B.data[0].unsdebt_AMTNEW_505EX_B == null ? this.fmData_B.data[0].unsdebt_AMTNEW_505EX : this.fmData_B.data[0].unsdebt_AMTNEW_505EX_B);
+        this.fmData_B.data[0].unsdebt_AMTNEW_029EX_B = this.toINT(this.fmData_B.data[0].unsdebt_AMTNEW_029EX_B == null ? this.fmData_B.data[0].unsdebt_AMTNEW_029EX : this.fmData_B.data[0].unsdebt_AMTNEW_029EX_B);
+        this.fmData_B.data[0].unsdebt_824_RLLIMIT_B = this.toINT(this.fmData_B.data[0].unsdebt_824_RLLIMIT_B == null ? this.fmData_B.data[0].unsdebt_824_RLLIMIT : this.fmData_B.data[0].unsdebt_824_RLLIMIT_B);
+        this.fmData_B.data[0].unsdebt_824_RLBAL_B = this.toINT(this.fmData_B.data[0].unsdebt_824_RLBAL_B == null ? this.fmData_B.data[0].unsdebt_824_RLBAL : this.fmData_B.data[0].unsdebt_824_RLBAL_B);
+        this.fmData_B.data[0].unsdebt_824_ILBAL_B = this.toINT(this.fmData_B.data[0].unsdebt_824_ILBAL_B == null ? this.fmData_B.data[0].unsdebt_824_ILBAL : this.fmData_B.data[0].unsdebt_824_ILBAL_B);
+        this.fmData_B.data[0].unsdebt_824_CCRBAL_B = this.toINT(this.fmData_B.data[0].unsdebt_824_CCRBAL_B == null ? this.fmData_B.data[0].unsdebt_824_CCRBAL : this.fmData_B.data[0].unsdebt_824_CCRBAL_B);
+        this.fmData_B.data[0].unsdebt_NONJCIC_B = this.toINT(this.fmData_B.data[0].unsdebt_NONJCIC_B == null ? this.fmData_B.data[0].unsdebt_NONJCIC : this.fmData_B.data[0].unsdebt_NONJCIC_B);
+        this.fmData_B.data[0].unsdebt_PAYAMT_029EX_B = this.toINT(this.fmData_B.data[0].unsdebt_PAYAMT_029EX_B == null ? this.fmData_B.data[0].unsdebt_PAYAMT_029EX : this.fmData_B.data[0].unsdebt_PAYAMT_029EX_B);
 
-        this.fmData_B.data[0].mthpay_BAM421_B = this.fmData_B.data[0].mthpay_BAM421_B == null ? this.fmData_B.data[0].mthpay_BAM421 : this.fmData_B.data[0].mthpay_BAM421_B;
-        this.fmData_B.data[0].mthpay_BAM029_B = this.fmData_B.data[0].mthpay_BAM029_B == null ? this.fmData_B.data[0].mthpay_BAM029 : this.fmData_B.data[0].mthpay_BAM029_B;
-        this.fmData_B.data[0].mthpay_KRM048_B = this.fmData_B.data[0].mthpay_KRM048_B == null ? this.fmData_B.data[0].mthpay_KRM048 : this.fmData_B.data[0].mthpay_KRM048_B;
-        this.fmData_B.data[0].mthpay_NONJCIC_B = this.fmData_B.data[0].mthpay_NONJCIC_B == null ? this.fmData_B.data[0].mthpay_NONJCIC : this.fmData_B.data[0].mthpay_NONJCIC_B;
+        this.fmData_B.data[0].mthpay_BAM421_B = this.toINT(this.fmData_B.data[0].mthpay_BAM421_B == null ? this.fmData_B.data[0].mthpay_BAM421 : this.fmData_B.data[0].mthpay_BAM421_B);
+        this.fmData_B.data[0].mthpay_BAM029_B = this.toINT(this.fmData_B.data[0].mthpay_BAM029_B == null ? this.fmData_B.data[0].mthpay_BAM029 : this.fmData_B.data[0].mthpay_BAM029_B);
+        this.fmData_B.data[0].mthpay_KRM048_B = this.toINT(this.fmData_B.data[0].mthpay_KRM048_B == null ? this.fmData_B.data[0].mthpay_KRM048 : this.fmData_B.data[0].mthpay_KRM048_B);
+        this.fmData_B.data[0].mthpay_NONJCIC_B = this.toINT(this.fmData_B.data[0].mthpay_NONJCIC_B == null ? this.fmData_B.data[0].mthpay_NONJCIC : this.fmData_B.data[0].mthpay_NONJCIC_B);
 
 
         this.fmData_B.data[0].unsdebt_AMT_501EX_B = this.data_number2(this.fmData_B.data[0].unsdebt_AMT_501EX_B);
@@ -478,6 +478,7 @@ export class Childscn23Component implements OnInit {
   }
   //去除符號中文 可負號
   data_number2(x: string) {
+    this.toINT(x);
     if (x != null) {
       x = x.replace(/[^\d-]/g, '');
       x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
