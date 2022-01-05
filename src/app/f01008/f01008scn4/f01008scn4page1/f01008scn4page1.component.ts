@@ -1,11 +1,12 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
-import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
+import { Component, OnInit } from '@angular/core';
 import { F01008scn4Service } from '../f01008scn4.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table'
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
+//Nick 
 @Component({
   selector: 'app-f01008scn4page1',
   templateUrl: './f01008scn4page1.component.html',
@@ -16,14 +17,13 @@ export class F01008scn4page1Component implements OnInit {
   constructor(private f01008scn4Service: F01008scn4Service,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    ) { }
+  ) { }
 
   private applno: string;
   private search: string;
   private stepName: string;
   private page: string;
   fmData_M = new MatTableDataSource<any>();//DBR收支表資料 徵信
-  // EL_DSS3_UNDW_LIST1 = new MatTableDataSource<any>();//徵審代碼
 
   EL_DSS3_UNDW_LIST = new MatTableDataSource<any>();//徵審代碼
   EL_DSS3_UNDW_LIST1 = new MatTableDataSource<any>();//徵審代碼-信用異常資訊
@@ -41,39 +41,22 @@ export class F01008scn4page1Component implements OnInit {
     this.getDSS3();
   }
 
-  dss3Form1: FormGroup = this.fb.group({
-    //系統決策
-    QUERY_DATE: ['', []],//DSS交易日期時間
-    SYSFLOWCD: ['', []],//系統流程
-    RESLTCD: ['', []],//決策結果
-
-
-  });
+  QUERY_DATE = "";
+  SYSFLOWCD = "";
+  RESLTCD = "";
 
   getSearch(): string {
     return this.search;
-    //測試用
-    // return 'N';
+
   }
 
   getstepName(): String {
-    // 高階主管作業 APPLCreditL1
-    // 授信作業 APPLCreditL2
-    // 徵信作業 APPLCreditL3
-    // 文審作業 APPLCreditL4
-    // 偽冒案件 APPLFraud
-    // 0查詢
     return this.stepName;
-    //測試用
-    //  return 'APPLCreditL2';
   }
 
-  //判斷table是否顯示
-  // 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8徵審後落人 9複審人員 0查詢
+  //判斷按鈕是否顯示
   getPage() {
     return this.page
-    //測試用
-    // return '8';
   }
 
   //去除符號中文
@@ -129,7 +112,7 @@ export class F01008scn4page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     // 測試用
-    // jsonObject['applno'] = '20210827E001';
+    // jsonObject['applno'] = '20211215A000077';
     this.f01008scn4Service.postJson(url, jsonObject).subscribe(data => {
       if (data.rspBody.length > 0) {
         this.fmData_M.data = data.rspBody
@@ -206,12 +189,12 @@ export class F01008scn4page1Component implements OnInit {
       return;
     }
     let msg = "";
-    this.applno = sessionStorage.getItem('applno');
     const url = 'f01/childscn10action7';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     //測試用
-    // jsonObject['applno'] = '20210827E001';
+    // jsonObject['applno'] = '20211215A000077';
+
     jsonObject['unsdebtAmt501Ex'] = this.save_data_number(this.fmData_M.data[0].unsdebt_AMT_501EX_B);
     jsonObject['unsdebtAmt504Ex'] = this.save_data_number(this.fmData_M.data[0].unsdebt_AMT_504EX_B);
     jsonObject['unsdebtAmtnew505Ex'] = this.save_data_number(this.fmData_M.data[0].unsdebt_AMTNEW_505EX_B);
@@ -237,25 +220,25 @@ export class F01008scn4page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     //測試用
-    // jsonObject['applno'] = '20211125A00002';
+    // jsonObject['applno'] = '20211116A000003';
     this.f01008scn4Service.postJson(url, jsonObject).subscribe(data => {
       console.log('getDSS3data');
       console.log(data);
-      if (data.rspBody.elDss3List.length > 0) {
+      if (data.rspMsg != "select fail" && data.rspBody.elDss3List != null) {
         //系統決策
-        this.dss3Form1.patchValue({ QUERY_DATE: data.rspBody.elDss3List[0].queryDate })//DSS交易日期時間
-        this.dss3Form1.patchValue({ SYSFLOWCD: data.rspBody.elDss3List[0].sysflowcd })//系統流程
-        this.dss3Form1.patchValue({ RESLTCD: data.rspBody.elDss3List[0].resltcd })//決策結果
+        this.QUERY_DATE = formatDate(data.rspBody.elDss3List.queryDate, 'yyyy/MM/dd HH:mm:ss ', 'zh-Hant-TW', '+0800').toString();//DSS交易日期時間
+        this.SYSFLOWCD = data.rspBody.elDss3List.sysflowcd;//系統流程
+        this.RESLTCD = data.rspBody.elDss3List.resltcd;//決策結果
       }
-      // this.EL_DSS3_UNDW_LIST1.data = data.rspBody.elDss3UndwLists;//徵審代碼
-       this.EL_DSS3_UNDW_LIST.data = data.rspBody.elDss3UndwLists;//徵審代碼
-       if (data.rspBody.elDss3UndwLists.length > 0) {
-         this.EL_DSS3_UNDW_LIST1.data = this.EL_DSS3_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '1');//1	信用異常資訊
-         this.EL_DSS3_UNDW_LIST2.data = this.EL_DSS3_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '2');//2	整體往來
-         this.EL_DSS3_UNDW_LIST3.data = this.EL_DSS3_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '3');//3	信用卡往來
-         this.EL_DSS3_UNDW_LIST4.data = this.EL_DSS3_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '4');//4	授信往來
-         this.EL_DSS3_UNDW_LIST5.data = this.EL_DSS3_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '9');//9	其他
-       }
+      //徵審代碼
+      this.EL_DSS3_UNDW_LIST.data = data.rspBody.elDss3UndwLists;
+      if (data.rspMsg != "select fail" && data.rspBody.elDss3UndwLists.length > 0) {
+        this.EL_DSS3_UNDW_LIST1.data = this.EL_DSS3_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '1');//1	信用異常資訊
+        this.EL_DSS3_UNDW_LIST2.data = this.EL_DSS3_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '2');//2	整體往來
+        this.EL_DSS3_UNDW_LIST3.data = this.EL_DSS3_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '3');//3	信用卡往來
+        this.EL_DSS3_UNDW_LIST4.data = this.EL_DSS3_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '4');//4	授信往來
+        this.EL_DSS3_UNDW_LIST5.data = this.EL_DSS3_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '9');//9	其他
+      }
     });
   }
 
