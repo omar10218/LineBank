@@ -12,4 +12,8 @@ export class F03003Service extends BaseService {
   setProduct(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
+  getLine(baseUrl: string): Observable<any>
+  {
+    return this.postHttpClient(baseUrl);
+  }
 }
