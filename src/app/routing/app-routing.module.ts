@@ -152,7 +152,7 @@ const routes: Routes = [
       },
       {
         path: 'F01012',
-        component: F01012Component,
+        loadChildren: () => import('../f01012/f01012.module').then(m => m.F01012Module),
         // canActivate: [AuthGuard], // 守衛路由
       },
       {
