@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { BaseService } from '../base.service';
-import { OptionsCode } from '../interface/base';
+import { Mapping, OptionsCode } from '../interface/base';
 
 
 @Injectable({
@@ -116,5 +116,9 @@ export class F01008Service extends BaseService {
         });
     }
     return this.sTEL_CONDITION_Code;
+  }
+  public getSysTypeCode(codeType: string): Observable<Mapping> {
+    let targetUrl = `sys/getMappingCode?codeType=${codeType}`;
+    return this.postHttpClient(targetUrl);
   }
 }

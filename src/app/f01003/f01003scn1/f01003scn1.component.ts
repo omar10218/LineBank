@@ -259,9 +259,9 @@ export class F01003scn1Component implements OnInit {
     this.block = true;
     this.f01003Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
       //儲存歷史資料
-      if (count > 0) {
+      // if (count > 0) {
         this.setHistory(count);
-      }
+      // }
       await this.childscn1Service.setHistory(this.history, "授信案件完成", this.applno);
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }

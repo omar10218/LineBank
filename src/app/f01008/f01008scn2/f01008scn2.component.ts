@@ -9,6 +9,8 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01008deleteComponent } from '../f01008delete/f01008delete.component'
 import { F01008scn2editComponent } from './f01008scn2edit/f01008scn2edit.component';
 import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { OptionsCode } from 'src/app/interface/base';
 
 interface sysCode {
   value: string;
@@ -59,15 +61,21 @@ export class F01008scn2Component implements OnInit {
   Sendcheck: string;
   jaicSource: Data[] = [];
   block: boolean = false;
-
+  jcicNumb=0;
+  level: string;
+  sortArry=['ascend', 'descend']
+  quota:string;//額度
    //判斷是否更新表單
    JCICSource$: Subscription;
-
+  creditResultCode: OptionsCode[] = [];//核決結果下拉選單
+  creditResult: string ='';
+  ResultCode: OptionsCode[] = [];//審核結果下拉選單
+  resulet :string = '';
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     // this.applno = "20211125A00002";
     this.empNo = localStorage.getItem("empNo");
-    this.custId = sessionStorage.getItem('custId');
+    this.level = sessionStorage.getItem('stepName').split('t')[1];
     this.set();//初始查詢
     this.tYPE.push({ value: '1', viewValue: '公司電話' })
     this.tYPE.push({ value: '2', viewValue: '手機號碼' })
@@ -80,9 +88,35 @@ export class F01008scn2Component implements OnInit {
     this.cONDITION.push({ value: '4', viewValue: '其他(備註)' })
 
     this.search = sessionStorage.getItem('search');
+
+    this.f01008Service.getSysTypeCode('CREDIT_RESULT')//核決結果下拉選單
+    .subscribe(data => {
+      this.creditResultCode.push({ value: '', viewValue: '請選擇' });
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        if (this.level == 'L4') {
+          if (codeNo == 'W') {
+            this.creditResultCode.push({ value: codeNo, viewValue: desc });
+          }
+        } else if (this.level == 'L3') {
+          if (codeNo == 'C' || codeNo == 'D') {
+            this.creditResultCode.push({ value: codeNo, viewValue: desc });
+          }
+        } else {
+          if (codeNo == 'A' || codeNo == 'D') {
+            this.creditResultCode.push({ value: codeNo, viewValue: desc });
+          }
+        }
+      }
+    });
+    this.ResultCode.push({value:'',viewValue:'請選擇'})
+    this.ResultCode.push({value:'A',viewValue:'核准'})
+    this.ResultCode.push({value:'D',viewValue:'婉拒'})
+
   }
   test() {
-    console.log(this.showAdd)
+    console.log( this.jcicNumb )
   }
   add() //新增
   {
@@ -151,11 +185,26 @@ export class F01008scn2Component implements OnInit {
     console.log("123")
     console.log(jsonObject);
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+      console.log(data)
       if (data.rspBody.list != null) {
         this.dataSource = data.rspBody.list;
       }
       this.macrSource = data.rspBody.creditmemoList;
       this.jaicSource = data.rspBody.creditMainList;
+      for(const j of data.rspBody.creditMainList)
+      {
+        this.quota = j.approveAmt;
+        this.creditResult = j.creditResult;
+        if( j.researchNum != null)
+        {
+          this.jcicNumb =  j.researchNum;
+        }
+        else
+        {
+          this.jcicNumb = 0;
+        }
+
+      }
       for (const jsonObj of data.rspBody.conType) {
         this.tYPE.push({ value: jsonObj.codeNo, viewValue: jsonObj.codeDesc })
       }
@@ -270,4 +319,14 @@ export class F01008scn2Component implements OnInit {
       }
     })
   }
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageIndex } = params;
+    console.log(params)
+  }
+  Serial(e: string)//序號排序
+  {
+    this.dataSource = e === 'ascend' ? this.dataSource.sort(
+      (a, b) => a.CALLOUT_SETTIME.localeCompare(b.CALLOUT_SETTIME)) : this.dataSource.sort((a, b) => b.CALLOUT_SETTIME.localeCompare(a.CALLOUT_SETTIME))
+  }
+
 }

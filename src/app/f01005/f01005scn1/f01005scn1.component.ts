@@ -186,7 +186,11 @@ export class F01005scn1Component implements OnInit {
     const baseUrl = url;
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['level'] = 'Fraud';
+
+    //讓後端判斷入口
+    jsonObject['level'] = sessionStorage.getItem('raudKey')=="1"?'Fraud':'FraudList';
+    // jsonObject['level'] = 'Fraud';  案件清單
+    // jsonObject['level'] = 'FraudList'; 徵信通報
 
     this.creditResult = sessionStorage.getItem('creditResult');
 
