@@ -75,11 +75,7 @@ export class F01008scn2Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     // this.applno = "20211125A00002";
     this.empNo = localStorage.getItem("empNo");
-<<<<<<< HEAD
     this.level = sessionStorage.getItem('stepName').split('t')[1];
-=======
-    this.custId = sessionStorage.getItem('custId');
->>>>>>> f8fdd9d32d99f1e00b428266cddd6b0d834f35ad
     this.set();//初始查詢
     this.tYPE.push({ value: '1', viewValue: '公司電話' })
     this.tYPE.push({ value: '2', viewValue: '手機號碼' })
