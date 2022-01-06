@@ -61,9 +61,22 @@ export class F01008scn1Component implements OnInit {
   }
 
   save() {
+    let jsonObject: any = {};
     if (this.level == 'D2') {
       this.afterResult = sessionStorage.getItem('afterResult');
       if (this.afterResult != '' && this.afterResult != 'null') {
+        let url = 'f01/f01008scn0scn1';
+        jsonObject['applno']= this.applno;
+        jsonObject['level'] = this.level;
+        jsonObject['afterResult'] = this.afterResult;
+        this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+          console.log(data)
+          if(data.rspCode === '0000')
+          {
+            this.router.navigate(['./F01008']);
+          }
+
+        })
 
       }
       else {
@@ -76,8 +89,20 @@ export class F01008scn1Component implements OnInit {
     }
     else {
       this.afterResult = sessionStorage.getItem('afterResult');
-      if (this.afterResult != '' && this.afterResult != 'null') {
+      if (this.afterResult != '' && this.afterResult != 'null')
+      {
+        let url = 'f01/f01008scn0scn1';
+        jsonObject['applno']= this.applno;
+        jsonObject['level'] = this.level;
+        jsonObject['afterResult'] = this.afterResult;
+        this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+          console.log(data)
+          if(data.rspCode === '0000')
+          {
+            this.router.navigate(['./F01008']);
+          }
 
+        })
       }
       else {
         this.dialog.open(ConfirmComponent, {
@@ -87,13 +112,6 @@ export class F01008scn1Component implements OnInit {
 
       }
     }
-
-    // console.log("===============================")
-    // console.log(this.afterResult)
-    // this.dialog.open(ConfirmComponent, {
-    //   data: { msgStr: "請選擇徵審後處理審核結果" }
-    // });
-    // this.router.navigate(['./F01008/F01008SCN1/F01008SCN2']);
 
   }
 
