@@ -13,8 +13,12 @@ export class Childscn9Service extends BaseService {
     const baseUrl = 'f01/childscn9action';
     return this.postJsonObject(baseUrl, jsonObject);
   }
+  getBlockingCode(jsonObject: JSON): Observable<any>  {
+    const baseUrl = 'f01/childscn9action3';
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
 
   getDate(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData);
+    return this.postFormData(baseUrl, formData); 
   }
 }

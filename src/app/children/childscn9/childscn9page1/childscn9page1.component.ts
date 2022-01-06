@@ -20,7 +20,7 @@ export class Childscn9page1Component implements OnInit {
     private childscn9Service: Childscn9Service,
     private pipe: DatePipe,
   ) { }
-
+  blockingCodeSource:any
   coreCustInfoForm: FormGroup = this.fb.group({
     APPLNO: ['', []],
     AGE: ['', []],
@@ -74,10 +74,18 @@ export class Childscn9page1Component implements OnInit {
         }
         this.dateValue = data.rspBody.items[0].QUERYDATE
         this.getCoreCusInfo(this.dateValue);
+        this.getBlockingCodeInfo()
       }
     });
   }
-
+getBlockingCodeInfo(){
+  let jsonObject:any={}
+  jsonObject['applno'] = this.applno;
+  this.childscn9Service.getBlockingCode(jsonObject).subscribe(data=>{
+    console.log(data)
+    this.blockingCodeSource=data.rspBody.blockingCodeList
+  })
+}
   getCoreCusInfo(dateValue: string) {
     let jsonObject: any = {};
     const date= new Date()

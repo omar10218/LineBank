@@ -1,9 +1,9 @@
 <div class="line_bank_bankground_color">
   <br>
-  <div *ngIf="getStepName23() && this.EL_INCOME_Source.data.length==7 && getSearch()!='Y' " style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="getStepName23() && this.EL_INCOME_Source.data.length==7 && getSearch()!='Y' " style="padding-left: 50px; ">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_income()">儲存</button>
   </div>
-  <div *ngIf="!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') " style="padding-left: 50px; padding-top: 20px;">
+  <div *ngIf="!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') " style="padding-left: 50px; ">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_income()" disabled>儲存</button>
   </div>
   <div class="line_bank_card_no_padding">
