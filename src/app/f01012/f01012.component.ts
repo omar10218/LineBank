@@ -19,7 +19,7 @@ export class F01012Component implements OnInit {
   constructor(
     private f01012Service: F01012Service,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) { }
 
   total: number;
@@ -78,7 +78,6 @@ export class F01012Component implements OnInit {
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
     this.f01012Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
       if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
@@ -130,7 +129,7 @@ export class F01012Component implements OnInit {
         sessionStorage.setItem('page', '8');
         sessionStorage.setItem('stepName', this.stepName);
         sessionStorage.setItem('custId', swcCustId);
-        this.router.navigate(['./F01008/F01008SCN1']);
+        this.router.navigate(['./F01012/F01008SCN1']);
       }
     });
   }
