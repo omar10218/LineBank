@@ -199,6 +199,7 @@ export class F01008scn2Component implements OnInit {
       for(const j of data.rspBody.creditMainList)
       {
         sessionStorage.setItem('afterResult',j.afterResult);
+
         if(j.afterResult != '' && j.afterResult != null)
         {
           this.resulet = j.afterResult;
@@ -207,11 +208,11 @@ export class F01008scn2Component implements OnInit {
         this.creditResult = j.creditResult;
         if( j.researchNum != null)
         {
-          this.jcicNumb =  j.researchNum;
+          sessionStorage.setItem('jcicNumb',j.researchNum);
         }
         else
         {
-          this.jcicNumb = 0;
+          sessionStorage.setItem('jcicNumb','0');
         }
 
       }
@@ -313,33 +314,7 @@ export class F01008scn2Component implements OnInit {
       console.log(data)
     })
   }
-  // jcic(result: string)//立即重查
-  // {
-  //   const dialogRef = this.dialog.open(Childscn26Component, {
-  //     panelClass: 'mat-dialog-transparent',
-  //     minHeight: '50%',
-  //     width: '30%',
-  //     data: {
-  //       value: result
-  //     }
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result.value == 'confirm')
-  //     {
-  //       let jsonObject: any = {};
-  //       let url = 'f01/f01008scn0';
-  //       jsonObject['applno'] = this.applno;
-  //       jsonObject['custId'] = this.custId;
-  //       this.block = true;
-  //       this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-  //         console.log("====================");
-  //         console.log(data);
-  //         this.router.navigate(['./F01008']);
-  //         this.block = false;
-  //       })
-  //     }
-  //   })
-  // }
+
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageIndex } = params;
     console.log(params)

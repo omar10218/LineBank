@@ -43,13 +43,14 @@ export class F01008scn1Component implements OnInit {
   private search: string;
   applno: string;
   custId: string;
+  jcicNumb:number;
   afterResult:string;
   ngOnInit(): void {
 
     this.search = sessionStorage.getItem('search');
     this.applno = sessionStorage.getItem('applno');
     this.custId = sessionStorage.getItem('custId');
-
+    this.jcicNumb=parseInt(sessionStorage.getItem('jcicNumb'));
 
   }
 
@@ -79,7 +80,9 @@ export class F01008scn1Component implements OnInit {
 
   reScan() {
     console.log("?????????????")
-    console.log(sessionStorage.getItem('afterResult'))
+    console.log(this.jcicNumb)
+    // level
+    // jsonObject['level'] = 'D2';
     // const dialogRef = this.dialog.open(Childscn19Component, {
     //   panelClass: 'mat-dialog-transparent',
     //   height: '100%',
@@ -93,6 +96,7 @@ export class F01008scn1Component implements OnInit {
 
   reSearch(result: string)//立即重查
     {
+      this.jcicNumb= parseInt(sessionStorage.getItem('jcicNumb'));
       const dialogRef = this.dialog.open(Childscn26Component, {
         panelClass: 'mat-dialog-transparent',
         minHeight: '50%',
@@ -110,8 +114,7 @@ export class F01008scn1Component implements OnInit {
           jsonObject['custId'] = this.custId;
           this.block = true;
           this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-            console.log("====================");
-            console.log(data);
+            console.log(data)
             this.router.navigate(['./F01008']);
             this.block = false;
           })

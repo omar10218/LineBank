@@ -1,11 +1,8 @@
 <app-block *ngIf="block"></app-block>
 <div class="line_bank_bankground_color" style="min-height: 100vh;">
   <div style="padding-left: 20px; padding-top: 30px;">
-    <!-- <button nz-button [nzSize]="'middle'" nzType="primary" (click)="test()">案件完成</button>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="jcic('是否案件完成')" [disabled]="jcicNumb < 3 ? false:true">立即重查JCIC</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
-    <!-- (click)="Inquire(data.applnoOld)" -->
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <button nz-button [nzSize]="'middle'" nzType="primary"  (click)="add()">新增</button>&nbsp;&nbsp;&nbsp;&nbsp;
-    <!-- <button nz-button [nzSize]="'middle'" nzType="primary" >重算</button> -->
   </div>
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">審核結果</div>
@@ -65,7 +62,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of dataSource;let i =index ">
-          <td class="table-data">{{ i+1 }}</td>
+          <td class="table-data" >{{ i+1 }}</td>
           <td class="table-data">{{getOptionDesc(tYPE,data.CON_TYPE)}}</td>
           <td class="table-data">{{data.PHONE}}</td>
           <td class="table-data">{{getOptionDesc(cONDITION,data.TEL_CONDITION)}}</td>
