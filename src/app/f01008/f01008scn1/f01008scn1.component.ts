@@ -62,17 +62,45 @@ export class F01008scn1Component implements OnInit {
 
   save()
   {
-    if(sessionStorage.getItem('afterResult')!='' && sessionStorage.getItem('afterResult') !='null')
+    if(this.level == 'D2')
     {
+      this.afterResult = sessionStorage.getItem('afterResult');
+      if(this.afterResult!='' && this.afterResult !='null')
+      {
 
+      }
+      else
+      {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請選擇徵審後處理審核結果" }
+        });
+        this.router.navigate(['./F01008/F01008SCN1/F01008SCN2']);
+
+      }
     }
     else
     {
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請選擇徵審後處理審核結果" }
-      });
-      // this.router.navigate(['./F01008/F01008SCN1/F01008SCN2']);
+      this.afterResult = sessionStorage.getItem('afterResult');
+      if(this.afterResult!='' && this.afterResult !='null')
+      {
+
+      }
+      else
+      {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請選擇徵審後處理審核結果" }
+        });
+        this.router.navigate(['./F01012/F01008SCN1/F01008SCN2']);
+
+      }
     }
+
+    // console.log("===============================")
+    // console.log(this.afterResult)
+    // this.dialog.open(ConfirmComponent, {
+    //   data: { msgStr: "請選擇徵審後處理審核結果" }
+    // });
+    // this.router.navigate(['./F01008/F01008SCN1/F01008SCN2']);
 
   }
 
