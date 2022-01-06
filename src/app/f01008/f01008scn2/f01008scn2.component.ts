@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { F01008addComponent } from '../f01008add/f01008add.component'
 import { F01008Service } from '../f01008.service';
-import { Data } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
@@ -25,6 +25,7 @@ interface sysCode {
 export class F01008scn2Component implements OnInit {
 
   constructor(
+    private router: Router,
     public dialog: MatDialog,
     private f01008Service: F01008Service,
     public datepipe: DatePipe)
@@ -45,6 +46,7 @@ export class F01008scn2Component implements OnInit {
   }
 
   applno: string;
+  custId: string;
   page = 1;
   pei_page = 50;
   dataSource: Data[] = [];
@@ -73,7 +75,11 @@ export class F01008scn2Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     // this.applno = "20211125A00002";
     this.empNo = localStorage.getItem("empNo");
+<<<<<<< HEAD
     this.level = sessionStorage.getItem('stepName').split('t')[1];
+=======
+    this.custId = sessionStorage.getItem('custId');
+>>>>>>> f8fdd9d32d99f1e00b428266cddd6b0d834f35ad
     this.set();//初始查詢
     this.tYPE.push({ value: '1', viewValue: '公司電話' })
     this.tYPE.push({ value: '2', viewValue: '手機號碼' })
@@ -306,8 +312,12 @@ export class F01008scn2Component implements OnInit {
         let jsonObject: any = {};
         let url = 'f01/f01008scn0';
         jsonObject['applno'] = this.applno;
+        jsonObject['custId'] = this.custId;
         this.block = true;
         this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+          console.log("====================");
+          console.log(data);
+          this.router.navigate(['./F01008']);
           this.block = false;
         })
       }
