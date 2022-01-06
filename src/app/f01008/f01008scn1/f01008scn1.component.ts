@@ -45,8 +45,9 @@ export class F01008scn1Component implements OnInit {
   custId: string;
   jcicNumb:number;
   afterResult:string;
+  level:string;
   ngOnInit(): void {
-
+    this.level = sessionStorage.getItem('level');
     this.search = sessionStorage.getItem('search');
     this.applno = sessionStorage.getItem('applno');
     this.custId = sessionStorage.getItem('custId');
@@ -59,17 +60,18 @@ export class F01008scn1Component implements OnInit {
     element.click();
   }
 
-  save(){
+  save()
+  {
     if(sessionStorage.getItem('afterResult')!='' && sessionStorage.getItem('afterResult') !='null')
     {
-      alert("123")
+
     }
     else
     {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請選擇徵審後處理審核結果" }
       });
-      this.router.navigate(['./F01008/F01008SCN1/F01008SCN2']);
+      // this.router.navigate(['./F01008/F01008SCN1/F01008SCN2']);
     }
 
   }

@@ -119,6 +119,25 @@
       </tbody>
     </nz-table>
   </div>
+  <div class="line_bank_card_no_padding" *ngIf=" lv != 'D2'">
+    <div class="line_bank_form_header_title">合約資訊</div>
+    <nz-table nzSize="small" [nzData]="contractArry" (nzQueryParams)="onQueryParamsChange($event)">
+      <thead>
+        <tr>
+          <th class="table-header" style="width:10%">審閱期分類</th>
+          <th class="table-header" style="width:10%">審閱期開始日</th>
+          <th class="table-header" style="width:10%">合約書版本</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of contractArry;">
+          <td class="table-data" >{{ data.revwPrdAbdnDsCd }}</td>
+          <td class="table-data" >{{ data.revwPrdAbdnRegDtm}}</td>
+          <td class="table-data" >{{ data.ctrtDocVerId }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
   <div class="line_bank_card_no_padding">
     <nz-table nzSize="small" [nzNoResult]="'  '">
       <thead>

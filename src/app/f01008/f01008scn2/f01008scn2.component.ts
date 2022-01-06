@@ -64,9 +64,11 @@ export class F01008scn2Component implements OnInit {
   showEdit: boolean = false;
   Sendcheck: string;
   jaicSource: Data[] = [];
+  contractArry:Data[] = [];
   block: boolean = false;
   jcicNumb=0;
   level: string;
+  lv:string;
   sortArry=['ascend', 'descend']
   quota:string;//額度
    //判斷是否更新表單
@@ -76,6 +78,7 @@ export class F01008scn2Component implements OnInit {
   ResultCode: OptionsCode[] = [];//審核結果下拉選單
   resulet :string = '';
   ngOnInit(): void {
+    this.lv = sessionStorage.getItem('level');
     sessionStorage.setItem('afterResult','');
     this.applno = sessionStorage.getItem('applno');
     // this.applno = "20211125A00002";
@@ -194,6 +197,7 @@ export class F01008scn2Component implements OnInit {
       if (data.rspBody.list != null) {
         this.dataSource = data.rspBody.list;
       }
+      this.contractArry = data.rspBody.CfmContractRcdList;
       this.macrSource = data.rspBody.creditmemoList;
       this.jaicSource = data.rspBody.creditMainList;
       for(const j of data.rspBody.creditMainList)
@@ -208,6 +212,7 @@ export class F01008scn2Component implements OnInit {
         this.creditResult = j.creditResult;
         if( j.researchNum != null)
         {
+
           sessionStorage.setItem('jcicNumb',j.researchNum);
         }
         else
@@ -325,4 +330,8 @@ export class F01008scn2Component implements OnInit {
       (a, b) => a.CALLOUT_SETTIME.localeCompare(b.CALLOUT_SETTIME)) : this.dataSource.sort((a, b) => b.CALLOUT_SETTIME.localeCompare(a.CALLOUT_SETTIME))
   }
 
+  transDate(value: string): string{
+    console.log(this.datepipe.transform(new Date(value), "yyyy-MM-dd "))
+    return this.datepipe.transform(new Date(value), "yyyy-MM-dd ");
+  }
 }
