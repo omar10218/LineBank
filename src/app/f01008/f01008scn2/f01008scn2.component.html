@@ -1,14 +1,54 @@
 <app-block *ngIf="block"></app-block>
 <div class="line_bank_bankground_color" style="min-height: 100vh;">
   <div style="padding-left: 20px; padding-top: 20px;">
-    <button nz-button [nzSize]="'middle'" nzType="primary" >案件完成</button>&nbsp;&nbsp;&nbsp;&nbsp;
-    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="jcic('是否案件完成')">立即重查JCIC</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="test()">案件完成</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="jcic('是否案件完成')" [disabled]="jcicNumb < 3 ? false:true">立即重查JCIC</button>&nbsp;&nbsp;&nbsp;&nbsp;
     <!-- (click)="Inquire(data.applnoOld)" -->
-    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()">新增</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()">新增</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button nz-button [nzSize]="'middle'" nzType="primary" >重算</button>
   </div>
   <div class="line_bank_card_no_padding">
+    <div class="line_bank_form_header_title">審核結果</div>
+    <div nz-row style="padding:5px">
+      <div nz-col nzFlex="1">
+        <div style="padding:2px"><span class="form-title">核決結果</span>
+          <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px" disabled>
+            <mat-option *ngFor="let code of creditResultCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">產品代號</span><input matInput #input class="form-control"
+            value="待確認" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">專案代號</span><input matInput #input class="form-control"
+            value="待確認" readonly></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">核准額度</span><input matInput #input class="form-control"
+          [(ngModel)]="quota" name="quota" disabled ></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">每月最低還款比率(%)</span><input matInput #input
+           ></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">人員記錄-PM策略客群</span><input matInput #input
+           ></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">人員記錄-風險等級</span><input matInput #input class="form-control"
+           ></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">照會資訊</div>
-    <nz-table nzSize="small" [nzData]="dataSource">
+    <nz-table nzSize="small" [nzData]="dataSource" (nzQueryParams)="onQueryParamsChange($event)">
       <thead>
         <tr>
           <th class="table-header" style="width:5%">NO</th>
@@ -16,7 +56,7 @@
           <th class="table-header" style="width:10%">手機/市話</th>
           <th class="table-header" style="width:12.5%">電話狀況</th>
           <th class="table-header" style="width:10%">備註</th>
-          <th class="table-header" style="width:10%">確認時間</th>
+          <th class="table-header" style="width:10%;z-index: 0;" (nzSortOrderChange)="Serial($event)" [nzSortFn]="true"  [nzSortDirections]="sortArry">確認時間</th>
           <th class="table-header" style="width:10%">設定下次聯絡時間</th>
           <th class="table-header" style="width:10%">確認人員</th>
           <th class="table-header">編輯</th>
@@ -53,20 +93,30 @@
   <div class="line_bank_card_no_padding">
     <nz-table nzSize="small" [nzData]="jaicSource"[nzFrontPagination]="false" [nzSimple]="false" nzTemplateMode>
       <thead>
+        <th  class="table-header-sub" style="width:25%;border-radius: 0px 5px 0px 0px;">
+          審核結果
+        </th>
         <th class="table-header-sub" style="width:50%;padding-left:10px;border-radius: 5px 0px 0px 0px;">
           重新發查日期時間
         </th>
-        <th class="table-header-sub" style="width:50%;border-radius: 0px 5px 0px 0px;">
+        <th class="table-header-sub" style="width:25%;border-radius: 0px 5px 0px 0px;">
           目前已發查次數(最大可發查3次)
         </th>
       </thead>
       <tbody>
         <tr *ngFor="let data of jaicSource;">
+          <td>
+            <mat-select [(ngModel)]="resulet" name="resulet" >
+              <mat-option *ngFor="let code of ResultCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </td>
           <td style="padding: 5px;">
             <nz-date-picker [(ngModel)]="data.researchDate" name="Sendcheck" disabled></nz-date-picker>
           </td>
           <td style="padding: 5px;">
-            <input type="text" value="{{data.researchNum != null? data.researchNum:0}}" disabled>
+            <input type="text" value="{{data.researchNum != null? data.researchNum:0}}"  disabled>
           </td>
         </tr>
       </tbody>
@@ -83,8 +133,8 @@
         <br>
         <tr style="text-align: center;">
           <td>
-           
-            
+
+
             <textarea [(ngModel)]="ma" name="ma"></textarea>
             <br>
             <button nz-button [nzSize]="'middle'" nzType="primary" (click)="macr()">儲存</button>
