@@ -38,10 +38,9 @@ export class F02004Component implements OnInit {
   x: string;
   loading = true;
   pageIndex = 1;
-  pageSize = 50;
+  pageSize = 10;
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
-this.onQueryParamsChange
     //員編
     this.f02004Service.getRescanEmpno(baseUrl).subscribe(data => {
       console.log(data)
@@ -56,7 +55,7 @@ this.onQueryParamsChange
 
 
 //取得表單
-  getDrCreditMainData() {
+  getDrCreditMainData(pageIndex:number,pageSize:number) {
     const baseUrl = 'dr/drSearch';
     let jsonObject: any = {};
     jsonObject['loanAccount'] = this.loanAccount;
@@ -74,8 +73,8 @@ this.onQueryParamsChange
       jsonObject['startDate'] = '';
       jsonObject['endDate'] = '';
     }
-    jsonObject['page'] = this.pageIndex;
-    jsonObject['per_page'] = this.pageSize;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
     this.f02004Service.f02002(baseUrl, jsonObject).subscribe(data => {
       console.log(jsonObject)
       this.loading = false;
@@ -108,10 +107,10 @@ this.onQueryParamsChange
             data: { msgStr: "查詢區間最多三個月內!" }
           });
         } else {
-          this.getDrCreditMainData();
+          this.getDrCreditMainData(this.pageIndex,this.pageSize);
         }
       } else {
-        this.getDrCreditMainData();
+        this.getDrCreditMainData(this.pageIndex,this.pageSize);
       }
     }
 
@@ -134,8 +133,8 @@ this.onQueryParamsChange
     if (this.loanAccount == '' && this.drFlag == '') {
 
     } else {
-      const { pageSize, pageIndex } = params;
-      // this.getDrCreditMainData();
+    	const { pageSize, pageIndex } = params
+      this.getDrCreditMainData( pageIndex, pageSize);
     }
   }
 

@@ -84,9 +84,9 @@
             <tbody>
               <tr *ngFor="let data of cusinfoDataSource; let i =index">
                 <td class="table-data" [nzAlign]="'center'" nzLeft>{{ i+1 }}</td>
-                <td class="table-data">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}</td>
-                <td class="table-data">{{ data.swcCustTag }}</td>
-                <td class="table-data">
+                <td class="table-data" nzLeft>{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}</td>
+                <td class="table-data" nzLeft>{{ data.swcCustTag }}</td>
+                <td class="table-data" nzLeft>
                   <button nz-button [nzSize]="'middle'" nzType="link"
                     (click)="getLockCase(data.swcApplno, data.swcNationalId, data.swcCustId)">
                     {{data.swcApplno}}

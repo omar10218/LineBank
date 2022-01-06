@@ -18,3 +18,22 @@
     border-color:#f80000;
     border-radius:5px;
   }
+  .progress {
+    position:relative; 
+    width:400px; 
+    border: 1px solid #ddd; 
+    padding: 1px; 
+    border-radius: 3px; 
+  }
+  .bar { 
+    background-color: #7cc7ee; 
+    width:0%; 
+    height:20px; 
+    border-radius: 3px; 
+  }
+  .percent { 
+    position:absolute; 
+    display:inline-block; 
+    top:3px; 
+    left:48%; 
+  }
