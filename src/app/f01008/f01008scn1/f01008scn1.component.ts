@@ -38,20 +38,20 @@ export class F01008scn1Component implements OnInit {
   isShowdel: boolean;
   addData: any;
   editData: any;
-  deltData:any;
+  deltData: any;
   block: boolean = false;
   private search: string;
   applno: string;
   custId: string;
-  jcicNumb:number;
-  afterResult:string;
-  level:string;
+  jcicNumb: number;
+  afterResult: string;
+  level: string;
   ngOnInit(): void {
     this.level = sessionStorage.getItem('level');
     this.search = sessionStorage.getItem('search');
     this.applno = sessionStorage.getItem('applno');
     this.custId = sessionStorage.getItem('custId');
-    this.jcicNumb=parseInt(sessionStorage.getItem('jcicNumb'));
+    this.jcicNumb = parseInt(sessionStorage.getItem('jcicNumb'));
 
   }
 
@@ -60,19 +60,40 @@ export class F01008scn1Component implements OnInit {
     element.click();
   }
 
-  save()
-  {
-    if(sessionStorage.getItem('afterResult')!='' && sessionStorage.getItem('afterResult') !='null')
-    {
+  save() {
+    if (this.level == 'D2') {
+      this.afterResult = sessionStorage.getItem('afterResult');
+      if (this.afterResult != '' && this.afterResult != 'null') {
 
+      }
+      else {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請選擇徵審後處理審核結果" }
+        });
+        this.router.navigate(['./F01008/F01008SCN1/F01008SCN2']);
+
+      }
     }
-    else
-    {
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請選擇徵審後處理審核結果" }
-      });
-      // this.router.navigate(['./F01008/F01008SCN1/F01008SCN2']);
+    else {
+      this.afterResult = sessionStorage.getItem('afterResult');
+      if (this.afterResult != '' && this.afterResult != 'null') {
+
+      }
+      else {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請選擇徵審後處理審核結果" }
+        });
+        this.router.navigate(['./F01012/F01008SCN1/F01008SCN2']);
+
+      }
     }
+
+    // console.log("===============================")
+    // console.log(this.afterResult)
+    // this.dialog.open(ConfirmComponent, {
+    //   data: { msgStr: "請選擇徵審後處理審核結果" }
+    // });
+    // this.router.navigate(['./F01008/F01008SCN1/F01008SCN2']);
 
   }
 
@@ -80,9 +101,27 @@ export class F01008scn1Component implements OnInit {
     return this.search;
   }
 
-  reScan() {
-    console.log("?????????????")
-    console.log(this.jcicNumb)
+  reScan(result: string) {
+    const dialogRef = this.dialog.open(Childscn26Component, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight: '50%',
+      width: '30%',
+      data: {
+        value: result
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.value == 'confirm') {
+        let url = 'f01/f01008scn0action2'
+        let jsonObject: any = {};
+        jsonObject['applno'] = this.applno;
+        this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+          console.log(data)
+
+        })
+      }
+    })
+
     // level
     // jsonObject['level'] = 'D2';
     // const dialogRef = this.dialog.open(Childscn19Component, {
@@ -97,31 +136,30 @@ export class F01008scn1Component implements OnInit {
   }
 
   reSearch(result: string)//立即重查
-    {
-      this.jcicNumb= parseInt(sessionStorage.getItem('jcicNumb'));
-      const dialogRef = this.dialog.open(Childscn26Component, {
-        panelClass: 'mat-dialog-transparent',
-        minHeight: '50%',
-        width: '30%',
-        data: {
-          value: result
-        }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result.value == 'confirm')
-        {
-          let jsonObject: any = {};
-          let url = 'f01/f01008scn0';
-          jsonObject['applno'] = this.applno;
-          jsonObject['custId'] = this.custId;
-          this.block = true;
-          this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-            console.log(data)
-            this.router.navigate(['./F01008']);
-            this.block = false;
-          })
-        }
-      })
-    }
+  {
+    this.jcicNumb = parseInt(sessionStorage.getItem('jcicNumb'));
+    const dialogRef = this.dialog.open(Childscn26Component, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight: '50%',
+      width: '30%',
+      data: {
+        value: result
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.value == 'confirm') {
+        let jsonObject: any = {};
+        let url = 'f01/f01008scn0';
+        jsonObject['applno'] = this.applno;
+        jsonObject['custId'] = this.custId;
+        this.block = true;
+        this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+          console.log(data)
+          this.router.navigate(['./F01008']);
+          this.block = false;
+        })
+      }
+    })
+  }
 
 }
