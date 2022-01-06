@@ -62,29 +62,42 @@
     <div #absBox class="abs-box">
       <div nz-col nzSpan="24">
         <div class="line_bank_card_no_padding">
-          <nz-table nzShowSizeChanger [nzData]="" [nzFrontPagination]="false" [nzSimple]="true" >
-            <thead style="max-height: 100vh;">
-              <tr>
-                <th class="table-header">NO</th>
-                <th class="table-header">NO</th>
-                <th class="table-header">NO</th>
-                <th class="table-header">NO</th>
-                <th class="table-header">NO</th>
-                <th class="table-header">NO</th>
-                <th class="table-header">NO</th>
-                <th class="table-header">NO</th>
-              </tr>
-            </thead>
+          <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+          [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
+          [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)">
+          <thead style="max-height: 100vh;">
+            <tr>
+              <th class="table-header" [nzWidth]="'60px'" nzLeft>No</th>
+              <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcZ21PassDate')" [nzSortFn]="true"
+                [nzSortOrder]="'ascend'" nzLeft>進件時間</th>
+              <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcCustTag')" [nzSortFn]="false"nzLeft>客群標籤</th>
+              <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcApplno')" [nzSortFn]="true" nzLeft>案件編號</th>
+              <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcRiskGrade')" [nzSortFn]="false">等級gp</th>
+              <th class="table-header">身分證號</th>
+              <th class="table-header">客戶ID</th>
+              <th class="table-header">姓名</th>
+              <th class="table-header" [nzWidth]="'140px'">公司名稱</th>
+              <th class="table-header">申請金額/額度</th>
+            </tr>
+          </thead>
             <tbody>
-              <tr >
-                <td class="table-data"></td>
-                <td class="table-data"></td>
-                <td class="table-data"></td>
-                <td class="table-data"></td>
-                <td class="table-data"></td>
-                <td class="table-data"></td>
-                <td class="table-data"></td>
-                <td class="table-data"></td>
+              <tr *ngFor="let data of cusinfoDataSource; let i =index">
+                <td class="table-data" [nzAlign]="'center'" nzLeft>{{ i+1 }}</td>
+                <td class="table-data">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}</td>
+                <td class="table-data">{{ data.swcCustTag }}</td>
+                <td class="table-data">
+                  <button nz-button [nzSize]="'middle'" nzType="link"
+                    (click)="getLockCase(data.swcApplno, data.swcNationalId, data.swcCustId)">
+                    {{data.swcApplno}}
+                  </button>
+                </td>
+                <td class="table-data">{{ data.swcRiskGrade }}</td>
+                <td class="table-data">{{ data.swcNationalId }}</td>
+                <td class="table-data">{{ data.swcCustId }}</td>
+                <td class="table-data">{{ data.swcName }}</td>
+                <td class="table-data">{{ data.swcCompany }}</td>
+                <td class="table-data">{{ data.swcApplyAmount != undefined ? data_number( data.swcApplyAmount) :
+                  data.swcApplyAmount }}</td>
               </tr>
             </tbody>
           </nz-table>

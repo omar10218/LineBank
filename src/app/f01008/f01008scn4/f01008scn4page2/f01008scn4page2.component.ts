@@ -20,7 +20,6 @@ export class F01008scn4page2Component implements OnInit {
   }
 
   private applno: string;
-  //total = 1;
   loading = true;
 
   DSS1_DataSource = new MatTableDataSource<any>();//風險模型資訊
