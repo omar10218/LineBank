@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Childscn9Service } from '../childscn9.service';
 import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 interface dateCode {
   value: string;
   viewValue: string;
@@ -94,6 +95,8 @@ getBlockingCodeInfo(){
     jsonObject['code'] = 'CORE_CUS_INFO';
 
     this.childscn9Service.getCoreCusInfo(jsonObject).subscribe(data => {
+      let birthday = moment(data.rspBody.items[0].BIRTHDAY).format('YYYY-MM-DD');
+
       this.coreCustInfoForm.patchValue({ APPLNO: data.rspBody.items[0].APPLNO })
       this.coreCustInfoForm.patchValue({ AGE: data.rspBody.items[0].AGE })
       this.coreCustInfoForm.patchValue({ STAR_SIGN: data.rspBody.items[0].STAR_SIGN })
@@ -103,9 +106,9 @@ getBlockingCodeInfo(){
       this.coreCustInfoForm.patchValue({ BLOCKING_CODE: data.rspBody.items[0].BLOCKING_CODE })
       this.coreCustInfoForm.patchValue({ ACCIDENT_RECORD: data.rspBody.items[0].ACCIDENT_RECORD })
       this.coreCustInfoForm.patchValue({ NAME: data.rspBody.items[0].NAME })
-      this.coreCustInfoForm.patchValue({ BIRTHDAY: this.pipe.transform(data.rspBody.items[0].BIRTHDAY, 'yyyy-MM-dd') })
+      this.coreCustInfoForm.patchValue({ BIRTHDAY: birthday  })
       this.coreCustInfoForm.patchValue({ EDUCATION: data.rspBody.items[0].EDUCATION })
-      this.coreCustInfoForm.patchValue({ ACC_OPEN_DATE: this.pipe.transform(data.rspBody.items[0].ACC_OPEN_DATE, 'yyyy-MM-dd HH：mm：ss') })
+      this.coreCustInfoForm.patchValue({ ACC_OPEN_DATE: this.pipe.transform(new Date(data.rspBody.items[0].ACC_OPEN_DATE), 'yyyy-MM-dd HH：mm：ss') })
       this.coreCustInfoForm.patchValue({ ACC_TYPE: data.rspBody.items[0].ACC_TYPE })
       this.coreCustInfoForm.patchValue({ LOGIN_ID: data.rspBody.items[0].LOGIN_ID })
       this.coreCustInfoForm.patchValue({ EMAIL: data.rspBody.items[0].EMAIL })
