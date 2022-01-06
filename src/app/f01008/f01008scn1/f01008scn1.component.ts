@@ -30,13 +30,46 @@ export class F01008scn1Component implements OnInit {
   addData: any;
   editData: any;
   deltData:any;
-  ngOnInit(): void {
 
+  private search: string;
+
+  ngOnInit(): void {
+    this.search = sessionStorage.getItem('search');
   }
 
   ngAfterViewInit() {
     let element: HTMLElement = document.getElementById('firstBtn') as HTMLElement;
     element.click();
+  }
+
+  save(){
+
+  }
+
+  getSearch(): String {
+    return this.search;
+  }
+
+  reScan() {
+    // const dialogRef = this.dialog.open(Childscn19Component, {
+    //   panelClass: 'mat-dialog-transparent',
+    //   height: '100%',
+    //   width: '70%',
+    //   data: {
+    //     applno: this.applno,
+    //     cuid: this.cuid
+    //   }
+    // });
+  }
+
+  reSearch() {
+    // const dialogRef = this.dialog.open(Childscn18Component, {
+    //   panelClass: 'mat-dialog-transparent',
+    //   data: {
+    //     applno: this.applno,
+    //     cuid: this.cuid
+    //   }
+    // });
   }
 
 }
