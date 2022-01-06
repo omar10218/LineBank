@@ -20,27 +20,27 @@
         </div>
       </div>
       <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">產品代號</span><input matInput #input class="form-control"
+        <div style="padding:3px"><span class="form-title">產品代號</span><input matInput #input class="form-control" disabled
             value="待確認" readonly></div>
       </div>
       <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">專案代號</span><input matInput #input class="form-control"
+        <div style="padding:3px"><span class="form-title">專案代號</span><input matInput #input class="form-control" disabled
             value="待確認" readonly></div>
       </div>
       <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">核准額度</span><input matInput #input class="form-control"
+        <div style="padding:3px"><span class="form-title">核准額度</span><input matInput #input class="form-control" disabled
           [(ngModel)]="quota" name="quota" disabled ></div>
       </div>
       <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">每月最低還款比率(%)</span><input matInput #input
+        <div style="padding:3px"><span class="form-title">每月最低還款比率(%)</span><input matInput #input disabled
            ></div>
       </div>
       <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">人員記錄-PM策略客群</span><input matInput #input
+        <div style="padding:3px"><span class="form-title">人員記錄-PM策略客群</span><input matInput #input disabled
            ></div>
       </div>
       <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">人員記錄-風險等級</span><input matInput #input class="form-control"
+        <div style="padding:3px"><span class="form-title">人員記錄-風險等級</span><input matInput #input class="form-control" disabled
            ></div>
       </div>
     </div>
@@ -94,7 +94,7 @@
     <nz-table nzSize="small" [nzData]="jaicSource"[nzFrontPagination]="false" [nzSimple]="false" nzTemplateMode>
       <thead>
         <th  class="table-header-sub" style="width:25%;border-radius: 0px 5px 0px 0px;">
-          審核結果
+          徵審後處理審核結果
         </th>
         <th class="table-header-sub" style="width:50%;padding-left:10px;border-radius: 5px 0px 0px 0px;">
           重新發查日期時間
@@ -106,7 +106,7 @@
       <tbody>
         <tr *ngFor="let data of jaicSource;">
           <td>
-            <mat-select [(ngModel)]="resulet" name="resulet" >
+            <mat-select [(ngModel)]="resulet" name="resulet" (ngModelChange)="storageSeve()">
               <mat-option *ngFor="let code of ResultCode" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>

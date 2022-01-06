@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { F01008addComponent } from '../f01008add/f01008add.component'
 import { F01008Service } from '../f01008.service';
@@ -22,6 +22,9 @@ interface sysCode {
   templateUrl: './f01008scn2.component.html',
   styleUrls: ['./f01008scn2.component.css', '../../../assets/css/f01.css']
 })
+
+
+
 export class F01008scn2Component implements OnInit {
 
   constructor(
@@ -44,6 +47,7 @@ export class F01008scn2Component implements OnInit {
       })
 
   }
+
 
   applno: string;
   custId: string;
@@ -72,6 +76,7 @@ export class F01008scn2Component implements OnInit {
   ResultCode: OptionsCode[] = [];//審核結果下拉選單
   resulet :string = '';
   ngOnInit(): void {
+    sessionStorage.setItem('afterResult','');
     this.applno = sessionStorage.getItem('applno');
     // this.applno = "20211125A00002";
     this.empNo = localStorage.getItem("empNo");
@@ -193,6 +198,11 @@ export class F01008scn2Component implements OnInit {
       this.jaicSource = data.rspBody.creditMainList;
       for(const j of data.rspBody.creditMainList)
       {
+        sessionStorage.setItem('afterResult',j.afterResult);
+        if(j.afterResult != '' && j.afterResult != null)
+        {
+          this.resulet = j.afterResult;
+        }
         this.quota = j.approveAmt;
         this.creditResult = j.creditResult;
         if( j.researchNum != null)
@@ -292,33 +302,44 @@ export class F01008scn2Component implements OnInit {
 
     })
   }
-  jcic(result: string)//立即重查
+  storageSeve()//暫存
   {
-    const dialogRef = this.dialog.open(Childscn26Component, {
-      panelClass: 'mat-dialog-transparent',
-      minHeight: '50%',
-      width: '30%',
-      data: {
-        value: result
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.value == 'confirm')
-      {
-        let jsonObject: any = {};
-        let url = 'f01/f01008scn0';
-        jsonObject['applno'] = this.applno;
-        jsonObject['custId'] = this.custId;
-        this.block = true;
-        this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-          console.log("====================");
-          console.log(data);
-          this.router.navigate(['./F01008']);
-          this.block = false;
-        })
-      }
+    let url = 'f01/f01008scn0action1';
+    let jsonObject: any = {};
+    jsonObject['applno']=this.applno;
+    jsonObject['afterResult'] = this.resulet;
+    sessionStorage.setItem('afterResult',this.resulet);
+    this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+      console.log(data)
     })
   }
+  // jcic(result: string)//立即重查
+  // {
+  //   const dialogRef = this.dialog.open(Childscn26Component, {
+  //     panelClass: 'mat-dialog-transparent',
+  //     minHeight: '50%',
+  //     width: '30%',
+  //     data: {
+  //       value: result
+  //     }
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result.value == 'confirm')
+  //     {
+  //       let jsonObject: any = {};
+  //       let url = 'f01/f01008scn0';
+  //       jsonObject['applno'] = this.applno;
+  //       jsonObject['custId'] = this.custId;
+  //       this.block = true;
+  //       this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+  //         console.log("====================");
+  //         console.log(data);
+  //         this.router.navigate(['./F01008']);
+  //         this.block = false;
+  //       })
+  //     }
+  //   })
+  // }
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageIndex } = params;
     console.log(params)
