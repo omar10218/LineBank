@@ -6,6 +6,8 @@ import { Childscn26Component } from 'src/app/children/childscn26/childscn26.comp
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01008Service } from '../f01008.service';
 import { F01008scn2Component } from '../f01008scn2/f01008scn2.component';
+
+//Jay 產生合約前覆核清單
 @Component({
   selector: 'app-f01008scn1',
   templateUrl: './f01008scn1.component.html',
@@ -60,7 +62,8 @@ export class F01008scn1Component implements OnInit {
     element.click();
   }
 
-  save(result: string) {
+  save(result: string) //完成
+  {
 
     let jsonObject: any = {};
     const dialogRef = this.dialog.open(Childscn26Component, {
@@ -79,6 +82,7 @@ export class F01008scn1Component implements OnInit {
             let url = 'f01/f01008scn0scn1';
             jsonObject['applno']= this.applno;
             jsonObject['level'] = this.level;
+            jsonObject['custId'] = this.custId;
             jsonObject['afterResult'] = this.afterResult;
             this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
               console.log(data)
@@ -105,6 +109,7 @@ export class F01008scn1Component implements OnInit {
             let url = 'f01/f01008scn0scn1';
             jsonObject['applno']= this.applno;
             jsonObject['level'] = this.level;
+            jsonObject['custId'] = this.custId;
             jsonObject['afterResult'] = this.afterResult;
             this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
               console.log(data)
@@ -135,7 +140,8 @@ export class F01008scn1Component implements OnInit {
     return this.search;
   }
 
-  reScan(result: string) {
+  reScan(result: string)//重算
+   {
     const dialogRef = this.dialog.open(Childscn26Component, {
       panelClass: 'mat-dialog-transparent',
       minHeight: '50%',
@@ -145,6 +151,7 @@ export class F01008scn1Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+
       if (result.value == 'confirm') {
         let url = 'f01/f01008scn0action2'
         let jsonObject: any = {};
@@ -157,17 +164,7 @@ export class F01008scn1Component implements OnInit {
       }
     })
 
-    // level
-    // jsonObject['level'] = 'D2';
-    // const dialogRef = this.dialog.open(Childscn19Component, {
-    //   panelClass: 'mat-dialog-transparent',
-    //   height: '100%',
-    //   width: '70%',
-    //   data: {
-    //     applno: this.applno,
-    //     cuid: this.cuid
-    //   }
-    // });
+
   }
 
   reSearch(result: string)//立即重查
