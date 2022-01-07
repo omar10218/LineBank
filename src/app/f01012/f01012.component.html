@@ -8,7 +8,7 @@
           <div nz-col nzSpan="4">
             <span class="form-title line_bank_h4"> 案件編號</span>
             <div class="form" style="margin:0 auto;width:90%">
-              <div><input matInput #input class="form-control"
+              <div><input matInput #input class="form-control" [(ngModel)]="swcApplno" name="swcApplno"
                   placeholder="請輸入案件編號" >
               </div>
             </div>
@@ -16,7 +16,7 @@
           <div nz-col nzSpan="4">
             <span class="form-title line_bank_h4">身分證號</span>
             <div class="form" style="margin:0 auto;width:90%">
-              <div><input matInput #input class="form-control"
+              <div><input matInput #input class="form-control" [(ngModel)]="swcNationalId" name="swcNationalId"
                   placeholder="請輸入身分證編號" >
               </div>
             </div>
@@ -24,7 +24,7 @@
           <div nz-col nzSpan="4">
             <span class="form-title line_bank_h4">客戶ID</span>
             <div class="form" style="margin:0 auto;width:90%">
-              <div><input matInput #input class="form-control"
+              <div><input matInput #input class="form-control" [(ngModel)]="swcCustId" name="swcCustId"
                   placeholder="請輸入客戶ID" >
               </div>
             </div>
@@ -33,9 +33,9 @@
             <span class="form-title line_bank_h4">代理人別</span>
             <div class="form" style="width:90%;height:25px;margin:0 auto">
               <div>
-                <mat-select  name="agentEmpNoCode" class="mat-select">
-                  <mat-option class="option">
-                    <!-- {{code.viewValue}} -->
+                <mat-select [(ngModel)]="agentEmpNo" name="agentEmpNoCode" class="mat-select">
+                  <mat-option class="option" *ngFor="let code of agentEmpNoCode" [value]="code.value">
+                    {{code.viewValue}}
                   </mat-option>
                 </mat-select>
               </div>
@@ -46,12 +46,12 @@
           </div>
           <div nz-col nzSpan="2" style="margin-top:12px;">
             <div>
-              <button nz-button [nzSize]="'middle'" nzType="primary">查詢案件</button>
+              <button nz-button [nzSize]="'middle'" (click)="select()" nzType="primary">查詢案件</button>
             </div>
           </div>
           <div nz-col nzSpan="2" style="margin-top:12px;">
             <div>
-              <button nz-button [nzSize]="'middle'" nzDanger >清除資料</button>
+              <button nz-button [nzSize]="'middle'" (click)="clear()" nzDanger >清除資料</button>
             </div>
           </div>
         </div>
