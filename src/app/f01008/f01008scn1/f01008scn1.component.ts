@@ -115,7 +115,7 @@ export class F01008scn1Component implements OnInit {
               console.log(data)
               if(data.rspCode === '0000')
               {
-                this.router.navigate(['./F01008']);
+                this.router.navigate(['./F01012']);
               }
 
             })
