@@ -82,7 +82,9 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem('ParmClass', JSON.stringify(await this.loginService.getRuleCode('PARM_CLASS')));
       sessionStorage.setItem('Condition', JSON.stringify(await this.loginService.getCondition()));
 
-       // 登入時設定值 提供監聽
+       // 登入時設定值 提供異動情況 告知監聽
+       localStorage.setItem("loginKey", 'change');
+       localStorage.removeItem('loginKey');
        window.localStorage.setItem("empNo", this.no);
 
       //sessionStorage.setItem('RuleStep', JSON.stringify(await this.loginService.getRuleStep()));

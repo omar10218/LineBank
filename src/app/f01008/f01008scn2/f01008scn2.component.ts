@@ -103,6 +103,7 @@ export class F01008scn2Component implements OnInit {
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
         const desc = jsonObj.codeDesc;
+
         if (this.level == 'L4') {
           if (codeNo == 'W') {
             this.creditResultCode.push({ value: codeNo, viewValue: desc });

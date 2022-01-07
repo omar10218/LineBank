@@ -53,6 +53,7 @@ export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
     this.applno = '';
     this.nationalID = '';
     this.custID = '';
+    this.total = 0;
   }
 
   ngAfterViewInit(): void {
@@ -159,5 +160,6 @@ export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
     this.nationalID = '';
     this.custID = '';
     this.cusinfoDataSource = [];
+    this.total = 0;
   }
 }
