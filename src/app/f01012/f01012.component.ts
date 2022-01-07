@@ -37,6 +37,7 @@ export class F01012Component implements OnInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
+  sum:string = '0'; //總數
   x: string
   sort: string;
   // 計算剩餘table資料長度
@@ -52,6 +53,7 @@ export class F01012Component implements OnInit {
     jsonObject['swcD2EmpNo'] = this.empNo;
 
     this.f01012Service.getEmpNo(jsonObject).subscribe(data => {
+
       this.agentEmpNoCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
         const empNo = jsonObj['empNo'];
@@ -78,6 +80,9 @@ export class F01012Component implements OnInit {
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
     this.f01012Service.getCaseList(jsonObject).subscribe(data => {
+      console.log("========================")
+      console.log(data)
+      this.sum = data.rspBody.items.length
       if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
