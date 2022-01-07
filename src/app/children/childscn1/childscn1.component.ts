@@ -723,6 +723,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     if (value.interestType == '02') {
       value.interestValue = '1';
       let jsonObject: any = {};
+      jsonObject['applno'] = this.applno;
       const baseUrl = 'f01/childscn1action3';
       if ('查無基放利率!' == await this.childscn1Service.getInterestBase(baseUrl, jsonObject)) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
