@@ -107,15 +107,16 @@ export class Childscn19Component implements OnInit {
 
   //新增補件資訊
   public async rescan(): Promise<void> {
-    if (this.restartDate == null) {
+
+    if (this.restartDate == null ) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入日期" }
       });
-    } else if (this.rescanType == null) {
+    } else if (this.rescanType == null || this.rescanType =='') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入補件原因" }
       });
-    } else if (this.rescanItem == null) {
+    } else if (this.rescanItem == null || this.rescanItem =='') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入補件項目" }
       });
