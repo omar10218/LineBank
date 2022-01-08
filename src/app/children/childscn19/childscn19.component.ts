@@ -131,7 +131,7 @@ export class Childscn19Component implements OnInit {
       msgStr = await this.childscn19Service.addRescan(jsonObject);
       if (msgStr == 'success') {
         msgStr = '儲存成功！';
-        this.restartDate = null;
+
         this.rescanType = '';
         this.rescanItem = '';
         this.rescanContent = '';

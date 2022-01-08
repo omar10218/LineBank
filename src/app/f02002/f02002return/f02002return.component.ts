@@ -243,9 +243,8 @@ export class F02002returnComponent implements OnInit {
 
   test() //測試用
   {
-    console.log(this.formdata.getAll('rowId'))
-    console.log(this.formdata.getAll('files'))
-    console.log(this.list)
+
+    console.log(this.quantity)
     // alert( this.fileToUpload)
   }
 }
