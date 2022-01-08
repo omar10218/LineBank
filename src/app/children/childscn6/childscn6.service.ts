@@ -304,7 +304,9 @@ export class Childscn6Service extends BaseService {
         { name: '房貸業務分類', bodyKey: 'LOAN_TYPE', width: '130px' },
         { name: '擔保品所在地一', bodyKey: 'LOCATE_NM_1', width: '120px' },
         { name: '擔保品所在地二', bodyKey: 'LOCATE_NM_2', width: '120px' },
-        { name: '擔保品所在地三', bodyKey: 'LOCATE_NM_3', width: '120px', nzRight: true },
+        { name: '擔保品所在地三', bodyKey: 'LOCATE_NM_3', width: '120px' },
+        { name: '房貸寬限期起始年月', bodyKey: 'GRACE_PERIOD_SDATE', width: '120px' },
+        { name: '房貸寬限期截止年月', bodyKey: 'GRACE_PERIOD_EDATE', width: '120px', nzRight: true },
       ];
       title = 'BAM421 綜合授信、房貸業務分類及擔保品資訊(多筆B42)',
         nzScroll = '1800px'
