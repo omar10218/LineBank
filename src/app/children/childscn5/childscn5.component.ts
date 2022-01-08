@@ -18,7 +18,10 @@ interface sysCode {
 export class Childscn5Component implements OnInit {
   private applno: string;               //案件編號
   private cuid: string;                 //客戶編號
+  jobCode: string;                      //職稱
   search: string;
+  cuLevel1:string     //行業Level1值
+  cuLevel2:string     //行業Level2值
   cuLevel1CaCode: sysCode[] = [];       //徵信認列行業Level1下拉
   cuLevel1CaValue: string;              //徵信認列行業Level1
   cuLevel2CaCode: sysCode[] = [];       //徵信認列行業Level2下拉
@@ -32,9 +35,8 @@ export class Childscn5Component implements OnInit {
   cuCpNameCa: string;                   //徵信確認公司名稱
   cuMTelOther: string;                  //其他-手機(非本行主要)
   contactOther: string;                 //其他-聯絡資訊
-  cuLevel1: string;                     //行職業代碼
+  inducCode: string;                     //行職業代碼
   cuType: string;                       //行業別
-  jobCode: string;                      //職稱
   preCompNm: string;                    //前一份工作名稱
   preJobTitle: string;                  //前一份工作公司職稱
   preJobYear: string;                   //前一份工作在職時長(年數)
@@ -73,6 +75,7 @@ export class Childscn5Component implements OnInit {
     CU_CP_TEL_INO: ['', []],    // 公司電話區碼
     CU_CP_TEL: ['', []],        // 公司電話
     CU_CP_NAME: ['', []],       // 公司名稱
+    CU_CP_NAME_CA: ['', []],       // 徵信確認公司名稱
     CU_CP_NO: ['', []],         // 公司統編
     CURR_JOB_YEAR: ['', []],       // 目前工作年資(年數)
     CURR_JOB_MONTH: ['', []],       // 目前工作年資(月數)
@@ -87,7 +90,7 @@ export class Childscn5Component implements OnInit {
     CU_LEVEL2_CA: ['', []],     // 徵信認列行業Level2
     JOB_CODE_CA: ['', []],      // 徵信認列行業職業碼
     COMPANY_WHITELIST: ['', []], // 公司是否為白名單
-    CU_CP_NAME_CA: ['', []], // 徵信確認公司名單
+    INDU_CODE: ['', []], // 行職業代碼
     CU_TYPE: ['', []], // 行業別
     CU_M_TEL_OTHER: ['',[]], // 其他-手機(非本行主要)
     CONTACT_OTHER: ['', []], // 其他-聯絡資訊
@@ -176,6 +179,9 @@ validationMessage={
       this.setmaterial = data.rspBody.compareCompanies;
       console.log(data)
       this.originalData=data.rspBody.items[0]
+      this.cuLevel1=data.rspBody.items[0].cuLevel1
+      this.cuLevel2=data.rspBody.items[0].cuLevel2
+      this.jobCode=data.rspBody.items[0].jobCode
       this.customerInfoForm.patchValue({ CUCNAME: data.rspBody.items[0].cuCname })
       this.customerInfoForm.patchValue({ NATIONAL_ID: data.rspBody.items[0].nationalId })
       this.customerInfoForm.patchValue({ CU_SEX: this.getGender(data.rspBody.items[0].cuSex) })
@@ -196,6 +202,7 @@ validationMessage={
       this.customerInfoForm.patchValue({ CU_CP_TEL_INO: data.rspBody.items[0].cuCpTelIno })
       this.customerInfoForm.patchValue({ CU_CP_TEL: data.rspBody.items[0].cuCpTel })
       this.customerInfoForm.patchValue({ CU_CP_NAME: data.rspBody.items[0].cuCpName })
+      this.customerInfoForm.patchValue({ CU_CP_NAME_CA: data.rspBody.items[0].cuCpNameCa })
       this.customerInfoForm.patchValue({ CU_CP_NO: data.rspBody.items[0].cuCpNo })
       this.customerInfoForm.patchValue({ CURR_JOB_YEAR: data.rspBody.items[0].currJobYear })
       this.customerInfoForm.patchValue({ CURR_JOB_MONTH: data.rspBody.items[0].currJobMonth })
@@ -205,13 +212,13 @@ validationMessage={
       this.customerInfoForm.patchValue({ CU_M_TEL: data.rspBody.items[0].cuMTel })
       this.customerInfoForm.patchValue({ CU_M_TEL_OTHER: data.rspBody.items[0].cuMTelOther })
       this.customerInfoForm.patchValue({ CONTACT_OTHER: data.rspBody.items[0].contactOther })
-
+      this.customerInfoForm.patchValue({ INDU_CODE: data.rspBody.items[0].cuLevel1+data.rspBody.items[0].cuLevel2+data.rspBody.items[0].jobCode }) //取得行職業代碼
       this.customerInfoForm.patchValue({
         CU_LEVEL1: data.rspBody.items[0].cuLevel1 +
           data.rspBody.items[0].cuLevel2
       })
       // this.customerInfoForm.patchValue({ CU_LEVEL2: data.rspBody.items[0].cuLevel2 })
-      this.customerInfoForm.patchValue({ JOB_CODE: data.rspBody.items[0].jobCode })
+      // this.customerInfoForm.patchValue({ JOB_CODE: data.rspBody.items[0].jobCode })
       this.customerInfoForm.patchValue({ CU_LEVEL1_CA: data.rspBody.items[0].cuLevel1Ca })
       this.customerInfoForm.patchValue({ CU_LEVEL2_CA: data.rspBody.items[0].cuLevel2Ca })
       this.customerInfoForm.patchValue({ JOB_CODE_CA: data.rspBody.items[0].jobCodeCa })
@@ -222,15 +229,15 @@ validationMessage={
       this.customerInfoForm.patchValue({ PRE_JOB_MONTH: data.rspBody.items[0].prvJobMonth })
 
 
-      jsonObject['inducCode'] = this.cuLevel1CaValue + this.cuLevel2CaValue + this.jobCodeCaValue;
+      jsonObject['inducCode'] =  data.rspBody.items[0].cuLevel1+data.rspBody.items[0].cuLevel2+data.rspBody.items[0].jobCode ;
       console.log(jsonObject['inducCode'])
       this.childscn5Service.getCuListSearch(jsonObject).subscribe(data => {
         console.log(data)
-        this.customerInfoForm.patchValue({ CU_TYPE: data.rspBody.eroxyIncomeList[0].inducLevel1Desc + data.rspBody.eroxyIncomeList[0].inducLevel2Desc })
-        this.cuLevel1 = data.rspBody.eroxyIncomeList[0].inducCode
+        this.customerInfoForm.patchValue({ CU_TYPE: data.rspBody.eroxyIncomeList[0].inducLevel1Desc +">"+ data.rspBody.eroxyIncomeList[0].inducLevel2Desc })//取得行業別
+        this.customerInfoForm.patchValue({ JOB_CODE:  data.rspBody.eroxyIncomeList[0].jobCodeDesc })//職稱
         this.cuType = data.rspBody.eroxyIncomeList[0].inducLevel1Desc + data.rspBody.eroxyIncomeList[0].inducLevel2Desc
         this.trans(this.cuType)
-        this, this.jobCode = data.rspBody.eroxyIncomeList[0].jobCodeDesc
+        // this.jobCode = data.rspBody.eroxyIncomeList[0].jobCodeDesc
       })
     });
 
