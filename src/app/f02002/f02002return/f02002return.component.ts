@@ -91,7 +91,11 @@ export class F02002returnComponent implements OnInit {
       this.fileList = this.fileList.filter(e => e.value != rid);
       this.fileToUpload = target.files.item(0);
       this.formdata2.append(rid, this.fileToUpload)
-      this.quantity = this.quantity - 1;
+      if(this.fileToUpload == null)
+      {
+
+      }
+      // this.quantity = this.quantity - 1;
       console.log(this.fileToUpload)
     } else {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法檔，請檢查檔案格式重新上傳" });
@@ -117,38 +121,6 @@ export class F02002returnComponent implements OnInit {
     })
   }
 
-
-  // store()//儲存
-  // {
-  //   const formdata = new FormData();
-  //   // const formdata: FormData = new FormData();
-  //   let url = 'f02/f02002action5';
-  //   console.log(this.F02002Data.length);
-  //   let jsonarry: string[] = []
-  //   for (const it of this.F02002Data) {
-  //     this.list = [];
-  //     const fileObj = this.formdata2.get(it.ROW_ID);
-  //     this.list.push({ rowId: it.ROW_ID, userId: localStorage.getItem("empNo"), applno: this.data.applno, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT })
-  //     this.jsonstr = JSON.stringify(this.list);
-  //     jsonarry.push(this.jsonstr);
-  //     formdata.append("file", fileObj != null ? fileObj : new Blob);
-  //   }
-  //   formdata.append("jsonArray", jsonarry.toString());
-  //   this.f02002Service.setformdata(url, formdata).subscribe(data => {
-  //     console.log(data)
-  //     if(data.rspCode ==='0000')
-  //     {
-  //       this.dialogRef.close({ event: 'success' });
-  //     }
-  //     else
-  //     {
-  //       this.dialog.open(ConfirmComponent, {
-  //         data: { msgStr:data.rspMsg}
-  //       });
-  //     }
-  //   });
-  //   // this.dialogRef.close({ event: 'success' });
-  // }
   store()//儲存
   {
     const formdata = new FormData();
@@ -244,7 +216,7 @@ export class F02002returnComponent implements OnInit {
   test() //測試用
   {
 
-    console.log(this.quantity)
+    console.log(this.fileToUpload)
     // alert( this.fileToUpload)
   }
 }
