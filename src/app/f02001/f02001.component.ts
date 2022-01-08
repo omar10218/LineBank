@@ -366,8 +366,6 @@ export class F02001Component implements OnInit {
     }
 
     this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
-      console.log('data');
-      console.log(data);
       if(data.rspBody.size == 0)
       {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
