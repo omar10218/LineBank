@@ -42,7 +42,7 @@ export class Childscn11Component implements OnInit {
       [Page.Page5, Childscn11page5Component],
     ]
   );
-  nowPage = Page.Page1;
+  nowPage = Page.Page2;
   readonly Page = Page;
 
   ngOnInit(): void {

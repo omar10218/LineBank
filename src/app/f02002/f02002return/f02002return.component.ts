@@ -67,6 +67,7 @@ export class F02002returnComponent implements OnInit {
   formdata: FormData;
   formdata2: FormData = new FormData();
   list: te[] = [];
+  onChangelength:number;
   jsonstr: string;
   formControl = new FormControl('', [
     Validators.required
@@ -87,16 +88,18 @@ export class F02002returnComponent implements OnInit {
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isValidFile = !!target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
     var rid = rid;
+    this.fileToUpload = target.files.item(0);
     if (this.isValidFile) {
       this.fileList = this.fileList.filter(e => e.value != rid);
-      this.fileToUpload = target.files.item(0);
-      this.formdata2.append(rid, this.fileToUpload)
-      this.quantity = this.quantity - 1;
+      this.fileList.push({value:rid,viewValue:this.fileToUpload}) ;
       console.log(this.fileToUpload)
-    } else {
+    }
+    else
+    {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法檔，請檢查檔案格式重新上傳" });
       alert(this.uploadForm.value.ERROR_MESSAGE);
     }
+    this.onChangelength = this.fileList.length;
   }
   set()//查詢
   {
@@ -117,38 +120,6 @@ export class F02002returnComponent implements OnInit {
     })
   }
 
-
-  // store()//儲存
-  // {
-  //   const formdata = new FormData();
-  //   // const formdata: FormData = new FormData();
-  //   let url = 'f02/f02002action5';
-  //   console.log(this.F02002Data.length);
-  //   let jsonarry: string[] = []
-  //   for (const it of this.F02002Data) {
-  //     this.list = [];
-  //     const fileObj = this.formdata2.get(it.ROW_ID);
-  //     this.list.push({ rowId: it.ROW_ID, userId: localStorage.getItem("empNo"), applno: this.data.applno, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT })
-  //     this.jsonstr = JSON.stringify(this.list);
-  //     jsonarry.push(this.jsonstr);
-  //     formdata.append("file", fileObj != null ? fileObj : new Blob);
-  //   }
-  //   formdata.append("jsonArray", jsonarry.toString());
-  //   this.f02002Service.setformdata(url, formdata).subscribe(data => {
-  //     console.log(data)
-  //     if(data.rspCode ==='0000')
-  //     {
-  //       this.dialogRef.close({ event: 'success' });
-  //     }
-  //     else
-  //     {
-  //       this.dialog.open(ConfirmComponent, {
-  //         data: { msgStr:data.rspMsg}
-  //       });
-  //     }
-  //   });
-  //   // this.dialogRef.close({ event: 'success' });
-  // }
   store()//儲存
   {
     const formdata = new FormData();
@@ -156,6 +127,10 @@ export class F02002returnComponent implements OnInit {
     let url = 'f02/f02002action5';
     console.log(this.F02002Data.length);
     let jsonarry: string[] = []
+    for(const n of this.fileList)
+    {
+      this.formdata2.append(n.value, n.viewValue)
+    }
     for (const it of this.F02002Data) {
       this.list = [];
       const fileObj = this.formdata2.get(it.ROW_ID);
@@ -188,6 +163,10 @@ export class F02002returnComponent implements OnInit {
     const formdata = new FormData();
     console.log(this.F02002Data.length);
     let jsonarry: string[] = []
+    for(const n of this.fileList)
+    {
+      this.formdata2.append(n.value, n.viewValue)
+    }
     for (const it of this.F02002Data) {
       this.list = [];
       const fileObj = this.formdata2.get(it.ROW_ID);
@@ -243,9 +222,10 @@ export class F02002returnComponent implements OnInit {
 
   test() //測試用
   {
-    console.log(this.formdata.getAll('rowId'))
-    console.log(this.formdata.getAll('files'))
-    console.log(this.list)
+
+    console.log(this.fileToUpload)
     // alert( this.fileToUpload)
+    console.log( this.fileList)
+    console.log( this.fileList.length)
   }
 }

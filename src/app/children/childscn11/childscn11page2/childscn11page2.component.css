@@ -5,3 +5,34 @@ input{
   width:100%;
   border: 1px solid #c9c9c9;
 }
+.table-header-x{
+  color:#2E4765; 
+  background-color:#BFECD0;
+  font-size:18px;
+  text-align: center;
+  border: 1px solid rgb(214, 214, 214);
+  margin-bottom: 1px;
+}
+.table-header-y{
+  color:#848E9C; 
+  background-color:#ededed;
+  font-size:16px;
+  text-align: center;
+  border: 1px solid rgb(214, 214, 214);
+  margin-bottom: 1px;
+}
+.table-data-x{
+  color:rgb(255, 0, 0); 
+  background-color:white;
+  font-size:16px;
+  text-align: center;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 1px;
+}
+.table-data{
+  border: 1px solid #e8e8e8;
+  text-align: center;
+  font-size:16px;
+  margin-bottom: 1px;
+
+}

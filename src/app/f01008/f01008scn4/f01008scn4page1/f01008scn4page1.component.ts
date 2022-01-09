@@ -21,8 +21,6 @@ export class F01008scn4page1Component implements OnInit {
 
   private applno: string;
   private search: string;
-  private stepName: string;
-  private page: string;
   fmData_M = new MatTableDataSource<any>();//DBR收支表資料 徵信
 
   EL_DSS3_UNDW_LIST = new MatTableDataSource<any>();//徵審代碼
@@ -35,8 +33,6 @@ export class F01008scn4page1Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
-    this.stepName = sessionStorage.getItem('stepName');
-    this.page = sessionStorage.getItem('page');
     this.getDBR_DTI_M();
     this.getDSS3();
   }
@@ -48,15 +44,6 @@ export class F01008scn4page1Component implements OnInit {
   getSearch(): string {
     return this.search;
 
-  }
-
-  getstepName(): String {
-    return this.stepName;
-  }
-
-  //判斷按鈕是否顯示
-  getPage() {
-    return this.page
   }
 
   //去除符號中文

@@ -26,7 +26,7 @@ export class Childscn2page1Component implements OnInit {
   loading = true;
   currentPage: PageEvent;
   pageIndex = 1;
-  pageSize = 50  ;
+  pageSize = 10  ;
   empName: string;
   sort: string;
 

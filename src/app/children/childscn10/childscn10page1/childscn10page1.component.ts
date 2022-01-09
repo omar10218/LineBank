@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Childscn10Service } from '../childscn10.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n'
-import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { MatDialog } from '@angular/material/dialog';
 
 //Nick 決策結果
@@ -53,7 +52,10 @@ export class Childscn10page1Component implements OnInit {
   EL_DSS1_STRGY_SRATE3 = new MatTableDataSource<any>();//試算利率(多階)
   EL_DSS1_STRGY_MERG3 = new MatTableDataSource<any>();//試算授信策略_債整明細
 
+  queryDate="";//查詢時間
+
   dss1Form1: FormGroup = this.fb.group({
+    
     //系統決策
     SYSFLOWCD: ['', []],//系統流程
     RESLTCD: ['', []],//決策結果
@@ -240,6 +242,10 @@ export class Childscn10page1Component implements OnInit {
     // jsonObject['applno'] = '20211126A000001';
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
       if (data.rspBody.DSS1.length > 0) {
+        //查詢日期
+        this.queryDate=data.rspBody.DSS1[0].QUERY_DATE!=null?data.rspBody.DSS1[0].QUERY_DATE:this.queryDate;
+        this.queryDate = this.queryDate.split(".")[0];
+
         //系統決策
         this.dss1Form1.patchValue({ SYSFLOWCD: data.rspBody.DSS1[0].SYSFLOWCD })//系統流程
         this.dss1Form1.patchValue({ RESLTCD: data.rspBody.DSS1[0].RESLTCD })//決策結果

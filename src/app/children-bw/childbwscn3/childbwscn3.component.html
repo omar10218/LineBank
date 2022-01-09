@@ -763,7 +763,9 @@
           <th class="table-header" [nzWidth]="'130px'">房貸業務分類</th>
           <th class="table-header" [nzWidth]="'120px'">擔保品所在地一</th>
           <th class="table-header" [nzWidth]="'120px'">擔保品所在地二</th>
-          <th class="table-header" [nzWidth]="'120px'" [nzRight]="true">擔保品所在地三</th>
+          <th class="table-header" [nzWidth]="'120px'">擔保品所在地三</th>
+          <th class="table-header" [nzWidth]="'120px'">房貸寬限期起始年月</th>
+          <th class="table-header" [nzWidth]="'120px'" [nzRight]="true">房貸寬限期截止年月</th>
         </tr>
       </thead>
       <tbody>
@@ -807,7 +809,9 @@
           <td class="table-data">{{ data.LOAN_TYPE }}</td>
           <td class="table-data">{{ data.LOCATE_NM_1 }}</td>
           <td class="table-data">{{ data.LOCATE_NM_2 }}</td>
-          <td class="table-data" [nzRight]="true">{{ data.LOCATE_NM_3 }}</td>
+          <td class="table-data">{{ data.LOCATE_NM_3 }}</td>
+          <td class="table-data">{{ data.GRACE_PERIOD_SDATE }}</td>
+          <td class="table-data" [nzRight]="true">{{ data.GRACE_PERIOD_EDATE }}</td>
         </tr>
       </tbody>
     </nz-table>

@@ -28,6 +28,7 @@ export class Childscn10page2Component implements OnInit {
   private stepName: string;
 
   // fmData = new MatTableDataSource<any>();////DBR收支表資料 授信
+  queryDate = "";//查詢時間
 
   test7 = 10000
   test1 = "1"; test2 = "2"; test3 = "3";
@@ -239,6 +240,11 @@ export class Childscn10page2Component implements OnInit {
     // jsonObject['applno'] = '20211126A000001';
     this.childscn10Service.getDate_Json(url, jsonObject).subscribe(data => {
       if (data.rspBody.DSS2.length > 0) {
+
+        //查詢日期
+        this.queryDate = data.rspBody.DSS2[0].QUERY_DATE != null ? data.rspBody.DSS2[0].QUERY_DATE : this.queryDate;
+        this.queryDate = this.queryDate.split(".")[0];
+
         //系統決策
         this.dss2Form1.patchValue({ SYSFLOWCD: data.rspBody.DSS2[0].SYSFLOWCD })//系統流程
         this.dss2Form1.patchValue({ RESLTCD: data.rspBody.DSS2[0].RESLTCD })//決策結果
@@ -281,7 +287,7 @@ export class Childscn10page2Component implements OnInit {
         this.dss2Form1.patchValue({ STRGY_LIMIT_MERG: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_LIMIT_MERG) })//分期信貸-債整額度
         this.dss2Form1.patchValue({ STRGY_MINPAYRT: data.rspBody.DSS2STRGY[0].STRGY_MINPAYRT })//每月最低還款比例(僅限循環信貸)
         this.dss2Form1.patchValue({ STRGY_DISB_BTCR_YN: data.rspBody.DSS2STRGY[0].STRGY_DISB_BTCR_YN })//結帳日至還款日間客戶可申請動撥Y
-        this.dss2Form1.patchValue({ STRGY_RL_DISB_THRHLD: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_RL_DISB_THRHLD )})//循環信貸簡易檢核動撥金額門檻
+        this.dss2Form1.patchValue({ STRGY_RL_DISB_THRHLD: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_RL_DISB_THRHLD) })//循環信貸簡易檢核動撥金額門檻
         this.dss2Form1.patchValue({ STRGY_ORIGINFEE: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_ORIGINFEE) })//開辦費(首次簽約用)
         this.dss2Form1.patchValue({ STRGY_LOANEXTFEE: this.data_number(data.rspBody.DSS2STRGY[0].STRGY_LOANEXTFEE) })//帳戶管理費(續約用)
 
@@ -306,17 +312,17 @@ export class Childscn10page2Component implements OnInit {
       }
       // this.EL_DSS2_UNDW_LIST1.data = data.rspBody.DSS2UNDWLIST;//徵審代碼
       this.EL_DSS2_UNDW_LIST.data = data.rspBody.DSS2UNDWLIST;//徵審代碼
-      if(data.rspBody.DSS2UNDWLIST.length>0){
-        this.EL_DSS2_UNDW_LIST1.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='1');//1	信用異常資訊
-        this.EL_DSS2_UNDW_LIST2.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='2');//2	整體往來
-        this.EL_DSS2_UNDW_LIST3.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='3');//3	信用卡往來
-        this.EL_DSS2_UNDW_LIST4.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='4');//4	授信往來
-        this.EL_DSS2_UNDW_LIST5.data=this.EL_DSS2_UNDW_LIST.data.filter(c=>c.UP_REASON_CODE=='9');//9	其他
+      if (data.rspBody.DSS2UNDWLIST.length > 0) {
+        this.EL_DSS2_UNDW_LIST1.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '1');//1	信用異常資訊
+        this.EL_DSS2_UNDW_LIST2.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '2');//2	整體往來
+        this.EL_DSS2_UNDW_LIST3.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '3');//3	信用卡往來
+        this.EL_DSS2_UNDW_LIST4.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '4');//4	授信往來
+        this.EL_DSS2_UNDW_LIST5.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '9');//9	其他
       }
       this.EL_DSS2_CFC_LIMIT1.data = data.rspBody.DSS2CFCLIMIT;//試算額度策略
-      for(const data of this.EL_DSS2_CFC_LIMIT1.data){
-        if(data.CFC_LIMIT_DT_REF=='1'){data.CFC_LIMIT_DT_REF+=' : 使用【額度起日】及【額度迄日】欄位';}
-        if(data.CFC_LIMIT_DT_REF=='2'){data.CFC_LIMIT_DT_REF+=' : 使用【期限月數】';}
+      for (const data of this.EL_DSS2_CFC_LIMIT1.data) {
+        if (data.CFC_LIMIT_DT_REF == '1') { data.CFC_LIMIT_DT_REF += ' : 使用【額度起日】及【額度迄日】欄位'; }
+        if (data.CFC_LIMIT_DT_REF == '2') { data.CFC_LIMIT_DT_REF += ' : 使用【期限月數】'; }
       }
       this.EL_DSS2_STRGY_SRATE1.data = data.rspBody.DSS2STRGYSRATE;//試算利率(多階)
       this.EL_DSS2_STRGY_MERG1.data = data.rspBody.DSS2STRGYMERG;//試算授信策略_債整明細
@@ -394,7 +400,7 @@ export class Childscn10page2Component implements OnInit {
 
       }
       this.EL_DSS2_STRGY_SRATE2.data = data.rspBody.DSS2STRGYSRATE;//試算利率(多階)
-        this.EL_DSS2_STRGY_MERG2.data = data.rspBody.DSS2STRGYMERG;//試算授信策略_債整明細
+      this.EL_DSS2_STRGY_MERG2.data = data.rspBody.DSS2STRGYMERG;//試算授信策略_債整明細
     });
   }
 
@@ -606,14 +612,14 @@ export class Childscn10page2Component implements OnInit {
   // }
 
 
-    //去除符號中文+千分位
-    data_number(x: string) {
-      if (x != null) {
-        x = x.toString();
-        x = x.replace(/[^\d]/g, '');
-        x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      }
-      return x
+  //去除符號中文+千分位
+  data_number(x: string) {
+    if (x != null) {
+      x = x.toString();
+      x = x.replace(/[^\d]/g, '');
+      x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
+    return x
+  }
 
 }

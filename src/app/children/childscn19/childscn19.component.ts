@@ -63,7 +63,8 @@ export class Childscn19Component implements OnInit {
 
   checkpoint: string;
   ngOnInit(): void {
-
+    this.rescanType = '';
+    this.rescanItem = '';
     this.restartDate = this.dealwithData3(new Date());
     //取案編,客編,客戶手機
     this.applno = sessionStorage.getItem('applno');
@@ -83,6 +84,7 @@ export class Childscn19Component implements OnInit {
 
     //取補件項目下拉
     this.childscn19Service.getSysTypeCode('RESCAN_ITEM').subscribe(data => {
+      this.rescanItemCode.push({ value: '', viewValue: '請選擇', })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
         const desc = jsonObj.codeDesc;
@@ -92,6 +94,7 @@ export class Childscn19Component implements OnInit {
 
     //取補件原因下拉
     this.childscn19Service.getSysTypeCode('RESCAN_TYPE').subscribe(data => {
+      this.rescanTypeCode.push({ value: '', viewValue: '請選擇', })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
         const desc = jsonObj.codeDesc;
@@ -104,15 +107,16 @@ export class Childscn19Component implements OnInit {
 
   //新增補件資訊
   public async rescan(): Promise<void> {
-    if (this.restartDate == null) {
+
+    if (this.restartDate == null ) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入日期" }
       });
-    } else if (this.rescanType == null) {
+    } else if (this.rescanType == null || this.rescanType =='') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入補件原因" }
       });
-    } else if (this.rescanItem == null) {
+    } else if (this.rescanItem == null || this.rescanItem =='') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入補件項目" }
       });
@@ -127,7 +131,7 @@ export class Childscn19Component implements OnInit {
       msgStr = await this.childscn19Service.addRescan(jsonObject);
       if (msgStr == 'success') {
         msgStr = '儲存成功！';
-        this.restartDate = null;
+
         this.rescanType = '';
         this.rescanItem = '';
         this.rescanContent = '';
@@ -139,50 +143,6 @@ export class Childscn19Component implements OnInit {
     }
     return;
   }
-
-  // //發送簡訊檔
-  // public async addSms(): Promise<void> {
-  //   this.messageContent = this.content;
-  //   if (this.realSmsTime == null) {
-  //     const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-  //       data: { msgStr: "請輸入日期" }
-  //     });
-  //   } else if (this.realSmsTime != null && this.mytime == null) {
-  //     const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-  //       data: { msgStr: "請輸入時間" }
-  //     });
-  //   } else if (this.content == null) {
-  //     const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-  //       data: { msgStr: "請輸入SMS內容" }
-  //     });
-  //   } else if (this.content != null) {
-  //     if (this.content.indexOf('徵審人員修改') >= 0) {
-  //       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-  //         data: { msgStr: "不得有徵審人員修改字樣" }
-  //       });
-  //     }
-  //     else {
-  //       this.block = true;
-  //       let jsonObject: any = {};
-  //       jsonObject['applno'] = this.applno;
-  //       jsonObject['messageContent'] = this.messageContent;
-  //       jsonObject['empno'] = localStorage.getItem("empNo");
-  //       jsonObject['mobile'] = this.mobile;
-  //       jsonObject['realSmstime'] = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd') + this.pipe.transform(this.mytime, ' HH:mm');
-  //       let msgStr: string = "";
-  //       msgStr = await this.childscn19Service.addSms(jsonObject);
-  //       if (msgStr == 'success') {
-  //         msgStr = '儲存成功！';
-  //         this.block = false;
-  //       }
-  //       this.dialog.open(ConfirmComponent, {
-  //         data: { msgStr: msgStr }
-  //       });
-  //       this.getSmsList(this.applno);
-  //     }
-  //     return;
-  //   }
-  // }
 
   //發送簡訊
   async addSms() {

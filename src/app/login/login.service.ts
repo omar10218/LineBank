@@ -36,6 +36,7 @@ export class LoginService extends BaseService {
     }
   }
 
+  // 登入閒置登出
   public setBnIdle(): void {
     if (!this.bnIdle['idle$']) {
       this.bnIdle.startWatching( 60 * 30 ).subscribe((isTimedOut: boolean) => {

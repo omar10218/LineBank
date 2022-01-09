@@ -1,11 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { Data, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { Alert } from 'selenium-webdriver';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F02007Service } from './f02007.service';
 
@@ -18,7 +16,7 @@ interface sysCode {
 @Component({
   selector: 'app-f02007',
   templateUrl: './f02007.component.html',
-  styleUrls: ['./f02007.component.css', '../../assets/css/f03.css']
+  styleUrls: ['./f02007.component.css', '../../assets/css/f02.css']
 })
 export class F02007Component implements OnInit {
   applno: string = ''; //案件編號
@@ -79,11 +77,7 @@ export class F02007Component implements OnInit {
 
     }
   }
-  // test()
-  // {
-  //   console.log(this.status_DESC_Value)
 
-  // }
   changePage() {
     this.pageIndex = 1;
     this.pageSize = 50;
@@ -157,7 +151,7 @@ export class F02007Component implements OnInit {
     jsonObject['applno'] = id;
     jsonObject['nationalID'] = nationalId;
     jsonObject['searchKind'] = '2';//查詢種類1:案件查詢2:客服案件查詢3:補件資訊查詢
-    jsonObject['custCname'] = cuCname;//客戶姓名CU_CNAME
+    jsonObject['cuCname'] = cuCname;//客戶姓名CU_CNAME
     let apiurl = 'f02/f02001action2';
     this.f02007Service.postJson(apiurl, jsonObject).subscribe(data => {
       if (data.rspMsg == "success" && data.rspBody == "儲存成功!") {
@@ -198,7 +192,7 @@ export class F02007Component implements OnInit {
     this.jsonObject['applno'] = this.applno;//案件編號
     this.jsonObject['nationalID'] = this.national_ID;//身分證字號
     this.jsonObject['custID'] = this.cust_ID;//客戶ID
-    this.jsonObject['custCname'] = this.cust_CNAME;//客戶姓名
+    this.jsonObject['cuCname'] = this.cust_CNAME;//客戶姓名
     this.jsonObject['l3EmpNo'] = this.l3EMPNO;//徵信員員編姓名
     this.jsonObject['creditResult'] = this.credit_RESULT_Value;//審核結果
     this.jsonObject['statusDesc'] = this.status_DESC_Value;//案件狀態--有修改第一層

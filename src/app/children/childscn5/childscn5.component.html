@@ -139,11 +139,11 @@
           <div nz-col nzSpan="6">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">徵信確認公司名稱</span>
-              <input style="display: block;" formControlName="CU_CP_NAME" [(ngModel)]="cuCpNameCa" name="cuCpNameCa" >
+              <input style="display: block;" formControlName="CU_CP_NAME_CA" [(ngModel)]="cuCpNameCa" name="cuCpNameCa" >
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">徵信確認公司名稱</span>
-              <input style="display: block;" formControlName="CU_CP_NAME" [(ngModel)]="cuCpNameCa" name="cuCpNameCa" disabled >
+              <input style="display: block;" formControlName="CU_CP_NAME_CA" [(ngModel)]="cuCpNameCa" name="cuCpNameCa" disabled >
             </div>
           </div>
           <div nz-col nzSpan="4">
@@ -203,7 +203,7 @@
           <div nz-col nzSpan="4">
             <div style="padding:3px">
               <span class="form-title">其他-公司電話分機</span>
-              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" formControlName="CU_CP_TEL_EXT" disabled="yn">
+              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" formControlName="CU_CP_TEL_EXT" [disabled]="yn">
             </div>
           </div>
 
@@ -212,19 +212,19 @@
           <div nz-col nzSpan="2">
             <div style="padding:3px">
               <span class="form-title">行職業代碼</span>
-              <input style="display: block;" [(ngModel)]="cuLevel1" name="cuLevel1" formControlName="CU_LEVEL1" readonly disabled>
+              <input style="display: block;"  formControlName="INDU_CODE" readonly disabled>
             </div>
           </div>
           <div nz-col nzSpan="12">
             <div style="padding:3px">
-              <span class="form-title">行業別</span>
-              <input style="display: block;"  [(ngModel)]="cuType" name="cuType" formControlName="CU_TYPE" readonly disabled>
+              <span class="form-title">行業別Level1&Level2(客戶填寫)</span>
+              <input style="display: block;" formControlName="CU_TYPE" readonly disabled>
             </div>
           </div>
           <div nz-col nzSpan="6">
             <div style="padding:3px">
-              <span class="form-title">職稱</span>
-              <input style="display: block;" [(ngModel)]="jobCode" name="jobCode" formControlName="JOB_CODE" readonly disabled>
+              <span class="form-title">職稱代碼(客戶填寫)</span>
+              <input style="display: block;"  formControlName="JOB_CODE" readonly disabled>
             </div>
           </div>
           <div nz-col nzFlex="4">
