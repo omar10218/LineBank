@@ -17,13 +17,14 @@ export class Childscn11page2Component implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private childscn11Service: Childscn11Service
+    private childscn11Service: Childscn11Service,
   ) { }
 
   private applno: string;
   mappingOption: MappingCode[];
   compare: Code[] = [];
   notFind: string;
+  loading:boolean
 
   compare_UNIDForm: FormGroup = this.fb.group({
     GPS_1: ['', []],//			GPS - 時點1比對次數
@@ -52,6 +53,7 @@ export class Childscn11page2Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    this.test1();
     this.getCOMPARE();
   }
 //取資料
@@ -60,9 +62,11 @@ export class Childscn11page2Component implements OnInit {
     jsonObject['applno'] = this.applno;;
     jsonObject['code'] = 'EL_HISTORY_COMPARE_UNID';
     this.childscn11Service.getCompare(jsonObject).subscribe(data => {
+      console.log(data)
       if ( data.rspBody.compare == 'not find') {
         this.notFind = "此案編查無比對資料";
       } else {
+       
         this.mappingOption = data.rspBody.table;
         this.compare = data.rspBody.compare;
       }
@@ -77,5 +81,15 @@ export class Childscn11page2Component implements OnInit {
       }
     }
     return codeVal;
+  }
+  compareValue(){
+// if(this.compare[9].count){}
+  }
+  test1(){
+    if(this.compare=null){
+      this.loading = true
+    }else{
+      this.loading= false
+    }
   }
 }

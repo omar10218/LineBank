@@ -3,11 +3,11 @@
 
   <div class="line_bank_card_no_padding">
     <nz-table nzSize="small" nzTitle="歷史申請書比對 (同一NID)">
-      <ng-container>
+      <ng-container *ngFor="let compareRow of compare;let i = index">
         <tr>
-          <th class="table-header-y" style="width:50%;">區塊</th>
-          <th class="table-header-y" style="width:25%;">比對欄位</th>
-          <th class="table-header-y" style="width:25%;">比對結果</th>
+          <th class="table-header-y" style="width:40%;">區塊</th>
+          <th class="table-header-y" style="width:30%;">比對欄位</th>
+          <th class="table-header-y" style="width:30%;">比對結果</th>
         </tr>
         <!-- Channel資訊 -->
         <tr>

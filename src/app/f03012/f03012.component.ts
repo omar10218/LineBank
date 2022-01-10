@@ -51,6 +51,7 @@ export class F03012Component implements OnInit {
 	height: string
 	addreset$:Subscription //rxjs訂閱者 
 	low: string
+	childusedata:any
 	index = []
 	aaa: string
 	// 20211005 新增
@@ -134,6 +135,7 @@ export class F03012Component implements OnInit {
 			// console.log(this.compareTypeValue)
 			console.log( data.rspBody.items)
 			this.total = data.rspBody.size
+			this.childusedata=data.rspBody.items
 			this.compareDataSetSource.data = data.rspBody.items
 			this.compareTableOption = data.rspBody.compareTable
 			this.compareColumnOption = data.rspBody.comparColumn
