@@ -83,8 +83,8 @@ export class Childscn9page3Component implements OnInit {
     jsonObject['code'] = code;
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
-
-    this.childscn9Service.getCoreCusInfo(jsonObject).subscribe(data => {
+    const baseUrl = 'f01/childscn9action'
+    this.childscn9Service.getData(baseUrl, jsonObject).subscribe(data => {
       this.totalCount = data.rspBody.size;
       if (code == 'PROD_DETAIL') { this.PROD_DETAILSource = data.rspBody.items; }
       if (code == 'INSTALLMENT_ACC') { this.INSTALLMENT_ACCSource = data.rspBody.items; }

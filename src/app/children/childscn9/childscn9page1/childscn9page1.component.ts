@@ -93,8 +93,8 @@ getBlockingCodeInfo(){
     jsonObject['applno'] = this.applno;
     jsonObject['cuid'] = this.cuid;
     jsonObject['code'] = 'CORE_CUS_INFO';
-
-    this.childscn9Service.getCoreCusInfo(jsonObject).subscribe(data => {
+    const baseUrl = 'f01/childscn9action';
+    this.childscn9Service.getData(baseUrl, jsonObject).subscribe(data => {
       let birthday = moment(data.rspBody.items[0].BIRTHDAY).format('YYYY-MM-DD');
 
       this.coreCustInfoForm.patchValue({ APPLNO: data.rspBody.items[0].APPLNO })
