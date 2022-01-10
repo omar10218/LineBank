@@ -206,6 +206,12 @@ export class F01003scn1Component implements OnInit {
                 });
                 return;
               } else if (true) {
+                if (count == 0) {
+                  const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                    data: { msgStr: '多階利率無資料' }
+                  });
+                  return;
+                }
                 for (let index = 1; index <= count; index++) {
                   if (creditInterestPeriodArray[index - 1].approveInterest == '' || creditInterestPeriodArray[index - 1].approveInterest == null) {
                     const childernDialogRef = this.dialog.open(ConfirmComponent, {
