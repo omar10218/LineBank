@@ -116,7 +116,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     const url = 'f01/childscn6';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['cuid'] = this.cuid;
+    jsonObject['nationalId'] = this.cuid;
     jsonObject['code'] = 'MASTER';
     this.childscn6Service.getDate(url, jsonObject).subscribe(data => {
       if (data.rspBody.items.length > 0) {
@@ -143,7 +143,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
       // else{
         if (data.rspBody.length >0 ){
           this.listSource = data.rspBody[0];
-          
+
         }
         console.log('------------------------')
         console.log(this.listSource)
