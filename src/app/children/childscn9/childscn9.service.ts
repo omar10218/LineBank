@@ -9,8 +9,7 @@ import { BaseService } from 'src/app/base.service';
 export class Childscn9Service extends BaseService {
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  getCoreCusInfo(jsonObject: JSON): Observable<any>  {
-    const baseUrl = 'f01/childscn9action';
+  getData(baseUrl: string, jsonObject: JSON): Observable<any>  {
     return this.postJsonObject(baseUrl, jsonObject);
   }
   getBlockingCode(jsonObject: JSON): Observable<any>  {
@@ -19,6 +18,6 @@ export class Childscn9Service extends BaseService {
   }
 
   getDate(baseUrl: string, formData: FormData): Observable<any> {
-    return this.postFormData(baseUrl, formData); 
+    return this.postFormData(baseUrl, formData);
   }
 }

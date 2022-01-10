@@ -23,8 +23,7 @@ export class Childscn9page2Component implements OnInit {
   private applno: string;
   private cuid: string;
   DEPOSITSource: Data[] = [];
-  DM_DEP_TRANS_DETAILSource: Data[] = [];
-  TIME_DEP_TRANS_DETAILSource: Data[] = [];
+  SAVING_TRANS_DETAILSource: Data[] = [];
   DEPOSIT_STATIS_DATASource: Data[] = [];
   total = 1;
   loading = false;
@@ -42,9 +41,8 @@ export class Childscn9page2Component implements OnInit {
 
   ngAfterViewInit() {
     this.getCoreCusInfo('DEPOSIT', this.pageIndex, this.pageSize);
-    this.getCoreCusInfo('DM_DEP_TRANS_DETAIL', this.pageIndex, this.pageSize);
-    this.getCoreCusInfo('TIME_DEP_TRANS_DETAIL', this.pageIndex, this.pageSize);
     this.getCoreCusInfo('DEPOSIT_STATIS_DATA', this.pageIndex, this.pageSize);
+    this.getSavingDetail(this.pageIndex, this.pageSize);
   }
 
   getCoreCusInfo(code: string, pageIndex: number, pageSize: number) {
@@ -54,15 +52,27 @@ export class Childscn9page2Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['cuid'] = this.cuid;
     jsonObject['code'] = code;
+    const baseUrl = 'f01/childscn9action';
 
-    this.childscn9Service.getCoreCusInfo(jsonObject).subscribe(data => {
+    this.childscn9Service.getData(baseUrl,jsonObject).subscribe(data => {
       this.totalCount = data.rspBody.size;
       if (code == 'DEPOSIT') { this.DEPOSITSource = data.rspBody.items; }
-      if (code == 'DM_DEP_TRANS_DETAIL') { this.DM_DEP_TRANS_DETAILSource = data.rspBody.items; }
-      if (code == 'TIME_DEP_TRANS_DETAIL') { this.TIME_DEP_TRANS_DETAILSource = data.rspBody.items; }
       if (code == 'DEPOSIT_STATIS_DATA') { this.DEPOSIT_STATIS_DATASource = data.rspBody.items; }
     });
   }
+
+  getSavingDetail(pageIndex: number, pageSize: number) {
+    let jsonObject: any = {};
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    jsonObject['applno'] = this.applno;
+    const baseUrl = 'f01/childscn9action4';
+
+    this.childscn9Service.getData(baseUrl, jsonObject).subscribe(datas => {
+        this.SAVING_TRANS_DETAILSource = datas.rspBody.tableList;
+    });
+  }
+
   toCurrency(amount: string) {
     return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
   }

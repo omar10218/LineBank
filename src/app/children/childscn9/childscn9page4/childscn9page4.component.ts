@@ -43,7 +43,8 @@ export class Childscn9page4Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['cuid'] = this.cuid;
     jsonObject['code'] = code;
-    this.childscn9Service.getCoreCusInfo(jsonObject).subscribe(data => {
+    const baseUrl = 'f01/childscn9action'
+    this.childscn9Service.getData(baseUrl, jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.dcTransDetailSource = data.rspBody.items;
       this.loading = false;

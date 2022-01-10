@@ -2,12 +2,12 @@
   <!-- 頁面背景 -->
   <div class="line_bank_bankground_color">
     <div style="text-align: left;padding-bottom:10px ;padding-left: 3%">
-      <div >
-        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="Add()" [disabled]="getSearch()== 'N'?false:true">新增</button>
+      <div *ngIf="getPage() == '2' && getSearch()== 'N' ">
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="Add()" >新增</button>
       </div>
-      <!-- <div *ngIf="getPage() == '3'">
-        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="Add()"  [disabled]="getSearch()== 'N' && getPage()=='3'?false:true">新增</button>
-      </div> -->
+      <div *ngIf="getPage() != '2' || (getPage() == '2' && getSearch()!= 'N')" >
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="Add()" disabled >新增</button>
+      </div>
     </div>
     <!-- 最外層卡片包覆 -->
     <div class="line_bank_card_no_padding">
@@ -42,19 +42,19 @@
             <td class="table-data">{{ row.CALLOUT_DATE | date:"yyyy-MM-dd HH:mm" }}</td>
             <td class="table-data">{{ row.CALLOUT_YN_View }}</td>
             <td class="table-data" style="text-align: center;">
-              <button *ngIf="getPage() == '2'" nz-button [nzSize]="'small'" nzType="primary"
+              <button *ngIf="getPage() == '2' && getSearch()== 'N' " nz-button [nzSize]="'small'" nzType="primary"
                 (click)="startEdit(
               row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)">編輯</button>
 
-              <button *ngIf="getPage() != '2'" nz-button [nzSize]="'small'" nzType="primary"
+              <button *ngIf="getPage() != '2' || (getPage() == '2' && getSearch()!= 'N')" nz-button [nzSize]="'small'" nzType="primary"
                 (click)="startEdit(
               row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" disabled>編輯</button>
             </td>
             <td class="table-data" style="text-align: center;">
-              <button *ngIf="getPage() == '2'" nz-button [nzSize]="'small'" nzType="default" nzDanger
+              <button *ngIf="getPage() == '2' && getSearch()== 'N' " nz-button [nzSize]="'small'" nzType="default" nzDanger
                 (click)="deleteItem(
               row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)">刪除</button>
-              <button *ngIf="getPage() != '2'" nz-button [nzSize]="'small'" nzType="default"
+              <button *ngIf="getPage() != '2' || (getPage() == '2' && getSearch()!= 'N')" nz-button [nzSize]="'small'" nzType="primary" id="del"
                 (click)="deleteItem(
                 row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" disabled>刪除</button>
             </td>
@@ -65,10 +65,13 @@
     </div>
 
 
-    <div  style="padding:10px ;padding-left: 10% ;text-align: left;">
-      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="items()"  [disabled]="getSearch()== 'N'?false:true">編輯</button>
+    <div *ngIf="getPage() == '2' && getSearch()== 'N' "  style="padding:10px ;padding-left: 10% ;text-align: left;">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="items()" >編輯</button>
     </div>
 
+    <div *ngIf="getPage() != '2' || (getPage() == '2' && getSearch()!= 'N')"  style="padding:10px ;padding-left: 10% ;text-align: left;">
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="items()"  disabled >編輯</button>
+    </div>
     <!-- <div *ngIf="getPage() != '2'" style="padding:10px;padding-left: 10%;text-align: left;">
       <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" disabled>編輯</button>
     </div> -->
@@ -91,7 +94,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngIf="MDtable[0] != null" >
             <td class="table-data" rowspan="3">03</td>
             <td class="table-data">{{ MDtable[0]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[0]?.txt}}</td>
@@ -129,7 +132,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[1] != null" >
             <td class="table-data">{{ MDtable[1]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[1]?.txt}}</td>
             <td class="table-data">
@@ -165,7 +168,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[2] != null" >
             <td class="table-data">{{ MDtable[2]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[2]?.txt}}</td>
             <td class="table-data">
@@ -201,7 +204,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[3] != null" >
             <td class="table-data">04</td>
             <td class="table-data">{{ MDtable[3]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[3]?.txt}}</td>
@@ -226,7 +229,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[4] != null" >
             <td class="table-data" rowspan="3">05</td>
             <td class="table-data">{{ MDtable[4]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[4]?.txt}}</td>
@@ -262,7 +265,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[5] != null" >
             <td class="table-data">{{ MDtable[5]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[5]?.txt}}</td>
             <td class="table-data">
@@ -297,7 +300,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[6] != null" >
             <td class="table-data">{{ MDtable[6]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[6]?.txt}}</td>
             <td class="table-data">
@@ -332,7 +335,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[7] != null" >
             <td class="table-data">06</td>
             <td class="table-data">{{ MDtable[7]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[7]?.txt}}</td>
@@ -361,7 +364,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[8] != null" >
             <td class="table-data">07</td>
             <td class="table-data">{{ MDtable[8]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[8]?.txt}}</td>
@@ -395,7 +398,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[9] != null" >
             <td class="table-data">08</td>
             <td class="table-data">{{ MDtable[9]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[9]?.txt}}</td>
@@ -429,7 +432,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[10] != null" >
             <td class="table-data">09</td>
             <td class="table-data">{{ MDtable[10]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[10]?.txt}}</td>
@@ -463,7 +466,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[11] != null" >
             <td class="table-data">10</td>
             <td class="table-data">{{ MDtable[11]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[11]?.txt}}</td>
@@ -490,7 +493,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[12] != null" >
             <td class="table-data">11</td>
             <td class="table-data">{{ MDtable[12]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[12]?.txt}}</td>
@@ -517,7 +520,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[13] != null" >
             <td class="table-data">12</td>
             <td class="table-data">{{ MDtable[13]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[13]?.txt}}</td>
@@ -543,7 +546,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[14] != null" >
             <td class="table-data" rowspan="2">13</td>
             <td class="table-data">{{ MDtable[14]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[14]?.txt}}</td>
@@ -568,7 +571,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[15] != null" >
             <td class="table-data">{{ MDtable[15]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[15]?.txt}}</td>
             <td class="table-data"></td>
@@ -592,7 +595,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[16] != null" >
             <td class="table-data">14</td>
             <td class="table-data">{{ MDtable[16]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[16]?.txt}}</td>
@@ -619,7 +622,7 @@
           </tr>
 
 
-          <tr>
+          <tr *ngIf="MDtable[17] != null" >
             <td class="table-data">15</td>
             <td class="table-data">{{ MDtable[17]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[17]?.txt}}</td>
@@ -644,7 +647,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[18] != null" >
             <td class="table-data">16</td>
             <td class="table-data">{{ MDtable[18]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[18]?.txt}}</td>
@@ -669,7 +672,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr *ngIf="MDtable[19] != null" >
             <td class="table-data">17</td>
             <td class="table-data">{{ MDtable[19]?.MD_NO.viewValue }}</td>
             <td class="table-data">{{MDtable[19]?.txt}}</td>

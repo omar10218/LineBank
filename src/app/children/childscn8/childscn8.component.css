@@ -76,3 +76,15 @@ padding-right: 5px;
 :host::ng-deep.ant-table-pagination.ant-pagination{
 	margin:15px 0 0 0;
 }
+#del
+{
+  color: tomato;
+  border-color: tomato;
+
+}
+#del:hover
+{
+    color: white;
+    border-color: tomato;
+    background-color: tomato;
+}
