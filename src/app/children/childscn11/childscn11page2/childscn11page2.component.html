@@ -2,12 +2,13 @@
 <div class="line_bank_bankground_color">
 
   <div class="line_bank_card_no_padding">
-    <nz-table nzSize="small" nzTitle="歷史申請書比對 (同一NID)">
-      <ng-container>
+    <nz-table nzSize="small" nzTitle="歷史申請書比對 (不同NID)" [nzData]="compare" 
+      [nzFrontPagination]="false"  [nzSimple]="false">
+      <ng-container >
         <tr>
-          <th class="table-header-y" style="width:50%;">區塊</th>
-          <th class="table-header-y" style="width:25%;">比對欄位</th>
-          <th class="table-header-y" style="width:25%;">比對結果</th>
+          <th class="table-header-y" style="width:40%;">區塊</th>
+          <th class="table-header-y" style="width:40%;">比對欄位</th>
+          <th class="table-header-y" style="width:30%;">比對結果</th>
         </tr>
         <!-- Channel資訊 -->
         <tr>
@@ -15,35 +16,35 @@
         </tr>
         <tr>
           <th class="table-header-y">點選申請時GPS</th>
-          <td class="table-data">待確認 </td>
+          <td class="table-data-text"[ngClass]="compareValue()">{{compare[9].compareColumn}} </td> 
         </tr>
         <tr>
           <th class="table-header-y">上傳收入文件後GPS</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text" [ngClass]="compareValue()">{{compare[11].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">點選申請時IP Address</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text" [ngClass]="compareValue()">{{compare[13].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">上傳收入文件後IP Address</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text" [ngClass]="compareValue()">{{compare[15].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">點選申請時手機型號</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text" [ngClass]="compareValue()">{{compare[17].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">上傳收入文件後手機型號</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text" [ngClass]="compareValue()">{{compare[19].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">點選申請時Device ID</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text" [ngClass]="compareValue()">{{compare[21].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">上傳收入文件後Device ID</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text" [ngClass]="compareValue()">{{compare[23].compareColumn}}</td>
         </tr>
 
       </ng-container>
@@ -56,31 +57,31 @@
         </tr>
         <tr>
           <th class="table-header-y">Email</th>
-          <td class="table-data">待確認 </td>
+          <td class="table-data-text">{{compare[25].compareColumn}} </td>
         </tr>
         <tr>
           <th class="table-header-y">行動電話</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text">{{compare[27].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">戶籍電話</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text">{{compare[29].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">通訊電話</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text">{{compare[31].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">戶籍地址</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text">{{compare[33].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">通訊地址</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text">{{compare[35].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">寄卡地址</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text">{{compare[37].compareColumn}}</td>
         </tr>
 
       </ng-container>
@@ -88,19 +89,19 @@
       <ng-container>
 
         <tr>
-          <th class="table-header-x" rowspan="4">Channel資訊</th>
+          <th class="table-header-x" rowspan="4">任職資訊比對</th>
         </tr>
         <tr>
           <th class="table-header-y">公司名稱</th>
-          <td class="table-data">待確認 </td>
+          <td class="table-data-text"> {{compare[57].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">公司電話</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text">{{compare[58].compareColumn}}</td>
         </tr>
         <tr>
           <th class="table-header-y">公司地址</th>
-          <td class="table-data">待確認</td>
+          <td class="table-data-text">{{compare[56].compareColumn}}</td>
         </tr>
 
       </ng-container>
