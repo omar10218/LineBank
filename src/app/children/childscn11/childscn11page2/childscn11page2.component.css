@@ -36,3 +36,12 @@ input{
   margin-bottom: 1px;
 
 }
+.table-data-text{
+  color:rgb(177, 177, 1);
+}
+.height{
+  color:red;
+}
+:host::ng-deep.ant-table-pagination.ant-pagination{
+margin:0px 0px;
+}
