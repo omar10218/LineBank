@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { JSEncrypt } from 'jsencrypt/lib';
 import { sha256 } from 'js-sha256';
 import { AuthService } from '../auth/auth.service';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -22,32 +23,33 @@ export class LoginComponent implements OnInit {
   SrcEye = "outline_remove_red_eye_black_48dp";
   imgSrc = this.SrcEyeOff;
 
-  no = '';
-  pwd = '';
-  public key: string;
-  public iv: string;
-  // private bnIdle: BnNgIdleService = null;
+  no: string = '';
+  pwd: string = '';
+  private from: string = environment.from;
+
   constructor(
     private authService: AuthService,
     private router: Router,
     private loginService: LoginService,
-    private bnIdle: BnNgIdleService
+    private bnIdle: BnNgIdleService,
+    private route: ActivatedRoute
   ) { }
 
+  private ticket: string;
   ngOnInit() {
-    //Nick 設定同時只能登入一個帳號
-    window.addEventListener("storage", (e) => { //監聽帳號
-      // alert('請勿重複登入帳號');
-      this.router.navigate(['./logOut']).then(() => {
-        window.location.reload();
-      });
-    });
+    this.no = this.route.snapshot.queryParamMap.get('name');
+    this.ticket = this.route.snapshot.queryParamMap.get('ticket');
   }
 
+  ngAfterViewInit() {
+    if (this.no != null && this.no.length > 0 && this.ticket != null && this.ticket.length > 0) {
+      let element: HTMLElement = document.getElementById('loginBtn') as HTMLElement;
+      element.click();
+    }
+  }
 
   async onClickMe(): Promise<void> {
     // this.bnIdle = new BnNgIdleService();
-
     //------------------------------------------------------------------
     // let publicKey = this.jsEncrypt.getKey().getPublicBaseKeyB64();
     // let privateKey = this.jsEncrypt.getKey().getPrivateBaseKeyB64();
@@ -62,46 +64,24 @@ export class LoginComponent implements OnInit {
     // console.log("dec=====>"+dec);
     //------------------------------------------------------------------
 
-    if (await this.loginService.initData(this.no, this.pwd)) {
-      localStorage.setItem("empNo", this.no);
-      this.authService.login();//登入紀錄
+    let chkTicket: string = (this.ticket != null && this.ticket.length > 0) ? this.ticket : '';
+    if ('local' == this.from || 'rstn' == this.from || 'dev' == this.from) { chkTicket = '1234'; }
+    if (await this.loginService.initData(this.no, this.pwd, chkTicket)) {
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
-      this.loginService.setBnIdle();//登入閒置登出
-
-
-      // if (!this.bnIdle['idle$']) {
-      //   this.bnIdle.startWatching( 60 * 10 ).subscribe((isTimedOut: boolean) => {
-      //     if (isTimedOut) { this.routerGoUrl(); }
-      //   });
-      // } else {
-      //   this.bnIdle.resetTimer();
-      // }
-      sessionStorage.setItem('BusType', JSON.stringify(await this.loginService.getRuleCode('BUS_TYPE')));
-      sessionStorage.setItem('ParmType', JSON.stringify(await this.loginService.getRuleCode('PARM_TYPE')));
-      sessionStorage.setItem('ParmDim', JSON.stringify(await this.loginService.getRuleCode('PARM_DIM')));
-      sessionStorage.setItem('ParmClass', JSON.stringify(await this.loginService.getRuleCode('PARM_CLASS')));
-      sessionStorage.setItem('Condition', JSON.stringify(await this.loginService.getCondition()));
-
-       // 登入時設定值 提供異動情況 告知監聽
-       localStorage.setItem("loginKey", 'change');
-       localStorage.removeItem('loginKey');
-       window.localStorage.setItem("empNo", this.no);
-
-      //sessionStorage.setItem('RuleStep', JSON.stringify(await this.loginService.getRuleStep()));
-      //sessionStorage.setItem('PolicyId', JSON.stringify(await this.loginService.getPolicyId()));
+      this.loginService.setBnIdle();
+      localStorage.setItem("loginKey", 'change');
+      localStorage.removeItem('loginKey');
+      localStorage.setItem("empNo", this.no);
     } else {
       alert('帳號有誤!');
+      if ('stg' == this.from || 'uat' == this.from || 'prod' == this.from) {
+        window.location.href = environment.allowOrigin + '/sso';
+      } else {
+        window.location.reload();
+      }
     }
   }
 
-  // private routerGoUrl(): void {
-  //   localStorage.clear();
-  //   sessionStorage.clear();
-  //   this.bnIdle.stopTimer();
-  //   this.router.navigate(['./logOut']);
-  //   alert('閒置過久已登出');
-
-  // }
   changeImage() {
     this.hide = !this.hide;
     this.imgSrc = this.hide ? this.SrcEyeOff : this.SrcEye;

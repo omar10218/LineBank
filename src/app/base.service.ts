@@ -11,8 +11,32 @@ export class BaseService {
 
   constructor(protected httpClient: HttpClient) { }
 
+  private async cleanSession(empNo: string, ticket: string): Promise<Observable<any>> {
+    const formData = new FormData();
+    formData.append("username", empNo);
+    formData.append("ticket", ticket != null ? ticket : "");
+    const baseURL = 'logOut';
+    return await this.postFormData(baseURL, formData).toPromise();
+  }
+
+  public async logOutAction(): Promise<boolean> {
+    let empNo: string = this.getEmpNO();
+    let ticket: string = this.getToken();
+    let isOk: boolean = false;
+    await this.cleanSession(empNo, ticket).then((data: any) => {
+      isOk = (data.rspCode == '0000');
+    });
+    return isOk;
+  }
+
+  //================上方是登出的function========================================
+
   public getToken(): string {
     return localStorage.getItem('token');
+  }
+
+  public getEmpNO(): string {
+    return localStorage.getItem('empNo');
   }
 
   protected postHttpClient(baseUrl: string) {
@@ -30,10 +54,6 @@ export class BaseService {
   public getSysTypeCode(codeType: string): Observable<Mapping> {
     let targetUrl = `sys/getMappingCode?codeType=${codeType}`;
     return this.postHttpClient(targetUrl);
-  }
-
-  public getLine(url: string){
-    return this.postHttpClient(url);
   }
 
   protected formDataApiFor_NET(baseUrl: string, formdata: FormData) {

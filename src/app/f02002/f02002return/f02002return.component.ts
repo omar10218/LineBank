@@ -67,6 +67,7 @@ export class F02002returnComponent implements OnInit {
   formdata: FormData;
   formdata2: FormData = new FormData();
   list: te[] = [];
+  onChangelength:number;
   jsonstr: string;
   formControl = new FormControl('', [
     Validators.required
@@ -87,20 +88,18 @@ export class F02002returnComponent implements OnInit {
     const target: DataTransfer = <DataTransfer>(evt.target);
     this.isValidFile = !!target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
     var rid = rid;
+    this.fileToUpload = target.files.item(0);
     if (this.isValidFile) {
       this.fileList = this.fileList.filter(e => e.value != rid);
-      this.fileToUpload = target.files.item(0);
-      this.formdata2.append(rid, this.fileToUpload)
-      if(this.fileToUpload == null)
-      {
-
-      }
-      // this.quantity = this.quantity - 1;
+      this.fileList.push({value:rid,viewValue:this.fileToUpload}) ;
       console.log(this.fileToUpload)
-    } else {
+    }
+    else
+    {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法檔，請檢查檔案格式重新上傳" });
       alert(this.uploadForm.value.ERROR_MESSAGE);
     }
+    this.onChangelength = this.fileList.length;
   }
   set()//查詢
   {
@@ -128,6 +127,10 @@ export class F02002returnComponent implements OnInit {
     let url = 'f02/f02002action5';
     console.log(this.F02002Data.length);
     let jsonarry: string[] = []
+    for(const n of this.fileList)
+    {
+      this.formdata2.append(n.value, n.viewValue)
+    }
     for (const it of this.F02002Data) {
       this.list = [];
       const fileObj = this.formdata2.get(it.ROW_ID);
@@ -160,6 +163,10 @@ export class F02002returnComponent implements OnInit {
     const formdata = new FormData();
     console.log(this.F02002Data.length);
     let jsonarry: string[] = []
+    for(const n of this.fileList)
+    {
+      this.formdata2.append(n.value, n.viewValue)
+    }
     for (const it of this.F02002Data) {
       this.list = [];
       const fileObj = this.formdata2.get(it.ROW_ID);
@@ -218,5 +225,7 @@ export class F02002returnComponent implements OnInit {
 
     console.log(this.fileToUpload)
     // alert( this.fileToUpload)
+    console.log( this.fileList)
+    console.log( this.fileList.length)
   }
 }

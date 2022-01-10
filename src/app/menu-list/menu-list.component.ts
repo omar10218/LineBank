@@ -6,7 +6,7 @@ import { LoginService } from '../login/login.service';
 import { F01002Service } from '../f01002/f01002.service';
 import { Subscription } from 'rxjs';
 import { HandleSubscribeService } from '../services/handle-subscribe.service';
-
+import { environment } from 'src/environments/environment';
 
 //Nick icon/時間登出/照會提醒
 @Component({
@@ -22,7 +22,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     private f01002Service: F01002Service,
     private handleSubscribeS: HandleSubscribeService
-  ) { 
+  ) {
     this.calloutSource$ = this.handleSubscribeS.calloutSource$.subscribe(() => {
       this.getCalloutList();
     });
@@ -43,14 +43,12 @@ export class MenuListComponent implements OnInit, OnDestroy {
   private winClose: string = '';//判斷是否顯示menu (查詢不顯示)
 
   ngOnInit() {
+    //Nick 設定同時只能登入一個帳號
+    window.addEventListener("storage", (e) => { //監聽帳號
+      this.commonLogOut();
+    });
+
     this.winClose = sessionStorage.getItem('winClose');
-    if (localStorage.getItem('empNo') == null || localStorage.getItem('empNo') == '') {
-      window.sessionStorage.clear();
-      localStorage.clear();
-      this.router.navigate(['./logOut']).then(() => {
-        window.location.reload();
-      });
-    }
     this.loginService.setBnIdle();
     this.getCalloutList();
     //設定5分鐘刷新照會提醒
@@ -60,19 +58,19 @@ export class MenuListComponent implements OnInit, OnDestroy {
       }, 5* 60 * 1000);
   }
 
+  ngAfterViewInit() {
+    if (localStorage.getItem('empNo') == null || localStorage.getItem('empNo') == '') {
+      let element: HTMLElement = document.getElementById('logoutBtn') as HTMLElement;
+      element.click();
+    }
+  }
+
   ngOnDestroy() {
     clearInterval(this.intervalRef);
   }
 
   getMenu(): Menu[] { return this.menuListService.getMap(); }
   returnZero() { return 0; }
-  logOut() {
-    window.sessionStorage.clear();
-    localStorage.clear();
-    this.router.navigate(['./logOut']).then(() => {
-      window.location.reload();
-    });
-  }
 
   goHome() {
     this.router.navigate(['./home']);
@@ -100,6 +98,24 @@ export class MenuListComponent implements OnInit, OnDestroy {
     return this.winClose;
   }
 
+  onClickOut(): void {
+    this.commonLogOut();
+  }
 
-
+  private commonLogOut(): void {
+    if (this.menuListService.logOutAction()) {
+      window.localStorage.clear();
+      window.sessionStorage.clear();
+      let form: string = environment.from;
+      if ('stg' == form || 'uat' == form || 'prod' == form) {
+        this.router.navigate(['./logOut']).then(async () => {
+          window.location.href = 'https://sso.lbtwsys.com:8443/cas/logout?service=' + environment.allowOrigin + '/sso';
+        });
+      } else {
+        this.router.navigate(['./logOut']).then(async () => {
+          window.location.reload();
+        });
+      }
+    }
+  }
 }

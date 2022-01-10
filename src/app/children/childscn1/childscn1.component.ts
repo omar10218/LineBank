@@ -494,6 +494,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
         sessionStorage.setItem('caRisk', data.rspBody.resultList[0].caRisk ? data.rspBody.resultList[0].caRisk : '');
       }
 
+      let erroeStr: string = '';
+
       //creditInterestPeriod
       if (data.rspBody.creditInterestPeriodList.length > 0) {
         this.CreditInterestPeriodSource = data.rspBody.creditInterestPeriodList;
@@ -503,9 +505,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
               this.CreditInterestPeriodSource[index - 1].interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
               sessionStorage.setItem('interestBase' + index, this.CreditInterestPeriodSource[index - 1].interestBase);
             } else {
-              const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                data: { msgStr: '加減碼查無利率，請通知相關人員!' }
-              });
+              erroeStr = '加減碼查無利率，請通知相關人員!'
               this.CreditInterestPeriodSource[index - 1].interestType = '';
               this.CreditInterestPeriodSource[index - 1].interestBase = 0;
               sessionStorage.setItem('interestBase' + index, '0');
@@ -523,6 +523,11 @@ export class Childscn1Component implements OnInit, OnDestroy {
           sessionStorage.setItem('approveInterest' + index, this.CreditInterestPeriodSource[index - 1].approveInterest);
         }
 
+        if ( erroeStr != '') {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: erroeStr }
+          });
+        }
         // this.period = data.rspBody.creditInterestPeriodList[0].period;
         // sessionStorage.setItem('period', data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '');
         // this.interestType = data.rspBody.creditInterestPeriodList[0].interestType;
