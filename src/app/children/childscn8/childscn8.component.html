@@ -54,7 +54,7 @@
               <button *ngIf="getPage() == '2' && getSearch()== 'N' " nz-button [nzSize]="'small'" nzType="default" nzDanger
                 (click)="deleteItem(
               row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)">刪除</button>
-              <button *ngIf="getPage() != '2' || (getPage() == '2' && getSearch()!= 'N')" nz-button [nzSize]="'small'" 
+              <button *ngIf="getPage() != '2' || (getPage() == '2' && getSearch()!= 'N')" nz-button [nzSize]="'small'" nzType="primary" id="del"
                 (click)="deleteItem(
                 row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" disabled>刪除</button>
             </td>
