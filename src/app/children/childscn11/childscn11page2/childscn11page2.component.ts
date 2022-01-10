@@ -24,7 +24,7 @@ export class Childscn11page2Component implements OnInit {
   mappingOption: MappingCode[];
   compare: Code[] = [];
   notFind: string;
-  loading:boolean
+  loading:boolean=false;
 
   compare_UNIDForm: FormGroup = this.fb.group({
     GPS_1: ['', []],//			GPS - 時點1比對次數
@@ -53,7 +53,6 @@ export class Childscn11page2Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.test1();
     this.getCOMPARE();
   }
 //取資料
@@ -69,6 +68,7 @@ export class Childscn11page2Component implements OnInit {
        
         this.mappingOption = data.rspBody.table;
         this.compare = data.rspBody.compare;
+        this.loading =true
       }
     });
   }
@@ -85,11 +85,11 @@ export class Childscn11page2Component implements OnInit {
   compareValue(){
 // if(this.compare[9].count){}
   }
-  test1(){
-    if(this.compare=null){
-      this.loading = true
-    }else{
-      this.loading= false
-    }
-  }
+  // test1(){
+  //   if(this.compare=null){
+  //     this.loading = true
+  //   }else{
+  //     this.loading= false
+  //   }
+  // }
 }
