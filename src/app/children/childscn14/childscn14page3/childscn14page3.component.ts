@@ -35,7 +35,7 @@ export class Childscn14page3Component implements OnInit {
   ngOnInit(): void {
 
     this.applno = sessionStorage.getItem('applno');
-    this.cuId = sessionStorage.getItem('cuid');
+    this.cuId = sessionStorage.getItem('nationalId');
     // const baseUrl = 'f01/childscn14action1';
     // let jsonObject: any = {};
     // jsonObject['applno'] = this.applno;

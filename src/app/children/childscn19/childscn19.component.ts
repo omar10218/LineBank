@@ -68,10 +68,10 @@ export class Childscn19Component implements OnInit {
     this.restartDate = this.dealwithData3(new Date());
     //取案編,客編,客戶手機
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.checkpoint = sessionStorage.getItem('checkpoint');
     // this.queryCusMobile();
-    console.log(sessionStorage.getItem('cuid'))
+    console.log(sessionStorage.getItem('nationalId'))
     //取sms樣板下拉
     this.childscn19Service.getSysTypeCode('SMS_SET').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {

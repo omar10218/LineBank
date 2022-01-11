@@ -142,7 +142,7 @@ export class F02002Component implements OnInit {
     }
   }
 
-  detail(applno: string, nationalId: string, cuCname: string) {
+  detail(applno: string, nationalId: string, cuCname: string, custId: string) {
     let jsonObject1: any = {};
     jsonObject1['applno'] = applno;
     jsonObject1['nationalID'] = nationalId;
@@ -157,7 +157,8 @@ export class F02002Component implements OnInit {
         this.f02002Service.f02002(url, jsonObject).subscribe(data => {
           console.log(data)
           sessionStorage.setItem('applno', applno);
-          sessionStorage.setItem('cuid', nationalId);
+          sessionStorage.setItem('nationalId', nationalId);
+          sessionStorage.setItem('custId', custId);
           sessionStorage.setItem('search', 'Y');
           console.log(sessionStorage.setItem('fds', ''))
           // if (data.rspBody.length > 0) {

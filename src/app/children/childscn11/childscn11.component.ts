@@ -47,7 +47,7 @@ export class Childscn11Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.search = sessionStorage.getItem('search');
     this.fds = sessionStorage.getItem('fds');
     // this.router.navigate(['./'+this.routerCase+'/CHILDSCN11/CHILDSCN11PAGE1'], { queryParams: { applno: this.applno, cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });

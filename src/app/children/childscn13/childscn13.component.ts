@@ -55,7 +55,7 @@ export class Childscn13Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.search = sessionStorage.getItem('search');
     this.page = sessionStorage.getItem('page');
     this.imageSrc=this.imageSrcB;

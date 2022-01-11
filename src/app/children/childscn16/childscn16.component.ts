@@ -40,13 +40,16 @@ export class Childscn16Component implements OnInit {
   loading = false;
   pageSize = 50;
   pageIndex = 1;
-  cuid: string;
+  nationalId: string;
+  custId: string;
   fds: string = "";
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
-    this.initial(this.pageIndex,this.pageSize)
+    this.nationalId = sessionStorage.getItem('nationalId');
+    this.custId = sessionStorage.getItem('custId');
+    this.initial(this.pageIndex,this.pageSize);
+
   }
   ngAfterViewInit() {
     //this.initial( this.pageIndex, this.pageSize );
@@ -64,7 +67,7 @@ export class Childscn16Component implements OnInit {
   //   };
 
   // }
-  Inquire(id: string, nationalId: string) //查詢
+  Inquire(id: string) //查詢
   {
     const url = 'f01/f01002fn1';
     let jsonObject: any = {};
@@ -75,7 +78,8 @@ export class Childscn16Component implements OnInit {
       //   this.fds = data.rspBody[0].fds
       // }
       sessionStorage.setItem('applno', id);
-      sessionStorage.setItem('cuid', nationalId);
+      sessionStorage.setItem('nationalId', this.nationalId);
+      sessionStorage.setItem('custId', this.custId);
       sessionStorage.setItem('search','Y');
       sessionStorage.setItem('queryDate', '');
       sessionStorage.setItem('winClose', 'Y');

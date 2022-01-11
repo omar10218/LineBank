@@ -26,7 +26,7 @@ export class Childscn22Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.stepName = sessionStorage.getItem('stepName');
   }
 

@@ -43,7 +43,7 @@ export class Childbwscn4page3Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
 
     this.currentPage = {
       pageIndex: 0,

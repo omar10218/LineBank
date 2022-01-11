@@ -96,7 +96,7 @@
           <!--序號-->
           <td nzLeft>{{i+1}}</td>
           <!--案件編號-->
-          <td nzLeft><button nz-button [nzSize]="'middle'" nzType="link" (click)="Detail(data.APPLNO,data.CUST_ID)">{{data.APPLNO}}</button></td>
+          <td nzLeft><button nz-button [nzSize]="'middle'" nzType="link" (click)="Detail(data.APPLNO,data.NATIONAL_ID, data.CUST_ID)">{{data.APPLNO}}</button></td>
           <!--身分證字號-->
           <td>{{data.NATIONAL_ID}}</td>
           <!--客戶ＩＤ-->

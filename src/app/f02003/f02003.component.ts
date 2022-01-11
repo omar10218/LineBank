@@ -208,10 +208,11 @@ export class F02003Component implements OnInit {
       }
     }
   }
-  Detail(id: string, nationalId: string)//明細
+  Detail(id: string, nationalId: string, custId: string)//明細
   {
     sessionStorage.setItem('applno', id);
-    sessionStorage.setItem('cuid', nationalId);
+    sessionStorage.setItem('nationalId', nationalId);
+    sessionStorage.setItem('custId', custId);
     sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('queryDate', '');
     sessionStorage.setItem('winClose', 'Y');

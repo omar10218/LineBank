@@ -160,7 +160,7 @@ export class Childscn5Component implements OnInit {
     });
     jsonObject['inducCode'] = this.cuLevel1CaValue + this.cuLevel2CaValue + this.jobCodeCaValue;
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.getCustomerInfo();
     this.yn = sessionStorage.getItem('page') == '2' ? true : false;
   }

@@ -61,7 +61,7 @@ export class Childscn9page1Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.search = sessionStorage.getItem('search');
     const url = 'f01/childscn9';
     const formdata: FormData = new FormData();
