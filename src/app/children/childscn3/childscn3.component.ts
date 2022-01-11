@@ -109,7 +109,14 @@ export class Childscn3Component implements OnInit {
     for (var i of this.data) {
       if (i.check == true) {
         if (i.child.length < 1) {
-          this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
+          if(i.reasonCode=='5')
+          {
+            this.l1.push({ announceReason1: i.reasonCode, announceReason2: this.remark })
+          }
+          else
+          {
+            this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
+          }
         }
         else {
           this.ss = [];
@@ -184,7 +191,8 @@ export class Childscn3Component implements OnInit {
     this.l1 = [];
     for (var i of this.data) {
       if (i.check == true) {
-        if (i.child.length < 1) {
+        if (i.child.length < 1)
+        {
           if(i.reasonCode=='5')
           {
             this.l1.push({ announceReason1: i.reasonCode, announceReason2: this.remark })
