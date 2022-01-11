@@ -53,7 +53,8 @@ export class Childscn3Component implements OnInit {
   s = 0;
   r: string;
   tes =0;
-  pag:string
+  pag:string;
+  remark:string;
   TeamArry: string[] = []; //初始判斷是否為空
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -170,8 +171,8 @@ export class Childscn3Component implements OnInit {
   }
 
   test() {
-    console.log( this.pag )
-    console.log(this.level1)
+    console.log( this.l1 )
+    console.log(this.ss)
     console.log(this.level1.length)
 
   }
@@ -184,7 +185,14 @@ export class Childscn3Component implements OnInit {
     for (var i of this.data) {
       if (i.check == true) {
         if (i.child.length < 1) {
-          this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
+          if(i.reasonCode=='5')
+          {
+            this.l1.push({ announceReason1: i.reasonCode, announceReason2: this.remark })
+          }
+          else
+          {
+            this.l1.push({ announceReason1: i.reasonCode, announceReason2: null })
+          }
         }
         else {
           this.ss = [];
@@ -233,12 +241,14 @@ export class Childscn3Component implements OnInit {
     jsonOb['applno'] = this.applno;
     // const applno = this.applno;
     this.childsc3Service.oneseve(url, jsonOb).subscribe(data => {
-
+      console.log(data)
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;
-      for (const item of data.rspBody.list) {
+      for (const item of data.rspBody.list)
+      {
         if (item.check == true) {
           this.TeamArry.push(item.check)
+          this.remark=item.announce2
         }
       }
       this.s = this.TeamArry.length;

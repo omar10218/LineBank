@@ -140,8 +140,6 @@
           <th>申請金額/額度</th>
           <th>核准金額/額度</th>
           <th>合約金額/額度</th>
-          <th>專案名稱</th>
-          <th>行銷代碼</th>
           <th>徵信員員編姓名</th>
           <th>授信員員編姓名</th>
           <th>授信覆核人員</th>
@@ -149,6 +147,8 @@
           <th>Fraud人員</th>
           <th>產生合約前回查人員</th>
           <th>產生合約前回查覆核</th>
+          <th>專案名稱</th>
+          <th>行銷代碼</th>
         </tr>
       </thead>
       <tbody>
@@ -173,7 +173,7 @@
           <!--公司名稱-->
           <td>{{ data.CU_CP_NAME }}</td>
           <!--審核結果-->
-          <td>{{ data.CREDIT_RESULT }}</td>
+          <td >{{ data.CREDIT_RESULT }}</td>
            <!--風險等級分群-->
            <td>{{ data.RISK_GRADE }}</td>
             <!--案件狀態-->
@@ -189,15 +189,11 @@
            <!--產品名稱-->
            <td>{{data.PROD_CODE}}</td>
             <!--申請金額/額度-->
-          <td>{{data.APPLICATION_AMOUNT != undefined? data_number(data.APPLICATION_AMOUNT):data.APPLICATION_AMOUNT}}</td>
+          <td style="text-align:right">{{data.APPLICATION_AMOUNT != undefined? data_number(data.APPLICATION_AMOUNT):data.APPLICATION_AMOUNT}}</td>
            <!--核准金額/額度-->
-           <td>{{data.APPROVE_AMT != undefined? data_number(data.APPROVE_AMT):data.APPROVE_AMT}}</td>
+           <td style="text-align:right">{{data.APPROVE_AMT != undefined? data_number(data.APPROVE_AMT):data.APPROVE_AMT}}</td>
              <!--合約金額/額度-->
-          <td></td>
-           <!--專案名稱-->
-           <td>{{data.PRJ_CODE}}</td>
-            <!--行銷代碼-->
-          <td></td>
+          <td style="text-align:right"></td>
           <!--徵信員姓名-->
           <td>{{ data.L3EMPNO }}</td>
           <!--授信員編-->
@@ -212,6 +208,10 @@
           <td>{{data.D2EMPNO}}</td>
           <!-- 產生合約前回查覆核 -->
           <td>{{data.D1EMPNO}}</td>
+            <!--專案名稱-->
+            <td>{{data.PRJ_CODE}}</td>
+            <!--行銷代碼-->
+          <td></td>
         </tr>
       </tbody>
     </nz-table>

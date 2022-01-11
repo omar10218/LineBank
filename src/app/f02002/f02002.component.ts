@@ -73,6 +73,7 @@ export class F02002Component implements OnInit {
       jsonObject['endDate'] = '';
     }
     this.f02002Service.f02002(baseUrl, jsonObject).subscribe(data => {
+      console.log(data)
       if (data.rspBody.size == 0) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }

@@ -294,7 +294,7 @@ export class Childscn19Component implements OnInit {
           data: { msgStr: data.rspMsg }
         });
         this.block = false;
-        this.router.navigate(['./F01001']);
+        this.router.navigate(['./F01002']);
         this.dialogRef.close();
 
       }
