@@ -69,6 +69,7 @@
           <th class="table-header">要求補件人員</th>
           <th class="table-header">補件原因</th>
           <th class="table-header">補件項目</th>
+          <th class="table-header">補件送出時間</th>
           <th class="table-header">要求補件日期時間</th>
           <th class="table-header">補回日期時間</th>
           <th class="table-header">通知</th>
@@ -92,8 +93,9 @@
           <td class="table-data">{{ data.RESCAN_EMPNO }}</td>
           <td class="table-data">{{ data.RESCAN_TYPE }}</td>
           <td class="table-data">{{ data.RESCAN_ITEM }}</td>
+          <td class="table-data"></td>
           <td class="table-data">{{ data.RESTART_DATE | date: 'yyyy-MM-dd hh:mm'}}</td>
-          <td class="table-data">{{ data.IMAGE_DATE }}</td>
+          <td class="table-data">{{ data.IMAGE_DATE |date:'yyyy-MM-dd hh:mm'}}</td>
           <td class="table-data">待處理</td>
         </tr>
       </tbody>
