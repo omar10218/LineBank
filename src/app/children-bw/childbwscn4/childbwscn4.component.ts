@@ -48,7 +48,7 @@ export class Childbwscn4Component implements OnInit {
 
   ngOnInit(): void {
       this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     const url = 'f01/childscn9';
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);

@@ -119,7 +119,7 @@ export class F01007Component implements OnInit {
   }
 
   // 案件子頁籤
-  getLockCase(swcApplno: string, swcNationalId: string) {
+  getLockCase(swcApplno: string, swcNationalId: string, swcCustId: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
@@ -129,13 +129,14 @@ export class F01007Component implements OnInit {
       }
       if (data.rspMsg == '案件鎖定成功') {
         sessionStorage.setItem('applno', swcApplno);
-        sessionStorage.setItem('cuid', swcNationalId);
+        sessionStorage.setItem('nationalId', swcNationalId);
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('stepName', this.stepName);
         // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
         sessionStorage.setItem('page','7');
+        sessionStorage.setItem('custId', swcCustId);
         this.router.navigate(['./F01007/F01007SCN1']);
       }
     });
@@ -172,7 +173,7 @@ export class F01007Component implements OnInit {
     this.pageIndex = 1;
     this.total = 1;
   }
-  
+
 // 千分號標點符號(form顯示用)
 data_number(p: number) {
   this.x = '';

@@ -123,7 +123,7 @@
                   </button>
                   <button nz-button [nzSize]="'middle'" nzType="link"
                     *ngIf="data.swcReadyForReview=='Y'||data.swcReadyForReview==''"
-                    (click)="getLockCase(data.swcApplno, data.swcNationalId)">
+                    (click)="getLockCase(data.swcApplno, data.swcNationalId, data.swcCustId)">
                     {{data.swcApplno}}
                   </button>
                 </td>

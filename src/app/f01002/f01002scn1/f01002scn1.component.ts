@@ -99,7 +99,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.fds = sessionStorage.getItem('fds');
     this.level = sessionStorage.getItem('level');
     this.page = sessionStorage.getItem('page');

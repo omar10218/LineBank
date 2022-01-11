@@ -27,7 +27,7 @@ export class Childscn18Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.swcID = sessionStorage.getItem('cuid');
+    this.swcID = sessionStorage.getItem('nationalId');
     this.custID = sessionStorage.getItem('custId');  //待確認
     this.empNo = localStorage.getItem("empNo");
   }

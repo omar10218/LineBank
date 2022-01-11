@@ -51,7 +51,7 @@ export class Childscn10Component implements OnInit {
   ngOnInit(): void {
     this.checkRskmdl();
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     // this.level = sessionStorage.getItem('level');
     // this.stepName = sessionStorage.getItem('stepName');
     this.page = sessionStorage.getItem('page');

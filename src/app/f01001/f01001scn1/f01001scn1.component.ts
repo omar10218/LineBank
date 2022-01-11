@@ -55,7 +55,7 @@ export class F01001scn1Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.fds = sessionStorage.getItem('fds');
     this.level = sessionStorage.getItem('level');
     this.winClose = sessionStorage.getItem('winClose');

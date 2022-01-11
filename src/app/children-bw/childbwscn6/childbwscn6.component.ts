@@ -62,9 +62,10 @@ export class Childbwscn6Component implements OnInit {
     this.initial(pageIndex, pageSize)
   }
 
-  detail(applno: string, nationalId: string) {
+  detail(applno: string, nationalId: string, custId: string) {
     sessionStorage.setItem('applno', applno);
-    sessionStorage.setItem('cuid', nationalId);
+    sessionStorage.setItem('nationalId', nationalId);
+    sessionStorage.setItem('custId', custId);
     sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('queryDate', '');
     sessionStorage.setItem('winClose', 'Y');

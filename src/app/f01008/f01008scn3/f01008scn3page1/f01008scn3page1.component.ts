@@ -48,12 +48,12 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
   hideBAM061 = false;
   hideKRM043 = false;
   hideBAM062 = false;
- 
+
   hideBAM032 = false;
   hideBAM033 = false;
   hideBAM034 = false;
   hideBAS010 = false;
-  
+
   hideSTM022 = false;
   hideSTM008 = false;
   hideSTM025 = false;
@@ -98,7 +98,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
   readonly JCICCode = JCICCode;
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     // this.queryDate = sessionStorage.getItem('queryDate');
 
     this.getQueryDate();
@@ -164,7 +164,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
     });
   }
 
-  
+
   setBooleanTrue() {
     this.hideJCICMASTER = true;
 
@@ -181,13 +181,13 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
 
   setBooleanFalse() {
     this.hideJCICMASTER = false;
-   
-   
+
+
     this.hideBAM032 = false;
     this.hideBAM033 = false;
     this.hideBAM034 = false;
     this.hideBAS010 = false;
-  
+
     this.hideSTM022 = false;
     this.hideSTM008 = false;
     this.hideSTM025 = false;
@@ -219,7 +219,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
   exist() {
     for (let index = 0; index < this.list.length; index++) {
       if (this.list[index] == "JCICMASTER") { this.hideJCICMASTER = !this.hideJCICMASTER; }
-     
+
       if (this.list[index] == "BAM501") { this.hideBAM501 = !this.hideBAM501; }
       if (this.list[index] == "BAM502") { this.hideBAM502 = !this.hideBAM502; }
       if (this.list[index] == "BAM504") { this.hideBAM504 = !this.hideBAM504; }
@@ -228,7 +228,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
       if (this.list[index] == "VAM106") { this.hideVAM106 = !this.hideVAM106; }
       if (this.list[index] == "VAM107") { this.hideVAM107 = !this.hideVAM107; }
       if (this.list[index] == "VAM108") { this.hideVAM108 = !this.hideVAM108; }
-    
+
     }
   }
 

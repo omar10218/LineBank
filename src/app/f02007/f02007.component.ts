@@ -145,7 +145,7 @@ export class F02007Component implements OnInit {
   }
 
 
-  Detail(id: string, nationalId: string,cuCname:string)//明細
+  Detail(id: string, nationalId: string,cuCname:string, custId: string)//明細
   {
     let jsonObject: any = {};
     jsonObject['applno'] = id;
@@ -156,7 +156,8 @@ export class F02007Component implements OnInit {
     this.f02007Service.postJson(apiurl, jsonObject).subscribe(data => {
       if (data.rspMsg == "success" && data.rspBody == "儲存成功!") {
         sessionStorage.setItem('applno', id);
-        sessionStorage.setItem('cuid', nationalId);
+        sessionStorage.setItem('nationalId', nationalId);
+        sessionStorage.setItem('custId', custId);
         sessionStorage.setItem('search', 'Y');
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('winClose', 'Y');

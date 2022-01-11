@@ -32,7 +32,7 @@ export class F01009scn1Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.fds = sessionStorage.getItem('fds');
     this.page = sessionStorage.getItem('page');
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;

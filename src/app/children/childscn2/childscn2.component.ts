@@ -37,7 +37,7 @@ export class Childscn2Component implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.fds = sessionStorage.getItem('fds');
     // const url = window.location.href.split("/");
     // this.router.navigate(['./'+url[4]+'/'+url[5]+'/CHILDSCN2/CHILDSCN2PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase , fds: this.fds } });

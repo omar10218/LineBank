@@ -27,7 +27,7 @@ export class JcictableComponent implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.tableData = this.childscn6Service.getTableData(this.code);
     this.getJCIC();
   }

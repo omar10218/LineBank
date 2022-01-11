@@ -124,7 +124,7 @@ export class F01012Component implements OnInit {
       }
       if (data.rspMsg == '案件鎖定成功') {
         sessionStorage.setItem('applno', swcApplno);
-        sessionStorage.setItem('cuid', swcNationalId);
+        sessionStorage.setItem('nationalId', swcNationalId);
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');

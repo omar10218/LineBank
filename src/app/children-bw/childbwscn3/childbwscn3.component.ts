@@ -365,7 +365,7 @@ hideJAS002= false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('cuid');
+    this.cuid = sessionStorage.getItem('nationalId');
     // this.queryDate = sessionStorage.getItem('queryDate');
     this.getJcicMultiple();
     this.setBooleanFalse();
