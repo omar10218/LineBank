@@ -76,6 +76,7 @@ export class Childscn11page3Component implements OnInit {
   mappingOption: MappingCode[];
   compare: Code[] = [];
   notFind: string;
+  loading:boolean=false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -87,11 +88,13 @@ export class Childscn11page3Component implements OnInit {
     jsonObject['applno'] = this.applno;;
     jsonObject['code'] = 'EL_HISTORY_COMPARE_SAMEID';
     this.childscn11Service.getCompare(jsonObject).subscribe(data => {
+      console.log(data)
       if ( data.rspBody.compare == 'not find') {
         this.notFind = "此案編查無比對資料";
       } else {
         this.mappingOption = data.rspBody.table;
         this.compare = data.rspBody.compare;
+        this.loading =true
       }
       // this.compare=dataList;
     });

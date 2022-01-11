@@ -1,9 +1,9 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
 
-  <div class="line_bank_card_no_padding">
-    <nz-table nzSize="small" nzTitle="歷史申請書比對 (同一NID)">
-      <ng-container *ngFor="let compareRow of compare;let i = index">
+  <div class="line_bank_card_no_padding" *ngIf="loading">
+    <nz-table nzSize="small" nzTitle="歷史申請書比對 (同一NID)" [nzData]="compare"  [nzFrontPagination]="false">
+      <ng-container>
         <tr>
           <th class="table-header-y" style="width:40%;">區塊</th>
           <th class="table-header-y" style="width:30%;">比對欄位</th>
@@ -15,35 +15,35 @@
         </tr>
         <tr>
           <th class="table-header-y">點選申請時GPS</th>
-          <td class="table-data">待確認 </td>
+          <td [ngClass]="compare[55].result === 'Y' ? 'table-data-text' : 'height'">{{compare[55].count}} </td>
         </tr>
         <tr>
           <th class="table-header-y">上傳收入文件後GPS</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[57].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[57].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">點選申請時IP Address</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[59].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[59].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">上傳收入文件後IP Address</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[0].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[0].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">點選申請時手機型號</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[61].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[61].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">上傳收入文件後手機型號</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[63 ].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[63].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">點選申請時Device ID</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[65].result === 'Y' ? 'table-data-text' : 'height'">{{compare[65].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">上傳收入文件後Device ID</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[67].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[67].count}}</td>
         </tr>
 
       </ng-container>
@@ -56,31 +56,31 @@
         </tr>
         <tr>
           <th class="table-header-y">Email</th>
-          <td class="table-data">待確認 </td>
+          <td [ngClass]="compare[3].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[3].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">行動電話</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[4].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[4].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">戶籍電話</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[6].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[6].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">通訊電話</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[8].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[8].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">戶籍地址</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[10].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[10].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">通訊地址</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[18].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[18].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">寄卡地址</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[26].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[26].count}}</td>
         </tr>
 
       </ng-container>
@@ -94,27 +94,27 @@
         </tr>
         <tr>
           <th class="table-header-y">公司名稱</th>
-          <td class="table-data">待確認 </td>
+          <td [ngClass]="compare[34].result === 'Y' ? 'table-data-text' : 'height'">{{compare[34].count}} </td>
         </tr>
         <tr>
           <th class="table-header-y">公司電話</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[35].result === 'Y' ? 'table-data-text' : 'height'">{{compare[35].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">公司地址</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[37].result === 'Y' ? 'table-data-text' : 'height'">{{compare[37].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">行職業代碼</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[45].result === 'Y' ? 'table-data-text' : 'height'">{{compare[45].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">行業別Level1</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[47].result === 'Y' ? 'table-data-text' : 'height'">{{compare[47].count}}</td>
         </tr>
         <tr>
           <th class="table-header-y">行業別Level2</th>
-          <td class="table-data">待確認</td>
+          <td [ngClass]="compare[49].result === 'Y' ? 'table-data-text' : 'height'">{{compare[49].count}}</td>
         </tr>
 
       </ng-container>
@@ -125,12 +125,149 @@
         </tr>
         <tr>
           <th class="table-header-y">教育程度</th>
-          <td class="table-data">待確認 </td>
+          <td [ngClass]="compare[53].result === 'Y' ? 'table-data-text' : 'height'">{{compare[53].count}}</td>
         </tr>
 
       </ng-container>
     </nz-table>
-    <!-- <div class="line_bank_form_header_title">歷史申請書比對(同一NID)</div>
+  </div>
+
+
+
+
+
+  <div class="line_bank_card_no_padding" *ngIf="!loading">
+    <nz-table nzSize="small" nzTitle="歷史申請書比對 (同一NID)" [nzData]="compare"  nzFrontPagination="false" >
+      <ng-container>
+        <tr>
+          <th class="table-header-y" style="width:40%;">區塊</th>
+          <th class="table-header-y" style="width:30%;">比對欄位</th>
+          <th class="table-header-y" style="width:30%;">比對結果</th>
+        </tr>
+        <!-- Channel資訊 -->
+        <tr>
+          <th class="table-header-x" rowspan="9">Channel資訊</th>
+        </tr>
+        <tr>
+          <th class="table-header-y">點選申請時GPS</th>
+          <td class="table-data"> </td>
+        </tr>
+        <tr>
+          <th class="table-header-y">上傳收入文件後GPS</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">點選申請時IP Address</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">上傳收入文件後IP Address</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">點選申請時手機型號</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">上傳收入文件後手機型號</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">點選申請時Device ID</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">上傳收入文件後Device ID</th>
+          <td class="table-data"></td>
+        </tr>
+
+      </ng-container>
+      <!-- 聯絡資訊 -->
+      <ng-container>
+
+
+        <tr>
+          <th class="table-header-x" rowspan="8">聯絡資訊</th>
+        </tr>
+        <tr>
+          <th class="table-header-y">Email</th>
+          <td class="table-data"> </td>
+        </tr>
+        <tr>
+          <th class="table-header-y">行動電話</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">戶籍電話</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">通訊電話</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">戶籍地址</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">通訊地址</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">寄卡地址</th>
+          <td class="table-data"></td>
+        </tr>
+
+      </ng-container>
+      <!-- 基本資料 -->
+
+      <!-- 任職資訊比對 -->
+      <ng-container>
+
+        <tr>
+          <th class="table-header-x" rowspan="7">任職資訊比對</th>
+        </tr>
+        <tr>
+          <th class="table-header-y">公司名稱</th>
+          <td class="table-data"> </td>
+        </tr>
+        <tr>
+          <th class="table-header-y">公司電話</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">公司地址</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">行職業代碼</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">行業別Level1</th>
+          <td class="table-data"></td>
+        </tr>
+        <tr>
+          <th class="table-header-y">行業別Level2</th>
+          <td class="table-data"></td>
+        </tr>
+
+      </ng-container>
+      <ng-container>
+
+        <tr>
+          <th class="table-header-x" rowspan="2">基本資料</th>
+        </tr>
+        <tr>
+          <th class="table-header-y">教育程度</th>
+          <td class="table-data"></td>
+        </tr>
+
+      </ng-container>
+    </nz-table>
+  </div>
+</div>
+<!-- <div class="line_bank_form_header_title">歷史申請書比對(同一NID)</div>
       <ng-container *ngFor="let compareRow of compare;let i = index">
         <div nz-row *ngIf="i==0">
           <div nz-col nzSpan="8" *ngIf="compare[i] !=null && compare[i].result == 'Y'; ">
@@ -203,9 +340,9 @@
         </div>
 
       </ng-container> -->
-  </div>
 
-  <!-- <th class="f01_th">歷史申請書比對(同一NID)</th>
+
+<!-- <th class="f01_th">歷史申請書比對(同一NID)</th>
   <ng-container *ngIf="compare.length == 0; else elseTemplate">
     <br><br>
     <th style="padding-left: 20px;color: red;">查無比對資料</th>
