@@ -47,6 +47,11 @@ export class F01001scn1Component implements OnInit {
   changeValue: boolean = true;
   block: boolean = false;
 
+  approveAmt: string;
+  lowestPayRate: string;
+  caPmcus: string;
+  caRisk: string;
+
   //歷史資料 20211222
   history: history[] = [];
   JCICSource$: Subscription;
@@ -55,7 +60,7 @@ export class F01001scn1Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
-    this.cuid = sessionStorage.getItem('nationalId');
+    this.cuid = sessionStorage.getItem('cuid');
     this.fds = sessionStorage.getItem('fds');
     this.level = sessionStorage.getItem('level');
     this.winClose = sessionStorage.getItem('winClose');
@@ -186,15 +191,26 @@ export class F01001scn1Component implements OnInit {
         jsonObject['applno'] = this.applno;
         jsonObject['level'] = 'L4';
         this.creditResult = sessionStorage.getItem('creditResult');
+        this.approveAmt = sessionStorage.getItem('resultApproveAmt');
+        this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');
+        this.caPmcus = sessionStorage.getItem('caPmcus');
+        this.caRisk = sessionStorage.getItem('caRisk');
         // if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
         //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
         //     data: { msgStr: '請填寫核決結果!' }
         //   });
         // } else {
         let count: number = Number(sessionStorage.getItem('count'));
-        let json: any = {};
-        json['creditResult'] = this.creditResult;
-        jsonObject['creditResult'] = json;
+
+        let jsoncreditResult: any = {};
+        jsoncreditResult['approveAmt'] = this.approveAmt;
+        jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
+        jsoncreditResult['caPmcus'] = this.caPmcus;
+        jsoncreditResult['caRisk'] = this.caRisk;
+        jsoncreditResult['creditResult'] = this.creditResult;
+
+        jsonObject['creditResult'] = jsoncreditResult;
+
         this.block = true;
         this.f01001Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
           //儲存歷史資料
