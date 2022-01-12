@@ -158,7 +158,7 @@
           <!--累計進件數-->
           <td nzLeft></td>
            <!--進件日期-->
-           <td nzLeft>{{ data.APPLY_TIME }}</td>
+           <td nzLeft>{{ data.APPLY_TIME | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
             <!--客群標籤-->
           <td nzLeft>{{ data.CUST_FLAG }}</td>
             <!--案件編號-->

@@ -114,7 +114,7 @@
           <!--系統狀態-->
           <td>{{data.OP_DESC}}</td>
           <!--進件日期時間-->
-          <td>{{data.START_TIME}}</td>
+          <td>{{data.START_TIME | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
           <!--核決日期-->
           <td>{{data.CREDIT_TIME}}</td>
           <!--符合貸後異常名單-->

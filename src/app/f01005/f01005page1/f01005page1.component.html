@@ -57,7 +57,7 @@
                 <th class="table-header" [nzWidth]="'60px'" nzLeft>No</th>
                 <th class="table-header" [nzWidth]="'90px'" nzLeft>案件類別</th>
                 <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcApplyNum')" [nzSortFn]="false" [nzWidth]="'80px'" nzLeft>累進</th>
-                <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcZ21PassDate')" [nzWidth]="'100px'" [nzSortFn]="true"
+                <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcZ21PassDate')" [nzWidth]="'120px'" [nzSortFn]="true"
                   [nzSortOrder]="sort" nzLeft>進件日期時間</th>
                 <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcCustTag')" [nzSortFn]="false" [nzWidth]="'100px'" nzLeft>客群標籤</th>
                 <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcApplno')" [nzSortFn]="false" [nzWidth]="'160px'" nzLeft>案件編號</th>
@@ -82,7 +82,7 @@
                   <td class="table-data" nzLeft>{{ getOptionCaseType(data.swcFlowType) }}</td>
                 </ng-template>
                 <td class="table-data" nzLeft>{{ data.swcApplyNum }}</td>
-                <td class="table-data" nzWidth="'70px'" nzLeft>{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}</td>
+                <td class="table-data" nzWidth="'70px'" nzLeft>{{ data.swcZ21PassDate |date: 'yyyy-MM-dd HH:mm:ss' }}</td>
                 <td class="table-data" nzLeft>{{ data.swcCustTag }}</td>
                 <td class="table-data" nzLeft>
                   <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='N'"
@@ -99,8 +99,8 @@
                 <td class="table-data">{{ data.swcRiskGrade }}</td>
                 <td class="table-data">{{ data.swcNationalId }}</td>
                 <td class="table-data">{{ data.swcCustId }}</td>
-                <td class="table-data">{{ data.swcName }}</td>
-                <td class="table-data">{{ data.swcCompany }}</td>
+                <td class="table-data" style="text-align:left;" >{{ data.swcName }}</td>
+                <td class="table-data" style="text-align:left;" >{{ data.swcCompany }}</td>
                 <td class="table-data" style="text-align: right;">{{ data.swcApplyAmount != undefined? data_number(
                   data.swcApplyAmount): data.swcApplyAmount }}</td>
                 <td class="table-data">{{ data.swcResult }}</td>
@@ -111,7 +111,7 @@
                     (click)="openNotifyMsg(data.swcApplno)" nzType="primary">通知</button>
                 </td>
                 <td class="table-data" nzRight style="text-align: center;">
-                  <input matInput id="input" class="form-control" [(ngModel)]="data.swcCaseMemo" name="note"
+                  <input matInput id="input" style="text-align:left;"  class="form-control" [(ngModel)]="data.swcCaseMemo" name="note"
                     placeholder="請輸入註記" required>
                 </td>
                 <td class="table-data btn_test" nzRight style="text-align: center;">
