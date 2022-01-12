@@ -60,7 +60,7 @@
   </span>
 
   <!-- Channel資訊 -->
-  <div class="line_bank_card_no_padding_child" style="width:95%;margin:110px auto 0 auto">
+  <div class="line_bank_card_no_padding_child" style="width:95%;margin:110px auto 0 auto" *ngIf="page!='07'">
     <div class="line_bank_form_header_title">Channel資訊</div>
     <div nz-row style="padding:5px">
       <div nz-col nzFlex="1">
@@ -118,7 +118,7 @@
   </div>
 
   <!-- AML/FDS/CSS/RPM -->
-  <div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
+  <div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto" *ngIf="page!='07'">
     <div class="line_bank_form_header_title">AML/FDS/CSS/RPM資訊(最新一筆)</div>
     <div nz-row style="padding:5px">
       <div nz-col nzFlex="1">
@@ -179,7 +179,7 @@
   </div>
 
   <!-- DSS決策結果 -->
-  <div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
+  <div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto" *ngIf="page!='07'">
     <div class="line_bank_form_header_title">DSS決策結果</div>
 
     <div class="EL_DSS_form_header_title2">決策階段-DSS1st</div>
