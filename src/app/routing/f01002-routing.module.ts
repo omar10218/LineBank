@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { F01002Component } from '../f01002/f01002.component';
 import { F01002scn1Component } from '../f01002/f01002scn1/f01002scn1.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { F01002scn2Component } from '../f01002/f01002scn2/f01002scn2.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,19 @@ const routes: Routes = [
         //canActivate: [AuthGuard], // 守衛路由
       }
     ]
-  }
+  },
+  {
+    path: 'F01002SCN2',
+    component: F01002scn2Component,
+    // canActivate: [AuthGuard], // 守衛路由
+    children: [
+      {
+        path: '',
+        loadChildren: () => import ('../children/children.module').then(m => m.ChildrenModule),
+        //canActivate: [AuthGuard], // 守衛路由
+      }
+    ]
+  },
 ];
 
 @NgModule({

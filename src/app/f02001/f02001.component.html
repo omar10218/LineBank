@@ -116,39 +116,39 @@
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{quantity}}件)</div>
     <nz-table nzShowSizeChanger [nzData]="resultData" [nzFrontPagination]="false" [nzSimple]="true"
-      [nzScroll]="{ x: '4300px', y: '400px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
+      [nzScroll]="{ x: '4000px', y: '400px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
       [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" >
       <thead >
         <tr>
-          <th nzLeft >序號</th>
-          <th nzLeft>累進</th>
-          <th nzLeft (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true" [nzSortDirections]="sortArry">進件日期時間</th>
-          <th nzLeft>客群標籤</th>
-          <th nzLeft (nzSortOrderChange)="Serial($event)" [nzSortFn]="true"  [nzSortDirections]="sortArry">案件編號</th>
-          <th>身分證字號</th>
-          <th>客戶ID</th>
-          <th>客戶姓名</th>
-          <th>公司名稱</th>
-          <th>審核結果</th>
-          <th>等級gp</th>
-          <th>案件狀態</th>
-          <th>系統狀態</th>
-          <th>上傳財力日期時間</th>
-          <th>准駁日期時間</th>
-          <th>簽約日期時間</th>
-          <th>產品名稱</th>
-          <th>申請金額/額度</th>
-          <th>核准金額/額度</th>
-          <th>合約金額/額度</th>
-          <th>徵信員員編姓名</th>
-          <th>授信員員編姓名</th>
-          <th>授信覆核人員</th>
-          <th>主管人員</th>
-          <th>Fraud人員</th>
-          <th>產生合約前回查人員</th>
-          <th>產生合約前回查覆核</th>
-          <th>專案名稱</th>
-          <th>行銷代碼</th>
+          <th nzLeft nzWidth="80px">序號</th>
+          <th nzLeft nzWidth="100px">累進</th>
+          <th nzLeft nzWidth="130px" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true" [nzSortDirections]="sortArry">進件日期時間</th>
+          <th nzLeft nzWidth="110px">客群標籤</th>
+          <th nzLeft nzWidth="150px"(nzSortOrderChange)="Serial($event)" [nzSortFn]="true"  [nzSortDirections]="sortArry">案件編號</th>
+          <th nzWidth="110px">身分證字號</th>
+          <th nzWidth="110px">客戶ID</th>
+          <th nzWidth="110px">客戶姓名</th>
+          <th nzWidth="110px">公司名稱</th>
+          <th nzWidth="110px">審核結果</th>
+          <th nzWidth="110px">等級gp</th>
+          <th nzWidth="150px">案件狀態</th>
+          <th nzWidth="150px">系統狀態</th>
+          <th nzWidth="150px">上傳財力日期時間</th>
+          <th nzWidth="130px">准駁日期時間</th>
+          <th nzWidth="130px">簽約日期時間</th>
+          <th nzWidth="150px">產品名稱</th>
+          <th nzWidth="120px">申請金額/額度</th>
+          <th nzWidth="120px">核准金額/額度</th>
+          <th nzWidth="120px">合約金額/額度</th>
+          <th nzWidth="130px">徵信員員編姓名</th>
+          <th nzWidth="130px">授信員員編姓名</th>
+          <th nzWidth="130px">授信覆核人員</th>
+          <th nzWidth="130px">主管人員</th>
+          <th nzWidth="130px">Fraud人員</th>
+          <th nzWidth="160px">產生合約前回查人員</th>
+          <th nzWidth="160px">產生合約前回查覆核</th>
+          <th nzWidth="150px">專案名稱</th>
+          <th nzWidth="150px">行銷代碼</th>
         </tr>
       </thead>
       <tbody>

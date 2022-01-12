@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Childscn19Component } from './../../children/childscn19/childscn19.component';
+import { Childscn27Component } from './../../children/childscn27/childscn27.component';
+import { Childscn28Component } from './../../children/childscn28/childscn28.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
-import { Childscn22Component } from 'src/app/children/childscn22/childscn22.component';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Childscn18Component } from 'src/app/children/childscn18/childscn18.component';
+import { Router } from '@angular/router';
+import { Childscn20Component } from 'src/app/children/childscn20/childscn20.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
-import { F01003Scn1Service } from './f01003scn1.service';
+import { F01002Scn2Service } from './f01002scn2.service';
+import { Childscn22Component } from 'src/app/children/childscn22/childscn22.component';
 import { Childscn24Component } from 'src/app/children/childscn24/childscn24.component';
+import { F01001Scn1Service } from 'src/app/f01001/f01001scn1/f01001scn1.service';
+import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
 import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 import { history } from './../../interface/base';
-import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
-import { Subscription } from 'rxjs';
 interface interestPeriod {
   id?: string,
   period: string,
@@ -20,34 +25,54 @@ interface interestPeriod {
   interest: string
   interestBase: string
 }
-
 @Component({
-  selector: 'app-f01003scn1',
-  templateUrl: './f01003scn1.component.html',
-  styleUrls: ['./f01003scn1.component.css', '../../../assets/css/f01.css']
+  selector: 'app-f01002scn2',
+  templateUrl: './f01002scn2.component.html',
+  styleUrls: ['./f01002scn2.component.css', '../../../assets/css/f01.css']
 })
-export class F01003scn1Component implements OnInit {
+export class F01002scn2Component implements OnInit {
+
   constructor(
     public dialog: MatDialog,
-    private route: ActivatedRoute,
     private router: Router,
-    private f01003Scn1Service: F01003Scn1Service,
+    private f01002scn2Service: F01002Scn2Service,
     private childscn1Service: Childscn1Service,
-    private f01002Scn1Service: F01002Scn1Service
   ) {
-    this.JCICSource$ = this.f01003Scn1Service.HISTORYSource$.subscribe((data) => {
+    this.JCICAddSource$ = this.f01002scn2Service.JCICAddSource$.subscribe((data) => {
+      this.addData = data;
+      this.isShowAdd = data.show;
+    });
+    this.JCICSource$ = this.f01002scn2Service.JCICSource$.subscribe((data) => {
+      this.editData = data;
+      this.isShowEdit = data.show;
+    });
+    this.JCICSource$ = this.f01002scn2Service.JCICItemsSource$.subscribe((data) => {
+      this.isShowItems = data.show;
+    });
+    this.JCICSource$ = this.f01002scn2Service.HISTORYSource$.subscribe((data) => {
       this.historyData = data;
     });
   }
-
-  private creditLevel: string = 'APPLCreditL2';
+  private creditLevel: string = 'APPLCreditL3';
   private applno: string;
   private search: string;
   private cuid: string;
-  fds: string;
+  private routerCase: string;
+  fds: string
   private winClose: string = '';
-  private page: string;
+  private page: string;//判斷哪一頁進入用
 
+  addData: any;
+  editData: any;
+  isShowAdd: boolean;
+  isShowEdit: boolean;
+  isShowItems: boolean;
+  JCICSource$: Subscription;
+  JCICAddSource$: Subscription;
+
+  historyData: any;
+
+  creditResult: string;
   level: string;
   creditMemo: string;
   approveAmt: string;
@@ -55,7 +80,6 @@ export class F01003scn1Component implements OnInit {
   approveInterest: string;
   interest: string;
   interestType: string;
-  creditResult: string;
   period: string;
   periodType: string;
   interestBase: string;
@@ -67,10 +91,8 @@ export class F01003scn1Component implements OnInit {
   changeValue: boolean = true;
   block: boolean = false;
 
-  //歷史資料 20211222
+  //歷史資料陣列 20211222
   history: history[] = [];
-  JCICSource$: Subscription;
-  historyData: any;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -79,30 +101,24 @@ export class F01003scn1Component implements OnInit {
     this.fds = sessionStorage.getItem('fds');
     this.level = sessionStorage.getItem('level');
     this.page = sessionStorage.getItem('page');
+    this.winClose = sessionStorage.getItem('winClose');
+
+   
+  }
+  test() {
+    this.block = true;
   }
 
-  ngAfterViewInit() {
-    let element: HTMLElement = document.getElementById('firstBtn') as HTMLElement;
-    element.click();
+  ngOnDestroy() {
+    this.JCICSource$.unsubscribe();
+    this.JCICAddSource$.unsubscribe();
   }
 
-  getSearch(): string {
-    return this.search;
-  }
+ 
 
-  getWinClose(): String {
-    return this.winClose;
-  }
-
-  getLevel(): string {
-    return this.creditLevel;
-  }
-
-  recalculate() {
-    const dialogRef = this.dialog.open(Childscn22Component, {
+  blockList() {
+    const dialogRef = this.dialog.open(Childscn20Component, {
       panelClass: 'mat-dialog-transparent',
-      minHeight: '50%',
-      width: '30%',
       data: {
         applno: this.applno,
         cuid: this.cuid
@@ -110,8 +126,49 @@ export class F01003scn1Component implements OnInit {
     });
   }
 
+  getSearch(): String {
+    return this.search;
+  }
+
+  getWinClose(): String {
+    return this.winClose;
+  }
+
+  leave() {
+    // this.router.navigate(['./F02002']);
+    window.close();
+  }
+
+  //Nick 徵審代碼/AML邏輯
   save(url: string, result: string) {
+    //AML檢核
+    var msgSave: boolean = true;
+    if (sessionStorage.getItem('PURPOSEOTHER_MESSAGE2') == "Z" && sessionStorage.getItem('otherMessage2') == "") { msgSave = false };
+    if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "Z" && sessionStorage.getItem('otherMessage3') == "") { msgSave = false };
+    if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "Z" && sessionStorage.getItem('otherMessage4') == "") { msgSave = false };
+    if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "Z" && sessionStorage.getItem('otherMessage5') == "") { msgSave = false };
+    if (!msgSave) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "提供AML資訊點選其他時，輸入框為必填!" }
+      });
+      return;
+    }
+    //AML檢核
+    var save: boolean = true;
+    if (sessionStorage.getItem('MAIN_INCOME') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('PURPOSEOTHER_MESSAGE2') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (!save) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "徵信完成時AML資訊為必填!" }
+      });
+      return;
+    }
+
     const dialogRef = this.dialog.open(Childscn26Component, {
+      panelClass: 'mat-dialog-transparent',
       minHeight: '50%',
       width: '30%',
       data: {
@@ -120,11 +177,12 @@ export class F01003scn1Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result.value == 'confirm') {
-        this.f01002Scn1Service.setCREDITSource({ key: true });
+        this.saveSUPPLY_AML();
+        this.f01002scn2Service.setCREDITSource({ key: true });
         const baseUrl = url;
         let jsonObject: any = {};
         jsonObject['applno'] = this.applno;
-        jsonObject['level'] = 'L2';
+        jsonObject['level'] = 'L3';
 
         this.approveAmt = sessionStorage.getItem('resultApproveAmt');
         this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');
@@ -149,12 +207,11 @@ export class F01003scn1Component implements OnInit {
         jsoncreditResult['creditResult'] = this.creditResult;
 
         // let jsonCreditInterestPeriod: any = {};
-        //20211229新增多階利率陣列
         let creditInterestPeriodArray: interestPeriod[] = [];
         let count: number = Number(sessionStorage.getItem('count'));
 
         //多階利率存放陣列
-        for (let index = 1; index <= count; index++) {
+        for (let index = 1; index <= Number(count); index++) {
           creditInterestPeriodArray.push(
             {
               id: sessionStorage.getItem('id' + index),
@@ -186,104 +243,44 @@ export class F01003scn1Component implements OnInit {
         jsonObject['creditInterestPeriodArray'] = creditInterestPeriodArray;
         jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
 
-        if (url == 'f01/childscn0action1') {
-          this.result(baseUrl, jsonObject, result, count);
-        } else {
+        if (baseUrl != 'f01/childscn0action1') {
           if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: '請填寫核決結果!' }
             });
+            return;
           } else {
-            if (this.creditResult == 'A') {
-              if (this.approveAmt == '' || this.approveAmt == null) {
-                const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                  data: { msgStr: '核准額度未填寫' }
-                });
-                return;
-              } else if (this.lowestPayRate == '' || this.lowestPayRate == null) {
-                const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                  data: { msgStr: '每月最低還款比率未填寫' }
-                });
-                return;
-              } else if (true) {
-                if (count == 0) {
-                  const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                    data: { msgStr: '多階利率無資料' }
-                  });
-                  return;
-                }
-                for (let index = 1; index <= count; index++) {
-                  if (creditInterestPeriodArray[index - 1].approveInterest == '' || creditInterestPeriodArray[index - 1].approveInterest == null) {
-                    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                      data: { msgStr: '序號' + index + ',核准利率未填寫' }
-                    });
-                    return;
-                  } else if (creditInterestPeriodArray[index - 1].interest == '' || creditInterestPeriodArray[index - 1].interest == null) {
-                    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                      data: { msgStr: '序號' + index + ',利率未填寫' }
-                    });
-                    return;
-                  } else if (creditInterestPeriodArray[index - 1].interestType == '' || creditInterestPeriodArray[index - 1].interestType == null) {
-                    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                      data: { msgStr: '序號' + index + ',利率型態未填寫' }
-                    });
-                    return;
-                  } else if (creditInterestPeriodArray[index - 1].period == '' || creditInterestPeriodArray[index - 1].period == null) {
-                    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                      data: { msgStr: '序號' + index + ',期數未填寫' }
-                    });
-                    return;
-                  } else if (creditInterestPeriodArray[index - 1].periodType == '' || creditInterestPeriodArray[index - 1].periodType == null) {
-                    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                      data: { msgStr: '序號' + index + ',期別未填寫' }
-                    });
-                    return;
-                  }
-                }
-                this.result(baseUrl, jsonObject, result, count);
-              }
-              // else if (this.mark == '' || this.mark == null) {
-              //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
-              //     data: { msgStr: '審核註記未填寫' }
-              //   });
-              //   return;
-              // }
-              // else {
-              //   this.result(baseUrl, jsonObject, result, count);
-              // }
-            } else {
-              this.result(baseUrl, jsonObject, result, count);
-            }
-            // this.result(baseUrl, jsonObject, result, count);
+            this.result(baseUrl, jsonObject, result, count);
           }
+        } else {
+          this.result(baseUrl, jsonObject, result, count);
         }
+        // setTimeout(() => {
+        // this.block = false;
+        // }, 2000);
       }
     });
   }
 
+  saveResult(url: string, json: JSON): string {
+    return this.f01002scn2Service.saveOrEditMsgJson(url, json);
+  }
+
   result(baseUrl: string, jsonObject: JSON, result: string, count: number) {
     this.block = true;
-    this.f01003Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
+    this.f01002scn2Service.send(baseUrl, jsonObject).subscribe(async data => {
       //儲存歷史資料
       // if (count > 0) {
-        this.setHistory(count);
+      this.setHistory(count);
       // }
-      await this.childscn1Service.setHistory(this.history, "授信案件完成", this.applno);
-      let childernDialogRef: any;
-      if (data.rspMsg != null && data.rspMsg != '') {
-        childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: data.rspMsg }
-        });
-      }
+      await this.childscn1Service.setHistory(this.history, "徵信案件完成", this.applno);
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: data.rspMsg }
+      });
       if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { } else {
-        setTimeout(() => {
-          childernDialogRef.close();
-        }, 1000);
         // this.saveMemo();
         this.removeSession(count);
-        setTimeout(() => {
-          this.router.navigate(['./F01003']);
-        }, 1500);
+        this.router.navigate(['./F01002']);
       }
       this.block = false;
     });
@@ -307,24 +304,8 @@ export class F01003scn1Component implements OnInit {
     sessionStorage.removeItem("caRisk");
     sessionStorage.removeItem("mark");
   }
-  // 退件
-  sendBack() {
-    const dialogRef = this.dialog.open(Childscn24Component, {
-      panelClass: 'mat-dialog-transparent',
-      minHeight: '50%',
-      width: '30%',
-      data: {
-        applno: this.applno,
-        level: sessionStorage.getItem('level'),
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success') {
-        this.router.navigate(['./F01003']);
-      }
-    });
-  }
-  // //儲存
+
+  //儲存
   // public async saveMemo(): Promise<void> {
   //   // this.removeSession();
   //   let msgStr: string = "";
@@ -348,6 +329,7 @@ export class F01003scn1Component implements OnInit {
 
   //設定歷史資料紀錄參數 20211222
   setHistory(count: number) {
+    this.history = [];
     if (count > 0) {
       for (let index = 1; index <= count; index++) {
         this.history.push({ value: sessionStorage.getItem('period' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].period }); //分段起始期數
@@ -361,10 +343,10 @@ export class F01003scn1Component implements OnInit {
     this.history.push({ value: this.approveAmt, tableName: 'EL_CREDITMAIN', valueInfo: 'APPROVE_AMT', originalValue: this.historyData.approveAmt }); //核准額度
     this.history.push({ value: this.lowestPayRate, tableName: 'EL_CREDITMAIN', valueInfo: 'LOWEST_PAY_RATE', originalValue: this.historyData.lowestPayRate }); //最低還款比例(循環型)
     this.history.push({ value: this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT', originalValue: this.historyData.creditResult }); //核決結果
-    // this.history.push({value:  this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT'}); //徵信修改申貸金額
+    this.history.push({ value: this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT', originalValue: this.historyData.caApplicationAmount }); //徵信修改申貸金額
     this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS', originalValue: this.historyData.caPmcus }); //人員記錄-PM策略客群
     this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK', originalValue: this.historyData.caRisk }); //人員記錄-風險等級
-    // this.history.push({value:  this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION'}); //審核意見
+    // this.history.push({ value: this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION' }); //審核意見
 
     let newHistory: interestPeriod[] = [];
     for (let index = 1; index <= count; index++) {
@@ -380,7 +362,7 @@ export class F01003scn1Component implements OnInit {
       );
     }
 
-    this.f01003Scn1Service.setHistorySource({
+    this.f01002scn2Service.setHistorySource({
       creditResult: this.creditResult,
       lowestPayRate: this.lowestPayRate,
       approveAmt: this.approveAmt,
@@ -389,5 +371,38 @@ export class F01003scn1Component implements OnInit {
       caRisk: this.caRisk,
       CreditInterestPeriodSource: newHistory
     })
+  }
+
+  //儲存 SUPPLY_AML
+  saveSUPPLY_AML() {
+    var save: boolean = true;
+    if (sessionStorage.getItem('PURPOSEOTHER_MESSAGE2') == "Z" && sessionStorage.getItem('otherMessage2') == "") { save = false };
+    if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "Z" && sessionStorage.getItem('otherMessage3') == "") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "Z" && sessionStorage.getItem('otherMessage4') == "") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "Z" && sessionStorage.getItem('otherMessage5') == "") { save = false };
+    if (save) {
+      const url = 'f01/childscn1action7';
+      let jsonObject: any = {};
+      jsonObject['applno'] = this.applno;
+      jsonObject['mainIncome'] = sessionStorage.getItem('MAIN_INCOME');
+      jsonObject['purpose'] = sessionStorage.getItem('PURPOSEOTHER_MESSAGE2');
+      jsonObject['otherMessage2'] = sessionStorage.getItem('otherMessage2');
+      jsonObject['nonTrade'] = sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3');
+      jsonObject['otherMessage3'] = sessionStorage.getItem('otherMessage3');
+      jsonObject['tradeNonCc'] = sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4');
+      jsonObject['otherMessage4'] = sessionStorage.getItem('otherMessage4');
+      jsonObject['tradeNonPurpose'] = sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5');
+      jsonObject['otherMessage5'] = sessionStorage.getItem('otherMessage5');
+      console.log('jsonObject')
+      console.log(jsonObject)
+      this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
+        console.log('data');
+        console.log(data);
+      });
+    } else {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "提供AML資訊點選其他時，輸入框為必填!" }
+      });
+    }
   }
 }
