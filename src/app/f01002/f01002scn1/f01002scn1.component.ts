@@ -104,6 +104,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     this.level = sessionStorage.getItem('level');
     this.page = sessionStorage.getItem('page');
     this.winClose = sessionStorage.getItem('winClose');
+
   }
 
   ngAfterViewInit() {

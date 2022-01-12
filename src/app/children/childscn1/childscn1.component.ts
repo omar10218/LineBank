@@ -332,6 +332,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     this.search = sessionStorage.getItem('search');
     this.userId = localStorage.getItem("empNo");
     this.page = sessionStorage.getItem("page");
+    console.log(sessionStorage.getItem("page"))
     this.level = sessionStorage.getItem('stepName').split('t')[1];
 
     //先建立徵審代碼框架
