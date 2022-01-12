@@ -71,9 +71,14 @@ export class F01008scn2Component implements OnInit {
   lv:string;
   sortArry=['ascend', 'descend']
   quota:string;//額度
+  repayment:string;//還款
+  CreditInterestPeriodSource: Data[] = [];//多階利率
    //判斷是否更新表單
    JCICSource$: Subscription;
   creditResultCode: OptionsCode[] = [];//核決結果下拉選單
+  periodTypeCode: OptionsCode[] = [];//期別下拉選單
+  interestTypeCode: OptionsCode[] = [];//利率型態下拉選單
+  interestCode: OptionsCode[] = [];//基準利率型態下拉選單
   creditResult: string ='';
   ResultCode: OptionsCode[] = [];//審核結果下拉選單
   resulet :string = '';
@@ -191,16 +196,41 @@ export class F01008scn2Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['page'] = this.page;
     jsonObject['pei_page'] = this.pei_page;
-    console.log("123")
-    console.log(jsonObject);
+    this.f01008Service.getSysTypeCode('PERIOD_TYPE')//期別下拉選單
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.periodTypeCode.push({ value: codeNo, viewValue: desc })
+        }
+        // this.periodType = '1';
+      });
+      this.f01008Service.getSysTypeCode('INTEREST_TYPE')//利率型態下拉選單
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.interestTypeCode.push({ value: codeNo, viewValue: desc })
+        }
+      });
+      this.f01008Service.getSysTypeCode('INTEREST_CODE')//基準利率型態下拉選單
+      .subscribe(data => {
+        for (const jsonObj of data.rspBody.mappingList) {
+          const codeNo = jsonObj.codeNo;
+          const desc = jsonObj.codeDesc;
+          this.interestCode.push({ value: codeNo, viewValue: desc })
+        }
+      });
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
       console.log(data)
-      if (data.rspBody.list != null) {
+      if (data.rspBody.list != null)
+      {
         this.dataSource = data.rspBody.list;
       }
       this.contractArry = data.rspBody.CfmContractRcdList;
       this.macrSource = data.rspBody.creditmemoList;
       this.jaicSource = data.rspBody.creditMainList;
+      this.CreditInterestPeriodSource = data.rspBody.creditInterestPeriodList;
       for(const j of data.rspBody.creditMainList)
       {
         sessionStorage.setItem('afterResult',j.afterResult);
@@ -210,6 +240,7 @@ export class F01008scn2Component implements OnInit {
           this.resulet = j.afterResult;
         }
         this.quota = j.approveAmt;
+        this.repayment =j.lowestPayRate;
         this.creditResult = j.creditResult;
         if( j.researchNum != null)
         {
@@ -227,6 +258,14 @@ export class F01008scn2Component implements OnInit {
       }
       for (const js of data.rspBody.telCondition) {
         this.cONDITION.push({ value: js.codeNo, viewValue: js.codeDesc })
+      }
+      for(const ii of data.rspBody.creditmemoList)
+      {
+        if(ii.CREDITLEVEL ==this.lv)
+        {
+          this.ma = ii.CREDITACTION;
+        }
+
       }
 
     })
@@ -278,7 +317,7 @@ export class F01008scn2Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['userId'] = this.empNo;
     jsonObject['creditaction'] = this.ma;
-    jsonObject['creditlevel'] = 'L2';
+    jsonObject['creditlevel'] = this.lv;
     this.block = true;
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
       if (data.rspCode === '0000' || data.rspMsg === '儲存成功') {
@@ -334,5 +373,12 @@ export class F01008scn2Component implements OnInit {
   transDate(value: string): string{
     console.log(this.datepipe.transform(new Date(value), "yyyy-MM-dd "))
     return this.datepipe.transform(new Date(value), "yyyy-MM-dd ");
+  }
+  change(value: any, valueName: string, index: string) {
+    if (index != '') {
+      sessionStorage.setItem(valueName + index, value);
+    } else {
+      sessionStorage.setItem(valueName, value);
+    }
   }
 }
