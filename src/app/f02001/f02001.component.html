@@ -116,7 +116,7 @@
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{quantity}}件)</div>
     <nz-table nzShowSizeChanger [nzData]="resultData" [nzFrontPagination]="false" [nzSimple]="true"
-      [nzScroll]="{ x: '4300px', y: '400px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
+      [nzScroll]="{ x: '4000px', y: '400px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
       [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" >
       <thead >
         <tr>
@@ -134,12 +134,12 @@
           <th nzWidth="150px">案件狀態</th>
           <th nzWidth="150px">系統狀態</th>
           <th nzWidth="150px">上傳財力日期時間</th>
-          <th nzWidth="150px">准駁日期時間</th>
-          <th nzWidth="150px">簽約日期時間</th>
+          <th nzWidth="130px">准駁日期時間</th>
+          <th nzWidth="130px">簽約日期時間</th>
           <th nzWidth="150px">產品名稱</th>
-          <th nzWidth="150px">申請金額/額度</th>
-          <th nzWidth="150px">核准金額/額度</th>
-          <th nzWidth="150px">合約金額/額度</th>
+          <th nzWidth="120px">申請金額/額度</th>
+          <th nzWidth="120px">核准金額/額度</th>
+          <th nzWidth="120px">合約金額/額度</th>
           <th nzWidth="130px">徵信員員編姓名</th>
           <th nzWidth="130px">授信員員編姓名</th>
           <th nzWidth="130px">授信覆核人員</th>
