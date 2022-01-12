@@ -2,7 +2,7 @@
 <div class="line_bank_bankground_color" style="min-height: 100vh;">
   <div style="padding-left: 20px; padding-top: 30px;">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()">新增</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="add()" *ngIf="lv=='D2'">新增</button>&nbsp;&nbsp;&nbsp;&nbsp;
   </div>
 
   <div class="line_bank_card_no_padding">
@@ -34,16 +34,16 @@
           <td class="table-data">{{data.CALLOUT_DATE|date:"yyyy-MM-dd HH:mm"}}</td>
           <td class="table-data">{{data.CALLOUT_EMPNO}}</td>
           <td class="table-data" style="text-align: center;">
-            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'small'" nzType="primary"
+            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'small'" nzType="border-radius: 5px;" disabled ="lv==D2"
               (click)="startEdit(data.ID,data.CON_TYPE,data.CON_MEMO,data.PHONE,data.TEL_CONDITION,data.CALLOUT_SETTIME,data.CALLOUT_DATE)">編輯</button>
 
-            <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'small'" nzType="primary"
+            <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'small'" nzType="border-radius: 5px;" disabled ="lv==D2"
               (click)="startEdit(data.ID,data.CON_TYPE,data.CON_MEMO,data.PHONE,data.TEL_CONDITION,data.CALLOUT_SETTIME,data.CALLOUT_DATE)">編輯</button>
           </td>
           <td class="table-data" style="text-align: center;">
-            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'small'" style="border-radius: 5px;" nzDanger
+            <button *ngIf="getSearch() == 'N'" nz-button [nzSize]="'small'" style="border-radius: 5px;" nzDanger disabled ="lv==D2"
               (click)="deleteItem(data.ID,data.CON_TYPE,data.CON_MEMO,data.PHONE,data.TEL_CONDITION,data.CALLOUT_SETTIME,data.CALLOUT_DATE)">刪除</button>
-            <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'small'" style="border-radius: 5px;"
+            <button *ngIf="getSearch() != 'N'" nz-button [nzSize]="'small'" style="border-radius: 5px;" disabled ="lv==D2"
               (click)="deleteItem(ddata.ID,data.CON_TYPE,data.CON_MEMO,data.PHONE,data.TEL_CONDITION,data.CALLOUT_SETTIME,data.CALLOUT_DATE)"
               disabled>刪除</button>
           </td>
@@ -74,7 +74,7 @@
             </mat-select>
           </td>
           <td style="padding: 5px;">
-            <nz-date-picker [(ngModel)]="data.researchDate" name="Sendcheck" (ngModelChange)="dataSeve(data.researchDate)"></nz-date-picker>
+            <nz-date-picker [(ngModel)]="data.researchDate" name="Sendcheck" (ngModelChange)="dataSeve(data.researchDate)" disabled ="lv==D2"></nz-date-picker>
           </td>
           <td style="padding: 5px;">
             <input type="text" value="{{data.researchNum != null? data.researchNum:0}}" disabled>
