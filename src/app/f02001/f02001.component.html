@@ -73,7 +73,7 @@
         </div>
       </div>
     </div>
-    <div nz-row>
+    <div nz-row style="padding:10px">
       <div nz-col nzFlex="1">
         <div style="padding:2px"><span class="form-title">進件日期</span>
           <nz-range-picker [(ngModel)]="apply_TIME" name="apply_TIME" (ngModelChange)="dateNull(apply_TIME,'apply_TIME')"></nz-range-picker>
@@ -107,8 +107,8 @@
     </div>
     <div style="padding:10px;text-align:center">
       <!-- (click)="add()" -->
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="select()">查詢資料</button>&nbsp;
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="Clear()">清除資料</button>&nbsp;
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="select()">查詢資料</button>&nbsp;
+      <button nz-button [nzSize]="'middle'" nzDanger  (click)="Clear()">清除資料</button>&nbsp;
       <!-- <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()" >離開</button>&nbsp; -->
     </div>
     <!-- 表格 -->

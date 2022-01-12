@@ -32,6 +32,7 @@ export class F02007Component implements OnInit {
   statusDescSecondValue: string = '';//案件狀態值第二層
   cust_FLAG: sysCode[] = []; //客群標籤
   cust_FLAG_Value: string = '';//客群標籤值
+  CU_M_TEL: string = '';//客戶手機號碼
   risk_GRADE: sysCode[] = [];//風險等級分群
   risk_GRADE_Value: string = '';//風險等級分群值
   apply_TIME: [Date, Date];//進件日期
@@ -198,8 +199,9 @@ export class F02007Component implements OnInit {
     this.jsonObject['creditResult'] = this.credit_RESULT_Value;//審核結果
     this.jsonObject['statusDesc'] = this.status_DESC_Value;//案件狀態--有修改第一層
     this.jsonObject['opDesc'] = this.statusDescSecondValue;//案件狀態--有修改第二層
-    this.jsonObject['custFlag'] = this.cust_FLAG_Value;//客群標籤
-    this.jsonObject['riskGrade'] = this.risk_GRADE_Value;//風險等級分群
+    this.jsonObject['custFlag'] = this.cust_FLAG_Value;
+    this.jsonObject['riskGrade'] = this.risk_GRADE_Value;
+    this.jsonObject['cuMTel'] = this.CU_M_TEL;//客戶手機號碼
     this.jsonObject['productName'] = this.product_NAME;//產品名稱
     this.jsonObject['projectName'] = this.project_NAME;//專案名稱
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
@@ -361,6 +363,7 @@ export class F02007Component implements OnInit {
 
     }
     this.f02007Service.inquiry(url, this.jsonObject).subscribe(data => {
+      console.log(data)
       this.resultData = data.rspBody.item;
       this.total = data.rspBody.size;
       this.firstFlag = 2;
@@ -403,6 +406,7 @@ export class F02007Component implements OnInit {
     this.cust_ID = '';
     this.cust_CNAME = '';
     this.l3EMPNO = '';
+    this.CU_M_TEL = '';
     this.credit_RESULT_Value = '';
     this.status_DESC_Value = '';
     this.statusDescSecondValue = ''
@@ -425,7 +429,7 @@ export class F02007Component implements OnInit {
   }
 
   conditionCheck() {
-    if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == ''
+    if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == ''&&this.CU_M_TEL==''
       && this.l3EMPNO == '' && this.credit_RESULT_Value == '' && this.status_DESC_Value == ''
       && this.cust_FLAG_Value == '' && this.risk_GRADE_Value == '' && this.apply_TIME == null
       && this.proof_DOCUMENT_TIME == null && this.sign_UP_TIME == null && this.product_NAME == ''
