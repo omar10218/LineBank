@@ -282,14 +282,23 @@ export class Childscn19Component implements OnInit {
 
   repair()//補件送出
   {
+    let u = 'f02/f02002action6'
     let url = 'f01/childscn19action7';
     let jsonObject: any = {};
     jsonObject['applno'] = this.da.applno;
     jsonObject['swcCreditLevel'] = this.da.checkpoint;
+    let jsonObject2: any = {};
+    jsonObject2['applno'] = this.da.applno;
     this.childscn19Service.setrepair(url, jsonObject).subscribe(data => {
       this.block = true;
-      if (data.rspMsg == '成功') {
+      if (data.rspMsg == '成功')
+      {
+        this.childscn19Service.setrepair(u,jsonObject2).subscribe(data=>{
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: data.rspMsg }
+          });
 
+        })
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: data.rspMsg }
         });
