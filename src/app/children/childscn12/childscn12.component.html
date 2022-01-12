@@ -29,13 +29,21 @@
                   maxlength="20" [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" /></div>
             </td>
             <td>
-              <nz-checkbox-wrapper>
-                <label [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" nz-checkbox [(ngModel)]="chkArray[i].completed" name={{chkArray[i].value}}  ></label>
+              <nz-checkbox-wrapper  (nzOnChange)="calculate(chkArray[i].completed, item.income)">
+                <label [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" nz-checkbox [(ngModel)]="chkArray[i].completed" name={{chkArray[i].value}} ></label>
               </nz-checkbox-wrapper>
             </td>
             <td *ngIf="i==0" rowspan="7">
               <textarea style=" width: 95%;height:20vh;margin:0 12px;border-radius:5px;" [(ngModel)]="EL_INCOME_Source.data[6].mark"
                 name="EL_INCOME_Source.data[6].mark" [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>徵審後確認合計(打勾)</td>
+            <td>
+              <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="checkTotal"
+                maxlength="20"  disabled /></div>
             </td>
           </tr>
         </ng-container>
@@ -114,6 +122,14 @@
               <nz-checkbox-wrapper>
                 <label nzDisabled nz-checkbox ></label>
               </nz-checkbox-wrapper>
+            </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>徵審後確認合計(打勾)</td>
+            <td>
+              <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="checkTotal"
+                maxlength="20"  disabled /></div>
             </td>
           </tr>
         </ng-container>

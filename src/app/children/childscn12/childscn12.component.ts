@@ -131,6 +131,7 @@ export class Childscn12Component implements OnInit {
 
   test1 = "1"; test2 = "2"; test3 = false; test4 = "文字";
 
+  checkTotal: number = 0;
 
   ngOnInit(): void {
     this.keylist.push("incomeAndTaxList"); //所得清單
@@ -197,6 +198,8 @@ export class Childscn12Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno
     this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
+      this.checkTotal = data.rspBody.creditMainList[0].income != null ? data.rspBody.creditMainList[0].income : 0;
+
       //------------------以下總表處理
       if (data.rspBody.income != null) {
         this.EL_INCOME_Source.data = data.rspBody.income;
@@ -1176,4 +1179,11 @@ export class Childscn12Component implements OnInit {
     return 'ngtbody'
   }
 
+  calculate(completed: boolean, value: number) {
+    if (completed) {
+      this.checkTotal = this.checkTotal + value;
+    } else {
+      this.checkTotal = this.checkTotal -  value;
+    }
+  }
 }
