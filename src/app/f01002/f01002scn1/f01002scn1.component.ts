@@ -356,13 +356,20 @@ export class F01002scn1Component implements OnInit, OnDestroy {
         this.setHistory(count);
       // }
       await this.childscn1Service.setHistory(this.history, "徵信案件完成", this.applno);
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: data.rspMsg }
-      });
+      if (data.rspMsg != null && data.rspMsg != '') {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: data.rspMsg }
+        });
+        setTimeout(() => {
+          childernDialogRef.close();
+        }, 1000);
+      }
       if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') {} else {
         // this.saveMemo();
         this.removeSession(count);
-        this.router.navigate(['./F01002']);
+        setTimeout(() => {
+          this.router.navigate(['./F01002']);
+        }, 1500);
       }
       this.block = false;
     });
