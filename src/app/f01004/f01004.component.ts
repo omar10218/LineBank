@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { OptionsCode } from '../interface/base';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-f01004',
@@ -93,6 +94,11 @@ export class F01004Component implements OnInit, AfterViewInit {
         this.total = data.rspBody.size != '0'? data.rspBody.size : '0';
         this.cusinfoDataSource = data.rspBody.items;
         this.stepName = data.rspBody.items[0].F_StepName;
+        this.cusinfoDataSource.forEach(element => {
+          if (element.swcZ21PassDate != null && element.swcZ21PassDate != '') {
+            element.swcZ21PassDate = formatDate(element.swcZ21PassDate, 'yyyy-MM-dd HH:mm:ss', 'zh-Hant-TW', '-0600').toString();
+          }
+        });
       }
       else
       {
