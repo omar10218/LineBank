@@ -216,12 +216,20 @@ export class F01001scn1Component implements OnInit {
           //儲存歷史資料
           this.setHistory();
           await this.childscn1Service.setHistory(this.history, "文審案件完成", this.applno);
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: data.rspMsg }
-          });
+          let childernDialogRef: any;
+          if (data.rspMsg != null && data.rspMsg != '') {
+            childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: data.rspMsg }
+            });
+          }
           if ( data.rspMsg.includes('處理案件異常') || url == 'f01/childscn0action1' ) { } else {
+            setTimeout(() => {
+              childernDialogRef.close();
+            }, 1000);
             this.removeSession(count);
-            this.router.navigate(['./F01001']);
+            setTimeout(() => {
+              this.router.navigate(['./F01001']);
+            }, 1500);
           }
           this.block = false;
         });

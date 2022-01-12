@@ -269,13 +269,21 @@ export class F01003scn1Component implements OnInit {
         this.setHistory(count);
       // }
       await this.childscn1Service.setHistory(this.history, "授信案件完成", this.applno);
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: data.rspMsg }
-      });
+      let childernDialogRef: any;
+      if (data.rspMsg != null && data.rspMsg != '') {
+        childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: data.rspMsg }
+        });
+      }
       if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { } else {
+        setTimeout(() => {
+          childernDialogRef.close();
+        }, 1000);
         // this.saveMemo();
         this.removeSession(count);
-        this.router.navigate(['./F01003']);
+        setTimeout(() => {
+          this.router.navigate(['./F01003']);
+        }, 1500);
       }
       this.block = false;
     });
