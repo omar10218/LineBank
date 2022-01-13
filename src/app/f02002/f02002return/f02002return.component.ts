@@ -95,7 +95,7 @@ export class F02002returnComponent implements OnInit {
     if (this.isValidFile) {
       this.fileList = this.fileList.filter(e => e.value != rid);
       this.fileList.push({value:rid,viewValue:this.fileToUpload}) ;
-      this.bool = false;
+      this.verify();
     }
     else
     {
@@ -163,7 +163,7 @@ export class F02002returnComponent implements OnInit {
 
   SendBack(result: string)//送回案件
   {
-      this.verify();
+
 
     const formdata = new FormData();
     console.log(this.F02002Data.length);
@@ -241,9 +241,11 @@ export class F02002returnComponent implements OnInit {
   }
   verify()//驗證
   {
+    console.log(this.blockList.length)
+    console.log(this.fileList.length)
     if( this.blockList.length == this.fileList.length)
     {
-      return true
+      this.bool=false;
     }
 
     return false;
@@ -252,9 +254,9 @@ export class F02002returnComponent implements OnInit {
   test() //測試用
   {
 
-    console.log(this.fileToUpload)
+    console.log(this.bool)
     // alert( this.fileToUpload)
-    console.log( this.fileList)
-    console.log( this.fileList.length)
+    // console.log( this.fileList)
+    // console.log( this.fileList.length)
   }
 }
