@@ -30,7 +30,7 @@
               </mat-select>
             </div>
           </td>
-          <td class="table-data" *ngIf="data.IMAGE_NAME == null"><input type="file" name="file"
+          <td class="table-data" *ngIf="data.IMAGE_NAME == null"><input type="file" name="file" [disabled]="data.rescanReason == ''? true:false"
               (change)="onChange($event,data.ROW_ID)" /></td>
           <!-- <td class="table-data" *ngIf="expression"><input type="text" [(ngModel)]="docType" name="docType" /></td> -->
           <td class="table-data" *ngIf="data.IMAGE_NAME!=null "><label>{{data.IMAGE_NAME}}</label></td>
