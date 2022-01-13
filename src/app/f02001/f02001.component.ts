@@ -215,8 +215,8 @@ export class F02001Component implements OnInit {
       {
 
         if (this.dealwithData365(this.apply_TIME)) {
-          this.jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
         }
         else {
 
@@ -230,8 +230,8 @@ export class F02001Component implements OnInit {
       }
       else {
 
-        this.jsonObject['applyTimeStart'] = '';
-        this.jsonObject['applyTimeEnd'] = '';
+        this.jsonObject['applyEndTimeStart'] = '';
+        this.jsonObject['applyEndTimeEnd'] = '';
       }
 
       if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
@@ -295,8 +295,8 @@ export class F02001Component implements OnInit {
       if (this.apply_TIME != null)//進件日期
       {
         if (this.dealwithData90(this.apply_TIME)) {
-          this.jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -307,8 +307,8 @@ export class F02001Component implements OnInit {
 
       }
       else {
-        this.jsonObject['applyTimeStart'] = '';
-        this.jsonObject['applyTimeEnd'] = '';
+        this.jsonObject['applyEndTimeStart'] = '';
+        this.jsonObject['applyEndTimeEnd'] = '';
       }
 
       if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
