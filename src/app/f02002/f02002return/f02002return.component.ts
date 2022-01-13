@@ -10,7 +10,7 @@ interface sysCode {
   value: string;
   viewValue: string;
 }
-interface test {
+interface fil {
   value: string;
   viewValue: File;
 }
@@ -46,6 +46,7 @@ export class F02002returnComponent implements OnInit {
       }
 
     })
+    this.bool = false;
 
 
   }
@@ -63,12 +64,14 @@ export class F02002returnComponent implements OnInit {
   typeString: string = '';//補件類型
   type: sysCode[] = [];//補件類型陣列
   quantity: number;
-  fileList: test[] = [];
+  fileList: fil[] = [];
   formdata: FormData;
   formdata2: FormData = new FormData();
   list: te[] = [];
   onChangelength:number;
   jsonstr: string;
+  blockList = [];
+  bool:boolean;
   formControl = new FormControl('', [
     Validators.required
   ]);
@@ -92,7 +95,7 @@ export class F02002returnComponent implements OnInit {
     if (this.isValidFile) {
       this.fileList = this.fileList.filter(e => e.value != rid);
       this.fileList.push({value:rid,viewValue:this.fileToUpload}) ;
-      console.log(this.fileToUpload)
+      this.bool = false;
     }
     else
     {
@@ -160,6 +163,8 @@ export class F02002returnComponent implements OnInit {
 
   SendBack(result: string)//送回案件
   {
+      this.verify();
+
     const formdata = new FormData();
     console.log(this.F02002Data.length);
     let jsonarry: string[] = []
@@ -218,7 +223,31 @@ export class F02002returnComponent implements OnInit {
     })
 
   }
+  block(rid:string,re:string)
+  {
+    if(re=='')
+    {
+      this.bool=false;
+    }
+    else
+    {
+      this.bool=true;
+    }
 
+    this.blockList.splice(this.blockList.indexOf(rid), 1)
+
+    this.blockList.push(rid)
+
+  }
+  verify()//驗證
+  {
+    if( this.blockList.length == this.fileList.length)
+    {
+      return true
+    }
+
+    return false;
+  }
 
   test() //測試用
   {
