@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -79,6 +80,11 @@ export class F01008Component implements OnInit {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
         this.stepName = data.rspBody.items[0].F_StepName;
+        this.cusinfoDataSource.forEach(element => {
+          if (element.swcZ21PassDate != null && element.swcZ21PassDate != '') {
+            element.swcZ21PassDate = formatDate(element.swcZ21PassDate, 'yyyy-MM-dd HH:mm:ss', 'zh-Hant-TW', '-0600').toString();
+          }
+        });
       }
       else {
         this.cusinfoDataSource = null;
@@ -110,11 +116,15 @@ export class F01008Component implements OnInit {
   getLockCase(swcApplno: string, swcNationalId: string, swcCustId: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
-    this.f01008Service.getLockCase(jsonObject).subscribe(data => {
+    this.f01008Service.getLockCase(jsonObject).subscribe(async data => {
       if (data.rspBody.length > 0) {
         this.fds = data.rspBody[0].fds
       }
       if (data.rspMsg == '案件鎖定成功') {
+
+        let num = await this.f01008Service.getResearchNum('f01/f01008fn3', jsonObject);
+        sessionStorage.setItem('jcicNumb', num)
+
         sessionStorage.setItem('applno', swcApplno);
         sessionStorage.setItem('nationalId', swcNationalId);
         sessionStorage.setItem('search', 'N');

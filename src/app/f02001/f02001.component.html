@@ -128,6 +128,7 @@
           <th nzWidth="110px">身分證字號</th>
           <th nzWidth="110px">客戶ID</th>
           <th nzWidth="110px">客戶姓名</th>
+          <th nzWidth="110px">客戶手機</th>
           <th nzWidth="110px">公司名稱</th>
           <th nzWidth="110px">審核結果</th>
           <th nzWidth="110px">等級gp</th>
@@ -140,8 +141,9 @@
           <th nzWidth="120px">申請金額/額度</th>
           <th nzWidth="120px">核准金額/額度</th>
           <th nzWidth="120px">合約金額/額度</th>
-          <th nzWidth="130px">徵信員員編姓名</th>
-          <th nzWidth="130px">授信員員編姓名</th>
+          <th nzWidth="130px">文審人員員編姓名</th>
+          <th nzWidth="130px">徵信人員員編姓名</th>
+          <th nzWidth="130px">授信人員員編姓名</th>
           <th nzWidth="130px">授信覆核人員</th>
           <th nzWidth="130px">主管人員</th>
           <th nzWidth="130px">Fraud人員</th>
@@ -158,7 +160,7 @@
           <!--累計進件數-->
           <td nzLeft></td>
            <!--進件日期-->
-           <td nzLeft>{{ data.APPLY_TIME }}</td>
+           <td nzLeft>{{ data.APPLYEND_TIME | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
             <!--客群標籤-->
           <td nzLeft>{{ data.CUST_FLAG }}</td>
             <!--案件編號-->
@@ -170,6 +172,8 @@
           <td>{{ data.CUST_ID }}</td>
           <!--客戶姓名-->
           <td>{{ data.CU_CNAME }}</td>
+            <!--客戶手機-->
+            <td>{{ data.CU_M_TEL }}</td>
           <!--公司名稱-->
           <td>{{ data.CU_CP_NAME }}</td>
           <!--審核結果-->
@@ -194,6 +198,8 @@
            <td style="text-align:right">{{data.APPROVE_AMT != undefined? data_number(data.APPROVE_AMT):data.APPROVE_AMT}}</td>
              <!--合約金額/額度-->
           <td style="text-align:right"></td>
+            <!--文審-->
+          <td>{{ data.L4EMPNO }}</td>
           <!--徵信員姓名-->
           <td>{{ data.L3EMPNO }}</td>
           <!--授信員編-->

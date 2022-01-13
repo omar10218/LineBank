@@ -124,4 +124,15 @@ export class Childscn8editComponent implements OnInit {
     this.speakingAbbreviation = name;
     this.speakingContent = msg;
   }
+
+  numberOnly(event: { which: any; keyCode: any; }): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請輸入數字!' }
+      });
+      return false;
+    }
+    return true;
+  }
 }

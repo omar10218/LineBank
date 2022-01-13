@@ -106,8 +106,7 @@ export class Childscn23Component implements OnInit {
     this.jsonObject3['applno'] = this.applno;
     this.childscn23Service.AddUpDel(url, this.jsonObject3).subscribe(data => {
       if (data.rspBody.items.length > 0) {
-        console.log("=========================")
-        console.log(data)
+
         this.one = data.rspBody.items
         this.suject = data.rspBody.items[0].ACCOUNT_CODE;
         this.limit2();
@@ -287,8 +286,7 @@ export class Childscn23Component implements OnInit {
     console.log(this.checkboxAny)
     this.childscn23Service.AddUpDel(url, jsonObject).subscribe(data => {
       console.log(data)
-      if (data.rspMsg == '刪除成功')
-       {
+      if (data.rspMsg == '刪除成功') {
         this.set();
         // alert('1')
         this.isAllCheck = false;
@@ -436,6 +434,7 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].unsdebt_NONJCIC = this.data_number2(this.fmData_B.data[0].unsdebt_NONJCIC);
         this.fmData_B.data[0].unsdebt_PAYAMT_029EX = this.data_number2(this.fmData_B.data[0].unsdebt_PAYAMT_029EX);
         this.fmData_B.data[0].unsdebt_SUM_0 = this.data_number2(this.fmData_B.data[0].unsdebt_SUM_0);
+        this.fmData_B.data[0].unsdebt_SUM_0CK_B = this.data_number2(this.fmData_B.data[0].unsdebt_SUM_0CK_B);
         this.fmData_B.data[0].annual_INCOME = this.data_number2(this.fmData_B.data[0].annual_INCOME);
         this.fmData_B.data[0].income = this.data_number2(this.fmData_B.data[0].income);
         this.fmData_B.data[0].dbr_0X = this.data_number2(this.fmData_B.data[0].dbr_0X);
@@ -447,8 +446,8 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].approve_AMT = this.data_number2(this.fmData_B.data[0].approve_AMT);
         this.fmData_B.data[0].mthpay_SUM_0CK_B = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0CK_B);
         this.fmData_B.data[0].mthpay_SUM_0CK_C = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0CK_C);
-        
-        
+
+
 
         this.fmData_B.data[0].mthpay_BAM421 = this.data_number2(this.fmData_B.data[0].mthpay_BAM421);
         this.fmData_B.data[0].mthpay_BAM029 = this.data_number2(this.fmData_B.data[0].mthpay_BAM029);
@@ -456,7 +455,7 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].mthpay_NONJCIC = this.data_number2(this.fmData_B.data[0].mthpay_NONJCIC);
         this.fmData_B.data[0].mthpay_SUM_0 = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0);
 
-        
+
 
         this.getDBR_DTI_C(true);
       }
@@ -601,7 +600,8 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].mthpay_KRM048_C = this.data_number2(data.rspBody[0].mthpay_KRM048_C);
         this.fmData_B.data[0].mthpay_NONJCIC_C = this.data_number2(data.rspBody[0].mthpay_NONJCIC_C);
 
-          //以下 資料加千分位
+        //以下 資料加千分位
+        this.fmData_B.data[0].unsdebt_SUM_0CK_C = this.data_number2(this.fmData_B.data[0].unsdebt_SUM_0CK_C);
         this.fmData_B.data[0].mthpay_SUM_0CK_C = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0CK_C);
         this.fmData_B.data[0].dbr_0XCK_C = this.data_number2(this.fmData_B.data[0].dbr_0XCK_C);
         this.fmData_B.data[0].dbr_0CK_C = this.data_number2(this.fmData_B.data[0].dbr_0CK_C);
@@ -626,13 +626,11 @@ export class Childscn23Component implements OnInit {
 
       obj.completed = completed;
     }
-    if (completed)
-    {
+    if (completed) {
       for (const w of this.one) {
-       if(!this.checkboxAny.includes(w.ID))
-       {
-        this.checkboxAny.push(w.ID)
-       }
+        if (!this.checkboxAny.includes(w.ID)) {
+          this.checkboxAny.push(w.ID)
+        }
         this.Monthly421 = this.Monthly421 + parseInt(this.Cut(w.MONTHLY_PAY_421 ? w.MONTHLY_PAY_421 : "0"));//BAM421月付金
         this.Monthly029 = this.Monthly029 + parseInt(this.Cut(w.MONTHLY_PAY_029 ? w.MONTHLY_PAY_029 : "0"));//BAM029月付金
         this.Monthlycc = this.Monthlycc + parseInt(this.Cut(w.MONTHLY_PAY_CC ? w.MONTHLY_PAY_CC : "0"));//信用卡付月金
@@ -644,9 +642,8 @@ export class Childscn23Component implements OnInit {
       this.Monthly421 = 0;//BAM421月付金
       this.Monthly029 = 0;//BAM029月付金
       this.Monthlycc = 0;//信用卡付月金
-      for(const f of this.one)
-      {
-        this.checkboxAny.splice(this.checkboxAny.indexOf(f.ID),1)
+      for (const f of this.one) {
+        this.checkboxAny.splice(this.checkboxAny.indexOf(f.ID), 1)
       }
 
     }

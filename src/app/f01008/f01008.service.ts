@@ -121,4 +121,8 @@ export class F01008Service extends BaseService {
     let targetUrl = `sys/getMappingCode?codeType=${codeType}`;
     return this.postHttpClient(targetUrl);
   }
+
+  getResearchNum(baseUrl: string, jsonObject: JSON): any {
+    return this.saveOrEditMsgJson(baseUrl, jsonObject);
+  }
 }

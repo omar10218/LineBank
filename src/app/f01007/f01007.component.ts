@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -92,6 +93,11 @@ export class F01007Component implements OnInit {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
         this.stepName = data.rspBody.items[0].F_StepName;
+        this.cusinfoDataSource.forEach(element => {
+          if (element.swcZ21PassDate != null && element.swcZ21PassDate != '') {
+            element.swcZ21PassDate = formatDate(element.swcZ21PassDate, 'yyyy-MM-dd HH:mm:ss', 'zh-Hant-TW', '-0600').toString();
+          }
+        });
       }
       else
       {

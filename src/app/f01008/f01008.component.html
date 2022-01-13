@@ -84,7 +84,7 @@
             <tbody>
               <tr *ngFor="let data of cusinfoDataSource; let i =index">
                 <td class="table-data" [nzAlign]="'center'" nzLeft>{{ i+1 }}</td>
-                <td class="table-data" nzLeft>{{ data.swcZ21PassDate |date: 'yyyy-MM-dd' }}</td>
+                <td class="table-data" nzLeft>{{ data.swcZ21PassDate |date: 'yyyy-MM-dd HH:mm:ss' }}</td>
                 <td class="table-data" nzLeft>{{ data.swcCustTag }}</td>
                 <td class="table-data" nzLeft>
                   <button nz-button [nzSize]="'middle'" nzType="link"
@@ -95,8 +95,8 @@
                 <td class="table-data">{{ data.swcRiskGrade }}</td>
                 <td class="table-data">{{ data.swcNationalId }}</td>
                 <td class="table-data">{{ data.swcCustId }}</td>
-                <td class="table-data">{{ data.swcName }}</td>
-                <td class="table-data">{{ data.swcCompany }}</td>
+                <td class="table-data" style="text-align:left;" >{{ data.swcName }}</td>
+                <td class="table-data" style="text-align:left;" >{{ data.swcCompany }}</td>
                 <td class="table-data">{{ data.swcApplyAmount != undefined ? data_number( data.swcApplyAmount) :   data.swcApplyAmount }}</td>
               </tr>
             </tbody>
