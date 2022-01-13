@@ -21,6 +21,7 @@ export class JcictableComponent implements OnInit {
   pageSize = 50;
   pageIndex = 1;
   nzData: any;
+  x: string
   tableData: JCICTable;
   private applno: string;
   private cuid: string
@@ -54,4 +55,14 @@ export class JcictableComponent implements OnInit {
       // }
     });
   }
+
+  	// 千分號標點符號(form顯示用)
+	data_number(p: number) {
+		this.x = '';
+		this.x = (p + "")
+		if (this.x != null) {
+			this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		}
+		return this.x
+	}
 }

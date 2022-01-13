@@ -45,5 +45,9 @@ export class Childscn5Service extends BaseService {
 
     return this.postJsonObject(baseUrl, jsonObject);
   }
+  getBigcompany(jsonObject: JSON): any {
+    const baseUrl = 'f01/childscn5';
 
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
 }

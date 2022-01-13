@@ -43,6 +43,7 @@ export class Childscn24Component implements OnInit {
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
       this.dialogRef.close({ event: 'success' });
     }
 
@@ -85,11 +86,16 @@ export class Childscn24Component implements OnInit {
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
     let msgStr: string = '';
+    alert('1')
     if (this.stepName.substring(10) == 'L1') {
+      alert('2')
       this.block = true;
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       this.block = false;
+      alert('3')
+      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      alert('4')
       this.dialogRef.close({ event: 'success' });
     }
   }
@@ -100,11 +106,16 @@ export class Childscn24Component implements OnInit {
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L2';
     let msgStr: string = '';
+    alert('1')
     if (this.stepName.substring(10) == 'L1') {
+      alert('2')
       this.block = true;
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       this.block = false;
+      alert('3')
+      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      alert('4')
       this.dialogRef.close({ event: 'success' });
     }
   }

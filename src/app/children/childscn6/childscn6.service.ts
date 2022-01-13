@@ -209,7 +209,7 @@ export class Childscn6Service extends BaseService {
     if (code === JCICCode.BAM029) {
       dataList = [
         { name: '新增核准額度日期/清償日期/到期或解約日期', bodyKey: 'PAY_LOAN_DATE', width: '300px', nzLeft: true },
-        { name: '行庫代號', bodyKey: 'BANK_CODE', width: '150px' },
+        { name: '行庫代號', bodyKey: 'BANK_CODE', width: '300px' },
         { name: '行庫名稱', bodyKey: 'BANK_NAME', width: '150px' },
         { name: '交易別', bodyKey: 'XACT_CODE', width: '150px' },
         { name: '科目別', bodyKey: 'ACCOUNT_CODE', width: '150px' },

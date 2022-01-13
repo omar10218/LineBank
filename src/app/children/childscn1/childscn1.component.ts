@@ -692,6 +692,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
+      console.log(data)
       this.total = data.rspBody.size;
       this.creditmemoSource = data.rspBody.list;
       for (let index = 0; index < this.creditmemoSource.length; index++) {
@@ -1237,5 +1238,18 @@ export class Childscn1Component implements OnInit, OnDestroy {
     if (this.interestType == '02') {
       value = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
     }
+  }
+  //Level轉換中文
+  changeLevel(level:string){
+    if(level=='L2'){
+      return "授信"
+    }else if(level=='L3'){
+      return "徵信"
+    }else if(level=='L1'){
+      return "授信覆核"
+    }else if(level=='L0'){
+      return "主管"
+    }
+
   }
 }
