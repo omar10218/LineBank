@@ -106,8 +106,7 @@ export class Childscn23Component implements OnInit {
     this.jsonObject3['applno'] = this.applno;
     this.childscn23Service.AddUpDel(url, this.jsonObject3).subscribe(data => {
       if (data.rspBody.items.length > 0) {
-        console.log("=========================")
-        console.log(data)
+
         this.one = data.rspBody.items
         this.suject = data.rspBody.items[0].ACCOUNT_CODE;
         this.limit2();
