@@ -35,14 +35,16 @@ export class TokenInterceptor implements HttpInterceptor {
           let token: string = authStr.replace('Bearer ', '');
           let ticket: string = event.headers.get('ticket');
           if (token != ticket) {
-            if (('stg' == this.from || 'uat' == this.from || 'prod' == this.from)) {
-              this.router.navigate(['./logOut']).then(async () => {
-                window.location.href = 'https://sso.lbtwsys.com:8443/cas/logout?service=' + this.allowOrigin + '/sso';
-              });
-            } else {
-              this.router.navigate(['./logOut']).then(async () => {
-                window.location.reload();
-              });
+            if (this.baseService.logOutAction()) {
+              if (('stg' == this.from || 'uat' == this.from || 'prod' == this.from)) {
+                this.router.navigate(['./logOut']).then(async () => {
+                  window.location.href = 'https://sso.lbtwsys.com:8443/cas/logout?service=' + this.allowOrigin + '/sso';
+                });
+              } else {
+                this.router.navigate(['./logOut']).then(async () => {
+                  window.location.reload();
+                });
+              }
             }
           }
         }
