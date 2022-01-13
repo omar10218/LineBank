@@ -116,11 +116,15 @@ export class F01008Component implements OnInit {
   getLockCase(swcApplno: string, swcNationalId: string, swcCustId: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
-    this.f01008Service.getLockCase(jsonObject).subscribe(data => {
+    this.f01008Service.getLockCase(jsonObject).subscribe(async data => {
       if (data.rspBody.length > 0) {
         this.fds = data.rspBody[0].fds
       }
       if (data.rspMsg == '案件鎖定成功') {
+
+        let num = await this.f01008Service.getResearchNum('f01/f01008fn3', jsonObject);
+        sessionStorage.setItem('jcicNumb', num)
+
         sessionStorage.setItem('applno', swcApplno);
         sessionStorage.setItem('nationalId', swcNationalId);
         sessionStorage.setItem('search', 'N');
