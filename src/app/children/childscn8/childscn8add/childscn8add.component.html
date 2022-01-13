@@ -181,13 +181,13 @@
         <div nz-col nzFlex="1">
           <div class="form" >
             <div><span class="form-title-actions">手機/市話</span>
-              <input matInput #input class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') " [(ngModel)]="data.PHONE" name="PHONE" required>
+              <input matInput #input class="form-control" (keypress)="numberOnly($event)" [(ngModel)]="data.PHONE" name="PHONE" required>
               <mat-error *ngIf="formControl.invalid && (data.PHONE=='' || data.PHONE== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
         </div>
 
-        
+
         <div nz-col nzFlex="1">
           <div class="form" >
             <div><span class="form-title-actions">照會完成</span>
