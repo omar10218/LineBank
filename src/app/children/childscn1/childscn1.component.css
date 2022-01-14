@@ -87,3 +87,12 @@ text-align:right;
     pointer-events: none;
     opacity: 0.5;
 }
+
+.dropdown mat-select{
+  width:100%;
+  height:25px;
+  border-radius:5px;
+  border:1px solod #c9c9c9;
+  padding:4px;
+  background-color:#E6E6E6
+}

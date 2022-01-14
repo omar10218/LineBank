@@ -1176,7 +1176,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of CreditInterestPeriodSource; let i = index">
+          <tr *ngFor="let data of CreditInterestPeriodSource; let i = index" [ngClass]="getSearch() == 'Y' || getLevel() == 'L1' ? 'dropdown' : '' " >
             <td class="table-data">
               <input matInput #input class="form-control" [(ngModel)]="CreditInterestPeriodSource[i].seq" disabled>
             </td>
@@ -1197,7 +1197,7 @@
             </td>
             <td class="table-data">
               <mat-select [(ngModel)]="data.interestType" name="interestType" (ngModelChange)="changeInterest(data)"
-                [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
+                [disabled]="getSearch() == 'Y' || getLevel() == 'L1'" >
                 <mat-option *ngFor="let code of interestTypeCode" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
