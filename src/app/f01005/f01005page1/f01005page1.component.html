@@ -57,7 +57,7 @@
                 <th class="table-header" [nzWidth]="'60px'" nzLeft>No</th>
                 <th class="table-header" [nzWidth]="'90px'" nzLeft>案件類別</th>
                 <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcApplyNum')" [nzSortFn]="false" [nzWidth]="'80px'" nzLeft>累進</th>
-                <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcZ21PassDate')" [nzWidth]="'120px'" [nzSortFn]="true"
+                <th class="table-header" (nzSortOrderChange)="sortChange($event, 'F_StartTime')" [nzWidth]="'120px'" [nzSortFn]="true"
                   [nzSortOrder]="sort" nzLeft>進件日期時間</th>
                 <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcCustTag')" [nzSortFn]="false" [nzWidth]="'100px'" nzLeft>客群標籤</th>
                 <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcApplno')" [nzSortFn]="false" [nzWidth]="'160px'" nzLeft>案件編號</th>
@@ -82,7 +82,7 @@
                   <td class="table-data" nzLeft>{{ getOptionCaseType(data.swcFlowType) }}</td>
                 </ng-template>
                 <td class="table-data" nzLeft>{{ data.swcApplyNum }}</td>
-                <td class="table-data" nzWidth="'70px'" nzLeft>{{ data.swcZ21PassDate |date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+                <td class="table-data" nzWidth="'70px'" nzLeft>{{ data.F_StartTime |date: 'yyyy-MM-dd HH:mm:ss' }}</td>
                 <td class="table-data" nzLeft>{{ data.swcCustTag }}</td>
                 <td class="table-data" nzLeft>
                   <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='N'"

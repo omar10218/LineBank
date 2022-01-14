@@ -404,6 +404,7 @@ export class F01007scn1Component implements OnInit {
 
   //設定歷史資料紀錄參數 20211222
   setHistory(count: number) {
+    this.history = [];
     if (count > 0) {
       for (let index = 1; index <= count; index++) {
         this.history.push({ value: sessionStorage.getItem('period' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].period }); //分段起始期數

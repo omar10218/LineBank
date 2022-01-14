@@ -387,4 +387,23 @@ export class F01008scn2Component implements OnInit {
       sessionStorage.setItem(valueName, value);
     }
   }
+
+  //Level轉換中文
+  changeLevel(level:string){
+    if ( level == 'L4' ) {
+      return "文審"
+    } else if ( level == 'L2' ) {
+      return "授信"
+    } else if ( level == 'L3' ) {
+      return "徵信"
+    } else if ( level == 'L1' ) {
+      return "授信覆核"
+    } else if ( level == 'L0' ) {
+      return "主管"
+    } else if ( level == 'D2' ) {
+      return "落人"
+    } else if ( level == 'D1' ) {
+      return "落人覆核"
+    }
+  }
 }
