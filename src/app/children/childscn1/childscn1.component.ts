@@ -738,7 +738,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
   }
 
   async changeInterest(value: any) {
-    alert('1');
     if (value.interestType == '02') {
       value.interestValue = '1';
       let jsonObject: any = {};
