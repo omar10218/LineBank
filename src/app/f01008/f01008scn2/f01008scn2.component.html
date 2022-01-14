@@ -74,7 +74,7 @@
             </mat-select>
           </td>
           <td style="padding: 5px;">
-            <nz-date-picker [(ngModel)]="data.researchDate" name="Sendcheck" (ngModelChange)="dataSeve(data.researchDate)" [disabled]="lv=='D1'"></nz-date-picker>
+            <nz-date-picker [(ngModel)]="data.researchDate" name="Sendcheck" (ngModelChange)="dataSeve(data.researchDate)" [disabled]="lv=='D1'" [nzDisabledDate]="disabledDate"></nz-date-picker>
           </td>
           <td style="padding: 5px;">
             <input type="text" value="{{data.researchNum != null? data.researchNum:0}}" disabled>

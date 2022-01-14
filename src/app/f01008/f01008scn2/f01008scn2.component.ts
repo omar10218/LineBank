@@ -406,4 +406,7 @@ export class F01008scn2Component implements OnInit {
       return "落人覆核"
     }
   }
+  disabledDate(time) {
+    return time.getTime() < Date.now() - 8.64e7;
+  }
 }
