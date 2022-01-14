@@ -121,9 +121,12 @@ export class F01001Component implements OnInit, AfterViewInit {
     else {
       if (this.agentEmpNo != '') {
         this.empNo = this.agentEmpNo;
+      } else {
+        this.empNo = localStorage.getItem("empNo");
       }
       this.changePage();
       this.getCaseList();
+      
     }
   }
   // 千分號標點符號(form顯示用)

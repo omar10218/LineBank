@@ -142,8 +142,8 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.getCaseList();
   }
 
-  // 代入條件查詢
-  search() {
+  //代入條件查詢
+  select() {
     if (this.swcNationalId != '' && !this.f01009Service.checkIdNumberIsValid(this.swcNationalId)) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "身分驗證失敗" }
@@ -152,9 +152,12 @@ export class F01009Component implements OnInit, AfterViewInit {
     else {
       if (this.agentEmpNo != '') {
         this.empNo = this.agentEmpNo;
+      } else {
+        this.empNo = localStorage.getItem("empNo");
       }
       this.changePage();
       this.getCaseList();
+      
     }
   }
 

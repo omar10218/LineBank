@@ -118,7 +118,7 @@ export class F01005page1Component implements OnInit {
   }
 
   //代入條件查詢
-  search() {
+  select() {
     if (this.swcNationalId != '' && !this.f01005Service.checkIdNumberIsValid(this.swcNationalId)) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "身分驗證失敗" }
@@ -127,9 +127,12 @@ export class F01005page1Component implements OnInit {
     else {
       if (this.agentEmpNo != '') {
         this.empNo = this.agentEmpNo;
+      } else {
+        this.empNo = localStorage.getItem("empNo");
       }
       this.changePage();
       this.getCaseList();
+      
     }
   }
 
