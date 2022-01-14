@@ -24,7 +24,7 @@
     </tbody>
   </nz-table>
 </div>
-<div class="line_bank_card_no_padding">
+<!-- <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="DM_DEP_TRANS_DETAILSource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
     nzTitle="活期存款帳戶交易明細">
@@ -33,9 +33,9 @@
         <th class="table-header">交易日期時間</th>
         <th class="table-header">帳戶名稱</th>
         <th class="table-header">帳戶</th>
-        <!-- <th class="table-header">帳戶狀態</th> -->
+        <th class="table-header">帳戶狀態</th>
         <th class="table-header">交易類型</th>
-        <!-- <th class="table-header">MCC</th> -->
+        <th class="table-header">MCC</th>
         <th class="table-header">交易名稱/銀行</th>
         <th class="table-header">帳戶號碼</th>
         <th class="table-header">提出</th>
@@ -50,9 +50,9 @@
         <td class="table-data">{{ data.TRANS_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
         <td class="table-data">{{ data.ACC_NAME }}</td>
         <td class="table-data">{{ data.ACC_NO }}</td>
-        <!-- <td class="table-data">{{ data.ACC_STATUS}}</td> -->
+        <td class="table-data">{{ data.ACC_STATUS}}</td>
         <td class="table-data">{{ data.TRANS_TYPE }}</td>
-        <!-- <td class="table-data">{{ data.MCC }}</td> -->
+        <td class="table-data">{{ data.MCC }}</td>
         <td class="table-data">{{ data.TRANS_BANK }}</td>
         <td class="table-data">{{ data.TRANS_ACC_NO }}</td>
         <td class="table-data">{{ data.WITHDRAWAL }}</td>
@@ -63,8 +63,8 @@
       </tr>
     </tbody>
   </nz-table>
-</div>
-<div class="line_bank_card_no_padding">
+</div> -->
+<!-- <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="TIME_DEP_TRANS_DETAILSource" [nzFrontPagination]="false" [nzSimple]="true"
     [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
     nzTitle="定存帳戶交易明細">
@@ -103,7 +103,7 @@
       </tr>
     </tbody>
   </nz-table>
-</div>
+</div> -->
 
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="DEPOSIT_STATIS_DATASource" [nzFrontPagination]="false" [nzSimple]="true"
