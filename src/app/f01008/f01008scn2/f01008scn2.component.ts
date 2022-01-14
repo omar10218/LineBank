@@ -258,7 +258,7 @@ export class F01008scn2Component implements OnInit {
         this.cONDITION.push({ value: js.codeNo, viewValue: js.codeDesc })
       }
       for (const ii of data.rspBody.creditmemoList) {
-        if (ii.CREDITLEVEL == this.lv) {
+        if (ii.CREDITLEVEL == this.lv && ii.CREDITUSER.includes(this.empNo)) {
           this.ma = ii.CREDITACTION;
         }
 
