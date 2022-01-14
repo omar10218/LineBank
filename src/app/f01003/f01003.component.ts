@@ -104,8 +104,8 @@ export class F01003Component implements OnInit, AfterViewInit {
         this.cusinfoDataSource = data.rspBody.items;
         this.stepName = data.rspBody.items[0].F_StepName;
         this.cusinfoDataSource.forEach(element => {
-          if (element.swcZ21PassDate != null && element.swcZ21PassDate != '') {
-            element.swcZ21PassDate = formatDate(element.swcZ21PassDate, 'yyyy-MM-dd HH:mm:ss', 'zh-Hant-TW', '-0600').toString();
+          if (element.F_StartTime != null && element.F_StartTime != '') {
+            element.F_StartTime = formatDate(element.F_StartTime, 'yyyy-MM-dd HH:mm:ss', 'zh-Hant-TW', '-0600').toString();
           }
         });
       }
@@ -119,21 +119,24 @@ export class F01003Component implements OnInit, AfterViewInit {
     });
   }
 
-  //代入條件查詢
-  select() {
-    if (this.swcNationalId != '' && !this.f01003Service.checkIdNumberIsValid(this.swcNationalId)) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "身分驗證失敗" }
-      });
-    }
-    else {
-      if (this.agentEmpNo != '') {
-        this.empNo = this.agentEmpNo;
-      }
-      this.changePage();
-      this.getCaseList();
-    }
+ //代入條件查詢
+ select() {
+  if (this.swcNationalId != '' && !this.f01003Service.checkIdNumberIsValid(this.swcNationalId)) {
+    const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+      data: { msgStr: "身分驗證失敗" }
+    });
   }
+  else {
+    if (this.agentEmpNo != '') {
+      this.empNo = this.agentEmpNo;
+    } else {
+      this.empNo = localStorage.getItem("empNo");
+    }
+    this.changePage();
+    this.getCaseList();
+    
+  }
+}
 
 // 千分號標點符號(form顯示用)
 data_number(p: number) {
@@ -230,9 +233,9 @@ data_number(p: number) {
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
           (a, b) => a.swcApplyNum.localeCompare(b.swcApplyNum)) : this.cusinfoDataSource.sort((a, b) => b.swcApplyNum.localeCompare(a.swcApplyNum))
         break;
-      case "swcZ21PassDate":
+      case "F_StartTime":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
-          (a, b) => a.swcZ21PassDate.localeCompare(b.swcZ21PassDate)) : this.cusinfoDataSource.sort((a, b) => b.swcZ21PassDate.localeCompare(a.swcZ21PassDate))
+          (a, b) => a.F_StartTime.localeCompare(b.F_StartTime)) : this.cusinfoDataSource.sort((a, b) => b.F_StartTime.localeCompare(a.F_StartTime))
         break;
       case "swcCustTag":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
