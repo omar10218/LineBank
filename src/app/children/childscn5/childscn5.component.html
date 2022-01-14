@@ -170,7 +170,7 @@
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">目前工作年資</span>
               <mat-select [(ngModel)]="hiredDateValue" name="hiredDate" formControlName="HIRED_DATE"  readonly disabled
-                style=" width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#ffffff;">
+                style="  width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6;">
                 <mat-option *ngFor="let code of hiredDateCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>

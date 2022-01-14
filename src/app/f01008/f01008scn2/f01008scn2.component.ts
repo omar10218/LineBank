@@ -406,4 +406,7 @@ export class F01008scn2Component implements OnInit {
       return "產生合約前覆核"
     }
   }
+  disabledDate(time) {
+    return time.getTime() < Date.now() - 8.64e7;
+  }
 }
