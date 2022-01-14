@@ -21,6 +21,7 @@ enum Page {
   styleUrls: ['./childbwscn4.component.css']
 })
 export class Childbwscn4Component implements OnInit {
+  queryDate: string;
 
   constructor(
     private Childbwscn4Service: Childbwscn4Service,
@@ -47,14 +48,14 @@ export class Childbwscn4Component implements OnInit {
 
 
   ngOnInit(): void {
-      this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('nationalId');
-    const url = 'f01/childscn9';
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    //this.router.navigate(['./'+this.routerCase+'/CHILDSCN9/CHILDSCN9PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });
-  }
+    this.applno = sessionStorage.getItem('applno');
+    const baseUrl = 'f01/childBwScn4action2';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    this.Childbwscn4Service.getDate(baseUrl, jsonObject).subscribe(data => {
+      this.queryDate = data.rspBody.queryDate;
+    });
+    }
   ngAfterViewInit() {
     this.changePage(this.nowPage);
   }
