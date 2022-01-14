@@ -630,13 +630,13 @@ export class Childscn1Component implements OnInit, OnDestroy {
           // interestBase: this.CreditInterestPeriodSource[0].interestBase
         })
       } else if (this.level == 'L1') {
-        this.f01004scn1Service.setHistorySource({
+        this.f01007scn1Service.setHistorySource({
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,
           approveAmt: this.resultApproveAmt,
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
-          CreditInterestPeriodSource: this.historySource,
+          CreditInterestPeriodSource: this.historySource
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
           // interestType: this.CreditInterestPeriodSource[0].interestType,
@@ -645,7 +645,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           // interestBase: this.CreditInterestPeriodSource[0].interestBase
         })
       } else if (this.level == 'L0') {
-        this.f01007scn1Service.setHistorySource({
+        this.f01004scn1Service.setHistorySource({
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,
           approveAmt: this.resultApproveAmt,
