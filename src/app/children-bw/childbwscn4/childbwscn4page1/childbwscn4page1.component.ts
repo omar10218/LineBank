@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Childscn9Service } from 'src/app/children/childscn9/childscn9.service';
 import { Childbwscn4Service } from '../childbwscn4.service';
 
 interface dateCode {
@@ -15,6 +16,7 @@ export class Childbwscn4page1Component implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private childscn9Service: Childscn9Service,
     private Childbwscn4Service: Childbwscn4Service,
   ) { }
 
@@ -50,7 +52,7 @@ export class Childbwscn4page1Component implements OnInit {
 
   dateCode: dateCode[] = [];
   dateValue: string;
-
+  blockingCodeSource:any
   private applno: string;
   private cuid: string;
   private search: string;
@@ -77,7 +79,14 @@ export class Childbwscn4page1Component implements OnInit {
 
     });
   }
-
+  getBlockingCodeInfo(){
+    let jsonObject:any={}
+    jsonObject['applno'] = this.applno;
+    this.childscn9Service.getBlockingCode(jsonObject).subscribe(data=>{
+      console.log(data)
+      this.blockingCodeSource=data.rspBody.blockingCodeList
+    })
+  }
   getCoreCusInfo(dateValue: string) {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
