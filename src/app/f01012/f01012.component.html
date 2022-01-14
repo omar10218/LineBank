@@ -68,7 +68,7 @@
           <thead style="max-height: 100vh;">
             <tr>
               <th class="table-header" [nzWidth]="'60px'" nzLeft>No</th>
-              <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcZ21PassDate')" [nzSortFn]="true"
+              <th class="table-header" (nzSortOrderChange)="sortChange($event, 'F_StartTime')" [nzSortFn]="true"
                 [nzSortOrder]="'ascend'" nzLeft>進件日期時間</th>
               <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcCustTag')" [nzSortFn]="false"nzLeft>客群標籤</th>
               <th class="table-header" (nzSortOrderChange)="sortChange($event, 'swcApplno')" [nzSortFn]="true" nzLeft>案件編號</th>
@@ -83,7 +83,7 @@
             <tbody>
               <tr *ngFor="let data of cusinfoDataSource; let i =index">
                 <td class="table-data" [nzAlign]="'center'" nzLeft>{{ i+1 }}</td>
-                <td class="table-data">{{ data.swcZ21PassDate |date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+                <td class="table-data">{{ data.F_StartTime |date: 'yyyy-MM-dd HH:mm:ss' }}</td>
                 <td class="table-data">{{ data.swcCustTag }}</td>
                 <td class="table-data">
                   <button nz-button [nzSize]="'middle'" nzType="link"
