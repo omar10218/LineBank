@@ -213,8 +213,7 @@ export class F01001scn1Component implements OnInit {
         this.block = true;
         this.f01001Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
           //儲存歷史資料
-          this.setHistory();
-          await this.childscn1Service.setHistory(this.history, "文審案件完成", this.applno);
+          await this.setHistory();
           let childernDialogRef: any;
           if (data.rspMsg != null && data.rspMsg != '') {
             childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -264,8 +263,9 @@ export class F01001scn1Component implements OnInit {
   }
 
   //設定歷史資料紀錄參數 20211222
-  setHistory() {
+  async setHistory() {
     this.history.push({ value: this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT', originalValue: this.historyData.creditResult }); //核決結果
     sessionStorage.setItem('creditResult', this.creditResult);
+    await this.childscn1Service.setHistory(this.history, "文審案件完成", this.applno);
   }
 }
