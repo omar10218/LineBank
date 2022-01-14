@@ -41,7 +41,7 @@ export class F01001scn1Component implements OnInit {
   fds: string
   private winClose: string = '';
 
-  creditResult: string;
+  creditResult: string = '';
   level: string;
 
   changeValue: boolean = true;
@@ -207,7 +207,7 @@ export class F01001scn1Component implements OnInit {
         jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
         jsoncreditResult['caPmcus'] = this.caPmcus;
         jsoncreditResult['caRisk'] = this.caRisk;
-        jsoncreditResult['creditResult'] = this.creditResult;
+        jsoncreditResult['creditResult'] = this.creditResult ? this.creditResult : '';
 
         jsonObject['creditResult'] = jsoncreditResult;
         this.block = true;
@@ -264,8 +264,13 @@ export class F01001scn1Component implements OnInit {
 
   //設定歷史資料紀錄參數 20211222
   async setHistory() {
-    this.history.push({ value: this.creditResult, tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT', originalValue: this.historyData.creditResult }); //核決結果
-    sessionStorage.setItem('creditResult', this.creditResult);
+    console.log('============================1');
+    console.log(this.historyData);
+    console.log(this.creditResult);
+    this.history.push({ value: (this.creditResult!=undefined && this.creditResult!=null) ? this.creditResult : '', tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT', originalValue: (this.historyData !=undefined && this.historyData !=null && this.historyData.creditResult !=undefined && this.historyData.creditResult !=null) ? this.historyData.creditResult : '' }); //核決結果
+    console.log('============================2');
+    sessionStorage.setItem('creditResult', this.creditResult ? this.creditResult : '');
+    console.log('============================3');
     await this.childscn1Service.setHistory(this.history, "文審案件完成", this.applno);
   }
 }
