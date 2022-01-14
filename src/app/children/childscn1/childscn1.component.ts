@@ -485,10 +485,10 @@ export class Childscn1Component implements OnInit, OnDestroy {
         this.resultPrjCode = data.rspBody.resultList[0].prjCode;
         this.creditResult = data.rspBody.resultList[0].creditResult;
         sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult ? data.rspBody.resultList[0].creditResult : '');
-        this.resultApproveAmt = data.rspBody.resultList[0].approveAmt == null ? '' : this.toCurrency(data.rspBody.resultList[0].approveAmt.toString());
-        sessionStorage.setItem('resultApproveAmt', data.rspBody.resultList[0].approveAmt ? data.rspBody.resultList[0].approveAmt : '');
+        this.resultApproveAmt = data.rspBody.resultList[0].approveAmt == null ? '0' : this.toCurrency(data.rspBody.resultList[0].approveAmt.toString());
+        sessionStorage.setItem('resultApproveAmt',this.toNumber(this.resultApproveAmt));
         this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
-        sessionStorage.setItem('resultLowestPayRate', data.rspBody.resultList[0].lowestPayRate ? data.rspBody.resultList[0].lowestPayRate : '');
+        sessionStorage.setItem('resultLowestPayRate', this.resultLowestPayRate.toString());
         this.caPmcus = data.rspBody.resultList[0].caPmcus;
         sessionStorage.setItem('caPmcus', data.rspBody.resultList[0].caPmcus ? data.rspBody.resultList[0].caPmcus : '');
         this.caRisk = data.rspBody.resultList[0].caRisk;
@@ -517,7 +517,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           sessionStorage.setItem('id' + index, this.CreditInterestPeriodSource[index - 1].id);
           sessionStorage.setItem('period' + index, this.CreditInterestPeriodSource[index - 1].period ? this.CreditInterestPeriodSource[index - 1].period : '');
           sessionStorage.setItem('interestType' + index, this.CreditInterestPeriodSource[index - 1].interestType ? this.CreditInterestPeriodSource[index - 1].interestType : '');
-          sessionStorage.setItem('interest' + index, this.CreditInterestPeriodSource[index - 1].interest ? this.CreditInterestPeriodSource[index - 1].interest : '');
+          sessionStorage.setItem('interest' + index, this.CreditInterestPeriodSource[index - 1].interest != null ? this.CreditInterestPeriodSource[index - 1].interest : 0);
           this.CreditInterestPeriodSource[index - 1].periodType = this.CreditInterestPeriodSource[index - 1].periodType != null && this.CreditInterestPeriodSource[index - 1].periodType != '' ? this.CreditInterestPeriodSource[index - 1].periodType : '1';
           sessionStorage.setItem('periodType' + index, this.CreditInterestPeriodSource[index - 1].periodType);
           this.CreditInterestPeriodSource[index - 1].approveInterest = Number(this.CreditInterestPeriodSource[index - 1].interestBase) + Number(this.CreditInterestPeriodSource[index - 1].interest);
@@ -549,8 +549,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
       //CustomerInfo Channel資訊
       if (data.rspBody.customerInfoList.length > 0) {
-        this.cuGps1 = data.rspBody.customerInfoList[0].cuGps1 ? data.rspBody.customerInfoList[0].cuGps1 : '0,0';
-        this.cuGps2 = data.rspBody.customerInfoList[0].cuGps2 ? data.rspBody.customerInfoList[0].cuGps2 : '0,0';
+        this.cuGps1 = data.rspBody.customerInfoList[0].cuGps1 && data.rspBody.customerInfoList[0].cuGps1.includes(',') ? data.rspBody.customerInfoList[0].cuGps1 : '0,0';
+        this.cuGps2 = data.rspBody.customerInfoList[0].cuGps2 && data.rspBody.customerInfoList[0].cuGps2.includes(',') ? data.rspBody.customerInfoList[0].cuGps2 : '0,0';
         this.cuIpAddr1 = data.rspBody.customerInfoList[0].cuIpAddr1 ? data.rspBody.customerInfoList[0].cuIpAddr1 : '';
         this.cuIpAddr2 = data.rspBody.customerInfoList[0].cuIpAddr2 ? data.rspBody.customerInfoList[0].cuIpAddr2 : '';
         this.cuDeviceName1 = data.rspBody.customerInfoList[0].cuDeviceName1 ? data.rspBody.customerInfoList[0].cuDeviceName1 : '';
@@ -599,6 +599,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
           creditResult: this.creditResult
         })
       } else if (this.level == 'L3') {
+        console.log("===============");
+        console.log(this.resultApproveAmt);
         this.f01002scn1Service.setHistorySource({
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,
@@ -696,7 +698,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
       this.total = data.rspBody.size;
       this.creditmemoSource = data.rspBody.list;
       for (let index = 0; index < this.creditmemoSource.length; index++) {
-        if (this.creditmemoSource[index].CREDITLEVEL == sessionStorage.getItem('stepName').split('t')[1] && this.creditmemoSource[index].CREDITUSER == this.userId) {
+        if (this.creditmemoSource[index].CREDITLEVEL == sessionStorage.getItem('stepName').split('t')[1] && this.creditmemoSource[index].CREDITUSER.includes(this.userId)) {
           this.mark = this.creditmemoSource[index].CREDITACTION;
         }
       }
