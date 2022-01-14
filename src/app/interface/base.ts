@@ -120,6 +120,7 @@ export interface DataItem {
   nzScroll?: string;
   nzLeft?: boolean;
   nzRight?: boolean;
+  type?: string;
 }
 
 export interface history {

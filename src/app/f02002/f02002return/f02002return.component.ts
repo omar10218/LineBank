@@ -225,7 +225,24 @@ export class F02002returnComponent implements OnInit {
   }
   block(rid:string,re:string)
   {
-    if(re=='')
+    if(this.blockList.length==0)
+    {
+      this.blockList.push(rid)
+    }
+    else
+    {
+      if(this.blockList.indexOf(rid)>0)
+      {
+        this.blockList.splice(this.blockList.indexOf(rid), 1)
+      }
+      else
+      {
+        this.blockList.push(rid)
+      }
+
+    }
+
+    if(this.blockList.length==0)
     {
       this.bool=false;
     }
@@ -234,9 +251,9 @@ export class F02002returnComponent implements OnInit {
       this.bool=true;
     }
 
-    this.blockList.splice(this.blockList.indexOf(rid), 1)
+    // this.blockList.splice(this.blockList.indexOf(rid), 1)
 
-    this.blockList.push(rid)
+    // this.blockList.push(rid)
 
   }
   verify()//驗證
