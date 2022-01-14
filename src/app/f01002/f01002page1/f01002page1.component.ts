@@ -123,9 +123,12 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     else {
       if (this.agentEmpNo != '') {
         this.empNo = this.agentEmpNo;
+      } else {
+        this.empNo = localStorage.getItem("empNo");
       }
       this.changePage();
       this.getCaseList();
+      
     }
   }
 

@@ -119,21 +119,24 @@ export class F01003Component implements OnInit, AfterViewInit {
     });
   }
 
-  //代入條件查詢
-  select() {
-    if (this.swcNationalId != '' && !this.f01003Service.checkIdNumberIsValid(this.swcNationalId)) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "身分驗證失敗" }
-      });
-    }
-    else {
-      if (this.agentEmpNo != '') {
-        this.empNo = this.agentEmpNo;
-      }
-      this.changePage();
-      this.getCaseList();
-    }
+ //代入條件查詢
+ select() {
+  if (this.swcNationalId != '' && !this.f01003Service.checkIdNumberIsValid(this.swcNationalId)) {
+    const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+      data: { msgStr: "身分驗證失敗" }
+    });
   }
+  else {
+    if (this.agentEmpNo != '') {
+      this.empNo = this.agentEmpNo;
+    } else {
+      this.empNo = localStorage.getItem("empNo");
+    }
+    this.changePage();
+    this.getCaseList();
+    
+  }
+}
 
 // 千分號標點符號(form顯示用)
 data_number(p: number) {

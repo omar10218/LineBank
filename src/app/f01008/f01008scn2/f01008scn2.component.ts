@@ -401,9 +401,9 @@ export class F01008scn2Component implements OnInit {
     } else if ( level == 'L0' ) {
       return "主管"
     } else if ( level == 'D2' ) {
-      return "落人"
+      return "產生合約前回查"
     } else if ( level == 'D1' ) {
-      return "落人覆核"
+      return "產生合約前覆核"
     }
   }
   disabledDate(time) {
