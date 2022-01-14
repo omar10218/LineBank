@@ -599,8 +599,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
           creditResult: this.creditResult
         })
       } else if (this.level == 'L3') {
-        console.log("===============");
-        console.log(this.resultApproveAmt);
         this.f01002scn1Service.setHistorySource({
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,

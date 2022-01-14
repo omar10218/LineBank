@@ -30,7 +30,7 @@ export class F01001scn1Component implements OnInit {
     this.JCICSource$ = this.f01001Scn1Service.HISTORYSource$.subscribe((data) => {
       this.historyData = data;
     });
-   }
+  }
 
   private creditLevel: string = 'APPLCreditL4';
   private applno: string;
@@ -100,7 +100,7 @@ export class F01001scn1Component implements OnInit {
       data: {
         applno: this.applno,
         cuid: this.cuid,
-        checkpoint:"L4"
+        checkpoint: "L4"
       }
     });
   }
@@ -113,7 +113,7 @@ export class F01001scn1Component implements OnInit {
       data: {
         applno: this.applno,
         cuid: this.cuid,
-        checkpoint:"L3"
+        checkpoint: "L3"
       }
     });
   }
@@ -126,7 +126,7 @@ export class F01001scn1Component implements OnInit {
       data: {
         applno: this.applno,
         cuid: this.cuid,
-        checkpoint:"L3"
+        checkpoint: "L3"
       }
     });
   }
@@ -210,7 +210,6 @@ export class F01001scn1Component implements OnInit {
         jsoncreditResult['creditResult'] = this.creditResult;
 
         jsonObject['creditResult'] = jsoncreditResult;
-
         this.block = true;
         this.f01001Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
           //儲存歷史資料
@@ -222,7 +221,9 @@ export class F01001scn1Component implements OnInit {
               data: { msgStr: data.rspMsg }
             });
           }
-          if ( data.rspMsg.includes('處理案件異常') || url == 'f01/childscn0action1' ) { } else {
+          if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') {
+            this.block = false;
+          } else {
             setTimeout(() => {
               childernDialogRef.close();
             }, 1000);
