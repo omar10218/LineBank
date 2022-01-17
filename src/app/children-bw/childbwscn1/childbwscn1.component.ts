@@ -50,7 +50,7 @@ export class Childbwscn1Component implements OnInit {
   nationalId: string;
   mark: string;
   size = 0//此層級是否有資料
-
+  search: string;
   private page: string;
   //覆審:L4 覆審主管:L3
   private creditlevel = ""; //儲存層級
@@ -81,6 +81,7 @@ export class Childbwscn1Component implements OnInit {
     this.custId = sessionStorage.getItem('swcCustId');
     sessionStorage.setItem('BW_creditResult', "");
     sessionStorage.setItem('size', "0");
+    this.search=sessionStorage.getItem('search');
     sessionStorage.setItem('creditaction', "");
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
     this.creditlevel = this.page == "10" ? "L3" : this.creditlevel;

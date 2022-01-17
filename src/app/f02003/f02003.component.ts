@@ -221,9 +221,9 @@ export class F02003Component implements OnInit {
     sessionStorage.setItem('stepName', '0');
     //開啟徵審主畫面
     const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F01002/F01002SCN1");
+    window.open(url[0] + "/#/F02003/CHILDBWSCN1");
     sessionStorage.setItem('winClose', 'N');
-    sessionStorage.setItem('search', 'N');
+    // sessionStorage.setItem('search', 'N');
   }
   getCREDIT()//審核結果
   {
