@@ -85,6 +85,7 @@ export class Childscn9page3Component implements OnInit {
     jsonObject['per_page'] = pageSize;
     const baseUrl = 'f01/childscn9action'
     this.childscn9Service.getData(baseUrl, jsonObject).subscribe(data => {
+      console.log(data)
       this.totalCount = data.rspBody.size;
       if (code == 'PROD_DETAIL') { this.PROD_DETAILSource = data.rspBody.items; }
       if (code == 'INSTALLMENT_ACC') { this.INSTALLMENT_ACCSource = data.rspBody.items; }

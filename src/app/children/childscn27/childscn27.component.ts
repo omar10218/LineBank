@@ -36,7 +36,7 @@ export class Childscn27Component implements OnInit {
   mytime: Date | null = null;                       //預計發送時間(時分)
   smsDataSource = new MatTableDataSource<any>();    //簡訊資訊檔
   sms_M_Code = new MatTableDataSource<any>();    //sms mappingcode
-
+  stepName: string;
 
   ngOnInit(): void {
     //取案編
@@ -96,6 +96,7 @@ export class Childscn27Component implements OnInit {
         jsonObject['messageContent'] = this.messageContent;
         jsonObject['empno'] = localStorage.getItem("empNo");
         jsonObject['mobile'] = this.mobile;
+        jsonObject['level'] = this.stepName.substring(10);
         jsonObject['realSmsTime'] = this.pipe.transform(this.realSmsTime, 'yyyyMMdd') + this.pipe.transform(this.mytime, 'HHmm');
         await this.childscn27Service.postJson(baseUrl, jsonObject).subscribe(data => {
           msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
@@ -110,7 +111,7 @@ export class Childscn27Component implements OnInit {
           }
         });
       }
-    }
+    } 
   }
 
   // 選取sms模板後會將內容代入sms內容

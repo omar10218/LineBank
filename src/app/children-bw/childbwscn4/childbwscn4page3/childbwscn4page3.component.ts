@@ -84,6 +84,7 @@ export class Childbwscn4page3Component implements OnInit {
     jsonObject['per_page'] = pageSize;
 
     this.Childbwscn4Service.getCoreCusInfo(jsonObject).subscribe(data => {
+      console.log(data)
       this.totalCount = data.rspBody.size;
       if (code == 'PROD_DETAIL') { this.PROD_DETAILSource = data.rspBody.items; }
       if (code == 'INSTALLMENT_ACC') { this.INSTALLMENT_ACCSource = data.rspBody.items; }
