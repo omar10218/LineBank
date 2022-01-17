@@ -338,9 +338,8 @@ export class F01007scn1Component implements OnInit {
     this.f01007scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
       //儲存歷史資料
       // if (count > 0) {
-        this.setHistory(count);
+        await this.setHistory(count);
       // }
-      await this.childscn1Service.setHistory(this.history, "授信覆核案件完成", this.applno);
       let childernDialogRef: any;
       if (data.rspMsg != null && data.rspMsg != '') {
         childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -403,7 +402,7 @@ export class F01007scn1Component implements OnInit {
   }
 
   //設定歷史資料紀錄參數 20211222
-  setHistory(count: number) {
+  async setHistory(count: number) {
     this.history = [];
     if (count > 0) {
       for (let index = 1; index <= count; index++) {
@@ -422,6 +421,8 @@ export class F01007scn1Component implements OnInit {
     this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS', originalValue: this.historyData.caPmcus }); //人員記錄-PM策略客群
     this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK', originalValue: this.historyData.caRisk }); //人員記錄-風險等級
     // this.history.push({value:  this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION'}); //審核意見
+
+    await this.childscn1Service.setHistory(this.history, "授信覆核案件完成", this.applno);
 
     let newHistory: interestPeriod[] = [];
     for (let index = 1; index <= count; index++) {

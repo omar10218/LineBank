@@ -483,7 +483,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
       if (data.rspBody.resultList.length > 0) {
         this.resultProdCode = data.rspBody.resultList[0].prodCode;
         this.resultPrjCode = data.rspBody.resultList[0].prjCode;
-        this.creditResult = data.rspBody.resultList[0].creditResult;
+        this.creditResult = data.rspBody.resultList[0].creditResult != null && data.rspBody.resultList[0].creditResult != '' ? data.rspBody.resultList[0].creditResult : '' ;
         sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult ? data.rspBody.resultList[0].creditResult : '');
         this.resultApproveAmt = data.rspBody.resultList[0].approveAmt == null ? '0' : this.toCurrency(data.rspBody.resultList[0].approveAmt.toString());
         sessionStorage.setItem('resultApproveAmt',this.toNumber(this.resultApproveAmt));
@@ -599,8 +599,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
           creditResult: this.creditResult
         })
       } else if (this.level == 'L3') {
-        console.log("===============");
-        console.log(this.resultApproveAmt);
         this.f01002scn1Service.setHistorySource({
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,
