@@ -39,6 +39,7 @@ export class Childscn27Component implements OnInit {
   stepName: string;
 
   ngOnInit(): void {
+    console.log()
     //取案編
     this.applno = sessionStorage.getItem('applno');
     //取sms樣板下拉
@@ -96,7 +97,6 @@ export class Childscn27Component implements OnInit {
         jsonObject['messageContent'] = this.messageContent;
         jsonObject['empno'] = localStorage.getItem("empNo");
         jsonObject['mobile'] = this.mobile;
-        jsonObject['level'] = this.stepName.substring(10);
         jsonObject['realSmsTime'] = this.pipe.transform(this.realSmsTime, 'yyyyMMdd') + this.pipe.transform(this.mytime, 'HHmm');
         await this.childscn27Service.postJson(baseUrl, jsonObject).subscribe(data => {
           msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
