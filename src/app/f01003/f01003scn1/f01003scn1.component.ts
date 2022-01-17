@@ -262,11 +262,53 @@ export class F01003scn1Component implements OnInit {
   }
 
   result(baseUrl: string, jsonObject: JSON, result: string, count: number) {
+    this.setHistory(count);
+    const content = [];
+    for (let index = 0; index < this.history.length; index++) {
+      if (!(this.history[index].value == null || this.history[index].value == '' || this.history[index].value == 'null')) {
+        content.push(
+          {
+            applno: this.applno,
+            tableName: this.history[index].tableName,
+            columnName: this.history[index].valueInfo,
+            originalValue: this.history[index].originalValue,
+            currentValue: this.history[index].value,
+            transAPname: "授信案件完成",
+          }
+        )
+      }
+    }
+    jsonObject['content'] = content;
+
+    let newHistory: interestPeriod[] = [];
+    for (let index = 1; index <= count; index++) {
+      newHistory.push(
+        {
+          period: sessionStorage.getItem('period' + index),
+          periodType: sessionStorage.getItem('periodType' + index),
+          interestType: sessionStorage.getItem('interestType' + index),
+          approveInterest: sessionStorage.getItem('approveInterest' + index),
+          interest: sessionStorage.getItem('interest' + index),
+          interestBase: sessionStorage.getItem('interestBase' + index)
+        }
+      );
+    }
+
+    this.f01003Scn1Service.setHistorySource({
+      creditResult: this.creditResult,
+      lowestPayRate: this.lowestPayRate,
+      approveAmt: this.approveAmt,
+      caApplicationAmount: this.caApplicationAmount,
+      caPmcus: this.caPmcus,
+      caRisk: this.caRisk,
+      CreditInterestPeriodSource: newHistory
+    })
+
     this.block = true;
-    this.f01003Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
+    this.f01003Scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       //儲存歷史資料
       // if (count > 0) {
-        await this.setHistory(count);
+        // await this.setHistory(count);
       // }
       let childernDialogRef: any;
       if (data.rspMsg != null && data.rspMsg != '') {
@@ -346,7 +388,7 @@ export class F01003scn1Component implements OnInit {
   }
 
   //設定歷史資料紀錄參數 20211222
-  async setHistory(count: number) {
+  setHistory(count: number) {
     if (count > 0) {
       for (let index = 1; index <= count; index++) {
         this.history.push({ value: sessionStorage.getItem('period' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].period }); //分段起始期數
@@ -365,30 +407,30 @@ export class F01003scn1Component implements OnInit {
     this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK', originalValue: this.historyData.caRisk }); //人員記錄-風險等級
     // this.history.push({value:  this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION'}); //審核意見
 
-    await this.childscn1Service.setHistory(this.history, "授信案件完成", this.applno);
+    // await this.childscn1Service.setHistory(this.history, "授信案件完成", this.applno);
 
-    let newHistory: interestPeriod[] = [];
-    for (let index = 1; index <= count; index++) {
-      newHistory.push(
-        {
-          period: sessionStorage.getItem('period' + index),
-          periodType: sessionStorage.getItem('periodType' + index),
-          interestType: sessionStorage.getItem('interestType' + index),
-          approveInterest: sessionStorage.getItem('approveInterest' + index),
-          interest: sessionStorage.getItem('interest' + index),
-          interestBase: sessionStorage.getItem('interestBase' + index)
-        }
-      );
-    }
+    // let newHistory: interestPeriod[] = [];
+    // for (let index = 1; index <= count; index++) {
+    //   newHistory.push(
+    //     {
+    //       period: sessionStorage.getItem('period' + index),
+    //       periodType: sessionStorage.getItem('periodType' + index),
+    //       interestType: sessionStorage.getItem('interestType' + index),
+    //       approveInterest: sessionStorage.getItem('approveInterest' + index),
+    //       interest: sessionStorage.getItem('interest' + index),
+    //       interestBase: sessionStorage.getItem('interestBase' + index)
+    //     }
+    //   );
+    // }
 
-    this.f01003Scn1Service.setHistorySource({
-      creditResult: this.creditResult,
-      lowestPayRate: this.lowestPayRate,
-      approveAmt: this.approveAmt,
-      caApplicationAmount: this.caApplicationAmount,
-      caPmcus: this.caPmcus,
-      caRisk: this.caRisk,
-      CreditInterestPeriodSource: newHistory
-    })
+    // this.f01003Scn1Service.setHistorySource({
+    //   creditResult: this.creditResult,
+    //   lowestPayRate: this.lowestPayRate,
+    //   approveAmt: this.approveAmt,
+    //   caApplicationAmount: this.caApplicationAmount,
+    //   caPmcus: this.caPmcus,
+    //   caRisk: this.caRisk,
+    //   CreditInterestPeriodSource: newHistory
+    // })
   }
 }
