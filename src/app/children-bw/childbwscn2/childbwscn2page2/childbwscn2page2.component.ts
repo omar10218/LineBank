@@ -3,7 +3,7 @@ import {FormGroup, FormBuilder} from '@angular/forms'
 import {OptionsCode} from 'src/app/interface/base'
 import {Childbwscn2Service} from '../childbwscn2.service'
 import {MatTableDataSource} from '@angular/material/table'
-import {NzGridModule} from 'ng-zorro-antd/grid'
+import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n'
 
 @Component({
 	selector: 'app-childscn10page3',
@@ -11,36 +11,85 @@ import {NzGridModule} from 'ng-zorro-antd/grid'
 	styleUrls: ['./childbwscn2page2.component.css', '../../../../assets/css/child.css'],
 })
 export class childbwscn2page2Component implements OnInit {
-	constructor(private fb: FormBuilder, private Childbwscn2Service: Childbwscn2Service,) {}
 	BW_DSS4_RISKDSUB_LIST =[] //風險模型變數設定
-
 	dateCode: OptionsCode[] = []
 	dateValue: string
 
-	private applno: string
+	constructor(
+    private fb: FormBuilder,
+    private childbwscn2Service: Childbwscn2Service,
+    private nzI18nService: NzI18nService) {
+    this.nzI18nService.setLocale(zh_TW)
+  }
+
+  private applno: string;
+  loading = true;
+
+  DSS1_DataSource = new MatTableDataSource<any>();//風險模型資訊
+  EL_DSS1_RISKDSUB = new MatTableDataSource<any>();//風險模型變數資訊
+  DSS2_DataSource = new MatTableDataSource<any>();//風險模型資訊
+  EL_DSS2_RISKDSUB = new MatTableDataSource<any>();//風險模型變數資訊
+
+  DSS1DataForm: FormGroup = this.fb.group({
+    RISKMDSUB_A0: ['', []],//風險模型子模型代碼
+    RISKMDSUB_A0_DESC: ['', []],//風險模型子模型說明
+    RISKMDSCORE_A0: ['', []],//風險模型分數
+    RISKMDGRADE_A0: ['', []],//風險模型等級
+    RISKMDGRADE_A0_GP: ['', []],//風險模型等級分群
+    RISKMDGRADE_A0_ADJ: ['', []],//風險模型等級(策略調整後)
+    RISKMDGRADE_A0_GP_ADJ: ['', []],//風險模型等級分群(策略調整後)
+  })
+
+  DSS2DataForm: FormGroup = this.fb.group({
+    RISKMDSUB_A1: ['', []],//風險模型子模型代碼
+    RISKMDSUB_A1_DESC: ['', []],//風險模型子模型說明
+    RISKMDSCORE_A1: ['', []],//風險模型分數
+    RISKMDGRADE_A1: ['', []],//風險模型等級
+    RISKMDGRADE_A1_GP: ['', []],//風險模型等級分群
+    RISKMDGRADE_A1_ADJ: ['', []],//風險模型等級(策略調整後)
+    RISKMDGRADE_A1_GP_ADJ: ['', []],//風險模型等級分群(策略調整後)
+  })
+
+  ngOnInit(): void {
+    this.applno = sessionStorage.getItem('applno');
+    this.getData();
+  }
+
+  //取Table
+  getData() {
+
+    const url = 'f01/childscn10action2';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['strgy'] = '1';
+    this.childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
+      if (data.rspBody.DSS1LIST.length > 0) {
+        this.DSS1_DataSource.data = data.rspBody.DSS1LIST
+        //系統決策
+        this.DSS1DataForm.patchValue({ RISKMDSUB_A0: data.rspBody.DSS1LIST[0].RISKMDSUB_A0 })//風險模型子模型代碼
+        this.DSS1DataForm.patchValue({ RISKMDSUB_A0_DESC: data.rspBody.DSS1LIST[0].RISKMDSUB_A0_DESC })//風險模型子模型說明
+        this.DSS1DataForm.patchValue({ RISKMDSCORE_A0: data.rspBody.DSS1LIST[0].RISKMDSCORE_A0 })//風險模型分數
+        this.DSS1DataForm.patchValue({ RISKMDGRADE_A0: data.rspBody.DSS1LIST[0].RISKMDGRADE_A0 })//風險模型等級
+        this.DSS1DataForm.patchValue({ RISKMDGRADE_A0_GP: data.rspBody.DSS1LIST[0].RISKMDGRADE_A0_GP })//風險模型等級分群
+        this.DSS1DataForm.patchValue({ RISKMDGRADE_A0_ADJ: data.rspBody.DSS1LIST[0].RISKMDGRADE_A0_ADJ })//風險模型等級(策略調整後)
+        this.DSS1DataForm.patchValue({ RISKMDGRADE_A0_GP_ADJ: data.rspBody.DSS1LIST[0].RISKMDGRADE_A0_GP_ADJ })//風險模型等級分群(策略調整後)
+      }
+      this.EL_DSS1_RISKDSUB.data = data.rspBody.DSS1RISKDSUB;
+
+      this.DSS2_DataSource.data = data.rspBody.DSS2LIST
+      if (data.rspBody.DSS2LIST.length > 0) {
+        //系統決策
+        this.DSS2DataForm.patchValue({ RISKMDSUB_A1: data.rspBody.DSS2LIST[0].RISKMDSUB_A1 })//風險模型子模型代碼
+        this.DSS2DataForm.patchValue({ RISKMDSUB_A1_DESC: data.rspBody.DSS2LIST[0].RISKMDSUB_A1_DESC })//風險模型子模型說明
+        this.DSS2DataForm.patchValue({ RISKMDSCORE_A1: data.rspBody.DSS2LIST[0].RISKMDSCORE_A1 })//風險模型分數
+        this.DSS2DataForm.patchValue({ RISKMDGRADE_A1: data.rspBody.DSS2LIST[0].RISKMDGRADE_A1 })//風險模型等級
+        this.DSS2DataForm.patchValue({ RISKMDGRADE_A1_GP: data.rspBody.DSS2LIST[0].RISKMDGRADE_A1_GP })//風險模型等級分群
+        this.DSS2DataForm.patchValue({ RISKMDGRADE_A1_ADJ: data.rspBody.DSS2LIST[0].RISKMDGRADE_A1_ADJ })//風險模型等級(策略調整後)
+        this.DSS2DataForm.patchValue({ RISKMDGRADE_A1_GP_ADJ: data.rspBody.DSS2LIST[0].RISKMDGRADE_A1_GP_ADJ })//風險模型等級分群(策略調整後)
+      }
+      this.EL_DSS2_RISKDSUB.data = data.rspBody.DSS2RISKDSUB;
+    });
+  }
 
 
-	ngOnInit(): void {
-		this.applno = sessionStorage.getItem('applno')
-
-		this.getDSS3()
-
-	}
-
-
-	getDSS3() {
-		this.applno = sessionStorage.getItem('applno')
-		const url = 'f01/childBwScn2action2'
-		let jsonObject: any = {}
-		jsonObject['applno'] = this.applno
-		this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
-			//系統決策
-			this.BW_DSS4_RISKDSUB_LIST = data.rspBody.bwDss4Riskdsub //風險模型變數設定
-		})
-	}
-
-
-	// changeDate() {
-	//   this.getDSS3(this.dateValue);
-	// }
 }
