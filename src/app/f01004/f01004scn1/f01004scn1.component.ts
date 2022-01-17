@@ -182,7 +182,7 @@ export class F01004scn1Component implements OnInit {
         if (url == 'f01/childscn0action1') {
           this.result(baseUrl, jsonObject, result, count);
         } else {
-          if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
+          if ( !(this.creditResult == 'A' || this.creditResult == 'D') ) {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: '請填寫核決結果!' }
             });

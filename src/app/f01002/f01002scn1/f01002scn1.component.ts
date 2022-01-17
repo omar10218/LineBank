@@ -327,7 +327,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
         jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
 
         if (baseUrl != 'f01/childscn0action1') {
-          if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
+          if ( !(this.creditResult == 'C' || this.creditResult == 'D') ) {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: '請填寫核決結果!' }
             });
