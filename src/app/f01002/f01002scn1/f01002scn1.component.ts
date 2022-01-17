@@ -327,7 +327,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
         jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
 
         if (baseUrl != 'f01/childscn0action1') {
-          if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
+          if ( !(this.creditResult == 'C' || this.creditResult == 'D') ) {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: '請填寫核決結果!' }
             });
@@ -350,20 +350,61 @@ export class F01002scn1Component implements OnInit, OnDestroy {
   }
 
   result(baseUrl: string, jsonObject: JSON, result: string, count: number) {
+    this.setHistory(count);
+    const content = [];
+    for (let index = 0; index < this.history.length; index++) {
+      if (!(this.history[index].value == null || this.history[index].value == '' || this.history[index].value == 'null')) {
+        content.push(
+          {
+            applno: this.applno,
+            tableName: this.history[index].tableName,
+            columnName: this.history[index].valueInfo,
+            originalValue: this.history[index].originalValue,
+            currentValue: this.history[index].value,
+            transAPname: "徵信案件完成",
+          }
+        )
+      }
+    }
+    jsonObject['content'] = content;
+
+    let newHistory: interestPeriod[] = [];
+    for (let index = 1; index <= count; index++) {
+      newHistory.push(
+        {
+          period: sessionStorage.getItem('period' + index),
+          periodType: sessionStorage.getItem('periodType' + index),
+          interestType: sessionStorage.getItem('interestType' + index),
+          approveInterest: sessionStorage.getItem('approveInterest' + index),
+          interest: sessionStorage.getItem('interest' + index),
+          interestBase: sessionStorage.getItem('interestBase' + index)
+        }
+      );
+    }
+
+    this.f01002scn1Service.setHistorySource({
+      creditResult: this.creditResult,
+      lowestPayRate: this.lowestPayRate,
+      approveAmt: this.approveAmt,
+      caApplicationAmount: this.caApplicationAmount,
+      caPmcus: this.caPmcus,
+      caRisk: this.caRisk,
+      CreditInterestPeriodSource: newHistory
+    })
+
     this.block = true;
-    this.f01002scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
+    this.f01002scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       //儲存歷史資料
       // if (count > 0) {
-        this.setHistory(count);
+      // await this.setHistory(count);
       // }
-      await this.childscn1Service.setHistory(this.history, "徵信案件完成", this.applno);
       let childernDialogRef: any;
       if (data.rspMsg != null && data.rspMsg != '') {
         childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: data.rspMsg }
         });
       }
-      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') {} else {
+      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { } else {
         setTimeout(() => {
           childernDialogRef.close();
         }, 1000);
@@ -439,30 +480,6 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS', originalValue: this.historyData.caPmcus }); //人員記錄-PM策略客群
     this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK', originalValue: this.historyData.caRisk }); //人員記錄-風險等級
     // this.history.push({ value: this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION' }); //審核意見
-
-    let newHistory: interestPeriod[] = [];
-    for (let index = 1; index <= count; index++) {
-      newHistory.push(
-        {
-          period: sessionStorage.getItem('period' + index),
-          periodType: sessionStorage.getItem('periodType' + index),
-          interestType: sessionStorage.getItem('interestType' + index),
-          approveInterest: sessionStorage.getItem('approveInterest' + index),
-          interest: sessionStorage.getItem('interest' + index),
-          interestBase: sessionStorage.getItem('interestBase' + index)
-        }
-      );
-    }
-
-    this.f01002scn1Service.setHistorySource({
-      creditResult: this.creditResult,
-      lowestPayRate: this.lowestPayRate,
-      approveAmt: this.approveAmt,
-      caApplicationAmount: this.caApplicationAmount,
-      caPmcus: this.caPmcus,
-      caRisk: this.caRisk,
-      CreditInterestPeriodSource: newHistory
-    })
   }
 
   //儲存 SUPPLY_AML
