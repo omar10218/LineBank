@@ -122,12 +122,8 @@ export class Childbwscn1Component implements OnInit {
   getCreditMainList() {
     const url = 'f01/childbwscn1';
     let jsonObject: any = {};
-    // jsonObject['applno'] = this.applno;
-    //測試用
-    jsonObject['applno'] = '20210927E011';
+    jsonObject['applno'] = this.applno;
     this.childbwscn1Service.postJson(url, jsonObject).subscribe(data => {
-      // console.log('getCreditMainList')
-      // console.log(data)
       this.bwCreditAuditinfoList = data.rspBody.bwCreditAuditinfoList;
       this.bwCreditMainList = data.rspBody.bwCreditMainList;
       if (this.bwCreditAuditinfoList.length < 1) {

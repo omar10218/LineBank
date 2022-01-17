@@ -28,6 +28,8 @@ export class Childscn28Component implements OnInit {
   emailSet: string;           //EMAIL設定值
   emailTitle: string;         //主旨
   content: string;            //E-MAIL內容
+  stepName: string;
+
 
   emailDataSource = new MatTableDataSource<any>();    //email資訊檔
   email_M_Code = new MatTableDataSource<any>();    //email mappingcode
@@ -104,6 +106,7 @@ export class Childscn28Component implements OnInit {
         jsonObject['email'] = this.email;
         jsonObject['emailTitle'] = this.emailTitle;
         jsonObject['messageContent'] = this.content;
+        jsonObject['level'] = this.stepName.substring(10);
         this.childscn28Service.postJson(baseUrl, jsonObject).subscribe(data => {
           msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
           this.dialog.open(ConfirmComponent, {
