@@ -158,8 +158,10 @@ export class F01008scn1Component implements OnInit {
         jsonObject['applno'] = this.applno;
         jsonObject['custId'] = this.custId;
         this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-          console.log(data)
-
+          let childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: data.rspMsg }
+          });
+          window.location.reload();
         })
       }
     })
