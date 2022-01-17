@@ -23,3 +23,12 @@
 .mat-dialog-actions{
   padding-left:20px;
 }
+
+.oncloick{
+  color: blueviolet!important;
+}
+
+.unclock{
+  color: cornflowerblue!important;
+}
+

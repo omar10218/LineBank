@@ -4,9 +4,6 @@ import { OptionsCode } from 'src/app/interface/base';
 import { Childbwscn2Service } from './childbwscn2.service';
 import { childbwscn2page1Component } from './childbwscn2page1/childbwscn2page1.component';
 import { childbwscn2page2Component } from './childbwscn2page2/childbwscn2page2.component';
-// import { Childscn10page2Component } from './childscn10page2/childscn10page2.component';
-// import { Childscn10page3Component } from './childscn10page3/childscn10page3.component';
-// import { Childscn10page4Component } from './childscn10page4/childscn10page4.component';
 
 enum Page {
   Page1,
@@ -33,20 +30,20 @@ export class Childbwscn2Component implements OnInit {
 
    private applno: string;
    private cuid: string;
-   private routerCase: string;
    private level: string;
+   rskmdl: boolean = false; //判斷是否有風險模型權限
+
    component = new Map<Page, any>(
      [
        [Page.Page1, childbwscn2page1Component],
        [Page.Page2, childbwscn2page2Component],
-      //  [Page.Page3, Childscn10page3Component],
-      //  [Page.Page4, Childscn10page4Component]
      ]
    );
    nowPage = Page.Page1;
    readonly Page = Page;
 
   ngOnInit(): void {
+    this.checkRskmdl();
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
     this.level = sessionStorage.getItem('level');
@@ -58,9 +55,6 @@ export class Childbwscn2Component implements OnInit {
   //判斷等級是否顯示 授信 高階主管才可顯示 風險模型資訊
   getLevel() {
     let YN = "N";
-    //測試用 都通過
-    // YN = "Y"
-    //正式用
     if(this.level=="1"||this.level=="2"){YN="Y"}
     return YN;
   }
@@ -76,5 +70,14 @@ export class Childbwscn2Component implements OnInit {
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
   }
+
+    //確認User是否有風險模型權限
+    checkRskmdl() {
+      const url = 'f01/childscn10action8';
+      let jsonObject: any = {};
+      this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
+        if (data.rspBody != null && data.rspBody > 0) { this.rskmdl = true; }
+      });
+    }
 
 }
