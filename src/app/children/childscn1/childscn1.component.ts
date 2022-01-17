@@ -332,7 +332,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
     this.search = sessionStorage.getItem('search');
     this.userId = localStorage.getItem("empNo");
     this.page = sessionStorage.getItem("page");
-    console.log(sessionStorage.getItem("page"))
     this.level = sessionStorage.getItem('stepName').split('t')[1];
 
     //先建立徵審代碼框架
@@ -484,15 +483,15 @@ export class Childscn1Component implements OnInit, OnDestroy {
         this.resultProdCode = data.rspBody.resultList[0].prodCode;
         this.resultPrjCode = data.rspBody.resultList[0].prjCode;
         this.creditResult = data.rspBody.resultList[0].creditResult != null && data.rspBody.resultList[0].creditResult != '' ? data.rspBody.resultList[0].creditResult : '' ;
-        sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult ? data.rspBody.resultList[0].creditResult : '');
-        this.resultApproveAmt = data.rspBody.resultList[0].approveAmt == null ? '0' : this.toCurrency(data.rspBody.resultList[0].approveAmt.toString());
+        sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult != null ? data.rspBody.resultList[0].creditResult : '');
+        this.resultApproveAmt = data.rspBody.resultList[0].approveAmt != null ? this.toCurrency(data.rspBody.resultList[0].approveAmt.toString()) : '';
         sessionStorage.setItem('resultApproveAmt',this.toNumber(this.resultApproveAmt));
         this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
-        sessionStorage.setItem('resultLowestPayRate', this.resultLowestPayRate.toString());
+        sessionStorage.setItem('resultLowestPayRate', this.resultLowestPayRate != null ? this.resultLowestPayRate.toString() : '');
         this.caPmcus = data.rspBody.resultList[0].caPmcus;
-        sessionStorage.setItem('caPmcus', data.rspBody.resultList[0].caPmcus ? data.rspBody.resultList[0].caPmcus : '');
+        sessionStorage.setItem('caPmcus', data.rspBody.resultList[0].caPmcus != null ? data.rspBody.resultList[0].caPmcus : '');
         this.caRisk = data.rspBody.resultList[0].caRisk;
-        sessionStorage.setItem('caRisk', data.rspBody.resultList[0].caRisk ? data.rspBody.resultList[0].caRisk : '');
+        sessionStorage.setItem('caRisk', data.rspBody.resultList[0].caRisk != null ? data.rspBody.resultList[0].caRisk : '');
       }
 
       let erroeStr: string = '';
@@ -692,7 +691,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
-      console.log(data)
       this.total = data.rspBody.size;
       this.creditmemoSource = data.rspBody.list;
       for (let index = 0; index < this.creditmemoSource.length; index++) {
@@ -1171,11 +1169,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   //     jsonObject['otherMessage4'] = this.otherMessage4;
   //     jsonObject['tradeNonPurpose'] = this.TRADE_NON_PURPOSEOTHER_MESSAGE5;
   //     jsonObject['otherMessage5'] = this.otherMessage5;
-  //     console.log('jsonObject')
-  //     console.log(jsonObject)
   //     this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
-  //       console.log('data');
-  //       console.log(data);
   //     });
   //   } else {
   //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
