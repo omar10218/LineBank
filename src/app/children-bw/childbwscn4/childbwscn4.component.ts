@@ -18,10 +18,10 @@ enum Page {
 @Component({
   selector: 'app-childbwscn4',
   templateUrl: './childbwscn4.component.html',
-  styleUrls: ['./childbwscn4.component.css']
+  styleUrls: ['./childbwscn4.component.css','../../../assets/css/f01.css']
 })
 export class Childbwscn4Component implements OnInit {
-
+  queryDate:string //查詢時間
   constructor(
     private Childbwscn4Service: Childbwscn4Service,
     private componenFactoryResolver: ComponentFactoryResolver,
@@ -49,10 +49,17 @@ export class Childbwscn4Component implements OnInit {
   ngOnInit(): void {
       this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
-    const url = 'f01/childscn9';
+    const baseUrl = 'f01/childBwScn4';
+    let jsonObject: any = {};
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
     formdata.append('cuid', this.cuid);
+    this.Childbwscn4Service.getDate(baseUrl, jsonObject).subscribe(data => {
+      this.queryDate = data.rspBody.queryDate;
+    });
+    // this.Childbwscn4Service.getDate(baseUrl, jsonObject).subscribe(data => {
+    //   this.queryDate = data.rspBody.queryDate;
+    // });
     //this.router.navigate(['./'+this.routerCase+'/CHILDSCN9/CHILDSCN9PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });
   }
   ngAfterViewInit() {
