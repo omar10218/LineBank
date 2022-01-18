@@ -93,7 +93,7 @@ export class F02001Component implements OnInit {
   }
 
   getStatusDesc() {
-    this.f02001Service.getSysTypeCode(' ').subscribe(data => {
+    this.f02001Service.getSysTypeCode('STATUS_CODE').subscribe(data => {
 
       this.status_DESC.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {

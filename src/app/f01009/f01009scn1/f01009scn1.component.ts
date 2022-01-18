@@ -38,6 +38,7 @@ export class F01009scn1Component implements OnInit {
     this.cuid = sessionStorage.getItem('nationalId');
     this.fds = sessionStorage.getItem('fds');
     this.page = sessionStorage.getItem('page');
+    
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
     this.creditlevel = this.page == "10" ? "L3" : this.creditlevel;
   }
