@@ -106,7 +106,6 @@ export class Childscn28Component implements OnInit {
         jsonObject['email'] = this.email;
         jsonObject['emailTitle'] = this.emailTitle;
         jsonObject['messageContent'] = this.content;
-        jsonObject['level'] = this.stepName.substring(10);
         this.childscn28Service.postJson(baseUrl, jsonObject).subscribe(data => {
           msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
           this.dialog.open(ConfirmComponent, {
