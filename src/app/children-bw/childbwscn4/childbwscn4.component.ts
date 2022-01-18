@@ -21,12 +21,7 @@ enum Page {
   styleUrls: ['./childbwscn4.component.css','../../../assets/css/f01.css']
 })
 export class Childbwscn4Component implements OnInit {
-<<<<<<< HEAD
-  queryDate: string;
-
-=======
   queryDate:string //查詢時間
->>>>>>> 468f83c90e79fbedac0cefe01968b1c240a602c4
   constructor(
     private Childbwscn4Service: Childbwscn4Service,
     private componenFactoryResolver: ComponentFactoryResolver,
@@ -52,16 +47,6 @@ export class Childbwscn4Component implements OnInit {
 
 
   ngOnInit(): void {
-<<<<<<< HEAD
-    this.applno = sessionStorage.getItem('applno');
-    const baseUrl = 'f01/childBwScn4action2';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    this.Childbwscn4Service.getDate(baseUrl, jsonObject).subscribe(data => {
-      this.queryDate = data.rspBody.queryDate;
-    });
-    }
-=======
       this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
     const baseUrl = 'f01/childBwScn4';
@@ -77,7 +62,6 @@ export class Childbwscn4Component implements OnInit {
     // });
     //this.router.navigate(['./'+this.routerCase+'/CHILDSCN9/CHILDSCN9PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search, routerCase: this.routerCase, fds: this.fds } });
   }
->>>>>>> 468f83c90e79fbedac0cefe01968b1c240a602c4
   ngAfterViewInit() {
     this.changePage(this.nowPage);
   }
