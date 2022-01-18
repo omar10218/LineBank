@@ -304,7 +304,8 @@ export class F01003scn1Component implements OnInit {
       caApplicationAmount: this.caApplicationAmount,
       caPmcus: this.caPmcus,
       caRisk: this.caRisk,
-      CreditInterestPeriodSource: newHistory
+      CreditInterestPeriodSource: newHistory,
+      addSignature: this.addSignature
     })
 
     this.block = true;

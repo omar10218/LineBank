@@ -640,11 +640,21 @@ export class Childscn1Component implements OnInit, OnDestroy {
       } else if (this.level == 'L0' && this.addSignatureValue == 'S2') {
         this.f01013Scn1Service.setHistorySource({
           creditResult: this.creditResult,
+          lowestPayRate: this.resultLowestPayRate,
+          approveAmt: this.resultApproveAmt,
+          caPmcus: this.caPmcus,
+          caRisk: this.caRisk,
+          CreditInterestPeriodSource: this.historySource,
           addSignature: this.addSignatureValue
         })
       } else if (this.level == 'L0' && this.addSignatureValue == 'S1') {
         this.f01014Scn1Service.setHistorySource({
           creditResult: this.creditResult,
+          lowestPayRate: this.resultLowestPayRate,
+          approveAmt: this.resultApproveAmt,
+          caPmcus: this.caPmcus,
+          caRisk: this.caRisk,
+          CreditInterestPeriodSource: this.historySource,
           addSignature: this.addSignatureValue
         })
       } else if (this.level == 'L0') {
