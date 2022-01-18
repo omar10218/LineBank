@@ -64,6 +64,18 @@
             資料異動歷程</button>
         </a>
       </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDBWSCN13']">
+          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">
+            網頁資訊</button>
+        </a>
+      </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDBWSCN14']">
+          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">
+            資料比對</button>
+        </a>
+      </nz-tab>
     </nz-tabset>
   </div>
   <router-outlet style="padding-top:40px;display: block;"></router-outlet>

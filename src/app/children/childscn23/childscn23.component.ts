@@ -90,7 +90,8 @@ export class Childscn23Component implements OnInit {
   add()//新增一筆
   {
 
-    if (this.i == true) {
+    if (this.i == true)
+    {
       this.AddData = { APPLNO: this.applno, ACCOUNT_CODE: '', ID: '1', MONTHLY_PAY_421: '', MONTHLY_PAY_029: '', MONTHLY_PAY_CC: '', CAL_RATE: '', CAL_YEARS: '', CAL_PERIOD: '', CONTRACT_AMT_421: '', CONTRACT_AMT_029: '', CONTRACT_AMT_CC: '' };
       this.one.push(this.AddData)
       this.i = false;
@@ -286,7 +287,8 @@ export class Childscn23Component implements OnInit {
     console.log(this.checkboxAny)
     this.childscn23Service.AddUpDel(url, jsonObject).subscribe(data => {
       console.log(data)
-      if (data.rspMsg == '刪除成功') {
+      if (data.rspMsg == '刪除成功')
+      {
         this.set();
         // alert('1')
         this.isAllCheck = false;
@@ -302,7 +304,12 @@ export class Childscn23Component implements OnInit {
       }
 
     })
-
+    for (const item of this.one) {
+      if (item.ID == '1') {
+        this.one.pop();
+      }
+    }
+    this.i = true;
   }
   addcheckbox(check: boolean, z: string, amt029: string, amt421: string, amtcc: string) {
 
