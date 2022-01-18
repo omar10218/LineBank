@@ -156,7 +156,100 @@
       </div>
 
       <!-- 徵審代碼 -->
-       <div class="EL_DSS_form_header_title3">徵審代碼</div>
+      <div style="margin:0;" class="EL_DSS_form_header_title3">徵審代碼</div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">信用異常資訊</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS4_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small">
+            <thead>
+              <tr>
+                <th class="table-header">徵審代碼</th>
+                <th class="table-header">徵審代碼中文</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of EL_DSS4_UNDW_LIST1.data">
+                <td class="table-data">{{ row.UNDW_CD }}</td>
+                <td class="table-data">{{row.REASON_DESC}}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">整體往來</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS4_UNDW_LIST2.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS4_UNDW_LIST2.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">信用卡往來</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS4_UNDW_LIST3.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS4_UNDW_LIST3.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">授信往來</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS4_UNDW_LIST4.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS4_UNDW_LIST4.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0;" class="EL_DSS_form_header_title4">其他</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS4_UNDW_LIST5.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS4_UNDW_LIST5.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+      </div>
+       <!-- <div class="EL_DSS_form_header_title3">徵審代碼</div>
       <nz-table nzShowSizeChanger [nzData]="UNDW_CD_LIST.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
         <thead>
@@ -171,10 +264,10 @@
             <td class="table-data"></td>
           </tr>
         </tbody>
-      </nz-table>
+      </nz-table> -->
 <!-- 額度策略 -->
       <div class="EL_DSS_form_header_title3">額度策略</div>
-      <nz-table nzShowSizeChanger [nzData]="CFC_LIMIT_AMT_LIST.data" [nzFrontPagination]="false" [nzSimple]="true"
+      <nz-table nzShowSizeChanger [nzData]="BW_DSS4_CFC_LIMIT.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
         <thead>
           <tr>
@@ -194,7 +287,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let row of UNDW_CD_LIST.data">
+          <tr *ngFor="let row of BW_DSS4_CFC_LIMIT.data">
             <td class="table-data">{{ row.UNDW_CD }}</td>
             <td class="table-data"></td>
             <td class="table-data"></td>
