@@ -157,7 +157,7 @@ export class F01009Component implements OnInit, AfterViewInit {
       }
       this.changePage();
       this.getCaseList();
-      
+
     }
   }
 
