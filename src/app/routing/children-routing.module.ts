@@ -40,6 +40,7 @@ import { Childscn22Component } from '../children/childscn22/childscn22.component
 import { Childscn23Component } from '../children/childscn23/childscn23.component';
 import { Childscn25Component } from '../children/childscn25/childscn25.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { Childscn29Component } from '../children/childscn29/childscn29.component';
 
 const routes: Routes = [
   {
@@ -243,6 +244,11 @@ const routes: Routes = [
   {
     path: 'CHILDSCN25',
     component: Childscn25Component,
+    //canActivate: [AuthGuard], // 守衛路由
+  },
+  {
+    path: 'CHILDSCN29',
+    component: Childscn29Component,
     //canActivate: [AuthGuard], // 守衛路由
   },
   {
