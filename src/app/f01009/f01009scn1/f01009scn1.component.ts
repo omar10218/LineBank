@@ -4,6 +4,9 @@ import { Childbwscn12Component } from 'src/app/children-bw/childbwscn12/childbws
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01009Service } from '../f01009.service';
 import { Router } from '@angular/router';
+import { Childscn27Component } from 'src/app/children/childscn27/childscn27.component';
+import { Childscn28Component } from 'src/app/children/childscn28/childscn28.component';
+import { Childscn22Component } from 'src/app/children/childscn22/childscn22.component';
 
 @Component({
   selector: 'app-f01009scn1',
@@ -57,7 +60,17 @@ export class F01009scn1Component implements OnInit {
       }
     });
   }
-
+  recalculate() {
+    const dialogRef = this.dialog.open(Childscn22Component, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight: '50%',
+      width: '30%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid
+      }
+    });
+  }
   // finish() {
   //   if (sessionStorage.getItem('BW_creditResult') == null) {
   //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -131,6 +144,31 @@ export class F01009scn1Component implements OnInit {
     });
   }
 
+  reSMS() {
+    const dialogRef = this.dialog.open(Childscn27Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint: "L2"
+      }
+    });
+  }
+  
+  reMail() {
+    const dialogRef = this.dialog.open(Childscn28Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint: "L2"
+      }
+    });
+  }
   //判斷是否需要顯示案件完成列
   changeRoute(route: boolean) {
     this.changeValue = route;

@@ -28,6 +28,8 @@ export class Childscn28Component implements OnInit {
   emailSet: string;           //EMAIL設定值
   emailTitle: string;         //主旨
   content: string;            //E-MAIL內容
+  stepName: string;
+
 
   emailDataSource = new MatTableDataSource<any>();    //email資訊檔
   email_M_Code = new MatTableDataSource<any>();    //email mappingcode

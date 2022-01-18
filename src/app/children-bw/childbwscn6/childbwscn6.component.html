@@ -20,8 +20,8 @@
         <tr *ngFor="let data of ruleParamCondition">
           <td class="table-data">
             <button nz-button [nzSize]="'middle'" nzLeft nzType="link"
-              (click)="detail(data.applno, data.nationalId, data.custId)">
-              {{ data.applno }}
+              (click)="detail(data.applnoOld, data.nationalId, data.custId)">
+              {{ data.applnoOld }}
             </button>
           </td>
           <td class="table-data">{{ data.custId }}</td>

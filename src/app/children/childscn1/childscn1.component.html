@@ -1114,7 +1114,18 @@
     <div class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
       <div class="line_bank_form_header_title">審核結果</div>
       <div nz-row style="padding:5px">
-        <div nz-col nzFlex="1">
+        <div nz-col nzFlex="1" [ngClass]=" !(getLevel() == 'L2' || getLevel() == 'L1' || getLevel() == 'L0') ? 'dropdown' : '' " >
+          <div style="padding:2px"><span class="form-title">選擇加簽</span>
+            <mat-select [(ngModel)]="addSignatureValue" name="addSignatureValue" style="height:25px"
+              (ngModelChange)="change(addSignatureValue,'addSignature','')"
+              [disabled]=" !(getLevel() == 'L2' || getLevel() == 'L1' || getLevel() == 'L0') ">
+              <mat-option *ngFor="let code of addSignature" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div nz-col nzFlex="1" [ngClass]="getSearch() == 'Y' || getLevel() == 'L1' ? 'dropdown' : '' " >
           <div style="padding:2px"><span class="form-title">核決結果</span>
             <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px"
               (ngModelChange)="change(creditResult,'creditResult','')"

@@ -36,9 +36,10 @@ export class Childscn27Component implements OnInit {
   mytime: Date | null = null;                       //預計發送時間(時分)
   smsDataSource = new MatTableDataSource<any>();    //簡訊資訊檔
   sms_M_Code = new MatTableDataSource<any>();    //sms mappingcode
-
+  stepName: string;
 
   ngOnInit(): void {
+    console.log()
     //取案編
     this.applno = sessionStorage.getItem('applno');
     //取sms樣板下拉
@@ -110,7 +111,7 @@ export class Childscn27Component implements OnInit {
           }
         });
       }
-    }
+    } 
   }
 
   // 選取sms模板後會將內容代入sms內容
