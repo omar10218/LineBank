@@ -435,6 +435,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     sessionStorage.removeItem("caPmcus");
     sessionStorage.removeItem("caRisk");
     sessionStorage.removeItem("mark");
+    sessionStorage.removeItem("addSignature");
   }
 
   //儲存

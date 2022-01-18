@@ -282,6 +282,7 @@ export class F01001scn1Component implements OnInit {
     sessionStorage.removeItem("caPmcus");
     sessionStorage.removeItem("caRisk");
     sessionStorage.removeItem("mark");
+    sessionStorage.removeItem("addSignature");
   }
 
   //設定歷史資料紀錄參數 20211222

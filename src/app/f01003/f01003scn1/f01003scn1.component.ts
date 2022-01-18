@@ -56,6 +56,7 @@ export class F01003scn1Component implements OnInit {
   interest: string;
   interestType: string;
   creditResult: string;
+  addSignature: string;//20220118
   period: string;
   periodType: string;
   interestBase: string;
@@ -140,6 +141,7 @@ export class F01003scn1Component implements OnInit {
         this.caPmcus = sessionStorage.getItem('caPmcus');
         this.caRisk = sessionStorage.getItem('caRisk');
         this.mark = sessionStorage.getItem('mark');
+        this.addSignature = sessionStorage.getItem('addSignature');
 
         let jsoncreditResult: any = {};
         jsoncreditResult['approveAmt'] = this.approveAmt;
@@ -147,6 +149,7 @@ export class F01003scn1Component implements OnInit {
         jsoncreditResult['caPmcus'] = this.caPmcus;
         jsoncreditResult['caRisk'] = this.caRisk;
         jsoncreditResult['creditResult'] = this.creditResult;
+        jsoncreditResult['addSignature'] = this.addSignature;
 
         // let jsonCreditInterestPeriod: any = {};
         //20211229新增多階利率陣列
@@ -347,6 +350,7 @@ export class F01003scn1Component implements OnInit {
     sessionStorage.removeItem("caPmcus");
     sessionStorage.removeItem("caRisk");
     sessionStorage.removeItem("mark");
+    sessionStorage.removeItem("addSignature");
   }
   // 退件
   sendBack() {
@@ -405,6 +409,7 @@ export class F01003scn1Component implements OnInit {
     // this.history.push({value:  this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT'}); //徵信修改申貸金額
     this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS', originalValue: this.historyData.caPmcus }); //人員記錄-PM策略客群
     this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK', originalValue: this.historyData.caRisk }); //人員記錄-風險等級
+    this.history.push({ value: this.addSignature, tableName: 'EL_CREDITMAIN', valueInfo: 'ADD_SIGNATURE', originalValue: this.historyData.addSignature });//加簽
     // this.history.push({value:  this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION'}); //審核意見
 
     // await this.childscn1Service.setHistory(this.history, "授信案件完成", this.applno);

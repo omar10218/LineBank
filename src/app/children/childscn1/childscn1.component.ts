@@ -143,6 +143,10 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   //審核結果
   creditResult: string;
+  //選擇加簽20220118
+  addSignature: OptionsCode[] = [{ value: '', viewValue: '' } , { value: 'S1', viewValue: '總經理'} , { value: 'S2', viewValue: '風管處處長'}];
+  addSignatureValue: string;
+
   creditResultCode: OptionsCode[] = [];//核決結果下拉選單
   resultProdCode: string;
   resultPrjCode: string;
@@ -492,6 +496,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
         sessionStorage.setItem('caPmcus', data.rspBody.resultList[0].caPmcus != null ? data.rspBody.resultList[0].caPmcus : '');
         this.caRisk = data.rspBody.resultList[0].caRisk;
         sessionStorage.setItem('caRisk', data.rspBody.resultList[0].caRisk != null ? data.rspBody.resultList[0].caRisk : '');
+        this.addSignatureValue = data.rspBody.resultListp[0].addSignature;
+        sessionStorage.setItem('addSignature', data.rspBody.resultList[0].addSignature != null ? data.rspBody.resultList[0].addSignature : '');
       }
 
       let erroeStr: string = '';
@@ -620,7 +626,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
           approveAmt: this.resultApproveAmt,
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
-          CreditInterestPeriodSource: this.historySource
+          CreditInterestPeriodSource: this.historySource,
+          addSignature: this.addSignatureValue
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
           // interestType: this.CreditInterestPeriodSource[0].interestType,
@@ -635,7 +642,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
           approveAmt: this.resultApproveAmt,
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
-          CreditInterestPeriodSource: this.historySource
+          CreditInterestPeriodSource: this.historySource,
+          addSignature: this.addSignatureValue
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
           // interestType: this.CreditInterestPeriodSource[0].interestType,
@@ -651,6 +659,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
           CreditInterestPeriodSource: this.historySource,
+          addSignature: this.addSignatureValue
           // period: this.CreditInterestPeriodSource[0].period,
           // periodType: this.CreditInterestPeriodSource[0].periodType,
           // interestType: this.CreditInterestPeriodSource[0].interestType,
