@@ -18,6 +18,8 @@ import { F01003Scn1Service } from 'src/app/f01003/f01003scn1/f01003scn1.service'
 import { F01004Scn1Service } from 'src/app/f01004/f01004scn1/f01004scn1.service';
 import { F01007scn1Service } from 'src/app/f01007/f01007scn1/f01007scn1.service';
 import { F01001Scn1Service } from 'src/app/f01001/f01001scn1/f01001scn1.service';
+import { F01014Scn1Service } from 'src/app/f01014/f01014scn1/f01014scn1.service';
+import { F01013Scn1Service } from 'src/app/f01013/f01013scn1/f01013scn1.service';
 
 //原因碼框架
 interface CREDIT_View {
@@ -51,7 +53,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
     private f01003scn1Service: F01003Scn1Service,
     private f01004scn1Service: F01004Scn1Service,
     private f01007scn1Service: F01007scn1Service,
-    private f01001Scn1Service: F01001Scn1Service
+    private f01001Scn1Service: F01001Scn1Service,
+    private f01013Scn1Service: F01013Scn1Service,
+    private f01014Scn1Service: F01014Scn1Service
   ) {//訂閱 案件完成/暫存時 新增資料
     this.CREDITSource$ = this.f01002scn1Service.CREDITSource$.subscribe((data) => {
       if (data.key) {
@@ -612,12 +616,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
           CreditInterestPeriodSource: this.historySource
-          // period: this.CreditInterestPeriodSource[0].period,
-          // periodType: this.CreditInterestPeriodSource[0].periodType,
-          // interestType: this.CreditInterestPeriodSource[0].interestType,
-          // approveInterest: this.CreditInterestPeriodSource[0].approveInterest,
-          // interest: this.CreditInterestPeriodSource[0].interest,
-          // interestBase: this.CreditInterestPeriodSource[0].interestBase
         })
       } else if (this.level == 'L2') {
         this.f01003scn1Service.setHistorySource({
@@ -628,12 +626,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
           caRisk: this.caRisk,
           CreditInterestPeriodSource: this.historySource,
           addSignature: this.addSignatureValue
-          // period: this.CreditInterestPeriodSource[0].period,
-          // periodType: this.CreditInterestPeriodSource[0].periodType,
-          // interestType: this.CreditInterestPeriodSource[0].interestType,
-          // approveInterest: this.CreditInterestPeriodSource[0].approveInterest,
-          // interest: this.CreditInterestPeriodSource[0].interest,
-          // interestBase: this.CreditInterestPeriodSource[0].interestBase
         })
       } else if (this.level == 'L1') {
         this.f01007scn1Service.setHistorySource({
@@ -644,12 +636,16 @@ export class Childscn1Component implements OnInit, OnDestroy {
           caRisk: this.caRisk,
           CreditInterestPeriodSource: this.historySource,
           addSignature: this.addSignatureValue
-          // period: this.CreditInterestPeriodSource[0].period,
-          // periodType: this.CreditInterestPeriodSource[0].periodType,
-          // interestType: this.CreditInterestPeriodSource[0].interestType,
-          // approveInterest: this.CreditInterestPeriodSource[0].approveInterest,
-          // interest: this.CreditInterestPeriodSource[0].interest,
-          // interestBase: this.CreditInterestPeriodSource[0].interestBase
+        })
+      } else if (this.level == 'L0' && this.addSignatureValue == 'S2') {
+        this.f01013Scn1Service.setHistorySource({
+          creditResult: this.creditResult,
+          addSignature: this.addSignatureValue
+        })
+      } else if (this.level == 'L0' && this.addSignatureValue == 'S1') {
+        this.f01014Scn1Service.setHistorySource({
+          creditResult: this.creditResult,
+          addSignature: this.addSignatureValue
         })
       } else if (this.level == 'L0') {
         this.f01004scn1Service.setHistorySource({
@@ -660,12 +656,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
           caRisk: this.caRisk,
           CreditInterestPeriodSource: this.historySource,
           addSignature: this.addSignatureValue
-          // period: this.CreditInterestPeriodSource[0].period,
-          // periodType: this.CreditInterestPeriodSource[0].periodType,
-          // interestType: this.CreditInterestPeriodSource[0].interestType,
-          // approveInterest: this.CreditInterestPeriodSource[0].approveInterest,
-          // interest: this.CreditInterestPeriodSource[0].interest,
-          // interestBase: this.CreditInterestPeriodSource[0].interestBase
         })
       }
     })
