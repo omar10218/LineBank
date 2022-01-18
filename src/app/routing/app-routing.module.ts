@@ -156,6 +156,16 @@ const routes: Routes = [
         // canActivate: [AuthGuard], // 守衛路由
       },
       {
+        path: 'F01013',
+        loadChildren: () => import('../f01013/f01013.module').then(m => m.F01013Module),
+        // canActivate: [AuthGuard], // 守衛路由
+      },
+      {
+        path: 'F01014',
+        loadChildren: () => import('../f01014/f01014.module').then(m => m.F01014Module),
+        // canActivate: [AuthGuard], // 守衛路由
+      },
+      {
         path: 'F02001',
         component: F02001Component,
         //canActivate: [AuthGuard], // 守衛路由
