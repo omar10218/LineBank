@@ -31,6 +31,11 @@ import { Childbwscn13addComponent } from './childbwscn13/childbwscn13add/childbw
 import { Childbwscn13deleteComponent } from './childbwscn13/childbwscn13delete/childbwscn13delete.component';
 import { Childbwscn13editComponent } from './childbwscn13/childbwscn13edit/childbwscn13edit.component';
 import { Childbwscn13showComponent } from './childbwscn13/childbwscn13show/childbwscn13show.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Childbwscn14Component } from './childbwscn14/childbwscn14.component';
+import { Childbwscn14page1Component } from './childbwscn14/childbwscn14page1/childbwscn14page1.component';
+import { Childbwscn14page2Component } from './childbwscn14/childbwscn14page2/childbwscn14page2.component';
+import { Childbwscn14page3Component } from './childbwscn14/childbwscn14page3/childbwscn14page3.component';
 // import { Childbwscn4page1Component } from '../childbwyscn4/childbwscn4page1/childbwscn4page1.component';
 
 
@@ -58,6 +63,10 @@ import { Childbwscn13showComponent } from './childbwscn13/childbwscn13show/child
     Childbwscn13deleteComponent,
     Childbwscn13editComponent,
     Childbwscn13showComponent,
+    Childbwscn14Component,
+    Childbwscn14page1Component,
+    Childbwscn14page2Component,
+    Childbwscn14page3Component,
     // Childbwscn4page1Component
 
   ],
@@ -72,7 +81,8 @@ import { Childbwscn13showComponent } from './childbwscn13/childbwscn13show/child
     NzTableModule,
     ChildrenBwRoutingModule,
     NgxWatermarkModule,
-    BlockModule
+    BlockModule,
+    FontAwesomeModule,
   ]
 })
 export class ChildrenBwModule {
