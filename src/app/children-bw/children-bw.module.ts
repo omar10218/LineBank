@@ -26,6 +26,16 @@ import { Childbwscn4page3Component } from './childbwscn4/childbwscn4page3/childb
 import { Childbwscn4page4Component } from './childbwscn4/childbwscn4page4/childbwscn4page4.component';
 import { Childbwscn12Component } from './childbwscn12/childbwscn12.component';
 import { Childbwscn1editComponent } from './childbwscn1/childbwscn1edit/childbwscn1edit.component';
+import { Childbwscn13Component } from './childbwscn13/childbwscn13.component';
+import { Childbwscn13addComponent } from './childbwscn13/childbwscn13add/childbwscn13add.component';
+import { Childbwscn13deleteComponent } from './childbwscn13/childbwscn13delete/childbwscn13delete.component';
+import { Childbwscn13editComponent } from './childbwscn13/childbwscn13edit/childbwscn13edit.component';
+import { Childbwscn13showComponent } from './childbwscn13/childbwscn13show/childbwscn13show.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Childbwscn14Component } from './childbwscn14/childbwscn14.component';
+import { Childbwscn14page1Component } from './childbwscn14/childbwscn14page1/childbwscn14page1.component';
+import { Childbwscn14page2Component } from './childbwscn14/childbwscn14page2/childbwscn14page2.component';
+import { Childbwscn14page3Component } from './childbwscn14/childbwscn14page3/childbwscn14page3.component';
 // import { Childbwscn4page1Component } from '../childbwyscn4/childbwscn4page1/childbwscn4page1.component';
 
 
@@ -48,6 +58,15 @@ import { Childbwscn1editComponent } from './childbwscn1/childbwscn1edit/childbws
     Childbwscn4page4Component,
     Childbwscn12Component,
     Childbwscn1editComponent,
+    Childbwscn13Component,
+    Childbwscn13addComponent,
+    Childbwscn13deleteComponent,
+    Childbwscn13editComponent,
+    Childbwscn13showComponent,
+    Childbwscn14Component,
+    Childbwscn14page1Component,
+    Childbwscn14page2Component,
+    Childbwscn14page3Component,
     // Childbwscn4page1Component
 
   ],
@@ -62,7 +81,8 @@ import { Childbwscn1editComponent } from './childbwscn1/childbwscn1edit/childbws
     NzTableModule,
     ChildrenBwRoutingModule,
     NgxWatermarkModule,
-    BlockModule
+    BlockModule,
+    FontAwesomeModule,
   ]
 })
 export class ChildrenBwModule {

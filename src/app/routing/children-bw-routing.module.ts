@@ -9,6 +9,11 @@ import { Childbwscn6Component } from '../children-bw/childbwscn6/childbwscn6.com
 import { Childbwscn7Component } from '../children-bw/childbwscn7/childbwscn7.component';
 import { Childbwscn8Component } from '../children-bw/childbwscn8/childbwscn8.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { Childbwscn13Component } from '../children-bw/childbwscn13/childbwscn13.component';
+import { Childbwscn14Component } from '../children-bw/childbwscn14/childbwscn14.component';
+import { Childbwscn14page1Component } from '../children-bw/childbwscn14/childbwscn14page1/childbwscn14page1.component';
+import { Childbwscn14page2Component } from '../children-bw/childbwscn14/childbwscn14page2/childbwscn14page2.component';
+import { Childbwscn14page3Component } from '../children-bw/childbwscn14/childbwscn14page3/childbwscn14page3.component';
 
 const routes: Routes = [
   {
@@ -50,6 +55,33 @@ const routes: Routes = [
     path: 'CHILDBWSCN8',
     component: Childbwscn8Component,
     // canActivate: [AuthGuard], // 守衛路由
+  },
+  {
+    path: 'CHILDBWSCN13',
+    component: Childbwscn13Component,
+    //canActivate: [AuthGuard], // 守衛路由
+  },
+  {
+    path: 'CHILDBWSCN14',
+    component: Childbwscn14Component,
+    //canActivate: [AuthGuard], // 守衛路由
+    children: [
+      {
+        path: 'CHILDBWSCN14PAGE1',
+        component: Childbwscn14page1Component,
+        //canActivate: [AuthGuard], // 守衛路由
+      },
+      {
+        path: 'CHILDBWSCN14PAGE2',
+        component: Childbwscn14page2Component,
+        //canActivate: [AuthGuard], // 守衛路由
+      },
+      {
+        path: 'CHILDBWSCN14PAGE3',
+        component: Childbwscn14page3Component,
+        //canActivate: [AuthGuard], // 守衛路由
+      },
+    ]
   },
   {
     path: '',

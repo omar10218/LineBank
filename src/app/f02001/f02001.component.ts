@@ -25,6 +25,7 @@ export class F02001Component implements OnInit {
   l3EMPNO: string = ''; //徵信員員編姓名
   credit_RESULT: sysCode[] = []; //審核結果陣列
   credit_RESULT_Value: string = '';//審核結果值
+  l3EMPNOList: sysCode[] = [];//徵信員員編陣列
   status_DESC: sysCode[] = []; //案件狀態
   status_DESC_Value: string = '';//案件狀態值
   statusDescSecond: sysCode[] = [];//案件狀態第二層
@@ -65,6 +66,7 @@ export class F02001Component implements OnInit {
     this.getCreditResult();
     this.getCustFlag();
     this.getRiskGrade();
+    this.getl3EMPNO();
     this.credit_RESULT_Value = '';
     this.status_DESC_Value = '';
     this.cust_FLAG_Value = '';
@@ -91,13 +93,26 @@ export class F02001Component implements OnInit {
   }
 
   getStatusDesc() {
-    this.f02001Service.getSysTypeCode(' ').subscribe(data => {
-
+    this.f02001Service.getSysTypeCode('STATUS_CODE').subscribe(data => {
+      console.log(data)
       this.status_DESC.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.status_DESC.push({ value: codeNo, viewValue: desc })
+      }
+    });
+  }
+  // f02/f02001
+  getl3EMPNO()//取得徵信員員編下拉
+  {
+    this.f02001Service.getStatusDesc().subscribe(data => {
+      console.log(data)
+      this.l3EMPNOList.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody) {
+        const value = jsonObj['EMP_NO'];
+        const viewValue = jsonObj['EMP_NO'] + jsonObj['EMP_NAME'];
+        this.l3EMPNOList.push({ value: value, viewValue: viewValue })
       }
     });
   }

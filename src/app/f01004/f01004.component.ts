@@ -46,7 +46,6 @@ export class F01004Component implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     // 查詢案件分類
-
     this.f01004Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
       this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
@@ -57,7 +56,7 @@ export class F01004Component implements OnInit, AfterViewInit {
     });
     // 查詢代理人
     let jsonObject: any = {};
-    jsonObject['swcL0EmpNo'] = this.empNo;
+    jsonObject['empNo'] = this.empNo;
 
     this.f01004Service.getEmpNo(jsonObject).subscribe(data => {
       this.agentEmpNoCode.push({ value: '', viewValue: '請選擇' })
@@ -84,11 +83,14 @@ export class F01004Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL0EmpNo'] = this.empNo;
+    jsonObject['empNo'] = this.empNo;
+    jsonObject['stepName'] = 'swcL0EmpNo';
+    jsonObject['opid'] = '2600';
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01004Service.getCaseList(jsonObject).subscribe(data => {
+      console.log(data)
       if (data.rspBody.size > 0)
       {
         this.total = data.rspBody.size != '0'? data.rspBody.size : '0';

@@ -221,7 +221,7 @@ export class F02003Component implements OnInit {
     sessionStorage.setItem('stepName', '0');
     //開啟徵審主畫面
     const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F02003/CHILDBWSCN1");
+    window.open(url[0] + "/#/F01009/F01009SCN1");
     sessionStorage.setItem('winClose', 'N');
     // sessionStorage.setItem('search', 'N');
   }

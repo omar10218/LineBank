@@ -13,7 +13,10 @@ export class Childbwscn4Service extends BaseService {
     const baseUrl = 'f01/childBwScn4action';
     return this.postJsonObject(baseUrl, jsonObject);
   }
-
+  getBlockingCode(jsonObject: JSON): Observable<any>  {
+    const baseUrl = 'f01/childBwScn4action3';
+    return this.postJsonObject(baseUrl, jsonObject);
+  }
   getDate(baseUrl: string, jsonObject: JSON): Observable<any> {
     return this.postJsonObject(baseUrl, jsonObject);
   }
