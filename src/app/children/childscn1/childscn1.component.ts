@@ -500,7 +500,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
         sessionStorage.setItem('caPmcus', data.rspBody.resultList[0].caPmcus != null ? data.rspBody.resultList[0].caPmcus : '');
         this.caRisk = data.rspBody.resultList[0].caRisk;
         sessionStorage.setItem('caRisk', data.rspBody.resultList[0].caRisk != null ? data.rspBody.resultList[0].caRisk : '');
-        this.addSignatureValue = data.rspBody.resultListp[0].addSignature;
+        this.addSignatureValue = data.rspBody.resultList[0].addSignature;
         sessionStorage.setItem('addSignature', data.rspBody.resultList[0].addSignature != null ? data.rspBody.resultList[0].addSignature : '');
       }
 
