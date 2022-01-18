@@ -9,6 +9,7 @@ import { Childbwscn6Component } from '../children-bw/childbwscn6/childbwscn6.com
 import { Childbwscn7Component } from '../children-bw/childbwscn7/childbwscn7.component';
 import { Childbwscn8Component } from '../children-bw/childbwscn8/childbwscn8.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { Childbwscn13Component } from '../children-bw/childbwscn13/childbwscn13.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,11 @@ const routes: Routes = [
     path: 'CHILDBWSCN8',
     component: Childbwscn8Component,
     // canActivate: [AuthGuard], // 守衛路由
+  },
+  {
+    path: 'CHILDBWSCN13',
+    component: Childbwscn13Component,
+    //canActivate: [AuthGuard], // 守衛路由
   },
   {
     path: '',
