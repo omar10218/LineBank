@@ -20,6 +20,7 @@ export class Childscn22Component implements OnInit {
   applno: string;     // 案件編號
   cuid: string;       // 身分證字號
   stepName: string;   // 目前關卡
+  page: string;   // 分頁
   empNo: string = localStorage.getItem("empNo");
 
   block: boolean = false;
@@ -28,6 +29,7 @@ export class Childscn22Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
     this.stepName = sessionStorage.getItem('stepName');
+    this.page = sessionStorage.getItem('page');
   }
 
   cancel(): void {
@@ -49,6 +51,14 @@ export class Childscn22Component implements OnInit {
       }, 2000);
       window.location.reload();
     } else if (this.stepName == 'APPLCreditL2') {
+      msgStr = await this.childsnc22Service.doDss2Search(jsonObject);
+      this.block = false;
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      setTimeout(() => {
+        this.dialog.closeAll();
+      }, 2000);
+      window.location.reload();
+    } else if (this.page == '9') {
       msgStr = await this.childsnc22Service.doDss2Search(jsonObject);
       this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
