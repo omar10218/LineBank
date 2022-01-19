@@ -404,6 +404,10 @@ export class F01008scn2Component implements OnInit {
       return "產生合約前回查"
     } else if ( level == 'D1' ) {
       return "產生合約前覆核"
+    } else if ( level == 'S2' ) {
+      return "風管處處長"
+    } else if ( level == 'S1' ) {
+      return "總經理"
     }
   }
   disabledDate(time) {
