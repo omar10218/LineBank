@@ -149,7 +149,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   //審核結果
   creditResult: string;
   //選擇加簽20220118
-  addSignature: OptionsCode[] = [{ value: '', viewValue: '' } , { value: 'S1', viewValue: '總經理'} , { value: 'S2', viewValue: '風管處處長'}];
+  addSignature: OptionsCode[] = [{ value: '', viewValue: '' }, { value: 'S1', viewValue: '總經理' }, { value: 'S2', viewValue: '風管處處長' }];
   addSignatureValue: string;
 
   creditResultCode: OptionsCode[] = [];//核決結果下拉選單
@@ -208,28 +208,28 @@ export class Childscn1Component implements OnInit, OnDestroy {
     , { value: '4', viewValue: '租賃所得' }, { value: '5', viewValue: '贈與/繼承' }, { value: '6', viewValue: '退休金/保險給付' }, { value: '7', viewValue: '獎助學金/比賽或中獎獎金' }
     , { value: '8', viewValue: '親友/家人給與' }];
   //主要收入來源
-  MAIN_INCOME: string;
+  MAIN_INCOME: string = "";
 
   //本次來往目的list
   PURPOSEOTHER_MESSAGE2_LIST: OptionsCode[] = [{ value: '1', viewValue: '支付教育費用' }, { value: '2', viewValue: '房屋修繕' }, { value: '3', viewValue: '購車' }
     , { value: '4', viewValue: '投資' }, { value: 'Z', viewValue: '其他' }];
   //本次來往目的
-  PURPOSEOTHER_MESSAGE2: string;
+  PURPOSEOTHER_MESSAGE2: string = "";
 
   //客戶近半年無交易(排除付息交易)list
   NON_TRADEOTHER_MESSAGE3_LIST: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }, { value: 'Z', viewValue: '其他' }];
   //客戶近半年無交易(排除付息交易)
-  NON_TRADEOTHER_MESSAGE3: string;
+  NON_TRADEOTHER_MESSAGE3: string = "";
 
   //客戶近年交易金額與身分或行職業顯不相當list
   TRADE_NON_CCOTHER_MESSAGE4_LIST: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }, { value: 'Z', viewValue: '其他' }];
   //客戶近年交易金額與身分或行職業顯不相當
-  TRADE_NON_CCOTHER_MESSAGE4: string;
+  TRADE_NON_CCOTHER_MESSAGE4: string = "";
 
   //客戶近半年交易是否與首次(活期)開戶目的不相稱list
   TRADE_NON_PURPOSEOTHER_MESSAGE5_LIST: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }, { value: 'Z', viewValue: '其他' }];
   //客戶近半年交易是否與首次(活期)開戶目的不相稱
-  TRADE_NON_PURPOSEOTHER_MESSAGE5: string;
+  TRADE_NON_PURPOSEOTHER_MESSAGE5: string = "";
 
   otherMessage2: string = "";
   otherMessage3: string = "";
@@ -492,10 +492,10 @@ export class Childscn1Component implements OnInit, OnDestroy {
       if (data.rspBody.resultList.length > 0) {
         this.resultProdCode = data.rspBody.resultList[0].prodCode;
         this.resultPrjCode = data.rspBody.resultList[0].prjCode;
-        this.creditResult = data.rspBody.resultList[0].creditResult != null && data.rspBody.resultList[0].creditResult != '' ? data.rspBody.resultList[0].creditResult : '' ;
+        this.creditResult = data.rspBody.resultList[0].creditResult != null && data.rspBody.resultList[0].creditResult != '' ? data.rspBody.resultList[0].creditResult : '';
         sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult != null ? data.rspBody.resultList[0].creditResult : '');
         this.resultApproveAmt = data.rspBody.resultList[0].approveAmt != null ? this.toCurrency(data.rspBody.resultList[0].approveAmt.toString()) : '';
-        sessionStorage.setItem('resultApproveAmt',this.toNumber(this.resultApproveAmt));
+        sessionStorage.setItem('resultApproveAmt', this.toNumber(this.resultApproveAmt));
         this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
         sessionStorage.setItem('resultLowestPayRate', this.resultLowestPayRate != null ? this.resultLowestPayRate.toString() : '');
         this.caPmcus = data.rspBody.resultList[0].caPmcus;
@@ -513,7 +513,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
         this.CreditInterestPeriodSource = data.rspBody.creditInterestPeriodList;
         for (let index = 1; index <= this.CreditInterestPeriodSource.length; index++) {
           if (this.CreditInterestPeriodSource[index - 1].interestType == '02') {
-            if ( !(await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject)).includes('找不到') ) {
+            if (!(await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject)).includes('找不到')) {
               this.CreditInterestPeriodSource[index - 1].interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
               sessionStorage.setItem('interestBase' + index, this.CreditInterestPeriodSource[index - 1].interestBase);
             } else {
@@ -535,7 +535,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           sessionStorage.setItem('approveInterest' + index, this.CreditInterestPeriodSource[index - 1].approveInterest);
         }
 
-        if ( erroeStr != '') {
+        if (erroeStr != '') {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: erroeStr }
           });
@@ -751,7 +751,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
       let jsonObject: any = {};
       jsonObject['applno'] = this.applno;
       const baseUrl = 'f01/childscn1action3';
-      if ( (await this.childscn1Service.getInterestBase(baseUrl, jsonObject)).includes('找不到') ) {
+      if ((await this.childscn1Service.getInterestBase(baseUrl, jsonObject)).includes('找不到')) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: '加減碼查無利率，請通知相關人員!' }
         });
@@ -1009,9 +1009,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
         this.EL_DSS2_UNDW_LIST5.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '9');//9	其他
       }
       this.EL_DSS2_CFC_LIMIT1.data = data.rspBody.DSS2CFCLIMIT;//試算額度策略
-      for(const data of this.EL_DSS2_CFC_LIMIT1.data){
-        if(data.CFC_LIMIT_DT_REF=='1'){data.CFC_LIMIT_DT_REF+=' : 使用【額度起日】及【額度迄日】欄位';}
-        if(data.CFC_LIMIT_DT_REF=='2'){data.CFC_LIMIT_DT_REF+=' : 使用【期限月數】';}
+      for (const data of this.EL_DSS2_CFC_LIMIT1.data) {
+        if (data.CFC_LIMIT_DT_REF == '1') { data.CFC_LIMIT_DT_REF += ' : 使用【額度起日】及【額度迄日】欄位'; }
+        if (data.CFC_LIMIT_DT_REF == '2') { data.CFC_LIMIT_DT_REF += ' : 使用【期限月數】'; }
       }
       this.EL_DSS2_STRGY_SRATE1.data = data.rspBody.DSS2STRGYSRATE;//試算利率(多階)
       this.EL_DSS2_STRGY_MERG1.data = data.rspBody.DSS2STRGYMERG;//試算授信策略_債整明細
@@ -1246,24 +1246,24 @@ export class Childscn1Component implements OnInit, OnDestroy {
     }
   }
   //Level轉換中文
-  changeLevel(level:string){
-    if ( level == 'L4' ) {
+  changeLevel(level: string) {
+    if (level == 'L4') {
       return "文審"
-    } else if ( level == 'L2' ) {
+    } else if (level == 'L2') {
       return "授信"
-    } else if ( level == 'L3' ) {
+    } else if (level == 'L3') {
       return "徵信"
-    } else if ( level == 'L1' ) {
+    } else if (level == 'L1') {
       return "授信覆核"
-    } else if ( level == 'L0' ) {
+    } else if (level == 'L0') {
       return "主管"
-    } else if ( level == 'D2' ) {
+    } else if (level == 'D2') {
       return "產生合約前回查"
-    } else if ( level == 'D1' ) {
+    } else if (level == 'D1') {
       return "產生合約前覆核"
-    } else if ( level == 'S2' ) {
+    } else if (level == 'S2') {
       return "風管處處長"
-    } else if ( level == 'S1' ) {
+    } else if (level == 'S1') {
       return "總經理"
     }
   }
