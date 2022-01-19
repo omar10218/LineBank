@@ -12,11 +12,11 @@
         <th class="table-header" nzWidth="100px">目前逾期狀態（各產品最嚴重）</th>
         <th class="table-header" nzWidth="100px">最早轉催日期</th>
         <th class="table-header" nzWidth="100px">最早轉呆日期</th>
-        <th class="table-header" nzWidth="100px">最早行內協議成立日期</th>
+        <!-- <th class="table-header" nzWidth="100px">最早行內協議成立日期</th>
         <th class="table-header" nzWidth="100px">最早前置協商/調解申請日期</th>
         <th class="table-header" nzWidth="100px">最早前置協商/調解成立日期</th>
         <th class="table-header" nzWidth="100px">最早更生成立日期</th>
-        <th class="table-header" nzWidth="100px">最早清算成立日期</th>
+        <th class="table-header" nzWidth="100px">最早清算成立日期</th> -->
       </tr>
     </thead>
     <tbody>
@@ -26,11 +26,11 @@
         <td class="table-data">{{ data.OVERDUE_STATUS }}</td>
         <td class="table-data">{{ data.TURN_COLLECT_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
         <td class="table-data">{{ data.TURN_BAD_DEBIT_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
-        <td class="table-data">{{ data.INTER_AGGR_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <!-- <td class="table-data">{{ data.INTER_AGGR_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
         <td class="table-data">{{ data.NEGO_APPL_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
         <td class="table-data">{{ data.NEGO_SETUP_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
         <td class="table-data">{{ data.REOPEN_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
-        <td class="table-data">{{ data.LIQ_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
+        <td class="table-data">{{ data.LIQ_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td> -->
       </tr>
     </tbody>
   </nz-table>
