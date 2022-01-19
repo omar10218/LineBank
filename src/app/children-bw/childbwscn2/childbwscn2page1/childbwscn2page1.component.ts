@@ -149,7 +149,7 @@ export class childbwscn2page1Component implements OnInit {
       }
 
       this.EL_DSS4_UNDW_LIST.data = data.rspBody.bwDss4UndwList;//徵審代碼
-      if (data.rspBody.bwDss4UndwList.length > 0) {
+      if (data.rspBody.bwDss4UndwList != null && data.rspBody.bwDss4UndwList.length > 0) {
         this.EL_DSS4_UNDW_LIST1.data = this.EL_DSS4_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '1');//1	信用異常資訊
         this.EL_DSS4_UNDW_LIST2.data = this.EL_DSS4_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '2');//2	整體往來
         this.EL_DSS4_UNDW_LIST3.data = this.EL_DSS4_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '3');//3	信用卡往來
