@@ -271,36 +271,42 @@
         nzSize="small">
         <thead>
           <tr>
-            <th class="table-header">額度編號</th>
-            <th class="table-header" >額度類別代碼</th>
-            <th class="table-header" >額度</th>
-            <th class="table-header" >額度起日</th>
-            <th class="table-header" >額度迄日</th>
-            <th class="table-header" >系統流程</th>
-            <th class="table-header" >貸後管理狀態</th>
-            <th class="table-header" >說明</th>
-            <th class="table-header" >執行原因</th>
-            <th class="table-header" >執行原因細項</th>
-            <th class="table-header" >起日</th>
-            <th class="table-header" >迄日</th>
-            <th class="table-header" >循環信貸特定客戶提供可循環轉分期註記</th>
+            <th class="table-header" style="width: 1%;">額度編號</th>
+            <th class="table-header" style="width: 2%;">額度類別代碼</th>
+            <th class="table-header" style="width: 3%;">額度</th>
+            <th class="table-header" style="width: 2%;">額度起日</th>
+            <th class="table-header" style="width: 2%;">額度迄日</th>
+            <th class="table-header" style="width: 2%;">系統流程</th>
+            <th class="table-header" style="width: 2%;">貸後管理狀態</th>
+            <th class="table-header" style="width: 2%;">說明</th>
+            <th class="table-header" style="width: 2%;">執行原因</th>
+            <th class="table-header" style="width: 2%;">執行原因細項</th>
+            <th class="table-header" style="width: 2%;">起日</th>
+            <th class="table-header" style="width: 2%;">迄日</th>
+            <th class="table-header" style="width: 2%;">預佔額度</th>
+            <th class="table-header" style="width: 2%;">調降後額度</th>
+            <th class="table-header" style="width: 10%;">通知客戶註記</th>
+            <th class="table-header" style="width: 10%;">循環信貸特定客戶提供可循環轉分期註記</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let row of BW_DSS4_CFC_LIMIT.data">
-            <td class="table-data">{{ row.UNDW_CD }}</td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
+            <td class="table-data">{{ row.cfcLimitNum }}</td>
+            <td class="table-data">{{ row.cfcLimitCd }}</td>
+            <td class="table-data">{{ row.cfcLimitAmt|number: '1.0-0' }}</td>
+            <td class="table-data">{{ row.cfcLimitStartDate }}</td>
+            <td class="table-data">{{ row.cfcLimitEndDate }}</td>
+            <td class="table-data">{{ row.cfcRvprcscd }}</td>
+            <td class="table-data">{{ row.cfcRvstatcd }}</td>
+            <td class="table-data">{{ row.cfcLimitStgyDesc }}</td>
+            <td class="table-data">{{ row.cfcLimitStgyRncd }}</td>
+            <td class="table-data">{{ row.cfcLimitStgySbcd }}</td>
+            <td class="table-data">{{ row.cfcLimitOccpystartdt }}</td>
+            <td class="table-data">{{ row.cfcLimitOccpyenddt }}</td>
+            <td class="table-data">{{ row.cfcLimitOccpy|number: '1.0-0' }}</td>
+            <td class="table-data">{{ row.cfcLimitReduce|number: '1.0-0' }}</td>
+            <td class="table-data">{{ row.cfcLimitStgynotice }}</td>
+            <td class="table-data">{{ row.rvRvglntrnstoinsln }}</td>
           </tr>
         </tbody>
       </nz-table>
