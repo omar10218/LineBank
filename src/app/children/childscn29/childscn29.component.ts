@@ -20,6 +20,7 @@ export class Childscn29Component implements OnInit {
     public dialog: MatDialog
   ) { }
   creditLevelSource: Data[] = [];
+  data:[];
   total = 1;
   loading = true;
   pageSize = 10;
@@ -46,6 +47,7 @@ ngAfterViewInit() {
       this.loading = false;
       this.total = data.rspBody.size;
       this.creditLevelSource = data.rspBody;
+      this.data=data.rspBody.CREDIT_TIME
     });
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -57,4 +59,5 @@ ngAfterViewInit() {
     this.creditLevelSource = e === 'ascend' ? this.creditLevelSource.sort(
       (a, b) => a.startDate.localeCompare(b.startDate)) : this.creditLevelSource.sort((a, b) => b.startDate.localeCompare(a.startDate))
   }
+  
 }

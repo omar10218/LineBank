@@ -64,8 +64,7 @@ color: red;
 /* 文字靠右 */
 .data_right{
 text-align:right;
-margin:5px auto;
-width:95%;
+
 }
 
 .display{
