@@ -49,6 +49,7 @@ ngAfterViewInit() {
     });
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params)
     const { pageSize, pageIndex } = params;
     // this.getCreditLevel(pageIndex, pageSize);
   }

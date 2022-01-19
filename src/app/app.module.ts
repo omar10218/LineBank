@@ -104,6 +104,7 @@ import { F03018uploadComponent } from './f03018/f03018upload/f03018upload.compon
 import { F03018editComponent } from './f03018/f03018edit/f03018edit.component';
 import { F03018addComponent } from './f03018/f03018add/f03018add.component';
 import { F01012Component } from './f01012/f01012.component';
+import { BlockModule } from './block/block.module';
 
 
 
@@ -223,6 +224,7 @@ export const TW_FORMATS = {
     NzButtonModule,
     GoogleMapsModule,
     FontAwesomeModule,
+    BlockModule,
     // RouterModule.forRoot([
     //   { path : '*', component : HomeComponent }
     // ], { enableTracing : false })
