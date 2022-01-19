@@ -639,7 +639,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           CreditInterestPeriodSource: this.historySource,
           addSignature: this.addSignatureValue
         })
-      } else if (this.addSignLevel == 'S2') {
+      } else if (this.level == 'S2') {
         this.f01013Scn1Service.setHistorySource({
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,
@@ -649,7 +649,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
           CreditInterestPeriodSource: this.historySource,
           addSignature: this.addSignatureValue
         })
-      } else if (this.addSignLevel == 'S1') {
+      } else if (this.level == 'S1') {
+        console.log("================S1");
         this.f01014Scn1Service.setHistorySource({
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,
@@ -1260,6 +1261,10 @@ export class Childscn1Component implements OnInit, OnDestroy {
       return "產生合約前回查"
     } else if ( level == 'D1' ) {
       return "產生合約前覆核"
+    } else if ( level == 'S2' ) {
+      return "風管處處長"
+    } else if ( level == 'S1' ) {
+      return "總經理"
     }
   }
 }
