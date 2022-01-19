@@ -1112,7 +1112,7 @@
 
     <!-- 審核結果 -->
     <div class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
-      <div class="line_bank_form_header_title">審核結果</div>
+      <div class="line_bank_form_header_title" style="border-radius:0px">審核結果</div>
       <div nz-row style="padding:5px">
         <div nz-col nzFlex="1" [ngClass]=" !(getLevel() == 'L2' || getLevel() == 'L1' || getLevel() == 'L0') ? 'dropdown' : '' " >
           <div style="padding:2px"><span class="form-title">選擇加簽</span>
@@ -1174,7 +1174,7 @@
       <!-- 表格 -->
       <nz-table nzShowSizeChanger [nzData]="CreditInterestPeriodSource" [nzFrontPagination]="false" [nzSimple]="true"
         [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-        (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="多階利率">
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="多階利率" >
         <thead style="max-height: 100vh;">
           <tr>
             <th class="table-header">序號</th>
@@ -1307,7 +1307,7 @@
 
     <!-- 徵審代碼 -->
     <div  [ngClass]="getPage()=='2' || getPage()=='3' ? '' : 'ngtbody' " class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
-      <div class="line_bank_form_header_title">徵審代碼</div>
+      <div class="line_bank_form_header_title" style="border-radius: 0px;">徵審代碼</div>
       <div style="padding-top:5px;"></div>
       <ng-container  *ngFor="let row of CREDIT_View_List;let i = index">
 
@@ -1342,7 +1342,7 @@
 
     <!-- 提供AML資訊 徵信以外 -->
     <div *ngIf="getPage()!='2'" class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
-      <div class="line_bank_form_header_title">提供AML資訊</div>
+      <div class="line_bank_form_header_title" style="border-radius: 0px;">提供AML資訊</div>
 
       <div nz-row style="padding:5px">
         <span class="form-title">主要收入來源</span>
@@ -1427,7 +1427,7 @@
 
     <!-- 提供AML資訊 徵信-->
     <div *ngIf="getPage()=='2'" class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
-      <div class="line_bank_form_header_title">提供AML資訊</div>
+      <div class="line_bank_form_header_title" style="border-radius: 0px;">提供AML資訊</div>
       <div nz-row style="padding:5px">
         <span class="form-title">主要收入來源</span>
         <nz-radio-group [(ngModel)]="MAIN_INCOME" name="MAIN_INCOME" required>
@@ -1508,7 +1508,7 @@
 
     <!-- 審核註記 -->
     <div class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
-      <div class="line_bank_form_header_title">審核註記</div>
+      <div class="line_bank_form_header_title" style="border-radius: 0px;">審核註記</div>
       <div nz-row style="padding:5px;text-align: center;">
         <div nz-col nzSpan="24">
           <div class="form">

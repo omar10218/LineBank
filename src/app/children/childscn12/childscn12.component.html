@@ -23,9 +23,9 @@
           <tr *ngFor="let item of EL_INCOME_Source.data;let i=index">
             <td>{{i+1}}</td>
             <td>{{item.items}}</td>
-            <td class="data_right" *ngIf="i!=6">{{toCurrency(item.checkIncome.toString())}}</td>
+            <td class="data_right" *ngIf="i!=6" >{{toCurrency(item.checkIncome.toString())}}</td>
             <td *ngIf="i==6">
-              <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="item.income" (keyup)="item.income=data_number(item.income)"
+              <div style="padding:0px"> <input class="data_right"  [(ngModel)]="item.income" (keyup)="item.income=data_number(item.income)"
                   maxlength="20" [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" /></div>
             </td>
             <td>
@@ -115,7 +115,7 @@
             <td>7</td>
             <td>其他試算結果</td>
             <td>
-              <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="income" (keyup)="income=data_number(income)"
+              <div style="padding:0px;text-align: center;"> <input class="data_right"  [(ngModel)]="income" (keyup)="income=data_number(income)"
                 maxlength="20"  [disabled]="true" /></div>
             </td>
             <td>
@@ -128,7 +128,7 @@
             <td>8</td>
             <td>徵審後確認合計(打勾)</td>
             <td>
-              <div style="padding:0px;"> <input class="data_right"  [(ngModel)]="checkTotaltring"
+              <div style="padding:0px;text-align: center;"> <input class="data_right"  [(ngModel)]="checkTotaltring"
                 maxlength="20"  disabled /></div>
             </td>
           </tr>
