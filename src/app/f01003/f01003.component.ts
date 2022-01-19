@@ -134,7 +134,7 @@ export class F01003Component implements OnInit, AfterViewInit {
     }
     this.changePage();
     this.getCaseList();
-    
+
   }
 }
 
@@ -166,6 +166,7 @@ data_number(p: number) {
         sessionStorage.setItem('page', '3');
         sessionStorage.setItem('stepName', this.stepName);
         sessionStorage.setItem('custId', swcCustId);
+        sessionStorage.setItem('addSignLevel', '');
         this.router.navigate(['./F01003/F01003SCN1']);
       }
     });

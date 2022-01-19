@@ -126,7 +126,7 @@ export class F01001Component implements OnInit, AfterViewInit {
       }
       this.changePage();
       this.getCaseList();
-      
+
     }
   }
   // 千分號標點符號(form顯示用)
@@ -158,6 +158,7 @@ export class F01001Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('page', '1');
         sessionStorage.setItem('stepName', this.stepName);
         sessionStorage.setItem('custId', swcCustId);
+        sessionStorage.setItem('addSignLevel', '');
         this.router.navigate(['./F01001/F01001SCN1']);
       }
     });

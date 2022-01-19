@@ -70,6 +70,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   search: string;
   userId: string;
   level: string;
+  addSignLevel: string;
 
   //申請資訊
   applno: string;                               //案編
@@ -341,6 +342,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     this.userId = localStorage.getItem("empNo");
     this.page = sessionStorage.getItem("page");
     this.level = sessionStorage.getItem('stepName').split('t')[1];
+    this.addSignLevel = sessionStorage.getItem('addSignLevel');
 
     //先建立徵審代碼框架
     for (let i = 0; i < 10; i++) {
@@ -637,7 +639,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           CreditInterestPeriodSource: this.historySource,
           addSignature: this.addSignatureValue
         })
-      } else if (this.level == 'L0' && this.addSignatureValue == 'S2') {
+      } else if (this.addSignLevel == 'S2') {
         this.f01013Scn1Service.setHistorySource({
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,
@@ -647,7 +649,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           CreditInterestPeriodSource: this.historySource,
           addSignature: this.addSignatureValue
         })
-      } else if (this.level == 'L0' && this.addSignatureValue == 'S1') {
+      } else if (this.addSignLevel == 'S1') {
         this.f01014Scn1Service.setHistorySource({
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,
