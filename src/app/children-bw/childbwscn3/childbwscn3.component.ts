@@ -14,7 +14,6 @@ import { DatePipe } from '@angular/common';
 })
 // '../../../../assets/css/child.css'
 export class Childbwscn3Component implements OnInit, AfterViewInit {
-  Childbwscn3Service: any;
 
   constructor(
     private childbwscn3Service: Childbwscn3Service,
@@ -224,8 +223,6 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     this.childbwscn3Service.getDate(baseUrl, jsonObject).subscribe(data => {
       this.today = this.pipe.transform(new Date(), 'yyyyMMdd HH:mm:ss');
-      //this.watermark = data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
-
       this.options.text =  data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
       data.rspBody[0].empNo + data.rspBody[0].empName + this.today
       +data.rspBody[0].empNo + data.rspBody[0].empName + this.today+data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
@@ -249,7 +246,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     const url = 'f01/childbwscn3action4';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    this.Childbwscn3Service.getDate(url, jsonObject).subscribe(data => {
+    this.childbwscn3Service.getDate(url, jsonObject).subscribe(data => {
       if (data.rspBody.items.length > 0) {
         this.queryDate = data.rspBody.items[0].QUERYDATE;
       }
@@ -261,7 +258,6 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     let jsonObject: any = {}
     jsonObject['applno'] = this.applno
     this.childbwscn3Service.getMASTERJCICList(jsonObject).subscribe(data => {
-      console.log(data)
       if (data.rspBody != null) {
         this.listSource = data.rspBody;
       }

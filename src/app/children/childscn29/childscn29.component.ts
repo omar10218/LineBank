@@ -47,7 +47,10 @@ ngAfterViewInit() {
       this.loading = false;
       this.total = data.rspBody.size;
       this.creditLevelSource = data.rspBody;
-      this.data=data.rspBody.CREDIT_TIME
+      this.sortData()
+   
+
+      
     });
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -59,5 +62,13 @@ ngAfterViewInit() {
     this.creditLevelSource = e === 'ascend' ? this.creditLevelSource.sort(
       (a, b) => a.startDate.localeCompare(b.startDate)) : this.creditLevelSource.sort((a, b) => b.startDate.localeCompare(a.startDate))
   }
+   sortData() {
+    return this.creditLevelSource.sort((a, b) => {
+      console.log(this.creditLevelSource)
+      return <any>new Date(a.CREDIT_TIME) - <any>new Date(b.CREDIT_TIME) 
   
+    }
+    
+    );
+  }
 }
