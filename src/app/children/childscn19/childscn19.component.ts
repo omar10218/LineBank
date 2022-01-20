@@ -46,6 +46,7 @@ export class Childscn19Component implements OnInit {
   rescanItemCode: sysCode[] = [];                   //補件項目下拉
   rescanItem: string;                               //補件項目
   rescanContent: string;                            //徵審註記
+  remarkContent: string = "";
   mobile: string;                                   //客戶手機
   smsSetCode: sysCode[] = [];                       //sms模板下拉
   smsSet: string;                                   //sms模板
@@ -60,7 +61,7 @@ export class Childscn19Component implements OnInit {
 
   block: boolean = false;
   send: boolean = true;//案件送出判斷是否鎖起來
-
+  page: string;
   checkpoint: string;
   ngOnInit(): void {
     this.rescanType = '';
@@ -70,6 +71,7 @@ export class Childscn19Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
     this.checkpoint = sessionStorage.getItem('checkpoint');
+    this.page = sessionStorage.getItem('page');
     // this.queryCusMobile();
     console.log(sessionStorage.getItem('nationalId'))
     //取sms樣板下拉
@@ -108,15 +110,15 @@ export class Childscn19Component implements OnInit {
   //新增補件資訊
   public async rescan(): Promise<void> {
 
-    if (this.restartDate == null ) {
+    if (this.restartDate == null) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入日期" }
       });
-    } else if (this.rescanType == null || this.rescanType =='') {
+    } else if (this.rescanType == null || this.rescanType == '') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入補件原因" }
       });
-    } else if (this.rescanItem == null || this.rescanItem =='') {
+    } else if (this.rescanItem == null || this.rescanItem == '') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入補件項目" }
       });
@@ -220,12 +222,18 @@ export class Childscn19Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
-      if (data.rspBody.items.length > 0)
-      {
+      this.remarkContent = '';
+      if (data.rspBody.items.length > 0) {
         this.send = false;
+        for (let index = 0; index < data.rspBody.items.length; index++) {
+          if (index == data.rspBody.items.length - 1) {
+            this.remarkContent = this.remarkContent + data.rspBody.items[index].RESCAN_ITEM + '(' + data.rspBody.items[index].RESCAN_TYPE + ')。';
+          } else {
+            this.remarkContent = this.remarkContent + data.rspBody.items[index].RESCAN_ITEM + '(' + data.rspBody.items[index].RESCAN_TYPE + ')、';
+          }
+        }
       }
-      else
-      {
+      else {
         this.send = true;
       }
       this.rescanDataSource = data.rspBody.items;
@@ -256,11 +264,10 @@ export class Childscn19Component implements OnInit {
     jsonObject['rowID'] = ID;
     let msgStr: string = "";
     msgStr = await this.childscn19Service.deleteRescanByRowid(jsonObject);
-    if (msg != null && msg == '刪除成功')
-    {
+    if (msg != null && msg == '刪除成功') {
       msgStr = '刪除成功'
       this.getRescanList();
-     }
+    }
     this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     this.getRescanList();
   }
@@ -282,39 +289,42 @@ export class Childscn19Component implements OnInit {
 
   repair()//補件送出
   {
-    let u = 'f02/f02002action6'
-    let url = 'f01/childscn19action7';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.da.applno;
-    jsonObject['swcCreditLevel'] = this.da.checkpoint;
-    let jsonObject2: any = {};
-    jsonObject2['applno'] = this.da.applno;
-    this.childscn19Service.setrepair(url, jsonObject).subscribe(data => {
-      this.block = true;
-      if (data.rspMsg == '成功')
-      {
-        this.childscn19Service.setrepair(u,jsonObject2).subscribe(data=>{
+    if (this.remarkContent.length > 70) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '補充文件項目數超出限制(補件文件字數不大於70字)．補件送出失敗。' }
+      });
+      return;
+    } else {
+      let u = 'f02/f02002action6';
+      let url = 'f01/childscn19action7';
+      let jsonObject: any = {};
+      jsonObject['applno'] = this.da.applno;
+      jsonObject['swcCreditLevel'] = this.da.checkpoint;
+      let jsonObject2: any = {};
+      jsonObject2['applno'] = this.da.applno;
+      this.childscn19Service.setrepair(url, jsonObject).subscribe(data => {
+        this.block = true;
+        if (data.rspMsg == '成功') {
+          this.childscn19Service.setrepair(u, jsonObject2).subscribe(data => {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: data.rspMsg }
+            });
+          })
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: data.rspMsg }
           });
-
-        })
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: data.rspMsg }
-        });
-        this.block = false;
-        this.router.navigate(['./F01002']);
-        this.dialogRef.close();
-
-      }
-      else {
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: data.rspMsg }
-        });
-      }
-    })
-
+          this.block = false;
+          if (this.page == '1') {
+            this.router.navigate(['./F01001']);
+          } else {
+            this.router.navigate(['./F01002']);
+          }
+          this.dialogRef.close();
+        }
+      })
+    }
   }
+
   disabledDate(time) {
     return time.getTime() < Date.now() - 8.64e7;
   }
