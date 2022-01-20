@@ -20,4 +20,9 @@ export class Childscn9Service extends BaseService {
   getDate(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
+  getReturn(baseUrl: string, jsonObject: JSON): Observable<any> {
+    let targetUrl = `${baseUrl}`;
+
+    return this.postJsonObject(targetUrl, jsonObject);
+  }
 }

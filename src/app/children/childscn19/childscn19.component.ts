@@ -330,7 +330,7 @@ export class Childscn19Component implements OnInit {
   {
     if (this.remarkContent.length > 70) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '補充文件字數過多(70個全形字)，故無法送出補件。' }
+        data: { msgStr: '補充文件項目數超出限制(補件文件字數不大於70字)．補件送出失敗。' }
       });
       return;
     } else {
