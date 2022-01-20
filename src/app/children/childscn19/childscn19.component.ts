@@ -58,7 +58,9 @@ export class Childscn19Component implements OnInit {
   rescanDataSource = new MatTableDataSource<any>(); //補件資訊檔
   smsDataSource = new MatTableDataSource<any>();    //簡訊資訊檔
   sms_M_Code = new MatTableDataSource<any>();    //sms mappingcode
-
+  Number:string ;
+  ii =[];
+  // boo :boolean = true ;
   block: boolean = false;
   send: boolean = true;//案件送出判斷是否鎖起來
   page: string;
@@ -219,12 +221,32 @@ export class Childscn19Component implements OnInit {
 
   //取該案件補件資訊
   getRescanList() {
+    this.ii = [];
+    this.send= true;
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
       this.remarkContent = '';
-      if (data.rspBody.items.length > 0) {
-        this.send = false;
+      if (data.rspBody.items.length > 0)
+      {
+        for(var i of data.rspBody.items)
+        {
+          if(i.IMAGE_DATE != null)
+          {
+            this.ii.push(i.IMAGE_DATE)
+          }
+        }
+        console.log(data.rspBody.items.length)
+        console.log(this.ii.length)
+        if(data.rspBody.items.length!=this.ii.length)
+        {
+          this.send = false;
+        }
+        else
+        {
+          this.send = true;
+        }
+
         for (let index = 0; index < data.rspBody.items.length; index++) {
           if (index == data.rspBody.items.length - 1) {
             this.remarkContent = this.remarkContent + data.rspBody.items[index].RESCAN_ITEM + '(' + data.rspBody.items[index].RESCAN_TYPE + ')。';
@@ -237,6 +259,23 @@ export class Childscn19Component implements OnInit {
         this.send = true;
       }
       this.rescanDataSource = data.rspBody.items;
+      // for(var i of data.rspBody.items)
+      // {
+      //   if(i.IMAGE_DATE != null)
+      //   {
+      //     this.ii.push(i.IMAGE_DATE)
+      //   }
+      // }
+      // if(data.rspBody.items.length==this.ii.length)
+      // {
+      //    this.boo = true;
+      // }
+      // else
+      // {
+      //   this.boo= false;
+      // }
+      // console.log(this.boo)
+      // console.log(this.send)
     })
   };
 
