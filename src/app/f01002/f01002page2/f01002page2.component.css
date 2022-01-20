@@ -56,12 +56,18 @@
   :host::ng-deep.mat-select-value{
     color:gray;
   }
+  .table-header{
+    background-color:#ededed;
+    color:#848E9C;
+    margin-bottom: 1px;
+    font-size: 14px;
+  }
   .table-data{
     background-color:white;
     border: 1px solid #e8e8e8;
     color:rgb(87, 87, 87);
     margin-bottom: 0px;
-    font-size: 5px;
+    font-size: 14px;
   }
   .ant-table.ant-table-small .ant-table-tbody>tr>td{
     padding:8px;

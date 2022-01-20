@@ -13,12 +13,13 @@ export class F03018uploadComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<F03018uploadComponent>,
-    private fb: FormBuilder, 
-    private f03017Service: F03018Service,
-     public dialog: MatDialog,@Inject(MAT_DIALOG_DATA) public data: any) { }
-  
-     isExcelFile: boolean;
+    private fb: FormBuilder,
+    private F03018Service: F03018Service,
+    public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  isExcelFile: boolean;
   fileToUpload: File | null = null;
+  block: boolean = false;
 
   ngOnInit(): void {
   }
@@ -27,7 +28,8 @@ export class F03018uploadComponent implements OnInit {
     ERROR_MESSAGE: [this.data.errorMessage]
   });
 
-  public async confirmAdd(): Promise<void> {
+   confirmAdd(): void {
+    this.block = true;
     const formdata: FormData = new FormData();
     formdata.append('file', this.fileToUpload);
     let msgStr: string = "";
@@ -37,14 +39,15 @@ export class F03018uploadComponent implements OnInit {
     // });
     // if (msgStr === '上傳成功!!') { this.dialogRef.close({ event: 'success' }); }
 
-    this.f03017Service.uploadExcel(baseUrl, this.fileToUpload).subscribe(data => {
+    this.F03018Service.uploadExcel(baseUrl, this.fileToUpload).subscribe(data => {
       console.log(data)
       this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
+      this.block = false;
       // const childernDialogRef = this.dialog.open(ConfirmComponent, {
       //     data: { msgStr: data.msg }
       //   });
-    // }, error => {
-    //   console.log(error);
+      // }, error => {
+      //   console.log(error);
     });
   }
 

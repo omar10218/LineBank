@@ -132,7 +132,7 @@ export class F01005page1Component implements OnInit {
       }
       this.changePage();
       this.getCaseList();
-      
+
     }
   }
 
@@ -155,6 +155,7 @@ export class F01005page1Component implements OnInit {
         sessionStorage.setItem('page', '5');
         sessionStorage.setItem('raudKey', '1');//讓案件完成判定是從哪裡進去 1案件清單 2徵信通報
         sessionStorage.setItem('custId', swcCustId);
+        sessionStorage.setItem('addSignLevel', '');
         this.router.navigate(['./F01005/F01005SCN1']);
       }
     });

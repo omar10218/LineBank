@@ -128,7 +128,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
       }
       this.changePage();
       this.getCaseList();
-      
+
     }
   }
 
@@ -152,6 +152,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('page', '2');
         sessionStorage.setItem('stepName', this.stepName);
         sessionStorage.setItem('custId', swcCustId);
+        sessionStorage.setItem('addSignLevel', '');
         this.router.navigate(['./F01002/F01002SCN1']);
       }
     });

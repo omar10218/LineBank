@@ -17,7 +17,7 @@ export class Childbwscn8Component implements OnInit {
   total = 1;
   pageIndex = 1;
   pageSize= 50;
-
+  quantity:string;//案件數量
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.set()
@@ -27,9 +27,11 @@ export class Childbwscn8Component implements OnInit {
     let jsonObject: any = {}
     jsonObject['applno'] = this.applno
     this.Childbwscn8Service.getmaterial(jsonObject).subscribe(data=>{
+      console.log(data)
       if(data.rspMsg == 'success')
       {
-        this.materialSource = data.rspBody.bwTransactionLog
+        this.materialSource = data.rspBody.bwTransactionLog;
+        this.quantity = data.rspBody.bwTransactionLog.length;
       }
 
     })

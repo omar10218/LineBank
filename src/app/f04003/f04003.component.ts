@@ -13,11 +13,12 @@ interface sysCode {
 interface checkBox {
   value: string;
   completed: boolean;
-  empno: string;
+  empNo: string;
 }
 interface assign {
   F_WobNum: string;
   swcApplno: string;
+  empNo:string;
 }
 @Component({
   selector: 'app-f04003',
@@ -61,8 +62,6 @@ export class F04003Component implements OnInit {
     let url = 'f04/f04003action1'
     LevelJson['level'] = this.Level;
     this.f04003Service.Set(url, LevelJson).subscribe(data => {
-      console.log("=================")
-      console.log(data)
       this.personnelCode.push({ value: '', viewValue: '請選擇' })
       if (data.rspMsg != "該層級查無人員") {
         for (const jsonObj of data.rspBody) {
@@ -112,7 +111,7 @@ export class F04003Component implements OnInit {
             const member = jsonObj['F_WobNum'];
             // this.TransferCode.push({ value: id, viewValue: name })
             this.setDataSource = data.rspBody.dataList;
-            this.checkboxArray.push({ value: member, completed: false, empno: id })
+            this.checkboxArray.push({ value: member, completed: false, empNo: id })
           }
           this.i = 1;
         }
@@ -144,7 +143,7 @@ export class F04003Component implements OnInit {
       return;
     }
     for (const obj of this.checkboxArray) {
-      if (obj.empno != this.Transfer) {
+      if (obj.empNo != this.Transfer) {
         obj.completed = completed;
       }
     }
@@ -173,7 +172,7 @@ export class F04003Component implements OnInit {
         for (const jsonObj of this.setDataSource) {
           if (obj.completed == true) {
             if (obj.value == jsonObj['F_WobNum']) {
-              this.assignArray.push({ F_WobNum: jsonObj['F_WobNum'], swcApplno: jsonObj['swcApplno'] })
+              this.assignArray.push({ F_WobNum: jsonObj['F_WobNum'], swcApplno: jsonObj['swcApplno'] ,empNo:jsonObj['empNo']})
             }
           }
         }
@@ -186,8 +185,10 @@ export class F04003Component implements OnInit {
         changeJson['level'] = this.Level;
         changeJson['roleNo'] = this.Transfer;
         changeJson['assign'] = this.assignArray;
+        console.log(changeJson)
         if (this.assignArray.length > 0) {
           this.f04003Service.Set(url, changeJson).subscribe(data => {
+            console.log(data)
             if (data.rspCode == '0000') {
               this.Inquire();
               this.assignArray=[]
@@ -211,12 +212,12 @@ export class F04003Component implements OnInit {
   }
   test()
   {
-    return false;
+    console.log( this.setDataSource)
   }
   Select()
   {
     for (const obj of this.checkboxArray) {
-      if (obj.empno == this.Transfer) {
+      if (obj.empNo == this.Transfer) {
         obj.completed = false;
         this.isAllCheck = false;
       }

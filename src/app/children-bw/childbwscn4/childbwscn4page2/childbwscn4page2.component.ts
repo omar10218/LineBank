@@ -68,7 +68,9 @@ export class Childbwscn4page2Component implements OnInit {
       console.log(this.SAVING_TRANS_DETAILSource)
     });
   }
-
+  toCurrency(amount: string) {
+    return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
+  }
 }
 function ngAfterViewInit() {
   throw new Error('Function not implemented.');

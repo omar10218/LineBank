@@ -111,7 +111,7 @@ export class F01008Component implements OnInit {
       }
       this.changePage();
       this.getCaseList();
-      
+
     }
   }
 
@@ -141,6 +141,7 @@ export class F01008Component implements OnInit {
         sessionStorage.setItem('page', '8');
         sessionStorage.setItem('stepName', this.stepName);
         sessionStorage.setItem('custId', swcCustId);
+        sessionStorage.setItem('addSignLevel', '');
         this.router.navigate(['./F01008/F01008SCN1']);
       }
     });

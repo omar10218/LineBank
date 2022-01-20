@@ -108,7 +108,7 @@ getBlockingCodeInfo(){
       this.coreCustInfoForm.patchValue({ NAME: data.rspBody.items[0].NAME })
       this.coreCustInfoForm.patchValue({ BIRTHDAY: birthday  })
       this.coreCustInfoForm.patchValue({ EDUCATION: data.rspBody.items[0].EDUCATION })
-      this.coreCustInfoForm.patchValue({ ACC_OPEN_DATE: this.pipe.transform(new Date(data.rspBody.items[0].ACC_OPEN_DATE), 'yyyy-MM-dd HH：mm：ss') })
+      this.coreCustInfoForm.patchValue({ ACC_OPEN_DATE: this.pipe.transform(new Date(data.rspBody.items[0].ACC_OPEN_DATE), 'yyyy-MM-dd ') })
       this.coreCustInfoForm.patchValue({ ACC_TYPE: data.rspBody.items[0].ACC_TYPE })
       this.coreCustInfoForm.patchValue({ LOGIN_ID: data.rspBody.items[0].LOGIN_ID })
       this.coreCustInfoForm.patchValue({ EMAIL: data.rspBody.items[0].EMAIL })

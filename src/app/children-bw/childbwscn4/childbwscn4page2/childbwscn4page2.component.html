@@ -184,10 +184,10 @@
         <td class="table-data">{{ data.ACC_TYPE }}</td>
         <td class="table-data">{{ data.ACC_NAME }}</td>
         <td class="table-data">{{ data.ACTIVE_ACC_NUM }}</td>
-        <td class="table-data">{{ data.BALANCE }}</td>
-        <td class="table-data">{{ data.LAST_MON_BAL}}</td>
-        <td class="table-data">{{ data.AVE_BAL_MON_3 }}</td>
-        <td class="table-data">{{ data.AVE_BAL_MON_6 }}</td>
+        <td class="table-data">{{ toCurrency(data.BALANCE) }}</td>
+        <td class="table-data">{{ toCurrency(data.LAST_MON_BAL)}}</td>
+        <td class="table-data">{{ toCurrency(data.AVE_BAL_MON_3) }}</td>
+        <td class="table-data">{{ toCurrency(data.AVE_BAL_MON_6) }}</td>
         <!-- <td class="table-data">{{ data.AMT_VARI_LAST_MONTH }}</td>
         <td class="table-data">{{ data.AMT_VARI_3RD_MONTH }}</td>
         <td class="table-data">{{ data.AMT_VARI_6TH_MONTH }}</td> -->

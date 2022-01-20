@@ -53,6 +53,7 @@ export class Childscn6Component implements OnInit {
     const baseUrl = 'f01/childscn6action2';
     let jsonObject: any = {};
     this.childscn6Service.getDate(baseUrl, jsonObject).subscribe(data => {
+      console.log(data)
       this.today = this.pipe.transform(new Date(), 'yyyyMMdd HH:mm:ss');
       //this.watermark = data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
 

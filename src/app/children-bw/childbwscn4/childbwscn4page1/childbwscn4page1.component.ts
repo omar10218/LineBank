@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Childscn9Service } from 'src/app/children/childscn9/childscn9.service';
@@ -18,6 +19,8 @@ export class Childbwscn4page1Component implements OnInit {
     private fb: FormBuilder,
     private childscn9Service: Childscn9Service,
     private Childbwscn4Service: Childbwscn4Service,
+    private pipe: DatePipe,
+
   ) { }
 
   coreCustInfoForm: FormGroup = this.fb.group({
@@ -106,11 +109,12 @@ export class Childbwscn4page1Component implements OnInit {
       this.coreCustInfoForm.patchValue({ NAME: data.rspBody.items[0].NAME })
       this.coreCustInfoForm.patchValue({ BIRTHDAY: data.rspBody.items[0].BIRTHDAY })
       this.coreCustInfoForm.patchValue({ EDUCATION: data.rspBody.items[0].EDUCATION })
-      this.coreCustInfoForm.patchValue({ ACC_OPEN_DATE: data.rspBody.items[0].ACC_OPEN_DATE })
+      this.coreCustInfoForm.patchValue({ ACC_OPEN_DATE:this.pipe.transform(new Date(data.rspBody.items[0].ACC_OPEN_DATE), 'yyyy-MM-dd')})
+      console.log(this.pipe.transform(new Date(data.rspBody.items[0].ACC_OPEN_DATE), 'yyyy-MM-dd'))
       this.coreCustInfoForm.patchValue({ ACC_TYPE: data.rspBody.items[0].ACC_TYPE })
       this.coreCustInfoForm.patchValue({ LOGIN_ID: data.rspBody.items[0].LOGIN_ID })
       this.coreCustInfoForm.patchValue({ EMAIL: data.rspBody.items[0].EMAIL })
-      this.coreCustInfoForm.patchValue({ SALARY_YEAR: data.rspBody.items[0].SALARY_YEAR })
+      this.coreCustInfoForm.patchValue({ SALARY_YEAR: this.toCurrency(data.rspBody.items[0].SALARY_YEAR) })
       this.coreCustInfoForm.patchValue({ CP_NO: data.rspBody.items[0].CP_NO })
       this.coreCustInfoForm.patchValue({ CP_NAME: data.rspBody.items[0].CP_NAME })
       this.coreCustInfoForm.patchValue({ CP_TEL: data.rspBody.items[0].CP_TEL })
@@ -129,5 +133,8 @@ export class Childbwscn4page1Component implements OnInit {
   }
   changeDate() {
     this.getCoreCusInfo(this.dateValue);
+  }
+  toCurrency(amount: string) {
+    return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
   }
 }

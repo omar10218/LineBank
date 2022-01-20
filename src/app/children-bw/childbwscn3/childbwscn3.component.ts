@@ -19,7 +19,8 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   constructor(
     private childbwscn3Service: Childbwscn3Service,
     private router: Router,
-    public childService: ChildrenService
+    public childService: ChildrenService,
+    private pipe: DatePipe
   ) {
     // this.router.events.subscribe((event) => {
     //   if (event instanceof NavigationEnd) {
@@ -214,9 +215,26 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
 
   watermark: string;
   s: string;
+  today: string;
+
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    const baseUrl = 'f01/childbwscn3action2';
+    let jsonObject: any = {};
+    this.childbwscn3Service.getDate(baseUrl, jsonObject).subscribe(data => {
+      this.today = this.pipe.transform(new Date(), 'yyyyMMdd HH:mm:ss');
+      //this.watermark = data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
+
+      this.options.text =  data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
+      data.rspBody[0].empNo + data.rspBody[0].empName + this.today
+      +data.rspBody[0].empNo + data.rspBody[0].empName + this.today+data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
+    });
+
+
+
+
+
     this.cuid = sessionStorage.getItem('nationalId');
     this.getJcicMultiple();
     this.setBooleanFalse();
