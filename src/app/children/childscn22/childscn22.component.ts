@@ -58,18 +58,15 @@ export class Childscn22Component implements OnInit {
         this.dialog.closeAll();
       }, 2000);
       window.location.reload();
-    } else if (this.page == '9') {
-      msgStr = await this.childsnc22Service.doDss2Search(jsonObject);
+    }
+    else if (this.stepName == 'BwCredit1') {
+      msgStr = await this.childsnc22Service.doDss4Search(jsonObject);
       this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
       setTimeout(() => {
         this.dialog.closeAll();
       }, 2000);
       window.location.reload();
-      // } else {
-      //   msgStr = await this.childsnc22Service.doDss4Search(jsonObject);
-      //   this.block = false;
-      //   const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     }
   }
 }

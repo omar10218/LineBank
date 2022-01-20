@@ -36,7 +36,7 @@ export class F01009Component implements OnInit, AfterViewInit {
   swcRiskLevel: string;               // 本次客戶風險等級CRL
   swcInputType: string;               // 進件類別
   swcCusFlag: string;                 // 客戶身分名單註記
-
+  stepName: string;                   // 目前關卡名
   //下拉選單區
   caseTypeCode: OptionsCode[] = [];
   agentEmpNoCode: OptionsCode[] = [];
@@ -179,9 +179,11 @@ export class F01009Component implements OnInit, AfterViewInit {
       if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
+        this.stepName = data.rspBody.items[0].F_StepName;
       }
       else {
         this.cusinfoDataSource = null;
+        this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         })
@@ -219,6 +221,7 @@ export class F01009Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('search', 'N');
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
+        sessionStorage.setItem('stepName', this.stepName);
         // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
         sessionStorage.setItem('page', '9');
         this.router.navigate(['./F01009/F01009SCN1']);

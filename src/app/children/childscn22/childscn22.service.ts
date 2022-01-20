@@ -22,7 +22,7 @@ export class Childscn22Service extends BaseService {
   }
 
   doDss4Search(jsonObject: any): any {
-    const baseUrl = 'f01/childscn22action3';
+    const baseUrl = 'f01/childscn22action4';
     let targetUrl = `${baseUrl}`;
     return this.saveOrEditMsgString(targetUrl, jsonObject);
   }

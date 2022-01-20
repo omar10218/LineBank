@@ -181,6 +181,7 @@ export class F01010Component implements OnInit {
       }
       else {
         this.cusinfoDataSource = null;
+        this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         })
