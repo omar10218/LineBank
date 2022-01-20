@@ -60,7 +60,7 @@ export class Childscn19Component implements OnInit {
 
   block: boolean = false;
   send: boolean = true;//案件送出判斷是否鎖起來
-
+  page :string;
   checkpoint: string;
   ngOnInit(): void {
     this.rescanType = '';
@@ -70,6 +70,7 @@ export class Childscn19Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
     this.checkpoint = sessionStorage.getItem('checkpoint');
+    this.page = sessionStorage.getItem('page');
     // this.queryCusMobile();
     console.log(sessionStorage.getItem('nationalId'))
     //取sms樣板下拉
@@ -303,7 +304,15 @@ export class Childscn19Component implements OnInit {
           data: { msgStr: data.rspMsg }
         });
         this.block = false;
-        this.router.navigate(['./F01002']);
+        if(this.page =='1')
+        {
+          this.router.navigate(['./F01001']);
+        }
+        else
+        {
+          this.router.navigate(['./F01002']);
+        }
+
         this.dialogRef.close();
 
       }
