@@ -194,70 +194,81 @@ export class F01001scn1Component implements OnInit {
         this.caPmcus = sessionStorage.getItem('caPmcus');
         this.caRisk = sessionStorage.getItem('caRisk');
 
-        if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null){
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: '請填寫核決結果!' }
-          });
-        } else {
-          let count: number = Number(sessionStorage.getItem('count'));
 
-          let jsoncreditResult: any = {};
-          jsoncreditResult['approveAmt'] = this.approveAmt;
-          jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
-          jsoncreditResult['caPmcus'] = this.caPmcus;
-          jsoncreditResult['caRisk'] = this.caRisk;
-          jsoncreditResult['creditResult'] = this.creditResult ? this.creditResult : '';
 
-          jsonObject['creditResult'] = jsoncreditResult;
+        let count: number = Number(sessionStorage.getItem('count'));
 
-          //設定歷史資料 20220117
-          this.history.push({ value: (this.creditResult != undefined && this.creditResult != null) ? this.creditResult : '', tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT', originalValue: (this.historyData != undefined && this.historyData != null && this.historyData.creditResult != undefined && this.historyData.creditResult != null) ? this.historyData.creditResult : '' }); //核決結果
-          sessionStorage.setItem('creditResult', this.creditResult ? this.creditResult : '');
+        let jsoncreditResult: any = {};
+        jsoncreditResult['approveAmt'] = this.approveAmt;
+        jsoncreditResult['lowestPayRate'] = this.lowestPayRate;
+        jsoncreditResult['caPmcus'] = this.caPmcus;
+        jsoncreditResult['caRisk'] = this.caRisk;
+        jsoncreditResult['creditResult'] = this.creditResult ? this.creditResult : '';
 
-          const content = []
-          for (let index = 0; index < this.history.length; index++) {
-            if (!(this.history[index].value == null || this.history[index].value == '' || this.history[index].value == 'null')) {
-              content.push(
-                {
-                  applno: this.applno,
-                  tableName: this.history[index].tableName,
-                  columnName: this.history[index].valueInfo,
-                  originalValue: this.history[index].originalValue,
-                  currentValue: this.history[index].value,
-                  transAPname: "文審案件完成",
-                }
-              )
-            }
+        jsonObject['creditResult'] = jsoncreditResult;
+
+        if (baseUrl != 'f01/childscn0action1') {
+          if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '請填寫核決結果!' }
+            });
+            return
+          } else {
+            this.result(baseUrl, jsonObject, result, count);
           }
-          jsonObject['content'] = content;
-
-          this.block = true;
-          this.f01001Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
-            //儲存歷史資料
-            // await this.setHistory();
-            let childernDialogRef: any;
-            if (data.rspMsg != null && data.rspMsg != '') {
-              childernDialogRef = this.dialog.open(ConfirmComponent, {
-                data: { msgStr: data.rspMsg }
-              });
-              if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') {
-                this.block = false;
-              } else {
-                setTimeout(() => {
-                  childernDialogRef.close();
-                }, 1000);
-                this.removeSession(count);
-                setTimeout(() => {
-                  this.router.navigate(['./F01001']);
-                }, 1500);
-              }
-            }
-            this.block = false;
-          });
+        } else {
+          this.result(baseUrl, jsonObject, result, count);
         }
       }
     });
     // }
+  }
+
+  result(baseUrl: string, jsonObject: JSON, result: string, count: number) {
+    //設定歷史資料 20220117
+    this.history.push({ value: (this.creditResult != undefined && this.creditResult != null) ? this.creditResult : '', tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT', originalValue: (this.historyData != undefined && this.historyData != null && this.historyData.creditResult != undefined && this.historyData.creditResult != null) ? this.historyData.creditResult : '' }); //核決結果
+    sessionStorage.setItem('creditResult', this.creditResult ? this.creditResult : '');
+
+    const content = []
+    for (let index = 0; index < this.history.length; index++) {
+      if (!(this.history[index].value == null || this.history[index].value == '' || this.history[index].value == 'null')) {
+        content.push(
+          {
+            applno: this.applno,
+            tableName: this.history[index].tableName,
+            columnName: this.history[index].valueInfo,
+            originalValue: this.history[index].originalValue,
+            currentValue: this.history[index].value,
+            transAPname: "文審案件完成",
+          }
+        )
+      }
+    }
+    jsonObject['content'] = content;
+
+    this.block = true;
+    this.f01001Scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
+      //儲存歷史資料
+      // await this.setHistory();
+      let childernDialogRef: any;
+      if (data.rspMsg != null && data.rspMsg != '') {
+        childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: data.rspMsg }
+        });
+        if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') {
+          this.block = false;
+        } else {
+          setTimeout(() => {
+            childernDialogRef.close();
+          }, 1000);
+          this.removeSession(count);
+          setTimeout(() => {
+            this.router.navigate(['./F01001']);
+          }, 1500);
+        }
+      }
+      this.block = false;
+    });
   }
 
   //判斷是否需要顯示案件完成列
