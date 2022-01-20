@@ -46,6 +46,7 @@ export class Childscn19Component implements OnInit {
   rescanItemCode: sysCode[] = [];                   //補件項目下拉
   rescanItem: string;                               //補件項目
   rescanContent: string;                            //徵審註記
+  remarkContent: string = "";
   mobile: string;                                   //客戶手機
   smsSetCode: sysCode[] = [];                       //sms模板下拉
   smsSet: string;                                   //sms模板
@@ -220,9 +221,17 @@ export class Childscn19Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
+      this.remarkContent = '';
       if (data.rspBody.items.length > 0)
       {
         this.send = false;
+        for (let index = 0; index < data.rspBody.items.length; index++) {
+          if (index == data.rspBody.items.length - 1) {
+            this.remarkContent = this.remarkContent + data.rspBody.items[index].RESCAN_ITEM + '(' + data.rspBody.items[index].RESCAN_TYPE + ')。';
+          } else {
+            this.remarkContent = this.remarkContent + data.rspBody.items[index].RESCAN_ITEM + '(' + data.rspBody.items[index].RESCAN_TYPE + ')、';
+          }
+        }
       }
       else
       {
@@ -282,38 +291,44 @@ export class Childscn19Component implements OnInit {
 
   repair()//補件送出
   {
-    let u = 'f02/f02002action6'
-    let url = 'f01/childscn19action7';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.da.applno;
-    jsonObject['swcCreditLevel'] = this.da.checkpoint;
-    let jsonObject2: any = {};
-    jsonObject2['applno'] = this.da.applno;
-    this.childscn19Service.setrepair(url, jsonObject).subscribe(data => {
-      this.block = true;
-      if (data.rspMsg == '成功')
-      {
-        this.childscn19Service.setrepair(u,jsonObject2).subscribe(data=>{
+    if (this.remarkContent.length > 70) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '補充文件字數過多(70個全形字)，故無法送出補件。' }
+      });
+      return;
+    } else {
+      let u = 'f02/f02002action6'
+      let url = 'f01/childscn19action7';
+      let jsonObject: any = {};
+      jsonObject['applno'] = this.da.applno;
+      jsonObject['swcCreditLevel'] = this.da.checkpoint;
+      let jsonObject2: any = {};
+      jsonObject2['applno'] = this.da.applno;
+      this.childscn19Service.setrepair(url, jsonObject).subscribe(data => {
+        this.block = true;
+        if (data.rspMsg == '成功')
+        {
+          this.childscn19Service.setrepair(u,jsonObject2).subscribe(data=>{
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: data.rspMsg }
+            });
+
+          })
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: data.rspMsg }
           });
+          this.block = false;
+          this.router.navigate(['./F01002']);
+          this.dialogRef.close();
 
-        })
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: data.rspMsg }
-        });
-        this.block = false;
-        this.router.navigate(['./F01002']);
-        this.dialogRef.close();
-
-      }
-      else {
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: data.rspMsg }
-        });
-      }
-    })
-
+        }
+        else {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: data.rspMsg }
+          });
+        }
+      })
+    }
   }
   disabledDate(time) {
     return time.getTime() < Date.now() - 8.64e7;

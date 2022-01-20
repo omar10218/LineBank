@@ -51,6 +51,13 @@
         <button nz-button [nzSize]="'large'" nzType="primary" (click)="rescan()">補件</button>
       </div>
     </div>
+    <div nz-row>
+      <div nz-col nzSpan="24">
+        <div style="padding:10px"><span class="form-title">補充文件</span>
+          <input [(ngModel)]="remarkContent" disabled>
+        </div>
+      </div>
+    </div>
     <!-- 補件資訊檔 -->
     <nz-table nzShowSizeChanger [nzData]="rescanDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
       nzTitle="補件資訊">
