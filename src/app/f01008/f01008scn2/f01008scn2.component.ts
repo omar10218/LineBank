@@ -20,7 +20,7 @@ interface sysCode {
 @Component({
   selector: 'app-f01008scn2',
   templateUrl: './f01008scn2.component.html',
-  styleUrls: ['./f01008scn2.component.css', '../../../assets/css/f01.css']
+  styleUrls: ['./f01008scn2.component.css', '../../../assets/css/child.css']
 })
 
 
@@ -49,6 +49,23 @@ export class F01008scn2Component implements OnInit {
 
   applno: string;
   custId: string;
+  cuCName: string;
+  nationalId: string;
+  prodCode: string;
+  applicationAmount: string;
+  caApplicationAmount: string;
+  purposeCode: string;
+
+  //聯絡資訊
+  cuMTel: string;
+  cuHTelIno: string;
+  cuHTel: string;
+  cuCpTelIno: string;
+  cuCpTel: string;
+  cuMTelOther: string;
+  contactOther: string;
+  cuCpTelExt: string;
+
   page = 1;
   pei_page = 50;
   dataSource: Data[] = [];
@@ -264,6 +281,28 @@ export class F01008scn2Component implements OnInit {
 
       }
 
+      //CreditAuditinfo
+      if (data.rspBody.CreditAuditinfoList.length > 0) {
+        this.cuCName = data.rspBody.CreditAuditinfoList[0].cuCname;
+        this.custId = data.rspBody.CreditAuditinfoList[0].custId;
+        this.nationalId = data.rspBody.CreditAuditinfoList[0].nationalId;
+        this.prodCode = data.rspBody.CreditAuditinfoList[0].prodCode;
+        this.applicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount == null ? '' : this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
+        this.caApplicationAmount = data.rspBody.CreditAuditinfoList[0].applicationAmount == null ? '' : this.toCurrency(data.rspBody.CreditAuditinfoList[0].applicationAmount.toString());
+        this.purposeCode = data.rspBody.CreditAuditinfoList[0].purposeCode;
+      }
+
+      //CustomerInfo
+      if (data.rspBody.elCustomerInfoList.length > 0) {
+        this.cuMTel= data.rspBody.elCustomerInfoList[0].cuMTel;
+        this.cuHTelIno= data.rspBody.elCustomerInfoList[0].cuHTelIno;
+        this.cuHTel= data.rspBody.elCustomerInfoList[0].cuHTel;
+        this.cuCpTelIno= data.rspBody.elCustomerInfoList[0].cuCpTelIno;
+        this.cuCpTel= data.rspBody.elCustomerInfoList[0].cuCpTel;
+        this.cuMTelOther= data.rspBody.elCustomerInfoList[0].cuMTelOther;
+        this.contactOther= data.rspBody.elCustomerInfoList[0].contactOther;
+        this.cuCpTelExt= data.rspBody.elCustomerInfoList[0].cuCpTelExt;
+      }
     })
   }
 
@@ -413,4 +452,20 @@ export class F01008scn2Component implements OnInit {
   disabledDate(time) {
     return time.getTime() < Date.now() - 8.64e7;
   }
+
+  getStyle(value: string) {
+    // value = this.toNumber(value);
+    value = value != null ? value.replace(',', '') : value;
+    return {
+      'text-align': this.isNumber(value) ? 'right' : 'left'
+    }
+  }
+
+  isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
+
+  //+逗號
+  toCurrency(amount: string) {
+    return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
+  }
+
 }
