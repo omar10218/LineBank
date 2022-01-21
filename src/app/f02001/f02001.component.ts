@@ -220,7 +220,7 @@ export class F02001Component implements OnInit {
     this.jsonObject['opDesc'] = this.statusDescSecondValue;//案件狀態--有修改第二層
     this.jsonObject['custFlag'] = this.cust_FLAG_Value;//客群標籤
     this.jsonObject['riskGrade'] = this.risk_GRADE_Value;//風險等級分群
-    this.jsonObject['productName'] = this.product_NAME;//產品名稱
+    this.jsonObject['prodCode'] = this.product_NAME;//產品名稱
     this.jsonObject['projectName'] = this.project_NAME;//專案名稱
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
     this.jsonObject['approveAmt'] = '';//核准金額/額度
