@@ -19,9 +19,9 @@
             (click)="show('JCICMASTER')">JCICMASTER</button>
         </ng-template>
       </nz-tab>
-      <nz-tab [nzTitle]="BAM421">
-        <ng-template #BAM421 let-visible="visible"><button nz-button [nzSize]="'default'"
-            [ngClass]="hideBAM421 ? 'nohide' : 'hide'" (click)="show('BAM421')">B42授信放款明細</button></ng-template>
+      <nz-tab [nzTitle]="BAM095">
+        <ng-template #BAM095 let-visible="visible"><button nz-button [nzSize]="'default'"
+            [ngClass]="hideBAM095 ? 'nohide' : 'hide'" (click)="show('BAM095')">B42授信放款明細</button></ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM101">
         <ng-template #BAM101 let-visible="visible"><button nz-button [nzSize]="'default'"
@@ -289,14 +289,14 @@
           <td class="table-header">永久額度</td>
           <td class="table-data">{{ listSource.permLimitAdj01aj }}</td>
           <td class="table-data">{{ listSource.issue01aj }}</td>
-          <td class="table-data">{{ listSource.permLimitAvg01aj }}</td>
-          <td class="table-data">{{ listSource.permLimitMax01aj }}</td>
-          <td class="table-data">{{ listSource.permLimitMin01aj }}</td>
+          <td class="table-data">{{toCurrency( listSource.permLimitAvg01aj) }}</td>
+          <td class="table-data">{{toCurrency( listSource.permLimitMax01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.permLimitMin01aj) }}</td>
           <td class="table-data">{{ listSource.ccPermlimitDwncntL12 }}</td>
         </tr>
         <tr>
           <td class="table-header">預借額度</td>
-          <td class="table-data">{{ listSource.cashLimitAdj01aj }}</td>
+          <td class="table-data">{{ toCurrency(listSource.cashLimitAdj01aj) }}</td>
           <td class="table-data" id="prohibit"></td>
           <td class="table-data" id="prohibit"></td>
           <td class="table-data" id="prohibit"></td>
@@ -325,17 +325,17 @@
       <tbody>
         <tr>
           <td class="table-header">本期應付帳款</td>
-          <td class="table-data">{{ listSource.issueAtv01aj }}</td>
-          <td class="table-data">{{ listSource.payable01aj }}</td>
-          <td class="table-data">{{ listSource.ccPayableMthL12 }}</td>
-          <td class="table-data">{{ listSource.ccPayableAvgL12 }}</td>
+          <td class="table-data">{{ toCurrency(listSource.issueAtv01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.payable01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccPayableMthL12) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccPayableAvgL12) }}</td>
         </tr>
         <tr>
           <td class="table-header">上期循環信用</td>
           <td class="table-data">{{ listSource.revolBalCnt01aj }}</td>
           <td class="table-data">{{ listSource.revolBal01aj }}</td>
           <td class="table-data">{{ listSource.ccRevolMthL12 }}</td>
-          <td class="table-data">{{ listSource.ccRevolAvgL06 }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccRevolAvgL06) }}</td>
         </tr>
         <tr>
           <td class="table-header">當期預借現金</td>
@@ -346,38 +346,38 @@
         </tr>
         <tr>
           <td class="table-header">未到期分期賞還待付金額</td>
-          <td class="table-data">{{ listSource.preOwedCnt01aj }}</td>
-          <td class="table-data">{{ listSource.preOwed01aj }}</td>
-          <td class="table-data">{{ listSource.ccPreowedMthL12 }}</td>
-          <td class="table-data">{{ listSource.ccPreowedAvgL12 }}</td>
+          <td class="table-data">{{toCurrency( listSource.preOwedCnt01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.preOwed01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccPreowedMthL12) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccPreowedAvgL12) }}</td>
         </tr>
         <tr>
           <td class="table-header">預借分期</td>
-          <td class="table-data">{{ listSource.preCashedCnt01aj }}</td>
-          <td class="table-data">{{ listSource.preCashed01aj }}</td>
-          <td class="table-data">{{ listSource.ccPrecashedMthL12 }}</td>
-          <td class="table-data">{{ listSource.ccPrecashedAvgL12 }}</td>
+          <td class="table-data">{{ toCurrency(listSource.preCashedCnt01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.preCashed01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccPrecashedMthL12) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccPrecashedAvgL12) }}</td>
         </tr>
         <tr>
           <td class="table-header">帳單分期</td>
-          <td class="table-data">{{ listSource.preBilledCnt01aj }}</td>
-          <td class="table-data">{{ listSource.preBilled01aj }}</td>
-          <td class="table-data">{{ listSource.ccPrebilledMthL12 }}</td>
-          <td class="table-data">{{ listSource.ccPrebilledAvgL12 }}</td>
+          <td class="table-data">{{ toCurrency(listSource.preBilledCnt01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.preBilled01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccPrebilledMthL12) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccPrebilledAvgL12) }}</td>
         </tr>
         <tr>
           <td class="table-header">消費分期</td>
-          <td class="table-data">{{ listSource.preSpentCnt01aj }}</td>
-          <td class="table-data">{{ listSource.preSpent01aj }}</td>
-          <td class="table-data">{{ listSource.ccPrespentMthL12 }}</td>
-          <td class="table-data">{{ listSource.ccPrespentAvgL12 }}</td>
+          <td class="table-data">{{ toCurrency(listSource.preSpentCnt01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.preSpent01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccPrespentMthL12) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccPrespentAvgL12) }}</td>
         </tr>
         <tr>
           <td class="table-header">預借行為(當期+未到期)</td>
-          <td class="table-data">{{ listSource.cashOsCnt01aj }}</td>
-          <td class="table-data">{{ listSource.cashOs01aj }}</td>
-          <td class="table-data">{{ listSource.ccCashosMthL12 }}</td>
-          <td class="table-data">{{ listSource.ccCashosAvgL12 }}</td>
+          <td class="table-data">{{ toCurrency(listSource.cashOsCnt01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.cashOs01aj) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccCashosMthL12) }}</td>
+          <td class="table-data">{{ toCurrency(listSource.ccCashosAvgL12) }}</td>
         </tr>
       </tbody>
 
@@ -716,10 +716,10 @@
     </nz-table>
   </div>
 
-  <!-- BAM421 -->
-  <div [(hidden)]="hideBAM421" class="line_bank_card_no_padding">
+  <!-- BAM095 -->
+  <div [(hidden)]="hideBAM095" class="line_bank_card_no_padding">
     <!-- 表格 -->
-    <nz-table nzShowSizeChanger [nzData]="BAM421Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total1"
+    <nz-table nzShowSizeChanger [nzData]="BAM095Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total1"
       [nzPageSize]="pageSize1" [nzPageIndex]="pageIndex1" (nzQueryParams)="onQueryParamsChange($event, 'BAM421')"
       nzSize="small" nzTitle="綜合授信、房貸業務分類及擔保品資訊(多筆B42)" [nzScroll]="{ x: '1800px' }">
       <thead>
@@ -760,16 +760,12 @@
           <th class="table-header" [nzWidth]="'90px'">幣別代號</th>
           <th class="table-header" [nzWidth]="'130px'">循環信用註記</th>
           <th class="table-header" [nzWidth]="'130px'">額度可否撤銷</th>
-          <th class="table-header" [nzWidth]="'130px'">房貸業務分類</th>
-          <th class="table-header" [nzWidth]="'120px'">擔保品所在地一</th>
-          <th class="table-header" [nzWidth]="'120px'">擔保品所在地二</th>
-          <th class="table-header" [nzWidth]="'120px'">擔保品所在地三</th>
-          <th class="table-header" [nzWidth]="'120px'">房貸寬限期起始年月</th>
-          <th class="table-header" [nzWidth]="'120px'" [nzRight]="true">房貸寬限期截止年月</th>
+          <th class="table-header" [nzWidth]="'170px'">保留欄位</th>
+
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of BAM421Source">
+        <tr *ngFor="let data of BAM095Source">
           <td class="table-data" [nzLeft]="true">{{ data.DATA_YYY }}</td>
           <td class="table-data">{{ data.DATA_MM }}</td>
           <td class="table-data">{{ data.BANK_CODE }}</td>
@@ -777,10 +773,10 @@
           <td class="table-data">{{ data.ACCOUNT_CODE }}</td>
           <td class="table-data">{{ data.ACCOUNT_CODE2 }}</td>
           <td class="table-data">{{ data.PURPOSE_CODE }}</td>
-          <td class="table-data">{{ data.CONTRACT_AMT1 }}</td>
-          <td class="table-data">{{ data.CONTRACT_AMT }}</td>
-          <td class="table-data">{{ data.LOAN_AMT }}</td>
-          <td class="table-data">{{ data.PASS_DUE_AMT }}</td>
+          <td class="table-data">{{ toCurrency(data.CONTRACT_AMT1) }}</td>
+          <td class="table-data">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+          <td class="table-data">{{ toCurrency(data.LOAN_AMT) }}</td>
+          <td class="table-data">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
           <td class="table-data">{{ data.PAY_CODE_12 }}</td>
           <td class="table-data">{{ data.IS_KIND }}</td>
           <td class="table-data">{{ data.PROJECT_CODE }}</td>
@@ -806,12 +802,8 @@
           <td class="table-data">{{ data.CURRENCY_CODE_3 }}</td>
           <td class="table-data">{{ data.CYCLE_FLAG }}</td>
           <td class="table-data">{{ data.OFF_FLAG }}</td>
-          <td class="table-data">{{ data.LOAN_TYPE }}</td>
-          <td class="table-data">{{ data.LOCATE_NM_1 }}</td>
-          <td class="table-data">{{ data.LOCATE_NM_2 }}</td>
-          <td class="table-data">{{ data.LOCATE_NM_3 }}</td>
-          <td class="table-data">{{ data.GRACE_PERIOD_SDATE }}</td>
-          <td class="table-data" [nzRight]="true">{{ data.GRACE_PERIOD_EDATE }}</td>
+          <td class="table-data">{{ data.FILLER }}</td>
+        
         </tr>
       </tbody>
     </nz-table>
@@ -844,17 +836,17 @@
       <tr *ngFor="let data of BAM101Source">
         <td class="table-data" [nzLeft]="true">{{ data.DATA_YYY }}</td>
         <td class="table-data">{{ data.DATA_MM }}</td>
-        <td class="table-data">{{ data.WECDU_AMT }}</td>
-        <td class="table-data">{{ data.HIGZ_AMT }}</td>
-        <td class="table-data">{{ data.MNSTRK_AMT }}</td>
-        <td class="table-data">{{ data.J_AMT }}</td>
-        <td class="table-data">{{ data.PQX_AMT }}</td>
-        <td class="table-data">{{ data.F_AMT }}</td>
-        <td class="table-data">{{ data.L_AMT }}</td>
-        <td class="table-data">{{ data.NORMAL_LOAN_AMT }}</td>
-        <td class="table-data">{{ data.PASS_DUE_AMT }}</td>
-        <td class="table-data">{{ data.COLLECTION_AMT }}</td>
-        <td class="table-data" [nzRight]="true">{{ data.BAD_DEBT }}</td>
+        <td class="table-data">{{ toCurrency(data.WECDU_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.HIGZ_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.MNSTRK_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.J_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.PQX_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.F_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.L_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.NORMAL_LOAN_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.COLLECTION_AMT) }}</td>
+        <td class="table-data" [nzRight]="true">{{ toCurrency(data.BAD_DEBT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -905,13 +897,13 @@
         <td class="table-data">{{ data.ISSUE_NAME }}</td>
         <td class="table-data">{{ data.BILL_MARK }}</td>
         <td class="table-data">{{ data.CARD_TYPE }}</td>
-        <td class="table-data">{{ data.PERM_LIMIT }}</td>
-        <td class="table-data">{{ data.TEMP_LIMIT }}</td>
-        <td class="table-data">{{ data.CASH_LIMIT }}</td>
-        <td class="table-data">{{ data.PAYABLE }}</td>
-        <td class="table-data">{{ data.CASH_LENT }}</td>
-        <td class="table-data">{{ data.LAST_PAYA }}</td>
-        <td class="table-data">{{ data.REVOL_BAL }}</td>
+        <td class="table-data">{{ toCurrency(data.PERM_LIMIT) }}</td>
+        <td class="table-data">{{ toCurrency(data.TEMP_LIMIT) }}</td>
+        <td class="table-data">{{ toCurrency(data.CASH_LIMIT) }}</td>
+        <td class="table-data">{{ toCurrency(data.PAYABLE) }}</td>
+        <td class="table-data">{{ toCurrency(data.CASH_LENT) }}</td>
+        <td class="table-data">{{ toCurrency(data.LAST_PAYA) }}</td>
+        <td class="table-data">{{ toCurrency(data.REVOL_BAL) }}</td>
         <td class="table-data">{{ data.PAY_STAT }}</td>
         <td class="table-data">{{ data.PAY_CODE }}</td>
         <td class="table-data">{{ data.REVOL_RATE }}</td>
@@ -973,7 +965,7 @@
         <td class="table-data">{{ data.CARD_BRAND }}</td>
         <td class="table-data">{{ data.CARD_TYPE }}</td>
         <td class="table-data">{{ data.START_DATE }}</td>
-        <td class="table-data">{{ data.LIMIT }}</td>
+        <td class="table-data">{{ toCurrency(data.LIMIT )}}</td>
         <td class="table-data">{{ data.YN_SHARE_LIMIT }}</td>
         <td class="table-data">{{ data.YN_PHYSICAL }}</td>
         <td class="table-data">{{ data.ACT_MARK }}</td>
@@ -986,7 +978,7 @@
         <td class="table-data">{{ data.M_CNAME }}</td>
         <td class="table-data">{{ data.RELA }}</td>
         <td class="table-data">{{ data.RELA_NAME }}</td>
-        <td class="table-data">{{ data.RISK }}</td>
+        <td class="table-data">{{ toCurrency(data.RISK) }}</td>
         <td class="table-data">{{ data.CLEAR_DATE }}</td>
         <td class="table-data">{{ data.GUAR_ID }}</td>
         <td class="table-data">{{ data.GUAR_CNAME }}</td>
@@ -1237,10 +1229,10 @@
       <tr *ngFor="let data of BAM501Source">
         <td class="table-data">{{ data.MAIN_CODE }}</td>
         <td class="table-data">{{ data.BANK_NAME }}</td>
-        <td class="table-data">{{ data.B_AMT }}</td>
-        <td class="table-data">{{ data.Y_AMT }}</td>
-        <td class="table-data">{{ data.C1_AMT }}</td>
-        <td class="table-data">{{ data.C2_AMT }}</td>
+        <td class="table-data">{{ toCurrency(data.B_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.Y_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.C1_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.C2_AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1271,8 +1263,8 @@
         <td class="table-data">{{ data.ACCOUNT_CODE }}</td>
         <td class="table-data">{{ data.ACCOUNT_CODE2 }}</td>
         <td class="table-data">{{ data.PURPOSE_CODE }}</td>
-        <td class="table-data">{{ data.LOAN_AMT }}</td>
-        <td class="table-data">{{ data.PASS_DUE_AMT }}</td>
+        <td class="table-data">{{ toCurrency(data.LOAN_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1298,7 +1290,7 @@
         <td class="table-data">{{ data.DATA_MM }}</td>
         <td class="table-data">{{ data.BANK_CODE }}</td>
         <td class="table-data">{{ data.BANK_NAME }}</td>
-        <td class="table-data">{{ data.AMT }}</td>
+        <td class="table-data">{{ toCurrency(data.AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1323,8 +1315,8 @@
         <td class="table-data">{{ data.DATA_DATE }}</td>
         <td class="table-data">{{ data.BANK_CODE }}</td>
         <td class="table-data">{{ data.BANK_NAME }}</td>
-        <td class="table-data">{{ data.CONTRACT_AMT }}</td>
-        <td class="table-data">{{ data.DBR22_AMT }}</td>
+        <td class="table-data">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.DBR22_AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1359,12 +1351,12 @@
         <td class="table-data">{{ data.XACT_CODE }}</td>
         <td class="table-data">{{ data.ACCOUNT_CODE }}</td>
         <td class="table-data">{{ data.ACCOUNT_CODE2 }}</td>
-        <td class="table-data">{{ data.LASTMON_LOAN_AMT }}</td>
-        <td class="table-data">{{ data.LASTMON_PASS_DUE_AMT }}</td>
-        <td class="table-data">{{ data.NEW_CONTRACT_AMT }}</td>
-        <td class="table-data">{{ data.NEW_LOAN_AMT }}</td>
-        <td class="table-data">{{ data.NEW_PAY_LOAN_AMT }}</td>
-        <td class="table-data" [nzRight]="true">{{ data.NEW_DBR22_AMT }}</td>
+        <td class="table-data">{{ toCurrency (data.LASTMON_LOAN_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.LASTMON_PASS_DUE_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.NEW_CONTRACT_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.NEW_LOAN_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.NEW_PAY_LOAN_AMT) }}</td>
+        <td class="table-data" [nzRight]="true">{{ toCurrency(data.NEW_DBR22_AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1410,9 +1402,9 @@
         <td class="table-data">{{ data.M_ID }}</td>
         <td class="table-data">{{ data.M_ID_NAME }}</td>
         <td class="table-data">{{ data.REL_CODE }}</td>
-        <td class="table-data">{{ data.CONTRACT_AMT }}</td>
-        <td class="table-data">{{ data.LOAN_AMT }}</td>
-        <td class="table-data">{{ data.PASS_DUE_AMT }}</td>
+        <td class="table-data">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.LOAN_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
         <td class="table-data">{{ data.ASST_DATA_YYY }}</td>
         <td class="table-data">{{ data.ASST_DATA_MM }}</td>
         <td class="table-data">{{ data.ASST_IDN_BAN }}</td>
@@ -1462,9 +1454,9 @@
         <td class="table-data">{{ data.M_ID }}</td>
         <td class="table-data">{{ data.M_ID_NAME }}</td>
         <td class="table-data">{{ data.REL_CODE }}</td>
-        <td class="table-data">{{ data.CONTRACT_AMT }}</td>
-        <td class="table-data">{{ data.LOAN_AMT }}</td>
-        <td class="table-data">{{ data.PASS_DUE_AMT }}</td>
+        <td class="table-data">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.LOAN_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
         <td class="table-data">{{ data.ASST_DATA_YYY }}</td>
         <td class="table-data">{{ data.ASST_DATA_MM }}</td>
         <td class="table-data">{{ data.ASST_IDN_BAN }}</td>
@@ -1514,9 +1506,9 @@
         <td class="table-data">{{ data.M_ID }}</td>
         <td class="table-data">{{ data.M_ID_NAME }}</td>
         <td class="table-data">{{ data.REL_CODE }}</td>
-        <td class="table-data">{{ data.CONTRACT_AMT }}</td>
-        <td class="table-data">{{ data.LOAN_AMT }}</td>
-        <td class="table-data">{{ data.PASS_DUE_AMT }}</td>
+        <td class="table-data">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.LOAN_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
         <td class="table-data">{{ data.ASST_DATA_YYY }}</td>
         <td class="table-data">{{ data.ASST_DATA_MM }}</td>
         <td class="table-data">{{ data.ASST_IDN_BAN }}</td>
@@ -1545,7 +1537,7 @@
       <tr *ngFor="let data of BAM011Source">
         <td class="table-data">{{ data.XACT_CODE }}</td>
         <td class="table-data">{{ data.PASSDUE_PAYOFF_DATE }}</td>
-        <td class="table-data">{{ data.PASSDUE_AMT }}</td>
+        <td class="table-data">{{toCurrency( data.PASSDUE_AMT) }}</td>
         <td class="table-data">{{ data.BANK_CODE }}</td>
         <td class="table-data">{{ data.BANK_NAME }}</td>
         <td class="table-data">{{ data.ACCOUNT_NUM }}</td>
@@ -1585,12 +1577,12 @@
         <td class="table-data">{{ data.ACCOUNT_NAME }}</td>
         <td class="table-data">{{ data.ACCOUNT_CODE2 }}</td>
         <td class="table-data">{{ data.ACCOUNT_NAME2 }}</td>
-        <td class="table-data">{{ data.CONTRACT_AMT }}</td>
-        <td class="table-data">{{ data.LOAN_AMT }}</td>
-        <td class="table-data">{{ data.PASS_DUE_AMT }}</td>
+        <td class="table-data">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.LOAN_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
         <td class="table-data">{{ data.PAY_CODE }}</td>
         <td class="table-data">{{ data.PAY_NAME }}</td>
-        <td class="table-data">{{ data.AC_AMT }}</td>
+        <td class="table-data">{{ toCurrency(data.AC_AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1622,8 +1614,8 @@
         <td class="table-data">{{ data.TRAN_DATE }}</td>
         <td class="table-data">{{ data.BANK_CODE }}</td>
         <td class="table-data">{{ data.BANK_NAME }}</td>
-        <td class="table-data">{{ data.PAY_AMT }}</td>
-        <td class="table-data">{{ data.BAL_AMT }}</td>
+        <td class="table-data">{{ toCurrency(data.PAY_AMT) }}</td>
+        <td class="table-data">{{ toCurrency(data.BAL_AMT) }}</td>
         <td class="table-data">{{ data.ACCOUNT_CODE }}</td>
         <td class="table-data">{{ data.ACCOUNT_CODE2 }}</td>
         <td class="table-data">{{ data.ACCOUNT_NAME }}</td>

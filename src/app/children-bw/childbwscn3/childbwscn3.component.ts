@@ -63,7 +63,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   hideAll = false;
   hideJCICMASTER = false;
   hideJCIC = true;
-  hideBAM421 = false;
+  hideBAM095 = false;
   hideBAM101 = false;
   hideKRM048 = false;
   hideKRM046 = false;
@@ -96,7 +96,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   pageSize = 50
   index: any
 
-  BAM421Source: readonly Data[] = [];
+  BAM095Source: readonly Data[] = [];
   total1 = 1;
   pageIndex1 = 1;
   pageSize1 = 50;
@@ -291,7 +291,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childbwscn3Service.getJCICSearch(jsonObject).subscribe(data => {
-      if (code == 'BAM421') { this.total1 = data.rspBody.size; this.BAM421Source = data.rspBody.items; }
+      if (code == 'BAM095') { this.total1 = data.rspBody.size; this.BAM095Source = data.rspBody.items; }
       if (code == 'BAM101') { this.total1 = data.rspBody.size; this.BAM101Source = data.rspBody.items; }
       if (code == 'KRM048') { this.total1 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
       if (code == 'KRM046') { this.total1 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
@@ -336,7 +336,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     this.hideBAM011 = true;
     this.hideBAM070 = true;
     this.hideBAM101 = true;
-    this.hideBAM421 = true;
+    this.hideBAM095 = true;
     this.hideBAM305 = true;
     this.hideBAM306 = true;
     this.hideBAM307 = true;
@@ -351,7 +351,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
 
   setBooleanFalse() {
     this.hideJCICMASTER = false;
-    this.hideBAM421 = false;
+    this.hideBAM095 = false;
     this.hideBAM101 = false;
     this.hideKRM048 = false;
     this.hideKRM046 = false;
@@ -392,7 +392,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
       if (this.list[index] == "BAM011") { this.hideBAM011 = !this.hideBAM011; }
       if (this.list[index] == "BAM070") { this.hideBAM070 = !this.hideBAM070; }
       if (this.list[index] == "BAM101") { this.hideBAM101 = !this.hideBAM101; }
-      if (this.list[index] == "BAM421") { this.hideBAM421 = !this.hideBAM421; }
+      if (this.list[index] == "BAM095") { this.hideBAM095 = !this.hideBAM095; }
       if (this.list[index] == "BAM305") { this.hideBAM305 = !this.hideBAM305; }
       if (this.list[index] == "BAM306") { this.hideBAM306 = !this.hideBAM306; }
       if (this.list[index] == "BAM307") { this.hideBAM307 = !this.hideBAM307; }
@@ -431,5 +431,8 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     this.hideJCIC = true;
     this.setBooleanFalse();
     this.list = [];
+  }
+  toCurrency(amount: string) {
+    return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
   }
 }
