@@ -53,7 +53,7 @@
           <th class="table-header">貸款帳戶</th>
           <th class="table-header">申請動撥金額</th>
           <th class="table-header">申請動撥日期時間</th>
-          <th class="table-header">動撥狀態</th>
+          <th class="table-header">EL狀態碼</th>
 
         </tr>
       </thead>
@@ -62,8 +62,8 @@
          
           <td class="table-data">{{ data.loanAccount }}</td>
           <td>{{data.applyAmount != undefined? data_number(data.applyAmount):data.applyAmount}}</td>
-          <td class="table-data">{{ data.applyTime | date: 'yyyy-MM-dd'}}</td>
-          <td class="table-data">{{ data.drFlag}}</td>
+          <td class="table-data">{{ data.applyTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+          <td class="table-data">{{data.opId}}-{{ getOpId(data.opId)}}</td>
 
         </tr>
       </tbody>

@@ -34,6 +34,7 @@ export class F02004Component implements OnInit {
   drFlag: string;//動撥狀態
   drFlagCode: OptionsCode[] = [];//員編
   drCreditMianData: Data[] = [];
+  OpIdcode:sysCode[]=[];
   total = 1;
   x: string;
   loading = true;
@@ -80,6 +81,12 @@ export class F02004Component implements OnInit {
       } else {
         this.total = data.rspBody.size;
         this.drCreditMianData = data.rspBody.list;
+        // this.OpIdcode=data.rspBody.opdesc
+        for (const jsonObj of data.rspBody.opdesc) {
+          const codeNo = jsonObj.opId;
+          const desc = jsonObj.opDesc;
+          this.OpIdcode.push({ value: codeNo, viewValue: desc })
+        }
       }
     });
   }
@@ -151,4 +158,14 @@ export class F02004Component implements OnInit {
     }
     return this.x
   }
+  getOpId(codeVal: string): string {
+    for (const data of this.OpIdcode) {
+      if (data.value == codeVal) {
+        return data.viewValue;
+        break;
+      }
+    }
+    return codeVal;
+  }
+
 }

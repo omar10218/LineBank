@@ -21,5 +21,6 @@ export class F02004Service extends BaseService {
     let jsonObject: any = {};
     return this.postJsonObject(targetUrl, jsonObject);
   }
+  
 
 }

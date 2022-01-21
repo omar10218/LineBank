@@ -53,6 +53,7 @@ export class F03008uploadComponent implements OnInit {
         //   msg = data.rspMsg;
         // }
         msg += data.rspMsg;
+        if(msg!='成功匯入'){msg='儲存Excel失敗'}
         this.uploadForm.patchValue({ ERROR_MESSAGE: msg });
       });
     }
