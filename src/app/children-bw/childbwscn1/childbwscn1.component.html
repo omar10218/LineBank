@@ -81,26 +81,7 @@
       <div style="padding:3px"><span class="form-title">等級分群(策略調整後)</span><input matInput #input
           class="form-control" [(ngModel)]="data.rvRiskmdgradeGpAdj" readonly disabled></div>
     </div>
-    <!-- <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">預計下次審查日期</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
-    </div>
-    <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">徵審代碼數量</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
-    </div>
-    <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">本次貸後管理狀態(中文)</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
-    </div>
-    <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">本次貸後管理註記(中文)</span><input matInput #input class="form-control"
-          value="" readonly disabled></div>
-    </div>
-    <div nz-col nzFlex="1">
-      <div style="padding:3px"><span class="form-title">本次客戶風險等級CRL(中文)</span><input matInput #input
-          class="form-control" value="" readonly disabled></div>
-    </div> -->
+
   </div>
 </div>
 
@@ -108,9 +89,9 @@
 <div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
   <div class="line_bank_form_header_title">審核結果</div>
   <div nz-row style="padding:5px">
-    <nz-radio-group [(ngModel)]="BW_creditResult" name="BW_creditResult" required>
+    <nz-radio-group [(ngModel)]="BW_creditResult" name="BW_creditResult" [disabled]="getPage()!='9' && getPage()!='10'"  required>
       <div nz-row>
-        <div nz-col nzFlex="1" *ngFor="let code of BW_creditResult_Code">
+        <div nz-col nzFlex="1" *ngFor="let code of BW_creditResult_Code" >
           <div style="width:100%; height:30px">
             <label (click)="radio_change()" nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
           </div>
@@ -121,7 +102,7 @@
 
   <div nz-row style="padding:5px">
     <div style="padding:2px"><span class="form-title">是否需通知客戶</span>
-      <mat-select style="height:25px" value="Y">
+      <mat-select style="height:25px" value="Y" [disabled]="getPage()!='9' && getPage()!='10'"  >
         <mat-option *ngFor="let code of ynCode" [value]="code.value">
           {{code.viewValue}}
         </mat-option>
@@ -129,11 +110,11 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(起)</span><input matInput #input
-          class="form-control" value="" readonly ></div>
+          class="form-control" value="" readonly [disabled]="getPage()!='9' && getPage()!='10'"  ></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(迄)</span><input matInput #input
-          class="form-control" value="" readonly></div>
+          class="form-control" value="" readonly [disabled]="getPage()!='9' && getPage()!='10'"  ></div>
     </div>
     <div nz-col nzFlex="1"></div>
     <div nz-col nzFlex="1"></div>
@@ -156,8 +137,8 @@
     </div>
   </div>
   <div style="padding:3px;text-align: center;">
-    <button *ngIf="(getPage()=='9'|| getPage()=='10') && size == 0 " nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
-    <button *ngIf="(getPage()!='9'&& getPage()!='10')|| size != 0" disabled nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+    <button *ngIf="(getPage()=='9'|| getPage()=='10') && size == 0 && search !='Y' " nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+    <button *ngIf="(getPage()!='9'&& getPage()!='10')|| size != 0 || search=='Y'" disabled nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
   </div>
 
   <!-- 表格 -->
@@ -168,21 +149,22 @@
       <tr>
         <th class="table-header">Date</th>
         <th class="table-header">User</th>
-        <th class="table-header">Action</th>
-        <th class="table-header">Edit</th>
+        <th class="table-header" style="max-width: 200px;">Action</th>
+        <th class="table-header">Level</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of creditmemoSource">
         <td class="table-data">{{ data.CREDITDATE | date:'yyyy-MM-dd HH:mm:ss' }}</td>
         <td class="table-data">{{ data.CREDITUSER }}</td>
-        <td class="table-data">{{ data.CREDITACTION }}</td>
-        <td class="table-data" style="text-align: center;">
-          <button *ngIf="creditlevel==data.CREDITLEVEL && (getPage()=='9'|| getPage()=='10')" id="test" nz-button [nzSize]="'small'" nzType="primary"
+        <td class="table-data" style="max-width: 200px;">{{ data.CREDITACTION }}</td>
+        <td class="table-data">{{ changeLevel(data.CREDITLEVEL) }}</td>
+        <!-- <td class="table-data" style="text-align: center;">
+          <button *ngIf="creditlevel==data.CREDITLEVEL && (getPage()=='9'|| getPage()=='10') && search !='Y' " id="test" nz-button [nzSize]="'small'" nzType="primary"
             (click)="startEdit(data.CREDITACTION , data.ID)">編輯</button>
-            <button *ngIf="creditlevel!=data.CREDITLEVEL || (getPage()!='9' && getPage()!='10')" id="test" nz-button [nzSize]="'small'" nzType="primary"
+            <button *ngIf="creditlevel!=data.CREDITLEVEL || (getPage()!='9' && getPage()!='10')|| search=='Y'" id="test" nz-button [nzSize]="'small'" nzType="primary"
             disabled (click)="startEdit(data.CREDITACTION , data.ID)">編輯</button>
-        </td>
+        </td> -->
       </tr>
     </tbody>
   </nz-table>

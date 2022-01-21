@@ -18,6 +18,8 @@ import { F01003Scn1Service } from 'src/app/f01003/f01003scn1/f01003scn1.service'
 import { F01004Scn1Service } from 'src/app/f01004/f01004scn1/f01004scn1.service';
 import { F01007scn1Service } from 'src/app/f01007/f01007scn1/f01007scn1.service';
 import { F01001Scn1Service } from 'src/app/f01001/f01001scn1/f01001scn1.service';
+import { F01014Scn1Service } from 'src/app/f01014/f01014scn1/f01014scn1.service';
+import { F01013Scn1Service } from 'src/app/f01013/f01013scn1/f01013scn1.service';
 
 //原因碼框架
 interface CREDIT_View {
@@ -51,7 +53,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
     private f01003scn1Service: F01003Scn1Service,
     private f01004scn1Service: F01004Scn1Service,
     private f01007scn1Service: F01007scn1Service,
-    private f01001Scn1Service: F01001Scn1Service
+    private f01001Scn1Service: F01001Scn1Service,
+    private f01013Scn1Service: F01013Scn1Service,
+    private f01014Scn1Service: F01014Scn1Service
   ) {//訂閱 案件完成/暫存時 新增資料
     this.CREDITSource$ = this.f01002scn1Service.CREDITSource$.subscribe((data) => {
       if (data.key) {
@@ -66,6 +70,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   search: string;
   userId: string;
   level: string;
+  addSignLevel: string;
 
   //申請資訊
   applno: string;                               //案編
@@ -143,6 +148,10 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   //審核結果
   creditResult: string;
+  //選擇加簽20220118
+  addSignature: OptionsCode[] = [{ value: '', viewValue: '' }, { value: 'S1', viewValue: '總經理' }, { value: 'S2', viewValue: '風管處處長' }];
+  addSignatureValue: string;
+
   creditResultCode: OptionsCode[] = [];//核決結果下拉選單
   resultProdCode: string;
   resultPrjCode: string;
@@ -199,28 +208,28 @@ export class Childscn1Component implements OnInit, OnDestroy {
     , { value: '4', viewValue: '租賃所得' }, { value: '5', viewValue: '贈與/繼承' }, { value: '6', viewValue: '退休金/保險給付' }, { value: '7', viewValue: '獎助學金/比賽或中獎獎金' }
     , { value: '8', viewValue: '親友/家人給與' }];
   //主要收入來源
-  MAIN_INCOME: string;
+  MAIN_INCOME: string = "";
 
   //本次來往目的list
   PURPOSEOTHER_MESSAGE2_LIST: OptionsCode[] = [{ value: '1', viewValue: '支付教育費用' }, { value: '2', viewValue: '房屋修繕' }, { value: '3', viewValue: '購車' }
     , { value: '4', viewValue: '投資' }, { value: 'Z', viewValue: '其他' }];
   //本次來往目的
-  PURPOSEOTHER_MESSAGE2: string;
+  PURPOSEOTHER_MESSAGE2: string = "";
 
   //客戶近半年無交易(排除付息交易)list
   NON_TRADEOTHER_MESSAGE3_LIST: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }, { value: 'Z', viewValue: '其他' }];
   //客戶近半年無交易(排除付息交易)
-  NON_TRADEOTHER_MESSAGE3: string;
+  NON_TRADEOTHER_MESSAGE3: string = "";
 
   //客戶近年交易金額與身分或行職業顯不相當list
   TRADE_NON_CCOTHER_MESSAGE4_LIST: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }, { value: 'Z', viewValue: '其他' }];
   //客戶近年交易金額與身分或行職業顯不相當
-  TRADE_NON_CCOTHER_MESSAGE4: string;
+  TRADE_NON_CCOTHER_MESSAGE4: string = "";
 
   //客戶近半年交易是否與首次(活期)開戶目的不相稱list
   TRADE_NON_PURPOSEOTHER_MESSAGE5_LIST: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }, { value: 'Z', viewValue: '其他' }];
   //客戶近半年交易是否與首次(活期)開戶目的不相稱
-  TRADE_NON_PURPOSEOTHER_MESSAGE5: string;
+  TRADE_NON_PURPOSEOTHER_MESSAGE5: string = "";
 
   otherMessage2: string = "";
   otherMessage3: string = "";
@@ -332,8 +341,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
     this.search = sessionStorage.getItem('search');
     this.userId = localStorage.getItem("empNo");
     this.page = sessionStorage.getItem("page");
-    console.log(sessionStorage.getItem("page"))
     this.level = sessionStorage.getItem('stepName').split('t')[1];
+    this.addSignLevel = sessionStorage.getItem('addSignLevel');
 
     //先建立徵審代碼框架
     for (let i = 0; i < 10; i++) {
@@ -483,16 +492,18 @@ export class Childscn1Component implements OnInit, OnDestroy {
       if (data.rspBody.resultList.length > 0) {
         this.resultProdCode = data.rspBody.resultList[0].prodCode;
         this.resultPrjCode = data.rspBody.resultList[0].prjCode;
-        this.creditResult = data.rspBody.resultList[0].creditResult;
-        sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult ? data.rspBody.resultList[0].creditResult : '');
-        this.resultApproveAmt = data.rspBody.resultList[0].approveAmt == null ? '' : this.toCurrency(data.rspBody.resultList[0].approveAmt.toString());
-        sessionStorage.setItem('resultApproveAmt', data.rspBody.resultList[0].approveAmt ? data.rspBody.resultList[0].approveAmt : '');
+        this.creditResult = data.rspBody.resultList[0].creditResult != null && data.rspBody.resultList[0].creditResult != '' ? data.rspBody.resultList[0].creditResult : '';
+        sessionStorage.setItem('creditResult', data.rspBody.resultList[0].creditResult != null ? data.rspBody.resultList[0].creditResult : '');
+        this.resultApproveAmt = data.rspBody.resultList[0].approveAmt != null ? this.toCurrency(data.rspBody.resultList[0].approveAmt.toString()) : '';
+        sessionStorage.setItem('resultApproveAmt', this.toNumber(this.resultApproveAmt));
         this.resultLowestPayRate = data.rspBody.resultList[0].lowestPayRate;
-        sessionStorage.setItem('resultLowestPayRate', data.rspBody.resultList[0].lowestPayRate ? data.rspBody.resultList[0].lowestPayRate : '');
+        sessionStorage.setItem('resultLowestPayRate', this.resultLowestPayRate != null ? this.resultLowestPayRate.toString() : '');
         this.caPmcus = data.rspBody.resultList[0].caPmcus;
-        sessionStorage.setItem('caPmcus', data.rspBody.resultList[0].caPmcus ? data.rspBody.resultList[0].caPmcus : '');
+        sessionStorage.setItem('caPmcus', data.rspBody.resultList[0].caPmcus != null ? data.rspBody.resultList[0].caPmcus : '');
         this.caRisk = data.rspBody.resultList[0].caRisk;
-        sessionStorage.setItem('caRisk', data.rspBody.resultList[0].caRisk ? data.rspBody.resultList[0].caRisk : '');
+        sessionStorage.setItem('caRisk', data.rspBody.resultList[0].caRisk != null ? data.rspBody.resultList[0].caRisk : '');
+        this.addSignatureValue = data.rspBody.resultList[0].addSignature;
+        sessionStorage.setItem('addSignature', data.rspBody.resultList[0].addSignature != null ? data.rspBody.resultList[0].addSignature : '');
       }
 
       let erroeStr: string = '';
@@ -502,7 +513,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
         this.CreditInterestPeriodSource = data.rspBody.creditInterestPeriodList;
         for (let index = 1; index <= this.CreditInterestPeriodSource.length; index++) {
           if (this.CreditInterestPeriodSource[index - 1].interestType == '02') {
-            if ( !(await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject)).includes('找不到') ) {
+            if (!(await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject)).includes('找不到')) {
               this.CreditInterestPeriodSource[index - 1].interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
               sessionStorage.setItem('interestBase' + index, this.CreditInterestPeriodSource[index - 1].interestBase);
             } else {
@@ -517,14 +528,14 @@ export class Childscn1Component implements OnInit, OnDestroy {
           sessionStorage.setItem('id' + index, this.CreditInterestPeriodSource[index - 1].id);
           sessionStorage.setItem('period' + index, this.CreditInterestPeriodSource[index - 1].period ? this.CreditInterestPeriodSource[index - 1].period : '');
           sessionStorage.setItem('interestType' + index, this.CreditInterestPeriodSource[index - 1].interestType ? this.CreditInterestPeriodSource[index - 1].interestType : '');
-          sessionStorage.setItem('interest' + index, this.CreditInterestPeriodSource[index - 1].interest ? this.CreditInterestPeriodSource[index - 1].interest : '');
+          sessionStorage.setItem('interest' + index, this.CreditInterestPeriodSource[index - 1].interest != null ? this.CreditInterestPeriodSource[index - 1].interest : 0);
           this.CreditInterestPeriodSource[index - 1].periodType = this.CreditInterestPeriodSource[index - 1].periodType != null && this.CreditInterestPeriodSource[index - 1].periodType != '' ? this.CreditInterestPeriodSource[index - 1].periodType : '1';
           sessionStorage.setItem('periodType' + index, this.CreditInterestPeriodSource[index - 1].periodType);
           this.CreditInterestPeriodSource[index - 1].approveInterest = Number(this.CreditInterestPeriodSource[index - 1].interestBase) + Number(this.CreditInterestPeriodSource[index - 1].interest);
           sessionStorage.setItem('approveInterest' + index, this.CreditInterestPeriodSource[index - 1].approveInterest);
         }
 
-        if ( erroeStr != '') {
+        if (erroeStr != '') {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: erroeStr }
           });
@@ -549,8 +560,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
       //CustomerInfo Channel資訊
       if (data.rspBody.customerInfoList.length > 0) {
-        this.cuGps1 = data.rspBody.customerInfoList[0].cuGps1 ? data.rspBody.customerInfoList[0].cuGps1 : '0,0';
-        this.cuGps2 = data.rspBody.customerInfoList[0].cuGps2 ? data.rspBody.customerInfoList[0].cuGps2 : '0,0';
+        this.cuGps1 = data.rspBody.customerInfoList[0].cuGps1 && data.rspBody.customerInfoList[0].cuGps1.includes(',') ? data.rspBody.customerInfoList[0].cuGps1 : '0,0';
+        this.cuGps2 = data.rspBody.customerInfoList[0].cuGps2 && data.rspBody.customerInfoList[0].cuGps2.includes(',') ? data.rspBody.customerInfoList[0].cuGps2 : '0,0';
         this.cuIpAddr1 = data.rspBody.customerInfoList[0].cuIpAddr1 ? data.rspBody.customerInfoList[0].cuIpAddr1 : '';
         this.cuIpAddr2 = data.rspBody.customerInfoList[0].cuIpAddr2 ? data.rspBody.customerInfoList[0].cuIpAddr2 : '';
         this.cuDeviceName1 = data.rspBody.customerInfoList[0].cuDeviceName1 ? data.rspBody.customerInfoList[0].cuDeviceName1 : '';
@@ -607,12 +618,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
           CreditInterestPeriodSource: this.historySource
-          // period: this.CreditInterestPeriodSource[0].period,
-          // periodType: this.CreditInterestPeriodSource[0].periodType,
-          // interestType: this.CreditInterestPeriodSource[0].interestType,
-          // approveInterest: this.CreditInterestPeriodSource[0].approveInterest,
-          // interest: this.CreditInterestPeriodSource[0].interest,
-          // interestBase: this.CreditInterestPeriodSource[0].interestBase
         })
       } else if (this.level == 'L2') {
         this.f01003scn1Service.setHistorySource({
@@ -621,30 +626,10 @@ export class Childscn1Component implements OnInit, OnDestroy {
           approveAmt: this.resultApproveAmt,
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
-          CreditInterestPeriodSource: this.historySource
-          // period: this.CreditInterestPeriodSource[0].period,
-          // periodType: this.CreditInterestPeriodSource[0].periodType,
-          // interestType: this.CreditInterestPeriodSource[0].interestType,
-          // approveInterest: this.CreditInterestPeriodSource[0].approveInterest,
-          // interest: this.CreditInterestPeriodSource[0].interest,
-          // interestBase: this.CreditInterestPeriodSource[0].interestBase
+          CreditInterestPeriodSource: this.historySource,
+          addSignature: this.addSignatureValue
         })
       } else if (this.level == 'L1') {
-        this.f01004scn1Service.setHistorySource({
-          creditResult: this.creditResult,
-          lowestPayRate: this.resultLowestPayRate,
-          approveAmt: this.resultApproveAmt,
-          caPmcus: this.caPmcus,
-          caRisk: this.caRisk,
-          CreditInterestPeriodSource: this.historySource,
-          // period: this.CreditInterestPeriodSource[0].period,
-          // periodType: this.CreditInterestPeriodSource[0].periodType,
-          // interestType: this.CreditInterestPeriodSource[0].interestType,
-          // approveInterest: this.CreditInterestPeriodSource[0].approveInterest,
-          // interest: this.CreditInterestPeriodSource[0].interest,
-          // interestBase: this.CreditInterestPeriodSource[0].interestBase
-        })
-      } else if (this.level == 'L0') {
         this.f01007scn1Service.setHistorySource({
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,
@@ -652,12 +637,38 @@ export class Childscn1Component implements OnInit, OnDestroy {
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
           CreditInterestPeriodSource: this.historySource,
-          // period: this.CreditInterestPeriodSource[0].period,
-          // periodType: this.CreditInterestPeriodSource[0].periodType,
-          // interestType: this.CreditInterestPeriodSource[0].interestType,
-          // approveInterest: this.CreditInterestPeriodSource[0].approveInterest,
-          // interest: this.CreditInterestPeriodSource[0].interest,
-          // interestBase: this.CreditInterestPeriodSource[0].interestBase
+          addSignature: this.addSignatureValue
+        })
+      } else if (this.level == 'S2') {
+        this.f01013Scn1Service.setHistorySource({
+          creditResult: this.creditResult,
+          lowestPayRate: this.resultLowestPayRate,
+          approveAmt: this.resultApproveAmt,
+          caPmcus: this.caPmcus,
+          caRisk: this.caRisk,
+          CreditInterestPeriodSource: this.historySource,
+          addSignature: this.addSignatureValue
+        })
+      } else if (this.level == 'S1') {
+        console.log("================S1");
+        this.f01014Scn1Service.setHistorySource({
+          creditResult: this.creditResult,
+          lowestPayRate: this.resultLowestPayRate,
+          approveAmt: this.resultApproveAmt,
+          caPmcus: this.caPmcus,
+          caRisk: this.caRisk,
+          CreditInterestPeriodSource: this.historySource,
+          addSignature: this.addSignatureValue
+        })
+      } else if (this.level == 'L0') {
+        this.f01004scn1Service.setHistorySource({
+          creditResult: this.creditResult,
+          lowestPayRate: this.resultLowestPayRate,
+          approveAmt: this.resultApproveAmt,
+          caPmcus: this.caPmcus,
+          caRisk: this.caRisk,
+          CreditInterestPeriodSource: this.historySource,
+          addSignature: this.addSignatureValue
         })
       }
     })
@@ -692,11 +703,10 @@ export class Childscn1Component implements OnInit, OnDestroy {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn1Service.getImfornation(baseUrl, jsonObject).subscribe(data => {
-      console.log(data)
       this.total = data.rspBody.size;
       this.creditmemoSource = data.rspBody.list;
       for (let index = 0; index < this.creditmemoSource.length; index++) {
-        if (this.creditmemoSource[index].CREDITLEVEL == sessionStorage.getItem('stepName').split('t')[1] && this.creditmemoSource[index].CREDITUSER == this.userId) {
+        if (this.creditmemoSource[index].CREDITLEVEL == sessionStorage.getItem('stepName').split('t')[1] && this.creditmemoSource[index].CREDITUSER.includes(this.userId)) {
           this.mark = this.creditmemoSource[index].CREDITACTION;
         }
       }
@@ -741,7 +751,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
       let jsonObject: any = {};
       jsonObject['applno'] = this.applno;
       const baseUrl = 'f01/childscn1action3';
-      if ( (await this.childscn1Service.getInterestBase(baseUrl, jsonObject)).includes('找不到') ) {
+      if ((await this.childscn1Service.getInterestBase(baseUrl, jsonObject)).includes('找不到')) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: '加減碼查無利率，請通知相關人員!' }
         });
@@ -999,9 +1009,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
         this.EL_DSS2_UNDW_LIST5.data = this.EL_DSS2_UNDW_LIST.data.filter(c => c.UP_REASON_CODE == '9');//9	其他
       }
       this.EL_DSS2_CFC_LIMIT1.data = data.rspBody.DSS2CFCLIMIT;//試算額度策略
-      for(const data of this.EL_DSS2_CFC_LIMIT1.data){
-        if(data.CFC_LIMIT_DT_REF=='1'){data.CFC_LIMIT_DT_REF+=' : 使用【額度起日】及【額度迄日】欄位';}
-        if(data.CFC_LIMIT_DT_REF=='2'){data.CFC_LIMIT_DT_REF+=' : 使用【期限月數】';}
+      for (const data of this.EL_DSS2_CFC_LIMIT1.data) {
+        if (data.CFC_LIMIT_DT_REF == '1') { data.CFC_LIMIT_DT_REF += ' : 使用【額度起日】及【額度迄日】欄位'; }
+        if (data.CFC_LIMIT_DT_REF == '2') { data.CFC_LIMIT_DT_REF += ' : 使用【期限月數】'; }
       }
       this.EL_DSS2_STRGY_SRATE1.data = data.rspBody.DSS2STRGYSRATE;//試算利率(多階)
       this.EL_DSS2_STRGY_MERG1.data = data.rspBody.DSS2STRGYMERG;//試算授信策略_債整明細
@@ -1171,11 +1181,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   //     jsonObject['otherMessage4'] = this.otherMessage4;
   //     jsonObject['tradeNonPurpose'] = this.TRADE_NON_PURPOSEOTHER_MESSAGE5;
   //     jsonObject['otherMessage5'] = this.otherMessage5;
-  //     console.log('jsonObject')
-  //     console.log(jsonObject)
   //     this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
-  //       console.log('data');
-  //       console.log(data);
   //     });
   //   } else {
   //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -1240,16 +1246,25 @@ export class Childscn1Component implements OnInit, OnDestroy {
     }
   }
   //Level轉換中文
-  changeLevel(level:string){
-    if(level=='L2'){
+  changeLevel(level: string) {
+    if (level == 'L4') {
+      return "文審"
+    } else if (level == 'L2') {
       return "授信"
-    }else if(level=='L3'){
+    } else if (level == 'L3') {
       return "徵信"
-    }else if(level=='L1'){
+    } else if (level == 'L1') {
       return "授信覆核"
-    }else if(level=='L0'){
+    } else if (level == 'L0') {
       return "主管"
+    } else if (level == 'D2') {
+      return "產生合約前回查"
+    } else if (level == 'D1') {
+      return "產生合約前覆核"
+    } else if (level == 'S2') {
+      return "風管處處長"
+    } else if (level == 'S1') {
+      return "總經理"
     }
-
   }
 }

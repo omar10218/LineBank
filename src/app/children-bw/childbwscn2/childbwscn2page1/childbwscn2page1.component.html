@@ -1,26 +1,26 @@
-<div class="line_bank_bankground_color">
+<div class="line_bank_bankground_color" style="margin-top: -20px;">
 
   <div class="line_bank_card_no_padding_child">
 
     <!-- 系統決策 -->
     <form [formGroup]="dss1Form1">
-      <div class="EL_DSS_form_header_title2">系統決策</div>
+      <div class="EL_DSS_form_header_title2" style="border-radius: 10px 10px 0 0;">系統決策</div>
 
       <div nz-row>
-        <div nz-col nzSpan="8">
-          <div style="padding:10px">
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
             <span class="form-title">系統流程</span>
             <input formControlName="RVPRCSCD" readonly>
           </div>
         </div>
-        <div nz-col nzSpan="8">
-          <div style="padding:10px">
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
             <span class="form-title">本次貸後管理狀態(策略調整後)</span>
             <input style="display: block;" formControlName="RVSTATCD" readonly>
           </div>
         </div>
-        <div nz-col nzSpan="8">
-          <div style="padding:10px">
+        <div nz-col nzSpan="4">
+          <div style="padding:3px">
             <span class="form-title">本次貸後管理狀態(策略調整前)</span>
             <input style="display: block;" formControlName="RVSTATCD_ORGINAL" readonly>
           </div>
@@ -30,31 +30,31 @@
       <div class="EL_DSS_form_header_title2">案件資訊</div>
       <div nz-row>
         <div nz-col nzSpan="4">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">本次貸後管理註記</span>
             <input style="display: block;" formControlName="RVCOLLFLAG" readonly>
           </div>
         </div>
         <div nz-col nzSpan="4">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">本次執行審查使用JCIC日期時間</span>
             <input style="display: block;" formControlName="JCICDATADT" readonly>
           </div>
         </div>
         <div nz-col nzSpan="4">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">本次貸後管理客戶風險等級CRL</span>
             <input style="display: block;" formControlName="RVCRL" readonly>
           </div>
         </div>
         <div nz-col nzSpan="4">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">行內消金往來最嚴重狀態</span>
             <input style="display: block;" formControlName="DEFTSTAT_INLB" readonly>
           </div>
         </div>
         <div nz-col nzSpan="4">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">行外JCIC往來最嚴重狀態</span>
             <input style="display: block;" formControlName="DEFTSTAT_INJCIC" readonly>
           </div>
@@ -63,92 +63,86 @@
       </div>
 
       <div nz-row>
-        <div nz-row>
           <div nz-col nzSpan="4">
-            <div style="padding:10px">
+            <div style="padding:3px">
               <span class="form-title">預計下次審查日期<br><br></span>
               <input style="display: block;" formControlName="RV_NEXTDT" readonly>
             </div>
           </div>
           <div nz-col nzSpan="4">
-            <div style="padding:10px">
-              <span class="form-title">預計下次審查日期之JCIC新鮮度天數</span>
+            <div style="padding:3px">
+              <span class="form-title">預計下次審查日期之JCIC新鮮度天數<br><br></span>
               <input style="display: block;" formControlName="RV_NEXTDT_JCICREFRESHDAYS" readonly>
             </div>
           </div>
           <div nz-col nzSpan="4">
-            <div style="padding:10px">
+            <div style="padding:3px">
               <span class="form-title">預計下次審查日期之發查範圍<br><br></span>
               <input style="display: block;" formControlName="RV_NEXTDT_QRYITEM" readonly>
             </div>
           </div>
           <div nz-col nzSpan="4">
-            <div style="padding:10px">
-              <span class="form-title">本次貸後管理後-調整每月最低還款比例</span>
+            <div style="padding:3px">
+              <span class="form-title">本次貸後管理後-<br>調整每月最低還款比例</span>
               <input style="display: block;" formControlName="RV_MINPAYRT" readonly>
             </div>
           </div>
           <div nz-col nzSpan="4">
-            <div style="padding:10px">
-              <span class="form-title">本次貸後管理後-調整結帳日至還款日間客戶可申請動撥Y</span>
+            <div style="padding:3px">
+              <span class="form-title">本次貸後管理後-調整結帳日至<br>還款日間客戶可申請動撥Y</span>
               <input style="display: block;" formControlName="RV_DISB_BTCR_YN" readonly>
             </div>
           </div>
           <div nz-col nzSpan="4">
-            <div style="padding:10px">
-              <span class="form-title">本次貸後管理後-調整循環信貸簡易檢核動撥金額門檻</span>
+            <div style="padding:3px">
+              <span class="form-title">本次貸後管理後-調整循環信貸<br>簡易檢核動撥金額門檻</span>
               <input style="display: block;" formControlName="RV_RL_DISB_THRHLD" readonly>
             </div>
           </div>
-        </div>
       </div>
 
       <!-- 貸後-風險模型資訊 -->
       <div class="EL_DSS_form_header_title2">貸後-風險模型資訊 </div>
       <div nz-row>
-        <div nz-col nzSpan="6">
-          <div style="padding:10px">
+        <div nz-col nzFlex="4">
+          <div style="padding:3px">
             <span class="form-title">與上次風險模型等級差距</span>
             <input style="display: block;" formControlName="RISKMDGRAD_DIFF" readonly>
           </div>
         </div>
-        <div nz-col nzSpan="6">
-          <div style="padding:10px">
+        <div nz-col nzFlex="4">
+          <div style="padding:3px">
             <span class="form-title">本次貸後管理風險模型</span>
             <input style="display: block;" formControlName="RV_RISKMDSUB" readonly>
           </div>
         </div>
-        <div nz-col nzSpan="6">
-          <div style="padding:10px">
+        <div nz-col nzFlex="4">
+          <div style="padding:3px">
             <span class="form-title">本次貸後管理風險模型分數</span>
             <input style="display: block;" formControlName="RV_RISKMDSCORE" readonly>
           </div>
         </div>
-        <div nz-col nzSpan="6">
-          <div style="padding:10px">
+        <div nz-col nzFlex="4">
+          <div style="padding:3px">
             <span class="form-title">本次帶後管理風險模型等級</span>
             <input style="display: block;" formControlName="RV_RISKMDGRADE" readonly>
           </div>
         </div>
 
-
-      </div>
-
-      <div nz-row>
-        <div nz-col nzSpan="6">
-          <div style="padding:10px">
+        <div nz-col nzFlex="4">
+          <div style="padding:3px">
             <span class="form-title">本次貸後管理風險模型等級</span>
             <input style="display: block;" formControlName="RV_RISKMDGRADE_ADJ" readonly>
           </div>
         </div>
-        <div nz-col nzSpan="6">
-          <div style="padding:10px">
+        <div nz-col nzFlex="4">
+          <div style="padding:3px">
             <span class="form-title">本次貸後管理風險</span>
             <input style="display: block;" formControlName="RV_RISKMDGRADE_GP" readonly>
           </div>
         </div>
-        <div nz-col nzSpan="6">
-          <div style="padding:10px">
+        <div nz-col nzFlex="4">
+          <div style="padding:3px">
             <span class="form-title">本次貸後管理風險模型等級分群(策略調整後)</span>
             <input style="display: block;" formControlName="RV_RISKMDGRADE_GP_ADJ" readonly>
           </div>
@@ -156,7 +150,100 @@
       </div>
 
       <!-- 徵審代碼 -->
-       <div class="EL_DSS_form_header_title3">徵審代碼</div>
+      <div style="margin:0;" class="EL_DSS_form_header_title3">徵審代碼</div>
+      <div nz-row>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">信用異常資訊</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS4_UNDW_LIST1.data" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small">
+            <thead>
+              <tr>
+                <th class="table-header">徵審代碼</th>
+                <th class="table-header">徵審代碼中文</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of EL_DSS4_UNDW_LIST1.data">
+                <td class="table-data">{{ row.UNDW_CD }}</td>
+                <td class="table-data">{{row.REASON_DESC}}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">整體往來</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS4_UNDW_LIST2.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS4_UNDW_LIST2.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">信用卡往來</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS4_UNDW_LIST3.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS4_UNDW_LIST3.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0; border-right-style:inset;border-color: white;" class="EL_DSS_form_header_title4">授信往來</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS4_UNDW_LIST4.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS4_UNDW_LIST4.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+        <div nz-col nzFlex="1">
+          <div style="margin:0;" class="EL_DSS_form_header_title4">其他</div>
+          <nz-table nzShowSizeChanger [nzData]="EL_DSS4_UNDW_LIST5.data" [nzFrontPagination]="false" [nzSimple]="true"
+          nzSize="small">
+          <thead>
+            <tr>
+              <th class="table-header">徵審代碼</th>
+              <th class="table-header">徵審代碼中文</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of EL_DSS4_UNDW_LIST5.data">
+              <td class="table-data">{{ row.UNDW_CD }}</td>
+              <td class="table-data">{{row.REASON_DESC}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+        </div>
+      </div>
+       <!-- <div class="EL_DSS_form_header_title3">徵審代碼</div>
       <nz-table nzShowSizeChanger [nzData]="UNDW_CD_LIST.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
         <thead>
@@ -171,43 +258,49 @@
             <td class="table-data"></td>
           </tr>
         </tbody>
-      </nz-table>
+      </nz-table> -->
 <!-- 額度策略 -->
       <div class="EL_DSS_form_header_title3">額度策略</div>
-      <nz-table nzShowSizeChanger [nzData]="CFC_LIMIT_AMT_LIST.data" [nzFrontPagination]="false" [nzSimple]="true"
+      <nz-table nzShowSizeChanger [nzData]="BW_DSS4_CFC_LIMIT.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
         <thead>
           <tr>
-            <th class="table-header">額度編號</th>
-            <th class="table-header" >額度類別代碼</th>
-            <th class="table-header" >額度</th>
-            <th class="table-header" >額度起日</th>
-            <th class="table-header" >額度迄日</th>
-            <th class="table-header" >系統流程</th>
-            <th class="table-header" >貸後管理狀態</th>
-            <th class="table-header" >說明</th>
-            <th class="table-header" >執行原因</th>
-            <th class="table-header" >執行原因細項</th>
-            <th class="table-header" >起日</th>
-            <th class="table-header" >迄日</th>
-            <th class="table-header" >循環信貸特定客戶提供可循環轉分期註記</th>
+            <th class="table-header" style="width: 1%;">額度編號</th>
+            <th class="table-header" style="width: 2%;">額度類別代碼</th>
+            <th class="table-header" style="width: 3%;">額度</th>
+            <th class="table-header" style="width: 2%;">額度起日</th>
+            <th class="table-header" style="width: 2%;">額度迄日</th>
+            <th class="table-header" style="width: 2%;">系統流程</th>
+            <th class="table-header" style="width: 2%;">貸後管理狀態</th>
+            <th class="table-header" style="width: 2%;">說明</th>
+            <th class="table-header" style="width: 2%;">執行原因</th>
+            <th class="table-header" style="width: 2%;">執行原因細項</th>
+            <th class="table-header" style="width: 2%;">起日</th>
+            <th class="table-header" style="width: 2%;">迄日</th>
+            <th class="table-header" style="width: 2%;">預佔額度</th>
+            <th class="table-header" style="width: 2%;">調降後額度</th>
+            <th class="table-header" style="width: 10%;">通知客戶註記</th>
+            <th class="table-header" style="width: 10%;">循環信貸特定客戶提供可循環轉分期註記</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let row of UNDW_CD_LIST.data">
-            <td class="table-data">{{ row.UNDW_CD }}</td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
-            <td class="table-data"></td>
+          <tr *ngFor="let row of BW_DSS4_CFC_LIMIT.data">
+            <td class="table-data">{{ row.cfcLimitNum }}</td>
+            <td class="table-data">{{ row.cfcLimitCd }}</td>
+            <td class="table-data">{{ row.cfcLimitAmt|number: '1.0-0' }}</td>
+            <td class="table-data">{{ row.cfcLimitStartDate }}</td>
+            <td class="table-data">{{ row.cfcLimitEndDate }}</td>
+            <td class="table-data">{{ row.cfcRvprcscd }}</td>
+            <td class="table-data">{{ row.cfcRvstatcd }}</td>
+            <td class="table-data">{{ row.cfcLimitStgyDesc }}</td>
+            <td class="table-data">{{ row.cfcLimitStgyRncd }}</td>
+            <td class="table-data">{{ row.cfcLimitStgySbcd }}</td>
+            <td class="table-data">{{ row.cfcLimitOccpystartdt }}</td>
+            <td class="table-data">{{ row.cfcLimitOccpyenddt }}</td>
+            <td class="table-data">{{ row.cfcLimitOccpy|number: '1.0-0' }}</td>
+            <td class="table-data">{{ row.cfcLimitReduce|number: '1.0-0' }}</td>
+            <td class="table-data">{{ row.cfcLimitStgynotice }}</td>
+            <td class="table-data">{{ row.rvRvglntrnstoinsln }}</td>
           </tr>
         </tbody>
       </nz-table>
@@ -216,25 +309,25 @@
        <div class="EL_DSS_form_header_title2">JCIC註記</div>
       <div nz-row>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">BAM011最新延遲筆數統計</span>
             <input style="display: block;" formControlName="BAM011_PASSDUE_CNT" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
            <span class="form-title">BAM070現金卡日報逾期筆數統計</span>
             <input style="display: block;" formControlName="BAM070_PASSDUE_CNT" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">本行循環信貸目前動用率</span>
             <input style="display: block;" formControlName="LB_REVLN_USAGERT" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">信用異常註記JAS002</span>
             <input style="display: block;" formControlName="JAS002_Y" readonly>
           </div>
@@ -242,25 +335,25 @@
       </div>
       <div nz-row>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">受監護輔助宣告註記</span>
             <input style="display: block;" formControlName="VAM108_FY" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">信用異常註記VAM106</span>
             <input style="display: block;" formControlName="VAM106_ABNRMAL" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">信用異常註記VAM107</span>
             <input style="display: block;" formControlName="VAM107_ABNRMAL" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">信用異常註記VAM108</span>
             <input style="display: block;" formControlName="VAM108_ABNRMAL" readonly>
           </div>
@@ -268,25 +361,25 @@
       </div>
       <div nz-row>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">保證債務逾期金額</span>
             <input style="display: block;" formControlName="BAM305_PASSDUEAMT" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">保證債務逾期金額</span>
             <input style="display: block;" formControlName="BAM306_PASSDUEAMT" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">保證債務逾期金額</span>
             <input style="display: block;" formControlName="BAM307_PASSDUEAMT" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">無擔保負債(不含本行)_BAM501月報</span>
             <input style="display: block;" formControlName="UNSDEBT_AMT_501EX" readonly>
           </div>
@@ -294,25 +387,25 @@
       </div>
       <div nz-row>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">無擔保負債(不含本行)_BAM504扣除鑑價值</span>
             <input style="display: block;" formControlName="UNSDEBT_AMT_504EX" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">無擔保負債(不含本行)_BAM505新增核准額度</span>
             <input style="display: block;" formControlName="UNSDEBT_AMTNEW_505EX" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">無擔保負債(不含本行)_BAM029新增核准額度</span>
             <input style="display: block;" formControlName="UNSDEBT_AMTNEW_029EX" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">本行無擔保負債_循環信貸額度</span>
             <input style="display: block;" formControlName="UNSDEBT_824_RLLIMIT" readonly>
           </div>
@@ -320,25 +413,25 @@
       </div>
       <div nz-row>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">本行無擔保負債_分期信貸放款餘額</span>
             <input style="display: block;" formControlName="UNSDEBT_824_ILBAL" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">本行無擔保負債_信用卡循環預借未到期 (預留)</span>
             <input style="display: block;" formControlName="UNSDEBT_824_CCRBAL" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">(減項) 無擔保負債(不含本行)_BAM029清償金額</span>
             <input style="display: block;" formControlName="UNSDEBT_PAYAMT_029EX" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
-          <div style="padding:10px">
+          <div style="padding:3px">
             <span class="form-title">無擔保倍數</span>
             <input style="display: block;" formControlName="DBR" readonly>
           </div>

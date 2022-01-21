@@ -57,6 +57,7 @@ export class F01007scn1Component implements OnInit {
   approveInterest: string;
   interest: string;
   interestType: string;
+  addSignature: string;//20220118
   period: string;
   periodType: string;
   interestBase: string;
@@ -211,6 +212,7 @@ export class F01007scn1Component implements OnInit {
         this.caPmcus = sessionStorage.getItem('caPmcus');
         this.caRisk = sessionStorage.getItem('caRisk');
         this.mark = sessionStorage.getItem('mark');
+        this.addSignature = sessionStorage.getItem('addSignature');
 
         let jsoncreditResult: any = {};
         jsoncreditResult['approveAmt'] = this.approveAmt;
@@ -218,6 +220,7 @@ export class F01007scn1Component implements OnInit {
         jsoncreditResult['caPmcus'] = this.caPmcus;
         jsoncreditResult['caRisk'] = this.caRisk;
         jsoncreditResult['creditResult'] = this.creditResult;
+        jsoncreditResult['addSignature'] = this.addSignature;
 
         // let jsonCreditInterestPeriod: any = {};
         let creditInterestPeriodArray: interestPeriod[] = [];
@@ -258,7 +261,7 @@ export class F01007scn1Component implements OnInit {
         if (url == 'f01/childscn0action1') {
           this.result(baseUrl, jsonObject, result, count);
         } else {
-          if (this.creditResult == '' || this.creditResult == 'null' || this.creditResult == null) {
+          if ( !(this.creditResult == 'A' || this.creditResult == 'D') ) {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: '請填寫核決結果!' }
             });
@@ -334,13 +337,55 @@ export class F01007scn1Component implements OnInit {
   }
 
   result(baseUrl: string, jsonObject: JSON, result: string, count: number) {
+    this.setHistory(count);
+    const content = [];
+    for (let index = 0; index < this.history.length; index++) {
+      if (!(this.history[index].value == null || this.history[index].value == '' || this.history[index].value == 'null')) {
+        content.push(
+          {
+            applno: this.applno,
+            tableName: this.history[index].tableName,
+            columnName: this.history[index].valueInfo,
+            originalValue: this.history[index].originalValue,
+            currentValue: this.history[index].value,
+            transAPname: "授信覆核案件完成",
+          }
+        )
+      }
+    }
+    jsonObject['content'] = content;
+
+    let newHistory: interestPeriod[] = [];
+    for (let index = 1; index <= count; index++) {
+      newHistory.push(
+        {
+          period: sessionStorage.getItem('period' + index),
+          periodType: sessionStorage.getItem('periodType' + index),
+          interestType: sessionStorage.getItem('interestType' + index),
+          approveInterest: sessionStorage.getItem('approveInterest' + index),
+          interest: sessionStorage.getItem('interest' + index),
+          interestBase: sessionStorage.getItem('interestBase' + index)
+        }
+      );
+    }
+
+    this.f01007scn1Service.setHistorySource({
+      creditResult: this.creditResult,
+      lowestPayRate: this.lowestPayRate,
+      approveAmt: this.approveAmt,
+      caApplicationAmount: this.caApplicationAmount,
+      caPmcus: this.caPmcus,
+      caRisk: this.caRisk,
+      CreditInterestPeriodSource: newHistory,
+      addSignature: this.addSignature
+    })
+
     this.block = true;
-    this.f01007scn1Service.send(baseUrl, jsonObject).subscribe(async data => {
+    this.f01007scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       //儲存歷史資料
       // if (count > 0) {
-        this.setHistory(count);
+        // await this.setHistory(count);
       // }
-      await this.childscn1Service.setHistory(this.history, "授信覆核案件完成", this.applno);
       let childernDialogRef: any;
       if (data.rspMsg != null && data.rspMsg != '') {
         childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -378,6 +423,7 @@ export class F01007scn1Component implements OnInit {
     sessionStorage.removeItem("caPmcus");
     sessionStorage.removeItem("caRisk");
     sessionStorage.removeItem("mark");
+    sessionStorage.removeItem("addSignature");
   }
 
   //儲存
@@ -404,6 +450,7 @@ export class F01007scn1Component implements OnInit {
 
   //設定歷史資料紀錄參數 20211222
   setHistory(count: number) {
+    this.history = [];
     if (count > 0) {
       for (let index = 1; index <= count; index++) {
         this.history.push({ value: sessionStorage.getItem('period' + index), tableName: 'EL_CREDIT_INTEREST_PERIOD', valueInfo: 'PERIOD', originalValue: this.historyData.CreditInterestPeriodSource[index - 1].period }); //分段起始期數
@@ -420,30 +467,33 @@ export class F01007scn1Component implements OnInit {
     // this.history.push({value:  this.caApplicationAmount, tableName: 'EL_APPLICATION_INFO', valueInfo: 'CA_APPLICATION_AMOUNT'}); //徵信修改申貸金額
     this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS', originalValue: this.historyData.caPmcus }); //人員記錄-PM策略客群
     this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK', originalValue: this.historyData.caRisk }); //人員記錄-風險等級
+    this.history.push({ value: this.addSignature, tableName: 'EL_CREDITMAIN', valueInfo: 'ADD_SIGNATURE', originalValue: this.historyData.addSignature });//加簽
     // this.history.push({value:  this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION'}); //審核意見
 
-    let newHistory: interestPeriod[] = [];
-    for (let index = 1; index <= count; index++) {
-      newHistory.push(
-        {
-          period: sessionStorage.getItem('period' + index),
-          periodType: sessionStorage.getItem('periodType' + index),
-          interestType: sessionStorage.getItem('interestType' + index),
-          approveInterest: sessionStorage.getItem('approveInterest' + index),
-          interest: sessionStorage.getItem('interest' + index),
-          interestBase: sessionStorage.getItem('interestBase' + index)
-        }
-      );
-    }
+    // await this.childscn1Service.setHistory(this.history, "授信覆核案件完成", this.applno);
 
-    this.f01007scn1Service.setHistorySource({
-      creditResult: this.creditResult,
-      lowestPayRate: this.lowestPayRate,
-      approveAmt: this.approveAmt,
-      caApplicationAmount: this.caApplicationAmount,
-      caPmcus: this.caPmcus,
-      caRisk: this.caRisk,
-      CreditInterestPeriodSource: newHistory
-    })
+    // let newHistory: interestPeriod[] = [];
+    // for (let index = 1; index <= count; index++) {
+    //   newHistory.push(
+    //     {
+    //       period: sessionStorage.getItem('period' + index),
+    //       periodType: sessionStorage.getItem('periodType' + index),
+    //       interestType: sessionStorage.getItem('interestType' + index),
+    //       approveInterest: sessionStorage.getItem('approveInterest' + index),
+    //       interest: sessionStorage.getItem('interest' + index),
+    //       interestBase: sessionStorage.getItem('interestBase' + index)
+    //     }
+    //   );
+    // }
+
+    // this.f01007scn1Service.setHistorySource({
+    //   creditResult: this.creditResult,
+    //   lowestPayRate: this.lowestPayRate,
+    //   approveAmt: this.approveAmt,
+    //   caApplicationAmount: this.caApplicationAmount,
+    //   caPmcus: this.caPmcus,
+    //   caRisk: this.caRisk,
+    //   CreditInterestPeriodSource: newHistory
+    // })
   }
 }

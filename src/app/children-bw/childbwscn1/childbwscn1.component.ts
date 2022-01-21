@@ -49,8 +49,9 @@ export class Childbwscn1Component implements OnInit {
   custId: string;
   nationalId: string;
   mark: string;
+  userId: string;
   size = 0//此層級是否有資料
-
+  search: string;
   private page: string;
   //覆審:L4 覆審主管:L3
   private creditlevel = ""; //儲存層級
@@ -78,9 +79,11 @@ export class Childbwscn1Component implements OnInit {
     this.page = sessionStorage.getItem('page');
     this.applno = sessionStorage.getItem('applno');
     this.nationalId = sessionStorage.getItem('swcNationalId');
+    this.userId = localStorage.getItem("empNo");
     this.custId = sessionStorage.getItem('swcCustId');
     sessionStorage.setItem('BW_creditResult', "");
     sessionStorage.setItem('size', "0");
+    this.search=sessionStorage.getItem('search');
     sessionStorage.setItem('creditaction', "");
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
     this.creditlevel = this.page == "10" ? "L3" : this.creditlevel;
@@ -99,6 +102,9 @@ export class Childbwscn1Component implements OnInit {
       this.creditmemoSource = data.rspBody.list;
       for (const data of this.creditmemoSource) {
         this.size = (data.CREDITLEVEL != null && data.CREDITLEVEL == this.creditlevel) ? this.size + 1 : this.size;//判斷是否有資料
+        if (data.CREDITLEVEL == this.creditlevel && data.CREDITUSER.includes(this.userId)) {
+          this.mark = data.CREDITACTION;
+        }
       }
       sessionStorage.setItem('size', this.size.toString());
     });
@@ -111,23 +117,17 @@ export class Childbwscn1Component implements OnInit {
     this.getCreditmemo(pageIndex, pageSize)
   }
 
-  //0查詢 1文審 2徵信 3授信 4主管 5Fraud 6申覆 8產生合約前回查 9複審人員 10複審主管
+   // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管  12產生合約前覆核 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
   getPage() {
     return this.page
-    //測試用
-    // return '0'
   }
 
   //查詢 上方主資料
   getCreditMainList() {
     const url = 'f01/childbwscn1';
     let jsonObject: any = {};
-    // jsonObject['applno'] = this.applno;
-    //測試用
-    jsonObject['applno'] = '20210927E011';
+    jsonObject['applno'] = this.applno;
     this.childbwscn1Service.postJson(url, jsonObject).subscribe(data => {
-      // console.log('getCreditMainList')
-      // console.log(data)
       this.bwCreditAuditinfoList = data.rspBody.bwCreditAuditinfoList;
       this.bwCreditMainList = data.rspBody.bwCreditMainList;
       if (this.bwCreditAuditinfoList.length < 1) {
@@ -216,4 +216,12 @@ export class Childbwscn1Component implements OnInit {
     sessionStorage.setItem('creditaction', this.creditaction);
   }
 
+  //Level轉換中文
+  changeLevel(level: string) {
+    if (level == 'L4') {
+      return "覆審人員"
+    } else if (level == 'L3') {
+      return "覆審主管"
+    }
+  }
 }

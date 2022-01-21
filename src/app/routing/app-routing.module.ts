@@ -41,6 +41,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { F03003Component } from '../f03003/f03003.component';
 import { F03018Component } from '../f03018/f03018.component';
 import { F01012Component } from '../f01012/f01012.component';
+import { F01015Component } from '../f01015/f01015.component';
 
 
 const routes: Routes = [
@@ -153,6 +154,21 @@ const routes: Routes = [
       {
         path: 'F01012',
         loadChildren: () => import('../f01012/f01012.module').then(m => m.F01012Module),
+        // canActivate: [AuthGuard], // 守衛路由
+      },
+      {
+        path: 'F01013',
+        loadChildren: () => import('../f01013/f01013.module').then(m => m.F01013Module),
+        // canActivate: [AuthGuard], // 守衛路由
+      },
+      {
+        path: 'F01014',
+        loadChildren: () => import('../f01014/f01014.module').then(m => m.F01014Module),
+        // canActivate: [AuthGuard], // 守衛路由
+      },
+      {
+        path: 'F01015',
+        component: F01015Component,
         // canActivate: [AuthGuard], // 守衛路由
       },
       {

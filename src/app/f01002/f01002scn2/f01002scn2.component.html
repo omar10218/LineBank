@@ -17,7 +17,7 @@
         </div>
       </div>
     </ng-container>
-    
+
   </div>
 
   <div [ngClass]="{'classA': changeValue==true,'classB': changeValue==false,'classC':getSearch() == 'Y' && getWinClose() == 'N'}">
@@ -28,7 +28,7 @@
           <button nz-button nzType="primary" id="firstBtn" nzSize="small" (click)="changeRoute(true)">審核資料</button>
         </a>
       </nz-tab>
-      
+
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN5']">
           <button nz-button nzType="primary" id="secondBtn"nzSize="small" (click)="changeRoute(false)">
@@ -41,7 +41,7 @@
             本案影像</button>
         </a>
       </nz-tab>
-     
+
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN9']">
           <button nz-button nzType="primary"nzSize="small" (click)="changeRoute(false)">
@@ -54,7 +54,12 @@
             案件歷程</button>
         </a>
       </nz-tab>
-      
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN29']">
+          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">審核歷程</button>
+        </a>
+      </nz-tab>
+
     </nz-tabset>
   </div>
   <router-outlet style="padding-top: 70px;display: block;"></router-outlet>

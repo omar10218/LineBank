@@ -1112,9 +1112,20 @@
 
     <!-- 審核結果 -->
     <div class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
-      <div class="line_bank_form_header_title">審核結果</div>
+      <div class="line_bank_form_header_title" style="border-radius:0px">審核結果</div>
       <div nz-row style="padding:5px">
-        <div nz-col nzFlex="1">
+        <div nz-col nzFlex="1" [ngClass]=" !(getLevel() == 'L2' || getLevel() == 'L1' || getLevel() == 'L0') ? 'dropdown' : '' " >
+          <div style="padding:2px"><span class="form-title">選擇加簽</span>
+            <mat-select [(ngModel)]="addSignatureValue" name="addSignatureValue" style="height:25px"
+              (ngModelChange)="change(addSignatureValue,'addSignature','')"
+              [disabled]=" !(getLevel() == 'L2' || getLevel() == 'L1' || getLevel() == 'L0') ">
+              <mat-option *ngFor="let code of addSignature" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div nz-col nzFlex="1" [ngClass]="getSearch() == 'Y' || getLevel() == 'L1' ? 'dropdown' : '' " >
           <div style="padding:2px"><span class="form-title">核決結果</span>
             <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px"
               (ngModelChange)="change(creditResult,'creditResult','')"
@@ -1163,7 +1174,7 @@
       <!-- 表格 -->
       <nz-table nzShowSizeChanger [nzData]="CreditInterestPeriodSource" [nzFrontPagination]="false" [nzSimple]="true"
         [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-        (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="多階利率">
+      (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="多階利率" >
         <thead style="max-height: 100vh;">
           <tr>
             <th class="table-header">序號</th>
@@ -1176,7 +1187,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of CreditInterestPeriodSource; let i = index">
+          <tr *ngFor="let data of CreditInterestPeriodSource; let i = index" [ngClass]="getSearch() == 'Y' || getLevel() == 'L1' ? 'dropdown' : '' " >
             <td class="table-data">
               <input matInput #input class="form-control" [(ngModel)]="CreditInterestPeriodSource[i].seq" disabled>
             </td>
@@ -1197,7 +1208,7 @@
             </td>
             <td class="table-data">
               <mat-select [(ngModel)]="data.interestType" name="interestType" (ngModelChange)="changeInterest(data)"
-                [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
+                [disabled]="getSearch() == 'Y' || getLevel() == 'L1'" >
                 <mat-option *ngFor="let code of interestTypeCode" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
@@ -1296,7 +1307,7 @@
 
     <!-- 徵審代碼 -->
     <div  [ngClass]="getPage()=='2' || getPage()=='3' ? '' : 'ngtbody' " class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
-      <div class="line_bank_form_header_title">徵審代碼</div>
+      <div class="line_bank_form_header_title" style="border-radius: 0px;">徵審代碼</div>
       <div style="padding-top:5px;"></div>
       <ng-container  *ngFor="let row of CREDIT_View_List;let i = index">
 
@@ -1331,7 +1342,7 @@
 
     <!-- 提供AML資訊 徵信以外 -->
     <div *ngIf="getPage()!='2'" class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
-      <div class="line_bank_form_header_title">提供AML資訊</div>
+      <div class="line_bank_form_header_title" style="border-radius: 0px;">提供AML資訊</div>
 
       <div nz-row style="padding:5px">
         <span class="form-title">主要收入來源</span>
@@ -1416,7 +1427,7 @@
 
     <!-- 提供AML資訊 徵信-->
     <div *ngIf="getPage()=='2'" class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
-      <div class="line_bank_form_header_title">提供AML資訊</div>
+      <div class="line_bank_form_header_title" style="border-radius: 0px;">提供AML資訊</div>
       <div nz-row style="padding:5px">
         <span class="form-title">主要收入來源</span>
         <nz-radio-group [(ngModel)]="MAIN_INCOME" name="MAIN_INCOME" required>
@@ -1497,7 +1508,7 @@
 
     <!-- 審核註記 -->
     <div class="line_bank_card_no_padding_child" style="width:100%;margin:10px auto">
-      <div class="line_bank_form_header_title">審核註記</div>
+      <div class="line_bank_form_header_title" style="border-radius: 0px;">審核註記</div>
       <div nz-row style="padding:5px;text-align: center;">
         <div nz-col nzSpan="24">
           <div class="form">
@@ -1521,7 +1532,7 @@
           <tr>
             <th class="table-header">Date</th>
             <th class="table-header">User</th>
-            <th class="table-header">Action</th>
+            <th class="table-header" style="max-width: 200px;">Action</th>
             <th class="table-header">Level</th>
             <!-- <th class="table-header">Edit</th> -->
           </tr>
@@ -1530,7 +1541,7 @@
           <tr *ngFor="let data of creditmemoSource">
             <td class="table-data">{{ data.CREDITDATE | date:'yyyy-MM-dd HH:mm:ss' }}</td>
             <td class="table-data">{{ data.CREDITUSER }}</td>
-            <td class="table-data">{{ data.CREDITACTION }}</td>
+            <td class="table-data" style="max-width: 200px;">{{ data.CREDITACTION }}</td>
             <td class="table-data">{{ changeLevel(data.CREDITLEVEL) }}</td>
             <!-- <td class="table-data" style="text-align: center;">
               <button id="test" nz-button [nzSize]="'small'" nzType="primary"

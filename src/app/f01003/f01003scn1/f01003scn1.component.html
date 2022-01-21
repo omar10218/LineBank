@@ -165,6 +165,11 @@
           </a>
         </nz-tab>
       </ng-container>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN29']">
+          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">審核歷程</button>
+        </a>
+      </nz-tab>
     </nz-tabset>
   </div>
   <router-outlet style="padding-top: 70px;display: block;"></router-outlet>

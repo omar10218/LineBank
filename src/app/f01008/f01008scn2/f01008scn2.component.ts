@@ -258,7 +258,7 @@ export class F01008scn2Component implements OnInit {
         this.cONDITION.push({ value: js.codeNo, viewValue: js.codeDesc })
       }
       for (const ii of data.rspBody.creditmemoList) {
-        if (ii.CREDITLEVEL == this.lv) {
+        if (ii.CREDITLEVEL == this.lv && ii.CREDITUSER.includes(this.empNo)) {
           this.ma = ii.CREDITACTION;
         }
 
@@ -386,5 +386,31 @@ export class F01008scn2Component implements OnInit {
     } else {
       sessionStorage.setItem(valueName, value);
     }
+  }
+
+  //Level轉換中文
+  changeLevel(level:string){
+    if ( level == 'L4' ) {
+      return "文審"
+    } else if ( level == 'L2' ) {
+      return "授信"
+    } else if ( level == 'L3' ) {
+      return "徵信"
+    } else if ( level == 'L1' ) {
+      return "授信覆核"
+    } else if ( level == 'L0' ) {
+      return "主管"
+    } else if ( level == 'D2' ) {
+      return "產生合約前回查"
+    } else if ( level == 'D1' ) {
+      return "產生合約前覆核"
+    } else if ( level == 'S2' ) {
+      return "風管處處長"
+    } else if ( level == 'S1' ) {
+      return "總經理"
+    }
+  }
+  disabledDate(time) {
+    return time.getTime() < Date.now() - 8.64e7;
   }
 }

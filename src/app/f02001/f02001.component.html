@@ -68,10 +68,19 @@
         </div>
       </div>
       <div nz-col nzFlex="1">
-        <div style="padding:10px"><span class="form-title">徵信員員編姓名</span><input style="display: block;"
-            [(ngModel)]="l3EMPNO" name="l3EMPNO">
+        <div style="padding:10px"><span class="form-title">徵信員員編</span>
+          <mat-select [(ngModel)]="l3EMPNO" name="l3EMPNO">
+            <mat-option *ngFor="let item of l3EMPNOList" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
         </div>
       </div>
+      <!-- <div nz-col nzFlex="1">
+        <div style="padding:10px"><span class="form-title">徵信員員編</span><input style="display: block;"
+            [(ngModel)]="l3EMPNO" name="l3EMPNO">
+        </div>
+      </div> -->
     </div>
     <div nz-row style="padding:10px">
       <div nz-col nzFlex="1">

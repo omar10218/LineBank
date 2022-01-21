@@ -221,8 +221,8 @@ export class F02003Component implements OnInit {
     sessionStorage.setItem('stepName', '0');
     //開啟徵審主畫面
     const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F01002/F01002SCN1");
-    sessionStorage.setItem('winClose', 'N');
+    window.open(url[0] + "/#/F01009/F01009SCN1");
+    sessionStorage.setItem('winClose', 'N');//window.open開啟B視窗後 將原本A視窗session值做調整
     sessionStorage.setItem('search', 'N');
   }
   getCREDIT()//審核結果

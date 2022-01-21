@@ -109,21 +109,25 @@
           <div nz-col nzSpan="5">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">其他-手機(非本行主要)</span>
-              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther" formControlName="CU_M_TEL_OTHER" >
+              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther"
+                formControlName="CU_M_TEL_OTHER">
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">其他-手機(非本行主要)</span>
-              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther" formControlName="CU_M_TEL_OTHER" disabled>
+              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther"
+                formControlName="CU_M_TEL_OTHER" disabled>
             </div>
           </div>
           <div nz-col nzSpan="5">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">其他-聯絡資訊</span>
-              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther" formControlName="CONTACT_OTHER" >
+              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther"
+                formControlName="CONTACT_OTHER">
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">其他-聯絡資訊</span>
-              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther" formControlName="CONTACT_OTHER" disabled >
+              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther"
+                formControlName="CONTACT_OTHER" disabled>
             </div>
           </div>
         </div>
@@ -139,40 +143,63 @@
           <div nz-col nzSpan="6">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">徵信確認公司名稱</span>
-              <input style="display: block;" formControlName="CU_CP_NAME_CA" [(ngModel)]="cuCpNameCa" name="cuCpNameCa" >
+              <input style="display: block;" formControlName="CU_CP_NAME_CA" [(ngModel)]="cuCpNameCa" name="cuCpNameCa">
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">徵信確認公司名稱</span>
-              <input style="display: block;" formControlName="CU_CP_NAME_CA" [(ngModel)]="cuCpNameCa" name="cuCpNameCa" disabled >
+              <input style="display: block;" formControlName="CU_CP_NAME_CA" [(ngModel)]="cuCpNameCa" name="cuCpNameCa"
+                disabled>
             </div>
           </div>
           <div nz-col nzSpan="3">
-            <div style="padding:3px">
+            <div style="padding:3px" >
               <span class="form-title">公司統編</span>
               <input style="display: block;" formControlName="CU_CP_NO" readonly disabled>
             </div>
           </div>
           <div nz-col nzSpan="3">
-            <div style="padding:3px">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">目前工作年資</span>
-              <mat-select [(ngModel)]="hiredDateValue"  name="hiredDate"  formControlName="HIRED_DATE"
-              style=" width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#ffffff;">
-              <mat-option *ngFor="let code of hiredDateCode" [value]="code.value">
-                {{code.value}} - {{code.viewValue}}
-              </mat-option>
-            </mat-select>
+              <mat-select [(ngModel)]="hiredDateValue" name="hiredDate" formControlName="HIRED_DATE"
+                style=" width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#ffffff;">
+                <mat-option *ngFor="let code of hiredDateCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">目前工作年資</span>
+              <mat-select [(ngModel)]="hiredDateValue" name="hiredDate" formControlName="HIRED_DATE"  readonly disabled
+                style="  width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6;">
+                <mat-option *ngFor="let code of hiredDateCode" [value]="code.value">
+                  {{code.value}} - {{code.viewValue}}
+                </mat-option>
+              </mat-select>
             </div>
           </div>
-          <div nz-col nzSpan="3">
-            <div style="padding:3px">
+          <div nz-col nzSpan="3" >
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">當前工作在職時長(年數)</span>
-              <input style="display: block;"  [(ngModel)]="currJobYear" name="currJobYear" formControlName="CURR_JOB_YEAR"  >
+              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear"
+                formControlName="CURR_JOB_YEAR">
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">當前工作在職時長(年數)</span>
+              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear" readonly disabled
+                formControlName="CURR_JOB_YEAR">
             </div>
           </div>
           <div nz-col nzSpan="3">
-            <div style="padding:3px">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">當前工作在職時長(月數)</span>
-              <input style="display: block;"  [(ngModel)]="currJobMonth" name="currJobMonth"  formControlName="CURR_JOB_MONTH"  >
+              <input style="display: block;" [(ngModel)]="currJobMonth" name="currJobMonth"
+                formControlName="CURR_JOB_MONTH">
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">當前工作在職時長(月數)</span>
+              <input style="display: block;" [(ngModel)]="currJobMonth" name="currJobMonth" readonly disabled
+              formControlName="CURR_JOB_MONTH">
+               
             </div>
           </div>
 
@@ -213,11 +240,12 @@
           <div nz-col nzSpan="4">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">其他-公司電話分機</span>
-              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" formControlName="CU_CP_TEL_EXT" >
+              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" formControlName="CU_CP_TEL_EXT">
             </div>
             <div style="padding:3px" *ngIf="yn==false && getSearch()=='N'">
               <span class="form-title">其他-公司電話分機</span>
-              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" formControlName="CU_CP_TEL_EXT" disabled>
+              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" formControlName="CU_CP_TEL_EXT"
+                disabled>
             </div>
           </div>
 
@@ -226,7 +254,7 @@
           <div nz-col nzSpan="2">
             <div style="padding:3px">
               <span class="form-title">行職業代碼</span>
-              <input style="display: block;"  formControlName="INDU_CODE" readonly disabled>
+              <input style="display: block;" formControlName="INDU_CODE" readonly disabled>
             </div>
           </div>
           <div nz-col nzSpan="12">
@@ -238,7 +266,7 @@
           <div nz-col nzSpan="6">
             <div style="padding:3px">
               <span class="form-title">職稱代碼(客戶填寫)</span>
-              <input style="display: block;"  formControlName="JOB_CODE" readonly disabled>
+              <input style="display: block;" formControlName="JOB_CODE" readonly disabled>
             </div>
           </div>
           <div nz-col nzFlex="4">
@@ -253,17 +281,19 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">徵信認列行業Level1</span>
-              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca" required
-                formControlName="CU_LEVEL1_CA">
+              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca"
+                required formControlName="CU_LEVEL1_CA">
                 <mat-option *ngFor="let code of cuLevel1CaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid && (cuLevel1CaValue=='' || cuLevel1CaValue== null)">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (cuLevel1CaValue=='' || cuLevel1CaValue== null)">
+                {{getErrorMessage()}}</mat-error>
             </div>
-            <div style="padding:3px"  *ngIf="yn==false || getSearch()!='N'">
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">徵信認列行業Level1</span>
-              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca" disabled formControlName="CU_LEVEL1_CA"
+              <mat-select [(ngModel)]="cuLevel1CaValue" (ngModelChange)="changeLevel1Select()" name="cuLevel1Ca"
+                disabled formControlName="CU_LEVEL1_CA"
                 style=" width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6;">
                 <mat-option *ngFor="let code of cuLevel1CaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
@@ -271,22 +301,23 @@
               </mat-select>
             </div>
           </div>
-          <div nz-col nzFlex="1" >
+          <div nz-col nzFlex="1">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">徵信認列行業Level2</span>
-              <mat-select [(ngModel)]="cuLevel2CaValue" (ngModelChange)="changeLevel2Select()" name="cuLevel2Ca" required
-                id="cuLevel2Ca" formControlName="CU_LEVEL2_CA"
+              <mat-select [(ngModel)]="cuLevel2CaValue" (ngModelChange)="changeLevel2Select()" name="cuLevel2Ca"
+                required id="cuLevel2Ca" formControlName="CU_LEVEL2_CA"
                 style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:white">
                 <mat-option *ngFor="let code of cuLevel2CaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid && (cuLevel2CaValue=='' || cuLevel2CaValue== null)">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (cuLevel2CaValue=='' || cuLevel2CaValue== null)">
+                {{getErrorMessage()}}</mat-error>
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">徵信認列行業Level2</span>
               <mat-select [(ngModel)]="cuLevel2CaValue" (ngModelChange)="changeLevel2Select()" name="cuLevel2Ca"
-                id="cuLevel2Ca" formControlName="CU_LEVEL2_CA"  disabled
+                id="cuLevel2Ca" formControlName="CU_LEVEL2_CA" disabled
                 style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6">
                 <mat-option *ngFor="let code of cuLevel2CaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
@@ -297,17 +328,20 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">徵信認列職業碼</span>
-              <mat-select [(ngModel)]="jobCodeCaValue" name="jobCodeCa" formControlName="JOB_CODE_CA" id="jobCodeCa" required
+              <mat-select [(ngModel)]="jobCodeCaValue" name="jobCodeCa" formControlName="JOB_CODE_CA" id="jobCodeCa"
+                required
                 style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:white">
                 <mat-option *ngFor="let code of jobCodeCaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid && (jobCodeCaValue=='' || jobCodeCaValue== null)">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (jobCodeCaValue=='' || jobCodeCaValue== null)">
+                {{getErrorMessage()}}</mat-error>
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">徵信認列職業碼</span>
-              <mat-select [(ngModel)]="jobCodeCaValue" name="jobCodeCa" formControlName="JOB_CODE_CA" id="jobCodeCa" disabled
+              <mat-select [(ngModel)]="jobCodeCaValue" name="jobCodeCa" formControlName="JOB_CODE_CA" id="jobCodeCa"
+                disabled
                 style="width:100%;height:25px;border-radius:5px;border:1px solod #c9c9c9;padding:4px;background-color:#E6E6E6">
                 <mat-option *ngFor="let code of jobCodeCaCode" [value]="code.value">
                   {{code.value}} - {{code.viewValue}}
@@ -316,7 +350,7 @@
             </div>
           </div>
           <div nz-col nzFlex="1">
-            <div style="padding:3px"  *ngIf="yn==true && getSearch()=='N'">
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">公司是否為白名單</span>
               <mat-select [(ngModel)]="companyWhitelistValue" name="companyWhitelist" required
                 formControlName="COMPANY_WHITELIST" id="companyWhitelist"
@@ -325,9 +359,10 @@
                   {{code.viewValue}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="formControl.invalid && (companyWhitelistValue=='' || companyWhitelistValue== null)">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (companyWhitelistValue=='' || companyWhitelistValue== null)">
+                {{getErrorMessage()}}</mat-error>
             </div>
-            <div style="padding:3px"  *ngIf="yn==false || getSearch()!='N'">
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">公司是否為白名單</span>
               <mat-select [(ngModel)]="companyWhitelistValue" name="companyWhitelist" disabled
                 formControlName="COMPANY_WHITELIST" id="companyWhitelist"
@@ -335,7 +370,7 @@
                 <mat-option *ngFor="let code of companyWhitelistCode" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
-              
+
               </mat-select>
             </div>
           </div>
@@ -345,21 +380,22 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作名稱</span>
-              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn" >
+              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn">
               <!-- <mat-error *ngIf="formControl.invalid && (preCompNm=='' || preCompNm== null)">{{getErrorMessage()}}</mat-error> -->
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作公司職稱</span>
-              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle" name="preJobTitle" >
+              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle"
+                name="preJobTitle">
               <!-- <mat-error *ngIf="formControl.invalid && (preJobTitle=='' || preJobTitle== null)">{{getErrorMessage()}}</mat-error> -->
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(年數)</span>
-              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear" >
+              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear">
               <!-- <mat-error *ngIf="formControl.invalid && (preJobYear=='' || preJobYear== null)">{{getErrorMessage()}}</mat-error> -->
             </div>
           </div>
@@ -372,13 +408,13 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(月數)</span>
-              <mat-select [(ngModel)]="preJobMonthValue" name="preJobMonthValue" 
-              formControlName="PRE_JOB_MONTH" id="preJobMonth"
-              style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#ffffff;color:white">
-              <mat-option *ngFor="let code of prvJobMonthCode" [value]="code.value">
-                {{code.viewValue}}
-              </mat-option>
-            </mat-select>
+              <mat-select [(ngModel)]="preJobMonthValue" name="preJobMonthValue" formControlName="PRE_JOB_MONTH"
+                id="preJobMonth"
+                style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#ffffff;color:white">
+                <mat-option *ngFor="let code of prvJobMonthCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
             </div>
           </div>
         </div>
@@ -386,25 +422,29 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作名稱</span>
-              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn" disabled>
+              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn"
+                disabled>
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作公司職稱</span>
-              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle" name="preJobTitle" disabled>
+              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle"
+                name="preJobTitle" disabled>
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(年數)</span>
-              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear" disabled>
+              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear"
+                disabled>
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(月數)</span>
-              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth" name="preJobMonth" disabled>
+              <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth"
+                name="preJobMonth" disabled>
             </div>
           </div>
         </div>
@@ -431,10 +471,12 @@
         </nz-table>
         <div style="padding:10px;text-align: center">
           <div *ngIf="getSearch() == 'N'">
-            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" [disabled]="formControl.valid && pag == 2? false:true ">儲存</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()"
+              [disabled]="formControl.valid && pag == 2? false:true ">儲存</button>
           </div>
           <div *ngIf="getSearch() != 'N'">
-            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()" [disabled]="formControl.valid && pag == 2? false:true ">儲存</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()"
+              [disabled]="formControl.valid && pag == 2? false:true ">儲存</button>
           </div>
         </div>
       </div>

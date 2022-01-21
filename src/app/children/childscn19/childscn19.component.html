@@ -8,7 +8,7 @@
   <div class="line_bank_card_no_padding" style="margin:20px 0px;width:100%">
     <br>
     <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="cancel()">離開</button>
-    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="repair()" [disabled]=send>補件送出</button>
+    <button nz-button [nzSize]="'middle'" nzType="primary" (click)="repair()" [disabled]="send ">補件送出</button>
     <!-- 補件功能 -->
     <div class="line_bank_form_header_title">補件</div>
     <div nz-row>
@@ -51,6 +51,13 @@
         <button nz-button [nzSize]="'large'" nzType="primary" (click)="rescan()">補件</button>
       </div>
     </div>
+    <div nz-row>
+      <div nz-col nzSpan="24">
+        <div style="padding:10px"><span class="form-title">補充文件</span>
+          <input [(ngModel)]="remarkContent" disabled>
+        </div>
+      </div>
+    </div>
     <!-- 補件資訊檔 -->
     <nz-table nzShowSizeChanger [nzData]="rescanDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
       nzTitle="補件資訊">
@@ -65,7 +72,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of rescanDataSource">
-          <td class="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"
+          <td class="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'" [disabled] = "data.IMAGE_DATE == null ? false:true "
               (click)="delRescan(data.ROW_ID)">刪除</button></td>
           <td class="table-data">{{ data.RESTART_DATE|date: 'yyyy-MM-dd' }}</td>
           <td class="table-data">{{ data.RESCAN_TYPE }}</td>

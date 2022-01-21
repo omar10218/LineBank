@@ -46,7 +46,6 @@ export class F01004Component implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     // 查詢案件分類
-
     this.f01004Service.getSysTypeCode('CASE_TYPE').subscribe(data => {
       this.caseTypeCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
@@ -57,7 +56,7 @@ export class F01004Component implements OnInit, AfterViewInit {
     });
     // 查詢代理人
     let jsonObject: any = {};
-    jsonObject['swcL0EmpNo'] = this.empNo;
+    jsonObject['empNo'] = this.empNo;
 
     this.f01004Service.getEmpNo(jsonObject).subscribe(data => {
       this.agentEmpNoCode.push({ value: '', viewValue: '請選擇' })
@@ -84,19 +83,22 @@ export class F01004Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL0EmpNo'] = this.empNo;
+    jsonObject['empNo'] = this.empNo;
+    jsonObject['stepName'] = 'swcL0EmpNo';
+    jsonObject['opid'] = '2600';
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01004Service.getCaseList(jsonObject).subscribe(data => {
+      console.log(data)
       if (data.rspBody.size > 0)
       {
         this.total = data.rspBody.size != '0'? data.rspBody.size : '0';
         this.cusinfoDataSource = data.rspBody.items;
         this.stepName = data.rspBody.items[0].F_StepName;
         this.cusinfoDataSource.forEach(element => {
-          if (element.swcZ21PassDate != null && element.swcZ21PassDate != '') {
-            element.swcZ21PassDate = formatDate(element.swcZ21PassDate, 'yyyy-MM-dd HH:mm:ss', 'zh-Hant-TW', '-0600').toString();
+          if (element.F_StartTime != null && element.F_StartTime != '') {
+            element.F_StartTime = formatDate(element.F_StartTime, 'yyyy-MM-dd HH:mm:ss', 'zh-Hant-TW', '-0600').toString();
           }
         });
       }
@@ -120,9 +122,12 @@ export class F01004Component implements OnInit, AfterViewInit {
     else {
       if (this.agentEmpNo != '') {
         this.empNo = this.agentEmpNo;
+      } else {
+        this.empNo = localStorage.getItem("empNo");
       }
       this.changePage();
       this.getCaseList();
+
     }
   }
 
@@ -147,6 +152,7 @@ export class F01004Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('page', '4');
         sessionStorage.setItem('stepName', this.stepName);
         sessionStorage.setItem('custId', swcCustId);
+        sessionStorage.setItem('addSignLevel', '');
         this.router.navigate(['./F01004/F01004SCN1']);
       }
     });
@@ -222,9 +228,9 @@ data_number(p: number) {
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
           (a, b) => a.swcApplyNum.localeCompare(b.swcApplyNum)) : this.cusinfoDataSource.sort((a, b) => b.swcApplyNum.localeCompare(a.swcApplyNum))
         break;
-      case "swcZ21PassDate":
+      case "F_StartTime":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
-          (a, b) => a.swcZ21PassDate.localeCompare(b.swcZ21PassDate)) : this.cusinfoDataSource.sort((a, b) => b.swcZ21PassDate.localeCompare(a.swcZ21PassDate))
+          (a, b) => a.F_StartTime.localeCompare(b.F_StartTime)) : this.cusinfoDataSource.sort((a, b) => b.F_StartTime.localeCompare(a.F_StartTime))
         break;
       case "swcCustTag":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(

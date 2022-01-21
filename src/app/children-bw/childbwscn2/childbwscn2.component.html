@@ -1,10 +1,17 @@
 <div class="line_bank_bankground_color">
-
-  <div style="margin-top: 40px; margin-left: 45px;">
-    <button class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page1" style="margin-bottom: 5px; margin-left: 5px;"
-      (click)="changePage(Page.Page1)">覆審階段</button>
-    <button class="btn" nz-button nzType="primary" [nzSize]="'middle'" [class.active]="nowPage === Page.Page2" style="margin-bottom: 5px; margin-left: 5px;"
-      (click)="changePage(Page.Page2)">風險類型</button>
-  </div>
+  <br>
+  <br>
+    <nz-page-header class="site-page-header" style=" width: 100%;padding:0 40px">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page1" (click)="changePage(Page.Page1)" >
+        <a [ngClass]="nowPage === Page.Page1 ? 'oncloick' : 'unclock'">覆審階段</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page2"  *ngIf="rskmdl"
+        (click)="changePage(Page.Page2)">
+        <a [ngClass]="nowPage === Page.Page2 ? 'oncloick' : 'unclock'">風險模型資訊</a>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </nz-page-header>
+  <ng-container appDynamic></ng-container>
 </div>
-<ng-container appDynamic></ng-container>
+

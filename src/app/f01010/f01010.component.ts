@@ -142,7 +142,7 @@ export class F01010Component implements OnInit {
     this.getCaseList();
   }
   // 代入條件查詢
-  search() {
+  select() {
     if (this.swcNationalId != '' && !this.f01010Service.checkIdNumberIsValid(this.swcNationalId)) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "身分驗證失敗" }
@@ -151,11 +151,15 @@ export class F01010Component implements OnInit {
     else {
       if (this.agentEmpNo != '') {
         this.empNo = this.agentEmpNo;
+      } else {
+        this.empNo = localStorage.getItem("empNo");
       }
       this.changePage();
       this.getCaseList();
+      
     }
   }
+
   getCaseList() {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
@@ -177,6 +181,7 @@ export class F01010Component implements OnInit {
       }
       else {
         this.cusinfoDataSource = null;
+        this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         })
