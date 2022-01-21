@@ -150,6 +150,9 @@ export class F02002returnComponent implements OnInit {
       console.log(data)
       if (data.rspCode === '0000') {
         this.dialogRef.close({ event: 'success' });
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: data.rspMsg }
+        });
       }
       else {
         this.dialog.open(ConfirmComponent, {

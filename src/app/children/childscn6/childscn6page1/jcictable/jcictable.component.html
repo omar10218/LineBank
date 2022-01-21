@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let data of nzData">
-      <th class="table-data" *ngFor="let dataItem of tableData.dataList" [nzRight]="dataItem.nzRight || false" [nzLeft]="dataItem.nzLeft || false">{{data[dataItem.bodyKey] != undefined && data[dataItem.type]==number? data_number( data[dataItem.bodyKey]): data[dataItem.bodyKey]}}</th>
+      <th class="table-data" *ngFor="let dataItem of tableData.dataList" [nzRight]="dataItem.nzRight || false" [nzLeft]="dataItem.nzLeft || false">{{data[dataItem.bodyKey] != undefined && data[dataItem.type]=='number'? data_number( data[dataItem.bodyKey]): data[dataItem.bodyKey]}}</th>
     </tr>
   </tbody>
 </nz-table>
