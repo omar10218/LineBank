@@ -16,7 +16,8 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   constructor(
     private childscn6Service: Childscn6Service,
     private router: Router,
-    public childService: ChildrenService
+    public childService: ChildrenService,
+    private pipe: DatePipe
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -119,13 +120,14 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     jsonObject['nationalId'] = this.cuid;
     jsonObject['code'] = 'MASTER';
     this.childscn6Service.getDate(url, jsonObject).subscribe(data => {
-      if (data.rspBody.items.length > 0) {
+      if (data.rspBody != null && data.rspBody != '') {
         // for (let i = 0; i < data.rspBody.items.length; i++) {
         //   this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
         // }
         // this.dateValue = data.rspBody.items[0].QUERYDATE
         // sessionStorage.setItem('queryDate', this.dateValue);
-        this.queryDate = data.rspBody.items[0].QUERYDATE;
+        // this.queryDate = data.rspBody.items[0].QUERYDATE;
+        this.queryDate = this.pipe.transform(new Date(data.rspBody), 'yyyy-MM-dd HH:mm:ss');
         //this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase, fds: this.fds} });
       }
     });
