@@ -1,1 +1,93 @@
-<p>f01015 works!</p>
+<div class="line_bank_bankground_color">
+    <br>
+    <div class="line_bank_card_no_padding">
+        <div nz-row>
+            <div nz-col nzSpan="12">
+                <div style="padding:10px"><span class="form-title">身分證字號:</span><input style="display: block;width: 95%;"
+                        [(ngModel)]="nationalId" name="nationalId"></div>
+            </div>
+            <div nz-col nzSpan="12">
+                <div style="padding:10px"><span class="form-title">Customer ID：</span><input style="display: block;width: 95%;"
+                        [(ngModel)]="custId" name="custId"></div>
+            </div>
+            
+           
+        </div>
+        <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
+                (click)="getElBigCompanyList()">查詢</button>
+            <button nz-button [nzSize]="'middle'"nzDanger style="margin:0px 5px"
+                (click)="Clear()">清除資料</button>
+        </div>
+    </div>
+    <div class="line_bank_card_no_padding">
+
+        <nz-table nzShowSizeChanger  [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+            nzTitle="人工凍結解凍降額">
+            <thead>
+                <tr>
+                    <th class="table-header">層級</th>
+                    <th class="table-header">額度</th>
+                    <th class="table-header">上層額度號</th>
+                    <th class="table-header">額度類別代碼</th>
+                    <th class="table-header">額度起日</th>
+                    <th class="table-header">額度訖日</th>
+                    <th class="table-header">核准額度</th>
+                    <th class="table-header">已動撥金額</th>
+                    <th class="table-header">預佔額度</th>
+                    <th class="table-header">目前可動用額度</th>
+                    <th class="table-header">停用註記</th>
+                    <th class="table-header">停用日期</th>
+                    <th class="table-header">循環別</th>
+                    <th class="table-header">是否可撤銷</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                </tr>
+            </tbody>
+        </nz-table>
+    
+    </div>
+    <div class="line_bank_card_no_padding">
+
+        <nz-table nzShowSizeChanger  [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+            nzTitle="貸後管理紀錄">
+            <thead>
+                <tr>
+                    <th class="table-header">案件編號</th>
+                    <th class="table-header">案件狀態</th>
+                    <th class="table-header">審核結束時間</th>
+                    <th class="table-header">核決結果</th>
+                    <th class="table-header">覆審人員</th>
+                    <th class="table-header">覆審主管</th>
+                    
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                    <td class="table-data"></td>
+                   
+                </tr>
+            </tbody>
+        </nz-table>
+    
+    </div>
+</div>
