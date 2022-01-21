@@ -135,21 +135,11 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 	getJcicList() {
 		let jsonObject: any = {}
 		jsonObject['applno'] = this.applno
-		// jsonObject['queryDate'] = this.queryDate
 		this.childscn6Service.getMASTERJCICList(jsonObject).subscribe(data => {
-      // if(data.rspCode!='0000')
-      // { this.listSource.push('')}
-      console.log(data)
-      // else{
-        if (data.rspBody.length >0 ){
+        if (data.rspBody!=null && data.rspBody.length >0 ){
           this.listSource = data.rspBody[0];
 
         }
-        console.log('------------------------')
-        console.log(this.listSource)
-        console.log('------------------------')
-        console.log( data.rspBody[0])
-      // }
 		})
 	}
 
