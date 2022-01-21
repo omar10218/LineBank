@@ -49,6 +49,7 @@ export class Childbwscn1Component implements OnInit {
   custId: string;
   nationalId: string;
   mark: string;
+  userId: string;
   size = 0//此層級是否有資料
   search: string;
   private page: string;
@@ -78,6 +79,7 @@ export class Childbwscn1Component implements OnInit {
     this.page = sessionStorage.getItem('page');
     this.applno = sessionStorage.getItem('applno');
     this.nationalId = sessionStorage.getItem('swcNationalId');
+    this.userId = localStorage.getItem("empNo");
     this.custId = sessionStorage.getItem('swcCustId');
     sessionStorage.setItem('BW_creditResult', "");
     sessionStorage.setItem('size', "0");
@@ -100,6 +102,9 @@ export class Childbwscn1Component implements OnInit {
       this.creditmemoSource = data.rspBody.list;
       for (const data of this.creditmemoSource) {
         this.size = (data.CREDITLEVEL != null && data.CREDITLEVEL == this.creditlevel) ? this.size + 1 : this.size;//判斷是否有資料
+        if (data.CREDITLEVEL == this.creditlevel && data.CREDITUSER.includes(this.userId)) {
+          this.mark = data.CREDITACTION;
+        }
       }
       sessionStorage.setItem('size', this.size.toString());
     });
@@ -211,4 +216,12 @@ export class Childbwscn1Component implements OnInit {
     sessionStorage.setItem('creditaction', this.creditaction);
   }
 
+  //Level轉換中文
+  changeLevel(level: string) {
+    if (level == 'L4') {
+      return "覆審人員"
+    } else if (level == 'L3') {
+      return "覆審主管"
+    }
+  }
 }

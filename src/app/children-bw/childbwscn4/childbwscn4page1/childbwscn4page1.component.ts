@@ -54,6 +54,7 @@ export class Childbwscn4page1Component implements OnInit {
   });
 
   dateCode: dateCode[] = [];
+  educationCode: dateCode[] = [];           //學歷下拉
   dateValue: string;
   blockingCodeSource:any
   private applno: string;
@@ -62,7 +63,7 @@ export class Childbwscn4page1Component implements OnInit {
 
 
   ngOnInit(): void {
-    this.blockingCodeSource()
+    // this.blockingCodeSource()
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
     this.search = sessionStorage.getItem('search');
@@ -73,6 +74,7 @@ export class Childbwscn4page1Component implements OnInit {
     jsonObject['cuid'] = this.cuid;
     jsonObject['code'] = 'CORE_CUS_INFO';
     this.Childbwscn4Service.getDate(url, jsonObject).subscribe(data => {
+      console.log(data)
       if (data.rspBody.items.length > 0) {
          for (let i = 0; i < data.rspBody.items.length; i++) {
          this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
@@ -82,7 +84,31 @@ export class Childbwscn4page1Component implements OnInit {
         }
 
     });
+
+       //取學歷
+       this.childscn9Service.getSysTypeCode('EDUCATION')
+       .subscribe(data => {
+         for (const jsonObj of data.rspBody.mappingList) {
+           const codeNo = jsonObj.codeNo;
+           const desc = jsonObj.codeDesc;
+           this.educationCode.push({ value: codeNo, viewValue: desc })
+         }
+       });
+
   }
+
+   //學歷代碼轉換中文
+   geteducation(codeVal: string): string {
+    for (const data of this.educationCode) {
+      if (data.value == codeVal) {
+        return data.viewValue;
+        break;
+      }
+    }
+    return codeVal;
+  }
+
+
   getBlockingCodeInfo(){
     let jsonObject:any={}
     jsonObject['applno'] = this.applno;
@@ -108,7 +134,7 @@ export class Childbwscn4page1Component implements OnInit {
       this.coreCustInfoForm.patchValue({ ACCIDENT_RECORD: data.rspBody.items[0].ACCIDENT_RECORD })
       this.coreCustInfoForm.patchValue({ NAME: data.rspBody.items[0].NAME })
       this.coreCustInfoForm.patchValue({ BIRTHDAY: data.rspBody.items[0].BIRTHDAY })
-      this.coreCustInfoForm.patchValue({ EDUCATION: data.rspBody.items[0].EDUCATION })
+      this.coreCustInfoForm.patchValue({ EDUCATION: data.rspBody.items[0].EDUCATION+this.geteducation(data.rspBody.items[0].EDUCATION) })
       this.coreCustInfoForm.patchValue({ ACC_OPEN_DATE:this.pipe.transform(new Date(data.rspBody.items[0].ACC_OPEN_DATE), 'yyyy-MM-dd')})
       console.log(this.pipe.transform(new Date(data.rspBody.items[0].ACC_OPEN_DATE), 'yyyy-MM-dd'))
       this.coreCustInfoForm.patchValue({ ACC_TYPE: data.rspBody.items[0].ACC_TYPE })
