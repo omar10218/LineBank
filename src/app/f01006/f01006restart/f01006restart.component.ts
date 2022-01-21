@@ -11,7 +11,7 @@ import { F01006Component } from '../f01006.component';
 @Component({
   selector: 'app-f01006restart',
   templateUrl: './f01006restart.component.html',
-  styleUrls: ['./f01006restart.component.css','../../../assets/css/f01.css']
+  styleUrls: ['./f01006restart.component.css', '../../../assets/css/f01.css']
 })
 export class F01006restartComponent implements OnInit {
   reasonCode: OptionsCode[] = []; //申覆原因下拉
@@ -28,7 +28,7 @@ export class F01006restartComponent implements OnInit {
   interest: string;
   approveInterest: string;
 
-  
+
   constructor(
     public dialog: MatDialog,
     private f01006Service: F01006Service,
@@ -41,7 +41,7 @@ export class F01006restartComponent implements OnInit {
     // 申覆原因下拉
     let jsonObject: any = {};
     this.f01006Service.getReasonData(jsonObject).subscribe(data => {
-      
+
       this.reasonCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj.reasonCode;
@@ -61,26 +61,30 @@ export class F01006restartComponent implements OnInit {
     jsonObject['opid'] = this.data.opid;
 
     let msgStr: string = "";
-    if (this.content == null || this.content == '') {
+    if (this.reason == null || this.reason == '') {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請填入申覆原因' }
+      });
+    } else if (this.content == null || this.content == '') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請填入申覆說明' }
       });
-      } else{
-        msgStr = await this.f01006Service.addRestart(jsonObject);
-        if (msgStr == 'success') {
-          msgStr = '儲存成功！'
-        }
-        this.dialog.open(ConfirmComponent, {
-          data: { msgStr: msgStr }
-        });
-        setTimeout(() => {
-          this.dialog.closeAll();
-        },2500);
-        window.location.reload();
+    } else {
+      msgStr = await this.f01006Service.addRestart(jsonObject);
+      if (msgStr == 'success') {
+        msgStr = '儲存成功！'
       }
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+      setTimeout(() => {
+        this.dialog.closeAll();
+      }, 2500);
+      window.location.reload();
+    }
   }
 
-  getInterestData(){
+  getInterestData() {
     let jsonObject: any = {};
     jsonObject['applno'] = this.data.applno;
     this.f01006Service.getInterestData(jsonObject).subscribe(data => {
