@@ -15,7 +15,7 @@ interface sysCode {
 })
 export class F01015Component implements OnInit {
   nationalId: string //身分證字號
-  custId : string //customer_ID
+  custId: string //customer_ID
   targetCustSource = new MatTableDataSource<any>() //解凍降額Table
 
   constructor(
@@ -27,12 +27,19 @@ export class F01015Component implements OnInit {
 
   ngOnInit(): void {
   }
-getTargetCustList(){
-  if(this.nationalId==" "||this.custId==" ")
-  {
-    const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: "請選擇一項查詢項目" }
-    });
+  getTargetCustList() {
+    if ((this.nationalId == null || this.nationalId == '') && (this.custId == null || this.custId == ''))
+     {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請輸入一項查詢項目" }
+      });
+    }else{
+      let jsonObject: any = {};
+      jsonObject['nationalId'] = this.nationalId
+      jsonObject['custId'] = this.custId
+      this.F01015Service.getImpertmentParameter(jsonObject).subscribe(data=>
+        console.log(data)
+        )
+    }
   }
-}
 }
