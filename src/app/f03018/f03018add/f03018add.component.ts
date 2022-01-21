@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { F03018Service } from '../f03018.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 interface sysCode {
 	viewValue: string
 }
@@ -24,6 +24,7 @@ export class F03018addComponent implements OnInit {
   cuCpType2Code: sysCode[] = [] //分類2
   useFlagCode: sysCode[] = [] //使用中
   constructor(
+    public dialogRef: MatDialogRef<F03018addComponent>,
     public dialog: MatDialog,
     public f03018Service: F03018Service
   ) { }
@@ -33,7 +34,7 @@ export class F03018addComponent implements OnInit {
   }
 
   onNoClick() {
-
+    this.dialogRef.close();
   }
 
   public async add(): Promise<void>  {
@@ -64,7 +65,7 @@ export class F03018addComponent implements OnInit {
 
 
     getTypeselect(){
-      const url = "f03/f03018"; 
+      const url = "f03/f03018";
       let jsonObject: any = {}
       this.f03018Service.getValueTypeselect(url,jsonObject).subscribe(data => {
         console.log(data)
@@ -74,7 +75,7 @@ export class F03018addComponent implements OnInit {
         }
         console.log(this.cuCpType1Code)
         for (const jsonObj of data.rspBody.cuCpType2) {
-         
+
           const desc = jsonObj.CU_CP_TYPE2;
           this.cuCpType2Code.push({ viewValue: desc})
         }
@@ -118,5 +119,5 @@ export class F03018addComponent implements OnInit {
 
   }
 
-  
+
 
