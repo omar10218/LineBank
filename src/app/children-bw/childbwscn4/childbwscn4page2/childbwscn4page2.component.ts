@@ -56,9 +56,9 @@ export class Childbwscn4page2Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['cuid'] = this.cuid;
     jsonObject['code'] = code;
-
-    this.Childbwscn4Service.getCoreCusInfo(jsonObject).subscribe(data => {
-    
+    const baseUrl = 'f01/childBwScn4action';
+    this.Childbwscn4Service.getDate(baseUrl,jsonObject).subscribe(data => {
+    console.log(data)
       this.totalCount = data.rspBody.size;
       if (code == 'DEPOSIT') { this.DEPOSITSource = data.rspBody.items; }
       if (code == 'SAVING_TRANS_DETAIL') { this.SAVING_TRANS_DETAILSource = data.rspBody.items; }
