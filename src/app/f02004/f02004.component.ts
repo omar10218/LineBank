@@ -43,7 +43,7 @@ export class F02004Component implements OnInit {
     const baseUrl = 'f02/f02002';
     //員編
     this.f02004Service.getRescanEmpno(baseUrl).subscribe(data => {
-      console.log(data)
+      // console.log(data)
       for (let i = 0; i < data.rspBody.length; i++) {
         if (data.rspBody[i].RESCANEMPNO != null) {
           this.drFlagCode.push({ value: data.rspBody[i].RESCANEMPNO, viewValue: data.rspBody[i].RESCANEMPNO });
@@ -60,14 +60,10 @@ export class F02004Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['loanAccount'] = this.loanAccount;
     jsonObject['drFlag'] = this.drFlag;
-    console.log('loanAccount')
-    console.log(this.loanAccount)
-    console.log('drFlag')
-    console.log(this.drFlag)
     if (this.date != null) {
       jsonObject['startDate'] = this.datepipe.transform(new Date(this.date[0]).toString(), 'yyyyMMdd');
       jsonObject['endDate'] = this.datepipe.transform(new Date(this.date[1]).toString(), 'yyyyMMdd');
-     
+
 
     } else {
       jsonObject['startDate'] = '';
@@ -76,7 +72,6 @@ export class F02004Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.f02004Service.f02002(baseUrl, jsonObject).subscribe(data => {
-      console.log(jsonObject)
       this.loading = false;
       if (data.rspBody.size == 0) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -129,7 +124,7 @@ export class F02004Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params)
+    // console.log(params)
     if (this.loanAccount == '' && this.drFlag == '') {
 
     } else {
