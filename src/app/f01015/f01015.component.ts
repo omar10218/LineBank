@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,7 +17,12 @@ interface sysCode {
 export class F01015Component implements OnInit {
   nationalId: string //身分證字號
   custId: string //customer_ID
-  targetCustSource = new MatTableDataSource<any>() //解凍降額Table
+  targetCustSource = [] //解凍降額Table
+  creditMainSource = [] //貸後管理紀錄Table
+  total = 1;
+  loading = true;
+  pageSize = 10;
+  pageIndex = 1;
 
   constructor(
     private F01015Service: F01015Service,
@@ -36,10 +42,19 @@ export class F01015Component implements OnInit {
       let jsonObject: any = {};
       jsonObject['nationalId'] = this.nationalId
       jsonObject['custId'] = this.custId
-      this.F01015Service.getImpertmentParameter(jsonObject).subscribe(data =>
-        // this.targetCustSource=data.rspBody.items
+      this.F01015Service.getImpertmentParameter(jsonObject).subscribe(data =>{
         console.log(data)
+        this.targetCustSource=data.rspBody.items
+        this.creditMainSource=data.repBody.creditMainlist
+        console.log(data.repBody.creditMainlist)
+      }
+    
+
       )
     }
   }
+
+  
+
+
 }

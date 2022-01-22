@@ -23,7 +23,8 @@
     <div class="line_bank_card_no_padding">
 
         <nz-table nzShowSizeChanger [nzData]="targetCustSource" [nzFrontPagination]="false" [nzSimple]="true"
-            nzSize="small" nzTitle="人工凍結解凍降額">
+        [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+         nzSize="small"   nzSize="small" nzTitle="人工凍結解凍降額">
             <thead>
                 <tr>
                     <th class="table-header">層級</th>
@@ -65,7 +66,7 @@
 
     </div>
     <div class="line_bank_card_no_padding" style="border-radius: 0px 0px 0px 0px;">
-        <nz-table nzShowSizeChanger nzFrontPagination="false" nzSimple="true" nzSize="small" nzTitle="貸後管理紀錄">
+        <nz-table [nzData]="creditMainlist" nzShowSizeChanger nzFrontPagination="false" nzSimple="true" nzSize="small" nzTitle="貸後管理紀錄">
             <thead>
                 <tr>
                     <th class="table-header">案件編號</th>
@@ -79,13 +80,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
+                <tr *ngFor="let row of creditMainlist">
+                    <td class="table-data">{{row.APPLNO}}</td>
+                    <td class="table-data">{{row.OP_ID}}</td>
+                    <td class="table-data">{{row.CREDIT_END_TIME}}</td>
+                    <td class="table-data">{{row.CREDIT_RESULT}}</td>
+                    <td class="table-data">{{row.L4EMPNO}}</td>
+                    <td class="table-data">{{row.L3EMPNO}}</td>
 
                 </tr>
             </tbody>

@@ -86,7 +86,7 @@ export class Childscn24Component implements OnInit {
       this.dialogRef.close({ event: 'success' });
     }
   }
-  // 主管案件退回徵信
+  // 主管案件退回授信
   public async L0sendbackL2(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
@@ -105,6 +105,9 @@ export class Childscn24Component implements OnInit {
       this.dialogRef.close({ event: 'success' });
     }
   }
+
+
+
   // 授信覆核退回徵信
   public async L1sendbackL3(): Promise<void> {
     let jsonObject: any = {};
@@ -124,7 +127,10 @@ export class Childscn24Component implements OnInit {
       this.dialogRef.close({ event: 'success' });
     }
   }
-  // 授信覆核退回徵信
+
+
+
+  // 授信覆核退回授信
   public async L1sendbackL2(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
