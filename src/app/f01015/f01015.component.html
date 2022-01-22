@@ -66,7 +66,7 @@
 
     </div>
     <div class="line_bank_card_no_padding" style="border-radius: 0px 0px 0px 0px;">
-        <nz-table [nzData]="creditMainlist" nzShowSizeChanger nzFrontPagination="false" nzSimple="true" nzSize="small" nzTitle="貸後管理紀錄">
+        <nz-table [nzData]="creditMainSource" nzShowSizeChanger nzFrontPagination="false" nzSimple="true" nzSize="small" nzTitle="貸後管理紀錄">
             <thead>
                 <tr>
                     <th class="table-header">案件編號</th>
@@ -80,7 +80,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let row of creditMainlist">
+                <tr *ngFor="let row of creditMainSource">
                     <td class="table-data">{{row.APPLNO}}</td>
                     <td class="table-data">{{row.OP_ID}}</td>
                     <td class="table-data">{{row.CREDIT_END_TIME}}</td>

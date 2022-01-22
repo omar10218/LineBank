@@ -45,8 +45,8 @@ export class F01015Component implements OnInit {
       this.F01015Service.getImpertmentParameter(jsonObject).subscribe(data =>{
         console.log(data)
         this.targetCustSource=data.rspBody.items
-        this.creditMainSource=data.repBody.creditMainlist
-        console.log(data.repBody.creditMainlist)
+        this.creditMainSource=data.rspBody.creditMainlist
+        console.log(data.rspBody.creditMainlist)
       }
     
 
