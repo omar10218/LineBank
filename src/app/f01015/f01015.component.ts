@@ -28,18 +28,18 @@ export class F01015Component implements OnInit {
   ngOnInit(): void {
   }
   getTargetCustList() {
-    if ((this.nationalId == null || this.nationalId == '') && (this.custId == null || this.custId == ''))
-     {
+    if ((this.nationalId == null || this.nationalId == '') && (this.custId == null || this.custId == '')) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入一項查詢項目" }
       });
-    }else{
+    } else {
       let jsonObject: any = {};
       jsonObject['nationalId'] = this.nationalId
       jsonObject['custId'] = this.custId
-      this.F01015Service.getImpertmentParameter(jsonObject).subscribe(data=>
+      this.F01015Service.getImpertmentParameter(jsonObject).subscribe(data =>
+        // this.targetCustSource=data.rspBody.items
         console.log(data)
-        )
+      )
     }
   }
 }

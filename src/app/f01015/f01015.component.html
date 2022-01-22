@@ -3,28 +3,27 @@
     <div class="line_bank_card_no_padding">
         <div nz-row>
             <div nz-col nzSpan="12">
-                <div style="padding:10px"><span class="form-title">身分證字號:</span><input style="display: block;width: 95%;"
-                        [(ngModel)]="nationalId" name="nationalId"></div>
+                <div style="padding:10px"><span class="form-title">身分證字號:</span><input
+                        style="display: block;width: 95%;" [(ngModel)]="nationalId" name="nationalId"></div>
             </div>
             <div nz-col nzSpan="12">
-                <div style="padding:10px"><span class="form-title">Customer ID：</span><input style="display: block;width: 95%;"
-                        [(ngModel)]="custId" name="custId"></div>
+                <div style="padding:10px"><span class="form-title">Customer ID：</span><input
+                        style="display: block;width: 95%;" [(ngModel)]="custId" name="custId"></div>
             </div>
-            
-           
+
+
 
         </div>
         <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
             <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
                 (click)="getTargetCustList()">查詢</button>
-            <button nz-button [nzSize]="'middle'"nzDanger style="margin:0px 5px"
-                >清除資料</button>
+            <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px">清除資料</button>
         </div>
     </div>
     <div class="line_bank_card_no_padding">
 
-        <nz-table nzShowSizeChanger  [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
-            nzTitle="人工凍結解凍降額">
+        <nz-table nzShowSizeChanger [nzData]="targetCustSource" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small" nzTitle="人工凍結解凍降額">
             <thead>
                 <tr>
                     <th class="table-header">層級</th>
@@ -45,26 +44,28 @@
                 </tr>
             </thead>
             <tbody>
-                <tr >
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
-                    <td class="table-data"></td>
+                <tr *ngFor="let row of targetCustSource ">
+                    <td class="table-data">{{row.levelNo}}</td>
+                    <td class="table-data">{{row.limitNo}}</td>
+                    <td class="table-data">{{row.upLevel}}</td>
+                    <td class="table-data">{{row.limitTypeCode}}</td>
+                    <td class="table-data">{{row.limitStartDate}}</td>
+                    <td class="table-data">{{row.limitEndDate}}</td>
+                    <td class="table-data">{{row.creditLimit}}</td>
+                    <td class="table-data">{{row.usedLimit}}</td>
+                    <td class="table-data">{{row.reserveLimit}}</td>
+                    <td class="table-data">{{row.activeLimit}}</td>
+                    <td class="table-data">{{row.stopFlag}}</td>
+                    <td class="table-data">{{row.stopDate}}</td>
+                    <td class="table-data">{{row.cycleType}}</td>
+                    <td class="table-data">{{row.cancelFlag}}</td>
                 </tr>
             </tbody>
         </nz-table>
-    
-    </div>
-    <div class="line_bank_card_no_padding">
 
-        <nz-table nzShowSizeChanger  [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
-            nzTitle="貸後管理紀錄">
+    </div>
+    <div class="line_bank_card_no_padding" style="border-radius: 0px 0px 0px 0px;">
+        <nz-table nzShowSizeChanger nzFrontPagination="false" nzSimple="true" nzSize="small" nzTitle="貸後管理紀錄">
             <thead>
                 <tr>
                     <th class="table-header">案件編號</th>
@@ -73,22 +74,87 @@
                     <th class="table-header">核決結果</th>
                     <th class="table-header">覆審人員</th>
                     <th class="table-header">覆審主管</th>
-                    
+
 
                 </tr>
             </thead>
             <tbody>
-                <tr >
+                <tr>
                     <td class="table-data"></td>
                     <td class="table-data"></td>
                     <td class="table-data"></td>
                     <td class="table-data"></td>
                     <td class="table-data"></td>
                     <td class="table-data"></td>
-                   
+
                 </tr>
             </tbody>
         </nz-table>
+    </div>
+    <div class="line_bank_card_no_padding">
+        <div class="line_bank_form_header_title">執行內容</div>
+        <div nz-row style="padding:10px">
+            <div nz-col nzSpan="4">
+                <div style="padding:3px"><span class="form-title ">本次執行原因</span>
+                    <input matInput #input class="form-control">
+                </div>
+            </div>
+            <div nz-col nzSpan="1">
+            </div>
+            <div nz-col nzSpan="9">
+                <div style="padding:3px"><span class="form-title">本次執行原因細項</span>
+                    <input matInput #input class="form-control">
+                </div>
+            </div>
+            <div nz-col nzSpan="10">
+            </div>
+        </div>
+        <div nz-row style="padding:10px">
+            <div nz-col nzSpan="4">
+                <div style="padding:3px"><span class="form-title">本次執行措施策略</span>
+                    <input matInput #input class="form-control">
+                </div>
+            </div>
+            <div nz-col nzSpan="1">
+            </div>
+            <div nz-col nzSpan="9">
+                <div style="padding:3px"><span class="form-title">選擇額度</span>
+                    <input matInput #input class="form-control">
+                </div>
+            </div>
+            <div nz-col nzSpan="1">
+            </div>
+            <div nz-col nzSpan="9">
+                <div style="padding:3px"><span class="form-title">預佔額度</span>
+                    <input matInput #input class="form-control">
+                </div>
+            </div>
+        </div>
+        <div nz-row style="padding:10px">
+            <div nz-col nzSpan="4" style="padding:80px 0px">
+                <div style="padding:3px"><span class="form-title">通知客戶</span>
+                    <input matInput #input class="form-control">
+                </div>
+            </div>
+            <div nz-col nzSpan="1">
+            </div>
+            <div nz-col nzSpan="9">
+                <div style="padding:3px">
+                    <span class="form-title">通知內容</span>
+                    <textarea matInput class="input-textarea" style="text-align: left;">
+                    </textarea>
+                </div>
+            </div>
+            <div nz-col nzSpan="1">
+            </div>
+            <div nz-col nzSpan="9">
+                <div style="padding:3px"><span class="form-title">本次執行說明</span>
+                    <textarea matInput class="input-textarea" style="text-align: left;">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+       
     
     </div>
 </div>

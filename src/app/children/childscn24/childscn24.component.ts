@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn24Service } from './childscn24.service';
@@ -6,7 +7,7 @@ import { Childscn24Service } from './childscn24.service';
 @Component({
   selector: 'app-childscn24',
   templateUrl: './childscn24.component.html',
-  styleUrls: ['./childscn24.component.css']
+  styleUrls: ['./childscn24.component.css', ]
 })
 export class Childscn24Component implements OnInit {
 
@@ -18,6 +19,8 @@ export class Childscn24Component implements OnInit {
   applno: string;     // 案件編號
   level: string;   // 目前關卡
   stepName: string;
+  content:string; //退件原因
+  empNo:string//員編
 
   block: boolean = false;
 
@@ -25,17 +28,33 @@ export class Childscn24Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.level = sessionStorage.getItem('level');
     this.stepName = sessionStorage.getItem('stepName');
+    this.empNo = localStorage.getItem("empNo");
+
   }
   cancel(): void {
     this.dialogRef.close();
   }
+
+  formControl = new FormControl('', [
+    Validators.required
+  ]);
+  //欄位驗證
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
+  
   // 授信案件退回徵信
   public async confirm(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
+    jsonObject['empno']=this.empNo;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
+    jsonObject['content'] = this.content;
     console.log(this.applno)
+    console.log(this.empNo)
     console.log(this.stepName.substring(10))
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L2') {
@@ -52,8 +71,11 @@ export class Childscn24Component implements OnInit {
   public async L0sendbackL3(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
+    jsonObject['empno']=this.empNo;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
+    jsonObject['content'] = this.content;
+
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L0') {
       this.block = true;
@@ -69,8 +91,10 @@ export class Childscn24Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
-
+    jsonObject['empno']=this.empNo;
     jsonObject['reject'] = 'L2';
+    jsonObject['content'] = this.content;
+
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L0') {
       this.block = true;
@@ -87,6 +111,9 @@ export class Childscn24Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
+    jsonObject['empno']=this.empNo;
+    jsonObject['content'] = this.content;
+
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L1') {
       this.block = true;
@@ -103,6 +130,9 @@ export class Childscn24Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L2';
+    jsonObject['empno']=this.empNo;
+    jsonObject['content'] = this.content;
+
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L1') {
       this.block = true;
