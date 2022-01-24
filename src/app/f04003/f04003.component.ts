@@ -62,12 +62,13 @@ export class F04003Component implements OnInit {
     let url = 'f04/f04003action1'
     LevelJson['level'] = this.Level;
     this.f04003Service.Set(url, LevelJson).subscribe(data => {
+      console.log(data)
       this.personnelCode.push({ value: '', viewValue: '請選擇' })
       if (data.rspMsg != "該層級查無人員") {
         for (const jsonObj of data.rspBody) {
           const id = jsonObj['EMP_NO'];
           const name = jsonObj['EMP_NAME'];
-          this.personnelCode.push({ value: id, viewValue: name })
+          this.personnelCode.push({ value: id, viewValue: id+name })
         }
       }
       else {
@@ -100,7 +101,7 @@ export class F04003Component implements OnInit {
            {
             const id = obj['EMP_NO'];
             const name = obj['EMP_NAME'];
-            this.TransferCode.push({ value: id, viewValue: name })
+            this.TransferCode.push({ value: id, viewValue: id+name })
           }
         }
 
