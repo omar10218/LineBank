@@ -798,7 +798,10 @@ export class Childscn1Component implements OnInit, OnDestroy {
       if (value.interestBase == null) {
         value.approveInterest = Number(value.interest);
       } else {
-        let len: number = Number(value.interest).toString().split('.')[1].length ? Number(value.interest).toString().split('.')[1].length : 0
+        let len: number = 0;
+        if (Number(value.interest).toString().split('.')[1]) {
+          len = Number(value.interest).toString().split('.')[1].length;
+        }
         let one = '1';
         for (let index = 0; index < len; index++) {
           one = one + '0';
