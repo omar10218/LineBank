@@ -2,6 +2,7 @@
   <br>
   <!-- [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" -->
   <!-- 最外層卡片包覆 -->
+
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">
       <div nz-row>
@@ -43,6 +44,7 @@
             </mat-select>
           </div>
         </div>
+        <br>
         <div nz-col nzSpan="8">
           <div style="padding-left: 20px; margin-top: 30px;">
             <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="change()">轉件</button>
@@ -50,18 +52,18 @@
         </div>
       </div>
     </div>
-    <nz-table nzShowSizeChanger [nzData]="setDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small">
+    <nz-table nzShowSizeChanger [nzData]="setDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="案件重新指派">
       <thead>
         <tr>
-          <th class="table-header" style="width: 50px;" >
+          <th class="table-header" style="width: 30px;" >
             <mat-checkbox color="primary"   (change)="setAll($event.checked)"  [(ngModel)]="isAllCheck" name="isAllCheck"  [disabled]="Transfer ==''? true:false">全選</mat-checkbox>
           </th>
-          <th class="table-header" style="width:150px">處理人員</th>
-          <th class="table-header" style="width: 100px;">處理人員姓名</th>
-          <th class="table-header" style="width: 200px;">案件編號</th>
-          <th class="table-header" style="width: 200px;">身份證號</th>
-          <th class="table-header" style="width: 100px;">客戶姓名</th>
-          <th class="table-header" style="width: 300px;">公司名稱</th>
+          <th class="table-header" style="width:50px">處理人員</th>
+          <th class="table-header" style="width: 70px;">處理人員姓名</th>
+          <th class="table-header" style="width: 50px;">案件編號</th>
+          <th class="table-header" style="width: 50px;">身份證號</th>
+          <th class="table-header" style="width: 60px;">客戶姓名</th>
+          <th class="table-header" style="width: 680px;">公司名稱</th>
         </tr>
       </thead>
       <tbody>
