@@ -1,36 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn24Service } from './childscn24.service';
 
 @Component({
   selector: 'app-childscn24',
   templateUrl: './childscn24.component.html',
-  styleUrls: ['./childscn24.component.css', ]
+  styleUrls: ['./childscn24.component.css',]
 })
 export class Childscn24Component implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<Childscn24Component>,
     public dialog: MatDialog,
-    private childsnc24Service: Childscn24Service
+    private childsnc24Service: Childscn24Service,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
+
   applno: string;     // 案件編號
   level: string;   // 目前關卡
   stepName: string;
-  content:string; //退件原因
-  empNo:string//員編
+  content: string; //退件原因
+  empNo: string//員編
 
   block: boolean = false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.level = sessionStorage.getItem('level');
+    this.level = this.data.level;
     this.stepName = sessionStorage.getItem('stepName');
     this.empNo = localStorage.getItem("empNo");
-
   }
+
   cancel(): void {
     this.dialogRef.close();
   }
@@ -44,12 +46,12 @@ export class Childscn24Component implements OnInit {
       this.formControl.hasError('email') ? 'Not a valid email' :
         '';
   }
-  
+
   // 授信案件退回徵信
   public async confirm(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['empno']=this.empNo;
+    jsonObject['empno'] = this.empNo;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
     jsonObject['content'] = this.content;
@@ -62,51 +64,50 @@ export class Childscn24Component implements OnInit {
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       this.block = false;
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
+      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
       this.dialogRef.close({ event: 'success' });
     }
-
   }
+
   // 主管案件退回徵信
   public async L0sendbackL3(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['empno']=this.empNo;
+    jsonObject['empno'] = this.empNo;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
     jsonObject['content'] = this.content;
 
-    let msgStr: string = '';
-    if (this.stepName.substring(10) == 'L0') {
-      this.block = true;
-      msgStr = await this.childsnc24Service.doDssBack(jsonObject);
-      this.block = false;
-      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-      this.dialogRef.close({ event: 'success' });
-    }
+    // let msgStr: string = '';
+    // if (this.stepName.substring(10) == 'L0') {
+    //   this.block = true;
+    //   msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+    //   this.block = false;
+    //   const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
+    //   const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+    //   this.dialogRef.close({ event: 'success' });
+    // }
   }
+
   // 主管案件退回授信
   public async L0sendbackL2(): Promise<void> {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
-    jsonObject['empno']=this.empNo;
+    jsonObject['empno'] = this.empNo;
     jsonObject['reject'] = 'L2';
     jsonObject['content'] = this.content;
 
-    let msgStr: string = '';
-    if (this.stepName.substring(10) == 'L0') {
-      this.block = true;
-      msgStr = await this.childsnc24Service.doDssBack(jsonObject);
-      this.block = false;
-      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-      this.dialogRef.close({ event: 'success' });
-    }
+    // let msgStr: string = '';
+    // if (this.stepName.substring(10) == 'L0') {
+    //   this.block = true;
+    //   msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+    //   this.block = false;
+    //   const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
+    //   const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+    //   this.dialogRef.close({ event: 'success' });
+    // }
   }
-
-
 
   // 授信覆核退回徵信
   public async L1sendbackL3(): Promise<void> {
@@ -114,7 +115,7 @@ export class Childscn24Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
-    jsonObject['empno']=this.empNo;
+    jsonObject['empno'] = this.empNo;
     jsonObject['content'] = this.content;
 
     let msgStr: string = '';
@@ -122,13 +123,11 @@ export class Childscn24Component implements OnInit {
       this.block = true;
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       this.block = false;
-      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
+      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
       this.dialogRef.close({ event: 'success' });
     }
   }
-
-
 
   // 授信覆核退回授信
   public async L1sendbackL2(): Promise<void> {
@@ -136,7 +135,7 @@ export class Childscn24Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L2';
-    jsonObject['empno']=this.empNo;
+    jsonObject['empno'] = this.empNo;
     jsonObject['content'] = this.content;
 
     let msgStr: string = '';
@@ -144,9 +143,43 @@ export class Childscn24Component implements OnInit {
       this.block = true;
       msgStr = await this.childsnc24Service.doDssBack(jsonObject);
       this.block = false;
-      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
+      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
       this.dialogRef.close({ event: 'success' });
     }
+  }
+
+  // 處長&總經理退回徵信
+  public async sendbackL3(): Promise<void> {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['empno'] = this.empNo;
+    jsonObject['level'] = this.level;
+    jsonObject['reject'] = 'L3';
+    jsonObject['content'] = this.content;
+    let msgStr: string = '';
+    this.block = true;
+    msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+    this.block = false;
+    const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
+    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+    this.dialogRef.close({ event: 'success' });
+  }
+
+  // 處長&總經理退回授信
+  public async sendbackL2(): Promise<void> {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['level'] = this.level;
+    jsonObject['empno'] = this.empNo;
+    jsonObject['reject'] = 'L2';
+    jsonObject['content'] = this.content;
+    let msgStr: string = '';
+    this.block = true;
+    msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+    this.block = false;
+    const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
+    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+    this.dialogRef.close({ event: 'success' });
   }
 }

@@ -33,7 +33,7 @@
                     <th class="table-header">已動撥金額</th>
                     <th class="table-header">預佔額度</th>
                     <th class="table-header">目前可動用額度</th>
-                    <th class="table-header">停用註記</th>
+                    <th class="table-header" >停用註記</th>
                     <th class="table-header">停用日期</th>
                     <th class="table-header">循環別</th>
                     <th class="table-header">是否可撤銷</th>
@@ -42,20 +42,20 @@
             </thead>
             <tbody>
                 <tr *ngFor="let row of targetCustSource ">
-                    <td class="table-data">{{row.levelNo}}</td>
+                    <td class="table-data" style="text-align: center;">{{row.levelNo}}</td>
                     <td class="table-data">{{row.limitNo}}</td>
                     <td class="table-data">{{row.upLevel}}</td>
                     <td class="table-data">{{row.limitTypeCode}}</td>
                     <td class="table-data">{{row.limitStartDate}}</td>
                     <td class="table-data">{{row.limitEndDate}}</td>
-                    <td class="table-data">{{row.creditLimit}}</td>
-                    <td class="table-data">{{row.usedLimit}}</td>
-                    <td class="table-data">{{row.reserveLimit}}</td>
-                    <td class="table-data">{{row.activeLimit}}</td>
-                    <td class="table-data">{{row.stopFlag}}</td>
+                    <td class="table-data">{{toCurrency(row.creditLimit)}}</td>
+                    <td class="table-data">{{toCurrency(row.usedLimit)}}</td>
+                    <td class="table-data">{{toCurrency(row.reserveLimit)}}</td>
+                    <td class="table-data">{{toCurrency(row.activeLimit)}}</td>
+                    <td class="table-data" [ngClass]="row.stopFlag==='Y'?'green':'red'"  style="text-align: center;">{{row.stopFlag}}</td>
                     <td class="table-data">{{row.stopDate}}</td>
-                    <td class="table-data">{{row.cycleType}}</td>
-                    <td class="table-data">{{row.cancelFlag}}</td>
+                    <td class="table-data" [ngClass]="row.stopFlag==='Y'?'green':'red'"  style="text-align: center;">{{row.cycleType}}</td>
+                    <td class="table-data" [ngClass]="row.stopFlag==='Y'?'green':'red'"  style="text-align: center;">{{row.cancelFlag}}</td>
                 </tr>
             </tbody>
         </nz-table>
@@ -90,14 +90,22 @@
         <div nz-row style="padding:10px">
             <div nz-col nzSpan="4">
                 <div style="padding:3px"><span class="form-title ">本次執行原因</span>
-                    <input matInput #input class="form-control">
+                    <mat-select [(ngModel)]="resonValue" name="resonValue" (ngModelChange)="changeresonDetail()">
+                        <mat-option *ngFor="let item of resonCode" [value]="item.value">
+                            {{item.viewValue}}
+                        </mat-option>
+                    </mat-select>
                 </div>
             </div>
             <div nz-col nzSpan="1">
             </div>
             <div nz-col nzSpan="9">
                 <div style="padding:3px"><span class="form-title">本次執行原因細項</span>
-                    <input matInput #input class="form-control">
+                    <mat-select [(ngModel)]="resonDetail" name="resonDetail" (ngModelChange)="changeresonDetail()">
+                        <mat-option *ngFor="let item of resonDetailCode" [value]="item.value">
+                            {{item.viewValue}}
+                        </mat-option>
+                    </mat-select>                
                 </div>
             </div>
             <div nz-col nzSpan="10">
@@ -106,7 +114,11 @@
         <div nz-row style="padding:10px">
             <div nz-col nzSpan="4">
                 <div style="padding:3px"><span class="form-title">本次執行措施策略</span>
-                    <input matInput #input class="form-control">
+                    <mat-select [(ngModel)]="executeValue" name="executeValue">
+                        <mat-option *ngFor="let item of executeCode" [value]="item.value">
+                            {{item.viewValue}}
+                        </mat-option>
+                    </mat-select>
                 </div>
             </div>
             <div nz-col nzSpan="1">
@@ -124,18 +136,67 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div nz-col nzSpan="1">
-                <span class="form-title line_bank_h4">通知客戶</span>
-                <div class="form" style="width:90%;height:25px;margin:0 auto;color:gray">
-                    <div style="color:gray">
-                        <mat-select [(ngModel)]="YNValue" name="YNCode" class="mat-select">
-                            <mat-option class="option" *ngFor="let code of YNCode" [value]="code.value">
-                                {{code.viewValue}}
-                            </mat-option>
-                        </mat-select>
-                    </div>
+        <div class="line_bank_form_header_title" style="border-radius: 0px;"></div>
+        <div nz-row   style="padding:10px">
+            <div nz-col nzSpan="4" style="padding:50px 0px">        
+                <div>
+                    <span class="form-title line_bank_h4">通知客戶</span>
+                    <mat-select [(ngModel)]="YNValue" name="YNValue">
+                        <mat-option *ngFor="let item of YNCode" [value]="item.value">
+                            {{item.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </div>   
+                <div>
+                    <span class="form-title">通知方式</span>
+                    <mat-select [(ngModel)]="YNValue" name="YNValue">
+                        <mat-option *ngFor="let item of YNCode" [value]="item.value">
+                            {{item.viewValue}}
+                        </mat-option>
+                    </mat-select>
                 </div>
+
+            </div>
+            <div nz-col nzSpan="1" >
+            </div>
+            <div nz-col nzSpan="19" >
+                <div style="padding:3px"><span class="form-title">通知內容</span>
+                    <textarea matInput class="input-textarea" style="text-align: left;">
+                    </textarea>
+                </div>
+            </div>
+        
+            <!-- <div nz-col nzSpan="9">
+                <div style="padding:3px"><span class="form-title">通知內容</span>
+                    <textarea matInput class="input-textarea" style="text-align: left;">
+                    </textarea>
+                </div>
+            </div> -->
+        </div>
+       
+        <div class="line_bank_form_header_title" style="border-radius: 0px;"></div>
+        
+        <div nz-row  nzJustify="space-between" style="padding:10px">
+            <div nz-col nzSpan="6"></div>
+            <div nz-col nzSpan="12">
+                <div style="padding:3px"><span class="form-title">通知內容</span>
+                    <textarea matInput class="input-textarea" style="text-align: left;">
+                    </textarea>
+                </div>
+            </div>
+            <div nz-col nzSpan="6"></div>
+
+        </div>   
+        <!-- <div nz-row style="padding:10px">
+            <div nz-col nzSpan="4" style="padding: 80px;">
+                <span class="form-title line_bank_h4">通知客戶</span>
+
+                <mat-select [(ngModel)]="YNValue" name="YNValue">
+                    <mat-option *ngFor="let item of YNCode" [value]="item.value">
+                        {{item.viewValue}}
+                    </mat-option>
+                </mat-select>
+
             </div>
             <div nz-col nzSpan="1">
             </div>
@@ -154,5 +215,5 @@
                     </textarea>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
