@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Childscn24Component } from 'src/app/children/childscn24/childscn24.component';
 import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { history } from './../../interface/base';
@@ -342,4 +343,22 @@ export class F01014scn1Component implements OnInit {
     sessionStorage.removeItem("addSignature");
   }
 
+  // 退件
+  sendBack() {
+    const dialogRef = this.dialog.open(Childscn24Component, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight: '50%',
+      width: '50%',
+      data: {
+        applno: this.applno,
+        level: 'S1',
+        stepName: sessionStorage.getItem('stepName'),
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') {
+        this.router.navigate(['./F01014']);
+      }
+    });
+  }
 }
