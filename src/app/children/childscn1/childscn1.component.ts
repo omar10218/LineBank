@@ -799,7 +799,12 @@ export class Childscn1Component implements OnInit, OnDestroy {
       if (value.interestBase == null) {
         value.approveInterest = Number(value.interest);
       } else {
-        value.approveInterest = Number(value.interestBase) + Number(value.interest);
+        let len: number = Number(value.interest).toString().split('.')[1].length ? Number(value.interest).toString().split('.')[1].length : 0
+        let one = '1';
+        for (let index = 0; index < len; index++) {
+          one = one + '0';
+        }
+        value.approveInterest = (Number(value.interestBase) * Number(one) + Number(value.interest) * Number(one)) * 1 / Number(one);
       }
       sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
       sessionStorage.setItem('interest' + value.seq, value.interest.toString());
