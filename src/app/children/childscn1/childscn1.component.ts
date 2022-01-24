@@ -650,7 +650,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
           addSignature: this.addSignatureValue
         })
       } else if (this.level == 'S1') {
-        console.log("================S1");
         this.f01014Scn1Service.setHistorySource({
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,
