@@ -163,4 +163,15 @@ export class F02006Component implements OnInit {
     }
   }
 
+  // 將案件類型轉成中文
+  getType(codeVal: string): string {
+    for (const data of this.isRpmCode) {
+      if (data.value == codeVal) {
+        return data.viewValue;
+        break;
+      }
+    }
+    return codeVal;
+  }
+
 }
