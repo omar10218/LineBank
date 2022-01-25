@@ -41,3 +41,10 @@ input{
     .green{
       color:rgb(13, 213, 13);
     }
+    .input-textarea{
+      height:150px;
+    }
+    input:disabled{
+      color: darkgrey;
+      background-color:#E6E6E6
+    }
