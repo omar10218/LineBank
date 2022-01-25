@@ -8,7 +8,7 @@ import { F01008scn3Service } from '../f01008scn3.service';
 @Component({
   selector: 'app-f01008scn3page1',
   templateUrl: './f01008scn3page1.component.html',
-  styleUrls: ['./f01008scn3page1.component.css']
+  styleUrls: ['./f01008scn3page1.component.css', '../../../../assets/css/child.css']
 })
 export class F01008scn3page1Component  implements OnInit, AfterViewInit {
 

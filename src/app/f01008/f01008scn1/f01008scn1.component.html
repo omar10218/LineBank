@@ -1,6 +1,6 @@
 <div class="line_bank_bankground_color">
   <br>
-  <div style="position: fixed;z-index:50;top:48px;width:100%;">
+  <div  style="position:fixed;top:48px;width:100%;z-index:100">
     <ng-container *ngIf="getSearch() == 'N'">
       <div style="padding:0 10px;background-color:white">
         <mat-grid-list cols="9" rowHeight="3:0.5" style="background-color:white;margin:0px -8px -20px -8px;padding:0px">
@@ -12,21 +12,25 @@
         </mat-grid-list>
       </div>
     </ng-container>
+  </div>
+  <br>
 
-    <nz-tabset nzLinkRouter style="margin-top: 20px">
+  <div class="classA">
+    <br>
+    <nz-tabset nzLinkRouter>
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['./F01008SCN2']">
-          <button nz-button nzType="primary" id="firstBtn"> 審核資料</button>
+          <button nz-button nzType="primary" id="firstBtn" nzSize="small">審核資料</button>
         </a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['./F01008SCN3']">
-          <button nz-button nzType="primary">行外資料</button>
+          <button nz-button nzType="primary" id="secondBtn" nzSize="small">行外資料</button>
         </a>
       </nz-tab>
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['./F01008SCN4']">
-          <button nz-button nzType="primary">決策結果</button>
+          <button nz-button nzType="primary" id="secondBtn" nzSize="small">決策結果</button>
         </a>
       </nz-tab>
     </nz-tabset>
