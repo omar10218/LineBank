@@ -21,6 +21,8 @@ export class F01015Component implements OnInit {
   custId: string; //customer_ID
   targetCustSource = []; //解凍降額Table
   creditMainSource = []; //貸後管理紀錄Table
+  page: string         //頁面
+
   total = 1;
   loading = true;
   pageSize = 10;
@@ -29,7 +31,12 @@ export class F01015Component implements OnInit {
   resonCode: sysCode[] = []; //執行原因
   resonDetailCode: sysCode[] = []; //執行細項
   limitCode: sysCode[] = []; //額度號
-  contactCode: sysCode[] = []; //通知方式
+  contactCode: sysCode[] =  [
+    { value: '', viewValue: '請選擇' },
+    { value: '1', viewValue: '電話' },
+    { value: '2', viewValue: '山竹簡訊' },
+    { value: '3', viewValue: '其他' },
+  ];//通知方式
   bossCreditCode: sysCode[] = [
     { value: '', viewValue: '請選擇' },
     { value: 'Y', viewValue: '同意' },
@@ -65,6 +72,9 @@ export class F01015Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
+    this.page = sessionStorage.getItem("page");
+    console.log(this.page)
     this.getYNresult();
     this.getreson();
     this.resonValue = ''
@@ -174,7 +184,7 @@ export class F01015Component implements OnInit {
     jsonObject['contactYn'] = this.YNValue //通知客戶
     jsonObject['contactType'] = this.contact //通知方式
     jsonObject['contactContent'] = this.contactContent //通知內容
-    jsonObject['CreditMemo'] = this.creditMemo //本次執行說明
+    jsonObject['creditMemo'] = this.creditMemo //本次執行說明
     jsonObject['bossCredit'] = this.bossCreditValue //主管核決
     jsonObject['bossContent'] = this.bossContent //主管覆核
   }
