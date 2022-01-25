@@ -17,7 +17,8 @@ export class TokenInterceptor implements HttpInterceptor {
   private from: string = environment.from;
   private allowOrigin: string = environment.allowOrigin;
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let authStr = request.url.indexOf('login') != -1 ? '' : 'Bearer ' + this.baseService.getToken();
+    let urlStr = request.url;
+    let authStr = (urlStr.indexOf('login') != -1 || urlStr.indexOf('logOut') != -1) ? '' : 'Bearer ' + this.baseService.getToken();
     request = request.clone({
       setHeaders: {
         'Authorization': authStr,

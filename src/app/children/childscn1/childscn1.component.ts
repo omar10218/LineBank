@@ -798,7 +798,10 @@ export class Childscn1Component implements OnInit, OnDestroy {
       if (value.interestBase == null) {
         value.approveInterest = Number(value.interest);
       } else {
-        let len: number = Number(value.interest).toString().split('.')[1].length ? Number(value.interest).toString().split('.')[1].length : 0
+        let len: number = 0;
+        if (Number(value.interest).toString().split('.')[1]) {
+          len = Number(value.interest).toString().split('.')[1].length;
+        }
         let one = '1';
         for (let index = 0; index < len; index++) {
           one = one + '0';
@@ -1234,9 +1237,14 @@ export class Childscn1Component implements OnInit, OnDestroy {
   //去除符號中文+千分位
   data_number(x: string) {
     if (x != null) {
-      x = x.toString();
-      x = x.replace(/[^\d]/g, '');
-      x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      let xString: string = x.toString();
+      if (xString.split('.')[1]) {
+        x = xString.split('.')[0].replace(/[^\d]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + xString.split('.')[1];
+      } else {
+        x = x.toString();
+        x = x.replace(/[^\d]/g, '');
+        x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
     }
     return x
   }
