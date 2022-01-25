@@ -7,8 +7,9 @@
           <mat-grid-tile><span style="font-size: 10px;" (click)="save('是否案件完成')">案件完成</span></mat-grid-tile>
           <mat-grid-tile *ngIf="jcicNumb < 3 && level =='D2' "><span style="font-size: 10px;"
               (click)="reSearch('是否立即重查JCIC')">立即重查JCIC</span></mat-grid-tile>
-          <mat-grid-tile *ngIf="level =='D2'"><span style="font-size: 10px;" (click)="reScan('是否重算')">重算</span>
-          </mat-grid-tile>
+          <mat-grid-tile *ngIf="level =='D2'"><span style="font-size: 10px;" (click)="reScan('是否重算')">重算</span></mat-grid-tile>
+          <mat-grid-tile *ngIf="level =='D2'"><span style="font-size: 10px;" (click)="temporarily()">暫存</span></mat-grid-tile>
+
         </mat-grid-list>
       </div>
     </ng-container>
