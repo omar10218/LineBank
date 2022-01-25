@@ -1,8 +1,6 @@
 <div class="line_bank_bankground_color">
   <br>
-  <!-- [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" -->
-  <!-- 最外層卡片包覆 -->
-
+  <th style="padding-left: 30px;">案件重新指派</th>
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">
       <div nz-row>
@@ -10,7 +8,7 @@
           <div style="padding:10px"><span class="form-title">派件層級</span>
             <mat-select [(ngModel)]="Level" name="Level" placeholder="請選擇" (ngModelChange)="Dispatch()">
               <mat-option *ngFor="let code of LevelCode" [value]="code.value">
-                {{code.viewValue}}
+                {{ changeLevel(code.viewValue) }}
               </mat-option>
             </mat-select>
           </div>

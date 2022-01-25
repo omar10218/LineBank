@@ -224,4 +224,27 @@ export class F04003Component implements OnInit {
       }
     }
   }
+
+  //Level轉換 代碼 + 中文
+  changeLevel(level: string) {
+    if (level == 'L4') {
+      return "L4 文審"
+    } else if (level == 'L2') {
+      return "L2 授信"
+    } else if (level == 'L3') {
+      return "L3徵信"
+    } else if (level == 'L1') {
+      return "L1 授信覆核"
+    } else if (level == 'L0') {
+      return "L0 主管"
+    } else if (level == 'D2') {
+      return "D2 產生合約前回查"
+    } else if (level == 'D1') {
+      return "D1 產生合約前覆核"
+    } else if (level == 'S2') {
+      return "S2 風管處處長"
+    } else if (level == 'S1') {
+      return "S1 總經理"
+    }
+  }
 }
