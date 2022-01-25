@@ -116,7 +116,6 @@ export class F02001Component implements OnInit {
   getl3EMPNO()//取得徵信員員編下拉
   {
     this.f02001Service.getStatusDesc().subscribe(data => {
-      console.log(data)
       this.l3EMPNOList.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
         const value = jsonObj['EMP_NO'];
@@ -391,7 +390,6 @@ export class F02001Component implements OnInit {
     }
 
     this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
-      console.log(data)
       if(data.rspBody.size == 0)
       {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {

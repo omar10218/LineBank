@@ -88,6 +88,9 @@ export class F01008scn1Component implements OnInit {
               console.log(data)
               if(data.rspCode === '0000')
               {
+                const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                  data: { msgStr: data.rspMsg }
+                })
                 this.router.navigate(['./F01008']);
               }
 
@@ -115,6 +118,9 @@ export class F01008scn1Component implements OnInit {
               console.log(data)
               if(data.rspCode === '0000')
               {
+                const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                  data: { msgStr: data.rspMsg }
+                })
                 this.router.navigate(['./F01012']);
               }
 

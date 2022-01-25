@@ -3,6 +3,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Childbwscn2Service } from '../childbwscn2.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n'
+import { Data } from '@angular/router';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 
 //Nick 決策結果
 @Component({
@@ -15,12 +19,32 @@ export class childbwscn2page1Component implements OnInit {
   constructor(
     private fb: FormBuilder,
     private Childbwscn2Service: Childbwscn2Service,
-    private nzI18nService: NzI18nService) {
+    private nzI18nService: NzI18nService,
+    public dialog: MatDialog,) {
     this.nzI18nService.setLocale(zh_TW)
   }
 
   private applno: string;
-
+  private page: string;
+  //覆審:L4 覆審主管:L3
+  private creditlevel = ""; //儲存層級
+  //覆審資訊
+  bwCreditAuditinfoList: Data[] = [];
+  bwCreditMainList: Data[] = [];
+  add_bwCreditMainList: any;
+  add_bwCreditAuditinfoList: any;
+  cuCName: string;
+  custId: string;
+  nationalId: string;
+  userId: string;
+  creditaction:string = ""; //審核註記
+  total = 1;
+  pageIndex = 1;
+  pageSize = 50;
+  creditmemoSource: Data[] = [];
+  search: string;
+  size = 0//此層級是否有資料
+  mark: string;
 
 
   //策略1
@@ -83,12 +107,22 @@ export class childbwscn2page1Component implements OnInit {
     UNSDEBT_PAYAMT_029EX: ['', []],//(減項) 無擔保負債(不含本行)_BAM029清償金額
     DBR: ['', []],//無擔保倍數
 
+
   });
 
 
 
   ngOnInit(): void {
     this.getDSS11();
+    this.applno = sessionStorage.getItem('applno');
+    this.nationalId = sessionStorage.getItem('swcNationalId');
+    this.userId = localStorage.getItem("empNo");
+    this.custId = sessionStorage.getItem('swcCustId');
+    this.search = sessionStorage.getItem('search');
+    this.page = sessionStorage.getItem('page');
+    this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
+    this.creditlevel = this.page == "10" ? "L3" : this.creditlevel;
+    this.getCreditMainList();
   }
   //取決策1Table
   getDSS11() {
@@ -162,9 +196,99 @@ export class childbwscn2page1Component implements OnInit {
 
     });
   }
+  //查詢 上方主資料
+  getCreditMainList() {
+    const url = 'f01/childbwscn1';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
+      this.bwCreditMainList = data.rspBody.bwCreditMainList;
+      if (this.bwCreditMainList.length < 1) {
+        this.add_bwCreditMainList = {
+          applno: this.applno,//案件編號
+          nationalId: '',//身分證字號
+          custId: '',//客戶ID
+          cuCname: '',//姓名
+          abnormalFlag: '' //符合貸後異常名單
+          //客戶身分名單註記
+        }
+        this.bwCreditMainList.push(this.add_bwCreditMainList);
+      }
+    });
 
+  }
 
-
-
+  creditaction_keyup() {
+    sessionStorage.setItem('creditaction', this.creditaction);
+  }
+  // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管  12產生合約前覆核 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
+  getPage() {
+    return this.page
+  }
+  //查詢 審核意見
+  getCreditmemo(pageIndex: number, pageSize: number) {
+    const url = 'f01/childbwscn1scn1';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
+    this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
+      this.creditmemoSource = data.rspBody.list;
+      for (const data of this.creditmemoSource) {
+        this.size = (data.CREDITLEVEL != null && data.CREDITLEVEL == this.creditlevel) ? this.size + 1 : this.size;//判斷是否有資料
+        if (data.CREDITLEVEL == this.creditlevel && data.CREDITUSER.includes(this.userId)) {
+          this.mark = data.CREDITACTION;
+        }
+      }
+      sessionStorage.setItem('size', this.size.toString());
+    });
+  }
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params
+    this.pageSize = pageSize
+    this.pageIndex = pageIndex
+    this.getCreditmemo(pageIndex, pageSize)
+  }
+  //儲存
+  save() {
+    alert(this.creditaction)
+    console.log('aaaaaa')
+    alert(this.mark)
+    if (this.creditaction == "" || this.creditaction == null) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請輸入審核意見' }
+      });
+      return;
+    }
+    let msg = "";
+    const url = 'f01/childbwscn1action1';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['creditaction'] = this.creditaction;
+    jsonObject['creditlevel'] = this.creditlevel;
+    console.log(jsonObject)
+    this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
+      console.log(data)
+      msg = data.rspMsg;
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msg }
+      });
+      this.changePage();
+      this.getCreditmemo(this.pageIndex, this.pageSize);
+    });
+  }
+  changePage() {
+    this.pageIndex = 1;
+    this.pageSize = 10;
+    this.total = 1;
+  }
+  //Level轉換中文
+  changeLevel(level: string) {
+    if (level == 'L4') {
+      return "覆審人員"
+    } else if (level == 'L3') {
+      return "覆審主管"
+    }
+  }
 
 }

@@ -26,13 +26,13 @@ export class F02007Component implements OnInit {
   l3EMPNO: string = ''; //徵信員員編姓名
   credit_RESULT: sysCode[] = []; //審核結果陣列
   credit_RESULT_Value: string = '';//審核結果值
+  l3EMPNOList: sysCode[] = [];//徵信員員編陣列
   status_DESC: sysCode[] = []; //案件狀態
   status_DESC_Value: string = '';//案件狀態值
   statusDescSecond: sysCode[] = [];//案件狀態第二層
   statusDescSecondValue: string = '';//案件狀態值第二層
   cust_FLAG: sysCode[] = []; //客群標籤
   cust_FLAG_Value: string = '';//客群標籤值
-  CU_M_TEL: string = '';//客戶手機號碼
   risk_GRADE: sysCode[] = [];//風險等級分群
   risk_GRADE_Value: string = '';//風險等級分群值
   apply_TIME: [Date, Date];//進件日期
@@ -45,10 +45,14 @@ export class F02007Component implements OnInit {
   jsonObject: any = {};
   resultData = [];
   total: number;
+  quantity:number;
   loading = false;
   pageSize: number;
   pageIndex: number;
   firstFlag = 1;
+  sortArry=['ascend', 'descend']
+  x: string;
+
   constructor(private router: Router,
     private f02007Service: F02007Service,
     public pipe: DatePipe,
@@ -63,22 +67,26 @@ export class F02007Component implements OnInit {
     this.getCreditResult();
     this.getCustFlag();
     this.getRiskGrade();
+    this.getl3EMPNO();
     this.credit_RESULT_Value = '';
     this.status_DESC_Value = '';
     this.cust_FLAG_Value = '';
     this.risk_GRADE_Value = '';
     this.apply_TIME = [this.dealwithData14(new Date()), new Date()]
+    this.quantity = 0;
+
 
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
-      const { pageSize, pageIndex } = params;
-      this.selectData(pageIndex, pageSize);
-
+    const { pageIndex } = params;
+    if (this.pageIndex !== pageIndex) {
+      if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
+        const { pageSize, pageIndex } = params;
+        this.selectData(pageIndex, pageSize);
+      }
     }
   }
-
   changePage() {
     this.pageIndex = 1;
     this.pageSize = 50;
@@ -87,11 +95,24 @@ export class F02007Component implements OnInit {
 
   getStatusDesc() {
     this.f02007Service.getSysTypeCode('STATUS_CODE').subscribe(data => {
+
       this.status_DESC.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
         const desc = jsonObj['codeDesc'];
         this.status_DESC.push({ value: codeNo, viewValue: desc })
+      }
+    });
+  }
+  // f02/f02001
+  getl3EMPNO()//取得徵信員員編下拉
+  {
+    this.f02007Service.getStatusDesc().subscribe(data => {
+      this.l3EMPNOList.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody) {
+        const value = jsonObj['EMP_NO'];
+        const viewValue = jsonObj['EMP_NO'] + jsonObj['EMP_NAME'];
+        this.l3EMPNOList.push({ value: value, viewValue: viewValue })
       }
     });
   }
@@ -113,6 +134,7 @@ export class F02007Component implements OnInit {
 
   getCreditResult() {
     this.f02007Service.getSysTypeCode('CREDIT_RESULT').subscribe(data => {
+
       this.credit_RESULT.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
@@ -135,13 +157,12 @@ export class F02007Component implements OnInit {
 
   getRiskGrade() {
     this.f02007Service.getSysTypeCode('RISK_GRADE').subscribe(data => {
-
       this.risk_GRADE.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody.mappingList) {
-        const codeNo = jsonObj['codeNo'];
-        const desc = jsonObj['codeDesc'];
-        this.risk_GRADE.push({ value: codeNo, viewValue: desc })
-      }
+      this.risk_GRADE.push({value: 'R1', viewValue: 'R1' })
+      this.risk_GRADE.push({value: 'R2', viewValue: 'R2' })
+      this.risk_GRADE.push({value: 'R3', viewValue: 'R3' })
+      this.risk_GRADE.push({value: 'R4', viewValue: 'R4' })
+      this.risk_GRADE.push({value: 'R5', viewValue: 'R5' })
     });
   }
 
@@ -151,11 +172,11 @@ export class F02007Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = id;
     jsonObject['nationalID'] = nationalId;
-    jsonObject['searchKind'] = '2';//查詢種類1:案件查詢2:客服案件查詢3:補件資訊查詢
+    jsonObject['searchKind'] = '1';//查詢種類1:案件查詢2:客服案件查詢3:補件資訊查詢
     jsonObject['cuCname'] = cuCname;//客戶姓名CU_CNAME
     let apiurl = 'f02/f02001action2';
     this.f02007Service.postJson(apiurl, jsonObject).subscribe(data => {
-      if (data.rspMsg == "success" && data.rspBody == "儲存成功!") {
+      if(data.rspMsg=="success"&& data.rspBody=="儲存成功!"){
         sessionStorage.setItem('applno', id);
         sessionStorage.setItem('nationalId', nationalId);
         sessionStorage.setItem('custId', custId);
@@ -163,21 +184,19 @@ export class F02007Component implements OnInit {
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('winClose', 'Y');
         // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
-        sessionStorage.setItem('page', '07');
-        sessionStorage.setItem('stepName', '0');//查詢
+        sessionStorage.setItem('page', '0');
+        sessionStorage.setItem('stepName', '0');
         //開啟徵審主畫面
         const url = window.location.href.split("/#");
-        window.open(url[0] + "/#/F01002/F01002SCN2");
+        window.open( url[0] + "/#/F01002/F01002SCN1");
         sessionStorage.setItem('winClose', 'N');
         sessionStorage.setItem('search', 'N');
-      } else {
+      }else{
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查詢案件紀錄異常" }
         });
       }
     })
-
-
   }
 
   select()//查詢
@@ -199,10 +218,9 @@ export class F02007Component implements OnInit {
     this.jsonObject['creditResult'] = this.credit_RESULT_Value;//審核結果
     this.jsonObject['statusDesc'] = this.status_DESC_Value;//案件狀態--有修改第一層
     this.jsonObject['opDesc'] = this.statusDescSecondValue;//案件狀態--有修改第二層
-    this.jsonObject['custFlag'] = this.cust_FLAG_Value;
-    this.jsonObject['riskGrade'] = this.risk_GRADE_Value;
-    this.jsonObject['cuMTel'] = this.CU_M_TEL;//客戶手機號碼
-    this.jsonObject['productName'] = this.product_NAME;//產品名稱
+    this.jsonObject['custFlag'] = this.cust_FLAG_Value;//客群標籤
+    this.jsonObject['riskGrade'] = this.risk_GRADE_Value;//風險等級分群
+    this.jsonObject['prodCode'] = this.product_NAME;//產品名稱
     this.jsonObject['projectName'] = this.project_NAME;//專案名稱
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
     this.jsonObject['approveAmt'] = '';//核准金額/額度
@@ -212,8 +230,8 @@ export class F02007Component implements OnInit {
       {
 
         if (this.dealwithData365(this.apply_TIME)) {
-          this.jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
         }
         else {
 
@@ -227,8 +245,8 @@ export class F02007Component implements OnInit {
       }
       else {
 
-        this.jsonObject['applyTimeStart'] = '';
-        this.jsonObject['applyTimeEnd'] = '';
+        this.jsonObject['applyEndTimeStart'] = '';
+        this.jsonObject['applyEndTimeEnd'] = '';
       }
 
       if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
@@ -292,8 +310,8 @@ export class F02007Component implements OnInit {
       if (this.apply_TIME != null)//進件日期
       {
         if (this.dealwithData90(this.apply_TIME)) {
-          this.jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -304,8 +322,8 @@ export class F02007Component implements OnInit {
 
       }
       else {
-        this.jsonObject['applyTimeStart'] = '';
-        this.jsonObject['applyTimeEnd'] = '';
+        this.jsonObject['applyEndTimeStart'] = '';
+        this.jsonObject['applyEndTimeEnd'] = '';
       }
 
       if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
@@ -362,11 +380,23 @@ export class F02007Component implements OnInit {
       }
 
     }
+
     this.f02007Service.inquiry(url, this.jsonObject).subscribe(data => {
-      console.log(data)
-      this.resultData = data.rspBody.item;
-      this.total = data.rspBody.size;
-      this.firstFlag = 2;
+      if(data.rspBody.size == 0)
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查無資料" }})
+          this.resultData = [];
+
+      }
+      else
+      {
+        this.resultData = data.rspBody.item;
+        this.total = data.rspBody.size;
+        this.quantity = data.rspBody.size;
+        this.firstFlag = 2;
+      }
+
     }
     )
   }
@@ -406,7 +436,6 @@ export class F02007Component implements OnInit {
     this.cust_ID = '';
     this.cust_CNAME = '';
     this.l3EMPNO = '';
-    this.CU_M_TEL = '';
     this.credit_RESULT_Value = '';
     this.status_DESC_Value = '';
     this.statusDescSecondValue = ''
@@ -421,15 +450,15 @@ export class F02007Component implements OnInit {
     this.credit_TIME = null;
     this.resultData = [];
     this.jsonObject = {};
-    this.total = 0;
+    this.quantity = 0;
   }
-  test()//測試
-  {
 
-  }
+  // test()//測試
+  // {
+  // }
 
   conditionCheck() {
-    if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == ''&&this.CU_M_TEL==''
+    if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == ''
       && this.l3EMPNO == '' && this.credit_RESULT_Value == '' && this.status_DESC_Value == ''
       && this.cust_FLAG_Value == '' && this.risk_GRADE_Value == '' && this.apply_TIME == null
       && this.proof_DOCUMENT_TIME == null && this.sign_UP_TIME == null && this.product_NAME == ''
@@ -470,4 +499,15 @@ export class F02007Component implements OnInit {
       }
     }
   }
+  data_number(p: number)//千分號
+   {
+    this.x = '';
+    this.x = (p + "")
+    if (this.x != null) {
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
+  }
+
+
 }
