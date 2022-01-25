@@ -149,7 +149,7 @@
           <th nzWidth="150px">產品名稱</th>
           <th nzWidth="120px">申請金額/額度</th>
           <th nzWidth="120px">核准金額/額度</th>
-          <th nzWidth="120px">合約金額/額度</th>
+          <!-- <th nzWidth="120px">合約金額/額度</th> -->
           <th nzWidth="150px">文審人員員編姓名</th>
           <th nzWidth="150px">徵信人員員編姓名</th>
           <th nzWidth="150px">授信人員員編姓名</th>
@@ -158,8 +158,8 @@
           <th nzWidth="130px">Fraud人員</th>
           <th nzWidth="160px">產生合約前回查人員</th>
           <th nzWidth="160px">產生合約前回查覆核</th>
-          <th nzWidth="150px">專案名稱</th>
-          <th nzWidth="150px">行銷代碼</th>
+          <!-- <th nzWidth="150px">專案名稱</th> -->
+          <!-- <th nzWidth="150px">行銷代碼</th> -->
         </tr>
       </thead>
       <tbody>
@@ -206,7 +206,7 @@
            <!--核准金額/額度-->
            <td style="text-align:right">{{data.APPROVE_AMT != undefined? data_number(data.APPROVE_AMT):data.APPROVE_AMT}}</td>
              <!--合約金額/額度-->
-          <td style="text-align:right"></td>
+          <!-- <td style="text-align:right"></td> -->
             <!--文審-->
           <td>{{ data.L4EMPNO }}</td>
           <!--徵信員姓名-->
@@ -224,9 +224,9 @@
           <!-- 產生合約前回查覆核 -->
           <td>{{data.D1EMPNO}}</td>
             <!--專案名稱-->
-            <td>{{data.PRJ_CODE}}</td>
+            <!-- <td>{{data.PRJ_CODE}}</td> -->
             <!--行銷代碼-->
-          <td></td>
+          <!-- <td></td> -->
         </tr>
       </tbody>
     </nz-table>
