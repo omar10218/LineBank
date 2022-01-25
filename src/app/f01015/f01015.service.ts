@@ -21,7 +21,7 @@ export class F01015Service extends BaseService {
   }
   
   getImpertmentParameter(jsonObject:JSON): Observable<any> {
-    const baseUrl = 'f01/f01015';
+    const baseUrl = 'f01/f01015action1';
     let targetUrl = `${baseUrl}`;
     return this.postJsonObject(targetUrl, jsonObject)
   }

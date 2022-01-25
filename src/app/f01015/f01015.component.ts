@@ -8,7 +8,7 @@ import { OptionsCode } from '../interface/base';
 import { F01015Service } from './f01015.service';
 
 interface sysCode {
-  value:string;
+  value: string;
   viewValue: string;
 }
 @Component({
@@ -30,28 +30,32 @@ export class F01015Component implements OnInit {
   resonDetailCode: sysCode[] = []; //執行細項
   limitCode: sysCode[] = []; //額度號
   contactCode: sysCode[] = []; //通知方式
-  bossCreditCode: sysCode[] = []; //主管核決
+  bossCreditCode: sysCode[] = [
+    { value: '', viewValue: '請選擇' },
+    { value: 'Y', viewValue: '同意' },
+    { value: 'N', viewValue: '不同意' },
+  ];//主管核決
   executeCode: sysCode[] = [
-    {value:'', viewValue: '請選擇' },
-    {value:'1', viewValue: 'FRZ' },
-    {value:'2', viewValue: 'DWN' },
-    {value:'3', viewValue: 'HLD' }
-   ];//執行策略
+    { value: '', viewValue: '請選擇' },
+    { value: 'FRZ', viewValue: 'FRZ' },
+    { value: 'DWN', viewValue: 'DWN' },
+    { value: 'HLD', viewValue: 'HLD' }
+  ];//執行策略
   YNValue: string;//通知客戶值
-  executeValue:string;//執行措施策略值
-  resonValue:string;//執行原因值
-  resonDetail:string;//執行細項值
-  limitNo:string//額度號值
-  contact:string//通知方式值
-  contactContent:string//通知內容值
-  reserveLimit:number//預佔額度
-  creditMemo:string //本次執行說明
-  creditTime:any//本次執行時間
-  creditEmpno:any//執行員編
-  bossCreditValue:string//主管核決值
-  bossContent:string//主管覆核值
-  bossTime:any//主管覆核時間
-  bossEmpno:any//主管覆核員編
+  executeValue: string;//執行措施策略值
+  resonValue: string;//執行原因值
+  resonDetail: string;//執行細項值
+  limitNo: string//額度號值
+  contact: string//通知方式值
+  contactContent: string//通知內容值
+  reserveLimit: number//預佔額度
+  creditMemo: string //本次執行說明
+  creditTime: any//本次執行時間
+  creditEmpno: any//執行員編
+  bossCreditValue: string//主管核決值
+  bossContent: string//主管覆核值
+  bossTime: any//主管覆核時間
+  bossEmpno: any//主管覆核員編
 
   x: string
   constructor(
@@ -61,10 +65,14 @@ export class F01015Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
-   this.getYNresult();
-   this.getreson();
-   this.YNValue = '';
-   this.executeValue = '';
+    this.getYNresult();
+    this.getreson();
+    this.resonValue = ''
+    this.resonDetail = ''
+    this.YNValue = '';
+    this.executeValue = '';
+    this.limitNo = '';
+    this.bossCreditValue = '';
 
   }
   getTargetCustList() {
@@ -78,6 +86,13 @@ export class F01015Component implements OnInit {
       jsonObject['custId'] = this.custId
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
         console.log(data)
+        this.limitCode.push({ value: '', viewValue: '請選擇' })
+        for (const jsonObj of data.rspBody.limitNoList) {
+          const codeNo = jsonObj;
+          const desc = jsonObj;
+          this.limitCode.push({ value: codeNo, viewValue: desc });
+        }
+
         this.targetCustSource = data.rspBody.items
         this.creditMainSource = data.rspBody.creditMainlist
         console.log(data.rspBody.creditMainlist)
@@ -85,54 +100,82 @@ export class F01015Component implements OnInit {
     }
   }
 
-getYNresult(){
-  this.f01015Service.getSysTypeCode('YN').subscribe(data => {
-    this.YNCode.push({ value: '', viewValue: '請選擇' })
-    for (const jsonObj of data.rspBody.mappingList) {
-      const codeNo = jsonObj.codeNo;
-      const desc = jsonObj.codeDesc;
-      this.YNCode.push({ value: codeNo, viewValue: desc })
-    }
-  
-  });
-}
+  getYNresult() {
+    this.f01015Service.getSysTypeCode('YN').subscribe(data => {
+      this.YNCode.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.YNCode.push({ value: codeNo, viewValue: desc })
+      }
 
-//取本次執行原因下拉
- getreson(){
-  let jsonObject: any = {};
-  this.f01015Service.getReturn('f01/f01015', jsonObject).subscribe(data => {
-    console.log(data)
-    for (const jsonObj of data.rspBody.adrCodelist) {
-      const codeNo = jsonObj.reasonCode;
-      const desc = jsonObj.reasonDesc;
-      this.resonCode.push({ value: codeNo, viewValue: desc });
-    }
-  });
- }
+    });
+  }
 
- //取本次執行原因下拉
- changeresonDetail(){
-  let jsonObject: any = {};
-  this.resonDetailCode=[];
-  this.resonDetail="";
-  jsonObject['reason']=this.resonValue
-  console.log(this.resonValue)
-  this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
-    console.log(data)
-   
-  });
- }
+  //取本次執行原因下拉
+  getreson() {
+    let jsonObject: any = {};
+    this.f01015Service.getReturn('f01/f01015', jsonObject).subscribe(data => {
+      this.resonCode.push({ value: '', viewValue: '請選擇' })
+      console.log(data)
+      for (const jsonObj of data.rspBody.adrCodelist) {
+        const codeNo = jsonObj.reasonCode;
+        const desc = jsonObj.reasonDesc;
+        this.resonCode.push({ value: codeNo, viewValue: desc });
+      }
+    });
+  }
 
+  //取本次執行原因細項下拉
+  changeresonDetail() {
+    let jsonObject: any = {};
 
-	//+逗號
-	toCurrency(amount: number) {
+    jsonObject['reasonCode'] = this.resonValue
+    this.resonDetailCode = [];
+    this.resonDetail = "";
+    this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
+      this.resonDetailCode.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.items) {
+        const codeNo = jsonObj.reasonCode;
+        const desc = jsonObj.reasonDesc;
+        this.resonDetailCode.push({ value: codeNo, viewValue: desc });
+      }
+
+    });
+  }
+
+  //取額度號下拉
+  getlimitNo() {
+    let jsonObject: any = {};
+    this.resonDetailCode = [];
+    this.resonDetail = "";
+  }
+
+  //+逗號
+  toCurrency(amount: number) {
     this.x = '';
-		this.x = (amount + "")
+    this.x = (amount + "")
     if (this.x != null) {
-			this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		}
-		return this.x
-		// return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
-	}
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
+    // return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
+  }
 
+
+  //儲存
+  save(){
+    let jsonObject: any = {};
+    jsonObject['reasonCode'] = this.resonValue //本次執行原因
+    jsonObject['reasonDetail'] = this.resonDetail //本次執行原因細項
+    jsonObject['executeType'] = this.executeValue //本次執行措施策略
+    jsonObject['limitNo'] = this.limitNo //選擇額度號
+    jsonObject['reserveLimit'] = this.reserveLimit //預佔額度
+    jsonObject['contactYn'] = this.YNValue //通知客戶
+    jsonObject['contactType'] = this.contact //通知方式
+    jsonObject['contactContent'] = this.contactContent //通知內容
+    jsonObject['CreditMemo'] = this.creditMemo //本次執行說明
+    jsonObject['bossCredit'] = this.bossCreditValue //主管核決
+    jsonObject['bossContent'] = this.bossContent //主管覆核
+  }
 }
