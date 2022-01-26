@@ -359,7 +359,7 @@ export class F03012Component implements OnInit {
 		
 
 
-			if (obj.compareType == null || obj.setValueHight == null || obj.setValueLow == null || obj.compareType == '' || obj.setValueHight == '' || obj.setValueLow == '') {
+			if (obj.compareType == null || obj.setValueLow == null || obj.compareType == '' ||obj.setValueLow == '') {
 				alert('有欄位為空值，儲存失敗')
 				return false
 			}
