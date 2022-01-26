@@ -58,6 +58,9 @@ export class Childscn5Component implements OnInit {
   preJobMonthValue: string;                  //前一份工作在職時長(月數)
   hiredDateCode: sysCode[] = [];           //目前工作年資下拉
   hiredDateValue: string;                  //目前工作年資
+
+ x:string;
+  
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -514,7 +517,6 @@ console.log(data)
     jsonObject['cuLevel2Ca'] = this.cuLevel2CaValue;
     jsonObject['jobCodeCa'] = this.jobCodeCaValue;
     jsonObject['companyWhitelist'] = this.companyWhitelistValue;
-    console.log(this.companyWhitelistValue)
     jsonObject['cuCpNameCa'] = this.cuCpNameCa;
     jsonObject['cuMTelOther'] = this.cuMTelOther;
     jsonObject['contactOther'] = this.contactOther;
@@ -666,5 +668,11 @@ console.log(data)
       this.companyWhitelistCode.push({  value: codeNozz,viewValue:desczz,})
 
     });
+  }
+  limit(x: string,name: string ) {
+    x[name] = x[name].replace(/[^/d.]/g,"");
+    x = x.replace(/\D/g, '')
+    // console.log(x.replace(/\D/g, ''))
+
   }
 }
