@@ -11,7 +11,7 @@ interface Code {
 @Component({
   selector: 'app-childscn11page2',
   templateUrl: './childscn11page2.component.html',
-  styleUrls: ['./childscn11page2.component.css', '../../../../assets/css/f01.css']
+  styleUrls: ['./childscn11page2.component.css', '../../../../assets/css/child.css']
 })
 export class Childscn11page2Component implements OnInit {
 
