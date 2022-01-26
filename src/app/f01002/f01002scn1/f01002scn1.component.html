@@ -170,11 +170,6 @@
           <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">審核歷程</button>
         </a>
       </nz-tab>
-      <nz-tab *ngIf="getSearch() == 'Y'">
-        <a *nzTabLink nz-tab-link [routerLink]="['./F01008SCN4']">
-          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">產生合約前回查</button>
-        </a>
-      </nz-tab>
     </nz-tabset>
   </div>
   <router-outlet style="padding-top: 70px;display: block;"></router-outlet>

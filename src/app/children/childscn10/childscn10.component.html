@@ -9,7 +9,7 @@
        (click)="changePage(Page.Page2)">
         <a [ngClass]="nowPage === Page.Page2 ? 'oncloick' : 'unclock'">授信階段</a>
       </nz-breadcrumb-item>
-      <nz-breadcrumb-item [class.active]="nowPage === Page.Page3" *ngIf="getPage() == '8'" (click)="changePage(Page.Page3)">
+      <nz-breadcrumb-item [class.active]="nowPage === Page.Page3" *ngIf="getSearch() == 'Y'" (click)="changePage(Page.Page3)">
         <a [ngClass]="nowPage === Page.Page3 ? 'oncloick' : 'unclock'">產生合約前回查</a>
       </nz-breadcrumb-item>
       <nz-breadcrumb-item [class.active]="nowPage === Page.Page4" *ngIf="rskmdl"
