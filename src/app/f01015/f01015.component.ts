@@ -156,9 +156,9 @@ export class F01015Component implements OnInit {
 
   //取額度號下拉
   getlimitNo() {
-    let jsonObject: any = {};
-    this.reasonDetailCode = [];
-    this.reasonDetail = "";
+    // let jsonObject: any = {};
+    // this.reasonDetailCode = [];
+    // this.reasonDetail = "";
   }
 
   //+逗號
@@ -178,6 +178,7 @@ export class F01015Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['personMainData']=this.targetCustSource
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
+    alert(this.reasonValue)
     jsonObject['reasonDetail'] = this.reasonDetail //本次執行原因細項
     alert(this.reasonDetail)
                 
