@@ -23,7 +23,7 @@
             <td class="table-data">{{ row.PROD_CODE }}</td>
             <td class="table-data">{{ row.PROD_NAME }}</td>
             <!-- <td class="table-data">{{ row.MAX_APPROVE_AMT }}</td> -->
-            <td class="table-data"><input style="display: block;" placeholder="請輸入金額" [(ngModel)]="row.MAX_APPROVE_AMT"[value]=" row.MAX_APPROVE_AMT"name="MAX_APPROVE_AMT"
+            <td class="table-data"><input style="display: block;  text-align: right;" placeholder="請輸入金額" [(ngModel)]="row.MAX_APPROVE_AMT"[value]=" row.MAX_APPROVE_AMT"name="MAX_APPROVE_AMT" maxlength="10"
                (keyup)="row.MAX_APPROVE_AMT=limit(row.MAX_APPROVE_AMT)"
                ></td>
           </tr>
