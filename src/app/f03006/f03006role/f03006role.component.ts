@@ -31,7 +31,7 @@ export class F03006roleComponent {
   //取消
   onNoClick(): void {
     this.dialogRef.close();
-    console.log(this.data)
+
   }
 
   //儲存角色設定
