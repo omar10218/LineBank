@@ -111,7 +111,7 @@
             </div>
             <div nz-col nzSpan="9">
                 <div style="padding:3px"><span class="form-title">本次執行原因細項</span>
-                    <mat-select [(ngModel)]="reasonDetail" name="reasonDetail" (ngModelChange)="changereasonDetail()">
+                    <mat-select [(ngModel)]="reasonDetail" name="reasonDetail">
                         <mat-option *ngFor="let item of reasonDetailCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
