@@ -201,5 +201,19 @@ export class F01008scn1Component implements OnInit {
       }
     })
   }
+  temporarily()//暫存
+  {
+    let url = 'f01/f01008scn0action1';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['afterResult'] = sessionStorage.getItem('afterResult');
+    jsonObject['researchDate'] = sessionStorage.getItem('researchDate');
+    this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+      console.log(data)
+      let childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: data.rspMsg }
+      });
+    })
+  }
 
 }

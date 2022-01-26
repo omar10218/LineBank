@@ -64,7 +64,7 @@ interface Code {
 @Component({
   selector: 'app-childscn11page3',
   templateUrl: './childscn11page3.component.html',
-  styleUrls: ['./childscn11page3.component.css', '../../../../assets/css/f03.css']
+  styleUrls: ['./childscn11page3.component.css',  '../../../../assets/css/child.css']
 })
 export class Childscn11page3Component implements OnInit {
 

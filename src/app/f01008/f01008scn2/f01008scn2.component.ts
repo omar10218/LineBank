@@ -384,25 +384,14 @@ export class F01008scn2Component implements OnInit {
   }
   storageSeve()//暫存
   {
-
-    let url = 'f01/f01008scn0action1';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['afterResult'] = this.resulet;
     sessionStorage.setItem('afterResult', this.resulet);
-    this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      console.log(data)
-    })
   }
   dataSeve(i: string)
    {
-    let url = 'f01/f01008scn2action6';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['researchDate'] = this.pipe.transform(new Date(i), 'yyyyMMdd');
-    this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      console.log(data)
-    })
+    var researchDate = '';
+    researchDate =  researchDate=''? '':this.pipe.transform(new Date(i), 'yyyyMMdd');
+    sessionStorage.setItem('researchDate', researchDate);
+
 
   }
   onQueryParamsChange(params: NzTableQueryParams): void {

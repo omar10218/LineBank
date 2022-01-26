@@ -16,7 +16,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 @Component({
   selector: 'app-childscn16',
   templateUrl: './childscn16.component.html',
-  styleUrls: ['./childscn16.component.css', '../../../assets/css/f03.css']
+  styleUrls: ['./childscn16.component.css', '../../../assets/css/child.css']
 })
 export class Childscn16Component implements OnInit {
 
