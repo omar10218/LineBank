@@ -58,7 +58,7 @@ export class Childscn5Component implements OnInit {
   preJobMonthValue: string;                  //前一份工作在職時長(月數)
   hiredDateCode: sysCode[] = [];           //目前工作年資下拉
   hiredDateValue: string;                  //目前工作年資
-
+  currJobYearCode: sysCode[] = []; 
  x:string;
   
   constructor(
@@ -172,7 +172,14 @@ export class Childscn5Component implements OnInit {
         this.hiredDateCode.push({ value: codeNo, viewValue: desc })
       }
     });
-
+ //目前工作年資(客戶填寫)
+ this.childscn5Service.getSysTypeCode('HIRED_DATE').subscribe(data => {
+  for (const jsonObj of data.rspBody.mappingList) {
+    const codeNo = jsonObj.codeNo;
+    const desc = jsonObj.codeDesc;
+    this.currJobYearCode.push({ value: codeNo, viewValue: desc })
+  }
+});
    //已居住年數
     this.childscn5Service.getSysTypeCode('RESIDENCE_YEAR').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
@@ -259,7 +266,7 @@ console.log(data)
       this.customerInfoForm.patchValue({ CU_CP_NAME: data.rspBody.items[0].cuCpName })
       this.customerInfoForm.patchValue({ CU_CP_NAME_CA: data.rspBody.items[0].cuCpNameCa })
       this.customerInfoForm.patchValue({ CU_CP_NO: data.rspBody.items[0].cuCpNo })
-      this.customerInfoForm.patchValue({ CURR_JOB_YEAR: data.rspBody.items[0].currJobYear })
+      this.customerInfoForm.patchValue({ CURR_JOB_YEAR:data.rspBody.items[0].currJobYear+"_"+this.getcurrJobYear( data.rspBody.items[0].currJobYear) })
       this.customerInfoForm.patchValue({ CURR_JOB_MONTH: data.rspBody.items[0].currJobMonth })
       this.customerInfoForm.patchValue({ CU_CP_TEL_EXT: data.rspBody.items[0].cuCpTelExt })
       this.customerInfoForm.patchValue({ ANNUAL_INCOME: data.rspBody.items[0].annualIncome != null ? this.data_number(data.rspBody.items[0].annualIncome) : "" })
@@ -597,7 +604,16 @@ console.log(data)
     }
     return codeVal;
   }
-
+//目前工作年資(客戶填寫)
+getcurrJobYear(codeVal: string): string {
+  for (const data of this.currJobYearCode) {
+    if (data.value == codeVal) {
+      return data.viewValue;
+      break;
+    }
+  }
+  return codeVal;
+}
   //白名單轉換中文
   // getcompanyWhitelist(codeVal: string){
   //   let jsonObject: any = {};

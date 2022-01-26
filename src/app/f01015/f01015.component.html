@@ -14,7 +14,7 @@
         <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
             <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
                 (click)="getTargetCustList()">查詢</button>
-            <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px">清除資料</button>
+            <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="clear()">清除資料</button>
         </div>
     </div>
     <div class="line_bank_card_no_padding">
@@ -75,7 +75,17 @@
             </thead>
             <tbody>
                 <tr *ngFor="let row of creditMainSource">
-                    <td class="table-data">{{row.APPLNO}}</td>
+                    <!-- <td class="table-data">
+                        <button nz-button [nzSize]="'middle'" nzType="link"
+                        [disabled]="true" (click)="toCalloutPage(row.swcApplno)">
+                        {{row.swcApplno}}
+                      </button>
+                    </td> -->
+                    <td class="table-data">
+                    <button  nz-button nzType="link" (click)="toCalloutPage(row.APPLNO)">
+                        {{row.APPLNO}}
+                    </button>   
+                    </td>
                     <td class="table-data">{{row.OP_ID}}</td>
                     <td class="table-data">{{row.CREDIT_END_TIME}}</td>
                     <td class="table-data">{{row.CREDIT_RESULT}}</td>

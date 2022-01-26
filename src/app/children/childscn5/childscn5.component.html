@@ -151,13 +151,25 @@
                 disabled>
             </div>
           </div>
-          <div nz-col nzSpan="3">
+          <div nz-col nzSpan="4">
             <div style="padding:3px" >
               <span class="form-title">公司統編</span>
               <input style="display: block;" formControlName="CU_CP_NO" readonly disabled>
             </div>
           </div>
-          <div nz-col nzSpan="3">
+          <div nz-col nzSpan="4" >
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">目前工作年資(客戶填寫)</span>
+              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear" 
+                formControlName="CURR_JOB_YEAR"  disabled>
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">目前工作年資(客戶填寫)</span>
+              <input style="display: block;" [(ngModel)]="currJobYear"   name="currJobYear"  disabled
+                formControlName="CURR_JOB_YEAR">
+            </div>
+          </div>
+          <div nz-col nzSpan="4">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">目前工作年資</span>
               <mat-select [(ngModel)]="hiredDateValue" name="hiredDate" formControlName="HIRED_DATE"
@@ -177,19 +189,8 @@
               </mat-select>
             </div>
           </div>
-          <div nz-col nzSpan="3" >
-            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
-              <span class="form-title">當前工作在職時長(年數)</span>
-              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear" maxlength="2"
-                formControlName="CURR_JOB_YEAR"  oninput="value=value.replace(/[^\d]/g,'')" >
-            </div>
-            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
-              <span class="form-title">當前工作在職時長(年數)</span>
-              <input style="display: block;" [(ngModel)]="currJobYear"   name="currJobYear" readonly disabled
-                formControlName="CURR_JOB_YEAR">
-            </div>
-          </div>
-          <div nz-col nzSpan="3">
+         
+          <!-- <div nz-col nzSpan="3">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">當前工作在職時長(月數)</span>
               <input style="display: block;" [(ngModel)]="currJobMonth" name="currJobMonth" maxlength="2"
@@ -201,7 +202,7 @@
               formControlName="CURR_JOB_MONTH">
                
             </div>
-          </div>
+          </div> -->
 
         </div>
 
@@ -394,7 +395,7 @@
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
-              <span class="form-title">前一份工作在職時長(年數)</span>
+              <span class="form-title">前職工作年資(客戶填寫)</span>
               <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear" maxlength="2" oninput="value=value.replace(/[^\d]/g,'')">
               <!-- <mat-error *ngIf="formControl.invalid && (preJobYear=='' || preJobYear== null)">{{getErrorMessage()}}</mat-error> -->
             </div>
@@ -405,7 +406,7 @@
               <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth" name="preJobMonth" >
             </div>
           </div> -->
-          <div nz-col nzFlex="1">
+          <!-- <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(月數)</span>
               <mat-select [(ngModel)]="preJobMonthValue" name="preJobMonthValue" formControlName="PRE_JOB_MONTH"
@@ -416,7 +417,7 @@
                 </mat-option>
               </mat-select>
             </div>
-          </div>
+          </div> -->
         </div>
         <div nz-row style="padding:5px" *ngIf="yn==false || getSearch()!='N'">
           <div nz-col nzFlex="1">
@@ -435,18 +436,18 @@
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
-              <span class="form-title">前一份工作在職時長(年數)</span>
+              <span class="form-title">前職工作年資(客戶填寫)</span>
               <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear"
                 disabled>
             </div>
           </div>
-          <div nz-col nzFlex="1">
+          <!-- <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作在職時長(月數)</span>
               <input style="display: block;" formControlName="PRE_JOB_MONTH" [(ngModel)]="preJobMonth"
                 name="preJobMonth" disabled>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="line_bank_form_header_title_middle" style="margin-bottom:0px">公司是否為白名單(系統比對)</div>
         <nz-table nzSize="small" [nzData]="setmaterial" nzTemplateMode>

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
@@ -31,7 +32,7 @@ export class F01015Component implements OnInit {
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
   limitCode: sysCode[] = []; //額度號
-  contactCode: sysCode[] =  [
+  contactCode: sysCode[] = [
     { value: '', viewValue: '請選擇' },
     { value: '1', viewValue: '電話' },
     { value: '2', viewValue: '山竹簡訊' },
@@ -68,11 +69,13 @@ export class F01015Component implements OnInit {
   constructor(
     private f01015Service: F01015Service,
     public dialog: MatDialog,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router,
+
   ) { }
 
   ngOnInit(): void {
-    
+
     this.page = sessionStorage.getItem("page");
     console.log(this.page)
     this.getYNresult();
@@ -83,6 +86,7 @@ export class F01015Component implements OnInit {
     this.executeValue = '';
     this.limitNo = '';
     this.bossCreditValue = '';
+    this.contact = '';
 
   }
   getTargetCustList() {
@@ -174,7 +178,7 @@ export class F01015Component implements OnInit {
 
 
   //儲存
-  save(){
+  save() {
     let jsonObject: any = {};
     jsonObject['personMainData']=this.targetCustSource
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
@@ -192,8 +196,38 @@ export class F01015Component implements OnInit {
     // jsonObject['bossCredit'] = this.bossCreditValue //主管核決
     // jsonObject['bossContent'] = this.bossContent //主管覆核
 
-    this.f01015Service.update(jsonObject).subscribe(data=>{
+    this.f01015Service.update(jsonObject).subscribe(data => {
       console.log(data)
     })
+  }
+
+  //清除
+  clear() {
+    this.targetCustSource = null;
+    this.creditMainSource = null;
+    this.nationalId = "";
+    this.custId = "";
+    this.reasonValue="";
+    this.reasonDetail="";
+    this.executeValue="";
+    this.limitNo="";
+    this.reserveLimit=null;
+    this.YNValue="";
+    this.contact="";
+    this.contactContent="";
+    this.creditTime="";
+    this.creditEmpno="";
+    this.creditMemo="";
+  }
+
+   //透過案編跳轉至複審
+   toCalloutPage(applno: string) {
+    sessionStorage.setItem('applno', applno);
+    sessionStorage.setItem('search', 'Y');
+    sessionStorage.setItem('winClose', 'N');
+    sessionStorage.setItem('level', '3');
+    // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
+    sessionStorage.setItem('page', '2');
+    this.router.navigate(['./F01009/F01009SCN1/CHILDBWSCN1']);
   }
 }

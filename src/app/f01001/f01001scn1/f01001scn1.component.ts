@@ -11,6 +11,7 @@ import { Childscn28Component } from './../../children/childscn28/childscn28.comp
 import { Subscription } from 'rxjs';
 import { history } from './../../interface/base';
 import { Childscn1Service } from 'src/app/children/childscn1/childscn1.service';
+import { Childscn18Component } from 'src/app/children/childscn18/childscn18.component';
 
 @Component({
   selector: 'app-f01001scn1',
@@ -126,6 +127,12 @@ export class F01001scn1Component implements OnInit {
         cuid: this.cuid,
         checkpoint: "L3"
       }
+    });
+  }
+
+  reSearch() {
+    const dialogRef = this.dialog.open(Childscn18Component, {
+      panelClass: 'mat-dialog-transparent'
     });
   }
 
