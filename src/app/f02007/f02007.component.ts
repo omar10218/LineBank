@@ -52,7 +52,7 @@ export class F02007Component implements OnInit {
   firstFlag = 1;
   sortArry=['ascend', 'descend']
   x: string;
-
+  statusDetailCode: sysCode[] = [];
   constructor(private router: Router,
     private f02007Service: F02007Service,
     public pipe: DatePipe,
@@ -74,7 +74,13 @@ export class F02007Component implements OnInit {
     this.risk_GRADE_Value = '';
     this.apply_TIME = [this.dealwithData14(new Date()), new Date()]
     this.quantity = 0;
-
+    this.f02007Service.getSysTypeCode('STATUS_DETAIL').subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.statusDetailCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
 
   }
 
@@ -508,6 +514,15 @@ export class F02007Component implements OnInit {
     }
     return this.x
   }
-
+ // 轉成中文
+ getType(codeVal: string): string {
+  for (const data of this.statusDetailCode) {
+    if (data.value == codeVal) {
+      return data.viewValue;
+      break;
+    }
+  }
+  return codeVal;
+}
 
 }
