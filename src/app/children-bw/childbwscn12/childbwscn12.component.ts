@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childbwscn12Service } from './childbwscn12.service';
@@ -14,7 +14,9 @@ export class Childbwscn12Component implements OnInit {
   constructor(public dialog: MatDialog,
     public childbwscn12Service: Childbwscn12Service,
     private router: Router,
-    public dialogRef: MatDialogRef<Childbwscn12Component>,) {
+    public dialogRef: MatDialogRef<Childbwscn12Component>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    ) {
 
   }
   empNo: string;
@@ -24,6 +26,7 @@ export class Childbwscn12Component implements OnInit {
   swcID: string;//客戶編號
   search: any[] = [];
   chk :string[] = [];
+  page:string;
 
   block: boolean = false;
 
@@ -31,7 +34,8 @@ export class Childbwscn12Component implements OnInit {
     this.swcID = sessionStorage.getItem('swcNationalId');
     this.swcApplno = sessionStorage.getItem('applno');
     this.empNo = localStorage.getItem("empNo");
-    this.swcCustId = sessionStorage.getItem('swcCustId');
+    this.swcCustId = this.data.cuid;
+    this.page = this.data.page;
   }
   closure() //關閉
   {
@@ -62,8 +66,17 @@ export class Childbwscn12Component implements OnInit {
         data: { msgStr: data.rspMsg }
       });
       this.block = false;
-      this.router.navigate(['./F01009']);
-      this.dialogRef.close();
+      if(this.page=='9')
+      {
+        this.router.navigate(['./F01009']);
+        this.dialogRef.close();
+      }
+      else
+      {
+        this.router.navigate(['./F01010']);
+        this.dialogRef.close();
+      }
+
     });
   }
 

@@ -232,7 +232,7 @@ export class F04003Component implements OnInit {
     } else if (level == 'L2') {
       return "L2 授信"
     } else if (level == 'L3') {
-      return "L3徵信"
+      return "L3 徵信"
     } else if (level == 'L1') {
       return "L1 授信覆核"
     } else if (level == 'L0') {
