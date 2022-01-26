@@ -160,12 +160,12 @@
           <div nz-col nzSpan="4" >
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">目前工作年資(客戶填寫)</span>
-              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear" maxlength="2"
-                formControlName="CURR_JOB_YEAR"  oninput="value=value.replace(/[^\d]/g,'')" disabled>
+              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear" 
+                formControlName="CURR_JOB_YEAR"  disabled>
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">目前工作年資(客戶填寫)</span>
-              <input style="display: block;" [(ngModel)]="currJobYear"   name="currJobYear" readonly disabled
+              <input style="display: block;" [(ngModel)]="currJobYear"   name="currJobYear"  disabled
                 formControlName="CURR_JOB_YEAR">
             </div>
           </div>
