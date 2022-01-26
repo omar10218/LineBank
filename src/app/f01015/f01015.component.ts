@@ -28,8 +28,8 @@ export class F01015Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   YNCode: OptionsCode[] = []; //通知客戶
-  resonCode: sysCode[] = []; //執行原因
-  resonDetailCode: sysCode[] = []; //執行細項
+  reasonCode: sysCode[] = []; //執行原因
+  reasonDetailCode: sysCode[] = []; //執行細項
   limitCode: sysCode[] = []; //額度號
   contactCode: sysCode[] =  [
     { value: '', viewValue: '請選擇' },
@@ -50,8 +50,8 @@ export class F01015Component implements OnInit {
   ];//執行策略
   YNValue: string;//通知客戶值
   executeValue: string;//執行措施策略值
-  resonValue: string;//執行原因值
-  resonDetail: string;//執行細項值
+  reasonValue: string;//執行原因值
+  reasonDetail: string;//執行細項值
   limitNo: string//額度號值
   contact: string//通知方式值
   contactContent: string//通知內容值
@@ -76,9 +76,9 @@ export class F01015Component implements OnInit {
     this.page = sessionStorage.getItem("page");
     console.log(this.page)
     this.getYNresult();
-    this.getreson();
-    this.resonValue = ''
-    this.resonDetail = ''
+    this.getReason();
+    this.reasonValue = ''
+    this.reasonDetail = ''
     this.YNValue = '';
     this.executeValue = '';
     this.limitNo = '';
@@ -123,32 +123,32 @@ export class F01015Component implements OnInit {
   }
 
   //取本次執行原因下拉
-  getreson() {
+  getReason() {
     let jsonObject: any = {};
     this.f01015Service.getReturn('f01/f01015', jsonObject).subscribe(data => {
-      this.resonCode.push({ value: '', viewValue: '請選擇' })
+      this.reasonCode.push({ value: '', viewValue: '請選擇' })
       console.log(data)
       for (const jsonObj of data.rspBody.adrCodelist) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;
-        this.resonCode.push({ value: codeNo, viewValue: desc });
+        this.reasonCode.push({ value: codeNo, viewValue: desc });
       }
     });
   }
 
   //取本次執行原因細項下拉
-  changeresonDetail() {
+  changereasonDetail() {
     let jsonObject: any = {};
 
-    jsonObject['reasonCode'] = this.resonValue
-    this.resonDetailCode = [];
-    this.resonDetail = "";
+    jsonObject['reasonCode'] = this.reasonValue
+    this.reasonDetailCode = [];
+    this.reasonDetail = "";
     this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
-      this.resonDetailCode.push({ value: '', viewValue: '請選擇' })
+      this.reasonDetailCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;
-        this.resonDetailCode.push({ value: codeNo, viewValue: desc });
+        this.reasonDetailCode.push({ value: codeNo, viewValue: desc });
       }
 
     });
@@ -157,8 +157,8 @@ export class F01015Component implements OnInit {
   //取額度號下拉
   getlimitNo() {
     let jsonObject: any = {};
-    this.resonDetailCode = [];
-    this.resonDetail = "";
+    this.reasonDetailCode = [];
+    this.reasonDetail = "";
   }
 
   //+逗號
@@ -176,8 +176,11 @@ export class F01015Component implements OnInit {
   //儲存
   save(){
     let jsonObject: any = {};
-    jsonObject['reasonCode'] = this.resonValue //本次執行原因
-    jsonObject['reasonDetail'] = this.resonDetail //本次執行原因細項
+    jsonObject['personMainData']=this.targetCustSource
+    jsonObject['reasonCode'] = this.reasonValue //本次執行原因
+    jsonObject['reasonDetail'] = this.reasonDetail //本次執行原因細項
+    alert(this.reasonDetail)
+                
     jsonObject['executeType'] = this.executeValue //本次執行措施策略
     jsonObject['limitNo'] = this.limitNo //選擇額度號
     jsonObject['reserveLimit'] = this.reserveLimit //預佔額度
@@ -185,7 +188,11 @@ export class F01015Component implements OnInit {
     jsonObject['contactType'] = this.contact //通知方式
     jsonObject['contactContent'] = this.contactContent //通知內容
     jsonObject['creditMemo'] = this.creditMemo //本次執行說明
-    jsonObject['bossCredit'] = this.bossCreditValue //主管核決
-    jsonObject['bossContent'] = this.bossContent //主管覆核
+    // jsonObject['bossCredit'] = this.bossCreditValue //主管核決
+    // jsonObject['bossContent'] = this.bossContent //主管覆核
+
+    this.f01015Service.update(jsonObject).subscribe(data=>{
+      console.log(data)
+    })
   }
 }
