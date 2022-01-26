@@ -176,6 +176,7 @@ export class F01015Component implements OnInit {
   //儲存
   save(){
     let jsonObject: any = {};
+    jsonObject['personMainData']=this.targetCustSource
     jsonObject['reasonCode'] = this.resonValue //本次執行原因
     jsonObject['reasonDetail'] = this.resonDetail //本次執行原因細項
     jsonObject['executeType'] = this.executeValue //本次執行措施策略
@@ -185,7 +186,11 @@ export class F01015Component implements OnInit {
     jsonObject['contactType'] = this.contact //通知方式
     jsonObject['contactContent'] = this.contactContent //通知內容
     jsonObject['creditMemo'] = this.creditMemo //本次執行說明
-    jsonObject['bossCredit'] = this.bossCreditValue //主管核決
-    jsonObject['bossContent'] = this.bossContent //主管覆核
+    // jsonObject['bossCredit'] = this.bossCreditValue //主管核決
+    // jsonObject['bossContent'] = this.bossContent //主管覆核
+
+    this.f01015Service.update(jsonObject).subscribe(data=>{
+      console.log(data)
+    })
   }
 }
