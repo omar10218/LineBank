@@ -151,13 +151,25 @@
                 disabled>
             </div>
           </div>
-          <div nz-col nzSpan="3">
+          <div nz-col nzSpan="4">
             <div style="padding:3px" >
               <span class="form-title">公司統編</span>
               <input style="display: block;" formControlName="CU_CP_NO" readonly disabled>
             </div>
           </div>
-          <div nz-col nzSpan="3">
+          <div nz-col nzSpan="4" >
+            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
+              <span class="form-title">目前工作年資(客戶填寫)</span>
+              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear" maxlength="2"
+                formControlName="CURR_JOB_YEAR"  oninput="value=value.replace(/[^\d]/g,'')" disabled>
+            </div>
+            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
+              <span class="form-title">目前工作年資(客戶填寫)</span>
+              <input style="display: block;" [(ngModel)]="currJobYear"   name="currJobYear" readonly disabled
+                formControlName="CURR_JOB_YEAR">
+            </div>
+          </div>
+          <div nz-col nzSpan="4">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">目前工作年資</span>
               <mat-select [(ngModel)]="hiredDateValue" name="hiredDate" formControlName="HIRED_DATE"
@@ -177,19 +189,8 @@
               </mat-select>
             </div>
           </div>
-          <div nz-col nzSpan="3" >
-            <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
-              <span class="form-title">當前工作在職時長(年數)</span>
-              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear" maxlength="2"
-                formControlName="CURR_JOB_YEAR"  oninput="value=value.replace(/[^\d]/g,'')" >
-            </div>
-            <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
-              <span class="form-title">當前工作在職時長(年數)</span>
-              <input style="display: block;" [(ngModel)]="currJobYear"   name="currJobYear" readonly disabled
-                formControlName="CURR_JOB_YEAR">
-            </div>
-          </div>
-          <div nz-col nzSpan="3">
+         
+          <!-- <div nz-col nzSpan="3">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">當前工作在職時長(月數)</span>
               <input style="display: block;" [(ngModel)]="currJobMonth" name="currJobMonth" maxlength="2"
@@ -201,7 +202,7 @@
               formControlName="CURR_JOB_MONTH">
                
             </div>
-          </div>
+          </div> -->
 
         </div>
 
