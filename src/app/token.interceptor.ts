@@ -35,18 +35,25 @@ export class TokenInterceptor implements HttpInterceptor {
         if (authStr.length > 0) {
           let token: string = authStr.replace('Bearer ', '');
           let ticket: string = event.headers.get('ticket');
-          if (token != ticket) {
-            if (this.baseService.logOutAction()) {
-              if (('stg' == this.from || 'uat' == this.from || 'prod' == this.from)) {
-                this.router.navigate(['./logOut']).then(async () => {
-                  window.location.href = 'https://sso.lbtwsys.com:8443/cas/logout?service=' + this.allowOrigin + '/sso';
-                });
-              } else {
-                this.router.navigate(['./logOut']).then(async () => {
-                  window.location.reload();
-                });
+
+          if (('local' == this.from || 'rstn' == this.from || 'dev' == this.from || 'stg' == this.from)) {
+            if (token != ticket) { console.log('此登入者的<ticket>已被置換(代表有其他人同時登入相同帳號)'); }
+          } else {
+
+            if (token != ticket) {
+              if (this.baseService.logOutAction()) {
+                if (('stg' == this.from || 'uat' == this.from || 'prod' == this.from)) {
+                  this.router.navigate(['./logOut']).then(async () => {
+                    window.location.href = 'https://sso.lbtwsys.com:8443/cas/logout?service=' + this.allowOrigin + '/sso';
+                  });
+                } else {
+                  this.router.navigate(['./logOut']).then(async () => {
+                    window.location.reload();
+                  });
+                }
               }
             }
+
           }
         }
       }
