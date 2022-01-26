@@ -22,15 +22,18 @@ export class Childscn18Component implements OnInit {
   applno: string;  //案件編號
   swcID: string;  //身分證字號
   custID: string;  //客戶編號
+  level: string; //文審徵信
   searchArray: string[] = [];  //查詢項目
   block: boolean = false;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.swcID = sessionStorage.getItem('nationalId');
-    this.custID = sessionStorage.getItem('custId');  //待確認
+    this.custID = sessionStorage.getItem('custId');
     this.empNo = localStorage.getItem("empNo");
+    this.level = sessionStorage.getItem('stepName');
   }
+
   log(value: string[]): void {
     this.searchArray = value;
   }
@@ -56,13 +59,18 @@ export class Childscn18Component implements OnInit {
     jsonObject['swcNationalId'] = this.swcID;
     jsonObject['swcCustId'] = this.custID;
     jsonObject['searchArray'] = this.searchArray.toString();
+    jsonObject['level'] = this.level;
     this.childscn18Service.reSearch(url, jsonObject).subscribe(data => {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
       this.block = false;
       // this.router.navigate(['./F01002'], { skipLocationChange: true });
-      this.router.navigate(['./F01002']);
+      if (this.level == 'APPLCreditL4') {
+        this.router.navigate(['./F01001']);
+      } else {
+        this.router.navigate(['./F01002']);
+      }
       this.dialogRef.close();
     });
   }

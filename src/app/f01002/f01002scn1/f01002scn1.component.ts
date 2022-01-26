@@ -162,11 +162,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
 
   reSearch() {
     const dialogRef = this.dialog.open(Childscn18Component, {
-      panelClass: 'mat-dialog-transparent',
-      data: {
-        applno: this.applno,
-        cuid: this.cuid
-      }
+      panelClass: 'mat-dialog-transparent'
     });
   }
 

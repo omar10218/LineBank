@@ -100,8 +100,8 @@
         <div nz-row style="padding:10px">
             <div nz-col nzSpan="4">
                 <div style="padding:3px"><span class="form-title ">本次執行原因</span>
-                    <mat-select [(ngModel)]="resonValue" name="resonValue" (ngModelChange)="changeresonDetail()">
-                        <mat-option *ngFor="let item of resonCode" [value]="item.value">
+                    <mat-select [(ngModel)]="reasonValue" name="reasonValue" (ngModelChange)="changereasonDetail()">
+                        <mat-option *ngFor="let item of reasonCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
                     </mat-select>
@@ -111,8 +111,8 @@
             </div>
             <div nz-col nzSpan="9">
                 <div style="padding:3px"><span class="form-title">本次執行原因細項</span>
-                    <mat-select [(ngModel)]="resonDetail" name="resonDetail" (ngModelChange)="changeresonDetail()">
-                        <mat-option *ngFor="let item of resonDetailCode" [value]="item.value">
+                    <mat-select [(ngModel)]="reasonDetail" name="reasonDetail" (ngModelChange)="changereasonDetail()">
+                        <mat-option *ngFor="let item of reasonDetailCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
                     </mat-select>                

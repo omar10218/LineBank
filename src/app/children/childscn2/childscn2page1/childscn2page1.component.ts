@@ -26,7 +26,7 @@ export class Childscn2page1Component implements OnInit {
   loading = true;
   currentPage: PageEvent;
   pageIndex = 1;
-  pageSize = 10  ;
+  pageSize = 50  ;
   empName: string;
   sort: string;
 
@@ -47,7 +47,7 @@ sortChange(e: string, param: string) {
       this.transactionLogSource = e === 'ascend' ? this.transactionLogSource.sort(
         (a, b) => a.transDate.localeCompare(b.transDate)) : this.transactionLogSource.sort((a, b) => b.transDate.localeCompare(a.transDate))
       break;
-   
+
   }
 }
 
