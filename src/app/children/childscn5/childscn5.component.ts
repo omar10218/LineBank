@@ -249,8 +249,12 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ RESIDENCE_YEAR: this.getresidence(data.rspBody.items[0].residenceYear) })
       this.customerInfoForm.patchValue({ CU_BIRTHDAY: data.rspBody.items[0].cuBirthday })
       this.customerInfoForm.patchValue({ CU_MARRIED_STATUS: data.rspBody.items[0].cuMarriedStatus })
-      this.customerInfoForm.patchValue({ LIVING_STATUS:  data.rspBody.items[0].livingStatus+this.getlivingstaus(data.rspBody.items[0].livingStatus) })
-      this.customerInfoForm.patchValue({ CU_EDUCATION: data.rspBody.items[0].cuEducation + this.geteducation(data.rspBody.items[0].cuEducation) })
+      if(data.rspBody.items[0].livingStatus!=null){
+        this.customerInfoForm.patchValue({ LIVING_STATUS:  data.rspBody.items[0].livingStatus+this.getlivingstaus(data.rspBody.items[0].livingStatus) })
+      }
+      if( data.rspBody.items[0].cuEducation!=null){
+        this.customerInfoForm.patchValue({ CU_EDUCATION: data.rspBody.items[0].cuEducation + this.geteducation(data.rspBody.items[0].cuEducation) })
+      }
       this.customerInfoForm.patchValue({ CU_TITLE: data.rspBody.items[0].cuTitle })
       this.customerInfoForm.patchValue({ HIRED_DATE: data.rspBody.items[0].hiredDate })
       this.customerInfoForm.patchValue({ CU_H_ADDR_CODE: data.rspBody.items[0].cuHAddrCode })
@@ -266,7 +270,10 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ CU_CP_NAME: data.rspBody.items[0].cuCpName })
       this.customerInfoForm.patchValue({ CU_CP_NAME_CA: data.rspBody.items[0].cuCpNameCa })
       this.customerInfoForm.patchValue({ CU_CP_NO: data.rspBody.items[0].cuCpNo })
-      this.customerInfoForm.patchValue({ CURR_JOB_YEAR:data.rspBody.items[0].currJobYear+"-"+this.getcurrJobYear( data.rspBody.items[0].currJobYear) })
+      if(data.rspBody.items[0].currJobYear!=null){
+        this.customerInfoForm.patchValue({ CURR_JOB_YEAR:data.rspBody.items[0].currJobYear+"-"+this.getcurrJobYear( data.rspBody.items[0].currJobYear) })
+
+      }
       this.customerInfoForm.patchValue({ CURR_JOB_MONTH: data.rspBody.items[0].currJobMonth })
       this.customerInfoForm.patchValue({ CU_CP_TEL_EXT: data.rspBody.items[0].cuCpTelExt })
       this.customerInfoForm.patchValue({ ANNUAL_INCOME: data.rspBody.items[0].annualIncome != null ? this.data_number(data.rspBody.items[0].annualIncome) : "" })
@@ -289,7 +296,6 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ PRE_JOB_TITLE: data.rspBody.items[0].prvJobTitle })
       this.customerInfoForm.patchValue({ PRE_JOB_YEAR: data.rspBody.items[0].prevJobYear  })
       this.customerInfoForm.patchValue({ PRE_JOB_MONTH: data.rspBody.items[0].prvJobMonth })
-
 
       jsonObject['inducCode'] = data.rspBody.items[0].cuLevel1 + data.rspBody.items[0].cuLevel2 + data.rspBody.items[0].jobCode;
       this.childscn5Service.getCuListSearch(jsonObject).subscribe(data => {
@@ -521,7 +527,9 @@ export class Childscn5Component implements OnInit {
     jsonObject['contactOther'] = this.contactOther;
     jsonObject['preCompNm'] = this.preCompNm;
     jsonObject['preJobTitle'] = this.preJobTitle;
-    jsonObject['preJobYear'] = this.preJobYear.substring(0,2);
+    if(this.preJobYear!=null){
+      jsonObject['preJobYear'] = this.preJobYear.substring(0,2);
+    }
     // jsonObject['preJobMonth'] = this.preJobMonthValue;
     jsonObject['cuCpTelExt'] = this.cuCpTelExt;
     jsonObject['hiredDate'] = this.hiredDateValue;
@@ -564,6 +572,7 @@ export class Childscn5Component implements OnInit {
   }
   //現居裝況轉換中文
   getlivingstaus(codeVal: string): string {
+    
     for (const data of this.livingStatusCode) {
       if (data.value == codeVal) {
         return data.viewValue;
