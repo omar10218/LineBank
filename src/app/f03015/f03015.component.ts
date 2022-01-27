@@ -13,6 +13,7 @@ import { F03015editComponent } from './f03015edit/f03015edit.component';
 import { F03015uploadComponent } from './f03015upload/f03015upload.component';
 import * as XLSX from 'xlsx';
 import { Data } from '@angular/router';
+import { DeleteConfirmComponent } from '../common-lib/delete-confirm/delete-confirm.component';
 // import { saveAs } from 'file-saver';
 interface sysCode {
   value: string;
@@ -283,17 +284,26 @@ export class F03015Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['rowID'] = rowId;
 
-    await this.f03015Service.getReturn('f03/f03015action2', jsonObject).subscribe(data => {
-      const deleteDialogRef = this.dialog.open(F03015confirmComponent, {
-        data: { msgStr: data.rspMsg }
-      });
-      if (data.rspCode == '0000') {
-        deleteDialogRef.afterClosed().subscribe(result => {
-          this.getLevel1Select();
-          this.refreshTable();
+    const dialogRef = this.dialog.open(DeleteConfirmComponent, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight: '50%',
+      width: '30%',
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result.value == 'confirm') {
+        await this.f03015Service.getReturn('f03/f03015action2', jsonObject).subscribe(data => {
+          const deleteDialogRef = this.dialog.open(F03015confirmComponent, {
+            data: { msgStr: data.rspMsg }
+          });
+          if (data.rspCode == '0000') {
+            deleteDialogRef.afterClosed().subscribe(result => {
+              // this.getLevel1Select();
+              this.refreshTable();
+            });
+          }
         });
       }
     });
-
   }
 }
