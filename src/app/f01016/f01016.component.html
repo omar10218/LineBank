@@ -57,12 +57,12 @@
               <thead>
                 <tr>
                   <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true" [nzWidth]="'180px'">案件編號</th>
-                  <th class="table-header">客戶編號</th>
-                  <th class="table-header">客戶編號</th>
-                  <th class="table-header">姓名</th>
-                  <th class="table-header">核准額度</th>
-                  <th class="table-header">申辦期數</th>
-                  <th class="table-header">產品代號</th>
+                  <th class="table-header">本次執行原因</th>
+                  <th class="table-header">本次執行措施策略 </th>
+                  <th class="table-header">本次執行時間 </th>
+                  <th class="table-header">執行員編 </th>
+                  <th class="table-header">客戶編號CID </th>
+                  <th class="table-header">身分證字號 </th>
                 </tr>
               </thead>
               <tbody>
@@ -73,12 +73,12 @@
                       {{data.applno}}
                     </button>
                   </td>
+                  <td class="table-data">{{ data.reasonCode }}</td>
+                  <td class="table-data">{{ data.executeType }}</td>
+                  <td class="table-data">{{ data.creditTime }}</td>
+                  <td class="table-data">{{  data.creditEmpno }}</td>
                   <td class="table-data">{{ data.customerId }}</td>
-                  <td class="table-data">{{ data.CUST_ID }}</td>
-                  <td class="table-data">{{ data.CU_CNAME }}</td>
-                  <td class="table-data">{{  data.APPROVE_AMT != undefined? data_number( data.APPROVE_AMT): data.APPROVE_AMT }}</td>
-                  <td class="table-data">{{ data.APPLICATION_PERIOD }}</td>
-                  <td class="table-data">{{ data.PROD_CODE }}</td>
+                  <td class="table-data">{{ data.nationalId }}</td>
                 </tr>
               </tbody>
             </nz-table>
