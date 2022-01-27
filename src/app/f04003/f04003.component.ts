@@ -54,7 +54,7 @@ export class F04003Component implements OnInit {
   isAllCheck: boolean = false;
   Transfer: string = '';//轉件
   TransferCode: sysCode[] = [];
-
+  s:string = '';
   Dispatch()//搜尋派件人員
   {
     this.personnelCode = [];
@@ -118,9 +118,14 @@ export class F04003Component implements OnInit {
         }
         else
         {
-          this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "查無案件" }
-          });
+          if(this.s =='')
+          {
+            this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "查無案件" }
+            });
+          }
+
+          this.s='';
         }
       })
     }
@@ -193,6 +198,7 @@ export class F04003Component implements OnInit {
             if (data.rspCode == '0000') {
               this.Inquire();
               this.assignArray=[]
+              this.s="轉件成功";
               this.dialog.open(ConfirmComponent, {
                 data: { msgStr: "轉件成功" }
               });
