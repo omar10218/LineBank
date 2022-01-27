@@ -51,10 +51,9 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     this.nationalID = '';
     this.custID = '';
     this.total = 0;
-    this.getCaseList();
   }
   ngAfterViewInit(): void {
-    // this.getCaseList();
+    this.getCaseList();
   }
 
   ngOnDestroy() {
@@ -125,8 +124,8 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     console.log(this.custID)
     this.f01016Service.getCaseList(jsonObject).subscribe(data => {
       console.log(data)
-      if (data.rspBody.size > 0) {
-        this.total = data.rspBody.size;
+      if (data.rspBody.items.length > 0) {
+        this.total = data.rspBody.items.length;
         this.suiManagerSource = data.rspBody.items;
       }
       else {
