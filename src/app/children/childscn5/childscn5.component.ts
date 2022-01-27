@@ -236,7 +236,6 @@ export class Childscn5Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['custId'] = this.cuid;
     this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
-console.log(data)
       this.setmaterial = data.rspBody.compareCompanies;
       this.originalData = data.rspBody.items[0]
       this.cuLevel1 = data.rspBody.items[0].cuLevel1
@@ -267,7 +266,7 @@ console.log(data)
       this.customerInfoForm.patchValue({ CU_CP_NAME: data.rspBody.items[0].cuCpName })
       this.customerInfoForm.patchValue({ CU_CP_NAME_CA: data.rspBody.items[0].cuCpNameCa })
       this.customerInfoForm.patchValue({ CU_CP_NO: data.rspBody.items[0].cuCpNo })
-      this.customerInfoForm.patchValue({ CURR_JOB_YEAR:data.rspBody.items[0].currJobYear+"_"+this.getcurrJobYear( data.rspBody.items[0].currJobYear) })
+      this.customerInfoForm.patchValue({ CURR_JOB_YEAR:data.rspBody.items[0].currJobYear+"-"+this.getcurrJobYear( data.rspBody.items[0].currJobYear) })
       this.customerInfoForm.patchValue({ CURR_JOB_MONTH: data.rspBody.items[0].currJobMonth })
       this.customerInfoForm.patchValue({ CU_CP_TEL_EXT: data.rspBody.items[0].cuCpTelExt })
       this.customerInfoForm.patchValue({ ANNUAL_INCOME: data.rspBody.items[0].annualIncome != null ? this.data_number(data.rspBody.items[0].annualIncome) : "" })
@@ -286,16 +285,9 @@ console.log(data)
       this.customerInfoForm.patchValue({ CU_LEVEL2_CA: data.rspBody.items[0].cuLevel2Ca })
       this.customerInfoForm.patchValue({ JOB_CODE_CA: data.rspBody.items[0].jobCodeCa })
       this.customerInfoForm.patchValue({ COMPANY_WHITELIST: data.rspBody.items[0].companyWhitelist })
-      console.log('this.companyWhitelistCode')
-      console.log(this.companyWhitelistCode)
-      console.log('this.customerInfoForm')
-      console.log(this.customerInfoForm)
-     console.log(  data.rspBody.items[0].companyWhitelist)
-     console.log(  this.getcompanyWhitelist(data.rspBody.items[0].companyWhitelist))
       this.customerInfoForm.patchValue({ PRE_COMP_NM: data.rspBody.items[0].prvCompNm })
       this.customerInfoForm.patchValue({ PRE_JOB_TITLE: data.rspBody.items[0].prvJobTitle })
-      this.customerInfoForm.patchValue({ PRE_JOB_YEAR: data.rspBody.items[0].prevJobYear+"_"+this.getprvjobyear(data.rspBody.items[0].prevJobYear) })
-      console.log(  this.customerInfoForm)
+      this.customerInfoForm.patchValue({ PRE_JOB_YEAR: data.rspBody.items[0].prevJobYear  })
       this.customerInfoForm.patchValue({ PRE_JOB_MONTH: data.rspBody.items[0].prvJobMonth })
 
 
@@ -364,7 +356,6 @@ console.log(data)
   }
 
   insertHistory() {
-    console.log(this.customerInfoForm.value.CU_CP_NAME)
     const content = []
     let msg = '';
     let jsonObject: any = {};
@@ -512,7 +503,6 @@ console.log(data)
     jsonObject['content'] = content;
     
     this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
-      console.log(data)
       msg = data.rspMsg;
     });
   }
@@ -531,7 +521,7 @@ console.log(data)
     jsonObject['contactOther'] = this.contactOther;
     jsonObject['preCompNm'] = this.preCompNm;
     jsonObject['preJobTitle'] = this.preJobTitle;
-    jsonObject['preJobYear'] = this.preJobYear;
+    jsonObject['preJobYear'] = this.preJobYear.substring(0,2);
     // jsonObject['preJobMonth'] = this.preJobMonthValue;
     jsonObject['cuCpTelExt'] = this.cuCpTelExt;
     jsonObject['hiredDate'] = this.hiredDateValue;
@@ -540,7 +530,6 @@ console.log(data)
    
 
     this.childscn5Service.update(jsonObject).subscribe(data => {
-      console.log(data)
       msg = data.rspMsg;
       if ('success' === msg) {
         msg = '基本資料儲存成功!'
@@ -596,7 +585,6 @@ console.log(data)
 
   //前份工作在職轉換中文
   getprvjobyear(codeVal: string): string {
-    console.log(codeVal)
     for (const data of this.preJobYearCode) {
       if (data.value == codeVal) {
         return data.viewValue;
@@ -621,12 +609,9 @@ getcurrJobYear(codeVal: string): string {
   //   this.applno = sessionStorage.getItem('applno');
   //   jsonObject['applno'] = this.applno;
   //   this.childscn5Service.getBigcompany(jsonObject).subscribe(data => {
-  //     console.log(data)
   //     for (const row of data.rspBody.bigcompany) {
   //       if (row.CU_CP_TYPE1.includes(codeVal)) {
-  //         console.log(codeVal)
-  //         console.log(row.CU_CP_TYPE1)
-  //         console.log(row.CU_CP_TYPE1.includes(codeVal))
+  //       
   //         this.customerInfoForm.patchValue({ COMPANY_WHITELIST: row.CU_CP_TYPE1 })
 
   //         this.customerInfoForm.patchValue({ COMPANY_WHITELIST : this.companyWhitelistCode[codeVal]});
@@ -638,7 +623,6 @@ getcurrJobYear(codeVal: string): string {
   // }
   getcompanyWhitelist(codeVal: string){
     for (const row of this.companyWhitelistCode) {
-      console.log(this.companyWhitelistCode)
       if (row.value == codeVal) {
         return row.viewValue;
         break;
@@ -674,7 +658,6 @@ getcurrJobYear(codeVal: string): string {
     
     this.childscn5Service.getBigcompany(jsonObject).subscribe(data => {
       
-      console.log(data);
       for (const jsonObj of data.rspBody.bigcompany) {
         const codeNo = jsonObj.CU_CP_TYPE1.split(".")[0]  ;
         const desc = jsonObj.CU_CP_TYPE1;
@@ -689,7 +672,6 @@ getcurrJobYear(codeVal: string): string {
   limit(x: string,name: string ) {
     x[name] = x[name].replace(/[^/d.]/g,"");
     x = x.replace(/\D/g, '')
-    // console.log(x.replace(/\D/g, ''))
 
   }
 }
