@@ -44,15 +44,15 @@ export class F02001Component implements OnInit {
   jsonObject: any = {};
   resultData = [];
   total: number;
-  quantity:number;
+  quantity: number;
   loading = false;
   pageSize: number;
   pageIndex: number;
   firstFlag = 1;
-  sortArry=['ascend', 'descend']
+  sortArry = ['ascend', 'descend']
   x: string;
   statusDetailCode: sysCode[] = [];
-
+  sort: string;
   constructor(private router: Router,
     private f02001Service: F02001Service,
     public pipe: DatePipe,
@@ -166,16 +166,16 @@ export class F02001Component implements OnInit {
   getRiskGrade() {
     this.f02001Service.getSysTypeCode('RISK_GRADE').subscribe(data => {
       this.risk_GRADE.push({ value: '', viewValue: '請選擇' })
-      this.risk_GRADE.push({value: 'R1', viewValue: 'R1' })
-      this.risk_GRADE.push({value: 'R2', viewValue: 'R2' })
-      this.risk_GRADE.push({value: 'R3', viewValue: 'R3' })
-      this.risk_GRADE.push({value: 'R4', viewValue: 'R4' })
-      this.risk_GRADE.push({value: 'R5', viewValue: 'R5' })
+      this.risk_GRADE.push({ value: 'R1', viewValue: 'R1' })
+      this.risk_GRADE.push({ value: 'R2', viewValue: 'R2' })
+      this.risk_GRADE.push({ value: 'R3', viewValue: 'R3' })
+      this.risk_GRADE.push({ value: 'R4', viewValue: 'R4' })
+      this.risk_GRADE.push({ value: 'R5', viewValue: 'R5' })
     });
   }
 
 
-  Detail(id: string, nationalId: string,cuCname:string, custId: string)//明細
+  Detail(id: string, nationalId: string, cuCname: string, custId: string)//明細
   {
     let jsonObject: any = {};
     jsonObject['applno'] = id;
@@ -184,7 +184,7 @@ export class F02001Component implements OnInit {
     jsonObject['cuCname'] = cuCname;//客戶姓名CU_CNAME
     let apiurl = 'f02/f02001action2';
     this.f02001Service.postJson(apiurl, jsonObject).subscribe(data => {
-      if(data.rspMsg=="success"&& data.rspBody=="儲存成功!"){
+      if (data.rspMsg == "success" && data.rspBody == "儲存成功!") {
         sessionStorage.setItem('applno', id);
         sessionStorage.setItem('nationalId', nationalId);
         sessionStorage.setItem('custId', custId);
@@ -196,10 +196,10 @@ export class F02001Component implements OnInit {
         sessionStorage.setItem('stepName', '0');
         //開啟徵審主畫面
         const url = window.location.href.split("/#");
-        window.open( url[0] + "/#/F01002/F01002SCN1");
+        window.open(url[0] + "/#/F01002/F01002SCN1");
         sessionStorage.setItem('winClose', 'N');
         sessionStorage.setItem('search', 'N');
-      }else{
+      } else {
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查詢案件紀錄異常" }
         });
@@ -390,19 +390,20 @@ export class F02001Component implements OnInit {
     }
 
     this.f02001Service.inquiry(url, this.jsonObject).subscribe(data => {
-      if(data.rspBody.size == 0)
-      {
+      if (data.rspBody.size == 0) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "查無資料" }})
-          this.resultData = [];
+          data: { msgStr: "查無資料" }
+        })
+        this.resultData = [];
 
       }
-      else
-      {
+      else {
+        console.log(data)
         this.resultData = data.rspBody.item;
         this.total = data.rspBody.size;
         this.quantity = data.rspBody.size;
         this.firstFlag = 2;
+        this.sort = 'ascend';
       }
 
     }
@@ -479,15 +480,28 @@ export class F02001Component implements OnInit {
       this.selectData(this.pageIndex, this.pageSize);
     }
   }
-  sortChange(e: string) {
-    this.resultData = e === 'ascend' ? this.resultData.sort(
-      (a, b) => a.APPLY_TIME.localeCompare(b.APPLY_TIME)) : this.resultData.sort((a, b) => b.APPLY_TIME.localeCompare(a.APPLY_TIME))
+  // sortChange(e: string) {
+  //   this.resultData = e === 'ascend' ? this.resultData.sort(
+  //     (a, b) => a.APPLY_TIME.localeCompare(b.APPLY_TIME)) : this.resultData.sort((a, b) => b.APPLY_TIME.localeCompare(a.APPLY_TIME))
+  // }
+  // Serial(e: string)//序號排序
+  // {
+  //   this.resultData = e === 'ascend' ? this.resultData.sort(
+  //     (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+  // }
+  sortChange(e: string, param: string) {
+    switch (param) {
+      case "applno":
+        this.resultData = e === 'ascend' ? this.resultData.sort(
+          (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+        break;
+      case "APPLYEND_TIME":
+        this.resultData = e === 'ascend' ? this.resultData.sort(
+          (a, b) => a.APPLYEND_TIME.localeCompare(b.APPLYEND_TIME)) : this.resultData.sort((a, b) => b.APPLYEND_TIME.localeCompare(a.APPLYEND_TIME))
+        break;
+    }
   }
-  Serial(e: string)//序號排序
-  {
-    this.resultData = e === 'ascend' ? this.resultData.sort(
-      (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
-  }
+
   dateNull(t: [Date, Date], name: string) {
 
     if (t.length < 1) {
@@ -508,7 +522,7 @@ export class F02001Component implements OnInit {
     }
   }
   data_number(p: number)//千分號
-   {
+  {
     this.x = '';
     this.x = (p + "")
     if (this.x != null) {
