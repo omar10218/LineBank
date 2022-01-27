@@ -35,6 +35,7 @@ export class Childscn10Component implements OnInit {
   private routerCase: string;
   rskmdl: boolean = false; //判斷是否有風險模型權限
   private page: string;
+  private search: string;
   component = new Map<Page, any>(
     [
       [Page.Page1, Childscn10page1Component],
@@ -51,6 +52,7 @@ export class Childscn10Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
     this.page = sessionStorage.getItem('page');
+    this.search = sessionStorage.getItem('search');
     const url = 'f01/childscn10';
     const formdata: FormData = new FormData();
     formdata.append('applno', this.applno);
@@ -61,7 +63,11 @@ export class Childscn10Component implements OnInit {
   //判斷頁面是否顯示
    // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管  12產生合約前覆核 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
   getPage() {
-    return this.page
+    return this.page;
+  }
+
+  getSearch() {
+    return this.search;
   }
 
   ngAfterViewInit() {

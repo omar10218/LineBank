@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
-//Nick 
+//Nick
 @Component({
   selector: 'app-f01008scn4page1',
   templateUrl: './f01008scn4page1.component.html',
@@ -14,7 +14,8 @@ import { formatDate } from '@angular/common';
 })
 export class F01008scn4page1Component implements OnInit {
 
-  constructor(private f01008scn4Service: F01008scn4Service,
+  constructor(
+    private f01008scn4Service: F01008scn4Service,
     private fb: FormBuilder,
     public dialog: MatDialog,
   ) { }
