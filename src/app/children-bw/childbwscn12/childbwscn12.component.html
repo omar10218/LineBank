@@ -7,6 +7,7 @@
       <th>客戶類別</th>
       <th>核心資訊</th>
       <th>JCIC組合查詢SC3</th>
+      <th>額度中心</th>
     </tr>
   </thead>
   <tbody>
@@ -14,6 +15,7 @@
      <td>申請人-{{swcID}}</td>
      <td><input class="inpu1" type="checkbox" value="swcBank" (click)="chkArray($event.target.checked,'swcBank')"></td>
      <td><input class="inpu1" type="checkbox" value="swcJCIC"(click)="chkArray($event.target.checked,'swcJCIC')"></td>
+     <td><input class="inpu1" type="checkbox" value="swcLimit"(click)="chkArray($event.target.checked,'swcLimit')"></td>
     </tr>
   </tbody>
 </nz-table>
