@@ -467,15 +467,15 @@ console.log(data)
         currentValue: this.preJobYear,
         transAPname: '基本資料',
       },
-      {
-        applno: this.applno,
-        userId: localStorage.getItem('empNo'),
-        tableName: 'EL_CUSTOMER_INFO',
-        columnName: 'PRV_JOB_MONTH',
-        originalValue: this.originalData.prvJobMonth,
-        currentValue: this.preJobMonthValue,
-        transAPname: '基本資料',
-      },
+      // {
+      //   applno: this.applno,
+      //   userId: localStorage.getItem('empNo'),
+      //   tableName: 'EL_CUSTOMER_INFO',
+      //   columnName: 'PRV_JOB_MONTH',
+      //   originalValue: this.originalData.prvJobMonth,
+      //   currentValue: this.preJobMonthValue,
+      //   transAPname: '基本資料',
+      // },
 
 
 
@@ -488,24 +488,24 @@ console.log(data)
         currentValue: this.hiredDateValue,
         transAPname: '基本資料',
       },
-      {
-        applno: this.applno,
-        userId: localStorage.getItem('empNo'),
-        tableName: 'EL_CUSTOMER_INFO',
-        columnName: 'CURR_JOB_YEAR',
-        originalValue: this.originalData.currJobYear,
-        currentValue: this.currJobYear,
-        transAPname: '基本資料',
-      },
-      {
-        applno: this.applno,
-        userId: localStorage.getItem('empNo'),
-        tableName: 'EL_CUSTOMER_INFO',
-        columnName: 'CURR_JOB_MONTH',
-        originalValue: this.originalData.currJobMonth,
-        currentValue: this.currJobMonth,
-        transAPname: '基本資料',
-      },
+      // {
+      //   applno: this.applno,
+      //   userId: localStorage.getItem('empNo'),
+      //   tableName: 'EL_CUSTOMER_INFO',
+      //   columnName: 'CURR_JOB_YEAR',
+      //   originalValue: this.originalData.currJobYear,
+      //   currentValue: this.currJobYear,
+      //   transAPname: '基本資料',
+      // },
+      // {
+      //   applno: this.applno,
+      //   userId: localStorage.getItem('empNo'),
+      //   tableName: 'EL_CUSTOMER_INFO',
+      //   columnName: 'CURR_JOB_MONTH',
+      //   originalValue: this.originalData.currJobMonth,
+      //   currentValue: this.currJobMonth,
+      //   transAPname: '基本資料',
+      // },
     )
     jsonObject['content'] = content;
     
@@ -530,10 +530,8 @@ console.log(data)
     jsonObject['preCompNm'] = this.preCompNm;
     jsonObject['preJobTitle'] = this.preJobTitle;
     jsonObject['preJobYear'] = this.preJobYear;
-    jsonObject['preJobMonth'] = this.preJobMonthValue;
+    // jsonObject['preJobMonth'] = this.preJobMonthValue;
     jsonObject['cuCpTelExt'] = this.cuCpTelExt;
-
-
     jsonObject['hiredDate'] = this.hiredDateValue;
     jsonObject['currJobYear'] = this.currJobYear;
     jsonObject['currJobMonth'] = this.currJobMonth;
