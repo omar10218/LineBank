@@ -531,12 +531,12 @@ console.log(data)
     jsonObject['contactOther'] = this.contactOther;
     jsonObject['preCompNm'] = this.preCompNm;
     jsonObject['preJobTitle'] = this.preJobTitle;
-    jsonObject['preJobYear'] = this.preJobYear;
+    jsonObject['preJobYear'] = this.preJobYear.substring(0,2);
     // jsonObject['preJobMonth'] = this.preJobMonthValue;
     jsonObject['cuCpTelExt'] = this.cuCpTelExt;
     jsonObject['hiredDate'] = this.hiredDateValue;
-    jsonObject['currJobYear'] = this.currJobYear;
-    jsonObject['currJobMonth'] = this.currJobMonth;
+    // jsonObject['currJobYear'] = this.currJobYear;
+    // jsonObject['currJobMonth'] = this.currJobMonth;
    
 
     this.childscn5Service.update(jsonObject).subscribe(data => {
