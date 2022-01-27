@@ -59,7 +59,8 @@ export class Childscn5Component implements OnInit {
   hiredDateCode: sysCode[] = [];           //目前工作年資下拉
   hiredDateValue: string;                  //目前工作年資
   currJobYearCode: sysCode[] = []; 
- x:string;
+  preJobYearCode: sysCode[] = [];       //前職工作年資(客戶填寫)
+  x:string;
   
   constructor(
     private fb: FormBuilder,
@@ -154,13 +155,13 @@ export class Childscn5Component implements OnInit {
         }
       });
 
-    //前份工作在職
+    //前職工作年資(客戶填寫)
     this.childscn5Service.getSysTypeCode('PRV_JOB_MONTH')
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
           const codeNo = jsonObj.codeNo;
           const desc = jsonObj.codeDesc;
-          this.prvJobMonthCode.push({ value: codeNo, viewValue: desc })
+          this.preJobYearCode.push({ value: codeNo, viewValue: desc })
         }
       });
 
@@ -293,7 +294,8 @@ console.log(data)
      console.log(  this.getcompanyWhitelist(data.rspBody.items[0].companyWhitelist))
       this.customerInfoForm.patchValue({ PRE_COMP_NM: data.rspBody.items[0].prvCompNm })
       this.customerInfoForm.patchValue({ PRE_JOB_TITLE: data.rspBody.items[0].prvJobTitle })
-      this.customerInfoForm.patchValue({ PRE_JOB_YEAR: data.rspBody.items[0].prevJobYear })
+      this.customerInfoForm.patchValue({ PRE_JOB_YEAR: data.rspBody.items[0].prevJobYear+"_"+this.getprvjobyear(data.rspBody.items[0].prevJobYear) })
+      console.log(  this.customerInfoForm)
       this.customerInfoForm.patchValue({ PRE_JOB_MONTH: data.rspBody.items[0].prvJobMonth })
 
 
@@ -593,8 +595,9 @@ console.log(data)
   }
 
   //前份工作在職轉換中文
-  getprvjobmonth(codeVal: string): string {
-    for (const data of this.prvJobMonthCode) {
+  getprvjobyear(codeVal: string): string {
+    console.log(codeVal)
+    for (const data of this.preJobYearCode) {
       if (data.value == codeVal) {
         return data.viewValue;
         break;

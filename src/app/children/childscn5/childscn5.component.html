@@ -396,7 +396,14 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前職工作年資(客戶填寫)</span>
-              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear" maxlength="2" oninput="value=value.replace(/[^\d]/g,'')">
+              <mat-select [(ngModel)]="preJobYear"name="preJobYear" 
+              formControlName="PRE_JOB_YEAR"
+              style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#ffffff;color:white">
+              <mat-option *ngFor="let code of preJobYearCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+
+            </mat-select>
               <!-- <mat-error *ngIf="formControl.invalid && (preJobYear=='' || preJobYear== null)">{{getErrorMessage()}}</mat-error> -->
             </div>
           </div>
@@ -437,8 +444,16 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前職工作年資(客戶填寫)</span>
-              <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear"
-                disabled>
+              <mat-select [(ngModel)]="preJobYear"name="preJobYear" disabled
+              formControlName="PRE_JOB_YEAR"
+              style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#E6E6E6;color:white">
+              <mat-option *ngFor="let code of preJobYearCode" [value]="code.value">
+                {{code.viewValue}}
+              </mat-option>
+
+            </mat-select>
+              <!-- <input style="display: block;" formControlName="PRE_JOB_YEAR" [(ngModel)]="preJobYear" name="preJobYear"
+                disabled> -->
             </div>
           </div>
           <!-- <div nz-col nzFlex="1">
