@@ -525,8 +525,8 @@ export class Childscn5Component implements OnInit {
     // jsonObject['preJobMonth'] = this.preJobMonthValue;
     jsonObject['cuCpTelExt'] = this.cuCpTelExt;
     jsonObject['hiredDate'] = this.hiredDateValue;
-    jsonObject['currJobYear'] = this.currJobYear;
-    jsonObject['currJobMonth'] = this.currJobMonth;
+    // jsonObject['currJobYear'] = this.currJobYear;
+    // jsonObject['currJobMonth'] = this.currJobMonth;
    
 
     this.childscn5Service.update(jsonObject).subscribe(data => {

@@ -398,7 +398,7 @@
               <span class="form-title">前職工作年資(客戶填寫)</span>
               <mat-select [(ngModel)]="preJobYear"name="preJobYear" 
               formControlName="PRE_JOB_YEAR"
-              style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#ffffff;color:white">
+              style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#ffffff;color:white" >
               <mat-option *ngFor="let code of preJobYearCode" [value]="code.value">
                 {{code.value}} -  {{code.viewValue}}
               </mat-option>
