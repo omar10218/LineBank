@@ -64,8 +64,9 @@ export class F01015Component implements OnInit {
   bossContent: string//主管覆核值
   bossTime: any//主管覆核時間
   bossEmpno: any//主管覆核員編
-
+  useId:string //員編
   x: string
+
   constructor(
     private f01015Service: F01015Service,
     public dialog: MatDialog,
@@ -75,18 +76,32 @@ export class F01015Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
+this.custId=sessionStorage.customerId; //主管帶customer_ID
+this.reasonValue=sessionStorage.reasonCode; //主管帶執行原因
+this.executeValue=sessionStorage.executeType; //主管帶執行策略
+this.creditTime=sessionStorage.creditTime; //主管帶本次執行時間
+this.creditEmpno=sessionStorage.creditEmpno; //主管帶本次執行員編
+this.reasonDetail=sessionStorage.reasonDetail; //主管帶執行細項
+this.limitNo=sessionStorage.limitNo; //主管帶額度號
+this.YNValue=sessionStorage.contactYn; //主管帶通知客戶
+this.contact=sessionStorage.contactType; //主管帶通知方式
+this.contactContent=sessionStorage.contactContent; //主管帶通知內容
+this.creditMemo=sessionStorage.creditMemo; //主管帶creditMemo
+this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
 
     this.page = sessionStorage.getItem("page");
+    this.useId=localStorage.getItem("empNo") //進入員編
     console.log(this.page)
     this.getYNresult();
     this.getReason();
-    this.reasonValue = ''
-    this.reasonDetail = ''
-    this.YNValue = '';
-    this.executeValue = '';
-    this.limitNo = '';
-    this.bossCreditValue = '';
-    this.contact = '';
+    this. changereasonDetail();
+    // this.reasonValue = ''
+    // this.reasonDetail = ''
+    // this.YNValue = '';
+    // this.executeValue = '';
+    // this.limitNo = '';
+    // this.bossCreditValue = '';
+    // this.contact = '';
 
   }
   getTargetCustList() {
@@ -144,18 +159,20 @@ export class F01015Component implements OnInit {
   //取本次執行原因細項下拉
   changereasonDetail() {
     let jsonObject: any = {};
-
     jsonObject['reasonCode'] = this.reasonValue
+    console.log(this.reasonValue)
     this.reasonDetailCode = [];
     this.reasonDetail = "";
     this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
+     console.log(data)
       this.reasonDetailCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;
         this.reasonDetailCode.push({ value: codeNo, viewValue: desc });
+ 
       }
-
+      console.log( this.reasonDetailCode)
     });
   }
 
@@ -178,7 +195,7 @@ export class F01015Component implements OnInit {
   }
 
 
-  //儲存
+  //主管送出
   save() {
     let jsonObject: any = {};
     jsonObject['personMainData']=this.targetCustSource
@@ -200,6 +217,21 @@ export class F01015Component implements OnInit {
     })
   }
 
+//送出
+managerSave(){
+  let jsonObject: any = {};
+
+  jsonObject['bossContent']=this.bossContent //主管覆核
+  jsonObject['bossCredit']=this.bossCreditValue //主管核決
+  jsonObject['reasonCode']=this.reasonValue //本次執行原因
+  jsonObject['reasonDesc']=this.reasonDetail //本次執行原因細項
+  jsonObject['empNo'] = this.useId //主管員編
+  this.f01015Service.update(jsonObject).subscribe(data => {
+    console.log(data)
+  })
+}
+
+  //
   //清除
   clear() {
     this.targetCustSource = null;
@@ -218,7 +250,7 @@ export class F01015Component implements OnInit {
     this.creditEmpno="";
     this.creditMemo="";
   }
-
+  
    //透過案編跳轉至複審
    toCalloutPage(applno: string) {
     sessionStorage.setItem('applno', applno);
