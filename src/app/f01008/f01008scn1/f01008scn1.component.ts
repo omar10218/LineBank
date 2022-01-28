@@ -80,14 +80,13 @@ export class F01008scn1Component implements OnInit {
           this.afterResult = sessionStorage.getItem('afterResult');
           if (this.afterResult != '' && this.afterResult != 'null') {
             let url = 'f01/f01008scn0scn1';
-            jsonObject['applno']= this.applno;
+            jsonObject['applno'] = this.applno;
             jsonObject['level'] = this.level;
             jsonObject['custId'] = this.custId;
             jsonObject['afterResult'] = this.afterResult;
             this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
               console.log(data)
-              if(data.rspCode === '0000')
-              {
+              if (data.rspCode === '0000') {
                 const childernDialogRef = this.dialog.open(ConfirmComponent, {
                   data: { msgStr: data.rspMsg }
                 })
@@ -107,17 +106,15 @@ export class F01008scn1Component implements OnInit {
         }
         else {
           this.afterResult = sessionStorage.getItem('afterResult');
-          if (this.afterResult != '' && this.afterResult != 'null')
-          {
+          if (this.afterResult != '' && this.afterResult != 'null') {
             let url = 'f01/f01008scn0scn1';
-            jsonObject['applno']= this.applno;
+            jsonObject['applno'] = this.applno;
             jsonObject['level'] = this.level;
             jsonObject['custId'] = this.custId;
             jsonObject['afterResult'] = this.afterResult;
             this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
               console.log(data)
-              if(data.rspCode === '0000')
-              {
+              if (data.rspCode === '0000') {
                 const childernDialogRef = this.dialog.open(ConfirmComponent, {
                   data: { msgStr: data.rspMsg }
                 })
@@ -147,7 +144,7 @@ export class F01008scn1Component implements OnInit {
   }
 
   reScan(result: string)//重算
-   {
+  {
     const dialogRef = this.dialog.open(Childscn26Component, {
       panelClass: 'mat-dialog-transparent',
       minHeight: '50%',
@@ -216,4 +213,11 @@ export class F01008scn1Component implements OnInit {
     })
   }
 
+  scrollToTop(event: any) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
 }

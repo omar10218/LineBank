@@ -85,7 +85,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
 
   private applno: string;
-  private cuid: string;
+  private nationalId: string;
   queryDate: string;
 
   listSource: any = []
@@ -100,7 +100,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('nationalId');
+    this.nationalId = sessionStorage.getItem('nationalId');
     // this.queryDate = sessionStorage.getItem('queryDate');
 
     this.getQueryDate();
@@ -117,7 +117,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     const url = 'f01/childscn6';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['nationalId'] = this.cuid;
+    jsonObject['nationalId'] = this.nationalId;
     jsonObject['code'] = 'MASTER';
     this.childscn6Service.getDate(url, jsonObject).subscribe(data => {
       if (data.rspBody != null && data.rspBody != '') {
@@ -148,7 +148,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   getJcicMultiple() {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['nationalId'] = this.cuid;
+    jsonObject['nationalId'] = this.nationalId;
     jsonObject['code'] = 'AAS003,JAS002,APS001,ACI001,BAI001,KRI001,BAI004,KRI002,BAS008,BAS006,STS007';
     // jsonObject['queryDate'] = this.queryDate;
     this.childscn6Service.getMASTERJCICSearch(jsonObject).subscribe(data => {

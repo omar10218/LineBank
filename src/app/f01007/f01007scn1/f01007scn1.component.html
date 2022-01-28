@@ -171,5 +171,5 @@
       </nz-tab>
     </nz-tabset>
   </div>
-  <router-outlet style="padding-top: 70px;display: block;"></router-outlet>
+  <router-outlet (activate)="scrollToTop($event)" style="padding-top: 70px;display: block;"></router-outlet>
 </div>

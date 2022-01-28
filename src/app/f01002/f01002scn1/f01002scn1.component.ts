@@ -525,4 +525,11 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     }
   }
 
+  scrollToTop(event: any) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
 }
