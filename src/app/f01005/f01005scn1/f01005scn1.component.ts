@@ -122,7 +122,7 @@ export class F01005scn1Component implements OnInit {
       width: '30%',
       data: {
         applno: this.applno,
-        level:sessionStorage.getItem('level'),
+        level: sessionStorage.getItem('level'),
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -188,7 +188,7 @@ export class F01005scn1Component implements OnInit {
     jsonObject['applno'] = this.applno;
 
     //讓後端判斷入口
-    jsonObject['level'] = sessionStorage.getItem('raudKey')=="1"?'Fraud':'FraudList';
+    jsonObject['level'] = sessionStorage.getItem('raudKey') == "1" ? 'Fraud' : 'FraudList';
     // jsonObject['level'] = 'Fraud';  案件清單
     // jsonObject['level'] = 'FraudList'; 徵信通報
 
@@ -205,15 +205,15 @@ export class F01005scn1Component implements OnInit {
     // } else {
     //   if (this.creditResult == 'A') {
     //     if (this.approveAmt != '' && this.lowestPayRate != '' && this.approveInterest != '' && this.interest != '' && this.interestType != '' && this.periodType != '' && this.period != '' && this.mark != '' && this.mark != null) {
-          this.result(baseUrl, jsonObject, result, count);
-        // } else {
-          // const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          //   data: { msgStr: '審核結果未填寫' }
-          // });
-        // }
-      // } else {
-        // this.result(baseUrl, jsonObject, result);
-      // }
+    this.result(baseUrl, jsonObject, result, count);
+    // } else {
+    // const childernDialogRef = this.dialog.open(ConfirmComponent, {
+    //   data: { msgStr: '審核結果未填寫' }
+    // });
+    // }
+    // } else {
+    // this.result(baseUrl, jsonObject, result);
+    // }
     // }
   }
 
@@ -230,7 +230,7 @@ export class F01005scn1Component implements OnInit {
           data: { msgStr: data.rspMsg }
         });
       }
-      if ( data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1' ) { } else {
+      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { } else {
         setTimeout(() => {
           childernDialogRef.close();
         }, 1000);
@@ -263,17 +263,13 @@ export class F01005scn1Component implements OnInit {
     sessionStorage.removeItem("mark");
   }
 
-  //儲存
-  // public async saveMemo(): Promise<void> {
-  //   // this.removeSession();
-  //   let msgStr: string = "";
-  //   const baseUrl = 'f01/childscn1action1';
-  //   let jsonObject: any = {};
-  //   jsonObject['applno'] = this.applno;
-  //   jsonObject['creditaction'] = this.mark;
-  //   jsonObject['creditlevel'] = sessionStorage.getItem('stepName').split('t')[1];
-  //   msgStr = await this.childscn1Service.saveCreditmemo(baseUrl, jsonObject);
-  // }
+  scrollToTop(event: any) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
 }
 
 

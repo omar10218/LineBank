@@ -22,11 +22,15 @@
               <!-- <div *ngFor="let it of item.child" ><input class="inpu1" type="checkbox" [disabled]="item.check && i=='N' && this.pag == '2' ?  false : true "  [(ngModel)]="it.check" name={{it.reasonDesc}}  class={{item.reasonCode}} >{{it.reasonDesc}}</div> 第二層(可複選) -->
             </td>
             <td *ngIf="k=='4'">
-              <div><input class="inpu1" type="text" style="width: 500px;height: 200px;" maxlength="100" [disabled]="item.check && i=='N' && this.pag == '2' ?  false : true "  value="remark" [(ngModel)]="remark" name="remark"></div>
-              <!-- <div *ngFor="let it of item.child" ><input class="inpu1" type="checkbox" [disabled]="item.check && i=='N' && this.pag == '2' ?  false : true "  [(ngModel)]="it.check" name={{it.reasonDesc}}  class={{item.reasonCode}} >{{it.reasonDesc}}</div> 第二層(可複選) -->
+              <textarea style="width: 500px;height: 200px;" maxlength="100" [disabled]="item.check && i=='N' && this.pag == '2' ?  false : true " value="remark" [(ngModel)]="remark" name="remark" ></textarea>
+
+              <!-- <div><input class="inpu1" type="text" style="width: 500px;height: 200px;" maxlength="100" [disabled]="item.check && i=='N' && this.pag == '2' ?  false : true "  value="remark" [(ngModel)]="remark" name="remark"></div> -->
             </td>
           </tr>
-
+          <!-- <td class="td3">
+            <textarea [(ngModel)]="delayOtherTwo" name="delayOtherTwo" [disabled]="reasonData.checkbox ? false : true"
+              rows="10"></textarea>
+          </td> -->
         <!-- </ng-container> -->
       </tbody>
     </nz-table>

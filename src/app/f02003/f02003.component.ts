@@ -208,22 +208,38 @@ export class F02003Component implements OnInit {
       }
     }
   }
-  Detail(id: string, nationalId: string, custId: string)//明細
+  Detail(id: string, nationalId: string, custId: string,cuCname:string)//明細
   {
-    sessionStorage.setItem('applno', id);
-    sessionStorage.setItem('nationalId', nationalId);
-    sessionStorage.setItem('custId', custId);
-    sessionStorage.setItem('search', 'Y');
-    sessionStorage.setItem('queryDate', '');
-    sessionStorage.setItem('winClose', 'Y');
-    // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
-    sessionStorage.setItem('page', '03');
-    sessionStorage.setItem('stepName', '0');
-    //開啟徵審主畫面
-    const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F01009/F01009SCN1");
-    sessionStorage.setItem('winClose', 'N');//window.open開啟B視窗後 將原本A視窗session值做調整
-    sessionStorage.setItem('search', 'N');
+    let jsonObject: any = {};
+    jsonObject['applno'] = id;
+    jsonObject['nationalID'] = nationalId;
+    jsonObject['cuCname'] = cuCname;//客戶姓名CU_CNAME
+    let apiurl = 'f02/f02003action2';
+    this.f02003Service.inquiry(apiurl, jsonObject).subscribe(data => {
+      if (data.rspMsg == "success")
+      {
+        sessionStorage.setItem('applno', id);
+        sessionStorage.setItem('nationalId', nationalId);
+        sessionStorage.setItem('custId', custId);
+        sessionStorage.setItem('search', 'Y');
+        sessionStorage.setItem('queryDate', '');
+        sessionStorage.setItem('winClose', 'Y');
+        // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
+        sessionStorage.setItem('page', '03');
+        sessionStorage.setItem('stepName', '0');
+        //開啟徵審主畫面
+        const url = window.location.href.split("/#");
+        window.open(url[0] + "/#/F01009/F01009SCN1");
+        sessionStorage.setItem('winClose', 'N');//window.open開啟B視窗後 將原本A視窗session值做調整
+        sessionStorage.setItem('search', 'N');
+      } else {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "查詢案件紀錄異常" }
+        });
+      }
+
+    })
+
   }
   getCREDIT()//審核結果
   {

@@ -103,7 +103,7 @@ export class F01002scn2Component implements OnInit {
     this.page = sessionStorage.getItem('page');
     this.winClose = sessionStorage.getItem('winClose');
 
-   
+
   }
   test() {
     this.block = true;
@@ -114,7 +114,7 @@ export class F01002scn2Component implements OnInit {
     this.JCICAddSource$.unsubscribe();
   }
 
- 
+
 
   blockList() {
     const dialogRef = this.dialog.open(Childscn20Component, {
@@ -404,5 +404,13 @@ export class F01002scn2Component implements OnInit {
         data: { msgStr: "提供AML資訊點選其他時，輸入框為必填!" }
       });
     }
+  }
+
+  scrollToTop(event: any) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 }

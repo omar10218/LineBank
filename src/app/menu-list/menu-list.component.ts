@@ -29,7 +29,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
   }
 
   total: string;
-  applno= [];
+  applno = [];
   calloutSource$: Subscription;
   @HostListener('document:mousemove', ['$event'])
   @HostListener('document:keyup', ['$event'])
@@ -55,7 +55,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
     this.intervalRef = setInterval(
       () => {
         this.getCalloutList();
-      }, 5* 60 * 1000);
+      }, 5 * 60 * 1000);
   }
 
   ngAfterViewInit() {
@@ -117,5 +117,13 @@ export class MenuListComponent implements OnInit, OnDestroy {
         });
       }
     }
+  }
+
+  scrollToTop(event: any) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 }
