@@ -198,6 +198,7 @@ this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
   //主管送出
   save() {
     let jsonObject: any = {};
+    jsonObject['empNo']=this.useId
     jsonObject['personMainData']=this.targetCustSource
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
     jsonObject['reasonDetail'] = this.reasonDetail //本次執行原因細項
