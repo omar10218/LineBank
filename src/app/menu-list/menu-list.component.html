@@ -37,4 +37,4 @@
     </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
-<router-outlet class="router" style="padding-top: 45px;"></router-outlet>
+<router-outlet (activate)="scrollToTop($event)" class="router" style="padding-top: 45px;"></router-outlet>

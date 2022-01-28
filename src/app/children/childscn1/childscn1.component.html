@@ -1162,12 +1162,12 @@
         <div nz-col nzFlex="1">
           <div style="padding:3px"><span class="form-title">人員記錄-PM策略客群</span><input matInput #input
               class="form-control" [(ngModel)]="caPmcus" (ngModelChange)="change(caPmcus,'caPmcus','')"
-              [disabled]="getSearch() == 'Y' || getLevel() == 'L1'"></div>
+              [disabled]="getSearch() == 'Y' || getLevel() == 'L1'" maxlength="10"></div>
         </div>
         <div nz-col nzFlex="1">
           <div style="padding:3px"><span class="form-title">人員記錄-風險等級</span><input matInput #input class="form-control"
               [(ngModel)]="caRisk" (ngModelChange)="change(caRisk,'caRisk','')"
-              [disabled]="getSearch() == 'Y' || getLevel() == 'L1'"></div>
+              [disabled]="getSearch() == 'Y' || getLevel() == 'L1'" maxlength="5"></div>
         </div>
       </div>
 

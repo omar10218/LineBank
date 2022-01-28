@@ -303,13 +303,11 @@ export class F01001scn1Component implements OnInit {
     sessionStorage.removeItem("addSignature");
   }
 
-  //設定歷史資料紀錄參數 20211222
-  // async setHistory() {
-  //   console.log('============================1');
-  //   this.history.push({ value: (this.creditResult != undefined && this.creditResult != null) ? this.creditResult : '', tableName: 'EL_CREDITMAIN', valueInfo: 'CREDIT_RESULT', originalValue: (this.historyData != undefined && this.historyData != null && this.historyData.creditResult != undefined && this.historyData.creditResult != null) ? this.historyData.creditResult : '' }); //核決結果
-  //   console.log('============================2');
-  //   sessionStorage.setItem('creditResult', this.creditResult ? this.creditResult : '');
-  //   console.log('============================3');
-  //   await this.childscn1Service.setHistory(this.history, "文審案件完成", this.applno);
-  // }
+  scrollToTop(event: any) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
 }

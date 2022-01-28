@@ -24,7 +24,7 @@ export class F01010scn1Component implements OnInit {
   private fds: string
   private page: string
   creditlevel = "";
-  creditaction:string;
+  creditaction: string;
 
   changeValue: boolean = true;
   block: boolean = false;
@@ -73,7 +73,7 @@ export class F01010scn1Component implements OnInit {
 
   //儲存
   save() {
-    if(this.creditaction==""||this.creditaction==null){
+    if (this.creditaction == "" || this.creditaction == null) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入審核意見' }
       });
@@ -120,7 +120,7 @@ export class F01010scn1Component implements OnInit {
     this.block = true;
     this.f01010Service.postJson(url, jsonObject).subscribe(data => {
       // if(data.rspMsg=="儲存成功!"){this.getCreditmemo(this.pageIndex, this.pageSize);}
-      msg = data.rspMsg ;
+      msg = data.rspMsg;
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msg }
       });
@@ -134,5 +134,13 @@ export class F01010scn1Component implements OnInit {
   //判斷是否需要顯示案件完成列
   changeRoute(route: boolean) {
     this.changeValue = route;
+  }
+
+  scrollToTop(event: any) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 }

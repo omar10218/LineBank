@@ -361,4 +361,12 @@ export class F01014scn1Component implements OnInit {
       }
     });
   }
+
+  scrollToTop(event: any) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }F
 }

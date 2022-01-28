@@ -185,7 +185,7 @@ export class F01004scn1Component implements OnInit {
         if (url == 'f01/childscn0action1') {
           this.result(baseUrl, jsonObject, result, count);
         } else {
-          if ( !(this.creditResult == 'A' || this.creditResult == 'D') ) {
+          if (!(this.creditResult == 'A' || this.creditResult == 'D')) {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: '請填寫核決結果!' }
             });
@@ -327,7 +327,7 @@ export class F01004scn1Component implements OnInit {
     this.f01004Scn1Service.send(baseUrl, jsonObject).subscribe(data => {
       //儲存歷史資料
       // if (count > 0) {
-        // await this.setHistory(count);
+      // await this.setHistory(count);
       // }
       let childernDialogRef: any;
       if (data.rspMsg != null && data.rspMsg != '') {
@@ -410,32 +410,13 @@ export class F01004scn1Component implements OnInit {
     this.history.push({ value: this.caPmcus, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_PMCUS', originalValue: this.historyData.caPmcus }); //人員記錄-PM策略客群
     this.history.push({ value: this.caRisk, tableName: 'EL_CREDITMAIN', valueInfo: 'CA_RISK', originalValue: this.historyData.caRisk }); //人員記錄-風險等級
     this.history.push({ value: this.addSignature, tableName: 'EL_CREDITMAIN', valueInfo: 'ADD_SIGNATURE', originalValue: this.historyData.addSignature });//加簽
-    // this.history.push({value:  this.mark, tableName: 'EL_CREDITMEMO', valueInfo: 'CREDITACTION'}); //審核意見
+  }
 
-    // await this.childscn1Service.setHistory(this.history, "主管案件完成", this.applno);
-
-    // let newHistory: interestPeriod[] = [];
-    // for (let index = 1; index <= count; index++) {
-    //   newHistory.push(
-    //     {
-    //       period: sessionStorage.getItem('period' + index),
-    //       periodType: sessionStorage.getItem('periodType' + index),
-    //       interestType: sessionStorage.getItem('interestType' + index),
-    //       approveInterest: sessionStorage.getItem('approveInterest' + index),
-    //       interest: sessionStorage.getItem('interest' + index),
-    //       interestBase: sessionStorage.getItem('interestBase' + index)
-    //     }
-    //   );
-    // }
-
-    // this.f01004Scn1Service.setHistorySource({
-    //   creditResult: this.creditResult,
-    //   lowestPayRate: this.lowestPayRate,
-    //   approveAmt: this.approveAmt,
-    //   caApplicationAmount: this.caApplicationAmount,
-    //   caPmcus: this.caPmcus,
-    //   caRisk: this.caRisk,
-    //   CreditInterestPeriodSource: newHistory
-    // })
+  scrollToTop(event: any) {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 }
