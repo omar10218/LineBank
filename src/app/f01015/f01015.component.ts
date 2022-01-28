@@ -98,6 +98,7 @@ export class F01015Component implements OnInit {
       let jsonObject: any = {};
       jsonObject['nationalId'] = this.nationalId
       jsonObject['custId'] = this.custId
+      
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
         console.log(data)
         this.limitCode.push({ value: '', viewValue: '請選擇' })
@@ -182,10 +183,8 @@ export class F01015Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['personMainData']=this.targetCustSource
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
-    alert(this.reasonValue)
     jsonObject['reasonDetail'] = this.reasonDetail //本次執行原因細項
-    alert(this.reasonDetail)
-                
+    jsonObject['custId'] = this.custId 
     jsonObject['executeType'] = this.executeValue //本次執行措施策略
     jsonObject['limitNo'] = this.limitNo //選擇額度號
     jsonObject['reserveLimit'] = this.reserveLimit //預佔額度

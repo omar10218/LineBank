@@ -69,7 +69,7 @@
                 <tr *ngFor="let data of suiManagerSource">
                   <td class="table-data"[nzWidth]="'180px'">
                     <button nz-button [nzSize]="'middle'" nzType="link"
-                      (click)="getRestartCase(data.APPLNO, data.NATIONAL_ID, data.CUST_ID, data.CU_CNAME, data.APPROVE_AMT, data.APPLICATION_PERIOD, data.PROD_CODE, data.OP_ID)">
+                      (click)="toCalloutPage(data.applno,data.reasonCode,data.executeType,data.creditTime,data.creditEmpno,data.customerId,data.nationalId)">
                       {{data.applno}}
                     </button>
                   </td>

@@ -3,7 +3,8 @@
     <div class="line_bank_card_no_padding">
         <div nz-row>
             <div nz-col nzSpan="12">
-                <div style="padding:10px"><span class="form-title">身分證字號:</span><input
+                <div style="padding:10px"><span class="form-title">身分證字號:</span>
+                    <input
                         style="display: block;width: 95%;" [(ngModel)]="nationalId" name="nationalId"></div>
             </div>
             <div nz-col nzSpan="12">
@@ -127,7 +128,7 @@
         <div nz-row style="padding:10px">
             <div nz-col nzSpan="4">
                 <div style="padding:3px"><span class="form-title">本次執行措施策略</span>
-                    <mat-select [(ngModel)]="executeValue" name="executeValue">
+                    <mat-select [(ngModel)]="executeValue" name="executeValue" >
                         <mat-option *ngFor="let item of executeCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
@@ -149,7 +150,7 @@
             </div>
             <div nz-col nzSpan="9">
                 <div style="padding:3px"><span class="form-title">預佔額度</span>
-                    <input matInput #input [(ngModel)]="reserveLimit" name="reserveLimit">
+                    <input matInput #input [(ngModel)]="reserveLimit" name="reserveLimit" [disabled]="executeValue!='HLD'">
                 </div>
             </div>
         </div>
@@ -216,43 +217,47 @@
             <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">送出主管</button>
         </div>
         <br>
-        <div class="line_bank_form_header_title" style="border-radius: 0px;"></div>
-        <div nz-row style="padding:10px">
-            <div nz-col nzSpan="4" style="padding:10px 0px">
-                <div>
-                    <span class="form-title line_bank_h4">主管核決</span>
-                    <mat-select [(ngModel)]="bossCreditValue" name="bossCreditValue">
-                        <mat-option *ngFor="let item of bossCreditCode" [value]="item.value">
-                            {{item.viewValue}}
-                        </mat-option>
-                    </mat-select>
-                </div>
-                <div style="margin-top:20px">
-                    <span class="form-title">主管覆核時間:</span>
-                    <input matInput #input [(ngModel)]="bossTime" name="bossTime" disabled>
 
-                </div>
-                <div style="margin-top:20px">
-                    <span class="form-title">主管覆核員編:</span>
-                    <input matInput #input [(ngModel)]="bossEmpno" name="bossEmpno" disabled>
 
+        <div *ngIf="page=='16'">
+         <div class="line_bank_form_header_title" style="border-radius: 0px;"></div>
+            <div nz-row style="padding:10px">
+                <div nz-col nzSpan="4" style="padding:10px 0px">
+                    <div>
+                        <span class="form-title line_bank_h4">主管核決</span>
+                        <mat-select [(ngModel)]="bossCreditValue" name="bossCreditValue">
+                            <mat-option *ngFor="let item of bossCreditCode" [value]="item.value">
+                                {{item.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                    <div style="margin-top:20px">
+                        <span class="form-title">主管覆核時間:</span>
+                        <input matInput #input [(ngModel)]="bossTime" name="bossTime" disabled>
+    
+                    </div>
+                    <div style="margin-top:20px">
+                        <span class="form-title">主管覆核員編:</span>
+                        <input matInput #input [(ngModel)]="bossEmpno" name="bossEmpno" disabled>
+    
+                    </div>
+    
                 </div>
-
+                <div nz-col nzSpan="1">
+                </div>
+                <div nz-col nzSpan="19">
+                    <div style="padding:3px"><span class="form-title">主管覆核</span>
+                        <textarea matInput class="input-textarea" placeholder="請輸入內容" [(ngModel)]="bossContent"
+                            name="bossContent" style="text-align: left;height:200px">
+                        </textarea>
+                    </div>
+                </div>
+    
+    
             </div>
-            <div nz-col nzSpan="1">
+            <div style="text-align: center;">
+                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">送出</button>
             </div>
-            <div nz-col nzSpan="19">
-                <div style="padding:3px"><span class="form-title">主管覆核</span>
-                    <textarea matInput class="input-textarea" placeholder="請輸入內容" [(ngModel)]="bossContent"
-                        name="bossContent" style="text-align: left;height:200px">
-                    </textarea>
-                </div>
-            </div>
-
-
+            <br>
         </div>
-        <div style="text-align: center;">
-            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">送出</button>
-        </div>
-        <br>
     </div>

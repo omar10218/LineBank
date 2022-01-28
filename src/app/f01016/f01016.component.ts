@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
-import { Data } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ChildrenService } from '../children/children.service';
 import { F01016Service } from './f01016.service';
@@ -33,6 +33,7 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     public dialog: MatDialog,
     private f01016Service: F01016Service,
     public childService: ChildrenService,
+    private router: Router,
   ) {
     this.restart$ = this.f01016Service.restart$.subscribe((data) => {
       this.getCaseList();
@@ -119,6 +120,7 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     jsonObject['applno'] = this.applno;
     jsonObject['nationalID'] = this.nationalID;
     jsonObject['custID'] = this.custID;
+    jsonObject['data'] = this.custID;
     console.log(this.applno)
     console.log(this.nationalID)
     console.log(this.custID)
@@ -162,4 +164,29 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
       this.suiManagerSource = [];
       this.total = 0;
     }
+
+   toCalloutPage(applno: string,reasonCode:string,executeType:string,creditTime:string,creditEmpno:string,customerId:string,nationalId:string,) {
+    let jsonObject: any = {};
+    let data =  this.suiManagerSource
+    jsonObject['applno'] = applno;
+    this.f01016Service.getCaseList(jsonObject).subscribe(data=>{
+      alert('1')
+      console.log(data)
+      sessionStorage.setItem('applno', applno);
+      sessionStorage.setItem('reasonCode', reasonCode);
+      sessionStorage.setItem('executeType', executeType);
+      sessionStorage.setItem('creditTime', creditTime);
+      sessionStorage.setItem('creditEmpno', creditEmpno);
+      sessionStorage.setItem('customerId', customerId);
+      sessionStorage.setItem('nationalId', nationalId);
+      sessionStorage.setItem('data', data);
+       // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢 16主管凍結
+    sessionStorage.setItem('page', '16');
+    this.router.navigate(['./F01015']);
+    })
+   
+ 
+   
+    
+  }
 } 
