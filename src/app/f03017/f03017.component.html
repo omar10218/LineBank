@@ -42,8 +42,6 @@
           <th class="table-header">通報補充</th>
           <th class="table-header">使用中</th>
           <th class="table-header">資料新增日期時間</th>
-          <th class="table-header">異動日期時間</th>
-          <th class="table-header">異動說明</th>
           <th class="table-header">異動人員</th>
           <th class="table-header" hidden>ROWID</th>
         </tr>
@@ -60,9 +58,7 @@
           <td class="table-data">{{ data.REPORT_CONTENT }}</td>
           <td class="table-data">{{ data.USE_FLAG }}</td>
           <td class="table-data">{{ data.CREATE_DATETIME| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
-          <td class="table-data">{{ data.USE_FLAG }}</td>
-          <td class="table-data">{{ data.USE_FLAG }}</td>
-          <td class="table-data">{{transEmpNo}}</td>
+          <td class="table-data">{{data.BK_EMPNO}}</td>
           <td class="table-data" hidden>{{ data.RID }}</td>
         </tr>
       </tbody>

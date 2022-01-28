@@ -23,6 +23,7 @@ interface sysCode {
 	styleUrls: ['./f03017.component.css', '../../assets/css/f03.css']
 })
 export class F03017Component implements OnInit {
+	useId:string
 	Id: number[] = []
 	bkColumnCode: sysCode[] = [] //建檔項目欄位下拉
 	bkColumnValue: string //建檔項目欄位
@@ -64,6 +65,7 @@ export class F03017Component implements OnInit {
 	formControl = new FormControl('', [Validators.required])
 
 	ngOnInit(): void {
+		this.useId=localStorage.getItem("empNo")
 		this.bkColumnValue = ''
 		this.currentPage = {
 			pageIndex: 0,
@@ -134,6 +136,7 @@ export class F03017Component implements OnInit {
 			jsonObject['per_page'] = this.currentPage.pageSize
 			jsonObject['bkColumn'] = this.bkColumnValue
 			jsonObject['bkContent'] = this.bkContentValue
+			jsonObject['useId'] = this.useId
 			await this.f03017Service.getReturn('f03/f03017', jsonObject).subscribe(data => {
 				this.total = data.rspBody.size
 				this.bkIncomeDataSource = data.rspBody.items
