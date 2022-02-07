@@ -109,7 +109,7 @@
           <div nz-col nzSpan="5">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">其他-手機(非本行主要)</span>
-              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther"
+              <input style="display: block;" [(ngModel)]="cuMTelOther" name="cuMTelOther" maxlength="20"
                 formControlName="CU_M_TEL_OTHER" oninput="value=value.replace(/[^\d]/g,'')">
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
@@ -121,7 +121,7 @@
           <div nz-col nzSpan="5">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">其他-聯絡資訊</span>
-              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther"
+              <input style="display: block;" [(ngModel)]="contactOther" name="contactOther" maxlength="20"
                 formControlName="CONTACT_OTHER">
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
@@ -143,7 +143,7 @@
           <div nz-col nzSpan="6">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">徵信確認公司名稱</span>
-              <input style="display: block;" formControlName="CU_CP_NAME_CA" [(ngModel)]="cuCpNameCa" name="cuCpNameCa">
+              <input style="display: block;" formControlName="CU_CP_NAME_CA" [(ngModel)]="cuCpNameCa" name="cuCpNameCa" maxlength="45">
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
               <span class="form-title">徵信確認公司名稱</span>
@@ -241,7 +241,7 @@
           <div nz-col nzSpan="4">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">其他-公司電話分機</span>
-              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" formControlName="CU_CP_TEL_EXT" oninput="value=value.replace(/[^\d]/g,'')">
+              <input style="display: block;" [(ngModel)]="cuCpTelExt" name="cuCpTelExt" maxlength="30" formControlName="CU_CP_TEL_EXT" oninput="value=value.replace(/[^\d]/g,'')">
             </div>
             <div style="padding:3px" *ngIf="yn==false && getSearch()=='N'">
               <span class="form-title">其他-公司電話分機</span>
@@ -381,15 +381,14 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作名稱</span>
-              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn">
+              <input style="display: block;" formControlName="PRE_COMP_NM" [(ngModel)]="preCompNm" name="preCompMn" maxlength="200">
               <!-- <mat-error *ngIf="formControl.invalid && (preCompNm=='' || preCompNm== null)">{{getErrorMessage()}}</mat-error> -->
             </div>
           </div>
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前一份工作公司職稱</span>
-              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle"
-                name="preJobTitle">
+              <input style="display: block;" formControlName="PRE_JOB_TITLE" [(ngModel)]="preJobTitle" name="preJobTitle" maxlength="200">
               <!-- <mat-error *ngIf="formControl.invalid && (preJobTitle=='' || preJobTitle== null)">{{getErrorMessage()}}</mat-error> -->
             </div>
           </div>
