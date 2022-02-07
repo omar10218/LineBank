@@ -46,7 +46,7 @@ export class F02001Component implements OnInit {
   total: number;
   quantity: number;
   loading = false;
-  readonly pageSize = 10;
+  readonly pageSize = 50;
   pageIndex = 1;
   firstFlag = 1;
   sortArry = ['ascend', 'descend']
