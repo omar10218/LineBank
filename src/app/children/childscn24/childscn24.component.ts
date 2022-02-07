@@ -78,15 +78,15 @@ export class Childscn24Component implements OnInit {
     jsonObject['reject'] = 'L3';
     jsonObject['content'] = this.content;
 
-    // let msgStr: string = '';
-    // if (this.stepName.substring(10) == 'L0') {
-    //   this.block = true;
-    //   msgStr = await this.childsnc24Service.doDssBack(jsonObject);
-    //   this.block = false;
-    //   const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
-    //   const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-    //   this.dialogRef.close({ event: 'success' });
-    // }
+    let msgStr: string = '';
+    if (this.stepName.substring(10) == 'L0') {
+      this.block = true;
+      msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+      this.block = false;
+      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      this.dialogRef.close({ event: 'success' });
+    }
   }
 
   // 主管案件退回授信
@@ -98,15 +98,15 @@ export class Childscn24Component implements OnInit {
     jsonObject['reject'] = 'L2';
     jsonObject['content'] = this.content;
 
-    // let msgStr: string = '';
-    // if (this.stepName.substring(10) == 'L0') {
-    //   this.block = true;
-    //   msgStr = await this.childsnc24Service.doDssBack(jsonObject);
-    //   this.block = false;
-    //   const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
-    //   const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-    //   this.dialogRef.close({ event: 'success' });
-    // }
+    let msgStr: string = '';
+    if (this.stepName.substring(10) == 'L0') {
+      this.block = true;
+      msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+      this.block = false;
+      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      this.dialogRef.close({ event: 'success' });
+    }
   }
 
   // 授信覆核退回徵信
