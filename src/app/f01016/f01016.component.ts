@@ -170,7 +170,6 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     let jsonObject: any = {};
     jsonObject['applno'] = applno;
     this.f01016Service.getCaseList(jsonObject).subscribe(data=>{
-      alert('1')
       sessionStorage.setItem('applno', applno);
       sessionStorage.setItem('reasonCode', reasonCode);//執行原因
       sessionStorage.setItem('executeType', executeType);//執行策略

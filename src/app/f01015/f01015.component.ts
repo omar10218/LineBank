@@ -28,6 +28,7 @@ export class F01015Component implements OnInit {
   loading = true;
   pageSize = 10;
   pageIndex = 1;
+  levelNo  = []; //層級
   YNCode: OptionsCode[] = []; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
@@ -77,6 +78,9 @@ applno:string //案編
 
   ngOnInit(): void {
 this.applno=sessionStorage.applno; //案編
+if(this.applno!=null){
+  this.getTargetCustList();
+}
 this.custId=sessionStorage.customerId; //主管帶customer_ID
 this.reasonValue=sessionStorage.reasonCode; //主管帶執行原因
 this.executeValue=sessionStorage.executeType; //主管帶執行策略
@@ -117,6 +121,8 @@ this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
       
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
         console.log(data)
+        this.levelNo=data.rspBody.items.levelNo
+        console.log( this.levelNo)
         this.limitCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.limitNoList) {
           const codeNo = jsonObj;
@@ -215,9 +221,13 @@ this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
     // jsonObject['bossContent'] = this.bossContent //主管覆核
     let msg: string = "";
     this.f01015Service.update(jsonObject).subscribe(data => {
-      console.log(data)
+      if (data.rspMsg == "送交成功") {
+        msg = "送出主管成功!";
+      } else {
+        msg = "儲存失敗";
+      }
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "送出主管成功" }
+        data: { msgStr:msg }
       });
     
     })
@@ -234,11 +244,17 @@ managerSave(){
   jsonObject['reasonCode']=this.reasonValue //本次執行原因
   jsonObject['reasonDesc']=this.reasonDetail //本次執行原因細項
   jsonObject['empNo'] = this.useId //主管員編
-  this.f01015Service.update(jsonObject).subscribe(data => {
-    console.log(data)
-  })
+  jsonObject['reserveLimit'] =  this.reserveLimit //預佔額度
+  let msg = "";
   this.f01015Service.update2(jsonObject).subscribe(data => {
-    console.log(data)
+    if (data.rspMsg == "success") {
+      msg = "儲存成功!";
+    } else {
+      msg = "儲存失敗";
+    }
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
+      data: { msgStr: msg }
+    });
   })
 }
 
