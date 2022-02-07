@@ -104,8 +104,8 @@
       <nz-tab [nzTitle]="STM">
         <ng-template #STM let-visible="visible">
           <button nz-button nzSize="small"
-            [ngClass]="hideSTM025 ? 'nohide' : 'hide'" (click)="show('STM022');show('STM008');show('STM025')">
-            非Z類被查詢/當事人查詢<h style="display: block; font-size: 12px;">(STM022/STM008/STM025)</h>
+            [ngClass]="hideSTM025 ? 'nohide' : 'hide'" (click)="show('STM022');show('STM008');show('STM025');show('STM007');show('STM015')">
+            非Z類被查詢/當事人查詢<h style="display: block; font-size: 12px;">(STM022/STM007/STM015/STM008/STM025)</h>
           </button>
         </ng-template>
       </nz-tab>
@@ -193,7 +193,7 @@
           </button>
         </ng-template>
       </nz-tab>
-      <!-- <nz-tab [nzTitle]="VAM106">
+      <nz-tab [nzTitle]="VAM106">
         <ng-template #VAM106 let-visible="visible">
           <button nz-button nzSize="small"
             [ngClass]="hideVAM106 ? 'nohide' : 'hide'" (click)="show('VAM106')">
@@ -208,18 +208,19 @@
             消債條例信用註記資訊(含個別協商)<h style="display: block; font-size: 12px;">(VAM107)</h>
           </button>
         </ng-template>
-      </nz-tab> -->
+      </nz-tab>
+      <nz-tab [nzTitle]="VAM201">
+        <ng-template #VAM201 let-visible="visible">
+          <button nz-button nzSize="small"
+            [ngClass]="hideVAM201 ? 'nohide' : 'hide'" (click)="show('VAM201')">
+            消債條例信用註記資訊(含個別協商)<h style="display: block; font-size: 12px;">(VAM201)</h>
+          </button>
+        </ng-template>
+      </nz-tab>
      
    
-      <!-- <nz-tab [nzTitle]="VAM201">
-        <ng-template #VAM201 let-visible="visible"><a href="#VAM201" nz-button nzSize="small"
-            [ngClass]="hideVAM201 ? 'nohide' : 'hide'" (click)="show('VAM201')">VAM201</a></ng-template>
-      </nz-tab>
+ 
    
-      <nz-tab [nzTitle]="VAM107">
-        <ng-template #VAM107 let-visible="visible"><a href="#VAM107" nz-button nzSize="small"
-            [ngClass]="hideVAM107 ? 'nohide' : 'hide'" (click)="show('VAM107')">VAM107</a></ng-template>
-      </nz-tab> --> 
      
       <nz-tab [nzTitle]="VAM108">
         <ng-template #VAM108 let-visible="visible">
@@ -1057,10 +1058,15 @@
     [code]="JCICCode.BAM029"></app-jcictable>
 
   <!-- STM群 -->
+  <app-jcictable [id]="!hideSTM025 ? 'STM007' : '' " *ngIf="!hideSTM007" class="line_bank_card_no_padding"
+    [code]="JCICCode.STM007"></app-jcictable>
+    <app-jcictable [id]="!hideSTM025 ? 'STM008' : '' " *ngIf="!hideSTM008" class="line_bank_card_no_padding"
+    [code]="JCICCode.STM008"></app-jcictable>
+  <app-jcictable [id]="!hideSTM025 ? 'STM015' : '' " *ngIf="!hideSTM015" class="line_bank_card_no_padding"
+    [code]="JCICCode.STM015"></app-jcictable>
   <app-jcictable [id]="!hideSTM025 ? 'STM022' : '' " *ngIf="!hideSTM022" class="line_bank_card_no_padding"
     [code]="JCICCode.STM022"></app-jcictable>
-  <app-jcictable [id]="!hideSTM025 ? 'STM008' : '' " *ngIf="!hideSTM008" class="line_bank_card_no_padding"
-    [code]="JCICCode.STM008"></app-jcictable>
+  
   <app-jcictable [id]="!hideSTM025 ? 'STM025' : '' " *ngIf="!hideSTM025" class="line_bank_card_no_padding"
     [code]="JCICCode.STM025"></app-jcictable>
 
@@ -1094,12 +1100,12 @@
     [code]="JCICCode.DAM001"></app-jcictable>
   <app-jcictable [id]="!hideVAM020 ? 'VAM020' : '' " *ngIf="!hideVAM020" class="line_bank_card_no_padding"
     [code]="JCICCode.VAM020"></app-jcictable>
-  <!-- <app-jcictable [id]="!hideVAM201 ? 'VAM201' : '' " *ngIf="!hideVAM201" class="line_bank_card_no_padding"
-    [code]="JCICCode.VAM201"></app-jcictable> -->
-  <!-- <app-jcictable [id]="!hideVAM106 ? 'VAM106' : '' " *ngIf="!hideVAM106" class="line_bank_card_no_padding"
-    [code]="JCICCode.VAM106"></app-jcictable> -->
-  <!-- <app-jcictable [id]="!hideVAM107 ? 'VAM107' : '' " *ngIf="!hideVAM107" class="line_bank_card_no_padding"
-    [code]="JCICCode.VAM107"></app-jcictable> -->
+  <app-jcictable [id]="!hideVAM201 ? 'VAM201' : '' " *ngIf="!hideVAM201" class="line_bank_card_no_padding"
+    [code]="JCICCode.VAM201"></app-jcictable>
+  <app-jcictable [id]="!hideVAM106 ? 'VAM106' : '' " *ngIf="!hideVAM106" class="line_bank_card_no_padding"
+    [code]="JCICCode.VAM106"></app-jcictable>
+  <app-jcictable [id]="!hideVAM107 ? 'VAM107' : '' " *ngIf="!hideVAM107" class="line_bank_card_no_padding"
+    [code]="JCICCode.VAM107"></app-jcictable>
   <app-jcictable [id]="!hideVAM108 ? 'VAM108' : '' " *ngIf="!hideVAM108" class="line_bank_card_no_padding"
     [code]="JCICCode.VAM108"></app-jcictable>
   <app-jcictable [id]="!hideBAM608 ? 'BAM608' : '' " *ngIf="!hideBAM608" class="line_bank_card_no_padding"

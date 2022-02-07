@@ -100,6 +100,8 @@ export enum JCICCode {
   KRM046 = 'KRM046',
   KRM048 = 'KRM048',
   STM022 = 'STM022',
+  STM007 = 'STM007',
+  STM015 = 'STM015',
   STM008 = 'STM008',
   STM025 = 'STM025',
   BAM033 = 'BAM033',

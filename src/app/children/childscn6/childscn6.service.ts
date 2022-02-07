@@ -236,6 +236,33 @@ export class Childscn6Service extends BaseService {
       ];
       title = 'STM022 近一年內不含查詢當日非Z類被查詢紀錄明細(多筆)'
     }
+    // STM007
+    if (code === JCICCode.STM007) {
+      dataList = [
+        { name: 'JCIC查詢日期', bodyKey: 'JCIC_QUERY_DATE' },
+        { name: '查詢單位代號', bodyKey: 'BANK_CODE' },
+        { name: '查詢單位名稱', bodyKey: 'BANK_NAME' },
+        { name: '查詢項目串列B:授信D:票信K:信用卡等', bodyKey: 'ITEM_LIST' },
+        { name: '查詢理由碼', bodyKey: 'INQ_PURPOSE_1'},
+        { name: '查詢理由碼(中文註解) ', bodyKey: 'INQ_PURPOSE'},
+      ];
+      title = 'STM007最近三個月內非Z類產品被查詢紀錄 '
+    }
+    // STM015
+    if (code === JCICCode.STM015) {
+      dataList = [
+        { name: '查詢日期', bodyKey: 'JCIC_QUERY_DATE' },
+        { name: '申請方式1:親臨2:郵寄', bodyKey: 'APPLY_WAY' },
+        { name: '是否本人親臨Y:本人N:委託', bodyKey: 'IS_SELF' },
+        { name: '申請原因代碼1(對照表)', bodyKey: 'REASON1' },
+        { name: '申請原因1', bodyKey: 'REASON_NAME1'},
+        { name: '申請原因代碼2(對照表)', bodyKey: 'REASON2'},
+        { name: '申請原因2', bodyKey: 'REASON_NAME2'},
+        { name: '受託人身分證號', bodyKey: 'APPLICANT'},
+        { name: '受託人姓名', bodyKey: 'NAME'},
+      ];
+      title = 'STM015三個月當事人申請查詢紀錄'
+    }
     // STM008
     if (code === JCICCode.STM008) {
       dataList = [
@@ -544,51 +571,51 @@ export class Childscn6Service extends BaseService {
       title = 'VAM020 身分證號更改紀錄(表頭)'
     }
     // VAM201
-    // if (code === JCICCode.VAM201) {
-    //   dataList = [
-    //     { name: '通報種類', bodyKey: 'TYPE' },
-    //     { name: '通報單位', bodyKey: 'CRI_PLACE' },
-    //     { name: '發生日期', bodyKey: 'CRI_DATE' },
-    //     { name: '通報日期', bodyKey: 'DOC_DATE' },
-    //     { name: '中文戶名', bodyKey: 'CNAME' },
-    //     { name: '單據號碼/人頭帳號', bodyKey: 'INVOICE_NO' },
-    //     { name: '說明1', bodyKey: 'REMARK_1' },
-    //     { name: '說明2', bodyKey: 'REMARK_2' },
-    //     { name: '說明3', bodyKey: 'REMARK_3' },
-    //     { name: '說明4', bodyKey: 'REMARK_4' },
-    //     { name: '通報單位中文名稱', bodyKey: 'DOC_NAME' },
-    //     { name: '警示帳戶解除代碼', bodyKey: 'REL_CODE' },
-    //     { name: '警示帳戶解除原因', bodyKey: 'REL_REASON' },
-    //     { name: '警示帳戶解除日期', bodyKey: 'REL_DATE' },
-    //   ];
-    //   title = 'VAM201 通報案件紀錄資訊-案件通報(多筆Z07)'
-    // }
+    if (code === JCICCode.VAM201) {
+      dataList = [
+        { name: '通報種類', bodyKey: 'TYPE' },
+        { name: '通報單位', bodyKey: 'CRI_PLACE' },
+        { name: '發生日期', bodyKey: 'CRI_DATE' },
+        { name: '通報日期', bodyKey: 'DOC_DATE' },
+        { name: '中文戶名', bodyKey: 'CNAME' },
+        { name: '單據號碼/人頭帳號', bodyKey: 'INVOICE_NO' },
+        { name: '說明1', bodyKey: 'REMARK_1' },
+        { name: '說明2', bodyKey: 'REMARK_2' },
+        { name: '說明3', bodyKey: 'REMARK_3' },
+        { name: '說明4', bodyKey: 'REMARK_4' },
+        { name: '通報單位中文名稱', bodyKey: 'DOC_NAME' },
+        { name: '警示帳戶解除代碼', bodyKey: 'REL_CODE' },
+        { name: '警示帳戶解除原因', bodyKey: 'REL_REASON' },
+        { name: '警示帳戶解除日期', bodyKey: 'REL_DATE' },
+      ];
+      title = 'VAM201 通報案件紀錄資訊-案件通報(多筆Z07)'
+    }
     // VAM106
-    // if (code === JCICCode.VAM106) {
-    //   dataList = [
-    //     { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
-    //     { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
-    //     { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
-    //     { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
-    //     { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
-    //     { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
-    //     { name: '訊息內容', bodyKey: 'NOTE' },
-    //   ];
-    //   title = 'VAM106 消債條例信用註記資訊(含個別協商)(多筆Z13，MAINCODE A(前協)、B(更生)、C(清算)、E(調解))、8(個別協商)'
-    // }
+    if (code === JCICCode.VAM106) {
+      dataList = [
+        { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
+        { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
+        { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
+        { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
+        { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
+        { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
+        { name: '訊息內容', bodyKey: 'NOTE' },
+      ];
+      title = 'VAM106 消債條例信用註記資訊(含個別協商)(多筆Z13，MAINCODE A(前協)、B(更生)、C(清算)、E(調解))、8(個別協商)'
+    }
     // VAM107
-    // if (code === JCICCode.VAM107) {
-    //   dataList = [
-    //     { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
-    //     { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
-    //     { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
-    //     { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
-    //     { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
-    //     { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
-    //     { name: '訊息內容', bodyKey: 'NOTE' },
-    //   ];
-    //   title = 'VAM107 銀行公會消金案件債務協商補充註記(多筆Z13，MAINCODE7)'
-    // }
+    if (code === JCICCode.VAM107) {
+      dataList = [
+        { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
+        { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
+        { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
+        { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
+        { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
+        { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
+        { name: '訊息內容', bodyKey: 'NOTE' },
+      ];
+      title = 'VAM107 銀行公會消金案件債務協商補充註記(多筆Z13，MAINCODE7)'
+    }
     // VAM108
     if (code === JCICCode.VAM108) {
       dataList = [
