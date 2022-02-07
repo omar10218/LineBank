@@ -234,11 +234,11 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     }
     //AML檢核
     var save: boolean = true;
-    if (sessionStorage.getItem('MAIN_INCOME') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
-    if (sessionStorage.getItem('PURPOSEOTHER_MESSAGE2') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
-    if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
-    if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
-    if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "" && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('MAIN_INCOME') == "" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('PURPOSEOTHER_MESSAGE2') == "" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "" && url == "f01/childscn0") { save = false };
+    if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "" && url == "f01/childscn0") { save = false };
     if (!save) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "徵信完成時AML資訊為必填!" }
