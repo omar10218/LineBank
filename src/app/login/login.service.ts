@@ -66,4 +66,8 @@ export class LoginService extends BaseService {
     localStorage.setItem("token", tokenStr);
     return isOk;
   }
+
+  public getDate(baseUrl: string, json: JSON): any {
+    return this.rspBody(baseUrl, json);
+  }
 }

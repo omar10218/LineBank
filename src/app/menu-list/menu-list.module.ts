@@ -1,3 +1,4 @@
+import { NgxWatermarkModule } from 'ngx-watermark';
 import { NgZorroAntdModule } from './../ngzorro/ng-zorro-antd.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -21,7 +22,8 @@ import { faBell } from '@fortawesome/free-regular-svg-icons';
     NzAvatarModule,
     NzIconModule,
     NgZorroAntdModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxWatermarkModule
   ]
 })
 export class MenuListModule {

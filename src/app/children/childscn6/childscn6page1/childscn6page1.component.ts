@@ -3,6 +3,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationEnd, Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { JCICCode } from 'src/app/interface/base';
+import { MenuListService } from 'src/app/menu-list/menu-list.service';
 import { ChildrenService } from '../../children.service';
 import { Childscn6Service } from '../childscn6.service';
 
@@ -17,7 +18,8 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     private childscn6Service: Childscn6Service,
     private router: Router,
     public childService: ChildrenService,
-    private pipe: DatePipe
+    private pipe: DatePipe,
+    private menuListService: MenuListService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -386,5 +388,11 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     this.hideJCIC = true;
     this.setBooleanFalse();
     this.list = [];
+  }
+
+  ngOnDestroy() {
+    this.menuListService.setWaterMarkSource({
+      show: false
+    })
   }
 }

@@ -7,6 +7,9 @@ import { F01002Service } from '../f01002/f01002.service';
 import { Subscription } from 'rxjs';
 import { HandleSubscribeService } from '../services/handle-subscribe.service';
 import { environment } from 'src/environments/environment';
+import { NgxWatermarkOptions } from 'ngx-watermark';
+import { DatePipe } from '@angular/common';
+import { Childscn6Service } from '../children/childscn6/childscn6.service';
 
 //Nick icon/時間登出/照會提醒
 @Component({
@@ -21,10 +24,15 @@ export class MenuListComponent implements OnInit, OnDestroy {
     private menuListService: MenuListService,
     private loginService: LoginService,
     private f01002Service: F01002Service,
-    private handleSubscribeS: HandleSubscribeService
+    private handleSubscribeS: HandleSubscribeService,
+    private pipe: DatePipe,
   ) {
     this.calloutSource$ = this.handleSubscribeS.calloutSource$.subscribe(() => {
       this.getCalloutList();
+    });
+
+    this.WaterMarkSource$ = this.menuListService.WaterMarkSource$.subscribe((data) => {
+      this.waterShow = data.show;
     });
   }
 
@@ -41,6 +49,20 @@ export class MenuListComponent implements OnInit, OnDestroy {
   intervalRef: any;
 
   private winClose: string = '';//判斷是否顯示menu (查詢不顯示)
+
+  WaterMarkSource$: Subscription;
+  waterShow = false;
+  today: string = this.pipe.transform(new Date(), 'yyyyMMdd HH:mm:ss');
+  options: NgxWatermarkOptions = {
+    text: localStorage.getItem('empNo') + sessionStorage.getItem('empName') + this.today,
+    width: 300,
+    height: 150,
+    fontFamily: 'Kanit',
+    color: '#999',
+    alpha: .3,
+    degree: -45,
+    fontSize: '15px',
+  };
 
   ngOnInit() {
     //Nick 設定同時只能登入一個帳號

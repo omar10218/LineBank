@@ -132,7 +132,7 @@ export class Childscn12Component implements OnInit {
   test1 = "1"; test2 = "2"; test3 = false; test4 = "文字";
 
   checkTotal: number = 0;
-  checkTotaltring :string;
+  checkTotaltring: string;
   ngOnInit(): void {
     this.keylist.push("incomeAndTaxList"); //所得清單
     this.keylist.push("withholdingList");//扣繳憑單 X A6
@@ -199,7 +199,7 @@ export class Childscn12Component implements OnInit {
     jsonObject['applno'] = this.applno
     this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
       this.checkTotal = data.rspBody.creditMainList[0].income != null ? data.rspBody.creditMainList[0].income : 0;
-      this.checkTotaltring = this.toCurrency(this.checkTotal +'');
+      this.checkTotaltring = this.toCurrency(this.checkTotal + '');
       //------------------以下總表處理
       if (data.rspBody.income != null) {
         this.EL_INCOME_Source.data = data.rspBody.income;
@@ -510,6 +510,9 @@ export class Childscn12Component implements OnInit {
         if (data.rspMsg == "success") {
           msg = "儲存成功!";
           this.getData();
+          for (const chk of this.chkArray) {
+            chk.completed = false;
+          }
         } else {
           msg = "儲存失敗";
         }
@@ -1181,11 +1184,11 @@ export class Childscn12Component implements OnInit {
 
   calculate(completed: boolean, value: number) {
     if (completed) {
-      this.checkTotal = this.checkTotal + value;
-      this.checkTotaltring = this.toCurrency(this.checkTotal+'');
+      this.checkTotal = this.checkTotal + parseInt(this.toNumber(value.toString()));
+      this.checkTotaltring = this.toCurrency(this.checkTotal + '');
     } else {
-      this.checkTotal = this.checkTotal -  value;
-        this.checkTotaltring = this.toCurrency(this.checkTotal+'');
+      this.checkTotal = this.checkTotal - parseInt(this.toNumber(value.toString()));
+      this.checkTotaltring = this.toCurrency(this.checkTotal + '');
     }
   }
 
