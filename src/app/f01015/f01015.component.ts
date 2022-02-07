@@ -216,7 +216,9 @@ this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
     let msg: string = "";
     this.f01015Service.update(jsonObject).subscribe(data => {
       console.log(data)
-      msg = data.rspMsg;
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "送出主管成功" }
+      });
     
     })
   }

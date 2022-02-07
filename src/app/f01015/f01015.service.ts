@@ -27,7 +27,7 @@ export class F01015Service extends BaseService {
   }
   update2(jsonObject: JSON): any {
 
-    const baseUrl = 'f01/f01016';
+    const baseUrl = 'f01/f01016action1';
 
     return this.postJsonObject(baseUrl, jsonObject);
   }
