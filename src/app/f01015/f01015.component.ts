@@ -121,8 +121,8 @@ this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
       
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
         console.log(data)
-        this.levelNo=data.rspBody.items.levelNo
-        console.log( this.levelNo.levelNo)
+        this.levelNo=data.rspBody.items[0].levelNo
+        console.log( this.levelNo)
         this.limitCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.limitNoList) {
           const codeNo = jsonObj;
@@ -288,5 +288,12 @@ managerSave(){
     // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
     sessionStorage.setItem('page', '2');
     this.router.navigate(['./F01009/F01009SCN1/CHILDBWSCN1']);
+  }
+
+  //排序
+  sortChange(e: string) {
+    console.log(e)
+    this.targetCustSource = e === 'ascend' ? this.targetCustSource.sort(
+      (a, b) => a.levelNo.localeCompare(b.levelNo)) : this.targetCustSource.sort((a, b) => b.levelNo.localeCompare(a.levelNo))
   }
 }

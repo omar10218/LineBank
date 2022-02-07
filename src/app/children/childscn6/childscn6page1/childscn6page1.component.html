@@ -169,40 +169,75 @@
           </button>
         </ng-template>
       </nz-tab>
-
-
-      <!-- <nz-tab [nzTitle]="KCM012">
-        <ng-template #KCM012 let-visible="visible"><a href="#KCM012" nz-button nzSize="small"
-            [ngClass]="hideKCM012 ? 'nohide' : 'hide'" (click)="show('KCM012')">KCM012</a></ng-template>
-      </nz-tab>
       <nz-tab [nzTitle]="DAM001">
-        <ng-template #DAM001 let-visible="visible"><a href="#DAM001" nz-button nzSize="small"
-            [ngClass]="hideDAM001 ? 'nohide' : 'hide'" (click)="show('DAM001')">DAM001</a></ng-template>
+        <ng-template #DAM001 let-visible="visible">
+          <button nz-button nzSize="small"
+            [ngClass]="hideDAM001 ? 'nohide' : 'hide'" (click)="show('DAM001')">
+            其它補充註記資訊<h style="display: block; font-size: 12px;">(DAM001)</h>
+          </button>
+        </ng-template>
+      </nz-tab>
+      <nz-tab [nzTitle]="KCM012">
+        <ng-template #KCM012 let-visible="visible">
+          <button nz-button nzSize="small"
+            [ngClass]="hideKCM012 ? 'nohide' : 'hide'" (click)="show('KCM012')">
+            學生身分報送紀錄<h style="display: block; font-size: 12px;">(KCM012)</h>
+          </button>
+        </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="VAM020">
-        <ng-template #VAM020 let-visible="visible"><a href="#VAM020" nz-button nzSize="small"
-            [ngClass]="hideVAM020 ? 'nohide' : 'hide'" (click)="show('VAM020')">VAM020</a></ng-template>
+        <ng-template #VAM020 let-visible="visible">
+          <button nz-button nzSize="small"
+            [ngClass]="hideVAM020 ? 'nohide' : 'hide'" (click)="show('VAM020')">
+            身分證號更改紀錄<h style="display: block; font-size: 12px;">(VAM020)</h>
+          </button>
+        </ng-template>
       </nz-tab>
-      <nz-tab [nzTitle]="VAM201">
+      <!-- <nz-tab [nzTitle]="VAM106">
+        <ng-template #VAM106 let-visible="visible">
+          <button nz-button nzSize="small"
+            [ngClass]="hideVAM106 ? 'nohide' : 'hide'" (click)="show('VAM106')">
+            消債條例信用註記資訊(含個別協商)<h style="display: block; font-size: 12px;">(VAM106)</h>
+          </button>
+        </ng-template>
+      </nz-tab>
+      <nz-tab [nzTitle]="VAM107">
+        <ng-template #VAM107 let-visible="visible">
+          <button nz-button nzSize="small"
+            [ngClass]="hideVAM107 ? 'nohide' : 'hide'" (click)="show('VAM107')">
+            消債條例信用註記資訊(含個別協商)<h style="display: block; font-size: 12px;">(VAM107)</h>
+          </button>
+        </ng-template>
+      </nz-tab> -->
+     
+   
+      <!-- <nz-tab [nzTitle]="VAM201">
         <ng-template #VAM201 let-visible="visible"><a href="#VAM201" nz-button nzSize="small"
             [ngClass]="hideVAM201 ? 'nohide' : 'hide'" (click)="show('VAM201')">VAM201</a></ng-template>
       </nz-tab>
-      <nz-tab [nzTitle]="VAM106">
-        <ng-template #VAM106 let-visible="visible"><a href="#VAM106" nz-button nzSize="small"
-            [ngClass]="hideVAM106 ? 'nohide' : 'hide'" (click)="show('VAM106')">VAM106</a></ng-template>
-      </nz-tab>
+   
       <nz-tab [nzTitle]="VAM107">
         <ng-template #VAM107 let-visible="visible"><a href="#VAM107" nz-button nzSize="small"
             [ngClass]="hideVAM107 ? 'nohide' : 'hide'" (click)="show('VAM107')">VAM107</a></ng-template>
-      </nz-tab>
+      </nz-tab> --> 
+     
       <nz-tab [nzTitle]="VAM108">
-        <ng-template #VAM108 let-visible="visible"><a href="#VAM108" nz-button nzSize="small"
-            [ngClass]="hideVAM108 ? 'nohide' : 'hide'" (click)="show('VAM108')">VAM108</a></ng-template>
+        <ng-template #VAM108 let-visible="visible">
+          <button nz-button nzSize="small"
+            [ngClass]="hideVAM108 ? 'nohide' : 'hide'" (click)="show('VAM108')">
+            其它補充註記資訊<h style="display: block; font-size: 12px;">(VAM108)</h>
+          </button>
+        </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="BAM608">
-        <ng-template #BAM608 let-visible="visible"><a href="#BAM608" nz-button nzSize="small"
-            [ngClass]="hideBAM608 ? 'nohide' : 'hide'" (click)="show('BAM608')">BAM608</a></ng-template>
-      </nz-tab> -->
+        <ng-template #BAM608 let-visible="visible">
+          <button nz-button nzSize="small"
+            [ngClass]="hideBAM608 ? 'nohide' : 'hide'" (click)="show('BAM608')">
+            B33債權轉讓資料明細<h style="display: block; font-size: 12px;">(BAM608)</h>
+          </button>
+        </ng-template>
+      </nz-tab>
+      
     </nz-tabset>
   </div>
   <div style="padding-left: 35px; padding-top:25px;">
@@ -1053,20 +1088,20 @@
   <app-jcictable [id]="!hideKRM048 ? 'KRM048' : '' " *ngIf="!hideKRM048" class="line_bank_card_no_padding"
     [code]="JCICCode.KRM048"></app-jcictable>
 
-  <!-- <app-jcictable [id]="!hideKCM012 ? 'KCM012' : '' " *ngIf="!hideKCM012" class="line_bank_card_no_padding"
+  <app-jcictable [id]="!hideKCM012 ? 'KCM012' : '' " *ngIf="!hideKCM012" class="line_bank_card_no_padding"
     [code]="JCICCode.KCM012"></app-jcictable>
   <app-jcictable [id]="!hideDAM001 ? 'DAM001' : '' " *ngIf="!hideDAM001" class="line_bank_card_no_padding"
     [code]="JCICCode.DAM001"></app-jcictable>
   <app-jcictable [id]="!hideVAM020 ? 'VAM020' : '' " *ngIf="!hideVAM020" class="line_bank_card_no_padding"
     [code]="JCICCode.VAM020"></app-jcictable>
-  <app-jcictable [id]="!hideVAM201 ? 'VAM201' : '' " *ngIf="!hideVAM201" class="line_bank_card_no_padding"
-    [code]="JCICCode.VAM201"></app-jcictable>
-  <app-jcictable [id]="!hideVAM106 ? 'VAM106' : '' " *ngIf="!hideVAM106" class="line_bank_card_no_padding"
-    [code]="JCICCode.VAM106"></app-jcictable>
-  <app-jcictable [id]="!hideVAM107 ? 'VAM107' : '' " *ngIf="!hideVAM107" class="line_bank_card_no_padding"
-    [code]="JCICCode.VAM107"></app-jcictable>
+  <!-- <app-jcictable [id]="!hideVAM201 ? 'VAM201' : '' " *ngIf="!hideVAM201" class="line_bank_card_no_padding"
+    [code]="JCICCode.VAM201"></app-jcictable> -->
+  <!-- <app-jcictable [id]="!hideVAM106 ? 'VAM106' : '' " *ngIf="!hideVAM106" class="line_bank_card_no_padding"
+    [code]="JCICCode.VAM106"></app-jcictable> -->
+  <!-- <app-jcictable [id]="!hideVAM107 ? 'VAM107' : '' " *ngIf="!hideVAM107" class="line_bank_card_no_padding"
+    [code]="JCICCode.VAM107"></app-jcictable> -->
   <app-jcictable [id]="!hideVAM108 ? 'VAM108' : '' " *ngIf="!hideVAM108" class="line_bank_card_no_padding"
     [code]="JCICCode.VAM108"></app-jcictable>
   <app-jcictable [id]="!hideBAM608 ? 'BAM608' : '' " *ngIf="!hideBAM608" class="line_bank_card_no_padding"
-    [code]="JCICCode.BAM608"></app-jcictable> -->
+    [code]="JCICCode.BAM608"></app-jcictable>
 </div>
