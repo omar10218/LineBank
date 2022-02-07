@@ -46,8 +46,8 @@ export class F02001Component implements OnInit {
   total: number;
   quantity: number;
   loading = false;
-  pageSize: number;
-  pageIndex: number;
+  readonly pageSize = 10;
+  pageIndex = 1;
   firstFlag = 1;
   sortArry = ['ascend', 'descend']
   x: string;
@@ -87,17 +87,24 @@ export class F02001Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageIndex } = params;
-    if (this.pageIndex !== pageIndex) {
-      if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
-        const { pageSize, pageIndex } = params;
-        this.selectData(pageIndex, pageSize);
+
+    // if (this.pageIndex !== pageIndex) {
+    //   if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
+    //     const { pageSize, pageIndex } = params;
+    //     this.selectData(pageIndex, pageSize);
+    //   }
+
+    // }
+    if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
+      const { pageIndex } = params;
+      if (this.pageIndex !== pageIndex) {
+        // const { pageSize, pageIndex } = params;
+        this.pageIndex = pageIndex;
+        this.selectData(pageIndex, this.pageSize);}
       }
-    }
   }
   changePage() {
     this.pageIndex = 1;
-    this.pageSize = 50;
     this.total = 1;
   }
 
