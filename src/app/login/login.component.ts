@@ -6,6 +6,7 @@ import { JSEncrypt } from 'jsencrypt/lib';
 import { sha256 } from 'js-sha256';
 import { AuthService } from '../auth/auth.service';
 import { environment } from 'src/environments/environment';
+import { Childscn6Service } from '../children/childscn6/childscn6.service';
 
 
 
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private bnIdle: BnNgIdleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private childscn6Service: Childscn6Service,
   ) { }
 
   private ticket: string;
@@ -72,6 +74,12 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("loginKey", 'change');
       localStorage.removeItem('loginKey');
       localStorage.setItem("empNo", this.no);
+
+      const baseUrl = 'f01/childscn6action2';
+      let jsonObject: any = {};
+      let data: any ;
+      data = await this.loginService.getDate(baseUrl, jsonObject);
+      sessionStorage.setItem('empName' , data[0].empName);
     } else {
       alert('帳號有誤!');
       if ('stg' == this.from || 'uat' == this.from || 'prod' == this.from) {
@@ -86,5 +94,4 @@ export class LoginComponent implements OnInit {
     this.hide = !this.hide;
     this.imgSrc = this.hide ? this.SrcEyeOff : this.SrcEye;
   }
-
 }

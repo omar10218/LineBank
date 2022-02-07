@@ -126,6 +126,18 @@ export class BaseService {
     return await this.getMsgStr(rspCode, rspMsg);
   }
 
+  //Json使用
+  public async rspBody(baseUrl: string, json: JSON): Promise<string> {
+    let rspBody: any;
+    await this.saveOrEditWithJson(baseUrl, json).then((data) => {
+      rspBody = data.rspBody;
+    })
+    .catch((error) => {
+      console.log("Promise rejected with " + JSON.stringify(error));
+    });
+    return await rspBody;
+  }
+
   //true為驗證成功 false為失敗 身分證驗證
   public checkIdNumberIsValid(id: string): boolean {
     const regex: RegExp = /^[A-Z][1,2]\d{8}$/

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { BaseService } from '../base.service';
 import { Menu } from './menu.model';
 
@@ -46,4 +46,11 @@ export class MenuListService extends BaseService {
     return this.menuList;
   }
 
+  //浮水印控制區
+  private WaterMarkSource = new Subject<any>();
+  WaterMarkSource$ = this.WaterMarkSource.asObservable();
+
+  setWaterMarkSource(data): void {
+    this.WaterMarkSource.next(data);
+  }
 }

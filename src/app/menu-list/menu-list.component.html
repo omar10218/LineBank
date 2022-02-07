@@ -1,3 +1,4 @@
+
 <mat-toolbar class="line_bank_form_header_title_color" style="z-index:50;position:fixed">
   <mat-toolbar-row *ngIf=" getWinClose() != 'Y' ">
     <img src="assets\images\LineBank.png" width="10%" (click)="goHome()">
@@ -37,4 +38,5 @@
     </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
+<section [ngClass]="waterShow ? 'show' : 'noShow'" [ngxWatermark]="options"></section>
 <router-outlet (activate)="scrollToTop($event)" class="router" style="padding-top: 45px;"></router-outlet>
