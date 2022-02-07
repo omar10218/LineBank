@@ -73,14 +73,14 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
   hideKRM046 = false;
   hideKRM048 = false;
 
-  // hideKCM012 = false;
-  // hideDAM001 = false;
-  // hideVAM020 = false;
+  hideKCM012 = false;
+  hideDAM001 = false;
+  hideVAM020 = false;
   // hideVAM201 = false;
   // hideVAM106 = false;
   // hideVAM107 = false;
-  // hideVAM108 = false;
-  // hideBAM608 = false;
+  hideVAM108 = false;
+  hideBAM608 = false;
 
 
 
@@ -254,14 +254,14 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     this.hideKRM046 = true;
     this.hideKRM048 = true;
 
-    // this.hideKCM012 = true;
-    // this.hideDAM001 = true;
-    // this.hideVAM020 = true;
+    this.hideKCM012 = true;
+    this.hideDAM001 = true;
+    this.hideVAM020 = true;
     // this.hideVAM201 = true;
     // this.hideVAM106 = true;
     // this.hideVAM107 = true;
-    // this.hideVAM108 = true;
-    // this.hideBAM608 = true;
+    this.hideVAM108 = true;
+    this.hideBAM608 = true;
   }
 
   setBooleanFalse() {
@@ -291,14 +291,14 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     this.hideKRM046 = false;
     this.hideKRM048 = false;
 
-    // this.hideKCM012 = false;
-    // this.hideDAM001 = false;
-    // this.hideVAM020 = false;
+    this.hideKCM012 = false;
+    this.hideDAM001 = false;
+    this.hideVAM020 = false;
     // this.hideVAM201 = false;
     // this.hideVAM106 = false;
     // this.hideVAM107 = false;
-    // this.hideVAM108 = false;
-    // this.hideBAM608 = false;
+    this.hideVAM108 = false;
+    this.hideBAM608 = false;
   }
 
   exist() {
@@ -329,15 +329,15 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
       if (this.list[index] == "KRM046") { this.hideKRM046 = !this.hideKRM046; }
       if (this.list[index] == "KRM048") { this.hideKRM048 = !this.hideKRM048; }
 
-      // if (this.list[index] == "KCM012") { this.hideKCM012 = !this.hideKCM012; }
-      // if (this.list[index] == "DAM001") { this.hideDAM001 = !this.hideDAM001; }
-      // if (this.list[index] == "VAM020") { this.hideVAM020 = !this.hideVAM020; }
+      if (this.list[index] == "KCM012") { this.hideKCM012 = !this.hideKCM012; }
+      if (this.list[index] == "DAM001") { this.hideDAM001 = !this.hideDAM001; }
+      if (this.list[index] == "VAM020") { this.hideVAM020 = !this.hideVAM020; }
       // if (this.list[index] == "VAM201") { this.hideVAM201 = !this.hideVAM201; }
       // if (this.list[index] == "VAM106") { this.hideVAM106 = !this.hideVAM106; }
       // if (this.list[index] == "VAM107") { this.hideVAM107 = !this.hideVAM107; }
-      // if (this.list[index] == "VAM108") { this.hideVAM108 = !this.hideVAM108; }
+      if (this.list[index] == "VAM108") { this.hideVAM108 = !this.hideVAM108; }
       // if (this.list[index] == "BAM032") { this.hideBAM032 = !this.hideBAM032; }
-      // if (this.list[index] == "BAM608") { this.hideBAM608 = !this.hideBAM608; }
+      if (this.list[index] == "BAM608") { this.hideBAM608 = !this.hideBAM608; }
     }
   }
 
@@ -363,7 +363,7 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
 
     if (this.list.length == 0) {
       this.setBooleanFalse();
-    } else if (this.list.length == 25) {
+    } else if (this.list.length == 29) {
       this.setBooleanFalse();
       this.list = [];
     } else {

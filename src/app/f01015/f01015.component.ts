@@ -28,6 +28,7 @@ export class F01015Component implements OnInit {
   loading = true;
   pageSize = 10;
   pageIndex = 1;
+  levelNo :any; //層級
   YNCode: OptionsCode[] = []; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
@@ -64,8 +65,9 @@ export class F01015Component implements OnInit {
   bossContent: string//主管覆核值
   bossTime: any//主管覆核時間
   bossEmpno: any//主管覆核員編
-
+  useId:string //員編
   x: string
+applno:string //案編
   constructor(
     private f01015Service: F01015Service,
     public dialog: MatDialog,
@@ -75,18 +77,36 @@ export class F01015Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
+this.applno=sessionStorage.applno; //案編
+if(this.applno!=null){
+  this.getTargetCustList();
+}
+this.custId=sessionStorage.customerId; //主管帶customer_ID
+this.reasonValue=sessionStorage.reasonCode; //主管帶執行原因
+this.executeValue=sessionStorage.executeType; //主管帶執行策略
+this.creditTime=sessionStorage.creditTime; //主管帶本次執行時間
+this.creditEmpno=sessionStorage.creditEmpno; //主管帶本次執行員編
+this.reasonDetail=sessionStorage.reasonDetail; //主管帶執行細項
+this.limitNo=sessionStorage.limitNo; //主管帶額度號
+this.YNValue=sessionStorage.contactYn; //主管帶通知客戶
+this.contact=sessionStorage.contactType; //主管帶通知方式
+this.contactContent=sessionStorage.contactContent; //主管帶通知內容
+this.creditMemo=sessionStorage.creditMemo; //主管帶creditMemo
+this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
 
     this.page = sessionStorage.getItem("page");
+    this.useId=localStorage.getItem("empNo") //進入員編
     console.log(this.page)
     this.getYNresult();
     this.getReason();
-    this.reasonValue = ''
-    this.reasonDetail = ''
-    this.YNValue = '';
-    this.executeValue = '';
-    this.limitNo = '';
-    this.bossCreditValue = '';
-    this.contact = '';
+    this. changereasonDetail();
+    // this.reasonValue = ''
+    // this.reasonDetail = ''
+    // this.YNValue = '';
+    // this.executeValue = '';
+    // this.limitNo = '';
+    // this.bossCreditValue = '';
+    // this.contact = '';
 
   }
   getTargetCustList() {
@@ -101,6 +121,8 @@ export class F01015Component implements OnInit {
       
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
         console.log(data)
+        this.levelNo=data.rspBody.items[0].levelNo
+        console.log( this.levelNo)
         this.limitCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.limitNoList) {
           const codeNo = jsonObj;
@@ -144,18 +166,20 @@ export class F01015Component implements OnInit {
   //取本次執行原因細項下拉
   changereasonDetail() {
     let jsonObject: any = {};
-
     jsonObject['reasonCode'] = this.reasonValue
+    console.log(this.reasonValue)
     this.reasonDetailCode = [];
     this.reasonDetail = "";
     this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
+     console.log(data)
       this.reasonDetailCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;
         this.reasonDetailCode.push({ value: codeNo, viewValue: desc });
+ 
       }
-
+      console.log( this.reasonDetailCode)
     });
   }
 
@@ -178,14 +202,15 @@ export class F01015Component implements OnInit {
   }
 
 
-  //儲存
+  //主管送出
   save() {
     let jsonObject: any = {};
+    jsonObject['creditEmpno']=this.useId
     jsonObject['personMainData']=this.targetCustSource
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
     jsonObject['reasonDetail'] = this.reasonDetail //本次執行原因細項
     jsonObject['custId'] = this.custId 
-    jsonObject['executeType'] = this.executeValue //本次執行措施策略
+    jsonObject['excuteType'] = this.executeValue //本次執行措施策略
     jsonObject['limitNo'] = this.limitNo //選擇額度號
     jsonObject['reserveLimit'] = this.reserveLimit //預佔額度
     jsonObject['contactYn'] = this.YNValue //通知客戶
@@ -194,12 +219,47 @@ export class F01015Component implements OnInit {
     jsonObject['creditMemo'] = this.creditMemo //本次執行說明
     // jsonObject['bossCredit'] = this.bossCreditValue //主管核決
     // jsonObject['bossContent'] = this.bossContent //主管覆核
-
+    let msg: string = "";
     this.f01015Service.update(jsonObject).subscribe(data => {
-      console.log(data)
+      if (data.rspMsg == "送交成功") {
+        msg = "送出主管成功!";
+      } else {
+        msg = "儲存失敗";
+      }
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr:msg }
+      });
+    
     })
   }
 
+//送出
+managerSave(){
+  let jsonObject: any = {};
+  
+  jsonObject['applno'] = this.applno 
+  jsonObject['custId'] = this.custId 
+  jsonObject['bossContent']=this.bossContent //主管覆核
+  jsonObject['bossCredit']=this.bossCreditValue //主管核決
+  jsonObject['reasonCode']=this.reasonValue //本次執行原因
+  jsonObject['reasonDesc']=this.reasonDetail //本次執行原因細項
+  jsonObject['empNo'] = this.useId //主管員編
+  jsonObject['reserveLimit'] =  this.reserveLimit //預佔額度
+  let msg = "";
+  this.f01015Service.update2(jsonObject).subscribe(data => {
+    console.log(data)
+    if (data.rspMsg == "success") {
+      msg = "儲存成功!";
+    } else {
+      msg = "儲存失敗";
+    }
+    const childernDialogRef = this.dialog.open(ConfirmComponent, {
+      data: { msgStr: msg }
+    });
+  })
+}
+
+  //
   //清除
   clear() {
     this.targetCustSource = null;
@@ -218,7 +278,7 @@ export class F01015Component implements OnInit {
     this.creditEmpno="";
     this.creditMemo="";
   }
-
+  
    //透過案編跳轉至複審
    toCalloutPage(applno: string) {
     sessionStorage.setItem('applno', applno);
@@ -228,5 +288,12 @@ export class F01015Component implements OnInit {
     // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
     sessionStorage.setItem('page', '2');
     this.router.navigate(['./F01009/F01009SCN1/CHILDBWSCN1']);
+  }
+
+  //排序
+  sortChange(e: string) {
+    console.log(e)
+    this.targetCustSource = e === 'ascend' ? this.targetCustSource.sort(
+      (a, b) => a.levelNo.localeCompare(b.levelNo)) : this.targetCustSource.sort((a, b) => b.levelNo.localeCompare(a.levelNo))
   }
 }

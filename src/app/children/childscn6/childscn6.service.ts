@@ -503,46 +503,46 @@ export class Childscn6Service extends BaseService {
         nzScroll = '1500px'
     }
     // KCM012
-    // if (code === JCICCode.KCM012) {
-    //   dataList = [
-    //     { name: '報送機構代號', bodyKey: 'BANK' },
-    //     { name: '報送機構名稱', bodyKey: 'BANK_NAME' },
-    //     { name: '資料類別(B:授信,K:信用卡)', bodyKey: 'TYPE' },
-    //     { name: '是否已報送為非學生身分(Y/N)', bodyKey: 'YN' },
-    //     { name: '學生身分起始報送年月', bodyKey: 'YYYMM1' },
-    //     { name: '非學生身分起始報送年月', bodyKey: 'YYYMM2' },
-    //   ];
-    //   title = 'KCM012 學生身分報送紀錄(多筆，取代KCM011)'
-    // }
+    if (code === JCICCode.KCM012) {
+      dataList = [
+        { name: '報送機構代號', bodyKey: 'BANK' },
+        { name: '報送機構名稱', bodyKey: 'BANK_NAME' },
+        { name: '資料類別(B:授信,K:信用卡)', bodyKey: 'TYPE' },
+        { name: '是否已報送為非學生身分(Y/N)', bodyKey: 'YN' },
+        { name: '學生身分起始報送年月', bodyKey: 'YYYMM1' },
+        { name: '非學生身分起始報送年月', bodyKey: 'YYYMM2' },
+      ];
+      title = 'KCM012 學生身分報送紀錄(多筆，取代KCM011)'
+    }
     // DAM001
-    // if (code === JCICCode.DAM001) {
-    //   dataList = [
-    //     { name: '主體退票未清償註記總金額 (千元)', bodyKey: 'BOUNCE_AMT' },
-    //     { name: '主體退票未清償註記總張數', bodyKey: 'BOUNCE_CNT' },
-    //     { name: '主體最近一次退票日期', bodyKey: 'LATEST_BOUNCE' },
-    //     { name: '主體退票已清償註記總金額 (千元)', bodyKey: 'WRITEOFF_AMT' },
-    //     { name: '主體退票已清償註記票總張數', bodyKey: 'WRITEOFF_CNT' },
-    //     { name: '主體最近一次已清償註記註銷日期', bodyKey: 'LATEST_WRITEOFF' },
-    //     { name: '連帶退票未清償註記總金額 (千元)', bodyKey: 'IDN_BOUNCE_AMT' },
-    //     { name: '連帶退票未清償註記總張數', bodyKey: 'IDN_BOUNCE_CNT' },
-    //     { name: '連帶最近一次退票日期', bodyKey: 'IDN_LATEST_BOUNCE' },
-    //     { name: '連帶退票已清償註記總金額', bodyKey: 'IDN_WRITEOFF_AMT' },
-    //     { name: '連帶退票已清償註記票總張數', bodyKey: 'IDN_WRITEOFF_CNT' },
-    //     { name: '連帶最近一次已清償註記註銷日期', bodyKey: 'IDN_LATEST_WRITEOFF' },
-    //   ];
-    //   title = 'DAM001 主體連帶退票摘要紀錄(含外幣資訊)(多筆摘要)'
-    // }
+    if (code === JCICCode.DAM001) {
+      dataList = [
+        { name: '主體退票未清償註記總金額 (千元)', bodyKey: 'BOUNCE_AMT' },
+        { name: '主體退票未清償註記總張數', bodyKey: 'BOUNCE_CNT' },
+        { name: '主體最近一次退票日期', bodyKey: 'LATEST_BOUNCE' },
+        { name: '主體退票已清償註記總金額 (千元)', bodyKey: 'WRITEOFF_AMT' },
+        { name: '主體退票已清償註記票總張數', bodyKey: 'WRITEOFF_CNT' },
+        { name: '主體最近一次已清償註記註銷日期', bodyKey: 'LATEST_WRITEOFF' },
+        { name: '連帶退票未清償註記總金額 (千元)', bodyKey: 'IDN_BOUNCE_AMT' },
+        { name: '連帶退票未清償註記總張數', bodyKey: 'IDN_BOUNCE_CNT' },
+        { name: '連帶最近一次退票日期', bodyKey: 'IDN_LATEST_BOUNCE' },
+        { name: '連帶退票已清償註記總金額', bodyKey: 'IDN_WRITEOFF_AMT' },
+        { name: '連帶退票已清償註記票總張數', bodyKey: 'IDN_WRITEOFF_CNT' },
+        { name: '連帶最近一次已清償註記註銷日期', bodyKey: 'IDN_LATEST_WRITEOFF' },
+      ];
+      title = 'DAM001 主體連帶退票摘要紀錄(含外幣資訊)(多筆摘要)'
+    }
     // VAM020
-    // if (code === JCICCode.VAM020) {
-    //   dataList = [
-    //     { name: '原身分證號', bodyKey: 'OLD_IDN' },
-    //     { name: '新身分證號', bodyKey: 'NEW_IDN' },
-    //     { name: '中文姓名', bodyKey: 'NAME' },
-    //     { name: '本中心處理四期', bodyKey: 'OP_DATE' },
-    //     { name: '比對代號(1:原身分證號 2:新身分證號)', bodyKey: 'TYPE' },
-    //   ];
-    //   title = 'VAM020 身分證號更改紀錄(表頭)'
-    // }
+    if (code === JCICCode.VAM020) {
+      dataList = [
+        { name: '原身分證號', bodyKey: 'OLD_IDN' },
+        { name: '新身分證號', bodyKey: 'NEW_IDN' },
+        { name: '中文姓名', bodyKey: 'NAME' },
+        { name: '本中心處理四期', bodyKey: 'OP_DATE' },
+        { name: '比對代號(1:原身分證號 2:新身分證號)', bodyKey: 'TYPE' },
+      ];
+      title = 'VAM020 身分證號更改紀錄(表頭)'
+    }
     // VAM201
     // if (code === JCICCode.VAM201) {
     //   dataList = [
@@ -590,38 +590,38 @@ export class Childscn6Service extends BaseService {
     //   title = 'VAM107 銀行公會消金案件債務協商補充註記(多筆Z13，MAINCODE7)'
     // }
     // VAM108
-    // if (code === JCICCode.VAM108) {
-    //   dataList = [
-    //     { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
-    //     { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
-    //     { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
-    //     { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
-    //     { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
-    //     { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
-    //     { name: '訊息內容', bodyKey: 'NOTE' },
-    //   ];
-    //   title = 'VAM108 其它補充註記資訊(多筆Z13，非屬消債條例及銀行公會債務協商之註記資訊)'
-    // }
+    if (code === JCICCode.VAM108) {
+      dataList = [
+        { name: '統編/身分證號', bodyKey: 'IDN_BAN' },
+        { name: '訊息登錄日期', bodyKey: 'DATA_DATE' },
+        { name: '訊息種類大項代碼', bodyKey: 'MAINCODE' },
+        { name: '訊息種類大項', bodyKey: 'MAINNOTE' },
+        { name: '訊息種類細項代碼(新)', bodyKey: 'NEW_SUBCODE' },
+        { name: '訊息種類細項', bodyKey: 'SUBNOTE' },
+        { name: '訊息內容', bodyKey: 'NOTE' },
+      ];
+      title = 'VAM108 其它補充註記資訊(多筆Z13，非屬消債條例及銀行公會債務協商之註記資訊)'
+    }
     // BAM608
-    // if (code === JCICCode.BAM608) {
-    //   dataList = [
-    //     { name: '債權轉讓年度', bodyKey: 'DATA_YYY', width: '150px', nzLeft: true },
-    //     { name: '債權轉讓月份', bodyKey: 'DATA_MM', width: '150px' },
-    //     { name: '行庫代號', bodyKey: 'BANK_CODE', width: '90px' },
-    //     { name: '行庫名稱', bodyKey: 'BANK_NAME', width: '90px' },
-    //     { name: '新債權人ID', bodyKey: 'FOLL_IDN_BAN', width: '150px' },
-    //     { name: '新債權人中文戶名', bodyKey: 'FOLL_CNAME', width: '150px' },
-    //     { name: '債權處理案號', bodyKey: 'FOLL_NO', width: '150px' },
-    //     { name: '科目別', bodyKey: 'ACCOUNT_CODE', width: '90px' },
-    //     { name: '科目別註記', bodyKey: 'ACCOUNT_CODE2', width: '150px' },
-    //     { name: '用途別', bodyKey: 'PURPOSE_CODE', width: '90px' },
-    //     { name: '綜合額度金額(千元)', bodyKey: 'CONTRACT_AMT', width: '150px' },
-    //     { name: '放款未逾期(千元)', bodyKey: 'LOAN_AMT', width: '150px' },
-    //     { name: '逾期未還金額(千元)', bodyKey: 'PASS_DUE_AMT', width: '150px', nzRight: true },
-    //   ];
-    //   title = 'BAM608 債權轉讓資料明細-B33(多筆B33，資料年月自9405開始)',
-    //     nzScroll = '1500px'
-    // }
+    if (code === JCICCode.BAM608) {
+      dataList = [
+        { name: '債權轉讓年度', bodyKey: 'DATA_YYY', width: '150px', nzLeft: true },
+        { name: '債權轉讓月份', bodyKey: 'DATA_MM', width: '150px' },
+        { name: '行庫代號', bodyKey: 'BANK_CODE', width: '90px' },
+        { name: '行庫名稱', bodyKey: 'BANK_NAME', width: '90px' },
+        { name: '新債權人ID', bodyKey: 'FOLL_IDN_BAN', width: '150px' },
+        { name: '新債權人中文戶名', bodyKey: 'FOLL_CNAME', width: '150px' },
+        { name: '債權處理案號', bodyKey: 'FOLL_NO', width: '150px' },
+        { name: '科目別', bodyKey: 'ACCOUNT_CODE', width: '90px' },
+        { name: '科目別註記', bodyKey: 'ACCOUNT_CODE2', width: '150px' },
+        { name: '用途別', bodyKey: 'PURPOSE_CODE', width: '90px' },
+        { name: '綜合額度金額(千元)', bodyKey: 'CONTRACT_AMT', width: '150px' },
+        { name: '放款未逾期(千元)', bodyKey: 'LOAN_AMT', width: '150px' },
+        { name: '逾期未還金額(千元)', bodyKey: 'PASS_DUE_AMT', width: '150px', nzRight: true },
+      ];
+      title = 'BAM608 債權轉讓資料明細-B33(多筆B33，資料年月自9405開始)',
+        nzScroll = '1500px'
+    }
     return { dataList, title, nzScroll }
   }
 

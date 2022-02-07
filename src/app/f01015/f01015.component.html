@@ -4,17 +4,18 @@
         <div nz-row>
             <div nz-col nzSpan="12">
                 <div style="padding:10px"><span class="form-title">身分證字號:</span>
-                    <input
+                    <input [disabled]="page=='16'"
                         style="display: block;width: 95%;" [(ngModel)]="nationalId" name="nationalId"></div>
             </div>
             <div nz-col nzSpan="12">
-                <div style="padding:10px"><span class="form-title">Customer ID：</span><input
+                <div style="padding:10px"><span class="form-title">Customer ID：</span>
+                    <input  [disabled]="page=='16'"
                         style="display: block;width: 95%;" [(ngModel)]="custId" name="custId"></div>
             </div>
         </div>
         <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
             <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-                (click)="getTargetCustList()">查詢</button>
+            [disabled]="page=='16'"  (click)="getTargetCustList()">查詢</button>
             <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="clear()">清除資料</button>
         </div>
     </div>
@@ -24,7 +25,7 @@
             nzSize="small" nzTitle="人工凍結解凍降額">
             <thead>
                 <tr>
-                    <th class="table-header">層級</th>
+                    <th class="table-header" (nzSortOrderChange)="sortChange($event)" nzSortFn="true" nzSortOrder='ascend' > 層級</th>
                     <th class="table-header">額度號</th>
                     <th class="table-header">上層額度號</th>
                     <th class="table-header">額度類別代碼</th>
@@ -104,7 +105,7 @@
         <div nz-row style="padding:10px">
             <div nz-col nzSpan="4">
                 <div style="padding:3px"><span class="form-title ">本次執行原因</span>
-                    <mat-select [(ngModel)]="reasonValue" name="reasonValue" (ngModelChange)="changereasonDetail()">
+                    <mat-select  [disabled]="page=='16'" [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="reasonValue" name="reasonValue" (ngModelChange)="changereasonDetail()">
                         <mat-option *ngFor="let item of reasonCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
@@ -115,7 +116,7 @@
             </div>
             <div nz-col nzSpan="9">
                 <div style="padding:3px"><span class="form-title">本次執行原因細項</span>
-                    <mat-select [(ngModel)]="reasonDetail" name="reasonDetail">
+                    <mat-select  [disabled]="page=='16'"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="reasonDetail" name="reasonDetail">
                         <mat-option *ngFor="let item of reasonDetailCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
@@ -128,7 +129,7 @@
         <div nz-row style="padding:10px">
             <div nz-col nzSpan="4">
                 <div style="padding:3px"><span class="form-title">本次執行措施策略</span>
-                    <mat-select [(ngModel)]="executeValue" name="executeValue" >
+                    <mat-select  [disabled]="page=='16'"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="executeValue" name="executeValue" >
                         <mat-option *ngFor="let item of executeCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
@@ -139,7 +140,7 @@
             </div>
             <div nz-col nzSpan="9">
                 <div style="padding:3px"><span class="form-title">選擇額度號</span>
-                    <mat-select [(ngModel)]="limitNo" name="limitNo">
+                    <mat-select [(ngModel)]="limitNo" name="limitNo"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}">
                         <mat-option *ngFor="let item of limitCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
@@ -150,7 +151,7 @@
             </div>
             <div nz-col nzSpan="9">
                 <div style="padding:3px"><span class="form-title">預佔額度</span>
-                    <input matInput #input [(ngModel)]="reserveLimit" name="reserveLimit" [disabled]="executeValue!='HLD'">
+                    <input matInput #input [(ngModel)]="reserveLimit" name="reserveLimit" [disabled]="executeValue!='DWN'||page=='16' ">
                 </div>
             </div>
         </div>
@@ -159,7 +160,7 @@
             <div nz-col nzSpan="4" style="padding:30px 0px">
                 <div>
                     <span class="form-title line_bank_h4">通知客戶</span>
-                    <mat-select [(ngModel)]="YNValue" name="YNValue">
+                    <mat-select [disabled]="page=='16'"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="YNValue" name="YNValue">
                         <mat-option *ngFor="let item of YNCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
@@ -167,7 +168,7 @@
                 </div>
                 <div style="margin-top:20px">
                     <span class="form-title">通知方式</span>
-                    <mat-select [(ngModel)]="contact" name="contact">
+                    <mat-select [disabled]="page=='16'"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="contact" name="contact">
                         <mat-option *ngFor="let item of contactCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
@@ -179,7 +180,7 @@
             </div>
             <div nz-col nzSpan="19">
                 <div style="padding:3px"><span class="form-title">通知內容</span>
-                    <textarea [(ngModel)]="contactContent" placeholder="請輸入內容" name="contactContent"
+                    <textarea [disabled]="page=='16'"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="contactContent" placeholder="請輸入內容" name="contactContent"
                         class="input-textarea" style="text-align: left;height:150px">
                     </textarea>
                 </div>
@@ -205,7 +206,7 @@
             </div>
             <div nz-col nzSpan="19">
                 <div style="padding:3px"><span class="form-title">本次執行說明</span>
-                    <textarea matInput [(ngModel)]="creditMemo" placeholder="請輸入內容" name="creditMemo"
+                    <textarea matInput [disabled]="page=='16'"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="creditMemo" placeholder="請輸入內容" name="creditMemo"
                         class="input-textarea" style="text-align: left;height:150px">
                     </textarea>
                 </div>
@@ -214,7 +215,7 @@
 
         </div>
         <div style="text-align: center;">
-            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">送出主管</button>
+            <button nz-button [disabled]="page=='16'" [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">送出主管</button>
         </div>
         <br>
 
@@ -222,7 +223,7 @@
         <div *ngIf="page=='16'">
          <div class="line_bank_form_header_title" style="border-radius: 0px;"></div>
             <div nz-row style="padding:10px">
-                <div nz-col nzSpan="4" style="padding:10px 0px">
+                <div nz-col nzSpan="4" style="padding:55px 0px">
                     <div>
                         <span class="form-title line_bank_h4">主管核決</span>
                         <mat-select [(ngModel)]="bossCreditValue" name="bossCreditValue">
@@ -231,7 +232,7 @@
                             </mat-option>
                         </mat-select>
                     </div>
-                    <div style="margin-top:20px">
+                    <!-- <div style="margin-top:20px">
                         <span class="form-title">主管覆核時間:</span>
                         <input matInput #input [(ngModel)]="bossTime" name="bossTime" disabled>
     
@@ -241,7 +242,7 @@
                         <input matInput #input [(ngModel)]="bossEmpno" name="bossEmpno" disabled>
     
                     </div>
-    
+     -->
                 </div>
                 <div nz-col nzSpan="1">
                 </div>
@@ -256,7 +257,7 @@
     
             </div>
             <div style="text-align: center;">
-                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">送出</button>
+                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="managerSave()">送出</button>
             </div>
             <br>
         </div>
