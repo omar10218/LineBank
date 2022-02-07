@@ -66,7 +66,7 @@ export class F01015Component implements OnInit {
   bossEmpno: any//主管覆核員編
   useId:string //員編
   x: string
-
+applno:string //案編
   constructor(
     private f01015Service: F01015Service,
     public dialog: MatDialog,
@@ -76,6 +76,7 @@ export class F01015Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
+this.applno=sessionStorage.applno; //案編
 this.custId=sessionStorage.customerId; //主管帶customer_ID
 this.reasonValue=sessionStorage.reasonCode; //主管帶執行原因
 this.executeValue=sessionStorage.executeType; //主管帶執行策略
@@ -212,22 +213,29 @@ this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
     jsonObject['creditMemo'] = this.creditMemo //本次執行說明
     // jsonObject['bossCredit'] = this.bossCreditValue //主管核決
     // jsonObject['bossContent'] = this.bossContent //主管覆核
-
+    let msg: string = "";
     this.f01015Service.update(jsonObject).subscribe(data => {
       console.log(data)
+      msg = data.rspMsg;
+    
     })
   }
 
 //送出
 managerSave(){
   let jsonObject: any = {};
-
+  
+  jsonObject['applno'] = this.applno 
+  jsonObject['custId'] = this.custId 
   jsonObject['bossContent']=this.bossContent //主管覆核
   jsonObject['bossCredit']=this.bossCreditValue //主管核決
   jsonObject['reasonCode']=this.reasonValue //本次執行原因
   jsonObject['reasonDesc']=this.reasonDetail //本次執行原因細項
   jsonObject['empNo'] = this.useId //主管員編
   this.f01015Service.update(jsonObject).subscribe(data => {
+    console.log(data)
+  })
+  this.f01015Service.update2(jsonObject).subscribe(data => {
     console.log(data)
   })
 }
