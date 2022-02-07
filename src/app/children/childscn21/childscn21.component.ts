@@ -24,7 +24,7 @@ export class Childscn21Component implements OnInit {
   private applno: string;
   empNo: string = localStorage.getItem("empNo");//測試用
   stepName: string = sessionStorage.getItem('stepName');//測試用
-  nowDateTime = new Date();
+  nowDateTime: Date;
   PERSONSource = [];//table資料
   limitTypeCode: OptionsCode[] = [];
   ngOnInit(): void {
@@ -35,10 +35,6 @@ export class Childscn21Component implements OnInit {
         this.limitTypeCode.push({ value: codeNo, viewValue: desc })
       }
     });
-
-
-
-
     this.applno = sessionStorage.getItem('applno');
     this.getCALLOUTFunction();//載入頁面
   }
@@ -51,8 +47,8 @@ export class Childscn21Component implements OnInit {
     this.childscn21Service.postJsonObject_PERSON_MAIN(baseUrl, jsonObject).subscribe(data => {
       if (data.rspMsg == 'success') {
         this.PERSONSource = data.rspBody;
-        console.log(data)
       }
+      this.nowDateTime = data.rspBody[0].queryDate;
     });
   }
 
