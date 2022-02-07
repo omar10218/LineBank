@@ -28,11 +28,13 @@ export class F01015Component implements OnInit {
   loading = true;
   pageSize = 10;
   pageIndex = 1;
-  levelNo :any; //層級
+  levelNo: any; //層級
   YNCode: OptionsCode[] = []; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
   limitCode: sysCode[] = []; //額度號
+  limit: sysCode[] = [] //
+  frozenList = [] //
   contactCode: sysCode[] = [
     { value: '', viewValue: '請選擇' },
     { value: '1', viewValue: '電話' },
@@ -65,9 +67,9 @@ export class F01015Component implements OnInit {
   bossContent: string//主管覆核值
   bossTime: any//主管覆核時間
   bossEmpno: any//主管覆核員編
-  useId:string //員編
+  useId: string //員編
   x: string
-applno:string //案編
+  applno: string //案編
   constructor(
     private f01015Service: F01015Service,
     public dialog: MatDialog,
@@ -77,29 +79,29 @@ applno:string //案編
   ) { }
 
   ngOnInit(): void {
-this.applno=sessionStorage.applno; //案編
-if(this.applno!=null){
-  this.getTargetCustList();
-}
-this.custId=sessionStorage.customerId; //主管帶customer_ID
-this.reasonValue=sessionStorage.reasonCode; //主管帶執行原因
-this.executeValue=sessionStorage.executeType; //主管帶執行策略
-this.creditTime=sessionStorage.creditTime; //主管帶本次執行時間
-this.creditEmpno=sessionStorage.creditEmpno; //主管帶本次執行員編
-this.reasonDetail=sessionStorage.reasonDetail; //主管帶執行細項
-this.limitNo=sessionStorage.limitNo; //主管帶額度號
-this.YNValue=sessionStorage.contactYn; //主管帶通知客戶
-this.contact=sessionStorage.contactType; //主管帶通知方式
-this.contactContent=sessionStorage.contactContent; //主管帶通知內容
-this.creditMemo=sessionStorage.creditMemo; //主管帶creditMemo
-this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
+    this.applno = sessionStorage.applno; //案編
+    if (this.applno != null) {
+      this.getTargetCustList();
+    }
+    this.custId = sessionStorage.customerId; //主管帶customer_ID
+    this.reasonValue = sessionStorage.reasonCode; //主管帶執行原因
+    this.executeValue = sessionStorage.executeType; //主管帶執行策略
+    this.creditTime = sessionStorage.creditTime; //主管帶本次執行時間
+    this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
+    this.reasonDetail = sessionStorage.reasonDetail; //主管帶執行細項
+    this.limitNo = sessionStorage.limitNo; //主管帶額度號
+    this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
+    this.contact = sessionStorage.contactType; //主管帶通知方式
+    this.contactContent = sessionStorage.contactContent; //主管帶通知內容
+    this.creditMemo = sessionStorage.creditMemo; //主管帶creditMemo
+    this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
 
     this.page = sessionStorage.getItem("page");
-    this.useId=localStorage.getItem("empNo") //進入員編
+    this.useId = localStorage.getItem("empNo") //進入員編
     console.log(this.page)
     this.getYNresult();
     this.getReason();
-    this. changereasonDetail();
+    this.changereasonDetail();
     // this.reasonValue = ''
     // this.reasonDetail = ''
     // this.YNValue = '';
@@ -118,17 +120,9 @@ this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
       let jsonObject: any = {};
       jsonObject['nationalId'] = this.nationalId
       jsonObject['custId'] = this.custId
-      
+
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
         console.log(data)
-        this.levelNo=data.rspBody.items[0].levelNo
-        console.log( this.levelNo)
-        this.limitCode.push({ value: '', viewValue: '請選擇' })
-        for (const jsonObj of data.rspBody.limitNoList) {
-          const codeNo = jsonObj;
-          const desc = jsonObj;
-          this.limitCode.push({ value: codeNo, viewValue: desc });
-        }
 
         this.targetCustSource = data.rspBody.items
         this.creditMainSource = data.rspBody.creditMainlist
@@ -148,7 +142,66 @@ this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
 
     });
   }
+  //取額度號下拉
+  getlimitCode(value: string) {
 
+    console.log(value)
+    let jsonObject: any = {};
+    this.limitNo = '';
+    this.limitCode = [];
+    jsonObject['nationalId'] = this.nationalId
+    jsonObject['custId'] = this.custId
+    if (value == 'FRZ' || value == 'DWN') {
+      this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
+        console.log(data)
+        this.limitCode.push({ value: '', viewValue: '請選擇' })
+        for (const jsonObj of data.rspBody.limitNoList) {
+          const codeNo = jsonObj;
+          const desc = jsonObj;
+          this.limitCode.push({ value: codeNo, viewValue: desc });
+        }
+      })
+
+    }
+    else {
+      
+      this.f01015Service.getImpertmentParameter2(jsonObject).subscribe(data => {
+        console.log(data)
+        for (const row of data.rspBody.items) {
+          const codeNo = row.limitNo;
+          const desc = row.limitNo;
+          this.limit.push({ value: codeNo, viewValue: desc })
+        }
+        for (const row of this.targetCustSource) {
+          console.log(row.limitNo) 
+          for (const data of this.limit) {
+            console.log(this.limit)
+            if (row.limitNo == data.value) {
+
+              this.limitCode.push({value: data.value, viewValue: data.value});
+            }
+            console.log(this.limitCode)
+          }
+        }
+      })
+      this.limitCode=[]
+      
+    }
+  }
+
+
+
+
+
+  //解凍額度號比較
+  test(one: string) {
+
+    for (const data of this.limit) {
+      if (data.value == one) {
+        return data.viewValue
+      }
+    }
+  }
   //取本次執行原因下拉
   getReason() {
     let jsonObject: any = {};
@@ -171,15 +224,15 @@ this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
     this.reasonDetailCode = [];
     this.reasonDetail = "";
     this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
-     console.log(data)
+      console.log(data)
       this.reasonDetailCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;
         this.reasonDetailCode.push({ value: codeNo, viewValue: desc });
- 
+
       }
-      console.log( this.reasonDetailCode)
+      console.log(this.reasonDetailCode)
     });
   }
 
@@ -205,11 +258,11 @@ this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
   //主管送出
   save() {
     let jsonObject: any = {};
-    jsonObject['creditEmpno']=this.useId
-    jsonObject['personMainData']=this.targetCustSource
+    jsonObject['creditEmpno'] = this.useId
+    jsonObject['personMainData'] = this.targetCustSource
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
     jsonObject['reasonDetail'] = this.reasonDetail //本次執行原因細項
-    jsonObject['custId'] = this.custId 
+    jsonObject['custId'] = this.custId
     jsonObject['excuteType'] = this.executeValue //本次執行措施策略
     jsonObject['limitNo'] = this.limitNo //選擇額度號
     jsonObject['reserveLimit'] = this.reserveLimit //預佔額度
@@ -227,37 +280,37 @@ this.reserveLimit=sessionStorage.reserveLimit; //主管帶預佔額度
         msg = "儲存失敗";
       }
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr:msg }
+        data: { msgStr: msg }
       });
-    
+
     })
   }
 
-//送出
-managerSave(){
-  let jsonObject: any = {};
-  
-  jsonObject['applno'] = this.applno 
-  jsonObject['custId'] = this.custId 
-  jsonObject['bossContent']=this.bossContent //主管覆核
-  jsonObject['bossCredit']=this.bossCreditValue //主管核決
-  jsonObject['reasonCode']=this.reasonValue //本次執行原因
-  jsonObject['reasonDesc']=this.reasonDetail //本次執行原因細項
-  jsonObject['empNo'] = this.useId //主管員編
-  jsonObject['reserveLimit'] =  this.reserveLimit //預佔額度
-  let msg = "";
-  this.f01015Service.update2(jsonObject).subscribe(data => {
-    console.log(data)
-    if (data.rspMsg == "success") {
-      msg = "儲存成功!";
-    } else {
-      msg = "儲存失敗";
-    }
-    const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msg }
-    });
-  })
-}
+  //送出
+  managerSave() {
+    let jsonObject: any = {};
+
+    jsonObject['applno'] = this.applno
+    jsonObject['custId'] = this.custId
+    jsonObject['bossContent'] = this.bossContent //主管覆核
+    jsonObject['bossCredit'] = this.bossCreditValue //主管核決
+    jsonObject['reasonCode'] = this.reasonValue //本次執行原因
+    jsonObject['reasonDesc'] = this.reasonDetail //本次執行原因細項
+    jsonObject['empNo'] = this.useId //主管員編
+    jsonObject['reserveLimit'] = this.reserveLimit //預佔額度
+    let msg = "";
+    this.f01015Service.update2(jsonObject).subscribe(data => {
+      console.log(data)
+      if (data.rspMsg == "success") {
+        msg = "儲存成功!";
+      } else {
+        msg = "儲存失敗";
+      }
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msg }
+      });
+    })
+  }
 
   //
   //清除
@@ -266,21 +319,21 @@ managerSave(){
     this.creditMainSource = null;
     this.nationalId = "";
     this.custId = "";
-    this.reasonValue="";
-    this.reasonDetail="";
-    this.executeValue="";
-    this.limitNo="";
-    this.reserveLimit=null;
-    this.YNValue="";
-    this.contact="";
-    this.contactContent="";
-    this.creditTime="";
-    this.creditEmpno="";
-    this.creditMemo="";
+    this.reasonValue = "";
+    this.reasonDetail = "";
+    this.executeValue = "";
+    this.limitNo = "";
+    this.reserveLimit = null;
+    this.YNValue = "";
+    this.contact = "";
+    this.contactContent = "";
+    this.creditTime = "";
+    this.creditEmpno = "";
+    this.creditMemo = "";
   }
-  
-   //透過案編跳轉至複審
-   toCalloutPage(applno: string) {
+
+  //透過案編跳轉至複審
+  toCalloutPage(applno: string) {
     sessionStorage.setItem('applno', applno);
     sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('winClose', 'N');

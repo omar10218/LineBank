@@ -129,7 +129,8 @@
         <div nz-row style="padding:10px">
             <div nz-col nzSpan="4">
                 <div style="padding:3px"><span class="form-title">本次執行措施策略</span>
-                    <mat-select  [disabled]="page=='16'"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="executeValue" name="executeValue" >
+                    <mat-select  [disabled]="page=='16'"  (ngModelChange)="getlimitCode($event)"
+                     [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="executeValue" name="executeValue" >
                         <mat-option *ngFor="let item of executeCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
