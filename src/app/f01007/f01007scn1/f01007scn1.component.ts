@@ -12,6 +12,8 @@ import { Childscn26Component } from 'src/app/children/childscn26/childscn26.comp
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01007scn1Service } from './f01007scn1.service';
 import { history } from './../../interface/base';
+import { Childscn27Component } from 'src/app/children/childscn27/childscn27.component';
+import { Childscn28Component } from 'src/app/children/childscn28/childscn28.component';
 interface interestPeriod {
   id?: string,
   period: string,
@@ -82,18 +84,6 @@ export class F01007scn1Component implements OnInit {
     this.level = sessionStorage.getItem('level');
     this.page = sessionStorage.getItem('page');
     this.winClose = sessionStorage.getItem('winClose');
-  }
-
-  reScan() {
-    const dialogRef = this.dialog.open(Childscn19Component, {
-      panelClass: 'mat-dialog-transparent',
-      height: '100%',
-      width: '70%',
-      data: {
-        applno: this.applno,
-        cuid: this.cuid
-      }
-    });
   }
 
   reSearch() {
@@ -475,6 +465,48 @@ export class F01007scn1Component implements OnInit {
       top: 0,
       left: 0,
       behavior: 'smooth'
+    });
+  }
+
+  //補件
+  reScan() {
+    const dialogRef = this.dialog.open(Childscn19Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint: "L3"
+      }
+    });
+  }
+
+  //簡訊
+  reSMS() {
+    const dialogRef = this.dialog.open(Childscn27Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint: "L3"
+      }
+    });
+  }
+
+  //Mail
+  reMail() {
+    const dialogRef = this.dialog.open(Childscn28Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint: "L3"
+      }
     });
   }
 }

@@ -128,3 +128,8 @@ input:disabled{
   border-radius:5px;
   border:1px solid #c9c9c9;
 }
+
+.all-disable {
+  pointer-events: none;
+  /* opacity: 1; */
+}

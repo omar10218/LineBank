@@ -58,8 +58,8 @@ export class Childscn19Component implements OnInit {
   rescanDataSource = new MatTableDataSource<any>(); //補件資訊檔
   smsDataSource = new MatTableDataSource<any>();    //簡訊資訊檔
   sms_M_Code = new MatTableDataSource<any>();    //sms mappingcode
-  Number:string ;
-  ii =[];
+  Number: string;
+  ii = [];
   // boo :boolean = true ;
   block: boolean = false;
   send: boolean = true;//案件送出判斷是否鎖起來
@@ -75,7 +75,6 @@ export class Childscn19Component implements OnInit {
     this.checkpoint = sessionStorage.getItem('checkpoint');
     this.page = sessionStorage.getItem('page');
     // this.queryCusMobile();
-    console.log(sessionStorage.getItem('nationalId'))
     //取sms樣板下拉
     this.childscn19Service.getSysTypeCode('SMS_SET').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
@@ -222,28 +221,23 @@ export class Childscn19Component implements OnInit {
   //取該案件補件資訊
   getRescanList() {
     this.ii = [];
-    this.send= true;
+    this.send = true;
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
       this.remarkContent = '';
-      if (data.rspBody.items.length > 0)
-      {
-        for(var i of data.rspBody.items)
-        {
-          if(i.IMAGE_DATE != null)
-          {
+      if (data.rspBody.items.length > 0) {
+        for (var i of data.rspBody.items) {
+          if (i.IMAGE_DATE != null) {
             this.ii.push(i.IMAGE_DATE)
           }
         }
         console.log(data.rspBody.items.length)
         console.log(this.ii.length)
-        if(data.rspBody.items.length!=this.ii.length)
-        {
+        if (data.rspBody.items.length != this.ii.length) {
           this.send = false;
         }
-        else
-        {
+        else {
           this.send = true;
         }
 
@@ -375,11 +369,13 @@ export class Childscn19Component implements OnInit {
     }
     return x
   }
+
   dealwithData3(time: Date) {
-
     return new Date(Date.now() + (3 * 24 * 60 * 60 * 1000));
-
   }
 
+  getPage(): string {
+    return this.page;
+  }
 }
 
