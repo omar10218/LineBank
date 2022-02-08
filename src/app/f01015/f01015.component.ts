@@ -86,23 +86,37 @@ export class F01015Component implements OnInit {
     this.custId = sessionStorage.customerId; //主管帶customer_ID
     this.reasonValue = sessionStorage.reasonCode; //主管帶執行原因
     this.executeValue = sessionStorage.executeType; //主管帶執行策略
-    this.creditTime = sessionStorage.creditTime; //主管帶本次執行時間
+    this.creditTime =     this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd');    //主管帶本次執行時間
     this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
     this.reasonDetail = sessionStorage.reasonDetail; //主管帶執行細項
+    console.log(this.reasonDetail)
     this.limitNo = sessionStorage.limitNo; //主管帶額度號
     console.log(this.limitNo)
     this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
     this.contact = sessionStorage.contactType; //主管帶通知方式
     this.contactContent = sessionStorage.contactContent; //主管帶通知內容
     this.creditMemo = sessionStorage.creditMemo; //主管帶creditMemo
-    this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
+    if(this.executeValue=='HLD'){
+      this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
+    }
+    
 
     this.page = sessionStorage.getItem("page");
+    if (this.page =='16') {
+      this.changereasonDetail()
+      this.getTargetCustList();
+      // this.getlimitCode(this.executeValue)
+      console.log(this.executeValue)
+      console.log( this.getlimitCode(this.executeValue))
+    }else{
+
+    }
+    console.log(this.page)
     this.useId = localStorage.getItem("empNo") //進入員編
     console.log(this.page)
     this.getYNresult();
     this.getReason();
-    this.changereasonDetail();
+    // this.changereasonDetail();
     // this.reasonValue = ''
     // this.reasonDetail = ''
     // this.YNValue = '';
@@ -145,10 +159,8 @@ export class F01015Component implements OnInit {
   }
   //取額度號下拉
   getlimitCode(value: string) {
-
-    console.log(value)
     let jsonObject: any = {};
-    this.limitNo = '';
+    // this.limitNo = '';
     this.limitCode = [];
     jsonObject['nationalId'] = this.nationalId
     jsonObject['custId'] = this.custId
@@ -161,11 +173,12 @@ export class F01015Component implements OnInit {
           const desc = jsonObj;
           this.limitCode.push({ value: codeNo, viewValue: desc });
         }
+        console.log(this.limitCode)
       })
 
     }
     else {
-      
+
       this.f01015Service.getImpertmentParameter2(jsonObject).subscribe(data => {
         console.log(data)
         for (const row of data.rspBody.items) {
@@ -174,19 +187,19 @@ export class F01015Component implements OnInit {
           this.limit.push({ value: codeNo, viewValue: desc })
         }
         for (const row of this.targetCustSource) {
-          console.log(row.limitNo) 
+          console.log(row.limitNo)
           for (const data of this.limit) {
             console.log(this.limit)
             if (row.limitNo == data.value) {
 
-              this.limitCode.push({value: data.value, viewValue: data.value});
+              this.limitCode.push({ value: data.value, viewValue: data.value });
             }
             console.log(this.limitCode)
           }
         }
       })
-      this.limitCode=[]
-      
+      this.limitCode = []
+
     }
   }
 
@@ -194,15 +207,7 @@ export class F01015Component implements OnInit {
 
 
 
-  //解凍額度號比較
-  test(one: string) {
-
-    for (const data of this.limit) {
-      if (data.value == one) {
-        return data.viewValue
-      }
-    }
-  }
+ 
   //取本次執行原因下拉
   getReason() {
     let jsonObject: any = {};
@@ -221,9 +226,8 @@ export class F01015Component implements OnInit {
   changereasonDetail() {
     let jsonObject: any = {};
     jsonObject['reasonCode'] = this.reasonValue
-    console.log(this.reasonValue)
     this.reasonDetailCode = [];
-    this.reasonDetail = "";
+    // this.reasonDetail = "";
     this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
       console.log(data)
       this.reasonDetailCode.push({ value: '', viewValue: '請選擇' })
@@ -276,7 +280,7 @@ export class F01015Component implements OnInit {
     let msg: string = "";
     this.f01015Service.update(jsonObject).subscribe(data => {
       console.log(data)
-      msg=data.rspMsg
+      msg = data.rspMsg
       // if (data.rspMsg == "送交成功") {
       //   msg = "送出主管成功!";
       // } else {
@@ -304,7 +308,7 @@ export class F01015Component implements OnInit {
     let msg = "";
     this.f01015Service.update2(jsonObject).subscribe(data => {
       console.log(data)
-      msg=data.rspMsg
+      msg = data.rspMsg
       // if (data.rspMsg == "success") {
       //   msg = "儲存成功!";
       // } else {

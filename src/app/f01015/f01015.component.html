@@ -158,7 +158,7 @@
         </div>
         <div class="line_bank_form_header_title" style="border-radius: 0px;"></div>
         <div nz-row style="padding:10px">
-            <div nz-col nzSpan="4" style="padding:30px 0px">
+            <div nz-col nzSpan="4" style="padding:0px">
                 <div>
                     <span class="form-title line_bank_h4">通知客戶</span>
                     <mat-select [disabled]="page=='16'"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="YNValue" name="YNValue">
@@ -167,10 +167,14 @@
                         </mat-option>
                     </mat-select>
                 </div>
-                <div style="margin-top:20px">
+                <div style="margin-top:10px">
+                    <span class="form-title">行動電話</span>
+                    <input nz-input placeholder="輸入電話"  style="display: block;" required>
+                </div>
+                <div style="margin-top:10px">
                     <span class="form-title">通知方式</span>
                     <mat-select [disabled]="page=='16'"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="contact" name="contact">
-                        <mat-option *ngFor="let item of contactCode" [value]="item.value">
+                        <mat-option *ngFo r="let item of contactCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
                     </mat-select>
