@@ -145,7 +145,6 @@ export class F02003Component implements OnInit {
       }
 
     }
-    console.log(jsonObject)
     this.f02003Service.inquiry(url,jsonObject).subscribe(data=>{
 
       if(data.rspBody.size == 0)
@@ -158,8 +157,6 @@ export class F02003Component implements OnInit {
         this.resultData = data.rspBody.item
         this.quantity = data.rspBody.size
       }
-
-      console.log(data)
     })
 
   }
@@ -186,9 +183,9 @@ export class F02003Component implements OnInit {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj.EMP_NO;
         const desc = jsonObj.EMP_NAME;
-        this.l4EMPNOArry.push({ value: codeNo, viewValue: desc })
+        this.l4EMPNOArry.push({ value: codeNo, viewValue:codeNo+desc })
       }
-      console.log(data);
+
     })
   }
 
