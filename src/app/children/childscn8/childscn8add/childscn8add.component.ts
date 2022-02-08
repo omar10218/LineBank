@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit,Input } from '@angular/core';
+import { Component, Inject, OnInit, Input } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn8Service } from '../childscn8.service';
@@ -65,6 +65,7 @@ export class Childscn8addComponent implements OnInit {
 
   //儲存
   async save() {
+    //有輸入日期就要輸入時間
     if (this.data.CALLOUT_DATE == null || this.data.CALLOUT_DATE == "") {
       this.data.HOURS = ""
       this.data.MINUTES = ""
@@ -81,7 +82,22 @@ export class Childscn8addComponent implements OnInit {
         });
         return;
       }
+      //判斷日期時間是否在現在以前
+      var date = this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyy-MM-dd ') + this.data.HOURS + ':' + this.data.MINUTES + ":00";
+      var newDate = date.replace(/-/g, '/'); // 變成"2012/01/01 12:30:10";
+      var keyDate = new Date(newDate)
+      console.log(date)
+      console.log(newDate)
+      console.log(keyDate)
+      console.log(Date.now())
+      if (keyDate.getTime() < Date.now()) {
+        const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請輸入正確日期時間" }
+        });
+        return;
+      }
     }
+
     let msgStr: string = "";
     let codeStr: string = "";
     const baseUrl = 'f01/childscn8action1';
