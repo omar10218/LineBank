@@ -304,11 +304,12 @@ export class F01015Component implements OnInit {
     let msg = "";
     this.f01015Service.update2(jsonObject).subscribe(data => {
       console.log(data)
-      if (data.rspMsg == "success") {
-        msg = "儲存成功!";
-      } else {
-        msg = "儲存失敗";
-      }
+      msg=data.rspMsg
+      // if (data.rspMsg == "success") {
+      //   msg = "儲存成功!";
+      // } else {
+      //   msg = "儲存失敗";
+      // }
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msg }
       });
