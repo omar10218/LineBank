@@ -83,7 +83,7 @@ export class Childbwscn1Component implements OnInit {
     this.custId = sessionStorage.getItem('swcCustId');
     sessionStorage.setItem('BW_creditResult', "");
     sessionStorage.setItem('size', "0");
-    this.search=sessionStorage.getItem('search');
+    this.search = sessionStorage.getItem('search');
     sessionStorage.setItem('creditaction', "");
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
     this.creditlevel = this.page == "10" ? "L3" : this.creditlevel;
@@ -117,9 +117,14 @@ export class Childbwscn1Component implements OnInit {
     this.getCreditmemo(pageIndex, pageSize)
   }
 
-   // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管  12產生合約前覆核 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
+  // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管  12產生合約前覆核 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
   getPage() {
     return this.page
+  }
+
+  //是否為查詢
+  getSearch() {
+    return this.search
   }
 
   //查詢 上方主資料
