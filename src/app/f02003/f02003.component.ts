@@ -186,7 +186,7 @@ export class F02003Component implements OnInit {
       for (const jsonObj of data.rspBody) {
         const codeNo = jsonObj.EMP_NO;
         const desc = jsonObj.EMP_NAME;
-        this.l4EMPNOArry.push({ value: codeNo, viewValue: desc })
+        this.l4EMPNOArry.push({ value: codeNo, viewValue:codeNo+desc })
       }
       console.log(data);
     })
