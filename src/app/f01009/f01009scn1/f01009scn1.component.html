@@ -3,6 +3,13 @@
 <div class="line_bank_bankground_color">
   <br>
   <div  style="position:fixed;top:48px;width:100%;z-index:100">
+    <ng-container *ngIf="getSearch() == 'Y' && getWinClose() == 'Y' ">
+      <div style="padding:0 10px;background-color:white;">
+        <mat-grid-list cols="9" rowHeight="3:0.5" style="background-color:white;margin:0px -8px -20px -8px;padding:0px">
+          <mat-grid-tile><span style="font-size: 10px;" (click)="leave()">離開</span></mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </ng-container>
     <ng-container *ngIf="getSearch() == 'N'">
       <div style="padding:0 10px;background-color:white">
         <mat-grid-list cols="9" rowHeight="3:0.5"
