@@ -38,8 +38,10 @@ export class Childscn27Component implements OnInit {
   sms_M_Code = new MatTableDataSource<any>();    //sms mappingcode
   stepName: string;
 
+  private page: string;
+
   ngOnInit(): void {
-    console.log()
+    this.page = sessionStorage.getItem('page');
     //取案編
     this.applno = sessionStorage.getItem('applno');
     //取sms樣板下拉
@@ -65,11 +67,11 @@ export class Childscn27Component implements OnInit {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入時間" }
       });
-    }else if (this.mobile == null || this.mobile == "" || this.mobile.length!=10) {
+    } else if (this.mobile == null || this.mobile == "" || this.mobile.length != 10) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入手機號碼" }
       });
-    } else if (this.content == null || this.content=="") {
+    } else if (this.content == null || this.content == "") {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入SMS內容" }
       });
@@ -105,13 +107,13 @@ export class Childscn27Component implements OnInit {
           });
           if (data.rspMsg == "success" && data.rspCode === '0000') {
             this.getSmsList();
-            this.realSmsTime=null;
-            this.mytime=null;
-            this.content=null;
+            this.realSmsTime = null;
+            this.mytime = null;
+            this.content = null;
           }
         });
       }
-    } 
+    }
   }
 
   // 選取sms模板後會將內容代入sms內容
@@ -131,7 +133,7 @@ export class Childscn27Component implements OnInit {
     jsonObject['applno'] = this.applno;
     this.childscn27Service.postJson(baseUrl, jsonObject).subscribe(data => {
       this.smsDataSource = data.rspBody.items;
-      if(this.mobile==null||this.mobile==""){
+      if (this.mobile == null || this.mobile == "") {
         this.mobile = data.rspBody.phone;
       }
     });
@@ -142,13 +144,15 @@ export class Childscn27Component implements OnInit {
     this.dialogRef.close();
   }
 
-    //只能數字
-    data_number(x: string) {
-      if (x != null) {
-        x = x.replace(/[^\d]/g, '');
-      }
-      return x
+  //只能數字
+  data_number(x: string) {
+    if (x != null) {
+      x = x.replace(/[^\d]/g, '');
     }
+    return x
+  }
 
-
+  getPage(): string {
+    return this.page;
+  }
 }

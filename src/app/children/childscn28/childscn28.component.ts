@@ -30,13 +30,15 @@ export class Childscn28Component implements OnInit {
   content: string;            //E-MAIL內容
   stepName: string;
 
-
   emailDataSource = new MatTableDataSource<any>();    //email資訊檔
   email_M_Code = new MatTableDataSource<any>();    //email mappingcode
+
+  private page: string;
 
   ngOnInit(): void {
     //取案編
     this.applno = sessionStorage.getItem('applno');
+    this.page = sessionStorage.getItem('page');
 
     this.childscn28Service.getSysTypeCode('EMAIL').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
@@ -72,7 +74,7 @@ export class Childscn28Component implements OnInit {
     jsonObject['applno'] = this.applno;
     this.childscn28Service.postJson(baseUrl, jsonObject).subscribe(data => {
       this.emailDataSource = data.rspBody.items;
-      if(this.email==null||this.email==""){
+      if (this.email == null || this.email == "") {
         this.email = data.rspBody.email;
       }
     });
@@ -113,11 +115,15 @@ export class Childscn28Component implements OnInit {
           });
           if (data.rspMsg == "success" && data.rspCode === '0000') {
             this.getEmailList();
-            this.emailTitle=null;
-            this.content=null;
+            this.emailTitle = null;
+            this.content = null;
           }
         });
       }
     }
+  }
+
+  getPage(): string {
+    return this.page;
   }
 }

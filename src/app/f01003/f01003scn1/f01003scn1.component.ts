@@ -10,6 +10,9 @@ import { Childscn26Component } from 'src/app/children/childscn26/childscn26.comp
 import { history } from './../../interface/base';
 import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
 import { Subscription } from 'rxjs';
+import { Childscn19Component } from 'src/app/children/childscn19/childscn19.component';
+import { Childscn27Component } from 'src/app/children/childscn27/childscn27.component';
+import { Childscn28Component } from 'src/app/children/childscn28/childscn28.component';
 interface interestPeriod {
   id?: string,
   period: string,
@@ -418,6 +421,48 @@ export class F01003scn1Component implements OnInit {
       top: 0,
       left: 0,
       behavior: 'smooth'
+    });
+  }
+
+  //補件
+  reScan() {
+    const dialogRef = this.dialog.open(Childscn19Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint: "L3"
+      }
+    });
+  }
+
+  //簡訊
+  reSMS() {
+    const dialogRef = this.dialog.open(Childscn27Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint: "L3"
+      }
+    });
+  }
+
+  //Mail
+  reMail() {
+    const dialogRef = this.dialog.open(Childscn28Component, {
+      panelClass: 'mat-dialog-transparent',
+      height: '100%',
+      width: '70%',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid,
+        checkpoint: "L3"
+      }
     });
   }
 }

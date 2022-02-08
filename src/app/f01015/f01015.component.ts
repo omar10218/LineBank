@@ -80,9 +80,9 @@ export class F01015Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.applno; //案編
-    if (this.applno != null) {
-      this.getTargetCustList();
-    }
+    // if (this.applno != null) {
+    //   this.getTargetCustList();
+    // }
     this.custId = sessionStorage.customerId; //主管帶customer_ID
     this.reasonValue = sessionStorage.reasonCode; //主管帶執行原因
     this.executeValue = sessionStorage.executeType; //主管帶執行策略
@@ -90,6 +90,7 @@ export class F01015Component implements OnInit {
     this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
     this.reasonDetail = sessionStorage.reasonDetail; //主管帶執行細項
     this.limitNo = sessionStorage.limitNo; //主管帶額度號
+    console.log(this.limitNo)
     this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
     this.contact = sessionStorage.contactType; //主管帶通知方式
     this.contactContent = sessionStorage.contactContent; //主管帶通知內容
@@ -274,11 +275,13 @@ export class F01015Component implements OnInit {
     // jsonObject['bossContent'] = this.bossContent //主管覆核
     let msg: string = "";
     this.f01015Service.update(jsonObject).subscribe(data => {
-      if (data.rspMsg == "送交成功") {
-        msg = "送出主管成功!";
-      } else {
-        msg = "儲存失敗";
-      }
+      console.log(data)
+      msg=data.rspMsg
+      // if (data.rspMsg == "送交成功") {
+      //   msg = "送出主管成功!";
+      // } else {
+      //   msg.rspMsg;
+      // }
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msg }
       });
@@ -301,11 +304,12 @@ export class F01015Component implements OnInit {
     let msg = "";
     this.f01015Service.update2(jsonObject).subscribe(data => {
       console.log(data)
-      if (data.rspMsg == "success") {
-        msg = "儲存成功!";
-      } else {
-        msg = "儲存失敗";
-      }
+      msg=data.rspMsg
+      // if (data.rspMsg == "success") {
+      //   msg = "儲存成功!";
+      // } else {
+      //   msg = "儲存失敗";
+      // }
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msg }
       });
