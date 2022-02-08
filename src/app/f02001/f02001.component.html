@@ -124,8 +124,8 @@
   </div>
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{quantity}}件)</div>
-    <nz-table nzShowSizeChanger [nzData]="resultData" [nzFrontPagination]="false" [nzSimple]="true"
-      [nzScroll]="{ x: '4000px', y: '400px' }" [nzLoading]="false"[nzTotal]="total" [nzPageSize]="pageSize"
+    <nz-table nzShowSizeChanger  #basicTable [nzData]="resultData"  [nzSimple]="true"
+      [nzScroll]="{ x: '4000px', y: '400px' }" [nzLoading]="false"[nzTotal]="quantity" [nzPageSize]="pageSize" [nzPageSizeOptions] = [10]
       [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" >
       <thead >
         <tr>
@@ -163,7 +163,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of resultData;let i = index">
+        <tr *ngFor="let data of basicTable.data;let i = index">
            <!--序號-->
           <td nzLeft >{{i+1}}</td>
           <!--累計進件數-->
