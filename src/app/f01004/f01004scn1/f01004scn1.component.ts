@@ -241,16 +241,13 @@ export class F01004scn1Component implements OnInit {
                 }
                 this.result(baseUrl, jsonObject, result, count);
               }
-              // else if (this.mark == '' || this.mark == null) {
-              //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
-              //     data: { msgStr: '審核註記未填寫' }
-              //   });
-              //   return;
-              // }
-              // else {
-              //   this.result(baseUrl, jsonObject, result, count);
-              // }
             } else {
+              if(this.addSignature == 'S1' || this.addSignature == 'S2'){
+                const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                  data: { msgStr: '審核結果婉拒無法加簽!' }
+                });
+                return;
+              }
               this.result(baseUrl, jsonObject, result, count);
             }
           }

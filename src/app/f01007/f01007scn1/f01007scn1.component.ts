@@ -191,12 +191,6 @@ export class F01007scn1Component implements OnInit {
         this.approveAmt = sessionStorage.getItem('resultApproveAmt');
         this.lowestPayRate = sessionStorage.getItem('resultLowestPayRate');
 
-        // this.period = sessionStorage.getItem('period');
-        // this.periodType = sessionStorage.getItem('periodType');
-        // this.interestType = sessionStorage.getItem('interestType');
-        // this.approveInterest = sessionStorage.getItem('approveInterest');
-        // this.interest = sessionStorage.getItem('interest');
-        // this.interestBase = sessionStorage.getItem('interestBase');
         this.creditResult = sessionStorage.getItem('creditResult');
         this.caApplicationAmount = sessionStorage.getItem('caApplicationAmount');
         this.caPmcus = sessionStorage.getItem('caPmcus');
@@ -232,20 +226,10 @@ export class F01007scn1Component implements OnInit {
           )
         }
 
-        // jsonCreditInterestPeriod['creditInterestPeriodArray'] = creditInterestPeriodArray;
-        // jsonCreditInterestPeriod['period'] = this.period;
-        // jsonCreditInterestPeriod['periodType'] = this.periodType;
-        // jsonCreditInterestPeriod['interestType'] = this.interestType;
-        // jsonCreditInterestPeriod['interestCode'] = '1';
-        // jsonCreditInterestPeriod['approveInterest'] = this.approveInterest; // 核准利率
-        // jsonCreditInterestPeriod['interest'] = this.interest; // 固定利率
-        // jsonCreditInterestPeriod['interestBase'] = this.interestBase; // 基放利率
-
         let jsonElApplicationInfo: any = {};
         jsonElApplicationInfo['caApplicationAmount'] = this.caApplicationAmount;
 
         jsonObject['creditResult'] = jsoncreditResult;
-        // jsonObject['elCreditInterestPeriod'] = jsonCreditInterestPeriod;
         jsonObject['creditInterestPeriodArray'] = creditInterestPeriodArray;
         jsonObject['elApplicationInfo'] = jsonElApplicationInfo;
         if (url == 'f01/childscn0action1') {
@@ -304,16 +288,13 @@ export class F01007scn1Component implements OnInit {
                 }
                 this.result(baseUrl, jsonObject, result, count);
               }
-              // else if (this.mark == '' || this.mark == null) {
-              //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
-              //     data: { msgStr: '審核註記未填寫' }
-              //   });
-              //   return;
-              // }
-              // else {
-              //   this.result(baseUrl, jsonObject, result, count);
-              // }
             } else {
+              if(this.addSignature == 'S1' || this.addSignature == 'S2'){
+                const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                  data: { msgStr: '審核結果婉拒無法加簽!' }
+                });
+                return;
+              }
               this.result(baseUrl, jsonObject, result, count);
             }
           }
