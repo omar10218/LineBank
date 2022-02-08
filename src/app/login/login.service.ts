@@ -39,7 +39,7 @@ export class LoginService extends BaseService {
   // 登入閒置登出
   public setBnIdle(): void {
     if (!this.bnIdle['idle$']) {
-      this.bnIdle.startWatching( 60 * 30 ).subscribe((isTimedOut: boolean) => {
+      this.bnIdle.startWatching(60 * 30).subscribe((isTimedOut: boolean) => {
         if (isTimedOut) { this.routerGoUrl(); }
       });
     } else {
@@ -60,14 +60,13 @@ export class LoginService extends BaseService {
     let isOk: boolean = false;
     let tokenStr: string = '';
     await this.checkEmpNoPromise(empNo, empPwd, ticket).then((data: any) => {
-      if (data.rspCode == '0000') { tokenStr = data.rspBody.token; }
+      if (data.rspCode == '0000') {
+        tokenStr = data.rspBody.token;
+        localStorage.setItem("empName", data.rspBody.empName);
+      }
       isOk = data.rspCode == '0000';
     });
     localStorage.setItem("token", tokenStr);
     return isOk;
-  }
-
-  public getDate(baseUrl: string, json: JSON): any {
-    return this.rspBody(baseUrl, json);
   }
 }
