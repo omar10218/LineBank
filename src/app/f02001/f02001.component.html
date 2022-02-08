@@ -125,7 +125,7 @@
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{quantity}}件)</div>
     <nz-table nzShowSizeChanger  #basicTable [nzData]="resultData"  [nzSimple]="true"
-      [nzScroll]="{ x: '4000px', y: '400px' }" [nzLoading]="false"[nzTotal]="quantity" [nzPageSize]="pageSize" [nzPageSizeOptions] = [50]
+      [nzScroll]="{ x: '4000px', y: '400px' }" [nzLoading]="false"[nzTotal]="quantity" [nzPageSize]="pageSize"
       [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" >
       <thead >
         <tr>
