@@ -46,7 +46,7 @@ export class F02001Component implements OnInit {
   total: number;
   quantity: number;
   loading = false;
-  readonly pageSize = 50;
+  pageSize = 50;
   pageIndex = 1;
   firstFlag = 1;
   sortArry = ['ascend', 'descend']
@@ -105,7 +105,7 @@ export class F02001Component implements OnInit {
   }
   changePage() {
     this.pageIndex = 1;
-    this.total = 1;
+
   }
 
   getStatusDesc() {

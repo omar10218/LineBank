@@ -89,7 +89,7 @@
 <div class="line_bank_card_no_padding_child" style="width:95%;margin:10px auto">
   <div class="line_bank_form_header_title">審核結果</div>
   <div nz-row style="padding:5px">
-    <nz-radio-group [(ngModel)]="BW_creditResult" name="BW_creditResult" [disabled]="getPage()!='9' && getPage()!='10'"  required>
+    <nz-radio-group [(ngModel)]="BW_creditResult" name="BW_creditResult" [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  required>
       <div nz-row>
         <div nz-col nzFlex="1" *ngFor="let code of BW_creditResult_Code" >
           <div style="width:100%; height:30px">
@@ -102,7 +102,7 @@
 
   <div nz-row style="padding:5px">
     <div style="padding:2px"><span class="form-title">是否需通知客戶</span>
-      <mat-select style="height:25px" value="Y" [disabled]="getPage()!='9' && getPage()!='10'"  >
+      <mat-select style="height:25px" value="Y" [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  >
         <mat-option *ngFor="let code of ynCode" [value]="code.value">
           {{code.viewValue}}
         </mat-option>
@@ -110,11 +110,11 @@
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(起)</span><input matInput #input
-          class="form-control" value="" readonly [disabled]="getPage()!='9' && getPage()!='10'"  ></div>
+          class="form-control" value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  ></div>
     </div>
     <div nz-col nzFlex="1">
       <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(迄)</span><input matInput #input
-          class="form-control" value="" readonly [disabled]="getPage()!='9' && getPage()!='10'"  ></div>
+          class="form-control" value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  ></div>
     </div>
     <div nz-col nzFlex="1"></div>
     <div nz-col nzFlex="1"></div>

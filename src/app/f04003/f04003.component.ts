@@ -18,7 +18,8 @@ interface checkBox {
 interface assign {
   F_WobNum: string;
   swcApplno: string;
-  empNo:string;
+  empNo: string;
+  swcNationalId: string;
 }
 @Component({
   selector: 'app-f04003',
@@ -62,7 +63,6 @@ export class F04003Component implements OnInit {
     let url = 'f04/f04003action1'
     LevelJson['level'] = this.Level;
     this.f04003Service.Set(url, LevelJson).subscribe(data => {
-      console.log(data)
       this.personnelCode.push({ value: '', viewValue: '請選擇' })
       if (data.rspMsg != "該層級查無人員") {
         for (const jsonObj of data.rspBody) {
@@ -178,7 +178,12 @@ export class F04003Component implements OnInit {
         for (const jsonObj of this.setDataSource) {
           if (obj.completed == true) {
             if (obj.value == jsonObj['F_WobNum']) {
-              this.assignArray.push({ F_WobNum: jsonObj['F_WobNum'], swcApplno: jsonObj['swcApplno'] ,empNo:jsonObj['empNo']})
+              this.assignArray.push({
+                F_WobNum: jsonObj['F_WobNum'],
+                swcApplno: jsonObj['swcApplno'] ,
+                empNo:jsonObj['empNo'],
+                swcNationalId:jsonObj['swcNationalId']
+              })
             }
           }
         }
@@ -194,13 +199,12 @@ export class F04003Component implements OnInit {
         console.log(changeJson)
         if (this.assignArray.length > 0) {
           this.f04003Service.Set(url, changeJson).subscribe(data => {
-            console.log(data)
             if (data.rspCode == '0000') {
               this.Inquire();
               this.assignArray=[]
               this.s="轉件成功";
               this.dialog.open(ConfirmComponent, {
-                data: { msgStr: "轉件成功" }
+                data: { msgStr: data.rspMsg }
               });
             }
           })
