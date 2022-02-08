@@ -26,6 +26,7 @@ export class F01009scn1Component implements OnInit {
   private cuid: string;
   private fds: string
   private page: string
+  private winClose: string = '';
   creditlevel = "";
   creditaction: string;
 
@@ -38,7 +39,7 @@ export class F01009scn1Component implements OnInit {
     this.cuid = sessionStorage.getItem('nationalId');
     this.fds = sessionStorage.getItem('fds');
     this.page = sessionStorage.getItem('page');
-
+    this.winClose = sessionStorage.getItem('winClose');
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
     this.creditlevel = this.page == "10" ? "L3" : this.creditlevel;
   }
@@ -51,7 +52,9 @@ export class F01009scn1Component implements OnInit {
   getSearch(): String {
     return this.search;
   }
-
+  getWinClose(): String {
+    return this.winClose;
+  }
   reSearch() {
     const dialogRef = this.dialog.open(Childbwscn12Component, {
       width: "60vw",

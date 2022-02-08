@@ -49,6 +49,7 @@ export class Childbwscn6Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childbwscn6Service.selectCustomer(baseUrl, jsonObject).subscribe(data => {
+      console.log(data)
       this.total = data.rspBody.size
       this.ruleParamCondition = data.rspBody.items
     })
