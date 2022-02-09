@@ -52,8 +52,6 @@ export class Childscn8addComponent implements OnInit {
   CON_TEL_Selected: string;//電話種類
   CON_TARGET_Selected: string;//對象種類
   CON_MEMO_Selected: string;//註記種類
-  speakingContent: string;//話述內容
-  speakingAbbreviation: string;//話術名稱
 
   ngOnInit(): void {
     this.HOURS_Code = this.childscn8Service.getHOURS();//時下拉選單
@@ -132,12 +130,6 @@ export class Childscn8addComponent implements OnInit {
   onNoClick(): void {
     // this.dialogRef.close();
     this.f01002scn1Service.setJCICAddSource({ show: false });
-  }
-
-  //顯示話述內容
-  ShowspeakingContenta(name: string, msg: string) {
-    this.speakingAbbreviation = name;
-    this.speakingContent = msg;
   }
 
   numberOnly(event: { which: any; keyCode: any; }): boolean {
