@@ -54,7 +54,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
   waterShow = false;
   today: string = this.pipe.transform(new Date(), 'yyyyMMdd HH:mm:ss');
   options: NgxWatermarkOptions = {
-    text: localStorage.getItem('empNo') + sessionStorage.getItem('empName') + this.today,
+    text: localStorage.getItem('empNo') + localStorage.getItem('empName') + this.today,
     width: 300,
     height: 150,
     fontFamily: 'Kanit',

@@ -151,6 +151,14 @@ data_number(p: number) {
   getLockCase(swcApplno: string, swcNationalId: string, swcCustId: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
+
+    if (swcNationalId == localStorage.getItem('empId') ) {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "案件身分證不可與登入者身分證相同!" }
+      });
+      return;
+    }
+
     this.f01003Service.getLockCase(jsonObject).subscribe(data => {
       if (data.rspBody.length > 0) {
         this.fds = data.rspBody[0].fds

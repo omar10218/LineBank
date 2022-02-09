@@ -74,12 +74,6 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("loginKey", 'change');
       localStorage.removeItem('loginKey');
       localStorage.setItem("empNo", this.no);
-
-      const baseUrl = 'f01/childscn6action2';
-      let jsonObject: any = {};
-      let data: any ;
-      data = await this.loginService.getDate(baseUrl, jsonObject);
-      sessionStorage.setItem('empName' , data[0].empName);
     } else {
       alert('帳號有誤!');
       if ('stg' == this.from || 'uat' == this.from || 'prod' == this.from) {
