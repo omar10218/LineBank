@@ -508,7 +508,7 @@ export class F02001Component implements OnInit {
   // }
   sortChange(e: string, param: string) {
     switch (param) {
-      case "applno":
+      case "APPLNO":
          e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'ascend'):this.selectData(this.pageIndex, this.pageSize,param,'');
         break;
       case "APPLYEND_TIME":
