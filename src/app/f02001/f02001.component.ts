@@ -167,7 +167,7 @@ export class F02001Component implements OnInit {
   }
 
   getCustFlag() {
-    this.f02001Service.getSysTypeCode('CUST_FLAG').subscribe(data => {
+    this.f02001Service.getSysTypeCode('CUST_TAG').subscribe(data => {
       this.cust_FLAG.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
@@ -178,14 +178,15 @@ export class F02001Component implements OnInit {
   }
 
   getRiskGrade() {
-    this.f02001Service.getSysTypeCode('RISK_GRADE').subscribe(data => {
+    this.f02001Service.getSysTypeCode('RISK_GROUP').subscribe(data => {
       this.risk_GRADE.push({ value: '', viewValue: '請選擇' })
-      this.risk_GRADE.push({ value: 'R1', viewValue: 'R1' })
-      this.risk_GRADE.push({ value: 'R2', viewValue: 'R2' })
-      this.risk_GRADE.push({ value: 'R3', viewValue: 'R3' })
-      this.risk_GRADE.push({ value: 'R4', viewValue: 'R4' })
-      this.risk_GRADE.push({ value: 'R5', viewValue: 'R5' })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj['codeNo'];
+        const desc = jsonObj['codeDesc'];
+        this.risk_GRADE.push({ value: codeNo, viewValue: desc })
+      }
     });
+
   }
 
 
