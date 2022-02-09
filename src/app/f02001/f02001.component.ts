@@ -46,7 +46,7 @@ export class F02001Component implements OnInit {
   total: number;
   quantity: number;
   loading = false;
-  pageSize = 50;
+  pageSize = 10;
   pageIndex = 1;
   firstFlag = 1;
   sortArry = ['ascend', 'descend']
@@ -241,13 +241,13 @@ export class F02001Component implements OnInit {
     this.jsonObject['approveAmt'] = '';//核准金額/額度
     if(na=='')
     {
-      this.jsonObject['orderBy'] = na;
-      this.jsonObject['sort'] = sort;
+      this.jsonObject['orderByValue'] = na;
+      this.jsonObject['sortValue'] = sort;
     }
     else
     {
-      this.jsonObject['orderBy'] = na;
-      this.jsonObject['sort'] = sort;
+      this.jsonObject['orderByValue'] = na;
+      this.jsonObject['sortValue'] = sort;
     }
     if (this.national_ID != '' || this.cust_ID != '') {
 
@@ -509,10 +509,10 @@ export class F02001Component implements OnInit {
   sortChange(e: string, param: string) {
     switch (param) {
       case "APPLNO":
-         e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'ascend'):this.selectData(this.pageIndex, this.pageSize,param,'');
+         e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
         break;
       case "APPLYEND_TIME":
-        e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'ascend'):this.selectData(this.pageIndex, this.pageSize,param,'');
+        e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
         break;
     }
   }
