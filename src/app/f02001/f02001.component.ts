@@ -100,7 +100,7 @@ export class F02001Component implements OnInit {
       if (this.pageIndex !== pageIndex) {
         // const { pageSize, pageIndex } = params;
         this.pageIndex = pageIndex;
-        this.selectData(pageIndex, this.pageSize);}
+        this.selectData(pageIndex, this.pageSize,'','');}
       }
   }
   changePage() {
@@ -220,7 +220,7 @@ export class F02001Component implements OnInit {
     this.conditionCheck();
   }
 
-  selectData(pageIndex: number, pageSize: number) {
+  selectData(pageIndex: number, pageSize: number,na:string,sort:string) {
 
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
@@ -239,6 +239,16 @@ export class F02001Component implements OnInit {
     this.jsonObject['projectName'] = this.project_NAME;//專案名稱
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
     this.jsonObject['approveAmt'] = '';//核准金額/額度
+    if(na='')
+    {
+      this.jsonObject['orderBy'] = na;
+      this.jsonObject['sort'] = sort;
+    }
+    else
+    {
+      this.jsonObject['orderBy'] = na;
+      this.jsonObject['sort'] = sort;
+    }
     if (this.national_ID != '' || this.cust_ID != '') {
 
       if (this.apply_TIME != null)//進件日期
@@ -484,7 +494,7 @@ export class F02001Component implements OnInit {
         data: { msgStr: "請至少選擇一項條件" }
       });
     } else {
-      this.selectData(this.pageIndex, this.pageSize);
+      this.selectData(this.pageIndex, this.pageSize,'','');
     }
   }
   // sortChange(e: string) {
@@ -499,12 +509,10 @@ export class F02001Component implements OnInit {
   sortChange(e: string, param: string) {
     switch (param) {
       case "applno":
-        this.resultData = e === 'ascend' ? this.resultData.sort(
-          (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+         e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,'applno','ascend'):this.selectData(this.pageIndex, this.pageSize,'applno','');
         break;
       case "APPLYEND_TIME":
-        this.resultData = e === 'ascend' ? this.resultData.sort(
-          (a, b) => a.APPLYEND_TIME.localeCompare(b.APPLYEND_TIME)) : this.resultData.sort((a, b) => b.APPLYEND_TIME.localeCompare(a.APPLYEND_TIME))
+        e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,'APPLYEND_TIME','ascend'):this.selectData(this.pageIndex, this.pageSize,'APPLYEND_TIME','');
         break;
     }
   }
