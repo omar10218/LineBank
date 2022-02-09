@@ -228,7 +228,7 @@ export class F02005Component implements OnInit {
     this.jsonObject['cuCpTel'] = this.workPhone;//公司電話
     this.jsonObject['cuCpName'] = this.company;//公司名稱
     this.jsonObject['cuMTel']=this.mobilePhone;//手機
-    this.jsonObject['cuHTel'] = this.residencePhone;//住宅電話
+    this.jsonObject['HTel'] = this.residencePhone;//住宅電話
     this.jsonObject['cuIpAddr'] = this.IpAddress;//IpAddress
     this.jsonObject['cuEmail'] = this.Email;//Email
     if(na=='')
