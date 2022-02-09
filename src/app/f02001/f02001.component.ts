@@ -140,6 +140,10 @@ export class F02001Component implements OnInit {
     this.statusDescSecond = [];
     let jsonObject: any = {};
     jsonObject['statusDesc'] = codeTag;
+    if(this.status_DESC_Value =='')
+    {
+      this.statusDescSecondValue ='';
+    }
     this.f02001Service.changeStatsCode(jsonObject).subscribe(data => {
       this.statusDescSecond.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
