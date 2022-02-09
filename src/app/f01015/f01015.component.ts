@@ -59,7 +59,7 @@ export class F01015Component implements OnInit {
   limitNo: string//額度號值
   contact: string//通知方式值
   contactContent: string//通知內容值
-  reserveLimit: number//預佔額度
+  reserveLimit:string //預佔額度
   creditMemo: string //本次執行說明
   creditTime: any//本次執行時間
   creditEmpno: any//執行員編
@@ -86,12 +86,9 @@ export class F01015Component implements OnInit {
     this.custId = sessionStorage.customerId; //主管帶customer_ID
     this.reasonValue = sessionStorage.reasonCode; //主管帶執行原因
     this.executeValue = sessionStorage.executeType; //主管帶執行策略
-    this.creditTime =     this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd');    //主管帶本次執行時間
     this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
     this.reasonDetail = sessionStorage.reasonDetail; //主管帶執行細項
-    console.log(this.reasonDetail)
     this.limitNo = sessionStorage.limitNo; //主管帶額度號
-    console.log(this.limitNo)
     this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
     this.contact = sessionStorage.contactType; //主管帶通知方式
     this.contactContent = sessionStorage.contactContent; //主管帶通知內容
@@ -103,6 +100,7 @@ export class F01015Component implements OnInit {
 
     this.page = sessionStorage.getItem("page");
     if (this.page =='16') {
+      this.creditTime = this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd HH:mm');    //主管帶本次執行時間
       this.changereasonDetail()
       this.getTargetCustList();
       // this.getlimitCode(this.executeValue)
@@ -202,9 +200,26 @@ export class F01015Component implements OnInit {
 
     }
   }
+//輸入加千分位
+  data_number(p: string) {
+    console.log(p);
+    p = p.replace(/,/g, "")
+    if (p!= null)
+    {
+      p = p.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    this.reserveLimit =p;
 
+  }
+//儲存前處理千分位
+Cut(s: string)  {
+  if(s!=null)
+  {
+    s = s.replace(/,/g, "")
+  }
 
-
+  return s
+}
 
 
  
@@ -270,7 +285,7 @@ export class F01015Component implements OnInit {
     jsonObject['custId'] = this.custId
     jsonObject['excuteType'] = this.executeValue //本次執行措施策略
     jsonObject['limitNo'] = this.limitNo //選擇額度號
-    jsonObject['reserveLimit'] = this.reserveLimit //預佔額度
+    jsonObject['reserveLimit'] = this.reserveLimit!= "" ?this.Cut( this.reserveLimit) : "0"; //預佔額度
     jsonObject['contactYn'] = this.YNValue //通知客戶
     jsonObject['contactType'] = this.contact //通知方式
     jsonObject['contactContent'] = this.contactContent //通知內容

@@ -38,7 +38,7 @@
           </div>
           <div nz-col nzSpan="2" style="margin-top:15px;">
             <div>
-              <button nz-button [nzSize]="'middle'" nzType="primary" (click)="clear()">清除資料</button>
+              <button nz-button [nzSize]="'middle'" nzDanger (click)="clear()">清除資料</button>
             </div>
           </div>
         </div>
@@ -49,7 +49,7 @@
   <div class="content">
     <div #absBox class="abs-box">
       <div nz-col nzSpan="24">
-        <div class="line_bank_card_no_padding">
+        <div class="line_bank_card_no_padding" style="border-radius: 5px;">
           <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
             [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
             [nzScroll]="{y:tableHeight}"

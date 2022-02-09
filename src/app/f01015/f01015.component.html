@@ -4,12 +4,12 @@
         <div nz-row>
             <div nz-col nzSpan="12">
                 <div style="padding:10px"><span class="form-title">身分證字號:</span>
-                    <input [disabled]="page=='16'"
+                    <input [disabled]="page=='16'" placeholder="輸入身分證字號"
                         style="display: block;width: 95%;" [(ngModel)]="nationalId" name="nationalId"></div>
             </div>
             <div nz-col nzSpan="12">
                 <div style="padding:10px"><span class="form-title">Customer ID：</span>
-                    <input  [disabled]="page=='16'"
+                    <input  [disabled]="page=='16'" placeholder="輸入Customer ID"
                         style="display: block;width: 95%;" [(ngModel)]="custId" name="custId"></div>
             </div>
         </div>
@@ -152,7 +152,7 @@
             </div>
             <div nz-col nzSpan="9">
                 <div style="padding:3px"><span class="form-title">預佔額度</span>
-                    <input matInput #input [(ngModel)]="reserveLimit" name="reserveLimit" [disabled]="executeValue!='DWN'||page=='16' ">
+                    <input matInput #input [(ngModel)]="reserveLimit" (keyup)="data_number(reserveLimit)" name="reserveLimit" [disabled]="executeValue!='DWN'||page=='16' ">
                 </div>
             </div>
         </div>
@@ -169,12 +169,12 @@
                 </div>
                 <div style="margin-top:10px">
                     <span class="form-title">行動電話</span>
-                    <input nz-input placeholder="輸入電話"  style="display: block;" required>
+                    <input nz-input placeholder="輸入電話"  style="display: block;" [disabled]="page=='16'" >
                 </div>
                 <div style="margin-top:10px">
                     <span class="form-title">通知方式</span>
                     <mat-select [disabled]="page=='16'"  [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="contact" name="contact">
-                        <mat-option *ngFo r="let item of contactCode" [value]="item.value">
+                        <mat-option *ngFor="let item of contactCode" [value]="item.value">
                             {{item.viewValue}}
                         </mat-option>
                     </mat-select>

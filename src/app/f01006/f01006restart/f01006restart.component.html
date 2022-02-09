@@ -33,11 +33,11 @@
         </div>
       </div>
       <div nz-row>
-        <div class="line_bank_card_no_padding" style="width: 100%;">
+        <div class="line_bank_card_no_padding" style="width: 98%;">
           <div nz-col nzSpan="24">
-            <nz-table nzSize="small" [nzData]="interestData"  nzTitle="核准利率">
+            <nz-table nzSize="small" [nzData]="interestData"  nzTitle="核准利率" nzAlign="center">
               <thead>
-                <tr>
+                <tr style="text-align: center;">
                   <th class="table-header">序號</th>
                   <th class="table-header">分段起始期數</th>
                   <th class="table-header">期別</th>
@@ -49,7 +49,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let row of interestData;">
+                <tr *ngFor="let row of interestData;" style="text-align: center;">
                   <td class="table-data">{{ row.SEQ }}</td>
                   <td class="table-data">{{ row.PERIOD }}</td>
                   <td class="table-data">{{ row.PERIOD_TYPE }}</td>
@@ -69,7 +69,7 @@
           <div class="form" style="padding:10px">
             <div><span class="form-title">申覆原因</span>
               <mat-select [(ngModel)]="reason" name="reasonCode"
-                style="width:100%;height:30px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
+                style="width:100%;height:30px;border-radius:5px;border:none;padding:4px;background-color:#E6E6E6">
                 <mat-option *ngFor="let code of reasonCode" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
