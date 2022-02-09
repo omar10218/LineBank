@@ -50,6 +50,8 @@ export class F02001Component implements OnInit {
   pageIndex = 1;
   firstFlag = 1;
   sortArry = ['ascend', 'descend']
+  order:string;
+  sor:string;
   x: string;
   statusDetailCode: sysCode[] = [];
   sort: string;
@@ -97,10 +99,11 @@ export class F02001Component implements OnInit {
     // }
     if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
       const { pageIndex } = params;
-      if (this.pageIndex !== pageIndex) {
+      if (this.pageIndex !== pageIndex)
+      {
         // const { pageSize, pageIndex } = params;
         this.pageIndex = pageIndex;
-        this.selectData(pageIndex, this.pageSize,'','');}
+        this.selectData(pageIndex, this.pageSize,this.order,this.sor);}
       }
   }
   changePage() {
@@ -477,6 +480,9 @@ export class F02001Component implements OnInit {
     this.resultData = [];
     this.jsonObject = {};
     this.quantity = 0;
+    this.firstFlag = 1;
+    this.order ='';
+    this.sor ='';
   }
 
   // test()//測試
@@ -509,9 +515,30 @@ export class F02001Component implements OnInit {
   sortChange(e: string, param: string) {
     switch (param) {
       case "APPLNO":
+        if(e==='ascend')
+        {
+          this.order=param;
+          this.sor='DESC';
+        }
+        else
+        {
+          this.order=param;
+          this.sor='';
+        }
+
          e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
         break;
       case "APPLYEND_TIME":
+        if(e==='ascend')
+        {
+          this.order=param;
+          this.sor='DESC';
+        }
+        else
+        {
+          this.order=param;
+          this.sor='';
+        }
         e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
         break;
     }
