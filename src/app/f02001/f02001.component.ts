@@ -239,7 +239,7 @@ export class F02001Component implements OnInit {
     this.jsonObject['projectName'] = this.project_NAME;//專案名稱
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
     this.jsonObject['approveAmt'] = '';//核准金額/額度
-    if(na='')
+    if(na=='')
     {
       this.jsonObject['orderBy'] = na;
       this.jsonObject['sort'] = sort;
@@ -509,10 +509,10 @@ export class F02001Component implements OnInit {
   sortChange(e: string, param: string) {
     switch (param) {
       case "applno":
-         e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,'applno','ascend'):this.selectData(this.pageIndex, this.pageSize,'applno','');
+         e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'ascend'):this.selectData(this.pageIndex, this.pageSize,param,'');
         break;
       case "APPLYEND_TIME":
-        e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,'APPLYEND_TIME','ascend'):this.selectData(this.pageIndex, this.pageSize,'APPLYEND_TIME','');
+        e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'ascend'):this.selectData(this.pageIndex, this.pageSize,param,'');
         break;
     }
   }
