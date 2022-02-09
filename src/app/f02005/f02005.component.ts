@@ -196,6 +196,7 @@ export class F02005Component implements OnInit {
     this.resultData = [];
     this.firstFlag = 1;
     this.statusDescSecondValue='';
+    this.quantity='';
   }
   select() {
     if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == '' && this.mobilePhone == '' && this.residencePhone == '' && this.status_DESC_Value == ''
