@@ -188,7 +188,8 @@
                     </div>
                     <div style="margin-top:10px">
                         <span class="form-title">行動電話</span>
-                        <input nz-input placeholder="輸入電話" style="display: block;" [disabled]="page=='16'">
+                        <input nz-input placeholder="輸入電話" [(ngModel)]="mobile" name="mobile" style="display: block;" [disabled]="page=='16'" required>
+                        <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
                     </div>
                     <div style="margin-top:10px">
                         <span class="form-title">通知方式</span>
