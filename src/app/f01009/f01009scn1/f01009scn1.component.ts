@@ -23,7 +23,7 @@ export class F01009scn1Component implements OnInit {
 
   private applno: string;
   private search: string;
-  private cuid: string;
+  private swcNationalId: string;
   private fds: string
   private page: string
   private winClose: string = '';
@@ -36,7 +36,7 @@ export class F01009scn1Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
-    this.cuid = sessionStorage.getItem('nationalId');
+    this.swcNationalId = sessionStorage.getItem('swcNationalId');
     this.fds = sessionStorage.getItem('fds');
     this.page = sessionStorage.getItem('page');
     this.winClose = sessionStorage.getItem('winClose');
@@ -60,7 +60,7 @@ export class F01009scn1Component implements OnInit {
       width: "60vw",
       data: {
         applno: this.applno,
-        cuid: this.cuid,
+        cuid: this.swcNationalId,
         page: this.page
       }
     });
@@ -72,7 +72,7 @@ export class F01009scn1Component implements OnInit {
       width: '30%',
       data: {
         applno: this.applno,
-        cuid: this.cuid,
+        cuid: this.swcNationalId,
         page: this.page
       }
     });
@@ -157,7 +157,7 @@ export class F01009scn1Component implements OnInit {
       width: '70%',
       data: {
         applno: this.applno,
-        cuid: this.cuid,
+        cuid: this.swcNationalId,
         checkpoint: "L2"
       }
     });
@@ -170,7 +170,7 @@ export class F01009scn1Component implements OnInit {
       width: '70%',
       data: {
         applno: this.applno,
-        cuid: this.cuid,
+        cuid: this.swcNationalId,
         checkpoint: "L2"
       }
     });

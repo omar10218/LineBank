@@ -31,10 +31,10 @@ export class Childbwscn12Component implements OnInit {
   block: boolean = false;
 
   ngOnInit(): void {
-    this.swcID = sessionStorage.getItem('swcNationalId');
+    this.swcID = this.data.cuid;
     this.swcApplno = sessionStorage.getItem('applno');
     this.empNo = localStorage.getItem("empNo");
-    this.swcCustId = this.data.cuid;
+    this.swcCustId = sessionStorage.getItem('swcCustId');
     this.page = this.data.page;
   }
   closure() //關閉
@@ -60,6 +60,7 @@ export class Childbwscn12Component implements OnInit {
     jsonObject['search'] = this.chk.toString();
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['userId'] = this.empNo;
+
     this.block = true;
     this.childbwscn12Service.selectCustomer(Url,jsonObject).subscribe(data=>{
       const childernDialogRef = this.dialog.open(ConfirmComponent, {

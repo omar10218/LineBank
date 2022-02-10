@@ -50,6 +50,8 @@ export class F02001Component implements OnInit {
   pageIndex = 1;
   firstFlag = 1;
   sortArry = ['ascend', 'descend']
+  order:string;
+  sor:string;
   x: string;
   statusDetailCode: sysCode[] = [];
   sort: string;
@@ -97,10 +99,11 @@ export class F02001Component implements OnInit {
     // }
     if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
       const { pageIndex } = params;
-      if (this.pageIndex !== pageIndex) {
+      if (this.pageIndex !== pageIndex)
+      {
         // const { pageSize, pageIndex } = params;
         this.pageIndex = pageIndex;
-        this.selectData(pageIndex, this.pageSize);}
+        this.selectData(pageIndex, this.pageSize,this.order,this.sor);}
       }
   }
   changePage() {
@@ -137,6 +140,10 @@ export class F02001Component implements OnInit {
     this.statusDescSecond = [];
     let jsonObject: any = {};
     jsonObject['statusDesc'] = codeTag;
+    if(this.status_DESC_Value =='')
+    {
+      this.statusDescSecondValue ='';
+    }
     this.f02001Service.changeStatsCode(jsonObject).subscribe(data => {
       this.statusDescSecond.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
@@ -160,7 +167,7 @@ export class F02001Component implements OnInit {
   }
 
   getCustFlag() {
-    this.f02001Service.getSysTypeCode('CUST_FLAG').subscribe(data => {
+    this.f02001Service.getSysTypeCode('CUST_TAG').subscribe(data => {
       this.cust_FLAG.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
@@ -171,14 +178,15 @@ export class F02001Component implements OnInit {
   }
 
   getRiskGrade() {
-    this.f02001Service.getSysTypeCode('RISK_GRADE').subscribe(data => {
+    this.f02001Service.getSysTypeCode('RISK_GROUP').subscribe(data => {
       this.risk_GRADE.push({ value: '', viewValue: '請選擇' })
-      this.risk_GRADE.push({ value: 'R1', viewValue: 'R1' })
-      this.risk_GRADE.push({ value: 'R2', viewValue: 'R2' })
-      this.risk_GRADE.push({ value: 'R3', viewValue: 'R3' })
-      this.risk_GRADE.push({ value: 'R4', viewValue: 'R4' })
-      this.risk_GRADE.push({ value: 'R5', viewValue: 'R5' })
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj['codeNo'];
+        const desc = jsonObj['codeDesc'];
+        this.risk_GRADE.push({ value: codeNo, viewValue: desc })
+      }
     });
+
   }
 
 
@@ -220,7 +228,7 @@ export class F02001Component implements OnInit {
     this.conditionCheck();
   }
 
-  selectData(pageIndex: number, pageSize: number) {
+  selectData(pageIndex: number, pageSize: number,na:string,sort:string) {
 
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
@@ -239,6 +247,16 @@ export class F02001Component implements OnInit {
     this.jsonObject['projectName'] = this.project_NAME;//專案名稱
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
     this.jsonObject['approveAmt'] = '';//核准金額/額度
+    if(na=='')
+    {
+      this.jsonObject['orderByValue'] = na;
+      this.jsonObject['sortValue'] = sort;
+    }
+    else
+    {
+      this.jsonObject['orderByValue'] = na;
+      this.jsonObject['sortValue'] = sort;
+    }
     if (this.national_ID != '' || this.cust_ID != '') {
 
       if (this.apply_TIME != null)//進件日期
@@ -467,6 +485,9 @@ export class F02001Component implements OnInit {
     this.resultData = [];
     this.jsonObject = {};
     this.quantity = 0;
+    this.firstFlag = 1;
+    this.order ='';
+    this.sor ='';
   }
 
   // test()//測試
@@ -484,7 +505,7 @@ export class F02001Component implements OnInit {
         data: { msgStr: "請至少選擇一項條件" }
       });
     } else {
-      this.selectData(this.pageIndex, this.pageSize);
+      this.selectData(this.pageIndex, this.pageSize,'','');
     }
   }
   // sortChange(e: string) {
@@ -498,13 +519,32 @@ export class F02001Component implements OnInit {
   // }
   sortChange(e: string, param: string) {
     switch (param) {
-      case "applno":
-        this.resultData = e === 'ascend' ? this.resultData.sort(
-          (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+      case "APPLNO":
+        if(e==='ascend')
+        {
+          this.order=param;
+          this.sor='DESC';
+        }
+        else
+        {
+          this.order=param;
+          this.sor='';
+        }
+
+         e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
         break;
       case "APPLYEND_TIME":
-        this.resultData = e === 'ascend' ? this.resultData.sort(
-          (a, b) => a.APPLYEND_TIME.localeCompare(b.APPLYEND_TIME)) : this.resultData.sort((a, b) => b.APPLYEND_TIME.localeCompare(a.APPLYEND_TIME))
+        if(e==='ascend')
+        {
+          this.order=param;
+          this.sor='DESC';
+        }
+        else
+        {
+          this.order=param;
+          this.sor='';
+        }
+        e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
         break;
     }
   }

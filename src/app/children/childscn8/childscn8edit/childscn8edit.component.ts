@@ -43,8 +43,6 @@ export class Childscn8editComponent implements OnInit {
   CON_TEL_Selected: string;//電話種類
   CON_TARGET_Selected: string;//對象種類
   CON_MEMO_Selected: string;//註記種類
-  speakingContent: string;//話述內容
-  speakingAbbreviation: string;//話術名稱
   CON_TYPE_Code: OptionsCode[] = null//聯絡方式下拉選單
   TEL_CONDITION_Code: OptionsCode[] = null;//電話狀況下拉選單
   TEL_CHECK_Code: OptionsCode[] = null;//電話種類下拉選單
@@ -117,12 +115,6 @@ export class Childscn8editComponent implements OnInit {
   onNoClick(): void {
     // this.dialogRef.close();
     this.f01002scn1Service.setJCICSource({ show: false });
-  }
-
-  //顯示話述內容
-  ShowspeakingContenta(name: string, msg: string) {
-    this.speakingAbbreviation = name;
-    this.speakingContent = msg;
   }
 
   numberOnly(event: { which: any; keyCode: any; }): boolean {

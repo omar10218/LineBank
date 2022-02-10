@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild , OnDestroy} from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -56,7 +56,7 @@ interface checkboxCode {
   templateUrl: './childscn8.component.html',
   styleUrls: ['./childscn8.component.css', '../../../assets/css/f03.css']
 })
-export class Childscn8Component implements OnInit , OnDestroy{
+export class Childscn8Component implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
@@ -65,15 +65,15 @@ export class Childscn8Component implements OnInit , OnDestroy{
     private f01002scn1Service: F01002Scn1Service
   ) {//訂閱彈出視窗 更新Table
     this.JCICAddSource$ = this.f01002scn1Service.JCICAddSource$.subscribe((data) => {
-      if(!data.show){    this.getCALLOUTFunction(this.pageIndex, this.pageSize);}
+      if (!data.show) { this.getCALLOUTFunction(this.pageIndex, this.pageSize); }
     });
     this.JCICAddSource$ = this.f01002scn1Service.JCICSource$.subscribe((data) => {
-      if(!data.show){    this.getCALLOUTFunction(this.pageIndex, this.pageSize);}
+      if (!data.show) { this.getCALLOUTFunction(this.pageIndex, this.pageSize); }
     });
     this.JCICAddSource$ = this.f01002scn1Service.JCICItemsSource$.subscribe((data) => {
-      if(!data.show){    this.getCALLOUTFunction(this.pageIndex, this.pageSize);}
+      if (!data.show) { this.getCALLOUTFunction(this.pageIndex, this.pageSize); }
     });
-   }
+  }
 
   private applno: string;
   private search: string;
@@ -112,8 +112,6 @@ export class Childscn8Component implements OnInit , OnDestroy{
   speakingData: any;//table資料
   rspBodyData: any;//table資料
 
-
-
   //照會項目 複選額外處理
   MDtable: MDtable[] = [];
   REPLY_CONDITION14code: checkboxCode[]
@@ -140,10 +138,13 @@ export class Childscn8Component implements OnInit , OnDestroy{
   showEdit: boolean = false;
   showItems: boolean = false;
 
-    //頁面離開時觸發
-    ngOnDestroy() {
-      this.JCICAddSource$.unsubscribe();
-    }
+  speakingContent: string;//話述內容
+  speakingAbbreviation: string;//話術名稱
+
+  //頁面離開時觸發
+  ngOnDestroy() {
+    this.JCICAddSource$.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -152,8 +153,8 @@ export class Childscn8Component implements OnInit , OnDestroy{
     this.empNo = localStorage.getItem("empNo");
     this.page = sessionStorage.getItem('page');
 
-     this.HOURS_Code=this.childscn8Service.getHOURS();//時下拉選單
-     this.MINUTES_Code=this.childscn8Service.getMINUTES();//分下拉選單
+    this.HOURS_Code = this.childscn8Service.getHOURS();//時下拉選單
+    this.MINUTES_Code = this.childscn8Service.getMINUTES();//分下拉選單
 
 
     // this.childscn8Service.getSysTypeCode('HOURS')//時下拉選單
@@ -230,7 +231,6 @@ export class Childscn8Component implements OnInit , OnDestroy{
       CALLOUT_SETTIME: '',//確認時間
       CALLOUT_EMPNO: this.empNo,//徵信員編
       CALLOUT_YN: '',//照會完成
-      speakingData: this.speakingData//照會話術
     })
     // const dialogRef = this.dialog.open(Childscn8addComponent, {
     //   minHeight: '70vh',
@@ -285,7 +285,6 @@ export class Childscn8Component implements OnInit , OnDestroy{
       CALLOUT_EMPNO: this.empNo,//徵信員編
       CALLOUT_YN: CALLOUT_YN,//照會完成
       // CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
-      speakingData: this.speakingData//照會話術
     });
 
   }
@@ -444,10 +443,11 @@ export class Childscn8Component implements OnInit , OnDestroy{
     return result;
   }
 
-  // ShowspeakingContenta(speakingContent: string): void {
-  //   const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: speakingContent } });
-  //   // alert(speakingContent);
-  // }
+  //顯示話述內容
+  ShowspeakingContenta(name: string, msg: string) {
+    this.speakingAbbreviation = name;
+    this.speakingContent = msg;
+  }
 
   //照會項目儲存
   // async save() {

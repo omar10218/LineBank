@@ -231,29 +231,6 @@
         <button nz-button [nzSize]="'middle'"  nzDanger (click)="onNoClick()" tabindex="-1"
           style="margin:0px 5px">取消</button>
       </div>
-
-      <div nz-row>
-        <div nz-col nzSpan="24">
-          <div *ngFor="let speaking of data.speakingData" style="padding-left: 20px;margin-top: 40px;margin-left: 0px;">
-            <button  type="submit" nz-button nzType="primary" style="float:left;margin:2px 2px; color:#ffffff;border-color:#2c86ec;background:#2c86ec"
-              (click)="ShowspeakingContenta(speaking.speakingAbbreviation,speaking.speakingContent)">
-                {{speaking.speakingAbbreviation}}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div nz-row>
-        <div nz-col nzSpan="24" nz-row *ngIf="data.speakingData!=null && data.speakingData.length>0">
-          <div class="form" >
-            <div><span class="form-title">話術內容:{{speakingAbbreviation}}</span><textarea readonly matInput
-                class="input-textarea" [(ngModel)]="speakingContent" name="speakingContent"
-                style="height: 80px;"></textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </form>
   </div>
 </div>
