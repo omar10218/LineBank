@@ -10,7 +10,7 @@ export class F01008scn3Service extends BaseService {
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
   getJCICSearch(json: JSON): Observable<any> {
-    const baseUrl = 'f01/childscn6action';
+    const baseUrl = 'f01/f01008scn3action1';
     return this.postJsonObject(baseUrl, json);
   }
 
@@ -19,7 +19,7 @@ export class F01008scn3Service extends BaseService {
   }
 
   getMASTERJCICSearch(json: JSON): Observable<any> {
-    const baseUrl = 'f01/childscn6action1';
+    const baseUrl = 'f01/f01008scn3action2';
     return this.postJsonObject(baseUrl, json);
   }
   getMASTERJCICList(json: JSON): Observable<any> {

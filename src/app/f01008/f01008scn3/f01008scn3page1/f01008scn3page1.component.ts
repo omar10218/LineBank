@@ -3,6 +3,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router, NavigationEnd, Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { JCICCode } from 'src/app/interface/base';
+import { MenuListService } from 'src/app/menu-list/menu-list.service';
 // import { ChildrenService } from '../../children.service';
 import { F01008scn3Service } from '../f01008scn3.service';
 @Component({
@@ -15,7 +16,8 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
   constructor(
     private childscn6Service: F01008scn3Service,
     private router: Router,
-    // public childService: ChildrenService
+    private pipe: DatePipe,
+    private menuListService: MenuListService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -97,6 +99,9 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
 
   readonly JCICCode = JCICCode;
   ngOnInit(): void {
+    this.menuListService.setWaterMarkSource({
+      show: true
+    })
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
     // this.queryDate = sessionStorage.getItem('queryDate');
@@ -116,13 +121,14 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
     jsonObject['cuid'] = this.cuid;
     jsonObject['code'] = 'MASTER';
     this.childscn6Service.getDate(url, jsonObject).subscribe(data => {
-      if (data.rspBody.items.length > 0) {
+      if (data.rspBody != null && data.rspBody != '') {
         // for (let i = 0; i < data.rspBody.items.length; i++) {
         //   this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
         // }
         // this.dateValue = data.rspBody.items[0].QUERYDATE
         // sessionStorage.setItem('queryDate', this.dateValue);
-        this.queryDate = data.rspBody.items[0].QUERYDATE;
+        // this.queryDate = data.rspBody.items[0].QUERYDATE;
+        this.queryDate = this.pipe.transform(new Date(data.rspBody), 'yyyy-MM-dd HH:mm:ss');
         //this.router.navigate(['./'+this.routerCase+'/CHILDSCN6/CHILDSCN6PAGE1'], { queryParams: { applno: this.applno , cuid: this.cuid , search: this.search , queryDate: this.dateValue, routerCase: this.routerCase, fds: this.fds} });
       }
     });
@@ -269,5 +275,11 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
     this.hideJCIC = true;
     this.setBooleanFalse();
     this.list = [];
+  }
+
+  ngOnDestroy() {
+    this.menuListService.setWaterMarkSource({
+      show: false
+    })
   }
 }

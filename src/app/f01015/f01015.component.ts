@@ -54,6 +54,7 @@ export class F01015Component implements OnInit {
     { value: 'HLD', viewValue: 'HLD' }
   ];//執行策略
   YNValue: string;//通知客戶值
+  mobile:string//行動電話
   executeValue: string;//執行措施策略值
   reasonValue: string;//執行原因值
   reasonDetail: string;//執行細項值
@@ -334,6 +335,7 @@ export class F01015Component implements OnInit {
     jsonObject['contactType'] = this.contact //通知方式
     jsonObject['contactContent'] = this.contactContent //通知內容
     jsonObject['creditMemo'] = this.creditMemo //本次執行說明
+    jsonObject['mobile'] = this.mobile //本次執行說明
     // jsonObject['bossCredit'] = this.bossCreditValue //主管核決
     // jsonObject['bossContent'] = this.bossContent //主管覆核
     let msg: string = "";
@@ -354,6 +356,7 @@ export class F01015Component implements OnInit {
 
     jsonObject['applno'] = this.applno
     jsonObject['custId'] = this.custId
+    alert(this.custId)
     jsonObject['bossContent'] = this.bossContent //主管覆核
     jsonObject['bossCredit'] = this.bossCreditValue //主管核決
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
@@ -364,15 +367,12 @@ export class F01015Component implements OnInit {
     this.f01015Service.update2(jsonObject).subscribe(data => {
       console.log(data)
       msg = data.rspMsg
-      // if (data.rspMsg == "success") {
-      //   msg = "儲存成功!";
-      // } else {
-      //   msg = "儲存失敗";
-      // }
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msg }
       });
     })
+    // this.router.navigate(['./F01016']);
+    // alert('111')
   }
 
   //

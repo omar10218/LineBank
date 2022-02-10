@@ -35,28 +35,8 @@ export class F01008scn3Component implements OnInit {
 
   calloutSource$: Subscription;
 
-  options: NgxWatermarkOptions = {
-    text: '',
-    width: 300,
-    height: 150,
-    fontFamily: 'Kanit',
-    color: '#999',
-    alpha: .3,
-    degree: -45,
-    fontSize: '15px',
-  };
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
-    const baseUrl = 'f01/childscn6action2';
-    let jsonObject: any = {};
-    this.F01008scn3Service.getDate(baseUrl, jsonObject).subscribe(data => {
-      this.today = this.pipe.transform(new Date(), 'yyyyMMdd HH:mm:ss');
-      //this.watermark = data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
-
-      this.options.text =  data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
-      data.rspBody[0].empNo + data.rspBody[0].empName + this.today
-      +data.rspBody[0].empNo + data.rspBody[0].empName + this.today+data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
-    });
   }
   ngAfterViewInit() {
     this.resetPage();
