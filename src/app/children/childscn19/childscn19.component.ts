@@ -343,9 +343,9 @@ export class Childscn19Component implements OnInit {
               data: { msgStr: data.rspMsg }
             });
           })
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: data.rspMsg }
-          });
+          // const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          //   data: { msgStr: data.rspMsg }
+          // });
           this.block = false;
           if (this.page == '1') {
             this.router.navigate(['./F01001']);
