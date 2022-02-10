@@ -151,10 +151,9 @@ export class F01015Component implements OnInit {
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
 
 
-        if (data.rspBody == 'null') {
-          let msg = " ";
+        if (data.rspBody == null) {
+          let msg = "";
           msg = data.rspMsg
-          alert('111')
           const confirmDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: data.rspMsg }
           });
