@@ -420,6 +420,7 @@ export class F02001Component implements OnInit {
           data: { msgStr: "查無資料" }
         })
         this.resultData = [];
+        this.quantity =0;
 
       }
       else {
