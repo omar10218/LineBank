@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { OptionsCode } from '../interface/base';
 import { F01015Service } from './f01015.service';
+import { FormControl, Validators } from '@angular/forms';
 
 interface sysCode {
   value: string;
@@ -59,7 +60,7 @@ export class F01015Component implements OnInit {
   limitNo: string//額度號值
   contact: string//通知方式值
   contactContent: string//通知內容值
-  reserveLimit:string //預佔額度
+  reserveLimit: string //預佔額度
   creditMemo: string //本次執行說明
   creditTime: any//本次執行時間
   creditEmpno: any//執行員編
@@ -70,6 +71,7 @@ export class F01015Component implements OnInit {
   useId: string //員編
   x: string
   applno: string //案編
+  msg: string//訊息
   constructor(
     private f01015Service: F01015Service,
     public dialog: MatDialog,
@@ -93,20 +95,20 @@ export class F01015Component implements OnInit {
     this.contact = sessionStorage.contactType; //主管帶通知方式
     this.contactContent = sessionStorage.contactContent; //主管帶通知內容
     this.creditMemo = sessionStorage.creditMemo; //主管帶creditMemo
-    if(this.executeValue=='HLD'){
+    if (this.executeValue == 'HLD') {
       this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
     }
-    
+
 
     this.page = sessionStorage.getItem("page");
-    if (this.page =='16') {
+    if (this.page == '16') {
       this.creditTime = this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd HH:mm');    //主管帶本次執行時間
       this.changereasonDetail()
       this.getTargetCustList();
       // this.getlimitCode(this.executeValue)
       console.log(this.executeValue)
-      console.log( this.getlimitCode(this.executeValue))
-    }else{
+      console.log(this.getlimitCode(this.executeValue))
+    } else {
 
     }
     console.log(this.page)
@@ -124,22 +126,45 @@ export class F01015Component implements OnInit {
     // this.contact = '';
 
   }
+ 
+  formControl = new FormControl('', [
+    Validators.required
+  ]);
+  //欄位驗證
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
+
   getTargetCustList() {
     if ((this.nationalId == null || this.nationalId == '') && (this.custId == null || this.custId == '')) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入一項查詢項目" }
       });
     } else {
+
       let jsonObject: any = {};
       jsonObject['nationalId'] = this.nationalId
       jsonObject['custId'] = this.custId
 
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
-        console.log(data)
 
-        this.targetCustSource = data.rspBody.items
-        this.creditMainSource = data.rspBody.creditMainlist
-        console.log(data.rspBody.creditMainlist)
+
+        if (data.rspBody == 'null') {
+          let msg = " ";
+          msg = data.rspMsg
+          alert('111')
+          const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: data.rspMsg }
+          });
+        }
+        else {
+          console.log(data)
+          this.targetCustSource = data.rspBody.items
+          this.creditMainSource = data.rspBody.creditMainlist
+        }
+
       })
     }
   }
@@ -200,29 +225,27 @@ export class F01015Component implements OnInit {
 
     }
   }
-//輸入加千分位
+  //輸入加千分位
   data_number(p: string) {
     console.log(p);
     p = p.replace(/,/g, "")
-    if (p!= null)
-    {
+    if (p != null) {
       p = p.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
-    this.reserveLimit =p;
+    this.reserveLimit = p;
 
   }
-//儲存前處理千分位
-Cut(s: string)  {
-  if(s!=null)
-  {
-    s = s.replace(/,/g, "")
+  //儲存前處理千分位
+  Cut(s: string) {
+    if (s != null) {
+      s = s.replace(/,/g, "")
+    }
+
+    return s
   }
 
-  return s
-}
 
 
- 
   //取本次執行原因下拉
   getReason() {
     let jsonObject: any = {};
@@ -242,6 +265,7 @@ Cut(s: string)  {
     let jsonObject: any = {};
     jsonObject['reasonCode'] = this.reasonValue
     this.reasonDetailCode = [];
+    this.executeCode=[];
     // this.reasonDetail = "";
     this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
       console.log(data)
@@ -254,6 +278,27 @@ Cut(s: string)  {
       }
       console.log(this.reasonDetailCode)
     });
+    if (this.reasonValue == 'A' || this.reasonValue == 'C') {
+      return this.executeCode = [
+        { value: '', viewValue: '請選擇' },
+        { value: 'FRZ', viewValue: 'FRZ' },
+
+      ];
+
+    }
+    else if(this.reasonValue == 'B' || this.reasonValue == 'D'){
+      return this.executeCode = [
+        { value: '', viewValue: '請選擇' },
+        { value: 'HLD', viewValue: 'HLD' },
+
+      ];
+    }else{
+      return this.executeCode = [
+        { value: '', viewValue: '請選擇' },
+        { value: 'DWN', viewValue: 'DWN' },
+
+      ];
+    }
   }
 
   //取額度號下拉
@@ -285,7 +330,7 @@ Cut(s: string)  {
     jsonObject['custId'] = this.custId
     jsonObject['excuteType'] = this.executeValue //本次執行措施策略
     jsonObject['limitNo'] = this.limitNo //選擇額度號
-    jsonObject['reserveLimit'] = this.reserveLimit!= "" ?this.Cut( this.reserveLimit) : "0"; //預佔額度
+    jsonObject['reserveLimit'] = this.reserveLimit != "" ? this.Cut(this.reserveLimit) : "0"; //預佔額度
     jsonObject['contactYn'] = this.YNValue //通知客戶
     jsonObject['contactType'] = this.contact //通知方式
     jsonObject['contactContent'] = this.contactContent //通知內容
@@ -296,11 +341,7 @@ Cut(s: string)  {
     this.f01015Service.update(jsonObject).subscribe(data => {
       console.log(data)
       msg = data.rspMsg
-      // if (data.rspMsg == "送交成功") {
-      //   msg = "送出主管成功!";
-      // } else {
-      //   msg.rspMsg;
-      // }
+
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msg }
       });
