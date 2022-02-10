@@ -76,7 +76,7 @@
                   </td>
                   <td class="table-data">{{ data.reasonCode }}</td>
                   <td class="table-data">{{ data.executeType }}</td>
-                  <td class="table-data">{{ data.creditTime }}</td>
+                  <td class="table-data">{{ data.creditTime| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
                   <td class="table-data">{{  data.creditEmpno }}</td>
                   <td class="table-data">{{ data.customerId }}</td>
                   <td class="table-data">{{ data.nationalId }}</td>
