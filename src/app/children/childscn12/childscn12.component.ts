@@ -184,7 +184,7 @@ export class Childscn12Component implements OnInit {
   getStepName23() {
     //測試用
     // return true;
-    return (this.stepName == "APPLCreditL3" || this.stepName == "APPLCreditL2") ? true : false;
+    return (this.stepName == "APPLCreditL4" || this.stepName == "APPLCreditL3" || this.stepName == "APPLCreditL2") ? true : false;
   }
 
   //檢查是否是徵信或授信
