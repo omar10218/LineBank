@@ -1077,7 +1077,7 @@
             </div>
             <div nz-col nzFlex="1" [ngClass]="getSearch() == 'Y' ? 'dropdown' : '' ">
                 <div style="padding:2px"><span class="form-title">核決結果</span>
-                    <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px" (ngModelChange)="change(creditResult,'creditResult','')" [disabled]="getSearch() == 'Y'">
+                    <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px" (ngModelChange)="change(creditResult,'creditResult','')" [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
                         <mat-option *ngFor="let code of creditResultCode" [value]="code.value">
                             {{code.viewValue}}
                         </mat-option>
