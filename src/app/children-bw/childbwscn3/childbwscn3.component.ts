@@ -5,6 +5,7 @@ import { Childbwscn3Service } from '../childbwscn3/childbwscn3.service';
 import { ChildrenService } from '../../children/children.service';
 import { NgxWatermarkOptions } from 'ngx-watermark';
 import { DatePipe } from '@angular/common';
+import { MenuListService } from 'src/app/menu-list/menu-list.service';
 
 //Jay 複審行外資訊
 @Component({
@@ -19,7 +20,8 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     private childbwscn3Service: Childbwscn3Service,
     private router: Router,
     public childService: ChildrenService,
-    private pipe: DatePipe
+    private pipe: DatePipe,
+    private menuListService: MenuListService
   ) {
     // this.router.events.subscribe((event) => {
     //   if (event instanceof NavigationEnd) {
@@ -434,5 +436,10 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   }
   toCurrency(amount: string) {
     return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
+  }
+  ngOnDestroy() {
+    this.menuListService.setWaterMarkSource({
+      show: false
+    })
   }
 }
