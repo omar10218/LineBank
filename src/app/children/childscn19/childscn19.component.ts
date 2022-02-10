@@ -322,9 +322,9 @@ export class Childscn19Component implements OnInit {
 
   repair()//補件送出
   {
-    if (this.remarkContent.length > 70) {
+    if (this.remarkContent.length > 30) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '補充文件項目數超出限制(補件文件字數不大於70字)．補件送出失敗。' }
+        data: { msgStr: '補充文件項目數超出限制(補件文件字數不大於30字)．補件送出失敗。' }
       });
       return;
     } else {
