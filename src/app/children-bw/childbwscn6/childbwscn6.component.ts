@@ -63,8 +63,8 @@ export class Childbwscn6Component implements OnInit {
     this.initial(pageIndex, pageSize)
   }
 
-  detail(applno: string, nationalId: string, custId: string) {
-    sessionStorage.setItem('applno', applno);
+  detail(applno2: string, nationalId: string, custId: string) {
+    sessionStorage.setItem('applno', applno2);
     sessionStorage.setItem('nationalId', nationalId);
     sessionStorage.setItem('custId', custId);
     sessionStorage.setItem('search', 'Y');
@@ -72,10 +72,10 @@ export class Childbwscn6Component implements OnInit {
     sessionStorage.setItem('winClose', 'Y');
     //開啟徵審主畫面
     const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F01009/F01009SCN1", "", "location=no");
+    window.open(url[0] + "/#/F01009/F01009SCN1");
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');
-
+    sessionStorage.setItem('applno', this.applno);
     // const url = this.router.serializeUrl(
     //   this.router.createUrlTree(["./F01009/F01009SCN1"])
     // );
