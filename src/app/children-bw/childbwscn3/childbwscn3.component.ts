@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, Data } from '@angular/router';
+import { Router, Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Childbwscn3Service } from '../childbwscn3/childbwscn3.service';
 import { ChildrenService } from '../../children/children.service';
-import { NgxWatermarkOptions } from 'ngx-watermark';
 import { DatePipe } from '@angular/common';
+import { MenuListService } from 'src/app/menu-list/menu-list.service';
 
 //Jay 複審行外資訊
 @Component({
@@ -19,7 +19,8 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     private childbwscn3Service: Childbwscn3Service,
     private router: Router,
     public childService: ChildrenService,
-    private pipe: DatePipe
+    private pipe: DatePipe,
+    private menuListService: MenuListService
   ) {
     // this.router.events.subscribe((event) => {
     //   if (event instanceof NavigationEnd) {
@@ -32,17 +33,6 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     //   }
     // });
   }
-
-  options: NgxWatermarkOptions = {
-    text: '盜用必追究',
-    width: 300,
-    height: 150,
-    fontFamily: 'Kanit',
-    color: '#999',
-    alpha: .3,
-    degree: -45,
-    fontSize: '15px',
-  };
 
   AAS003: any[] = [];
   BAI001: any[] = [];
@@ -218,19 +208,10 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.applno = sessionStorage.getItem('applno');
-    const baseUrl = 'f01/childbwscn3action2';
-    let jsonObject: any = {};
-    this.childbwscn3Service.getDate(baseUrl, jsonObject).subscribe(data => {
-      this.today = this.pipe.transform(new Date(), 'yyyyMMdd HH:mm:ss');
-      this.options.text =  data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
-      data.rspBody[0].empNo + data.rspBody[0].empName + this.today
-      +data.rspBody[0].empNo + data.rspBody[0].empName + this.today+data.rspBody[0].empNo + data.rspBody[0].empName + this.today;
-    });
 
-
-
-
+    this.menuListService.setWaterMarkSource({
+      show: true
+    })
 
     this.cuid = sessionStorage.getItem('nationalId');
     this.getJcicMultiple();
@@ -254,7 +235,6 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   }
   // 取得聯徵彙整清單
   getJcicList() {
-
     let jsonObject: any = {}
     jsonObject['applno'] = this.applno
     this.childbwscn3Service.getMASTERJCICList(jsonObject).subscribe(data => {
@@ -434,5 +414,10 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   }
   toCurrency(amount: string) {
     return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
+  }
+  ngOnDestroy() {
+    this.menuListService.setWaterMarkSource({
+      show: false
+    })
   }
 }
