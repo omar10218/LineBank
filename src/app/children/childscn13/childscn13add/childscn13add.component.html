@@ -42,7 +42,7 @@
         <div nz-col nzFlex="2">
           <div style="padding:20px">
             <div><span class="form-title-actions">內容</span>
-              <input matInput #input class="form-control" type="text" [(ngModel)]="webInfoContent" name="webInfoContent"
+              <input matInput #input class="form-control" type="text" [(ngModel)]="webInfoContent" name="webInfoContent" maxlength="100"
                 required>
               <mat-error *ngIf="formControl.invalid">{{ getErrorMessage() }}</mat-error>
             </div>
