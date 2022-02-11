@@ -245,7 +245,13 @@ export class F01015Component implements OnInit {
     return s
   }
 
-
+test(key:string){
+  for(const row of this.reasonCode){
+    if(key==row.value){
+      return row.viewValue
+    }
+  }
+}
 
   //取本次執行原因下拉
   getReason() {
@@ -258,6 +264,7 @@ export class F01015Component implements OnInit {
         const desc = jsonObj.reasonDesc;
         this.reasonCode.push({ value: codeNo, viewValue: desc });
       }
+      console.log(this.reasonCode)
     });
   }
 
@@ -327,6 +334,7 @@ export class F01015Component implements OnInit {
     jsonObject['creditEmpno'] = this.useId
     jsonObject['personMainData'] = this.targetCustSource
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
+    jsonObject['reasonDesc'] = this.test(this.reasonValue) //本次執行原因中文
     jsonObject['reasonDetail'] = this.reasonDetail //本次執行原因細項
     jsonObject['custId'] = this.custId
     jsonObject['excuteType'] = this.executeValue //本次執行措施策略
