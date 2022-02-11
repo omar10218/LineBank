@@ -66,13 +66,13 @@ export class F02004Component implements OnInit {
     jsonObject['nationalId'] = this.nationalId;
     jsonObject['custId'] = this.custId;
     if (this.date != null) {
-      jsonObject['startDate'] = this.datepipe.transform(new Date(this.date[0]).toString(), 'yyyyMMdd');
-      jsonObject['endDate'] = this.datepipe.transform(new Date(this.date[1]).toString(), 'yyyyMMdd');
+      jsonObject['applyTimeStartDate'] = this.datepipe.transform(new Date(this.date[0]).toString(), 'yyyyMMdd');
+      jsonObject['applyTimeEndDate'] = this.datepipe.transform(new Date(this.date[1]).toString(), 'yyyyMMdd');
 
 
     } else {
-      jsonObject['startDate'] = '';
-      jsonObject['endDate'] = '';
+      jsonObject['applyTimeStartDate'] = '';
+      jsonObject['applyTimeEndDate'] = '';
     }
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
