@@ -150,11 +150,11 @@ export class F01007Component implements OnInit {
         sessionStorage.setItem('fds', this.fds);
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('stepName', this.stepName);
-        sessionStorage.setItem('level', '7');
+        //主管 L0 授信複核 L1 授信作業 L2 徵信作業 L3 文審作業 L4 總經理 S1 風管處 S2
+        sessionStorage.setItem('level', '1');
         // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
         sessionStorage.setItem('page','7');
         sessionStorage.setItem('custId', swcCustId);
-        sessionStorage.setItem('addSignLevel', '');
         this.router.navigate(['./F01007/F01007SCN1']);
       }
     });

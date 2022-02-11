@@ -1068,7 +1068,7 @@
         <div nz-row style="padding:5px">
             <div nz-col nzFlex="1" [ngClass]=" !(getLevel() == 'L2' || getLevel() == 'L1' || getLevel() == 'L0') ? 'dropdown' : '' ">
                 <div style="padding:2px"><span class="form-title">選擇加簽</span>
-                    <mat-select [(ngModel)]="addSignatureValue" name="addSignatureValue" style="height:25px" (ngModelChange)="change(addSignatureValue,'addSignature','')" [disabled]=" !(getLevel() == 'L2' || getLevel() == 'L1' || getLevel() == 'L0') ">
+                    <mat-select [(ngModel)]="addSignatureValue" name="addSignatureValue" style="height:25px" (ngModelChange)="change(addSignatureValue,'addSignature','')" [disabled]=" getPage() != '3' ">
                         <mat-option *ngFor="let code of addSignature" [value]="code.value">
                             {{code.viewValue}}
                         </mat-option>
@@ -1077,7 +1077,7 @@
             </div>
             <div nz-col nzFlex="1" [ngClass]="getSearch() == 'Y' || !(getLevel() == 'L4' || getLevel() == 'L3' || getLevel() == 'L2') ? 'dropdown' : '' ">
                 <div style="padding:2px"><span class="form-title">核決結果</span>
-                    <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px" (ngModelChange)="change(creditResult,'creditResult','')" [disabled]="getSearch() == 'Y' || !(getLevel() == 'L4' || getLevel() == 'L3' || getLevel() == 'L2')">
+                    <mat-select [(ngModel)]="creditResult" name="creditResult" style="height:25px" (ngModelChange)="change(creditResult,'creditResult','')" [disabled]="!(getPage() == '1' || getPage() == '2' || getPage() == '3') ">
                         <mat-option *ngFor="let code of creditResultCode" [value]="code.value">
                             {{code.viewValue}}
                         </mat-option>
@@ -1085,24 +1085,24 @@
                 </div>
             </div>
             <div nz-col nzFlex="1">
-                <div style="padding:3px"><span class="form-title">產品代號</span><input matInput #input class="form-control" value="待確認" readonly></div>
+                <div style="padding:3px"><span class="form-title">產品代號</span><input matInput #input class="form-control" value="待確認" readonly  [disabled]="!(getPage() == '1' || getPage() == '2' || getPage() == '3') "></div>
             </div>
             <div nz-col nzFlex="1">
-                <div style="padding:3px"><span class="form-title">專案代號</span><input matInput #input class="form-control" value="待確認" readonly></div>
+                <div style="padding:3px"><span class="form-title">專案代號</span><input matInput #input class="form-control" value="待確認" readonly  [disabled]="!(getPage() == '1' || getPage() == '2' || getPage() == '3') "></div>
             </div>
             <div nz-col nzFlex="1">
                 <div style="padding:3px"><span class="form-title">核准額度</span><input matInput #input class="form-control" [(ngModel)]="resultApproveAmt" name="resultApproveAmt" placeholder="輸入額度" [ngStyle]="getStyle(toNumber(resultApproveAmt))" (keypress)="numberOnly($event)"
-                        (keyup)="resultApproveAmt = toCurrency(toNumber(resultApproveAmt))" (ngModelChange)="change(toNumber(resultApproveAmt),'resultApproveAmt','')" [disabled]="getSearch() == 'Y' || getLevel() == 'L1'" required></div>
+                        (keyup)="resultApproveAmt = toCurrency(toNumber(resultApproveAmt))" (ngModelChange)="change(toNumber(resultApproveAmt),'resultApproveAmt','')" [disabled]="!(getPage() == '1' || getPage() == '2' || getPage() == '3') " required></div>
             </div>
             <div nz-col nzFlex="1">
                 <div style="padding:3px"><span class="form-title">每月最低還款比率(%)</span><input matInput #input class="form-control" [(ngModel)]="resultLowestPayRate" name="resultLowestPayRate" placeholder="輸入還款比率" style="text-align: right;" (keypress)="numberOnly($event)" (ngModelChange)="change(resultLowestPayRate,'resultLowestPayRate','')"
-                        [disabled]="getSearch() == 'Y' || getLevel() == 'L1'"></div>
+                  [disabled]="!(getPage() == '1' || getPage() == '2' || getPage() == '3') "></div>
             </div>
             <div nz-col nzFlex="1">
-                <div style="padding:3px"><span class="form-title">人員記錄-PM策略客群</span><input matInput #input class="form-control" [(ngModel)]="caPmcus" (ngModelChange)="change(caPmcus,'caPmcus','')" [disabled]="getSearch() == 'Y' || getLevel() == 'L1'" maxlength="10"></div>
+                <div style="padding:3px"><span class="form-title">人員記錄-PM策略客群</span><input matInput #input class="form-control" [(ngModel)]="caPmcus" (ngModelChange)="change(caPmcus,'caPmcus','')" [disabled]="!(getPage() == '1' || getPage() == '2' || getPage() == '3') " maxlength="10"></div>
             </div>
             <div nz-col nzFlex="1">
-                <div style="padding:3px"><span class="form-title">人員記錄-風險等級</span><input matInput #input class="form-control" [(ngModel)]="caRisk" (ngModelChange)="change(caRisk,'caRisk','')" [disabled]="getSearch() == 'Y' || getLevel() == 'L1'" maxlength="5"></div>
+                <div style="padding:3px"><span class="form-title">人員記錄-風險等級</span><input matInput #input class="form-control" [(ngModel)]="caRisk" (ngModelChange)="change(caRisk,'caRisk','')" [disabled]="!(getPage() == '1' || getPage() == '2' || getPage() == '3') " maxlength="5"></div>
             </div>
         </div>
 
@@ -1120,32 +1120,32 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of CreditInterestPeriodSource; let i = index" [ngClass]="getSearch() == 'Y' || getLevel() == 'L1' ? 'dropdown' : '' ">
+                <tr *ngFor="let data of CreditInterestPeriodSource; let i = index" [ngClass]="getSearch() == 'Y' || getLevel() != 'L2' ? 'dropdown' : '' ">
                     <td class="table-data">
                         <input matInput #input class="form-control" [(ngModel)]="CreditInterestPeriodSource[i].seq" disabled>
                     </td>
                     <td class="table-data">
-                        <input matInput #input class="form-control" [(ngModel)]="data.period" name="period" placeholder="輸入期數" [ngStyle]="getStyle(data.period)" (keypress)="numberOnly($event)" (ngModelChange)="change(data.period,'period',i + 1)" [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
+                        <input matInput #input class="form-control" [(ngModel)]="data.period" name="period" placeholder="輸入期數" [ngStyle]="getStyle(data.period)" (keypress)="numberOnly($event)" (ngModelChange)="change(data.period,'period',i + 1)" [disabled]="getPage() != '3'">
                     </td>
                     <td class="table-data">
-                        <mat-select [(ngModel)]="data.periodType" name="periodType" (ngModelChange)="change(data.periodType,'periodType',i + 1)" [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
+                        <mat-select [(ngModel)]="data.periodType" name="periodType" (ngModelChange)="change(data.periodType,'periodType',i + 1)" [disabled]="getPage() != '3'">
                             <mat-option *ngFor="let code of periodTypeCode" [value]="code.value">
                                 {{code.viewValue}}
                             </mat-option>
                         </mat-select>
                     </td>
                     <td class="table-data">
-                        <mat-select [(ngModel)]="data.interestType" name="interestType" (ngModelChange)="changeInterest(data)" [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
+                        <mat-select [(ngModel)]="data.interestType" name="interestType" (ngModelChange)="changeInterest(data)" [disabled]="getPage() != '3'">
                             <mat-option *ngFor="let code of interestTypeCode" [value]="code.value">
                                 {{code.viewValue}}
                             </mat-option>
                         </mat-select>
                     </td>
                     <td class="table-data">
-                        <input matInput #input class="form-control" [(ngModel)]="data.interestBase" name="interestBase" readonly>
+                        <input matInput #input class="form-control" [(ngModel)]="data.interestBase" name="interestBase" disabled readonly>
                     </td>
                     <td class="table-data">
-                        <input matInput #input class="form-control" [(ngModel)]="data.interest" name="interest" placeholder="輸入利率" style="text-align: right;" (keypress)="numberOnly($event)" (ngModelChange)="caluclate(data)" [disabled]="getSearch() == 'Y' || getLevel() == 'L1'">
+                        <input matInput #input class="form-control" [(ngModel)]="data.interest" name="interest" placeholder="輸入利率" style="text-align: right;" (keypress)="numberOnly($event)" (ngModelChange)="caluclate(data)" [disabled]="getPage() != '3'">
                     </td>
                     <td class="table-data">
                         <input matInput #input class="form-control" [(ngModel)]="data.approveInterest" name="approveInterest" style="text-align: right;" disabled>

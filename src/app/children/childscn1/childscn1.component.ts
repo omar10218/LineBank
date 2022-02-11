@@ -70,7 +70,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
   search: string;
   userId: string;
   level: string;
-  addSignLevel: string;
 
   //申請資訊
   applno: string;                               //案編
@@ -342,7 +341,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
     this.userId = localStorage.getItem("empNo");
     this.page = sessionStorage.getItem("page");
     this.level = sessionStorage.getItem('stepName').split('t')[1];
-    this.addSignLevel = sessionStorage.getItem('addSignLevel');
 
     //先建立徵審代碼框架
     for (let i = 0; i < 10; i++) {
@@ -1221,7 +1219,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   }
 
   //判斷頁面是否顯示
-  // 1文審 2徵信 3授信 4主管 5Fraud 6 申覆 8徵審後落人 9複審人員
+  //  // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管  12產生合約前覆核 13風管處處長 14總經理 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
   getPage() {
     return this.page
   }
