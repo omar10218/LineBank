@@ -151,7 +151,7 @@ export class F02007Component implements OnInit {
   }
 
   getCustFlag() {
-    this.f02007Service.getSysTypeCode('CUST_FLAG').subscribe(data => {
+    this.f02007Service.getSysTypeCode('CUST_TAG').subscribe(data => {
       this.cust_FLAG.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
