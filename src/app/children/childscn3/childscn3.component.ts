@@ -256,7 +256,11 @@ export class Childscn3Component implements OnInit {
       {
         if (item.check == true) {
           this.TeamArry.push(item.check)
-          this.remark=item.announce2
+          if(item.reasonCode == "5")
+          {
+            this.remark=item.announce2
+          }
+
         }
       }
       this.s = this.TeamArry.length;
