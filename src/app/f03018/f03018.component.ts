@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { OptionsCode } from '../interface/base';
 import { F03018editComponent } from './f03018edit/f03018edit.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
@@ -10,6 +9,8 @@ import { F03018addComponent } from './f03018add/f03018add.component';
 import { F03018uploadComponent } from './f03018upload/f03018upload.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { DatePipe } from '@angular/common';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { Data } from '@angular/router';
 
 interface sysCode {
   viewValue: string
@@ -21,6 +22,15 @@ interface sysCode {
   styleUrls: ['./f03018.component.css', '../../assets/css/f03.css']
 })
 export class F03018Component implements OnInit {
+
+  constructor(
+    private f03018Service: F03018Service,
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<F03015confirmComponent>,
+    private datePipe: DatePipe,
+    // this.myDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
+  ) { }
+
   cuCpNo: string //公司統編
   cuCpName: string //公司名稱
   cuCpSname: string //公司簡稱
@@ -30,21 +40,17 @@ export class F03018Component implements OnInit {
   useFlagValue: string //使用中
   empNo: string;  //上傳員編
   myDate: any = new Date();
-  cuCpSource = new MatTableDataSource<any>() //千大企業Table
+  cuCpSource: Data[] = []; //千大企業Table
 
   cuCpType1Code: sysCode[] = [] //分類1
   cuCpType2Code: sysCode[] = [] //分類2
   cuCpType3Code: sysCode[] = [] //分類3
   useFlagCode: sysCode[] = [] //使用中
 
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator
-  constructor(
-    private f03018Service: F03018Service,
-    public dialog: MatDialog,
-    public dialogRef: MatDialogRef<F03015confirmComponent>,
-    private datePipe: DatePipe,
-    // this.myDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
-  ) { }
+  total = 1;
+  pageSize = 50;
+  pageIndex = 1;
+  firstFlag = 1;
 
   ngOnInit(): void {
     this.empNo = localStorage.getItem("empNo");
@@ -96,11 +102,6 @@ export class F03018Component implements OnInit {
     })
   }
 
-
-
-
-
-
   //上傳EXCEL
   uploadExcel() {
     const dialogRef = this.dialog.open(F03018uploadComponent, {
@@ -115,17 +116,14 @@ export class F03018Component implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && result.event == 'success') {
-        this.refreshTable()
+        this.getElBigCompanyList(this.pageIndex, this.pageSize)
       }
     })
   }
-  private refreshTable() {
-    this.paginator._changePageSize(this.paginator.pageSize)
-  }
-
 
   //取得資料表
-  getElBigCompanyList() {
+  getElBigCompanyList(pageIndex: number, pageSize: number) {
+    this.firstFlag = 2;
     if (this.cuCpNo == undefined && this.cuCpName == undefined && this.cuCpSname == undefined && this.cuCpType1Value == undefined && this.cuCpType2Value == undefined && this.useFlagValue == undefined
 
     ) {
@@ -134,15 +132,10 @@ export class F03018Component implements OnInit {
       });
     }
     else {
-      console.log(this.cuCpNo)
-      console.log(this.cuCpName)
-      console.log(this.cuCpSname)
-      console.log(this.cuCpType1Value)
-      console.log(this.cuCpType2Value)
-      console.log(this.useFlagValue)
       const baseUrl = 'f03/f03018'
       let jsonObject: any = {}
-      // jsonObject['empno'] =  this.empNo;
+      jsonObject['page'] = pageIndex;
+      jsonObject['per_page'] = pageSize;
       jsonObject['cuCpNo'] = this.cuCpNo;
       jsonObject['cuCpName'] = this.cuCpName;
       jsonObject['cuCpSname'] = this.cuCpSname;
@@ -151,18 +144,14 @@ export class F03018Component implements OnInit {
       jsonObject['useFlag'] = this.useFlagValue;
 
       this.f03018Service.getElBigCompanyList(baseUrl, jsonObject).subscribe(data => {
-        // console.log(data)
-        this.cuCpSource = data.rspBody.items
-        // console.log( data.rspBody.items)
-        // this.total = data.rspBody.size
-        // this.compareDataSetSource.data = data.rspBody.items
-        // this.compareTableOption = data.rspBody.compareTable
-        // this.compareColumnOption = data.rspBody.comparColumn
-        // this.one = data.rspBody.items
-        // this.useFlag = false
+        if (data.rspBody.size != 0) {
+          this.cuCpSource = data.rspBody.items;
+          this.total = data.rspBody.size;
+          console.log("================");
+          console.log(this.total);
+        }
       })
     }
-
   }
 
   // 編輯
@@ -171,7 +160,6 @@ export class F03018Component implements OnInit {
       panelClass: 'mat-dialog-transparent',
       minHeight: '70vh',
       width: '50%',
-
       data: {
         cuCpNo: row.CU_CP_NO,
         cuCpName: row.CU_CP_NAME,
@@ -188,7 +176,7 @@ export class F03018Component implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && (result.event == 'success' || result == '1')) {
-        this.getElBigCompanyList()
+        this.getElBigCompanyList(this.pageIndex, this.pageSize)
       }
     })
   }
@@ -236,6 +224,13 @@ export class F03018Component implements OnInit {
         link.click();
 
       });
+    }
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    if (this.firstFlag != 1) {
+      const { pageSize, pageIndex } = params;
+      this.getElBigCompanyList(pageIndex, this.pageSize);
     }
   }
 
