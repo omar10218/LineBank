@@ -65,13 +65,14 @@
         <tr>
           <th class="table-header" [width]="80" ></th>
           <th class="table-header" [width]="100">客戶姓名</th>
-          <th class="table-header" [width]="100">客戶身分證字號</th>
+          <th class="table-header" [width]="100">客戶身份證字號</th>
           <th class="table-header"[width]="200">簡述1</th>
           <th class="table-header"[width]="200">簡述2</th>
           <th class="table-header"[width]="200">備註資訊</th>
           <th class="table-header"[width]="100" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true" [nzSortDirections]="sortArry">生效日</th>
           <th class="table-header"[width]="100">失效日</th>
           <th class="table-header"[width]="50">使用中</th>
+          <th class="table-header"[width]="100">建立日期</th>
           <th class="table-header"[width]="100"(nzSortOrderChange)="sortCHANGEDATE($event)" [nzSortFn]="true" [nzSortDirections]="sortArry">更新日期時間</th>
         </tr>
       </thead>
@@ -88,6 +89,7 @@
           <td class="table-data">{{ row.EFFECTIVE_DATE |date: 'yyyy-MM-dd' }}</td>
           <td class="table-data">{{ row.EXPIRATION_DATE |date: 'yyyy-MM-dd' }}</td>
           <td class="table-data" style="text-align:center">{{ getOptionDesc(usingType, row.USE_FLAG) }}</td>
+          <td class="table-data">{{ row.FRST_CRT_DB_TMSTMP |date: 'yyyy-MM-dd' }}</td>
           <td class="table-data">{{ row.CHANGE_DATE| date:'yyyy-MM-dd hh:mm' }}</td>
         </tr>
       </tbody>
