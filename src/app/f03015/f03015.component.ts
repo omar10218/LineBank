@@ -37,8 +37,9 @@ export class F03015Component implements OnInit {
   isHidden: boolean;
   total = 1;
   loading = false;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
+  firstFlag = 1;
 
   myDate: any = new Date();
   constructor(public dialogRef: MatDialogRef<F03015confirmComponent>, private f03015Service: F03015Service, public dialog: MatDialog, private fb: FormBuilder, private datePipe: DatePipe, @Inject(MAT_DIALOG_DATA) public data: any,) {
@@ -135,6 +136,7 @@ export class F03015Component implements OnInit {
 
   // 查詢
   async getProxyIncomeData(pageIndex: number, pageSize: number) {
+    this.firstFlag = 2;
     if ((this.proxyIncomeForm.value.INDUC_CODE == null || this.proxyIncomeForm.value.INDUC_CODE == '') && (this.inducLevel1Value == undefined || this.inducLevel1Value == '')
       && (this.inducLevel2Value == undefined || this.inducLevel2Value == '') && (this.jobCodeValue == undefined || this.jobCodeValue == '')) {
       const cconfirmDialogRef = this.dialog.open(F03015confirmComponent, {
@@ -157,8 +159,6 @@ export class F03015Component implements OnInit {
         } else {
           this.proxyIncomeDataSource = data.rspBody.items;
           this.total = data.rspBody.size;
-          console.log("===============");
-          console.log(this.total);
         }
       });
     }
@@ -304,7 +304,9 @@ export class F03015Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
-    this.getProxyIncomeData(pageIndex, this.pageSize);
+    if (this.firstFlag != 1) {
+      const { pageSize, pageIndex } = params;
+      this.getProxyIncomeData(pageIndex, this.pageSize);
+    }
   }
 }
