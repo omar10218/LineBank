@@ -14,6 +14,7 @@ import { F03015uploadComponent } from './f03015upload/f03015upload.component';
 import * as XLSX from 'xlsx';
 import { Data } from '@angular/router';
 import { DeleteConfirmComponent } from '../common-lib/delete-confirm/delete-confirm.component';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 // import { saveAs } from 'file-saver';
 interface sysCode {
   value: string;
@@ -73,12 +74,6 @@ export class F03015Component implements OnInit {
     this.jobCodeValue = "";
   }
 
-  //============================================================
-  totalCount: any;
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator;
-  @ViewChild('sortTable', { static: true }) sortTable: MatSort;
-  currentPage: PageEvent;
-  currentSort: Sort;
   proxyIncomeDataSource: Data[] = [];
   ngAfterViewInit() {
   }
@@ -153,15 +148,17 @@ export class F03015Component implements OnInit {
       jsonObject['inducLevel1'] = this.inducLevel1Value;
       jsonObject['inducLevel2'] = this.inducLevel2Value;
       jsonObject['jobCode'] = this.jobCodeValue;
-      await this.f03015Service.getReturn('f03/f03015', jsonObject).subscribe(data => {
-        this.totalCount = data.rspBody.size;
-        if (this.totalCount === 0) {
+      this.f03015Service.getReturn('f03/f03015', jsonObject).subscribe(data => {
+        if (data.rspBody.size === 0) {
           this.proxyIncomeDataSource = null;
           this.dialog.open(F03015confirmComponent, {
             data: { msgStr: "查無資料" }
           });
         } else {
           this.proxyIncomeDataSource = data.rspBody.items;
+          this.total = data.rspBody.size;
+          console.log("===============");
+          console.log(this.total);
         }
       });
     }
@@ -237,8 +234,7 @@ export class F03015Component implements OnInit {
       jsonObject['inducLevel2'] = this.inducLevel2Value;
       jsonObject['jobCode'] = this.jobCodeValue;
       this.f03015Service.getReturn('f03/f03015', jsonObject).subscribe(data => {
-        this.totalCount = data.rspBody.size;
-        if (this.totalCount === 0) {
+        if (data.rspBody.size === 0) {
           this.proxyIncomeDataSource = null;
           this.dialog.open(F03015confirmComponent, {
             data: { msgStr: "查無資料" }
@@ -305,5 +301,10 @@ export class F03015Component implements OnInit {
         });
       }
     });
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getProxyIncomeData(pageIndex, this.pageSize);
   }
 }
