@@ -210,7 +210,7 @@ export class F03014Component implements OnInit {
         this.ruleParamCondition = data.rspBody.item;
         this.total = data.rspBody.size;
       }
-      console.log(data.rspBody.size)
+      console.log(data.rspBody.item)
 
 
     }
