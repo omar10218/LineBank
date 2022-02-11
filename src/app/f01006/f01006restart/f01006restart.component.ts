@@ -27,6 +27,7 @@ export class F01006restartComponent implements OnInit {
   interestBase: string;
   interest: string;
   approveInterest: string;
+  baseRate: string
 
 
   constructor(
