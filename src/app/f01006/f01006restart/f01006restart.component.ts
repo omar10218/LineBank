@@ -89,7 +89,6 @@ export class F01006restartComponent implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.data.applno;
     this.f01006Service.getInterestData(jsonObject).subscribe(data => {
-      console.log(data)
       this.interestData = data.rspBody.items;
       // this.seq = this.interestData[0].SEQ;
       // this.period = this.interestData[0].PERIOD;
