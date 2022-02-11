@@ -162,7 +162,7 @@ export class F01008scn3page1Component  implements OnInit, AfterViewInit {
       // if ( data.rspBody[0].KRI001.length == 0 ) { this.KRI001.push(''); } else { this.KRI001 = data.rspBody[0].KRI001; };
       if ( data.rspBody[0].BAI001.length == 0 ) { this.BAI001.push(''); } else { this.BAI001 = data.rspBody[0].BAI001; };
       if ( data.rspBody[0].BAI004.length == 0 ) { this.BAI004.push(''); } else { this.BAI004 = data.rspBody[0].BAI004; };
-      // if ( data.rspBody[0].KRI002.length == 0 ) { this.KRI002.push(''); } else { this.KRI002 = data.rspBody[0].KRI002; };
+      if ( data.rspBody[0].KRI002.length == 0 ) { this.KRI002.push(''); } else { this.KRI002 = data.rspBody[0].KRI002; };
       // if ( data.rspBody[0].BAS008.length == 0 ) { this.BAS008.push(''); } else { this.BAS008 = data.rspBody[0].BAS008; };
       if ( data.rspBody[0].BAS006.length == 0 ) { this.BAS006.push(''); } else { this.BAS006 = data.rspBody[0].BAS006; };
       // if ( data.rspBody[0].STS007.length == 0 ) { this.STS007.push(''); } else { this.STS007 = data.rspBody[0].STS007; };

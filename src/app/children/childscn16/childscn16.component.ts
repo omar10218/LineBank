@@ -71,7 +71,7 @@ export class Childscn16Component implements OnInit {
   {
     const url = 'f01/f01002fn1';
     let jsonObject: any = {};
-    jsonObject['swcApplno'] = this.applno;
+    jsonObject['swcApplno'] = id;
     this.childscn16Service.selectCustomer(url, jsonObject).subscribe(data => {
 
       // if ( data.rspBody.length > 0 ) {
@@ -89,6 +89,7 @@ export class Childscn16Component implements OnInit {
       window.open( url[0] + "/#/F01002/F01002SCN1");
       sessionStorage.setItem('winClose', 'N');
       sessionStorage.setItem('search','N');
+      sessionStorage.setItem('applno', this.applno);
     })
   }
   initial(pageIndex: number, pageSize: number)//初始查詢
