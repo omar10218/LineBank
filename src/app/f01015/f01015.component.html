@@ -51,8 +51,8 @@
                     <td class="table-data">{{row.limitNo}}</td>
                     <td class="table-data">{{row.upLevel}}</td>
                     <td class="table-data">{{row.limitTypeCode}}</td>
-                    <td class="table-data">{{row.limitStartDate}}</td>
-                    <td class="table-data">{{row.limitEndDate}}</td>
+                    <td class="table-data">{{row.limitStartDate| date: 'yyyy/MM/dd '}}</td>                     
+                    <td class="table-data">{{row.limitEndDate| date: 'yyyy/MM/dd '}}</td>
                     <td class="table-data">{{toCurrency(row.creditLimit)}}</td>
                     <td class="table-data">{{toCurrency(row.usedLimit)}}</td>
                     <td class="table-data">{{toCurrency(row.reserveLimit)}}</td>

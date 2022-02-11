@@ -28,7 +28,7 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
   suiManagerSource = [];
   restart$: Subscription;
   x: string
-  
+
 
 
   constructor(
@@ -122,7 +122,7 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     jsonObject['applno'] = this.applno;
     jsonObject['nationalID'] = this.nationalID;
     jsonObject['custID'] = this.custID;
-  
+
     this.f01016Service.getCaseList(jsonObject).subscribe(data => {
       console.log(data)
       if (data.rspBody.items.length > 0) {
@@ -149,27 +149,26 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     return this.x
   }
 
-    // 排序
-    sortChange(e: string) {
-      this.suiManagerSource = e === 'ascend' ? this.suiManagerSource.sort(
-        (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.suiManagerSource.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
-    }
-  
-    // 清除資料
-    clear() {
-      this.applno = '';
-      this.nationalID = '';
-      this.custID = '';
-      this.suiManagerSource = [];
-      this.total = 0;
-    }
+  // 排序
+  sortChange(e: string) {
+    this.suiManagerSource = e === 'ascend' ? this.suiManagerSource.sort(
+      (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.suiManagerSource.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+  }
 
-   toCalloutPage(applno: string,reasonCode:string,executeType:string,creditTime:string,creditEmpno:string,customerId:string,nationalId:string,
-    reasonDetail:string,limitNo:string,contactYn:string ,contactType:string,contactContent:string,creditMemo:string,reserveLimit:string) 
-    {
+  // 清除資料
+  clear() {
+    this.applno = '';
+    this.nationalID = '';
+    this.custID = '';
+    this.suiManagerSource = [];
+    this.total = 0;
+  }
+
+  toCalloutPage(applno: string, reasonCode: string, executeType: string, creditTime: string, creditEmpno: string, customerId: string, nationalId: string,
+    reasonDetail: string, limitNo: string, contactYn: string, contactType: string, contactContent: string, creditMemo: string, reserveLimit: string, mobile: string) {
     let jsonObject: any = {};
     jsonObject['applno'] = applno;
-    this.f01016Service.getCaseList(jsonObject).subscribe(data=>{
+    this.f01016Service.getCaseList(jsonObject).subscribe(data => {
       sessionStorage.setItem('applno', applno);
       sessionStorage.setItem('reasonCode', reasonCode);//執行原因
       sessionStorage.setItem('executeType', executeType);//執行策略
@@ -184,16 +183,14 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
       sessionStorage.setItem('contactContent', contactContent); //通知內容
       sessionStorage.setItem('creditMemo', creditMemo); //本次執行說明
       sessionStorage.setItem('reserveLimit', reserveLimit); //本次執行說明
-
-
-
-       // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢 16主管凍結
-    sessionStorage.setItem('page', '16');
-    this.router.navigate(['./F01015']);
+      sessionStorage.setItem('mobile', mobile); //本次執行說明
+      // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢 16主管凍結
+      sessionStorage.setItem('page', '16');
+      this.router.navigate(['./F01015']);
     })
-   
- 
-   
-    
+
+
+
+
   }
 } 
