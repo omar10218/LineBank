@@ -68,23 +68,23 @@
       </nz-table>
     </div>
 
-    <div nz-row style="padding: 10px;">
+    <div nz-row >
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="2">
-        <div *ngIf="getPage() == '2' && getSearch()== 'N' " style="padding:10px ;padding-left: 10% ;text-align: left;">
+        <div *ngIf="getPage() == '2' && getSearch()== 'N' " style="padding:10px ;padding-left: 5% ;text-align: left;">
           <button nz-button [nzSize]="'middle'" nzType="primary" (click)="items()">編輯</button>
         </div>
         <div *ngIf="getPage() != '2' || (getPage() == '2' && getSearch()!= 'N')"
-          style="padding:10px ;padding-left: 10% ;text-align: left;">
+          style="padding:10px ;padding-left: 5% ;text-align: left;">
           <button nz-button [nzSize]="'middle'" nzType="primary" (click)="items()" disabled>編輯</button>
         </div>
       </div>
     </div>
 
-    <div nz-row style="padding: 10px;">
+    <div nz-row style="padding-left: 2%">
       <div nz-col nzFlex="1">
         <!-- 最外層卡片包覆 -->
-        <div class="line_bank_card_no_padding">
+        <div *ngIf="speakingData != null && speakingData.length>0" class="line_bank_card_no_padding">
           <div class="line_bank_form_header_title">照會話術</div>
           <div nz-row>
             <div nz-col nzSpan="24">
