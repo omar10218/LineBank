@@ -64,7 +64,6 @@ export class F01008scn1Component implements OnInit {
 
   save(result: string) //完成
   {
-
     let jsonObject: any = {};
     const dialogRef = this.dialog.open(Childscn26Component, {
       panelClass: 'mat-dialog-transparent',
@@ -74,6 +73,7 @@ export class F01008scn1Component implements OnInit {
         value: result
       }
     });
+    this.block = true;
     dialogRef.afterClosed().subscribe(result => {
       if (result.value == 'confirm') {
         if (this.level == 'D2') {
@@ -91,8 +91,9 @@ export class F01008scn1Component implements OnInit {
                   data: { msgStr: data.rspMsg }
                 })
                 this.router.navigate(['./F01008']);
-              }
 
+              }
+              this.block = false;
             })
 
           }
@@ -120,7 +121,7 @@ export class F01008scn1Component implements OnInit {
                 })
                 this.router.navigate(['./F01012']);
               }
-
+              this.block = false;
             })
           }
           else {

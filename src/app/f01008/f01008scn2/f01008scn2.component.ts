@@ -143,7 +143,7 @@ export class F01008scn2Component implements OnInit {
     this.ResultCode.push({ value: 'A', viewValue: '核准' })
     this.ResultCode.push({ value: 'D', viewValue: '婉拒' })
     this.getSearch();
-    console.log( this.lv)
+
   }
   test() {
     console.log(this.jcicNumb)
