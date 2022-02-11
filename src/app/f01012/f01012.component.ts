@@ -150,7 +150,6 @@ export class F01012Component implements OnInit {
         sessionStorage.setItem('page', '12');
         sessionStorage.setItem('stepName', this.stepName);
         sessionStorage.setItem('custId', swcCustId);
-        sessionStorage.setItem('addSignLevel', '');
         this.router.navigate(['./F01012/F01008SCN1']);
       }
     });
