@@ -29,6 +29,8 @@ export class F02004Component implements OnInit {
   ) { }
 
   loanAccount: string //循環帳戶
+  custId: string //客戶ID
+  nationalId: string //身分證字號
   date: [Date, Date];//時間
   dateFormat = 'yyyy/MM/dd';
   drFlag: string;//動撥狀態
@@ -61,6 +63,8 @@ export class F02004Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['loanAccount'] = this.loanAccount;
     jsonObject['drFlag'] = this.drFlag;
+    jsonObject['nationalId'] = this.nationalId;
+    jsonObject['custId'] = this.custId;
     if (this.date != null) {
       jsonObject['startDate'] = this.datepipe.transform(new Date(this.date[0]).toString(), 'yyyyMMdd');
       jsonObject['endDate'] = this.datepipe.transform(new Date(this.date[1]).toString(), 'yyyyMMdd');
@@ -72,9 +76,11 @@ export class F02004Component implements OnInit {
     }
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
+    console.log(jsonObject);
     this.f02004Service.f02002(baseUrl, jsonObject).subscribe(data => {
       this.loading = false;
       if (data.rspBody.size == 0) {
+        this.drCreditMianData=null;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         });
