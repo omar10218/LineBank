@@ -165,7 +165,6 @@ export class F01001Component implements OnInit, AfterViewInit {
         sessionStorage.setItem('page', '1');
         sessionStorage.setItem('stepName', this.stepName);
         sessionStorage.setItem('custId', swcCustId);
-        sessionStorage.setItem('addSignLevel', '');
         this.router.navigate(['./F01001/F01001SCN1']);
       }
     });
