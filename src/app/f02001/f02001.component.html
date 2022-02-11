@@ -120,7 +120,8 @@
     </div>
     <div class="line_bank_card_no_padding">
         <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{quantity}}件)</div>
-        <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzData]="resultData" [nzSimple]="true" [nzScroll]="{ x: '4000px', y: '400px' }" [nzLoading]="false" [nzTotal]="quantity" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+        <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="resultData" [nzSimple]="true" [nzScroll]="{ x: '4000px', y: '400px' }" [nzLoading]="false" [nzTotal]="quantity" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
+            (nzQueryParams)="onQueryParamsChange($event)">
             <thead>
                 <tr>
                     <th nzLeft nzWidth="60px">序號</th>
