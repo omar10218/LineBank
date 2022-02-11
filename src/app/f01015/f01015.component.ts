@@ -357,7 +357,6 @@ export class F01015Component implements OnInit {
 
     jsonObject['applno'] = this.applno
     jsonObject['custId'] = this.custId
-    alert(this.custId)
     jsonObject['bossContent'] = this.bossContent //主管覆核
     jsonObject['bossCredit'] = this.bossCreditValue //主管核決
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
@@ -371,12 +370,11 @@ export class F01015Component implements OnInit {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msg }
       });
+      this.router.navigate(['./F01016']);
     })
-    // this.router.navigate(['./F01016']);
-    // alert('111')
+   
   }
 
-  //
   //清除
   clear() {
     this.targetCustSource = null;
