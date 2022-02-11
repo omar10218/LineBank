@@ -3,16 +3,13 @@
     <div class="line_bank_card_no_padding">
         <div nz-row>
             <div nz-col nzSpan="4">
-                <div style="padding:10px"><span class="form-title">公司統編:</span><input style="display: block;"
-                        [(ngModel)]="cuCpNo" name="cuCpNo"></div>
+                <div style="padding:10px"><span class="form-title">公司統編:</span><input style="display: block;" [(ngModel)]="cuCpNo" name="cuCpNo"></div>
             </div>
             <div nz-col nzSpan="4">
-                <div style="padding:10px"><span class="form-title">公司名稱：</span><input style="display: block;"
-                        [(ngModel)]="cuCpName" name="cuCpName"></div>
+                <div style="padding:10px"><span class="form-title">公司名稱：</span><input style="display: block;" [(ngModel)]="cuCpName" name="cuCpName"></div>
             </div>
             <div nz-col nzSpan="4">
-                <div style="padding:10px"><span class="form-title">公司簡稱：</span><input style="display: block;"
-                        [(ngModel)]="cuCpSname" name="cuCpSname"></div>
+                <div style="padding:10px"><span class="form-title">公司簡稱：</span><input style="display: block;" [(ngModel)]="cuCpSname" name="cuCpSname"></div>
             </div>
             <div nz-col nzSpan="4">
                 <div style="padding:10px"><span class="form-title">分類1:</span>
@@ -43,16 +40,12 @@
             </div>
         </div>
         <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
-            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-                (click)="getElBigCompanyList()">查詢</button>
-            <button nz-button [nzSize]="'middle'"nzDanger style="margin:0px 5px"
-                (click)="Clear()">清除資料</button>
+            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="getElBigCompanyList(this.pageIndex, this.pageSize)">查詢</button>
+            <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="Clear()">清除資料</button>
         </div>
     </div>
     <div class="line_bank_card_no_padding">
-
-        <nz-table nzShowSizeChanger [nzData]="cuCpSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
-            nzTitle="千大企業名單維護">
+        <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="cuCpSource" [nzSimple]="true" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="千大企業名單維護" (nzQueryParams)="onQueryParamsChange($event)">
             <thead>
                 <tr>
                     <th class="table-header">公司統編</th>
@@ -65,11 +58,10 @@
                     <th class="table-header">備註</th>
                     <th class="table-header">更新日期時間</th>
                     <th class="table-header">編輯</th>
-
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let row of cuCpSource ">
+                <tr *ngFor="let row of cuCpSource">
                     <td class="table-data">{{row.CU_CP_NO}}</td>
                     <td class="table-data">{{row.CU_CP_NAME}}</td>
                     <td class="table-data">{{row.CU_CP_SNAME}}</td>
@@ -86,12 +78,10 @@
                 </tr>
             </tbody>
         </nz-table>
-        <div style="padding-bottom: 20px; margin-top: 20px;text-align: center">
-            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
-            <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-                (click)="uploadExcel()">上傳Excel</button>
-                <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-          (click)="exportExcel()">匯出Excel</button>
-        </div>
+    </div>
+    <div style="padding-bottom: 20px; margin-top: 20px;text-align: center">
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="uploadExcel()">上傳Excel</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="exportExcel()">匯出Excel</button>
     </div>
 </div>
