@@ -69,8 +69,11 @@ export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "身分驗證失敗" }
       });
-    }
-    else {
+    } else if (this.nationalID == '' && this.applno == '' && this.custID == '') {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "至少輸入一個選項!" }
+      });
+    } else {
       this.changePage();
       this.getCaseList();
 
