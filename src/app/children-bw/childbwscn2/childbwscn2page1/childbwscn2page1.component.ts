@@ -7,6 +7,7 @@ import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { OptionsCode } from 'src/app/interface/base';
 
 //Nick 決策結果
 @Component({
@@ -45,6 +46,14 @@ export class childbwscn2page1Component implements OnInit {
   search: string;
   size = 0//此層級是否有資料
   mark: string;
+ //審核結果
+ BW_creditResult: string
+
+   //審核結果選項
+   BW_creditResult_Code: OptionsCode[] = [{ value: 'FRZ', viewValue: 'FRZ' }, { value: 'DWN', viewValue: 'DWN' }, { value: 'HLD', viewValue: 'HLD' }
+   , { value: 'NEX', viewValue: 'NEX' }, { value: 'N00', viewValue: 'N00' }, { value: 'XXX', viewValue: 'XXX' }, { value: '000', viewValue: '000' }];
+
+   ynCode: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
 
 
   //策略1
@@ -290,5 +299,13 @@ export class childbwscn2page1Component implements OnInit {
       return "覆審主管"
     }
   }
-
+   //審核結果 資料改變
+   radio_change() {
+    sessionStorage.setItem('BW_creditResult', this.BW_creditResult);
+    // alert(sessionStorage.getItem('BW_creditResult'));
+  }
+ //是否為查詢
+ getSearch() {
+  return this.search
+}
 }

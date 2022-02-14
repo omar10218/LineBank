@@ -433,20 +433,20 @@
         nzSize="small">
         <thead>
           <tr>
-            <th class="table-header" style="width: 1%;">額度編號</th>
-            <th class="table-header" style="width: 2%;">額度類別代碼</th>
-            <th class="table-header" style="width: 3%;">額度</th>
-            <th class="table-header" style="width: 2%;">額度起日</th>
-            <th class="table-header" style="width: 2%;">額度迄日</th>
+            <th class="table-header" style="width: 2%;">額度編號</th>
+            <th class="table-header" style="width: 3%;">額度類別代碼</th>
+            <th class="table-header" style="width: 2.5%;">額度</th>
+            <th class="table-header" style="width: 3%;">額度起日</th>
+            <th class="table-header" style="width: 3%;">額度迄日</th>
             <th class="table-header" style="width: 2%;">系統流程</th>
             <th class="table-header" style="width: 2%;">貸後管理狀態</th>
             <th class="table-header" style="width: 2%;">說明</th>
             <th class="table-header" style="width: 2%;">執行原因</th>
-            <th class="table-header" style="width: 2%;">執行原因細項</th>
+            <th class="table-header" style="width: 3%;">執行原因細項</th>
             <th class="table-header" style="width: 2%;">起日</th>
             <th class="table-header" style="width: 2%;">迄日</th>
             <th class="table-header" style="width: 2%;">預佔額度</th>
-            <th class="table-header" style="width: 2%;">調降後額度</th>
+            <th class="table-header" style="width: 2.5%;">調降後額度</th>
             <th class="table-header" style="width: 10%;">通知客戶註記</th>
             <th class="table-header" style="width: 10%;">循環信貸特定客戶提供可循環轉分期註記</th>
           </tr>
@@ -473,6 +473,39 @@
         </tbody>
       </nz-table>
     </form>
+    <div class="line_bank_form_header_title">審核結果</div>
+    <div nz-row style="padding:5px">
+      <nz-radio-group [(ngModel)]="BW_creditResult" name="BW_creditResult" [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  required>
+        <div nz-row>
+          <div nz-col nzFlex="1" *ngFor="let code of BW_creditResult_Code" >
+            <div style="width:100%; height:30px">
+              <label (click)="radio_change()" nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+            </div>
+          </div>
+        </div>
+      </nz-radio-group>
+    </div>
+    <div nz-row style="padding:5px">
+      <div style="padding:2px"><span class="form-title">是否需通知客戶</span>
+        <mat-select style="height:25px" value="Y" [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  >
+          <mat-option *ngFor="let code of ynCode" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(起)</span><input matInput #input
+            class="form-control" value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  ></div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(迄)</span><input matInput #input
+            class="form-control" value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  ></div>
+      </div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+    </div>
     <div class="line_bank_form_header_title">審核註記</div>
 
     <div nz-row style="padding:5px;text-align: center;">
