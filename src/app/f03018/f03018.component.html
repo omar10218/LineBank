@@ -3,27 +3,27 @@
     <div class="line_bank_card_no_padding">
         <div nz-row>
             <div nz-col nzSpan="4">
-                <div style="padding:10px"><span class="form-title">公司統編:</span><input style="display: block;" [(ngModel)]="cuCpNo" name="cuCpNo"></div>
+                <div style="padding:10px"><span class="form-title" style="margin:0px">公司統編:</span><input placeholder="請輸入公司統編" style="display: block;" [(ngModel)]="cuCpNo" name="cuCpNo"></div>
             </div>
             <div nz-col nzSpan="4">
-                <div style="padding:10px"><span class="form-title">公司名稱：</span><input style="display: block;" [(ngModel)]="cuCpName" name="cuCpName"></div>
+                <div style="padding:10px"><span class="form-title" style="margin:0px">公司名稱：</span><input placeholder="請輸入公司名稱" style="display: block;" [(ngModel)]="cuCpName" name="cuCpName"></div>
             </div>
             <div nz-col nzSpan="4">
-                <div style="padding:10px"><span class="form-title">公司簡稱：</span><input style="display: block;" [(ngModel)]="cuCpSname" name="cuCpSname"></div>
+                <div style="padding:10px"><span class="form-title" style="margin:0px">公司簡稱：</span><input placeholder="請輸入公司簡稱" style="display: block;" [(ngModel)]="cuCpSname" name="cuCpSname"></div>
             </div>
             <div nz-col nzSpan="4">
-                <div style="padding:10px"><span class="form-title">分類1:</span>
+                <div style="padding:10px"><span class="form-title" style="margin:0px">分類1:</span>
                     <mat-select [(ngModel)]="cuCpType1Value" name="cuCpType1Value">
-                        <mat-option *ngFor="let code of cuCpType1Code" [value]="code.viewValue">
+                        <mat-option *ngFor="let code of cuCpType1Code" [value]="code.value">
                             {{code.viewValue}}
                         </mat-option>
                     </mat-select>
                 </div>
             </div>
             <div nz-col nzSpan="4">
-                <div style="padding:10px"><span class="form-title">分類2:</span>
+                <div style="padding:10px"><span class="form-title" style="margin:0px">分類2:</span>
                     <mat-select [(ngModel)]="cuCpType2Value" name="cuCpType2Value">
-                        <mat-option *ngFor="let code of cuCpType2Code" [value]="code.viewValue">
+                        <mat-option *ngFor="let code of cuCpType2Code" [value]="code.value">
                             {{code.viewValue}}
                         </mat-option>
                     </mat-select>
@@ -31,10 +31,11 @@
             </div>
 
             <div nz-col nzSpan="4">
-                <div style="padding:10px"><span class="form-title">使用中</span>
+                <div style="padding:10px"><span class="form-title" style="margin:0px">使用中</span>
                     <mat-select [(ngModel)]="useFlagValue" name="useFlagValue">
-                        <mat-option value='Y'>是</mat-option>
-                        <mat-option value='N'>否</mat-option>
+                        <mat-option *ngFor="let item of useFlagCode" [value]="item.value">
+                            {{item.viewValue}}
+                        </mat-option>
                     </mat-select>
                 </div>
             </div>
@@ -48,6 +49,7 @@
         <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="cuCpSource" [nzSimple]="true" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="千大企業名單維護" (nzQueryParams)="onQueryParamsChange($event)">
             <thead>
                 <tr>
+                    <th class="table-header">序號</th>
                     <th class="table-header">公司統編</th>
                     <th class="table-header">公司名稱</th>
                     <th class="table-header">公司簡稱</th>
@@ -61,7 +63,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let row of cuCpSource">
+                <tr *ngFor="let row of cuCpSource;let i = index">
+                    <td class="table-data">{{i}}</td>
                     <td class="table-data">{{row.CU_CP_NO}}</td>
                     <td class="table-data">{{row.CU_CP_NAME}}</td>
                     <td class="table-data">{{row.CU_CP_SNAME}}</td>

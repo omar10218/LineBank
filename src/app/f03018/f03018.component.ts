@@ -13,6 +13,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Data } from '@angular/router';
 
 interface sysCode {
+ value:string
   viewValue: string
 }
 //Kim 千大企業名單維護
@@ -34,10 +35,10 @@ export class F03018Component implements OnInit {
   cuCpNo: string //公司統編
   cuCpName: string //公司名稱
   cuCpSname: string //公司簡稱
-  cuCpType1Value: string //分類1
-  cuCpType2Value: string //分類2
+  cuCpType1Value: string='' //分類1
+  cuCpType2Value: string='' //分類2
   cuCpType3Value: string //分類3
-  useFlagValue: string //使用中
+  useFlagValue: string='' //使用中
   empNo: string;  //上傳員編
   myDate: any = new Date();
   cuCpSource: Data[] = []; //千大企業Table
@@ -45,7 +46,11 @@ export class F03018Component implements OnInit {
   cuCpType1Code: sysCode[] = [] //分類1
   cuCpType2Code: sysCode[] = [] //分類2
   cuCpType3Code: sysCode[] = [] //分類3
-  useFlagCode: sysCode[] = [] //使用中
+  useFlagCode: sysCode[] = [
+    { value: '', viewValue: '請選擇' },
+    { value: 'Y', viewValue: '是' },
+    { value: 'N', viewValue: '否' },
+  ] //使用中
 
   total = 1;
   pageSize = 50;
@@ -54,6 +59,7 @@ export class F03018Component implements OnInit {
 
   ngOnInit(): void {
     this.empNo = localStorage.getItem("empNo");
+    
     //分類1下拉選單
 
     this.getTypeselect()
@@ -64,7 +70,10 @@ export class F03018Component implements OnInit {
   getTypeselect() {
     const url = "f03/f03018";
     let jsonObject: any = {}
+    this.cuCpType1Code.push({value:'', viewValue: '請選擇' })
+    this.cuCpType2Code.push({ value:'',viewValue: '請選擇' })
     this.f03018Service.getValueTypeselect(url, jsonObject).subscribe(data => {
+      // console.log(this.cuCpType1Code)
       // console.log(data)
       // var new1 = data.rspBody.cuCpType1
       // console.log('new1=======================')
@@ -75,22 +84,19 @@ export class F03018Component implements OnInit {
 
         if (jsonObj != null) {
           const desc = jsonObj.CU_CP_TYPE1;
-          this.cuCpType1Code.push({ viewValue: desc })
+          this.cuCpType1Code.push({ value:desc,viewValue: desc })
         }
         //  const desc = jsonObj.CU_CP_TYPE1;
         //       this.cuCpType1Code.push({ viewValue: desc})
 
       }
-
-      // console.log(this.cuCpType1Code)
       for (const jsonObj of data.rspBody.cuCpType2) {
         if (jsonObj != null) {
           const desc = jsonObj.CU_CP_TYPE2;
-          this.cuCpType2Code.push({ viewValue: desc })
+          this.cuCpType2Code.push({ value:desc,viewValue: desc })
         }
 
       }
-      // console.log(this.cuCpType2Code)
     });
   }
   //新增
@@ -139,16 +145,22 @@ export class F03018Component implements OnInit {
       jsonObject['cuCpNo'] = this.cuCpNo;
       jsonObject['cuCpName'] = this.cuCpName;
       jsonObject['cuCpSname'] = this.cuCpSname;
-      jsonObject['cuCpType1'] = this.cuCpType1Value;
-      jsonObject['cuCpType2'] = this.cuCpType2Value;
-      jsonObject['useFlag'] = this.useFlagValue;
-
+      jsonObject['cuCpType1'] = this.cuCpType1Value==''? null:this.cuCpType1Value ;
+      jsonObject['cuCpType2'] = this.cuCpType2Value ==''? null:this.cuCpType2Value ;
+      jsonObject['useFlag'] = this.useFlagValue==''? null:this.useFlagValue ;
+      console.log(jsonObject)
       this.f03018Service.getElBigCompanyList(baseUrl, jsonObject).subscribe(data => {
         if (data.rspBody.size != 0) {
           this.cuCpSource = data.rspBody.items;
           this.total = data.rspBody.size;
           console.log("================");
           console.log(this.total);
+        }
+        else{
+          
+            const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "查無項目" }
+              });
         }
       })
     }
