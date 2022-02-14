@@ -53,13 +53,13 @@ export class F01015Component implements OnInit {
     { value: 'DWN', viewValue: 'DWN' },
     { value: 'HLD', viewValue: 'HLD' }
   ];//執行策略
-  YNValue: string;//通知客戶值
+  YNValue: string='';//通知客戶值
   mobile:string//行動電話
-  executeValue: string;//執行措施策略值
-  reasonValue: string;//執行原因值
-  reasonDetail: string;//執行細項值
-  limitNo: string//額度號值
-  contact: string//通知方式值
+  executeValue: string='';//執行措施策略值
+  reasonValue: string=''//執行原因值
+  reasonDetail: string=''//執行細項值
+  limitNo: string=''//額度號值
+  contact: string=''//通知方式值
   contactContent: string//通知內容值
   reserveLimit: string //預佔額度
   creditMemo: string //本次執行說明
@@ -108,25 +108,19 @@ export class F01015Component implements OnInit {
       this.changereasonDetail()
       this.getTargetCustList();
       // this.getlimitCode(this.executeValue)
-      console.log(this.executeValue)
-      console.log(this.getlimitCode(this.executeValue))
+      
     } else {
 
     }
-    console.log(this.page)
     this.useId = localStorage.getItem("empNo") //進入員編
-    console.log(this.page)
     this.getYNresult();
     this.getReason();
-    // this.changereasonDetail();
-    // this.reasonValue = ''
-    // this.reasonDetail = ''
-    // this.YNValue = '';
-    // this.executeValue = '';
-    // this.limitNo = '';
-    // this.bossCreditValue = '';
-    // this.contact = '';
-
+    this.reasonValue='';
+    this.reasonDetail='';
+    this.executeValue='';
+    this.YNValue='';
+    this.limitNo='';    
+    this.contact='';
   }
  
   formControl = new FormControl('', [
@@ -171,8 +165,8 @@ export class F01015Component implements OnInit {
   }
 
   getYNresult() {
+    this.YNCode.push({ value: '', viewValue: '請選擇' })   
     this.f01015Service.getSysTypeCode('YN').subscribe(data => {
-      this.YNCode.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
         const desc = jsonObj.codeDesc;
@@ -256,35 +250,34 @@ test(key:string){
   //取本次執行原因下拉
   getReason() {
     let jsonObject: any = {};
+    this.reasonCode.push({ value: '', viewValue: '請選擇' })
     this.f01015Service.getReturn('f01/f01015', jsonObject).subscribe(data => {
-      this.reasonCode.push({ value: '', viewValue: '請選擇' })
-      console.log(data)
+     
       for (const jsonObj of data.rspBody.adrCodelist) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;
         this.reasonCode.push({ value: codeNo, viewValue: desc });
       }
-      console.log(this.reasonCode)
-    });
+     });
   }
 
   //取本次執行原因細項下拉
   changereasonDetail() {
     let jsonObject: any = {};
+    this.reasonDetail='';
     jsonObject['reasonCode'] = this.reasonValue
     this.reasonDetailCode = [];
     this.executeCode=[];
     // this.reasonDetail = "";
+    this.reasonDetailCode.push({ value: '', viewValue: '請選擇' })
     this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
-      console.log(data)
-      this.reasonDetailCode.push({ value: '', viewValue: '請選擇' })
+    
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;
         this.reasonDetailCode.push({ value: codeNo, viewValue: desc });
 
       }
-      console.log(this.reasonDetailCode)
     });
     if (this.reasonValue == 'A' || this.reasonValue == 'C') {
       return this.executeCode = [
@@ -345,8 +338,7 @@ test(key:string){
     jsonObject['contactContent'] = this.contactContent //通知內容
     jsonObject['creditMemo'] = this.creditMemo //本次執行說明
     jsonObject['mobile'] = this.mobile //本次執行說明
-    // jsonObject['bossCredit'] = this.bossCreditValue //主管核決
-    // jsonObject['bossContent'] = this.bossContent //主管覆核
+   
     let msg: string = "";
     this.f01015Service.update(jsonObject).subscribe(data => {
       console.log(data)
@@ -369,7 +361,7 @@ test(key:string){
     jsonObject['bossCredit'] = this.bossCreditValue //主管核決
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
     jsonObject['reasonDesc'] = this.reasonDetail //本次執行原因細項
-    jsonObject['empNo'] = this.useId //主管員編
+    jsonObject['bossEmpno'] = this.useId //主管員編
     jsonObject['reserveLimit'] = this.reserveLimit //預佔額度
     let msg = "";
     this.f01015Service.update2(jsonObject).subscribe(data => {

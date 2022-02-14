@@ -24,7 +24,7 @@
     <div class="line_bank_card_no_padding">
         <nz-table nzShowSizeChanger [nzData]="targetCustSource" [nzFrontPagination]="false" [nzSimple]="true"
             [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-            nzSize="small" nzTitle="人工凍結解凍降額">
+            nzSize="small" nzTitle="{{custId}}額度資訊">
             <thead>
                 <tr>
                     <th class="table-header" (nzSortOrderChange)="sortChange($event)" nzSortFn="true"
@@ -60,9 +60,9 @@
                     <td class="table-data" [ngClass]="row.stopFlag==='Y'?'green':'red'" style="text-align: center;">
                         {{row.stopFlag}}</td>
                     <td class="table-data">{{row.stopDate}}</td>
-                    <td class="table-data" [ngClass]="row.stopFlag==='Y'?'green':'red'" style="text-align: center;">
+                    <td class="table-data" [ngClass]="row.cycleType==='Y'?'green':'red'" style="text-align: center;">
                         {{row.cycleType}}</td>
-                    <td class="table-data" [ngClass]="row.stopFlag==='Y'?'green':'red'" style="text-align: center;">
+                    <td class="table-data" [ngClass]="row.cancelFlag==='Y'?'green':'red'" style="text-align: center;">
                         {{row.cancelFlag}}</td>
                 </tr>
             </tbody>
@@ -172,7 +172,7 @@
                 <div nz-col nzSpan="9">
                     <div style="padding:3px"><span class="form-title">預佔額度</span>
                         <input matInput #input [(ngModel)]="reserveLimit" (keyup)="data_number(reserveLimit)"
-                            name="reserveLimit" [disabled]="executeValue!='DWN'||page=='16' ">
+                            name="reserveLimit" [disabled]="executeValue!='DWN'||page=='16' " oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
                     </div>
                 </div>
             </div>
@@ -194,8 +194,8 @@
                     <div style="margin-top:10px">
                         <span class="form-title">行動電話</span>
                         <input nz-input placeholder="輸入電話" [(ngModel)]="mobile" name="mobile" style="display: block;"
-                            [disabled]="page=='16'" required>
-                        <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
+                            [disabled]="page=='16'" required  oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
+                        <mat-error *ngIf="formControl.invalid && (mobile=='' || mobile== null) ">{{getErrorMessage()}}</mat-error>
                     </div>
                     <div style="margin-top:10px">
                         <span class="form-title">通知方式</span>
@@ -246,7 +246,7 @@
                     <div style="padding:3px"><span class="form-title">本次執行說明</span>
                         <textarea matInput [disabled]="page=='16'"
                             [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="creditMemo"
-                            placeholder="請輸入內容" name="creditMemo" class="input-textarea"
+                            placeholder="請輸入內容" name="creditMemo" class="input-textarea" maxlength="200"
                             style="text-align: left;height:150px" required>
                     </textarea>
                         <mat-error *ngIf="formControl.invalid && (creditMemo=='' || creditMemo== null)  ">
@@ -296,7 +296,7 @@
                     <div nz-col nzSpan="19">
                         <div style="padding:3px"><span class="form-title">主管覆核</span>
                             <textarea matInput class="input-textarea" placeholder="請輸入內容" [(ngModel)]="bossContent"
-                                name="bossContent" style="text-align: left;height:200px" required>
+                                name="bossContent" style="text-align: left;height:200px" required  maxlength="200">
                         </textarea>
                             <mat-error *ngIf="formControl.invalid && (bossContent=='' || bossContent== null)  ">
                                 {{getErrorMessage()}}</mat-error>
