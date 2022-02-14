@@ -225,6 +225,7 @@ export class Childscn19Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
+
       this.remarkContent = '';
       if (data.rspBody.items.length > 0) {
         for (var i of data.rspBody.items) {
@@ -242,11 +243,15 @@ export class Childscn19Component implements OnInit {
         }
 
         for (let index = 0; index < data.rspBody.items.length; index++) {
-          if (index == data.rspBody.items.length - 1) {
-            this.remarkContent = this.remarkContent + data.rspBody.items[index].RESCAN_ITEM + '(' + data.rspBody.items[index].RESCAN_TYPE + ')。';
-          } else {
-            this.remarkContent = this.remarkContent + data.rspBody.items[index].RESCAN_ITEM + '(' + data.rspBody.items[index].RESCAN_TYPE + ')、';
+          if(data.rspBody.items[index].IMAGE_DATE ==undefined )
+          {
+            if (index == data.rspBody.items.length - 1) {
+              this.remarkContent = this.remarkContent + data.rspBody.items[index].RESCAN_ITEM + '(' + data.rspBody.items[index].RESCAN_TYPE + ')。';
+            } else {
+              this.remarkContent = this.remarkContent + data.rspBody.items[index].RESCAN_ITEM + '(' + data.rspBody.items[index].RESCAN_TYPE + ')、';
+            }
           }
+
         }
       }
       else {
@@ -322,6 +327,7 @@ export class Childscn19Component implements OnInit {
 
   repair()//補件送出
   {
+    console.log(this.remarkContent.length)
     if (this.remarkContent.length > 30) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '補充文件項目數超出限制(補件文件字數不大於30字)．補件送出失敗。' }

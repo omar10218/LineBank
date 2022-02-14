@@ -75,7 +75,8 @@ export class F01008scn1Component implements OnInit {
     });
     this.block = true;
     dialogRef.afterClosed().subscribe(result => {
-      if (result.value == 'confirm') {
+      if (result.value == 'confirm')
+      {
         if (this.level == 'D2') {
           this.afterResult = sessionStorage.getItem('afterResult');
           if (this.afterResult != '' && this.afterResult != 'null') {
@@ -105,7 +106,8 @@ export class F01008scn1Component implements OnInit {
 
           }
         }
-        else {
+        else
+        {
           this.afterResult = sessionStorage.getItem('afterResult');
           if (this.afterResult != '' && this.afterResult != 'null') {
             let url = 'f01/f01008scn0scn1';
@@ -132,6 +134,10 @@ export class F01008scn1Component implements OnInit {
 
           }
         }
+      }
+      else
+      {
+        this.block = false;
       }
     })
 
