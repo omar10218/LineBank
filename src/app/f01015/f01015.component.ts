@@ -53,13 +53,13 @@ export class F01015Component implements OnInit {
     { value: 'DWN', viewValue: 'DWN' },
     { value: 'HLD', viewValue: 'HLD' }
   ];//執行策略
-  YNValue: string='';//通知客戶值
-  mobile:string//行動電話
-  executeValue: string='';//執行措施策略值
-  reasonValue: string=''//執行原因值
-  reasonDetail: string=''//執行細項值
-  limitNo: string=''//額度號值
-  contact: string=''//通知方式值
+  YNValue: string = '';//通知客戶值
+  mobile: string//行動電話
+  executeValue: string = '';//執行措施策略值
+  reasonValue: string = ''//執行原因值
+  reasonDetail: string = ''//執行細項值
+  limitNo: string = ''//額度號值
+  contact: string = ''//通知方式值
   contactContent: string//通知內容值
   reserveLimit: string //預佔額度
   creditMemo: string //本次執行說明
@@ -73,6 +73,8 @@ export class F01015Component implements OnInit {
   x: string
   applno: string //案編
   msg: string//訊息
+  sort: string;
+
   constructor(
     private f01015Service: F01015Service,
     public dialog: MatDialog,
@@ -82,6 +84,7 @@ export class F01015Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.sort = 'ascend';
     this.applno = sessionStorage.applno; //案編
     // if (this.applno != null) {
     //   this.getTargetCustList();
@@ -108,21 +111,21 @@ export class F01015Component implements OnInit {
       this.changereasonDetail()
       this.getTargetCustList();
       // this.getlimitCode(this.executeValue)
-      
+
     } else {
 
     }
     this.useId = localStorage.getItem("empNo") //進入員編
     this.getYNresult();
     this.getReason();
-    this.reasonValue='';
-    this.reasonDetail='';
-    this.executeValue='';
-    this.YNValue='';
-    this.limitNo='';    
-    this.contact='';
+    this.reasonValue = '';
+    this.reasonDetail = '';
+    this.executeValue = '';
+    this.YNValue = '';
+    this.limitNo = '';
+    this.contact = '';
   }
- 
+
   formControl = new FormControl('', [
     Validators.required
   ]);
@@ -165,7 +168,7 @@ export class F01015Component implements OnInit {
   }
 
   getYNresult() {
-    this.YNCode.push({ value: '', viewValue: '請選擇' })   
+    this.YNCode.push({ value: '', viewValue: '請選擇' })
     this.f01015Service.getSysTypeCode('YN').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
@@ -239,39 +242,40 @@ export class F01015Component implements OnInit {
     return s
   }
 
-test(key:string){
-  for(const row of this.reasonCode){
-    if(key==row.value){
-      return row.viewValue
+  //本次原因執行取得中文
+  test(key: string) {
+    for (const row of this.reasonCode) {
+      if (key == row.value) {
+        return row.viewValue
+      }
     }
   }
-}
 
   //取本次執行原因下拉
   getReason() {
     let jsonObject: any = {};
     this.reasonCode.push({ value: '', viewValue: '請選擇' })
     this.f01015Service.getReturn('f01/f01015', jsonObject).subscribe(data => {
-     
+
       for (const jsonObj of data.rspBody.adrCodelist) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;
         this.reasonCode.push({ value: codeNo, viewValue: desc });
       }
-     });
+    });
   }
 
   //取本次執行原因細項下拉
   changereasonDetail() {
     let jsonObject: any = {};
-    this.reasonDetail='';
+    this.reasonDetail = '';
     jsonObject['reasonCode'] = this.reasonValue
     this.reasonDetailCode = [];
-    this.executeCode=[];
+    this.executeCode = [];
     // this.reasonDetail = "";
     this.reasonDetailCode.push({ value: '', viewValue: '請選擇' })
     this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
-    
+
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;
@@ -287,13 +291,13 @@ test(key:string){
       ];
 
     }
-    else if(this.reasonValue == 'B' || this.reasonValue == 'D'){
+    else if (this.reasonValue == 'B' || this.reasonValue == 'D') {
       return this.executeCode = [
         { value: '', viewValue: '請選擇' },
         { value: 'HLD', viewValue: 'HLD' },
 
       ];
-    }else{
+    } else {
       return this.executeCode = [
         { value: '', viewValue: '請選擇' },
         { value: 'DWN', viewValue: 'DWN' },
@@ -327,7 +331,6 @@ test(key:string){
     jsonObject['creditEmpno'] = this.useId
     jsonObject['personMainData'] = this.targetCustSource
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
-    jsonObject['reasonDesc'] = this.test(this.reasonValue) //本次執行原因中文
     jsonObject['reasonDetail'] = this.reasonDetail //本次執行原因細項
     jsonObject['custId'] = this.custId
     jsonObject['excuteType'] = this.executeValue //本次執行措施策略
@@ -338,7 +341,7 @@ test(key:string){
     jsonObject['contactContent'] = this.contactContent //通知內容
     jsonObject['creditMemo'] = this.creditMemo //本次執行說明
     jsonObject['mobile'] = this.mobile //本次執行說明
-   
+
     let msg: string = "";
     this.f01015Service.update(jsonObject).subscribe(data => {
       console.log(data)
@@ -349,18 +352,19 @@ test(key:string){
       });
 
     })
+    setTimeout(() => {
+      this.clear()
+    }, 3000);
   }
 
-  //送出
+  //主管覆核
   managerSave() {
     let jsonObject: any = {};
-
     jsonObject['applno'] = this.applno
     jsonObject['custId'] = this.custId
+    jsonObject['reasonDesc'] = this.test(this.reasonValue) //本次執行原因中文
     jsonObject['bossContent'] = this.bossContent //主管覆核
     jsonObject['bossCredit'] = this.bossCreditValue //主管核決
-    jsonObject['reasonCode'] = this.reasonValue //本次執行原因
-    jsonObject['reasonDesc'] = this.reasonDetail //本次執行原因細項
     jsonObject['bossEmpno'] = this.useId //主管員編
     jsonObject['reserveLimit'] = this.reserveLimit //預佔額度
     let msg = "";
@@ -372,7 +376,7 @@ test(key:string){
       });
       this.router.navigate(['./F01016']);
     })
-   
+
   }
 
   //清除
@@ -406,9 +410,16 @@ test(key:string){
   }
 
   //排序
-  sortChange(e: string) {
+  sortChange(e: string, param: string) {
+    this.sort = '';
+    console.log(param)
     console.log(e)
-    this.targetCustSource = e === 'ascend' ? this.targetCustSource.sort(
-      (a, b) => a.levelNo.localeCompare(b.levelNo)) : this.targetCustSource.sort((a, b) => b.levelNo.localeCompare(a.levelNo))
+    switch (param) {
+      case " levelNo":
+        this.targetCustSource = e === 'ascend' ? this.targetCustSource.sort(
+          (a, b) => a.levelNo.localeCompare(b.levelNo)) : this.targetCustSource.sort((a, b) => b.levelNo.localeCompare(a.levelNo))
+        break
+    }
+
   }
 }
