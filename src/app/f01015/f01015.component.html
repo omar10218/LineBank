@@ -51,7 +51,7 @@
                     <td class="table-data">{{row.limitNo}}</td>
                     <td class="table-data">{{row.upLevel}}</td>
                     <td class="table-data">{{row.limitTypeCode}}</td>
-                    <td class="table-data">{{row.limitStartDate| date: 'yyyy/MM/dd '}}</td>                     
+                    <td class="table-data">{{row.limitStartDate| date: 'yyyy/MM/dd '}}</td>
                     <td class="table-data">{{row.limitEndDate| date: 'yyyy/MM/dd '}}</td>
                     <td class="table-data">{{toCurrency(row.creditLimit)}}</td>
                     <td class="table-data">{{toCurrency(row.usedLimit)}}</td>
@@ -116,7 +116,8 @@
                                 {{item.viewValue}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="formControl.invalid && (reasonValue=='' || reasonValue== null) ">
+                            {{getErrorMessage()}}</mat-error>
                     </div>
                 </div>
                 <div nz-col nzSpan="1">
@@ -130,7 +131,8 @@
                                 {{item.viewValue}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="formControl.invalid && (reasonDetail=='' || reasonDetail== null)  ">
+                            {{getErrorMessage()}}</mat-error>
                     </div>
                 </div>
                 <div nz-col nzSpan="10">
@@ -147,20 +149,22 @@
                                 {{item.viewValue}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="formControl.invalid && (executeValue=='' || executeValue== null) ">
+                            {{getErrorMessage()}}</mat-error>
                     </div>
                 </div>
                 <div nz-col nzSpan="1">
                 </div>
                 <div nz-col nzSpan="9">
                     <div style="padding:3px"><span class="form-title">選擇額度號</span>
-                        <mat-select [(ngModel)]="limitNo" name="limitNo"
+                        <mat-select [(ngModel)]="limitNo" name="limitNo" [disabled]="page=='16'"
                             [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" required>
                             <mat-option *ngFor="let item of limitCode" [value]="item.value">
                                 {{item.viewValue}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="formControl.invalid && (limitNo=='' || limitNo== null)">{{getErrorMessage()}}
+                        </mat-error>
                     </div>
                 </div>
                 <div nz-col nzSpan="1">
@@ -184,11 +188,13 @@
                                 {{item.viewValue}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="formControl.invalid && (YNValue=='' || YNValue== null) ">{{getErrorMessage()}}
+                        </mat-error>
                     </div>
                     <div style="margin-top:10px">
                         <span class="form-title">行動電話</span>
-                        <input nz-input placeholder="輸入電話" [(ngModel)]="mobile" name="mobile" style="display: block;" [disabled]="page=='16'" required>
+                        <input nz-input placeholder="輸入電話" [(ngModel)]="mobile" name="mobile" style="display: block;"
+                            [disabled]="page=='16'" required>
                         <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
                     </div>
                     <div style="margin-top:10px">
@@ -200,7 +206,8 @@
                                 {{item.viewValue}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="formControl.invalid && (contact=='' || contact== null) ">{{getErrorMessage()}}
+                        </mat-error>
                     </div>
 
                 </div>
@@ -209,10 +216,11 @@
                 <div nz-col nzSpan="19">
                     <div style="padding:3px"><span class="form-title">通知內容</span>
                         <textarea [disabled]="page=='16'" [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}"
-                            [(ngModel)]="contactContent" placeholder="請輸入內容" name="contactContent"
-                            class="input-textarea" style="text-align: left;height:150px" required>
-                    </textarea>
-                        <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
+                            [(ngModel)]="contactContent" placeholder="請輸入內容" name="contactContent" 
+                            class="input-textarea" style="text-align: left;height:150px;color: gray;" required>
+                        </textarea>
+                        <mat-error *ngIf="formControl.invalid && (contactContent=='' || contactContent== null)  ">
+                            {{getErrorMessage()}}</mat-error>
                     </div>
                 </div>
 
@@ -241,7 +249,8 @@
                             placeholder="請輸入內容" name="creditMemo" class="input-textarea"
                             style="text-align: left;height:150px" required>
                     </textarea>
-                        <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
+                        <mat-error *ngIf="formControl.invalid && (creditMemo=='' || creditMemo== null)  ">
+                            {{getErrorMessage()}}</mat-error>
                     </div>
                 </div>
 
@@ -266,7 +275,9 @@
                                     {{item.viewValue}}
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
+                            <mat-error
+                                *ngIf="formControl.invalid && (bossCreditValue=='' || bossCreditValue== null)   ">
+                                {{getErrorMessage()}}</mat-error>
 
                         </div>
                         <!-- <div style="margin-top:20px">
@@ -287,7 +298,8 @@
                             <textarea matInput class="input-textarea" placeholder="請輸入內容" [(ngModel)]="bossContent"
                                 name="bossContent" style="text-align: left;height:200px" required>
                         </textarea>
-                            <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
+                            <mat-error *ngIf="formControl.invalid && (bossContent=='' || bossContent== null)  ">
+                                {{getErrorMessage()}}</mat-error>
                         </div>
                     </div>
 
