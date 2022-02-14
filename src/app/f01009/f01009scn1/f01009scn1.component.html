@@ -26,15 +26,15 @@
   <div [ngClass]="{'classA': changeValue==true,'classB': changeValue==false}">
     <br>
     <nz-tabset nzLinkRouter>
-      <nz-tab>
+      <!-- <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDBWSCN1']">
           <button nz-button nzType="primary" nzSize="small" id="firstBtn" (click)="changeRoute(true)">審核資料</button>
 
         </a>
-      </nz-tab>
+      </nz-tab> -->
       <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDBWSCN2']">
-          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">決策結果</button>
+          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">審核決策</button>
         </a>
       </nz-tab>
       <nz-tab>
