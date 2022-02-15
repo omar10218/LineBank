@@ -218,6 +218,12 @@ export class F01003scn1Component implements OnInit {
                   });
                   return;
                 }
+                if (creditInterestPeriodArray[0].period != '1') {
+                  const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                    data: { msgStr: '第一期期數請填寫為"1"' }
+                  });
+                  return;
+                }
                 for (let index = 1; index <= count; index++) {
                   if (creditInterestPeriodArray[index - 1].approveInterest == '' || creditInterestPeriodArray[index - 1].approveInterest == null) {
                     const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -244,6 +250,13 @@ export class F01003scn1Component implements OnInit {
                       data: { msgStr: '序號' + index + ',期別未填寫' }
                     });
                     return;
+                  } else if (creditInterestPeriodArray[index - 2]) {
+                      if (Number(creditInterestPeriodArray[index - 1].period) <= Number(creditInterestPeriodArray[index - 2].period)) {
+                        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                          data: { msgStr: '序號' + index + ',期數需比前一期大' }
+                        });
+                        return;
+                      }
                   }
                 }
                 this.result(baseUrl, jsonObject, result, count);
