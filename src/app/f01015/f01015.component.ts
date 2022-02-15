@@ -162,6 +162,9 @@ export class F01015Component implements OnInit {
           console.log(data)
           this.targetCustSource = data.rspBody.items
           this.creditMainSource = data.rspBody.creditMainlist
+         this. targetCustSource.sort((a, b) => {
+          return a.levelNo - b.levelNo;
+          });
         }
 
       })
@@ -385,6 +388,7 @@ export class F01015Component implements OnInit {
     this.targetCustSource = null;
     this.creditMainSource = null;
     this.nationalId = "";
+    this.mobile="";
     this.custId = "";
     this.reasonValue = "";
     this.reasonDetail = "";
@@ -410,17 +414,5 @@ export class F01015Component implements OnInit {
     this.router.navigate(['./F01009/F01009SCN1/CHILDBWSCN1']);
   }
 
-  //排序
-  sortChange(e: string, param: string) {
-    this.sort = '';
-    console.log(param)
-    console.log(e)
-    switch (param) {
-      case " levelNo":
-        this.targetCustSource = e === 'ascend' ? this.targetCustSource.sort(
-          (a, b) => a.levelNo.localeCompare(b.levelNo)) : this.targetCustSource.sort((a, b) => b.levelNo.localeCompare(a.levelNo))
-        break
-    }
-
-  }
+  
 }
