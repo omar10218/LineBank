@@ -192,7 +192,7 @@
                     </div>
                     <div style="margin-top:10px">
                         <span class="form-title">行動電話</span>
-                        <input nz-input placeholder="輸入電話" [(ngModel)]="mobile" name="mobile" style="display: block;"
+                        <input nz-input placeholder="輸入電話" [(ngModel)]="mobile" name="mobile" style="padding: 4px;"
                             [disabled]="page=='16'" required  oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
                         <mat-error *ngIf="formControl.invalid && (mobile=='' || mobile== null) ">{{getErrorMessage()}}</mat-error>
                     </div>
