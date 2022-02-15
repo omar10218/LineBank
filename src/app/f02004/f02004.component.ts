@@ -36,7 +36,7 @@ export class F02004Component implements OnInit {
   drFlag: string;//動撥狀態
   drFlagCode: OptionsCode[] = [];//員編
   drCreditMianData: Data[] = [];
-  OpIdcode:sysCode[]=[];
+  OpIdcode:sysCode[]=[]; //EL狀態中文
   total = 1;
   x: string;
   loading = true;
@@ -78,6 +78,7 @@ export class F02004Component implements OnInit {
     jsonObject['per_page'] = pageSize;
     console.log(jsonObject);
     this.f02004Service.f02002(baseUrl, jsonObject).subscribe(data => {
+      console.log(data)
       this.loading = false;
       if (data.rspBody.size == 0) {
         this.drCreditMianData=null;
@@ -87,16 +88,18 @@ export class F02004Component implements OnInit {
       } else {
         this.total = data.rspBody.size;
         this.drCreditMianData = data.rspBody.list;
-        // this.OpIdcode=data.rspBody.opdesc
-        for (const jsonObj of data.rspBody.opdesc) {
+        for (const jsonObj of data.rspBody.drOpStatusList) {
           const codeNo = jsonObj.opId;
           const desc = jsonObj.opDesc;
           this.OpIdcode.push({ value: codeNo, viewValue: desc })
         }
+     
       }
     });
   }
 
+  
+  
   //查詢
   search() {
     var startDate, endDate;
@@ -164,6 +167,7 @@ export class F02004Component implements OnInit {
     }
     return this.x
   }
+  //取得EL狀態中文
   getOpId(codeVal: string): string {
     for (const data of this.OpIdcode) {
       if (data.value == codeVal) {

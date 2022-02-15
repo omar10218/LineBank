@@ -101,7 +101,7 @@ export class F01015Component implements OnInit {
     this.contactContent = sessionStorage.contactContent; //主管帶通知內容
     this.creditMemo = sessionStorage.creditMemo; //主管帶creditMemo
     this.mobile = sessionStorage.mobile; //mobile
-    if (this.executeValue == 'HLD') {
+    if (this.executeValue == 'DWN') {
       this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
     }
 
