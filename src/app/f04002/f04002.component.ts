@@ -75,7 +75,7 @@ export class F04002Component implements OnInit {
   roleFunctionSource = new MatTableDataSource<any>();
   level: string;   // 目前關卡
   pag:string;
-
+  i = 0;
   chkArray: checkBox[] = [];
 
   constructor(private f04002Service: F04002Service,
@@ -93,7 +93,7 @@ export class F04002Component implements OnInit {
 
   ngOnInit(): void {
 
-    
+
     // this.f04002Service.getSysTypeCode('STEP_ERROR').subscribe(data => {
     //   console.log(data)
     //   this.sysCode.push({ value: '', viewValue: '請選擇' })
@@ -106,13 +106,12 @@ export class F04002Component implements OnInit {
   }
   ngAfterViewInit():void{
   }
-  
+
   //選擇關卡
   choosePoint(){
     if(this.selectedPagValue=='1'){
-      console.log(this.selectedPagValue)
+
       this.f04002Service.getSysTypeCode('STEP_ERROR').subscribe(data => {
-        console.log(data)
         this.sysCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.mappingList) {
           const codeNo = jsonObj.codeNo;
@@ -122,9 +121,8 @@ export class F04002Component implements OnInit {
       });
     }
     else if(this.selectedPagValue=='2'){
-      console.log(this.selectedPagValue)
+
       this.f04002Service.getSysTypeCode('BW_STEP_ERROR').subscribe(data => {
-        console.log(data)
         this.sysCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.mappingList) {
           const codeNo = jsonObj.codeNo;
@@ -173,7 +171,6 @@ export class F04002Component implements OnInit {
     else {
       const baseUrl = 'f04/f04002fn2';
       var result = "D";
-      console.log(this.selectedValue)
       if(this.selectedValue == 'CSS_MANAGE'){ result = "P" ;}
 
       this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl, this.selectedValue, valArray, result).subscribe(data => {
@@ -202,21 +199,28 @@ export class F04002Component implements OnInit {
 
   //切換頁數
   onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
-    this.pageSize=pageSize;
-    this.pageIndex=pageIndex;
-    this.getSTEP_ERRORFunction(pageIndex, pageSize);
+    if(this.i>0)
+    {
+      const { pageSize, pageIndex } = params;
+      this.pageSize=pageSize;
+      this.pageIndex=pageIndex;
+      this.getSTEP_ERRORFunction(pageIndex, pageSize);
+    }
     //console.log(pageSize);console.log(pageIndex);
   }
 
+
+
+
   //取得表單
   private async getSTEP_ERRORFunction(pageIndex: number, pageSize: number) {
-
+    this.i=1;
     const baseUrl = 'f04/f04002fn1';
     this.f04002Service.getSTEP_ERRORFunction(baseUrl, this.selectedValue, this.pageIndex , this.pageSize).subscribe(data => {
 
       // data.rspBody.items=dataList;
-      if (this.chkArray.length > 0) {
+      if (this.chkArray.length > 0)
+      {
         let i: number = 0;
         for (const jsonObj of data.rspBody.items) {
           const chkValue = jsonObj['applno'];
