@@ -129,6 +129,7 @@ export class F01008scn1Component implements OnInit {
               data: { msgStr: "請選擇徵審後處理審核結果" }
             });
             this.router.navigate(['./F01012/F01008SCN1/F01008SCN2']);
+            this.block = false;
 
           }
         }
