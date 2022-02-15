@@ -105,12 +105,6 @@ export class F01010scn1Component implements OnInit {
       });
       return;
     }
-    if (sessionStorage.getItem('creditaction') == "" && sessionStorage.getItem('size') == "0") {
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '請填寫審核註記' }
-      });
-      return;
-    }
     const url = 'f01/childbwscn0';
     let msg = '';
     let jsonObject: any = {};
@@ -119,15 +113,21 @@ export class F01010scn1Component implements OnInit {
     jsonObject['creditResult'] = sessionStorage.getItem('BW_creditResult');
     this.block = true;
     this.f01010Service.postJson(url, jsonObject).subscribe(data => {
-      // if(data.rspMsg=="儲存成功!"){this.getCreditmemo(this.pageIndex, this.pageSize);}
-      msg = data.rspMsg;
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: msg }
-      });
-      // console.log('savedata')
-      // console.log(data)
+      let childernDialogRef: any;
+      if (data.rspMsg != null && data.rspMsg != '') {
+        childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: data.rspMsg }
+        });
+      }
+      if (data.rspMsg.includes('處理案件異常')) { } else {
+        setTimeout(() => {
+          childernDialogRef.close();
+        }, 1000);
+        setTimeout(() => {
+          this.router.navigate(['./F01010']);
+        }, 1500);
+      }
       this.block = false;
-      this.router.navigate(['./F01009']);
     });
   }
 
