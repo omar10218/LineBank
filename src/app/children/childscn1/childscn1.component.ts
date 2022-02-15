@@ -818,8 +818,10 @@ export class Childscn1Component implements OnInit, OnDestroy {
   }
 
   numberOnly(event: { which: any; keyCode: any; }): boolean {
+    console.log("=============");
+    console.log(event.keyCode);
     const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode < 110 && charCode > 110) {
+    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 110) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入數字!' }
       });
