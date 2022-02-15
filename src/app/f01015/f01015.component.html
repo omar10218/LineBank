@@ -18,7 +18,7 @@
         <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
             <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" [disabled]="page=='16'"
                 (click)="getTargetCustList()">查詢</button>
-            <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="clear()">清除資料</button>
+            <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="clear()" [disabled]="page=='16'">清除資料</button>
         </div>
     </div>
     <div class="line_bank_card_no_padding">
@@ -27,7 +27,7 @@
             nzSize="small" nzTitle="{{custId}}額度資訊">
             <thead>
                 <tr>
-                    <th class="table-header" > 層級</th>
+                    <th class="table-header"> 層級</th>
                     <th class="table-header">額度號</th>
                     <th class="table-header">上層額度號</th>
                     <th class="table-header">額度類別代碼</th>
@@ -295,7 +295,7 @@
                     <div nz-col nzSpan="19">
                         <div style="padding:3px"><span class="form-title">主管覆核</span>
                             <textarea matInput class="input-textarea" placeholder="請輸入內容" [(ngModel)]="bossContent"
-                                name="bossContent" style="text-align: left;height:200px" required  maxlength="200">
+                                name="bossContent" style="text-align: left;height:200px" required >
                         </textarea>
                             <mat-error *ngIf="formControl.invalid && (bossContent=='' || bossContent== null)  ">
                                 {{getErrorMessage()}}</mat-error>

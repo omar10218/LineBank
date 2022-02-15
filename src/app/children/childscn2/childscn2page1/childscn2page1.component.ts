@@ -41,6 +41,7 @@ export class Childscn2page1Component implements OnInit {
 // 排序
 sortChange(e: string, param: string) {
   this.sort = '';
+  console.log(param)
   switch (param) {
 
     case "transDate":

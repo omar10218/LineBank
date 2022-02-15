@@ -57,8 +57,8 @@ export class F01015Component implements OnInit {
   mobile: string//行動電話
   executeValue: string = '';//執行措施策略值
   reasonValue: string = ''//執行原因值
-  reasonDetail: string = ''//執行細項值
-  limitNo: string = ''//額度號值
+  reasonDetail: string //執行細項值
+  limitNo: string//額度號值
   contact: string = ''//通知方式值
   contactContent: string//通知內容值
   reserveLimit: string //預佔額度
@@ -95,6 +95,7 @@ export class F01015Component implements OnInit {
     this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
     this.reasonDetail = sessionStorage.reasonDetail; //主管帶執行細項
     this.limitNo = sessionStorage.limitNo; //主管帶額度號
+    console.log(this.limitNo)
     this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
     this.contact = sessionStorage.contactType; //主管帶通知方式
     this.contactContent = sessionStorage.contactContent; //主管帶通知內容
@@ -110,7 +111,7 @@ export class F01015Component implements OnInit {
       this.creditTime = this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd HH:mm');    //主管帶本次執行時間
       this.changereasonDetail()
       this.getTargetCustList();
-      // this.getlimitCode(this.executeValue)
+      this.getlimitCode(this.executeValue)
 
     } else {
 
@@ -118,12 +119,12 @@ export class F01015Component implements OnInit {
     this.useId = localStorage.getItem("empNo") //進入員編
     this.getYNresult();
     this.getReason();
-    this.reasonValue = '';
-    this.reasonDetail = '';
-    this.executeValue = '';
-    this.YNValue = '';
-    this.limitNo = '';
-    this.contact = '';
+    // this.reasonValue = '';
+    // this.reasonDetail = '';
+    // this.executeValue = '';
+    // this.YNValue = '';
+    // this.limitNo = '';
+    // this.contact = '';
   }
 
   formControl = new FormControl('', [
@@ -268,7 +269,7 @@ export class F01015Component implements OnInit {
   //取本次執行原因細項下拉
   changereasonDetail() {
     let jsonObject: any = {};
-    this.reasonDetail = '';
+    // this.reasonDetail = '';
     jsonObject['reasonCode'] = this.reasonValue
     this.reasonDetailCode = [];
     this.executeCode = [];
