@@ -150,17 +150,17 @@ export class F03018Component implements OnInit {
       jsonObject['useFlag'] = this.useFlagValue==''? null:this.useFlagValue ;
       console.log(jsonObject)
       this.f03018Service.getElBigCompanyList(baseUrl, jsonObject).subscribe(data => {
+        console.log(data)
         if (data.rspBody.size != 0) {
           this.cuCpSource = data.rspBody.items;
           this.total = data.rspBody.size;
-          console.log("================");
-          console.log(this.total);
         }
         else{
           
             const confirmDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: "查無項目" }
               });
+              this.Clear()
         }
       })
     }
