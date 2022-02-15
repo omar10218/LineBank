@@ -84,10 +84,6 @@ export class Childscn8addComponent implements OnInit {
       var date = this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyy-MM-dd ') + this.data.HOURS + ':' + this.data.MINUTES + ":00";
       var newDate = date.replace(/-/g, '/'); // 變成"2012/01/01 12:30:10";
       var keyDate = new Date(newDate)
-      console.log(date)
-      console.log(newDate)
-      console.log(keyDate)
-      console.log(Date.now())
       if (keyDate.getTime() < Date.now()) {
         const confirmDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "請輸入正確日期時間" }
