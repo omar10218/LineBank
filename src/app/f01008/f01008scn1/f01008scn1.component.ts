@@ -75,8 +75,7 @@ export class F01008scn1Component implements OnInit {
     });
     this.block = true;
     dialogRef.afterClosed().subscribe(result => {
-      if (result.value == 'confirm')
-      {
+      if (result.value == 'confirm') {
         if (this.level == 'D2') {
           this.afterResult = sessionStorage.getItem('afterResult');
           if (this.afterResult != '' && this.afterResult != 'null') {
@@ -106,8 +105,7 @@ export class F01008scn1Component implements OnInit {
 
           }
         }
-        else
-        {
+        else {
           this.afterResult = sessionStorage.getItem('afterResult');
           if (this.afterResult != '' && this.afterResult != 'null') {
             let url = 'f01/f01008scn0scn1';
@@ -135,8 +133,7 @@ export class F01008scn1Component implements OnInit {
           }
         }
       }
-      else
-      {
+      else {
         this.block = false;
       }
     })
@@ -210,7 +207,7 @@ export class F01008scn1Component implements OnInit {
     let url = 'f01/f01008scn0action1';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['afterResult'] = sessionStorage.getItem('afterResult');
+    jsonObject['afterResult'] = sessionStorage.getItem('afterResult').length > 2 ? '' : sessionStorage.getItem('afterResult');
     jsonObject['researchDate'] = sessionStorage.getItem('researchDate');
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
       console.log(data)
