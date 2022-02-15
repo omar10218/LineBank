@@ -61,6 +61,7 @@ export class Childscn23Component implements OnInit {
   search: string;
   x: string;
   t = 0;
+  te=0;
   isAllCheck: boolean = false;
   checkboxArray: checkBox[] = [];
   private stepName: string;
@@ -90,15 +91,12 @@ export class Childscn23Component implements OnInit {
   add()//新增一筆
   {
 
-    if (this.i == true)
-    {
-      this.AddData = { APPLNO: this.applno, ACCOUNT_CODE: '', ID: '1', MONTHLY_PAY_421: '', MONTHLY_PAY_029: '', MONTHLY_PAY_CC: '', CAL_RATE: '', CAL_YEARS: '', CAL_PERIOD: '', CONTRACT_AMT_421: '', CONTRACT_AMT_029: '', CONTRACT_AMT_CC: '' };
-      this.one.push(this.AddData)
-      this.i = false;
       this.t = this.t + 1
-      this.checkboxArray.push({ num: this.t.toString(), completed: false })
+      this.AddData = {tt:this.t, APPLNO: this.applno, ACCOUNT_CODE: '', ID: this.t, MONTHLY_PAY_421: '', MONTHLY_PAY_029: '', MONTHLY_PAY_CC: '', CAL_RATE: '', CAL_YEARS: '', CAL_PERIOD: '', CONTRACT_AMT_421: '', CONTRACT_AMT_029: '', CONTRACT_AMT_CC: '' };
+      this.one.push(this.AddData)
+      this.checkboxArray.push({ num: this.t.toString(), completed: true })
+      this.checkboxAny.push(this.t)
 
-    }
   }
   set() {
     this.t = 0;
@@ -215,7 +213,7 @@ export class Childscn23Component implements OnInit {
       for (const item of this.one) {
         this.jsonObject = {};
         if (ii == item.ID) {
-          if (item.ID == 1) {
+          if (item.ID == item.tt) {
             this.jsonObject['rowId'] = '';
           }
           else {
@@ -252,7 +250,8 @@ export class Childscn23Component implements OnInit {
     this.jsonObject1['dataList'] = this.seveData
     this.childscn23Service.AddUpDel(url, this.jsonObject1).subscribe(data => {
 
-      if (data.rspCode == '0000') {
+      if (data.rspCode == '0000')
+      {
         this.isAllCheck = false;
         this.set();
         this.checkboxAny = [];
@@ -260,14 +259,16 @@ export class Childscn23Component implements OnInit {
         this.Monthly421 = 0;//BAM421月付金
         this.Monthly029 = 0;//BAM029月付金
         this.Monthlycc = 0;//信用卡付月金
+        this.t=0;
       }
     })
     for (const item of this.one) {
-      if (item.ID == '1') {
+      if (item.ID == item.tt) {
         this.one.pop();
       }
     }
     this.i = true;
+    this.checkboxAny = [];
   }
 
   Cut(s: string)//處理千分位
@@ -281,12 +282,27 @@ export class Childscn23Component implements OnInit {
   del()//刪除
   {
     let jsonObject: any = {};
+    for (const item of this.one) {
+      if(item.tt!='')
+      {
+        this.checkboxAny.splice(this.checkboxAny.indexOf(item.tt),1)
+      }
+    }
     jsonObject['result'] = this.checkboxAny;
     let url = 'f01/childscn23action4';
-    console.log(jsonObject)
-    console.log(this.checkboxAny)
+    // for (const item of this.one)
+    // {
+    //     if(item.tt == )
+    // }
     this.childscn23Service.AddUpDel(url, jsonObject).subscribe(data => {
-      console.log(data)
+      for (const item of this.one)
+      {
+        if (item.ID == item.tt) {
+          this.one.pop();
+
+        }
+      }
+
       if (data.rspMsg == '刪除成功')
       {
         this.set();
@@ -298,17 +314,14 @@ export class Childscn23Component implements OnInit {
         this.Monthlycc = 0;//信用卡付月金
       }
       else {
-        this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "刪除失敗" }
-        });
+
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "刪除失敗" }
+          });
+
       }
 
     })
-    for (const item of this.one) {
-      if (item.ID == '1') {
-        this.one.pop();
-      }
-    }
     this.i = true;
   }
   addcheckbox(check: boolean, z: string, amt029: string, amt421: string, amtcc: string) {

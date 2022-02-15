@@ -475,9 +475,10 @@
     </form>
     <div class="line_bank_form_header_title">審核結果</div>
     <div nz-row style="padding:5px">
-      <nz-radio-group [(ngModel)]="BW_creditResult" name="BW_creditResult" [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  required>
+      <nz-radio-group [(ngModel)]="BW_creditResult" name="BW_creditResult"
+        [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' " required>
         <div nz-row>
-          <div nz-col nzFlex="1" *ngFor="let code of BW_creditResult_Code" >
+          <div nz-col nzFlex="1" *ngFor="let code of BW_creditResult_Code">
             <div style="width:100%; height:30px">
               <label (click)="radio_change()" nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
             </div>
@@ -487,19 +488,52 @@
     </div>
     <div nz-row style="padding:5px">
       <div style="padding:2px"><span class="form-title">是否需通知客戶</span>
-        <mat-select style="height:25px" value="Y" [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  >
+        <mat-select style="height:25px" value="Y" [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' ">
           <mat-option *ngFor="let code of ynCode" [value]="code.value">
             {{code.viewValue}}
           </mat-option>
         </mat-select>
       </div>
       <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(起)</span><input matInput #input
-            class="form-control" value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  ></div>
+        <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(起)</span><input matInput #input class="form-control"
+            value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "></div>
       </div>
       <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(迄)</span><input matInput #input
-            class="form-control" value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "  ></div>
+        <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(迄)</span><input matInput #input class="form-control"
+            value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "></div>
+      </div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+      <div nz-col nzFlex="1"></div>
+    </div>
+    <div nz-row style="padding:5px">
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">本次執行原因</span>
+          <mat-select style="height:25px" [(ngModel)]="reasoncode" name="reasoncode" (ngModelChange)="reason()">
+          <mat-option *ngFor="let code of reason_CODE" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+          </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">本次執行原因細項</span>
+          <mat-select style="height:25px" [(ngModel)]="reasondetail" name="reasondetail">
+          <mat-option *ngFor="let code of reason_DETAIL" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+          </div>
+      </div>
+      <div nz-col nzFlex="1">
+        <div style="padding:3px"><span class="form-title">選擇額度號</span>
+          <mat-select style="height:25px" [(ngModel)]="limit" name="limit">
+          <mat-option *ngFor="let code of limitList" [value]="code.value">
+            {{code.viewValue}}
+          </mat-option>
+        </mat-select>
+          </div>
       </div>
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="1"></div>
@@ -511,15 +545,17 @@
     <div nz-row style="padding:5px;text-align: center;">
       <div nz-col nzSpan="24">
         <div class="form">
-          <div><span class="form-title"></span><textarea [(ngModel)]="creditaction" name='creditaction' matInput class="input-textarea" style="text-align: left;"
-              [(ngModel)]="mark" name="mark" (keyup)="creditaction_keyup()"></textarea>
+          <div><span class="form-title"></span><textarea [(ngModel)]="creditaction" name='creditaction' matInput
+              class="input-textarea" style="text-align: left;" [(ngModel)]="mark" name="mark"
+              (keyup)="creditaction_keyup()"></textarea>
           </div>
         </div>
       </div>
     </div>
     <div style="padding:3px;text-align: center;">
-      <button  nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
-      <button *ngIf="(getPage()!='9'&& getPage()!='10')|| size != 0 || search=='Y'" disabled nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+      <button *ngIf="(getPage()!='9'&& getPage()!='10')|| size != 0 || search=='Y'" disabled nz-button
+        [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
     </div>
 
     <!-- 表格 -->

@@ -10,6 +10,10 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 
 //Nick 決策結果
+interface sysCode {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-childbwscn2page1',
   templateUrl: './childbwscn2page1.component.html',
@@ -38,7 +42,7 @@ export class childbwscn2page1Component implements OnInit {
   custId: string;
   nationalId: string;
   userId: string;
-  creditaction:string = ""; //審核註記
+  creditaction: string = ""; //審核註記
   total = 1;
   pageIndex = 1;
   pageSize = 50;
@@ -46,14 +50,19 @@ export class childbwscn2page1Component implements OnInit {
   search: string;
   size = 0//此層級是否有資料
   mark: string;
- //審核結果
- BW_creditResult: string
+  //審核結果
+  BW_creditResult: string
+  reason_CODE: sysCode[] = [];//本次執行原因陣列
+  reasoncode: string = '';//本次執行原因
+  reason_DETAIL: sysCode[] = [];//本次執行原因細項陣列
+  reasondetail: string = '';//本次執行原因細項
+  limitList: sysCode[] = [];//額度號陣列
+  limit: string = '';//額度
+  //審核結果選項
+  BW_creditResult_Code: OptionsCode[] = [{ value: 'FRZ', viewValue: 'FRZ' }, { value: 'DWN', viewValue: 'DWN' }, { value: 'HLD', viewValue: 'HLD' }
+    , { value: 'NEX', viewValue: 'NEX' }, { value: 'N00', viewValue: 'N00' }, { value: 'XXX', viewValue: 'XXX' }, { value: '000', viewValue: '000' }];
 
-   //審核結果選項
-   BW_creditResult_Code: OptionsCode[] = [{ value: 'FRZ', viewValue: 'FRZ' }, { value: 'DWN', viewValue: 'DWN' }, { value: 'HLD', viewValue: 'HLD' }
-   , { value: 'NEX', viewValue: 'NEX' }, { value: 'N00', viewValue: 'N00' }, { value: 'XXX', viewValue: 'XXX' }, { value: '000', viewValue: '000' }];
-
-   ynCode: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
+  ynCode: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
 
 
   //策略1
@@ -211,6 +220,7 @@ export class childbwscn2page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
+      console.log(data)
       this.bwCreditMainList = data.rspBody.bwCreditMainList;
       if (this.bwCreditMainList.length < 1) {
         this.add_bwCreditMainList = {
@@ -223,6 +233,19 @@ export class childbwscn2page1Component implements OnInit {
         }
         this.bwCreditMainList.push(this.add_bwCreditMainList);
       }
+      this.limitList.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.limitList) {
+        const value = jsonObj['EMP_NO'];
+        const viewValue = jsonObj['EMP_NO'];
+        this.limitList.push({ value: value, viewValue: viewValue })
+      }
+      this.reason_CODE.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody.limitList) {
+        const value = jsonObj['reasonCode'];
+        const viewValue = jsonObj['reasonDesc'];
+        this.reason_CODE.push({ value: value, viewValue: viewValue })
+      }
+
     });
 
   }
@@ -299,13 +322,24 @@ export class childbwscn2page1Component implements OnInit {
       return "覆審主管"
     }
   }
-   //審核結果 資料改變
-   radio_change() {
+  //審核結果 資料改變
+  radio_change() {
     sessionStorage.setItem('BW_creditResult', this.BW_creditResult);
     // alert(sessionStorage.getItem('BW_creditResult'));
   }
- //是否為查詢
- getSearch() {
-  return this.search
-}
+  //是否為查詢
+  getSearch() {
+    return this.search
+  }
+  reason()//本次執行原因
+  {
+    let url ='f01/childbwscn1action3'
+    let jsonObject: any = {};
+    jsonObject['reasonCode']=this.reasoncode;
+    this.Childbwscn2Service.getDate_Json(url,jsonObject).subscribe(data=>{
+      console.log(data)
+    })
+
+
+  }
 }

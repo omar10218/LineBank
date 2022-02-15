@@ -255,6 +255,7 @@ export class Childscn3Component implements OnInit {
       for (const item of data.rspBody.list)
       {
         if (item.check == true) {
+          this.level1.push(item.reasonCode)
           this.TeamArry.push(item.check)
           if(item.reasonCode == "5")
           {
