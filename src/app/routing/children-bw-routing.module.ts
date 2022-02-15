@@ -16,11 +16,11 @@ import { Childbwscn14page2Component } from '../children-bw/childbwscn14/childbws
 import { Childbwscn14page3Component } from '../children-bw/childbwscn14/childbwscn14page3/childbwscn14page3.component';
 
 const routes: Routes = [
-  {
-    path: 'CHILDBWSCN1',
-    component: Childbwscn1Component,
+  // {
+  //   path: 'CHILDBWSCN1',
+  //   component: Childbwscn1Component,
     //canActivate: [AuthGuard], // 守衛路由
-  },
+  // },
   {
     path: 'CHILDBWSCN2',
     component: Childbwscn2Component,
