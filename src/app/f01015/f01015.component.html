@@ -18,7 +18,8 @@
         <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
             <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" [disabled]="page=='16'"
                 (click)="getTargetCustList()">查詢</button>
-            <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="clear()" [disabled]="page=='16'">清除資料</button>
+            <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="clear()"
+                [disabled]="page=='16'">清除資料</button>
         </div>
     </div>
     <div class="line_bank_card_no_padding">
@@ -27,7 +28,7 @@
             nzSize="small" nzTitle="{{custId}}額度資訊">
             <thead>
                 <tr>
-                    <th class="table-header" > 層級</th>
+                    <th class="table-header"> 層級</th>
                     <th class="table-header">額度號</th>
                     <th class="table-header">上層額度號</th>
                     <th class="table-header">額度類別代碼</th>
@@ -171,7 +172,14 @@
                 <div nz-col nzSpan="9">
                     <div style="padding:3px"><span class="form-title">預佔額度</span>
                         <input matInput #input [(ngModel)]="reserveLimit" (keyup)="data_number(reserveLimit)"
-                            name="reserveLimit" [disabled]="executeValue!='DWN'||page=='16' " oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
+                            name="reserveLimit" [disabled]="executeValue!='DWN'||page=='16' "
+                            oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
+                        <span *ngIf="executeValue=='DWN'">
+                            <mat-error *ngIf="formControl.invalid && (reserveLimit=='' || reserveLimit== null)">
+                                {{getErrorMessage()}}
+                            </mat-error>
+                        </span>
+
                     </div>
                 </div>
             </div>
@@ -193,8 +201,9 @@
                     <div style="margin-top:10px">
                         <span class="form-title">行動電話</span>
                         <input nz-input placeholder="輸入電話" [(ngModel)]="mobile" name="mobile" style="padding: 4px;"
-                            [disabled]="page=='16'" required  oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
-                        <mat-error *ngIf="formControl.invalid && (mobile=='' || mobile== null) ">{{getErrorMessage()}}</mat-error>
+                            [disabled]="page=='16'" required oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
+                        <mat-error *ngIf="formControl.invalid && (mobile=='' || mobile== null) ">{{getErrorMessage()}}
+                        </mat-error>
                     </div>
                     <div style="margin-top:10px">
                         <span class="form-title">通知方式</span>
@@ -215,7 +224,7 @@
                 <div nz-col nzSpan="19">
                     <div style="padding:3px"><span class="form-title">通知內容</span>
                         <textarea [disabled]="page=='16'" [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}"
-                            [(ngModel)]="contactContent" placeholder="請輸入內容" name="contactContent" 
+                            [(ngModel)]="contactContent" placeholder="請輸入內容" name="contactContent" maxlength="200"
                             class="input-textarea" style="text-align: left;height:150px;color: gray;" required>
                         </textarea>
                         <mat-error *ngIf="formControl.invalid && (contactContent=='' || contactContent== null)  ">
@@ -295,7 +304,7 @@
                     <div nz-col nzSpan="19">
                         <div style="padding:3px"><span class="form-title">主管覆核</span>
                             <textarea matInput class="input-textarea" placeholder="請輸入內容" [(ngModel)]="bossContent"
-                                name="bossContent" style="text-align: left;height:200px" required >
+                                name="bossContent" style="text-align: left;height:200px"  maxlength="200" required>
                         </textarea>
                             <mat-error *ngIf="formControl.invalid && (bossContent=='' || bossContent== null)  ">
                                 {{getErrorMessage()}}</mat-error>
