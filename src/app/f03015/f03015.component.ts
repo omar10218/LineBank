@@ -105,15 +105,19 @@ export class F03015Component implements OnInit {
     this.jobCodeValue = "";
 
     let jsonObject: any = {};
-    jsonObject['inducLevel1'] = this.inducLevel1Value;
 
-    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
-      for (const jsonObj of data.rspBody.items) {
-        const codeNo = jsonObj['INDUC_LEVEL2'];
-        const desc = jsonObj['INDUC_LEVEL2_DESC'];
-        this.inducLevel2.push({ value: codeNo, viewValue: desc });
-      }
-    });
+    if (this.inducLevel1Value != null && this.inducLevel1Value != "") {
+      jsonObject['inducLevel1'] = this.inducLevel1Value;
+      this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+        for (const jsonObj of data.rspBody.items) {
+          const codeNo = jsonObj['INDUC_LEVEL2'];
+          const desc = jsonObj['INDUC_LEVEL2_DESC'];
+          this.inducLevel2.push({ value: codeNo, viewValue: codeNo + ' - ' + desc });
+        }
+      });
+    } else {
+      this.inducLevel2.push({ value: "", viewValue: "" });
+    }
   }
 
   //取職業碼下拉
@@ -125,13 +129,17 @@ export class F03015Component implements OnInit {
     jsonObject['inducLevel1'] = this.inducLevel1Value;
     jsonObject['inducLevel2'] = this.inducLevel2Value;
 
-    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
-      for (const jsonObj of data.rspBody.items) {
-        const codeNo = jsonObj['JOB_CODE'];
-        const desc = jsonObj['JOB_CODE_DESC'];
-        this.jobCode.push({ value: codeNo, viewValue: desc });
-      }
-    });
+    if (this.inducLevel2Value != null && this.inducLevel2Value != "") {
+      this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+        for (const jsonObj of data.rspBody.items) {
+          const codeNo = jsonObj['JOB_CODE'];
+          const desc = jsonObj['JOB_CODE_DESC'];
+          this.jobCode.push({ value: codeNo, viewValue: codeNo + ' - ' + desc });
+        }
+      });
+    } else {
+      this.jobCode.push({ value: "", viewValue: "" });
+    }
   }
 
   // 查詢
@@ -224,7 +232,7 @@ export class F03015Component implements OnInit {
   private refreshTable() {
     if ((this.proxyIncomeForm.value.INDUC_CODE == null || this.proxyIncomeForm.value.INDUC_CODE == '') && (this.inducLevel1Value == undefined || this.inducLevel1Value == '')
       && (this.inducLevel2Value == undefined || this.inducLevel2Value == '') && (this.jobCodeValue == undefined || this.jobCodeValue == '')) {
-        this.proxyIncomeDataSource = null;
+      this.proxyIncomeDataSource = null;
     } else {
       let jsonObject: any = {};
       jsonObject['page'] = this.pageIndex;
