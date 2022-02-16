@@ -75,8 +75,8 @@ export class F02003Component implements OnInit {
       if (this.apply_TIME != null)//進件日期
       {
         if (this.dealwithData365(this.apply_TIME)) {
-          jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-          jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+          jsonObject['startTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
+          jsonObject['startTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -86,8 +86,8 @@ export class F02003Component implements OnInit {
         }
       }
       else {
-        jsonObject['applyTimeStart'] = '';
-        jsonObject['applyTimeEnd'] = '';
+        jsonObject['startTimeStart'] = '';
+        jsonObject['startTimeEnd'] = '';
       }
       if (this.credit_TIME != null)//核決日期
       {
@@ -112,8 +112,8 @@ export class F02003Component implements OnInit {
       if (this.apply_TIME != null)//進件日期
       {
         if (this.dealwithData90(this.apply_TIME)) {
-          jsonObject['applyTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-          jsonObject['applyTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+          jsonObject['startTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
+          jsonObject['startTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -123,8 +123,8 @@ export class F02003Component implements OnInit {
         }
       }
       else {
-        jsonObject['applyTimeStart'] = '';
-        jsonObject['applyTimeEnd'] = '';
+        jsonObject['startTimeStart'] = '';
+        jsonObject['startTimeEnd'] = '';
       }
       if (this.credit_TIME != null)//核決日期
       {
