@@ -5,3 +5,6 @@
     font-size: 14px;
 
 }
+:host::ng-deep.ant-table-pagination.ant-pagination{
+    margin:5px 0px;
+}

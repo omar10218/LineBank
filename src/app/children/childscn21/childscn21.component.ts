@@ -25,7 +25,7 @@ export class Childscn21Component implements OnInit {
   empNo: string = localStorage.getItem("empNo");//測試用
   stepName: string = sessionStorage.getItem('stepName');//測試用
   nowDateTime: Date;
-  PERSONSource = [];//table資料
+  PERSONSource  = [];//table資料
   limitTypeCode: OptionsCode[] = [];
   ngOnInit(): void {
     this.childscn21Service.getSysTypeCode('LIMIT_TYPE').subscribe(data => {
