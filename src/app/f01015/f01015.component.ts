@@ -206,12 +206,12 @@ export class F01015Component implements OnInit {
 
       this.f01015Service.getImpertmentParameter2(jsonObject).subscribe(data => {
         console.log(data)
-        var x =data.rspBody.items.find(element=>console.log(element))
         for (const row of data.rspBody.items) {
-          const codeNo = row.limitNo;
-          const desc = row.limitNo;
+          const codeNo = row;
+          const desc = row;
           this.limit.push({ value: codeNo, viewValue: desc })
         }
+        console.log(this.limit)
         for (const row of this.targetCustSource) {
           for (const data of this.limit) {
             if (row.limitNo == data.value) {
