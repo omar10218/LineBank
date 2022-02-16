@@ -58,6 +58,7 @@ export class childbwscn2page1Component implements OnInit {
   reasondetail: string = '';//本次執行原因細項
   limitList: sysCode[] = [];//額度號陣列
   limit: string = '';//額度
+  preempt:string;//預佔額度
   //審核結果選項
   BW_creditResult_Code: OptionsCode[] = [{ value: 'FRZ', viewValue: 'FRZ' }, { value: 'DWN', viewValue: 'DWN' }, { value: 'HLD', viewValue: 'HLD' }
     , { value: 'NEX', viewValue: 'NEX' }, { value: 'N00', viewValue: 'N00' }, { value: 'XXX', viewValue: 'XXX' }, { value: '000', viewValue: '000' }];
@@ -235,16 +236,17 @@ export class childbwscn2page1Component implements OnInit {
       }
       this.limitList.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.limitList) {
-        const value = jsonObj['EMP_NO'];
-        const viewValue = jsonObj['EMP_NO'];
+        const value = jsonObj['limitNo'];
+        const viewValue = jsonObj['limitNo'];
         this.limitList.push({ value: value, viewValue: viewValue })
       }
       this.reason_CODE.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody.limitList) {
+      for (const jsonObj of data.rspBody.reasonCode) {
         const value = jsonObj['reasonCode'];
         const viewValue = jsonObj['reasonDesc'];
         this.reason_CODE.push({ value: value, viewValue: viewValue })
       }
+
 
     });
 
@@ -283,9 +285,6 @@ export class childbwscn2page1Component implements OnInit {
   }
   //儲存
   save() {
-    alert(this.creditaction)
-    console.log('aaaaaa')
-    alert(this.mark)
     if (this.creditaction == "" || this.creditaction == null) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入審核意見' }
@@ -325,7 +324,13 @@ export class childbwscn2page1Component implements OnInit {
   //審核結果 資料改變
   radio_change() {
     sessionStorage.setItem('BW_creditResult', this.BW_creditResult);
+    sessionStorage.setItem('BW_reasonCode', this.reasoncode);
+    sessionStorage.setItem('BW_reasondetail', this.reasondetail);
+    sessionStorage.setItem('BW_limit', this.limit);
+    sessionStorage.setItem('BW_preempt', this.preempt !=undefined ?this.Cut(this.preempt):"0");
     // alert(sessionStorage.getItem('BW_creditResult'));
+
+
   }
   //是否為查詢
   getSearch() {
@@ -333,13 +338,36 @@ export class childbwscn2page1Component implements OnInit {
   }
   reason()//本次執行原因
   {
+    this.radio_change();
+    this.reasondetail ='';
     let url ='f01/childbwscn1action3'
     let jsonObject: any = {};
     jsonObject['reasonCode']=this.reasoncode;
     this.Childbwscn2Service.getDate_Json(url,jsonObject).subscribe(data=>{
       console.log(data)
+      this.reason_DETAIL.push({ value: '', viewValue: '請選擇' })
+      for (const jsonObj of data.rspBody) {
+        const value = jsonObj['reasonCode'];
+        const viewValue = jsonObj['reasonDesc'];
+        this.reason_DETAIL.push({ value: value, viewValue: viewValue })
+      }
     })
+  }
+  dealwith(x:string)//篩選加千分號
+  {
+    x = x.replace(/\D/g, '')
+    if (x.length > 0) {
+      x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    this.preempt = x;
+    this.radio_change();
+  }
+  Cut(s: string)//處理千分位
+  {
+    if (s != null) {
+      s = s.replace(/,/g, "")
+    }
 
-
+    return s
   }
 }
