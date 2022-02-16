@@ -82,6 +82,14 @@
               行外資料</button>
           </a>
         </nz-tab>
+        <ng-container>
+          <nz-tab>
+            <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN15']">
+              <button nz-button nzType="primary" nzSize="small">
+                偽冒案件處理</button>
+            </a>
+          </nz-tab>
+        </ng-container>
         <nz-tab>
           <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN9']">
             <button nz-button nzType="primary" nzSize="small">
@@ -147,14 +155,7 @@
               RPM&同一關係人</button>
           </a>
         </nz-tab>
-        <ng-container>
-          <nz-tab>
-            <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN15']">
-              <button nz-button nzType="primary" nzSize="small">
-                偽冒案件處理</button>
-            </a>
-          </nz-tab>
-        </ng-container>
+       
         <nz-tab>
           <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN29']">
             <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">審核歷程</button>
