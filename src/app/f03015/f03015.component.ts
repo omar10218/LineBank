@@ -118,6 +118,7 @@ export class F03015Component implements OnInit {
     } else {
       this.inducLevel2.push({ value: "", viewValue: "" });
     }
+    this.jobCode.push({ value: "", viewValue: "" });
   }
 
   //取職業碼下拉
