@@ -5,13 +5,13 @@
             <div nz-col nzSpan="12">
                 <div style="padding:10px"><span class="form-title">身分證字號:</span>
                     <input [disabled]="page=='16'" placeholder="輸入身分證字號" style="display: block;width: 95%;"
-                        [(ngModel)]="nationalId" name="nationalId">
+                        [(ngModel)]="nationalId" name="nationalId" maxlength="10">
                 </div>
             </div>
             <div nz-col nzSpan="12">
                 <div style="padding:10px"><span class="form-title">Customer ID：</span>
                     <input [disabled]="page=='16'" placeholder="輸入Customer ID" style="display: block;width: 95%;"
-                        [(ngModel)]="custId" name="custId">
+                        [(ngModel)]="custId" name="custId" maxlength="10">
                 </div>
             </div>
         </div>
@@ -33,10 +33,10 @@
                     <th class="table-header">額度類別代碼</th>
                     <th class="table-header">額度起日</th>
                     <th class="table-header">額度訖日</th>
-                    <th class="table-header">核准額度</th>
-                    <th class="table-header">已動撥金額</th>
-                    <th class="table-header">預佔額度</th>
-                    <th class="table-header">目前可動用額度</th>
+                    <th class="table-header" nzRight="true">核准額度</th>
+                    <th class="table-header" nzRight="true">已動撥金額</th>
+                    <th class="table-header" nzRight="true">預佔額度</th>
+                    <th class="table-header" nzRight="true">目前可動用額度</th>
                     <th class="table-header">停用註記</th>
                     <th class="table-header">停用日期</th>
                     <th class="table-header">循環別</th>
@@ -52,10 +52,10 @@
                     <td class="table-data">{{row.limitTypeCode}}</td>
                     <td class="table-data">{{row.limitStartDate| date: 'yyyy/MM/dd '}}</td>
                     <td class="table-data">{{row.limitEndDate| date: 'yyyy/MM/dd '}}</td>
-                    <td class="table-data">{{toCurrency(row.creditLimit)}}</td>
-                    <td class="table-data">{{toCurrency(row.usedLimit)}}</td>
-                    <td class="table-data">{{toCurrency(row.reserveLimit)}}</td>
-                    <td class="table-data">{{toCurrency(row.activeLimit)}}</td>
+                    <td class="table-data" style="text-align:right;">{{toCurrency(row.creditLimit)}}</td>
+                    <td class="table-data" style="text-align:right;">{{toCurrency(row.usedLimit)}}</td>
+                    <td class="table-data" style="text-align:right;">{{toCurrency(row.reserveLimit)}}</td>
+                    <td class="table-data" style="text-align:right;">{{toCurrency(row.activeLimit)}}</td>
                     <td class="table-data" [ngClass]="row.stopFlag==='Y'?'green':'red'" style="text-align: center;">
                         {{row.stopFlag}}</td>
                     <td class="table-data">{{row.stopDate}}</td>

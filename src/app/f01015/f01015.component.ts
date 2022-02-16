@@ -162,8 +162,8 @@ export class F01015Component implements OnInit {
           console.log(data)
           this.targetCustSource = data.rspBody.items
           this.creditMainSource = data.rspBody.creditMainlist
-         this. targetCustSource.sort((a, b) => {
-          return a.levelNo - b.levelNo;
+          this.targetCustSource.sort((a, b) => {
+            return a.levelNo - b.levelNo;
           });
         }
 
@@ -185,7 +185,7 @@ export class F01015Component implements OnInit {
   //取額度號下拉
   getlimitCode(value: string) {
     let jsonObject: any = {};
-    // this.limitNo = '';
+    this.limitNo = '';
     this.limitCode = [];
     jsonObject['nationalId'] = this.nationalId
     jsonObject['custId'] = this.custId
@@ -202,25 +202,27 @@ export class F01015Component implements OnInit {
       })
 
     }
-    else {
-
+    else if (value == 'HLD') {
       this.f01015Service.getImpertmentParameter2(jsonObject).subscribe(data => {
-        console.log(data)
+        console.log("=====================");
+        console.log(data);
+        this.limitNo = '';
+        this.limitCode = [];
         for (const row of data.rspBody.items) {
           const codeNo = row;
           const desc = row;
-          this.limit.push({ value: codeNo, viewValue: desc })
+          this.limitCode.push({ value: codeNo, viewValue: desc })
         }
-        console.log(this.limit)
-        for (const row of this.targetCustSource) {
-          for (const data of this.limit) {
-            if (row.limitNo == data.value) {
+        console.log(this.limitCode)
+        // for (const row of this.targetCustSource) {
+        //   for (const data of this.limit) {
+        //     if (row.limitNo == data.value) {
 
-              this.limitCode.push({ value: data.value, viewValue: data.value });
-            }
-            console.log(this.limitCode)
-          }
-        }
+        //       this.limitCode.push({ value: data.value, viewValue: data.value });
+        //     }
+        //     console.log(this.limitCode)
+        //   }
+        // }
       })
       this.limitCode = []
 
@@ -275,6 +277,7 @@ export class F01015Component implements OnInit {
     jsonObject['reasonCode'] = this.reasonValue
     this.reasonDetailCode = [];
     this.executeCode = [];
+    this.limitCode = [];
     // this.reasonDetail = "";
     this.reasonDetailCode.push({ value: '', viewValue: '請選擇' })
     this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
@@ -387,7 +390,7 @@ export class F01015Component implements OnInit {
     this.targetCustSource = null;
     this.creditMainSource = null;
     this.nationalId = "";
-    this.mobile="";
+    this.mobile = "";
     this.custId = "";
     this.reasonValue = "";
     this.reasonDetail = "";
@@ -413,5 +416,5 @@ export class F01015Component implements OnInit {
     this.router.navigate(['./F01009/F01009SCN1/CHILDBWSCN1']);
   }
 
-  
+
 }
