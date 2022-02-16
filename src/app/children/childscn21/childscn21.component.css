@@ -8,3 +8,8 @@
 :host::ng-deep.ant-table-pagination.ant-pagination{
     margin:5px 0px;
 }
+:host::ng-deep.ant-table.ant-table-small .ant-table-title{
+text-align: center;
+
+
+}
