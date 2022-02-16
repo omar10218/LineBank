@@ -92,7 +92,6 @@ export class F01002page1Component implements OnInit, AfterViewInit {
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01002Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
       if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
@@ -115,12 +114,6 @@ export class F01002page1Component implements OnInit, AfterViewInit {
 
   //代入條件查詢
   select() {
-    if (this.swcNationalId != '' && !this.f01002Service.checkIdNumberIsValid(this.swcNationalId)) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "身分驗證失敗" }
-      });
-    }
-    else {
       if (this.agentEmpNo != '') {
         this.empNo = this.agentEmpNo;
       } else {
@@ -129,7 +122,6 @@ export class F01002page1Component implements OnInit, AfterViewInit {
       this.changePage();
       this.getCaseList();
 
-    }
   }
 
   // 案件子頁籤

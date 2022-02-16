@@ -65,11 +65,7 @@ export class F01006Component implements OnInit, AfterViewInit, OnDestroy {
 
   //代入條件查詢
   select() {
-    if (this.nationalID != '' && !this.f01006Service.checkIdNumberIsValid(this.nationalID)) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "身分驗證失敗" }
-      });
-    } else if (this.nationalID == '' && this.applno == '' && this.custID == '') {
+    if (this.nationalID == '' && this.applno == '' && this.custID == '') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "至少輸入一個選項!" }
       });

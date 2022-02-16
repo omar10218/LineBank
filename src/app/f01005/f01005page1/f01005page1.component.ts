@@ -39,7 +39,7 @@ export class F01005page1Component implements OnInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
-	x: string
+  x: string
   sort: string;
 
   // 計算剩餘table資料長度
@@ -69,8 +69,7 @@ export class F01005page1Component implements OnInit {
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcCustId'] = this.swcCustId;
     this.f01005Service.getCaseList(jsonObject).subscribe(data => {
-      if (data.rspBody.size > 0)
-      {
+      if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
         this.stepName = data.rspBody.items[0].F_StepName;
@@ -80,12 +79,12 @@ export class F01005page1Component implements OnInit {
           }
         });
       }
-      else
-      {
+      else {
         this.cusinfoDataSource = null;
         this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "查無資料" }})
+          data: { msgStr: "查無資料" }
+        })
       }
     });
   }
@@ -119,29 +118,22 @@ export class F01005page1Component implements OnInit {
 
   //代入條件查詢
   select() {
-    if (this.swcNationalId != '' && !this.f01005Service.checkIdNumberIsValid(this.swcNationalId)) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "身分驗證失敗" }
-      });
+    if (this.agentEmpNo != '') {
+      this.empNo = this.agentEmpNo;
+    } else {
+      this.empNo = localStorage.getItem("empNo");
     }
-    else {
-      if (this.agentEmpNo != '') {
-        this.empNo = this.agentEmpNo;
-      } else {
-        this.empNo = localStorage.getItem("empNo");
-      }
-      this.changePage();
-      this.getCaseList();
-
-    }
+    this.changePage();
+    this.getCaseList();
   }
+
 
   // 案件子頁籤
   getLockCase(swcApplno: string, swcNationalId: string, swcCustId: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
-    if (swcNationalId == localStorage.getItem('empId') ) {
+    if (swcNationalId == localStorage.getItem('empId')) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "案件身分證不可與登入者身分證相同!" }
       });
@@ -167,33 +159,33 @@ export class F01005page1Component implements OnInit {
       }
     });
   }
-// 千分號標點符號(form顯示用)
-data_number(p: number) {
-  this.x = '';
-  this.x = (p + "")
-  if (this.x != null) {
-    this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // 千分號標點符號(form顯示用)
+  data_number(p: number) {
+    this.x = '';
+    this.x = (p + "")
+    if (this.x != null) {
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
   }
-  return this.x
-}
- // 儲存案件註記
- saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
-  let msg = '';
-  let jsonObject: any = {};
-  jsonObject['swcApplno'] = swcApplno;
-  jsonObject['swcCaseMemo'] = swcCaseMemo;
+  // 儲存案件註記
+  saveCaseMemo(swcApplno: string, swcCaseMemo: string) {
+    let msg = '';
+    let jsonObject: any = {};
+    jsonObject['swcApplno'] = swcApplno;
+    jsonObject['swcCaseMemo'] = swcCaseMemo;
 
-  this.f01005Service.saveCaseMemo(jsonObject).subscribe(data => {
-    msg = data.rspMsg;
-  });
-  setTimeout(() => {
-    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-    if (msg != null && msg == 'success') { this.getCaseList }
-  }, 1000);
-  setTimeout(() => {
-    this.dialog.closeAll();
-  }, 2500)
-}
+    this.f01005Service.saveCaseMemo(jsonObject).subscribe(data => {
+      msg = data.rspMsg;
+    });
+    setTimeout(() => {
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
+      if (msg != null && msg == 'success') { this.getCaseList }
+    }, 1000);
+    setTimeout(() => {
+      this.dialog.closeAll();
+    }, 2500)
+  }
 
   // 參數
   onQueryParamsChange(params: NzTableQueryParams): void {

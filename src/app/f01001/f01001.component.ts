@@ -113,22 +113,16 @@ export class F01001Component implements OnInit, AfterViewInit {
 
   //代入條件查詢
   select() {
-    if (this.swcNationalId != '' && !this.f01001Service.checkIdNumberIsValid(this.swcNationalId)) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "身分驗證失敗" }
-      });
+    if (this.agentEmpNo != '') {
+      this.empNo = this.agentEmpNo;
+    } else {
+      this.empNo = localStorage.getItem("empNo");
     }
-    else {
-      if (this.agentEmpNo != '') {
-        this.empNo = this.agentEmpNo;
-      } else {
-        this.empNo = localStorage.getItem("empNo");
-      }
-      this.changePage();
-      this.getCaseList();
+    this.changePage();
+    this.getCaseList();
 
-    }
   }
+  
   // 千分號標點符號(form顯示用)
   data_number(p: number) {
     this.x = '';
@@ -143,7 +137,7 @@ export class F01001Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
-    if (swcNationalId == localStorage.getItem('empId') ) {
+    if (swcNationalId == localStorage.getItem('empId')) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "案件身分證不可與登入者身分證相同!" }
       });

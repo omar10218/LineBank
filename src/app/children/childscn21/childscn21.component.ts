@@ -25,8 +25,9 @@ export class Childscn21Component implements OnInit {
   empNo: string = localStorage.getItem("empNo");//測試用
   stepName: string = sessionStorage.getItem('stepName');//測試用
   nowDateTime: Date;
-  PERSONSource  = [];//table資料
+  PERSONSource = [];//table資料
   limitTypeCode: OptionsCode[] = [];
+  block: boolean = false;
   ngOnInit(): void {
     this.childscn21Service.getSysTypeCode('LIMIT_TYPE').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
@@ -103,6 +104,41 @@ export class Childscn21Component implements OnInit {
       //   msgStr = await this.childsnc22Service.doDss4Search(jsonObject);
       //   this.block = false;
       //   const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+    }
+  }
+
+  // test 20220216
+  public async test(): Promise<void> {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['empno'] = this.empNo;
+    let msgStr: string = '';
+    this.block = true;
+    if (this.stepName == 'APPLCreditL3') {
+      msgStr = await this.childsnc22Service.doDss3Search(jsonObject);
+      this.block = false;
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      setTimeout(() => {
+        this.dialog.closeAll();
+      }, 2000);
+      window.location.reload();
+    } else if (this.stepName == 'APPLCreditL2') {
+      msgStr = await this.childsnc22Service.doDss2Search(jsonObject);
+      this.block = false;
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      setTimeout(() => {
+        this.dialog.closeAll();
+      }, 2000);
+      window.location.reload();
+    }
+    else if (this.stepName == 'BwCredit1') {
+      msgStr = await this.childsnc22Service.doDss4Search(jsonObject);
+      this.block = false;
+      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      setTimeout(() => {
+        this.dialog.closeAll();
+      }, 2000);
+      window.location.reload();
     }
   }
 }
