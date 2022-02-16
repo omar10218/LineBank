@@ -48,7 +48,7 @@ export class Childscn21Component implements OnInit {
       if (data.rspMsg == 'success') {
         this.PERSONSource = data.rspBody;
       }
-      this.nowDateTime = data.rspBody[0].queryDate;
+      this.nowDateTime = data.rspBody[0].QUERY_DATE;
     });
   }
 

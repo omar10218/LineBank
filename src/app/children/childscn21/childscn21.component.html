@@ -5,25 +5,25 @@
 
   <div class="line_bank_card_no_padding">
     <nz-table [nzData]="PERSONSource"  nzSize="small" nzTitle="額度資訊">
-      <thead>
+      <thead >
         <tr>
-          <th class="table-header">層級</th>
-          <th class="table-header">額度號</th>
-          <th class="table-header">上層額度號</th>
-          <th class="table-header" [nzWidth]="'200px'">額度類別代碼</th>
-          <th class="table-header">額度狀態</th>
-          <th class="table-header">額度起日</th>
-          <th class="table-header">額度訖日</th>
-          <th class="table-header">核准額度</th>
-          <th class="table-header">已動撥金額</th>
-          <th class="table-header">預佔額度</th>
-          <th class="table-header">目前可動額度</th>
-          <th class="table-header">停用註記</th>
-          <th class="table-header">停用日期</th>
-          <th class="table-header">循環別</th>
-          <th class="table-header">是否可撤銷</th>
-          <th class="table-header">案件編號</th>
-          <th class="table-header">專案代碼</th>
+          <th class="table-header" style="text-align: center;">層級</th>
+          <th class="table-header" style="text-align: center;">額度號</th>
+          <th class="table-header" style="text-align: center;">上層額度號</th>
+          <th class="table-header" style="text-align: center;" [nzWidth]="'200px'">額度類別代碼</th>
+          <th class="table-header" style="text-align: center;">額度狀態</th>
+          <th class="table-header" style="text-align: center;">額度起日</th>
+          <th class="table-header" style="text-align: center;">額度訖日</th>
+          <th class="table-header" style="text-align: center;">核准額度</th>
+          <th class="table-header" style="text-align: center;">已動撥金額</th>
+          <th class="table-header" style="text-align: center;">預佔額度</th>
+          <th class="table-header" style="text-align: center;">目前可動額度</th>
+          <th class="table-header" style="text-align: center;">停用註記</th>
+          <th class="table-header" style="text-align: center;">停用日期</th>
+          <th class="table-header" style="text-align: center;">循環別</th>
+          <th class="table-header" style="text-align: center;">是否可撤銷</th>
+          <th class="table-header" style="text-align: center;">案件編號</th>
+          <th class="table-header" style="text-align: center;">專案代碼</th>
         </tr>
       </thead>
       <tbody style="height:20vh;text-align: center;">
@@ -40,7 +40,7 @@
           <td class="table-data" style="text-align:'right'">{{ this.toCurrency(row.RESERVE_LIMIT.toString()) }}</td>
           <td class="table-data" style="text-align:'right'">{{ this.toCurrency(row.ACTIVE_LIMIT.toString()) }}</td>
           <td class="table-data">{{ row.STOP_FLAG }}</td>
-          <td class="table-data">{{ row.STOP_DATE| date:"yyyy-MM-dd HH:mm:ss" }}</td>
+          <td class="table-data">{{ row.STOP_DATE| date:"yyyy-MM-dd " }}</td>
           <td class="table-data">{{ row.CYCLE_TYPE }}</td>
           <td class="table-data">{{ row.CANCEL_FLAG }}</td>
           <td class="table-data" [nzWidth]="'160px'">{{ row.APPLNO }}</td>
