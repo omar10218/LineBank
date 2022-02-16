@@ -64,16 +64,8 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
   }
   //代入條件查詢
   select() {
-    if (this.nationalID != '' && !this.f01016Service.checkIdNumberIsValid(this.nationalID)) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "身分驗證失敗" }
-      });
-    }
-    else {
       this.changePage();
       this.getCaseList();
-
-    }
   }
 
   changePage() {
@@ -91,21 +83,6 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     periods: string,
     rates: string,
     opid: string) {
-    // const dialogRef = this.dialog.open(F01006restartComponent, {
-    //   minHeight: '30%',
-    //   width: '150%',
-    //   panelClass: 'mat-dialog-transparent',
-    //   data: {
-    //     applno: applno,
-    //     nationalId: nationalId,
-    //     custId: custId,
-    //     name: name,
-    //     limit: limit,
-    //     periods: periods,
-    //     rates: rates,
-    //     opid: opid
-    //   }
-    // });
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageIndex } = params;
@@ -188,9 +165,5 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
       sessionStorage.setItem('page', '16');
       this.router.navigate(['./F01015']);
     })
-
-
-
-
   }
 } 
