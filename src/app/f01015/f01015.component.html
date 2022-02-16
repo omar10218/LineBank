@@ -224,7 +224,7 @@
                 <div nz-col nzSpan="19">
                     <div style="padding:3px"><span class="form-title">通知內容</span>
                         <textarea [disabled]="page=='16'" [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}"
-                            [(ngModel)]="contactContent" placeholder="請輸入內容" name="contactContent"
+                            [(ngModel)]="contactContent" placeholder="請輸入內容" name="contactContent" maxlength="200"
                             class="input-textarea" style="text-align: left;height:150px;color: gray;" required>
                         </textarea>
                         <mat-error *ngIf="formControl.invalid && (contactContent=='' || contactContent== null)  ">
@@ -304,7 +304,7 @@
                     <div nz-col nzSpan="19">
                         <div style="padding:3px"><span class="form-title">主管覆核</span>
                             <textarea matInput class="input-textarea" placeholder="請輸入內容" [(ngModel)]="bossContent"
-                                name="bossContent" style="text-align: left;height:200px" required>
+                                name="bossContent" style="text-align: left;height:200px"  maxlength="200" required>
                         </textarea>
                             <mat-error *ngIf="formControl.invalid && (bossContent=='' || bossContent== null)  ">
                                 {{getErrorMessage()}}</mat-error>
