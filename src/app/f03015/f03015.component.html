@@ -33,7 +33,7 @@
                     <div style="padding:10px"><span class="form-title">行業Level2</span>
                         <mat-select [(ngModel)]="inducLevel2Value" (ngModelChange)="changeLevel2Select()" name="inducLevel2" formControlName="INDUC_LEVEL2">
                             <mat-option *ngFor="let code of inducLevel2" [value]="code.value">
-                                {{code.value}} - {{code.viewValue}}
+                                {{code.viewValue}}
                             </mat-option>
                         </mat-select>
                     </div>
@@ -42,7 +42,7 @@
                     <div style="padding:10px"><span class="form-title">職稱碼</span>
                         <mat-select [(ngModel)]="jobCodeValue" name="jobCode" formControlName="JOB_CODE">
                             <mat-option *ngFor="let code of jobCode" [value]="code.value">
-                                {{code.value}} - {{code.viewValue}}
+                              {{code.viewValue}}
                             </mat-option>
                         </mat-select>
                     </div>

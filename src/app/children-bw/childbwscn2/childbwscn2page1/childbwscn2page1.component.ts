@@ -285,9 +285,6 @@ export class childbwscn2page1Component implements OnInit {
   }
   //儲存
   save() {
-    alert(this.creditaction)
-    console.log('aaaaaa')
-    alert(this.mark)
     if (this.creditaction == "" || this.creditaction == null) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入審核意見' }

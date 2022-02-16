@@ -51,7 +51,7 @@ export class F01012Component implements OnInit {
 
     // 代理人
     let jsonObject: any = {};
-    jsonObject['swcD2EmpNo'] = this.empNo;
+    jsonObject['swcD1EmpNo'] = this.empNo;
 
     this.f01012Service.getEmpNo(jsonObject).subscribe(data => {
 
@@ -76,7 +76,7 @@ export class F01012Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcD2EmpNo'] = this.empNo;
+    jsonObject['swcD1EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
