@@ -1,10 +1,11 @@
 <div class="line_bank_bankground_color">
   <div class="content">
+    <th style="padding-left: 30px;">案件數 共{{this.total}}件</th>
       <div nz-col nzSpan="24">
           <div class="line_bank_card_no_padding">
               <nz-table nzShowSizeChanger [nzData]="callOutDataSource" [nzFrontPagination]="false"
                   [nzSimple]="true" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
-                  [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="徵信通報"nzFooter="案件數: {{this.total}} 件"
+                  [nzPageIndex]="pageIndex" #middleTable nzSize="small" nzTitle="徵信通報"
                   (nzQueryParams)="onQueryParamsChange($event)">
                   <thead style="max-height: 100vh;">
                       <tr>
