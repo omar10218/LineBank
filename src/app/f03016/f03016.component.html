@@ -11,7 +11,7 @@
             <span class="form-title" style="width:100%">DSS3落人再送JCIC時間設定 </span>
             <input nz-input placeholder="輸入數字" [(ngModel)]="DssJcicSet" name="dss_jcic_set" id="dss_jcic_set"
               oninput="value=value.replace(/[^\d]/g,'')" maxlength="2" required>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (DssJcicSet=='' || DssJcicSet== null)">{{getErrorMessage()}}</mat-error>
 
           </div>
         </div>
@@ -20,7 +20,7 @@
             <span class="form-title" style="width:100%">DSS3落人後email提醒天數</span>
             <input nz-input placeholder="輸入天數" [(ngModel)]="DssMailDay" name="dss_mail_day" id="dss_mail_day"
               oninput="value=value.replace(/[^\d]/g,'')" maxlength="2"required >
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (DssMailDay=='' || DssMailDay== null)">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
             <span class="form-title" style="width:100%">基本門檻
             </span>
             <input nz-input placeholder="輸入金額" [(ngModel)]="BasicLimit" id="basic_limit "(keyup)="data_number(BasicLimit)" name="basic_limit" style="display: block;" required>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (BasicLimit=='' || BasicLimit== null)">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
         <div nz-col nzSpan="12">
@@ -41,7 +41,7 @@
               <mat-radio-button [value]="'Y'">是</mat-radio-button>
               <mat-radio-button [value]="'N'">否</mat-radio-button>
             </mat-radio-group>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (IsJcic=='' || IsJcic== null)">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@
             </span>
             <!-- <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" name="CssPassStart" (ngModelChange)="onChange($event)"> -->
             <nz-date-picker style="display: block;" [(ngModel)]="CssPassStart" name="CssPassStart" required>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (CssPassStart=='' || CssPassStart== null)">{{getErrorMessage()}}</mat-error>
             </nz-date-picker>
           </div>
         </div>
@@ -63,7 +63,7 @@
             <!-- <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd" (ngModelChange)="onChange($event)"> -->
             <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd" required>
             </nz-date-picker>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (CssPassEnd=='' || CssPassEnd== null)">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
