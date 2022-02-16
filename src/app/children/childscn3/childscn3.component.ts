@@ -251,7 +251,6 @@ export class Childscn3Component implements OnInit {
     this.childsc3Service.oneseve(url, jsonOb).subscribe(data => {
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;
-      alert(this.i)
       for (const item of data.rspBody.list)
       {
         if (item.check == true) {
