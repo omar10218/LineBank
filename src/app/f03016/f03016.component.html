@@ -20,7 +20,7 @@
             <span class="form-title" style="width:100%">DSS3落人後email提醒天數</span>
             <input nz-input placeholder="輸入天數" [(ngModel)]="DssMailDay" name="dss_mail_day" id="dss_mail_day"
               oninput="value=value.replace(/[^\d]/g,'')" maxlength="2"required >
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
             <!-- <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd" (ngModelChange)="onChange($event)"> -->
             <nz-date-picker style="display: block;" [(ngModel)]="CssPassEnd" name="CssPassEnd" required>
             </nz-date-picker>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
