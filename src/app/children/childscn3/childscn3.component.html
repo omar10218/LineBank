@@ -36,7 +36,7 @@
     </nz-table>
     <div style="padding-bottom:10px;text-align: center;" >
       <button nz-button [nzSize]="'large'" nzType="primary" (click)="seve()"  [disabled]="i == 'N' && getSearch() == 'N' ? false:true"  *ngIf="this.pag == '2'">儲存</button>&nbsp;
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="seveFraud()"[disabled]="i == 'N'  && getSearch() == 'N' && this.level1.length == 0 ? true:false "  *ngIf="this.pag =='2'">發送Fraud Team</button>
+      <button nz-button [nzSize]="'large'" nzType="primary" (click)="seveFraud()"[disabled]="i == 'N'  && getSearch() == 'N' && this.level1.length > 0 ? false:true "  *ngIf="this.pag =='2'">發送Fraud Team</button>
       <!-- <button (click)="test()">111111111</button> -->
     </div>
   </div>

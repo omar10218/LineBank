@@ -249,13 +249,15 @@ export class Childscn3Component implements OnInit {
     jsonOb['applno'] = this.applno;
     // const applno = this.applno;
     this.childsc3Service.oneseve(url, jsonOb).subscribe(data => {
-      console.log(data)
       this.data = data.rspBody.list;
       this.i = data.rspBody.fraudIsLocked;
       for (const item of data.rspBody.list)
       {
         if (item.check == true) {
-          this.level1.push(item.reasonCode)
+          if(this.i=="N")
+          {
+            this.level1.push(item.reasonCode)
+          }
           this.TeamArry.push(item.check)
           if(item.reasonCode == "5")
           {
