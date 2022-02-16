@@ -283,7 +283,8 @@ export class Childscn23Component implements OnInit {
   {
     let jsonObject: any = {};
     for (const item of this.one) {
-      if(item.tt!='')
+      console.log(item.tt)
+      if(item.tt!=undefined)
       {
         this.checkboxAny.splice(this.checkboxAny.indexOf(item.tt),1)
       }
@@ -295,13 +296,7 @@ export class Childscn23Component implements OnInit {
     //     if(item.tt == )
     // }
     this.childscn23Service.AddUpDel(url, jsonObject).subscribe(data => {
-      for (const item of this.one)
-      {
-        if (item.ID == item.tt) {
-          this.one.pop();
 
-        }
-      }
 
       if (data.rspMsg == '刪除成功')
       {
@@ -351,6 +346,8 @@ export class Childscn23Component implements OnInit {
   test() {
     // Math.pow()
     console.log(this.checkboxAny)
+    console.log(this.one)
+    console.log(this.checkboxArray)
   }
 
 
