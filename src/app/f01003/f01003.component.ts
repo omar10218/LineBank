@@ -94,12 +94,9 @@ export class F01003Component implements OnInit, AfterViewInit {
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
-    console.log(jsonObject)
     this.f01003Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
       if (data.rspBody.size > 0)
       {
-        console.log(data)
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
         this.stepName = data.rspBody.items[0].F_StepName;
@@ -121,12 +118,6 @@ export class F01003Component implements OnInit, AfterViewInit {
 
  //代入條件查詢
  select() {
-  if (this.swcNationalId != '' && !this.f01003Service.checkIdNumberIsValid(this.swcNationalId)) {
-    const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-      data: { msgStr: "身分驗證失敗" }
-    });
-  }
-  else {
     if (this.agentEmpNo != '') {
       this.empNo = this.agentEmpNo;
     } else {
@@ -136,7 +127,6 @@ export class F01003Component implements OnInit, AfterViewInit {
     this.getCaseList();
 
   }
-}
 
 // 千分號標點符號(form顯示用)
 data_number(p: number) {
