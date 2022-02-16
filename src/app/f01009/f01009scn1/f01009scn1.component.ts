@@ -176,11 +176,11 @@ export class F01009scn1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.creditlevel;
-    jsonObject['creditResult'] = sessionStorage.getItem('BW_creditResult');
-    jsonObject['reasonCode'] = sessionStorage.getItem('BW_reasonCode');
-    jsonObject['reasondetail'] = sessionStorage.getItem('BW_reasondetail');
-    jsonObject['limit'] = sessionStorage.getItem('BW_limit');
-    jsonObject['preempt'] = sessionStorage.getItem('BW_preempt');
+    jsonObject['creditResult'] = sessionStorage.getItem('BW_creditResult');//結果
+    jsonObject['reasonCode'] = sessionStorage.getItem('BW_reasonCode');//本次執行原因
+    jsonObject['reasondetail'] = sessionStorage.getItem('BW_reasondetail');//本次執行原因細項
+    jsonObject['limit'] = sessionStorage.getItem('BW_limit');//額度號
+    jsonObject['preempt'] = sessionStorage.getItem('BW_preempt');//預佔額度
     console.log(jsonObject)
     this.block = true;
 
