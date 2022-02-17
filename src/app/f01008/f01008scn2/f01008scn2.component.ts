@@ -357,7 +357,7 @@ export class F01008scn2Component implements OnInit {
       if (data.rspCode === '0000' || data.rspMsg === '儲存成功') {
         this.ma = '';
         this.block = false;
-        this.set();
+        this.refresh();
       }
     })
   }
@@ -457,4 +457,26 @@ export class F01008scn2Component implements OnInit {
     return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
   }
 
+  refresh()
+  {
+    this.macrSource = [];
+    let jsonObject: any = {};
+    let url = 'f01/f01008scn2';
+    jsonObject['applno'] = this.applno;
+    jsonObject['page'] = this.page;
+    jsonObject['pei_page'] = this.pei_page;
+    this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
+      this.macrSource = data.rspBody.creditmemoList;
+    for (const ii of data.rspBody.creditmemoList) {
+      if (ii.CREDITLEVEL == this.lv && ii.CREDITUSER.includes(this.empNo))
+      {
+        this.ma = ii.CREDITACTION;
+      }
+
+    }
+  })
+
+  }
 }
+
+
