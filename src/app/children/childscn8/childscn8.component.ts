@@ -65,7 +65,7 @@ export class Childscn8Component implements OnInit, OnDestroy {
     private f01002scn1Service: F01002Scn1Service
   ) {//訂閱彈出視窗 更新Table
     this.JCICAddSource$ = this.f01002scn1Service.JCICAddSource$.subscribe((data) => {
-      if (!data.show) { this.getCALLOUTFunction(this.pageIndex, this.pageSize); }
+      if (!data.show) { this.getCALLOUTFunction(this.pageIndex, this.pageSize); this.showAdd=false; }
     });
     this.JCICAddSource$ = this.f01002scn1Service.JCICSource$.subscribe((data) => {
       if (!data.show) { this.getCALLOUTFunction(this.pageIndex, this.pageSize); }
@@ -209,56 +209,61 @@ export class Childscn8Component implements OnInit, OnDestroy {
 
   //新增
   Add() {
-    this.showAdd = !this.showAdd;
-    this.f01002scn1Service.setJCICAddSource({
-      // minHeight: '70vh',
-      // width: '90%',
-      show: this.showAdd,
-      applno: this.applno,//案件編號
-      // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
-      CON_TYPE: '',//聯絡方式
-      // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
-      TEL_CONDITION: '',//電話狀況
-      // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
-      TEL_CHECK: '',//電話種類
-      // HOURS_Code: this.HOURS_Code,//時下拉選單
-      HOURS: '',//時種類
-      // MINUTES_Code: this.MINUTES_Code,//分下拉選單
-      MINUTES: '',//分種類
-      PHONE: '',//手機/市話
-      CON_MEMO: '',//備註
-      CALLOUT_DATE: '',//設定下次照會時間
-      CALLOUT_SETTIME: '',//確認時間
-      CALLOUT_EMPNO: this.empNo,//徵信員編
-      CALLOUT_YN: '',//照會完成
-    })
-    // const dialogRef = this.dialog.open(Childscn8addComponent, {
-    //   minHeight: '70vh',
-    //   width: '70%',
-    //   data: {
-    //     applno: this.applno,//案件編號
-    //     // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
-    //     CON_TYPE: '',//聯絡方式
-    //     // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
-    //     TEL_CONDITION: '',//電話狀況
-    //     // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
-    //     TEL_CHECK: '',//電話種類
-    //     // HOURS_Code: this.HOURS_Code,//時下拉選單
-    //     HOURS: '',//時種類
-    //     // MINUTES_Code: this.MINUTES_Code,//分下拉選單
-    //     MINUTES: '',//分種類
-    //     PHONE: '',//手機/市話
-    //     CON_MEMO: '',//備註
-    //     CALLOUT_DATE: '',//設定下次照會時間
-    //     CALLOUT_SETTIME: '',//確認時間
-    //     CALLOUT_EMPNO: this.empNo,//徵信員編
-    //     //CALLOUT_YN:''//照會完成
-    //     speakingData:this.speakingData//照會話術
-    //   }
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
-    // });
+
+    if(this.showAdd==false)
+    {
+      this.showAdd = !this.showAdd;
+      this.f01002scn1Service.setJCICAddSource({
+        // minHeight: '70vh',
+        // width: '90%',
+        show: this.showAdd,
+        applno: this.applno,//案件編號
+        // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+        CON_TYPE: '',//聯絡方式
+        // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+        TEL_CONDITION: '',//電話狀況
+        // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+        TEL_CHECK: '',//電話種類
+        // HOURS_Code: this.HOURS_Code,//時下拉選單
+        HOURS: '',//時種類
+        // MINUTES_Code: this.MINUTES_Code,//分下拉選單
+        MINUTES: '',//分種類
+        PHONE: '',//手機/市話
+        CON_MEMO: '',//備註
+        CALLOUT_DATE: '',//設定下次照會時間
+        CALLOUT_SETTIME: '',//確認時間
+        CALLOUT_EMPNO: this.empNo,//徵信員編
+        CALLOUT_YN: '',//照會完成
+      })
+      // const dialogRef = this.dialog.open(Childscn8addComponent, {
+      //   minHeight: '70vh',
+      //   width: '70%',
+      //   data: {
+      //     applno: this.applno,//案件編號
+      //     // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+      //     CON_TYPE: '',//聯絡方式
+      //     // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+      //     TEL_CONDITION: '',//電話狀況
+      //     // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+      //     TEL_CHECK: '',//電話種類
+      //     // HOURS_Code: this.HOURS_Code,//時下拉選單
+      //     HOURS: '',//時種類
+      //     // MINUTES_Code: this.MINUTES_Code,//分下拉選單
+      //     MINUTES: '',//分種類
+      //     PHONE: '',//手機/市話
+      //     CON_MEMO: '',//備註
+      //     CALLOUT_DATE: '',//設定下次照會時間
+      //     CALLOUT_SETTIME: '',//確認時間
+      //     CALLOUT_EMPNO: this.empNo,//徵信員編
+      //     //CALLOUT_YN:''//照會完成
+      //     speakingData:this.speakingData//照會話術
+      //   }
+      // });
+      // dialogRef.afterClosed().subscribe(result => {
+      //   if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
+      // });
+    }
+
   }
 
   //編輯
