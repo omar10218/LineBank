@@ -99,7 +99,8 @@ export class F01010scn1Component implements OnInit {
   }
 
   finish() {
-    if (sessionStorage.getItem('BW_creditResult') == "") {
+    alert(sessionStorage.getItem('BW_creditResult'))
+    if (sessionStorage.getItem('BW_creditResult') == null && sessionStorage.getItem('BW_creditResult') == "") {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請選取審核結果' }
       });
@@ -169,6 +170,11 @@ export class F01010scn1Component implements OnInit {
         });
       }
       if (data.rspMsg.includes('處理案件異常')) { } else {
+      sessionStorage.removeItem('BW_creditResult');
+      sessionStorage.removeItem('BW_reasonCode');
+      sessionStorage.removeItem('BW_reasondetail');
+      sessionStorage.removeItem('BW_limit');
+      sessionStorage.removeItem('BW_preempt');
         setTimeout(() => {
           childernDialogRef.close();
         }, 1000);
