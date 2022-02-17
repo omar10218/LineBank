@@ -122,11 +122,11 @@
                 [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" required>
                 <label nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
               </nz-radio-group> -->
-              <nz-radio-group [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION">
+              <nz-radio-group [(ngModel)]="data.TEL_CONDITION" name="TEL_CONDITION" required>
                 <div nz-row>
                   <div nz-col nzSpan="12" *ngFor="let code of TEL_CONDITION_Code">
                     <div style="width:100%; height:30px">
-                      <label nz-radio  required [nzValue]="code.value">{{code.viewValue}}</label>
+                      <label nz-radio   [nzValue]="code.value">{{code.viewValue}}</label>
                     </div>
                   </div>
                 </div>
