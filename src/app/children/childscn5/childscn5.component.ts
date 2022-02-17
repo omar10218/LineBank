@@ -124,6 +124,7 @@ export class Childscn5Component implements OnInit {
     this.search = sessionStorage.getItem('search');
     this.pag = sessionStorage.getItem('page');
     this.getBigcompany();
+    
 
     //取性別
     this.childscn5Service.getSysTypeCode('GENDER')
@@ -192,7 +193,8 @@ export class Childscn5Component implements OnInit {
 
     // 取徵信認列行業Level1下拉
     let jsonObject: any = {};
-    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+    this.cuLevel1CaCode.push({ value:"", viewValue: "請選擇" });
+      this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj['INDUC_LEVEL1'];
         const desc = jsonObj['INDUC_LEVEL1_DESC'];
