@@ -105,12 +105,61 @@ export class F01010scn1Component implements OnInit {
       });
       return;
     }
+
+    if(sessionStorage.getItem('BW_creditResult') == "FRZ"||sessionStorage.getItem('BW_creditResult') == "DWN"||sessionStorage.getItem('BW_creditResult') == "HLD")
+    {
+      if(sessionStorage.getItem('BW_reasonCode')!="")
+      {
+        if(sessionStorage.getItem('BW_reasondetail')!="")
+        {
+          if(sessionStorage.getItem('BW_limit')!="")
+          {
+            if(sessionStorage.getItem('BW_creditResult') == "DWN")
+            {
+              if(sessionStorage.getItem('BW_preempt')=="0")
+              {
+                const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                  data: { msgStr: '預佔額度必填' }
+                });
+                return;
+              }
+            }
+          }
+          else
+          {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '額度號必填' }
+            });
+            return;
+          }
+        }
+        else
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '本次執行原因細項必填' }
+          });
+          return;
+        }
+      }
+      else
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '本次執行原因必填' }
+        });
+        return;
+      }
+    }
+
     const url = 'f01/childbwscn0';
     let msg = '';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.creditlevel;
     jsonObject['creditResult'] = sessionStorage.getItem('BW_creditResult');
+    jsonObject['reasonCode'] = sessionStorage.getItem('BW_reasonCode');//本次執行原因
+    jsonObject['reasondetail'] = sessionStorage.getItem('BW_reasondetail');//本次執行原因細項
+    jsonObject['limit'] = sessionStorage.getItem('BW_limit');//額度號
+    jsonObject['preempt'] = sessionStorage.getItem('BW_preempt');//預佔額度
     this.block = true;
     this.f01010Service.postJson(url, jsonObject).subscribe(data => {
       let childernDialogRef: any;

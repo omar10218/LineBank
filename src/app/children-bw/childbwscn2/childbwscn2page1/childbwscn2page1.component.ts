@@ -221,7 +221,6 @@ export class childbwscn2page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
-      console.log(data)
       this.bwCreditMainList = data.rspBody.bwCreditMainList;
       if (this.bwCreditMainList.length < 1) {
         this.add_bwCreditMainList = {
@@ -241,12 +240,6 @@ export class childbwscn2page1Component implements OnInit {
         this.limitList.push({ value: value, viewValue: viewValue })
       }
       this.reason_CODE.push({ value: '', viewValue: '請選擇' })
-      for (const jsonObj of data.rspBody.reasonCode) {
-        const value = jsonObj['reasonCode'];
-        const viewValue = jsonObj['reasonDesc'];
-        this.reason_CODE.push({ value: value, viewValue: viewValue })
-      }
-
 
     });
 
@@ -323,14 +316,59 @@ export class childbwscn2page1Component implements OnInit {
   }
   //審核結果 資料改變
   radio_change() {
+    this.reason_CODE=[];
     sessionStorage.setItem('BW_creditResult', this.BW_creditResult);
     sessionStorage.setItem('BW_reasonCode', this.reasoncode);
     sessionStorage.setItem('BW_reasondetail', this.reasondetail);
     sessionStorage.setItem('BW_limit', this.limit);
     sessionStorage.setItem('BW_preempt', this.preempt !=undefined ?this.Cut(this.preempt):"0");
     // alert(sessionStorage.getItem('BW_creditResult'));
+    this.reason_CODE.push({ value: '', viewValue: '請選擇' })
+    this. filter();
 
 
+  }
+  filter()
+  {
+    const url = 'f01/childbwscn1';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+
+    this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
+      console.log(data)
+      for (const jsonObj of data.rspBody.reasonCode)
+      {
+          const value = jsonObj['reasonCode'];
+          const viewValue = jsonObj['reasonDesc'];
+          switch(this.BW_creditResult)
+          {
+            case 'FRZ':
+              if(value != 'D' && value !='E' && value !='B')
+              {
+                this.reason_CODE.push({ value: value, viewValue: viewValue })
+              }
+              break;
+            case 'HLD':
+              if(value != 'C' && value!='E' && value !='A')
+              {
+                this.reason_CODE.push({ value: value, viewValue: viewValue })
+              }
+              break;
+              case 'DWN':
+                if(value != 'D' && value!='C')
+                {
+                  this.reason_CODE.push({ value: value, viewValue: viewValue })
+                }
+                break;
+                // default:
+                //   this.reason_CODE.push({ value: value, viewValue: viewValue })
+                //   break;
+
+          }
+
+      }
+
+    })
   }
   //是否為查詢
   getSearch() {

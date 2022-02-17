@@ -245,4 +245,7 @@ export class F01009scn1Component implements OnInit {
       behavior: 'smooth'
     });
   }
+  leave() {
+    window.close();
+  }
 }
