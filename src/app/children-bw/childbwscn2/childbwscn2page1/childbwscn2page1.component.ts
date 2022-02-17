@@ -220,7 +220,8 @@ export class childbwscn2page1Component implements OnInit {
     const url = 'f01/childbwscn1';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
+    this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data =>
+      {
       this.bwCreditMainList = data.rspBody.bwCreditMainList;
       if (this.bwCreditMainList.length < 1) {
         this.add_bwCreditMainList = {
@@ -240,9 +241,61 @@ export class childbwscn2page1Component implements OnInit {
         this.limitList.push({ value: value, viewValue: viewValue })
       }
       this.reason_CODE.push({ value: '', viewValue: '請選擇' })
+      for(const json of data.rspBody.bwCreditMainList)
+      {
+        this.reasoncode = json.reasonCode;
+        if(json.creditResult!="" || json.creditResult !=null)
+        {
+          this.BW_creditResult = json.creditResult;
+        }
+        if(json.reasonCode!="" || json.reasonCode!=null)
+        {
+          this.reason();
+        }
+        this.reasondetail =json.reasonCode;
+        if(json.reasonDetail !=""|| json.reasonDetail !=null)
+        {
+          this.reasondetail = json.reasonDetail;
+        }
+        if(json.limitNo!=""|| json.limitNo !=null)
+        {
+          this.limit = json.limitNo;
+        }
+        if(json.reserveLimit!=""||json.reserveLimit !=null)
+        {
+          this.preempt=json.reserveLimit;
+        }
 
-    });
+      }
+      for (const jsonObj of data.rspBody.reasonCode)
+      {
+          const value = jsonObj['reasonCode'];
+          const viewValue = jsonObj['reasonDesc'];
+          switch(this.BW_creditResult)
+          {
+            case 'FRZ':
+              if(value != 'D' && value !='E' && value !='B')
+              {
+                this.reason_CODE.push({ value: value, viewValue: viewValue })
+              }
+              break;
+            case 'HLD':
+              if(value != 'C' && value!='E' && value !='A')
+              {
+                this.reason_CODE.push({ value: value, viewValue: viewValue })
+              }
+              break;
+              case 'DWN':
+                if(value != 'D' && value!='C')
+                {
+                  this.reason_CODE.push({ value: value, viewValue: viewValue })
+                }
+                break;
 
+          }
+
+      }
+    })
   }
 
   creditaction_keyup() {
@@ -290,9 +343,7 @@ export class childbwscn2page1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['creditaction'] = this.creditaction;
     jsonObject['creditlevel'] = this.creditlevel;
-    console.log(jsonObject)
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
-      console.log(data)
       msg = data.rspMsg;
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msg }
@@ -376,13 +427,12 @@ export class childbwscn2page1Component implements OnInit {
   }
   reason()//本次執行原因
   {
+    this.reason_DETAIL=[];
     this.radio_change();
-    this.reasondetail ='';
     let url ='f01/childbwscn1action3'
     let jsonObject: any = {};
     jsonObject['reasonCode']=this.reasoncode;
     this.Childbwscn2Service.getDate_Json(url,jsonObject).subscribe(data=>{
-      console.log(data)
       this.reason_DETAIL.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
         const value = jsonObj['reasonCode'];

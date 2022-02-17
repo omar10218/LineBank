@@ -254,6 +254,7 @@ export class F01009scn1Component implements OnInit {
   }
   temporarily()//暫存
   {
+    alert(sessionStorage.getItem('BW_reasondetail'))
     const url = 'f01/childbwscn0action1';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
