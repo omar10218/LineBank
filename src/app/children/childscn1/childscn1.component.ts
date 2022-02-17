@@ -785,23 +785,26 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   caluclate(value: any) {
     if (isNaN(value.interest)) {
-      const childernDialogRef = value.dialog.open(ConfirmComponent, {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '利率請輸入數字!' }
       });
-      childernDialogRef.afterClosed().subscribe(result => {
-        value.interest = null;
-        value.approveInterest = null;
-      });
-    } else {
-      if (value.interestBase == null) {
-        value.approveInterest = Number(value.interest);
-      } else {
-        value.approveInterest = (Number(value.interestBase) * Number(this.changeZero(value.interest)) + Number(value.interest) * Number(this.changeZero(value.interest))) / Number(this.changeZero(value.interest));
+      value.interest = 0;
+    } else if (value.interest.includes(".")) {
+      if (value.interest.split(".")[1].length > 3) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '利率請輸入至小數點第三位!' }
+        });
+        value.interest = 0;
       }
-      sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
-      sessionStorage.setItem('interest' + value.seq, value.interest.toString());
-      sessionStorage.setItem('interestBase' + value.seq, value.interestBase != null ? value.interestBase.toString() : '');
     }
+    if (value.interestBase == null) {
+      value.approveInterest = Number(value.interest);
+    } else {
+      value.approveInterest = (Number(value.interestBase) * Number(this.changeZero(value.interest)) + Number(value.interest) * Number(this.changeZero(value.interest))) / Number(this.changeZero(value.interest));
+    }
+    sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
+    sessionStorage.setItem('interest' + value.seq, value.interest.toString());
+    sessionStorage.setItem('interestBase' + value.seq, value.interestBase != null ? value.interestBase.toString() : '');
   }
 
   open() {
@@ -810,6 +813,16 @@ export class Childscn1Component implements OnInit, OnDestroy {
   }
 
   change(value: any, valueName: string, index: string) {
+    if (valueName == 'resultLowestPayRate') {
+      if (value.includes(".")) {
+        if (value.split(".")[1].length > 4) {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '利率請輸入至小數點第四位!' }
+          });
+          this.resultLowestPayRate = 0;
+        }
+      }
+    }
     if (index != '') {
       sessionStorage.setItem(valueName + index, value);
     } else {
@@ -818,10 +831,11 @@ export class Childscn1Component implements OnInit, OnDestroy {
   }
 
   numberOnly(event: { which: any; keyCode: any; }): boolean {
-    console.log("=============");
-    console.log(event.keyCode);
     const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 110) {
+    if (charCode == 46) {
+      return true;
+    }
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入數字!' }
       });
@@ -1272,7 +1286,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     }
   }
 
-  changeZero(value: string): number{
+  changeZero(value: string): number {
     let len: number = 0;
     if (Number(value).toString().split('.')[1]) {
       len = Number(value).toString().split('.')[1].length;
