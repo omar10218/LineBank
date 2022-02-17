@@ -233,7 +233,7 @@ export class Childscn8Component implements OnInit, OnDestroy {
         CALLOUT_DATE: '',//設定下次照會時間
         CALLOUT_SETTIME: '',//確認時間
         CALLOUT_EMPNO: this.empNo,//徵信員編
-        CALLOUT_YN: '',//照會完成
+        CALLOUT_YN: 'N',//照會完成
       })
       // const dialogRef = this.dialog.open(Childscn8addComponent, {
       //   minHeight: '70vh',
