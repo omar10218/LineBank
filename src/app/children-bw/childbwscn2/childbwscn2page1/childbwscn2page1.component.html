@@ -508,35 +508,35 @@
       <div nz-col nzFlex="1"></div>
     </div>
     <div nz-row style="padding:5px">
-      <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">本次執行原因</span>
-          <mat-select style="height:25px" [(ngModel)]="reasoncode" name="reasoncode" (ngModelChange)="reason()" [disabled]="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'? false:true" >
+      <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
+        <div style="padding:3px"><span class="form-title" >本次執行原因</span>
+          <mat-select style="height:25px" [(ngModel)]="reasoncode" name="reasoncode" (ngModelChange)="reason()" >
             <mat-option *ngFor="let code of reason_CODE" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
           </mat-select>
         </div>
       </div>
-      <div nz-col nzFlex="1">
+      <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
         <div style="padding:3px"><span class="form-title">本次執行原因細項</span>
-          <mat-select style="height:25px" [(ngModel)]="reasondetail" name="reasondetail" [disabled]="reasoncode!=''? false:true" (ngModelChange)="radio_change()" [disabled]="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'? false:true">
+          <mat-select style="height:25px" [(ngModel)]="reasondetail" name="reasondetail" >
             <mat-option *ngFor="let code of reason_DETAIL" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
           </mat-select>
         </div>
       </div>
-      <div nz-col nzFlex="1">
+      <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
         <div style="padding:3px"><span class="form-title">選擇額度號</span>
-          <mat-select style="height:25px" [(ngModel)]="limit" name="limit" (ngModelChange)="radio_change()" [disabled]="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'? false:true">
+          <mat-select style="height:25px" [(ngModel)]="limit" name="limit" (ngModelChange)="radio_change()" >
             <mat-option *ngFor="let code of limitList" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
           </mat-select>
         </div>
       </div>
-      <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">預佔額度</span>
+      <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
+        <div style="padding:3px"><span class="form-title" >預佔額度</span>
           <input type="text"  [(ngModel)]="preempt" name="preempt"
           (keyup)="dealwith(preempt)" [disabled]="BW_creditResult == 'DWN'? false:true">
         </div>
