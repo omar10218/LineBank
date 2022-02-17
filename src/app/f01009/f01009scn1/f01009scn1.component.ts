@@ -183,9 +183,7 @@ export class F01009scn1Component implements OnInit {
     jsonObject['reasondetail'] = sessionStorage.getItem('BW_reasondetail');//本次執行原因細項
     jsonObject['limit'] = sessionStorage.getItem('BW_limit');//額度號
     jsonObject['preempt'] = sessionStorage.getItem('BW_preempt');//預佔額度
-    console.log(jsonObject)
     this.block = true;
-
     this.f01009Service.postJson(url, jsonObject).subscribe(data => {
       // if(data.rspMsg=="儲存成功!"){this.getCreditmemo(this.pageIndex, this.pageSize);}
       let childernDialogRef: any;
@@ -250,7 +248,34 @@ export class F01009scn1Component implements OnInit {
       behavior: 'smooth'
     });
   }
-  leave() {
+  leave()//離開
+   {
     window.close();
+  }
+  temporarily()//暫存
+  {
+    const url = 'f01/childbwscn0action1';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['level'] = this.creditlevel;
+    jsonObject['creditResult'] = sessionStorage.getItem('BW_creditResult');//結果
+    jsonObject['reasonCode'] = sessionStorage.getItem('BW_reasonCode');//本次執行原因
+    jsonObject['reasondetail'] = sessionStorage.getItem('BW_reasondetail');//本次執行原因細項
+    jsonObject['limit'] = sessionStorage.getItem('BW_limit');//額度號
+    jsonObject['preempt'] = sessionStorage.getItem('BW_preempt');//預佔額度
+    this.f01009Service.postJson(url,jsonObject).subscribe(data=>{
+      if(data.rspCode=="0000")
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "暫存成功" }
+        })
+      }
+      else
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "暫存失敗" }
+        })
+      }
+    })
   }
 }
