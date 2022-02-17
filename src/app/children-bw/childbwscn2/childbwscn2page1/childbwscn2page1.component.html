@@ -558,9 +558,9 @@
       </div>
     </div>
     <div style="padding:3px;text-align: center;">
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
-      <button *ngIf="(getPage()!='9'&& getPage()!='10')|| size != 0 || search=='Y'" disabled nz-button
-        [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()" [disabled]="getPage()!='9'&& getPage()!='10'">儲存</button>
+      <!-- <button *ngIf="(getPage()!='9'&& getPage()!='10')|| size != 0 || search=='Y'" disabled nz-button
+        [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()" >儲存</button> -->
     </div>
 
     <!-- 表格 -->
