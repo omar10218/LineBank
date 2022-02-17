@@ -34,13 +34,19 @@ export class F03006Service extends BaseService {
     jsonObject['email'] = data.EMAIL;//email
     jsonObject['onJob'] = data.ON_JOB;//是否在職
     jsonObject['assignStop'] = data.ASSIGN_STOP;//是否停派
-    if ( data.LEAVE_STARTDATE != null && data.LEAVE_STARTDATE != "" ) {
+    if (data.LEAVE_STARTDATE != null && data.LEAVE_STARTDATE != "") {
       jsonObject['leaveStartdateType'] = data.LEAVE_STARTDATE_TYPE//請假起日類型
-      jsonObject['leaveStartdate'] = this.pipe.transform( new Date(data.LEAVE_STARTDATE) , 'yyyyMMdd' );//請假起日
+      jsonObject['leaveStartdate'] = this.pipe.transform(new Date(data.LEAVE_STARTDATE), 'yyyyMMdd');//請假起日
+    } else {
+      jsonObject['leaveStartdateType'] = null;
+      jsonObject['leaveStartdate'] = null;
     }
-    if ( data.LEAVE_ENDDATE != null && data.LEAVE_ENDDATE_TYPE != "" ) {
+    if (data.LEAVE_ENDDATE != null && data.LEAVE_ENDDATE_TYPE != "") {
       jsonObject['leaveEnddateType'] = data.LEAVE_ENDDATE_TYPE;//請假迄日類型
-      jsonObject['leaveEnddate'] = this.pipe.transform( new Date(data.LEAVE_ENDDATE) , 'yyyyMMdd' );//請假迄日
+      jsonObject['leaveEnddate'] = this.pipe.transform(new Date(data.LEAVE_ENDDATE), 'yyyyMMdd');//請假迄日
+    } else {
+      jsonObject['leaveEnddateType'] = null;
+      jsonObject['leaveEnddate'] = null;
     }
     return this.saveOrEditMsgJson(baseUrl, jsonObject);
   }
