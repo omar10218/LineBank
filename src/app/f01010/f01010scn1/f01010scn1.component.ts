@@ -99,7 +99,7 @@ export class F01010scn1Component implements OnInit {
   }
 
   finish() {
-    alert(sessionStorage.getItem('BW_creditResult'))
+
     if (sessionStorage.getItem('BW_creditResult') == null && sessionStorage.getItem('BW_creditResult') == "") {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請選取審核結果' }
