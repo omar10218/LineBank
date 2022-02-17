@@ -126,7 +126,11 @@ export class MenuListComponent implements OnInit, OnDestroy {
 
   private commonLogOut(): void {
     if (this.menuListService.logOutAction()) {
-      window.localStorage.clear();
+      // window.localStorage.clear();
+      localStorage.removeItem('empId');
+      localStorage.removeItem('empName');
+      localStorage.removeItem('empNo');
+      localStorage.removeItem('token');
       window.sessionStorage.clear();
       let form: string = environment.from;
       if ('stg' == form || 'uat' == form || 'prod' == form) {
