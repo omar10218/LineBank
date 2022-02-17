@@ -109,21 +109,14 @@ export class F01013Component implements OnInit, AfterViewInit {
 
   //代入條件查詢
   select() {
-    if (this.swcNationalId != '' && !this.f01013Service.checkIdNumberIsValid(this.swcNationalId)) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "身分驗證失敗" }
-      });
+    if (this.agentEmpNo != '') {
+      this.empNo = this.agentEmpNo;
+    } else {
+      this.empNo = localStorage.getItem("empNo");
     }
-    else {
-      if (this.agentEmpNo != '') {
-        this.empNo = this.agentEmpNo;
-      } else {
-        this.empNo = localStorage.getItem("empNo");
-      }
-      this.changePage();
-      this.getCaseList();
+    this.changePage();
+    this.getCaseList();
 
-    }
   }
   // 案件子頁籤
   getLockCase(swcApplno: string, swcNationalId: string, swcCustId: string) {

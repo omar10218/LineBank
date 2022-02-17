@@ -110,12 +110,6 @@ export class F01007Component implements OnInit {
 
   //代入條件查詢
   select() {
-    if (this.swcNationalId != '' && !this.f01007Service.checkIdNumberIsValid(this.swcNationalId)) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "身分驗證失敗" }
-      });
-    }
-    else {
       if (this.agentEmpNo != '') {
         this.empNo = this.agentEmpNo;
       } else {
@@ -124,7 +118,6 @@ export class F01007Component implements OnInit {
       this.changePage();
       this.getCaseList();
 
-    }
   }
 
   // 案件子頁籤

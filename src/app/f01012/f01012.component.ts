@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { OptionsCode } from '../interface/base';
-import {F01012Service} from './f01012.service'
+import { F01012Service } from './f01012.service'
 
 @Component({
   selector: 'app-f01012',
   templateUrl: './f01012.component.html',
-  styleUrls: ['./f01012.component.css','../../assets/css/f01.css']
+  styleUrls: ['./f01012.component.css', '../../assets/css/f01.css']
 })
 
 // Jay 合約前覆核清單
@@ -38,7 +38,7 @@ export class F01012Component implements OnInit {
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
   pageIndex = 1;
-  sum:string = '0'; //總數
+  sum: string = '0'; //總數
   x: string
   sort: string;
   // 計算剩餘table資料長度
@@ -104,21 +104,13 @@ export class F01012Component implements OnInit {
 
   //代入條件查詢
   select() {
-    if (this.swcNationalId != '' && !this.f01012Service.checkIdNumberIsValid(this.swcNationalId)) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "身分驗證失敗" }
-      });
+    if (this.agentEmpNo != '') {
+      this.empNo = this.agentEmpNo;
+    } else {
+      this.empNo = localStorage.getItem("empNo");
     }
-    else {
-      if (this.agentEmpNo != '') {
-        this.empNo = this.agentEmpNo;
-      } else {
-        this.empNo = localStorage.getItem("empNo");
-      }
-      this.changePage();
-      this.getCaseList();
-
-    }
+    this.changePage();
+    this.getCaseList();
   }
 
   // 案件子頁籤
@@ -126,7 +118,7 @@ export class F01012Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
-    if (swcNationalId == localStorage.getItem('empId') ) {
+    if (swcNationalId == localStorage.getItem('empId')) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "案件身分證不可與登入者身分證相同!" }
       });
@@ -206,12 +198,12 @@ export class F01012Component implements OnInit {
     this.getCaseList();
   }
   // 千分號標點符號(form顯示用)
-data_number(p: number) {
-  this.x = '';
-  this.x = (p + "")
-  if (this.x != null) {
-    this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  data_number(p: number) {
+    this.x = '';
+    this.x = (p + "")
+    if (this.x != null) {
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
   }
-  return this.x
-}
 }

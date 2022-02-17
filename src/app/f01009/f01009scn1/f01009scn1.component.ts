@@ -132,14 +132,16 @@ export class F01009scn1Component implements OnInit {
         {
           if(sessionStorage.getItem('BW_limit')!="")
           {
-            if(sessionStorage.getItem('BW_preempt')=="0")
+            if(sessionStorage.getItem('BW_creditResult') == "DWN")
             {
-              const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                data: { msgStr: '預佔額度必填' }
-              });
-              return;
+              if(sessionStorage.getItem('BW_preempt')=="0")
+              {
+                const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                  data: { msgStr: '預佔額度必填' }
+                });
+                return;
+              }
             }
-
           }
           else
           {
