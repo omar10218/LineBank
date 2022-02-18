@@ -108,7 +108,11 @@ export class Childscn19Component implements OnInit {
       }
     });
     this.getRescanList();         //取該案件補件資訊
-    this.getSmsList(); //取該案件簡訊發送資訊
+    if(this.flag == 'Y'){
+      this.getSmsData()
+    }else{
+      this.getSmsList(); //取該案件簡訊發送資訊
+    }
   }
 
   //新增補件資訊
@@ -303,7 +307,7 @@ export class Childscn19Component implements OnInit {
   getSmsData(){
       const baseUrl = 'f01/childscn19action4';
       let jsonObject: any = {};
-      jsonObject['applno'] = this.applno;
+      jsonObject['applno'] = this.swcApplno;
       this.childscn19Service.postJson(baseUrl, jsonObject).subscribe(data => {
         this.smsDataSource = data.rspBody.items;
         if (this.mobile == null || this.mobile == "") {
