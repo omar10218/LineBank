@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MappingCode } from 'src/app/mappingcode.model';
 import { Childscn11Service } from '../childscn11.service';
@@ -69,7 +70,8 @@ interface Code {
 export class Childscn11page3Component implements OnInit {
 
   constructor(
-    private childscn11Service: Childscn11Service
+    private childscn11Service: Childscn11Service,
+    private pipe: DatePipe,
   ) { }
 
   private applno: string;
@@ -77,7 +79,7 @@ export class Childscn11page3Component implements OnInit {
   compare: Code[] = [];
   notFind: string;
   loading:boolean=false;
-
+  time:string;
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.getHistorySameID();
@@ -97,6 +99,13 @@ export class Childscn11page3Component implements OnInit {
         this.loading =true
       }
       // this.compare=dataList;
+    });
+    this.childscn11Service.getCompare1(jsonObject).subscribe(data => {
+      console.log(data)
+      
+       
+      this.time=this.pipe.transform(new Date(data.rspBody.compareDate), 'yyyy-MM-dd HH:mm:ss');
+      
     });
 
   }

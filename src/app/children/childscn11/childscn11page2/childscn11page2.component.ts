@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -19,6 +20,7 @@ export class Childscn11page2Component implements OnInit {
   constructor(
     private fb: FormBuilder,
     private childscn11Service: Childscn11Service,
+    private pipe: DatePipe,
   ) { }
 
   private applno: string;
@@ -26,6 +28,7 @@ export class Childscn11page2Component implements OnInit {
   compare: Code[] = [];
   notFind: string;
   loading:boolean=false;
+  time:string;
 
   compare_UNIDForm: FormGroup = this.fb.group({
     GPS_1: ['', []],//			GPS - 時點1比對次數
@@ -66,11 +69,17 @@ export class Childscn11page2Component implements OnInit {
       if ( data.rspBody.compare == 'not find') {
         this.notFind = "此案編查無比對資料";
       } else {
-       
         this.mappingOption = data.rspBody.table;
         this.compare = data.rspBody.compare;
         this.loading =true
       }
+    });
+    this.childscn11Service.getCompare1(jsonObject).subscribe(data => {
+      console.log(data)
+      this.time=this.pipe.transform(new Date(data.rspBody.compareDate), 'yyyy-MM-dd HH:mm:ss');
+        // this.time = data.rspBody.compareDate;
+        
+      
     });
   }
   //取viewValue

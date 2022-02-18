@@ -1,426 +1,436 @@
 <!-- 頁面背景 -->
 <div class="line_bank_bankground_color">
-
-  <div class="line_bank_card_no_padding" *ngIf="loading">
-    <nz-table nzSize="small" nzTitle="歷史申請書比對 (同一NID)" [nzData]="compare" [nzFrontPagination]="false">
-      <ng-container>
-        <tr>
-          <th class="table-header-y" style="width:30%;">區塊</th>
-          <th class="table-header-y" style="width:30%;">比對欄位</th>
-          <th class="table-header-y" style="width:10%;">比對結果</th>
-          <th class="table-header-y" style="width:10%;">比對方式</th>
-          <th class="table-header-y" style="width:10%;">最低門檻</th>
-          <th class="table-header-y" style="width:10%;">最高門檻</th>
-        </tr>
-        <!-- Channel資訊 -->
-        <tr>
-          <th class="table-header-x" rowspan="9">Channel資訊</th>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[27].compareColumn}}</th>
-          <td [ngClass]="compare[27].result === 'Y' ? 'table-data-text' : 'height'">{{compare[27].count}} </td>
-          <td class="table-data-text-compare">
-            {{test(compare[27].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[27].setValueLow}} </td>
-          <td [ngClass]="compare[27].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[27].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[29].compareColumn}}</th>
-          <td [ngClass]="compare[29].result === 'Y' ? 'table-data-text' : 'height'">{{compare[29].count}}</td>
-          <td class="table-data-text-compare">
-            {{test(compare[29].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[29].setValueLow}} </td>
-          <td [ngClass]="compare[29].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[29].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[41].compareColumn}}</th>
-          <td [ngClass]="compare[41].result === 'Y' ? 'table-data-text' : 'height'">{{compare[41].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[41].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[41].setValueLow}} </td>
-          <td [ngClass]="compare[41].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[41].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[43].compareColumn}}</th>
-          <td [ngClass]="compare[43].result === 'Y' ? 'table-data-text' : 'height'">{{compare[43].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[43].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[43].setValueLow}} </td>
-          <td [ngClass]="compare[43].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[43].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[51].compareColumn}}</th>
-          <td [ngClass]="compare[51].result === 'Y' ? 'table-data-text' : 'height'">{{compare[51].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[51].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[51].setValueLow}} </td>
-          <td [ngClass]="compare[51].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[51].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[53].compareColumn}}</th>
-          <td [ngClass]="compare[53 ].result === 'Y' ? 'table-data-text' : 'height'">{{compare[53].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[53].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[53].setValueLow}} </td>
-          <td [ngClass]="compare[53].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[53].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[19].compareColumn}}</th>
-          <td [ngClass]="compare[19].result === 'Y' ? 'table-data-text' : 'height'">{{compare[19].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[19].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[19].setValueLow}} </td>
-          <td [ngClass]="compare[19].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[19].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[21].compareColumn}}</th>
-          <td [ngClass]="compare[21].result === 'Y' ? 'table-data-text' : 'height'">{{compare[21].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[21].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[21].setValueLow}} </td>
-          <td [ngClass]="compare[21].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[21].setValueHight}} </td>
-        </tr>
-
-      </ng-container>
-      <!-- 聯絡資訊 -->
-      <ng-container>
-
-
-        <tr>
-          <th class="table-header-x" rowspan="8">聯絡資訊</th>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[25].compareColumn}}</th>
-          <td [ngClass]="compare[25].result === 'Y' ? 'table-data-text' : 'height'">{{compare[25].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[25].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[25].setValueLow}} </td>
-          <td class="table-data-text-compare">{{compare[25].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[49].compareColumn}}</th>
-          <td [ngClass]="compare[49].result === 'Y' ? 'table-data-text' : 'height'">{{compare[49].count}}</td>
-          <td class="table-data-text-compare">
-            {{test(compare[49].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[49].setValueLow}} </td>
-          <td [ngClass]="compare[49].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[49].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[63].compareColumn}}</th>
-          <td [ngClass]="compare[63].result === 'Y' ? 'table-data-text' : 'height'">{{compare[63].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[63].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[63].setValueLow}} </td>
-          <td [ngClass]="compare[63].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[63].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[39].compareColumn}}</th>
-          <td [ngClass]="compare[39].result === 'Y' ? 'table-data-text' : 'height'">{{compare[39].count}}</td>
-          <td class="table-data-text-compare">
-            {{test(compare[39].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[39].setValueLow}} </td>
-          <td [ngClass]="compare[39].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[39].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[55].compareColumn}}</th>
-          <td [ngClass]="compare[55].result === 'Y' ? 'table-data-text' : 'height'">{{compare[55].count}}</td>
-          <td class="table-data-text-compare">
-            {{test(compare[55].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[55].setValueLow}} </td>
-          <td [ngClass]="compare[55].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[55].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[31].compareColumn}}</th>
-          <td [ngClass]="compare[31].result === 'Y' ? 'table-data-text' : 'height'">{{compare[31].count}}</td>
-          <td class="table-data-text-compare">
-            {{test(compare[31].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[31].setValueLow}} </td>
-          <td [ngClass]="compare[31].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[31].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[0].compareColumn}}</th>
-          <td [ngClass]="compare[0].result === 'Y' ? 'table-data-text' : 'height'">{{compare[0].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[0].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[0].setValueLow}} </td>
-          <td [ngClass]="compare[0].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[0].setValueHight}} </td>
-
-        </tr>
-
-      </ng-container>
-      <!-- 基本資料 -->
-
-      <!-- 任職資訊比對 -->
-      <ng-container>
-
-        <tr>
-          <th class="table-header-x" rowspan="7">任職資訊比對</th>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[16].compareColumn}}</th>
-          <td [ngClass]="compare[16].result === 'Y' ? 'table-data-text' : 'height'">{{compare[16].count}} </td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[16].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[16].setValueLow}} </td>
-          <td [ngClass]="compare[16].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[16].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[17].compareColumn}}</th>
-          <td [ngClass]="compare[17].result === 'Y' ? 'table-data-text' : 'height'">{{compare[17].count}}</td>
-          <td class="table-data-text-compare">
-            {{test(compare[17].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[17].setValueLow}} </td>
-          <td [ngClass]="compare[17].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[17].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[8].compareColumn}}</th>
-          <td [ngClass]="compare[8].result === 'Y' ? 'table-data-text' : 'height'">{{compare[8].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[8].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[8].setValueLow}} </td>
-          <td [ngClass]="compare[8].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[8].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[67].compareColumn}}</th>
-          <td [ngClass]="compare[67].result === 'Y' ? 'table-data-text' : 'height'">{{compare[67].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[67].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[67].setValueLow}} </td>
-          <td [ngClass]="compare[67].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[67].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[45].compareColumn}}</th>
-          <td [ngClass]="compare[45].result === 'Y' ? 'table-data-text' : 'height'">{{compare[45].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[45].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[45].setValueLow}} </td>
-          <td [ngClass]="compare[45].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[45].setValueHight}} </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[46].compareColumn}}</th>
-          <td [ngClass]="compare[46].result === 'Y' ? 'table-data-text' : 'height'">{{compare[46].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[46].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[46].setValueLow}} </td>
-          <td [ngClass]="compare[46].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[46].setValueHight}} </td>
-        </tr>
-
-      </ng-container>
-      <ng-container>
-
-        <tr>
-          <th class="table-header-x" rowspan="2">基本資料</th>
-        </tr>
-        <tr>
-          <th class="table-header-y">{{compare[23].compareColumn}}</th>
-          <td [ngClass]="compare[23].result === 'Y' ? 'table-data-text' : 'height'">{{compare[23].count}}</td>
-          <td class="table-data-text-compare">
-
-            {{test(compare[23].compareType)}}
-          </td>
-          <td class="table-data-text-compare">{{compare[23].setValueLow}} </td>
-          <td [ngClass]="compare[23].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
-            {{compare[23].setValueHight}} </td>
-        </tr>
-
-      </ng-container>
-    </nz-table>
+  <div style="padding-left:40px;display: inline-block" *ngIf="loading">
+    <span class="form-title">比對案件總數:</span>
+    <input style="width: 65%;height: 25px;" matInput #input
+        [(ngModel)]="compare[1].result" readonly disabled>
+    
   </div>
-  <br>
-
-
-
-
-
-  <div class="line_bank_card_no_padding" *ngIf="!loading">
-    <nz-table nzSize="small" nzTitle="歷史申請書比對 (同一NID)" [nzData]="compare" nzFrontPagination="false">
-      <ng-container>
-        <tr>
-          <th class="table-header-y" style="width:30%;">區塊</th>
-          <th class="table-header-y" style="width:30%;">比對欄位</th>
-          <th class="table-header-y" style="width:10%;">比對結果</th>
-          <th class="table-header-y" style="width:10%;">比對方式</th>
-          <th class="table-header-y" style="width:10%;">最低門檻</th>
-          <th class="table-header-y" style="width:10%;">最高門檻</th>
-        </tr>
-        <!-- Channel資訊 -->
-        <tr>
-          <th class="table-header-x" rowspan="9">Channel資訊</th>
-        </tr>
-        <tr>
-          <th class="table-header-y">點選申請時GPS</th>
-          <td class="table-data"> </td>
-        </tr>
-        
-        <tr>
-          <th class="table-header-y">上傳收入文件後GPS</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">點選申請時IP Address</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">上傳收入文件後IP Address</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">點選申請時手機型號</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">上傳收入文件後手機型號</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">點選申請時Device ID</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">上傳收入文件後Device ID</th>
-          <td class="table-data"></td>
-        </tr>
-
-      </ng-container>
-      <!-- 聯絡資訊 -->
-      <ng-container>
-
-
-        <tr>
-          <th class="table-header-x" rowspan="8">聯絡資訊</th>
-        </tr>
-        <tr>
-          <th class="table-header-y">Email</th>
-          <td class="table-data"> </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">行動電話</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">戶籍電話</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">通訊電話</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">戶籍地址</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">通訊地址</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">寄卡地址</th>
-          <td class="table-data"></td>
-        </tr>
-
-      </ng-container>
-      <!-- 基本資料 -->
-
-      <!-- 任職資訊比對 -->
-      <ng-container>
-
-        <tr>
-          <th class="table-header-x" rowspan="7">任職資訊比對</th>
-        </tr>
-        <tr>
-          <th class="table-header-y">公司名稱</th>
-          <td class="table-data"> </td>
-        </tr>
-        <tr>
-          <th class="table-header-y">公司電話</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">公司地址</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">行職業代碼</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">行業別Level1</th>
-          <td class="table-data"></td>
-        </tr>
-        <tr>
-          <th class="table-header-y">行業別Level2</th>
-          <td class="table-data"></td>
-        </tr>
-
-      </ng-container>
-      <ng-container>
-
-        <tr>
-          <th class="table-header-x" rowspan="2">基本資料</th>
-        </tr>
-        <tr>
-          <th class="table-header-y">教育程度</th>
-          <td class="table-data"></td>
-        </tr>
-
-      </ng-container>
-    </nz-table>
+  <div style="padding-left:40px;display: inline-block" *ngIf="loading">
+    <span class="form-title">查詢日期時間</span><input style="width: 80%;height: 25px;" matInput #input
+      [(ngModel)]="time" readonly disabled>
   </div>
+
+<div class="line_bank_card_no_padding" *ngIf="loading">
+  <nz-table nzSize="small" nzTitle="歷史申請書比對 (同一NID)-近365天內申請" [nzData]="compare" [nzFrontPagination]="false">
+    <ng-container>
+      <tr>
+        <th class="table-header-y" style="width:30%;">區塊</th>
+        <th class="table-header-y" style="width:30%;">比對欄位</th>
+        <th class="table-header-y" style="width:10%;">比對結果</th>
+        <th class="table-header-y" style="width:10%;">比對方式</th>
+        <th class="table-header-y" style="width:10%;">最低門檻</th>
+        <th class="table-header-y" style="width:10%;">最高門檻</th>
+      </tr>
+      <!-- Channel資訊 -->
+      <tr>
+        <th class="table-header-x" rowspan="9">Channel資訊</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[27].compareColumn}}</th>
+        <td [ngClass]="compare[27].result === 'Y' ? 'table-data-text' : 'height'">{{compare[27].count}} </td>
+        <td class="table-data-text-compare">
+          {{test(compare[27].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[27].setValueLow}} </td>
+        <td [ngClass]="compare[27].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[27].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[29].compareColumn}}</th>
+        <td [ngClass]="compare[29].result === 'Y' ? 'table-data-text' : 'height'">{{compare[29].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[29].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[29].setValueLow}} </td>
+        <td [ngClass]="compare[29].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[29].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[41].compareColumn}}</th>
+        <td [ngClass]="compare[41].result === 'Y' ? 'table-data-text' : 'height'">{{compare[41].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[41].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[41].setValueLow}} </td>
+        <td [ngClass]="compare[41].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[41].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[43].compareColumn}}</th>
+        <td [ngClass]="compare[43].result === 'Y' ? 'table-data-text' : 'height'">{{compare[43].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[43].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[43].setValueLow}} </td>
+        <td [ngClass]="compare[43].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[43].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[51].compareColumn}}</th>
+        <td [ngClass]="compare[51].result === 'Y' ? 'table-data-text' : 'height'">{{compare[51].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[51].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[51].setValueLow}} </td>
+        <td [ngClass]="compare[51].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[51].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[53].compareColumn}}</th>
+        <td [ngClass]="compare[53 ].result === 'Y' ? 'table-data-text' : 'height'">{{compare[53].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[53].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[53].setValueLow}} </td>
+        <td [ngClass]="compare[53].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[53].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[19].compareColumn}}</th>
+        <td [ngClass]="compare[19].result === 'Y' ? 'table-data-text' : 'height'">{{compare[19].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[19].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[19].setValueLow}} </td>
+        <td [ngClass]="compare[19].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[19].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[21].compareColumn}}</th>
+        <td [ngClass]="compare[21].result === 'Y' ? 'table-data-text' : 'height'">{{compare[21].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[21].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[21].setValueLow}} </td>
+        <td [ngClass]="compare[21].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[21].setValueHight}} </td>
+      </tr>
+
+    </ng-container>
+    <!-- 聯絡資訊 -->
+    <ng-container>
+
+
+      <tr>
+        <th class="table-header-x" rowspan="8">聯絡資訊</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[25].compareColumn}}</th>
+        <td [ngClass]="compare[25].result === 'Y' ? 'table-data-text' : 'height'">{{compare[25].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[25].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[25].setValueLow}} </td>
+        <td class="table-data-text-compare">{{compare[25].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[49].compareColumn}}</th>
+        <td [ngClass]="compare[49].result === 'Y' ? 'table-data-text' : 'height'">{{compare[49].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[49].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[49].setValueLow}} </td>
+        <td [ngClass]="compare[49].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[49].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[63].compareColumn}}</th>
+        <td [ngClass]="compare[63].result === 'Y' ? 'table-data-text' : 'height'">{{compare[63].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[63].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[63].setValueLow}} </td>
+        <td [ngClass]="compare[63].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[63].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[39].compareColumn}}</th>
+        <td [ngClass]="compare[39].result === 'Y' ? 'table-data-text' : 'height'">{{compare[39].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[39].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[39].setValueLow}} </td>
+        <td [ngClass]="compare[39].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[39].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[55].compareColumn}}</th>
+        <td [ngClass]="compare[55].result === 'Y' ? 'table-data-text' : 'height'">{{compare[55].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[55].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[55].setValueLow}} </td>
+        <td [ngClass]="compare[55].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[55].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[31].compareColumn}}</th>
+        <td [ngClass]="compare[31].result === 'Y' ? 'table-data-text' : 'height'">{{compare[31].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[31].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[31].setValueLow}} </td>
+        <td [ngClass]="compare[31].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[31].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[0].compareColumn}}</th>
+        <td [ngClass]="compare[0].result === 'Y' ? 'table-data-text' : 'height'">{{compare[0].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[0].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[0].setValueLow}} </td>
+        <td [ngClass]="compare[0].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[0].setValueHight}} </td>
+
+      </tr>
+
+    </ng-container>
+    <!-- 基本資料 -->
+
+    <!-- 任職資訊比對 -->
+    <ng-container>
+
+      <tr>
+        <th class="table-header-x" rowspan="7">任職資訊比對</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[16].compareColumn}}</th>
+        <td [ngClass]="compare[16].result === 'Y' ? 'table-data-text' : 'height'">{{compare[16].count}} </td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[16].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[16].setValueLow}} </td>
+        <td [ngClass]="compare[16].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[16].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[17].compareColumn}}</th>
+        <td [ngClass]="compare[17].result === 'Y' ? 'table-data-text' : 'height'">{{compare[17].count}}</td>
+        <td class="table-data-text-compare">
+          {{test(compare[17].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[17].setValueLow}} </td>
+        <td [ngClass]="compare[17].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[17].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[8].compareColumn}}</th>
+        <td [ngClass]="compare[8].result === 'Y' ? 'table-data-text' : 'height'">{{compare[8].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[8].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[8].setValueLow}} </td>
+        <td [ngClass]="compare[8].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[8].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[67].compareColumn}}</th>
+        <td [ngClass]="compare[67].result === 'Y' ? 'table-data-text' : 'height'">{{compare[67].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[67].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[67].setValueLow}} </td>
+        <td [ngClass]="compare[67].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[67].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[45].compareColumn}}</th>
+        <td [ngClass]="compare[45].result === 'Y' ? 'table-data-text' : 'height'">{{compare[45].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[45].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[45].setValueLow}} </td>
+        <td [ngClass]="compare[45].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[45].setValueHight}} </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[46].compareColumn}}</th>
+        <td [ngClass]="compare[46].result === 'Y' ? 'table-data-text' : 'height'">{{compare[46].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[46].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[46].setValueLow}} </td>
+        <td [ngClass]="compare[46].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[46].setValueHight}} </td>
+      </tr>
+
+    </ng-container>
+    <ng-container>
+
+      <tr>
+        <th class="table-header-x" rowspan="2">基本資料</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">{{compare[23].compareColumn}}</th>
+        <td [ngClass]="compare[23].result === 'Y' ? 'table-data-text' : 'height'">{{compare[23].count}}</td>
+        <td class="table-data-text-compare">
+
+          {{test(compare[23].compareType)}}
+        </td>
+        <td class="table-data-text-compare">{{compare[23].setValueLow}} </td>
+        <td [ngClass]="compare[23].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">
+          {{compare[23].setValueHight}} </td>
+      </tr>
+
+    </ng-container>
+  </nz-table>
+</div>
+<br>
+
+
+
+
+
+<div class="line_bank_card_no_padding" *ngIf="!loading">
+  <nz-table nzSize="small" nzTitle="歷史申請書比對 (同一NID)" [nzData]="compare" nzFrontPagination="false">
+    <ng-container>
+      <tr>
+        <th class="table-header-y" style="width:30%;">區塊</th>
+        <th class="table-header-y" style="width:30%;">比對欄位</th>
+        <th class="table-header-y" style="width:10%;">比對結果</th>
+        <th class="table-header-y" style="width:10%;">比對方式</th>
+        <th class="table-header-y" style="width:10%;">最低門檻</th>
+        <th class="table-header-y" style="width:10%;">最高門檻</th>
+      </tr>
+      <!-- Channel資訊 -->
+      <tr>
+        <th class="table-header-x" rowspan="9">Channel資訊</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">點選申請時GPS</th>
+        <td class="table-data"> </td>
+      </tr>
+
+      <tr>
+        <th class="table-header-y">上傳收入文件後GPS</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">點選申請時IP Address</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">上傳收入文件後IP Address</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">點選申請時手機型號</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">上傳收入文件後手機型號</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">點選申請時Device ID</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">上傳收入文件後Device ID</th>
+        <td class="table-data"></td>
+      </tr>
+
+    </ng-container>
+    <!-- 聯絡資訊 -->
+    <ng-container>
+
+
+      <tr>
+        <th class="table-header-x" rowspan="8">聯絡資訊</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">Email</th>
+        <td class="table-data"> </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">行動電話</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">戶籍電話</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">通訊電話</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">戶籍地址</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">通訊地址</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">寄卡地址</th>
+        <td class="table-data"></td>
+      </tr>
+
+    </ng-container>
+    <!-- 基本資料 -->
+
+    <!-- 任職資訊比對 -->
+    <ng-container>
+
+      <tr>
+        <th class="table-header-x" rowspan="7">任職資訊比對</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">公司名稱</th>
+        <td class="table-data"> </td>
+      </tr>
+      <tr>
+        <th class="table-header-y">公司電話</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">公司地址</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">行職業代碼</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">行業別Level1</th>
+        <td class="table-data"></td>
+      </tr>
+      <tr>
+        <th class="table-header-y">行業別Level2</th>
+        <td class="table-data"></td>
+      </tr>
+
+    </ng-container>
+    <ng-container>
+
+      <tr>
+        <th class="table-header-x" rowspan="2">基本資料</th>
+      </tr>
+      <tr>
+        <th class="table-header-y">教育程度</th>
+        <td class="table-data"></td>
+      </tr>
+
+    </ng-container>
+  </nz-table>
+</div>
 </div>
 <!-- <div class="line_bank_form_header_title">歷史申請書比對(同一NID)</div>
       <ng-container *ngFor="let compareRow of compare;let i = index">
