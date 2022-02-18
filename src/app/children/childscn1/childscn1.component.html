@@ -1228,7 +1228,7 @@
                         <td class="table-data">
                             <input matInput #input class="form-control" [(ngModel)]="data.period" name="period"
                                 placeholder="輸入期數" [ngStyle]="getStyle(data.period)" (keypress)="numberOnly($event)"
-                                (ngModelChange)="change(data.period,'period',i + 1)" [disabled]="getPage() != '3'">
+                                (ngModelChange)="change(data.period,'period',i + 1)" [disabled]="getPage() != '3'" maxlength="3">
                         </td>
                         <td class="table-data">
                             <mat-select [(ngModel)]="data.periodType" name="periodType"

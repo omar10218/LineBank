@@ -25,9 +25,9 @@
                         <tr *ngFor="let data of callOutDataSource;let i =index" >
                             <td class="table-data" [nzAlign]="'center'">{{ i+1 }}</td>
                             <td class="table-data">
-                                <button nz-button [nzSize]="'middle'" nzType="link" (click)="toCalloutPage(data.APPLNO)">
+                                <!-- <button nz-button [nzSize]="'middle'" nzType="link" (click)="toCalloutPage(data.APPLNO)"> -->
                                     {{data.APPLNO}}
-                                </button>
+                                <!-- </button> -->
                             </td>
                             <td class="table-data">{{ data.CON_TYPE }} - {{ getConType(data.CON_TYPE) }}</td>
                             <td class="table-data">{{ data.PHONE }}</td>

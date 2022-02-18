@@ -246,7 +246,8 @@ export class childbwscn2page1Component implements OnInit {
       this.reason_CODE.push({ value: '', viewValue: '請選擇' })
       this.reason_DETAIL = [];
       this.reason_DETAIL.push({ value: '', viewValue: '請選擇' })
-      for (const json of data.rspBody.bwCreditMainList) {
+      for (const json of data.rspBody.bwCreditMainList)
+      {
         if (json.creditResult != null && json.creditResult != '') {
           this.BW_creditResult = json.creditResult;
           this.radio_change();
@@ -257,8 +258,11 @@ export class childbwscn2page1Component implements OnInit {
           else {
             this.reasoncode = '';
           }
-          if (json.reasonDetail != null && json.reasonDetail != '') {
+          if (json.reasonDetail != null && json.reasonDetail != '')
+          {
             this.reasondetail = json.reasonDetail;
+
+
           }
           if (json.limitNo != null && json.limitNo != '') {
             this.limit = json.limitNo;
@@ -269,31 +273,8 @@ export class childbwscn2page1Component implements OnInit {
           }
 
         }
-        // this.reasoncode = json.reasonCode;
-        // if(json.creditResult!="" || json.creditResult !=null)
-        // {
-        //   this.BW_creditResult = json.creditResult;
-        // }
-        // if(json.reasonCode!="" || json.reasonCode!=null)
-        // {
-        //   this.reason();
-        // }
-        // this.reasondetail =json.reasonCode;
-        // if(json.reasonDetail !=""|| json.reasonDetail !=null)
-        // {
-        //   this.reasondetail = json.reasonDetail;
-        // }
-        // if(json.limitNo!=""|| json.limitNo !=null)
-        // {
-        //   this.limit = json.limitNo;
-        // }
-        // if(json.reserveLimit!=""||json.reserveLimit !=null)
-        // {
-        //   this.preempt=json.reserveLimit;
-        // }
-
       }
-
+      this.ttemporarilyest();
     })
   }
 
@@ -380,7 +361,11 @@ export class childbwscn2page1Component implements OnInit {
 
   }
   test() {
-    alert(this.reasoncode)
+   console.log(sessionStorage.getItem('BW_creditResult'))
+   console.log(sessionStorage.getItem('BW_reasonCode'))
+   console.log(sessionStorage.getItem('BW_reasondetail'))
+   console.log(sessionStorage.getItem('BW_limit'))
+   console.log(sessionStorage.getItem('BW_preempt'))
   }
   ttemporarilyest()//暫存
   {
