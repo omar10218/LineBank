@@ -7,6 +7,8 @@ import { Childscn26Component } from 'src/app/children/childscn26/childscn26.comp
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { history } from './../../interface/base';
 import { F01014Scn1Service } from './f01014scn1.service';
+import { Childscn27Component } from 'src/app/children/childscn27/childscn27.component';
+import { Childscn28Component } from 'src/app/children/childscn28/childscn28.component';
 interface interestPeriod {
   id?: string,
   period: string,
@@ -361,6 +363,34 @@ export class F01014scn1Component implements OnInit {
       }
     });
   }
+
+      //簡訊
+      reSMS() {
+        const dialogRef = this.dialog.open(Childscn27Component, {
+          panelClass: 'mat-dialog-transparent',
+          height: '100%',
+          width: '70%',
+          data: {
+            applno: this.applno,
+            cuid: this.nationalId,
+            checkpoint: "L3"
+          }
+        });
+      }
+
+      //Mail
+      reMail() {
+        const dialogRef = this.dialog.open(Childscn28Component, {
+          panelClass: 'mat-dialog-transparent',
+          height: '100%',
+          width: '70%',
+          data: {
+            applno: this.applno,
+            cuid: this.nationalId,
+            checkpoint: "L3"
+          }
+        });
+      }
 
   scrollToTop(event: any) {
     window.scroll({
