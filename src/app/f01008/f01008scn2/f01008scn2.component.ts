@@ -35,12 +35,12 @@ export class F01008scn2Component implements OnInit {
     public pipe: DatePipe,) {
     this.JCICSource$ = this.f01008Service.JCICAddSource$.subscribe((data) => {
       if (!data.show) {
-        this.set();
+        this.set();this.showAdd=false;
       }
     });
     this.JCICSource$ = this.f01008Service.JCICSource$.subscribe((data) => {
       if (!data.show) {
-        this.set();
+        this.set();this.showEdit=false
       }
     })
 
@@ -150,55 +150,63 @@ export class F01008scn2Component implements OnInit {
   }
   add() //新增
   {
-    this.showAdd = !this.showAdd;
-    this.f01008Service.setJCICAddSource({
-      minHeight: '70vh',
-      width: '50%',
-      show: this.showAdd,
-      applno: this.applno,//案件編號
-      // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
-      CON_TYPE: '',//聯絡方式
-      // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
-      TEL_CONDITION: '',//電話狀況
-      // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
-      TEL_CHECK: '',//電話種類
-      // HOURS_Code: this.HOURS_Code,//時下拉選單
-      HOURS: '',//時種類
-      // MINUTES_Code: this.MINUTES_Code,//分下拉選單
-      MINUTES: '',//分種類
-      PHONE: '',//手機/市話
-      CON_MEMO: '',//備註
-      CALLOUT_DATE: '',//設定下次照會時間
-      CALLOUT_SETTIME: '',//確認時間
-      CALLOUT_EMPNO: this.empNo,//徵信員編
+    if(this.showAdd==false)
+    {
+      this.showAdd = !this.showAdd;
+      this.f01008Service.setJCICAddSource({
+        minHeight: '70vh',
+        width: '50%',
+        show: this.showAdd,
+        applno: this.applno,//案件編號
+        // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+        CON_TYPE: '',//聯絡方式
+        // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+        TEL_CONDITION: '',//電話狀況
+        // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+        TEL_CHECK: '',//電話種類
+        // HOURS_Code: this.HOURS_Code,//時下拉選單
+        HOURS: '',//時種類
+        // MINUTES_Code: this.MINUTES_Code,//分下拉選單
+        MINUTES: '',//分種類
+        PHONE: '',//手機/市話
+        CON_MEMO: '',//備註
+        CALLOUT_DATE: '',//設定下次照會時間
+        CALLOUT_SETTIME: '',//確認時間
+        CALLOUT_EMPNO: this.empNo,//徵信員編
 
-    })
+      })
+    }
+
   }
   //編輯
   startEdit(ID: string, CON_TYPE: string, CON_MEMO: string, PHONE: string, TEL_CONDITION: string, CALLOUT_SETTIME: string, CALLOUT_DATE: string) {
-    this.showEdit = !this.showEdit;
-    this.f01008Service.setJCICSource({
-      minHeight: '70vh',
-      width: '50%',
-      show: this.showEdit,
-      applno: this.applno,//案件編號
-      // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
-      CON_TYPE: CON_TYPE,//聯絡方式
-      // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
-      TEL_CONDITION: TEL_CONDITION,//電話狀況
-      // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
-      // TEL_CHECK: TEL_CHECK,//電話種類
-      // HOURS_Code: this.HOURS_Code,//時下拉選單
-      HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
-      // MINUTES_Code: this.MINUTES_Code,//分下拉選單
-      MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
-      PHONE: PHONE,//手機/市話
-      CON_MEMO: CON_MEMO,//備註RF
-      CALLOUT_DATE: CALLOUT_DATE,//設定下次照會時間
-      ID: ID,//java用row ID
-      CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
-      CALLOUT_EMPNO: this.empNo,//徵信員編
-    });
+    if(this.showEdit==false)
+    {
+      this.showEdit = !this.showEdit;
+      this.f01008Service.setJCICSource({
+        minHeight: '70vh',
+        width: '50%',
+        show: this.showEdit,
+        applno: this.applno,//案件編號
+        // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
+        CON_TYPE: CON_TYPE,//聯絡方式
+        // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
+        TEL_CONDITION: TEL_CONDITION,//電話狀況
+        // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
+        // TEL_CHECK: TEL_CHECK,//電話種類
+        // HOURS_Code: this.HOURS_Code,//時下拉選單
+        HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
+        // MINUTES_Code: this.MINUTES_Code,//分下拉選單
+        MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
+        PHONE: PHONE,//手機/市話
+        CON_MEMO: CON_MEMO,//備註RF
+        CALLOUT_DATE: CALLOUT_DATE,//設定下次照會時間
+        ID: ID,//java用row ID
+        CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
+        CALLOUT_EMPNO: this.empNo,//徵信員編
+      });
+    }
+
   }
   getSearch() //判斷是否鎖按鈕
   {
