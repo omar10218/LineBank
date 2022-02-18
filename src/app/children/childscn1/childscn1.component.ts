@@ -782,6 +782,17 @@ export class Childscn1Component implements OnInit, OnDestroy {
         });
         value.interest = 0;
       }
+      if (value.interest.split(".")[0].length > 2) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '利率不得超過100%!' }  // 11.111
+        });
+        value.interest = 0;
+      }
+    } else if ((value.interest.length > 2)) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '利率不得超過100%!' }  // 11.111
+      });
+      value.interest = 0;
     }
     if (value.interestBase == null) {
       value.approveInterest = Number(value.interest);
