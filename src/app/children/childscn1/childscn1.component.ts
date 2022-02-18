@@ -776,15 +776,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
       });
       value.interest = 0;
     } else if (value.interest.includes(".")) {
-      if (value.interest.split(".")[1].length > 3) {
+      if (value.interest.split(".")[1].length > 3 || value.interest.split(".")[0].length > 2) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: '利率請輸入至小數點第三位!' }
-        });
-        value.interest = 0;
-      }
-      if (value.interest.split(".")[0].length > 2) {
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: '利率不得超過100%!' }  // 11.111
+          data: { msgStr: '利率請輸入至小數點第三位或不得超過100%!' }
         });
         value.interest = 0;
       }

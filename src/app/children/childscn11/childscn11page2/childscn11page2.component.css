@@ -37,7 +37,7 @@ input{
 
 }
 .table-data-text{
-  color:rgb(177, 177, 1);
+  color:rgb(13, 199, 34);
   text-align: center;
   font-size:16px;
   border: 1px solid #e8e8e8;
@@ -52,4 +52,19 @@ input{
 }
 :host::ng-deep.ant-table-pagination.ant-pagination{
 margin:0px 0px;
+}
+.table-data-text-compare{
+  color:black;
+  text-align: center;
+  font-size:16px;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 1px;
+}
+.table-data-text-compare-none{
+  color:black;
+  text-align: center;
+  font-size:16px;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 1px;
+  background-color: rgb(194, 194, 194);
 }
