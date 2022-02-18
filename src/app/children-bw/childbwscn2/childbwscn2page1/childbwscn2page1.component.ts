@@ -143,7 +143,6 @@ export class childbwscn2page1Component implements OnInit {
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
     this.creditlevel = this.page == "10" ? "L3" : this.creditlevel;
     this.getCreditMainList();
-
   }
   //取決策1Table
   getDSS11() {

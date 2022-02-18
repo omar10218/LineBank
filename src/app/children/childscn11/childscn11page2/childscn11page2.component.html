@@ -18,24 +18,14 @@
       <tr>
         <th class="table-header-y">{{compare[25].compareColumn}}</th>
         <td [ngClass]="compare[25].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[25].count}}</td>
-        <td class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[25].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>
-        </td>
+        <td class="table-data-text-compare">{{test(compare[25].compareType)}}</td>
         <td class="table-data-text-compare">{{compare[25].setValueLow}} </td>
         <td [ngClass]="compare[25].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[25].setValueHight}} </td>
       </tr>
       <tr>
         <th class="table-header-y">{{compare[27].compareColumn}}</th>
         <td [ngClass]="compare[27].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[27].count}}</td>
-        <td class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[27].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>
-        </td>
+        <td class="table-data-text-compare">{{test(compare[27].compareType)}}</td>
         <td class="table-data-text-compare">{{compare[27].setValueLow}} </td>
         <td [ngClass]="compare[27].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[27].setValueHight}} </td>
       </tr>
@@ -43,10 +33,8 @@
         <th class="table-header-y">{{compare[39].compareColumn}}</th>
         <td [ngClass]="compare[39].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[39].count}}</td>
         <td  class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[39].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>  
+        
+          {{test(compare[39].compareType)}}
         </td>
         <td  class="table-data-text-compare">{{compare[39].setValueLow}} </td>
         <td  [ngClass]="compare[39].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[39].setValueHight}} </td>
@@ -55,10 +43,7 @@
         <th class="table-header-y">{{compare[41].compareColumn}}</th>
         <td [ngClass]="compare[41].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[41].count}}</td>
         <td  class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[41].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>    
+          {{test(compare[41].compareType)}}
         </td>
         <td  class="table-data-text-compare">{{compare[41].setValueLow}} </td>
         <td [ngClass]="compare[41].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[41].setValueHight}} </td>
@@ -67,10 +52,7 @@
         <th class="table-header-y">{{compare[45].compareColumn}}</th>
         <td [ngClass]="compare[45].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[45].count}}</td>
         <td  class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[45].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>      
+          {{test(compare[45].compareType)}}
         </td>
         <td  class="table-data-text-compare">{{compare[45].setValueLow}} </td>
         <td  [ngClass]="compare[45].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[45].setValueHight}} </td>
@@ -79,10 +61,7 @@
         <th class="table-header-y">{{compare[47].compareColumn}}</th>
         <td [ngClass]="compare[47].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[47].count}}</td>
         <td  class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[47].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>      
+          {{test(compare[47].compareType)}}
         </td>
         <td  class="table-data-text-compare">{{compare[47].setValueLow}} </td>
         <td  [ngClass]="compare[47].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[47].setValueHight}} </td>
@@ -91,10 +70,7 @@
         <th class="table-header-y">{{compare[19].compareColumn}}</th>
         <td [ngClass]="compare[19].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[19].count}}</td>
         <td  class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[19].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>      
+          {{test(compare[19].compareType)}}
          </td>
         <td  class="table-data-text-compare">{{compare[19].setValueLow}} </td>
         <td  [ngClass]="compare[19].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[19].setValueHight}} </td>
@@ -103,10 +79,7 @@
         <th class="table-header-y">{{compare[21].compareColumn}}</th>
         <td [ngClass]="compare[21].result === 'Y' ? 'table-data-text' : 'height'" >{{compare[21].count}}</td>
         <td class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[21].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>    
+          {{test(compare[21].compareType)}}
         </td>
         <td class="table-data-text-compare">{{compare[21].setValueLow}} </td>
         <td [ngClass]="compare[21].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[21].setValueHight}} </td>
@@ -124,10 +97,8 @@
         <th class="table-header-y">{{compare[23].compareColumn}}</th>
         <td [ngClass]="compare[23].result === 'Y' ? 'table-data-text' : 'height'">{{compare[23].count}} </td>
         <td class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[23].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>  
+          {{test(compare[23].compareType)}}
+
         </td>
         <td class="table-data-text-compare">{{compare[23].setValueLow}} </td>
         <td [ngClass]="compare[23].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[23].setValueHight}} </td>
@@ -136,10 +107,7 @@
         <th class="table-header-y">{{compare[43].compareColumn}}</th>
         <td [ngClass]="compare[43].result === 'Y' ? 'table-data-text' : 'height'">{{compare[43].count}}</td>
         <td  class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[43].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>  
+          {{test(compare[43].compareType)}}
         </td>
         <td  class="table-data-text-compare">{{compare[43].setValueLow}} </td>
         <td  [ngClass]="compare[43].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[43].setValueHight}} </td>
@@ -148,10 +116,7 @@
         <th class="table-header-y">{{compare[57].compareColumn}}</th>
         <td [ngClass]="compare[57].result === 'Y' ? 'table-data-text' : 'height'">{{compare[57].count}}</td>
         <td  class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[57].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>    
+          {{test(compare[57].compareType)}}  
         </td>
         <td  class="table-data-text-compare">{{compare[57].setValueLow}} </td>
         <td  [ngClass]="compare[57].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[57].setValueHight}} </td>
@@ -160,10 +125,7 @@
         <th class="table-header-y">{{compare[37].compareColumn}}</th>
         <td [ngClass]="compare[37].result === 'Y' ? 'table-data-text' : 'height'">{{compare[37].count}}</td>
         <td  class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[37].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>    
+          {{test(compare[37].compareType)}}  
         </td>
         <td  class="table-data-text-compare">{{compare[37].setValueLow}} </td>
         <td  [ngClass]="compare[37].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[37].setValueHight}} </td>
@@ -173,10 +135,7 @@
         <td [ngClass]="compare[49].result === 'Y' ? 'table-data-text' : 'height'">{{compare[49].count}}</td>
         <td  class="table-data-text-compare">
           
-          <select disabled [(ngModel)]='compare[49].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>  
+          {{test(compare[49].compareType)}}  
         </td>
         <td  class="table-data-text-compare">{{compare[49].setValueLow}} </td>
         <td  [ngClass]="compare[49].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[49].setValueHight}} </td>
@@ -185,10 +144,7 @@
         <th class="table-header-y">{{compare[29].compareColumn}}</th>
         <td [ngClass]="compare[29].result === 'Y' ? 'table-data-text' : 'height'">{{compare[29].count}}</td>
         <td  class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[29].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>    
+          {{test(compare[29].compareType)}}  
         </td>
         <td  class="table-data-text-compare">{{compare[29].setValueLow}} </td>
         <td  [ngClass]="compare[29].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[29].setValueHight}} </td>
@@ -197,10 +153,7 @@
         <th class="table-header-y">{{compare[0].compareColumn}}</th>
         <td [ngClass]="compare[0].result === 'Y' ? 'table-data-text' : 'height'">{{compare[0].count}}</td>
         <td class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[0].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>    
+          {{test(compare[0].compareType)}}  
         </td>
         <td class="table-data-text-compare">{{compare[0].setValueLow}} </td>
         <td [ngClass]="compare[0].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[0].setValueHight}} </td>
@@ -217,10 +170,7 @@
         <th class="table-header-y">{{compare[16].compareColumn}}</th>
         <td [ngClass]="compare[16].result === 'Y' ? 'table-data-text' : 'height'"> {{compare[16].count}}</td>
         <td class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[16].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>  
+          {{test(compare[16].compareType)}}  
         </td>
         <td class="table-data-text-compare">{{compare[16].setValueLow}} </td>
         <td [ngClass]="compare[16].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[16].setValueHight}} </td>
@@ -229,10 +179,7 @@
         <th class="table-header-y">{{compare[17].compareColumn}}</th>
         <td [ngClass]="compare[17].result === 'Y' ? 'table-data-text' : 'height'">{{compare[17].count}}</td>
         <td class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[17].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>  
+          {{test(compare[17].compareType)}}  
         </td>
         <td class="table-data-text-compare">{{compare[17].setValueLow}} </td>
         <td [ngClass]="compare[17].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[17].setValueHight}} </td>
@@ -241,10 +188,7 @@
         <th class="table-header-y">{{compare[8].compareColumn}}</th>
         <td [ngClass]="compare[8].result === 'Y' ? 'table-data-text' : 'height'">{{compare[8].count}}</td>
         <td  class="table-data-text-compare">
-          <select disabled [(ngModel)]='compare[8].compareType' >
-            <option [value]=1>絕對值</option>
-            <option [value]=2>相對值</option>
-          </select>    
+          {{test(compare[8].compareType)}}    
         </td>
         <td  class="table-data-text-compare">{{compare[8].setValueLow}} </td>
         <td  [ngClass]="compare[8].compareType === '1' ? 'table-data-text-compare-none' : 'table-data-text-compare'">{{compare[8].setValueHight}} </td>

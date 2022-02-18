@@ -76,6 +76,7 @@ export class F03006editComponent {
     if(this.date1==this.date2)
     {
       this.check=true;
+      this.data.LEAVE_ENDDATE_TYPE=this.data.LEAVE_STARTDATE_TYPE ;
     }
     else
     {

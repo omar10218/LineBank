@@ -73,7 +73,7 @@ export class F01010scn1Component implements OnInit {
 
   //儲存
   save() {
-    if (this.creditaction == "" || this.creditaction == null) {
+    if (this.creditaction == "" || this.creditaction == null || this.creditaction == undefined) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入審核意見' }
       });
@@ -100,7 +100,7 @@ export class F01010scn1Component implements OnInit {
 
   finish() {
 
-    if (sessionStorage.getItem('BW_creditResult') == null && sessionStorage.getItem('BW_creditResult') == "") {
+    if (sessionStorage.getItem('BW_creditResult') == null || sessionStorage.getItem('BW_creditResult') == "" || sessionStorage.getItem('BW_creditResult')=="undefined") {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請選取審核結果' }
       });
@@ -194,6 +194,12 @@ export class F01010scn1Component implements OnInit {
   }
   temporarily()//暫存
   {
+    if (sessionStorage.getItem('BW_creditResult') == null || sessionStorage.getItem('BW_creditResult') == "" || sessionStorage.getItem('BW_creditResult')=="undefined") {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請選取審核結果' }
+      });
+      return;
+    }
     const url = 'f01/childbwscn0action1';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
