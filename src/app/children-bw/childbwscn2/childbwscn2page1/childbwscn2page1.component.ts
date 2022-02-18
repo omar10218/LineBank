@@ -44,7 +44,7 @@ export class childbwscn2page1Component implements OnInit {
   userId: string;
   creditaction: string = ""; //審核註記
   total = 1;
-  i = 0 ;
+  i = 0;
   pageIndex = 1;
   pageSize = 50;
   creditmemoSource: Data[] = [];
@@ -59,7 +59,7 @@ export class childbwscn2page1Component implements OnInit {
   reasondetail: string = '';//本次執行原因細項
   limitList: sysCode[] = [];//額度號陣列
   limit: string = '';//額度
-  preempt:string;//預佔額度
+  preempt: string;//預佔額度
   //審核結果選項
   BW_creditResult_Code: OptionsCode[] = [{ value: 'FRZ', viewValue: 'FRZ' }, { value: 'DWN', viewValue: 'DWN' }, { value: 'HLD', viewValue: 'HLD' }
     , { value: 'NEX', viewValue: 'NEX' }, { value: 'N00', viewValue: 'N00' }, { value: 'XXX', viewValue: 'XXX' }, { value: '000', viewValue: '000' }];
@@ -222,8 +222,7 @@ export class childbwscn2page1Component implements OnInit {
     const url = 'f01/childbwscn1';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data =>
-      {
+    this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
 
       this.bwCreditMainList = data.rspBody.bwCreditMainList;
       if (this.bwCreditMainList.length < 1) {
@@ -243,36 +242,31 @@ export class childbwscn2page1Component implements OnInit {
         const viewValue = jsonObj['limitNo'];
         this.limitList.push({ value: value, viewValue: viewValue })
       }
-      this.reason_CODE =[];
+      this.reason_CODE = [];
       this.reason_CODE.push({ value: '', viewValue: '請選擇' })
-      this.reason_DETAIL =[];
+      this.reason_DETAIL = [];
       this.reason_DETAIL.push({ value: '', viewValue: '請選擇' })
-      for(const json of data.rspBody.bwCreditMainList)
-      {
-        if(json.creditResult !=null && json.creditResult!=''){
-          this.BW_creditResult=json.creditResult;
-          this.radio_change() ;
-          this.reasoncode= json.reasonCode;
-          if(json.reasonCode!=null && json.reasonCode!='' )
-          {
+      for (const json of data.rspBody.bwCreditMainList) {
+        if (json.creditResult != null && json.creditResult != '') {
+          this.BW_creditResult = json.creditResult;
+          this.radio_change();
+          this.reasoncode = json.reasonCode;
+          if (json.reasonCode != null && json.reasonCode != '') {
             this.reason();
           }
-          else
-          {
-            this.reasoncode ='';
+          else {
+            this.reasoncode = '';
           }
-          if(json.reasonDetail!=null && json.reasonDetail!='')
-          {
-            this.reasondetail=json.reasonDetail;
+          if (json.reasonDetail != null && json.reasonDetail != '') {
+            this.reasondetail = json.reasonDetail;
           }
-          if(json.limitNo !=null && json.limitNo != '')
-          {
+          if (json.limitNo != null && json.limitNo != '') {
             this.limit = json.limitNo;
           }
-          if(json.reserveLimit!="" && json.reserveLimit !=null)
-        {
-          this.preempt=json.reserveLimit;
-        }
+          if (json.reserveLimit != "" && json.reserveLimit != null)
+          {
+            this.dealwith(json.reserveLimit+"");
+          }
 
         }
         // this.reasoncode = json.reasonCode;
@@ -371,24 +365,21 @@ export class childbwscn2page1Component implements OnInit {
     }
   }
   //審核結果 資料改變
-  radio_change()
-  {
+  radio_change() {
 
-      this.filter();
-      this.ttemporarilyest();
+    this.filter();
+    this.ttemporarilyest();
 
-      if(this.i>0)
-      {
-        this.reasoncode='';
-        this.reasondetail='';
-        this.limit='';
-        this.preempt="0";
-      }
+    if (this.i > 0) {
+      this.reasoncode = '';
+      this.reasondetail = '';
+      this.limit = '';
+      this.preempt = "0";
+    }
 
 
   }
-  test()
-  {
+  test() {
     alert(this.reasoncode)
   }
   ttemporarilyest()//暫存
@@ -397,46 +388,40 @@ export class childbwscn2page1Component implements OnInit {
     sessionStorage.setItem('BW_reasonCode', this.reasoncode);
     sessionStorage.setItem('BW_reasondetail', this.reasondetail);
     sessionStorage.setItem('BW_limit', this.limit);
-    sessionStorage.setItem('BW_preempt', this.preempt !=undefined ?this.Cut(this.preempt):"0");
-    this.i=this.i+1;
+    sessionStorage.setItem('BW_preempt', this.preempt != undefined ? (this.preempt.replace(/,/g, "")) : "0");
+    this.i = this.i + 1;
   }
 
 
-  filter()
-  {
+  filter() {
     this.reason_CODE = [];
     this.reason_CODE.push({ value: '', viewValue: '請選擇' })
     const url = 'f01/childbwscn1';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
-      for (const jsonObj of data.rspBody.reasonCode)
-      {
-          const value = jsonObj['reasonCode'];
-          const viewValue = jsonObj['reasonDesc'];
-          switch(this.BW_creditResult)
-          {
-            case 'FRZ':
-              if(value != 'D' && value !='E' && value !='B')
-              {
-                this.reason_CODE.push({ value: value, viewValue: viewValue })
-              }
-              break;
-            case 'HLD':
-              if(value != 'C' && value!='E' && value !='A')
-              {
-                this.reason_CODE.push({ value: value, viewValue: viewValue })
-              }
-              break;
-              case 'DWN':
-                if(value != 'D' && value!='C')
-                {
-                  this.reason_CODE.push({ value: value, viewValue: viewValue })
-                }
-                break;
+      for (const jsonObj of data.rspBody.reasonCode) {
+        const value = jsonObj['reasonCode'];
+        const viewValue = jsonObj['reasonDesc'];
+        switch (this.BW_creditResult) {
+          case 'FRZ':
+            if (value != 'D' && value != 'E' && value != 'B') {
+              this.reason_CODE.push({ value: value, viewValue: viewValue })
+            }
+            break;
+          case 'HLD':
+            if (value != 'C' && value != 'E' && value != 'A') {
+              this.reason_CODE.push({ value: value, viewValue: viewValue })
+            }
+            break;
+          case 'DWN':
+            if (value != 'D' && value != 'C') {
+              this.reason_CODE.push({ value: value, viewValue: viewValue })
+            }
+            break;
 
 
-          }
+        }
 
       }
 
@@ -448,12 +433,12 @@ export class childbwscn2page1Component implements OnInit {
   }
   reason()//本次執行原因
   {
-    this.reason_DETAIL=[];
-    let url ='f01/childbwscn1action3'
+    this.reason_DETAIL = [];
+    let url = 'f01/childbwscn1action3'
     let jsonObject: any = {};
     this.ttemporarilyest();
-    jsonObject['reasonCode']=this.reasoncode;
-    this.Childbwscn2Service.getDate_Json(url,jsonObject).subscribe(data=>{
+    jsonObject['reasonCode'] = this.reasoncode;
+    this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
       this.reason_DETAIL.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
         const value = jsonObj['reasonCode'];
@@ -463,7 +448,7 @@ export class childbwscn2page1Component implements OnInit {
     })
 
   }
-  dealwith(x:string)//篩選加千分號
+  dealwith(x: string)//篩選加千分號
   {
     x = x.replace(/\D/g, '')
     if (x.length > 0) {
