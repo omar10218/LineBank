@@ -32,14 +32,14 @@ export class Childscn19Component implements OnInit {
     private pipe: DatePipe,
     private nzI18nService: NzI18nService,
     private router: Router,
-    @Inject(MAT_DIALOG_DATA) public da: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.nzI18nService.setLocale(zh_TW) //元件簡體字轉繁體字
   }
 
   private applno: string;                           //案編
   private cuid: string;                             //客編
-  restartDate: Date;                              //待補文件日期
+  restartDate: Date;                                //待補文件日期
   restartDateValue: Date;                           //待補文件日期類型
   rescanTypeCode: sysCode[] = [];                   //補件原因下拉
   rescanType: string;                               //補件原因
@@ -60,6 +60,7 @@ export class Childscn19Component implements OnInit {
   sms_M_Code = new MatTableDataSource<any>();    //sms mappingcode
   Number: string;
   ii = [];
+  flag = this.data.flag;
   // boo :boolean = true ;
   block: boolean = false;
   send: boolean = true;//案件送出判斷是否鎖起來
@@ -337,10 +338,10 @@ export class Childscn19Component implements OnInit {
       let u = 'f02/f02002action6';
       let url = 'f01/childscn19action7';
       let jsonObject: any = {};
-      jsonObject['applno'] = this.da.applno;
-      jsonObject['swcCreditLevel'] = this.da.checkpoint;
+      jsonObject['applno'] = this.data.applno;
+      jsonObject['swcCreditLevel'] = this.data.checkpoint;
       let jsonObject2: any = {};
-      jsonObject2['applno'] = this.da.applno;
+      jsonObject2['applno'] = this.data.applno;
       this.childscn19Service.setrepair(url, jsonObject).subscribe(data => {
         this.block = true;
         if (data.rspMsg == '成功') {

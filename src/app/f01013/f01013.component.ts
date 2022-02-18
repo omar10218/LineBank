@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { Childscn19Component } from '../children/childscn19/childscn19.component';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { OptionsCode } from '../interface/base';
 import { F01013Service } from './f01013.service';
@@ -184,11 +185,12 @@ export class F01013Component implements OnInit, AfterViewInit {
 
   // 打開通知彈窗
   openNotifyMsg(swcApplno: string) {
-    const dialogRef = this.dialog.open(ConfirmComponent, {
-      minHeight: '50vh',
-      width: '30%',
+    const dialogRef = this.dialog.open(Childscn19Component, {
+      minHeight: '60vh',
+      width: '90%',
       data: {
-        swcApplno: swcApplno
+        swcApplno: swcApplno,
+        flag: 'Y'
       }
     });
   }

@@ -7,6 +7,7 @@ import { OptionsCode } from '../interface/base';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { formatDate } from '@angular/common';
+import { Childscn19Component } from '../children/childscn19/childscn19.component';
 
 @Component({
   selector: 'app-f01004',
@@ -190,14 +191,16 @@ export class F01004Component implements OnInit, AfterViewInit {
 
   // 打開通知彈窗
   openNotifyMsg(swcApplno: string) {
-    const dialogRef = this.dialog.open(ConfirmComponent, {
-      minHeight: '50vh',
-      width: '30%',
+    const dialogRef = this.dialog.open(Childscn19Component, {
+      minHeight: '60vh',
+      width: '90%',
       data: {
-        swcApplno: swcApplno
+        swcApplno: swcApplno,
+        flag: 'Y'
       }
     });
   }
+  
 // 千分號標點符號(form顯示用)
 data_number(p: number) {
   this.x = '';
