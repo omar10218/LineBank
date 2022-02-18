@@ -22,7 +22,11 @@ export class LoginService extends BaseService {
 
   private routerGoUrl(): void {
     this.bnIdle.stopTimer();
-    window.localStorage.clear();
+    // window.localStorage.clear();
+    localStorage.removeItem('empId');
+    localStorage.removeItem('empName');
+    localStorage.removeItem('empNo');
+    localStorage.removeItem('token');
     window.sessionStorage.clear();
     let form: string = environment.from;
     if ('stg' == form || 'uat' == form || 'prod' == form) {

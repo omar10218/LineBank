@@ -511,14 +511,16 @@ export class Childscn1Component implements OnInit, OnDestroy {
         this.CreditInterestPeriodSource = data.rspBody.creditInterestPeriodList;
         for (let index = 1; index <= this.CreditInterestPeriodSource.length; index++) {
           if (this.CreditInterestPeriodSource[index - 1].interestType == '02') {
-            if (!(await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject)).includes('找不到')) {
-              this.CreditInterestPeriodSource[index - 1].interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
-              sessionStorage.setItem('interestBase' + index, this.CreditInterestPeriodSource[index - 1].interestBase);
-            } else {
-              erroeStr = '加減碼查無利率，請通知相關人員!'
-              this.CreditInterestPeriodSource[index - 1].interestType = '';
-              this.CreditInterestPeriodSource[index - 1].interestBase = 0;
-              sessionStorage.setItem('interestBase' + index, '0');
+            if (this.getSearch() != 'Y') {
+              if (!(await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject)).includes('找不到')) {
+                this.CreditInterestPeriodSource[index - 1].interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
+                sessionStorage.setItem('interestBase' + index, this.CreditInterestPeriodSource[index - 1].interestBase);
+              } else {
+                erroeStr = '加減碼查無利率，請通知相關人員!'
+                this.CreditInterestPeriodSource[index - 1].interestType = '';
+                this.CreditInterestPeriodSource[index - 1].interestBase = 0;
+                sessionStorage.setItem('interestBase' + index, '0');
+              }
             }
           } else {
             sessionStorage.setItem('interestBase' + index, '0');
@@ -538,22 +540,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
             data: { msgStr: erroeStr }
           });
         }
-        // this.period = data.rspBody.creditInterestPeriodList[0].period;
-        // sessionStorage.setItem('period', data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '');
-        // this.interestType = data.rspBody.creditInterestPeriodList[0].interestType;
-        // sessionStorage.setItem('interestType', data.rspBody.creditInterestPeriodList[0].interestType ? data.rspBody.creditInterestPeriodList[0].interestType : '');
-        // this.interest = data.rspBody.creditInterestPeriodList[0].interest;
-        // sessionStorage.setItem('interest', data.rspBody.creditInterestPeriodList[0].interest ? data.rspBody.creditInterestPeriodList[0].interest : '');
-        // this.periodType = '1';
-        // sessionStorage.setItem('periodType', this.periodType);
-        // if (this.interestType == '02') {
-        //   this.interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
-        // }
-        //this.interestBase = data.rspBody.creditInterestPeriodList[0].interestBase;
-        // sessionStorage.setItem('interestBase', data.rspBody.creditInterestPeriodList[0].interestBase ? data.rspBody.creditInterestPeriodList[0].interestBase : '');
-        // this.interestCode = data.rspBody.creditInterestPeriodList[0].interestCode;
-        // this.approveInterest = Number(this.interestBase) + Number(this.interest)
-        // sessionStorage.setItem('approveInterest', this.approveInterest.toString());
       }
 
       //CustomerInfo Channel資訊
@@ -785,23 +771,37 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   caluclate(value: any) {
     if (isNaN(value.interest)) {
-      const childernDialogRef = value.dialog.open(ConfirmComponent, {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '利率請輸入數字!' }
       });
-      childernDialogRef.afterClosed().subscribe(result => {
-        value.interest = null;
-        value.approveInterest = null;
-      });
-    } else {
-      if (value.interestBase == null) {
-        value.approveInterest = Number(value.interest);
-      } else {
-        value.approveInterest = (Number(value.interestBase) * Number(this.changeZero(value.interest)) + Number(value.interest) * Number(this.changeZero(value.interest))) / Number(this.changeZero(value.interest));
+      value.interest = 0;
+    } else if (value.interest.includes(".")) {
+      if (value.interest.split(".")[1].length > 3) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '利率請輸入至小數點第三位!' }
+        });
+        value.interest = 0;
       }
-      sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
-      sessionStorage.setItem('interest' + value.seq, value.interest.toString());
-      sessionStorage.setItem('interestBase' + value.seq, value.interestBase != null ? value.interestBase.toString() : '');
+      if (value.interest.split(".")[0].length > 2) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '利率不得超過100%!' }  // 11.111
+        });
+        value.interest = 0;
+      }
+    } else if ((value.interest.length > 2)) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '利率不得超過100%!' }  // 11.111
+      });
+      value.interest = 0;
     }
+    if (value.interestBase == null) {
+      value.approveInterest = Number(value.interest);
+    } else {
+      value.approveInterest = (Number(value.interestBase) * Number(this.changeZero(value.interest)) + Number(value.interest) * Number(this.changeZero(value.interest))) / Number(this.changeZero(value.interest));
+    }
+    sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
+    sessionStorage.setItem('interest' + value.seq, value.interest.toString());
+    sessionStorage.setItem('interestBase' + value.seq, value.interestBase != null ? value.interestBase.toString() : '');
   }
 
   open() {
@@ -810,6 +810,16 @@ export class Childscn1Component implements OnInit, OnDestroy {
   }
 
   change(value: any, valueName: string, index: string) {
+    if (valueName == 'resultLowestPayRate') {
+      if (value.includes(".")) {
+        if (value.split(".")[1].length > 4) {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '利率請輸入至小數點第四位!' }
+          });
+          this.resultLowestPayRate = 0;
+        }
+      }
+    }
     if (index != '') {
       sessionStorage.setItem(valueName + index, value);
     } else {
@@ -818,10 +828,11 @@ export class Childscn1Component implements OnInit, OnDestroy {
   }
 
   numberOnly(event: { which: any; keyCode: any; }): boolean {
-    console.log("=============");
-    console.log(event.keyCode);
     const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 110) {
+    if (charCode == 46) {
+      return true;
+    }
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入數字!' }
       });
@@ -1272,7 +1283,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     }
   }
 
-  changeZero(value: string): number{
+  changeZero(value: string): number {
     let len: number = 0;
     if (Number(value).toString().split('.')[1]) {
       len = Number(value).toString().split('.')[1].length;

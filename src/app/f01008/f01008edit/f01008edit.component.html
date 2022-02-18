@@ -2,7 +2,7 @@
 <div class="line_bank_card_no_padding" style="min-height:180px">
   <div class="line_bank_form_header_title" style="margin:0">徵信照會-編輯</div>
   <div class="container" style="padding:20px">
-    <form class="mat-dialog-content" #formControl="ngForm">
+    <form class="mat-dialog-content" #formControl="ngForm" (keydown.enter)="$event.preventDefault()">
 
       <div nz-row>
         <div nz-col nzSpan="12">

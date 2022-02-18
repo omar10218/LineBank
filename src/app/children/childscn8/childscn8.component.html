@@ -44,7 +44,7 @@
             <td class="table-data" style="text-align: center;">
               <button *ngIf="getPage() == '2' && getSearch()== 'N' " nz-button [nzSize]="'small'" nzType="primary"
                 (click)="startEdit(
-              row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)">編輯</button>
+              row.CON_TYPE,row.PHONE,row.TEL_CONDITION,row.TEL_CHECK,row.CON_MEMO,row.CALLOUT_DATE,row.ID,row.CALLOUT_SETTIME,row.CALLOUT_YN)" >編輯</button>
 
               <button *ngIf="getPage() != '2' || (getPage() == '2' && getSearch()!= 'N')" nz-button [nzSize]="'small'"
                 nzType="primary"

@@ -508,8 +508,8 @@
       <div nz-col nzFlex="1"></div>
     </div>
     <div nz-row style="padding:5px">
-      <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">本次執行原因</span>
+      <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
+        <div style="padding:3px"><span class="form-title" >本次執行原因</span>
           <mat-select style="height:25px" [(ngModel)]="reasoncode" name="reasoncode" (ngModelChange)="reason()" >
             <mat-option *ngFor="let code of reason_CODE" [value]="code.value">
               {{code.viewValue}}
@@ -517,28 +517,28 @@
           </mat-select>
         </div>
       </div>
-      <div nz-col nzFlex="1">
+      <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
         <div style="padding:3px"><span class="form-title">本次執行原因細項</span>
-          <mat-select style="height:25px" [(ngModel)]="reasondetail" name="reasondetail" [disabled]="reasoncode!=''? false:true" (ngModelChange)="radio_change()">
+          <mat-select style="height:25px" [(ngModel)]="reasondetail" name="reasondetail"(ngModelChange)="ttemporarilyest()"  >
             <mat-option *ngFor="let code of reason_DETAIL" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
           </mat-select>
         </div>
       </div>
-      <div nz-col nzFlex="1">
+      <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
         <div style="padding:3px"><span class="form-title">選擇額度號</span>
-          <mat-select style="height:25px" [(ngModel)]="limit" name="limit" (ngModelChange)="radio_change()">
+          <mat-select style="height:25px" [(ngModel)]="limit" name="limit" (ngModelChange)="ttemporarilyest()" >
             <mat-option *ngFor="let code of limitList" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
           </mat-select>
         </div>
       </div>
-      <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">預佔額度</span>
+      <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
+        <div style="padding:3px"><span class="form-title" >預佔額度</span>
           <input type="text"  [(ngModel)]="preempt" name="preempt"
-          (keyup)="dealwith(preempt)">
+          (keyup)="dealwith(preempt)" [disabled]="BW_creditResult == 'DWN'? false:true">
         </div>
       </div>
       <div nz-col nzFlex="1"></div>
@@ -558,9 +558,9 @@
       </div>
     </div>
     <div style="padding:3px;text-align: center;">
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
-      <button *ngIf="(getPage()!='9'&& getPage()!='10')|| size != 0 || search=='Y'" disabled nz-button
-        [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()">儲存</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()" [disabled]="getPage()!='9'&& getPage()!='10'">儲存</button>
+      <!-- <button *ngIf="(getPage()!='9'&& getPage()!='10')|| size != 0 || search=='Y'" disabled nz-button
+        [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()" >儲存</button> -->
     </div>
 
     <!-- 表格 -->

@@ -26,7 +26,7 @@
             <td class="data_right" *ngIf="i!=6" >{{toCurrency(item.checkIncome.toString())}}</td>
             <td *ngIf="i==6">
               <div style="padding:0px"> <input class="data_right"  [(ngModel)]="item.income" (keyup)="item.income=data_number(item.income)"
-                  maxlength="11" [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" /></div>
+                  maxlength="11" [disabled]="(chkArray[6].completed) || (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" /></div>
             </td>
             <td>
               <nz-checkbox-wrapper  (nzOnChange)="calculate(chkArray[i].completed, item.income)">
@@ -34,7 +34,7 @@
               </nz-checkbox-wrapper>
             </td>
             <td *ngIf="i==0" rowspan="7">
-              <textarea style=" width: 95%;height:20vh;margin:0 12px;border-radius:5px;" [(ngModel)]="EL_INCOME_Source.data[6].mark"
+              <textarea style=" width: 95%;height:20vh;margin:0 12px;border-radius:5px;" [(ngModel)]="EL_INCOME_Source.data[6].mark" maxlength="199"
                 name="EL_INCOME_Source.data[6].mark" [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" ></textarea>
             </td>
           </tr>

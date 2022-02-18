@@ -26,7 +26,7 @@ export class Childscn28Component implements OnInit {
   email: string;              //EMAIL
   emailCode: sysCode[] = [];  //EMAIL模板下拉
   emailSet: string;           //EMAIL設定值
-  emailTitle: string;         //主旨
+  emailTitle: string = 'LINE Bank 貸款申請補件通知';         //主旨
   content: string;            //E-MAIL內容
   stepName: string;
 
@@ -58,10 +58,6 @@ export class Childscn28Component implements OnInit {
 
   // 選取EMAIL模板後會將內容代入EMAIL內容
   changeSelect(emailSet: string) {
-    console.log('emailSet');
-    console.log(emailSet);
-    console.log('this.email_M_Code.data');
-    console.log(this.email_M_Code.data);
     for (const jsonObj of this.email_M_Code.data) {
       this.content = jsonObj.codeNo == emailSet ? jsonObj.codeTag : this.content;
     }
@@ -86,41 +82,50 @@ export class Childscn28Component implements OnInit {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入EMAIL" }
       });
-    } else if (this.emailTitle == null || this.emailTitle == "") {
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請輸入主旨" }
-      });
-    } else if (this.content == null || this.content == "") {
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請輸入EMAIL內容" }
-      });
-    } else if (this.content != null) {
-      if (this.content.indexOf('徵信員輸入文字') >= 0) {
-        this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "不得有徵信員輸入文字" }
-        });
-      }
-      else {
-        let msgStr: string = "";
-        const baseUrl = 'f01/childscn28action1';
-        let jsonObject: any = {};
-        jsonObject['applno'] = this.applno;
-        jsonObject['email'] = this.email;
-        jsonObject['emailTitle'] = this.emailTitle;
-        jsonObject['messageContent'] = this.content;
-        this.childscn28Service.postJson(baseUrl, jsonObject).subscribe(data => {
-          msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
-          this.dialog.open(ConfirmComponent, {
-            data: { msgStr: msgStr }
-          });
-          if (data.rspMsg == "success" && data.rspCode === '0000') {
-            this.getEmailList();
-            this.emailTitle = null;
-            this.content = null;
-          }
-        });
-      }
     }
+    else if (this.emailSet == null || this.emailSet == "") {
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請選擇E-MAIL字串" }
+      });
+    }
+    //  else if (this.emailTitle == null || this.emailTitle == "") {
+    //   this.dialog.open(ConfirmComponent, {
+    //     data: { msgStr: "請輸入主旨" }
+    //   });
+    // }
+    else if (this.content == null || this.content == "") {
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "EMAIL內容異常" }
+      });
+    }
+    //  else if (this.content != null) {
+    //   if (this.content.indexOf('徵信員輸入文字') >= 0) {
+    //     this.dialog.open(ConfirmComponent, {
+    //       data: { msgStr: "不得有徵信員輸入文字" }
+    //     });
+    //   }
+    else {
+      let msgStr: string = "";
+      const baseUrl = 'f01/childscn28action1';
+      let jsonObject: any = {};
+      jsonObject['applno'] = this.applno;
+      jsonObject['email'] = this.email;
+      jsonObject['emailSet'] = this.emailSet;
+      jsonObject['emailTitle'] = this.emailTitle;
+      jsonObject['messageContent'] = this.content;
+      this.childscn28Service.postJson(baseUrl, jsonObject).subscribe(data => {
+        msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: msgStr }
+        });
+        if (data.rspMsg == "success" && data.rspCode === '0000') {
+          this.getEmailList();
+          // this.emailTitle = null;
+          // this.content = null;
+        }
+      });
+    }
+    // }
   }
 
   getPage(): string {

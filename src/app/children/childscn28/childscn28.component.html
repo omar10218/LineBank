@@ -22,13 +22,13 @@
             </div>
             <div nz-col nzSpan="7">
                 <div style="padding:10px"><span class="form-title">主旨</span>
-                    <input [(ngModel)]="emailTitle">
+                    <input [(ngModel)]="emailTitle" disabled>
                 </div>
             </div>
 
             <div nz-col nzSpan="24">
                 <div style="padding:10px;"><span class="form-title">E-MAIL內容</span><textarea matInput style="background-color:#ffffff;border-radius:5px;border:none;width:100%;height:100px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);" [(ngModel)]="content" name="content" required></textarea></div>
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);" [(ngModel)]="content" name="content" disabled required></textarea></div>
             </div>
             <div style="text-align:center;margin:10px auto">
                 <button nz-button [nzSize]="'large'" nzType="primary" (click)="addMail()">發送eMail</button>
