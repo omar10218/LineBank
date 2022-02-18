@@ -511,14 +511,16 @@ export class Childscn1Component implements OnInit, OnDestroy {
         this.CreditInterestPeriodSource = data.rspBody.creditInterestPeriodList;
         for (let index = 1; index <= this.CreditInterestPeriodSource.length; index++) {
           if (this.CreditInterestPeriodSource[index - 1].interestType == '02') {
-            if (!(await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject)).includes('找不到')) {
-              this.CreditInterestPeriodSource[index - 1].interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
-              sessionStorage.setItem('interestBase' + index, this.CreditInterestPeriodSource[index - 1].interestBase);
-            } else {
-              erroeStr = '加減碼查無利率，請通知相關人員!'
-              this.CreditInterestPeriodSource[index - 1].interestType = '';
-              this.CreditInterestPeriodSource[index - 1].interestBase = 0;
-              sessionStorage.setItem('interestBase' + index, '0');
+            if (this.getSearch() != 'Y') {
+              if (!(await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject)).includes('找不到')) {
+                this.CreditInterestPeriodSource[index - 1].interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
+                sessionStorage.setItem('interestBase' + index, this.CreditInterestPeriodSource[index - 1].interestBase);
+              } else {
+                erroeStr = '加減碼查無利率，請通知相關人員!'
+                this.CreditInterestPeriodSource[index - 1].interestType = '';
+                this.CreditInterestPeriodSource[index - 1].interestBase = 0;
+                sessionStorage.setItem('interestBase' + index, '0');
+              }
             }
           } else {
             sessionStorage.setItem('interestBase' + index, '0');
@@ -538,22 +540,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
             data: { msgStr: erroeStr }
           });
         }
-        // this.period = data.rspBody.creditInterestPeriodList[0].period;
-        // sessionStorage.setItem('period', data.rspBody.creditInterestPeriodList[0].period ? data.rspBody.creditInterestPeriodList[0].period : '');
-        // this.interestType = data.rspBody.creditInterestPeriodList[0].interestType;
-        // sessionStorage.setItem('interestType', data.rspBody.creditInterestPeriodList[0].interestType ? data.rspBody.creditInterestPeriodList[0].interestType : '');
-        // this.interest = data.rspBody.creditInterestPeriodList[0].interest;
-        // sessionStorage.setItem('interest', data.rspBody.creditInterestPeriodList[0].interest ? data.rspBody.creditInterestPeriodList[0].interest : '');
-        // this.periodType = '1';
-        // sessionStorage.setItem('periodType', this.periodType);
-        // if (this.interestType == '02') {
-        //   this.interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
-        // }
-        //this.interestBase = data.rspBody.creditInterestPeriodList[0].interestBase;
-        // sessionStorage.setItem('interestBase', data.rspBody.creditInterestPeriodList[0].interestBase ? data.rspBody.creditInterestPeriodList[0].interestBase : '');
-        // this.interestCode = data.rspBody.creditInterestPeriodList[0].interestCode;
-        // this.approveInterest = Number(this.interestBase) + Number(this.interest)
-        // sessionStorage.setItem('approveInterest', this.approveInterest.toString());
       }
 
       //CustomerInfo Channel資訊
