@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MappingCode } from 'src/app/mappingcode.model';
 import { Childscn11Service } from '../childscn11.service';
@@ -92,4 +93,12 @@ export class Childscn11page2Component implements OnInit {
   //     this.loading= false
   //   }
   // }
+  test(x:string){
+    if(x=='1'){
+      return '絕對值'
+    }
+    else if(x=='2'){
+      return '相對值'
+    }
+  }
 }

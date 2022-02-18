@@ -110,4 +110,12 @@ export class Childscn11page3Component implements OnInit {
     }
     return codeVal;
   }
+  test(x:string){
+    if(x=='1'){
+      return '絕對值'
+    }
+    else if(x=='2'){
+      return '相對值'
+    }
+  }
 }
