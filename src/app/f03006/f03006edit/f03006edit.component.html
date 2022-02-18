@@ -66,19 +66,6 @@
       </div>
 
       <div nz-row>
-
-        <div nz-col nzSpan="8">
-          <div class="form" style="padding:10px 20px">
-            <div><span class="form-title-actions">代理人</span>
-              <mat-select [(ngModel)]="data.AGENT_EMP" name="AGENT_EMP"
-               >
-                <mat-option *ngFor="let code of data.agent_empCode" [value]="code.value">
-                  {{code.viewValue}}
-                </mat-option>
-              </mat-select>
-            </div>
-          </div>
-        </div>
         <div nz-col nzSpan="8">
           <div>
             <div style="padding:10px"><span class="form-title">請假起日</span>
@@ -90,7 +77,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:10px 20px ">
             <div><span class="form-title-actions">請假起日類型</span>
-              <mat-select [(ngModel)]="data.LEAVE_STARTDATE_TYPE" name="LEAVE_STARTDATE_TYPE"
+              <mat-select [(ngModel)]="data.LEAVE_STARTDATE_TYPE" name="LEAVE_STARTDATE_TYPE" (ngModelChange)="reason()"
                >
                 <mat-option *ngFor="let code of data.levelStartDateTypeCode" [value]="code.value">
                   {{code.viewValue}}
@@ -99,10 +86,19 @@
             </div>
           </div>
         </div>
+        <div nz-col nzSpan="8">
+          <div class="form" style="padding:10px 20px">
+            <div><span class="form-title-actions">代理人</span>
+              <mat-select [(ngModel)]="data.AGENT_EMP" name="AGENT_EMP"  >
+                <mat-option *ngFor="let code of data.agent_empCode" [value]="code.value">
+                  {{code.viewValue}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
       </div>
-
       <div nz-row>
-
         <div nz-col nzSpan="8">
           <div>
             <div style="padding:10px"><span class="form-title">請假迄日</span>
@@ -113,9 +109,8 @@
         </div>
         <div nz-col nzSpan="8">
           <div class="form" style="padding:10px 20px ">
-            <div><span class="form-title-actions">請假迄日類型</span>
-              <mat-select [(ngModel)]="data.LEAVE_ENDDATE_TYPE" name="LEAVE_ENDDATE_TYPE"
-               >
+            <div><span class="form-title-actions  ">請假迄日類型</span>
+              <mat-select [(ngModel)]="data.LEAVE_ENDDATE_TYPE" name="LEAVE_ENDDATE_TYPE" [disabled]="this.check">
                 <mat-option *ngFor="let code of data.levelEndDateTypeCode" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
