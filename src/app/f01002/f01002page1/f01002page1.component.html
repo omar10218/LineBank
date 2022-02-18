@@ -137,8 +137,8 @@
                   data.swcApplyAmount): data.swcApplyAmount }}</td>
                 <td class="table-data">{{ data.swcResult }}</td>
                 <td class="table-data" style="text-align: center;">
-                  <button nz-button id="test" nzSize='small' *ngIf="data.swcNotifyMsg==''" [disabled]="true"
-                    nzType="primary">通知</button>
+                  <button nz-button id="test" nzSize='small' *ngIf="data.swcNotifyMsg==''" 
+                  (click)="openNotifyMsg(data.swcApplno)"  nzType="primary">通知</button>
                   <button nz-button id="test" nzSize='small' *ngIf="data.swcNotifyMsg!=''"
                     (click)="openNotifyMsg(data.swcApplno)" nzType="primary">通知</button>
                 </td>
