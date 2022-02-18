@@ -224,6 +224,7 @@ export class childbwscn2page1Component implements OnInit {
     jsonObject['applno'] = this.applno;
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data =>
       {
+        console.log(data)
       this.bwCreditMainList = data.rspBody.bwCreditMainList;
       if (this.bwCreditMainList.length < 1) {
         this.add_bwCreditMainList = {
@@ -244,23 +245,31 @@ export class childbwscn2page1Component implements OnInit {
       }
       this.reason_CODE =[];
       this.reason_CODE.push({ value: '', viewValue: '請選擇' })
+      this.reason_DETAIL =[];
+      this.reason_DETAIL.push({ value: '', viewValue: '請選擇' })
       for(const json of data.rspBody.bwCreditMainList)
       {
-        if(json.creditResult!=null || json.creditResult!=''){
+        if(json.creditResult !=null && json.creditResult!=''){
           this.BW_creditResult=json.creditResult;
-          this.filter();
-          if(json.reasoncode!=null || json.reasoncode!=''){
-            this.reasoncode= json.reasonCode;
+          this.radio_change() ;
+          this.reasoncode= json.reasonCode;
+          if(json.reasonCode!=null && json.reasonCode!='' )
+          {
             this.reason();
           }
-          if(json.reasonDetail!=null || json.reasonDetail!=''){
+          else
+          {
+            this.reasoncode ='';
+          }
+          if(json.reasonDetail!=null && json.reasonDetail!='')
+          {
             this.reasondetail=json.reasonDetail;
           }
-          if(json.limitNo!=""|| json.limitNo !=null)
+          if(json.limitNo !=null && json.limitNo != '')
           {
             this.limit = json.limitNo;
           }
-          if(json.reserveLimit!=""||json.reserveLimit !=null)
+          if(json.reserveLimit!="" && json.reserveLimit !=null)
         {
           this.preempt=json.reserveLimit;
         }
@@ -362,21 +371,36 @@ export class childbwscn2page1Component implements OnInit {
     }
   }
   //審核結果 資料改變
-  radio_change() {
-    if(this.i!=0)
-    {
-      this.reason_CODE = [];
-      sessionStorage.setItem('BW_creditResult', this.BW_creditResult);
-      sessionStorage.setItem('BW_reasonCode', this.reasoncode);
-      sessionStorage.setItem('BW_reasondetail', this.reasondetail);
-      sessionStorage.setItem('BW_limit', this.limit);
-      sessionStorage.setItem('BW_preempt', this.preempt !=undefined ?this.Cut(this.preempt):"0");
-      // alert(sessionStorage.getItem('BW_creditResult'));
+  radio_change()
+  {
+
       this.filter();
-    }
-    this.i =1;
+      this.ttemporarilyest();
+
+      if(this.i>0)
+      {
+        this.reasoncode='';
+        this.reasondetail='';
+        this.limit='';
+        this.preempt="0";
+      }
+
 
   }
+  test()
+  {
+    alert(this.reasoncode)
+  }
+  ttemporarilyest()//暫存
+  {
+    sessionStorage.setItem('BW_creditResult', this.BW_creditResult);
+    sessionStorage.setItem('BW_reasonCode', this.reasoncode);
+    sessionStorage.setItem('BW_reasondetail', this.reasondetail);
+    sessionStorage.setItem('BW_limit', this.limit);
+    sessionStorage.setItem('BW_preempt', this.preempt !=undefined ?this.Cut(this.preempt):"0");
+    this.i=this.i+1;
+  }
+
 
   filter()
   {
@@ -425,9 +449,9 @@ export class childbwscn2page1Component implements OnInit {
   reason()//本次執行原因
   {
     this.reason_DETAIL=[];
-    this.radio_change();
     let url ='f01/childbwscn1action3'
     let jsonObject: any = {};
+    this.ttemporarilyest();
     jsonObject['reasonCode']=this.reasoncode;
     this.Childbwscn2Service.getDate_Json(url,jsonObject).subscribe(data=>{
       this.reason_DETAIL.push({ value: '', viewValue: '請選擇' })
@@ -437,6 +461,7 @@ export class childbwscn2page1Component implements OnInit {
         this.reason_DETAIL.push({ value: value, viewValue: viewValue })
       }
     })
+
   }
   dealwith(x:string)//篩選加千分號
   {
@@ -445,13 +470,13 @@ export class childbwscn2page1Component implements OnInit {
       x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
     this.preempt = x;
-    this.radio_change();
+    this.ttemporarilyest();
   }
   Cut(s: string)//處理千分位
   {
-    if (s != null) {
-      s = s.replace(/,/g, "")
-    }
+    // if (s != null) {
+    //   s = s.replace(/,/g, "")
+    // }
 
     return s
   }
