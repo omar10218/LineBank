@@ -1,3 +1,4 @@
+import { Data } from '@angular/router';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -18,12 +19,16 @@ export class F03006addComponent implements OnInit {
   dateType: OptionsCode[];
   levelStartDateValue: Date;
   levelEndDateValue: Date;
+  date1:string;
+  date2:string;
+  check:boolean;
   constructor(
     public dialogRef: MatDialogRef<F03006addComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public f03006Service: F03006Service,
     public dialog: MatDialog,
     public datepipe: DatePipe
+
   ) { }
 
   ngOnInit(): void {
@@ -44,14 +49,46 @@ export class F03006addComponent implements OnInit {
   }
 
   //沒日期 日期型態不可填
-  changeDATE_TYPE(key: string) {
+  changeDATE_TYPE(key: string,s:any) {
+
+
+    if(key=='Start')
+    {
+      this.date1=this.datepipe.transform(new Date(s),'yyyy-MM-dd');
+    }
+    else
+    {
+      this.date2=this.datepipe.transform(new Date(s),'yyyy-MM-dd');
+    }
+
+
+    if(this.date1==this.date2)
+    {
+      this.check=true;
+    }
+    else
+    {
+      this.check =false;
+    }
+
     if (key == 'Start') {
       this.data.levelStartDateTypeCode = this.data.LEAVE_STARTDATE == null ? [] : this.dateType;
     }
     else {
       this.data.levelEndDateTypeCode = this.data.LEAVE_ENDDATE == null ? [] : this.dateType;
     }
+
+
   }
+
+  reason()
+  {
+    if(this.check)
+    {
+      this.data.LEAVE_ENDDATE_TYPE=this.data.LEAVE_STARTDATE_TYPE ;
+    }
+  }
+
 
   submit() {
   }

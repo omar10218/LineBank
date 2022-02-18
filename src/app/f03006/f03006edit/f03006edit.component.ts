@@ -17,12 +17,15 @@ export class F03006editComponent {
   dateType: OptionsCode[];//日期型態下拉選單
   levelStartDateValue: Date;
   levelEndDateValue: Date;
-
+  date1:string;
+  date2:string;
+  check:boolean;
   constructor(public dialogRef: MatDialogRef<F03006editComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public f03006Service: F03006Service,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+
   ) { }
 
   ngOnInit(): void {
@@ -60,11 +63,38 @@ export class F03006editComponent {
 
   //有日期才可選日期型態
   changeDATE_TYPE(key: string) {
+
+    if(key=='Start')
+    {
+      this.date1=this.datepipe.transform(new Date(this.data.LEAVE_STARTDATE),'yyyy-MM-dd');
+    }
+    else
+    {
+      this.date2=this.datepipe.transform(new Date(this.data.LEAVE_ENDDATE),'yyyy-MM-dd');
+    }
+
+    if(this.date1==this.date2)
+    {
+      this.check=true;
+    }
+    else
+    {
+      this.check =false;
+    }
+
+
     if (key == 'Start') {
       this.data.levelStartDateTypeCode = this.data.LEAVE_STARTDATE == null ? [] : this.dateType;
     }
     else {
       this.data.levelEndDateTypeCode = this.data.LEAVE_ENDDATE == null ? [] : this.dateType;
+    }
+  }
+  reason()
+  {
+    if(this.check)
+    {
+      this.data.LEAVE_ENDDATE_TYPE=this.data.LEAVE_STARTDATE_TYPE ;
     }
   }
 

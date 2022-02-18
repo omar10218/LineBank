@@ -90,7 +90,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:10px 20px ">
             <div><span class="form-title-actions">請假起日類型</span>
-              <mat-select [(ngModel)]="data.LEAVE_STARTDATE_TYPE" name="LEAVE_STARTDATE_TYPE"
+              <mat-select [(ngModel)]="data.LEAVE_STARTDATE_TYPE" name="LEAVE_STARTDATE_TYPE" (ngModelChange)="reason()"
                >
                 <mat-option *ngFor="let code of data.levelStartDateTypeCode" [value]="code.value">
                   {{code.viewValue}}
@@ -114,7 +114,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:10px 20px ">
             <div><span class="form-title-actions">請假迄日類型</span>
-              <mat-select [(ngModel)]="data.LEAVE_ENDDATE_TYPE" name="LEAVE_ENDDATE_TYPE"
+              <mat-select [(ngModel)]="data.LEAVE_ENDDATE_TYPE" name="LEAVE_ENDDATE_TYPE" [disabled]="this.check"
                >
                 <mat-option *ngFor="let code of data.levelEndDateTypeCode" [value]="code.value">
                   {{code.viewValue}}
