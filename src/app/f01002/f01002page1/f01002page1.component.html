@@ -137,10 +137,7 @@
                   data.swcApplyAmount): data.swcApplyAmount }}</td>
                 <td class="table-data">{{ data.swcResult }}</td>
                 <td class="table-data" style="text-align: center;">
-                  <button nz-button id="test" nzSize='small' *ngIf="data.swcNotifyMsg==''" 
-                  (click)="openNotifyMsg(data.swcApplno)"  nzType="primary">通知</button>
-                  <button nz-button id="test" nzSize='small' *ngIf="data.swcNotifyMsg!=''"
-                    (click)="openNotifyMsg(data.swcApplno)" nzType="primary">通知</button>
+                  <button nz-button id="test" nzSize='small' (click)="openNotifyMsg(data.swcApplno)" nzType="primary">通知</button>
                 </td>
                 <td class="table-data" nzRight style="text-align: center;">
                   <input matInput id="input"  style="text-align:left;"  class="form-control" [(ngModel)]="data.swcCaseMemo" name="note"

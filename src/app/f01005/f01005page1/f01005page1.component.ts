@@ -5,6 +5,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { Childscn19Component } from 'src/app/children/childscn19/childscn19.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { F01005Service } from '../f01005.service';
@@ -199,16 +200,19 @@ export class F01005page1Component implements OnInit {
     this.pageIndex = 1;
     this.total = 1;
   }
+
   // 打開通知彈窗
   openNotifyMsg(swcApplno: string) {
-    const dialogRef = this.dialog.open(ConfirmComponent, {
-      minHeight: '50vh',
-      width: '30%',
+    const dialogRef = this.dialog.open(Childscn19Component, {
+      minHeight: '60vh',
+      width: '90%',
       data: {
-        swcApplno: swcApplno
+        swcApplno: swcApplno,
+        flag: 'Y'
       }
     });
   }
+  
   // 將案件類型轉成中文
   getOptionCaseType(codeVal: string): string {
     for (const data of this.caseTypeCode) {
