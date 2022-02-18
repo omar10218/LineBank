@@ -91,7 +91,7 @@
         <div nz-col nzFlex="1">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">手機/市話</span>
-              <input matInput #input class="form-control" (keypress)="numberOnly($event)" [(ngModel)]="data.PHONE" name="PHONE" required>
+              <input matInput #input class="form-control" (keypress)="numberOnly($event)" [(ngModel)]="data.PHONE" name="PHONE" maxlength="20" required>
               <mat-error *ngIf="formControl.invalid && (data.PHONE=='' || data.PHONE== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
@@ -115,7 +115,7 @@
         <div nz-col nzSpan="24">
           <div class="form">
             <div><span style="width: 100%;" class="form-title">備註</span><textarea matInput class="input-textarea" [(ngModel)]="data.CON_MEMO"
-                name="CON_MEMO" style="height: 80px;"></textarea>
+                name="CON_MEMO" style="height: 80px;" maxlength="100" ></textarea>
             </div>
           </div>
         </div>

@@ -13,7 +13,7 @@
       <div nz-col nzSpan="24">
         <div class="form">
           <div><span class="form-title" style="width: 100%;">話術內容</span><textarea matInput class="input-textarea"
-              [(ngModel)]="data.speakingContent" name="speakingContent" required></textarea>
+              [(ngModel)]="data.speakingContent" name="speakingContent" maxlength="100" required></textarea>
             <mat-error *ngIf="formControl.invalid && (data.speakingContent=='' || data.speakingContent== null) ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>

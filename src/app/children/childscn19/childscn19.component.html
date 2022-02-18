@@ -2,7 +2,7 @@
 <br>
 <!-- <div style="padding:10px;text-align:center">
   </div> -->
-<div class="line_bank_card_no_padding" style="margin:20px 0px;width:100%">
+<div class="line_bank_card_no_padding" style="margin:20px 0px;width:100%" (keydown.enter)="$event.preventDefault()">
     <br>
     <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px;" (click)="cancel()">離開</button>
     <div [ngStyle]="{'display': flag == 'Y' ? 'none' : '0'}">

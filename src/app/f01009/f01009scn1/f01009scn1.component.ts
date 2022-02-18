@@ -248,6 +248,13 @@ export class F01009scn1Component implements OnInit {
   }
   temporarily()//暫存
   {
+    if (sessionStorage.getItem('BW_creditResult') == null || sessionStorage.getItem('BW_creditResult') == "" || sessionStorage.getItem('BW_creditResult')=="undefined") {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請選取審核結果' }
+      });
+      return;
+    }
+
     const url = 'f01/childbwscn0action1';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;

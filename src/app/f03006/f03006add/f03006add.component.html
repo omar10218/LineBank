@@ -7,7 +7,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">員工編號</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.EMP_NO" name="EMP_NO" required>
+              <input matInput #input class="form-control" [(ngModel)]="data.EMP_NO" name="EMP_NO" maxlength="10" required>
               <mat-error *ngIf="formControl.invalid && (data.EMP_NO=='' || data.EMP_NO== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
@@ -15,7 +15,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">員工姓名</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.EMP_NAME" name="EMP_NAME" required>
+              <input matInput #input class="form-control" [(ngModel)]="data.EMP_NAME" name="EMP_NAME" maxlength="20" required>
               <mat-error *ngIf="formControl.invalid && (data.EMP_NAME=='' || data.EMP_NAME== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
@@ -23,7 +23,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">員工ID</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.EMP_ID" name="EMP_ID" required>
+              <input matInput #input class="form-control" [(ngModel)]="data.EMP_ID" name="EMP_ID" maxlength="10" required>
               <mat-error *ngIf="formControl.invalid && (data.EMP_ID=='' || data.EMP_ID== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
@@ -47,7 +47,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">EMAIL</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.EMAIL" name="EMAIL" required>
+              <input matInput #input class="form-control" [(ngModel)]="data.EMAIL" name="EMAIL" maxlength="100" required>
               <mat-error *ngIf="formControl.invalid && (data.EMAIL=='' || data.EMAIL== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
