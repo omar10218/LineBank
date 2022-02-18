@@ -60,3 +60,11 @@ margin:0px 0px;
   border: 1px solid #e8e8e8;
   margin-bottom: 1px;
 }
+.table-data-text-compare-none{
+  color:black;
+  text-align: center;
+  font-size:16px;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 1px;
+  background-color: rgb(194, 194, 194);
+}
