@@ -135,9 +135,9 @@ export class childbwscn2page1Component implements OnInit {
   ngOnInit(): void {
     this.getDSS11();
     this.applno = sessionStorage.getItem('applno');
-    this.nationalId = sessionStorage.getItem('swcNationalId');
+    this.nationalId = sessionStorage.getItem('nationalId');
     this.userId = localStorage.getItem("empNo");
-    this.custId = sessionStorage.getItem('swcCustId');
+    this.custId = sessionStorage.getItem('custId');
     this.search = sessionStorage.getItem('search');
     this.page = sessionStorage.getItem('page');
     this.creditlevel = this.page == "9" ? "L4" : this.creditlevel;
