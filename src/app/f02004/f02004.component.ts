@@ -28,12 +28,12 @@ export class F02004Component implements OnInit {
     private router: Router,
   ) { }
 
-  loanAccount: string //循環帳戶
+  loanAccount: string ='';//循環帳戶
   custId: string //客戶ID
   nationalId: string //身分證字號
   date: [Date, Date];//時間
   dateFormat = 'yyyy/MM/dd';
-  drFlag: string;//動撥狀態
+  drFlag: string='';//動撥狀態
   drFlagCode: OptionsCode[] = [];//員編
   drCreditMianData: Data[] = [];
   OpIdcode:sysCode[]=[]; //EL狀態中文
@@ -42,7 +42,7 @@ export class F02004Component implements OnInit {
   loading = true;
   pageIndex = 1;
   pageSize = 10;
-  i=0;
+  i;
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
     //員編
@@ -55,6 +55,8 @@ export class F02004Component implements OnInit {
       }
       this.loading = false;
     });
+    this.i=0;
+    this.date = null;
   }
 
 
@@ -79,12 +81,14 @@ export class F02004Component implements OnInit {
     jsonObject['per_page'] = pageSize;
     this.f02004Service.f02002(baseUrl, jsonObject).subscribe(data => {
       this.loading = false;
-      if (data.rspBody.size == 0) {
+      if (data.rspBody.size == 0)
+      {
         this.drCreditMianData=null;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         });
       } else {
+        this.i=1;
         this.total = data.rspBody.size;
         this.drCreditMianData = data.rspBody.list;
         for (const jsonObj of data.rspBody.drOpStatusList) {
@@ -101,7 +105,6 @@ export class F02004Component implements OnInit {
 
   //查詢
   search() {
-    this.i=1;
     var startDate, endDate;
     if (this.loanAccount == '' && this.drFlag == '' && this.date == null) {
       this.clear();
@@ -137,6 +140,7 @@ export class F02004Component implements OnInit {
     this.pageIndex = 1;
     this.drCreditMianData = null;
     this.date = null;
+    this.i=0;
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
