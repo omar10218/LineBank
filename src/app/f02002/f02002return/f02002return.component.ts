@@ -110,7 +110,6 @@ export class F02002returnComponent implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.data.applno;
     this.f02002Service.postJson(url, jsonObject).subscribe(data => {
-      console.log(data)
       this.F02002Data = data.rspBody;
       this.quantity = data.rspBody.length
 
@@ -128,7 +127,7 @@ export class F02002returnComponent implements OnInit {
     const formdata = new FormData();
     // const formdata: FormData = new FormData();
     let url = 'f02/f02002action5';
-    console.log(this.F02002Data.length);
+    // console.log(this.F02002Data.length);
     let jsonarry: string[] = []
     for(const n of this.fileList)
     {
@@ -147,7 +146,7 @@ export class F02002returnComponent implements OnInit {
     formdata.append('applno', this.data.applno);
 
     this.f02002Service.setformdata(url, formdata).subscribe(data => {
-      console.log(data)
+      // console.log(data)
       if (data.rspCode === '0000') {
         this.dialogRef.close({ event: 'success' });
         this.dialog.open(ConfirmComponent, {
@@ -169,7 +168,7 @@ export class F02002returnComponent implements OnInit {
 
 
     const formdata = new FormData();
-    console.log(this.F02002Data.length);
+    // console.log(this.F02002Data.length);
     let jsonarry: string[] = []
     for(const n of this.fileList)
     {
@@ -264,8 +263,8 @@ export class F02002returnComponent implements OnInit {
   }
   verify()//驗證
   {
-    console.log(this.blockList.length)
-    console.log(this.fileList.length)
+    // console.log(this.blockList.length)
+    // console.log(this.fileList.length)
     if( this.blockList.length == this.fileList.length)
     {
       this.bool=false;
