@@ -63,11 +63,12 @@
         <div nz-col nzSpan="6">
           <div class="form" style="padding:20px"><span class="form-title">使用中</span>
             <mat-select [(ngModel)]="usingValue" name="usingValue"
-            style="border-radius:5px;background-color:white; border:1px solid #c9c9c9;">
+            style="border-radius:5px;background-color:white; border:1px solid #c9c9c9;" required>
             <mat-option *ngFor="let code of usingType" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="formControl.invalid && (usingValue=='' || usingValue== null) ">{{getErrorMessage()}}</mat-error>
             </div>
         </div>
       </div>

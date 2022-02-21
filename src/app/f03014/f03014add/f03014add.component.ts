@@ -65,7 +65,7 @@ export class F03014addComponent implements OnInit {
   seve()//存檔
   {
     if (this.custNid == '' || this.custName == '' || this.content1 == '' ||
-      this.content2 == null || this.remark == null || this.Efficient == '' || this.Invalidation == '' || this.usingValue == '') {
+      this.Efficient == '' || this.Invalidation == '' || this.usingValue == '') {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請勿填空" }
       });

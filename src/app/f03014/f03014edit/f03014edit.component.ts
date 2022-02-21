@@ -38,12 +38,8 @@ export class F03014editComponent implements OnInit {
   formControl = new FormControl('', [
     Validators.required
   ]);
-
-  //欄位驗證
   getErrorMessage() {
-    return this.formControl.hasError('required') ? '此欄位必填!' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+    return this.formControl.hasError('required') ? '此欄位必填!' :'';
   }
 
   InvalidationMax()//抓3個月間隔方法
@@ -55,7 +51,8 @@ export class F03014editComponent implements OnInit {
   }
   async seve()//儲存
   {
-    if(this.IdentityValue == '' || this.NameValue == '' || this.NarrateValue1 == '' ||this.NarrateValue2 == null || this.remakrValue == null || this.Efficient == '' || this.Invalidation == '' || this.usingValue == '')
+    if(this.IdentityValue == '' || this.NameValue == '' || this.NarrateValue1 == ''
+    || this.Efficient == '' || this.Invalidation == '' || this.usingValue == '')
     {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請勿填空" }});
