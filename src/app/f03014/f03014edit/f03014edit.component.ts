@@ -17,8 +17,8 @@ export class F03014editComponent implements OnInit {
   NarrateValue1: string =this.data.CONTENT1;//簡述1
   NarrateValue2: string =this.data.CONTENT2;//簡述2
   remakrValue:string = this.data.REMARK;//備註
-  Efficient: string =this.pipe.transform( new Date(this.data.EFFECTIVE_DATE) , 'yyyy-MM-dd' );//生效
-  Invalidation: string = this.pipe.transform( new Date(this.data.EXPIRATION_DATE) , 'yyyy-MM-dd' );//失效
+  Efficient: string =this.data.EFFECTIVE_DATE==""?null:this.pipe.transform( new Date(this.data.EFFECTIVE_DATE) , 'yyyy-MM-dd' );//生效
+  Invalidation: string =this.data.EXPIRATION_DATE==""?null:this.pipe.transform( new Date(this.data.EXPIRATION_DATE) , 'yyyy-MM-dd' );//失效
   usingValue: string= this.data.USE_FLAG;//使用中
   ChangeDateValue:string = this.data.CHANGE_DATE;//變動日期
   usingType:string[]=this.data.usingType;
@@ -76,7 +76,7 @@ export class F03014editComponent implements OnInit {
     jsonObject['effectiveDate'] = this.Efficient != null ? this.Efficient : '';
     jsonObject['expirationDate'] = this.Invalidation != null ? this.Invalidation : '';
     jsonObject['useFlag'] = this.usingValue != null ? this.usingValue : '';
-
+    console.log(jsonObject)
     await this.f03014Service.seve(url,jsonObject).then((data: any) => {
       codeStr = data.rspCode;
       msgStr = data.rspMsg;
@@ -88,28 +88,21 @@ export class F03014editComponent implements OnInit {
 
       if (msgStr === '成功' && codeStr === '0000') { this.dialogRef.close({ event:'success' }); }
 
-
-
-    //   if(data.rspCode =='0000'|| data.rspMsg =='成功')
-    //   {
-    //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-    //       data: { msgStr: msgStr }});
-    //       if(data.rspMsg ==='成功')
-    //       {
-    //         this.dialogRef.close({ event:'success' }); }
-
-
-    //   }
-    //   else
-    //   {
-    //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-    //       data: { msgStr: msgStr }
-    //     });
-
-    //   }
-    // })
    }
 
+  }
+  dateNull(t: string,num:string) {
+
+    console.log(t);
+      switch (num) {
+        case 'Efficient':
+          this.Efficient = null;
+          break;
+        case 'Invalidation':
+          this.Invalidation = null;
+          break;
+
+      }
   }
   onNoClick()//取消
   {

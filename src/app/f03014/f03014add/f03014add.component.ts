@@ -52,9 +52,7 @@ export class F03014addComponent implements OnInit {
 
   //欄位驗證
   getErrorMessage() {
-    return this.formControl.hasError('required') ? '此欄位必填!' :
-      this.formControl.hasError('email') ? 'Not a valid email' :
-        '';
+    return this.formControl.hasError('required') ? '此欄位必填!' :'';
   }
 
   InvalidationMax()//抓3個月間隔方法

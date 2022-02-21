@@ -49,14 +49,15 @@
         <div nz-col nzSpan="6">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">生效日</span>
-              <nz-date-picker [(ngModel)]="Efficient" name="Efficient"></nz-date-picker>
+              <nz-date-picker [(ngModel)]="Efficient" name="Efficient"  (ngModelChange)="dateNull(Efficient,'Efficient')"></nz-date-picker>
             </div>
+            <!-- (ngModelChange)="dateNull(credit_TIME,'credit_TIME')" -->
           </div>
         </div>
         <div nz-col nzSpan="6">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">失效日</span>
-              <nz-date-picker [(ngModel)]="Invalidation" name="Invalidation"></nz-date-picker>
+              <nz-date-picker [(ngModel)]="Invalidation" name="Invalidation" (ngModelChange)="dateNull(Invalidation,'Invalidation')"></nz-date-picker>
             </div>
           </div>
         </div>

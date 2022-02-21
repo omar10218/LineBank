@@ -251,6 +251,7 @@ export class F03014Component implements OnInit {
   }
   EditTable(i: number, parmArry: string[])//編輯
   {
+    console.log(parmArry[6])
     const dialogRef = this.dialog.open(F03014editComponent, {
       panelClass: 'mat-dialog-transparent',
       minHeight: '80%',
@@ -261,8 +262,8 @@ export class F03014Component implements OnInit {
         CONTENT1: parmArry[3],
         CONTENT2: parmArry[4],
         REMARK: parmArry[5],
-        EFFECTIVE_DATE: parmArry[6],
-        EXPIRATION_DATE: parmArry[7],
+        EFFECTIVE_DATE:parmArry[6]==undefined? null:parmArry[6],
+        EXPIRATION_DATE: parmArry[7]==undefined? null:parmArry[7] ,
         USE_FLAG: parmArry[8],
         CHANGE_DATE: parmArry[9],
         usingType: this.usingType
