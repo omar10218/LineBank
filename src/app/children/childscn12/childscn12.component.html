@@ -28,8 +28,13 @@
               <div style="padding:0px"> <input class="data_right"  [(ngModel)]="item.income" (keyup)="item.income=data_number(item.income)"
                   maxlength="11" [disabled]="(chkArray[6].completed) || (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" /></div>
             </td>
-            <td>
+            <td *ngIf="i==6">
               <nz-checkbox-wrapper  (nzOnChange)="calculate(chkArray[i].completed, item.income)">
+                <label [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" nz-checkbox [(ngModel)]="chkArray[i].completed" name={{chkArray[i].value}} ></label>
+              </nz-checkbox-wrapper>
+            </td>
+            <td *ngIf="i!=6">
+              <nz-checkbox-wrapper  (nzOnChange)="calculate(chkArray[i].completed, item.checkIncome)">
                 <label [disabled]=" (!getStepName23() || this.EL_INCOME_Source.data.length!=7 || (getStepName23 && getSearch()=='Y') )" nz-checkbox [(ngModel)]="chkArray[i].completed" name={{chkArray[i].value}} ></label>
               </nz-checkbox-wrapper>
             </td>
