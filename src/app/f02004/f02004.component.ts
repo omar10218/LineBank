@@ -42,6 +42,7 @@ export class F02004Component implements OnInit {
   loading = true;
   pageIndex = 1;
   pageSize = 10;
+  i=0;
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
     //員編
@@ -76,9 +77,7 @@ export class F02004Component implements OnInit {
     }
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
-    console.log(jsonObject);
     this.f02004Service.f02002(baseUrl, jsonObject).subscribe(data => {
-      console.log(data)
       this.loading = false;
       if (data.rspBody.size == 0) {
         this.drCreditMianData=null;
@@ -93,15 +92,16 @@ export class F02004Component implements OnInit {
           const desc = jsonObj.opDesc;
           this.OpIdcode.push({ value: codeNo, viewValue: desc })
         }
-     
+
       }
     });
   }
 
-  
-  
+
+
   //查詢
   search() {
+    this.i=1;
     var startDate, endDate;
     if (this.loanAccount == '' && this.drFlag == '' && this.date == null) {
       this.clear();
@@ -143,9 +143,13 @@ export class F02004Component implements OnInit {
     // console.log(params)
     if (this.loanAccount == '' && this.drFlag == '') {
 
-    } else {
-    	const { pageSize, pageIndex } = params
-      this.getDrCreditMainData( pageIndex, pageSize);
+    }
+    else {
+      if(this.i>0)
+      {
+        const { pageSize, pageIndex } = params
+        this.getDrCreditMainData( pageIndex, pageSize);
+      }
     }
   }
 
