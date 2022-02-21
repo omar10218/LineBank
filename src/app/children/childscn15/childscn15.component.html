@@ -197,9 +197,9 @@
             </td>
             <td colspan="2">
               <textarea disabled *ngIf="reasonData.REASON_DESC=='高度偽冒風險'" [(ngModel)]="manageHigh" name="manageHigh"
-                [disabled]="reasonData.checkbox ? false : true" rows="10"></textarea>
+              maxlength="150" [disabled]="reasonData.checkbox ? false : true" rows="10"></textarea>
               <textarea disabled *ngIf="reasonData.REASON_DESC=='其他'" [(ngModel)]="manageOther" name="manageOther"
-                [disabled]="reasonData.checkbox ? false : true" rows="10"></textarea>
+              maxlength="150"  [disabled]="reasonData.checkbox ? false : true" rows="10"></textarea>
             </td>
           </tr>
 
@@ -259,7 +259,7 @@
                     [disabled]="reasonData.checkbox ? false : true" value={{reasonData_level2.REASON_DESC}}
                     (click)="checkboxSelect($event.target.checked,reasonData_level2);">{{reasonData_level2.REASON_DESC}}
                   <ng-container *ngIf="reasonData_level2.REASON_DESC=='其他'">
-                    <textarea [(ngModel)]="delayOther" name="delayOther"
+                    <textarea maxlength="100" [(ngModel)]="delayOther" name="delayOther"
                       [disabled]="reasonData_level2.checkbox ? false : true"></textarea>
                   </ng-container>
                 </td>
@@ -276,7 +276,7 @@
             </td>
             <td class="td3">
               <textarea [(ngModel)]="delayOtherTwo" name="delayOtherTwo" [disabled]="reasonData.checkbox ? false : true"
-                rows="10"></textarea>
+              maxlength="100" rows="10"></textarea>
             </td>
           </tr>
         </ng-container>
@@ -337,7 +337,7 @@
                     (click)="checkboxSelect($event.target.checked,reasonData_level2);">{{reasonData_level2.REASON_DESC}}
                   <ng-container *ngIf="reasonData_level2.REASON_DESC=='其他'">
                     <textarea disabled [(ngModel)]="delayOther" name="delayOther"
-                      [disabled]="reasonData_level2.checkbox ? false : true"></textarea>
+                    maxlength="100" [disabled]="reasonData_level2.checkbox ? false : true"></textarea>
                   </ng-container>
                 </td>
               </tr>
@@ -353,7 +353,7 @@
             </td>
             <td class="td3">
               <textarea disabled [(ngModel)]="delayOtherTwo" name="delayOtherTwo" [disabled]="reasonData.checkbox ? false : true"
-                rows="10"></textarea>
+              maxlength="100" rows="10"></textarea>
             </td>
           </tr>
         </ng-container>
