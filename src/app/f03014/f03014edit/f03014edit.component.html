@@ -49,26 +49,28 @@
         <div nz-col nzSpan="6">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">生效日</span>
-              <nz-date-picker [(ngModel)]="Efficient" name="Efficient"  (ngModelChange)="dateNull(Efficient,'Efficient')"></nz-date-picker>
+              <nz-date-picker [(ngModel)]="Efficient" name="Efficient"   required></nz-date-picker>
             </div>
-            <!-- (ngModelChange)="dateNull(credit_TIME,'credit_TIME')" -->
+            <mat-error *ngIf="formControl.invalid && (Efficient=='' || Efficient== undefined) ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
         <div nz-col nzSpan="6">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">失效日</span>
-              <nz-date-picker [(ngModel)]="Invalidation" name="Invalidation" (ngModelChange)="dateNull(Invalidation,'Invalidation')"></nz-date-picker>
+              <nz-date-picker [(ngModel)]="Invalidation" name="Invalidation"  required></nz-date-picker>
             </div>
+            <mat-error *ngIf="formControl.invalid && (Invalidation=='' || Invalidation== undefined) ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
         <div nz-col nzSpan="6">
           <div class="form" style="padding:20px"><span class="form-title">使用中</span>
             <mat-select [(ngModel)]="usingValue" name="usingValue"
-            style="border-radius:5px;background-color:white; border:1px solid #c9c9c9;">
+            style="border-radius:5px;background-color:white; border:1px solid #c9c9c9;" required>
               <mat-option *ngFor="let code of usingType" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="formControl.invalid && (usingValue=='' || usingValue== null) ">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
