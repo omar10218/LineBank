@@ -476,11 +476,11 @@
     <div class="line_bank_form_header_title">審核結果</div>
     <div nz-row style="padding:5px">
       <nz-radio-group [(ngModel)]="BW_creditResult" name="BW_creditResult"
-        [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' " required>
+        [disabled]="getPage()!='9'|| getSearch()=='Y' " (click)="radio_change()" required>
         <div nz-row>
           <div nz-col nzFlex="1" *ngFor="let code of BW_creditResult_Code">
             <div style="width:100%; height:30px">
-              <label (click)="radio_change()" nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
+              <label  nz-radio [nzValue]="code.value">{{code.viewValue}}</label>
             </div>
           </div>
         </div>
@@ -510,7 +510,7 @@
     <div nz-row style="padding:5px">
       <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
         <div style="padding:3px"><span class="form-title" >本次執行原因</span>
-          <mat-select style="height:25px" [(ngModel)]="reasoncode" name="reasoncode" (ngModelChange)="reason()" >
+          <mat-select style="height:25px" [(ngModel)]="reasoncode" name="reasoncode" (ngModelChange)="reason()"  [disabled]="getPage()!='9'|| getSearch()=='Y' ">
             <mat-option *ngFor="let code of reason_CODE" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
@@ -519,7 +519,7 @@
       </div>
       <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
         <div style="padding:3px"><span class="form-title">本次執行原因細項</span>
-          <mat-select style="height:25px" [(ngModel)]="reasondetail" name="reasondetail"(ngModelChange)="ttemporarilyest()"  >
+          <mat-select style="height:25px" [(ngModel)]="reasondetail" name="reasondetail"(ngModelChange)="ttemporarilyest()" [disabled]="getPage()!='9'|| getSearch()=='Y' " >
             <mat-option *ngFor="let code of reason_DETAIL" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
@@ -528,14 +528,14 @@
       </div>
       <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
         <div style="padding:3px"><span class="form-title">選擇額度號</span>
-          <mat-select style="height:25px" [(ngModel)]="limit" name="limit" (ngModelChange)="ttemporarilyest()" >
+          <mat-select style="height:25px" [(ngModel)]="limit" name="limit" (ngModelChange)="ttemporarilyest()"  [disabled]="getPage()!='9'|| getSearch()=='Y' ">
             <mat-option *ngFor="let code of limitList" [value]="code.value">
               {{code.viewValue}}
             </mat-option>
           </mat-select>
         </div>
       </div>
-      <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
+      <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'" [disabled]="getPage()!='9'|| getSearch()=='Y' ">
         <div style="padding:3px"><span class="form-title" >預佔額度</span>
           <input type="text"  [(ngModel)]="preempt" name="preempt"
           (keyup)="dealwith(preempt)" [disabled]="BW_creditResult == 'DWN'? false:true">
