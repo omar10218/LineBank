@@ -1182,14 +1182,17 @@ export class Childscn12Component implements OnInit {
     return 'ngtbody'
   }
 
+  //加總  	徵審後確認合計(打勾)
   calculate(completed: boolean, value: number) {
-    if (completed) {
-      this.checkTotal = this.checkTotal + parseInt(this.toNumber(value.toString()));
-      this.checkTotaltring = this.toCurrency(this.checkTotal + '');
-    } else {
-      this.checkTotal = this.checkTotal - parseInt(this.toNumber(value.toString()));
-      this.checkTotaltring = this.toCurrency(this.checkTotal + '');
+    let data: number;
+    if (!isNaN(data = parseInt(value.toString()))) { //判斷是不是數字
+      if (completed) {
+        this.checkTotal = this.checkTotal + parseInt(this.toNumber(value.toString()));
+        this.checkTotaltring = this.toCurrency(this.checkTotal + '');
+      } else {
+        this.checkTotal = this.checkTotal - parseInt(this.toNumber(value.toString()));
+        this.checkTotaltring = this.toCurrency(this.checkTotal + '');
+      }
     }
   }
-
 }
