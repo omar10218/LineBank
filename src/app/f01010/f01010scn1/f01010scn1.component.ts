@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Childbwscn12Component } from 'src/app/children-bw/childbwscn12/childbwscn12.component';
+import { Childscn24Component } from 'src/app/children/childscn24/childscn24.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01010Service } from '../f01010.service';
+import { F01010scn2Component } from '../f01010scn2/f01010scn2.component';
 
 @Component({
   selector: 'app-f01010scn1',
@@ -28,7 +30,7 @@ export class F01010scn1Component implements OnInit {
 
   changeValue: boolean = true;
   block: boolean = false;
-
+  content: string; //退件原因
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
@@ -223,5 +225,24 @@ export class F01010scn1Component implements OnInit {
         })
       }
     })
+  }
+  return()//退件
+  {
+    const dialogRef = this.dialog.open(F01010scn2Component, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight: '50%',
+      width: '30%',
+      data: {
+        applno: this.applno,
+        level: "L3",
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success')
+      {
+        this.block =false;
+        this.router.navigate(['./F01009 ']);
+      }
+    });
   }
 }

@@ -196,7 +196,7 @@ export class F01009scn1Component implements OnInit {
           childernDialogRef.close();
         }, 1000);
         setTimeout(() => {
-          this.router.navigate(['./F0100']);
+          this.router.navigate(['./F01009']);
         }, 1500);
       }
       this.block = false;

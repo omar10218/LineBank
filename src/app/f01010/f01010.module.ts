@@ -12,11 +12,13 @@ import zh from '@angular/common/locales/zh';
 import { CommonLibModule } from '../common-lib/common-lib.module';
 import { F01010Component } from './f01010.component';
 import { F01010scn1Component } from './f01010scn1/f01010scn1.component';
+import { F01010scn2Component } from './f01010scn2/f01010scn2.component';
 registerLocaleData(zh);
 @NgModule({
   declarations: [
     F01010Component,
-    F01010scn1Component
+    F01010scn1Component,
+    F01010scn2Component
   ],
   imports: [
     NzButtonModule,
