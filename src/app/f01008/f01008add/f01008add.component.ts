@@ -50,7 +50,7 @@ export class F01008addComponent implements OnInit {
     let jsonObject: any = {};
     let url = 'f01/f01008scn2action1';
     jsonObject['userId'] = this.empNo;
-    jsonObject['applno'] = '20211125A00002';
+    jsonObject['applno'] = this.data.applno;
     jsonObject['conType'] = this.data.CON_TYPE;
     jsonObject['phone'] = this.data.PHONE;
     jsonObject['telCondition'] = this.data.TEL_CONDITION;
