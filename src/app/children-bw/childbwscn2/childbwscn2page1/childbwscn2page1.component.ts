@@ -350,7 +350,10 @@ export class childbwscn2page1Component implements OnInit {
     this.filter();
     this.ttemporarilyest();
 
-    if (this.i > 0) {
+    if (this.i > 0)
+     {
+      this.reason_DETAIL = [];
+      this.reason_DETAIL.push({ value: '', viewValue: '請選擇' })
       this.reasoncode = '';
       this.reasondetail = '';
       this.limit = '';
@@ -424,6 +427,7 @@ export class childbwscn2page1Component implements OnInit {
     jsonObject['reasonCode'] = this.reasoncode;
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
       this.reason_DETAIL.push({ value: '', viewValue: '請選擇' })
+      this.reasondetail = '';
       for (const jsonObj of data.rspBody) {
         const value = jsonObj['reasonCode'];
         const viewValue = jsonObj['reasonDesc'];
