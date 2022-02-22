@@ -2,15 +2,13 @@
 <div class="line_bank_card_no_padding" style="min-height:140px;">
     <div class="line_bank_form_header_title">執行退件作業</div>
     <form class="mat-dialog-content" #formControl="ngForm">
-        <!-- 授信退件 -->
         <div class="container" style="width:100%;margin: 0 auto;text-align: center;">
             <br>
             <div nz-row nzJustify="space-around">
                 <div nz-col nzSpan="20">
                     <textarea class="input-textarea" placeholder="輸入退件原因" [(ngModel)]="content" name="content" cols="30"
                         rows="10" required></textarea>
-                    <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-
+                    <!-- <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error> -->
                 </div>
             </div>
             <br>

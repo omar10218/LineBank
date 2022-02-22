@@ -238,10 +238,12 @@ export class F01010scn1Component implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && result.event == 'success')
+      if (result.event == 'success')
       {
-        this.block =false;
-        this.router.navigate(['./F01009 ']);
+            this.router.navigate(['./F01010']);
+
+
+
       }
     });
   }
