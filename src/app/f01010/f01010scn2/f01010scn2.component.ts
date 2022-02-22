@@ -38,11 +38,18 @@ export class F01010scn2Component implements OnInit {
     this.f01010Service.postJson(url,jsonObject).subscribe(data=>
       {
 
+
         if (data.rspCode === '0000' && data.rspMsg=='success')
          {
           this.dialog.open(ConfirmComponent, { data: { msgStr: "退件完成" } });
-
-          this.dialogRef.close({ event: 'success' });
+          setTimeout(() => {
+            this.dialog.closeAll();
+            this.dialogRef.close({ event: 'success' });
+          }, 1000);
+        }
+        else
+        {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } });
         }
       })
   }

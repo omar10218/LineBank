@@ -242,8 +242,12 @@ export class F01010scn1Component implements OnInit {
       {
             this.router.navigate(['./F01010']);
 
-
-
+      }
+      else
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: result.event }
+        })
       }
     });
   }
