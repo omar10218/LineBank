@@ -5,7 +5,7 @@
     <div class="search_row_header">
       <div nz-col>
         <div nz-row>
-          <div nz-col nzSpan="5">
+          <div nz-col nzSpan="4">
             <span class="form-title line_bank_h4"> 案件編號</span>
             <div class="form" style="margin:0 auto;width:90%">
               <div><input matInput #input class="form-control" [(ngModel)]="swcApplno" name="swcApplno"
@@ -13,7 +13,7 @@
               </div>
             </div>
           </div>
-          <div nz-col nzSpan="5">
+          <div nz-col nzSpan="4">
             <span class="form-title line_bank_h4">身分證號</span>
             <div class="form" style="margin:0 auto;width:90%">
               <div><input matInput #input class="form-control" [(ngModel)]="swcNationalId" name="swcNationalId" placeholder="請輸入身分證編號"
@@ -21,7 +21,15 @@
               </div>
             </div>
           </div>
-          <div nz-col nzSpan="5">
+          <div nz-col nzSpan="4">
+            <span class="form-title line_bank_h4">客戶ID</span>
+            <div class="form" style="margin:0 auto;width:90%">
+              <div><input matInput #input class="form-control" [(ngModel)]="swcCustId" name="swcCustId" placeholder="請輸入客戶ID"
+                  required>
+              </div>
+            </div>
+          </div>
+          <div nz-col nzSpan="4">
             <span class="form-title line_bank_h4">案件類別</span>
             <div class="form" style="width:90%;height:25px;margin:0 auto;color:gray">
               <div style="color:gray">
@@ -33,7 +41,7 @@
               </div>
             </div>
           </div>
-          <div nz-col nzSpan="5">
+          <div nz-col nzSpan="4">
             <span class="form-title line_bank_h4">代理人別</span>
             <div class="form" style="width:90%;height:25px;margin:0 auto">
               <div>

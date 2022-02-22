@@ -32,6 +32,7 @@ export class F01007Component implements OnInit {
   agentEmpNo: string;                                 // 代理人
   agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
   cusinfoDataSource = [];                             // 案件清單
+  swcCustId: string;                                  // 客戶ID
   fds: string = "";                                   // fds
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
@@ -73,6 +74,7 @@ export class F01007Component implements OnInit {
     this.swcApplno = '';
     this.swcNationalId = '';
     this.caseType = '';
+    this.swcCustId = '';
   }
 
   ngAfterViewInit() {
@@ -88,6 +90,7 @@ export class F01007Component implements OnInit {
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
+    jsonObject['swcCustId'] = this.swcCustId;
     this.f01007Service.getCaseList(jsonObject).subscribe(data => {
       if (data.rspBody.size > 0)
       {
@@ -250,6 +253,7 @@ data_number(p: number) {
     this.agentEmpNo = '';
     this.swcApplno = '';
     this.swcNationalId = '';
+    this.swcCustId = '';
     this.caseType = '';
     this.empNo = localStorage.getItem("empNo");
     this.getCaseList();
