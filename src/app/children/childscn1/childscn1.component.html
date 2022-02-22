@@ -1554,14 +1554,14 @@
                     <div class="form">
                         <div><span class="form-title"></span><textarea matInput class="input-textarea"
                                 style="text-align: left;" [(ngModel)]="mark" name="mark"
-                                (ngModelChange)="change(mark,'mark','')" [disabled]="getSearch() == 'Y'" maxlength="300"></textarea>
+                                (ngModelChange)="change(mark,'mark','')" [disabled]="getSearch() == 'Y' || getStepName() == 'FraudList' || getStepName() == 'Fraud'" maxlength="300"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
             <div style="padding:3px;text-align: center;">
                 <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="save()"
-                    [disabled]="getSearch() == 'Y'">儲存</button>
+                    [disabled]="getSearch() == 'Y' || getStepName() == 'FraudList' || getStepName() == 'Fraud'" (keydown.enter)="$event.preventDefault()">儲存</button>
             </div>
 
             <!-- 表格 -->
