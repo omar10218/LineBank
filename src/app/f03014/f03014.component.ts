@@ -61,7 +61,7 @@ export class F03014Component implements OnInit {
     this.usingType.push({ value: '', viewValue: '請選擇' });
     this.usingType.push({ value: '1', viewValue: 'Y' });
     this.usingType.push({ value: '2', viewValue: 'N' });
-    console.log(this.ruleParamCondition)
+
   }
 
   search()//查詢
@@ -210,7 +210,7 @@ export class F03014Component implements OnInit {
         this.ruleParamCondition = data.rspBody.item;
         this.total = data.rspBody.size;
       }
-      console.log(data.rspBody.item)
+
 
 
     }
@@ -235,7 +235,11 @@ export class F03014Component implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null && (result.event == 'success')) {
+
+      if (result.event != null )
+
+      {
+        // this.IdentityValue=result.event;
         if (this.NameValue == '' && this.IdentityValue == '' && this.NarrateValue == '' &&
           this.Efficient == null && this.Invalidation == null && this.usingValue == '') {
 
@@ -251,7 +255,6 @@ export class F03014Component implements OnInit {
   }
   EditTable(i: number, parmArry: string[])//編輯
   {
-    console.log(parmArry[6])
     const dialogRef = this.dialog.open(F03014editComponent, {
       panelClass: 'mat-dialog-transparent',
       minHeight: '80%',
@@ -382,10 +385,10 @@ export class F03014Component implements OnInit {
           jsonObject['expirationDate_end'] = '';
         }
       }
-      console.log(jsonObject)
+
       let opton = { responseType: 'blob' as 'json' };
       this.f03014Service.downloadExcel(url, jsonObject).subscribe(data => {
-        console.log(data)
+
         blob = new Blob([data], { type: ' application/xlsx' });
         let downloadURL = window.URL.createObjectURL(blob);
         let link = document.createElement('a');
