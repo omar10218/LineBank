@@ -3,7 +3,7 @@
     <div class="line_bank_card_no_padding">
         <div nz-row>
             <div nz-col nzSpan="4">
-                <div style="padding:10px"><span class="form-title" style="margin:0px">公司統編:</span><input placeholder="請輸入公司統編" style="display: block;" [(ngModel)]="cuCpNo" name="cuCpNo"></div>
+                <div style="padding:10px"><span class="form-title" style="margin:0px">公司統編:</span><input placeholder="請輸入公司統編" style="display: block;" [(ngModel)]="cuCpNo" name="cuCpNo" maxlength="8" oninput="value=value.replace(/[^\d]/g,'')"></div>
             </div>
             <div nz-col nzSpan="4">
                 <div style="padding:10px"><span class="form-title" style="margin:0px">公司名稱：</span><input placeholder="請輸入公司名稱" style="display: block;" [(ngModel)]="cuCpName" name="cuCpName"></div>
@@ -50,21 +50,21 @@
             <thead>
                 <tr>
                     <th class="table-header">序號</th>
-                    <th class="table-header">公司統編</th>
-                    <th class="table-header">公司名稱</th>
-                    <th class="table-header">公司簡稱</th>
+                    <th class="table-header" nzWidth="120px">公司統編</th>
+                    <th class="table-header" nzWidth="300px">公司名稱</th>
+                    <th class="table-header" nzWidth="200px">公司簡稱</th>
                     <th class="table-header">分類1</th>
                     <th class="table-header">分類2</th>
                     <th class="table-header">分類3</th>
                     <th class="table-header">使用中</th>
-                    <th class="table-header">備註</th>
+                    <th class="table-header" nzWidth="300px">備註</th>
                     <th class="table-header">更新日期時間</th>
                     <th class="table-header">編輯</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let row of cuCpSource;let i = index">
-                    <td class="table-data">{{i}}</td>
+                    <td class="table-data">{{i+1}}</td>
                     <td class="table-data">{{row.CU_CP_NO}}</td>
                     <td class="table-data">{{row.CU_CP_NAME}}</td>
                     <td class="table-data">{{row.CU_CP_SNAME}}</td>
