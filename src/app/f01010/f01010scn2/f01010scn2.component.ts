@@ -34,17 +34,28 @@ export class F01010scn2Component implements OnInit {
     jsonObject['applno'] = this.data.applno;
     jsonObject['level'] =  this.data.level;
     jsonObject['content'] = this.content;
+    jsonObject['empno'] = localStorage.getItem("empNo");
     this.f01010Service.postJson(url,jsonObject).subscribe(data=>
       {
-        if (data.rspCode === '0000') {
-          this.dialogRef.close({ event: 'success' });
-          this.block = true;
+
+
+        if (data.rspCode === '0000' && data.rspMsg=='success')
+         {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: "退件完成" } });
+          setTimeout(() => {
+            this.dialog.closeAll();
+            this.dialogRef.close({ event: 'success' });
+          }, 1000);
+        }
+        else
+        {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } });
         }
       })
   }
 
   cancel()//離開
   {
-    this.dialogRef.close();
+    this.dialogRef.close({ event: '' });
   }
 }
