@@ -531,7 +531,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           sessionStorage.setItem('interest' + index, this.CreditInterestPeriodSource[index - 1].interest != null ? this.CreditInterestPeriodSource[index - 1].interest : 0);
           this.CreditInterestPeriodSource[index - 1].periodType = this.CreditInterestPeriodSource[index - 1].periodType != null && this.CreditInterestPeriodSource[index - 1].periodType != '' ? this.CreditInterestPeriodSource[index - 1].periodType : '1';
           sessionStorage.setItem('periodType' + index, this.CreditInterestPeriodSource[index - 1].periodType);
-          this.CreditInterestPeriodSource[index - 1].approveInterest = ((Number(this.CreditInterestPeriodSource[index - 1].interestBase) * this.changeZero(this.CreditInterestPeriodSource[index - 1].interest)) + (Number(this.CreditInterestPeriodSource[index - 1].interest) * this.changeZero(this.CreditInterestPeriodSource[index - 1].interest))) / this.changeZero(this.CreditInterestPeriodSource[index - 1].interest);
+          this.CreditInterestPeriodSource[index - 1].approveInterest = ((Number(this.CreditInterestPeriodSource[index - 1].interestBase) * 1000) + (Number(this.CreditInterestPeriodSource[index - 1].interest) * 1000)) / 1000;
           sessionStorage.setItem('approveInterest' + index, this.CreditInterestPeriodSource[index - 1].approveInterest);
         }
 
@@ -791,7 +791,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     if (value.interestBase == null) {
       value.approveInterest = Number(value.interest);
     } else {
-      value.approveInterest = (Number(value.interestBase) * Number(this.changeZero(value.interest)) + Number(value.interest) * Number(this.changeZero(value.interest))) / Number(this.changeZero(value.interest));
+      value.approveInterest = (Number(value.interestBase) * 1000 + Number(value.interest) * 1000) / 1000;
     }
     sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
     sessionStorage.setItem('interest' + value.seq, value.interest.toString());
@@ -1275,17 +1275,5 @@ export class Childscn1Component implements OnInit, OnDestroy {
     } else if (level == 'S1') {
       return "總經理"
     }
-  }
-
-  changeZero(value: string): number {
-    let len: number = 0;
-    if (Number(value).toString().split('.')[1]) {
-      len = Number(value).toString().split('.')[1].length;
-    }
-    let one = '1';
-    for (let index = 0; index < len; index++) {
-      one = one + '0';
-    }
-    return Number(one);
   }
 }
