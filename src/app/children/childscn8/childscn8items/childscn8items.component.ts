@@ -78,9 +78,6 @@ export class Childscn8itemsComponent implements OnInit {
     { value: 'O', viewValue: 'LINE BANK 開戶', checked: false },
     { value: 'Z', viewValue: '其他:', checked: false },];
 
-  REPLY_CONDITION14Z = true;//判斷是否有勾其他
-  REPLY_CONDITION17Z = true;//判斷是否有勾其他
-
   ngOnInit(): void {
 
     this.applno = sessionStorage.getItem('applno');
@@ -119,8 +116,6 @@ export class Childscn8itemsComponent implements OnInit {
               for (const data of REPLY_CONDITION14) {
                 for (const datacode of this.REPLY_CONDITION14code) {
                   datacode.checked = data == datacode.value ? true : datacode.checked;
-                  //初始化
-                  if(datacode.value=='Z'){this.setcheckbox('13');}
                 }
               }
             } else if (calloutItemsData.checkItem == "17" && calloutItemsData.replyCondition != null) {
@@ -128,8 +123,6 @@ export class Childscn8itemsComponent implements OnInit {
               for (const data of REPLY_CONDITION17) {
                 for (const datacode of this.REPLY_CONDITION17code) {
                   datacode.checked = data == datacode.value ? true : datacode.checked;
-                   //初始化
-                   if(datacode.value=='Z'){this.setcheckbox('16');}
                 }
               }
             }
@@ -211,32 +204,9 @@ export class Childscn8itemsComponent implements OnInit {
     if (key == "CHECK_DATA") {
       MDtable.CHECK_DATA = null;
       MDtable.REPLY_CONDITION = null;
-      MDtable.CHECK_NOTE = null;
     } else {
       MDtable.REPLY_CONDITION = null;
-      MDtable.CHECK_NOTE = null;
     }
   }
-
-  //判斷多選是否有選其他 開關後方文字框
-  setcheckbox(key: string) {
-    if (key == '13') {
-      if (this.REPLY_CONDITION14code[this.REPLY_CONDITION14code.length - 1].checked) {
-        this.REPLY_CONDITION14Z = false;
-      } else {
-        this.REPLY_CONDITION14Z = true;
-        this.MDtable[13].CHECK_NOTE = '';
-      }
-    } else {
-      if (this.REPLY_CONDITION17code[this.REPLY_CONDITION17code.length - 1].checked) {
-        this.REPLY_CONDITION17Z = false;
-      } else {
-        this.REPLY_CONDITION17Z = true;
-        this.MDtable[16].CHECK_NOTE = '';
-      }
-    }
-  }
-
-
 
 }
