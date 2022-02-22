@@ -134,6 +134,20 @@ export class Childscn8itemsComponent implements OnInit {
 
   // 照會項目儲存
   async save() {
+    //新增檢核 核對資料/回答狀況 要兩個一起填或不填
+    for (const obj of this.MDtable) {
+      if (obj.MD_NO.viewValue == "基本資料1" || obj.MD_NO.viewValue == "基本資料2" || obj.MD_NO.viewValue == "基本資料3" || obj.MD_NO.viewValue == "JCIC核對1"
+        || obj.MD_NO.viewValue == "JCIC核對2" || obj.MD_NO.viewValue == "JCIC核對3" || obj.MD_NO.viewValue == "最高學歷、學校" || obj.MD_NO.viewValue == "公司名稱"
+        || obj.MD_NO.viewValue == "公司現職職稱" || obj.MD_NO.viewValue == "公司現職年資") {
+        if (obj.CHECK_DATA != null && obj.CHECK_DATA != '' && obj.CHECK_DATA != undefined
+          && (obj.REPLY_CONDITION == null || obj.REPLY_CONDITION == '' || obj.REPLY_CONDITION == undefined)) {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "請選取'" + obj.MD_NO.viewValue + "'回答狀況" }
+          });
+          return;
+        }
+      }
+    }
 
     let msgStr: string = "";
     let codeStr: string = "";
