@@ -62,7 +62,7 @@ export class F02004Component implements OnInit {
 
 //取得表單
   getDrCreditMainData(pageIndex:number,pageSize:number) {
-    const baseUrl = 'dr/drSearch';
+    const baseUrl = 'f02/f02004';
     let jsonObject: any = {};
     jsonObject['loanAccount'] = this.loanAccount;
     jsonObject['drFlag'] = this.drFlag;
