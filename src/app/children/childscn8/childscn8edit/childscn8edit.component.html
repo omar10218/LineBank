@@ -62,7 +62,7 @@
         </div>
         <div nz-col nzFlex="1">
           <div style="padding:10px"><span style="margin-top:8px;" class="form-title">設定下次照會時間</span>
-            <nz-date-picker style="display:block" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" >
+            <nz-date-picker style="display:block" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" (keydown.enter)="$event.preventDefault()" >
             </nz-date-picker>
           </div>
         </div>
