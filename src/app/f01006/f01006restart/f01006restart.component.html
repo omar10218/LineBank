@@ -57,7 +57,7 @@
                   <td class="table-data">{{ row.INTEREST_CODE }}</td>
                   <td class="table-data">{{ row.INTEREST_BASE }}</td>
                   <td class="table-data">{{ row.INTEREST }}</td>
-                  <td class="table-data">{{ (row.INTEREST_BASE) + (row.INTEREST) }}</td>
+                  <td class="table-data">{{ ((row.INTEREST_BASE * 1000) + (row.INTEREST * 1000)) / 1000 }}</td>
               </tbody>
             </nz-table>
 
