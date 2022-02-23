@@ -557,15 +557,15 @@
           <td><input class="inpu2" type="text"
               [attr.disabled]="item.ACCOUNT_CODE=='CC'|| item.ACCOUNT_CODE==''? '' : null"
               [(ngModel)]="item.CONTRACT_AMT_421" name="gold421"
-              (keyup)="limit(item.CONTRACT_AMT_421,item.ID,'gold421')">
+              (keyup)="limit(item.CONTRACT_AMT_421,item.ID,'gold421')" maxlength="12">
           </td>
           <td><input class="inpu2" type="text"
               [attr.disabled]="item.ACCOUNT_CODE=='CC'|| item.ACCOUNT_CODE==''? '' : null"
               [(ngModel)]="item.CONTRACT_AMT_029" name="gold029"
-              (keyup)="limit(item.CONTRACT_AMT_029,item.ID,'gold029')">
+              (keyup)="limit(item.CONTRACT_AMT_029,item.ID,'gold029')"maxlength="12">
           </td>
           <td><input class="inpu2" type="text" [attr.disabled]="item.ACCOUNT_CODE=='CC'? null:'' "
-              [(ngModel)]="item.CONTRACT_AMT_CC" name="gold" (keyup)="limit(item.CONTRACT_AMT_CC,item.ID,'gold')"></td>
+              [(ngModel)]="item.CONTRACT_AMT_CC" name="gold" (keyup)="limit(item.CONTRACT_AMT_CC,item.ID,'gold')" maxlength="12"></td>
           <td>{{item.CAL_RATE !=undefined? item.CAL_RATE:"0"}}</td>
           <td>{{item.CAL_YEARS !=undefined? item.CAL_YEARS:"0"}}</td>
           <td>{{item.CAL_PERIOD !=undefined? item.CAL_PERIOD:"0"}}</td>
