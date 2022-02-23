@@ -2,7 +2,7 @@
 <div class="line_bank_card_no_padding" style="min-height:180px">
   <div class="line_bank_form_header_title" style="margin:0">徵信照會-編輯</div>
   <div class="container" style="padding:20px">
-    <form class="mat-dialog-content" #formControl="ngForm" (keydown.enter)="$event.preventDefault()">
+    <form class="mat-dialog-content" #formControl="ngForm" >
 
       <div nz-row>
         <div nz-col nzSpan="12">
@@ -45,7 +45,7 @@
         </div>
         <div nz-col nzFlex="1">
           <div style="padding:10px"><span style="margin-top:8px;" class="form-title">設定下次照會時間</span>
-            <nz-date-picker style="display:block" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" >
+            <nz-date-picker style="display:block" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" (keydown.enter)="$event.preventDefault()">
             </nz-date-picker>
           </div>
         </div>
@@ -74,7 +74,7 @@
         <div nz-col nzFlex="1">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">手機/市話</span>
-              <input matInput #input class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') " [(ngModel)]="data.PHONE" name="PHONE" required>
+              <input matInput #input class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') " [(ngModel)]="data.PHONE" name="PHONE" required (keydown.enter)="$event.preventDefault()">
               <mat-error *ngIf="formControl.invalid && (data.PHONE=='' || data.PHONE== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
