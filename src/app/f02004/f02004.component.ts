@@ -29,8 +29,8 @@ export class F02004Component implements OnInit {
   ) { }
 
   loanAccount: string ='';//循環帳戶
-  custId: string //客戶ID
-  nationalId: string //身分證字號
+  custId: string =''//客戶ID
+  nationalId: string='' //身分證字號
   date: [Date, Date];//時間
   dateFormat = 'yyyy/MM/dd';
   drFlag: string='';//動撥狀態
