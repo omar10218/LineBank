@@ -2,7 +2,7 @@
 <div class="line_bank_card_no_padding" style="min-height:50vh;width:70vw">
   <div class="line_bank_form_header_title">徵信照會-新增</div>
   <div class="container" style="padding:15px;">
-    <form class="mat-dialog-content" #formControl="ngForm" (keydown.enter)="$event.preventDefault()">
+    <form class="mat-dialog-content" #formControl="ngForm" >
       <div nz-row>
         <div nz-col nzSpan="12">
           <div class="form">
@@ -76,7 +76,7 @@
           <div class="form">
             <div><span class="form-title-actions">手機/市話</span>
               <input matInput #input class="form-control" onkeyup="value=value.replace(/[^\d]/g,'') "  maxlength="10"
-                [(ngModel)]="data.PHONE" name="PHONE" required>
+                [(ngModel)]="data.PHONE" name="PHONE" required  (keydown.enter)="$event.preventDefault()">
               <mat-error *ngIf="formControl.invalid && (data.PHONE=='' || data.PHONE== null) ">{{getErrorMessage()}}
               </mat-error>
             </div>
