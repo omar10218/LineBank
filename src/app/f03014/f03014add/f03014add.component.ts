@@ -108,7 +108,7 @@ export class F03014addComponent implements OnInit {
   }
   onNoClick()//取消
   {
-    this.dialogRef.close();
+    this.dialogRef.close({ event: null });
   }
   // test()
   // {
