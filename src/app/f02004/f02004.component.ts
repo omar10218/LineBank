@@ -107,16 +107,17 @@ export class F02004Component implements OnInit {
   search() {
     var startDate, endDate;
     if (this.loanAccount == '' && this.drFlag == '' && this.date == null && this.nationalId ==''&& this.custId=='') {
-      this.clear();
+      // this.clear();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項" }
       });
     } else {
-      if (this.date != null) {
+      if (this.date != null)
+       {
         startDate = new Date(this.date[0]);
         endDate = new Date(this.date[1]);
         if ((endDate - startDate) / 1000 / 60 / 60 / 24 > 90) {
-          this.clear();
+          // this.clear();
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "查詢區間最多三個月內!" }
           });
