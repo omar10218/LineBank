@@ -3,14 +3,14 @@
 <div style="padding-left:40px;display: inline-block" *ngIf="loading">
   <span class="form-title">比對案件總數:</span>
   <input style="width: 65%;height: 25px;" matInput #input
-      [(ngModel)]="compare[1].result" readonly disabled>
-  
+      [(ngModel)]="compare[26].count" readonly disabled>
+
 </div>
   <div style="padding-left:40px;display: inline-block;" *ngIf="loading">
     <span class="form-title">查詢日期時間:</span><input style="width: 80%;height: 25px;" matInput #input
       [(ngModel)]="time" readonly disabled>
   </div>
- 
+
 <div class="line_bank_card_no_padding" *ngIf="loading">
   <nz-table nzSize="small" nzTitle="歷史申請書比對 (不同NID)-近180天內申請" [nzData]="compare" [nzFrontPagination]="false">
     <ng-container ngif="compare[59].count">
