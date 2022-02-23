@@ -106,7 +106,7 @@ export class F02004Component implements OnInit {
   //查詢
   search() {
     var startDate, endDate;
-    if (this.loanAccount == '' && this.drFlag == '' && this.date == null && this.nationalId ==null) {
+    if (this.loanAccount == '' && this.drFlag == '' && this.date == null && this.nationalId ==''&& this.custId=='') {
       this.clear();
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項" }
@@ -141,6 +141,7 @@ export class F02004Component implements OnInit {
     this.drCreditMianData = null;
     this.date = null;
     this.nationalId ='';
+    this.custId='';
     this.i=0;
   }
 

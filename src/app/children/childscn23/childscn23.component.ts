@@ -88,16 +88,7 @@ export class Childscn23Component implements OnInit {
     }
     return codeVal;
   }
-  add()//新增一筆
-  {
 
-      this.t = this.t + 1
-      this.AddData = {tt:this.t, APPLNO: this.applno, ACCOUNT_CODE: '', ID: this.t, MONTHLY_PAY_421: '', MONTHLY_PAY_029: '', MONTHLY_PAY_CC: '', CAL_RATE: '', CAL_YEARS: '', CAL_PERIOD: '', CONTRACT_AMT_421: '', CONTRACT_AMT_029: '', CONTRACT_AMT_CC: '' };
-      this.one.push(this.AddData)
-      this.checkboxArray.push({ num: this.t.toString(), completed: true })
-      this.checkboxAny.push(this.t)
-
-  }
   set() {
     this.t = 0;
     this.checkboxArray = [];
@@ -205,15 +196,41 @@ export class Childscn23Component implements OnInit {
       }
     }
   }
+
+  add()//新增一筆
+  {
+
+      this.t = this.t + 1
+      this.AddData = {tt:this.t, APPLNO: this.applno, ACCOUNT_CODE: '', ID: this.t, MONTHLY_PAY_421: '', MONTHLY_PAY_029: '', MONTHLY_PAY_CC: '', CAL_RATE: '', CAL_YEARS: '', CAL_PERIOD: '', CONTRACT_AMT_421: '', CONTRACT_AMT_029: '', CONTRACT_AMT_CC: '' };
+      this.one.push(this.AddData)
+      this.checkboxArray.push({ num: this.t.toString(), completed: true })
+      this.checkboxAny.push(this.t)
+
+  }
+
   seve()//儲存
   {
     let url = 'f01/childscn23action3'
 
-    for (const ii of this.checkboxAny) {
-      for (const item of this.one) {
+    for (const item of this.one) {
+      if(item.ACCOUNT_CODE == '')
+      {
+        console.log('1')
+        this.checkboxAny.splice(this.checkboxAny.indexOf(item.tt),1)
+      }
+    }
+    for (const ii of this.checkboxAny)
+     {
+      for (const item of this.one)
+      {
+        // if(item.ACCOUNT_CODE == '')
+        // {
+        //   this.checkboxAny.splice(this.checkboxAny.indexOf(item.tt),1)
+        // }
         this.jsonObject = {};
         if (ii == item.ID) {
-          if (item.ID == item.tt) {
+          if (item.ID == item.tt)
+           {
             this.jsonObject['rowId'] = '';
           }
           else {
@@ -230,7 +247,8 @@ export class Childscn23Component implements OnInit {
             this.jsonObject['contractAmtCc'] = item.CONTRACT_AMT_CC != "" ? this.Cut(item.CONTRACT_AMT_CC) : "0";
             this.seveData.push(this.jsonObject);
           }
-          else {
+          else
+           {
             this.jsonObject['applno'] = item.APPLNO;
             this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
             // jsonObject['rowId'] = item.ID;
@@ -260,6 +278,10 @@ export class Childscn23Component implements OnInit {
         this.Monthly029 = 0;//BAM029月付金
         this.Monthlycc = 0;//信用卡付月金
         this.t=0;
+      }
+      else
+      {
+        this.set();
       }
     })
     for (const item of this.one) {
