@@ -237,24 +237,17 @@ export class F03014Component implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-
       if (result.event != null )
-
       {
+        this.IdentityValue =result.event;
+
+
         // this.IdentityValue=result.event;
         if (this.NameValue == '' && this.IdentityValue == '' && this.NarrateValue == '' &&
           this.Efficient == null && this.Invalidation == null && this.usingValue == '') {
 
         }
-        else {
-            this.IdentityValue =result.event;
-
-            setTimeout(() => {
-              this.search();
-            }, 500)
-
-
-        }
+        this.search();
       }
     });
   }
