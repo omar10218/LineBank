@@ -81,9 +81,7 @@ export class F03014addComponent implements OnInit {
       this.jsonObject['effectiveDate'] = this.Efficient;
       this.jsonObject['expirationDate'] = this.Invalidation;
       this.jsonObject['useFlag'] = this.usingValue;
-
-      this.Custlist.push(this.jsonObject)
-      this.f03014Service.Add(url, this.Custlist).subscribe(data => {
+      this.f03014Service.Add(url, this.jsonObject).subscribe(data => {
         msgStr = data.rspMsg;
         if (data.rspCode == '0000' && data.rspMsg == '成功')
         {
