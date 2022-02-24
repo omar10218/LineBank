@@ -71,7 +71,8 @@ console.log(this.cuCpType2Code)
     jsonObject['cuCpType3'] = this.cuCpType3Value
     jsonObject['useFlag'] = this.useFlagValue
     jsonObject['content'] = this.codeTag
-    jsonObject['rid'] = this.data.RID
+    jsonObject['rid'] = this.data.rowID
+    console.log()
     
      await this.f03018Service.oneseve(url,jsonObject).subscribe(data => {
        console.log(data)
