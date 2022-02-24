@@ -13,4 +13,8 @@ export class ConfirmComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    this.dialogRef.close({ event:'success' });
+  }
+
 }
