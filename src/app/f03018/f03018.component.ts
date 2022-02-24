@@ -170,11 +170,13 @@ export class F03018Component implements OnInit {
   }
 
   // 編輯
-  edit(isUpdate: boolean, row: any, RID: string) {
+  edit(isUpdate: boolean, row: any, rowId: string) {
+    console.log(rowId)
     const dialogRef = this.dialog.open(F03018editComponent, {
       panelClass: 'mat-dialog-transparent',
       minHeight: '70vh',
       width: '50%',
+      
       data: {
         cuCpNo: row.cuCpNo,
         cuCpName: row.cuCpName,
@@ -186,7 +188,7 @@ export class F03018Component implements OnInit {
         content: row.content,
         cuCpType1Code: this.cuCpType1Code,
         cuCpType2Code: this.cuCpType2Code,
-        rowID: RID,
+        rowID: rowId,
       }
     })
     dialogRef.afterClosed().subscribe(result => {

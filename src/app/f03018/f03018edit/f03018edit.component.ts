@@ -37,7 +37,7 @@ export class F03018editComponent implements OnInit {
   ngOnInit(): void {
     // this.oldCompareTable = this.data.compareTable
     this.getData()
-    console.log(this.data.RID)
+    console.log(this.data.rowID)
   }
 
 getData(){
