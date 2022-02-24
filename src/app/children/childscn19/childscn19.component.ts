@@ -366,7 +366,8 @@ export class Childscn19Component implements OnInit {
       jsonObject2['applno'] = this.data.applno;
       this.childscn19Service.setrepair(url, jsonObject).subscribe(data => {
         this.block = true;
-        if (data.rspMsg == '成功') {
+        if (data.rspMsg == '成功')
+        {
           this.childscn19Service.setrepair(u, jsonObject2).subscribe(data => {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: data.rspMsg }
@@ -375,6 +376,19 @@ export class Childscn19Component implements OnInit {
           // const childernDialogRef = this.dialog.open(ConfirmComponent, {
           //   data: { msgStr: data.rspMsg }
           // });
+          this.block = false;
+          if (this.page == '1') {
+            this.router.navigate(['./F01001']);
+          } else {
+            this.router.navigate(['./F01002']);
+          }
+          this.dialogRef.close();
+        }
+        else
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: data.rspMsg }
+          });
           this.block = false;
           if (this.page == '1') {
             this.router.navigate(['./F01001']);
