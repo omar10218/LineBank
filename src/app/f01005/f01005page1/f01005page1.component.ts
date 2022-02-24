@@ -70,6 +70,7 @@ export class F01005page1Component implements OnInit {
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcCustId'] = this.swcCustId;
     this.f01005Service.getCaseList(jsonObject).subscribe(data => {
+      console.log(data)
       if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
