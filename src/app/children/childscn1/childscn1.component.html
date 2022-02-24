@@ -1254,7 +1254,7 @@
                         <td class="table-data">
                             <input matInput #input class="form-control" [(ngModel)]="data.interest" name="interest"
                                 placeholder="輸入利率" style="text-align: right;" (keypress)="numberOnly($event)"
-                                (ngModelChange)="caluclate(data)" [disabled]="getPage() != '3'">
+                                (ngModelChange)="caluclate(data)" [disabled]="getPage() != '3'" maxlength="6">
                         </td>
                         <td class="table-data">
                             <input matInput #input class="form-control" [(ngModel)]="data.approveInterest"
