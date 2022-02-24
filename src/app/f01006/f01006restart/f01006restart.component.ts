@@ -74,6 +74,8 @@ export class F01006restartComponent implements OnInit {
       msgStr = await this.f01006Service.addRestart(jsonObject);
       if (msgStr == 'success') {
         msgStr = '儲存成功！'
+      } else if(msgStr == '此案件客戶已取消'){
+        msgStr = '此案件客戶已取消'
       }
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
