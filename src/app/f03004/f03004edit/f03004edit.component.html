@@ -23,7 +23,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">描述</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.codeDesc" name="codeDesc" required>
+              <input matInput #input class="form-control" [(ngModel)]="data.codeDesc" name="codeDesc" required maxlength="200">
               <mat-error *ngIf="formControl.invalid && (data.codeDesc=='' || data.codeDesc== null) ">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
@@ -34,7 +34,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">排序</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.codeSort" name="codeSort" required>
+              <input matInput #input class="form-control" [(ngModel)]="data.codeSort" name="codeSort" required maxlength="3">
               <mat-error *ngIf="formControl.invalid && (data.codeSort=='' || data.codeSort== null) ">{{getErrorMessage()}}</mat-error>
               <p style="color: red;" [hidden]="hidden">請輸入數字</p>
             </div>
@@ -69,7 +69,7 @@
             (mouseleave)="test2()"
             (ngModelChange)="change()"
             id="textarea"
-            ></textarea>
+            maxlength="500"></textarea>
           </div>
           </div>
         </div>
