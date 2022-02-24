@@ -189,9 +189,9 @@ export class F03012Component implements OnInit {
 		formdata.append('compareTable', compareTable)
 		formdata.append('compareColumn', compareColumn)
 		formdata.append('compareType', compareType)
-		if (compareType == '1') {
+		if (compareType == '2') {
 			formdata.append('setValueLow', setValueLow)
-		}else if(compareType == '2'){
+		}else if(compareType == '1'){
 			formdata.append('setValueHight', setValueHight)
 			formdata.append('setValueLow', setValueLow)
 		}
@@ -350,11 +350,18 @@ export class F03012Component implements OnInit {
 			jsonObject['compareType'] = obj.compareType
 			// jsonObject['setValueHight'] = obj.setValueHight
 			// jsonObject['setValueLow'] = obj.setValueLow
-			if(obj.compareType=='1'){
+			if(obj.compareType=='2'){
 				jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
-			}else if(obj.compareType=='2'){
-				jsonObject['setValueHight'] =   obj.setValueHight != "" ? this.Cut( obj.setValueHight) : "0";
-				jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
+			}else if(obj.compareType=='1'){
+				if(obj.setValueHight>obj.setValueLow){
+
+					jsonObject['setValueHight'] =   obj.setValueHight != "" ? this.Cut( obj.setValueHight) : "0";
+					jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
+				}
+				else if(obj.setValueHight<obj.setValueLow){
+					alert('設定最高門檻需大於設定最低門檻!!')
+					return
+				}
 			}
 		
 
@@ -402,10 +409,10 @@ export class F03012Component implements OnInit {
 
 	//去除符號/中英文
 	toNumber(data: string) {
-		return data != null ? data.replace(/[^\w\s]|_/g, '') : data;
+		return data != null ? data.replace(/[^\w\s]|_/g, '.') : data;
 
 	}
-	// 只允許輸入數字
+	// 只允許輸入小數點
 	numberOnly(event: { which: any; keyCode: any; }): boolean {
 		console.log(event)
 		const charCode = (event.which) ? event.which : event.keyCode;

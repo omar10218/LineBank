@@ -134,13 +134,34 @@ export class F03012addComponent implements OnInit {
     jsonObject['compareTable'] = this.selectedValue1
     jsonObject['compareColumn'] = this.selectedValue2
     jsonObject['compareType'] = this.compareType
-    if (this.compareType == '1') {
+
+    if (this.compareType == '2') {
+      if (Number(this.setValueLow) >= 1) {
+        alert("不可以大於1");
+        return;
+      }
+
+      if (!(this.setValueLow.includes('.'))) {
+        alert("請填小數點");
+        return;
+      }
       jsonObject['setValueLow'] = this.setValueLow != "" ? this.Cut(this.setValueLow) : "0";
+    } else if (this.compareType == '1') {
+      if ((this.setValueLow.includes('.'))) {
+        alert("請填整數");
+        return;
+      } 
+      else if (this.setValueHight < this.setValueLow) {
+        alert('設定最高門檻需大於設定最低門檻!!')
+        return
+      } 
+      else {
+        jsonObject['setValueLow'] = this.setValueLow != "" ? this.Cut(this.setValueLow) : "0";
+        jsonObject['setValueHight'] = this.setValueHight != "" ? this.Cut(this.setValueHight) : "0";
+       }
     }
-    else {
-      jsonObject['setValueLow'] = this.setValueLow != "" ? this.Cut(this.setValueLow) : "0";
-      jsonObject['setValueHight'] = this.setValueHight != "" ? this.Cut(this.setValueHight) : "0";
-    }
+
+   
 
     console.log(this.compareType)
     this.error = 'test'
@@ -189,14 +210,17 @@ export class F03012addComponent implements OnInit {
 
   //去除符號/中英文
   toNumber(data: string) {
-    return data != null ? data.replace(/[^\w\s]|_/g, '') : data;
+    return data != null ? data.replace(/[^\w\s]|_/g, '.') : data;
 
   }
-  // 只允許輸入數字
+  // 只允許輸入小數點
   numberOnly(event: { which: any; keyCode: any; }): boolean {
-    console.log(event)
     const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode < 110 && charCode > 110) {
+
+    if (charCode == 46) {
+      return true;
+    }
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入數字!' }
       });
@@ -209,10 +233,10 @@ export class F03012addComponent implements OnInit {
   toCurrency(amount: string) {
     return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
   }
-// 判斷比對方式來去鎖住最高門檻
+  // 判斷比對方式來去鎖住最高門檻
   test123(a) {
     console.log
-    if (a == 1) {
+    if (a == 2) {
       return this.myDiv = true
     }
     else {

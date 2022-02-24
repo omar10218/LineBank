@@ -59,16 +59,17 @@ export class F03012editComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+	
 		this.getData()
 		this.test123(this.oldCompareType)
-		if(this.oldCompareType=="1"){
+		if (this.oldCompareType == "2") {
 			this.low = this.toCurrency(this.data.setValueLow + '')
-		}else{
+		} else {
 
 			this.low = this.toCurrency(this.data.setValueLow + '')
 			this.hingt = this.toCurrency(this.data.setValueHight + '')
 		}
-		
+
 	}
 	getData() {
 		// console.log(this.data.setValue)
@@ -106,9 +107,9 @@ export class F03012editComponent implements OnInit {
 		this.oldCompareColumn = this.data.oldCompareColumn
 		this.oldCompareType = this.data.compareType
 		console.log(this.oldCompareType)
-		if(this.oldCompareType=="1"){
+		if (this.oldCompareType == "2") {
 			this.setValueLow = this.data.setValueLow
-		}else if(this.oldCompareType=="2"){
+		} else if (this.oldCompareType == "1") {
 			this.setValueLow = this.data.setValueLow
 			this.setValueHight = this.data.setValueHight
 		}
@@ -130,21 +131,46 @@ export class F03012editComponent implements OnInit {
 	public async save(): Promise<void> {
 		let msgStr: string = ''
 		let baseUrl = 'f03/f03012action2'
-		msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn,this.oldSetValueLow,this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
-		const childernDialogRef = this.dialog.open(ConfirmComponent, {
-			data: { msgStr: msgStr },
-		})
-		console.log(this.data)
-		console.log(this.oldCompareType)
-		console.log(this.compareType)
-		console.log(this.oldSetValueLow)
-		console.log(this.oldSetValueHight)
-		console.log(this.low)
-		console.log(this.hingt)
-		if (msgStr === '儲存成功！') {
-			this.dialogRef.close({ event: 'success' })
+	
+		if (this.compareType === '2' ) {
+			if (Number(this.low) >= 1) {
+				alert("不可以大於1");
+				return;
+			}
+
+			if (!(this.low.includes('.'))) {
+				alert("請填小數點");
+				return;
+			}
+			msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
+			const childernDialogRef = this.dialog.open(ConfirmComponent, {
+				data: { msgStr: msgStr },
+			})
+			if (msgStr === '儲存成功！') {
+				this.dialogRef.close({ event: 'success' })
+			}
+			this.f03012Service.resetfn();
+			
+		} else if (this.compareType == '1') {
+			if ((this.low.includes('.'))) {
+				alert("請填整數");
+				return;
+			}else if(this.hingt<this.low){
+				alert('設定最高門檻需大於設定最低門檻!!')
+				return
+			}else{
+				msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
+				const childernDialogRef = this.dialog.open(ConfirmComponent, {
+					data: { msgStr: msgStr },
+				})
+				if (msgStr === '儲存成功！') {
+					this.dialogRef.close({ event: 'success' })
+				}
+				this.f03012Service.resetfn();
+			}
+		
 		}
-		// this.getData()
+
 	}
 
 	changeSelect() {
@@ -177,18 +203,17 @@ export class F03012editComponent implements OnInit {
 
 	//去除符號/中英文
 	toNumber(data: string) {
-		if (data != null) {
-			data.toString();
-			data.replace(/[^\w\s]|_/g, '')
-		}
-		return data
+		return data != null ? data.replace(/[^\w\s]|_/g, '.') : data;
 
 	}
-	// 只允許輸入數字
+	// 只允許輸入小數點
 	numberOnly(event: { which: any; keyCode: any; }): boolean {
-		console.log(event)
 		const charCode = (event.which) ? event.which : event.keyCode;
-		if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode < 110 && charCode > 110) {
+
+		if (charCode == 46) {
+			return true;
+		}
+		if (charCode > 31 && (charCode < 48 || charCode > 57)) {
 			const childernDialogRef = this.dialog.open(ConfirmComponent, {
 				data: { msgStr: '請輸入數字!' }
 			});
@@ -199,14 +224,13 @@ export class F03012editComponent implements OnInit {
 
 	//+逗號
 	toCurrency(amount: string) {
-		amount = amount.replace(/\D/g, '')
 		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
 	}
 	// 判斷比對方式來去鎖住最高門檻
 	test123(a) {
-		this.compareType =a
+		this.compareType = a
 		console.log(this.compareType)
-		if (a == 1) {
+		if (a == 2) {
 			return this.myDiv = true
 		}
 		else {
