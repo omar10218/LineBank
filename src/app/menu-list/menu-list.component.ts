@@ -67,7 +67,9 @@ export class MenuListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     //Nick 設定同時只能登入一個帳號
     window.addEventListener("storage", (e) => { //監聽帳號
-      this.commonLogOut();
+      if (localStorage.getItem('oldToken') != null ) {
+        this.commonLogOut();
+      }
     });
 
     this.winClose = sessionStorage.getItem('winClose');
