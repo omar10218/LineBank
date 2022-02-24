@@ -6,7 +6,7 @@
   <div class="line_bank_card_no_padding">
     <nz-table [nzData]="PERSONSource"  nzSize="small" nzTitle="額度資訊">
       <thead >
-        <tr>
+        <tr >
           <th class="table-header" style="text-align: center;">層級</th>
           <th class="table-header" style="text-align: center;">額度號</th>
           <th class="table-header" style="text-align: center;">上層額度號</th>
@@ -26,7 +26,7 @@
           <th class="table-header" style="text-align: center;">專案代碼</th>
         </tr>
       </thead>
-      <tbody style="height:20vh;text-align: center;">
+      <tbody style="height:0px;text-align: center;">
         <tr *ngFor="let row of PERSONSource">
           <td class="table-data" >{{ row.LEVEL_NO }}</td>
           <td class="table-data">{{ row.LIMIT_NO }}</td>
@@ -40,7 +40,7 @@
           <td class="table-data" style="text-align:'right'">{{ this.toCurrency(row.RESERVE_LIMIT.toString()) }}</td>
           <td class="table-data" style="text-align:'right'">{{ this.toCurrency(row.ACTIVE_LIMIT.toString()) }}</td>
           <td class="table-data">{{ row.STOP_FLAG }}</td>
-          <td class="table-data">{{ row.STOP_DATE| date:"yyyy-MM-dd " }}</td>
+          <td class="table-data">{{ row.STOP_DATE | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
           <td class="table-data">{{ row.CYCLE_TYPE }}</td>
           <td class="table-data">{{ row.CANCEL_FLAG }}</td>
           <td class="table-data" [nzWidth]="'160px'">{{ row.APPLNO_OLD }}</td>
