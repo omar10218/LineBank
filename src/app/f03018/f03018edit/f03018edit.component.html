@@ -16,7 +16,7 @@
                 <div nz-col nzSpan="8">
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">公司名稱</span>
-                            <input matInput #input class="form-control" [(ngModel)]="cuCpName" name="cuCpName" >
+                            <input matInput #input class="form-control" [(ngModel)]="cuCpName" name="cuCpName" maxlength="20">
                             <!-- <mat-error *ngIf="formControl.invalid && (data.codeNo=='' || data.codeNo== null) ">
                                 {{getErrorMessage()}}</mat-error> -->
                         </div>
@@ -25,7 +25,7 @@
                 <div nz-col nzSpan="8">
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">公司簡稱</span>
-                            <input matInput #input class="form-control" [(ngModel)]="cuCpSname" name="cuCpSname"
+                            <input matInput #input class="form-control" [(ngModel)]="cuCpSname" name="cuCpSname" maxlength="20"
                                 required>
                             <!-- <mat-error *ngIf="formControl.invalid && (data.codeDesc=='' || data.codeDesc== null) ">
                                 {{getErrorMessage()}}</mat-error> -->
