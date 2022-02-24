@@ -1,5 +1,5 @@
 <!-- 申請資訊 -->
-<span style="position: fixed;z-index: 10;width: 100%;top:90px;background-color: #fff7e9;">
+<span style="position: fixed;z-index: 1;width: 100%;top:90px;background-color: #fff7e9;">
     <br>
     <br>
     <div class="line_bank_card_no_padding_child" style="margin: 0 auto;">
@@ -1254,7 +1254,7 @@
                         <td class="table-data">
                             <input matInput #input class="form-control" [(ngModel)]="data.interest" name="interest"
                                 placeholder="輸入利率" style="text-align: right;" (keypress)="numberOnly($event)"
-                                (ngModelChange)="caluclate(data)" [disabled]="getPage() != '3'">
+                                (ngModelChange)="caluclate(data)" [disabled]="getPage() != '3'" maxlength="5">
                         </td>
                         <td class="table-data">
                             <input matInput #input class="form-control" [(ngModel)]="data.approveInterest"

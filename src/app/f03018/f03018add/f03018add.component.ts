@@ -85,6 +85,7 @@ export class F03018addComponent implements OnInit {
 
 
     public async onesave(): Promise<void> {
+      // if(this)
       let jsonObject: any = {};
       jsonObject['cuCpNo'] = this.cuCpNo;
       jsonObject['cuCpName'] = this.cuCpName;

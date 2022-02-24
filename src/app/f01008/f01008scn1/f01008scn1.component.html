@@ -37,8 +37,8 @@
       </nz-tab>
     </nz-tabset>
   </div>
-  <router-outlet (activate)="scrollToTop($event)" style="padding-top: 70px;display: block;"></router-outlet>
+  <router-outlet (activate)="scrollToTop($event)" style="padding-top: 35px;display: block;"></router-outlet>
 </div>
-<app-f01008add *ngIf="isShowAdd" cdkDrag [data]="addData"></app-f01008add>
-<app-f01008edit *ngIf="isShowEdit" cdkDrag [data]="editData"></app-f01008edit>
-<app-f01008delete *ngIf="isShowdel" cdkDrag></app-f01008delete>
+<app-f01008add style="padding-left: 5%;;z-index: 2" *ngIf="isShowAdd" cdkDrag [data]="addData"></app-f01008add>
+<app-f01008edit style="padding-left: 5%;;z-index: 2" *ngIf="isShowEdit" cdkDrag [data]="editData"></app-f01008edit>
+<app-f01008delete style="padding-left: 5%;;z-index: 2" *ngIf="isShowdel" cdkDrag></app-f01008delete>
