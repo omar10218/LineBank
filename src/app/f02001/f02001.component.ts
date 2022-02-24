@@ -247,6 +247,8 @@ export class F02001Component implements OnInit {
     this.jsonObject['projectName'] = this.project_NAME;//專案名稱
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
     this.jsonObject['approveAmt'] = '';//核准金額/額度
+    console.log( this.jsonObject['page'])
+    console.log( this.jsonObject['per_page'])
     if(na=='')
     {
       this.jsonObject['orderByValue'] = na;

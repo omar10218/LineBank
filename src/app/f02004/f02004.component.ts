@@ -147,7 +147,6 @@ export class F02004Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    // console.log(params)
     if (this.loanAccount == '' && this.drFlag == '') {
 
     }

@@ -73,22 +73,12 @@ export class F03018Component implements OnInit {
     this.cuCpType1Code.push({value:'', viewValue: '請選擇' })
     this.cuCpType2Code.push({ value:'',viewValue: '請選擇' })
     this.f03018Service.getValueTypeselect(url, jsonObject).subscribe(data => {
-      // console.log(this.cuCpType1Code)
-      // console.log(data)
-      // var new1 = data.rspBody.cuCpType1
-      // console.log('new1=======================')
-      // console.log(new1)
-      // var new2 = new1.filter(i=>i!==null)
-      // console.log(new2)
       for (const jsonObj of data.rspBody.cuCpType1) {
 
         if (jsonObj != null) {
           const desc = jsonObj.CU_CP_TYPE1;
           this.cuCpType1Code.push({ value:desc,viewValue: desc })
         }
-        //  const desc = jsonObj.CU_CP_TYPE1;
-        //       this.cuCpType1Code.push({ viewValue: desc})
-
       }
       for (const jsonObj of data.rspBody.cuCpType2) {
         if (jsonObj != null) {
@@ -150,10 +140,10 @@ export class F03018Component implements OnInit {
       jsonObject['useFlag'] = this.useFlagValue==''? null:this.useFlagValue ;
       console.log(jsonObject)
       this.f03018Service.getElBigCompanyList(baseUrl, jsonObject).subscribe(data => {
-        console.log(data)
         if (data.rspBody.size != 0) {
           this.cuCpSource = data.rspBody.items;
           this.total = data.rspBody.size;
+          this.firstFlag = 2;
           const confirmDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: "查詢成功" }
             });
@@ -252,10 +242,16 @@ export class F03018Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    if (this.firstFlag != 1) {
-      const { pageSize, pageIndex } = params;
-      this.getElBigCompanyList(pageIndex, this.pageSize);
-    }
+    if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
+      const { pageIndex } = params;
+      if (this.pageIndex !== pageIndex)
+      {
+        // const { pageSize, pageIndex } = params;
+        this.pageIndex = pageIndex;
+        this.getElBigCompanyList(this.pageIndex, this.pageSize);}
+      }
+    
+    
   }
 
 }
