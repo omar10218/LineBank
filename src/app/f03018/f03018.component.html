@@ -65,15 +65,15 @@
             <tbody>
                 <tr *ngFor="let row of cuCpSource;let i = index">
                     <td class="table-data">{{i+1}}</td>
-                    <td class="table-data">{{row.CU_CP_NO}}</td>
-                    <td class="table-data">{{row.CU_CP_NAME}}</td>
-                    <td class="table-data">{{row.CU_CP_SNAME}}</td>
-                    <td class="table-data">{{row.CU_CP_TYPE1}}</td>
-                    <td class="table-data">{{row.CU_CP_TYPE2}}</td>
-                    <td class="table-data">{{row.CU_CP_TYPE3}}</td>
-                    <td class="table-data">{{row.USE_FLAG}}</td>
-                    <td class="table-data">{{row.CONTENT}}</td>
-                    <td class="table-data">{{row.FRST_CRTN_TMSTMP| date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                    <td class="table-data">{{row.cuCpNo}}</td>
+                    <td class="table-data">{{row.cuCpName}}</td>
+                    <td class="table-data">{{row.cuCpSname}}</td>
+                    <td class="table-data">{{row.cuCpType1}}</td>
+                    <td class="table-data">{{row.cuCpType2}}</td>
+                    <td class="table-data">{{row.cuCpType3}}</td>
+                    <td class="table-data">{{row.useFlag}}</td>
+                    <td class="table-data">{{row.content}}</td>
+                    <td class="table-data">{{row.frstCrtnTmstmp| date:'yyyy-MM-dd hh:mm:ss'}}</td>
                     <td class="table-data" style="text-align: center;">
                         <button nz-button [nzSize]="'small'" nzType="primary" (click)="edit
             (true,row,row.RID)">編輯</button>
