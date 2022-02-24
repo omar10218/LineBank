@@ -71,7 +71,13 @@ export class LoginService extends BaseService {
       }
       isOk = data.rspCode == '0000';
     });
-    localStorage.setItem("token", tokenStr);
+    if (localStorage.getItem('token') != null && tokenStr != localStorage.getItem('token')) {
+      localStorage.setItem("oldToken", localStorage.getItem('token'));
+      localStorage.setItem("token", tokenStr);
+    } else {
+      localStorage.removeItem('oldToken');
+      localStorage.setItem("token", tokenStr);
+    }
     return isOk;
   }
 }
