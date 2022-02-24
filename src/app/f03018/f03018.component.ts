@@ -192,7 +192,6 @@ export class F03018Component implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && (result.event == 'success' || result == '1')) {
         this.getElBigCompanyList(this.pageIndex, this.pageSize)
-        alert('123')
       }
     })
   }
