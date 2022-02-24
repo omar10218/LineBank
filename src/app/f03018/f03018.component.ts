@@ -142,9 +142,9 @@ export class F03018Component implements OnInit {
       let jsonObject: any = {}
       jsonObject['page'] = pageIndex;
       jsonObject['per_page'] = pageSize;
-      jsonObject['cuCpNo'] = this.cuCpNo==''? '':this.cuCpNo ;
-      jsonObject['cuCpName'] = this.cuCpName==''? '':this.cuCpName ;
-      jsonObject['cuCpSname'] = this.cuCpSname==''? '':this.cuCpSname ;
+      jsonObject['cuCpNo'] = this.cuCpNo==''? null:this.cuCpNo ;
+      jsonObject['cuCpName'] = this.cuCpName==''? null:this.cuCpName ;
+      jsonObject['cuCpSname'] = this.cuCpSname==''? null:this.cuCpSname ;
       jsonObject['cuCpType1'] = this.cuCpType1Value==''? null:this.cuCpType1Value ;
       jsonObject['cuCpType2'] = this.cuCpType2Value ==''? null:this.cuCpType2Value ;
       jsonObject['useFlag'] = this.useFlagValue==''? null:this.useFlagValue ;
@@ -154,6 +154,9 @@ export class F03018Component implements OnInit {
         if (data.rspBody.size != 0) {
           this.cuCpSource = data.rspBody.items;
           this.total = data.rspBody.size;
+          const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "查詢成功" }
+            });
         }
         else{
           
@@ -189,19 +192,27 @@ export class F03018Component implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && (result.event == 'success' || result == '1')) {
         this.getElBigCompanyList(this.pageIndex, this.pageSize)
+        alert('123')
       }
     })
   }
   //清除資料
   Clear() {
-    this.cuCpNo = undefined //員工編號
+    this.cuCpNo = '' //員工編號
     this.cuCpName = undefined //員工姓名
     this.cuCpSname = undefined //員工ID
-    this.cuCpType1Value = undefined //代理人
-    this.cuCpType2Value = undefined //email
+   
+    this.cuCpType1Code.push({value:'', viewValue: '請選擇' })
     this.cuCpType1Code = [] //email
+    this.cuCpType1Value=""
+    this.cuCpType2Code.push({value:'', viewValue: '請選擇' })
     this.cuCpType2Code = [] //email
-    this.useFlagValue = undefined //是否在職
+    this.cuCpType2Value=""
+    this.useFlagCode = [
+      { value: '', viewValue: '請選擇' },
+      { value: 'Y', viewValue: '是' },
+      { value: 'N', viewValue: '否' },
+    ]
     this.cuCpSource = undefined
     this.getTypeselect()
   }
