@@ -85,11 +85,17 @@ export class F01008scn1Component implements OnInit {
             jsonObject['custId'] = this.custId;
             jsonObject['afterResult'] = this.afterResult;
             this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-              if (data.rspCode === '0000') {
+              if (data.rspCode === '0000')
+              {
                 const childernDialogRef = this.dialog.open(ConfirmComponent, {
                   data: { msgStr: data.rspMsg }
                 })
-                if (data.rspMsg.includes('處理案件異常')) { } else {
+                if (data.rspMsg.includes('處理案件異常'))
+                 {
+
+                 }
+                 else
+                  {
                   setTimeout(() => {
                     childernDialogRef.close();
                   }, 1000);
@@ -97,6 +103,19 @@ export class F01008scn1Component implements OnInit {
                     this.router.navigate(['./F01008']);
                   }, 1500);
                 }
+              }
+              else
+              {
+                const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                  data: { msgStr: data.rspMsg }
+
+                })
+                setTimeout(() => {
+                  childernDialogRef.close();
+                }, 1000);
+                setTimeout(() => {
+                  this.router.navigate(['./F01008']);
+                }, 1500);
               }
               this.block = false;
             })
@@ -131,6 +150,19 @@ export class F01008scn1Component implements OnInit {
                     this.router.navigate(['./F01012']);
                   }, 1500);
                 }
+              }
+              else
+              {
+                const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                  data: { msgStr: data.rspMsg }
+
+                })
+                setTimeout(() => {
+                  childernDialogRef.close();
+                }, 1000);
+                setTimeout(() => {
+                  this.router.navigate(['./F01012']);
+                }, 1500);
               }
               this.block = false;
             })
@@ -207,7 +239,21 @@ export class F01008scn1Component implements OnInit {
         jsonObject['custId'] = this.custId;
         this.block = true;
         this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-          console.log(data)
+          data.rspCode === '9999'
+          {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: data.rspMsg }
+
+            })
+
+            setTimeout(() => {
+              childernDialogRef.close();
+            }, 1000);
+            setTimeout(() => {
+              this.router.navigate(['./F01008']);
+            }, 1500);
+          }
+
           this.router.navigate(['./F01008']);
           this.block = false;
         })
@@ -222,7 +268,6 @@ export class F01008scn1Component implements OnInit {
     jsonObject['afterResult'] = sessionStorage.getItem('afterResult').length > 2 ? '' : sessionStorage.getItem('afterResult');
     jsonObject['researchDate'] = sessionStorage.getItem('researchDate');
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      console.log(data)
       let childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });

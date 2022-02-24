@@ -37,6 +37,7 @@ export class F03018editComponent implements OnInit {
   ngOnInit(): void {
     // this.oldCompareTable = this.data.compareTable
     this.getData()
+    console.log(this.data.RID)
   }
 
 getData(){
@@ -70,7 +71,7 @@ console.log(this.cuCpType2Code)
     jsonObject['cuCpType3'] = this.cuCpType3Value
     jsonObject['useFlag'] = this.useFlagValue
     jsonObject['content'] = this.codeTag
-    jsonObject['rid'] = this.data.rowID
+    jsonObject['rid'] = this.data.RID
     
      await this.f03018Service.oneseve(url,jsonObject).subscribe(data => {
        console.log(data)
