@@ -8,7 +8,7 @@ import { F01008Service } from '../f01008.service';
 @Component({
   selector: 'app-f01008edit',
   templateUrl: './f01008edit.component.html',
-  styleUrls: ['./f01008edit.component.css', '../../../assets/css/f01.css']
+  styleUrls: ['./f01008edit.component.css', '../../../assets/css/f03.css']
 })
 //Jay 審核資料編輯
 export class F01008editComponent implements OnInit {

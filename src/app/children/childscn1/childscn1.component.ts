@@ -739,31 +739,33 @@ export class Childscn1Component implements OnInit, OnDestroy {
           data: { msgStr: '加減碼查無利率，請通知相關人員!' }
         });
         value.interestType = '';
-        value.interestBase = 0;
+        value.interestBase = '';
+        value.approveInterest = Number(value.interest);
       } else {
         value.interestBase = await this.childscn1Service.getInterestBase(baseUrl, jsonObject);
+        value.approveInterest = Number(value.interestBase) + Number(value.interest);
       }
 
-      value.approveInterest = Number(value.interestBase) + Number(value.interest);
-      if (value.approveInterest.toString().includes(".")) {
-        if (value.approveInterest.toString().split(".")[0].length > 2) {
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: '利率不得超過100%!' }
-          });
-          value.interest = 0;
-          value.approveInterest = value.interestBase;
-        }
+      if (Number(value.approveInterest) > 16) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '利率不得超過16%!' }
+        });
+        childernDialogRef.afterClosed().subscribe(result => {
+          if (result.event == 'success') {
+            value.interest = '';
+            value.approveInterest = value.interestBase;
+          }
+        });
       }
-
     } else {
       value.interestValue = '';
-      value.interestBase = 0
-      value.approveInterest = Number(value.interestBase) + Number(value.interest);
+      value.interestBase = ''
+      value.approveInterest = value.interest;
     }
-    sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
+    sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest);
     sessionStorage.setItem('interestType' + value.seq, value.interestType);
-    sessionStorage.setItem('interest' + value.seq, value.interest.toString());
-    sessionStorage.setItem('interestBase' + value.seq, value.interestBase.toString());
+    sessionStorage.setItem('interest' + value.seq, value.interest);
+    sessionStorage.setItem('interestBase' + value.seq, value.interestBase);
   }
 
   changeInterestValue() {
@@ -786,8 +788,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
       });
       childernDialogRef.afterClosed().subscribe(result => {
         if (result.event == 'success') {
-          value.interest = null;
-          if (value.interestBase == null) {
+          value.interest = '';
+          if (value.interestBase == '') {
             value.approveInterest = value.interest;
           } else {
             value.approveInterest = value.interestBase;
@@ -801,56 +803,78 @@ export class Childscn1Component implements OnInit, OnDestroy {
     }
 
     if (value.interest.includes(".")) {
-      if (value.interest.split(".")[1].length > 2 || value.interest.split(".")[0].length > 2) {
+      if (value.interest.split(".")[1].length > 2) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: '利率請輸入至小數點第二位或不得超過100%!' }
+          data: { msgStr: '利率請輸入至小數點第二位!' }
         });
         childernDialogRef.afterClosed().subscribe(result => {
           if (result.event == 'success') {
-            value.interest = null;
-            if (value.interestBase == null) {
+            value.interest = '';
+            if (value.interestBase == '') {
               value.approveInterest = value.interest;
             } else {
               value.approveInterest = value.interestBase;
             }
             sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
             sessionStorage.setItem('interest' + value.seq, value.interest);
-            sessionStorage.setItem('interestBase' + value.seq, value.interestBase != null ? value.interestBase.toString() : '');
+            sessionStorage.setItem('interestBase' + value.seq, value.interestBase != '' ? value.interestBase.toString() : '');
           }
         });
         return;
       }
     }
 
-    if (value.interestBase == null) {
+    if (value.interestBase == '') {
       value.approveInterest = Number(value.interest);
     } else {
       value.approveInterest = (Number(value.interestBase) * 1000 + Number(value.interest) * 1000) / 1000;
     }
 
-    if (Number(value.approveInterest > 100)) {
+    if (value.approveInterest.toString().includes(".")) {
+      if (Number(value.approveInterest > 16)) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: '利率不得超過100%!' }
+          data: { msgStr: '利率不得超過16%!' }
         });
         childernDialogRef.afterClosed().subscribe(result => {
           if (result.event == 'success') {
-            value.interest = null;
-            if (value.interestBase == null) {
+            value.interest = '';
+            if (value.interestBase == '') {
               value.approveInterest = value.interest;
             } else {
               value.approveInterest = value.interestBase;
             }
-            sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
+            sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest);
             sessionStorage.setItem('interest' + value.seq, value.interest);
-            sessionStorage.setItem('interestBase' + value.seq, value.interestBase != null ? value.interestBase.toString() : '');
+            sessionStorage.setItem('interestBase' + value.seq, value.interestBase != '' ? value.interestBase : '');
           }
         });
         return;
+      }
     }
 
-    sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest.toString());
-    sessionStorage.setItem('interest' + value.seq, value.interest.toString());
-    sessionStorage.setItem('interestBase' + value.seq, value.interestBase != null ? value.interestBase.toString() : '');
+    if (Number(value.approveInterest > 16)) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '利率不得超過16%!' }
+      });
+      childernDialogRef.afterClosed().subscribe(result => {
+        if (result.event == 'success') {
+          value.interest = '';
+          if (value.interestBase == '') {
+            value.approveInterest = value.interest;
+          } else {
+            value.approveInterest = value.interestBase;
+          }
+          sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest);
+          sessionStorage.setItem('interest' + value.seq, value.interest);
+          sessionStorage.setItem('interestBase' + value.seq, value.interestBase != '' ? value.interestBase : '');
+        }
+      });
+      return;
+    }
+
+    sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest);
+    sessionStorage.setItem('interest' + value.seq, value.interest);
+    sessionStorage.setItem('interestBase' + value.seq, value.interestBase != '' ? value.interestBase : '');
   }
 
   open() {

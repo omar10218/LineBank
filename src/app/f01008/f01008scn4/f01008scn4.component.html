@@ -274,12 +274,12 @@
 
 </div> -->
 
-<div class="line_bank_bankground_color_test" style="padding-top: 10px;">
+<div class="line_bank_bankground_color_test" >
   <!-- <div class="line_bank_bankground_color"> -->
     <br>
     <nz-page-header class="site-page-header" style=" width: 100%;padding:0 40px">
       <nz-breadcrumb nz-page-header-breadcrumb>
-        <nz-breadcrumb-item [class.active]="nowPage === Page.Page1" 
+        <nz-breadcrumb-item [class.active]="nowPage === Page.Page1"
           (click)="changePage(Page.Page1)">
           <a [ngClass]="nowPage === Page.Page1 ? 'oncloick' : 'unclock'">產生合約前回查</a>
         </nz-breadcrumb-item>
