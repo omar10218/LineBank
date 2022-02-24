@@ -239,7 +239,7 @@ export class F01008scn1Component implements OnInit {
         jsonObject['custId'] = this.custId;
         this.block = true;
         this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-          console.log(data)
+
           this.router.navigate(['./F01008']);
           this.block = false;
         })
@@ -254,7 +254,7 @@ export class F01008scn1Component implements OnInit {
     jsonObject['afterResult'] = sessionStorage.getItem('afterResult').length > 2 ? '' : sessionStorage.getItem('afterResult');
     jsonObject['researchDate'] = sessionStorage.getItem('researchDate');
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      console.log(data)
+
       let childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
       });
