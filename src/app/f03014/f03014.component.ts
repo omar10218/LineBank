@@ -201,10 +201,12 @@ export class F03014Component implements OnInit {
 
     this.f03014Service.selectCustomer(url, jsonObject).subscribe(data => {
 
-      if (data.rspBody.size === 0) {
+      if (data.rspBody.size === 0)
+      {
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         });
+        this.ruleParamCondition=null;
       }
       else {
         this.ruleParamCondition = data.rspBody.item;
@@ -235,21 +237,17 @@ export class F03014Component implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-
       if (result.event != null )
-
       {
+        this.IdentityValue =result.event;
+
+
         // this.IdentityValue=result.event;
         if (this.NameValue == '' && this.IdentityValue == '' && this.NarrateValue == '' &&
           this.Efficient == null && this.Invalidation == null && this.usingValue == '') {
 
         }
-        else {
-
-            this.search();
-
-
-        }
+        this.search();
       }
     });
   }
@@ -294,6 +292,11 @@ export class F03014Component implements OnInit {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
+
+      if(result.event=='success')
+      {
+        this.search();
+      }
 
     });
   }
