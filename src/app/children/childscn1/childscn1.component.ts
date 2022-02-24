@@ -746,9 +746,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
         value.approveInterest = Number(value.interestBase) + Number(value.interest);
       }
 
-      if (Number(value.approveInterest) > 100) {
+      if (Number(value.approveInterest) > 16) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: '利率不得超過100%!' }
+          data: { msgStr: '利率不得超過16%!' }
         });
         childernDialogRef.afterClosed().subscribe(result => {
           if (result.event == 'success') {
@@ -803,9 +803,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
     }
 
     if (value.interest.includes(".")) {
-      if (value.interest.split(".")[1].length > 2 || value.interest.split(".")[0].length > 2) {
+      if (value.interest.split(".")[1].length > 2) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: '利率請輸入至小數點第二位或不得超過100%!' }
+          data: { msgStr: '利率請輸入至小數點第二位!' }
         });
         childernDialogRef.afterClosed().subscribe(result => {
           if (result.event == 'success') {
@@ -830,9 +830,31 @@ export class Childscn1Component implements OnInit, OnDestroy {
       value.approveInterest = (Number(value.interestBase) * 1000 + Number(value.interest) * 1000) / 1000;
     }
 
-    if (Number(value.approveInterest > 100)) {
+    if (value.approveInterest.toString().includes(".")) {
+      if (Number(value.approveInterest > 16)) {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '利率不得超過16%!' }
+        });
+        childernDialogRef.afterClosed().subscribe(result => {
+          if (result.event == 'success') {
+            value.interest = '';
+            if (value.interestBase == '') {
+              value.approveInterest = value.interest;
+            } else {
+              value.approveInterest = value.interestBase;
+            }
+            sessionStorage.setItem('approveInterest' + value.seq, value.approveInterest);
+            sessionStorage.setItem('interest' + value.seq, value.interest);
+            sessionStorage.setItem('interestBase' + value.seq, value.interestBase != '' ? value.interestBase : '');
+          }
+        });
+        return;
+      }
+    }
+
+    if (Number(value.approveInterest > 16)) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '利率不得超過100%!' }
+        data: { msgStr: '利率不得超過16%!' }
       });
       childernDialogRef.afterClosed().subscribe(result => {
         if (result.event == 'success') {
