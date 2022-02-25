@@ -114,7 +114,11 @@ export class Childscn28Component implements OnInit {
       jsonObject['emailTitle'] = this.emailTitle;
       jsonObject['messageContent'] = this.content;
       this.childscn28Service.postJson(baseUrl, jsonObject).subscribe(data => {
-        msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
+        if (data.rspCode = '9999') {
+          msgStr = data.rspMsg;
+        } else {
+          msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
+        }
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
         });

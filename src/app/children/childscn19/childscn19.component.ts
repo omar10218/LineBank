@@ -108,9 +108,9 @@ export class Childscn19Component implements OnInit {
       }
     });
     this.getRescanList();         //取該案件補件資訊
-    if(this.flag == 'Y'){
+    if (this.flag == 'Y') {
       this.getSmsData()
-    }else{
+    } else {
       this.getSmsList(); //取該案件簡訊發送資訊
     }
   }
@@ -200,7 +200,11 @@ export class Childscn19Component implements OnInit {
         jsonObject['mobile'] = this.mobile;
         jsonObject['realSmsTime'] = this.pipe.transform(this.realSmsTime, 'yyyyMMdd') + this.pipe.transform(this.mytime, 'HHmm');
         await this.childscn19Service.postJson(baseUrl, jsonObject).subscribe(data => {
-          msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
+          if (data.rspCode = '9999') {
+            msgStr = data.rspMsg;
+          } else {
+            msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
+          }
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: msgStr }
           });
@@ -230,9 +234,9 @@ export class Childscn19Component implements OnInit {
     this.ii = [];
     this.send = true;
     let jsonObject: any = {};
-    if(this.flag == 'Y'){
+    if (this.flag == 'Y') {
       jsonObject['applno'] = this.swcApplno;
-    }else{
+    } else {
       jsonObject['applno'] = this.applno;
     }
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
@@ -251,8 +255,7 @@ export class Childscn19Component implements OnInit {
         }
 
         for (let index = 0; index < data.rspBody.items.length; index++) {
-          if(data.rspBody.items[index].IMAGE_DATE ==undefined )
-          {
+          if (data.rspBody.items[index].IMAGE_DATE == undefined) {
             if (index == data.rspBody.items.length - 1) {
               this.remarkContent = this.remarkContent + data.rspBody.items[index].RESCAN_ITEM + '(' + data.rspBody.items[index].RESCAN_TYPE + ')。';
             } else {
@@ -304,20 +307,20 @@ export class Childscn19Component implements OnInit {
   };
 
 
-  getSmsData(){
-      const baseUrl = 'f01/childscn19action4';
-      let jsonObject: any = {};
-      jsonObject['applno'] = this.swcApplno;
-      this.childscn19Service.postJson(baseUrl, jsonObject).subscribe(data => {
-        this.smsDataSource = data.rspBody.items;
-        if (this.mobile == null || this.mobile == "") {
-          this.mobile = data.rspBody.phone;
-        }
-      });
-      // this.childscn19Service.getSmsSearch(applno).subscribe(data => {
-      //   this.smsDataSource = data.rspBody.items;
-      // })
-    };
+  getSmsData() {
+    const baseUrl = 'f01/childscn19action4';
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.swcApplno;
+    this.childscn19Service.postJson(baseUrl, jsonObject).subscribe(data => {
+      this.smsDataSource = data.rspBody.items;
+      if (this.mobile == null || this.mobile == "") {
+        this.mobile = data.rspBody.phone;
+      }
+    });
+    // this.childscn19Service.getSmsSearch(applno).subscribe(data => {
+    //   this.smsDataSource = data.rspBody.items;
+    // })
+  };
 
   //刪除該案件補件資訊
   public async delRescan(ID: string): Promise<void> {
@@ -366,8 +369,7 @@ export class Childscn19Component implements OnInit {
       jsonObject2['applno'] = this.data.applno;
       this.childscn19Service.setrepair(url, jsonObject).subscribe(data => {
         this.block = true;
-        if (data.rspMsg == '成功')
-        {
+        if (data.rspMsg == '成功') {
           this.childscn19Service.setrepair(u, jsonObject2).subscribe(data => {
             const childernDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: data.rspMsg }
@@ -384,8 +386,7 @@ export class Childscn19Component implements OnInit {
           }
           this.dialogRef.close();
         }
-        else
-        {
+        else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: data.rspMsg }
           });
