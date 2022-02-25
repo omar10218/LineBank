@@ -291,7 +291,16 @@ export class F01014scn1Component implements OnInit {
           data: { msgStr: data.rspMsg }
         });
       }
-      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { } else {
+      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { }
+      else if(data.rspMsg.includes('該案客戶已取消'))
+      {
+        setTimeout(() => {
+          childernDialogRef.close();
+        }, 1000);
+        setTimeout(() => {
+          this.router.navigate(['./F01014']);
+        }, 1500);
+      }else {
         setTimeout(() => {
           childernDialogRef.close();
         }, 1000);

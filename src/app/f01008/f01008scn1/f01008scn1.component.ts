@@ -94,6 +94,15 @@ export class F01008scn1Component implements OnInit {
                  {
 
                  }
+                 else if(data.rspMsg.includes('該案客戶已取消'))
+                 {
+                   setTimeout(() => {
+                     childernDialogRef.close();
+                   }, 1000);
+                   setTimeout(() => {
+                     this.router.navigate(['./F01008']);
+                   }, 1500);
+                 }
                  else
                   {
                   setTimeout(() => {

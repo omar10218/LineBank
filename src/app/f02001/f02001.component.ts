@@ -105,6 +105,10 @@ export class F02001Component implements OnInit {
         this.pageIndex = pageIndex;
         this.selectData(pageIndex, this.pageSize,this.order,this.sor);}
       }
+      const element = document.querySelector('box');
+      element.scrollIntoView();
+
+
   }
   changePage() {
     this.pageIndex = 1;
@@ -247,8 +251,7 @@ export class F02001Component implements OnInit {
     this.jsonObject['projectName'] = this.project_NAME;//專案名稱
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
     this.jsonObject['approveAmt'] = '';//核准金額/額度
-    console.log( this.jsonObject['page'])
-    console.log( this.jsonObject['per_page'])
+
     if(na=='')
     {
       this.jsonObject['orderByValue'] = na;
@@ -426,7 +429,6 @@ export class F02001Component implements OnInit {
 
       }
       else {
-        console.log(data)
         this.resultData = data.rspBody.item;
         this.total = data.rspBody.size;
         this.quantity = data.rspBody.size;
@@ -508,7 +510,10 @@ export class F02001Component implements OnInit {
         data: { msgStr: "請至少選擇一項條件" }
       });
     } else {
+
       this.selectData(this.pageIndex, this.pageSize,'','');
+      this.sortChange('ascend','APPLYEND_TIME')
+
     }
   }
   // sortChange(e: string) {
@@ -550,6 +555,7 @@ export class F02001Component implements OnInit {
         e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
         break;
     }
+
   }
 
   dateNull(t: [Date, Date], name: string) {
@@ -591,4 +597,4 @@ export class F02001Component implements OnInit {
     }
     return codeVal;
   }
-}
+ }
