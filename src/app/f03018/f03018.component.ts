@@ -68,6 +68,9 @@ export class F03018Component implements OnInit {
   }
 
   getTypeselect() {
+
+    this.cuCpType1Code=[];
+    this.cuCpType2Code=[];
     const url = "f03/f03018";
     let jsonObject: any = {}
     this.cuCpType1Code.push({value:'', viewValue: '請選擇' })
@@ -114,7 +117,8 @@ export class F03018Component implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && result.event == 'success') {
-        this.getElBigCompanyList(this.pageIndex, this.pageSize)
+        // this.getElBigCompanyList(this.pageIndex, this.pageSize)
+        this. getTypeselect();
       }
     })
   }
@@ -186,6 +190,7 @@ export class F03018Component implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && (result.event == 'success' || result == '1')) {
         this.getElBigCompanyList(this.pageIndex, this.pageSize)
+
       }
     })
   }

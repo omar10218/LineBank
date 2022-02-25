@@ -52,7 +52,8 @@ export class F03018uploadComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+
+    this.dialogRef.close({ event: 'success' });
   }
 
   submit() {
