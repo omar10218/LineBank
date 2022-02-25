@@ -64,26 +64,26 @@ interface checkBox {
 })
 export class F04002Component implements OnInit {
 
-  pagCode= [
+  pagCode = [
     { value: '1', label: '徵審' },
     { value: '2', label: '覆審' },
   ];
   sysCode: OptionsCode[] = [];
   selectedValue: string;
-  selectedPagValue:string
+  selectedPagValue: string
   isAllCheck: boolean = false;
   roleFunctionSource = new MatTableDataSource<any>();
   level: string;   // 目前關卡
-  pag:string;
+  pag: string;
   i = 0;
   chkArray: checkBox[] = [];
 
   constructor(private f04002Service: F04002Service,
-     public dialog: MatDialog,
-     private nzI18nService: NzI18nService,
-   ) {
-     this.nzI18nService.setLocale(zh_TW)
-   }
+    public dialog: MatDialog,
+    private nzI18nService: NzI18nService,
+  ) {
+    this.nzI18nService.setLocale(zh_TW)
+  }
 
 
   total = 1;
@@ -104,12 +104,12 @@ export class F04002Component implements OnInit {
     //   }
     // });
   }
-  ngAfterViewInit():void{
+  ngAfterViewInit(): void {
   }
 
   //選擇關卡
-  choosePoint(){
-    if(this.selectedPagValue=='1'){
+  choosePoint() {
+    if (this.selectedPagValue == '1') {
 
       this.f04002Service.getSysTypeCode('STEP_ERROR').subscribe(data => {
         this.sysCode.push({ value: '', viewValue: '請選擇' })
@@ -120,7 +120,7 @@ export class F04002Component implements OnInit {
         }
       });
     }
-    else if(this.selectedPagValue=='2'){
+    else if (this.selectedPagValue == '2') {
 
       this.f04002Service.getSysTypeCode('BW_STEP_ERROR').subscribe(data => {
         this.sysCode.push({ value: '', viewValue: '請選擇' })
@@ -131,7 +131,7 @@ export class F04002Component implements OnInit {
         }
       });
     }
-    this.sysCode=[]
+    this.sysCode = []
   }
   //重查
   newSearch() {
@@ -151,11 +151,14 @@ export class F04002Component implements OnInit {
           data: { msgStr: data.rspMsg }
         });
         if (data.rspCode == '0000') {
-          this.getSTEP_ERRORFunction(this.pageIndex,this.pageSize);
+          if (this.pageIndex == (((this.total - valArray.length) / 10) + 1) && (((this.total - valArray.length) / 10) + 1) > 0) {
+            this.getSTEP_ERRORFunction(this.pageIndex - 1, this.pageSize);
+          } else {
+            this.getSTEP_ERRORFunction(this.pageIndex, this.pageSize);
+          }
         }
       });
     }
-
   }
   //婉拒
   Decline() {
@@ -171,14 +174,20 @@ export class F04002Component implements OnInit {
     else {
       const baseUrl = 'f04/f04002fn2';
       var result = "D";
-      if(this.selectedValue == 'CSS_MANAGE'){ result = "P" ;}
+      if (this.selectedValue == 'CSS_MANAGE') { result = "P"; }
 
       this.f04002Service.newSearch_Decline_STEP_ERRORFunction(baseUrl, this.selectedValue, valArray, result).subscribe(data => {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: data.rspMsg }
         });
         if (data.rspCode == '0000') {
-          this.getSTEP_ERRORFunction(this.pageIndex,this.pageSize);
+          if (this.pageIndex == (((this.total - valArray.length) / 10) + 1) && (((this.total - valArray.length) / 10) + 1) > 0) {
+            this.getSTEP_ERRORFunction(this.pageIndex - 1, this.pageSize);
+            console.log('this.pageIndex-1');
+          } else {
+            console.log('this.pageIndex');
+            this.getSTEP_ERRORFunction(this.pageIndex, this.pageSize);
+          }
         }
       });
     }
@@ -194,19 +203,17 @@ export class F04002Component implements OnInit {
   //切換查詢參數
   async changeSelect() {
     this.isAllCheck = false;
-    await this.getSTEP_ERRORFunction(this.pageIndex,this.pageSize);
+    await this.getSTEP_ERRORFunction(this.pageIndex, this.pageSize);
   }
 
   //切換頁數
   onQueryParamsChange(params: NzTableQueryParams): void {
-    if(this.i>0)
-    {
+    if (this.i > 0) {
       const { pageSize, pageIndex } = params;
-      this.pageSize=pageSize;
-      this.pageIndex=pageIndex;
+      this.pageSize = pageSize;
+      this.pageIndex = pageIndex;
       this.getSTEP_ERRORFunction(pageIndex, pageSize);
     }
-    //console.log(pageSize);console.log(pageIndex);
   }
 
 
@@ -214,33 +221,18 @@ export class F04002Component implements OnInit {
 
   //取得表單
   private async getSTEP_ERRORFunction(pageIndex: number, pageSize: number) {
-    this.i=1;
+    this.i = 1;
     const baseUrl = 'f04/f04002fn1';
-    this.f04002Service.getSTEP_ERRORFunction(baseUrl, this.selectedValue, this.pageIndex , this.pageSize).subscribe(data => {
-
-      // data.rspBody.items=dataList;
-      if (this.chkArray.length > 0)
-      {
-        let i: number = 0;
-        for (const jsonObj of data.rspBody.items) {
-          const chkValue = jsonObj['applno'];
-          const isChk = jsonObj['IS_CHK'];
-          this.chkArray[i] = { value: chkValue, completed: isChk == 'N' };
-          i++;
-        }
-
-      } else {
-        for (const jsonObj of data.rspBody.items) {
-          const chkValue = jsonObj['applno'];
-          const isChk = jsonObj['IS_CHK'];
-          this.chkArray.push({ value: chkValue, completed: isChk == 'N' });
-        }
+    this.f04002Service.getSTEP_ERRORFunction(baseUrl, this.selectedValue, pageIndex, pageSize).subscribe(data => {
+      this.chkArray = [];
+      for (const jsonObj of data.rspBody.items) {
+        const chkValue = jsonObj['applno'];
+        const isChk = jsonObj['IS_CHK'];
+        this.chkArray.push({ value: chkValue, completed: isChk == 'N' });
       }
       this.roleFunctionSource.data = data.rspBody.items;
       this.total = data.rspBody.size;
       this.isAllCheck = false;
-      // this.loading = false;
     });
   }
-
 }
