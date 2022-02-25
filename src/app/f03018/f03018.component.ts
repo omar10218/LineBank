@@ -74,6 +74,7 @@ export class F03018Component implements OnInit {
     this.cuCpType2Code.push({ value:'',viewValue: '請選擇' })
 
     this.f03018Service.getValueTypeselect(url, jsonObject).subscribe(data => {
+
       for (const jsonObj of data.rspBody.cuCpType1) {
 
         if (jsonObj != null) {
@@ -138,23 +139,21 @@ export class F03018Component implements OnInit {
       jsonObject['cuCpName'] = this.cuCpName ;
       jsonObject['cuCpSname'] = this.cuCpSname ;
       jsonObject['cuCpType1'] = this.cuCpType1Value;
-      jsonObject['cuCpType2'] = this.cuCpType2Value  ;
+      jsonObject['cuCpType2'] = this.cuCpType2Value ;
       jsonObject['useFlag'] = this.useFlagValue ;
       this.f03018Service.getElBigCompanyList(baseUrl, jsonObject).subscribe(data => {
         if (data.rspBody.size != 0) {
           this.cuCpSource = data.rspBody.items;
           this.total = data.rspBody.size;
           this.firstFlag = 2;
-          const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "查詢成功" }
-            });
+
         }
         else{
 
             const confirmDialogRef = this.dialog.open(ConfirmComponent, {
               data: { msgStr: "查無項目" }
               });
-              // this.Clear()
+
         }
       })
     }
@@ -162,9 +161,8 @@ export class F03018Component implements OnInit {
 
   // 編輯
   edit(isUpdate: boolean, row: any, rowId: string) {
-    // console.log("1111111111111  ")
-    // console.log(row.cuCpType1)
-    // console.log(row.cuCpType3)
+
+
     const dialogRef = this.dialog.open(F03018editComponent,
       {
       panelClass: 'mat-dialog-transparent',

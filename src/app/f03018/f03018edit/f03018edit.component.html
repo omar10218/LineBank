@@ -16,7 +16,7 @@
                 <div nz-col nzSpan="8">
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">公司名稱</span>
-                            <input matInput #input class="form-control" [(ngModel)]="cuCpName" name="cuCpName" maxlength="20">
+                            <input matInput #input class="form-control" [(ngModel)]="cuCpName" name="cuCpName" maxlength="20" required>
                             <!-- <mat-error *ngIf="formControl.invalid && (data.codeNo=='' || data.codeNo== null) ">
                                 {{getErrorMessage()}}</mat-error> -->
                         </div>
@@ -27,8 +27,8 @@
                         <div><span class="form-title-actions">公司簡稱</span>
                             <input matInput #input class="form-control" [(ngModel)]="cuCpSname" name="cuCpSname" maxlength="20"
                                 required>
-                            <!-- <mat-error *ngIf="formControl.invalid && (data.codeDesc=='' || data.codeDesc== null) ">
-                                {{getErrorMessage()}}</mat-error> -->
+                            <mat-error *ngIf="formControl.invalid && (cuCpSname=='' || cuCpSname== null) ">
+                                {{getErrorMessage()}}</mat-error>
                         </div>
                     </div>
                 </div>
@@ -38,37 +38,39 @@
                     <div class="form" style="padding:20px">
                         <div>
                             <span class="form-title-actions">分類1</span>
-                            <mat-select [(ngModel)]="cuCpType1Value" name="cuCpType1Value">
-                                <mat-option *ngFor="let code of cuCpType1Code" [value]="code.viewValue">
+                            <mat-select [(ngModel)]="cuCpType1Value" name="cuCpType1Value "required>
+                                <mat-option *ngFor="let code of cuCpType1Code" [value]="code.value">
                                     {{code.viewValue}}
                                 </mat-option>
                             </mat-select>
-                            <!-- <mat-error *ngIf="formControl.invalid && (data.codeFlag=='' || data.codeFlag== null) ">
-                                {{getErrorMessage()}}</mat-error> -->
+                            <mat-error *ngIf="formControl.invalid && (cuCpType1Value=='' || cuCpType1Value== null) ">
+                              {{getErrorMessage()}}</mat-error>
                         </div>
                     </div>
                 </div>
                 <div nz-col nzSpan="8">
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">分類2</span>
-                            <mat-select [(ngModel)]="cuCpType2Value" name="cuCpType2Value">
-                                <mat-option *ngFor="let code of cuCpType2Code"  [value]="code.viewValue">
+                            <mat-select [(ngModel)]="cuCpType2Value" name="cuCpType2Value" >
+                                <mat-option *ngFor="let code of cuCpType2Code"  [value]="code.value">
                                     {{code.viewValue}}
                                 </mat-option>
                             </mat-select>
-                            <!-- <mat-error *ngIf="formControl.invalid && (data.codeFlag=='' || data.codeFlag== null) ">
-                                {{getErrorMessage()}}</mat-error> -->
+                            <!-- <mat-error *ngIf="formControl.invalid && (cuCpType2Value=='' || cuCpType2Value== null) ">
+                              {{getErrorMessage()}}</mat-error> -->
                         </div>
                     </div>
                 </div>
                 <div nz-col nzSpan="8">
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">使用中</span>
-                          <mat-select [(ngModel)]="useFlagValue" name="useFlagValue">
+                          <mat-select [(ngModel)]="useFlagValue" name="useFlagValue" required>
                             <mat-option *ngFor="let code of useFlagCode"  [value]="code.value">
                                 {{code.viewValue}}
                             </mat-option>
                         </mat-select>
+                        <mat-error *ngIf="formControl.invalid && (useFlagValue=='' || useFlagValue== null) ">
+                          {{getErrorMessage()}}</mat-error>
                         </div>
                     </div>
                 </div>
@@ -103,7 +105,7 @@
 
     <div mat-dialog-actions style="margin:0 auto;width:12vw;">
         <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px"
-            (click)="stopEdit()">儲存</button>
+            (click)="stopEdit()" [disabled]="!formControl.valid">儲存</button>
         <button nz-button [nzSize]="'middle'"nzDanger (click)="onNoClick()" tabindex="-1"
             style="margin:0px 5px">取消</button>
     </div>

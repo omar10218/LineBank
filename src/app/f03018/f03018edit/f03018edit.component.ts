@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
@@ -34,28 +35,46 @@ export class F03018editComponent implements OnInit {
     public f03018Service: F03018Service ,
   ) { }
 
+
   ngOnInit(): void {
     this.cuCpNo=this.data.cuCpNo//公司統編
     this.cuCpName=this.data.cuCpName//公司名稱
     // console.log(this.cuCpNo)
     this.cuCpSname=this.data.cuCpSname//公司簡稱
-    this.cuCpType1Value=this.data.cuCpType1Value//類別1值
-    this.cuCpType2Value=this.data.cuCpType2Value != null? this.data.cuCpType2Value:'';  //類別2值
-    this.cuCpType3Value=this.data.cuCpType3Value//類別3值
-    this.useFlagValue=this.data.useFlagValue//使用中值
+    this.cuCpType1Value=this.data.cuCpType1Value ==null?'': this.data.cuCpType1Value//類別1值
+    this.cuCpType2Value=this.data.cuCpType2Value ==null?'': this.data.cuCpType2Value //類別2值
+    this.cuCpType3Value=this.data.cuCpType3Value ==null?'': this.data.cuCpType3Value//類別3值
+    this.useFlagValue=this.data.useFlagValue ==null?'': this.data.useFlagValue//使用中值
     this.codeTag=this.data.content//備註值
     this.cuCpType1Code=this.data.cuCpType1Code;//類別1下拉
     this.cuCpType2Code=this.data.cuCpType2Code;//類別2下拉
     this.useFlagCode= this.data.useFlagCode;
-    console.log("1111111111111")
-    console.log(this.data.cuCpType1Value)
-    console.log(this.data.cuCpType2Value)
-    console.log(this.data.cuCpType3Value)
-    console.log(this.data.useFlagValue)
-  }
 
+  }
+  formControl = new FormControl('', [
+    Validators.required
+  ]);
+ //欄位驗證
+ getErrorMessage() {
+  return this.formControl.hasError('required') ? '此欄位必填!' :
+    this.formControl.hasError('email') ? 'Not a valid email' :
+      '';
+}
   //儲存
   public async stopEdit(): Promise<void>  {
+
+    if (this.cuCpNo != null)
+    {
+      if (this.cuCpNo.length < 8)
+      {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "公司統編長度不正確" }
+        });
+        return
+      }
+
+    }
+
     let msgStr: string = "";
     let jsonObject: any = {}
     const url  = 'f03/f03018action1';
