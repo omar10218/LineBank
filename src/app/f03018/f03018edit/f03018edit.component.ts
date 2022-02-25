@@ -11,15 +11,15 @@ import { F03018Service } from '../f03018.service';
   styleUrls: ['./f03018edit.component.css', '../../../assets/css/f03.css']
 })
 export class F03018editComponent implements OnInit {
-  cuCpNo: string //公司統編
-  cuCpName: string //公司名稱
-  cuCpSname: string //公司簡稱
-  cuCpType1Value: string //分類1
-  cuCpType2Value: string //分類2
-  cuCpType3Value:string//分類3
-  useFlagValue: string //使用中
-  codeTag:string //備註
-  
+  cuCpNo: string='' //公司統編
+  cuCpName: string='' //公司名稱
+  cuCpSname: string='' //公司簡稱
+  cuCpType1Value: string='' //分類1
+  cuCpType2Value: string =''//分類2
+  cuCpType3Value:string=''//分類3
+  useFlagValue: string =''//使用中
+  codeTag:string='' //備註
+
   cuCpSource = new MatTableDataSource<any>() //千大企業Table
 
   cuCpType1Code: OptionsCode[] = [] //分類1
@@ -35,29 +35,25 @@ export class F03018editComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.oldCompareTable = this.data.compareTable
-    this.getData()
-    console.log(this.data.rowID)
+    this.cuCpNo=this.data.cuCpNo//公司統編
+    this.cuCpName=this.data.cuCpName//公司名稱
+    // console.log(this.cuCpNo)
+    this.cuCpSname=this.data.cuCpSname//公司簡稱
+    this.cuCpType1Value=this.data.cuCpType1Value//類別1值
+    this.cuCpType2Value=this.data.cuCpType2Value != null? this.data.cuCpType2Value:'';  //類別2值
+    this.cuCpType3Value=this.data.cuCpType3Value//類別3值
+    this.useFlagValue=this.data.useFlagValue//使用中值
+    this.codeTag=this.data.content//備註值
+    this.cuCpType1Code=this.data.cuCpType1Code;//類別1下拉
+    this.cuCpType2Code=this.data.cuCpType2Code;//類別2下拉
+    this.useFlagCode= this.data.useFlagCode;
+    console.log("1111111111111")
+    console.log(this.data.cuCpType1Value)
+    console.log(this.data.cuCpType2Value)
+    console.log(this.data.cuCpType3Value)
+    console.log(this.data.useFlagValue)
   }
 
-getData(){
-this.cuCpNo=this.data.cuCpNo//公司統編
-this.cuCpName=this.data.cuCpName//公司名稱
-console.log(this.cuCpNo)
-this.cuCpSname=this.data.cuCpSname//公司簡稱
-this.cuCpType1Value=this.data.cuCpType1Value//類別1值
-this.cuCpType2Value=this.data.cuCpType2Value//類別2值
-console.log(this.cuCpType2Value)
-this.cuCpType3Value=this.data.cuCpType3Value//類別3值
-console.log(this.data.cuCpType3Value)
-this.useFlagValue=this.data.useFlagValue//使用中值
-this.codeTag=this.data.content//備註值
-this.cuCpType1Code=this.data.cuCpType1Code;//類別1下拉
-this.cuCpType2Code=this.data.cuCpType2Code;//類別2下拉
-
-console.log(this.cuCpType1Code)
-console.log(this.cuCpType2Code)
-}
   //儲存
   public async stopEdit(): Promise<void>  {
     let msgStr: string = "";
@@ -72,10 +68,10 @@ console.log(this.cuCpType2Code)
     jsonObject['useFlag'] = this.useFlagValue
     jsonObject['content'] = this.codeTag
     jsonObject['rid'] = this.data.rowID
-    console.log()
-    
+
+
      await this.f03018Service.oneseve(url,jsonObject).subscribe(data => {
-       console.log(data)
+
       let msgStr = '';
       msgStr = (data.rspCode === '0000' && data.rspMsg === 'success') ? '儲存成功！' : '儲存失敗！';
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -93,6 +89,6 @@ console.log(this.cuCpType2Code)
    onNoClick(): void {
     this.dialogRef.close();
   }
- 
+
 }
 
