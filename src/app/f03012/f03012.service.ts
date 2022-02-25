@@ -51,7 +51,7 @@ export class F03012Service extends BaseService {
 		formdata.append('compareTable', data.compareTable)
 		formdata.append('compareColumn', data.compareColumn)
 		formdata.append('compareType', compareType)
-		if(compareType=="1"){
+		if(compareType=="2"){
 			formdata.append('setValueLow', this.Cut(setValueLow))
 		}else{
 			formdata.append('setValueLow', this.Cut(setValueLow))
