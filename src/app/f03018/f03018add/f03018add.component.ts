@@ -110,7 +110,7 @@ export class F03018addComponent implements OnInit {
 
 
   public async onesave(): Promise<void> {
-    if (this.cuCpNo != null)
+    if (this.cuCpNo != null && this.cuCpNo != '')
     {
       if (this.cuCpNo.length < 8)
       {
