@@ -17,8 +17,8 @@
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">公司名稱</span>
                             <input matInput #input class="form-control" [(ngModel)]="cuCpName" name="cuCpName" maxlength="20" required>
-                            <!-- <mat-error *ngIf="formControl.invalid && (data.codeNo=='' || data.codeNo== null) ">
-                                {{getErrorMessage()}}</mat-error> -->
+                            <mat-error *ngIf="formControl.invalid && (data.codeNo=='' || data.codeNo== null) ">
+                                {{getErrorMessage()}}</mat-error>
                         </div>
                     </div>
                 </div>
@@ -26,9 +26,9 @@
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">公司簡稱</span>
                             <input matInput #input class="form-control" [(ngModel)]="cuCpSname" name="cuCpSname" maxlength="20"
-                                required>
-                            <mat-error *ngIf="formControl.invalid && (cuCpSname=='' || cuCpSname== null) ">
-                                {{getErrorMessage()}}</mat-error>
+                                >
+                            <!-- <mat-error *ngIf="formControl.invalid && (cuCpSname=='' || cuCpSname== null) ">
+                                {{getErrorMessage()}}</mat-error> -->
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                 <div nz-col nzSpan="24">
                     <div class="form" style="padding:20px;">
                         <div><span class="form-title-actions">分類3</span>
-                            <textarea matInput class="input-textarea" [(ngModel)]="cuCpType3Value" name="cuCpType3Value" required
+                            <textarea matInput class="input-textarea" [(ngModel)]="cuCpType3Value" name="cuCpType3Value" 
                                 id="textarea"  maxlength="30"></textarea>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                 <div nz-col nzSpan="24">
                     <div class="form" style="padding:20px;">
                         <div><span class="form-title-actions">備註</span>
-                            <textarea matInput class="input-textarea"  [(ngModel)]="codeTag" name="codeTag" required
+                            <textarea matInput class="input-textarea"  [(ngModel)]="codeTag" name="codeTag" 
                                 id="textarea"  maxlength="100"></textarea>
                         </div>
                     </div>

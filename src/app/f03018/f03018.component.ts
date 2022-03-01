@@ -11,6 +11,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { DatePipe } from '@angular/common';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Data } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 interface sysCode {
  value:string
@@ -29,8 +30,13 @@ export class F03018Component implements OnInit {
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<F03015confirmComponent>,
     private datePipe: DatePipe,
+  
     // this.myDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
-  ) { }
+  ) {
+    this.editreset$ = this.f03018Service.editreset$.subscribe((data) => {
+			this.getElBigCompanyList(this.pageIndex, this.pageSize);
+		 })
+   }
 
   cuCpNo: string=''; //公司統編
   cuCpName: string=''; //公司名稱
@@ -56,6 +62,7 @@ export class F03018Component implements OnInit {
   pageSize = 50;
   pageIndex = 1;
   firstFlag = 1;
+	editreset$:Subscription //rxjs訂閱者 
 
   ngOnInit(): void {
     this.empNo = localStorage.getItem("empNo");

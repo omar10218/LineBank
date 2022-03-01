@@ -97,6 +97,7 @@ export class F03018editComponent implements OnInit {
         data: { msgStr: msgStr }
       });
       if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
+      this.f03018Service.resetfn();
       // if (data.rspMsg == '更新成功' && data.rspCode == '0000') {
       // 	this.dialog.open(ConfirmComponent, { data: { msgStr: '儲存成功' } })
 

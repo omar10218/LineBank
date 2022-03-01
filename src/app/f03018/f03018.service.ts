@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { BaseService } from '../base.service';
 import { environment } from 'src/environments/environment';
 @Injectable({
@@ -12,6 +12,15 @@ export class F03018Service extends BaseService {
   selectCustomer(baseUrl: string, formData: FormData): Observable<any> {
     return this.postFormData(baseUrl, formData);
   }
+
+  	//rxjs中繼站
+	private editreset = new Subject<any>();
+	editreset$ = this.editreset.asObservable();
+
+	//rxjs監聽 add頁面更新
+	resetfn(): void {
+		this.editreset.next()
+	}
 
   getReturn(baseUrl: string, jsonObject: JSON): Observable<any> {
     let targetUrl = `${baseUrl}`;

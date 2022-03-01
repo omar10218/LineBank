@@ -117,6 +117,7 @@ export class F03018addComponent implements OnInit {
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "公司統編長度不正確" }
         });
+        this.cuCpNo=null
         return
       }
 
