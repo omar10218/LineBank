@@ -133,7 +133,6 @@ export class F03018addComponent implements OnInit {
     jsonObject['useFlag'] = this.useFlagValue;
     jsonObject['content'] = this.content;
     let msgStr: string = "";
-    console.log(jsonObject)
     msgStr = await this.f03018Service.onesave(jsonObject);
     if (msgStr == 'success') {
       msgStr = '儲存成功！'
