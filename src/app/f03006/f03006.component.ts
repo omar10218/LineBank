@@ -430,11 +430,12 @@ export class F03006Component implements OnInit {
       return;
     }
     let msgStr: string = "";
-    let baseUrl = '/f03/f03006action10';
+    let baseUrl = 'f03/f03006action10';
     let jsonObject: any = {};
     jsonObject['empPassword'] = this.password;
     this.f03006Service.saveReason(baseUrl, jsonObject).then((data: any) => {
       msgStr = data.rspMsg;
+      if (data.rspCode == '0000') { this.password = ''; }
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
