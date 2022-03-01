@@ -24,6 +24,11 @@ export class F03006Service extends BaseService {
     return this.postJsonObject(targetUrl, json).pipe(map(res => res));
   }
 
+  //儲存密碼
+  public async saveReason(baseUrl: string, json: JSON): Promise<Observable<any>> {
+    return await this.postJsonObject(baseUrl, json).toPromise();
+  }
+
   //新增修改
   addorEditSystemCodeSet(baseUrl: string, data: any): any {
     let jsonObject: any = {};

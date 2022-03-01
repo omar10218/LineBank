@@ -65,6 +65,9 @@ export class F03006Component implements OnInit {
   empPrjSource = new MatTableDataSource<RoleItem>() //專案Table
   empAmtSource = new MatTableDataSource<RoleItem>() //產品Table
 
+
+  password = "";
+
   ngOnInit(): void {
     this.getEmployeeList(this.pageIndex, this.pageSize)
 
@@ -414,4 +417,28 @@ export class F03006Component implements OnInit {
     this.pageSize = 10
     this.total = 1
   }
+
+  getMaintainerSuccess() {
+    return sessionStorage.getItem("maintainerSuccess");
+  }
+
+  async editPassword() {
+    if (this.password == null || this.password == undefined || this.password == '') {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請輸入修改密碼' }
+      });
+      return;
+    }
+    let msgStr: string = "";
+    let baseUrl = '/f03/f03006action10';
+    let jsonObject: any = {};
+    jsonObject['empPassword'] = this.password;
+    this.f03006Service.saveReason(baseUrl, jsonObject).then((data: any) => {
+      msgStr = data.rspMsg;
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: msgStr }
+      });
+    });
+  }
+
 }

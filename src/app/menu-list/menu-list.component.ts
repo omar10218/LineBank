@@ -67,7 +67,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     //Nick 設定同時只能登入一個帳號
     window.addEventListener("storage", (e) => { //監聽帳號
-      if (localStorage.getItem('oldToken') != null ) {
+      if (localStorage.getItem('oldToken') != null) {
         this.commonLogOut();
       }
     });
@@ -93,7 +93,12 @@ export class MenuListComponent implements OnInit, OnDestroy {
     clearInterval(this.intervalRef);
   }
 
-  getMenu(): Menu[] { return this.menuListService.getMap(); }
+  getMenu(): Menu[] {
+    if (sessionStorage.getItem("maintainerSuccess") != null) {
+      return [];
+    }
+    return this.menuListService.getMap();
+  }
   returnZero() { return 0; }
 
   goHome() {

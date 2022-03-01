@@ -68,14 +68,25 @@ export class LoginComponent implements OnInit {
 
     let chkTicket: string = (this.ticket != null && this.ticket.length > 0) ? this.ticket : '';
     if ('local' == this.from || 'rstn' == this.from || 'dev' == this.from) { chkTicket = ''; }
-    if (await this.loginService.initData(this.no, this.pwd, chkTicket)) {
+    let rspCode = await this.loginService.initData(this.no, this.pwd, chkTicket);
+    if (rspCode == '0000') {
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();
       localStorage.setItem("loginKey", 'change');
       localStorage.removeItem('loginKey');
       localStorage.setItem("empNo", this.no);
-    } else {
-      if (this.pwd != null || this.pwd != "") {
+      sessionStorage.removeItem("maintainerSuccess");
+    } else if (rspCode == '8888') {
+      this.router.navigate(['./F03006'], { queryParams: { empNo: this.no } });
+      this.loginService.setBnIdle();
+      localStorage.setItem("loginKey", 'change');
+      localStorage.removeItem('loginKey');
+      localStorage.setItem("empNo", this.no);
+      sessionStorage.setItem("maintainerSuccess", 'Y');
+    }
+    else {
+      sessionStorage.removeItem("maintainerSuccess");
+      if (this.pwd != null && this.pwd != "") {
         alert('帳號或密碼有誤!');
       } else {
         alert('帳號有誤!');

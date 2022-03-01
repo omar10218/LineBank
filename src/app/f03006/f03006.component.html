@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <div nz-row>
+    <div nz-row *ngIf="getMaintainerSuccess()== null">
       <div nz-col nzSpan="6">
         <div style="padding:10px"><span class="form-title">請假迄日：</span>
           <nz-date-picker style="display:block" [(ngModel)]="levelStartDateString" name="levelStartDateString">
@@ -82,10 +82,54 @@
         </div>
       </div>
     </div>
+
+    <div nz-row *ngIf="getMaintainerSuccess()!= null">
+      <div nz-col nzFlex="6">
+        <div style="padding:10px"><span class="form-title">請假迄日：</span>
+          <nz-date-picker style="display:block" [(ngModel)]="levelStartDateString" name="levelStartDateString">
+          </nz-date-picker>
+        </div>
+      </div>
+
+      <div nz-col nzFlex="6">
+        <div style="padding:10px"><span class="form-title">請假起日種類：</span>
+          <mat-select [(ngModel)]="levelStartDateTypeValue" name="levelStartDateTypeValue">
+            <mat-option *ngFor="let code of levelStartDateTypeCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div nz-col nzFlex="6">
+        <div style="padding:10px"><span class="form-title">請假迄日：</span>
+          <nz-date-picker style="display:block" [(ngModel)]="levelEndDateString" name="levelEndDateString">
+          </nz-date-picker>
+        </div>
+      </div>
+
+      <div nz-col nzFlex="6">
+        <div style="padding:10px"><span class="form-title">請假迄日種類：</span>
+          <mat-select [(ngModel)]="levelEndDateTypeValue" name="levelEndDateTypeValue">
+            <mat-option *ngFor="let code of levelEndDateTypeCode" [value]="code.value">
+              {{code.viewValue}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+
+      <div nz-col nzFlex="6">
+        <div style="padding:10px"><span class="form-title">密碼</span><input style="display: block;"
+            [(ngModel)]="password" name="password"></div>
+      </div>
+
+    </div>
+
     <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
       <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
       <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="changeSelect()">查詢</button>
       <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
+      <button *ngIf="getMaintainerSuccess()!= null" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="editPassword()">修改密碼</button>
     </div>
   </div>
 
