@@ -366,7 +366,7 @@ export class F03006Component implements OnInit {
         this.chkArray.push({ value: chkValue, completed: isChk })
       }
       const dialogRef = this.dialog.open(F03006amtComponent, {
-        panelClass: 'mat-dialog-transparent',
+        // panelClass: 'mat-dialog-transparent',
         minHeight: '70vh',
         width: '50%',
         data: { CHECKBOX: this.chkArray, SOURCE: this.empAmtSource.data, empNo: empNo },
