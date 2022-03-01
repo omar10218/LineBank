@@ -16,7 +16,7 @@
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">公司名稱</span>
                             <input matInput #input class="form-control" [(ngModel)]="cuCpName" placeholder="請輸入公司名稱" name="cuCpName" maxlength="20" required>
-                            <mat-error *ngIf="formControl.invalid && (cuCpNo=='' || cuCpNo== null)&& (cuCpName=='' || cuCpName== null)&& (cuCpSname=='' || cuCpSname== null) ">
+                            <mat-error *ngIf="formControl.invalid  && (cuCpName=='' || cuCpName== null) ">
                                 {{getErrorMessage()}}</mat-error>
                         </div>
                     </div>

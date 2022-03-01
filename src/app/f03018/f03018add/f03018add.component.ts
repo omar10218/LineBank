@@ -87,7 +87,7 @@ export class F03018addComponent implements OnInit {
     this.cuCpType2Code.push({ value: '', viewValue: '請選擇' })
 
     this.f03018Service.getValueTypeselect(url, jsonObject).subscribe(data => {
-      console.log(data)
+
       for (const jsonObj of data.rspBody.cuCpType1) {
         if(jsonObj!= null)
         {
@@ -95,7 +95,7 @@ export class F03018addComponent implements OnInit {
           this.cuCpType1Code.push({ value: desc, viewValue: desc })
         }
       }
-      console.log(this.cuCpType1Code)
+
       for (const jsonObj of data.rspBody.cuCpType2) {
         if(jsonObj!= null)
         {
@@ -104,7 +104,7 @@ export class F03018addComponent implements OnInit {
         }
 
       }
-      console.log(this.cuCpType2Code)
+
     });
   }
 
@@ -117,7 +117,7 @@ export class F03018addComponent implements OnInit {
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "公司統編長度不正確" }
         });
-        this.cuCpNo=null
+
         return
       }
 
