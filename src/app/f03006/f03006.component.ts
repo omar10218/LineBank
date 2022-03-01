@@ -429,9 +429,16 @@ export class F03006Component implements OnInit {
       });
       return;
     }
+    if (this.empNoValue == null || this.empNoValue == undefined || this.empNoValue == '') {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請輸入員工編號' }
+      });
+      return;
+    }
     let msgStr: string = "";
     let baseUrl = 'f03/f03006action10';
     let jsonObject: any = {};
+    jsonObject['empNo'] = this.empNoValue;
     jsonObject['empPassword'] = this.password;
     this.f03006Service.saveReason(baseUrl, jsonObject).then((data: any) => {
       msgStr = data.rspMsg;
