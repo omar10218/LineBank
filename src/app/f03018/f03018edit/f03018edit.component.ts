@@ -63,7 +63,7 @@ export class F03018editComponent implements OnInit {
   //儲存
   public async stopEdit(): Promise<void>  {
 
-    if (this.cuCpNo != null)
+    if (this.cuCpNo != null && this.cuCpNo != '')
     {
       if (this.cuCpNo.length < 8)
       {
