@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
     //------------------------------------------------------------------
 
     let chkTicket: string = (this.ticket != null && this.ticket.length > 0) ? this.ticket : '';
-    if ('local' == this.from || 'rstn' == this.from || 'dev' == this.from) { chkTicket = 'pass-ticket-validation'; }
+    if ('local' == this.from || 'rstn' == this.from || 'dev' == this.from) { chkTicket = ''; }
     if (await this.loginService.initData(this.no, this.pwd, chkTicket)) {
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();
