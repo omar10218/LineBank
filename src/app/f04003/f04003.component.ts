@@ -56,6 +56,9 @@ export class F04003Component implements OnInit {
   Transfer: string = '';//轉件
   TransferCode: sysCode[] = [];
   s:string = '';
+  total = 1;
+  pageSize = 10;
+  pageIndex = 1;
   Dispatch()//搜尋派件人員
   {
     this.personnelCode = [];
