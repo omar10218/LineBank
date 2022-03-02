@@ -30,7 +30,7 @@ export class F01015Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   levelNo: any; //層級
-  YNCode: OptionsCode[] = []; //通知客戶
+  YNCode: OptionsCode[ ] = [ {value: '', viewValue: '請選擇'} ]; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
   limitCode: sysCode[] = []; //額度號
