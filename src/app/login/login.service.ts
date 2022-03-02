@@ -60,9 +60,8 @@ export class LoginService extends BaseService {
     return await this.postFormData(baseURL, formData).toPromise();
   }
 
-  public async initData(empNo: string, empPwd: string, ticket: string): Promise<string> {
-    // let isOk: boolean = false;
-    let rspCode = "";
+  public async initData(empNo: string, empPwd: string, ticket: string): Promise<boolean> {
+    let isOk: boolean = false;
     let tokenStr: string = '';
     await this.checkEmpNoPromise(empNo, empPwd, ticket).then((data: any) => {
       if (data.rspCode == '0000') {
@@ -70,8 +69,7 @@ export class LoginService extends BaseService {
         localStorage.setItem("empName", data.rspBody.empName);
         localStorage.setItem("empId", data.rspBody.empId);
       }
-      // isOk = data.rspCode == '0000';
-      rspCode = data.rspCode;
+      isOk = data.rspCode == '0000';
     });
     if (localStorage.getItem('token') != null && tokenStr != localStorage.getItem('token')) {
       localStorage.setItem("oldToken", localStorage.getItem('token'));
@@ -80,7 +78,6 @@ export class LoginService extends BaseService {
       localStorage.removeItem('oldToken');
       localStorage.setItem("token", tokenStr);
     }
-    // return isOk;
-    return rspCode;
+    return isOk;
   }
 }

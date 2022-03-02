@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <div nz-row *ngIf="getMaintainerSuccess()== null">
+    <div nz-row *ngIf="!this.Maintainer">
       <div nz-col nzSpan="6">
         <div style="padding:10px"><span class="form-title">請假迄日：</span>
           <nz-date-picker style="display:block" [(ngModel)]="levelStartDateString" name="levelStartDateString">
@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <div nz-row *ngIf="getMaintainerSuccess()!= null">
+    <div nz-row *ngIf="this.Maintainer">
       <div nz-col nzFlex="6">
         <div style="padding:10px"><span class="form-title">請假迄日：</span>
           <nz-date-picker style="display:block" [(ngModel)]="levelStartDateString" name="levelStartDateString">
@@ -126,10 +126,10 @@
     </div>
 
     <div style="padding-bottom: 20px; margin-top: 20px; z-index:90;text-align: center">
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="addNew()">新增</button>
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" [disabled]="this.Maintainer" (click)="addNew()">新增</button>
       <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="changeSelect()">查詢</button>
       <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="Clear()">清除資料</button>
-      <button *ngIf="getMaintainerSuccess()!= null" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="editPassword()">修改密碼</button>
+      <button *ngIf="this.Maintainer" nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="editPassword()">修改密碼</button>
     </div>
   </div>
 
@@ -168,16 +168,16 @@
             }}</td>
           <td class="table-data">{{ getOptionDesc(assign_stopCode, data.ASSIGN_STOP) }}</td>
           <td class="table-data" style="text-align: center;">
-            <button nz-button [nzSize]="'small'" nzType="primary" (click)="setRoleNo
+            <button nz-button [nzSize]="'small'" nzType="primary" [disabled]="this.Maintainer" (click)="setRoleNo
             (data.EMP_NO, data.ROLE_NO)">角色</button>
           </td>
           <td class="table-data" style="text-align: center;">
-            <button nz-button nz-dropdown [nzSize]="'small'" nzType="primary" [nzDropdownMenu]="menu4">
+            <button [disabled]="this.Maintainer" nz-button nz-dropdown [nzSize]="'small'" nzType="primary" [nzDropdownMenu]="menu4">
               選項
               <i nz-icon nzType="down"></i>
             </button>
             <nz-dropdown-menu #menu4="nzDropdownMenu">
-              <ul nz-menu>
+              <ul nz-menu >
                 <li nz-menu-item (click)="startEdit(
                 data.EMP_NO, data.EMP_NAME,data.EMP_ID, data.ON_JOB,data.AGENT_EMP, data.EMAIL,
                 data.LEAVE_STARTDATE,data.LEAVE_ENDDATE,data.LEAVE_STARTDATE_TYPE,

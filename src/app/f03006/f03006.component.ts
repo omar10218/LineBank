@@ -65,10 +65,11 @@ export class F03006Component implements OnInit {
   empPrjSource = new MatTableDataSource<RoleItem>() //專案Table
   empAmtSource = new MatTableDataSource<RoleItem>() //產品Table
 
-
+  Maintainer = false;
   password = "";
 
   ngOnInit(): void {
+    if (localStorage.getItem("empNo") == 'root') { this.Maintainer = true }
     this.getEmployeeList(this.pageIndex, this.pageSize)
 
     const baseUrl = 'f03/f03006' //代理人
@@ -418,20 +419,16 @@ export class F03006Component implements OnInit {
     this.total = 1
   }
 
-  getMaintainerSuccess() {
-    return sessionStorage.getItem("maintainerSuccess");
-  }
-
   async editPassword() {
-    if (this.password == null || this.password == undefined || this.password == '') {
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '請輸入修改密碼' }
-      });
-      return;
-    }
     if (this.empNoValue == null || this.empNoValue == undefined || this.empNoValue == '') {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入員工編號' }
+      });
+      return;
+    }
+    if (this.password == null || this.password == undefined || this.password == '') {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請輸入修改密碼' }
       });
       return;
     }
@@ -442,7 +439,7 @@ export class F03006Component implements OnInit {
     jsonObject['empPassword'] = this.password;
     this.f03006Service.saveReason(baseUrl, jsonObject).then((data: any) => {
       msgStr = data.rspMsg;
-      if (data.rspCode == '0000') { this.password = ''; }
+      if (data.rspCode == '0000') { this.password = ''; this.empNoValue = ''; }
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
