@@ -171,51 +171,49 @@ export class Childscn19Component implements OnInit {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入手機號碼" }
       });
+    } else if (this.smsSet == null || this.smsSet == "") {
+      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請選擇SMS樣板" }
+      });
     } else if (this.content == null || this.content == "") {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請輸入SMS內容" }
+        data: { msgStr: "SMS內容異常" }
       });
-    } else if (this.content != null) {
-      if (this.content.indexOf('徵審人員修改') >= 0) {
+    }
+    else {//判斷日期時間是否在現在以前
+      var date = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd') + this.pipe.transform(this.mytime, ' HH:mm') + ":00";
+      var newDate = date.replace(/-/g, '/'); // 變成"2012/01/01 12:30:10";
+      var keyDate = new Date(newDate)
+      if (keyDate.getTime() < Date.now()) {
         const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "不得有徵審人員修改字樣" }
+          data: { msgStr: "請輸入正確日期時間" }
         });
+        return;
       }
-      else {//判斷日期時間是否在現在以前
-        var date = this.pipe.transform(this.realSmsTime, 'yyyy-MM-dd') + this.pipe.transform(this.mytime, ' HH:mm') + ":00";
-        var newDate = date.replace(/-/g, '/'); // 變成"2012/01/01 12:30:10";
-        var keyDate = new Date(newDate)
-        if (keyDate.getTime() < Date.now()) {
-          const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "請輸入正確日期時間" }
-          });
-          return;
+      let msgStr: string = "";
+      const baseUrl = 'f01/childscn27action1';
+      let jsonObject: any = {};
+      jsonObject['applno'] = this.applno;
+      jsonObject['empno'] = localStorage.getItem("empNo");
+      jsonObject['mobile'] = this.mobile;
+      jsonObject['realSmsTime'] = this.pipe.transform(this.realSmsTime, 'yyyyMMdd') + this.pipe.transform(this.mytime, 'HHmm');
+      jsonObject['smsSet'] = this.smsSet;
+      await this.childscn19Service.postJson(baseUrl, jsonObject).subscribe(data => {
+        if (data.rspCode = '9999') {
+          msgStr = data.rspMsg;
+        } else {
+          msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
         }
-        let msgStr: string = "";
-        const baseUrl = 'f01/childscn27action1';
-        let jsonObject: any = {};
-        jsonObject['applno'] = this.applno;
-        jsonObject['messageContent'] = this.messageContent;
-        jsonObject['empno'] = localStorage.getItem("empNo");
-        jsonObject['mobile'] = this.mobile;
-        jsonObject['realSmsTime'] = this.pipe.transform(this.realSmsTime, 'yyyyMMdd') + this.pipe.transform(this.mytime, 'HHmm');
-        await this.childscn19Service.postJson(baseUrl, jsonObject).subscribe(data => {
-          if (data.rspCode = '9999') {
-            msgStr = data.rspMsg;
-          } else {
-            msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
-          }
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: msgStr }
-          });
-          if (data.rspMsg == "success" && data.rspCode === '0000') {
-            this.getSmsList();
-            this.realSmsTime = null;
-            this.mytime = null;
-            this.content = null;
-          }
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: msgStr }
         });
-      }
+        if (data.rspMsg == "success" && data.rspCode === '0000') {
+          this.getSmsList();
+          this.realSmsTime = null;
+          this.mytime = null;
+          this.content = null;
+        }
+      });
     }
   }
 
