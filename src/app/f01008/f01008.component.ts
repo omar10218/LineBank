@@ -82,7 +82,7 @@ export class F01008Component implements OnInit {
         this.stepName = data.rspBody.items[0].F_StepName;
         this.cusinfoDataSource.forEach(element => {
           if (element.F_StartTime != null && element.F_StartTime != '') {
-            element.F_StartTime = formatDate(element.F_StartTime, 'yyyy-MM-dd HH:mm:ss', 'zh-Hant-TW', ).toString();
+            element.F_StartTime = formatDate(element.F_StartTime, 'yyyy-MM-dd HH:mm:ss', 'zh-Hant-TW', '-0600').toString();
           }
         });
       }
