@@ -100,7 +100,7 @@ export class Childscn27Component implements OnInit {
       jsonObject['realSmsTime'] = this.pipe.transform(this.realSmsTime, 'yyyyMMdd') + this.pipe.transform(this.mytime, 'HHmm');
       jsonObject['smsSet'] = this.smsSet;
       await this.childscn27Service.postJson(baseUrl, jsonObject).subscribe(data => {
-        if (data.rspCode = '9999') {
+        if (data.rspCode == '9999') {
           msgStr = data.rspMsg;
         } else {
           msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
