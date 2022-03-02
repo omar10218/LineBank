@@ -139,7 +139,7 @@ export class F02002returnComponent implements OnInit {
       this.list.push({ rowId: it.ROW_ID, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT });
       this.jsonstr = JSON.stringify(this.list);
       jsonarry.push(this.jsonstr);
-      formdata.append('file', fileObj != null ? fileObj : new Blob);
+      formdata.append('files', fileObj != null ? fileObj : new Blob);
     }
     formdata.append('jsonArray', jsonarry.toString());
     formdata.append('userId', localStorage.getItem('empNo'));
@@ -180,7 +180,7 @@ export class F02002returnComponent implements OnInit {
       this.list.push({ rowId: it.ROW_ID, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT });
       this.jsonstr = JSON.stringify(this.list);
       jsonarry.push(this.jsonstr);
-      formdata.append('file', fileObj != null ? fileObj : new Blob);
+      formdata.append('files', fileObj != null ? fileObj : new Blob);
     }
     formdata.append('jsonArray', jsonarry.toString());
     formdata.append('userId', localStorage.getItem('empNo'));
