@@ -91,10 +91,8 @@ export class F04003Component implements OnInit {
       let personnelJson: any = {};
       personnelJson['level'] = this.Level;
       personnelJson['empNo'] = this.personnel;
-      console.log(this.Level)
-      console.log(this.personnel)
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
-        console.log(data)
+
         if (data.rspBody.empList.length > 0)
         {
           for (const obj of data.rspBody.empList)
@@ -188,7 +186,6 @@ export class F04003Component implements OnInit {
           }
         }
       }
-      console.log(this.assignArray.length)
       if(this.assignArray.length>0)
       {
         let url = 'f04/f04003action3'
@@ -196,7 +193,6 @@ export class F04003Component implements OnInit {
         changeJson['level'] = this.Level;
         changeJson['roleNo'] = this.Transfer;
         changeJson['assign'] = this.assignArray;
-        console.log(changeJson)
         if (this.assignArray.length > 0) {
           this.f04003Service.Set(url, changeJson).subscribe(data => {
             if (data.rspCode == '0000') {

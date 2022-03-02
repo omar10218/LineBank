@@ -30,6 +30,7 @@ export class F04001Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   total: any;
+  i=0;
   constructor(private f04001Service: F04001Service, public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -98,11 +99,15 @@ export class F04001Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
-    this.getLockApplno();
+    if (this.i > 0) {
+      const { pageSize, pageIndex } = params;
+      this.getLockApplno();
+    }
+
   }
-  
+
   private async getLockApplno() {
+    this.i = 1;
     const baseUrl = 'f04/f04001fn1';
     this.f04001Service.getLockApplno(baseUrl, this.pageIndex, this.pageSize, this.selectedValue)
       .subscribe(data => {
