@@ -93,12 +93,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
     clearInterval(this.intervalRef);
   }
 
-  getMenu(): Menu[] {
-    if (sessionStorage.getItem("maintainerSuccess") != null) {
-      return [];
-    }
-    return this.menuListService.getMap();
-  }
+  getMenu(): Menu[] { return this.menuListService.getMap(); }
   returnZero() { return 0; }
 
   goHome() {
