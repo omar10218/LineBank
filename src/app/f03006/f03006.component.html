@@ -118,9 +118,11 @@
         </div>
       </div>
 
-      <div nz-col nzFlex="6">
-        <div style="padding:10px"><span class="form-title">密碼</span><input style="display: block;"
-            [(ngModel)]="password" name="password"></div>
+      <div nz-col nzFlex="4">
+          <div style="padding:10px"><span class="form-title">密碼</span><input [type]="hide ? 'password' : 'text'" style="width: 80%;"
+            [(ngModel)]="password" name="password" maxlength="15" >
+            <fa-icon style="padding:5px" class="icon_size" matSuffix (click)="hide = !hide" [icon]="['fas', hide ?'eye-slash':'eye']"></fa-icon>
+            </div>
       </div>
 
     </div>
