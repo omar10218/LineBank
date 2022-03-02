@@ -184,7 +184,7 @@ export class F03017editComponent implements OnInit {
 		}
 	}
 	// 轉換input值狀態
-	switchstatus(check: boolean, data: any){
+	switchstatus(check: boolean, data: any) {
 
 		this.testArray.push(this.data.bkContent)
 		switch (data) {
@@ -208,7 +208,7 @@ export class F03017editComponent implements OnInit {
 	testArray = [];
 	check: boolean;
 	checkboxSelect(check: boolean, data: any, value: any) {
-      this.switchstatus(check, data)
+		this.switchstatus(check, data)
 		// 取最後的輸入值
 		this.testArray[data] = value;
 		if (check && value != null) {
@@ -325,8 +325,8 @@ export class F03017editComponent implements OnInit {
 
 		await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 			// if (data.rspMsg == '儲存成功') {
-				this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } })
-				// this.dialogRef.close({ event: 'success' });
+			this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } })
+			// this.dialogRef.close({ event: 'success' });
 			// }
 		})
 
