@@ -85,45 +85,45 @@ export class Childscn15Component implements OnInit {
     var fdString: string = "";// fd表單儲存用字串
     var fdL1String = ""; // fd判斷此列是否儲存過
 
-    //fm資料儲存格式 一列三格 以-分隔多筆資料       無資料以''代替
-    // 1,1,1-1,1,2                            1,1,1-1,1,2-2,'',''
+    //fm資料儲存格式 一列三格 以a分隔不同欄位 以b分隔多筆資料       無資料以cc代替
+    // 1a1a1b1a1a2                            1a1a1b1a1a2b2accacc
     for (var fmL1 of this.fmData.data) {
       for (var fmL2 of fmL1.level2) {
         for (var fmL3 of fmL2.level3) {
           //列三打勾儲存 並於此列12做記號
           if (fmL3.checkbox) {
-            fmString += `${fmL1.REASON_CODE},${fmL2.REASON_CODE},${fmL3.REASON_CODE}-`
-            fmL2String = `${fmL1.REASON_CODE},${fmL2.REASON_CODE},''-`
-            fmL1String = `${fmL1.REASON_CODE},'',''-`
+            fmString += `${fmL1.REASON_CODE}a${fmL2.REASON_CODE}a${fmL3.REASON_CODE}b`
+            fmL2String = `${fmL1.REASON_CODE}a${fmL2.REASON_CODE}accb`
+            fmL1String = `${fmL1.REASON_CODE}accaccb`
           }
         }
         //列二打勾且判斷不與列三重複 儲存 並於此列1做記號
-        if (fmL2.checkbox && (fmL2String != `${fmL1.REASON_CODE},${fmL2.REASON_CODE},''-`)) {
-          fmString += `${fmL1.REASON_CODE},${fmL2.REASON_CODE},''-`
-          fmL1String = `${fmL1.REASON_CODE},'',''-`
+        if (fmL2.checkbox && (fmL2String != `${fmL1.REASON_CODE}a${fmL2.REASON_CODE}accb`)) {
+          fmString += `${fmL1.REASON_CODE}a${fmL2.REASON_CODE}accb`
+          fmL1String = `${fmL1.REASON_CODE}accaccb`
         }
         fmL2String = "";//此列結束消除記號
       }
       //列一打勾且判斷不與列三列二重複 儲存
-      if (fmL1.checkbox && (fmL1String != `${fmL1.REASON_CODE},'',''-`)) {
-        fmString += `${fmL1.REASON_CODE},'',''-`
+      if (fmL1.checkbox && (fmL1String != `${fmL1.REASON_CODE}accaccb`)) {
+        fmString += `${fmL1.REASON_CODE}accaccb`
       }
       fmL1String = "";//此列結束消除記號
     }
 
-    //fd資料儲存格式 一列兩格 以-分隔多筆資料       無資料以''代替
-    // 1,1-1,2                           1,1-1,1-2,''
+    //fd資料儲存格式 一列兩格 以a分隔不同欄位 以-分隔多筆資料       無資料以cc代替
+    // 1a1-1a2                           1a1-1a1-2acc
     for (var fdL1 of this.fdData.data) {
       for (var fdL2 of fdL1.level2) {
         //列二打勾 儲存 並於此列1做記號
         if (fdL2.checkbox) {
-          fdString += `${fdL1.REASON_CODE},${fdL2.REASON_CODE}-`
-          fdL1String = `${fdL1.REASON_CODE},''-`
+          fdString += `${fdL1.REASON_CODE}a${fdL2.REASON_CODE}b`
+          fdL1String = `${fdL1.REASON_CODE}accb`
         }
       }
       //列一打勾且判斷不與列二重複 儲存
-      if (fdL1.checkbox && (fdL1String != `${fdL1.REASON_CODE},''-`)) {
-        fdString += `${fdL1.REASON_CODE},''-`
+      if (fdL1.checkbox && (fdL1String != `${fdL1.REASON_CODE}accb`)) {
+        fdString += `${fdL1.REASON_CODE}accb`
       }
       fdL1String = "";//此列結束消除記號
     }
