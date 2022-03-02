@@ -58,8 +58,8 @@ export class F02006Component implements OnInit {
     if (this.nationalID != '') {
       if (this.Querydate != null) {
         if (this.dealwithData365(this.Querydate)) {
-          jsonObject['searchTimeStart'] = this.pipe.transform(new Date(this.Querydate[0]), 'yyyy-MM-dd');;
-          jsonObject['searchTimeEnd'] = this.pipe.transform(new Date(this.Querydate[1]), 'yyyy-MM-dd');;
+          jsonObject['searchTimeStart'] = this.pipe.transform(new Date(this.Querydate[0]), 'yyyyMMdd');;
+          jsonObject['searchTimeEnd'] = this.pipe.transform(new Date(this.Querydate[1]), 'yyyyMMdd');;
 
         }
         else {
@@ -78,8 +78,8 @@ export class F02006Component implements OnInit {
     else {
       if (this.Querydate != null) {
         if (this.dealwithData90(this.Querydate)) {
-          jsonObject['searchTimeStart'] = this.pipe.transform(new Date(this.Querydate[0]), 'yyyy-MM-dd');;
-          jsonObject['searchTimeEnd'] = this.pipe.transform(new Date(this.Querydate[1]), 'yyyy-MM-dd');;
+          jsonObject['searchTimeStart'] = this.pipe.transform(new Date(this.Querydate[0]), 'yyyyMMdd');;
+          jsonObject['searchTimeEnd'] = this.pipe.transform(new Date(this.Querydate[1]), 'yyyyMMdd');;
 
         }
         else {
