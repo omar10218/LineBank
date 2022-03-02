@@ -102,6 +102,7 @@ export class F03017editComponent implements OnInit {
 				'';
 	}
 	ngOnInit(): void {
+		console.log(this.data.isUpdate)
 		this.selectCustInfo()
 		this.route.queryParams.subscribe(params => {
 			this.no = localStorage.getItem('empNo')
