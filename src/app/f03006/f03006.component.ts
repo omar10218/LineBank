@@ -38,7 +38,6 @@ export class F03006Component implements OnInit {
   agent_empCode: OptionsCode[] = [] //代理人
   levelStartDateTypeCode: OptionsCode[] = [] //日期種類起
   levelEndDateTypeCode: OptionsCode[] = [] //日期種類迄
-  // projectCode: OptionsCode[] = [];//派件專案代碼
   roleCode: OptionsCode[] = [] //角色
   on_jobCode: OptionsCode[] = [] //是否在職
   assign_stopCode: OptionsCode[] = [] //是否停派
@@ -52,7 +51,6 @@ export class F03006Component implements OnInit {
   emailValue: string //email
   on_jobValue: string = 'Y' //是否在職預設Y
   assign_stopValue: string //是否停派
-  // projectValue: string;//派艦專案代碼
   levelStartDateTypeValue: string //請假起日
   levelEndDateTypeValue: string //請假起日類型
   levelStartDateValue: Date //請假起日類型值
@@ -67,6 +65,7 @@ export class F03006Component implements OnInit {
 
   Maintainer = false;
   password = "";
+  hide = true;
 
   ngOnInit(): void {
     if (localStorage.getItem("empNo") == 'root') { this.Maintainer = true }
@@ -88,11 +87,6 @@ export class F03006Component implements OnInit {
         this.levelStartDateTypeCode.push({ value: codeNo, viewValue: desc })
         this.levelEndDateTypeCode.push({ value: codeNo, viewValue: desc })
       }
-      // for (const jsonObj of data.rspBody.projectList) {//派件專案代碼
-      //   const codeNo = jsonObj.codeNo;
-      //   const desc = jsonObj.codeDesc;
-      //   this.projectCode.push({ value: codeNo, viewValue: desc })
-      // }
 
       this.assign_stopCode.push({ value: '', viewValue: '請選擇' }) //是否停派//是否在職
       for (const jsonObj of data.rspBody.ynList) {
@@ -106,7 +100,6 @@ export class F03006Component implements OnInit {
         const codeNo = jsonObj.codeNo
         const desc = jsonObj.codeDesc
         this.empunitlistCode.push({ value: codeNo, viewValue: desc })
-        // this.assign_stopCode.push({value: codeNo, viewValue: desc})
       }
 
       this.empdeptlistCode.push({ value: '', viewValue: '請選擇' }) //部門
@@ -114,15 +107,11 @@ export class F03006Component implements OnInit {
         const codeNo = jsonObj.codeNo
         const desc = jsonObj.codeDesc
         this.empdeptlistCode.push({ value: codeNo, viewValue: desc })
-        // this.assign_stopCode.push({value: codeNo, viewValue: desc})
       }
 
       this.empRoleSource.data = data.rspBody.roleList //角色Table
     })
   }
-  // ngAfterViewInit(){
-  //   this.getAmtList()
-  // }
 
   //切換查詢選項
   changeSelect() {
@@ -135,7 +124,6 @@ export class F03006Component implements OnInit {
     this.pageSize = pageSize
     this.pageIndex = pageIndex
     this.getEmployeeList(pageIndex, pageSize)
-    //console.log(pageSize);console.log(pageIndex);
   }
 
   //取得表單資料
@@ -163,29 +151,10 @@ export class F03006Component implements OnInit {
     jsonObject['per_page'] = pageSize
     this.f03006Service.getEmployeeList(baseUrl, jsonObject).subscribe(data => {
       this.total = data.rspBody.size
-      // if(this.total==0){
-      //   const childernDialogRef = this.dialog.open(ConfirmComponent, {
-      //     data: { msgStr: "查無資料!" }
-      //   });
-      // }
       this.employeeSource.data = data.rspBody.items
     })
     this.loading = false
   }
-
-  // 取得Amt資料
-  // getAmtList(empNo: string) {
-  // 	const baseUrl = 'f03/f03006action8'
-  // 	let jsonObject: any = {}
-
-
-  // 	jsonObject['empNo'] = empNo
-  // 	console.log(jsonObject)
-  // 	this.f03006Service.getEmployeeList(baseUrl, jsonObject).subscribe(data => {
-  // 		console.log(data)
-  // 		this.empAmtSource.data = data.rspBody
-  // 	})
-  // }
 
   //清除資料
   Clear() {
@@ -196,7 +165,6 @@ export class F03006Component implements OnInit {
     this.emailValue = '' //email
     this.on_jobValue = 'Y' //是否在職
     this.assign_stopValue = '' //是否停派
-    // this.projectValue= '';//派件專案代碼
     this.levelStartDateTypeValue = '' //請假起日類型
     this.levelEndDateTypeValue = '' //請假迄日類型
     this.levelStartDateValue = undefined //請假起日
@@ -261,7 +229,6 @@ export class F03006Component implements OnInit {
         AGENT_EMP: '', //代理人
         EMAIL: '', //email
         ASSIGN_STOP: '', //是否停派
-        // ASSIGN_PROJECTNO: '',//派件專案代碼
         LEAVE_STARTDATE: '', //請假起日
         LEAVE_STARTDATE_TYPE: '', //請假起日類型
         LEAVE_ENDDATE: '', //請假迄日
@@ -269,7 +236,6 @@ export class F03006Component implements OnInit {
         agent_empCode: this.agent_empCode, //代理人
         levelStartDateTypeCode: this.levelStartDateTypeCode, //日期種類起
         levelEndDateTypeCode: this.levelEndDateTypeCode, //日期種類迄
-        // projectCode: this.projectCode,//派件專案代碼
         roleCode: this.roleCode, //角色
         on_jobCode: this.on_jobCode, //是否在職
         assign_stopCode: this.assign_stopCode, //是否停派
@@ -298,7 +264,6 @@ export class F03006Component implements OnInit {
         AGENT_EMP: AGENT_EMP, //代理人
         EMAIL: EMAIL, //email
         ASSIGN_STOP: ASSIGN_STOP, //是否停派
-        // ASSIGN_PROJECTNO: ASSIGN_PROJECTNO,//派件專案代碼
         LEAVE_STARTDATE: LEAVE_STARTDATE, //請假起日
         LEAVE_STARTDATE_TYPE: LEAVE_STARTDATE_TYPE, //請假起日類型
         LEAVE_ENDDATE: LEAVE_ENDDATE, //請假迄日
@@ -306,7 +271,6 @@ export class F03006Component implements OnInit {
         agent_empCode: this.agent_empCode, //代理人
         levelStartDateTypeCode: this.levelStartDateTypeCode, //日期種類起
         levelEndDateTypeCode: this.levelEndDateTypeCode, //日期種類迄
-        // projectCode: this.projectCode,//派件專案代碼
         roleCode: this.roleCode, //角色
         on_jobCode: this.on_jobCode, //是否在職
         assign_stopCode: this.assign_stopCode, //是否停派
@@ -361,7 +325,6 @@ export class F03006Component implements OnInit {
     await this.f03006Service.getEmployeeList(baseUrl, jsonObject).subscribe(data => {
       console.log(data)
       this.empAmtSource.data = data.rspBody
-      // this.getAmtList(empNo)
       this.chkArray = []
       for (const jsonObj of this.empRoleSource.data) {
         let isChk: boolean = false
@@ -375,12 +338,6 @@ export class F03006Component implements OnInit {
         width: '50%',
         data: { CHECKBOX: this.chkArray, SOURCE: this.empAmtSource.data, empNo: empNo },
       })
-
-      // dialogRef.afterClosed().subscribe(result => {
-      // 	if (result != null && (result.event == 'success' || result == '1')) {
-      // 		this.refreshTable()
-      // 	}
-      // })
     })
   }
 
@@ -409,8 +366,6 @@ export class F03006Component implements OnInit {
   //刷新頁面
   private refreshTable() {
     this.getEmployeeList(this.pageIndex, this.pageSize)
-    // console.log(this.pageIndex)
-    // console.log(this.pageSize)
   }
 
   changePage() {
