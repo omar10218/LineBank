@@ -28,8 +28,8 @@ export class F03016Component implements OnInit {
   pageIndex = 1;
   selectedValue: string;
   compareTableCode: sysCode[] = [];
-  DssJcicSet:number;
-  DssMailDay: number;
+  DssJcicSet:number=0;
+  DssMailDay: number=0;
   BasicLimit: string;
   CssPassStart: Date;
   CssPassEnd: Date;
@@ -83,6 +83,7 @@ export class F03016Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
    this.f03016Service.getImpertmentParameter(baseUrl, jsonObject).subscribe(data => {
+     console.log(data)
       this.DssJcicSet = data.rspBody.ipList[0].dssJcicSet;
       this.DssMailDay = data.rspBody.ipList[0].dssMailDay;
       this.BasicLimit = data.rspBody.ipList[0].basicLimit =  data.rspBody.ipList[0].basicLimit != undefined ? (data.rspBody.ipList[0].basicLimit + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',') : data.rspBody.ipList[0].basicLimit;
