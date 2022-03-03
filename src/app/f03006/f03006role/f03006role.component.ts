@@ -41,8 +41,9 @@ export class F03006roleComponent {
       if (obj.completed) { valArray.push(obj.value); }
     }
     let jsonObject: any = {};
+    let roleNo: string = valArray.toString().replace(/,/g,'_');
     jsonObject['empNo'] = this.data.empNo;
-    jsonObject['roleNo'] = valArray.toString();
+    jsonObject['roleNo'] = roleNo;
     let msgStr = '';
     const baseUrl = 'f03/f03006action4';
      this.f03006Service.saveEmployeeRole(baseUrl, jsonObject).subscribe(data => {

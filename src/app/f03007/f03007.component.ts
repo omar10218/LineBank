@@ -62,9 +62,10 @@ export class F03007Component implements OnInit, AfterViewInit {
       if (obj.completed)
       { valArray.push(obj.value); }
     }
+    let fnNo: string = valArray.toString().replace(/,/g,'_').replace(/-/g,'一');
     let jsonObject: any = {};
     jsonObject['roleNo'] = this.selectedValue;
-    jsonObject['fnNo'] = valArray.toString();
+    jsonObject['fnNo'] = fnNo;
     const baseUrl = 'f03/f03007action2';
     this.f03007Service.roleFunction(baseUrl, jsonObject).subscribe(data => {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {

@@ -20,7 +20,11 @@ export class F03004Service extends BaseService {
     jsonObeject['codeNo'] = data.codeNo;
     jsonObeject['codeDesc'] = data.codeDesc;
     jsonObeject['codeSort'] = data.codeSort;
-    jsonObeject['codeTag'] = data.codeTag;
+
+    let tagStr: string = data.codeTag;
+    let codeTag: string = tagStr.replace('://','你').replace(/\./g,'我').replace(/\//g,'他').replace(':','它').replace('?','問').replace(/=/g,'等');
+
+    jsonObeject['codeTag'] = codeTag;
     jsonObeject['codeFlag'] = data.codeFlag;
     return this.saveOrEditMsgJson(baseUrl, jsonObeject);
   }
