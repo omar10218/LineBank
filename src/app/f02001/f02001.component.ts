@@ -97,19 +97,21 @@ export class F02001Component implements OnInit {
     //   }
 
     // }
-    if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
+     // 判斷是否為第一次進頁面
       const { pageIndex } = params;
       if (this.pageIndex !== pageIndex)
       {
+        if (this.firstFlag != 1) {
         // const { pageSize, pageIndex } = params;
         this.pageIndex = pageIndex;
         this.selectData(pageIndex, this.pageSize,this.order,this.sor);}
+        }
       }
-      const element = document.querySelector('box');
-      element.scrollIntoView();
+      // const element = document.querySelector('box');
+      // element.scrollIntoView();
 
 
-  }
+
   changePage() {
     this.pageIndex = 1;
 
@@ -512,7 +514,7 @@ export class F02001Component implements OnInit {
     } else {
 
       this.selectData(this.pageIndex, this.pageSize,'','');
-      this.sortChange('ascend','APPLYEND_TIME')
+      // this.sortChange('ascend','APPLYEND_TIME')
 
     }
   }

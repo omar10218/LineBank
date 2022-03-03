@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Data } from '@angular/router';
 import { time } from 'console';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F04003Service } from './f04003.service';
 
@@ -254,6 +255,14 @@ export class F04003Component implements OnInit {
       return "S2 風管處處長"
     } else if (level == 'S1') {
       return "S1 總經理"
+    }
+  }
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    if (this.i > 0) {
+      const { pageSize, pageIndex } = params;
+      this.pageSize = pageSize;
+      this.pageIndex = pageIndex;
+      this. Inquire();
     }
   }
 }
