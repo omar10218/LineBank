@@ -81,4 +81,7 @@ export class F01008editComponent implements OnInit {
   onNoClick() {
     this.f01008Service.setJCICSource({ show: false });
   }
+  disabledDate(time) {
+    return time.getTime() < Date.now() - 8.64e7;
+  }
 }
