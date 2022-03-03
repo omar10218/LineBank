@@ -53,6 +53,26 @@ export class F01008editComponent implements OnInit {
   }
   save()//修改
   {
+
+    if (this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyyMMdd') == this.datepipe.transform(new Date(), 'yyyyMMdd')) {
+      if (parseInt(this.data.HOURS) <= parseInt(this.datepipe.transform(new Date(), 'HH'))) {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '請輸入正確日期時間' }
+        });
+        return;
+      }
+      else {
+        if (parseInt(this.data.MINUTES) <= parseInt(this.datepipe.transform(new Date(), 'mm')))
+         {
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '請輸入正確日期時間' }
+          });
+          return;
+        }
+      }
+    }
+
+
     let jsonObject: any = {};
     let msgStr: string = "";
     let url = 'f01/f01008scn2action2';
@@ -80,5 +100,8 @@ export class F01008editComponent implements OnInit {
   }
   onNoClick() {
     this.f01008Service.setJCICSource({ show: false });
+  }
+  disabledDate(time) {
+    return time.getTime() < Date.now() - 8.64e7;
   }
 }

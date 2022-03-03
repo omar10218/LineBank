@@ -121,8 +121,8 @@ export class F03014Component implements OnInit {
           return
         }
         else {
-          jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyy-MM-dd');
-          jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyy-MM-dd');
+          jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyyMMdd');
+          jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyyMMdd');
         }
 
       }
@@ -139,8 +139,8 @@ export class F03014Component implements OnInit {
           return
         }
         else {
-          jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyy-MM-dd');
-          jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyy-MM-dd');
+          jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyyMMdd');
+          jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyyMMdd');
         }
       }
       else {
@@ -157,8 +157,8 @@ export class F03014Component implements OnInit {
           return
         }
         else {
-          jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyy-MM-dd');
-          jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyy-MM-dd');
+          jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyyMMdd');
+          jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyyMMdd');
         }
 
       }
@@ -175,8 +175,8 @@ export class F03014Component implements OnInit {
           return
         }
         else {
-          jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyy-MM-dd');
-          jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyy-MM-dd');
+          jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyyMMdd');
+          jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyyMMdd');
         }
       }
       else {
@@ -185,8 +185,8 @@ export class F03014Component implements OnInit {
       }
     }
     // if (this.Invalidation != null) {
-    //   jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyy-MM-dd');
-    //   jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyy-MM-dd');
+    //   jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyyMMdd');
+    //   jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyyMMdd');
 
     // }
     // else {
@@ -325,8 +325,8 @@ export class F03014Component implements OnInit {
             return
           }
           else {
-            jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyy-MM-dd');
-            jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyy-MM-dd');
+            jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyyMMdd');
+            jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyyMMdd');
           }
 
         }
@@ -343,8 +343,8 @@ export class F03014Component implements OnInit {
             return
           }
           else {
-            jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyy-MM-dd');
-            jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyy-MM-dd');
+            jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyyMMdd');
+            jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyyMMdd');
           }
         }
         else {
@@ -361,8 +361,8 @@ export class F03014Component implements OnInit {
             return
           }
           else {
-            jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyy-MM-dd');
-            jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyy-MM-dd');
+            jsonObject['effectiveDate_start'] = this.pipe.transform(new Date(this.Efficient[0]).toString(), 'yyyyMMdd');
+            jsonObject['effectiveDate_end'] = this.pipe.transform(new Date(this.Efficient[1]).toString(), 'yyyyMMdd');
           }
 
         }
@@ -379,8 +379,8 @@ export class F03014Component implements OnInit {
             return
           }
           else {
-            jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyy-MM-dd');
-            jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyy-MM-dd');
+            jsonObject['expirationDate_start'] = this.pipe.transform(new Date(this.Invalidation[0]).toString(), 'yyyyMMdd');
+            jsonObject['expirationDate_end'] = this.pipe.transform(new Date(this.Invalidation[1]).toString(), 'yyyyMMdd');
           }
         }
         else {

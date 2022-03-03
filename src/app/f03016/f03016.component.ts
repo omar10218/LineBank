@@ -34,7 +34,7 @@ export class F03016Component implements OnInit {
   CssPassStart: Date;
   CssPassEnd: Date;
   IsJcic: string = '';
-  TableName: string = ''; 
+  TableName: string = '';
   columnName: string = '';
   originalValue: string;
   currentValue: string;
@@ -50,11 +50,11 @@ export class F03016Component implements OnInit {
 
   ngOnInit(): void {
     this.getImpertmentParameterInfo(this.pageIndex, this.pageSize);
-    
+
   }
 
   ngAfterViewInit(){
-    
+
   }
   formControl = new FormControl('', [
     Validators.required
@@ -103,7 +103,7 @@ export class F03016Component implements OnInit {
     });
   }
 
-  
+
   // 儲存資料
   public async save(): Promise<void> {
     let jsonObject: any = {};
@@ -115,8 +115,8 @@ export class F03016Component implements OnInit {
     if (this.CssPassStart < this.CssPassEnd) {
     // let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart).setDate(this.CssPassStart.getDate() +1), 'yyyy-MM-dd');
     // let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd).setDate(this.CssPassStart.getDate() +1), 'yyyy-MM-dd');
-    let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart), 'yyyy-MM-dd');
-    let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy-MM-dd');
+    let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart), 'yyyyMMdd');
+    let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd), 'yyyyMMdd');
       if (CssPassStartString != '1970-01-01' && CssPassEndString != '1970-01-01'
       ) {
         jsonObject['cssPassStart'] = CssPassStartString;
@@ -210,6 +210,6 @@ export class F03016Component implements OnInit {
 
   }
 
-  
+
 
 }

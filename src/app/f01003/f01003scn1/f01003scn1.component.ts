@@ -224,6 +224,22 @@ export class F01003scn1Component implements OnInit {
                   });
                   return;
                 }
+                if (count == 1) {
+                  if (creditInterestPeriodArray[0].interestType != '02') {
+                    const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                      data: { msgStr: '當利率為單階時，利率請選擇加減碼!' }
+                    });
+                    return;
+                  }
+                }
+                if (count > 1) {
+                  if (!(creditInterestPeriodArray[0].interestType == '01' && creditInterestPeriodArray[1].interestType == '02')) {
+                    const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                      data: { msgStr: '當利率為多階時，利率請選擇固定+加減碼!' }
+                    });
+                    return;
+                  }
+                }
                 for (let index = 1; index <= count; index++) {
                   if (creditInterestPeriodArray[index - 1].approveInterest == '' || creditInterestPeriodArray[index - 1].approveInterest == null) {
                     const childernDialogRef = this.dialog.open(ConfirmComponent, {
