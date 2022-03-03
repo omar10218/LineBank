@@ -45,6 +45,30 @@ export class F01008addComponent implements OnInit {
   }
   save()//新增
   {
+
+    // console.log(this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyyMMdd'))
+    // console.log(this.datepipe.transform(new Date(), 'HH'))
+    // if(Date.parse(starttime).valueOf() > Date.parse(endtime).valueOf()){
+
+    if (this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyyMMdd') == this.datepipe.transform(new Date(), 'yyyyMMdd')) {
+      if (parseInt(this.data.HOURS) <= parseInt(this.datepipe.transform(new Date(), 'HH'))) {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '請輸入正確日期時間' }
+        });
+        return;
+      }
+      else {
+        if (parseInt(this.data.MINUTES) <= parseInt(this.datepipe.transform(new Date(), 'mm')))
+         {
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '請輸入正確日期時間' }
+          });
+          return;
+        }
+      }
+    }
+
+
     let msgStr: string = "";
     let codeStr: string = "";
     let jsonObject: any = {};
