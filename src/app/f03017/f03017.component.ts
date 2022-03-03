@@ -138,8 +138,15 @@ export class F03017Component implements OnInit {
 			jsonObject['bkContent'] = this.bkContentValue
 			jsonObject['useId'] = this.useId
 			await this.f03017Service.getReturn('f03/f03017', jsonObject).subscribe(data => {
-				this.total = data.rspBody.size
-				this.bkIncomeDataSource = data.rspBody.items
+				if(data.rspBody.size!=0){
+					this.total = data.rspBody.size
+					this.bkIncomeDataSource = data.rspBody.items
+				}else{
+					const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+						data: { msgStr: "查無項目!" }
+					});
+				}
+				
 			})
 			this.loading = false
 		}

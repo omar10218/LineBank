@@ -7,10 +7,19 @@ import { Sort } from '@angular/material/sort'
 import { MatTableDataSource } from '@angular/material/table'
 import { ActivatedRoute, Data, Router } from '@angular/router'
 import { NzTableQueryParams } from 'ng-zorro-antd/table'
+import { element } from 'protractor'
 import { ChildrenService } from 'src/app/children/children.service'
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component'
 import { F03015Service } from 'src/app/f03015/f03015.service'
 import { F03017Service } from '../f03017.service'
+
+//勾選框
+interface checkBox1 {
+	key: string
+	value: string
+	completed: boolean
+}
+
 //勾選框
 interface checkBox {
 	value: string
@@ -43,6 +52,11 @@ export class F03017editComponent implements OnInit {
 	currentSort: Sort
 	checked: boolean;
 	content = [];
+
+	//建檔項目欄位值內容
+	checkBoxList: checkBox1[];
+
+
 	// get Element by ID抓取checkboxID值
 	@ViewChild('CU_CNAME') CU_CNAME: ElementRef;
 	@ViewChild('NATIONAL_ID') NATIONAL_ID: ElementRef;
@@ -102,6 +116,12 @@ export class F03017editComponent implements OnInit {
 				'';
 	}
 	ngOnInit(): void {
+		// this.checkBoxList.push({ key: 'CU_CNAME', value: '', completed: false })
+		// this.checkBoxList.push({ key: 'NATIONAL_ID', value: '', completed: false })
+		// this.checkBoxList.push({ key: 'CU_H_TEL', value: '', completed: false })
+		// this.checkBoxList.push({ key: 'CU_CP_TEL', value: '', completed: false })
+		// this.checkBoxList.push({ key: 'CU_M_TEL', value: '', completed: false })
+
 		console.log(this.data.isUpdate)
 		this.selectCustInfo()
 		this.route.queryParams.subscribe(params => {
@@ -209,12 +229,44 @@ export class F03017editComponent implements OnInit {
 	testArray = [];
 	check: boolean;
 	checkboxSelect(check: boolean, data: any, value: any) {
+		// let x=['A','B','C','D'];
+		// let y:number;
+		// y = x.indexOf('D')
 		this.switchstatus(check, data)
 		// 取最後的輸入值
 		this.testArray[data] = value;
 		if (check && value != null) {
-			this.chkArray.push(data)
-			this.contentArray.push(value)
+			if (check) {
+				if (this.chkArray.indexOf(data) == -1) {
+					this.chkArray.push(data)
+					this.contentArray.push(value)
+				} else {
+					this.chkArray.splice(this.chkArray.indexOf(data), 1)
+					this.contentArray.splice(this.chkArray.indexOf(data), 1)
+					this.chkArray.push(data)
+					this.contentArray.push(value)
+				}
+			} else {
+				this.chkArray.splice(this.chkArray.indexOf(data), 1)
+				this.contentArray.splice(this.chkArray.indexOf(data), 1)
+				// switch (data) {
+				// 	case 'CU_CNAME':
+				// 		this.b1 = check
+				// 		break;
+				// 	case 'NATIONAL_ID':
+				// 		this.b2 = check
+				// 		break;
+				// 	case 'CU_H_TEL':
+				// 		this.b3 = check
+				// 		break;
+				// 	case 'CU_CP_TEL':
+				// 		this.b4 = check
+				// 		break;
+				// 	case 'CU_M_TEL':
+				// 		this.b5 = check
+				// 		break;
+				// }
+			}
 		} else {
 			this.chkArray.forEach((element, index) => {
 				if (element == data) {
@@ -234,7 +286,8 @@ export class F03017editComponent implements OnInit {
 
 	// 判斷要新增還是編輯
 	test123() {
-		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
+		if (this.data.ROWID == '' || this.data.ROWID == null) {
+		
 			this.insertData()
 		} else {
 			this.updateData()
@@ -243,32 +296,34 @@ export class F03017editComponent implements OnInit {
 
 	//新增
 	public async insertData(): Promise<void> {
+
 		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
 			this.dialog.open(ConfirmComponent, { data: { msgStr: '請選擇通報原因1' } })
 		}
 		else {
-			this.chkArray.forEach(element => {
-				if (element.value === 'CU_CNAME') {
-					this.contentArray.push(this.blockListForm.value.CU_CNAME)
-				}
-				if (element.value === 'NATIONAL_ID') {
-					this.contentArray.push(this.blockListForm.value.NATIONAL_ID)
-				}
-				if (element.value === 'CU_H_TEL') {
-					this.contentArray.push(this.blockListForm.value.CU_H_TEL)
-				}
-				if (element.value === 'CU_CP_TEL') {
-					this.contentArray.push(this.blockListForm.value.CU_CP_TEL)
-				}
-				if (element.value === 'CU_M_TEL') {
-					this.contentArray.push(this.blockListForm.value.CU_M_TEL)
-				}
-			})
-			this.chkArray.forEach(element => {
-				if (element.value === 'CU_NAME') {
-					this.CU_CNAME.nativeElement.checked = true
-				}
-			})
+
+			// this.chkArray.forEach(element => {
+			// 	if (element.value === 'CU_CNAME') {
+			// 		this.contentArray.push(this.blockListForm.value.CU_CNAME)
+			// 	}
+			// 	if (element.value === 'NATIONAL_ID') {
+			// 		this.contentArray.push(this.blockListForm.value.NATIONAL_ID)
+			// 	}
+			// 	if (element.value === 'CU_H_TEL') {
+			// 		this.contentArray.push(this.blockListForm.value.CU_H_TEL)
+			// 	}
+			// 	if (element.value === 'CU_CP_TEL') {
+			// 		this.contentArray.push(this.blockListForm.value.CU_CP_TEL)
+			// 	}
+			// 	if (element.value === 'CU_M_TEL') {
+			// 		this.contentArray.push(this.blockListForm.value.CU_M_TEL)
+			// 	}
+			// })
+			// this.chkArray.forEach(element => {
+			// 	if (element.value === 'CU_NAME') {
+			// 		this.CU_CNAME.nativeElement.checked = true
+			// 	}
+			// })
 			this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
 			this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
 			this.jsonObject['reportReason2'] = this.blockListForm.value.REPORT_REASON2
@@ -276,20 +331,23 @@ export class F03017editComponent implements OnInit {
 			this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 			this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
 			const content = []
-			Object.keys(this.testArray).forEach(key => {
-				content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked });
-			});
+			// Object.keys(this.testArray).forEach(key => {
+			// 	content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked });
+			// });
+			for (let i = 0; this.chkArray.length > i; i++) {
+				content.push({ bkColumn: this.chkArray[i], bkContent: this.contentArray[i], check: true });
+			}
 
 			this.jsonObject['content'] = content;
-
+		
 			const url = 'f03/f03017action2'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 				let msgStr = '';
-				msgStr = (data.rspCode === '0000' && data.rspMsg === '儲存成功!') ? '儲存成功！' : '儲存失敗！';
+				msgStr = (data.rspCode === '0000' ) ? '儲存成功！' : '儲存失敗！';
 				const childernDialogRef = this.dialog.open(ConfirmComponent, {
 					data: { msgStr: msgStr }
 				});
-				if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
+				if (msgStr === '儲存成功') { this.dialogRef.close({ event: 'success' }); }
 				// if (data.rspMsg == '更新成功' && data.rspCode == '0000') {
 				// 	this.dialog.open(ConfirmComponent, { data: { msgStr: '儲存成功' } })
 
@@ -300,13 +358,7 @@ export class F03017editComponent implements OnInit {
 
 	//編輯
 	public async updateData(): Promise<void> {
-
-		this.chkArray.forEach(element => {
-			if (element.value === 'CU_NAME') {
-				this.CU_CNAME.nativeElement.checked = true
-			}
-		})
-
+		
 		this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
 		this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
 		this.jsonObject['reportReason2'] = this.blockListForm.value.REPORT_REASON2
@@ -314,13 +366,22 @@ export class F03017editComponent implements OnInit {
 		this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 		this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
 		this.jsonObject['rowID'] = this.blockListForm.value.ROWID;
-
-
-
-		Object.keys(this.testArray).forEach(key => {
-			this.content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked, rowID: this.data.ROWID });
-		});
-		this.jsonObject['content'] = this.content;
+		console.log(this.jsonObject['reportUnit'])
+		console.log(this.jsonObject['reportReason1'])
+		console.log(this.jsonObject['reportReason2'])
+		console.log(this.jsonObject['reportReason3'])
+		console.log(this.jsonObject['reportContent'])
+		console.log(this.jsonObject['useFlag'])
+		console.log(this.jsonObject['rowID'])
+		const content = []
+		for (let i = 0; this.chkArray.length > i; i++) {
+			content.push({ bkColumn: this.chkArray[i], bkContent: this.contentArray[i], check: true });
+		}
+	
+		// Object.keys(this.testArray).forEach(key => {
+		// 	this.content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked, rowID: this.data.ROWID });
+		// });
+		this.jsonObject['content'] = content;
 		const url = 'f03/f03017action2'
 
 
@@ -360,5 +421,7 @@ export class F03017editComponent implements OnInit {
 		this.pageIndex = pageIndex
 
 	}
+
+	
 }
 

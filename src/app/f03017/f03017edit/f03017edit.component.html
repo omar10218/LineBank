@@ -177,79 +177,9 @@
       </div>
      
       <div mat-dialog-actions style="width:20%;padding-left:0px;margin:0 auto">
-
         <button nz-button nzType="primary" nzSize="middle"  [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="test123()"
           style="margin:0px 5px">儲存</button>
         <button nz-button nzDanger nzSize="middle" (click)="onNoClick()" tabindex="-1">離開</button>
       </div>
-      <!-- <div nz-col nzSpan="24" style="height: 30px;">
-
-        <input type="checkbox" class="input_check" style="width:none" valuename="姓名" value=""
-          (click)="checkboxSelect($event.target.checked,'CU_CNAME',this.blockListForm.value.CU_CNAME)">姓名
-
-          <input matInput #input class="form-control" formControlName="CU_CNAME">
-
-      </div>
-      <div nz-col nzSpan="24" style="height: 30px;">
-        <input type="checkbox" class="input_check" name="身分證字號" value="身分證字號"
-          (click)="checkboxSelect($event.target.checked,'NATIONAL_ID',this.blockListForm.value.NATIONAL_ID)">身分證字號
-
-          <input matInput #input class="form-control" formControlName="NATIONAL_ID">
-
-      </div>
-      <div nz-col nzSpan="24" style="height: 30px;">
-        <input type="checkbox" class="input_check" name="住家電話" value="住家電話"
-          (click)="checkboxSelect($event.target.checked,'CU_H_TEL',this.blockListForm.value.CU_H_TEL)">住家電話
-
-          <input matInput #input class="form-control" formControlName="CU_H_TEL">
-
-      </div>
-      <div nz-col nzSpan="24" style="height: 30px;">
-        <input type="checkbox" class="input_check"  name="公司電話" value="公司電話"
-          (click)="checkboxSelect($event.target.checked,'CU_CP_TEL',this.blockListForm.value.CU_CP_TEL)">公司電話
-
-          <input matInput #input class="form-control" formControlName="CU_CP_TEL">
-
-      </div>
-      <div nz-col nzSpan="24" style="height: 30px;">
-        <input type="checkbox" class="input_check" name="手機號碼" value="手機號碼"
-          (click)="checkboxSelect($event.target.checked,'CU_M_TEL',this.blockListForm.value.CU_M_TEL)">手機號碼
-
-          <input matInput #input class="form-control" formControlName="CU_M_TEL">
-
-      </div> -->
-
-
-
-      <!-- 表格 -->
-      <!-- <nz-table nzShowSizeChanger [nzData]="blockListDataSource" [nzFrontPagination]="false" [nzSimple]="true"
-              (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total"
-              [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="黑名單">
-              <thead>
-                  <tr>
-                      <th class="table-header">通報單位</th>
-                      <th class="table-header">建檔項目欄位標題</th>
-                      <th class="table-header">建檔項目欄位值內容</th>
-                      <th class="table-header">通報原因1</th>
-                      <th class="table-header">通報原因2</th>
-                      <th class="table-header">通報原因3</th>
-                      <th class="table-header">通報補充</th>
-                      <th class="table-header">使用中</th>
-                      <th class="table-header">資料新增日期時間</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let data of blockListDataSource">
-                      <td class="table-data">{{ data.reportUnit }}</td>
-                      <td class="table-data">{{ data.bkColumn }}</td>
-                      <td class="table-data">{{ data.bkContent }}</td>
-                      <td class="table-data">{{ data.reportReason1 }}</td>
-                      <td class="table-data">{{ data.reportReason2 }}</td>
-                      <td class="table-data">{{ data.reportReason3 }}</td>
-                      <td class="table-data">{{ data.reportContent }}</td>
-                      <td class="table-data">{{ data.useFlag }}</td>
-                      <td class="table-data">{{ data.createDatetime | date: 'yyyy-MM-dd hh：mm：ss' }}</td>
-                  </tr>
-              </tbody>
-          </nz-table> -->
+      
     </form>
