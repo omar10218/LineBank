@@ -75,11 +75,7 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('loginKey');
       localStorage.setItem("empNo", this.no);
     } else {
-      if (this.pwd != null && this.pwd != "") {
-        alert('帳號或密碼有誤!');
-      } else {
-        alert('帳號有誤!');
-      }
+      alert('帳號或密碼有誤!');
       if ('stg' == this.from || 'uat' == this.from || 'prod' == this.from) {
         window.location.href = environment.allowOrigin + '/sso';
       } else {
