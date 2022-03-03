@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div style="text-align:center;margin:10px auto">
-                    <button nz-button [nzSize]="'large'" nzType="primary" (click)="rescan()">補件</button>
+                    <button nz-button [nzSize]="'large'" nzType="primary" (click)="rescan()" [disabled]="page=='3'||page=='7'?true:false">補件</button>
                 </div>
             </div>
             <div nz-row>
@@ -127,7 +127,7 @@
                             name="content" disabled required></textarea></div>
                 </div>
                 <div style="text-align:center;margin:10px auto">
-                    <button nz-button [nzSize]="'large'" nzType="primary" (click)="addSms()">發送簡訊</button>
+                    <button nz-button [nzSize]="'large'" nzType="primary" (click)="addSms()" [disabled]="page=='3'||page=='7'?true:false">發送簡訊</button>
                 </div>
             </div>
         </div>

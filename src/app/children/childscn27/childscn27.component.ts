@@ -37,8 +37,8 @@ export class Childscn27Component implements OnInit {
   smsDataSource = new MatTableDataSource<any>();    //簡訊資訊檔
   sms_M_Code = new MatTableDataSource<any>();    //sms mappingcode
   stepName: string;
+  page: string;
 
-  private page: string;
 
   ngOnInit(): void {
     this.page = sessionStorage.getItem('page');
