@@ -33,7 +33,7 @@ export class Childscn28Component implements OnInit {
   emailDataSource = new MatTableDataSource<any>();    //email資訊檔
   email_M_Code = new MatTableDataSource<any>();    //email mappingcode
 
-  private page: string;
+  page: string;
 
   ngOnInit(): void {
     //取案編

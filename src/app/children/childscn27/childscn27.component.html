@@ -35,7 +35,7 @@
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);" [(ngModel)]="content" name="content" disabled required></textarea></div>
             </div>
             <div style="text-align:center;margin:10px auto">
-                <button nz-button [nzSize]="'large'" nzType="primary" (click)="addSms()">發送簡訊</button>
+                <button nz-button [nzSize]="'large'" nzType="primary" (click)="addSms()" [disabled]="page=='3'||page=='7'?true:false">發送簡訊</button>
             </div>
         </div>
         <!-- 簡訊發送檔 -->
