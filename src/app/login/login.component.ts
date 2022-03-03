@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("empNo", this.no);
     } else {
       alert('帳號或密碼有誤!');
-      if ('stg' == this.from || 'uat' == this.from || 'prod' == this.from) {
+      if ('uat' == this.from || 'prod' == this.from) {
         window.location.href = environment.allowOrigin + '/sso';
       } else {
         window.location.reload();

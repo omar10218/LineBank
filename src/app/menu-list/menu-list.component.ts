@@ -135,7 +135,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
       localStorage.removeItem('token');
       window.sessionStorage.clear();
       let form: string = environment.from;
-      if ('stg' == form || 'uat' == form || 'prod' == form) {
+      if ('uat' == form || 'prod' == form) {
         this.router.navigate(['./logOut']).then(async () => {
           window.location.href = 'https://sso.lbtwsys.com:8443/cas/logout?service=' + environment.allowOrigin + '/sso';
         });
