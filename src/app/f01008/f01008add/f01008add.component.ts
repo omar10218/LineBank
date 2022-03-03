@@ -73,7 +73,9 @@ export class F01008addComponent implements OnInit {
       }
     });
   }
-
+  disabledDate(time) {
+    return time.getTime() < Date.now() - 8.64e7;
+  }
   //取得欄位驗證訊息
   getErrorMessage() {
     return this.formControl.hasError('required') ? '此欄位必填!' : '';
