@@ -598,7 +598,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
           creditResult: this.creditResult,
           lowestPayRate: this.resultLowestPayRate,
           approveAmt: this.resultApproveAmt,
-          caApplicationAmount: this.caApplicationAmount,
+          caApplicationAmount: this.toNumber(this.caApplicationAmount),
           caPmcus: this.caPmcus,
           caRisk: this.caRisk,
           CreditInterestPeriodSource: this.historySource
