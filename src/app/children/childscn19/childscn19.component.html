@@ -79,7 +79,7 @@
             <tbody>
                 <tr *ngFor="let data of rescanDataSource">
                     <td class="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"
-                            [disabled]="data.IMAGE_DATE == null ? false:true "
+                            [disabled]="data.IMAGE_DATE != null ||(page=='3'||page=='7')? true:false "
                             (click)="delRescan(data.ROW_ID)">刪除</button></td>
                     <td class="table-data">{{ data.RESTART_DATE|date: 'yyyy-MM-dd' }}</td>
                     <td class="table-data">{{ data.RESCAN_TYPE }}</td>
