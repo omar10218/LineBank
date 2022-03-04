@@ -70,7 +70,6 @@ export class F04003Component implements OnInit {
     LevelJson['level'] = this.Level;
     console.log(LevelJson)
     this.f04003Service.Set(url, LevelJson).subscribe(data => {
-      console.log(data)
       this.personnelCode.push({ value: '', viewValue: '請選擇' })
       if (data.rspMsg != "該層級查無人員") {
         for (const jsonObj of data.rspBody) {
@@ -88,7 +87,12 @@ export class F04003Component implements OnInit {
     })
 
   }
-  Inquire()//查詢
+  Search()
+  {
+    this.Inquire(this.pageIndex,this.pageSize)
+  }
+
+  Inquire(pageIndex: number, pageSize: number)//查詢
   {
     if (this.Level != '' || this.personnel != '') {
       this.checkboxArray = [];
@@ -100,7 +104,7 @@ export class F04003Component implements OnInit {
       personnelJson['level'] = this.Level;
       personnelJson['empNo'] = this.personnel;
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
-
+        console.log(data)
         if (data.rspBody.empList.length > 0)
         {
           for (const obj of data.rspBody.empList)
@@ -204,7 +208,7 @@ export class F04003Component implements OnInit {
         if (this.assignArray.length > 0) {
           this.f04003Service.Set(url, changeJson).subscribe(data => {
             if (data.rspCode == '0000') {
-              this.Inquire();
+              this.Search();
               this.assignArray=[]
               this.s="轉件成功";
               this.dialog.open(ConfirmComponent, {
@@ -265,11 +269,12 @@ export class F04003Component implements OnInit {
     }
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
-    if (this.i > 0) {
+    if (this.i > 0)
+     {
       const { pageSize, pageIndex } = params;
       this.pageSize = pageSize;
       this.pageIndex = pageIndex;
-      this. Inquire();
+      this.Inquire(pageIndex, pageSize);
     }
   }
 }
