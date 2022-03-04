@@ -53,13 +53,13 @@ nz-time-picker {
     border: 1px solid #DBDBDB;
   }
   /* 表格表頭樣式 */
-  .table-header{
+  /* .table-header{
     background-color:#ededed;
     border: 1px solid #e8e8e8;
     color:#848E9C;
     margin-bottom: 1px;
     font-size: 14px;
-  }
+  } */
   /* 表格內容樣式 */
   .table-data{
     background-color:white;

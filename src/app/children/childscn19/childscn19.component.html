@@ -3,7 +3,7 @@
 <!-- <div style="padding:10px;text-align:center">
   </div> -->
 <div class="line_bank_card_no_padding" style="margin:20px 0px;width:100%" (keydown.enter)="$event.preventDefault()">
-    <br>
+    <!-- <br> -->
     <div [ngStyle]="{'display': flag == 'Y' ? 'none' : '0'}">
         <button nz-button [nzSize]="'middle'" nzType="primary" (click)="repair()" [disabled]="send"
             [ngClass]="!(getPage() == '1' || getPage() == '2') ? 'all-disable' : ''">補件送出</button>
@@ -69,7 +69,7 @@
             nzSize="small" nzTitle="補件資訊">
             <thead>
                 <tr>
-                    <th class="table-header">刪除</th>
+                    <th class="table-header" [(hidden)]="flag">刪除</th>
                     <th class="table-header">待補文件日期</th>
                     <th class="table-header">補件原因</th>
                     <th class="table-header">補件項目</th>
@@ -78,7 +78,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let data of rescanDataSource">
-                    <td class="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"
+                    <td class="table-data" [(hidden)]="flag" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"
                             [disabled]="data.IMAGE_DATE == null ? false:true "
                             (click)="delRescan(data.ROW_ID)">刪除</button></td>
                     <td class="table-data">{{ data.RESTART_DATE|date: 'yyyy-MM-dd' }}</td>
