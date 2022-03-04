@@ -212,8 +212,6 @@ setValueLow
 			width: '50%',
 		})
 		dialogRef.afterClosed().subscribe(result => {
-			console.log('result');
-			console.log(result);
 			if (result != null && (result.event == 'success' || result == '1')) {
 				this.refreshTable()
 			}
@@ -332,6 +330,7 @@ setValueLow
 
 	// 送出選中項
 	submit() {
+
 		// this.getCompareDataSet();
 		let jsonObjects: any = []
 		const url = 'f03/f03012action1'
@@ -353,12 +352,13 @@ setValueLow
 			// jsonObject['setValueHight'] = obj.setValueHight
 			// jsonObject['setValueLow'] = obj.setValueLow
 			if(obj.compareType=='2'){
-				jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
-			}else if(obj.compareType=='1'){
+				jsonObject['setValueLow'] =   obj.setValueLow != '' ? '' : "0";
+			}else if(obj.compareType=='1')
+      {
 				if(obj.setValueHight>obj.setValueLow){
 
-					jsonObject['setValueHight'] =   obj.setValueHight != "" ? this.Cut( obj.setValueHight) : "0";
-					jsonObject['setValueLow'] =   obj.setValueLow != "" ? this.Cut( obj.setValueLow) : "0";
+					jsonObject['setValueHight'] =   obj.setValueHight != ''? '' : "0";
+					jsonObject['setValueLow'] =   obj.setValueLow != '' ? '' : "0";
 				}
 				else if(obj.setValueHight<obj.setValueLow){
           this.dialog.open(ConfirmComponent, {

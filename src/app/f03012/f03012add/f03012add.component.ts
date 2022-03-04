@@ -150,7 +150,7 @@ export class F03012addComponent implements OnInit {
         });
         return;
       }
-      jsonObject['setValueLow'] = this.setValueLow != "" ? this.Cut(this.setValueLow) : "0";
+      jsonObject['setValueLow'] = this.setValueLow != '' ? '' : "0";
     } else if (this.compareType == '1') {
       if ((this.setValueLow.includes('.'))) {
          this.dialog.open(ConfirmComponent, {
@@ -166,8 +166,8 @@ export class F03012addComponent implements OnInit {
         return
       }
       else {
-        jsonObject['setValueLow'] = this.setValueLow != "" ? this.Cut(this.setValueLow) : "0";
-        jsonObject['setValueHight'] = this.setValueHight != "" ? this.Cut(this.setValueHight) : "0";
+        jsonObject['setValueLow'] = this.setValueLow != '' ? '' : "0";
+        jsonObject['setValueHight'] = this.setValueHight != '' ? '' : "0";
        }
     }
 
