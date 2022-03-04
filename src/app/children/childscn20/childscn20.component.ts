@@ -151,6 +151,7 @@ rid:[]=[]
 
       let test12345:string[] = [];
 
+      this.contentArray = [];
       this.chkArray.forEach((element) => {
         if (element === "CU_CNAME") { this.blockListForm.value.CU_CNAME != null && this.blockListForm.value.CU_CNAME != "" ? this.contentArray.push(this.blockListForm.value.CU_CNAME) : test12345.push('1'); }
         if (element === "NATIONAL_ID") { this.blockListForm.value.NATIONAL_ID != null && this.blockListForm.value.NATIONAL_ID != "" ? this.contentArray.push(this.blockListForm.value.NATIONAL_ID): test12345.push('1'); }
@@ -175,14 +176,20 @@ rid:[]=[]
       this.jsonObject['REPORT_CONTENT'] = this.blockListForm.value.REPORT_CONTENT;
       this.jsonObject['USE_FLAG'] = this.blockListForm.value.USE_FLAG;    
      
+      console.log(this.jsonObject);
+
       const url = 'f01/childscn20action3';
       this.block = true;
       this.childscn20Service.onsave(url, this.jsonObject).subscribe(data => {
         console.log(data)
-        if (data.rspMsg == "insertSuccess") {
+        if (data.rspMsg == "insertSuccess"||data.rspMsg == "saveSuccess") {
           this.dialog.open(ConfirmComponent, { data: { msgStr: "儲存成功" } });
           this.block = false;
           this.selectBlockList(this.pageIndex, this.pageSize);
+        }
+        else{
+          this.dialog.open(ConfirmComponent, { data: { msgStr: "儲存失敗" } });
+          this.block = false;
         }
       })
     }
@@ -264,9 +271,9 @@ rid:[]=[]
     this.pageIndex = pageIndex;
     this.selectBlockList(this.pageIndex, this.pageSize);
   }
-  test1(){
-    console.log(this.contentArray)
-    console.log(this.chkArray)
-console.log(this.blockListForm.value.ROWID)
-  }
+//   test1(){
+//     console.log(this.contentArray)
+//     console.log(this.chkArray)
+// console.log(this.blockListForm.value.ROWID)
+//   }
 }
