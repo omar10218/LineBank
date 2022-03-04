@@ -61,6 +61,7 @@ export class Childscn13editComponent implements OnInit {
     let codeStr: string = "";
     const formdata = new FormData();
     const baseUrl = 'f01/childscn13action2';
+    let urlStr: string = this.data.webAddrUrl.replace('://','你').replace(/\./g,'我').replace(/\//g,'他').replace(':','它').replace('?','問').replace(/=/g,'等');
     if (this.files != null) {
       var mimeType = this.files.type;
       if (mimeType.match(/image\/*/) == null) {
@@ -70,7 +71,7 @@ export class Childscn13editComponent implements OnInit {
       } else {
         formdata.append('applno', this.applno);
         formdata.append('web', this.data.webAddrValue.split('=')[0]);
-        formdata.append('webAddr', this.data.webAddrUrl);
+        formdata.append('webAddr', urlStr);
         formdata.append('messageContent', this.data.webInfoContent);
         formdata.append('empno',localStorage.getItem("empNo"));
         formdata.append('rowid', this.data.rowId);
@@ -80,7 +81,7 @@ export class Childscn13editComponent implements OnInit {
     } else {
       formdata.append('applno', this.applno);
       formdata.append('web', this.data.webAddrValue.split('=')[0]);
-      formdata.append('webAddr', this.data.webAddrUrl);
+      formdata.append('webAddr', urlStr);
       formdata.append('messageContent', this.data.webInfoContent);
       formdata.append('empno', localStorage.getItem("empNo"));
       formdata.append('rowid', this.rowId);
