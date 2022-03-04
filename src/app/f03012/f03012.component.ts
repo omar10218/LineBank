@@ -427,20 +427,20 @@ setValueLow
 	numberOnly(i:string,id:string) {
     var num  = 0;
     num = Number(i);
-    for(var t of this.compareDataSetSource.data)
-    {
+    // for(var t of this.compareDataSetSource.data)
+    // {
 
-      if(t.id==id)
-      {
-        if(num>1)
-        {
-          this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "最大值1" },
-          })
-          t.setValueLow='';
-        }
-      }
-    }
+    //   if(t.id==id)
+    //   {
+    //     if(num>1)
+    //     {
+    //       this.dialog.open(ConfirmComponent, {
+    //         data: { msgStr: "最大值1" },
+    //       })
+    //       t.setValueLow='';
+    //     }
+    //   }
+    // }
 
 	}
   //最高
@@ -450,20 +450,20 @@ setValueLow
     var num  = 0;
     num = Number(i);
 
-    for(var t of this.compareDataSetSource.data)
-    {
+    // for(var t of this.compareDataSetSource.data)
+    // {
 
-      if(t.id==id)
-      {
-        if(num>99)
-        {
-          this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "最大值99" },
-          })
-          t.setValueHight='';
-        }
-      }
-    }
+    //   if(t.id==id)
+    //   {
+    //     if(num>99)
+    //     {
+    //       this.dialog.open(ConfirmComponent, {
+    //         data: { msgStr: "最大值99" },
+    //       })
+    //       t.setValueHight='';
+    //     }
+    //   }
+    // }
 
 
   }
