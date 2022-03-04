@@ -124,6 +124,20 @@ export class F01003scn1Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result.value == 'confirm') {
+        //核准額度不得小於100000
+        var amount = sessionStorage.getItem('resultApproveAmt')
+        if (amount != null && amount != "") {
+          var INT_amount: any;
+          INT_amount = parseInt(amount.toString());
+          if ((!isNaN(INT_amount)) && INT_amount < 100000 && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: "核准額度不可小於100000" }
+            });
+            return;
+          }
+        }
+
+
         this.f01002Scn1Service.setCREDITSource({ key: true });
         const baseUrl = url;
         let jsonObject: any = {};
@@ -267,12 +281,12 @@ export class F01003scn1Component implements OnInit {
                     });
                     return;
                   } else if (creditInterestPeriodArray[index - 2]) {
-                      if (Number(creditInterestPeriodArray[index - 1].period) <= Number(creditInterestPeriodArray[index - 2].period)) {
-                        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-                          data: { msgStr: '序號' + index + ',期數需比前一期大' }
-                        });
-                        return;
-                      }
+                    if (Number(creditInterestPeriodArray[index - 1].period) <= Number(creditInterestPeriodArray[index - 2].period)) {
+                      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+                        data: { msgStr: '序號' + index + ',期數需比前一期大' }
+                      });
+                      return;
+                    }
                   }
                 }
                 this.result(baseUrl, jsonObject, result, count);
@@ -287,7 +301,7 @@ export class F01003scn1Component implements OnInit {
               //   this.result(baseUrl, jsonObject, result, count);
               // }
             } else {
-              if(this.addSignature == 'S1' || this.addSignature == 'S2'){
+              if (this.addSignature == 'S1' || this.addSignature == 'S2') {
                 const childernDialogRef = this.dialog.open(ConfirmComponent, {
                   data: { msgStr: '審核結果婉拒無法加簽!' }
                 });
@@ -358,10 +372,8 @@ export class F01003scn1Component implements OnInit {
           data: { msgStr: data.rspMsg }
         });
       }
-      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1')
-      { }
-      else if(data.rspMsg.includes('該案客戶已取消'))
-      {
+      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') { }
+      else if (data.rspMsg.includes('該案客戶已取消')) {
         setTimeout(() => {
           childernDialogRef.close();
         }, 1000);
