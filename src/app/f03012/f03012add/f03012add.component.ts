@@ -80,7 +80,7 @@ export class F03012addComponent implements OnInit {
       }
       for (let i = 0; i < this.compareTableCode.length; i++) {
         this.f03012Service.getSysTypeCode(this.compareTableCode[i].value).subscribe(data => {
-          console.log(data)
+
           for (const jsonObj of data.rspBody.mappingList) {
             const codeNo = jsonObj.codeNo
             const desc = jsonObj.codeDesc
@@ -137,33 +137,40 @@ export class F03012addComponent implements OnInit {
 
     if (this.compareType == '2') {
       if (Number(this.setValueLow) >= 1) {
-        alert("不可以大於1");
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "不可以大於1" }
+        });
+
         return;
       }
 
       if (!(this.setValueLow.includes('.'))) {
-        alert("請填小數點");
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請填小數點" }
+        });
         return;
       }
-      jsonObject['setValueLow'] = this.setValueLow != "" ? this.Cut(this.setValueLow) : "0";
+      jsonObject['setValueLow'] = this.setValueLow != '' ? '' : "0";
     } else if (this.compareType == '1') {
       if ((this.setValueLow.includes('.'))) {
-        alert("請填整數");
+         this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請填整數" }
+        });
         return;
-      } 
+      }
       else if (this.setValueHight < this.setValueLow) {
-        alert('設定最高門檻需大於設定最低門檻!!')
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '設定最高門檻需大於設定最低門檻!!' }
+        });
+
         return
-      } 
+      }
       else {
-        jsonObject['setValueLow'] = this.setValueLow != "" ? this.Cut(this.setValueLow) : "0";
-        jsonObject['setValueHight'] = this.setValueHight != "" ? this.Cut(this.setValueHight) : "0";
+        jsonObject['setValueLow'] = this.setValueLow != '' ? '' : "0";
+        jsonObject['setValueHight'] = this.setValueHight != '' ? '' : "0";
        }
     }
 
-   
-
-    console.log(this.compareType)
     this.error = 'test'
     this.f03012Service.submit(url, jsonObject).subscribe(data => {
       // alert((msg = data.rspMsg))
@@ -213,20 +220,33 @@ export class F03012addComponent implements OnInit {
     return data != null ? data.replace(/[^\w\s]|_/g, '.') : data;
 
   }
-  // 只允許輸入小數點
-  numberOnly(event: { which: any; keyCode: any; }): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
 
-    if (charCode == 46) {
-      return true;
+  	// 只允許輸入小數點
+	numberOnly(i:string) {
+    this.setValueLow  = i;
+    var num  = 0;
+    num = Number(i);
+    if(num>1)
+    {
+      this.setValueLow='';
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "最大值1" },
+      })
     }
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '請輸入數字!' }
-      });
-      return false;
+	}
+  //最高
+  numberhingt(i:string)
+  {
+    this.setValueHight  = i;
+    var num  = 0;
+    num = Number(i);
+    if(num>99)
+    {
+      this.setValueHight='';
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "最大值99" },
+      })
     }
-    return true;
   }
 
   //+逗號
@@ -235,7 +255,6 @@ export class F03012addComponent implements OnInit {
   }
   // 判斷比對方式來去鎖住最高門檻
   test123(a) {
-    console.log
     if (a == 2) {
       return this.myDiv = true
     }
@@ -246,4 +265,6 @@ export class F03012addComponent implements OnInit {
   ngAfterViewInit(): void {
     console.log(this.compareType)
   }
+
+
 }

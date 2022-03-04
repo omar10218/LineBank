@@ -25,3 +25,8 @@
   .table-data{
     text-align: center;
   }
+/* 文字靠右 */
+.inpu2
+{
+  text-align: right;
+}

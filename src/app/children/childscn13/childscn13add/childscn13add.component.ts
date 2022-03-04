@@ -78,7 +78,7 @@ export class Childscn13addComponent implements OnInit {
 			  this.msg = "檔案非圖片類型!";
       } else {
         const formdata = new FormData();
-        let urlStr: string = this.webAddrUrl.replace('://','你').replace(/\./g,'我').replace(/\//g,'他').replace(':','它').replace('?','問').replace(/=/g,'等');
+        let urlStr: string = this.webAddrUrl.replace('://','你').replace(/\./g,'我').replace(/\//g,'他').replace(':','它').replace('?','問').replace('!','驚').replace(/=/g,'等');
         formdata.append('applno', this.data.applno);
         formdata.append('web', this.webAddrValue.split('=')[0]);
         formdata.append('webAddr', urlStr);

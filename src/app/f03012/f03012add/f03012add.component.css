@@ -3,7 +3,7 @@
     background:white;
     border-color:#f80000;
     border-radius:5px;
-  
+
   }
   .ant-btn-dangerous:hover{
     color:#ffffff;
@@ -21,3 +21,8 @@
   .intro{
     border:2px solid blue;
   }
+  /* 文字靠右 */
+.inpu2
+{
+  text-align: right;
+}

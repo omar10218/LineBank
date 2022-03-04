@@ -61,7 +61,7 @@ export class Childscn13editComponent implements OnInit {
     let codeStr: string = "";
     const formdata = new FormData();
     const baseUrl = 'f01/childscn13action2';
-    let urlStr: string = this.data.webAddrUrl.replace('://','你').replace(/\./g,'我').replace(/\//g,'他').replace(':','它').replace('?','問').replace(/=/g,'等');
+    let urlStr: string = this.data.webAddrUrl.replace('://','你').replace(/\./g,'我').replace(/\//g,'他').replace(':','它').replace('?','問').replace('!','驚').replace(/=/g,'等');
     if (this.files != null) {
       var mimeType = this.files.type;
       if (mimeType.match(/image\/*/) == null) {

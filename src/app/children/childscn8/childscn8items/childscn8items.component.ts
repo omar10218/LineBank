@@ -101,7 +101,7 @@ export class Childscn8itemsComponent implements OnInit {
       //照會項目
       for (const calloutData of this.MDtable) {
         for (const mdNo of data.rspBody.mdNoList) {
-          calloutData.txt = calloutData.MD_NO.value == mdNo ? "*" : calloutData.txt
+          calloutData.txt = calloutData.MD_NO.value == mdNo ? "p" : calloutData.txt
         }
         for (const calloutItemsData of data.rspBody.calloutItemsList) {
           if (calloutItemsData.checkItem == calloutData.MD_NO.value) {//比對項目代碼
@@ -112,14 +112,14 @@ export class Childscn8itemsComponent implements OnInit {
             calloutData.REPLY_CONDITION = calloutItemsData.replyCondition;//回答狀況
             //回答狀況 載入時 多選另外處理
             if (calloutItemsData.checkItem == "14" && calloutItemsData.replyCondition != null) {
-              let REPLY_CONDITION14 = calloutItemsData.replyCondition.split(",");
+              let REPLY_CONDITION14 = calloutItemsData.replyCondition.split("_");
               for (const data of REPLY_CONDITION14) {
                 for (const datacode of this.REPLY_CONDITION14code) {
                   datacode.checked = data == datacode.value ? true : datacode.checked;
                 }
               }
             } else if (calloutItemsData.checkItem == "17" && calloutItemsData.replyCondition != null) {
-              let REPLY_CONDITION17 = calloutItemsData.replyCondition.split(",");
+              let REPLY_CONDITION17 = calloutItemsData.replyCondition.split("_");
               for (const data of REPLY_CONDITION17) {
                 for (const datacode of this.REPLY_CONDITION17code) {
                   datacode.checked = data == datacode.value ? true : datacode.checked;
@@ -132,7 +132,7 @@ export class Childscn8itemsComponent implements OnInit {
     });
   }
 
-  // 照會項目儲存
+  // 照會項目儲存  分割多筆資料_  無資料p  單筆多重資料分割q
   async save() {
     //新增檢核 核對資料/回答狀況 要兩個一起填或不填
     for (const obj of this.MDtable) {
@@ -159,11 +159,11 @@ export class Childscn8itemsComponent implements OnInit {
     // 多選先做另外處理
     this.MDtable[13].REPLY_CONDITION = "";//共20筆0開始
     for (var data of this.REPLY_CONDITION14code) {//共20筆1開始
-      if (data.checked) { this.MDtable[13].REPLY_CONDITION += data.value + ","; }
+      if (data.checked) { this.MDtable[13].REPLY_CONDITION += data.value + "_"; }
     }
     this.MDtable[16].REPLY_CONDITION = "";//共20筆0開始
     for (var data of this.REPLY_CONDITION17code) {//共20筆1開始
-      if (data.checked) { this.MDtable[16].REPLY_CONDITION += data.value + ","; }
+      if (data.checked) { this.MDtable[16].REPLY_CONDITION += data.value + "_"; }
     }
     //有資料則消除最後一筆分隔記號
     this.MDtable[13].REPLY_CONDITION = this.MDtable[13].REPLY_CONDITION.length > 0 ?
@@ -175,10 +175,10 @@ export class Childscn8itemsComponent implements OnInit {
       this.MDtable[16].REPLY_CONDITION;
 
     for (const calloutData of this.MDtable) {
-      checkItem += calloutData.MD_NO.value + ",";
-      checkData += (calloutData.CHECK_DATA != "" && calloutData.CHECK_DATA != null) ? calloutData.CHECK_DATA + "," : "*,";
-      replyCondition += (calloutData.REPLY_CONDITION != "" && calloutData.REPLY_CONDITION != null) ? calloutData.REPLY_CONDITION + "-" : "*-";
-      checkNote += (calloutData.CHECK_NOTE != "" && calloutData.CHECK_NOTE != null) ? calloutData.CHECK_NOTE + "," : "*,";
+      checkItem += calloutData.MD_NO.value + "_";
+      checkData += (calloutData.CHECK_DATA != "" && calloutData.CHECK_DATA != null) ? calloutData.CHECK_DATA + "_" : "p_";
+      replyCondition += (calloutData.REPLY_CONDITION != "" && calloutData.REPLY_CONDITION != null) ? calloutData.REPLY_CONDITION + "q" : "pq";
+      checkNote += (calloutData.CHECK_NOTE != "" && calloutData.CHECK_NOTE != null) ? calloutData.CHECK_NOTE + "_" : "p_";
     }
     //有資料則消除最後一筆分隔記號
     checkItem = checkItem.length > 0 ? checkItem.slice(0, checkItem.length - 1) : checkItem;
@@ -221,6 +221,14 @@ export class Childscn8itemsComponent implements OnInit {
     } else {
       MDtable.REPLY_CONDITION = null;
     }
+  }
+
+  //限制不可輸入_
+  checkSpecificKey(key: number) {
+    if (this.MDtable[key].CHECK_NOTE != null){
+      this.MDtable[key].CHECK_NOTE = this.MDtable[key].CHECK_NOTE.toString().replace(/_/g, '');
+    }
+    // return this.MDtable[key].CHECK_NOTE != null ? this.MDtable[key].CHECK_NOTE.replace('_', '') : this.MDtable[key].CHECK_NOTE;
   }
 
 }
