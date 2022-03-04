@@ -8,9 +8,7 @@
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">公司統編:</span>
                             <input matInput #input class="form-control" [(ngModel)]="cuCpNo" name="cuCpNo" maxlength="8"
-                                oninput="value=value.replace(/[^\d]/g,'')" placeholder="請輸入公司統編">
-                            <!-- <mat-error *ngIf="formControl.invalid  && (cuCpNo=='' || cuCpNo== null)&& (cuCpName=='' || cuCpName== null)&& (cuCpSname=='' || cuCpSname== null) ">
-                                {{getErrorMessage()}}</mat-error> -->
+                            oninput="value=value.replace(/[^\d]/g,'')" placeholder="請輸入公司統編">
                         </div>
                     </div>
                 </div>
@@ -18,7 +16,7 @@
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">公司名稱</span>
                             <input matInput #input class="form-control" [(ngModel)]="cuCpName" placeholder="請輸入公司名稱" name="cuCpName" maxlength="20" required>
-                            <mat-error *ngIf="formControl.invalid && (cuCpNo=='' || cuCpNo== null)&& (cuCpName=='' || cuCpName== null)&& (cuCpSname=='' || cuCpSname== null) ">
+                            <mat-error *ngIf="formControl.invalid  && (cuCpName=='' || cuCpName== null) ">
                                 {{getErrorMessage()}}</mat-error>
                         </div>
                     </div>
@@ -65,7 +63,7 @@
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">使用中</span>
                             <mat-select [(ngModel)]="useFlagValue" name="useFlagValue" required>
-                                <mat-option *ngFor="let code of useFlagCode"  [value]="code.value">{{code.viewValue}}</mat-option>                          
+                                <mat-option *ngFor="let code of useFlagCode"  [value]="code.value">{{code.viewValue}}</mat-option>
                               </mat-select>
                             <mat-error *ngIf="formControl.invalid && (useFlagValue=='' || useFlagValue== null) ">
                                 {{getErrorMessage()}}</mat-error>
@@ -78,7 +76,7 @@
                 <div nz-col nzSpan="24">
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">分類3</span>
-                            <textarea matInput class="input-textarea" name="cuCpType3Value" required id="textarea"
+                            <textarea matInput class="input-textarea"  [(ngModel)]="cuCpType3Value" name="cuCpType3Value"  id="textarea"style="height: 74px;"
                                 maxlength="30" placeholder="請輸入文字"></textarea>
                         </div>
                     </div>
@@ -88,16 +86,12 @@
                 <div nz-col nzSpan="24">
                     <div class="form" style="padding:20px">
                         <div><span class="form-title-actions">備註</span>
-                            <textarea matInput class="input-textarea" name="codeTag" required id="textarea"
+                            <textarea matInput class="input-textarea"[(ngModel)]="content"  name="content"  id="textarea" style="height: 74px;"
                                 maxlength="100" placeholder="請輸入文字"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
             <br><br>
         </form>
 

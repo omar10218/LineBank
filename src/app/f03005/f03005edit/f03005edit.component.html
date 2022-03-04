@@ -23,7 +23,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">原因碼</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.reasonCode" name="reasonCode" disabled>
+              <input matInput #input class="form-control" [(ngModel)]="data.reasonCode" name="reasonCode" disabled maxlength="5">
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
@@ -34,7 +34,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">原因碼說明</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.reasonDesc" name="reasonDesc" required>
+              <input matInput #input class="form-control" [(ngModel)]="data.reasonDesc" name="reasonDesc" required maxlength="50">
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
             </div>
           </div>
@@ -42,7 +42,7 @@
         <div nz-col nzSpan="8">
           <div class="form" style="padding:20px">
             <div><span class="form-title-actions">排序</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.reasonSort" name="reasonSort" required>
+              <input matInput #input class="form-control" [(ngModel)]="data.reasonSort" name="reasonSort" required maxlength="4">
               <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
               <p style="color: red;" [hidden]="hidden">請輸入數字</p>
             </div>

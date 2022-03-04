@@ -38,7 +38,7 @@
       <div style="padding:10px">
         <span class="form-title">設定最低門檻</span>
         <input matInput [(ngModel)]="low" (keypress)="numberOnly($event)"
-        (keyup)="low = toCurrency(low)" name="setValueLow" required>
+        (keyup)="low = toCurrency(toNumber(low))" name="setValueLow" required>
       </div>
     </div>
     <div nz-col nzSpan="8">

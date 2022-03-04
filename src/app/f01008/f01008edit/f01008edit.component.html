@@ -45,7 +45,7 @@
         </div>
         <div nz-col nzFlex="1">
           <div style="padding:10px"><span style="margin-top:8px;" class="form-title">設定下次照會時間</span>
-            <nz-date-picker style="display:block" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" (keydown.enter)="$event.preventDefault()">
+            <nz-date-picker style="display:block" [(ngModel)]="data.CALLOUT_DATE" name="CALLOUT_DATE" [nzDisabledDate]="disabledDate" (keydown.enter)="$event.preventDefault()" >
             </nz-date-picker>
           </div>
         </div>
@@ -85,7 +85,7 @@
         <div nz-col nzSpan="24">
           <div class="form">
             <div><span style="width: 100%;" class="form-title">備註</span><textarea matInput class="input-textarea" [(ngModel)]="data.CON_MEMO"
-                name="CON_MEMO" style="height: 80px;"></textarea>
+                name="CON_MEMO" style="height: 80px;" maxlength="100"></textarea>
             </div>
           </div>
         </div>

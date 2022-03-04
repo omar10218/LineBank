@@ -24,6 +24,11 @@ export class F03006Service extends BaseService {
     return this.postJsonObject(targetUrl, json).pipe(map(res => res));
   }
 
+  //儲存密碼
+  public async saveReason(baseUrl: string, json: JSON): Promise<Observable<any>> {
+    return await this.postJsonObject(baseUrl, json).toPromise();
+  }
+
   //新增修改
   addorEditSystemCodeSet(baseUrl: string, data: any): any {
     let jsonObject: any = {};
@@ -31,7 +36,9 @@ export class F03006Service extends BaseService {
     jsonObject['empName'] = data.EMP_NAME;//員工姓名
     jsonObject['empId'] = data.EMP_ID;//員工ID
     jsonObject['agentEmp'] = data.AGENT_EMP;//代理人
-    jsonObject['email'] = data.EMAIL;//email
+    let mail: string = data.EMAIL;
+    let email = mail.replace('@','鼠').replace(/\./g,'點');
+    jsonObject['email'] = email;//email
     jsonObject['onJob'] = data.ON_JOB;//是否在職
     jsonObject['assignStop'] = data.ASSIGN_STOP;//是否停派
     if (data.LEAVE_STARTDATE != null && data.LEAVE_STARTDATE != "") {

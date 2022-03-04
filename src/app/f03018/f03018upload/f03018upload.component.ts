@@ -40,7 +40,7 @@ export class F03018uploadComponent implements OnInit {
     // if (msgStr === '上傳成功!!') { this.dialogRef.close({ event: 'success' }); }
 
     this.F03018Service.uploadExcel(baseUrl, this.fileToUpload).subscribe(data => {
-      console.log(data)
+
       this.uploadForm.patchValue({ ERROR_MESSAGE: data.rspMsg });
       this.block = false;
       // const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -52,7 +52,8 @@ export class F03018uploadComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+
+    this.dialogRef.close({ event: 'success' });
   }
 
   submit() {

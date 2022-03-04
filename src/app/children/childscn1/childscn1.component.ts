@@ -743,7 +743,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
         value.approveInterest = Number(value.interest);
       } else {
         value.interestBase = await this.childscn1Service.getInterestBase(baseUrl, jsonObject);
-        value.approveInterest = Number(value.interestBase) + Number(value.interest);
+        value.approveInterest = (Number(value.interestBase) * 1000 + Number(value.interest) * 1000) / 1000;
       }
 
       if (Number(value.approveInterest) > 16) {

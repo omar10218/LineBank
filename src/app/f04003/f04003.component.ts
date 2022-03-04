@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Data } from '@angular/router';
 import { time } from 'console';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F04003Service } from './f04003.service';
 
@@ -56,6 +57,9 @@ export class F04003Component implements OnInit {
   Transfer: string = '';//轉件
   TransferCode: sysCode[] = [];
   s:string = '';
+  total = 1;
+  pageSize = 10;
+  pageIndex = 1;
   Dispatch()//搜尋派件人員
   {
     this.personnelCode = [];
@@ -91,10 +95,8 @@ export class F04003Component implements OnInit {
       let personnelJson: any = {};
       personnelJson['level'] = this.Level;
       personnelJson['empNo'] = this.personnel;
-      console.log(this.Level)
-      console.log(this.personnel)
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
-        console.log(data)
+
         if (data.rspBody.empList.length > 0)
         {
           for (const obj of data.rspBody.empList)
@@ -188,7 +190,6 @@ export class F04003Component implements OnInit {
           }
         }
       }
-      console.log(this.assignArray.length)
       if(this.assignArray.length>0)
       {
         let url = 'f04/f04003action3'
@@ -196,7 +197,6 @@ export class F04003Component implements OnInit {
         changeJson['level'] = this.Level;
         changeJson['roleNo'] = this.Transfer;
         changeJson['assign'] = this.assignArray;
-        console.log(changeJson)
         if (this.assignArray.length > 0) {
           this.f04003Service.Set(url, changeJson).subscribe(data => {
             if (data.rspCode == '0000') {
@@ -255,6 +255,14 @@ export class F04003Component implements OnInit {
       return "S2 風管處處長"
     } else if (level == 'S1') {
       return "S1 總經理"
+    }
+  }
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    if (this.i > 0) {
+      const { pageSize, pageIndex } = params;
+      this.pageSize = pageSize;
+      this.pageIndex = pageIndex;
+      this. Inquire();
     }
   }
 }

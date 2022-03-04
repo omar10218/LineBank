@@ -17,10 +17,10 @@ export class F03018addComponent implements OnInit {
   cuCpNo: string //公司統編
   cuCpName: string //公司名稱
   cuCpSname: string //公司簡稱
-  cuCpType1Value: string ='';//分類1
-  cuCpType2Value: string ='';//分類2
+  cuCpType1Value: string = '';//分類1
+  cuCpType2Value: string = '';//分類2
   cuCpType3Value: string//分類3
-  useFlagValue: string='' //使用中
+  useFlagValue: string = '' //使用中
   content: string //備註
   cuCpType1Code: sysCode[] = [] //分類1
   cuCpType2Code: sysCode[] = [] //分類2
@@ -38,7 +38,7 @@ export class F03018addComponent implements OnInit {
   ngOnInit(): void {
 
     this.getTypeselect()
-   
+
   }
   formControl = new FormControl('', [
     Validators.required
@@ -58,10 +58,10 @@ export class F03018addComponent implements OnInit {
     jsonObject['cuCpNo'] = this.cuCpNo;
     jsonObject['cuCpName'] = this.cuCpName;
     jsonObject['cuCpSname'] = this.cuCpSname;
-    jsonObject['cuCpType1Value'] = this.cuCpType1Value;
-    jsonObject['cuCpType2Value'] = this.cuCpType2Value;
-    jsonObject['cuCpType3Value'] = this.cuCpType3Value;
-    jsonObject['useFlagValue'] = this.useFlagValue;
+    jsonObject['cuCpType1'] = this.cuCpType1Value;
+    jsonObject['cuCpType2'] = this.cuCpType2Value;
+    jsonObject['cuCpType3'] = this.cuCpType3Value;
+    jsonObject['useFlag'] = this.useFlagValue;
     jsonObject['content'] = this.content;
     let msgStr: string = "";
     msgStr = await this.f03018Service.onesave(jsonObject);
@@ -85,58 +85,68 @@ export class F03018addComponent implements OnInit {
     let jsonObject: any = {}
     this.cuCpType1Code.push({ value: '', viewValue: '請選擇' })
     this.cuCpType2Code.push({ value: '', viewValue: '請選擇' })
-   
-    this.f03018Service.getValueTypeselect(url, jsonObject).subscribe(data => {
-      console.log(data)
-      for (const jsonObj of data.rspBody.cuCpType1) {
-        const desc = jsonObj.CU_CP_TYPE1;
-        this.cuCpType1Code.push({ value: desc, viewValue: desc })
-      }
-      console.log(this.cuCpType1Code)
-      for (const jsonObj of data.rspBody.cuCpType2) {
 
-        const desc = jsonObj.CU_CP_TYPE2;
-        this.cuCpType2Code.push({ value: desc, viewValue: desc })
+    this.f03018Service.getValueTypeselect(url, jsonObject).subscribe(data => {
+
+      for (const jsonObj of data.rspBody.cuCpType1) {
+        if(jsonObj!= null)
+        {
+          const desc = jsonObj['CU_CP_TYPE1'];
+          this.cuCpType1Code.push({ value: desc, viewValue: desc })
+        }
       }
-      console.log(this.cuCpType2Code)
+
+      for (const jsonObj of data.rspBody.cuCpType2) {
+        if(jsonObj!= null)
+        {
+          const desc = jsonObj['CU_CP_TYPE2'];
+          this.cuCpType2Code.push({ value: desc, viewValue: desc })
+        }
+
+      }
+
     });
   }
 
 
   public async onesave(): Promise<void> {
-    if (this.cuCpNo == null || this.cuCpName == null || this.cuCpSname == null || this.cuCpType1Value == null || this.useFlagValue == null) {
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請填入欄位值" }
-      });
-    }
-    else {
-      let jsonObject: any = {};
-      jsonObject['cuCpNo'] = this.cuCpNo;
-      jsonObject['cuCpName'] = this.cuCpName;
-      jsonObject['cuCpSname'] = this.cuCpSname;
-      jsonObject['cuCpType1Value'] = this.cuCpType1Value;
-      jsonObject['cuCpType2Value'] = this.cuCpType2Value;
-      jsonObject['cuCpType3Value'] = this.cuCpType3Value;
-      jsonObject['useFlagValue'] = this.useFlagValue;
-      jsonObject['content'] = this.content;
-      let msgStr: string = "";
-      msgStr = await this.f03018Service.onesave(jsonObject);
-      if (msgStr == 'success') {
-        msgStr = '儲存成功！'
+    if (this.cuCpNo != null && this.cuCpNo != '')
+    {
+      if (this.cuCpNo.length < 8)
+      {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "公司統編長度不正確" }
+        });
+
+        return
       }
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: msgStr }
-      });
-      setTimeout(() => {
-        this.dialog.closeAll();
-      }, 1500);
+
     }
+
+    let jsonObject: any = {};
+    jsonObject['cuCpNo'] = this.cuCpNo;
+    jsonObject['cuCpName'] = this.cuCpName;
+    jsonObject['cuCpSname'] = this.cuCpSname;
+    jsonObject['cuCpType1'] = this.cuCpType1Value;
+    jsonObject['cuCpType2'] = this.cuCpType2Value;
+    jsonObject['cuCpType3'] = this.cuCpType3Value;
+    jsonObject['useFlag'] = this.useFlagValue;
+    jsonObject['content'] = this.content;
+    let msgStr: string = "";
+    msgStr = await this.f03018Service.onesave(jsonObject);
+    if (msgStr == 'success') {
+      msgStr = '儲存成功！'
+    }
+
+    this.dialog.open(ConfirmComponent, {
+      data: { msgStr: msgStr }
+    });
+    setTimeout(() => {
+      this.dialog.closeAll();
+    }, 1500);
 
     // this.f01006Service.restartfn();
   }
-
-
-
 
 
 

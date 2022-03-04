@@ -12,18 +12,18 @@
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (selectedValue1=='' || selectedValue1== null)">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
         <div nz-col nzSpan="12">
-          <div style="padding:10px">
+          <div style="padding:10px">  
             <span class="form-title">比對欄位</span>
             <mat-select [(ngModel)]="selectedValue2" name="selectedValue2" required>
               <mat-option *ngFor="let code of selectedColumn" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid  && (selectedValue2=='' || selectedValue2== null)">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
               <mat-option [value]=1>絕對值</mat-option>
               <mat-option [value]=2>相對值</mat-option>
             </mat-select>
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (compareType=='' || compareType== null)">{{getErrorMessage()}}</mat-error>
             <!-- <input formControlName="compareType" matInput [(ngModel)]="compareType"> -->
           </div>
         </div>
@@ -43,8 +43,8 @@
           <div style="padding:10px">
             <span class="form-title">設定最低門檻</span>
             <input style="ime-mode:disabled" matInput [(ngModel)]="setValueLow" (keypress)="numberOnly($event)"
-              (keyup)="setValueLow = toCurrency(toNumber(setValueLow))" required name="setValueLow">
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+              (keyup)="setValueLow = toCurrency(toNumber(setValueLow))" required name="setValueLow" maxlength="4">
+            <mat-error *ngIf="formControl.invalid && (setValueLow=='' || setValueLow== null)">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
         <div nz-col nzSpan="8">
@@ -52,7 +52,7 @@
             <span class="form-title">設定最高高檻</span>
             <input matInput  [(ngModel)]="setValueHight" (keypress)="numberOnly($event)" [disabled]="myDiv"
               (keyup)="setValueHight = toCurrency(toNumber(setValueHight))" required name="setValueHight">
-            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (setValueHight=='' || setValueHight== null)">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
 

@@ -28,13 +28,13 @@ export class F03016Component implements OnInit {
   pageIndex = 1;
   selectedValue: string;
   compareTableCode: sysCode[] = [];
-  DssJcicSet:number;
-  DssMailDay: number;
+  DssJcicSet:number=0;
+  DssMailDay: number=0;
   BasicLimit: string;
   CssPassStart: Date;
   CssPassEnd: Date;
   IsJcic: string = '';
-  TableName: string = ''; 
+  TableName: string = '';
   columnName: string = '';
   originalValue: string;
   currentValue: string;
@@ -50,11 +50,11 @@ export class F03016Component implements OnInit {
 
   ngOnInit(): void {
     this.getImpertmentParameterInfo(this.pageIndex, this.pageSize);
-    
+
   }
 
   ngAfterViewInit(){
-    
+
   }
   formControl = new FormControl('', [
     Validators.required
@@ -83,6 +83,7 @@ export class F03016Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
    this.f03016Service.getImpertmentParameter(baseUrl, jsonObject).subscribe(data => {
+     console.log(data)
       this.DssJcicSet = data.rspBody.ipList[0].dssJcicSet;
       this.DssMailDay = data.rspBody.ipList[0].dssMailDay;
       this.BasicLimit = data.rspBody.ipList[0].basicLimit =  data.rspBody.ipList[0].basicLimit != undefined ? (data.rspBody.ipList[0].basicLimit + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',') : data.rspBody.ipList[0].basicLimit;
@@ -102,7 +103,7 @@ export class F03016Component implements OnInit {
     });
   }
 
-  
+
   // 儲存資料
   public async save(): Promise<void> {
     let jsonObject: any = {};
@@ -114,8 +115,8 @@ export class F03016Component implements OnInit {
     if (this.CssPassStart < this.CssPassEnd) {
     // let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart).setDate(this.CssPassStart.getDate() +1), 'yyyy-MM-dd');
     // let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd).setDate(this.CssPassStart.getDate() +1), 'yyyy-MM-dd');
-    let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart), 'yyyy-MM-dd');
-    let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd), 'yyyy-MM-dd');
+    let CssPassStartString = this.pipe.transform(new Date(this.CssPassStart), 'yyyyMMdd');
+    let CssPassEndString = this.pipe.transform(new Date(this.CssPassEnd), 'yyyyMMdd');
       if (CssPassStartString != '1970-01-01' && CssPassEndString != '1970-01-01'
       ) {
         jsonObject['cssPassStart'] = CssPassStartString;
@@ -209,6 +210,6 @@ export class F03016Component implements OnInit {
 
   }
 
-  
+
 
 }

@@ -172,8 +172,9 @@ export class Childscn23Component implements OnInit {
 
     })
   }
-  sujectSelect(ID: string) {
-    for (const jsonObj of this.Content) {
+  sujectSelect(ID: string,NU:string) {
+    for (const jsonObj of this.Content)
+    {
       for (const item of this.one) {
         if (item.ID == ID) {
           if (item.ACCOUNT_CODE == jsonObj.ACCOUNT_CODE) {
@@ -184,6 +185,7 @@ export class Childscn23Component implements OnInit {
         }
       }
     }
+
   }
 
   sujectSelectTwo()//新增

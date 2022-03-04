@@ -97,15 +97,21 @@ export class F02001Component implements OnInit {
     //   }
 
     // }
-    if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
+     // 判斷是否為第一次進頁面
       const { pageIndex } = params;
       if (this.pageIndex !== pageIndex)
       {
+        if (this.firstFlag != 1) {
         // const { pageSize, pageIndex } = params;
         this.pageIndex = pageIndex;
         this.selectData(pageIndex, this.pageSize,this.order,this.sor);}
+        }
       }
-  }
+      // const element = document.querySelector('box');
+      // element.scrollIntoView();
+
+
+
   changePage() {
     this.pageIndex = 1;
 
@@ -247,6 +253,7 @@ export class F02001Component implements OnInit {
     this.jsonObject['projectName'] = this.project_NAME;//專案名稱
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
     this.jsonObject['approveAmt'] = '';//核准金額/額度
+
     if(na=='')
     {
       this.jsonObject['orderByValue'] = na;
@@ -263,8 +270,8 @@ export class F02001Component implements OnInit {
       {
 
         if (this.dealwithData365(this.apply_TIME)) {
-          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyyMMdd');
         }
         else {
 
@@ -285,8 +292,8 @@ export class F02001Component implements OnInit {
       if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
       {
         if (this.dealwithData365(this.proof_DOCUMENT_TIME)) {
-          this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyyMMdd');
 
         }
         else {
@@ -305,8 +312,8 @@ export class F02001Component implements OnInit {
       if (this.sign_UP_TIME != null)//簽約完成日期
       {
         if (this.dealwithData365(this.sign_UP_TIME)) {
-          this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -324,8 +331,8 @@ export class F02001Component implements OnInit {
       if (this.credit_TIME != null)//准駁日期時間
       {
         if (this.dealwithData365(this.credit_TIME)) {
-          this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -343,8 +350,8 @@ export class F02001Component implements OnInit {
       if (this.apply_TIME != null)//進件日期
       {
         if (this.dealwithData90(this.apply_TIME)) {
-          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -362,8 +369,8 @@ export class F02001Component implements OnInit {
       if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
       {
         if (this.dealwithData90(this.proof_DOCUMENT_TIME)) {
-          this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -380,8 +387,8 @@ export class F02001Component implements OnInit {
       if (this.sign_UP_TIME != null)//簽約完成日期
       {
         if (this.dealwithData90(this.sign_UP_TIME)) {
-          this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -397,8 +404,8 @@ export class F02001Component implements OnInit {
       if (this.credit_TIME != null)//准駁日期時間
       {
         if (this.dealwithData90(this.credit_TIME)) {
-          this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -424,7 +431,6 @@ export class F02001Component implements OnInit {
 
       }
       else {
-        console.log(data)
         this.resultData = data.rspBody.item;
         this.total = data.rspBody.size;
         this.quantity = data.rspBody.size;
@@ -506,7 +512,10 @@ export class F02001Component implements OnInit {
         data: { msgStr: "請至少選擇一項條件" }
       });
     } else {
+
       this.selectData(this.pageIndex, this.pageSize,'','');
+      // this.sortChange('ascend','APPLYEND_TIME')
+
     }
   }
   // sortChange(e: string) {
@@ -548,6 +557,7 @@ export class F02001Component implements OnInit {
         e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
         break;
     }
+
   }
 
   dateNull(t: [Date, Date], name: string) {
@@ -589,4 +599,4 @@ export class F02001Component implements OnInit {
     }
     return codeVal;
   }
-}
+ }

@@ -207,7 +207,7 @@ export class Childscn12Component implements OnInit {
         if (data.rspBody.income.length == 7) {
           if (this.EL_INCOME_Source.data[6].checkIncome != null) {
             let i = 0;
-            this.strArray = this.EL_INCOME_Source.data[6].checkIncome.split(',');
+            this.strArray = this.EL_INCOME_Source.data[6].checkIncome.split('_');
             for (const str of this.strArray) {
               for (const chk of this.chkArray) {
                 chk.completed = str == chk.value ? true : chk.completed;
@@ -256,7 +256,7 @@ export class Childscn12Component implements OnInit {
       //表34特殊處理
       if (INCOME_DETAILS.key == "salaryTransferList" || INCOME_DETAILS.key == "paySlipList") {
         if (data.A1 != null) {
-          let strArray = data.A1.split(',');
+          let strArray = data.A1.split('_');
           INCOME_DETAILS.A11 = strArray[0];
           INCOME_DETAILS.A12 = strArray[1];
           INCOME_DETAILS.A13 = strArray[2];
@@ -272,7 +272,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A16 != null ? this.data_number(INCOME_DETAILS.A16.toString(), INCOME_DETAILS.key, "A16") : this.data_number("", INCOME_DETAILS.key, "A16");
         }
         if (data.A2 != null) {
-          let strArray = data.A2.split(',');
+          let strArray = data.A2.split('_');
           INCOME_DETAILS.A21 = strArray[0];
           INCOME_DETAILS.A22 = strArray[1];
           INCOME_DETAILS.A23 = strArray[2];
@@ -288,7 +288,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A26 != null ? this.data_number(INCOME_DETAILS.A26.toString(), INCOME_DETAILS.key, "A26") : this.data_number("", INCOME_DETAILS.key, "A26");
         }
         if (data.A4 != null) {
-          let strArray = data.A4.split(',');
+          let strArray = data.A4.split('_');
           INCOME_DETAILS.A41 = strArray[0];
           INCOME_DETAILS.A42 = strArray[1];
           INCOME_DETAILS.A43 = strArray[2];
@@ -298,7 +298,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A43 != null ? this.data_number(INCOME_DETAILS.A43.toString(), INCOME_DETAILS.key, "A43") : this.data_number("", INCOME_DETAILS.key, "A43");
         }
         if (data.A5 != null) {
-          let strArray = data.A5.split(',');
+          let strArray = data.A5.split('_');
           INCOME_DETAILS.A51 = strArray[0];
           INCOME_DETAILS.A52 = strArray[1];
           INCOME_DETAILS.A53 = strArray[2];
@@ -314,7 +314,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A56 != null ? this.data_number(INCOME_DETAILS.A56.toString(), INCOME_DETAILS.key, "A56") : this.data_number("", INCOME_DETAILS.key, "A56");
         }
         if (data.A6 != null) {
-          let strArray = data.A6.split(',');
+          let strArray = data.A6.split('_');
           INCOME_DETAILS.A61 = strArray[0];
           INCOME_DETAILS.A62 = strArray[1];
           INCOME_DETAILS.A63 = strArray[2];
@@ -330,7 +330,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.A66 != null ? this.data_number(INCOME_DETAILS.A66.toString(), INCOME_DETAILS.key, "A66") : this.data_number("", INCOME_DETAILS.key, "A66");
         }
         if (data.A8 != null) {
-          let strArray = data.A8.split(',');
+          let strArray = data.A8.split('_');
           INCOME_DETAILS.A81 = strArray[0];
           INCOME_DETAILS.A82 = strArray[1];
           INCOME_DETAILS.A83 = strArray[2];
@@ -420,7 +420,7 @@ export class Childscn12Component implements OnInit {
         if (check == "") {
           check = chk.completed ? check + chk.value : check;
         } else {
-          check = chk.completed ? check + "," + chk.value : check;
+          check = chk.completed ? check + "_" + chk.value : check;
         }
       }
       if (check == "") {
@@ -446,44 +446,44 @@ export class Childscn12Component implements OnInit {
   }
   save2() {
 
-    this.INCOME_DETAILS_List[2].A1 = this.toNumber(this.INCOME_DETAILS_List[2].A11) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A12) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A13) + "," +
-      this.toNumber(this.INCOME_DETAILS_List[2].A14) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A15) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A16);
-    this.INCOME_DETAILS_List[2].A1 = this.INCOME_DETAILS_List[2].A1 == ",,,,," ? "" : this.INCOME_DETAILS_List[2].A1
+    this.INCOME_DETAILS_List[2].A1 = this.toNumber(this.INCOME_DETAILS_List[2].A11) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A12) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A13) + "_" +
+      this.toNumber(this.INCOME_DETAILS_List[2].A14) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A15) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A16);
+    this.INCOME_DETAILS_List[2].A1 = this.INCOME_DETAILS_List[2].A1 == "_____" ? "" : this.INCOME_DETAILS_List[2].A1
 
-    this.INCOME_DETAILS_List[2].A2 = this.toNumber(this.INCOME_DETAILS_List[2].A21) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A22) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A23) + "," +
-      this.toNumber(this.INCOME_DETAILS_List[2].A24) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A25) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A26);
-    this.INCOME_DETAILS_List[2].A2 = this.INCOME_DETAILS_List[2].A2 == ",,,,," ? "" : this.INCOME_DETAILS_List[2].A2
+    this.INCOME_DETAILS_List[2].A2 = this.toNumber(this.INCOME_DETAILS_List[2].A21) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A22) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A23) + "_" +
+      this.toNumber(this.INCOME_DETAILS_List[2].A24) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A25) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A26);
+    this.INCOME_DETAILS_List[2].A2 = this.INCOME_DETAILS_List[2].A2 == "_____" ? "" : this.INCOME_DETAILS_List[2].A2
 
-    this.INCOME_DETAILS_List[2].A4 = this.toNumber(this.INCOME_DETAILS_List[2].A41) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A42) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A43);
-    this.INCOME_DETAILS_List[2].A4 = this.INCOME_DETAILS_List[2].A4 == ",," ? "" : this.INCOME_DETAILS_List[2].A4
+    this.INCOME_DETAILS_List[2].A4 = this.toNumber(this.INCOME_DETAILS_List[2].A41) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A42) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A43);
+    this.INCOME_DETAILS_List[2].A4 = this.INCOME_DETAILS_List[2].A4 == "__" ? "" : this.INCOME_DETAILS_List[2].A4
 
-    this.INCOME_DETAILS_List[2].A5 = this.toNumber(this.INCOME_DETAILS_List[2].A51) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A52) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A53) + "," +
-      this.toNumber(this.INCOME_DETAILS_List[2].A54) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A55) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A56);
-    this.INCOME_DETAILS_List[2].A5 = this.INCOME_DETAILS_List[2].A5 == ",,,,," ? "" : this.INCOME_DETAILS_List[2].A5
+    this.INCOME_DETAILS_List[2].A5 = this.toNumber(this.INCOME_DETAILS_List[2].A51) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A52) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A53) + "_" +
+      this.toNumber(this.INCOME_DETAILS_List[2].A54) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A55) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A56);
+    this.INCOME_DETAILS_List[2].A5 = this.INCOME_DETAILS_List[2].A5 == "_____" ? "" : this.INCOME_DETAILS_List[2].A5
 
-    this.INCOME_DETAILS_List[2].A6 = this.toNumber(this.INCOME_DETAILS_List[2].A61) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A62) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A63) + "," +
-      this.toNumber(this.INCOME_DETAILS_List[2].A64) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A65) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A66);
-    this.INCOME_DETAILS_List[2].A6 = this.INCOME_DETAILS_List[2].A6 == ",,,,," ? "" : this.INCOME_DETAILS_List[2].A6
+    this.INCOME_DETAILS_List[2].A6 = this.toNumber(this.INCOME_DETAILS_List[2].A61) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A62) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A63) + "_" +
+      this.toNumber(this.INCOME_DETAILS_List[2].A64) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A65) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A66);
+    this.INCOME_DETAILS_List[2].A6 = this.INCOME_DETAILS_List[2].A6 == "_____" ? "" : this.INCOME_DETAILS_List[2].A6
 
-    this.INCOME_DETAILS_List[2].A8 = this.toNumber(this.INCOME_DETAILS_List[2].A81) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A82) + "," + this.toNumber(this.INCOME_DETAILS_List[2].A83);
-    this.INCOME_DETAILS_List[2].A8 = this.INCOME_DETAILS_List[2].A8 == ",," ? "" : this.INCOME_DETAILS_List[2].A8
+    this.INCOME_DETAILS_List[2].A8 = this.toNumber(this.INCOME_DETAILS_List[2].A81) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A82) + "_" + this.toNumber(this.INCOME_DETAILS_List[2].A83);
+    this.INCOME_DETAILS_List[2].A8 = this.INCOME_DETAILS_List[2].A8 == "__" ? "" : this.INCOME_DETAILS_List[2].A8
 
 
-    this.INCOME_DETAILS_List[3].A1 = this.toNumber(this.INCOME_DETAILS_List[3].A11) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A12) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A13) + "," +
-      this.toNumber(this.INCOME_DETAILS_List[3].A14) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A15) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A16);
-    this.INCOME_DETAILS_List[3].A1 = this.INCOME_DETAILS_List[3].A1 == ",,,,," ? "" : this.INCOME_DETAILS_List[3].A1
+    this.INCOME_DETAILS_List[3].A1 = this.toNumber(this.INCOME_DETAILS_List[3].A11) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A12) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A13) + "_" +
+      this.toNumber(this.INCOME_DETAILS_List[3].A14) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A15) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A16);
+    this.INCOME_DETAILS_List[3].A1 = this.INCOME_DETAILS_List[3].A1 == "_____" ? "" : this.INCOME_DETAILS_List[3].A1
 
-    this.INCOME_DETAILS_List[3].A2 = this.toNumber(this.INCOME_DETAILS_List[3].A21) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A22) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A23) + "," +
-      this.toNumber(this.INCOME_DETAILS_List[3].A24) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A25) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A26);
-    this.INCOME_DETAILS_List[3].A2 = this.INCOME_DETAILS_List[3].A2 == ",,,,," ? "" : this.INCOME_DETAILS_List[3].A2
+    this.INCOME_DETAILS_List[3].A2 = this.toNumber(this.INCOME_DETAILS_List[3].A21) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A22) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A23) + "_" +
+      this.toNumber(this.INCOME_DETAILS_List[3].A24) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A25) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A26);
+    this.INCOME_DETAILS_List[3].A2 = this.INCOME_DETAILS_List[3].A2 == "_____" ? "" : this.INCOME_DETAILS_List[3].A2
 
-    this.INCOME_DETAILS_List[3].A5 = this.toNumber(this.INCOME_DETAILS_List[3].A51) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A52) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A53) + "," +
-      this.toNumber(this.INCOME_DETAILS_List[3].A54) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A55) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A56);
-    this.INCOME_DETAILS_List[3].A5 = this.INCOME_DETAILS_List[3].A5 == ",,,,," ? "" : this.INCOME_DETAILS_List[3].A5
+    this.INCOME_DETAILS_List[3].A5 = this.toNumber(this.INCOME_DETAILS_List[3].A51) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A52) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A53) + "_" +
+      this.toNumber(this.INCOME_DETAILS_List[3].A54) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A55) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A56);
+    this.INCOME_DETAILS_List[3].A5 = this.INCOME_DETAILS_List[3].A5 == "_____" ? "" : this.INCOME_DETAILS_List[3].A5
 
-    this.INCOME_DETAILS_List[3].A6 = this.toNumber(this.INCOME_DETAILS_List[3].A61) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A62) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A63) + "," +
-      this.toNumber(this.INCOME_DETAILS_List[3].A64) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A65) + "," + this.toNumber(this.INCOME_DETAILS_List[3].A66);
-    this.INCOME_DETAILS_List[3].A6 = this.INCOME_DETAILS_List[3].A6 == ",,,,," ? "" : this.INCOME_DETAILS_List[3].A6
+    this.INCOME_DETAILS_List[3].A6 = this.toNumber(this.INCOME_DETAILS_List[3].A61) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A62) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A63) + "_" +
+      this.toNumber(this.INCOME_DETAILS_List[3].A64) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A65) + "_" + this.toNumber(this.INCOME_DETAILS_List[3].A66);
+    this.INCOME_DETAILS_List[3].A6 = this.INCOME_DETAILS_List[3].A6 == "_____" ? "" : this.INCOME_DETAILS_List[3].A6
 
 
 
@@ -908,8 +908,8 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.P1 = intData != 0 ? this.toCurrency(avg.toString()) : "";
           INCOME_DETAILS.D1 = intData != 0 ? this.toCurrency((avg * 14).toString()) : "";
           INCOME_DETAILS.C1 = CB ? INCOME_DETAILS.D1 : INCOME_DETAILS.C1;
-          INCOME_DETAILS.A1 = this.toNumber(INCOME_DETAILS.A11) + "," + this.toNumber(INCOME_DETAILS.A12) + "," + this.toNumber(INCOME_DETAILS.A13) + "," +
-            this.toNumber(INCOME_DETAILS.A14) + "," + this.toNumber(INCOME_DETAILS.A15) + "," + this.toNumber(INCOME_DETAILS.A16);
+          INCOME_DETAILS.A1 = this.toNumber(INCOME_DETAILS.A11) + "_" + this.toNumber(INCOME_DETAILS.A12) + "_" + this.toNumber(INCOME_DETAILS.A13) + "_" +
+            this.toNumber(INCOME_DETAILS.A14) + "_" + this.toNumber(INCOME_DETAILS.A15) + "_" + this.toNumber(INCOME_DETAILS.A16);
           break;
         case "2":
           if (!isNaN(data = parseInt(this.toNumber(INCOME_DETAILS.A21.toString())))) {
@@ -935,8 +935,8 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.P2 = intData != 0 ? this.toCurrency(avg.toString()) : "";
           INCOME_DETAILS.D2 = intData != 0 ? this.toCurrency((this.toINT(avg * 0.7 * 14)).toString()) : "";
           INCOME_DETAILS.C2 = CB ? INCOME_DETAILS.D2 : INCOME_DETAILS.C2;
-          INCOME_DETAILS.A2 = this.toNumber(INCOME_DETAILS.A21) + "," + this.toNumber(INCOME_DETAILS.A22) + "," + this.toNumber(INCOME_DETAILS.A23) + "," +
-            this.toNumber(INCOME_DETAILS.A24) + "," + this.toNumber(INCOME_DETAILS.A25) + "," + this.toNumber(INCOME_DETAILS.A26);
+          INCOME_DETAILS.A2 = this.toNumber(INCOME_DETAILS.A21) + "_" + this.toNumber(INCOME_DETAILS.A22) + "_" + this.toNumber(INCOME_DETAILS.A23) + "_" +
+            this.toNumber(INCOME_DETAILS.A24) + "_" + this.toNumber(INCOME_DETAILS.A25) + "_" + this.toNumber(INCOME_DETAILS.A26);
           break;
         case "3":
           if (!isNaN(data = parseInt(this.toNumber(INCOME_DETAILS.A3.toString())))) {
@@ -962,7 +962,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.P4 = intData != 0 ? this.toCurrency(avg.toString()) : "";
           INCOME_DETAILS.D4 = intData != 0 ? this.toCurrency((avg * 12).toString()) : "";
           INCOME_DETAILS.C4 = CB ? INCOME_DETAILS.D4 : INCOME_DETAILS.C4;
-          INCOME_DETAILS.A4 = this.toNumber(INCOME_DETAILS.A41) + "," + this.toNumber(INCOME_DETAILS.A42) + "," + this.toNumber(INCOME_DETAILS.A43);
+          INCOME_DETAILS.A4 = this.toNumber(INCOME_DETAILS.A41) + "_" + this.toNumber(INCOME_DETAILS.A42) + "_" + this.toNumber(INCOME_DETAILS.A43);
           break;
         case "5":
           if (!isNaN(data = parseInt(this.toNumber(INCOME_DETAILS.A51.toString())))) {
@@ -988,8 +988,8 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.P5 = intData != 0 ? this.toCurrency(avg.toString()) : "";
           INCOME_DETAILS.D5 = intData != 0 ? this.toCurrency((this.toINT(avg * 0.7 * 14)).toString()) : "";
           INCOME_DETAILS.C5 = CB ? INCOME_DETAILS.D5 : INCOME_DETAILS.C5;
-          INCOME_DETAILS.A5 = this.toNumber(INCOME_DETAILS.A51) + "," + this.toNumber(INCOME_DETAILS.A52) + "," + this.toNumber(INCOME_DETAILS.A53) + "," +
-            this.toNumber(INCOME_DETAILS.A54) + "," + this.toNumber(INCOME_DETAILS.A55) + "," + this.toNumber(INCOME_DETAILS.A56);
+          INCOME_DETAILS.A5 = this.toNumber(INCOME_DETAILS.A51) + "_" + this.toNumber(INCOME_DETAILS.A52) + "_" + this.toNumber(INCOME_DETAILS.A53) + "_" +
+            this.toNumber(INCOME_DETAILS.A54) + "_" + this.toNumber(INCOME_DETAILS.A55) + "_" + this.toNumber(INCOME_DETAILS.A56);
           break;
         case "6":
           if (!isNaN(data = parseInt(this.toNumber(INCOME_DETAILS.A61.toString())))) {
@@ -1015,8 +1015,8 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.P6 = intData != 0 ? this.toCurrency(avg.toString()) : "";
           INCOME_DETAILS.D6 = intData != 0 ? this.toCurrency((this.toINT(avg * 0.7 * 14)).toString()) : "";
           INCOME_DETAILS.C6 = CB ? INCOME_DETAILS.D6 : INCOME_DETAILS.C6;
-          INCOME_DETAILS.A6 = this.toNumber(INCOME_DETAILS.A61) + "," + this.toNumber(INCOME_DETAILS.A62) + "," + this.toNumber(INCOME_DETAILS.A63) + "," +
-            this.toNumber(INCOME_DETAILS.A64) + "," + this.toNumber(INCOME_DETAILS.A65) + "," + this.toNumber(INCOME_DETAILS.A66);
+          INCOME_DETAILS.A6 = this.toNumber(INCOME_DETAILS.A61) + "_" + this.toNumber(INCOME_DETAILS.A62) + "_" + this.toNumber(INCOME_DETAILS.A63) + "_" +
+            this.toNumber(INCOME_DETAILS.A64) + "_" + this.toNumber(INCOME_DETAILS.A65) + "_" + this.toNumber(INCOME_DETAILS.A66);
           break;
         case "7":
           if (!isNaN(data = parseInt(this.toNumber(INCOME_DETAILS.A7.toString())))) {
@@ -1042,7 +1042,7 @@ export class Childscn12Component implements OnInit {
           INCOME_DETAILS.P8 = intData != 0 ? this.toCurrency(avg.toString()) : "";
           INCOME_DETAILS.D8 = intData != 0 ? this.toCurrency((avg * 12).toString()) : "";
           INCOME_DETAILS.C8 = CB ? INCOME_DETAILS.D8 : INCOME_DETAILS.C8;
-          INCOME_DETAILS.A8 = this.toNumber(INCOME_DETAILS.A81) + "," + this.toNumber(INCOME_DETAILS.A82) + "," + this.toNumber(INCOME_DETAILS.A83);
+          INCOME_DETAILS.A8 = this.toNumber(INCOME_DETAILS.A81) + "_" + this.toNumber(INCOME_DETAILS.A82) + "_" + this.toNumber(INCOME_DETAILS.A83);
           break;
         default:
           break;
@@ -1176,6 +1176,52 @@ export class Childscn12Component implements OnInit {
     data.D1 = this.toNumber(data.D1); data.D2 = this.toNumber(data.D2); data.D3 = this.toNumber(data.D3); data.D4 = this.toNumber(data.D4);
     data.D5 = this.toNumber(data.D5); data.D7 = this.toNumber(data.D6); data.D7 = this.toNumber(data.D7); data.D8 = this.toNumber(data.D8);
     data.C = this.toNumber(data.C);
+
+    data.B = this.toNumber(data.B);
+    data.D = this.toNumber(data.D);
+    data.D6 = this.toNumber(data.D6);
+    data.Ctotal = this.toNumber(data.Ctotal);
+    data.Dtotal = this.toNumber(data.Dtotal);
+    data.P1 = this.toNumber(data.P1);
+    data.P2 = this.toNumber(data.P2);
+    data.P3 = this.toNumber(data.P3);
+    data.P4 = this.toNumber(data.P4);
+    data.P5 = this.toNumber(data.P5);
+    data.P6 = this.toNumber(data.P6);
+    data.P7 = this.toNumber(data.P7);
+    data.P8 = this.toNumber(data.P8);
+
+    data.A11 = this.toNumber(data.A11);
+    data.A12 = this.toNumber(data.A12);
+    data.A13 = this.toNumber(data.A13);
+    data.A14 = this.toNumber(data.A14);
+    data.A15 = this.toNumber(data.A15);
+    data.A16 = this.toNumber(data.A16);
+    data.A21 = this.toNumber(data.A21);
+    data.A22 = this.toNumber(data.A22);
+    data.A23 = this.toNumber(data.A23);
+    data.A24 = this.toNumber(data.A24);
+    data.A25 = this.toNumber(data.A25);
+    data.A26 = this.toNumber(data.A26);
+    data.A41 = this.toNumber(data.A41);
+    data.A42 = this.toNumber(data.A42);
+    data.A43 = this.toNumber(data.A43);
+    data.A51 = this.toNumber(data.A51);
+    data.A52 = this.toNumber(data.A52);
+    data.A53 = this.toNumber(data.A53);
+    data.A54 = this.toNumber(data.A54);
+    data.A55 = this.toNumber(data.A55);
+    data.A56 = this.toNumber(data.A56);
+    data.A61 = this.toNumber(data.A61);
+    data.A62 = this.toNumber(data.A62);
+    data.A63 = this.toNumber(data.A63);
+    data.A64 = this.toNumber(data.A64);
+    data.A65 = this.toNumber(data.A65);
+    data.A66 = this.toNumber(data.A66);
+    data.A81 = this.toNumber(data.A81);
+    data.A82 = this.toNumber(data.A82);
+    data.A83 = this.toNumber(data.A83);
+
   }
   getBlueClass()//class
   {

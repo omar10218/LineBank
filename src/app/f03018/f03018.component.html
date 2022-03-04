@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="line_bank_card_no_padding">
-        <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="cuCpSource" [nzSimple]="true" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="千大企業名單維護" (nzQueryParams)="onQueryParamsChange($event)">
+        <nz-table nzShowSizeChanger [nzData]="cuCpSource" [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzSimple]="true" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="千大企業名單維護" (nzQueryParams)="onQueryParamsChange($event)">
             <thead>
                 <tr>
                     <th class="table-header">序號</th>
@@ -75,8 +75,8 @@
                     <td class="table-data">{{row.content}}</td>
                     <td class="table-data">{{row.frstCrtnTmstmp| date:'yyyy-MM-dd hh:mm:ss'}}</td>
                     <td class="table-data" style="text-align: center;">
-                        <button nz-button [nzSize]="'small'" nzType="primary" (click)="edit
-            (true,row,row.rowId)">編輯</button>
+                        <button nz-button [nzSize]="'small'" nzType="primary" (click)="edit(true,row,row.rowId)">編輯</button>
+
                     </td>
                 </tr>
             </tbody>

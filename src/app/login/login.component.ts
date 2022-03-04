@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
     //------------------------------------------------------------------
 
     let chkTicket: string = (this.ticket != null && this.ticket.length > 0) ? this.ticket : '';
-    if ('local' == this.from || 'rstn' == this.from || 'dev' == this.from) { chkTicket = 'pass-ticket-validation'; }
+    if ('local' == this.from || 'rstn' == this.from || 'dev' == this.from) { chkTicket = ''; }
     if (await this.loginService.initData(this.no, this.pwd, chkTicket)) {
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();
@@ -75,8 +75,8 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('loginKey');
       localStorage.setItem("empNo", this.no);
     } else {
-      alert('帳號有誤!');
-      if ('stg' == this.from || 'uat' == this.from || 'prod' == this.from) {
+      alert('帳號或密碼有誤!');
+      if ('uat' == this.from || 'prod' == this.from) {
         window.location.href = environment.allowOrigin + '/sso';
       } else {
         window.location.reload();

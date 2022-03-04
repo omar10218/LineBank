@@ -236,8 +236,8 @@ export class F02007Component implements OnInit {
       {
 
         if (this.dealwithData365(this.apply_TIME)) {
-          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyyMMdd');
         }
         else {
 
@@ -258,8 +258,8 @@ export class F02007Component implements OnInit {
       if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
       {
         if (this.dealwithData365(this.proof_DOCUMENT_TIME)) {
-          this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyyMMdd');
 
         }
         else {
@@ -278,8 +278,8 @@ export class F02007Component implements OnInit {
       if (this.sign_UP_TIME != null)//簽約完成日期
       {
         if (this.dealwithData365(this.sign_UP_TIME)) {
-          this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -297,8 +297,8 @@ export class F02007Component implements OnInit {
       if (this.credit_TIME != null)//准駁日期時間
       {
         if (this.dealwithData365(this.credit_TIME)) {
-          this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -316,8 +316,8 @@ export class F02007Component implements OnInit {
       if (this.apply_TIME != null)//進件日期
       {
         if (this.dealwithData90(this.apply_TIME)) {
-          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['applyEndTimeStart'] = this.pipe.transform(new Date(this.apply_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -335,8 +335,8 @@ export class F02007Component implements OnInit {
       if (this.proof_DOCUMENT_TIME != null)//上傳財力日期
       {
         if (this.dealwithData90(this.proof_DOCUMENT_TIME)) {
-          this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['proofDocumentTimeStart'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['proofDocumentTimeEnd'] = this.pipe.transform(new Date(this.proof_DOCUMENT_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -353,8 +353,8 @@ export class F02007Component implements OnInit {
       if (this.sign_UP_TIME != null)//簽約完成日期
       {
         if (this.dealwithData90(this.sign_UP_TIME)) {
-          this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['signUpTimeStart'] = this.pipe.transform(new Date(this.sign_UP_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['signUpTimeEnd'] = this.pipe.transform(new Date(this.sign_UP_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -370,8 +370,8 @@ export class F02007Component implements OnInit {
       if (this.credit_TIME != null)//准駁日期時間
       {
         if (this.dealwithData90(this.credit_TIME)) {
-          this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyy-MM-dd');
-          this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyy-MM-dd');
+          this.jsonObject['creditTimeStart'] = this.pipe.transform(new Date(this.credit_TIME[0]), 'yyyyMMdd');
+          this.jsonObject['creditTimeEnd'] = this.pipe.transform(new Date(this.credit_TIME[1]), 'yyyyMMdd');
         }
         else {
           const childernDialogRef = this.dialog.open(ConfirmComponent, {

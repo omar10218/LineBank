@@ -33,7 +33,7 @@ export class Childscn28Component implements OnInit {
   emailDataSource = new MatTableDataSource<any>();    //email資訊檔
   email_M_Code = new MatTableDataSource<any>();    //email mappingcode
 
-  private page: string;
+  page: string;
 
   ngOnInit(): void {
     //取案編
@@ -114,7 +114,11 @@ export class Childscn28Component implements OnInit {
       jsonObject['emailTitle'] = this.emailTitle;
       jsonObject['messageContent'] = this.content;
       this.childscn28Service.postJson(baseUrl, jsonObject).subscribe(data => {
-        msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
+        if (data.rspCode == '9999') {
+          msgStr = data.rspMsg;
+        } else {
+          msgStr = data.rspMsg == "success" ? "傳送成功!" : "傳送失敗!"
+        }
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
         });

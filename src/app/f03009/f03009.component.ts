@@ -85,10 +85,11 @@ export class F03009Component implements OnInit {
     for (const obj of this.chkArray) {
       if (obj.completed) { valArray.push(obj.value); }
     }
+    let mdNo: string = valArray.toString().replace(/,/g,'_');
     const baseUrl = 'f03/f03009action2';
     let jsonObject: any = {};
     jsonObject['tvNo'] = this.selectedValue;
-    jsonObject['mdNo'] = valArray.toString();
+    jsonObject['mdNo'] = mdNo;
     this.f03009Service.TvFunction(baseUrl, jsonObject).subscribe(data => {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: data.rspMsg }
