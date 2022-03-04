@@ -352,13 +352,13 @@ setValueLow
 			// jsonObject['setValueHight'] = obj.setValueHight
 			// jsonObject['setValueLow'] = obj.setValueLow
 			if(obj.compareType=='2'){
-				jsonObject['setValueLow'] =   obj.setValueLow != '' ? '' : "0";
+				jsonObject['setValueLow'] =   obj.setValueLow != '' ?  obj.setValueLow : "0";
 			}else if(obj.compareType=='1')
       {
 				if(obj.setValueHight>obj.setValueLow){
 
-					jsonObject['setValueHight'] =   obj.setValueHight != ''? '' : "0";
-					jsonObject['setValueLow'] =   obj.setValueLow != '' ? '' : "0";
+					jsonObject['setValueHight'] =   obj.setValueHight != ''? obj.setValueHight : "0";
+					jsonObject['setValueLow'] =   obj.setValueLow != '' ?  obj.setValueLow : "0";
 				}
 				else if(obj.setValueHight<obj.setValueLow){
           this.dialog.open(ConfirmComponent, {
