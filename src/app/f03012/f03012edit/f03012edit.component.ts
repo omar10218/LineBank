@@ -59,7 +59,7 @@ export class F03012editComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-	
+
 		this.getData()
 		this.test123(this.oldCompareType)
 		if (this.oldCompareType == "2") {
@@ -106,7 +106,7 @@ export class F03012editComponent implements OnInit {
 		this.compareColumn = this.data.compareColumn
 		this.oldCompareColumn = this.data.oldCompareColumn
 		this.oldCompareType = this.data.compareType
-		console.log(this.oldCompareType)
+
 		if (this.oldCompareType == "2") {
 			this.setValueLow = this.data.setValueLow
 		} else if (this.oldCompareType == "1") {
@@ -114,9 +114,9 @@ export class F03012editComponent implements OnInit {
 			this.setValueHight = this.data.setValueHight
 		}
 		this.oldSetValueLow = this.data.oldSetValueLow
-		console.log(this.oldSetValueLow)
+
 		this.oldSetValueHight = this.data.oldSetValueHight
-		console.log(this.oldSetValueHight)
+
 	}
 	//儲存前處理千分位
 	Cut(s: string) {
@@ -131,44 +131,54 @@ export class F03012editComponent implements OnInit {
 	public async save(): Promise<void> {
 		let msgStr: string = ''
 		let baseUrl = 'f03/f03012action2'
-	
+
 		if (this.compareType === '2' ) {
-			if (Number(this.low) >= 1) {
-				alert("不可以大於1");
+			if (Number(this.low) > 1) {
+        this.dialog.open(ConfirmComponent, {
+					data: { msgStr: "不可以大於1" },
+				})
 				return;
 			}
 
 			if (!(this.low.includes('.'))) {
-				alert("請填小數點");
+        this.dialog.open(ConfirmComponent, {
+					data: { msgStr: "請填小數點" },
+				})
 				return;
 			}
 			msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
-			const childernDialogRef = this.dialog.open(ConfirmComponent, {
+
+
+      this.dialog.open(ConfirmComponent, {
 				data: { msgStr: msgStr },
 			})
-			if (msgStr === '儲存成功！') {
+			if (msgStr === '儲存成功!') {
 				this.dialogRef.close({ event: 'success' })
 			}
 			this.f03012Service.resetfn();
-			
+
 		} else if (this.compareType == '1') {
 			if ((this.low.includes('.'))) {
-				alert("請填整數");
+        this.dialog.open(ConfirmComponent, {
+					data: { msgStr:'請填整數!!' },				})
+
 				return;
 			}else if(this.hingt<this.low){
-				alert('設定最高門檻需大於設定最低門檻!!')
+        this.dialog.open(ConfirmComponent, {
+					data: { msgStr:'設定最高門檻需大於設定最低門檻!!' },
+				})
 				return
 			}else{
 				msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
-				const childernDialogRef = this.dialog.open(ConfirmComponent, {
+				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: msgStr },
 				})
-				if (msgStr === '儲存成功！') {
+				if (msgStr === '儲存成功!') {
 					this.dialogRef.close({ event: 'success' })
 				}
 				this.f03012Service.resetfn();
 			}
-		
+
 		}
 
 	}
@@ -197,7 +207,7 @@ export class F03012editComponent implements OnInit {
 	// 取消
 	onNoClick(): void {
 		this.dialogRef.close()
-		window.location.reload();
+
 	}
 	isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
 
@@ -207,20 +217,34 @@ export class F03012editComponent implements OnInit {
 
 	}
 	// 只允許輸入小數點
-	numberOnly(event: { which: any; keyCode: any; }): boolean {
-		const charCode = (event.which) ? event.which : event.keyCode;
+	numberOnly(i:string) {
+    this.low  = i;
+    var num  = 0;
+    num = Number(i);
 
-		if (charCode == 46) {
-			return true;
-		}
-		if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-			const childernDialogRef = this.dialog.open(ConfirmComponent, {
-				data: { msgStr: '請輸入數字!' }
-			});
-			return false;
-		}
-		return true;
+    if(num>1)
+    {
+      this.low='';
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "最大值1" },
+      })
+    }
 	}
+  //最高
+  numberhingt(i:string)
+  {
+    this.hingt  = i;
+    var num  = 0;
+    num = Number(i);
+
+    if(num>99)
+    {
+      this.hingt='';
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "最大值99" },
+      })
+    }
+  }
 
 	//+逗號
 	toCurrency(amount: string) {
@@ -229,7 +253,7 @@ export class F03012editComponent implements OnInit {
 	// 判斷比對方式來去鎖住最高門檻
 	test123(a) {
 		this.compareType = a
-		console.log(this.compareType)
+
 		if (a == 2) {
 			return this.myDiv = true
 		}
