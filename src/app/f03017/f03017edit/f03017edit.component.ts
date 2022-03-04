@@ -116,6 +116,7 @@ export class F03017editComponent implements OnInit {
 				'';
 	}
 	ngOnInit(): void {
+	
 		// this.checkBoxList.push({ key: 'CU_CNAME', value: '', completed: false })
 		// this.checkBoxList.push({ key: 'NATIONAL_ID', value: '', completed: false })
 		// this.checkBoxList.push({ key: 'CU_H_TEL', value: '', completed: false })
@@ -138,11 +139,15 @@ export class F03017editComponent implements OnInit {
 
 		//取下拉選單資料
 		this.f03017Service
+		
 			.getSysTypeCode('BK_REASON') //通報原因下拉選單
+			
 			.subscribe(data => {
 				for (const jsonObj of data.rspBody.mappingList) {
 					const codeNo = jsonObj.codeNo
 					const desc = jsonObj.codeDesc
+				
+					
 					this.reportReason1.push({ value: codeNo, viewValue: desc })
 					this.reportReason2.push({ value: codeNo, viewValue: desc })
 					this.reportReason3.push({ value: codeNo, viewValue: desc })
@@ -229,9 +234,7 @@ export class F03017editComponent implements OnInit {
 	testArray = [];
 	check: boolean;
 	checkboxSelect(check: boolean, data: any, value: any) {
-		// let x=['A','B','C','D'];
-		// let y:number;
-		// y = x.indexOf('D')
+	
 		this.switchstatus(check, data)
 		// 取最後的輸入值
 		this.testArray[data] = value;
