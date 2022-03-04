@@ -68,7 +68,9 @@ export class F04003Component implements OnInit {
     let LevelJson: any = {};
     let url = 'f04/f04003action1'
     LevelJson['level'] = this.Level;
+    console.log(LevelJson)
     this.f04003Service.Set(url, LevelJson).subscribe(data => {
+      console.log(data)
       this.personnelCode.push({ value: '', viewValue: '請選擇' })
       if (data.rspMsg != "該層級查無人員") {
         for (const jsonObj of data.rspBody) {

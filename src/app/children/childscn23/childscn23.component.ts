@@ -241,8 +241,8 @@ export class Childscn23Component implements OnInit {
             this.jsonObject['applno'] = item.APPLNO;
             this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
             // jsonObject['rowId'] = item.ID;
-            this.jsonObject['calRate'] = parseInt(item.CAL_RATE)/100;
-            // this.jsonObject['calRate'] = (parseInt(item.CAL_RATE)/100+"").replace(".", "_");
+            // this.jsonObject['calRate'] = parseInt(item.CAL_RATE)/100;
+            this.jsonObject['calRate'] = (parseInt(item.CAL_RATE)/100+"").replace(".", "_");
             this.jsonObject['contractAmt421'] = "0";
             this.jsonObject['contractAmt029'] = "0";
             this.jsonObject['contractAmtCc'] = item.CONTRACT_AMT_CC != "" ? this.Cut(item.CONTRACT_AMT_CC) : "0";
@@ -253,8 +253,8 @@ export class Childscn23Component implements OnInit {
             this.jsonObject['applno'] = item.APPLNO;
             this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
             // jsonObject['rowId'] = item.ID;
-            this.jsonObject['calRate'] = parseInt(item.CAL_RATE)/100;
-            // this.jsonObject['calRate'] = (parseInt(item.CAL_RATE)/100+"").replace(".", "_");
+            // this.jsonObject['calRate'] = parseInt(item.CAL_RATE)/100;
+            this.jsonObject['calRate'] = (parseInt(item.CAL_RATE)/100+"").replace(".", "_");
             this.jsonObject['calYears'] = item.CAL_YEARS != undefined ? item.CAL_YEARS : "0";
             if (item.CAL_PERIOD != undefined) {
               this.jsonObject['calPeriod'] = item.CAL_PERIOD != undefined ? item.CAL_PERIOD : "0";
