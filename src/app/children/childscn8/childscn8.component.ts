@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent, MatPaginator } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { Childscn8Service } from './childscn8.service';
 import { Childscn8deleteComponent } from './childscn8delete/childscn8delete.component';
@@ -82,9 +81,6 @@ export class Childscn8Component implements OnInit, OnDestroy {
 
   //判斷是否更新表單
   JCICAddSource$: Subscription;
-  // addData: any;
-  // editData: any;
-  // isShowAdd: boolean;
 
   listOfData: readonly Data[] = [];//表單資料筆數設定
   total = 1;
@@ -156,23 +152,6 @@ export class Childscn8Component implements OnInit, OnDestroy {
     this.HOURS_Code = this.childscn8Service.getHOURS();//時下拉選單
     this.MINUTES_Code = this.childscn8Service.getMINUTES();//分下拉選單
 
-
-    // this.childscn8Service.getSysTypeCode('HOURS')//時下拉選單
-    //   .subscribe(data => {
-    //     for (const jsonObj of data.rspBody.mappingList) {
-    //       const codeNo = jsonObj.codeNo;
-    //       const desc = jsonObj.codeDesc;
-    //       this.HOURS_Code.push({ value: codeNo, viewValue: desc })
-    //     }
-    //   });
-    // this.childscn8Service.getSysTypeCode('MINUTES')//分下拉選單
-    //   .subscribe(data => {
-    //     for (const jsonObj of data.rspBody.mappingList) {
-    //       const codeNo = jsonObj.codeNo;
-    //       const desc = jsonObj.codeDesc;
-    //       this.MINUTES_Code.push({ value: codeNo, viewValue: desc })
-    //     }
-    //   });
     this.childscn8Service.getSysTypeCode('MD_NO')//項目
       .subscribe(data => {
         for (const jsonObj of data.rspBody.mappingList) {
@@ -213,19 +192,12 @@ export class Childscn8Component implements OnInit, OnDestroy {
     if (this.showAdd == false) {
       this.showAdd = !this.showAdd;
       this.f01002scn1Service.setJCICAddSource({
-        // minHeight: '70vh',
-        // width: '90%',
         show: this.showAdd,
         applno: this.applno,//案件編號
-        // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
         CON_TYPE: '',//聯絡方式
-        // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
         TEL_CONDITION: '',//電話狀況
-        // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
         TEL_CHECK: '',//電話種類
-        // HOURS_Code: this.HOURS_Code,//時下拉選單
         HOURS: '',//時種類
-        // MINUTES_Code: this.MINUTES_Code,//分下拉選單
         MINUTES: '',//分種類
         PHONE: '',//手機/市話
         CON_MEMO: '',//備註
@@ -234,33 +206,6 @@ export class Childscn8Component implements OnInit, OnDestroy {
         CALLOUT_EMPNO: this.empNo,//徵信員編
         CALLOUT_YN: 'N',//照會完成
       })
-      // const dialogRef = this.dialog.open(Childscn8addComponent, {
-      //   minHeight: '70vh',
-      //   width: '70%',
-      //   data: {
-      //     applno: this.applno,//案件編號
-      //     // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
-      //     CON_TYPE: '',//聯絡方式
-      //     // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
-      //     TEL_CONDITION: '',//電話狀況
-      //     // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
-      //     TEL_CHECK: '',//電話種類
-      //     // HOURS_Code: this.HOURS_Code,//時下拉選單
-      //     HOURS: '',//時種類
-      //     // MINUTES_Code: this.MINUTES_Code,//分下拉選單
-      //     MINUTES: '',//分種類
-      //     PHONE: '',//手機/市話
-      //     CON_MEMO: '',//備註
-      //     CALLOUT_DATE: '',//設定下次照會時間
-      //     CALLOUT_SETTIME: '',//確認時間
-      //     CALLOUT_EMPNO: this.empNo,//徵信員編
-      //     //CALLOUT_YN:''//照會完成
-      //     speakingData:this.speakingData//照會話術
-      //   }
-      // });
-      // dialogRef.afterClosed().subscribe(result => {
-      //   if (result != null && (result.event == 'success' || result == '1')) { this.refreshTable(); }
-      // });
     }
 
   }
@@ -273,15 +218,10 @@ export class Childscn8Component implements OnInit, OnDestroy {
       this.f01002scn1Service.setJCICSource({
         show: this.showEdit,
         applno: this.applno,//案件編號
-        // CON_TYPE_Code: this.CON_TYPE_Code,//聯絡方式下拉選單
         CON_TYPE: CON_TYPE,//聯絡方式
-        // TEL_CONDITION_Code: this.TEL_CONDITION_Code,//電話狀況下拉選單
         TEL_CONDITION: TEL_CONDITION,//電話狀況
-        // TEL_CHECK_Code: this.TEL_CHECK_Code,//電話種類下拉選單
         TEL_CHECK: TEL_CHECK,//電話種類
-        // HOURS_Code: this.HOURS_Code,//時下拉選單
         HOURS: this.datepipe.transform(CALLOUT_DATE, 'HH'),//時
-        // MINUTES_Code: this.MINUTES_Code,//分下拉選單
         MINUTES: this.datepipe.transform(CALLOUT_DATE, 'mm'),//分
         PHONE: PHONE,//手機/市話
         CON_MEMO: CON_MEMO,//備註
@@ -290,7 +230,6 @@ export class Childscn8Component implements OnInit, OnDestroy {
         CALLOUT_SETTIME: CALLOUT_SETTIME,//確認時間
         CALLOUT_EMPNO: this.empNo,//徵信員編
         CALLOUT_YN: CALLOUT_YN,//照會完成
-        // CALLOUT_YN_Code: this.CALLOUT_YN_Code,//照會完成下拉選單
       });
     }
   }
@@ -343,7 +282,6 @@ export class Childscn8Component implements OnInit, OnDestroy {
     jsonObject['per_page'] = pageSize
     jsonObject['applno'] = this.applno
     this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
-      // console.log(data)
       this.rspBodyData = data.rspBody;
       this.rspBodyList = data.rspBody.list;
       this.speakingData = data.rspBody.speaking;
@@ -379,11 +317,11 @@ export class Childscn8Component implements OnInit, OnDestroy {
           this.TEL_CHECK_Code.push({ value: codeNo, viewValue: desc })
         }
       }
-
+      //分割多筆資料_  無資料p  單筆多重資料分割q
       //照會項目
       for (const calloutData of this.MDtable) {
         for (const mdNo of data.rspBody.mdNoList) {
-          calloutData.txt = calloutData.MD_NO.value == mdNo ? "*" : calloutData.txt
+          calloutData.txt = calloutData.MD_NO.value == mdNo ? "p" : calloutData.txt
         }
         for (const calloutItemsData of data.rspBody.calloutItemsList) {
           if (calloutItemsData.checkItem == calloutData.MD_NO.value) {//比對項目代碼
@@ -394,14 +332,14 @@ export class Childscn8Component implements OnInit, OnDestroy {
             calloutData.REPLY_CONDITION = calloutItemsData.replyCondition;//回答狀況
             //回答狀況 載入時 多選另外處理
             if (calloutItemsData.checkItem == "14" && calloutItemsData.replyCondition != null) {
-              let REPLY_CONDITION14 = calloutItemsData.replyCondition.split(",");
+              let REPLY_CONDITION14 = calloutItemsData.replyCondition.split("_");
               for (const data of REPLY_CONDITION14) {
                 for (const datacode of this.REPLY_CONDITION14code) {
                   datacode.checked = data == datacode.value ? true : datacode.checked;
                 }
               }
             } else if (calloutItemsData.checkItem == "17" && calloutItemsData.replyCondition != null) {
-              let REPLY_CONDITION17 = calloutItemsData.replyCondition.split(",");
+              let REPLY_CONDITION17 = calloutItemsData.replyCondition.split("_");
               for (const data of REPLY_CONDITION17) {
                 for (const datacode of this.REPLY_CONDITION17code) {
                   datacode.checked = data == datacode.value ? true : datacode.checked;
@@ -454,68 +392,6 @@ export class Childscn8Component implements OnInit, OnDestroy {
     this.speakingAbbreviation = name;
     this.speakingContent = msg;
   }
-
-  //照會項目儲存
-  // async save() {
-
-  //   let msgStr: string = "";
-  //   let codeStr: string = "";
-  //   let checkItem = "";
-  //   let checkData = "";
-  //   let replyCondition = "";
-  //   let checkNote = "";
-
-  //   // 多選先做另外處理
-  //   this.MDtable[13].REPLY_CONDITION = "";//共20筆0開始
-  //   for (var data of this.REPLY_CONDITION14code) {//共20筆1開始
-  //     if (data.checked) { this.MDtable[13].REPLY_CONDITION += data.value + ","; }
-  //   }
-  //   this.MDtable[16].REPLY_CONDITION = "";//共20筆0開始
-  //   for (var data of this.REPLY_CONDITION17code) {//共20筆1開始
-  //     if (data.checked) { this.MDtable[16].REPLY_CONDITION += data.value + ","; }
-  //   }
-  //   //有資料則消除最後一筆分隔記號
-  //   this.MDtable[13].REPLY_CONDITION = this.MDtable[13].REPLY_CONDITION.length > 0 ?
-  //     this.MDtable[13].REPLY_CONDITION.slice(0, this.MDtable[13].REPLY_CONDITION.length - 1) :
-  //     this.MDtable[13].REPLY_CONDITION;
-
-  //   this.MDtable[16].REPLY_CONDITION = this.MDtable[16].REPLY_CONDITION.length > 0 ?
-  //     this.MDtable[16].REPLY_CONDITION.slice(0, this.MDtable[16].REPLY_CONDITION.length - 1) :
-  //     this.MDtable[16].REPLY_CONDITION;
-
-  //   for (const calloutData of this.MDtable) {
-  //     checkItem += calloutData.MD_NO.value + ",";
-  //     checkData += (calloutData.CHECK_DATA != "" && calloutData.CHECK_DATA != null) ? calloutData.CHECK_DATA + "," : "*,";
-  //     replyCondition += (calloutData.REPLY_CONDITION != "" && calloutData.REPLY_CONDITION != null) ? calloutData.REPLY_CONDITION + "-" : "*-";
-  //     checkNote += (calloutData.CHECK_NOTE != "" && calloutData.CHECK_NOTE != null) ? calloutData.CHECK_NOTE + "," : "*,";
-  //   }
-  //   //有資料則消除最後一筆分隔記號
-  //   checkItem = checkItem.length > 0 ? checkItem.slice(0, checkItem.length - 1) : checkItem;
-  //   checkData = checkData.length > 0 ? checkData.slice(0, checkData.length - 1) : checkData;
-  //   replyCondition = replyCondition.length > 0 ? replyCondition.slice(0, replyCondition.length - 1) : replyCondition;
-  //   checkNote = checkNote.length > 0 ? checkNote.slice(0, checkNote.length - 1) : checkNote;
-
-  //   const baseUrl = 'f01/childscn8action5';
-  //   let jsonObject: any = {};
-  //   jsonObject['applno'] = this.applno;
-  //   jsonObject['empNo'] = this.empNo;
-  //   jsonObject['checkItem'] = checkItem;
-  //   jsonObject['checkData'] = checkData;
-  //   jsonObject['replyCondition'] = replyCondition;
-  //   jsonObject['checkNote'] = checkNote;
-  //   console.log('console.log(jsonObject);');
-  //   console.log(jsonObject);
-  //   await this.childscn8Service.postJsonObject_CALLOUT(baseUrl, jsonObject).subscribe(data => {
-  //     console.log('data');
-  //     console.log(data);
-  //     codeStr = data.rspCode;
-  //     msgStr = data.rspMsg;
-  //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
-  //       data: { msgStr: msgStr }
-  //     });
-  //     if (msgStr != null && (msgStr == '儲存成功!' || msgStr == '1')) { this.refreshTable(); }
-  //   });
-  // }
 
   items() {
     if (this.showItems == false) {
