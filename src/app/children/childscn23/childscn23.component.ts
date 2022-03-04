@@ -217,7 +217,6 @@ export class Childscn23Component implements OnInit {
     for (const item of this.one) {
       if(item.ACCOUNT_CODE == '')
       {
-        console.log('1')
         this.checkboxAny.splice(this.checkboxAny.indexOf(item.tt),1)
       }
     }
@@ -238,12 +237,11 @@ export class Childscn23Component implements OnInit {
           else {
             this.jsonObject['rowId'] = item.ID;
           }
-
           if (item.ACCOUNT_CODE == 'CC') {
             this.jsonObject['applno'] = item.APPLNO;
             this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
             // jsonObject['rowId'] = item.ID;
-            this.jsonObject['calRate'] = parseInt(item.CAL_RATE) / 100;
+            this.jsonObject['calRate'] = parseInt(item.CAL_RATE) ;
             this.jsonObject['contractAmt421'] = "0";
             this.jsonObject['contractAmt029'] = "0";
             this.jsonObject['contractAmtCc'] = item.CONTRACT_AMT_CC != "" ? this.Cut(item.CONTRACT_AMT_CC) : "0";
@@ -254,7 +252,7 @@ export class Childscn23Component implements OnInit {
             this.jsonObject['applno'] = item.APPLNO;
             this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
             // jsonObject['rowId'] = item.ID;
-            this.jsonObject['calRate'] = parseInt(item.CAL_RATE) / 100;
+            this.jsonObject['calRate'] = parseInt(item.CAL_RATE) ;
             this.jsonObject['calYears'] = item.CAL_YEARS != undefined ? item.CAL_YEARS : "0";
             if (item.CAL_PERIOD != undefined) {
               this.jsonObject['calPeriod'] = item.CAL_PERIOD != undefined ? item.CAL_PERIOD : "0";

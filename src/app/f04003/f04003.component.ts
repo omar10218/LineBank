@@ -41,6 +41,8 @@ export class F04003Component implements OnInit {
     this.LevelCode.push({ value: 'L2', viewValue: 'L2' });
     this.LevelCode.push({ value: 'L3', viewValue: 'L3' });
     this.LevelCode.push({ value: 'L4', viewValue: 'L4' });
+    this.LevelCode.push({ value: 'D2', viewValue: 'D2' });
+    this.LevelCode.push({ value: 'D1', viewValue: 'D1' });
     this.personnel = '';
 
   }
@@ -254,6 +256,9 @@ export class F04003Component implements OnInit {
     } else if (level == 'S2') {
       return "S2 風管處處長"
     } else if (level == 'S1') {
+      return "S1 總經理"
+    }
+    else if (level == 'S1') {
       return "S1 總經理"
     }
   }
