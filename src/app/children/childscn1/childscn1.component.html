@@ -1180,14 +1180,14 @@
                             (keypress)="numberOnly($event)"
                             (keyup)="resultApproveAmt = toCurrency(toNumber(resultApproveAmt))"
                             (ngModelChange)="change(toNumber(resultApproveAmt),'resultApproveAmt','')"
-                            [disabled]="!(getPage() == '1' || getPage() == '2' || getPage() == '3')" required maxlength="15"></div>
+                            [disabled]="!(getPage() == '3')" required maxlength="15"></div>
                 </div>
                 <div nz-col nzFlex="1">
                     <div style="padding:3px"><span class="form-title">每月最低還款比率(%)</span><input matInput #input
                             class="form-control" [(ngModel)]="resultLowestPayRate" name="resultLowestPayRate"
                             placeholder="輸入還款比率" style="text-align: right;" (keypress)="numberOnly($event)"
                             (ngModelChange)="change(resultLowestPayRate,'resultLowestPayRate','')"
-                            [disabled]="!(getPage() == '1' || getPage() == '2' || getPage() == '3')" maxlength="10"></div>
+                            [disabled]="!(getPage() == '3')" maxlength="10"></div>
                 </div>
                 <div nz-col nzFlex="1">
                     <div style="padding:3px"><span class="form-title">人員記錄-PM策略客群</span><input matInput #input
