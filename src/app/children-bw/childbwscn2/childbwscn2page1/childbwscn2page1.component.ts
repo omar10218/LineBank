@@ -222,7 +222,6 @@ export class childbwscn2page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
-      console.log(data)
       this.bwCreditMainList = data.rspBody.bwCreditMainList;
       if (this.bwCreditMainList.length < 1) {
         this.add_bwCreditMainList = {
