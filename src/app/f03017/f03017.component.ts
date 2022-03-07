@@ -167,7 +167,7 @@ export class F03017Component implements OnInit {
 						data: { msgStr: "查無項目!" }
 					});
 				}
-				
+
 			})
 			this.loading = false
 		}
@@ -199,9 +199,10 @@ export class F03017Component implements OnInit {
 			},
 		})
 		dialogRef.afterClosed().subscribe(result => {
-			if (result != null && result.event == 'success') {
-				this.refreshTable()
-			}
+			this.getBkIncomeData();
+      // if (result != null && result.event == 'success') {
+			// 	this.refreshTable()
+			// }
 		})
 	}
 
@@ -235,7 +236,7 @@ export class F03017Component implements OnInit {
 				// BK_CONTENT :contentArray,
 				isUpdate: isUpdate,
 				isInsert: false,
-				ROWID: row,
+				rowID: row,
 				reportReason1Value: data.REPORT_REASON1,
 				reportReason2Value: data.REPORT_REASON2,
 				reportReason3Value: data.REPORT_REASON3,

@@ -67,7 +67,7 @@ export class F03017editComponent implements OnInit {
 	constructor(public f03017Service: F03017Service, public dialogRef: MatDialogRef<F03017editComponent>, private route: ActivatedRoute, public dialog: MatDialog, public childService: ChildrenService, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
 	blockListForm: FormGroup = this.fb.group({
-		ROWID: [this.data.ROWID, []],
+		ROWID: [this.data.rowID, []],
 		REPORT_UNIT: [this.data.no, []],
 		REPORT_REASON1: [this.data.reportReason1Value, [Validators.required]],
 		REPORT_REASON2: [this.data.reportReason2Value, []],
@@ -159,25 +159,35 @@ export class F03017editComponent implements OnInit {
 
 		// 判斷該checkbox有無資料而打勾
 		var checked: boolean = true;
+
+    if (this.data.BK_COLUMN != "" && this.data.BK_COLUMN != null) {
+      this.chkArray.push(this.data.BK_COLUMN);
+    }
+
 		if (this.data.BK_COLUMN === "CU_CNAME") {
 			this.CU_CNAME.nativeElement.checked = checked
-			this.switchstatus(true, this.data.BK_COLUMN)
+			this.switchstatus(true, this.data.BK_COLUMN);
+      this.contentArray.push(this.blockListForm.value.CU_CNAME);
 		}
 		else if (this.data.BK_COLUMN === "NATIONAL_ID") {
 			this.NATIONAL_ID.nativeElement.checked = checked
 			this.switchstatus(true, this.data.BK_COLUMN)
+      this.contentArray.push(this.blockListForm.value.NATIONAL_ID);
 		}
 		else if (this.data.BK_COLUMN === "CU_H_TEL") {
 			this.CU_H_TEL.nativeElement.checked = checked
 			this.switchstatus(true, this.data.BK_COLUMN)
+      this.contentArray.push(this.blockListForm.value.CU_H_TEL);
 		}
 		else if (this.data.BK_COLUMN === "CU_CP_TEL") {
 			this.CU_CP_TEL.nativeElement.checked = checked
 			this.switchstatus(true, this.data.BK_COLUMN)
+      this.contentArray.push(this.blockListForm.value.CU_CP_TEL);
 		}
 		else if (this.data.BK_COLUMN === "CU_M_TEL") {
 			this.CU_M_TEL.nativeElement.checked = checked
 			this.switchstatus(true, this.data.BK_COLUMN)
+      this.contentArray.push(this.blockListForm.value.CU_M_TEL);
 		}
 	}
 
@@ -341,6 +351,7 @@ export class F03017editComponent implements OnInit {
 			// Object.keys(this.testArray).forEach(key => {
 			// 	content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked });
 			// });
+
 			for (let i = 0; this.chkArray.length > i; i++) {
 				content.push({ bkColumn: this.chkArray[i], bkContent: this.contentArray[i], check: true });
 			}
@@ -375,14 +386,8 @@ export class F03017editComponent implements OnInit {
 		this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 		this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
 		this.jsonObject['rowID'] = this.blockListForm.value.ROWID;
-		console.log(this.jsonObject['reportUnit'])
-		console.log(this.jsonObject['reportReason1'])
-		console.log(this.jsonObject['reportReason2'])
-		console.log(this.jsonObject['reportReason3'])
-		console.log(this.jsonObject['reportContent'])
-		console.log(this.jsonObject['useFlag'])
-		console.log(this.jsonObject['rowID'])
-		const content = []
+		const content = [];
+
 		for (let i = 0; this.chkArray.length > i; i++) {
 			content.push({ bkColumn: this.chkArray[i], bkContent: this.contentArray[i], check: true });
 		}
@@ -393,6 +398,7 @@ export class F03017editComponent implements OnInit {
 		this.jsonObject['content'] = content;
 		const url = 'f03/f03017action2'
 
+    console.log(this.jsonObject);
 
 		await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 			// if (data.rspMsg == '儲存成功') {

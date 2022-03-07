@@ -68,7 +68,6 @@ export class F04003Component implements OnInit {
     let LevelJson: any = {};
     let url = 'f04/f04003action1'
     LevelJson['level'] = this.Level;
-    console.log(LevelJson)
     this.f04003Service.Set(url, LevelJson).subscribe(data => {
       this.personnelCode.push({ value: '', viewValue: '請選擇' })
       if (data.rspMsg != "該層級查無人員") {
@@ -89,22 +88,26 @@ export class F04003Component implements OnInit {
   }
   Search()
   {
+    this.checkboxArray = [];
+    this.setDataSource = [];
+    this.TransferCode = [];
     this.Inquire(this.pageIndex,this.pageSize)
   }
 
   Inquire(pageIndex: number, pageSize: number)//查詢
   {
-    if (this.Level != '' || this.personnel != '') {
-      this.checkboxArray = [];
-      this.TransferCode = [];
-      this.setDataSource = [];
+
+    if (this.Level != '' || this.personnel != '')
+    {
       this.i = 0;
       let url = 'f04/f04003action2'
       let personnelJson: any = {};
       personnelJson['level'] = this.Level;
       personnelJson['empNo'] = this.personnel;
+      personnelJson['pageIndex'] = pageIndex;
+      personnelJson['pageSize'] = pageSize;
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
-        console.log(data)
+        this.total=  data.rspBody.totalPage;
         if (data.rspBody.empList.length > 0)
         {
           for (const obj of data.rspBody.empList)
