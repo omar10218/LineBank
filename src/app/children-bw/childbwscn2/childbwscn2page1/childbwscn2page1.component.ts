@@ -272,8 +272,7 @@ export class childbwscn2page1Component implements OnInit {
         }
       }
       this.ttemporarilyest();
-      console.log("1111111111")
-      console.log(this.limit)
+
     })
   }
 
@@ -424,7 +423,6 @@ export class childbwscn2page1Component implements OnInit {
     this.reason_DETAIL = [];
     let url = 'f01/childbwscn1action3'
     let jsonObject: any = {};
-    this.ttemporarilyest();
     jsonObject['reasonCode'] = this.reasoncode;
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
       this.reason_DETAIL.push({ value: '', viewValue: '請選擇' })
@@ -440,6 +438,7 @@ export class childbwscn2page1Component implements OnInit {
 
     }
     })
+    this.ttemporarilyest();
 
   }
   dealwith(x: string)//篩選加千分號
