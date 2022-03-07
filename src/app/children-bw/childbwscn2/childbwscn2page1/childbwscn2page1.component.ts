@@ -222,7 +222,6 @@ export class childbwscn2page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
-
       this.bwCreditMainList = data.rspBody.bwCreditMainList;
       if (this.bwCreditMainList.length < 1) {
         this.add_bwCreditMainList = {
@@ -252,19 +251,18 @@ export class childbwscn2page1Component implements OnInit {
           this.radio_change();
           this.reasoncode = json.reasonCode;
           if (json.reasonCode != null && json.reasonCode != '') {
-            this.reason();
+            this.reason(json.reasonDetail);
           }
           else {
             this.reasoncode = '';
           }
-          if (json.reasonDetail != null && json.reasonDetail != '')
-          {
-            this.reasondetail = json.reasonDetail;
 
-
-          }
-          if (json.limitNo != null && json.limitNo != '') {
+          if (json.limitNo != "null" && json.limitNo != ''&& json.limitNo !=null) {
             this.limit = json.limitNo;
+          }
+          else
+          {
+            this.limit ='';
           }
           if (json.reserveLimit != "" && json.reserveLimit != null)
           {
@@ -274,6 +272,8 @@ export class childbwscn2page1Component implements OnInit {
         }
       }
       this.ttemporarilyest();
+      console.log("1111111111")
+      console.log(this.limit)
     })
   }
 
@@ -418,8 +418,9 @@ export class childbwscn2page1Component implements OnInit {
   getSearch() {
     return this.search
   }
-  reason()//本次執行原因
+  reason(i:string)//本次執行原因
   {
+
     this.reason_DETAIL = [];
     let url = 'f01/childbwscn1action3'
     let jsonObject: any = {};
@@ -433,6 +434,11 @@ export class childbwscn2page1Component implements OnInit {
         const viewValue = jsonObj['reasonDesc'];
         this.reason_DETAIL.push({ value: value, viewValue: viewValue })
       }
+      if (i != null && i != '')
+    {
+      this.reasondetail = i;
+
+    }
     })
 
   }

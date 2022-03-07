@@ -319,6 +319,7 @@ export class F03012Component implements OnInit {
 		// }
 
 		this.compareDataSetSource.data.forEach(chk => {
+			console.log(chk)
 			if (chk.id === id) {
 				chk.isChk = !chk.isChk
 				// this.getCompareDataSet();
