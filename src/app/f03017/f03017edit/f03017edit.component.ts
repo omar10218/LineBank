@@ -85,6 +85,8 @@ export class F03017editComponent implements OnInit {
 		pageSize: ['', [Validators.maxLength(3)]],
 	})
 
+  oriContent: any;
+  changeContent: boolean = true;
 
 	b1 = false;
 	b2 = false;
@@ -106,9 +108,6 @@ export class F03017editComponent implements OnInit {
 		Validators.required
 	]);
 
-
-
-
 	//欄位驗證
 	getErrorMessage() {
 		return this.formControl.hasError('required') ? '此欄位必填!' :
@@ -123,31 +122,23 @@ export class F03017editComponent implements OnInit {
 		// this.checkBoxList.push({ key: 'CU_CP_TEL', value: '', completed: false })
 		// this.checkBoxList.push({ key: 'CU_M_TEL', value: '', completed: false })
 
-		console.log(this.data.isUpdate)
 		this.selectCustInfo()
 		this.route.queryParams.subscribe(params => {
 			this.no = localStorage.getItem('empNo')
 			// this.selectBlockList(this.pageIndex, this.pageSize)//一進去畫面就抓取資料表
 		})
-
-
 		//抓取資料表
 		this.blockListForm.patchValue({ 'REPORT_UNIT': this.no })
-
 		//取Customer_info資料
 		// this.selectCustInfo();
 
 		//取下拉選單資料
 		this.f03017Service
-
 			.getSysTypeCode('BK_REASON') //通報原因下拉選單
-
 			.subscribe(data => {
 				for (const jsonObj of data.rspBody.mappingList) {
 					const codeNo = jsonObj.codeNo
 					const desc = jsonObj.codeDesc
-
-
 					this.reportReason1.push({ value: codeNo, viewValue: desc })
 					this.reportReason2.push({ value: codeNo, viewValue: desc })
 					this.reportReason3.push({ value: codeNo, viewValue: desc })
@@ -156,7 +147,6 @@ export class F03017editComponent implements OnInit {
 	}
 
 	ngAfterViewInit(): void {
-
 		// 判斷該checkbox有無資料而打勾
 		var checked: boolean = true;
 
@@ -189,6 +179,8 @@ export class F03017editComponent implements OnInit {
 			this.switchstatus(true, this.data.BK_COLUMN)
       this.contentArray.push(this.blockListForm.value.CU_M_TEL);
 		}
+
+    this.oriContent = this.contentArray[0];
 	}
 
 	// 輸入值去抓取checkbox資料
@@ -288,8 +280,6 @@ export class F03017editComponent implements OnInit {
 				}
 			})
 		}
-
-
 	}
 
 	// 離開該彈窗
@@ -299,26 +289,19 @@ export class F03017editComponent implements OnInit {
 
 	// 判斷要新增還是編輯
 	test123() {
-		if (this.data.ROWID == '' || this.data.ROWID == null) {
-
+		if (this.data.rowID == '' || this.data.rowID == null) {
 			this.insertData()
-
-
 		} else {
 			this.updateData()
-
-
 		}
 	}
 
 	//新增
 	public async insertData(): Promise<void> {
-
 		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
 			this.dialog.open(ConfirmComponent, { data: { msgStr: '請選擇通報原因1' } })
 		}
 		else {
-
 			// this.chkArray.forEach(element => {
 			// 	if (element.value === 'CU_CNAME') {
 			// 		this.contentArray.push(this.blockListForm.value.CU_CNAME)
@@ -378,7 +361,6 @@ export class F03017editComponent implements OnInit {
 
 	//編輯
 	public async updateData(): Promise<void> {
-
 		this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
 		this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
 		this.jsonObject['reportReason2'] = this.blockListForm.value.REPORT_REASON2
@@ -391,18 +373,21 @@ export class F03017editComponent implements OnInit {
 		for (let i = 0; this.chkArray.length > i; i++) {
 			content.push({ bkColumn: this.chkArray[i], bkContent: this.contentArray[i], check: true });
 		}
-
 		// Object.keys(this.testArray).forEach(key => {
 		// 	this.content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked, rowID: this.data.ROWID });
 		// });
 		this.jsonObject['content'] = content;
 		const url = 'f03/f03017action2'
-
-    console.log(this.jsonObject);
-
 		await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 			// if (data.rspMsg == '儲存成功') {
-			this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } })
+			const open =  this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } })
+      open.afterClosed().subscribe(result => {
+        if (this.oriContent == content[0].bkContent) {
+          this.dialogRef.close({ event: '' });
+        } else {
+          this.dialogRef.close({ event: 'change' });
+        }
+      })
 			// alert('rxjs')
 			// this.f03017Service.resetfn();
 			// this.dialogRef.close({ event: 'success' });
