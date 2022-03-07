@@ -5,15 +5,15 @@
       <div nz-row style="padding:5px" *ngFor="let data of bwCreditMainList">
         <div nz-col nzFlex="1">
           <div style="padding:3px"><span class="form-title">案件編號</span><input matInput #input class="form-control"
-              [(ngModel)]="applno" readonly disabled></div>
+              [(ngModel)]="data.applno" readonly disabled></div>
         </div>
         <div nz-col nzFlex="1">
           <div style="padding:3px"><span class="form-title">身分證字號</span><input matInput #input class="form-control"
-              [(ngModel)]="nationalId" readonly disabled></div>
+              [(ngModel)]="data.nationalId" readonly disabled></div>
         </div>
         <div nz-col nzFlex="1">
           <div style="padding:3px"><span class="form-title">客戶ID</span><input matInput #input class="form-control"
-              [(ngModel)]="custId" readonly disabled></div>
+              [(ngModel)]="data.custId" readonly disabled></div>
         </div>
         <div nz-col nzFlex="1">
           <div style="padding:3px"><span class="form-title">姓名</span><input matInput #input class="form-control"
@@ -487,21 +487,6 @@
       </nz-radio-group>
     </div>
     <div nz-row style="padding:5px">
-      <!-- <div style="padding:2px"><span class="form-title">是否需通知客戶</span>
-        <mat-select style="height:25px" value="Y" [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' ">
-          <mat-option *ngFor="let code of ynCode" [value]="code.value">
-            {{code.viewValue}}
-          </mat-option>
-        </mat-select>
-      </div>
-      <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(起)</span><input matInput #input class="form-control"
-            value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "></div>
-      </div>
-      <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">凍額/觀察日期時間(迄)</span><input matInput #input class="form-control"
-            value="" readonly [disabled]="(getPage()!='9' && getPage()!='10') || getSearch()=='Y' "></div>
-      </div> -->
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="1"></div>
@@ -510,7 +495,7 @@
     <div nz-row style="padding:5px">
       <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'">
         <div style="padding:3px"><span class="form-title" >本次執行原因</span>
-          <mat-select style="height:25px" [(ngModel)]="reasoncode" name="reasoncode" (ngModelChange)="reason()"  [disabled]="getPage()!='9'|| getSearch()=='Y' ">
+          <mat-select style="height:25px" [(ngModel)]="reasoncode" name="reasoncode" (ngModelChange)="reason('')"  [disabled]="getPage()!='9'|| getSearch()=='Y' ">
             <mat-option *ngFor="let code of reason_CODE" [value]="code.value">
               {{code.viewValue}}
             </mat-option>

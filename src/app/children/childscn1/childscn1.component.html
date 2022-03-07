@@ -27,7 +27,7 @@
             </div>
             <div nz-col nzFlex="1">
                 <div style="padding:3px"><span class="form-title">客戶身分名單註記</span><input matInput #input
-                        class="form-control" value="待確認" readonly disabled></div>
+                        class="form-control" [(ngModel)]="contentList" readonly disabled></div>
             </div>
             <div nz-col nzFlex="1">
                 <div style="padding:3px"><span class="form-title">申請產品</span><input matInput #input class="form-control"

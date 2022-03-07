@@ -76,6 +76,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   cuCName: string;                              //姓名
   custId: string;                               //客戶ID
   nationalId: string;                           //身分證
+  contentList: string;                          //客戶註記名單
   page: string         //頁面
   //客戶身分名單註記(待確認)
   prodCode: string;                             //申請產品
@@ -419,6 +420,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
         }
         sessionStorage.setItem('caApplicationAmount', this.toNumber(this.caApplicationAmount));
         this.purposeCode = data.rspBody.CreditAuditinfoList[0].purposeCode;
+        this.contentList = data.rspBody.CreditAuditinfoList[0].contentList;
       }
 
       //AML
