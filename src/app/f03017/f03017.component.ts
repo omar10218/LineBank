@@ -178,9 +178,10 @@ export class F03017Component implements OnInit {
 			},
 		})
 		dialogRef.afterClosed().subscribe(result => {
-			if (result != null && result.event == 'success') {
-				this.refreshTable()
-			}
+			this.getBkIncomeData();
+      // if (result != null && result.event == 'success') {
+			// 	this.refreshTable()
+			// }
 		})
 	}
 
@@ -231,9 +232,10 @@ export class F03017Component implements OnInit {
 			},
 		})
 		dialogRef.afterClosed().subscribe(result => {
-			if (result != null && result.event == 'success') {
-				this.refreshTable()
-			}
+			this.getBkIncomeData();
+      // if (result != null && result.event == 'success') {
+			// 	this.refreshTable()
+			// }
 		})
 	}
 	//清除資料
