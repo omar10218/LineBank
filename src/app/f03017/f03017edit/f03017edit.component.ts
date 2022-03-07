@@ -67,7 +67,7 @@ export class F03017editComponent implements OnInit {
 	constructor(public f03017Service: F03017Service, public dialogRef: MatDialogRef<F03017editComponent>, private route: ActivatedRoute, public dialog: MatDialog, public childService: ChildrenService, private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
 	blockListForm: FormGroup = this.fb.group({
-		ROWID: [this.data.ROWID, []],
+		ROWID: [this.data.rowID, []],
 		REPORT_UNIT: [this.data.no, []],
 		REPORT_REASON1: [this.data.reportReason1Value, [Validators.required]],
 		REPORT_REASON2: [this.data.reportReason2Value, []],
@@ -85,6 +85,8 @@ export class F03017editComponent implements OnInit {
 		pageSize: ['', [Validators.maxLength(3)]],
 	})
 
+  oriContent: any;
+  changeContent: boolean = true;
 
 	b1 = false;
 	b2 = false;
@@ -106,9 +108,6 @@ export class F03017editComponent implements OnInit {
 		Validators.required
 	]);
 
-
-
-
 	//欄位驗證
 	getErrorMessage() {
 		return this.formControl.hasError('required') ? '此欄位必填!' :
@@ -116,23 +115,20 @@ export class F03017editComponent implements OnInit {
 				'';
 	}
 	ngOnInit(): void {
+
 		// this.checkBoxList.push({ key: 'CU_CNAME', value: '', completed: false })
 		// this.checkBoxList.push({ key: 'NATIONAL_ID', value: '', completed: false })
 		// this.checkBoxList.push({ key: 'CU_H_TEL', value: '', completed: false })
 		// this.checkBoxList.push({ key: 'CU_CP_TEL', value: '', completed: false })
 		// this.checkBoxList.push({ key: 'CU_M_TEL', value: '', completed: false })
 
-		console.log(this.data.isUpdate)
 		this.selectCustInfo()
 		this.route.queryParams.subscribe(params => {
 			this.no = localStorage.getItem('empNo')
 			// this.selectBlockList(this.pageIndex, this.pageSize)//一進去畫面就抓取資料表
 		})
-
-
 		//抓取資料表
 		this.blockListForm.patchValue({ 'REPORT_UNIT': this.no })
-
 		//取Customer_info資料
 		// this.selectCustInfo();
 
@@ -151,29 +147,40 @@ export class F03017editComponent implements OnInit {
 	}
 
 	ngAfterViewInit(): void {
-
 		// 判斷該checkbox有無資料而打勾
 		var checked: boolean = true;
+
+    if (this.data.BK_COLUMN != "" && this.data.BK_COLUMN != null) {
+      this.chkArray.push(this.data.BK_COLUMN);
+    }
+
 		if (this.data.BK_COLUMN === "CU_CNAME") {
 			this.CU_CNAME.nativeElement.checked = checked
-			this.switchstatus(true, this.data.BK_COLUMN)
+			this.switchstatus(true, this.data.BK_COLUMN);
+      this.contentArray.push(this.blockListForm.value.CU_CNAME);
 		}
 		else if (this.data.BK_COLUMN === "NATIONAL_ID") {
 			this.NATIONAL_ID.nativeElement.checked = checked
 			this.switchstatus(true, this.data.BK_COLUMN)
+      this.contentArray.push(this.blockListForm.value.NATIONAL_ID);
 		}
 		else if (this.data.BK_COLUMN === "CU_H_TEL") {
 			this.CU_H_TEL.nativeElement.checked = checked
 			this.switchstatus(true, this.data.BK_COLUMN)
+      this.contentArray.push(this.blockListForm.value.CU_H_TEL);
 		}
 		else if (this.data.BK_COLUMN === "CU_CP_TEL") {
 			this.CU_CP_TEL.nativeElement.checked = checked
 			this.switchstatus(true, this.data.BK_COLUMN)
+      this.contentArray.push(this.blockListForm.value.CU_CP_TEL);
 		}
 		else if (this.data.BK_COLUMN === "CU_M_TEL") {
 			this.CU_M_TEL.nativeElement.checked = checked
 			this.switchstatus(true, this.data.BK_COLUMN)
+      this.contentArray.push(this.blockListForm.value.CU_M_TEL);
 		}
+
+    this.oriContent = this.contentArray[0];
 	}
 
 	// 輸入值去抓取checkbox資料
@@ -229,9 +236,7 @@ export class F03017editComponent implements OnInit {
 	testArray = [];
 	check: boolean;
 	checkboxSelect(check: boolean, data: any, value: any) {
-		// let x=['A','B','C','D'];
-		// let y:number;
-		// y = x.indexOf('D')
+
 		this.switchstatus(check, data)
 		// 取最後的輸入值
 		this.testArray[data] = value;
@@ -275,8 +280,6 @@ export class F03017editComponent implements OnInit {
 				}
 			})
 		}
-
-
 	}
 
 	// 離開該彈窗
@@ -286,8 +289,7 @@ export class F03017editComponent implements OnInit {
 
 	// 判斷要新增還是編輯
 	test123() {
-		if (this.data.ROWID == '' || this.data.ROWID == null) {
-		
+		if (this.data.rowID == '' || this.data.rowID == null) {
 			this.insertData()
 		} else {
 			this.updateData()
@@ -296,12 +298,10 @@ export class F03017editComponent implements OnInit {
 
 	//新增
 	public async insertData(): Promise<void> {
-
 		if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
 			this.dialog.open(ConfirmComponent, { data: { msgStr: '請選擇通報原因1' } })
 		}
 		else {
-
 			// this.chkArray.forEach(element => {
 			// 	if (element.value === 'CU_CNAME') {
 			// 		this.contentArray.push(this.blockListForm.value.CU_CNAME)
@@ -334,20 +334,23 @@ export class F03017editComponent implements OnInit {
 			// Object.keys(this.testArray).forEach(key => {
 			// 	content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked });
 			// });
+
 			for (let i = 0; this.chkArray.length > i; i++) {
 				content.push({ bkColumn: this.chkArray[i], bkContent: this.contentArray[i], check: true });
 			}
 
 			this.jsonObject['content'] = content;
-		
 			const url = 'f03/f03017action2'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 				let msgStr = '';
-				msgStr = (data.rspCode === '0000' ) ? '儲存成功！' : '儲存失敗！';
+				msgStr = (data.rspCode === '0000') ? '儲存成功！' : '儲存失敗！';
 				const childernDialogRef = this.dialog.open(ConfirmComponent, {
 					data: { msgStr: msgStr }
 				});
+				// this.f03017Service.resetfn();
 				if (msgStr === '儲存成功') { this.dialogRef.close({ event: 'success' }); }
+				// this.f03017Service.resetfn();
+
 				// if (data.rspMsg == '更新成功' && data.rspCode == '0000') {
 				// 	this.dialog.open(ConfirmComponent, { data: { msgStr: '儲存成功' } })
 
@@ -358,7 +361,6 @@ export class F03017editComponent implements OnInit {
 
 	//編輯
 	public async updateData(): Promise<void> {
-		
 		this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
 		this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
 		this.jsonObject['reportReason2'] = this.blockListForm.value.REPORT_REASON2
@@ -366,31 +368,34 @@ export class F03017editComponent implements OnInit {
 		this.jsonObject['reportContent'] = this.blockListForm.value.REPORT_CONTENT
 		this.jsonObject['useFlag'] = this.blockListForm.value.USE_FLAG
 		this.jsonObject['rowID'] = this.blockListForm.value.ROWID;
-		console.log(this.jsonObject['reportUnit'])
-		console.log(this.jsonObject['reportReason1'])
-		console.log(this.jsonObject['reportReason2'])
-		console.log(this.jsonObject['reportReason3'])
-		console.log(this.jsonObject['reportContent'])
-		console.log(this.jsonObject['useFlag'])
-		console.log(this.jsonObject['rowID'])
-		const content = []
+		const content = [];
+
 		for (let i = 0; this.chkArray.length > i; i++) {
 			content.push({ bkColumn: this.chkArray[i], bkContent: this.contentArray[i], check: true });
 		}
-	
 		// Object.keys(this.testArray).forEach(key => {
 		// 	this.content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked, rowID: this.data.ROWID });
 		// });
 		this.jsonObject['content'] = content;
 		const url = 'f03/f03017action2'
-
-
 		await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 			// if (data.rspMsg == '儲存成功') {
-			this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } })
+			const open =  this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } })
+      open.afterClosed().subscribe(result => {
+        if (this.oriContent == content[0].bkContent) {
+          this.dialogRef.close({ event: '' });
+        } else {
+          this.dialogRef.close({ event: 'change' });
+        }
+      })
+			// alert('rxjs')
+			// this.f03017Service.resetfn();
 			// this.dialogRef.close({ event: 'success' });
 			// }
 		})
+		// alert('rxjs2')
+
+		// this.f03017Service.resetfn();
 
 	}
 
@@ -422,6 +427,48 @@ export class F03017editComponent implements OnInit {
 
 	}
 
-	
-}
+	//檢查身分證
+	checkIDCard(ID: string) {
+		var value = ID.trim().toUpperCase();
+		var a = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'W', 'Z', 'I', 'O');
+		var b = new Array(1, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+		var c = new Array(2);
+		var d;
+		var e;
+		var f;
+		var g = 0;
+		var h = /^[a-z](1|2)\d{8}$/i;
+		if (value.search(h) == -1) {
+			return false;
+		}
+		else {
+			d = value.charAt(0).toUpperCase();
+			f = value.charAt(9);
+		}
 
+		for (var i = 0; i < 26; i++) {
+			if (d == a[i])//a==a
+			{
+				e = i + 10; //10
+				c[0] = Math.floor(e / 10); //1
+				c[1] = e - (c[0] * 10); //10-(1*10)
+				break;
+			}
+		}
+		for (var i = 0; i < b.length; i++) {
+			if (i < 2) {
+				g += c[i] * b[i];
+			}
+			else {
+				g += parseInt(value.charAt(i - 1)) * b[i];
+			}
+		}
+		if ((g % 10) == f) {
+			return true;
+		}
+		if ((10 - (g % 10)) != f) {
+			return false;
+		}
+		return true;
+	}
+}

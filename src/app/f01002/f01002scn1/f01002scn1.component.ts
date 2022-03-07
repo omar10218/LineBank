@@ -246,19 +246,6 @@ export class F01002scn1Component implements OnInit, OnDestroy {
       return;
     }
 
-    //核准額度不得小於100000
-    var amount = sessionStorage.getItem('resultApproveAmt')
-    if (amount != null && amount != "") {
-      var INT_amount
-      INT_amount = parseInt(amount.toString());
-      if ((!isNaN(INT_amount)) && INT_amount < 100000 && sessionStorage.getItem('creditResult') == "C" && url == "f01/childscn0") {
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "核准額度不可小於100000" }
-        });
-        return;
-      }
-    }
-
     const dialogRef = this.dialog.open(Childscn26Component, {
       panelClass: 'mat-dialog-transparent',
       minHeight: '50%',

@@ -8,17 +8,18 @@
           <div style="padding:10px">
             <span class="form-title">通報單位</span>
             <input style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6"
-              value="{{ no }}" formControlName="REPORT_UNIT">
+            disabled  value="{{ no }}" formControlName="REPORT_UNIT">
           </div>
         </div>
         <div nz-col nzSpan="6">
           <div style="padding:10px"><span class="form-title">通報原因1</span>
-            <mat-select [(ngModel)]="reportReason1Value" formControlName="REPORT_REASON1"
+            <mat-select [(ngModel)]="reportReason1Value" formControlName="REPORT_REASON1" required
               style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6">
               <mat-option *ngFor="let code of reportReason1" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="formControl.invalid && (reportReason1Value=='' || reportReason1Value== null)">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
         <div nz-col nzSpan="6">
@@ -46,7 +47,8 @@
           <div style="padding:10px">
             <span class="form-title">通報補充</span>
             <input style="width:100%;height:25px;border-radius:10px;border:none;padding:4px;background-color:#E6E6E6"
-              formControlName="REPORT_CONTENT">
+              formControlName="REPORT_CONTENT" maxlength="20">
+              
           </div>
         </div>
         <div nz-col nzSpan="6">
@@ -57,6 +59,7 @@
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
+
           </div>
         </div>
        
@@ -97,8 +100,9 @@
           <div nz-col nzSpan="6"></div>
       </div>
       <div style="text-align: center;">
-        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="insertData()" style="margin:0px 5px">儲存</button>
+        <button nz-button [nzSize]="'middle'" nzType="primary" (click)="insertData()" style="margin:0px 5px"  [disabled]="!formControl.valid">儲存</button>
         <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="cancel()" tabindex="-1">離開</button>
+        <!-- <button nz-button [nzSize]="'middle'" nzType="default" nzDanger (click)="test1()" tabindex="-1">test</button> -->
       </div>
     </div>
   </form>

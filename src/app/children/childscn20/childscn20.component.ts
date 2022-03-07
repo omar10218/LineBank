@@ -35,7 +35,7 @@ export class Childscn20Component implements OnInit {
   useFlagValue: string; //使用中選擇
   currentPage: PageEvent;
   currentSort: Sort;
-
+rid:[]=[]
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -60,6 +60,7 @@ export class Childscn20Component implements OnInit {
     CU_H_TEL: [this.data.CU_H_TEL, []],
     CU_CP_TEL: [this.data.CU_CP_TEL, []],
     CU_M_TEL: [this.data.CU_M_TEL, []],
+    ROWID: [this.data.ROWID, []],
     pageIndex: ['', [Validators.maxLength(3)]],
     pageSize: ['', [Validators.maxLength(3)]]
   });
@@ -67,6 +68,12 @@ export class Childscn20Component implements OnInit {
   formControl = new FormControl('', [
     Validators.required
   ]);
+   //欄位驗證
+   getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
 
   blockListDataSource: readonly Data[] = [];
   private applno: string;
@@ -82,11 +89,15 @@ export class Childscn20Component implements OnInit {
   block: boolean = false;
 
   ngOnInit(): void {
+    console.log(this.data)
     this.route.queryParams.subscribe(params => {
       this.applno = sessionStorage.getItem('applno');//案件代碼
       this.no = localStorage.getItem("empNo");
       this.selectBlockList(this.pageIndex, this.pageSize)//一進去畫面就抓取資料表
     });
+
+  
+   
 
     //抓取資料表
     this.blockListForm.patchValue({ 'REPORT_UNIT': this.no })
@@ -130,31 +141,55 @@ export class Childscn20Component implements OnInit {
   insertData() {
     if (this.blockListForm.value.REPORT_REASON1 == '' || this.blockListForm.value.REPORT_REASON1 == null) {
       this.dialog.open(ConfirmComponent, { data: { msgStr: "請選擇通報原因1" } });
-    } else {
+    }
+     else {
+
+      if(this.chkArray.length == 0){
+        this.dialog.open(ConfirmComponent, { data: { msgStr: "請勾選項目" } });
+        return;
+      }
+
+      let test12345:string[] = [];
+
+      this.contentArray = [];
       this.chkArray.forEach((element) => {
-        if (element === "CU_CNAME") { this.contentArray.push(this.blockListForm.value.CU_CNAME); }
-        if (element === "NATIONAL_ID") { this.contentArray.push(this.blockListForm.value.NATIONAL_ID); }
-        if (element === "CU_H_TEL") { this.contentArray.push(this.blockListForm.value.CU_H_TEL); }
-        if (element === "CU_CP_TEL") { this.contentArray.push(this.blockListForm.value.CU_CP_TEL); }
-        if (element === "CU_M_TEL") { this.contentArray.push(this.blockListForm.value.CU_M_TEL); }
+        if (element === "CU_CNAME") { this.blockListForm.value.CU_CNAME != null && this.blockListForm.value.CU_CNAME != "" ? this.contentArray.push(this.blockListForm.value.CU_CNAME) : test12345.push('1'); }
+        if (element === "NATIONAL_ID") { this.blockListForm.value.NATIONAL_ID != null && this.blockListForm.value.NATIONAL_ID != "" ? this.contentArray.push(this.blockListForm.value.NATIONAL_ID): test12345.push('1'); }
+        if (element === "CU_H_TEL") {  this.blockListForm.value.CU_H_TEL != null && this.blockListForm.value.CU_H_TEL != "" ?this.contentArray.push(this.blockListForm.value.CU_H_TEL): test12345.push('1');  }
+        if (element === "CU_CP_TEL") { this.blockListForm.value.CU_CP_TEL != null && this.blockListForm.value.CU_CP_TEL != "" ?this.contentArray.push(this.blockListForm.value.CU_CP_TEL): test12345.push('1');}
+        if (element === "CU_M_TEL") { this.blockListForm.value.CU_M_TEL != null && this.blockListForm.value.CU_M_TEL != "" ?this.contentArray.push(this.blockListForm.value.CU_M_TEL): test12345.push('1'); }
       });
+
+      console.log(test12345);
+      if(test12345.length > 0){
+        this.dialog.open(ConfirmComponent, { data: { msgStr: "漸漸好壞" } });
+        return;
+      }
+    
+      this.jsonObject['BK_COLUMN'] = this.chkArray;
+      this.jsonObject['BK_CONTENT'] = this.contentArray;
       this.jsonObject['applno'] = this.applno;
       this.jsonObject['REPORT_UNIT'] = this.blockListForm.value.REPORT_UNIT;
       this.jsonObject['REPORT_REASON1'] = this.blockListForm.value.REPORT_REASON1;
       this.jsonObject['REPORT_REASON2'] = this.blockListForm.value.REPORT_REASON2;
       this.jsonObject['REPORT_REASON3'] = this.blockListForm.value.REPORT_REASON3;
       this.jsonObject['REPORT_CONTENT'] = this.blockListForm.value.REPORT_CONTENT;
-      this.jsonObject['USE_FLAG'] = this.blockListForm.value.USE_FLAG;
-      this.jsonObject['BK_COLUMN'] = this.chkArray;
-      this.jsonObject['BK_CONTENT'] = this.contentArray;
+      this.jsonObject['USE_FLAG'] = this.blockListForm.value.USE_FLAG;    
+     
+      console.log(this.jsonObject);
+
       const url = 'f01/childscn20action3';
       this.block = true;
       this.childscn20Service.onsave(url, this.jsonObject).subscribe(data => {
         console.log(data)
-        if (data.rspMsg == "儲存成功") {
+        if (data.rspMsg == "insertSuccess"||data.rspMsg == "saveSuccess") {
           this.dialog.open(ConfirmComponent, { data: { msgStr: "儲存成功" } });
           this.block = false;
           this.selectBlockList(this.pageIndex, this.pageSize);
+        }
+        else{
+          this.dialog.open(ConfirmComponent, { data: { msgStr: "儲存失敗" } });
+          this.block = false;
         }
       })
     }
@@ -166,11 +201,14 @@ export class Childscn20Component implements OnInit {
     const applno = this.applno;
     let jsonObject: any = {};
     this.childscn20Service.gettable(url, applno, jsonObject).subscribe(data => {
+      console.log(data)
       this.blockListForm.patchValue({ 'CU_CNAME': data.rspBody.list[0].cuCname })
       this.blockListForm.patchValue({ 'NATIONAL_ID': data.rspBody.list[0].nationalId })
       this.blockListForm.patchValue({ 'CU_H_TEL': data.rspBody.list[0].cuHTel })
       this.blockListForm.patchValue({ 'CU_CP_TEL': data.rspBody.list[0].cuCpTel })
       this.blockListForm.patchValue({ 'CU_M_TEL': data.rspBody.list[0].cuMTel })
+      this.blockListForm.patchValue({ 'RID': data.rspBody.list[0].rid })
+  
     })
   }
 
@@ -184,10 +222,13 @@ export class Childscn20Component implements OnInit {
     jsonObject['per_page'] = pageSize;
 
     this.childscn20Service.gettable(url, applno, jsonObject).subscribe(data => {
+      console.log(data)
       this.blockListDataSource = data.rspBody.list;
-      console.log(data.rspBody.list)
+     console.log(this.blockListDataSource)
+     
       for(const items of this.blockListDataSource){
         if(items.bkColumn=="CU_CNAME")
+       
         switch(items.bkColumn){
           case "CU_CNAME":
             items.bkColumn="姓名"
@@ -230,4 +271,9 @@ export class Childscn20Component implements OnInit {
     this.pageIndex = pageIndex;
     this.selectBlockList(this.pageIndex, this.pageSize);
   }
+//   test1(){
+//     console.log(this.contentArray)
+//     console.log(this.chkArray)
+// console.log(this.blockListForm.value.ROWID)
+//   }
 }

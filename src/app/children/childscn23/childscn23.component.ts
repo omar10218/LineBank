@@ -61,7 +61,7 @@ export class Childscn23Component implements OnInit {
   search: string;
   x: string;
   t = 0;
-  te=0;
+  te = 0;
   isAllCheck: boolean = false;
   checkboxArray: checkBox[] = [];
   private stepName: string;
@@ -124,6 +124,7 @@ export class Childscn23Component implements OnInit {
 
   // }
   limit(x: string, id: string, name: string) {
+    console.log(x)
     x = x.replace(/\D/g, '')
     if (x.length > 0) {
       x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -172,9 +173,8 @@ export class Childscn23Component implements OnInit {
 
     })
   }
-  sujectSelect(ID: string,NU:string) {
-    for (const jsonObj of this.Content)
-    {
+  sujectSelect(ID: string, NU: string) {
+    for (const jsonObj of this.Content) {
       for (const item of this.one) {
         if (item.ID == ID) {
           if (item.ACCOUNT_CODE == jsonObj.ACCOUNT_CODE) {
@@ -202,11 +202,11 @@ export class Childscn23Component implements OnInit {
   add()//新增一筆
   {
 
-      this.t = this.t + 1
-      this.AddData = {tt:this.t, APPLNO: this.applno, ACCOUNT_CODE: '', ID: this.t, MONTHLY_PAY_421: '', MONTHLY_PAY_029: '', MONTHLY_PAY_CC: '', CAL_RATE: '', CAL_YEARS: '', CAL_PERIOD: '', CONTRACT_AMT_421: '', CONTRACT_AMT_029: '', CONTRACT_AMT_CC: '' };
-      this.one.push(this.AddData)
-      this.checkboxArray.push({ num: this.t.toString(), completed: true })
-      this.checkboxAny.push(this.t)
+    this.t = this.t + 1
+    this.AddData = { tt: this.t, APPLNO: this.applno, ACCOUNT_CODE: '', ID: this.t, MONTHLY_PAY_421: '', MONTHLY_PAY_029: '', MONTHLY_PAY_CC: '', CAL_RATE: '', CAL_YEARS: '', CAL_PERIOD: '', CONTRACT_AMT_421: '', CONTRACT_AMT_029: '', CONTRACT_AMT_CC: '' };
+    this.one.push(this.AddData)
+    this.checkboxArray.push({ num: this.t.toString(), completed: true })
+    this.checkboxAny.push(this.t)
 
   }
 
@@ -215,46 +215,41 @@ export class Childscn23Component implements OnInit {
     let url = 'f01/childscn23action3'
 
     for (const item of this.one) {
-      if(item.ACCOUNT_CODE == '')
-      {
-        console.log('1')
-        this.checkboxAny.splice(this.checkboxAny.indexOf(item.tt),1)
+      if (item.ACCOUNT_CODE == '') {
+        this.checkboxAny.splice(this.checkboxAny.indexOf(item.tt), 1)
       }
     }
-    for (const ii of this.checkboxAny)
-     {
-      for (const item of this.one)
-      {
+    for (const ii of this.checkboxAny) {
+      for (const item of this.one) {
         // if(item.ACCOUNT_CODE == '')
         // {
         //   this.checkboxAny.splice(this.checkboxAny.indexOf(item.tt),1)
         // }
         this.jsonObject = {};
         if (ii == item.ID) {
-          if (item.ID == item.tt)
-           {
+          if (item.ID == item.tt) {
             this.jsonObject['rowId'] = '';
           }
           else {
             this.jsonObject['rowId'] = item.ID;
           }
-
           if (item.ACCOUNT_CODE == 'CC') {
             this.jsonObject['applno'] = item.APPLNO;
             this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
             // jsonObject['rowId'] = item.ID;
-            this.jsonObject['calRate'] = parseInt(item.CAL_RATE) / 100;
+            // this.jsonObject['calRate'] = parseInt(item.CAL_RATE)/100;
+            this.jsonObject['calRate'] = (parseInt(item.CAL_RATE) / 100 + "").replace(".", "_");
             this.jsonObject['contractAmt421'] = "0";
             this.jsonObject['contractAmt029'] = "0";
             this.jsonObject['contractAmtCc'] = item.CONTRACT_AMT_CC != "" ? this.Cut(item.CONTRACT_AMT_CC) : "0";
             this.seveData.push(this.jsonObject);
           }
-          else
-           {
+          else {
             this.jsonObject['applno'] = item.APPLNO;
             this.jsonObject['accountCode'] = item.ACCOUNT_CODE;
             // jsonObject['rowId'] = item.ID;
-            this.jsonObject['calRate'] = parseInt(item.CAL_RATE) / 100;
+            // this.jsonObject['calRate'] = parseInt(item.CAL_RATE)/100;
+            this.jsonObject['calRate'] = (parseInt(item.CAL_RATE) / 100 + "").replace(".", "_");
             this.jsonObject['calYears'] = item.CAL_YEARS != undefined ? item.CAL_YEARS : "0";
             if (item.CAL_PERIOD != undefined) {
               this.jsonObject['calPeriod'] = item.CAL_PERIOD != undefined ? item.CAL_PERIOD : "0";
@@ -268,10 +263,10 @@ export class Childscn23Component implements OnInit {
       }
     }
     this.jsonObject1['dataList'] = this.seveData
+    console.log(this.jsonObject)
     this.childscn23Service.AddUpDel(url, this.jsonObject1).subscribe(data => {
 
-      if (data.rspCode == '0000')
-      {
+      if (data.rspCode == '0000') {
         this.isAllCheck = false;
         this.set();
         this.checkboxAny = [];
@@ -279,10 +274,9 @@ export class Childscn23Component implements OnInit {
         this.Monthly421 = 0;//BAM421月付金
         this.Monthly029 = 0;//BAM029月付金
         this.Monthlycc = 0;//信用卡付月金
-        this.t=0;
+        this.t = 0;
       }
-      else
-      {
+      else {
         this.set();
       }
     })
@@ -308,9 +302,8 @@ export class Childscn23Component implements OnInit {
     let jsonObject: any = {};
     for (const item of this.one) {
       console.log(item.tt)
-      if(item.tt!=undefined)
-      {
-        this.checkboxAny.splice(this.checkboxAny.indexOf(item.tt),1)
+      if (item.tt != undefined) {
+        this.checkboxAny.splice(this.checkboxAny.indexOf(item.tt), 1)
       }
     }
     jsonObject['result'] = this.checkboxAny;
@@ -322,8 +315,7 @@ export class Childscn23Component implements OnInit {
     this.childscn23Service.AddUpDel(url, jsonObject).subscribe(data => {
 
 
-      if (data.rspMsg == '刪除成功')
-      {
+      if (data.rspMsg == '刪除成功') {
         this.set();
         // alert('1')
         this.isAllCheck = false;
@@ -334,9 +326,9 @@ export class Childscn23Component implements OnInit {
       }
       else {
 
-          this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "刪除失敗" }
-          });
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "刪除失敗" }
+        });
 
       }
 
@@ -520,8 +512,14 @@ export class Childscn23Component implements OnInit {
   data_number2(x: string) {
     this.toINT(x);
     if (x != null) {
-      x = x.replace(/[^\d-]/g, '');
-      x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      if (x.indexOf('-') == 0 && x.length > 1) {
+        x = x.replace(/[^\d]/g, '');
+        x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        x = '-' + x;
+      } else {
+        x = x.replace(/[^\d-]/g, '');
+        x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
     }
     return x
   }
@@ -543,6 +541,7 @@ export class Childscn23Component implements OnInit {
       return '0'
     }
     x = x.replace(/[^\d-]/g, '');
+    x = x.replace('-', '_');
     return x
   }
 

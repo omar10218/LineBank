@@ -42,16 +42,16 @@ export class F03012Component implements OnInit {
 	compareTableCode: OptionsCode[] = []
 	compareColumnCode: OptionsCode[] = []
 	compareType: OptionsCode[] = []
-	compareTypeValue:any []=[]
+	compareTypeValue: any[] = []
 	currentPage: PageEvent
 	currentSort: Sort
 	allComplete: boolean = false
 	one: any[] = [] //裝一開始的資料表
 	x: string
 	height: string
-	addreset$:Subscription //rxjs訂閱者
+	addreset$: Subscription //rxjs訂閱者
 	low: string
-	childusedata:any
+	childusedata: any
 	index = []
 	aaa: string
 	// 20211005 新增
@@ -59,12 +59,12 @@ export class F03012Component implements OnInit {
 	compareItems = [] //物件陣列
 	useFlag: boolean //用來控制元件是否顯示於頁面
 	isEdit: boolean = true
-setValueLow
+	setValueLow
 	constructor(private f03012Service: F03012Service, public dialog: MatDialog, private alert: NzAlertModule) {
 		this.addreset$ = this.f03012Service.addreset$.subscribe((data) => {
 			this.getComePareDataSetList(this.pageIndex, this.pageSize);
-		 });
-	 }
+		});
+	}
 
 	ngOnInit(): void {
 		this.getCompareTable()
@@ -83,7 +83,7 @@ setValueLow
 
 
 
-// 取得資料比對下拉項目
+	// 取得資料比對下拉項目
 	getCompareTable() {
 		this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
 
@@ -118,7 +118,7 @@ setValueLow
 	compareTableOption: MappingCode[]
 	compareColumnOption: MappingCode[]
 
-// 取得資料比對資料
+	// 取得資料比對資料
 	getComePareDataSetList(pageIndex: number, pageSize: number) {
 		const baseUrl = 'f03/f03012scn1'
 		let jsonObject: any = {}
@@ -134,7 +134,7 @@ setValueLow
 			// }
 			// console.log(this.compareTypeValue)
 			this.total = data.rspBody.size
-			this.childusedata=data.rspBody.items
+			this.childusedata = data.rspBody.items
 			this.compareDataSetSource.data = data.rspBody.items
 			this.compareTableOption = data.rspBody.compareTable
 			this.compareColumnOption = data.rspBody.comparColumn
@@ -171,13 +171,12 @@ setValueLow
 	// }
 
 	//儲存前處理千分位
-	Cut(s: string)  {
-	  if(s!=null)
-	  {
-	    s = s.replace(/,/g, "")
-	  }
+	Cut(s: string) {
+		if (s != null) {
+			s = s.replace(/,/g, "")
+		}
 
-	  return s
+		return s
 	}
 
 	// 刪除
@@ -190,11 +189,11 @@ setValueLow
 		formdata.append('compareType', compareType)
 		if (compareType == '2') {
 			formdata.append('setValueLow', setValueLow)
-		}else if(compareType == '1'){
+		} else if (compareType == '1') {
 			formdata.append('setValueHight', setValueHight)
 			formdata.append('setValueLow', setValueLow)
 		}
-		this.f03012Service.saveComePareDataSetList(url, formdata).subscribe (data => {
+		this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
 			msg = data.rspMsg
 		})
 
@@ -238,8 +237,7 @@ setValueLow
 			},
 		})
 		dialogRef.afterClosed().subscribe(result => {
-			if (result != null && result.event == 'success')
-       {
+			if (result != null && result.event == 'success') {
 				this.refreshTable()
 			}
 		})
@@ -251,9 +249,9 @@ setValueLow
 	// 清除資料
 	Clear() {
 		// this.compareTableCode = null;
-    this.compareTableCode = [];
-    this.selectedValue1='';
-    this.getCompareTable();
+		this.compareTableCode = [];
+		this.selectedValue1 = '';
+		this.getCompareTable();
 		this.getComePareDataSetList(this.pageIndex, this.pageSize)
 	}
 
@@ -321,6 +319,7 @@ setValueLow
 		// }
 
 		this.compareDataSetSource.data.forEach(chk => {
+			console.log(chk)
 			if (chk.id === id) {
 				chk.isChk = !chk.isChk
 				// this.getCompareDataSet();
@@ -338,9 +337,9 @@ setValueLow
 		this.checked = this.compareDataSetSource.data.filter(i => i.isChk == true)
 		//如果未選中任何項目
 		if (this.checked.length == 0) {
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "未選中任何項目!!" },
-      })
+			this.dialog.open(ConfirmComponent, {
+				data: { msgStr: "未選中任何項目!!" },
+			})
 			return false
 		}
 
@@ -351,29 +350,28 @@ setValueLow
 			jsonObject['compareType'] = obj.compareType
 			// jsonObject['setValueHight'] = obj.setValueHight
 			// jsonObject['setValueLow'] = obj.setValueLow
-			if(obj.compareType=='2'){
-				jsonObject['setValueLow'] =   obj.setValueLow != '' ? '' : "0";
-			}else if(obj.compareType=='1')
-      {
-				if(obj.setValueHight>obj.setValueLow){
+			if (obj.compareType == '2') {
+				jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow : "0";
+			} else if (obj.compareType == '1') {
+				if (obj.setValueHight > obj.setValueLow) {
 
-					jsonObject['setValueHight'] =   obj.setValueHight != ''? '' : "0";
-					jsonObject['setValueLow'] =   obj.setValueLow != '' ? '' : "0";
+					jsonObject['setValueHight'] = obj.setValueHight != '' ? obj.setValueHight : "0";
+					jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow : "0";
 				}
-				else if(obj.setValueHight<obj.setValueLow){
-          this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "設定最高門檻需大於設定最低門檻!!" },
-          })
+				else if (obj.setValueHight < obj.setValueLow) {
+					this.dialog.open(ConfirmComponent, {
+						data: { msgStr: "設定最高門檻需大於設定最低門檻!!" },
+					})
 					return
 				}
 			}
 
 
 
-			if (obj.compareType == null || obj.setValueLow == null || obj.compareType == '' ||obj.setValueLow == '') {
-        this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "有欄位為空值，儲存失敗" },
-        })
+			if (obj.compareType == null || obj.setValueLow == null || obj.compareType == '' || obj.setValueLow == '') {
+				this.dialog.open(ConfirmComponent, {
+					data: { msgStr: "有欄位為空值，儲存失敗" },
+				})
 
 				return false
 			}
@@ -382,10 +380,11 @@ setValueLow
 			// obj = {};
 		}
 		this.f03012Service.submit(url, jsonObjects).subscribe(data => {
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: data.rspMsg },
-      })
+			this.dialog.open(ConfirmComponent, {
+				data: { msgStr: data.rspMsg },
+			})
 			this.changePage()
+			this.getComePareDataSetList(this.pageIndex, this.pageSize)
 		})
 	}
 	changePage() {
@@ -424,48 +423,47 @@ setValueLow
 	toCurrency(amount: string) {
 		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
 	}
-	numberOnly(i:string,id:string) {
-    var num  = 0;
-    num = Number(i);
-    for(var t of this.compareDataSetSource.data)
-    {
+	numberOnly(i: string, id: string) {
+		var num = 0;
+		num = Number(i);
+		// for(var t of this.compareDataSetSource.data)
+		// {
 
-      if(t.id==id)
-      {
-        if(num>1)
-        {
-          this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "最大值1" },
-          })
-          t.setValueLow='';
-        }
-      }
-    }
+		//   if(t.id==id)
+		//   {
+		//     if(num>1)
+		//     {
+		//       this.dialog.open(ConfirmComponent, {
+		//         data: { msgStr: "最大值1" },
+		//       })
+		//       t.setValueLow='';
+		//     }
+		//   }
+		// }
 
 	}
-  //最高
-  numberhingt(i:string,id:string)
-  {
-    this.height  = i;
-    var num  = 0;
-    num = Number(i);
+	//最高
+	numberhingt(i: string, id: string) {
+		this.height = i;
+		var num = 0;
+		num = Number(i);
 
-    for(var t of this.compareDataSetSource.data)
-    {
+		// for(var t of this.compareDataSetSource.data)
+		// {
 
-      if(t.id==id)
-      {
-        if(num>99)
-        {
-          this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "最大值99" },
-          })
-          t.setValueHight='';
-        }
-      }
-    }
+		//   if(t.id==id)
+		//   {
+		//     if(num>99)
+		//     {
+		//       this.dialog.open(ConfirmComponent, {
+		//         data: { msgStr: "最大值99" },
+		//       })
+		//       t.setValueHight='';
+		//     }
+		//   }
+		// }
 
 
-  }
+	}
 
 }

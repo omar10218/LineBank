@@ -41,6 +41,8 @@ export class F04003Component implements OnInit {
     this.LevelCode.push({ value: 'L2', viewValue: 'L2' });
     this.LevelCode.push({ value: 'L3', viewValue: 'L3' });
     this.LevelCode.push({ value: 'L4', viewValue: 'L4' });
+    this.LevelCode.push({ value: 'D2', viewValue: 'D2' });
+    this.LevelCode.push({ value: 'D1', viewValue: 'D1' });
     this.personnel = '';
 
   }
@@ -56,7 +58,7 @@ export class F04003Component implements OnInit {
   isAllCheck: boolean = false;
   Transfer: string = '';//轉件
   TransferCode: sysCode[] = [];
-  s:string = '';
+  // s:string = '';
   total = 1;
   pageSize = 10;
   pageIndex = 1;
@@ -84,19 +86,28 @@ export class F04003Component implements OnInit {
     })
 
   }
-  Inquire()//查詢
+  Search()
   {
-    if (this.Level != '' || this.personnel != '') {
-      this.checkboxArray = [];
-      this.TransferCode = [];
-      this.setDataSource = [];
+    this.checkboxArray = [];
+    this.setDataSource = [];
+    this.TransferCode = [];
+    this.Inquire(this.pageIndex,this.pageSize)
+  }
+
+  Inquire(pageIndex: number, pageSize: number)//查詢
+  {
+
+    if (this.Level != '' || this.personnel != '')
+    {
       this.i = 0;
       let url = 'f04/f04003action2'
       let personnelJson: any = {};
       personnelJson['level'] = this.Level;
       personnelJson['empNo'] = this.personnel;
+      personnelJson['pageIndex'] = pageIndex;
+      personnelJson['pageSize'] = pageSize;
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
-
+        this.total=  data.rspBody.totalPage;
         if (data.rspBody.empList.length > 0)
         {
           for (const obj of data.rspBody.empList)
@@ -107,7 +118,8 @@ export class F04003Component implements OnInit {
           }
         }
 
-        if (data.rspBody.dataList.length > 0) {
+        if (data.rspBody.dataList.length > 0)
+        {
           for (const jsonObj of data.rspBody.dataList) {
             const id = jsonObj['empNo'];
             // const name = jsonObj.empList['empName'];
@@ -120,14 +132,15 @@ export class F04003Component implements OnInit {
         }
         else
         {
-          if(this.s =='')
-          {
-            this.dialog.open(ConfirmComponent, {
-              data: { msgStr: "查無案件" }
-            });
-          }
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "查無案件" }
+          });
+          // if(this.s =='')
+          // {
 
-          this.s='';
+          // }
+
+          // this.s='';
         }
       })
     }
@@ -200,9 +213,9 @@ export class F04003Component implements OnInit {
         if (this.assignArray.length > 0) {
           this.f04003Service.Set(url, changeJson).subscribe(data => {
             if (data.rspCode == '0000') {
-              this.Inquire();
+              this.Search();
               this.assignArray=[]
-              this.s="轉件成功";
+              // this.s="轉件成功";
               this.dialog.open(ConfirmComponent, {
                 data: { msgStr: data.rspMsg }
               });
@@ -256,13 +269,17 @@ export class F04003Component implements OnInit {
     } else if (level == 'S1') {
       return "S1 總經理"
     }
+    else if (level == 'S1') {
+      return "S1 總經理"
+    }
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
-    if (this.i > 0) {
+    if (this.i > 0)
+     {
       const { pageSize, pageIndex } = params;
       this.pageSize = pageSize;
       this.pageIndex = pageIndex;
-      this. Inquire();
+      this.Inquire(pageIndex, pageSize);
     }
   }
 }

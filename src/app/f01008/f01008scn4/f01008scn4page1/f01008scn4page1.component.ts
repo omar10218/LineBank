@@ -59,8 +59,14 @@ export class F01008scn4page1Component implements OnInit {
   data_number2(x: string) {
     this.toINT(x);
     if (x != null) {
-      x = x.replace(/[^\d-]/g, '');
-      x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      if (x.indexOf('-') == 0 && x.length > 1) {
+        x = x.replace(/[^\d]/g, '');
+        x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        x = '-' + x;
+      } else {
+        x = x.replace(/[^\d-]/g, '');
+        x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
     }
     return x
   }
@@ -82,6 +88,7 @@ export class F01008scn4page1Component implements OnInit {
       return '0'
     }
     x = x.replace(/[^\d-]/g, '');
+    x = x.replace('-', '_');
     return x
   }
 
