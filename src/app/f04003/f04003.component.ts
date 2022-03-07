@@ -58,7 +58,7 @@ export class F04003Component implements OnInit {
   isAllCheck: boolean = false;
   Transfer: string = '';//轉件
   TransferCode: sysCode[] = [];
-  s:string = '';
+  // s:string = '';
   total = 1;
   pageSize = 10;
   pageIndex = 1;
@@ -115,7 +115,8 @@ export class F04003Component implements OnInit {
           }
         }
 
-        if (data.rspBody.dataList.length > 0) {
+        if (data.rspBody.dataList.length > 0)
+        {
           for (const jsonObj of data.rspBody.dataList) {
             const id = jsonObj['empNo'];
             // const name = jsonObj.empList['empName'];
@@ -128,14 +129,15 @@ export class F04003Component implements OnInit {
         }
         else
         {
-          if(this.s =='')
-          {
-            this.dialog.open(ConfirmComponent, {
-              data: { msgStr: "查無案件" }
-            });
-          }
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "查無案件" }
+          });
+          // if(this.s =='')
+          // {
 
-          this.s='';
+          // }
+
+          // this.s='';
         }
       })
     }
@@ -210,7 +212,7 @@ export class F04003Component implements OnInit {
             if (data.rspCode == '0000') {
               this.Search();
               this.assignArray=[]
-              this.s="轉件成功";
+              // this.s="轉件成功";
               this.dialog.open(ConfirmComponent, {
                 data: { msgStr: data.rspMsg }
               });
