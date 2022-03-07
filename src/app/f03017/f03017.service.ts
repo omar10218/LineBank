@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { BaseService } from '../base.service';
 import { environment } from 'src/environments/environment';
 
@@ -10,6 +10,15 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class F03017Service extends BaseService {
+
+//rxjs中繼站
+  private editreset = new Subject<any>();
+  editreset$=this.editreset.asObservable();
+
+  	//rxjs監聽 edit頁面更新
+    resetfn(): void {
+      this.editreset.next()
+    }
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
