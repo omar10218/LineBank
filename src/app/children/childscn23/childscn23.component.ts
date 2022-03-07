@@ -124,6 +124,7 @@ export class Childscn23Component implements OnInit {
 
   // }
   limit(x: string, id: string, name: string) {
+    console.log(x)
     x = x.replace(/\D/g, '')
     if (x.length > 0) {
       x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
