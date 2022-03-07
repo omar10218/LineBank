@@ -59,7 +59,7 @@ export class F04003Component implements OnInit {
   Transfer: string = '';//轉件
   TransferCode: sysCode[] = [];
   // s:string = '';
-  total = 1;
+  total = 0;
   pageSize = 10;
   pageIndex = 1;
   Dispatch()//搜尋派件人員
@@ -103,8 +103,11 @@ export class F04003Component implements OnInit {
       let personnelJson: any = {};
       personnelJson['level'] = this.Level;
       personnelJson['empNo'] = this.personnel;
+      personnelJson['pageIndex'] = pageIndex;
+      personnelJson['pageSize'] = pageSize;
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
         console.log(data)
+        this.total=  data.totalPage;
         if (data.rspBody.empList.length > 0)
         {
           for (const obj of data.rspBody.empList)
