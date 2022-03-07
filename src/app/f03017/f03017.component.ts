@@ -12,6 +12,7 @@ import { F03017uploadComponent } from './f03017upload/f03017upload.component'
 import { NzTableQueryParams } from 'ng-zorro-antd/table'
 import { getMaxListeners } from 'process'
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component'
+import { Subscription } from 'rxjs'
 interface sysCode {
 	value: string
 	viewValue: string
@@ -25,6 +26,7 @@ interface sysCode {
 export class F03017Component implements OnInit {
 	useId:string
 	Id: number[] = []
+	editreset$:Subscription //rxjs訂閱者
 	bkColumnCode: sysCode[] = [] //建檔項目欄位下拉
 	bkColumnValue: string //建檔項目欄位
 	bkContentValue: string //建檔項目欄位值內容下拉
@@ -47,6 +49,25 @@ export class F03017Component implements OnInit {
 		private datePipe: DatePipe
 	) {
 		this.myDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS')
+		this.editreset$ = this.f03017Service.editreset$.subscribe((data) => {
+			let jsonObject: any = {}
+			jsonObject['page'] = this.currentPage.pageIndex + 1
+			jsonObject['per_page'] = this.currentPage.pageSize
+			jsonObject['bkColumn'] = this.bkColumnValue
+			jsonObject['bkContent'] = this.bkContentValue
+			jsonObject['useId'] = this.useId
+			 this.f03017Service.getReturn('f03/f03017', jsonObject).subscribe(data => {
+				if(data.rspBody.size!=0){
+					this.total = data.rspBody.size
+					this.bkIncomeDataSource = data.rspBody.items
+				}else{
+					const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+						data: { msgStr: "查無項目!" }
+					});
+				}
+				
+			})
+		 });
 	}
 
 	bkIncomeForm: FormGroup = this.fb.group({
@@ -231,7 +252,9 @@ export class F03017Component implements OnInit {
 			},
 		})
 		dialogRef.afterClosed().subscribe(result => {
-			if (result != null && result.event == 'success') {
+			
+			console.log(result)
+			if (result != null && (result.event == 'success'||result=="1")) {
 				this.refreshTable()
 			}
 		})
@@ -261,8 +284,26 @@ export class F03017Component implements OnInit {
 			}
 		})
 	}
-	private refreshTable() {
-		this.paginator._changePageSize(this.paginator.pageSize)
+	refreshTable() {
+		let jsonObject: any = {}
+
+		jsonObject['page'] = this.currentPage.pageIndex + 1
+		jsonObject['per_page'] = this.currentPage.pageSize
+		jsonObject['bkColumn'] = this.bkColumnValue
+		jsonObject['bkContent'] = this.bkContentValue
+		jsonObject['useId'] = this.useId
+		 this.f03017Service.getReturn('f03/f03017', jsonObject).subscribe(data => {
+			if(data.rspBody.size!=0){
+				this.total = data.rspBody.size
+				this.bkIncomeDataSource = data.rspBody.items
+			}else{
+				const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+					data: { msgStr: "查無項目!" }
+				});
+			}
+			
+		})
+		this.loading = false
 	}
 
 	//從客戶資訊查詢客戶手機

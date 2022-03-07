@@ -116,7 +116,7 @@ export class F03017editComponent implements OnInit {
 				'';
 	}
 	ngOnInit(): void {
-	
+
 		// this.checkBoxList.push({ key: 'CU_CNAME', value: '', completed: false })
 		// this.checkBoxList.push({ key: 'NATIONAL_ID', value: '', completed: false })
 		// this.checkBoxList.push({ key: 'CU_H_TEL', value: '', completed: false })
@@ -139,15 +139,15 @@ export class F03017editComponent implements OnInit {
 
 		//取下拉選單資料
 		this.f03017Service
-		
+
 			.getSysTypeCode('BK_REASON') //通報原因下拉選單
-			
+
 			.subscribe(data => {
 				for (const jsonObj of data.rspBody.mappingList) {
 					const codeNo = jsonObj.codeNo
 					const desc = jsonObj.codeDesc
-				
-					
+
+
 					this.reportReason1.push({ value: codeNo, viewValue: desc })
 					this.reportReason2.push({ value: codeNo, viewValue: desc })
 					this.reportReason3.push({ value: codeNo, viewValue: desc })
@@ -234,7 +234,7 @@ export class F03017editComponent implements OnInit {
 	testArray = [];
 	check: boolean;
 	checkboxSelect(check: boolean, data: any, value: any) {
-	
+
 		this.switchstatus(check, data)
 		// 取最後的輸入值
 		this.testArray[data] = value;
@@ -290,10 +290,14 @@ export class F03017editComponent implements OnInit {
 	// 判斷要新增還是編輯
 	test123() {
 		if (this.data.ROWID == '' || this.data.ROWID == null) {
-		
+
 			this.insertData()
+			
+
 		} else {
 			this.updateData()
+			
+
 		}
 	}
 
@@ -342,15 +346,17 @@ export class F03017editComponent implements OnInit {
 			}
 
 			this.jsonObject['content'] = content;
-		
 			const url = 'f03/f03017action2'
 			await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 				let msgStr = '';
-				msgStr = (data.rspCode === '0000' ) ? '儲存成功！' : '儲存失敗！';
+				msgStr = (data.rspCode === '0000') ? '儲存成功！' : '儲存失敗！';
 				const childernDialogRef = this.dialog.open(ConfirmComponent, {
 					data: { msgStr: msgStr }
 				});
+				// this.f03017Service.resetfn();
 				if (msgStr === '儲存成功') { this.dialogRef.close({ event: 'success' }); }
+				// this.f03017Service.resetfn();
+
 				// if (data.rspMsg == '更新成功' && data.rspCode == '0000') {
 				// 	this.dialog.open(ConfirmComponent, { data: { msgStr: '儲存成功' } })
 
@@ -361,7 +367,7 @@ export class F03017editComponent implements OnInit {
 
 	//編輯
 	public async updateData(): Promise<void> {
-		
+
 		this.jsonObject['reportUnit'] = this.blockListForm.value.REPORT_UNIT
 		this.jsonObject['reportReason1'] = this.blockListForm.value.REPORT_REASON1
 		this.jsonObject['reportReason2'] = this.blockListForm.value.REPORT_REASON2
@@ -380,7 +386,7 @@ export class F03017editComponent implements OnInit {
 		for (let i = 0; this.chkArray.length > i; i++) {
 			content.push({ bkColumn: this.chkArray[i], bkContent: this.contentArray[i], check: true });
 		}
-	
+
 		// Object.keys(this.testArray).forEach(key => {
 		// 	this.content.push({ bkColumn: key, bkContent: this.testArray[key], check: this.CU_CNAME.nativeElement.checked, rowID: this.data.ROWID });
 		// });
@@ -391,9 +397,14 @@ export class F03017editComponent implements OnInit {
 		await this.f03017Service.oneseve(url, this.jsonObject).subscribe(data => {
 			// if (data.rspMsg == '儲存成功') {
 			this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } })
+			// alert('rxjs')
+			// this.f03017Service.resetfn();
 			// this.dialogRef.close({ event: 'success' });
 			// }
 		})
+		// alert('rxjs2')
+
+		// this.f03017Service.resetfn();
 
 	}
 
@@ -425,6 +436,49 @@ export class F03017editComponent implements OnInit {
 
 	}
 
-	
+	//檢查身分證
+	checkIDCard(ID: string) {
+		var value = ID.trim().toUpperCase();
+		var a = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'W', 'Z', 'I', 'O');
+		var b = new Array(1, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+		var c = new Array(2);
+		var d;
+		var e;
+		var f;
+		var g = 0;
+		var h = /^[a-z](1|2)\d{8}$/i;
+		if (value.search(h) == -1) {
+			return false;
+		}
+		else {
+			d = value.charAt(0).toUpperCase();
+			f = value.charAt(9);
+		}
+
+		for (var i = 0; i < 26; i++) {
+			if (d == a[i])//a==a
+			{
+				e = i + 10; //10
+				c[0] = Math.floor(e / 10); //1
+				c[1] = e - (c[0] * 10); //10-(1*10)
+				break;
+			}
+		}
+		for (var i = 0; i < b.length; i++) {
+			if (i < 2) {
+				g += c[i] * b[i];
+			}
+			else {
+				g += parseInt(value.charAt(i - 1)) * b[i];
+			}
+		}
+		if ((g % 10) == f) {
+			return true;
+		}
+		if ((10 - (g % 10)) != f) {
+			return false;
+		}
+		return true;
+	}
 }
 
