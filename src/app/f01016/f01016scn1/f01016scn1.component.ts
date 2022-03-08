@@ -81,6 +81,26 @@ export class F01016scn1Component implements OnInit {
   msg: string//訊息
   sort: string;
 
+  //頁面離開時觸發
+  ngOnDestroy() {
+    sessionStorage.removeItem('applno');
+    sessionStorage.removeItem('reasonCode');//執行原因
+    sessionStorage.removeItem('executeType');//執行策略
+    sessionStorage.removeItem('creditTime');//本次執行時間
+    sessionStorage.removeItem('creditEmpno');//本次執行員編
+    sessionStorage.removeItem('customerId');
+    sessionStorage.removeItem('nationalId');//身分證
+    sessionStorage.removeItem('reasonDetail'); //執行細項
+    sessionStorage.removeItem('limitNo'); //額度號
+    sessionStorage.removeItem('contactYn'); //通知客戶
+    sessionStorage.removeItem('contactType'); //通知方式
+    sessionStorage.removeItem('contactContent'); //通知內容
+    sessionStorage.removeItem('creditMemo'); //本次執行說明
+    sessionStorage.removeItem('reserveLimit'); //本次執行說明
+    sessionStorage.removeItem('mobile'); //本次執行說明
+    // this.CREDITSource$.unsubscribe();
+  }
+
   ngOnInit(): void {
     this.sort = 'ascend';
     this.limitNo = '';
