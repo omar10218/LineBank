@@ -533,7 +533,7 @@ export class Childscn5Component implements OnInit {
       jsonObject['preJobYear'] = this.preJobYear.substring(0,2);
     }
     // jsonObject['preJobMonth'] = this.preJobMonthValue;
-    jsonObject['cuCpTelExt'] = this.cuCpTelExt;
+    jsonObject['cuCpTelExt'] =this.cuCpTelExt.replace(/-/g,"A").replace(/#/g,"B");
     jsonObject['hiredDate'] = this.hiredDateValue;
     // jsonObject['currJobYear'] = this.currJobYear;
     // jsonObject['currJobMonth'] = this.currJobMonth;
@@ -552,6 +552,7 @@ export class Childscn5Component implements OnInit {
     }, 1000);
   }
 
+ 
   //性別代碼轉換中文
   getGender(codeVal: string): string {
     for (const data of this.genderCode) {
