@@ -58,7 +58,7 @@ export class Childscn18Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['swcNationalId'] = this.swcID;
     jsonObject['swcCustId'] = this.custID;
-    jsonObject['searchArray'] = this.searchArray.toString();
+    jsonObject['searchArray'] = this.searchArray.toString().replace(/,/g,'_');
     jsonObject['level'] = this.level;
     this.childscn18Service.reSearch(url, jsonObject).subscribe(data => {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
