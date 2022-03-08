@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NzResizeEvent } from 'ng-zorro-antd/resizable';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Childscn19Component } from '../children/childscn19/childscn19.component';
+import { Childscn30Component } from '../children/childscn30/childscn30.component';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { OptionsCode } from '../interface/base';
 import { F01007Service } from './f01007.service';
@@ -200,7 +201,8 @@ data_number(p: number) {
 }
   // 打開通知彈窗
   openNotifyMsg(swcApplno: string) {
-    const dialogRef = this.dialog.open(Childscn19Component, {
+    const dialogRef = this.dialog.open(Childscn30Component, {
+      panelClass: 'mat-dialog-transparent',
       minHeight: '60vh',
       width: '90%',
       data: {
