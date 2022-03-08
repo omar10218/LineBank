@@ -293,6 +293,7 @@ export class F03014Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
 
+
       if(result.event=='success')
       {
         this.search();

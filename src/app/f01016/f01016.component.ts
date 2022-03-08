@@ -145,6 +145,7 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     reasonDetail: string, limitNo: string, contactYn: string, contactType: string, contactContent: string, creditMemo: string, reserveLimit: string, mobile: string) {
     let jsonObject: any = {};
     jsonObject['applno'] = applno;
+    console.log(creditTime)
     this.f01016Service.getCaseList(jsonObject).subscribe(data => {
       sessionStorage.setItem('applno', applno);
       sessionStorage.setItem('reasonCode', reasonCode);//執行原因
