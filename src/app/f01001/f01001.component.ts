@@ -204,7 +204,7 @@ export class F01001Component implements OnInit, AfterViewInit {
       width: '90%',
       data: {
         swcApplno: swcApplno,
-        flag: 'Y'
+        // flag: 'Y'
       }
     });
   }
