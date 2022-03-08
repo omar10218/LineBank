@@ -89,7 +89,6 @@ export class F01015Component implements OnInit {
     // if (this.applno != null) {
     //   this.getTargetCustList();
     // }
-    this.custId = sessionStorage.customerId; //主管帶customer_ID
     this.reasonValue = sessionStorage.reasonCode; //主管帶執行原因
     this.executeValue = sessionStorage.executeType; //主管帶執行策略
     this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
@@ -104,12 +103,17 @@ export class F01015Component implements OnInit {
     if (this.executeValue == 'DWN') {
       this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
     }
-
-
     this.page = sessionStorage.getItem("page");
+   
     if (this.page == '16') {
-      this.creditTime = this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd HH:mm');    //主管帶本次執行時間
+      // this.creditTime = this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd HH:mm');    //主管帶本次執行時間
+    
+      this.creditTime=sessionStorage.creditTime
+      console.log(this.creditTime)
+      console.log(sessionStorage)
       this.changereasonDetail()
+    this.custId = sessionStorage.customerId; //主管帶customer_ID
+    console.log(this.custId)
       this.getTargetCustList();
       this.getlimitCode(this.executeValue)
 
