@@ -209,7 +209,7 @@ export class F01005page1Component implements OnInit {
       width: '90%',
       data: {
         swcApplno: swcApplno,
-        flag: 'Y'
+        // flag: 'Y'
       }
     });
   }

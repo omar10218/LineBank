@@ -209,7 +209,7 @@ data_number(p: number) {
       width: '90%',
       data: {
         swcApplno: swcApplno,
-        flag: 'Y'
+        // flag: 'Y'
       }
     });
   }

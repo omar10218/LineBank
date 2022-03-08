@@ -3,13 +3,13 @@
     <div class="line_bank_card_no_padding">
         <div nz-row>
             <div nz-col nzSpan="12">
-                <div style="padding:10px"><span class="form-title">身分證字號:</span>
+                <div style="padding:10px"><span class="form-title">身分證字號</span>
                     <input [disabled]="page=='16'" placeholder="輸入身分證字號" style="display: block;width: 95%;"
                         [(ngModel)]="nationalId" name="nationalId" maxlength="10">
                 </div>
             </div>
             <div nz-col nzSpan="12">
-                <div style="padding:10px"><span class="form-title">Customer ID：</span>
+                <div style="padding:10px"><span class="form-title">Customer ID</span>
                     <input [disabled]="page=='16'" placeholder="輸入Customer ID" style="display: block;width: 95%;"
                         [(ngModel)]="custId" name="custId" maxlength="10">
                 </div>
@@ -25,7 +25,7 @@
     <div class="line_bank_card_no_padding">
         <nz-table nzShowSizeChanger [nzData]="targetCustSource" [nzFrontPagination]="false" [nzSimple]="true"
             [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
-            nzSize="small" nzTitle="{{custId}}額度資訊">
+            nzSize="small" nzTitle="額度資訊">
             <thead>
                 <tr>
                     <th class="table-header"> 層級</th>

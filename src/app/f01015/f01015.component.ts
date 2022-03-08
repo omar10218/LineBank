@@ -30,7 +30,7 @@ export class F01015Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   levelNo: any; //層級
-  YNCode: OptionsCode[ ] = [ {value: '', viewValue: '請選擇'} ]; //通知客戶
+  YNCode: OptionsCode[ ] = [  ]; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
   limitCode: sysCode[] = []; //額度號
@@ -85,6 +85,7 @@ export class F01015Component implements OnInit {
 
   ngOnInit(): void {
     this.sort = 'ascend';
+    this.limitNo='';
     this.applno = sessionStorage.applno; //案編
     // if (this.applno != null) {
     //   this.getTargetCustList();
@@ -94,6 +95,7 @@ export class F01015Component implements OnInit {
     this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
     this.reasonDetail = sessionStorage.reasonDetail; //主管帶執行細項
     this.limitNo = sessionStorage.limitNo; //主管帶額度號
+    this.nationalId = sessionStorage.nationalId; //主管帶身分證
     console.log(this.limitNo)
     this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
     this.contact = sessionStorage.contactType; //主管帶通知方式
@@ -107,7 +109,6 @@ export class F01015Component implements OnInit {
    
     if (this.page == '16') {
       // this.creditTime = this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd HH:mm');    //主管帶本次執行時間
-    
       this.creditTime=sessionStorage.creditTime
       console.log(this.creditTime)
       console.log(sessionStorage)

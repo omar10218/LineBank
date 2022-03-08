@@ -61,7 +61,7 @@ export class Childscn19Component implements OnInit {
   Number: string;
   swcApplno: string;
   ii = [];
-  flag = this.data.flag;
+  // flag = this.data.flag;
   // boo :boolean = true ;
   block: boolean = false;
   send: boolean = true;//案件送出判斷是否鎖起來
@@ -108,11 +108,11 @@ export class Childscn19Component implements OnInit {
       }
     });
     this.getRescanList();         //取該案件補件資訊
-    if (this.flag == 'Y') {
-      this.getSmsData()
-    } else {
+    // if (this.flag == 'Y') {
+      // this.getSmsData()
+    // } else {
       this.getSmsList(); //取該案件簡訊發送資訊
-    }
+    // }
   }
 
   //新增補件資訊
@@ -232,11 +232,11 @@ export class Childscn19Component implements OnInit {
     this.ii = [];
     this.send = true;
     let jsonObject: any = {};
-    if (this.flag == 'Y') {
-      jsonObject['applno'] = this.swcApplno;
-    } else {
+    // if (this.flag == 'Y') {
+      // jsonObject['applno'] = this.swcApplno;
+    // } else {
       jsonObject['applno'] = this.applno;
-    }
+    // }
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
       this.remarkContent = '';
       if (data.rspBody.items.length > 0) {
@@ -305,20 +305,20 @@ export class Childscn19Component implements OnInit {
   };
 
 
-  getSmsData() {
-    const baseUrl = 'f01/childscn19action4';
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.swcApplno;
-    this.childscn19Service.postJson(baseUrl, jsonObject).subscribe(data => {
-      this.smsDataSource = data.rspBody.items;
-      if (this.mobile == null || this.mobile == "") {
-        this.mobile = data.rspBody.phone;
-      }
-    });
+  // getSmsData() {
+  //   const baseUrl = 'f01/childscn19action4';
+  //   let jsonObject: any = {};
+  //   jsonObject['applno'] = this.swcApplno;
+  //   this.childscn19Service.postJson(baseUrl, jsonObject).subscribe(data => {
+  //     this.smsDataSource = data.rspBody.items;
+  //     if (this.mobile == null || this.mobile == "") {
+  //       this.mobile = data.rspBody.phone;
+  //     }
+  //   });
     // this.childscn19Service.getSmsSearch(applno).subscribe(data => {
     //   this.smsDataSource = data.rspBody.items;
     // })
-  };
+  // };
 
   //刪除該案件補件資訊
   public async delRescan(ID: string): Promise<void> {

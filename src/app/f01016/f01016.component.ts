@@ -153,7 +153,7 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
       sessionStorage.setItem('creditTime', creditTime);//本次執行時間
       sessionStorage.setItem('creditEmpno', creditEmpno);//本次執行員編
       sessionStorage.setItem('customerId', customerId);
-      sessionStorage.setItem('nationalId', nationalId);
+      sessionStorage.setItem('nationalId', nationalId);//身分證
       sessionStorage.setItem('reasonDetail', reasonDetail); //執行細項
       sessionStorage.setItem('limitNo', limitNo); //額度號
       sessionStorage.setItem('contactYn', contactYn); //通知客戶
