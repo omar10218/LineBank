@@ -348,7 +348,7 @@ export class F03017editComponent implements OnInit {
 					data: { msgStr: msgStr }
 				});
 				// this.f03017Service.resetfn();
-				if (msgStr === '儲存成功') { this.dialogRef.close({ event: 'success' }); }
+				if (msgStr === '儲存成功！') { this.dialogRef.close({ event: 'success' }); }
 				// this.f03017Service.resetfn();
 
 				// if (data.rspMsg == '更新成功' && data.rspCode == '0000') {

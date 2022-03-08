@@ -199,7 +199,7 @@ export class F03017Component implements OnInit {
       },
     })
     dialogRef.afterClosed().subscribe(result => {
-      this.getBkIncomeData();
+      if (this.bkColumnValue != '' && this.bkColumnValue != null && this.bkContentValue == null || this.bkContentValue == '') { this.getBkIncomeData(); }
       // if (result != null && result.event == 'success') {
       // 	this.refreshTable()
       // }
