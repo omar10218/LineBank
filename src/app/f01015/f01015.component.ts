@@ -86,43 +86,43 @@ export class F01015Component implements OnInit {
   ngOnInit(): void {
     this.sort = 'ascend';
 
-    this.applno = sessionStorage.applno; //案編
+    // this.applno = sessionStorage.applno; //案編
     // if (this.applno != null) {
     //   this.getTargetCustList();
     // }
-    this.reasonValue = sessionStorage.reasonCode; //主管帶執行原因
-    this.executeValue = sessionStorage.executeType; //主管帶執行策略
-    this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
-    this.reasonDetail = sessionStorage.reasonDetail; //主管帶執行細項
-    this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
-    this.limitNo = sessionStorage.limitNo; //主管帶額度號
-    this.contact = sessionStorage.contactType; //主管帶通知方式
-    this.contactContent = sessionStorage.contactContent; //主管帶通知內容
-    this.creditMemo = sessionStorage.creditMemo; //主管帶creditMemo
-    this.mobile = sessionStorage.mobile; //mobile
-    if (this.executeValue == 'DWN') {
-      this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
-    }
-    this.page = sessionStorage.getItem("page");
+    // this.reasonValue = sessionStorage.reasonCode; //主管帶執行原因
+    // this.executeValue = sessionStorage.executeType; //主管帶執行策略
+    // this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
+    // this.reasonDetail = sessionStorage.reasonDetail; //主管帶執行細項
+    // this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
+    // this.limitNo = sessionStorage.limitNo; //主管帶額度號
+    // this.contact = sessionStorage.contactType; //主管帶通知方式
+    // this.contactContent = sessionStorage.contactContent; //主管帶通知內容
+    // this.creditMemo = sessionStorage.creditMemo; //主管帶creditMemo
+    // this.mobile = sessionStorage.mobile; //mobile
+    // if (this.executeValue == 'DWN') {
+    //   this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
+    // }
+    // this.page = sessionStorage.getItem("page");
 
-    if (this.page == '16') {
+    // if (this.page == '16') {
 
-      // this.creditTime = this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd HH:mm');    //主管帶本次執行時間
-      this.creditTime = sessionStorage.creditTime
-      this.changereasonDetail()
-      this.custId = sessionStorage.customerId; //主管帶customer_ID
-      this.getTargetCustList();
-      console.log(this.getlimitCode(this.executeValue)
-      )
-        ; 
-      if (sessionStorage.nationalId == 'null') {    //主管帶身分證
-        this.nationalId = '';
-      } else {
-        this.nationalId = sessionStorage.nationalId
-      }
-    } else {
+    //   // this.creditTime = this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd HH:mm');    //主管帶本次執行時間
+    //   this.creditTime = sessionStorage.creditTime
+    //   this.changereasonDetail()
+    //   this.custId = sessionStorage.customerId; //主管帶customer_ID
+    //   this.getTargetCustList();
+    //   console.log(this.getlimitCode(this.executeValue)
+    //   )
+    //     ;
+    //   if (sessionStorage.nationalId == 'null') {    //主管帶身分證
+    //     this.nationalId = '';
+    //   } else {
+    //     this.nationalId = sessionStorage.nationalId
+    //   }
+    // } else {
 
-    }
+    // }
     this.useId = localStorage.getItem("empNo") //進入員編
     this.getYNresult();
     this.getReason();

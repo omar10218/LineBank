@@ -533,7 +533,7 @@ export class Childscn5Component implements OnInit {
       jsonObject['preJobYear'] = this.preJobYear.substring(0,2);
     }
     // jsonObject['preJobMonth'] = this.preJobMonthValue;
-    jsonObject['cuCpTelExt'] =this.cuCpTelExt.replace(/-/g,"A").replace(/#/g,"B");
+    jsonObject['cuCpTelExt'] =this.cuCpTelExt;
     jsonObject['hiredDate'] = this.hiredDateValue;
     // jsonObject['currJobYear'] = this.currJobYear;
     // jsonObject['currJobMonth'] = this.currJobMonth;
