@@ -136,7 +136,7 @@ export class Childscn19Component implements OnInit {
       jsonObject['rescanType'] = this.rescanType;
       jsonObject['rescanContent'] = this.rescanContent;
       jsonObject['rescanItem'] = this.rescanItem;
-      jsonObject['restartDate'] = this.pipe.transform(new Date(this.restartDate), 'yyyy-MM-dd');
+      jsonObject['restartDate'] = this.pipe.transform(new Date(this.restartDate), 'yyyyMMdd');
       let msgStr: string = "";
       msgStr = await this.childscn19Service.addRescan(jsonObject);
       if (msgStr == 'success') {

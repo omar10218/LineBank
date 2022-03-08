@@ -351,12 +351,12 @@ export class F03012Component implements OnInit {
 			// jsonObject['setValueHight'] = obj.setValueHight
 			// jsonObject['setValueLow'] = obj.setValueLow
 			if (obj.compareType == '2') {
-				jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow : "0";
+				jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow.replace('.', '_') : "0";
 			} else if (obj.compareType == '1') {
 				if (obj.setValueHight > obj.setValueLow) {
 
-					jsonObject['setValueHight'] = obj.setValueHight != '' ? obj.setValueHight : "0";
-					jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow : "0";
+					jsonObject['setValueHight'] = obj.setValueHight != '' ? obj.setValueHight.replace('.', '_') : "0";
+					jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow.replace('.', '_') : "0";
 				}
 				else if (obj.setValueHight < obj.setValueLow) {
 					this.dialog.open(ConfirmComponent, {
@@ -369,8 +369,7 @@ export class F03012Component implements OnInit {
 
 
 			if (obj.compareType == null || obj.setValueLow == null || obj.compareType == '' || obj.setValueLow == '') {
-				console.log(obj.compareType)
-				console.log(obj.setValueLow)
+
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: "有欄位為空值，儲存失敗" },
 				})
@@ -381,6 +380,7 @@ export class F03012Component implements OnInit {
 			jsonObjects.push(jsonObject)
 			// obj = {};
 		}
+    console.log(jsonObjects)
 		this.f03012Service.submit(url, jsonObjects).subscribe(data => {
 			this.dialog.open(ConfirmComponent, {
 				data: { msgStr: data.rspMsg },
@@ -428,20 +428,20 @@ export class F03012Component implements OnInit {
 	numberOnly(i: string, id: string) {
 		var num = 0;
 		num = Number(i);
-		// for(var t of this.compareDataSetSource.data)
-		// {
+		for(var t of this.compareDataSetSource.data)
+		{
 
-		//   if(t.id==id)
-		//   {
-		//     if(num>1)
-		//     {
-		//       this.dialog.open(ConfirmComponent, {
-		//         data: { msgStr: "最大值1" },
-		//       })
-		//       t.setValueLow='';
-		//     }
-		//   }
-		// }
+		  if(t.id==id)
+		  {
+		    if(num>1)
+		    {
+		      this.dialog.open(ConfirmComponent, {
+		        data: { msgStr: "最大值1" },
+		      })
+		      t.setValueLow='';
+		    }
+		  }
+		}
 
 	}
 	//最高
@@ -450,20 +450,20 @@ export class F03012Component implements OnInit {
 		var num = 0;
 		num = Number(i);
 
-		// for(var t of this.compareDataSetSource.data)
-		// {
+		for(var t of this.compareDataSetSource.data)
+		{
 
-		//   if(t.id==id)
-		//   {
-		//     if(num>99)
-		//     {
-		//       this.dialog.open(ConfirmComponent, {
-		//         data: { msgStr: "最大值99" },
-		//       })
-		//       t.setValueHight='';
-		//     }
-		//   }
-		// }
+		  if(t.id==id)
+		  {
+		    if(num>99)
+		    {
+		      this.dialog.open(ConfirmComponent, {
+		        data: { msgStr: "最大值99" },
+		      })
+		      t.setValueHight='';
+		    }
+		  }
+		}
 
 
 	}
