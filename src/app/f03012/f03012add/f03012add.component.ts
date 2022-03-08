@@ -150,7 +150,7 @@ export class F03012addComponent implements OnInit {
         });
         return;
       }
-      jsonObject['setValueLow'] = this.setValueLow != '' ? '' : "0";
+      jsonObject['setValueLow'] = this.setValueLow != '' ? this.setValueLow.replace('.', '_') : "0";
     } else if (this.compareType == '1') {
       if ((this.setValueLow.includes('.'))) {
          this.dialog.open(ConfirmComponent, {
@@ -166,12 +166,13 @@ export class F03012addComponent implements OnInit {
         return
       }
       else {
-        jsonObject['setValueLow'] = this.setValueLow != '' ? '' : "0";
-        jsonObject['setValueHight'] = this.setValueHight != '' ? '' : "0";
+        jsonObject['setValueLow'] = this.setValueLow != '' ? this.setValueLow.replace('.', '_') : "0";
+        jsonObject['setValueHight'] = this.setValueHight != '' ? this.setValueHight.replace('.', '_') : "0";
        }
     }
 
     this.error = 'test'
+
     this.f03012Service.submit(url, jsonObject).subscribe(data => {
       // alert((msg = data.rspMsg))
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -263,7 +264,7 @@ export class F03012addComponent implements OnInit {
     }
   }
   ngAfterViewInit(): void {
-    console.log(this.compareType)
+
   }
 
 
