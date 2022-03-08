@@ -36,6 +36,7 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
   x: string
   reasonCode:sysCode[] = [] //本次執行原因
   reasonDetailCode:sysCode[] = [] //本次執行原因細項
+  sort: string;
 
   constructor(
     public dialog: MatDialog,
@@ -60,6 +61,8 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     this.nationalID = '';
     this.custID = '';
     this.total = 0;
+    this.sort = 'ascend';
+
   }
   ngAfterViewInit(): void {
     this.getCaseList();
@@ -178,9 +181,44 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // 排序
-  sortChange(e: string) {
-    this.suiManagerSource = e === 'ascend' ? this.suiManagerSource.sort(
-      (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.suiManagerSource.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+  // sortChange(e: string) {
+  //   this.suiManagerSource = e === 'ascend' ? this.suiManagerSource.sort(
+  //     (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.suiManagerSource.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+  // }
+
+  // 排序
+  sortChange(e: string, param: string) {
+    this.sort = '';
+    switch (param) {
+      case "applno":
+        this.suiManagerSource = e === 'ascend' ? this.suiManagerSource.sort(
+          (a, b) => a.applno.localeCompare(b.applno)) : this.suiManagerSource.sort((a, b) => b.applno.localeCompare(a.applno))
+        break;
+      case "reasonCode":
+        this.suiManagerSource = e === 'ascend' ? this.suiManagerSource.sort(
+          (a, b) => a.reasonCode.localeCompare(b.reasonCode)) : this.suiManagerSource.sort((a, b) => b.reasonCode.localeCompare(a.reasonCode))
+        break;
+      case "executeType":
+        this.suiManagerSource = e === 'ascend' ? this.suiManagerSource.sort(
+          (a, b) => a.executeType.localeCompare(b.executeType)) : this.suiManagerSource.sort((a, b) => b.executeType.localeCompare(a.executeType))
+        break;
+      case "creditTime":
+        this.suiManagerSource = e === 'ascend' ? this.suiManagerSource.sort(
+          (a, b) => a.creditTime.localeCompare(b.creditTime)) : this.suiManagerSource.sort((a, b) => b.creditTime.localeCompare(a.creditTime))
+        break;
+      case "creditEmpno":
+        this.suiManagerSource = e === 'ascend' ? this.suiManagerSource.sort(
+          (a, b) => a.creditEmpno.localeCompare(b.creditEmpno)) : this.suiManagerSource.sort((a, b) => b.creditEmpno.localeCompare(a.creditEmpno))
+        break;
+      case "customerId":
+        this.suiManagerSource = e === 'ascend' ? this.suiManagerSource.sort(
+          (a, b) => a.customerId.localeCompare(b.customerId)) : this.suiManagerSource.sort((a, b) => b.customerId.localeCompare(a.customerId))
+        break;
+      case "nationalId":
+        this.suiManagerSource = e === 'ascend' ? this.suiManagerSource.sort(
+          (a, b) => a.nationalId.localeCompare(b.nationalId)) : this.suiManagerSource.sort((a, b) => b.nationalId.localeCompare(a.nationalId))
+        break;
+    }
   }
 
   // 清除資料

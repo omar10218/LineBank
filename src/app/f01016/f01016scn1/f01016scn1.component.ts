@@ -110,6 +110,7 @@ export class F01016scn1Component implements OnInit {
     this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
     this.reasonDetail = sessionStorage.reasonDetail; //主管帶執行細項
     this.limitNo = sessionStorage.limitNo; //主管帶額度號
+    console.log(this.limitNo)
     this.nationalId = sessionStorage.nationalId; //主管帶身分證
     this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
     this.contact = sessionStorage.contactType; //主管帶通知方式
@@ -129,7 +130,9 @@ export class F01016scn1Component implements OnInit {
       this.getlimitCode(this.executeValue)
       if (sessionStorage.nationalId == 'null') {    //主管帶身分證
         this.nationalId = '';
-      }
+      } else {
+            this.nationalId = sessionStorage.nationalId
+           }
     } else {
 
     }
@@ -158,10 +161,10 @@ export class F01016scn1Component implements OnInit {
       let jsonObject: any = {};
       jsonObject['nationalId'] = this.nationalId
       jsonObject['custId'] = this.custId
-
+console.log(this.nationalId)
+console.log(this.custId)
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
-
-
+console.log(data)
         if (data.rspBody == null) {
           let msg = "";
           msg = data.rspMsg
@@ -196,8 +199,8 @@ export class F01016scn1Component implements OnInit {
   //取額度號下拉
   getlimitCode(value: string) {
     let jsonObject: any = {};
-    this.limitNo = '';
-    this.limitCode = [];
+    // this.limitNo = '';
+    // this.limitCode = [];
     jsonObject['nationalId'] = this.nationalId
     jsonObject['custId'] = this.custId
     if (value == 'FRZ' || value == 'DWN') {

@@ -212,7 +212,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     this.menuListService.setWaterMarkSource({
       show: true
     })
-
+    this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
     this.getJcicMultiple();
     this.setBooleanFalse();

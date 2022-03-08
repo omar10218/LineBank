@@ -80,6 +80,12 @@
             網頁資訊</button>
         </a>
       </nz-tab>
+      <nz-tab>
+        <a *nzTabLink nz-tab-link [routerLink]="['./CHILDBWSCN14']">
+          <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">
+            額度資訊</button>
+        </a>
+      </nz-tab>
       <!-- <nz-tab>
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDBWSCN14']">
           <button nz-button nzType="primary" nzSize="small" (click)="changeRoute(false)">
@@ -88,6 +94,6 @@
       </nz-tab> -->
     </nz-tabset>
   </div>
-  <router-outlet (activate)="scrollToTop($event)" style="padding-top:40px;display: block;"></router-outlet>
+  <router-outlet (activate)="scrollToTop($event)" style="padding-top: 70px;display: block;"></router-outlet>
 </div>
 
