@@ -106,6 +106,7 @@ export class F02006Component implements OnInit {
       else {
         this.resultData = data.rspBody.item;
         this.Pieces = data.rspBody.size;
+        this.total = data.rspBody.size;
       }
 
     })
