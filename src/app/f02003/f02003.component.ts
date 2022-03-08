@@ -156,6 +156,7 @@ export class F02003Component implements OnInit {
       {
         this.resultData = data.rspBody.item
         this.quantity = data.rspBody.size
+        this.total=data.rspBody.size
       }
     })
 
