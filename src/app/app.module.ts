@@ -106,7 +106,6 @@ import { F03018addComponent } from './f03018/f03018add/f03018add.component';
 import { F01012Component } from './f01012/f01012.component';
 import { BlockModule } from './block/block.module';
 import { F01015Component } from './f01015/f01015.component';
-import { F01016Component } from './f01016/f01016.component';
 
 
 
@@ -208,8 +207,7 @@ export const TW_FORMATS = {
     F03018editComponent,
     F03018addComponent,
     F01012Component,
-    F01015Component,
-    F01016Component,
+    F01015Component
   ],
   imports: [
     NzIconModule,

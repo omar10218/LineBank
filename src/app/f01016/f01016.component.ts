@@ -145,7 +145,6 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     reasonDetail: string, limitNo: string, contactYn: string, contactType: string, contactContent: string, creditMemo: string, reserveLimit: string, mobile: string) {
     let jsonObject: any = {};
     jsonObject['applno'] = applno;
-    console.log(creditTime)
     this.f01016Service.getCaseList(jsonObject).subscribe(data => {
       sessionStorage.setItem('applno', applno);
       sessionStorage.setItem('reasonCode', reasonCode);//執行原因
@@ -164,7 +163,7 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
       sessionStorage.setItem('mobile', mobile); //本次執行說明
       // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢 16主管凍結
       sessionStorage.setItem('page', '16');
-      this.router.navigate(['./F01015']);
+      this.router.navigate(['./F01016/F01016SCN1']);
     })
   }
-} 
+}

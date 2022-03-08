@@ -45,7 +45,7 @@
         </div>
       </div>
     </div>
-  
+
     <div class="content">
       <div #absBox class="abs-box">
         <div nz-col nzSpan="24">
@@ -58,6 +58,7 @@
                 <tr>
                   <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true" [nzWidth]="'180px'">案件編號</th>
                   <th class="table-header">本次執行原因</th>
+                  <th class="table-header">執行原因細項</th>
                   <th class="table-header">本次執行措施策略 </th>
                   <th class="table-header">本次執行時間 </th>
                   <th class="table-header">執行員編 </th>
@@ -75,6 +76,7 @@
                     </button>
                   </td>
                   <td class="table-data">{{ data.reasonCode }}</td>
+                  <td class="table-data">{{ data.reasonDetail }}</td>
                   <td class="table-data">{{ data.executeType }}</td>
                   <td class="table-data">{{ data.creditTime| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
                   <td class="table-data">{{  data.creditEmpno }}</td>

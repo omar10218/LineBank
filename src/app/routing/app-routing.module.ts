@@ -1,3 +1,4 @@
+import { F01016scn1Component } from './../f01016/f01016scn1/f01016scn1.component';
 import { InputloanComponent } from './../inputloan/inputloan.component';
 import { F03016Component } from './../f03016/f03016.component';
 import { NgModule } from '@angular/core';
@@ -174,7 +175,7 @@ const routes: Routes = [
       },
       {
         path: 'F01016',
-        component: F01016Component,
+        loadChildren: () => import('../f01016/f01016.module').then(m => m.F01016Module),
         // canActivate: [AuthGuard], // 守衛路由
       },
       {
