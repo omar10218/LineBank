@@ -134,9 +134,7 @@ export class F01015Component implements OnInit {
     // this.contact = '';
   }
 
-  formControl = new FormControl('', [
-    Validators.required
-  ]);
+  formControl = new FormControl('', [Validators.required]);
   //欄位驗證
   getErrorMessage() {
     return this.formControl.hasError('required') ? '此欄位必填!' :
