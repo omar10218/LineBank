@@ -200,22 +200,28 @@
                     </div>
                     <div style="margin-top:10px">
                         <span class="form-title">行動電話</span>
-                        <input nz-input placeholder="輸入電話" [(ngModel)]="mobile" name="mobile" style="padding: 4px;"
-                            [disabled]="page=='16'" required oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
+                        <input nz-input placeholder="輸入電話"  [(ngModel)]="mobile" name="mobile" style="padding: 4px;"
+                            [disabled]="YNValue=='N'" [required]="YNValue=='Y'" oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
+                       <span *ngIf="YNValue=='Y'">
                         <mat-error *ngIf="formControl.invalid && (mobile=='' || mobile== null) ">{{getErrorMessage()}}
                         </mat-error>
+                       </span>
+                         
                     </div>
                     <div style="margin-top:10px">
                         <span class="form-title">通知方式</span>
-                        <mat-select [disabled]="page=='16'"
-                            [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="contact"
-                            name="contact" required>
+                        <mat-select [disabled]="YNValue=='N'"
+                            [ngStyle]="{'background-color':YNValue=='N'?'#e6e6e6':'white'}" [(ngModel)]="contact"
+                            name="contact" [required]="YNValue=='Y'">
                             <mat-option *ngFor="let item of contactCode" [value]="item.value">
                                 {{item.viewValue}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="formControl.invalid && (contact=='' || contact== null) ">{{getErrorMessage()}}
-                        </mat-error>
+                        <span *ngIf="YNValue=='Y'">
+                            <mat-error *ngIf="formControl.invalid && (contact=='' || contact== null) ">{{getErrorMessage()}}
+                            </mat-error>
+                        </span>
+                      
                     </div>
 
                 </div>
@@ -223,12 +229,15 @@
                 </div>
                 <div nz-col nzSpan="19">
                     <div style="padding:3px"><span class="form-title">通知內容</span>
-                        <textarea [disabled]="page=='16'" [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}"
+                        <textarea [disabled]="YNValue=='N'" [ngStyle]="{'background-color':YNValue=='N'?'#e6e6e6':'white'}"
                             [(ngModel)]="contactContent" placeholder="請輸入內容" name="contactContent" maxlength="200"
-                            class="input-textarea" style="text-align: left;height:150px;color: gray;" required>
+                            class="input-textarea" style="text-align: left;height:150px;color: gray;" [required]="YNValue=='Y'">
                         </textarea>
-                        <mat-error *ngIf="formControl.invalid && (contactContent=='' || contactContent== null)  ">
-                            {{getErrorMessage()}}</mat-error>
+                        <span *ngIf="YNValue=='Y'">
+                            <mat-error *ngIf="formControl.invalid && (contactContent=='' || contactContent== null)  ">
+                                {{getErrorMessage()}}</mat-error>
+                        </span>
+                        
                     </div>
                 </div>
 
