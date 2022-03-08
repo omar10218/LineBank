@@ -107,7 +107,9 @@ export class F01016scn1Component implements OnInit {
       this.custId = sessionStorage.customerId; //主管帶customer_ID
       this.getTargetCustList();
       this.getlimitCode(this.executeValue)
-
+      if (sessionStorage.nationalId == 'null') {    //主管帶身分證
+        this.nationalId = '';
+      }
     } else {
 
     }
