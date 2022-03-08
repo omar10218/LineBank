@@ -131,16 +131,10 @@
         <nz-table nzSize="small" nzTitle="BAI001授信資料日期">
             <ng-container *ngFor="let data of BAI001.slice(0,1)">
                 <tr>
-                    <th class="table-header">案件編號</th>
-                    <th class="table-header">查詢日期</th>
-                    <th class="table-header">身分證字號</th>
                     <th class="table-header">資料日期</th>
                 </tr>
                 <tr>
-                    <td class="table-data">{{ data.APPLNO ? data.APPLNO : ' ' }}</td>
-                    <td class="table-data">{{ data.QUERY_DATE ? data.QUERY_DATE : ' ' }}</td>
-                    <td class="table-data">{{ data.NATIONAL_ID ? data.NATIONAL_ID : ' ' }}</td>
-                    <td class="table-data">{{ data.DATA_DATE ? data.DATA_DATE : ' ' }}</td>
+                    <td class="table-data">{{ data.DATA_DATE ? data.DATA_DATE  : ' ' }}</td>
                 </tr>
             </ng-container>
         </nz-table>
