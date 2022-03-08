@@ -369,6 +369,8 @@ export class F03012Component implements OnInit {
 
 
 			if (obj.compareType == null || obj.setValueLow == null || obj.compareType == '' || obj.setValueLow == '') {
+				console.log(obj.compareType)
+				console.log(obj.setValueLow)
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: "有欄位為空值，儲存失敗" },
 				})

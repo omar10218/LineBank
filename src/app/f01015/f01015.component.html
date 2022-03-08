@@ -240,7 +240,10 @@
                 <div nz-col nzSpan="4" style="padding:25px 0px">
                     <div>
                         <span class="form-title line_bank_h4">本次執行時間:</span>
-                        <input matInput #input [(ngModel)]="creditTime" name="creditTime" disabled>
+                        <!-- <input matInput #input [(ngModel)]="creditTime" name="creditTime" disabled> -->
+                        <div class="fake-input">
+                            {{creditTime| date: 'yyyy/MM/dd HH:mm:ss' }}
+                        </div>
                     </div>
                     <div style="margin-top:20px">
                         <span class="form-title">執行員編:</span>
