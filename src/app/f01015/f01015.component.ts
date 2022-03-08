@@ -30,7 +30,7 @@ export class F01015Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   levelNo: any; //層級
-  YNCode: OptionsCode[ ] = [  ]; //通知客戶
+  YNCode: OptionsCode[] = []; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
   limitCode: sysCode[] = []; //額度號
@@ -58,7 +58,7 @@ export class F01015Component implements OnInit {
   executeValue: string = '';//執行措施策略值
   reasonValue: string = ''//執行原因值
   reasonDetail: string //執行細項值
-  limitNo: string//額度號值
+  limitNo: string = ''//額度號值
   contact: string = ''//通知方式值
   contactContent: string//通知內容值
   reserveLimit: string //預佔額度
@@ -85,7 +85,7 @@ export class F01015Component implements OnInit {
 
   ngOnInit(): void {
     this.sort = 'ascend';
-    this.limitNo='';
+
     this.applno = sessionStorage.applno; //案編
     // if (this.applno != null) {
     //   this.getTargetCustList();
@@ -94,10 +94,8 @@ export class F01015Component implements OnInit {
     this.executeValue = sessionStorage.executeType; //主管帶執行策略
     this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
     this.reasonDetail = sessionStorage.reasonDetail; //主管帶執行細項
-    this.limitNo = sessionStorage.limitNo; //主管帶額度號
-    this.nationalId = sessionStorage.nationalId; //主管帶身分證
-    console.log(this.limitNo)
     this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
+    this.limitNo = sessionStorage.limitNo; //主管帶額度號
     this.contact = sessionStorage.contactType; //主管帶通知方式
     this.contactContent = sessionStorage.contactContent; //主管帶通知內容
     this.creditMemo = sessionStorage.creditMemo; //主管帶creditMemo
@@ -106,18 +104,22 @@ export class F01015Component implements OnInit {
       this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
     }
     this.page = sessionStorage.getItem("page");
-   
-    if (this.page == '16') {
-      // this.creditTime = this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd HH:mm');    //主管帶本次執行時間
-      this.creditTime=sessionStorage.creditTime
-      console.log(this.creditTime)
-      console.log(sessionStorage)
-      this.changereasonDetail()
-    this.custId = sessionStorage.customerId; //主管帶customer_ID
-    console.log(this.custId)
-      this.getTargetCustList();
-      this.getlimitCode(this.executeValue)
 
+    if (this.page == '16') {
+
+      // this.creditTime = this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd HH:mm');    //主管帶本次執行時間
+      this.creditTime = sessionStorage.creditTime
+      this.changereasonDetail()
+      this.custId = sessionStorage.customerId; //主管帶customer_ID
+      this.getTargetCustList();
+      console.log(this.getlimitCode(this.executeValue)
+      )
+        ; 
+      if (sessionStorage.nationalId == 'null') {    //主管帶身分證
+        this.nationalId = '';
+      } else {
+        this.nationalId = sessionStorage.nationalId
+      }
     } else {
 
     }
@@ -190,8 +192,8 @@ export class F01015Component implements OnInit {
   //取額度號下拉
   getlimitCode(value: string) {
     let jsonObject: any = {};
-    this.limitNo = '';
-    this.limitCode = [];
+    // this.limitNo = '';
+    // this.limitCode = [];
     jsonObject['nationalId'] = this.nationalId
     jsonObject['custId'] = this.custId
     if (value == 'FRZ' || value == 'DWN') {
@@ -266,7 +268,7 @@ export class F01015Component implements OnInit {
     let jsonObject: any = {};
     this.reasonCode.push({ value: '', viewValue: '請選擇' })
     this.f01015Service.getReturn('f01/f01015', jsonObject).subscribe(data => {
-
+console.log(data)
       for (const jsonObj of data.rspBody.adrCodelist) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;

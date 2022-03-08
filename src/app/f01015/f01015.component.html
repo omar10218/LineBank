@@ -28,20 +28,20 @@
             nzSize="small" nzTitle="額度資訊">
             <thead>
                 <tr>
-                    <th class="table-header"> 層級</th>
-                    <th class="table-header">額度號</th>
-                    <th class="table-header">上層額度號</th>
-                    <th class="table-header">額度類別代碼</th>
-                    <th class="table-header">額度起日</th>
-                    <th class="table-header">額度訖日</th>
-                    <th class="table-header" nzRight="true">核准額度</th>
-                    <th class="table-header" nzRight="true">已動撥金額</th>
-                    <th class="table-header" nzRight="true">預佔額度</th>
-                    <th class="table-header" nzRight="true">目前可動用額度</th>
-                    <th class="table-header">停用註記</th>
-                    <th class="table-header">停用日期</th>
-                    <th class="table-header">循環別</th>
-                    <th class="table-header">是否可撤銷</th>
+                    <th class="table-header " style="color: black;"> 層級</th>
+                    <th class="table-header " style="color: black;">額度號</th>
+                    <th class="table-header " style="color: black;">上層額度號</th>
+                    <th class="table-header " style="color: black;">額度類別</th>
+                    <th class="table-header " style="color: black;">額度起日</th>
+                    <th class="table-header " style="color: black;">額度訖日</th>
+                    <th class="table-header " style="color: black;" nzRight="true">核准額度</th>
+                    <th class="table-header " style="color: black;" nzRight="true">已動撥金額</th>
+                    <th class="table-header " style="color: black;" nzRight="true">預佔額度</th>
+                    <th class="table-header " style="color: black;" nzRight="true">目前可動用額度</th>
+                    <th class="table-header " style="color: black;">停用註記</th>
+                    <th class="table-header " style="color: black;">停用日期</th>
+                    <th class="table-header " style="color: black;">循環別</th>
+                    <th class="table-header " style="color: black;">是否可撤銷</th>
 
                 </tr>
             </thead>
@@ -57,12 +57,12 @@
                     <td class="table-data" style="text-align:right;">{{toCurrency(row.usedLimit)}}</td>
                     <td class="table-data" style="text-align:right;">{{toCurrency(row.reserveLimit)}}</td>
                     <td class="table-data" style="text-align:right;">{{toCurrency(row.activeLimit)}}</td>
-                    <td class="table-data" [ngClass]="row.stopFlag==='Y'?'green':'red'" style="text-align: center;">
+                    <td class="table-data" [ngClass]="row.stopFlag==='Y'?'red':'green'" style="text-align: center;">
                         {{row.stopFlag}}</td>
                     <td class="table-data">{{row.stopDate}}</td>
-                    <td class="table-data" [ngClass]="row.cycleType==='Y'?'green':'red'" style="text-align: center;">
+                    <td class="table-data" >
                         {{row.cycleType}}</td>
-                    <td class="table-data" [ngClass]="row.cancelFlag==='Y'?'green':'red'" style="text-align: center;">
+                    <td class="table-data" >
                         {{row.cancelFlag}}</td>
                 </tr>
             </tbody>
@@ -73,12 +73,12 @@
             nzTitle="貸後管理紀錄">
             <thead>
                 <tr>
-                    <th class="table-header">案件編號</th>
-                    <th class="table-header">案件狀態</th>
-                    <th class="table-header">審核結束時間</th>
-                    <th class="table-header">核決結果</th>
-                    <th class="table-header">覆審人員</th>
-                    <th class="table-header">覆審主管</th>
+                    <th class="table-header" style="color: black;">案件編號</th>
+                    <th class="table-header" style="color: black;">案件狀態</th>
+                    <th class="table-header" style="color: black;">審核結束時間</th>
+                    <th class="table-header" style="color: black;">核決結果</th>
+                    <th class="table-header" style="color: black;">覆審人員</th>
+                    <th class="table-header" style="color: black;">覆審主管</th>
                 </tr>
             </thead>
             <tbody>

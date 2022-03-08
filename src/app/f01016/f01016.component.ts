@@ -11,6 +11,12 @@ import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { Subscription } from 'rxjs';
 import { OnDestroy } from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
+interface sysCode {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-f01016',
@@ -28,8 +34,8 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
   suiManagerSource = [];
   restart$: Subscription;
   x: string
-
-
+  reasonCode:sysCode[] = [] //本次執行原因
+  reasonDetailCode:sysCode[] = [] //本次執行原因細項
 
   constructor(
     public dialog: MatDialog,
@@ -105,6 +111,17 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
       if (data.rspBody.items.length > 0) {
         this.total = data.rspBody.items.length;
         this.suiManagerSource = data.rspBody.items;
+        this.getReason()
+        let jsonObject: any = {};
+        jsonObject['reasonCode'] = data.rspBody.items.reasonCode
+        this.f01016Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
+          for (const jsonObj of data.rspBody.items) {
+            const codeNo = jsonObj.reasonCode;
+            const desc = jsonObj.reasonDesc;
+            this.reasonDetailCode.push({ value: codeNo, viewValue: desc });
+    
+          }
+        });
       }
       else {
         this.suiManagerSource = null;
@@ -115,6 +132,40 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
+
+
+  //取本次執行原因下拉
+  getReason() {
+    let jsonObject: any = {};
+    this.reasonCode.push({ value: '', viewValue: '請選擇' })
+    this.f01016Service.getReturn('f01/f01015', jsonObject).subscribe(data => {
+    console.log(data)
+      for (const jsonObj of data.rspBody.adrCodelist) {
+        const codeNo = jsonObj.reasonCode;
+        const desc = jsonObj.reasonDesc;
+        this.reasonCode.push({ value: codeNo, viewValue: desc });
+      }
+    });
+  }
+  
+  //本次執行原因轉換中文
+  changeChinese(codeVal: string){
+    for (const jsonObj of this.reasonCode) {
+      if(jsonObj.value==codeVal){
+        return jsonObj.viewValue
+      }
+    }
+  }
+
+  //本次執行原因細項轉換中文
+  changeDetailChinese(codeVal: string){
+    for (const jsonObj of this.reasonDetailCode){
+      if(jsonObj.value==codeVal){
+        return jsonObj.viewValue
+      }
+    }
+  }
+
 
   // 千分號標點符號(form顯示用)
   data_number(p: number) {
