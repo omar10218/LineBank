@@ -160,9 +160,8 @@ rid:[]=[]
         if (element === "CU_M_TEL") { this.blockListForm.value.CU_M_TEL != null && this.blockListForm.value.CU_M_TEL != "" ?this.contentArray.push(this.blockListForm.value.CU_M_TEL): test12345.push('1'); }
       });
 
-      console.log(test12345);
       if(test12345.length > 0){
-        this.dialog.open(ConfirmComponent, { data: { msgStr: "漸漸好壞" } });
+        this.dialog.open(ConfirmComponent, { data: { msgStr: "勾選欄位不可為空!" } });
         return;
       }
     
