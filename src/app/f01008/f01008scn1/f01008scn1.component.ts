@@ -55,8 +55,7 @@ export class F01008scn1Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.custId = sessionStorage.getItem('custId');
     this.jcicNumb = parseInt(sessionStorage.getItem('jcicNumb'));
-    console.log("1111111111")
-    console.log(this.level)
+
   }
 
   ngAfterViewInit() {

@@ -55,9 +55,7 @@ export class Childscn24Component implements OnInit {
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
     jsonObject['content'] = this.content;
-    console.log(this.applno)
-    console.log(this.empNo)
-    console.log(this.stepName.substring(10))
+
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L2') {
       this.block = true;
@@ -177,6 +175,20 @@ export class Childscn24Component implements OnInit {
     let msgStr: string = '';
     this.block = true;
     msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+    this.block = false;
+    const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
+    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+    this.dialogRef.close({ event: 'success' });
+  }
+  //合約主管複審退件
+  public async contract(): Promise<void> {
+    let jsonObject: any = {};
+    jsonObject['applno'] = this.applno;
+    jsonObject['empno'] = this.empNo;
+    jsonObject['content'] = this.content;
+    let msgStr: string = '';
+    this.block = true;
+    msgStr = await this.childsnc24Service.return(jsonObject);
     this.block = false;
     const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
     const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });

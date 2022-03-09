@@ -421,4 +421,8 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
       show: false
     })
   }
+  convert(i:string)
+  {
+    return this.pipe.transform(new Date(i), 'yyyy-MM-dd')
+  }
 }

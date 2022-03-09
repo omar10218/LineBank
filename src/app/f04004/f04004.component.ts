@@ -266,9 +266,6 @@ export class F04004Component implements OnInit {
     } else if (level == 'S1') {
       return "S1 總經理"
     }
-    else if (level == 'S1') {
-      return "S1 總經理"
-    }
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
     if (this.i > 0)

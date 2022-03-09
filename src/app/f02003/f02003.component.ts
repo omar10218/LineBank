@@ -4,6 +4,7 @@ import { F02003Service } from './f02003.service';
 import { DatePipe } from '@angular/common';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 // Jay 複審案件查詢
 interface sysCode {
   value: string;
@@ -157,6 +158,7 @@ export class F02003Component implements OnInit {
         this.resultData = data.rspBody.item
         this.quantity = data.rspBody.size
         this.total=data.rspBody.size
+        this.firstFlag = 2;
       }
     })
 
@@ -175,7 +177,17 @@ export class F02003Component implements OnInit {
     this.resultData = [];
 
   }
-
+  onQueryParamsChange(params: NzTableQueryParams): void {
+     // 判斷是否為第一次進頁面
+      const { pageSize, pageIndex } = params;
+      if (this.pageIndex !== pageIndex)
+      {
+        if (this.firstFlag != 1) {
+        // const { pageSize, pageIndex } = params;
+        this.pageIndex = pageIndex;
+        this.search(pageIndex, pageSize);}
+        }
+      }
   review() {
     let url = "f02/f02003"
     let jsonObject: any = {};

@@ -71,9 +71,6 @@ export class LoginComponent implements OnInit {
     if (await this.loginService.initData(this.no, this.pwd, chkTicket)) {
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();
-      localStorage.setItem("loginKey", 'change');
-      localStorage.removeItem('loginKey');
-      localStorage.setItem("empNo", this.no);
     } else {
       alert('帳號或密碼有誤!');
       if ('uat' == this.from || 'prod' == this.from) {
