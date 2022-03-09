@@ -74,6 +74,7 @@ import { Childscn27Component } from './childscn27/childscn27.component';
 import { Childscn28Component } from './childscn28/childscn28.component';
 import { Childscn29Component } from './childscn29/childscn29.component';
 import { Childscn30Component } from './childscn30/childscn30.component';
+import { Childscn11page6Component } from './childscn11/childscn11page6/childscn11page6.component';
 
 
 
@@ -142,7 +143,8 @@ import { Childscn30Component } from './childscn30/childscn30.component';
     Childscn27Component,
     Childscn28Component,
     Childscn29Component,
-    Childscn30Component
+    Childscn30Component,
+    Childscn11page6Component
   ],
   imports: [
     CommonModule,
