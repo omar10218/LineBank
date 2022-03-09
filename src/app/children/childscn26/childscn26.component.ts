@@ -21,7 +21,7 @@ export class Childscn26Component implements OnInit {
   }
 
   cancel(value: string) {
-    this.dialogRef.close({ value: value });
+    this.dialogRef.close();
   }
 
 }
