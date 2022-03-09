@@ -68,6 +68,9 @@ export class LoginService extends BaseService {
         tokenStr = data.rspBody.token;
         localStorage.setItem("empName", data.rspBody.empName);
         localStorage.setItem("empId", data.rspBody.empId);
+        localStorage.setItem("loginKey", 'change');
+        localStorage.removeItem('loginKey');
+        localStorage.setItem("empNo", empNo);
       }
       isOk = data.rspCode == '0000';
     });
