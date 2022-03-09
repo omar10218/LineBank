@@ -21,7 +21,7 @@ export class F02005Service extends BaseService {
   }
 
   changeStatsCode(jsonObject: JSON): Observable<any>{
-    let targetUrl = 'f02/f02001scn1';
+    let targetUrl = 'f02/f02001scn3';
     return this.postJsonObject(targetUrl, jsonObject);
   }
 

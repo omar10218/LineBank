@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Childscn24Component } from 'src/app/children/childscn24/childscn24.component';
 import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01008Service } from '../f01008.service';
@@ -54,7 +55,8 @@ export class F01008scn1Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.custId = sessionStorage.getItem('custId');
     this.jcicNumb = parseInt(sessionStorage.getItem('jcicNumb'));
-
+    console.log("1111111111")
+    console.log(this.level)
   }
 
   ngAfterViewInit() {
@@ -75,7 +77,8 @@ export class F01008scn1Component implements OnInit {
     });
     this.block = true;
     dialogRef.afterClosed().subscribe(result => {
-      if (result.value == 'confirm') {
+      if (result != 'undefined' && result != undefined && result.value!=null)
+      {
         if (this.level == 'D2') {
           this.afterResult = sessionStorage.getItem('afterResult');
           if (this.afterResult != '' && this.afterResult != 'null') {
@@ -185,8 +188,10 @@ export class F01008scn1Component implements OnInit {
 
           }
         }
+        this.block = false;
       }
-      else {
+      else
+      {
         this.block = false;
       }
     })
@@ -200,6 +205,23 @@ export class F01008scn1Component implements OnInit {
     return this.search;
   }
 
+  return()//退件
+  {
+    const dialogRef = this.dialog.open(Childscn24Component, {
+      panelClass: 'mat-dialog-transparent',
+      minHeight: '50%',
+      width: '30%',
+      data: {
+        applno: this.applno,
+        level: 'D1',
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null && result.event == 'success') {
+        this.router.navigate(['./F01012']);
+      }
+    });
+  }
   reScan(result: string)//重算
   {
     const dialogRef = this.dialog.open(Childscn26Component, {
