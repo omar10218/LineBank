@@ -117,6 +117,7 @@ export class Childscn11page2Component implements OnInit {
 
   Inquire(col: string) //查詢
   {
+    console.log(col)
     const url = 'f01/childscn11action2';
     let jsonObject: any = {};
     jsonObject['nationalId'] = this.cuid;
