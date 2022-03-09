@@ -1,8 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MappingCode } from 'src/app/mappingcode.model';
 import { Childscn11Service } from '../childscn11.service';
-
+import { Childscn11page6Component } from '../childscn11page6/childscn11page6.component'
 // export const dataList = [
 //   {
 //     'compareColumn': 'GPS_1',
@@ -72,6 +73,7 @@ export class Childscn11page3Component implements OnInit {
   constructor(
     private childscn11Service: Childscn11Service,
     private pipe: DatePipe,
+    public dialog: MatDialog,
   ) { }
 
   private applno: string;
@@ -83,6 +85,7 @@ export class Childscn11page3Component implements OnInit {
   time:string;
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('nationalId');
     this.getHistorySameID();
   }
   //取資料
@@ -131,30 +134,25 @@ export class Childscn11page3Component implements OnInit {
 
   Inquire(col: string) //查詢
   {
+    console.log(col)
     const url = 'f01/childscn11action2';
     let jsonObject: any = {};
     jsonObject['nationalId'] = this.cuid;
     jsonObject['applno'] = this.applno;
-    jsonObject['code'] = 'EL_HISTORY_COMPARE_UNID';
+    jsonObject['code'] = 'EL_HISTORY_COMPARE_SAMEID';
     jsonObject['col'] = col;
     this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
-
-      // if ( data.rspBody.length > 0 ) {
-      //   this.fds = data.rspBody[0].fds
-      // }
-      sessionStorage.setItem('applno', this.applno);
-      sessionStorage.setItem('nationalId', this.cuid);
-      // sessionStorage.setItem('custId', this.custId);
-      sessionStorage.setItem('search','Y');
-      sessionStorage.setItem('queryDate', '');
-      sessionStorage.setItem('winClose', 'Y');
-
-      //開啟徵審主畫面
-      const url = window.location.href.split("/#");
-      window.open( url[0] + "/#/F01002/F01002SCN1");
-      sessionStorage.setItem('winClose', 'N');
-      sessionStorage.setItem('search','N');
-      sessionStorage.setItem('applno', this.applno);
+console.log(data)
+      const dialogRef = this.dialog.open(Childscn11page6Component, {
+        panelClass: 'mat-dialog-transparent',
+        minHeight: '70vh',
+        width: '40%',
+        data:{
+          data: data
+        }
+      
+      })
+  
     })
   }
 }

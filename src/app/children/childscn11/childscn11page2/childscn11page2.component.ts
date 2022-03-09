@@ -2,8 +2,11 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MappingCode } from 'src/app/mappingcode.model';
 import { Childscn11Service } from '../childscn11.service';
+import { Childscn11page6Component } from '../childscn11page6/childscn11page6.component'
+
 interface Code {
   compareColumn: string;
   result: string;
@@ -16,11 +19,13 @@ interface Code {
   styleUrls: ['./childscn11page2.component.css', '../../../../assets/css/child.css']
 })
 export class Childscn11page2Component implements OnInit {
+ 
 
   constructor(
     private fb: FormBuilder,
     private childscn11Service: Childscn11Service,
     private pipe: DatePipe,
+    public dialog: MatDialog,
   ) { }
 
   private applno: string;
@@ -29,8 +34,8 @@ export class Childscn11page2Component implements OnInit {
   mappingOption: MappingCode[];
   compare: Code[] = [];
   notFind: string;
-  loading:boolean=false;
-  time:string;
+  loading: boolean = false;
+  time: string;
 
   compare_UNIDForm: FormGroup = this.fb.group({
     GPS_1: ['', []],//			GPS - 時點1比對次數
@@ -63,27 +68,27 @@ export class Childscn11page2Component implements OnInit {
 
     this.getCOMPARE();
   }
-//取資料
+  //取資料
   getCOMPARE() {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;;
     jsonObject['code'] = 'EL_HISTORY_COMPARE_UNID';
     this.childscn11Service.getCompare(jsonObject).subscribe(data => {
       console.log(data)
-      if ( data.rspBody.compare == 'not find') {
+      if (data.rspBody.compare == 'not find') {
         this.notFind = "此案編查無比對資料";
       } else {
         this.mappingOption = data.rspBody.table;
         this.compare = data.rspBody.compare;
-        this.loading =true
+        this.loading = true
       }
     });
     this.childscn11Service.getCompare1(jsonObject).subscribe(data => {
       console.log(data)
-      this.time=this.pipe.transform(new Date(data.rspBody.compareDate), 'yyyy-MM-dd HH:mm:ss');
-        // this.time = data.rspBody.compareDate;
-        
-      
+      this.time = this.pipe.transform(new Date(data.rspBody.compareDate), 'yyyy-MM-dd HH:mm:ss');
+      // this.time = data.rspBody.compareDate;
+
+
     });
   }
   //取viewValue
@@ -96,8 +101,8 @@ export class Childscn11page2Component implements OnInit {
     }
     return codeVal;
   }
-  compareValue(){
-// if(this.compare[9].count){}
+  compareValue() {
+    // if(this.compare[9].count){}
   }
   // test1(){
   //   if(this.compare=null){
@@ -106,11 +111,11 @@ export class Childscn11page2Component implements OnInit {
   //     this.loading= false
   //   }
   // }
-  test(x:string){
-    if(x=='1'){
+  test(x: string) {
+    if (x == '1') {
       return '絕對值'
     }
-    else if(x=='2'){
+    else if (x == '2') {
       return '相對值'
     }
   }
@@ -126,22 +131,16 @@ export class Childscn11page2Component implements OnInit {
     jsonObject['col'] = col;
     this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
 
-      // if ( data.rspBody.length > 0 ) {
-      //   this.fds = data.rspBody[0].fds
-      // }
-      sessionStorage.setItem('applno', this.applno);
-      sessionStorage.setItem('nationalId', this.cuid);
-      // sessionStorage.setItem('custId', this.custId);
-      sessionStorage.setItem('search','Y');
-      sessionStorage.setItem('queryDate', '');
-      sessionStorage.setItem('winClose', 'Y');
-
-      //開啟徵審主畫面
-      const url = window.location.href.split("/#");
-      window.open( url[0] + "/#/F01002/F01002SCN1");
-      sessionStorage.setItem('winClose', 'N');
-      sessionStorage.setItem('search','N');
-      sessionStorage.setItem('applno', this.applno);
+      const dialogRef = this.dialog.open(Childscn11page6Component, {
+        panelClass: 'mat-dialog-transparent',
+        minHeight: '70vh',
+        width: '40%',
+        data:{
+          data: data
+        }
+      
+      })
+  
     })
   }
 }
