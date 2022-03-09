@@ -8,6 +8,7 @@ import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { OptionsCode } from '../interface/base';
 import { F01015Service } from './f01015.service';
 import { FormControl, Validators } from '@angular/forms';
+import { MappingCode } from '../mappingcode.model';
 
 interface sysCode {
   value: string;
@@ -30,6 +31,7 @@ export class F01015Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   levelNo: any; //層級
+  limitTypeCode: sysCode[]=[]; //額度類別	
   YNCode: OptionsCode[] = []; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
@@ -86,6 +88,15 @@ export class F01015Component implements OnInit {
   ngOnInit(): void {
     this.sort = 'ascend';
 
+    this.f01015Service.getSysTypeCode('LIMIT_TYPE').subscribe(data => {
+      console.log(data)
+      // this.limitTypeCode=data.rspBody.mappingList;
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.limitTypeCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
     // this.applno = sessionStorage.applno; //案編
     // if (this.applno != null) {
     //   this.getTargetCustList();
@@ -266,7 +277,7 @@ export class F01015Component implements OnInit {
     let jsonObject: any = {};
     this.reasonCode.push({ value: '', viewValue: '請選擇' })
     this.f01015Service.getReturn('f01/f01015', jsonObject).subscribe(data => {
-console.log(data)
+      console.log(data)
       for (const jsonObj of data.rspBody.adrCodelist) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;
@@ -421,5 +432,17 @@ console.log(data)
     this.router.navigate(['./F01009/F01009SCN1/CHILDBWSCN1']);
   }
 
-
+  //額度號轉換中文
+  limitTypeChange(string: string) {
+    for (let row of this.limitTypeCode) {
+      if (row.value == string) {
+        return row.viewValue
+      }
+        // return string
+      
+      // }else{
+      //   return string
+      // }
+    }
+  }
 }
