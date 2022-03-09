@@ -6,6 +6,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Childscn19Component } from 'src/app/children/childscn19/childscn19.component';
+import { Childscn30Component } from 'src/app/children/childscn30/childscn30.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { F01005Service } from '../f01005.service';
@@ -204,7 +205,8 @@ export class F01005page1Component implements OnInit {
 
   // 打開通知彈窗
   openNotifyMsg(swcApplno: string) {
-    const dialogRef = this.dialog.open(Childscn19Component, {
+    const dialogRef = this.dialog.open(Childscn30Component, {
+      panelClass: 'mat-dialog-transparent',
       minHeight: '60vh',
       width: '90%',
       data: {

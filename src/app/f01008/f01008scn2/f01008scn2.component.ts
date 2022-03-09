@@ -79,7 +79,6 @@ export class F01008scn2Component implements OnInit {
   showEdit: boolean = false;
   Sendcheck: string;
   jaicSource: Data[] = [];
-  contractArry: Data[] = [];
   block: boolean = false;
   jcicNumb = 0;
   level: string;
@@ -97,6 +96,13 @@ export class F01008scn2Component implements OnInit {
   creditResult: string = '';
   ResultCode: OptionsCode[] = [];//審核結果下拉選單
   resulet: string = '';
+
+  //合約資訊
+  revwPrdAbdnDsCd: string;
+  revwPrdAbdnRegDtm: string;
+  ctrtDocVerId: string;
+  ajstlnamt: string;
+
   ngOnInit(): void {
     this.lv = sessionStorage.getItem('level');
     sessionStorage.setItem('afterResult', '');
@@ -250,17 +256,25 @@ export class F01008scn2Component implements OnInit {
         }
       });
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-      console.log(data)
       if (data.rspBody.list != null) {
         this.dataSource = data.rspBody.list;
       }
-      this.contractArry = data.rspBody.CfmContractRcdList;
+
+      if (data.rspBody.CfmContractRcdList.length > 0) {
+        this.revwPrdAbdnDsCd = data.rspBody.CfmContractRcdList[0].revwPrdAbdnDsCd;
+        this.revwPrdAbdnRegDtm = data.rspBody.CfmContractRcdList[0].revwPrdAbdnRegDtm;
+        this.ctrtDocVerId = data.rspBody.CfmContractRcdList[0].ctrtDocVerId;
+      }
+
+      if (data.rspBody.additionalInfoList.length > 0) {
+        this.ajstlnamt = data.rspBody.additionalInfoList[0].AJSTLNAMT;
+      }
+
       this.macrSource = data.rspBody.creditmemoList;
       this.jaicSource = data.rspBody.creditMainList;
       this.CreditInterestPeriodSource = data.rspBody.creditInterestPeriodList;
       for (const j of data.rspBody.creditMainList) {
         sessionStorage.setItem('afterResult', j.afterResult);
-
         if (j.afterResult != '' && j.afterResult != null) {
           this.resulet = j.afterResult;
         }

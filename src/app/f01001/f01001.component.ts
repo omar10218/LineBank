@@ -6,6 +6,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { Childscn19Component } from '../children/childscn19/childscn19.component';
+import { Childscn30Component } from '../children/childscn30/childscn30.component';
 import { F01001Service } from './f01001.service';
 
 @Component({
@@ -197,9 +198,10 @@ export class F01001Component implements OnInit, AfterViewInit {
     this.total = 1;
   }
 
-  // 打開通知彈窗
+ // 打開通知彈窗
   openNotifyMsg(swcApplno: string) {
-    const dialogRef = this.dialog.open(Childscn19Component, {
+    const dialogRef = this.dialog.open(Childscn30Component, {
+      panelClass: 'mat-dialog-transparent',
       minHeight: '60vh',
       width: '90%',
       data: {
