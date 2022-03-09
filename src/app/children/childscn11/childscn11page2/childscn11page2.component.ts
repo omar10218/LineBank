@@ -24,6 +24,8 @@ export class Childscn11page2Component implements OnInit {
   ) { }
 
   private applno: string;
+  private cuid: string;
+  naitonalId: string;
   mappingOption: MappingCode[];
   compare: Code[] = [];
   notFind: string;
@@ -57,6 +59,8 @@ export class Childscn11page2Component implements OnInit {
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
+    this.cuid = sessionStorage.getItem('nationalId');
+
     this.getCOMPARE();
   }
 //取資料
@@ -109,5 +113,35 @@ export class Childscn11page2Component implements OnInit {
     else if(x=='2'){
       return '相對值'
     }
+  }
+
+  Inquire(col: string) //查詢
+  {
+    console.log(col)
+    const url = 'f01/childscn11action2';
+    let jsonObject: any = {};
+    jsonObject['nationalId'] = this.cuid;
+    jsonObject['applno'] = this.applno;
+    jsonObject['code'] = 'EL_HISTORY_COMPARE_UNID';
+    jsonObject['col'] = col;
+    this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
+
+      // if ( data.rspBody.length > 0 ) {
+      //   this.fds = data.rspBody[0].fds
+      // }
+      sessionStorage.setItem('applno', this.applno);
+      sessionStorage.setItem('nationalId', this.cuid);
+      // sessionStorage.setItem('custId', this.custId);
+      sessionStorage.setItem('search','Y');
+      sessionStorage.setItem('queryDate', '');
+      sessionStorage.setItem('winClose', 'Y');
+
+      //開啟徵審主畫面
+      const url = window.location.href.split("/#");
+      window.open( url[0] + "/#/F01002/F01002SCN1");
+      sessionStorage.setItem('winClose', 'N');
+      sessionStorage.setItem('search','N');
+      sessionStorage.setItem('applno', this.applno);
+    })
   }
 }

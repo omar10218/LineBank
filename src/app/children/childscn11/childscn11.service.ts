@@ -17,4 +17,8 @@ export class Childscn11Service extends BaseService {
     const baseUrl = 'f01/childscn11action1';
     return this.postJsonObject(baseUrl, json);
   }
+  selectCustomer(baseUrl:string,json:JSON):Observable<any>
+  {
+    return this.postJsonObject(baseUrl, json);
+  }
 }

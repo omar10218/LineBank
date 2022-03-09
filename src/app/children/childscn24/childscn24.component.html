@@ -101,6 +101,29 @@
           <br>
           <button nz-button [nzSize]="'middle'" nzDanger (click)="cancel()" tabindex="-1">離開</button>
       </div>
+      <!-- 合約複審退件 -->
+      <div class="container" style="width:100%;margin: 0 auto;text-align: center;" *ngIf="level=='D1'">
+        <br>
+        <div nz-row nzJustify="space-around">
+            <div nz-col nzSpan="20">
+                <textarea class="input-textarea" placeholder="輸入退件原因" [(ngModel)]="content" name="content" cols="30"
+                    rows="10" required></textarea>
+                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+
+            </div>
+        </div>
+        <br>
+        <div nz-row nzJustify="space-around">
+            <div nz-col nzSpan="4"></div>
+            <div nz-col nzSpan="4"> <button nz-button [nzSize]="'middle'" nzType="primary"
+                    [disabled]="!formControl.valid" (click)="confirm()">確定</button></div>
+            <div nz-col nzSpan="4"><button nz-button [nzSize]="'middle'" nzDanger (click)="cancel()"
+                    tabindex="-1">離開</button></div>
+            <div nz-col nzSpan="4"></div>
+        </div>
+        <br>
+    </div>
+
     </form>
 
 

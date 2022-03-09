@@ -18,10 +18,10 @@ enum Page {
 @Component({
   selector: 'app-childbwscn4',
   templateUrl: './childbwscn4.component.html',
-  styleUrls: ['./childbwscn4.component.css','../../../assets/css/f01.css']
+  styleUrls: ['./childbwscn4.component.css', '../../../assets/css/f01.css']
 })
 export class Childbwscn4Component implements OnInit {
-  queryDate:string //查詢時間
+  queryDate: string //查詢時間
   constructor(
     private Childbwscn4Service: Childbwscn4Service,
     private componenFactoryResolver: ComponentFactoryResolver,
@@ -47,13 +47,10 @@ export class Childbwscn4Component implements OnInit {
 
 
   ngOnInit(): void {
-      this.applno = sessionStorage.getItem('applno');
-    this.cuid = sessionStorage.getItem('nationalId');
-    const baseUrl = 'f01/childBwScn4';
+    this.applno = sessionStorage.getItem('applno');
+    const baseUrl = 'f01/childBwScn4action2';
     let jsonObject: any = {};
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
+    jsonObject['applno'] = this.applno;
     this.Childbwscn4Service.getDate(baseUrl, jsonObject).subscribe(data => {
       this.queryDate = data.rspBody.queryDate;
     });
@@ -65,9 +62,9 @@ export class Childbwscn4Component implements OnInit {
   ngAfterViewInit() {
     this.changePage(this.nowPage);
   }
-  changePage( page: Page ): void {
+  changePage(page: Page): void {
     this.nowPage = page;
-    const componentFactory = this.componenFactoryResolver.resolveComponentFactory( this.component.get(this.nowPage));
+    const componentFactory = this.componenFactoryResolver.resolveComponentFactory(this.component.get(this.nowPage));
     const viewContainerRef = this.appDynamic.viewContainerRef;
     viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);

@@ -214,7 +214,7 @@ export class F02005Component implements OnInit {
 
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
-    let url = "f02/f02001action1";
+    let url = "f02/f02001action3";
     this.jsonObject['applno'] = this.applno;//案件編號
     this.jsonObject['nationalID'] = this.national_ID;//身分證字號
     this.jsonObject['custID'] = this.cust_ID;//客戶ID
