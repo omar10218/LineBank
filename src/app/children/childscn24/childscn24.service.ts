@@ -14,6 +14,10 @@ export class Childscn24Service extends BaseService {
     let targetUrl = `${baseUrl}`;
     return this.saveOrEditMsgString(targetUrl, jsonObject);
   }
-
+  return(jsonObject: any): any {
+    const baseUrl = 'f04/f04004action1';
+    let targetUrl = `${baseUrl}`;
+    return this.saveOrEditMsgString(targetUrl, jsonObject);
+  }
 
 }
