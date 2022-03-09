@@ -1168,11 +1168,14 @@ export class Childscn1Component implements OnInit, OnDestroy {
     this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
       if (data.rspCode == "0000") {
         row.creditCodeList = [];
+        let key = false;
         for (const jsonObj of data.rspBody) {
           const codeNo = jsonObj.reasonCode;
           const desc = jsonObj.reasonDesc;
           row.creditCodeList.push({ value: codeNo, viewValue: desc })
+          key = codeNo == row.reasonCode ? true : key;
         }
+        row.reasonCode = key ? row.reasonCode : null;
       }
     });
   }
