@@ -59,7 +59,7 @@ export class Childscn11page6Component implements OnInit {
       sessionStorage.setItem('search','Y');
       sessionStorage.setItem('queryDate', '');
       sessionStorage.setItem('winClose', 'Y');
-      sessionStorage.setItem('check', 'Y');
+      // sessionStorage.setItem('check', 'Y');
 
     //   //開啟徵審主畫面
       const url = window.location.href.split("/#");
