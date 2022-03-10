@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { disableDebugTools } from '@angular/platform-browser';
+import { isCheckDisabled } from 'ng-zorro-antd/core/tree';
 import { MappingCode } from 'src/app/mappingcode.model';
 import { Childscn11Service } from '../childscn11.service';
 import { Childscn11page6Component } from '../childscn11page6/childscn11page6.component'
@@ -19,7 +21,7 @@ interface Code {
   styleUrls: ['./childscn11page2.component.css', '../../../../assets/css/child.css']
 })
 export class Childscn11page2Component implements OnInit {
- 
+
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +32,7 @@ export class Childscn11page2Component implements OnInit {
 
   private applno: string;
   private cuid: string;
+  private check: string;
   naitonalId: string;
   mappingOption: MappingCode[];
   compare: Code[] = [];
@@ -65,7 +68,7 @@ export class Childscn11page2Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
-
+    this.check = sessionStorage.getItem('check');
     this.getCOMPARE();
   }
   //取資料
@@ -122,25 +125,30 @@ export class Childscn11page2Component implements OnInit {
 
   Inquire(col: string) //查詢
   {
-    console.log(col)
-    const url = 'f01/childscn11action2';
-    let jsonObject: any = {};
-    jsonObject['nationalId'] = this.cuid;
-    jsonObject['applno'] = this.applno;
-    jsonObject['code'] = 'EL_HISTORY_COMPARE_UNID';
-    jsonObject['col'] = col;
-    this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
+    if (this.check == 'Y') {
+      return
+    } else {
 
-      const dialogRef = this.dialog.open(Childscn11page6Component, {
-        panelClass: 'mat-dialog-transparent',
-        minHeight: '70vh',
-        width: '40%',
-        data:{
-          data: data
-        }
-      
+      console.log(col)
+      const url = 'f01/childscn11action2';
+      let jsonObject: any = {};
+      jsonObject['nationalId'] = this.cuid;
+      jsonObject['applno'] = this.applno;
+      jsonObject['code'] = 'EL_HISTORY_COMPARE_UNID';
+      jsonObject['col'] = col;
+      this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
+        sessionStorage.setItem('check','Y');
+        const dialogRef = this.dialog.open(Childscn11page6Component, {
+          panelClass: 'mat-dialog-transparent',
+          minHeight: '70vh',
+          width: '40%',
+          data: {
+            data: data
+          }
+
+        })
+        sessionStorage.removeItem('check');
       })
-  
-    })
+    }
   }
 }

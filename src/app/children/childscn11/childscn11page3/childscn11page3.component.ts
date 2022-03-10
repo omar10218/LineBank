@@ -66,7 +66,7 @@ interface Code {
 @Component({
   selector: 'app-childscn11page3',
   templateUrl: './childscn11page3.component.html',
-  styleUrls: ['./childscn11page3.component.css',  '../../../../assets/css/child.css']
+  styleUrls: ['./childscn11page3.component.css', '../../../../assets/css/child.css']
 })
 export class Childscn11page3Component implements OnInit {
 
@@ -77,15 +77,18 @@ export class Childscn11page3Component implements OnInit {
   ) { }
 
   private applno: string;
+  private check: string;
   private cuid: string;
   mappingOption: MappingCode[];
   compare: Code[] = [];
   notFind: string;
-  loading:boolean=false;
-  time:string;
+  loading: boolean = false;
+  time: string;
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
+    this.check = sessionStorage.getItem('check');
+
     this.getHistorySameID();
   }
   //取資料
@@ -95,21 +98,21 @@ export class Childscn11page3Component implements OnInit {
     jsonObject['code'] = 'EL_HISTORY_COMPARE_SAMEID';
     this.childscn11Service.getCompare(jsonObject).subscribe(data => {
       console.log(data)
-      if ( data.rspBody.compare == 'not find') {
+      if (data.rspBody.compare == 'not find') {
         this.notFind = "此案編查無比對資料";
       } else {
         this.mappingOption = data.rspBody.table;
         this.compare = data.rspBody.compare;
-        this.loading =true
+        this.loading = true
       }
       // this.compare=dataList;
     });
     this.childscn11Service.getCompare1(jsonObject).subscribe(data => {
       console.log(data)
-      
-       
-      this.time=this.pipe.transform(new Date(data.rspBody.compareDate), 'yyyy-MM-dd HH:mm:ss');
-      
+
+
+      this.time = this.pipe.transform(new Date(data.rspBody.compareDate), 'yyyy-MM-dd HH:mm:ss');
+
     });
 
   }
@@ -123,36 +126,41 @@ export class Childscn11page3Component implements OnInit {
     }
     return codeVal;
   }
-  test(x:string){
-    if(x=='1'){
+  test(x: string) {
+    if (x == '1') {
       return '絕對值'
     }
-    else if(x=='2'){
+    else if (x == '2') {
       return '相對值'
     }
   }
 
   Inquire(col: string) //查詢
   {
-    console.log(col)
-    const url = 'f01/childscn11action2';
-    let jsonObject: any = {};
-    jsonObject['nationalId'] = this.cuid;
-    jsonObject['applno'] = this.applno;
-    jsonObject['code'] = 'EL_HISTORY_COMPARE_SAMEID';
-    jsonObject['col'] = col;
-    this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
-console.log(data)
-      const dialogRef = this.dialog.open(Childscn11page6Component, {
-        panelClass: 'mat-dialog-transparent',
-        minHeight: '70vh',
-        width: '40%',
-        data:{
-          data: data
-        }
-      
-      })
+    if (this.check == 'Y') {
+      return
+    } else {
+
+      console.log(col)
+      const url = 'f01/childscn11action2';
+      let jsonObject: any = {};
+      jsonObject['nationalId'] = this.cuid;
+      jsonObject['applno'] = this.applno;
+      jsonObject['code'] = 'EL_HISTORY_COMPARE_SAMEID';
+      jsonObject['col'] = col;
+      this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
+        console.log(data)
+        const dialogRef = this.dialog.open(Childscn11page6Component, {
+          panelClass: 'mat-dialog-transparent',
+          minHeight: '70vh',
+          width: '40%',
+          data: {
+            data: data
+          }
   
-    })
+        })
+  
+      })
+    }
   }
 }

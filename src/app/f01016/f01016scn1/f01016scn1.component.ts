@@ -36,6 +36,7 @@ export class F01016scn1Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   levelNo: any; //層級
+  limitTypeCode: sysCode[]=[]; //額度類別	
   YNCode: OptionsCode[] = []; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
@@ -136,6 +137,15 @@ export class F01016scn1Component implements OnInit {
     } else {
 
     }
+    this.f01015Service.getSysTypeCode('LIMIT_TYPE').subscribe(data => {
+      console.log(data)
+      // this.limitTypeCode=data.rspBody.mappingList;
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.limitTypeCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
     this.useId = localStorage.getItem("empNo") //進入員編
     this.getYNresult();
     this.getReason();
@@ -429,5 +439,17 @@ console.log(data)
     sessionStorage.setItem('page', '2');
     this.router.navigate(['./F01009/F01009SCN1/CHILDBWSCN1']);
   }
-
+//額度號轉換中文
+limitTypeChange(string: string) {
+  //  this.limitTypeCode.forEach(element=>
+  //   element.value==string
+  //   )
+  
+    for (let row of this.limitTypeCode) {
+      if (row.value == string) {
+        return row.viewValue
+      }
+    }
+    return string;
+  }
 }
