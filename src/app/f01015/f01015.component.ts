@@ -9,6 +9,7 @@ import { OptionsCode } from '../interface/base';
 import { F01015Service } from './f01015.service';
 import { FormControl, Validators } from '@angular/forms';
 import { MappingCode } from '../mappingcode.model';
+import { element } from 'protractor';
 
 interface sysCode {
   value: string;
@@ -434,15 +435,15 @@ export class F01015Component implements OnInit {
 
   //額度號轉換中文
   limitTypeChange(string: string) {
+  //  this.limitTypeCode.forEach(element=>
+  //   element.value==string
+  //   )
+  
     for (let row of this.limitTypeCode) {
       if (row.value == string) {
         return row.viewValue
       }
-        // return string
-      
-      // }else{
-      //   return string
-      // }
     }
+    return string;
   }
 }
