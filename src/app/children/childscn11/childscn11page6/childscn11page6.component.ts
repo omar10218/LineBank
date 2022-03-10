@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-childscn11page6',
@@ -9,18 +10,31 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class Childscn11page6Component implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<Childscn11page6Component>, 
+    public dialogRef: MatDialogRef<Childscn11page6Component>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
 
-  applnoDate:any [] = []
+  applnoData:any [] = [];
+  newData:any [] = [];
   cuid:string
   total: any
 	pageSize = 10
 	pageIndex = 1
-  
+
   ngOnInit(): void {
-    this.applnoDate = this.data.data.rspBody
+    this.applnoData = this.data.data.rspBody;
+    this.getData(this.pageIndex);
+
+    // int page = f02001Req.getPage();
+		// int perPage = f02001Req.getPer_page();
+		// int start = (page - 1) * perPage;
+		// int end = (page - 1) * perPage + perPage;
+		// if (end > caseDataList.size()) {
+		// 	end = caseDataList.size();
+		// }
+
+		// map.put("item", caseDataList.size() < perPage ? caseDataList : caseDataList.subList(start, end));
+
     this.cuid = sessionStorage.getItem('nationalId');
   }
   Inquire(col: string) //查詢
@@ -34,7 +48,7 @@ export class Childscn11page6Component implements OnInit {
     // jsonObject['col'] = col;
     // this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
 
-      
+
       sessionStorage.setItem('applno', col);
       sessionStorage.setItem('nationalId', this.cuid);
     //   // sessionStorage.setItem('custId', this.custId);
@@ -55,4 +69,22 @@ export class Childscn11page6Component implements OnInit {
     this.dialogRef.close()
   }
 
+  getData(pageIndex: number){
+    this.total = this.applnoData.length;
+    let start: number = (pageIndex - 1) * this.pageSize;
+    let count:number = 0;
+    this.newData = [];
+    for (let index = start; index < this.applnoData.length; index++) {
+      this.newData.push(this.applnoData[index]);
+      count = count + 1;
+      if (count == 10) {
+        break;
+      }
+    }
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    const { pageSize, pageIndex } = params;
+    this.getData(pageIndex);
+  }
 }
