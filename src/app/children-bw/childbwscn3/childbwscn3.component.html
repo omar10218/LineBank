@@ -3,15 +3,15 @@
     <nz-tabset nzLinkRouter>
       <nz-tab [nzTitle]="JCIC">
         <ng-template #JCIC let-visible="visible">
-          <button nz-button [nzSize]="'small'" [ngClass]="hideJCIC ? 'nohide' : 'hide'"
-            (click)="showJCIC()">聯徵彙整資訊<h style="display: block; font-size: 12px;">-</h>
+          <button nz-button [nzSize]="'small'" [ngClass]="hideJCIC ? 'nohide' : 'hide'" (click)="showJCIC()">聯徵彙整資訊<h
+              style="display: block; font-size: 12px;">-</h>
           </button>
         </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="showAll">
         <ng-template #showAll let-visible="visible">
-          <button nz-button [nzSize]="'small'" [ngClass]="hideAll ? 'nohide' : 'hide'" class="hide"
-            (click)="all()">全部顯示<h style="display: block; font-size: 12px;">-</h>
+          <button nz-button [nzSize]="'small'" [ngClass]="hideAll ? 'nohide' : 'hide'" class="hide" (click)="all()">全部顯示
+            <h style="display: block; font-size: 12px;">-</h>
           </button>
         </ng-template>
       </nz-tab>
@@ -203,7 +203,7 @@
   <div [id]="!hideJCICMASTER ? 'JCICMASTER' : '' " [(hidden)]="hideJCICMASTER" class="line_bank_card_no_padding">
     <!-- AAS003 -->
     <nz-table nzSize="small" nzTitle="AAS003 自然人姓名,身分證補發,通報,補充註記">
-      <ng-container *ngFor="let data of AAS003.slice(0,1)">
+      <ng-container >
         <tr>
           <th class="table-header">身分證號</th>
           <th class="table-header">中文姓名</th>
@@ -214,7 +214,7 @@
           <th class="table-header">通報案件紀錄</th>
           <th class="table-header">在台無戶籍人士身分證號對照索引註記</th>
         </tr>
-        <tr>
+        <tr *ngFor="let data of AAS003.slice(0,1)">
           <td class="table-data">{{ data.IDN ? data.IDN : ' ' }}</td>
           <td class="table-data">{{ data.PNAME ? data.PNAME : ' ' }}</td>
           <td class="table-data">{{ data.IS_LOST ? data.IS_LOST : ' ' }}</td>
@@ -233,7 +233,7 @@
           <th class="table-header">資料日期</th>
         </tr>
         <tr>
-          <td class="table-data">{{ data.DATA_DATE ? convert(data.DATA_DATE) : ' ' }}</td>
+          <td class="table-data">{{ data.DATA_DATE == null ? convert(data.DATA_DATE) : ' ' }}</td>
         </tr>
       </ng-container>
     </nz-table>
@@ -271,43 +271,6 @@
       </tbody>
     </nz-table>
   </div>
-  <!-- JAS002 -->
-  <!-- <div >
-<div [(hidden)]="hideJAS002" class="line_bank_card_no_padding"> -->
-  <!-- 表格 -->
-  <!-- <nz-table nzSize="small" nzTitle="JAS002 信用異常紀錄 (B, D, K)">
-    <ng-container *ngFor="let data of JAS002.slice(0,1)">
-      <tr>
-        <div nz-row>
-          <th nz-col nzFlex="1" class="table-header">授信異常</th>
-          <td nz-col nzFlex="1" class="table-data">{{ data.EVER_DELINQUENT ? data.EVER_DELINQUENT : ' ' }}</td>
-          <td nz-col nzFlex="1" class="table-data">{{ data.DELINQUENT_DATE ? data.DELINQUENT_DATE : ' ' }}</td>
-        </div>
-      </tr>
-      <tr>
-        <div nz-row>
-          <th nz-col nzFlex="1" class="table-header">退票異常</th>
-          <td nz-col nzFlex="1" class="table-data">{{ data.EVER_BAD_CHECK ? data.EVER_BAD_CHECK : ' ' }}</td>
-          <td nz-col nzFlex="1" class="table-data">{{ data.BAD_CHECK_DATE ? data.BAD_CHECK_DATE : ' ' }}</td>
-        </div>
-      </tr>
-      <tr>
-        <div nz-row>
-          <th nz-col nzFlex="1" class="table-header">拒絕往來記錄</th>
-          <td nz-col nzFlex="1" class="table-data">{{ data.EVER_REJECT ? data.EVER_REJECT : ' ' }}</td>
-          <td nz-col nzFlex="1" class="table-data">{{ data.REJECT_DATE ? data.REJECT_DATE : ' ' }}</td>
-        </div>
-      </tr>
-      <tr>
-        <div nz-row>
-          <th nz-col nzFlex="1" class="table-header">強制停卡異常</th>
-          <td nz-col nzFlex="1" class="table-data">{{ data.EVER_STOP_CARD ? data.EVER_STOP_CARD : ' ' }}</td>
-          <td nz-col nzFlex="1" class="table-data">{{ data.STOP_CARD_DATE ? data.STOP_CARD_DATE : ' ' }}</td>
-        </div>
-      </tr>
-    </ng-container>
-  </nz-table> -->
-  <!-- </div> -->
   <!-- 聯徵彙整資訊 -->
   <div [(hidden)]="hideJCIC" class="line_bank_card_no_padding">
     <!-- KRM046信用卡證卡持有 -->
