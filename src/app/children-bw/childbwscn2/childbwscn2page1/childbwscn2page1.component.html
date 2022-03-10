@@ -522,7 +522,7 @@
       </div>
       <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'" [disabled]="getPage()!='9'|| getSearch()=='Y' ">
         <div style="padding:3px"><span class="form-title" >預佔額度</span>
-          <input type="text"  [(ngModel)]="preempt" name="preempt"
+          <input type="text"  [(ngModel)]="preempt" name="preempt" maxlength="13"
           (keyup)="dealwith(preempt)" [disabled]="BW_creditResult == 'DWN'? false:true">
         </div>
       </div>
