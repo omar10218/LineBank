@@ -26,8 +26,9 @@
       <tr>
         <th class="table-header-x" rowspan="9">Channel資訊</th>
       </tr>
+     
       <tr>
-        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_GPS1')"  [disabled]="compare[25].count=='0'">{{compare[25].compareColumn}} </button></th>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_GPS1')"  [disabled]="compare[25].count=='0'||getCheck() == 'Y'">{{compare[25].compareColumn}} </button></th>
         <td [ngClass]="{'table-data-text':compare[25].result === 'G', 'table-data-text-y' : compare[25].result === 'Y',  'height' : compare[25].result === 'R',  'table-data-z' : compare[25].result === ''}">{{compare[25].count}}</td>
         <td class="table-data-text-compare">{{test(compare[25].compareType)}}</td>
         <td class="table-data-text-compare">{{compare[25].setValueLow}} </td>

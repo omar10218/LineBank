@@ -124,7 +124,7 @@
       </nz-tab>
       <nz-tab *ngIf="getPage()!='07'">
         <a *nzTabLink nz-tab-link [routerLink]="['./CHILDSCN11']">
-          <button nz-button nzType="primary"nzSize="small" (click)="changeRoute(false)" [disabled]="getSearch() == 'Y' && getWinClose() == 'Y'">
+          <button nz-button nzType="primary"nzSize="small" (click)="changeRoute(false)" >
             資料比對</button>
         </a>
       </nz-tab>

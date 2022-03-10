@@ -13,7 +13,7 @@ export class Childscn11page6Component implements OnInit {
     public dialogRef: MatDialogRef<Childscn11page6Component>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-
+    private check: string;
   applnoData:any [] = [];
   newData:any [] = [];
   cuid:string
@@ -25,6 +25,7 @@ export class Childscn11page6Component implements OnInit {
   ngOnInit(): void {
     this.applnoData = this.data.data.rspBody;
     this.getData(this.pageIndex);
+    this.check = sessionStorage.getItem('check');
 
     // int page = f02001Req.getPage();
 		// int perPage = f02001Req.getPer_page();
@@ -50,7 +51,7 @@ export class Childscn11page6Component implements OnInit {
     // jsonObject['code'] = 'EL_HISTORY_COMPARE_UNID';
     // jsonObject['col'] = col;
     // this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
-
+      
 
       sessionStorage.setItem('applno', col);
       sessionStorage.setItem('nationalId', this.cuid);
@@ -58,12 +59,14 @@ export class Childscn11page6Component implements OnInit {
       sessionStorage.setItem('search','Y');
       sessionStorage.setItem('queryDate', '');
       sessionStorage.setItem('winClose', 'Y');
+      sessionStorage.setItem('check', 'Y');
 
     //   //開啟徵審主畫面
       const url = window.location.href.split("/#");
       window.open( url[0] + "/#/F01002/F01002SCN1");
       sessionStorage.setItem('winClose', 'N');
       sessionStorage.setItem('search','N');
+      sessionStorage.setItem('check','N');
       sessionStorage.setItem('applno', col);
     // })
   }
@@ -71,7 +74,9 @@ export class Childscn11page6Component implements OnInit {
    onNoClick(): void {
     this.dialogRef.close()
   }
-
+  getCheck(): String {
+    return this.check;
+  }
   getData(pageIndex: number){
     this.total = this.applnoData.length;
     let start: number = (pageIndex - 1) * this.pageSize;

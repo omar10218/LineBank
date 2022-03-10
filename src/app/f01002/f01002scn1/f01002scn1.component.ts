@@ -32,6 +32,7 @@ interface interestPeriod {
   styleUrls: ['./f01002scn1.component.css', '../../../assets/css/f01.css']
 })
 export class F01002scn1Component implements OnInit, OnDestroy {
+  check: string;
 
   constructor(
     public dialog: MatDialog,
@@ -104,6 +105,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     this.level = sessionStorage.getItem('level');
     this.page = sessionStorage.getItem('page');
     this.winClose = sessionStorage.getItem('winClose');
+    this.check=sessionStorage.getItem('check');
 
   }
 
@@ -208,6 +210,10 @@ export class F01002scn1Component implements OnInit, OnDestroy {
   getSearch(): String {
     return this.search;
   }
+  getCheck(): String {
+    return this.check;
+  }
+  
 
   getWinClose(): String {
     return this.winClose;
