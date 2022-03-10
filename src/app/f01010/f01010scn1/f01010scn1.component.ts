@@ -102,6 +102,56 @@ export class F01010scn1Component implements OnInit {
 
   finish() {
 
+    console.log(sessionStorage.getItem('BW_creditResult'))
+    console.log(sessionStorage.getItem('BW_reasonCode'))
+    console.log(sessionStorage.getItem('BW_reasondetail'))
+    console.log(sessionStorage.getItem('BW_limit'))
+
+    if (sessionStorage.getItem('BW_creditResult') == null || sessionStorage.getItem('BW_creditResult') == "" || sessionStorage.getItem('BW_creditResult')=="undefined") {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '請選取審核結果' }
+      });
+      return;
+    }
+
+    if(sessionStorage.getItem('BW_creditResult') == "FRZ"||sessionStorage.getItem('BW_creditResult') == "DWN"||sessionStorage.getItem('BW_creditResult') == "HLD")
+    {
+      if(sessionStorage.getItem('BW_reasonCode')!="")
+      {
+        if(sessionStorage.getItem('BW_reasondetail')!="")
+        {
+          if(sessionStorage.getItem('BW_limit')!="")
+          {
+            if(sessionStorage.getItem('BW_creditResult') == "DWN")
+            {
+
+            }
+          }
+          else
+          {
+            const childernDialogRef = this.dialog.open(ConfirmComponent, {
+              data: { msgStr: '額度號必填' }
+            });
+            return;
+          }
+        }
+        else
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '本次執行原因細項必填' }
+          });
+          return;
+        }
+      }
+      else
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '本次執行原因必填' }
+        });
+        return;
+      }
+    }
+
     const url = 'f01/childbwscn0';
     let msg = '';
     let jsonObject: any = {};
