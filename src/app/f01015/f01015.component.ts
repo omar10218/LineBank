@@ -421,9 +421,36 @@ export class F01015Component implements OnInit {
     this.creditEmpno = "";
     this.creditMemo = "";
   }
+  Inquire(col: string) //查詢
+  {
+    console.log(col)
+    // const url = 'f01/childscn11action2';
+    // let jsonObject: any = {};
+    // jsonObject['nationalId'] = this.cuid;
+    // jsonObject['applno'] = this.applno;
+    // jsonObject['code'] = 'EL_HISTORY_COMPARE_UNID';
+    // jsonObject['col'] = col;
+    // this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
 
+
+      sessionStorage.setItem('applno', col);
+      // sessionStorage.setItem('nationalId', this.cuid);
+      sessionStorage.setItem('custId', this.custId);
+      sessionStorage.setItem('search','Y');
+      sessionStorage.setItem('queryDate', '');
+      sessionStorage.setItem('winClose', 'Y');
+
+    //   //開啟徵審主畫面
+      const url = window.location.href.split("/#");
+      window.open( url[0] + "/#/F01002/F01002SCN1");
+      sessionStorage.setItem('winClose', 'N');
+      sessionStorage.setItem('search','N');
+      sessionStorage.setItem('applno', col);
+    // })
+  }
   //透過案編跳轉至複審
   toCalloutPage(applno: string) {
+    console.log(applno)
     sessionStorage.setItem('applno', applno);
     sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('winClose', 'N');
