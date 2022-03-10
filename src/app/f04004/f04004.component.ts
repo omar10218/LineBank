@@ -33,13 +33,8 @@ export class F04004Component implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.LevelCode.push({ value: 'L0', viewValue: 'L0' });
-    this.LevelCode.push({ value: 'L1', viewValue: 'L1' });
-    this.LevelCode.push({ value: 'L2', viewValue: 'L2' });
-    this.LevelCode.push({ value: 'L3', viewValue: 'L3' });
     this.LevelCode.push({ value: 'L4', viewValue: 'L4' });
-    this.LevelCode.push({ value: 'D2', viewValue: 'D2' });
-    this.LevelCode.push({ value: 'D1', viewValue: 'D1' });
+    this.LevelCode.push({ value: 'L3', viewValue: 'L3' });
     this.personnel = '';
 
   }
@@ -63,7 +58,7 @@ export class F04004Component implements OnInit {
   {
     this.personnelCode = [];
     let LevelJson: any = {};
-    let url = 'f04/f04003action1'
+    let url = 'f04/f04004action3'
     LevelJson['level'] = this.Level;
     this.f04004Service.Set(url, LevelJson).subscribe(data => {
       this.personnelCode.push({ value: '', viewValue: '請選擇' })
@@ -97,7 +92,7 @@ export class F04004Component implements OnInit {
     if (this.Level != '' || this.personnel != '')
     {
       this.i = 0;
-      let url = 'f04/f04003action2'
+      let url = 'f04/f04004action4'
       let personnelJson: any = {};
       personnelJson['level'] = this.Level;
       personnelJson['empNo'] = this.personnel;
@@ -202,7 +197,7 @@ export class F04004Component implements OnInit {
       }
       if(this.assignArray.length>0)
       {
-        let url = 'f04/f04003action3'
+        let url = 'f04/f04004action2'
         let changeJson: any = {};
         changeJson['level'] = this.Level;
         changeJson['roleNo'] = this.Transfer;
@@ -247,24 +242,13 @@ export class F04004Component implements OnInit {
 
   //Level轉換 代碼 + 中文
   changeLevel(level: string) {
-    if (level == 'L4') {
-      return "L4 文審"
-    } else if (level == 'L2') {
-      return "L2 授信"
-    } else if (level == 'L3') {
-      return "L3 徵信"
-    } else if (level == 'L1') {
-      return "L1 授信覆核"
-    } else if (level == 'L0') {
-      return "L0 主管"
-    } else if (level == 'D2') {
-      return "D2 產生合約前回查"
-    } else if (level == 'D1') {
-      return "D1 產生合約前覆核"
-    } else if (level == 'S2') {
-      return "S2 風管處處長"
-    } else if (level == 'S1') {
-      return "S1 總經理"
+    if (level == 'L4')
+     {
+      return "L4 覆審人員"
+    }
+    else if (level == 'L3')
+     {
+      return "L3 覆審主管"
     }
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
