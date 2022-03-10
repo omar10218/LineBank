@@ -20,6 +20,7 @@ export class Childscn11page6Component implements OnInit {
   total: any
 	pageSize = 10
 	pageIndex = 1
+  custId: any             //客戶ID
 
   ngOnInit(): void {
     this.applnoData = this.data.data.rspBody;
@@ -36,6 +37,8 @@ export class Childscn11page6Component implements OnInit {
 		// map.put("item", caseDataList.size() < perPage ? caseDataList : caseDataList.subList(start, end));
 
     this.cuid = sessionStorage.getItem('nationalId');
+    this.custId=sessionStorage.getItem('custId');
+    console.log(this.custId)
   }
   Inquire(col: string) //查詢
   {
@@ -51,7 +54,7 @@ export class Childscn11page6Component implements OnInit {
 
       sessionStorage.setItem('applno', col);
       sessionStorage.setItem('nationalId', this.cuid);
-    //   // sessionStorage.setItem('custId', this.custId);
+      sessionStorage.setItem('custId', this.custId);
       sessionStorage.setItem('search','Y');
       sessionStorage.setItem('queryDate', '');
       sessionStorage.setItem('winClose', 'Y');
