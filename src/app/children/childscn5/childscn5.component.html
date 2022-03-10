@@ -464,14 +464,17 @@
           </div> -->
         </div>
         <div class="line_bank_form_header_title_middle" style="margin-bottom:0px">公司是否為白名單(系統比對)</div>
-        <nz-table nzSize="small" [nzData]="setmaterial" nzTemplateMode>
+        <nz-table  nzShowSizeChanger nzSize="small" [nzData]="setmaterial" nzSize="small" [nzFrontPagination]="false" [nzSimple]="true">
           <thead>
-            <th class="table-header" style="width:10%">公司統編</th>
-            <th class="table-header" style="width:10%">公司名稱</th>
-            <th class="table-header" style="width:10%">公司簡稱</th>
-            <th class="table-header" style="width:10%">分類1</th>
-            <th class="table-header" style="width:10%">分類2</th>
-            <th class="table-header" style="width:10%">分類3</th>
+            <tr>
+
+              <th class="table-header" style="width:10%">公司統編</th>
+              <th class="table-header" style="width:10%">公司名稱</th>
+              <th class="table-header" style="width:10%">公司簡稱</th>
+              <th class="table-header" style="width:10%">分類1</th>
+              <th class="table-header" style="width:10%">分類2</th>
+              <th class="table-header" style="width:10%">分類3</th>
+            </tr>
           </thead>
           <tbody>
             <tr *ngFor="let data of setmaterial;let i = index">
