@@ -228,7 +228,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childbwscn3Service.getDate(url, jsonObject).subscribe(data => {
-      console.log(data)
+
       if (data.rspBody != null && data.rspBody != '') {
         this.queryDate = this.pipe.transform(new Date(data.rspBody), 'yyyy-MM-dd HH:mm:ss');
       }
