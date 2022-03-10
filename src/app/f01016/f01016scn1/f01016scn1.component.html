@@ -38,6 +38,7 @@
                   <th class="table-header" nzRight="true">已動撥金額</th>
                   <th class="table-header" nzRight="true">預佔額度</th>
                   <th class="table-header" nzRight="true">目前可動用額度</th>
+                  <th class="table-header " style="color: black;" >是否凍結</th>
                   <th class="table-header">停用註記</th>
                   <th class="table-header">停用日期</th>
                   <th class="table-header">循環別</th>
@@ -57,6 +58,7 @@
                   <td class="table-data" style="text-align:right;">{{toCurrency(row.usedLimit)}}</td>
                   <td class="table-data" style="text-align:right;">{{toCurrency(row.reserveLimit)}}</td>
                   <td class="table-data" style="text-align:right;">{{toCurrency(row.activeLimit)}}</td>
+                  <td class="table-data" [ngClass]="row.stopFlag==='Y'?'red':'green'" style="text-align:center;">{{toCurrency(row.stopFlag)}}</td>
                   <td class="table-data" [ngClass]="row.stopFlag==='Y'?'green':'red'" style="text-align: center;">
                       {{row.stopFlag}}</td>
                   <td class="table-data">{{row.stopDate}}</td>
