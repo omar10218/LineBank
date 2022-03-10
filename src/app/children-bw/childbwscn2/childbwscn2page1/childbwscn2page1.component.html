@@ -522,7 +522,7 @@
       </div>
       <div nz-col nzFlex="1" *ngIf="BW_creditResult == 'FRZ' || BW_creditResult == 'DWN' || BW_creditResult == 'HLD'" [disabled]="getPage()!='9'|| getSearch()=='Y' ">
         <div style="padding:3px"><span class="form-title" >預佔額度</span>
-          <input type="text"  [(ngModel)]="preempt" name="preempt"
+          <input type="text"  [(ngModel)]="preempt" name="preempt" maxlength="13"
           (keyup)="dealwith(preempt)" [disabled]="BW_creditResult == 'DWN'? false:true">
         </div>
       </div>
@@ -536,7 +536,7 @@
       <div nz-col nzSpan="24">
         <div class="form">
           <div><span class="form-title"></span><textarea [(ngModel)]="creditaction" name='creditaction' matInput
-              class="input-textarea" style="text-align: left;" [(ngModel)]="mark" name="mark"
+              class="input-textarea" style="text-align: left;" [(ngModel)]="mark" name="mark" maxlength="300"
               (keyup)="creditaction_keyup()"></textarea>
           </div>
         </div>

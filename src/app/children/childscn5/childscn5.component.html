@@ -160,7 +160,7 @@
           <div nz-col nzSpan="4" >
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">目前工作年資(客戶填寫)</span>
-              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear" 
+              <input style="display: block;" [(ngModel)]="currJobYear" name="currJobYear"
                 formControlName="CURR_JOB_YEAR"  disabled>
             </div>
             <div style="padding:3px" *ngIf="yn==false || getSearch()!='N'">
@@ -189,7 +189,7 @@
               </mat-select>
             </div>
           </div>
-         
+
           <!-- <div nz-col nzSpan="3">
             <div style="padding:3px" *ngIf="yn==true && getSearch()=='N'">
               <span class="form-title">當前工作在職時長(月數)</span>
@@ -200,7 +200,7 @@
               <span class="form-title">當前工作在職時長(月數)</span>
               <input style="display: block;" [(ngModel)]="currJobMonth" name="currJobMonth" readonly disabled
               formControlName="CURR_JOB_MONTH">
-               
+
             </div>
           </div> -->
 
@@ -395,7 +395,7 @@
           <div nz-col nzFlex="1">
             <div style="padding:3px">
               <span class="form-title">前職工作年資(客戶填寫)</span>
-              <mat-select [(ngModel)]="preJobYear"name="preJobYear" 
+              <mat-select [(ngModel)]="preJobYear"name="preJobYear"
               formControlName="PRE_JOB_YEAR"
               style="width:100%;height:25px;border-radius:5px;border:1px solod white;padding:4px;background-color:#ffffff;color:white" >
               <mat-option *ngFor="let code of preJobYearCode" [value]="code.value">
@@ -490,11 +490,11 @@
         <div style="padding:10px;text-align: center">
           <div *ngIf="getSearch() == 'N'">
             <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()"
-              [disabled]="formControl.valid && pag == 2? false:true ">儲存</button>
+              [disabled]=" pag == 2? false:true ">儲存</button>
           </div>
           <div *ngIf="getSearch() != 'N'">
             <button nz-button [nzSize]="'middle'" nzType="primary" (click)="save()"
-              [disabled]="formControl.valid && pag == 2? false:true ">儲存</button>
+              [disabled]=" pag == 2? false:true ">儲存</button>
           </div>
         </div>
       </div>
