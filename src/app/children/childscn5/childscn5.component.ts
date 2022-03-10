@@ -238,6 +238,7 @@ export class Childscn5Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['custId'] = this.cuid;
     this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
+      console.log(data)
       this.setmaterial = data.rspBody.compareCompanies;
       this.originalData = data.rspBody.items[0]
       this.cuLevel1 = data.rspBody.items[0].cuLevel1
