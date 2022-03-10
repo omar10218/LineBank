@@ -437,12 +437,9 @@ export class F01015Component implements OnInit {
     for (let row of this.limitTypeCode) {
       if (row.value == string) {
         return row.viewValue
+      }else if (row.value!==string){
+        return string
       }
-        // return string
-      
-      // }else{
-      //   return string
-      // }
     }
   }
 }
