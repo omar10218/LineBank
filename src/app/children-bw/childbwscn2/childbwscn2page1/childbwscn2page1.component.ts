@@ -235,7 +235,6 @@ export class childbwscn2page1Component implements OnInit {
         this.bwCreditMainList.push(this.add_bwCreditMainList);
       }
       this.limitList.push({ value: '', viewValue: '請選擇' })
-      this.limitList.push({ value: '1', viewValue: '123456789' })
       for (const jsonObj of data.rspBody.limitList) {
         const value = jsonObj['limitNo'];
         const viewValue = jsonObj['limitNo'];
