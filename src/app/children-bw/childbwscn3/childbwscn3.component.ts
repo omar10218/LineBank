@@ -230,7 +230,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     this.childbwscn3Service.getDate(url, jsonObject).subscribe(data => {
       console.log(data)
       if (data.rspBody != null && data.rspBody != '') {
-        this.queryDate = this.pipe.transform(new Date(data.rspBody), 'yyyy-MM-dd');
+        this.queryDate = this.pipe.transform(new Date(data.rspBody), 'yyyy-MM-dd HH:mm:ss');
       }
     });
   }
