@@ -55,7 +55,7 @@ export class Childscn10page1Component implements OnInit {
   queryDate="";//查詢時間
 
   dss1Form1: FormGroup = this.fb.group({
-    
+
     //系統決策
     SYSFLOWCD: ['', []],//系統流程
     RESLTCD: ['', []],//決策結果
@@ -636,9 +636,14 @@ export class Childscn10page1Component implements OnInit {
   //去除符號中文+千分位
   data_number(x: string) {
     if (x != null) {
-      x = x.toString();
-      x = x.replace(/[^\d]/g, '');
-      x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      let xString: string = x.toString();
+      if (xString.split('.')[1]) {
+        x = xString.split('.')[0].replace(/[^\d]/g, '-').replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '.' + xString.split('.')[1];
+      } else {
+        x = x.toString();
+        x = x.replace(/[^\d]/g, '-');
+        x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
     }
     return x
   }
