@@ -32,7 +32,7 @@ export class Childbwscn12Component implements OnInit {
 
   ngOnInit(): void {
     this.swcID = this.data.cuid;
-    this.swcApplno = sessionStorage.getItem('applno');
+    this.swcApplno = this.data.applno;
     this.empNo = localStorage.getItem("empNo");
     this.swcCustId = sessionStorage.getItem('swcCustId');
     this.page = this.data.page;
