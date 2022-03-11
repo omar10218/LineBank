@@ -43,11 +43,13 @@ export class Childscn15Component implements OnInit {
   private applno: string;
   private search: string;
   private page: string;
+  private empNo: string;
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
     this.page = sessionStorage.getItem('page');
+    this.empNo = sessionStorage.getItem('empNo')
 
     const baseUrl = 'f01/childscn15';
     this.childscn15Service.getReason(baseUrl, this.applno).subscribe(data => {
@@ -149,6 +151,7 @@ export class Childscn15Component implements OnInit {
       jsonObject['delayOtherTwo'] = this.delayOtherTwo;
       jsonObject['manageString'] = fmString;
       jsonObject['delayString'] = fdString;
+      jsonObject['userId'] = this.empNo;
       let msgStr: string = "";
       let codeStr: string = "";
       const baseUrl = 'f01/childscn15action1';
