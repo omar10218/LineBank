@@ -60,7 +60,7 @@
                     <td class="table-data" style="text-align:right;">{{toCurrency(row.activeLimit)}}</td>
                     <td class="table-data" [ngClass]="row.unfrozenFlag==='Y'?'red':'green'" style="text-align:center;">{{row.unfrozenFlag}}</td>
                     <td class="table-data" [ngClass]="row.stopFlag==='Y'?'red':'green'" style="text-align: center;">{{row.stopFlag}}</td>
-                    <td class="table-data">{{row.stopDate}}</td>
+                    <td class="table-data">{{row.stopDate| date: 'yyyy/MM/dd '}}</td>
                     <td class="table-data" >
                         {{row.cycleType}}</td>
                     <td class="table-data" >
