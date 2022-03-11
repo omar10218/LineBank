@@ -260,6 +260,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     jsonObject['applno'] = this.applno;
     jsonObject['code'] = 'AAS003,BAI001';
     this.childbwscn3Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
+      console.log(data)
       if (data.rspBody[0].AAS003.length == 0) { this.AAS003.push(''); } else { this.AAS003 = data.rspBody[0].AAS003; };
       if (data.rspBody[0].BAI001.length == 0) { this.BAI001.push(''); } else { this.BAI001 = data.rspBody[0].BAI001; };
     });
@@ -421,8 +422,5 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
       show: false
     })
   }
-  convert(i:string)
-  {
-    return this.pipe.transform(new Date(i), 'yyyy-MM-dd')
-  }
+
 }
