@@ -497,6 +497,7 @@ export class F02001Component implements OnInit {
     this.firstFlag = 1;
     this.order = '';
     this.sor = '';
+    this.newData = [];
   }
 
   conditionCheck() {
