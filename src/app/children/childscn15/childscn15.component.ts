@@ -40,13 +40,14 @@ export class Childscn15Component implements OnInit {
 
 
 
-  private applno: string;
+  applno: string;
   private search: string;
   private page: string;
   private empNo: string;
 
   ngOnInit(): void {
-    this.applno = sessionStorage.getItem('applno');
+      this.applno = sessionStorage.getItem('applno');
+    console.log(this.applno)
     this.search = sessionStorage.getItem('search');
     this.page = sessionStorage.getItem('page');
     this.empNo = sessionStorage.getItem('empNo')

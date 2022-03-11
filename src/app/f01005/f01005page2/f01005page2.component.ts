@@ -15,7 +15,6 @@ import { F01005Service } from '../f01005.service';
   styleUrls: ['./f01005page2.component.css']
 })
 export class F01005page2Component implements OnInit {
-  applno: string = localStorage.getItem("empNo");
   callOutDataSource = [];  // 照會提醒清單
   total = 1;
   loading = true;
@@ -37,8 +36,6 @@ export class F01005page2Component implements OnInit {
   ngOnInit(): void {
     this.getCalloutList(this.pageIndex, this.pageSize);
     this.empNo=localStorage.getItem("empNo")
-    console.log(this.empNo)
-    
   }
 
   onclick() {
@@ -72,7 +69,6 @@ export class F01005page2Component implements OnInit {
    toCalloutPage(applno:string) {
      sessionStorage.setItem('applno',applno)
      sessionStorage.setItem('empNo',this.empNo)
-     console.log(sessionStorage.setItem('applno',this.empNo))
      sessionStorage.setItem('search','N')
      sessionStorage.setItem('winClose', 'N');
      sessionStorage.setItem('f01005', 'N');

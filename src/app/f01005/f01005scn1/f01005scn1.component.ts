@@ -73,7 +73,6 @@ empNo:string;
 
   ngOnInit(): void {
     this.empNo = sessionStorage.getItem('empNo')
-    console.log(this.empNo)
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
     this.cuid = sessionStorage.getItem('nationalId');
