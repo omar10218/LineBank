@@ -22,6 +22,7 @@ export class F01005page2Component implements OnInit {
   pageSize = 50;
   pageIndex = 1;
   extendTimeValue: string;
+  empNo:string
   constructor(
     private f01005Service: F01005Service,
     public dialog: MatDialog,
@@ -35,6 +36,9 @@ export class F01005page2Component implements OnInit {
 
   ngOnInit(): void {
     this.getCalloutList(this.pageIndex, this.pageSize);
+    this.empNo=localStorage.getItem("empNo")
+    console.log(this.empNo)
+    
   }
 
   onclick() {
@@ -64,11 +68,14 @@ export class F01005page2Component implements OnInit {
     });
   }
 
-   //透過案編跳轉至徵信照會
+   //透過案編跳轉至偉茂案件處理
    toCalloutPage(applno:string) {
      sessionStorage.setItem('applno',applno)
+     sessionStorage.setItem('empNo',this.empNo)
+     console.log(sessionStorage.setItem('applno',this.empNo))
      sessionStorage.setItem('search','N')
      sessionStorage.setItem('winClose', 'N');
+     sessionStorage.setItem('f01005', 'N');
      sessionStorage.setItem('level', '3');
      sessionStorage.setItem('stepName', 'FraudList');
      // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
