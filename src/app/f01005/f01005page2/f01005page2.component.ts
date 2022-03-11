@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { HandleSubscribeService } from 'src/app/services/handle-subscribe.service';
 import { F01005Service } from '../f01005.service';
 
 
@@ -18,20 +19,22 @@ export class F01005page2Component implements OnInit {
   callOutDataSource = [];  // 照會提醒清單
   total = 1;
   loading = true;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
   extendTimeValue: string;
   constructor(
     private f01005Service: F01005Service,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private handleSubscribeService: HandleSubscribeService
+
   ) { }
 
   @Input() update: (event: number) => {};
   @Output() update2 = new EventEmitter<number>();
 
   ngOnInit(): void {
-    this.getCalloutList();
+    this.getCalloutList(this.pageIndex, this.pageSize);
   }
 
   onclick() {
@@ -41,14 +44,17 @@ export class F01005page2Component implements OnInit {
 
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageSize, pageIndex } = params;
-    this.getCalloutList();
+    if(this.pageIndex !==pageIndex){// 判斷是否為第一次進頁面
+      const { pageSize, pageIndex } = params;
+      this.getCalloutList(pageIndex, pageSize);
+    }
   }
 
   // 照會提醒清單
-  getCalloutList() {
+  getCalloutList(pageIndex: number, pageSize: number) {
     let jsonObject: any = {};
-    jsonObject['page'] = this.pageIndex;
-    jsonObject['per_page'] = this.pageSize;
+    jsonObject['page'] = pageIndex;
+    jsonObject['per_page'] = pageSize;
     this.loading = false;
     this.f01005Service.getCalloutList(jsonObject).subscribe(data => {
       this.total = data.rspBody.length;
@@ -72,6 +78,6 @@ export class F01005page2Component implements OnInit {
   }
 
   refreshTable() {
-    this.getCalloutList();
+    this.getCalloutList(this.pageIndex, this.pageSize);
   }
 }
