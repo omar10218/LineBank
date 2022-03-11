@@ -75,7 +75,7 @@ export class F02002returnComponent implements OnInit {
   formControl = new FormControl('', [
     Validators.required
   ]);
-
+  target: DataTransfer
   //欄位驗證
   getErrorMessage() {
     return this.formControl.hasError('required') ? '此欄位必填!' :
@@ -88,11 +88,14 @@ export class F02002returnComponent implements OnInit {
   }
 
   onChange(evt, rid: string,) {
-    const target: DataTransfer = <DataTransfer>(evt.target);
-    this.isValidFile = !!target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
+    this.target = <DataTransfer>(evt.target);
+    console.log(evt)
+    console.log( this.target)
+    this.isValidFile = !!this.target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
     var rid = rid;
-    this.fileToUpload = target.files.item(0);
-    if (this.isValidFile) {
+    this.fileToUpload = this.target.files.item(0);
+    if (this.isValidFile)
+     {
       this.fileList = this.fileList.filter(e => e.value != rid);
       this.fileList.push({ value: rid, viewValue: this.fileToUpload });
       this.verify();
@@ -232,11 +235,16 @@ export class F02002returnComponent implements OnInit {
     else {
 
       this.blockList.splice(this.blockList.indexOf(rid), 1)
+      // this.fileList.slice(this.fileList.indexOf('rid'))
       if (this.blockList.indexOf(rid) == -1) {
         if(re!='')
         {
 
           this.blockList.push(rid)
+        }
+        else
+        {
+          this.fileList = this.fileList.filter(c => c.value != rid);
         }
         //
       }
@@ -253,8 +261,9 @@ export class F02002returnComponent implements OnInit {
     else if (this.blockList.length != this.fileList.length){
       this.bool = true;
     }
-
-
+    // console.log(this.blockList.length)
+    // console.log(this.fileList.length)
+    // console.log( this.fileList = this.fileList.filter(c => c.value != rid))
     // this.blockList.splice(this.blockList.indexOf(rid), 1)
 
     // this.blockList.push(rid)
