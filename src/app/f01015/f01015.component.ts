@@ -178,6 +178,7 @@ export class F01015Component implements OnInit {
         else {
           console.log(data)
           this.nationalId=data.rspBody.nationalId
+          this.custId=data.rspBody.items[0].customerId
           this.targetCustSource = data.rspBody.items
           this.creditMainSource = data.rspBody.creditMainlist
           this.targetCustSource.sort((a, b) => {
