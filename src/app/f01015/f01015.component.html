@@ -61,9 +61,9 @@
                     <td class="table-data" [ngClass]="row.unfrozenFlag==='Y'?'red':'green'" style="text-align:center;">{{row.unfrozenFlag}}</td>
                     <td class="table-data" [ngClass]="row.stopFlag==='Y'?'red':'green'" style="text-align: center;">{{row.stopFlag}}</td>
                     <td class="table-data">{{row.stopDate| date: 'yyyy/MM/dd '}}</td>
-                    <td class="table-data" >
+                    <td class="table-data" style="text-align:center;">
                         {{row.cycleType}}</td>
-                    <td class="table-data" >
+                    <td class="table-data" style="text-align:center;">
                         {{row.cancelFlag}}</td>
                 </tr>
             </tbody>
