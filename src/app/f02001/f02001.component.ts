@@ -99,7 +99,7 @@ export class F02001Component implements OnInit {
     if (this.pageIndex !== pageIndex) {
       if (this.firstFlag != 1) {
         this.pageIndex = pageIndex;
-        this.getDate(pageIndex);
+        this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.resultData);
         // this.selectData(pageIndex, this.pageSize, this.order, this.sor);
       }
     }
@@ -420,26 +420,13 @@ export class F02001Component implements OnInit {
       }
       else {
         this.resultData = data.rspBody.item;
-        this.getDate(this.pageIndex);
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         this.total = data.rspBody.size;
         this.quantity = data.rspBody.size;
         this.firstFlag = 2;
         this.sort = 'ascend';
       }
     })
-  }
-
-  getDate(pageIndex: number){
-    let start: number = (pageIndex - 1) * this.pageSize;
-    let count:number = 0;
-    this.newData = [];
-    for (let index = start; index < this.resultData.length; index++) {
-      this.newData.push(this.resultData[index]);
-      count = count + 1;
-      if (count == 50) {
-        break;
-      }
-    }
   }
 
   dealwithData14(time: Date) {
@@ -528,7 +515,7 @@ export class F02001Component implements OnInit {
         }
         this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLNO.localeCompare(b.APPLNO))
         : this.resultData.sort((a,b) => b.APPLNO.localeCompare(a.APPLNO));
-        this.getDate(this.pageIndex);
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         break;
       case "APPLYEND_TIME":
         if (e === 'ascend') {
@@ -541,7 +528,7 @@ export class F02001Component implements OnInit {
         }
         this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLYEND_TIME.localeCompare(b.APPLYEND_TIME))
         : this.resultData.sort((a,b) => b.APPLYEND_TIME.localeCompare(a.APPLYEND_TIME));
-        this.getDate(this.pageIndex);
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         break;
     }
   }
