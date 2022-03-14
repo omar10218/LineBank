@@ -504,6 +504,7 @@ export class Childscn23Component implements OnInit {
   data_number1(x: string) {
     if (x != null) {
       x = x.replace(/[^\d]/g, '');
+      x = parseInt(x.toString()).toString() == 'NaN' ? '' : parseInt(x.toString()).toString();//去掉數字前面的0
       x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
     return x
@@ -514,10 +515,12 @@ export class Childscn23Component implements OnInit {
     if (x != null) {
       if (x.indexOf('-') == 0 && x.length > 1) {
         x = x.replace(/[^\d]/g, '');
+        x = parseInt(x.toString()).toString() == 'NaN' ? '' : parseInt(x.toString()).toString();//去掉數字前面的0
         x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         x = '-' + x;
       } else {
         x = x.replace(/[^\d-]/g, '');
+        x = parseInt(x.toString()).toString() == 'NaN' ? '' : parseInt(x.toString()).toString();//去掉數字前面的0
         x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       }
     }
