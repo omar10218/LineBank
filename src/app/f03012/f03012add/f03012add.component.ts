@@ -12,14 +12,14 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component'
   styleUrls: ['./f03012add.component.css', '../../../assets/css/f03.css'],
 })
 export class F03012addComponent implements OnInit {
-  selectedValue1: string
-  selectedValue2: string
+  selectedValue1: string=""
+  selectedValue2: string=""
   error: string
   myDiv: boolean //最高門檻是否啟動判斷
   //下拉
   selectedColumn: OptionsCode[] = []
   setValueHight: string
-  compareType: string
+  compareType: string=""
   setValueLow: string
 
   compareTableCode: OptionsCode[] = []
