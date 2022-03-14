@@ -105,7 +105,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     this.level = sessionStorage.getItem('level');
     this.page = sessionStorage.getItem('page');
     this.winClose = sessionStorage.getItem('winClose');
-    this.check=sessionStorage.getItem('check');
+    this.check = sessionStorage.getItem('check');
 
   }
 
@@ -213,7 +213,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
   getCheck(): String {
     return this.check;
   }
-  
+
 
   getWinClose(): String {
     return this.winClose;
@@ -245,7 +245,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     if (sessionStorage.getItem('NON_TRADEOTHER_MESSAGE3') == "" && url == "f01/childscn0") { save = false };
     if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "" && url == "f01/childscn0") { save = false };
     if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "" && url == "f01/childscn0") { save = false };
-    if (!save) {
+    if ((!save) && sessionStorage.getItem('creditResult') != 'D') {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "徵信完成時AML資訊為必填!" }
       });
@@ -406,12 +406,10 @@ export class F01002scn1Component implements OnInit, OnDestroy {
           data: { msgStr: data.rspMsg }
         });
       }
-      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1')
-      {
+      if (data.rspMsg.includes('處理案件異常') || baseUrl == 'f01/childscn0action1') {
 
       }
-      else if(data.rspMsg.includes('該案客戶已取消'))
-      {
+      else if (data.rspMsg.includes('該案客戶已取消')) {
         setTimeout(() => {
           childernDialogRef.close();
         }, 1000);
@@ -419,8 +417,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
           this.router.navigate(['./F01002']);
         }, 1500);
       }
-      else
-      {
+      else {
         setTimeout(() => {
           childernDialogRef.close();
         }, 1000);
