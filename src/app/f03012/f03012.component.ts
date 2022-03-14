@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { MatPaginator, PageEvent } from '@angular/material/paginator'
 import { MatSort, Sort } from '@angular/material/sort'
@@ -29,11 +29,11 @@ interface checkBox {
 	styleUrls: ['./f03012.component.css', '../../assets/css/f03.css'],
 })
 
-export class F03012Component implements OnInit {
+export class F03012Component implements OnInit,AfterViewInit {
 	isAllCheck: boolean = false
 	chkArray: checkBox[] = []
 	selectedValue: string = 'default'
-	selectedValue1: string = ''
+	selectedValue1: string =""
 	total: any
 	pageSize = 10
 	pageIndex = 1
@@ -67,6 +67,7 @@ export class F03012Component implements OnInit {
 	}
 
 	ngOnInit(): void {
+		
 		this.getCompareTable()
 
 		// this.currentPage = {
@@ -85,7 +86,9 @@ export class F03012Component implements OnInit {
 
 	// 取得資料比對下拉項目
 	getCompareTable() {
+		this.selectedValue1=""
 		this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
+			this.compareTableCode.push({value: '', viewValue: '請選擇' })
 
 			for (const jsonObj of data.rspBody.mappingList) {
 				const codeNo = jsonObj.codeNo
@@ -104,6 +107,7 @@ export class F03012Component implements OnInit {
 	mappingCodeSource = new MatTableDataSource<any>()
 
 	ngAfterViewInit(): void {
+		this.selectedValue1=""
 		this.getComePareDataSetList(this.pageIndex, this.pageSize)
 		this.paginator.page.subscribe((page: PageEvent) => {
 			this.currentPage = page

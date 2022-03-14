@@ -15,7 +15,9 @@
           <div nz-col nzSpan="8">
             <div style="padding:10px">
               <span class="form-title">通報原因1</span>
-              <mat-select formControlName="REPORT_REASON1">
+              <mat-select formControlName="REPORT_REASON1" [(ngModel)]="reportReason1Value"
+              name="reportReason1Value">
+                <mat-option value="">請選擇</mat-option>
                 <mat-option *ngFor="let code of reportReason1" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
@@ -27,7 +29,9 @@
           <div nz-col nzSpan="8">
             <div style="padding:10px">
               <span class="form-title">通報原因2</span>
-              <mat-select formControlName="REPORT_REASON2">
+              <mat-select formControlName="REPORT_REASON2" [(ngModel)]="reportReason2Value"
+              name="reportReason2Value">
+                <mat-option value="">請選擇</mat-option>
                 <mat-option *ngFor="let code of reportReason2" [value]="code.value">
                   {{code.viewValue}}
                 </mat-option>
@@ -44,7 +48,9 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">通報原因3</span>
-            <mat-select formControlName="REPORT_REASON3">
+            <mat-select formControlName="REPORT_REASON3" [(ngModel)]="reportReason3Value"
+            name="reportReason3Value">
+              <mat-option value="">請選擇</mat-option>
               <mat-option *ngFor="let code of reportReason3" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>
@@ -55,14 +61,16 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">通報補充</span>
-            <input style="display: block;" #input class="form-control" formControlName="REPORT_CONTENT" maxlength="20">
+            <input style="display: block;" placeholder="請輸入文字" #input class="form-control" formControlName="REPORT_CONTENT" maxlength="20">
             <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
           </div>
         </div>
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">使用中</span>
-            <mat-select formControlName="USE_FLAG">
+            <mat-select formControlName="USE_FLAG" [(ngModel)]="useFlagValue"
+            name="useFlagValue">
+            <mat-option value="">請選擇</mat-option>
               <mat-option *ngFor="let code of useFlag" [value]="code.value">
                 {{code.viewValue}}
               </mat-option>

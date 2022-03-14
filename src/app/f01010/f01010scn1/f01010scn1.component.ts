@@ -102,6 +102,11 @@ export class F01010scn1Component implements OnInit {
 
   finish() {
 
+    console.log(sessionStorage.getItem('BW_creditResult'))
+    console.log(sessionStorage.getItem('BW_reasonCode'))
+    console.log(sessionStorage.getItem('BW_reasondetail'))
+    console.log(sessionStorage.getItem('BW_limit'))
+
     if (sessionStorage.getItem('BW_creditResult') == null || sessionStorage.getItem('BW_creditResult') == "" || sessionStorage.getItem('BW_creditResult')=="undefined") {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請選取審核結果' }

@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { Childscn19Component } from 'src/app/children/childscn19/childscn19.component';
 import { Childscn27Component } from 'src/app/children/childscn27/childscn27.component';
 import { Childscn28Component } from 'src/app/children/childscn28/childscn28.component';
+import { Childscn20Component } from 'src/app/children/childscn20/childscn20.component';
 interface interestPeriod {
   id?: string,
   period: string,
@@ -523,4 +524,14 @@ export class F01003scn1Component implements OnInit {
       }
     });
   }
+  blockList() {
+    const dialogRef = this.dialog.open(Childscn20Component, {
+      panelClass: 'mat-dialog-transparent',
+      data: {
+        applno: this.applno,
+        cuid: this.cuid
+      }
+    });
+  }
+
 }

@@ -17,7 +17,19 @@ interface sysCode {
   templateUrl: './f02001.component.html',
   styleUrls: ['./f02001.component.css', '../../assets/css/f02.css']
 })
+
 export class F02001Component implements OnInit {
+
+  constructor(
+    private router: Router,
+    private f02001Service: F02001Service,
+    public pipe: DatePipe,
+    public nzI18nService: NzI18nService,
+    public dialog: MatDialog,
+  ) {
+    this.nzI18nService.setLocale(zh_TW)
+  }
+
   applno: string = ''; //案件編號
   national_ID: string = ''; //身分證字號
   cust_ID: string = ''; //客戶ID
@@ -50,19 +62,13 @@ export class F02001Component implements OnInit {
   pageIndex = 1;
   firstFlag = 1;
   sortArry = ['ascend', 'descend']
-  order:string;
-  sor:string;
+  order: string;
+  sor: string;
   x: string;
   statusDetailCode: sysCode[] = [];
   sort: string;
-  constructor(private router: Router,
-    private f02001Service: F02001Service,
-    public pipe: DatePipe,
-    public nzI18nService: NzI18nService,
-    public dialog: MatDialog,
-  ) {
-    this.nzI18nService.setLocale(zh_TW)
-  }
+
+  newData: any[] = [];
 
   ngOnInit(): void {
     this.getStatusDesc();
@@ -85,41 +91,26 @@ export class F02001Component implements OnInit {
         this.statusDetailCode.push({ value: codeNo, viewValue: desc })
       }
     });
-
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-
-    // if (this.pageIndex !== pageIndex) {
-    //   if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
-    //     const { pageSize, pageIndex } = params;
-    //     this.selectData(pageIndex, pageSize);
-    //   }
-
-    // }
-     // 判斷是否為第一次進頁面
-      const { pageIndex } = params;
-      if (this.pageIndex !== pageIndex)
-      {
-        if (this.firstFlag != 1) {
-        // const { pageSize, pageIndex } = params;
+    // 判斷是否為第一次進頁面
+    const { pageIndex } = params;
+    if (this.pageIndex !== pageIndex) {
+      if (this.firstFlag != 1) {
         this.pageIndex = pageIndex;
-        this.selectData(pageIndex, this.pageSize,this.order,this.sor);}
-        }
+        this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.resultData);
+        // this.selectData(pageIndex, this.pageSize, this.order, this.sor);
       }
-      // const element = document.querySelector('box');
-      // element.scrollIntoView();
-
-
+    }
+  }
 
   changePage() {
     this.pageIndex = 1;
-
   }
 
   getStatusDesc() {
     this.f02001Service.getSysTypeCode('STATUS_CODE').subscribe(data => {
-
       this.status_DESC.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj['codeNo'];
@@ -146,9 +137,8 @@ export class F02001Component implements OnInit {
     this.statusDescSecond = [];
     let jsonObject: any = {};
     jsonObject['statusDesc'] = codeTag;
-    if(this.status_DESC_Value =='')
-    {
-      this.statusDescSecondValue ='';
+    if (this.status_DESC_Value == '') {
+      this.statusDescSecondValue = '';
     }
     this.f02001Service.changeStatsCode(jsonObject).subscribe(data => {
       this.statusDescSecond.push({ value: '', viewValue: '請選擇' })
@@ -234,7 +224,7 @@ export class F02001Component implements OnInit {
     this.conditionCheck();
   }
 
-  selectData(pageIndex: number, pageSize: number,na:string,sort:string) {
+  selectData(pageIndex: number, pageSize: number, na: string, sort: string) {
 
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
@@ -254,13 +244,11 @@ export class F02001Component implements OnInit {
     this.jsonObject['marketingCode'] = this.marketing_CODE;//行銷代碼
     this.jsonObject['approveAmt'] = '';//核准金額/額度
 
-    if(na=='')
-    {
+    if (na == '') {
       this.jsonObject['orderByValue'] = na;
       this.jsonObject['sortValue'] = sort;
     }
-    else
-    {
+    else {
       this.jsonObject['orderByValue'] = na;
       this.jsonObject['sortValue'] = sort;
     }
@@ -427,26 +415,26 @@ export class F02001Component implements OnInit {
           data: { msgStr: "查無資料" }
         })
         this.resultData = [];
-        this.quantity =0;
+        this.quantity = 0;
 
       }
       else {
         this.resultData = data.rspBody.item;
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         this.total = data.rspBody.size;
         this.quantity = data.rspBody.size;
         this.firstFlag = 2;
         this.sort = 'ascend';
       }
-
-    }
-    )
+    })
   }
+
   dealwithData14(time: Date) {
     var startDate
     startDate = new Date();
     return new Date(Date.now() - (13 * 24 * 60 * 60 * 1000));
-
   }
+
   dealwithData365(stime: any) {
     var startDate, endDate;
     startDate = new Date(stime[0]);
@@ -458,6 +446,7 @@ export class F02001Component implements OnInit {
       return true;
     }
   }
+
   dealwithData90(stime: any) {
     var startDate, endDate;
     startDate = new Date(stime[0]);
@@ -493,13 +482,10 @@ export class F02001Component implements OnInit {
     this.jsonObject = {};
     this.quantity = 0;
     this.firstFlag = 1;
-    this.order ='';
-    this.sor ='';
+    this.order = '';
+    this.sor = '';
+    this.newData = [];
   }
-
-  // test()//測試
-  // {
-  // }
 
   conditionCheck() {
     if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == ''
@@ -512,52 +498,39 @@ export class F02001Component implements OnInit {
         data: { msgStr: "請至少選擇一項條件" }
       });
     } else {
-
-      this.selectData(this.pageIndex, this.pageSize,'','');
-      // this.sortChange('ascend','APPLYEND_TIME')
-
+      this.selectData(this.pageIndex, this.pageSize, '', '');
     }
   }
-  // sortChange(e: string) {
-  //   this.resultData = e === 'ascend' ? this.resultData.sort(
-  //     (a, b) => a.APPLY_TIME.localeCompare(b.APPLY_TIME)) : this.resultData.sort((a, b) => b.APPLY_TIME.localeCompare(a.APPLY_TIME))
-  // }
-  // Serial(e: string)//序號排序
-  // {
-  //   this.resultData = e === 'ascend' ? this.resultData.sort(
-  //     (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
-  // }
+
   sortChange(e: string, param: string) {
     switch (param) {
       case "APPLNO":
-        if(e==='ascend')
-        {
-          this.order=param;
-          this.sor='DESC';
+        if (e === 'ascend') {
+          this.order = param;
+          this.sor = 'DESC';
         }
-        else
-        {
-          this.order=param;
-          this.sor='';
+        else {
+          this.order = param;
+          this.sor = '';
         }
-
-         e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
+        this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLNO.localeCompare(b.APPLNO))
+        : this.resultData.sort((a,b) => b.APPLNO.localeCompare(a.APPLNO));
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         break;
       case "APPLYEND_TIME":
-        if(e==='ascend')
-        {
-          this.order=param;
-          this.sor='DESC';
+        if (e === 'ascend') {
+          this.order = param;
+          this.sor = 'DESC';
         }
-        else
-        {
-          this.order=param;
-          this.sor='';
+        else {
+          this.order = param;
+          this.sor = '';
         }
-        e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
+        this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLYEND_TIME.localeCompare(b.APPLYEND_TIME))
+        : this.resultData.sort((a,b) => b.APPLYEND_TIME.localeCompare(a.APPLYEND_TIME));
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         break;
     }
-
   }
 
   dateNull(t: [Date, Date], name: string) {
@@ -599,4 +572,4 @@ export class F02001Component implements OnInit {
     }
     return codeVal;
   }
- }
+}

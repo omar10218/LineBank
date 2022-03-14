@@ -426,19 +426,21 @@ export class childbwscn2page1Component implements OnInit {
     jsonObject['reasonCode'] = this.reasoncode;
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
       this.reason_DETAIL.push({ value: '', viewValue: '請選擇' })
-      this.reasondetail = '';
+
       for (const jsonObj of data.rspBody) {
         const value = jsonObj['reasonCode'];
         const viewValue = jsonObj['reasonDesc'];
         this.reason_DETAIL.push({ value: value, viewValue: viewValue })
       }
-      if (i != null && i != '')
+
+    if (i != null && i != '')
     {
       this.reasondetail = i;
 
     }
-    })
     this.ttemporarilyest();
+
+    })
 
   }
   dealwith(x: string)//篩選加千分號

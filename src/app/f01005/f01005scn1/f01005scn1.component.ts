@@ -17,7 +17,8 @@ import { F01005scn1Service } from './f01005scn1.service';
   styleUrls: ['./f01005scn1.component.css', '../../../assets/css/f01.css']
 })
 export class F01005scn1Component implements OnInit {
-
+  f01005: string;
+empNo:string;
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -71,6 +72,7 @@ export class F01005scn1Component implements OnInit {
   block: boolean = false;
 
   ngOnInit(): void {
+    this.empNo = sessionStorage.getItem('empNo')
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
     this.cuid = sessionStorage.getItem('nationalId');

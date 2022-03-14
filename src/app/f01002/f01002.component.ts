@@ -72,6 +72,7 @@ export class F01002Component implements OnInit, AfterViewInit, OnDestroy {
       this.nowPage = Page.Page2;
       sessionStorage.setItem('bell','');
     }
+
   }
 
   ngOnDestroy() {
@@ -87,6 +88,7 @@ export class F01002Component implements OnInit, AfterViewInit, OnDestroy {
     let jsonObject: any = {};
     jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
     this.f01002Service.getCalloutList(jsonObject).subscribe(data => {
+     console.log(data)
       this.total = data.rspBody.size;
     });
   }

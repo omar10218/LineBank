@@ -228,7 +228,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childbwscn3Service.getDate(url, jsonObject).subscribe(data => {
-      console.log(data)
+
       if (data.rspBody != null && data.rspBody != '') {
         this.queryDate = this.pipe.transform(new Date(data.rspBody), 'yyyy-MM-dd HH:mm:ss');
       }
@@ -239,8 +239,8 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     let jsonObject: any = {}
     jsonObject['applno'] = this.applno
     this.childbwscn3Service.getMASTERJCICList(jsonObject).subscribe(data => {
-      if (data.rspBody != null) {
-        this.listSource = data.rspBody;
+      if (data.rspBody.items != null) {
+        this.listSource = data.rspBody.items;
       }
     })
   }
@@ -260,6 +260,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     jsonObject['applno'] = this.applno;
     jsonObject['code'] = 'AAS003,BAI001';
     this.childbwscn3Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
+      console.log(data)
       if (data.rspBody[0].AAS003.length == 0) { this.AAS003.push(''); } else { this.AAS003 = data.rspBody[0].AAS003; };
       if (data.rspBody[0].BAI001.length == 0) { this.BAI001.push(''); } else { this.BAI001 = data.rspBody[0].BAI001; };
     });
@@ -421,8 +422,5 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
       show: false
     })
   }
-  convert(i:string)
-  {
-    return this.pipe.transform(new Date(i), 'yyyy-MM-dd')
-  }
+
 }

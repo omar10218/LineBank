@@ -250,4 +250,18 @@ export class BaseService {
     jsonObject['content'] = content;
     return await this.postJsonObject(baseUrl, jsonObject).toPromise();
   }
+
+  getTableDate(pageIndex: number, pageSize: number, data: any):any{
+    let start: number = (pageIndex - 1) * pageSize;
+    let count:number = 0;
+    let newData = [];
+    for (let index = start; index < data.length; index++) {
+      newData.push(data[index]);
+      count = count + 1;
+      if (count == pageSize) {
+        break;
+      }
+    }
+    return newData;
+  }
 }

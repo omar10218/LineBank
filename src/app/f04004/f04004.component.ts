@@ -95,7 +95,7 @@ export class F04004Component implements OnInit {
       let url = 'f04/f04004action4'
       let personnelJson: any = {};
       personnelJson['level'] = this.Level;
-      personnelJson['empNo'] = this.personnel;
+      personnelJson['empno'] = this.personnel;
       personnelJson['pageIndex'] = pageIndex;
       personnelJson['pageSize'] = pageSize;
       this.f04004Service.Set(url, personnelJson).subscribe(data => {

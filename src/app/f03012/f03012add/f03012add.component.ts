@@ -12,14 +12,14 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component'
   styleUrls: ['./f03012add.component.css', '../../../assets/css/f03.css'],
 })
 export class F03012addComponent implements OnInit {
-  selectedValue1: string
-  selectedValue2: string
+  selectedValue1: string=""
+  selectedValue2: string=""
   error: string
   myDiv: boolean //最高門檻是否啟動判斷
   //下拉
   selectedColumn: OptionsCode[] = []
   setValueHight: string
-  compareType: string
+  compareType: string=""
   setValueLow: string
 
   compareTableCode: OptionsCode[] = []
@@ -227,13 +227,13 @@ export class F03012addComponent implements OnInit {
     this.setValueLow  = i;
     var num  = 0;
     num = Number(i);
-    if(num>1)
-    {
-      this.setValueLow='';
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "最大值1" },
-      })
-    }
+    // if(num>1)
+    // {
+    //   this.setValueLow='';
+    //   this.dialog.open(ConfirmComponent, {
+    //     data: { msgStr: "最大值1" },
+    //   })
+    // }
 	}
   //最高
   numberhingt(i:string)
@@ -241,13 +241,13 @@ export class F03012addComponent implements OnInit {
     this.setValueHight  = i;
     var num  = 0;
     num = Number(i);
-    if(num>99)
-    {
-      this.setValueHight='';
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "最大值99" },
-      })
-    }
+    // if(num>99)
+    // {
+    //   this.setValueHight='';
+    //   this.dialog.open(ConfirmComponent, {
+    //     data: { msgStr: "最大值99" },
+    //   })
+    // }
   }
 
   //+逗號

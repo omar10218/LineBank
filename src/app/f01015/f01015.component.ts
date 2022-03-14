@@ -60,7 +60,7 @@ export class F01015Component implements OnInit {
   mobile: string//行動電話
   executeValue: string = '';//執行措施策略值
   reasonValue: string = ''//執行原因值
-  reasonDetail: string //執行細項值
+  reasonDetail: string= '' //執行細項值
   limitNo: string = ''//額度號值
   contact: string = ''//通知方式值
   contactContent: string//通知內容值
@@ -177,6 +177,8 @@ export class F01015Component implements OnInit {
         }
         else {
           console.log(data)
+          this.nationalId=data.rspBody.nationalId
+          this.custId=data.rspBody.items[0].customerId
           this.targetCustSource = data.rspBody.items
           this.creditMainSource = data.rspBody.creditMainlist
           this.targetCustSource.sort((a, b) => {
@@ -221,10 +223,9 @@ export class F01015Component implements OnInit {
     }
     else if (value == 'HLD') {
       this.f01015Service.getImpertmentParameter2(jsonObject).subscribe(data => {
-        console.log("=====================");
         console.log(data);
         this.limitNo = '';
-        this.limitCode = [];
+        // this.limitCode = [];
         for (const row of data.rspBody.items) {
           const codeNo = row;
           const desc = row;
@@ -289,14 +290,14 @@ export class F01015Component implements OnInit {
 
   //取本次執行原因細項下拉
   changereasonDetail() {
+    // this.reasonDetailCode.push({ value: '', viewValue: '請選擇' })
+
     let jsonObject: any = {};
     // this.reasonDetail = '';
     jsonObject['reasonCode'] = this.reasonValue
-    this.reasonDetailCode = [];
     this.executeCode = [];
     this.limitCode = [];
     // this.reasonDetail = "";
-    this.reasonDetailCode.push({ value: '', viewValue: '請選擇' })
     this.f01015Service.getReturn('f01/f01015action2', jsonObject).subscribe(data => {
 
       for (const jsonObj of data.rspBody.items) {
@@ -421,9 +422,36 @@ export class F01015Component implements OnInit {
     this.creditEmpno = "";
     this.creditMemo = "";
   }
+  Inquire(col: string) //查詢
+  {
+    console.log(col)
+    // const url = 'f01/childscn11action2';
+    // let jsonObject: any = {};
+    // jsonObject['nationalId'] = this.cuid;
+    // jsonObject['applno'] = this.applno;
+    // jsonObject['code'] = 'EL_HISTORY_COMPARE_UNID';
+    // jsonObject['col'] = col;
+    // this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
 
+
+      sessionStorage.setItem('applno', col);
+      // sessionStorage.setItem('nationalId', this.cuid);
+      sessionStorage.setItem('custId', this.custId);
+      sessionStorage.setItem('search','Y');
+      sessionStorage.setItem('queryDate', '');
+      sessionStorage.setItem('winClose', 'Y');
+
+    //   //開啟徵審主畫面
+      const url = window.location.href.split("/#");
+      window.open( url[0] + "/#/F01002/F01002SCN1");
+      sessionStorage.setItem('winClose', 'N');
+      sessionStorage.setItem('search','N');
+      sessionStorage.setItem('applno', col);
+    // })
+  }
   //透過案編跳轉至複審
   toCalloutPage(applno: string) {
+    console.log(applno)
     sessionStorage.setItem('applno', applno);
     sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('winClose', 'N');

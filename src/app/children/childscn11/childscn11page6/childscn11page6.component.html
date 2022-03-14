@@ -1,23 +1,23 @@
 <div class="line_bank_card_no_padding" style="max-height: 70vh;">
     <div class="line_bank_form_header_title" >資料比對-案件編號  </div>
-        <nz-table nzShowSizeChanger  [nzData]="applnoDate" [nzFrontPagination]="true" [nzSimple]="true"
-        [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small">
+        <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzSimple]="true" [nzData]="newData" [nzSimple]="true"
+        [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" (nzQueryParams)="onQueryParamsChange($event)">
           <thead>
             <tr>
-              
+
               <th  style="width:200px" class="table-header">No</th>
               <th  style="width:600px" class="table-header">案件編號</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let row of applnoDate; let i = index;">
-             
+            <tr *ngFor="let row of newData; let i = index;">
+
               <td class="table-data">{{ i+1 }}</td>
               <td class="table-data"><button  nz-button nzType="link" (click)="Inquire(row)">{{ row }}</button></td>
-             
+
             </tr>
-  
-  
+
+
           </tbody>
         </nz-table>
         <div style="text-align: center;padding:10px">
@@ -26,6 +26,5 @@
           <button nz-button [nzSize]="'middle'" nzDanger (click)="onNoClick()" tabindex="-1"
             style="margin:0px 5px">取消</button>
         </div>
-  
+
   </div>
-  
