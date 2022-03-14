@@ -529,6 +529,7 @@ export class Childscn12Component implements OnInit {
   data_number(data: string, key?: string, value?: string) {
     if (data != null) {
       data = this.toNumber(data);//去中英文符號
+      data = parseInt(data.toString()).toString() == 'NaN' ? '' : parseInt(data.toString()).toString();//去掉數字前面的0
       data = this.toCurrency(data);//加逗號
     }
     if (key != null && value != null) {
