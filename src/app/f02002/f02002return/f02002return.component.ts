@@ -68,14 +68,14 @@ export class F02002returnComponent implements OnInit {
   formdata: FormData;
   formdata2: FormData = new FormData();
   list: te[] = [];
-  onChangelength:number;
+  onChangelength: number;
   jsonstr: string;
   blockList = [];
-  bool:boolean;
+  bool: boolean;
   formControl = new FormControl('', [
     Validators.required
   ]);
-
+  target: DataTransfer
   //欄位驗證
   getErrorMessage() {
     return this.formControl.hasError('required') ? '此欄位必填!' :
@@ -88,17 +88,19 @@ export class F02002returnComponent implements OnInit {
   }
 
   onChange(evt, rid: string,) {
-    const target: DataTransfer = <DataTransfer>(evt.target);
-    this.isValidFile = !!target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
+    this.target = <DataTransfer>(evt.target);
+    console.log(evt)
+    console.log( this.target)
+    this.isValidFile = !!this.target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
     var rid = rid;
-    this.fileToUpload = target.files.item(0);
-    if (this.isValidFile) {
+    this.fileToUpload = this.target.files.item(0);
+    if (this.isValidFile)
+     {
       this.fileList = this.fileList.filter(e => e.value != rid);
-      this.fileList.push({value:rid,viewValue:this.fileToUpload}) ;
+      this.fileList.push({ value: rid, viewValue: this.fileToUpload });
       this.verify();
     }
-    else
-    {
+    else {
       this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法檔，請檢查檔案格式重新上傳" });
       alert(this.uploadForm.value.ERROR_MESSAGE);
     }
@@ -129,8 +131,7 @@ export class F02002returnComponent implements OnInit {
     let url = 'f02/f02002action5';
     // console.log(this.F02002Data.length);
     let jsonarry: string[] = []
-    for(const n of this.fileList)
-    {
+    for (const n of this.fileList) {
       this.formdata2.append(n.value, n.viewValue)
     }
     for (const it of this.F02002Data) {
@@ -170,8 +171,7 @@ export class F02002returnComponent implements OnInit {
     const formdata = new FormData();
     // console.log(this.F02002Data.length);
     let jsonarry: string[] = []
-    for(const n of this.fileList)
-    {
+    for (const n of this.fileList) {
       this.formdata2.append(n.value, n.viewValue)
     }
     for (const it of this.F02002Data) {
@@ -202,15 +202,13 @@ export class F02002returnComponent implements OnInit {
 
           if (data.rspCode === '0000') {
             this.f02002Service.setformdata(ul, formdata).subscribe(data => {
-              if (data.rspCode === '0000')
-              {
+              if (data.rspCode === '0000') {
                 this.dialogRef.close({ event: 'success' });
                 this.dialog.open(ConfirmComponent, {
                   data: { msgStr: data.rspMsg }
                 });
               }
-              else
-              {
+              else {
                 this.dialog.open(ConfirmComponent, {
                   data: { msgStr: data.rspMsg }
                 });
@@ -228,34 +226,44 @@ export class F02002returnComponent implements OnInit {
     })
 
   }
-  block(rid:string,re:string)
-  {
-    if(this.blockList.length==0)
-    {
+  block(rid: string, re: string) {
+
+    if (this.blockList.length == 0) {
+
       this.blockList.push(rid)
     }
-    else
-    {
-      if(this.blockList.indexOf(rid)>0)
-      {
-        this.blockList.splice(this.blockList.indexOf(rid), 1)
+    else {
+
+      this.blockList.splice(this.blockList.indexOf(rid), 1)
+      // this.fileList.slice(this.fileList.indexOf('rid'))
+      if (this.blockList.indexOf(rid) == -1) {
+        if(re!='')
+        {
+
+          this.blockList.push(rid)
+        }
+        else
+        {
+          this.fileList = this.fileList.filter(c => c.value != rid);
+        }
+        //
       }
-      else
-      {
-        this.blockList.push(rid)
-      }
+      // else {
+      //   console.log('3');
+      //   // this.blockList.splice(this.blockList.indexOf(rid), 1)
+      // }
 
     }
 
-    if(this.blockList.length==0)
-    {
-      this.bool=false;
+    if (this.blockList.length == 0) {
+      this.bool = false;
     }
-    else
-    {
-      this.bool=true;
+    else if (this.blockList.length != this.fileList.length){
+      this.bool = true;
     }
-
+    // console.log(this.blockList.length)
+    // console.log(this.fileList.length)
+    // console.log( this.fileList = this.fileList.filter(c => c.value != rid))
     // this.blockList.splice(this.blockList.indexOf(rid), 1)
 
     // this.blockList.push(rid)
@@ -265,9 +273,8 @@ export class F02002returnComponent implements OnInit {
   {
     // console.log(this.blockList.length)
     // console.log(this.fileList.length)
-    if( this.blockList.length == this.fileList.length)
-    {
-      this.bool=false;
+    if (this.blockList.length == this.fileList.length) {
+      this.bool = false;
     }
 
     return false;
