@@ -1,6 +1,6 @@
 import { Key, logging } from 'protractor';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { F02002Service } from '../f02002.service'
@@ -89,8 +89,6 @@ export class F02002returnComponent implements OnInit {
 
   onChange(evt, rid: string,) {
     this.target = <DataTransfer>(evt.target);
-    console.log(evt)
-    console.log( this.target)
     this.isValidFile = !!this.target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
     var rid = rid;
     this.fileToUpload = this.target.files.item(0);
@@ -224,26 +222,24 @@ export class F02002returnComponent implements OnInit {
         })
       }
     })
-
   }
-  block(rid: string, re: string) {
+
+  @ViewChild('test') myInputVariable: ElementRef;
+  block(rid: string, re: string, value: any) {
+
+    if (value.rescanReason == "" || value.rescanReason == null) {
+      this.myInputVariable.nativeElement.value = "";
+    }
 
     if (this.blockList.length == 0) {
-
       this.blockList.push(rid)
-    }
-    else {
-
+    } else {
       this.blockList.splice(this.blockList.indexOf(rid), 1)
       // this.fileList.slice(this.fileList.indexOf('rid'))
       if (this.blockList.indexOf(rid) == -1) {
-        if(re!='')
-        {
-
+        if(re!='') {
           this.blockList.push(rid)
-        }
-        else
-        {
+        } else {
           this.fileList = this.fileList.filter(c => c.value != rid);
         }
         //
@@ -252,7 +248,6 @@ export class F02002returnComponent implements OnInit {
       //   console.log('3');
       //   // this.blockList.splice(this.blockList.indexOf(rid), 1)
       // }
-
     }
 
     if (this.blockList.length == 0) {
