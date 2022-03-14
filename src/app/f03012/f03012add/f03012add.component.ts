@@ -227,13 +227,13 @@ export class F03012addComponent implements OnInit {
     this.setValueLow  = i;
     var num  = 0;
     num = Number(i);
-    if(num>1)
-    {
-      this.setValueLow='';
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "最大值1" },
-      })
-    }
+    // if(num>1)
+    // {
+    //   this.setValueLow='';
+    //   this.dialog.open(ConfirmComponent, {
+    //     data: { msgStr: "最大值1" },
+    //   })
+    // }
 	}
   //最高
   numberhingt(i:string)
@@ -241,13 +241,13 @@ export class F03012addComponent implements OnInit {
     this.setValueHight  = i;
     var num  = 0;
     num = Number(i);
-    if(num>99)
-    {
-      this.setValueHight='';
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "最大值99" },
-      })
-    }
+    // if(num>99)
+    // {
+    //   this.setValueHight='';
+    //   this.dialog.open(ConfirmComponent, {
+    //     data: { msgStr: "最大值99" },
+    //   })
+    // }
   }
 
   //+逗號

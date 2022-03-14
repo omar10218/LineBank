@@ -132,16 +132,16 @@ export class F03012editComponent implements OnInit {
 		let msgStr: string = ''
 		let baseUrl = 'f03/f03012action2'
 
-		if (this.compareType === '2' ) {
+		if (this.compareType === '2') {
 			if (Number(this.low) > 1) {
-        this.dialog.open(ConfirmComponent, {
+				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: "不可以大於1" },
 				})
 				return;
 			}
 
 			if (!(this.low.includes('.'))) {
-        this.dialog.open(ConfirmComponent, {
+				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: "請填小數點" },
 				})
 				return;
@@ -149,7 +149,7 @@ export class F03012editComponent implements OnInit {
 			msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
 
 
-      this.dialog.open(ConfirmComponent, {
+			this.dialog.open(ConfirmComponent, {
 				data: { msgStr: msgStr },
 			})
 			if (msgStr === '儲存成功!') {
@@ -159,16 +159,17 @@ export class F03012editComponent implements OnInit {
 
 		} else if (this.compareType == '1') {
 			if ((this.low.includes('.'))) {
-        this.dialog.open(ConfirmComponent, {
-					data: { msgStr:'請填整數!!' },				})
+				this.dialog.open(ConfirmComponent, {
+					data: { msgStr: '請填整數!!' },
+				})
 
 				return;
-			}else if(this.hingt<this.low){
-        this.dialog.open(ConfirmComponent, {
-					data: { msgStr:'設定最高門檻需大於設定最低門檻!!' },
+			} else if (this.hingt < this.low) {
+				this.dialog.open(ConfirmComponent, {
+					data: { msgStr: '設定最高門檻需大於設定最低門檻!!' },
 				})
 				return
-			}else{
+			} else {
 				msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: msgStr },
@@ -217,34 +218,31 @@ export class F03012editComponent implements OnInit {
 
 	}
 	// 只允許輸入小數點
-	numberOnly(i:string) {
-    this.low  = i;
-    var num  = 0;
-    num = Number(i);
+	numberOnly(i: string) {
+		this.low = i;
+		var num = 0;
+		num = Number(i);
 
-    if(num>1)
-    {
-      this.low='';
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "最大值1" },
-      })
-    }
+		// if (num > 1) {
+		// 	this.low = '';
+		// 	this.dialog.open(ConfirmComponent, {
+		// 		data: { msgStr: "最大值1" },
+		// 	})
+		// }
 	}
-  //最高
-  numberhingt(i:string)
-  {
-    this.hingt  = i;
-    var num  = 0;
-    num = Number(i);
+	//最高
+	numberhingt(i: string) {
+		this.hingt = i;
+		var num = 0;
+		num = Number(i);
 
-    if(num>99)
-    {
-      this.hingt='';
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "最大值99" },
-      })
-    }
-  }
+		// if (num > 99) {
+		// 	this.hingt = '';
+		// 	this.dialog.open(ConfirmComponent, {
+		// 		data: { msgStr: "最大值99" },
+		// 	})
+		// }
+	}
 
 	//+逗號
 	toCurrency(amount: string) {
