@@ -65,7 +65,7 @@ export class F01016scn1Component implements OnInit {
   executeValue: string = '';//執行措施策略值
   reasonValue: string = ''//執行原因值
   reasonDetail: string //執行細項值
-  limitNo: string//額度號值
+  limitNo: string=''//額度號值
   contact: string = ''//通知方式值
   contactContent: string//通知內容值
   reserveLimit: string //預佔額度
@@ -119,11 +119,18 @@ export class F01016scn1Component implements OnInit {
     this.creditMemo = sessionStorage.creditMemo; //主管帶creditMemo
     this.mobile = sessionStorage.mobile!= "null" ? sessionStorage.mobile : " ";; //mobile
     if (this.executeValue == 'DWN') {
+    this.limitNo = '';
       this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
+      this.limitNo = sessionStorage.limitNo; //主管帶額度號
+
     }
     this.page = sessionStorage.getItem("page");
 
     if (this.page == '16') {
+    this.limitNo = '';
+
+      this.limitNo = sessionStorage.limitNo; //主管帶額度號
+
       this.creditTime = sessionStorage.creditTime
       this.changereasonDetail()
       this.custId = sessionStorage.customerId; //主管帶customer_ID
@@ -210,7 +217,6 @@ export class F01016scn1Component implements OnInit {
     jsonObject['custId'] = this.custId
     if (value == 'FRZ' || value == 'DWN') {
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
-        console.log(data)
         this.limitCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.limitNoList) {
           const codeNo = jsonObj;
@@ -223,10 +229,8 @@ export class F01016scn1Component implements OnInit {
     }
     else if (value == 'HLD') {
       this.f01015Service.getImpertmentParameter2(jsonObject).subscribe(data => {
-        console.log("=====================");
-        console.log(data);
-        this.limitNo = '';
-        this.limitCode = [];
+        // this.limitNo = '';
+        // this.limitCode = [];
         for (const row of data.rspBody.items) {
           const codeNo = row;
           const desc = row;
