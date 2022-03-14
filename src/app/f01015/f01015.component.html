@@ -128,6 +128,7 @@
                         <mat-select [disabled]="page=='16'"
                             [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" [(ngModel)]="reasonDetail"
                             name="reasonDetail" required>
+                            <mat-option value="">請選擇</mat-option>
                             <mat-option *ngFor="let item of reasonDetailCode" [value]="item.value">
                                 {{item.viewValue}}
                             </mat-option>
@@ -160,6 +161,7 @@
                     <div style="padding:3px"><span class="form-title">選擇額度號</span>
                         <mat-select [(ngModel)]="limitNo" name="limitNo" [disabled]="page=='16'"
                             [ngStyle]="{'background-color':page=='16'?'#e6e6e6':'white'}" required>
+                            <mat-option value="">請選擇</mat-option>
                             <mat-option *ngFor="let item of limitCode" [value]="item.value">
                                 {{item.viewValue}}
                             </mat-option>
@@ -173,7 +175,7 @@
                 <div nz-col nzSpan="9">
                     <div style="padding:3px"><span class="form-title">預佔額度</span>
                         <input matInput #input [(ngModel)]="reserveLimit" (keyup)="data_number(reserveLimit)"
-                            name="reserveLimit" [disabled]="executeValue!='DWN'||page=='16' "
+                            name="reserveLimit" [disabled]="executeValue!='DWN'||page=='16'"
                             oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
                         <span *ngIf="executeValue=='DWN'">
                             <mat-error *ngIf="formControl.invalid && (reserveLimit=='' || reserveLimit== null)">
@@ -202,7 +204,7 @@
                     <div style="margin-top:10px">
                         <span class="form-title">行動電話</span>
                         <input nz-input placeholder="輸入電話"  [(ngModel)]="mobile" name="mobile" style="padding: 4px;"
-                            [disabled]="YNValue=='N'" [required]="YNValue=='Y'" oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
+                            [disabled]="YNValue!='Y'" [required]="YNValue=='Y'" oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">
                        <span *ngIf="YNValue=='Y'">
                         <mat-error *ngIf="formControl.invalid && (mobile=='' || mobile== null) ">{{getErrorMessage()}}
                         </mat-error>
@@ -211,8 +213,8 @@
                     </div>
                     <div style="margin-top:10px">
                         <span class="form-title">通知方式</span>
-                        <mat-select [disabled]="YNValue=='N'"
-                            [ngStyle]="{'background-color':YNValue=='N'?'#e6e6e6':'white'}" [(ngModel)]="contact"
+                        <mat-select [disabled]="YNValue!='Y'"
+                            [ngStyle]="{'background-color':YNValue!='Y'?'#e6e6e6':'white'}" [(ngModel)]="contact"
                             name="contact" [required]="YNValue=='Y'">
                             <mat-option *ngFor="let item of contactCode" [value]="item.value">
                                 {{item.viewValue}}
@@ -229,10 +231,10 @@
                 <div nz-col nzSpan="1">
                 </div>
                 <div nz-col nzSpan="19">
-                    <div style="padding:3px"><span class="form-title">通知內容</span>
-                        <textarea [disabled]="YNValue=='N'" [ngStyle]="{'background-color':YNValue=='N'?'#e6e6e6':'white'}"
+                    <div ><span class="form-title">通知內容</span>
+                        <textarea [disabled]="YNValue!='Y'" [ngStyle]="{'background-color':YNValue!='Y'?'#e6e6e6':'white'}"
                             [(ngModel)]="contactContent" placeholder="請輸入內容" name="contactContent" maxlength="200"
-                            class="input-textarea" style="text-align: left;height:150px;color: rgb(0, 0, 0);" [required]="YNValue=='Y'">
+                            class="input-textarea" style="text-align: left;height:175px;color: rgb(0, 0, 0);" [required]="YNValue=='Y'">
                         </textarea>
                         <span *ngIf="YNValue=='Y'">
                             <mat-error *ngIf="formControl.invalid && (contactContent=='' || contactContent== null)  ">
@@ -247,7 +249,7 @@
 
             <div class="line_bank_form_header_title" style="border-radius: 0px;"></div>
             <div nz-row style="padding:10px">
-                <div nz-col nzSpan="4" style="padding:25px 0px">
+                <div nz-col nzSpan="4" style="padding:5px 0px">
                     <div>
                         <span class="form-title line_bank_h4">本次執行時間:</span>
                         <!-- <input matInput #input [(ngModel)]="creditTime" name="creditTime" disabled> -->

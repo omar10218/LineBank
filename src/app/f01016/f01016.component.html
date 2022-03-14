@@ -57,12 +57,14 @@
               <thead>
                 <tr>
                   <th class="table-header" style="color: black;" (nzSortOrderChange)="sortChange($event, 'applno')" [nzSortFn]="true" [nzWidth]="'180px'">案件編號</th>
-                  <th class="table-header" style="color: black;" (nzSortOrderChange)="sortChange($event, 'reasonCode')" [nzSortFn]="true" >本次執行原因</th>
-                  <th class="table-header" style="color: black;" (nzSortOrderChange)="sortChange($event, 'executeType')" [nzSortFn]="true" >本次執行措施策略 </th>
-                  <th class="table-header" style="color: black;" (nzSortOrderChange)="sortChange($event, 'creditTime')" [nzSortFn]="true" >本次執行時間 </th>
-                  <th class="table-header" style="color: black;" (nzSortOrderChange)="sortChange($event, 'creditEmpno')" [nzSortFn]="true" >執行員編 </th>
-                  <th class="table-header" style="color: black;" (nzSortOrderChange)="sortChange($event, 'customerId')" [nzSortFn]="true" >客戶編號CID </th>
-                  <th class="table-header" style="color: black;" (nzSortOrderChange)="sortChange($event, 'nationalId')" [nzSortFn]="true" >身分證字號 </th>
+                  <th class="table-header" style="color: black;" >身分證字號 </th>
+                  <th class="table-header" style="color: black;" >客戶編號CID </th>
+                  <th class="table-header" style="color: black;"  >本次執行措施策略 </th>
+                  <th class="table-header" style="color: black;" >本次執行原因</th>
+                  <th class="table-header" style="color: black;"  >執行員編 </th>
+                  <th class="table-header" style="color: black;" >本次執行時間 </th>
+                 
+                  
                 </tr>
               </thead>
               <tbody>
@@ -74,12 +76,13 @@
                       {{data.applno}}
                     </button>
                   </td>
-                  <td class="table-data">{{ changeChinese(data.reasonCode) }}-{{changeDetailChinese(data.reasonDetail)}}</td>
-                  <td class="table-data">{{ data.executeType }}</td>
-                  <td class="table-data">{{ data.creditTime| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
-                  <td class="table-data">{{  data.creditEmpno }}</td>
-                  <td class="table-data">{{ data.customerId }}</td>
                   <td class="table-data">{{ data.nationalId }}</td>
+                  <td class="table-data">{{ data.customerId }}</td>
+                  <td class="table-data">{{ data.executeType }}</td>
+                  <td class="table-data">{{changeDetailChinese(data.reasonDetail)}}</td>                
+                  <td class="table-data">{{  data.creditEmpno }}</td>
+                  <td class="table-data">{{ data.creditTime| date: 'yyyy/MM/dd HH:mm:ss' }}</td>
+                 
                 </tr>
               </tbody>
             </nz-table>
