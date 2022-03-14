@@ -36,7 +36,7 @@ export class F01016scn1Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   levelNo: any; //層級
-  limitTypeCode: sysCode[]=[]; //額度類別	
+  limitTypeCode: sysCode[] = []; //額度類別	
   YNCode: OptionsCode[] = []; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
@@ -115,9 +115,9 @@ export class F01016scn1Component implements OnInit {
     this.nationalId = sessionStorage.nationalId; //主管帶身分證
     this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
     this.contact = sessionStorage.contactType; //主管帶通知方式
-    this.contactContent = sessionStorage.contactContent; //主管帶通知內容
+    this.contactContent = sessionStorage.contactContent != "null" ? sessionStorage.contactContent : " ";//主管帶通知內容
     this.creditMemo = sessionStorage.creditMemo; //主管帶creditMemo
-    this.mobile = sessionStorage.mobile; //mobile
+    this.mobile = sessionStorage.mobile!= "null" ? sessionStorage.mobile : " ";; //mobile
     if (this.executeValue == 'DWN') {
       this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
     }
@@ -132,13 +132,12 @@ export class F01016scn1Component implements OnInit {
       if (sessionStorage.nationalId == 'null') {    //主管帶身分證
         this.nationalId = '';
       } else {
-            this.nationalId = sessionStorage.nationalId
-           }
+        this.nationalId = sessionStorage.nationalId
+      }
     } else {
 
     }
     this.f01015Service.getSysTypeCode('LIMIT_TYPE').subscribe(data => {
-      console.log(data)
       // this.limitTypeCode=data.rspBody.mappingList;
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
@@ -171,10 +170,7 @@ export class F01016scn1Component implements OnInit {
       let jsonObject: any = {};
       jsonObject['nationalId'] = this.nationalId
       jsonObject['custId'] = this.custId
-console.log(this.nationalId)
-console.log(this.custId)
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
-console.log(data)
         if (data.rspBody == null) {
           let msg = "";
           msg = data.rspMsg
@@ -183,7 +179,6 @@ console.log(data)
           });
         }
         else {
-          console.log(data)
           this.targetCustSource = data.rspBody.items
           this.creditMainSource = data.rspBody.creditMainlist
           this.targetCustSource.sort((a, b) => {
@@ -439,12 +434,12 @@ console.log(data)
     sessionStorage.setItem('page', '2');
     this.router.navigate(['./F01009/F01009SCN1/CHILDBWSCN1']);
   }
-//額度號轉換中文
-limitTypeChange(string: string) {
-  //  this.limitTypeCode.forEach(element=>
-  //   element.value==string
-  //   )
-  
+  //額度號轉換中文
+  limitTypeChange(string: string) {
+    //  this.limitTypeCode.forEach(element=>
+    //   element.value==string
+    //   )
+
     for (let row of this.limitTypeCode) {
       if (row.value == string) {
         return row.viewValue
