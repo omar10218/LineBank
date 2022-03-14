@@ -52,7 +52,7 @@ export class F03017editComponent implements OnInit {
 	currentSort: Sort
 	checked: boolean;
 	content = [];
-
+	
 	//建檔項目欄位值內容
 	checkBoxList: checkBox1[];
 
@@ -69,11 +69,11 @@ export class F03017editComponent implements OnInit {
 	blockListForm: FormGroup = this.fb.group({
 		ROWID: [this.data.rowID, []],
 		REPORT_UNIT: [this.data.no, []],
-		REPORT_REASON1: [this.data.reportReason1Value, [Validators.required]],
-		REPORT_REASON2: [this.data.reportReason2Value, []],
-		REPORT_REASON3: [this.data.reportReason3Value, []],
+		REPORT_REASON1: ['', [Validators.required]],
+		REPORT_REASON2: ['', []],
+		REPORT_REASON3: ['', []],
 		REPORT_CONTENT: [this.data.REPORT_CONTENT, [Validators.required]],
-		USE_FLAG: [this.data.USE_FLAG, [Validators.required]],
+		USE_FLAG: ['', [Validators.required]],
 		BK_COLUMN: [this.data.BK_COLUMN, []],
 		BK_CONTENT: [this.data.BK_CONTENT, []],
 		CU_CNAME: [this.data.CU_CNAME, []],
@@ -115,13 +115,14 @@ export class F03017editComponent implements OnInit {
 				'';
 	}
 	ngOnInit(): void {
-
-		// this.checkBoxList.push({ key: 'CU_CNAME', value: '', completed: false })
-		// this.checkBoxList.push({ key: 'NATIONAL_ID', value: '', completed: false })
-		// this.checkBoxList.push({ key: 'CU_H_TEL', value: '', completed: false })
-		// this.checkBoxList.push({ key: 'CU_CP_TEL', value: '', completed: false })
-		// this.checkBoxList.push({ key: 'CU_M_TEL', value: '', completed: false })
-
+		this.reportReason1Value=this.data.reportReason1Value
+		this.reportReason2Value=this.data.reportReason2Value
+		this.reportReason3Value=this.data.reportReason3Value
+		this.useFlagValue=this.data.USE_FLAG
+		this.reportReason1Value=""
+		this.reportReason2Value=""
+		this.reportReason3Value=""
+		this.useFlagValue=""
 		this.selectCustInfo()
 		this.route.queryParams.subscribe(params => {
 			this.no = localStorage.getItem('empNo')
