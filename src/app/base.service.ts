@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -48,7 +49,20 @@ export class BaseService {
   }
 
   protected postFormData(baseUrl: string, formdata: FormData) {
-    return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formdata);
+    let newFormData : FormData = new FormData();
+    formdata.forEach((value, key) => {
+      newFormData.append(key, value);
+      if (typeof formdata.get(key) != 'object') {
+        let data = formdata.get(key);
+        if (data != null && String(data).indexOf('#') != -1) {
+          let content = String(data).replace(/#/g, '');
+          console.log(key + ' -> 有風險故replace: ' + content);
+          newFormData.delete(key);
+          newFormData.append(key, content);
+        }
+      }
+    });
+    return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, newFormData);
   }
 
   public getSysTypeCode(codeType: string): Observable<Mapping> {
@@ -56,21 +70,58 @@ export class BaseService {
     return this.postHttpClient(targetUrl);
   }
 
-  protected formDataApiFor_NET(baseUrl: string, formdata: FormData) {
-    return this.httpClient.post<any>(baseUrl, formdata);
-  }
-
   protected postJsonObject(baseUrl: string, json: JSON) {
-    json['userId'] = localStorage.getItem("empNo");
+    json['userId'] = this.getEmpNO();
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, json);
   }
 
   //for file download
   protected postGetFile(baseUrl: string, json: JSON) {
-    json['userId'] = localStorage.getItem("empNo");
+    json['userId'] = this.getEmpNO();
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, json, { responseType: 'blob' as 'json' });
   }
 
+  private test(json: JSON) {
+    Object.entries(json).forEach(([key, value]) => {
+      if (value != null && value != '') {
+        if (typeof value == 'object') {
+          console.log('=================================object start ====================================');
+          console.log('開始滾回圈:' + key);
+          let content = json[key];
+          for (key in content) {
+            console.log('=================================content start ====================================');
+            let obj = content[key];
+            console.log('content: ' + key + ' - ' + obj);
+            if (typeof obj == 'object') {
+              for (key in obj) {
+                if (obj[key] != null && obj[key] != '') {
+                  console.log('obj: ' + key + ' - ' + obj[key]);
+                  if (String(obj[key]).indexOf('#') != -1) {
+                    obj[key] = String(obj[key]).replace(/#/g, '');
+                    console.log(key + ' -> 有風險故replace: ' + obj[key]);
+                  }
+                }
+              }
+            } else {
+              if (String(obj).indexOf('#') != -1) {
+                content[key] = obj.replace(/#/g, '');
+                console.log(key + ' -> 有風險故replace: ' + content[key]);
+              }
+            }
+            console.log('=================================content end ====================================');
+          }
+          console.log('=================================object end ====================================');
+        } else {
+          console.log(key + ' - ' + value);
+          if (String(json[key]).indexOf('#') != -1) {
+            json[key] = String(json[key]).replace(/#/g, '');
+            console.log(key + ' -> 有風險故replace: ' + json[key]);
+          }
+
+        }
+      }
+    });
+  }
 
 
   //================下方是提供新增或編輯用的function========================================
@@ -81,12 +132,12 @@ export class BaseService {
 
   //Json使用
   private async saveOrEditWithJson(baseUrl: string, json: JSON) {
-    json['userId'] = localStorage.getItem("empNo");
+    json['userId'] = this.getEmpNO();
     return await this.postJsonObject(baseUrl, json).toPromise();
   }
 
   public async delWithJson(baseUrl: string, json: JSON) {
-    json['userId'] = localStorage.getItem("empNo");
+    json['userId'] = this.getEmpNO();
     return await this.postJsonObject(baseUrl, json).toPromise();
   }
 

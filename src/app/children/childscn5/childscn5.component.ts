@@ -541,16 +541,19 @@ export class Childscn5Component implements OnInit {
    
 
     this.childscn5Service.update(jsonObject).subscribe(data => {
+      console.log(data)
       msg = data.rspMsg;
-      if ('success' === msg) {
+
+      if ('success' == msg||'0000'==data.rspCode) {
         msg = '基本資料儲存成功!'
+        setTimeout(() => {
+          const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
+          if (msg != null && msg == '基本資料儲存成功!') { this.getCustomerInfo(); }
+        }, 1000);
       }
     });
     this.insertHistory()
-    setTimeout(() => {
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == '基本資料儲存成功!') { this.getCustomerInfo(); }
-    }, 1000);
+   
   }
 
  
