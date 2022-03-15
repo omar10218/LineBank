@@ -201,7 +201,7 @@
                         <mat-error *ngIf="formControl.invalid && (YNValue=='' || YNValue== null) ">{{getErrorMessage()}}
                         </mat-error>
                     </div>
-                    <div style="margin-top:10px">
+                    <div style="margin-top:5px">
                         <span class="form-title">行動電話</span>
                         <input nz-input placeholder="輸入電話"  [(ngModel)]="mobile" name="mobile" style="padding: 4px;"
                             [disabled]="YNValue!='Y'" [required]="YNValue=='Y'" oninput="value=value.replace(/[^\d]/g,'')" maxlength="10">

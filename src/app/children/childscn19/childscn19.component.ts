@@ -109,9 +109,9 @@ export class Childscn19Component implements OnInit {
     });
     this.getRescanList();         //取該案件補件資訊
     // if (this.flag == 'Y') {
-      // this.getSmsData()
+    // this.getSmsData()
     // } else {
-      this.getSmsList(); //取該案件簡訊發送資訊
+    this.getSmsList(); //取該案件簡訊發送資訊
     // }
   }
 
@@ -233,9 +233,9 @@ export class Childscn19Component implements OnInit {
     this.send = true;
     let jsonObject: any = {};
     // if (this.flag == 'Y') {
-      // jsonObject['applno'] = this.swcApplno;
+    // jsonObject['applno'] = this.swcApplno;
     // } else {
-      jsonObject['applno'] = this.applno;
+    jsonObject['applno'] = this.applno;
     // }
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
       this.remarkContent = '';
@@ -315,24 +315,21 @@ export class Childscn19Component implements OnInit {
   //       this.mobile = data.rspBody.phone;
   //     }
   //   });
-    // this.childscn19Service.getSmsSearch(applno).subscribe(data => {
-    //   this.smsDataSource = data.rspBody.items;
-    // })
+  // this.childscn19Service.getSmsSearch(applno).subscribe(data => {
+  //   this.smsDataSource = data.rspBody.items;
+  // })
   // };
 
   //刪除該案件補件資訊
   public async delRescan(ID: string): Promise<void> {
-    let msg = '';
     let jsonObject: any = {};
     jsonObject['rowID'] = ID;
     let msgStr: string = "";
     msgStr = await this.childscn19Service.deleteRescanByRowid(jsonObject);
-    if (msg != null && msg == '刪除成功') {
-      msgStr = '刪除成功'
+    if (msgStr == '刪除成功') {
+      this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
       this.getRescanList();
     }
-    this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-    this.getRescanList();
   }
 
   // 選取sms模板後會將內容代入sms內容

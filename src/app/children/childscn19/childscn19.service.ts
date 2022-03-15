@@ -28,7 +28,7 @@ export class Childscn19Service extends BaseService {
 
   deleteRescanByRowid(jsonObject: any): any {
     const baseUrl = 'f01/childscn19action3';
-    return this.saveOrEditMsgString(baseUrl, jsonObject);
+    return this.saveOrEditMsgJson(baseUrl, jsonObject);
   }
 
   getSmsSearch(applno: string): Observable<any> {
@@ -55,5 +55,5 @@ export class Childscn19Service extends BaseService {
   postJson(baseUrl: string, json: JSON): Observable<any> {
     return this.postJsonObject(baseUrl, json);
   }
-  
+
 }

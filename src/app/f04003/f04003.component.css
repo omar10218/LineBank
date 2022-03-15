@@ -13,7 +13,7 @@
     background:white;
     border-color:#f80000;
     border-radius:5px;
-  
+
   }
   .ant-btn-dangerous:hover{
     color:#ffffff;
@@ -27,4 +27,9 @@
     background:#f80000;
     border-color:#f80000;
     border-radius:5px;
+  }
+  /* 表單輸入欄 */
+  .inpu1{
+    height:auto;
+    width:auto;
   }
