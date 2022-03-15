@@ -124,6 +124,7 @@ export class Childbwscn4page1Component implements OnInit {
     jsonObject['code'] = 'CORE_CUS_INFO';
 
     this.Childbwscn4Service.getCoreCusInfo(jsonObject).subscribe(data => {
+      console.log(data)
       this.coreCustInfoForm.patchValue({ APPLNO: data.rspBody.items[0].APPLNO })
       this.coreCustInfoForm.patchValue({ AGE: data.rspBody.items[0].AGE })
       this.coreCustInfoForm.patchValue({ STAR_SIGN: data.rspBody.items[0].STAR_SIGN })
