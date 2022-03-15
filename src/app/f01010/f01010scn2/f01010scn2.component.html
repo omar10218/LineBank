@@ -6,7 +6,7 @@
             <br>
             <div nz-row nzJustify="space-around">
                 <div nz-col nzSpan="20">
-                    <textarea class="input-textarea" placeholder="輸入退件原因" [(ngModel)]="content" name="content" cols="30"
+                    <textarea class="input-textarea" placeholder="輸入退件原因" [(ngModel)]="content" name="content" cols="30" maxlength="480"
                         rows="10" required></textarea>
                     <!-- <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error> -->
                 </div>
