@@ -79,5 +79,7 @@ export class F03018Service extends BaseService {
     let targetUrl = `${baseUrl}`;
     return this.saveOrEditMsgString(targetUrl, jsonObject);
   }
-
+  postJson(baseUrl: string,  json: JSON): Observable<any> {
+    return this.postJsonObject(baseUrl, json);
+  }
 }

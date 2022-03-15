@@ -122,7 +122,7 @@ export class F03018addComponent implements OnInit {
       }
 
     }
-
+    let url = 'f03/f03018action3';
     let jsonObject: any = {};
     jsonObject['cuCpNo'] = this.cuCpNo;
     jsonObject['cuCpName'] = this.cuCpName;
@@ -133,17 +133,31 @@ export class F03018addComponent implements OnInit {
     jsonObject['useFlag'] = this.useFlagValue;
     jsonObject['content'] = this.content;
     let msgStr: string = "";
-    msgStr = await this.f03018Service.onesave(jsonObject);
-    if (msgStr == 'success') {
-      msgStr = '儲存成功！'
-    }
+    this.f03018Service.postJson(url, jsonObject).subscribe(data => {
 
-    this.dialog.open(ConfirmComponent, {
-      data: { msgStr: msgStr }
-    });
-    setTimeout(() => {
-      this.dialog.closeAll();
-    }, 1500);
+      if (data.rspCode === '0000' && data.rspMsg == 'success') {
+        this.dialog.open(ConfirmComponent, { data: { msgStr: "成功新增" } });
+        setTimeout(() => {
+          this.dialog.closeAll();
+          this.dialogRef.close({ event: 'success' });
+        }, 1000);
+        // this.block = false;
+
+      }
+      else {
+        this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } });
+      }
+    })
+    // if (msgStr == 'success') {
+    //   msgStr = '儲存成功！'
+    // }
+
+    // this.dialog.open(ConfirmComponent, {
+    //   data: { msgStr: msgStr }
+    // });
+    // setTimeout(() => {
+    //   this.dialog.closeAll();
+    // }, 1500);
 
     // this.f01006Service.restartfn();
   }
