@@ -38,7 +38,7 @@ export class F02002returnComponent implements OnInit {
   ngOnInit(): void {
     this.set();
     this.f02002Service.getSysTypeCode('DOC_TYPE').subscribe(data => {
-      this.type.push({ value: '', viewValue: '請選擇' })
+      // this.type.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
         const id = jsonObj['codeNo'];
         const name = jsonObj['codeDesc'];
@@ -89,7 +89,12 @@ export class F02002returnComponent implements OnInit {
 
   onChange(evt, rid: string,) {
     this.target = <DataTransfer>(evt.target);
-    this.isValidFile = !!this.target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
+    if(this.target.files[0] != undefined)
+    {
+      this.isValidFile = !!this.target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
+
+    }
+    // console.log(this.target.files[0])
     var rid = rid;
     this.fileToUpload = this.target.files.item(0);
     if (this.isValidFile)
@@ -129,6 +134,13 @@ export class F02002returnComponent implements OnInit {
     let url = 'f02/f02002action5';
     // console.log(this.F02002Data.length);
     let jsonarry: string[] = []
+    if(this.target.files[0] == undefined)
+    {
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請選擇一個檔案" }
+      });
+      return
+    }
     for (const n of this.fileList) {
       this.formdata2.append(n.value, n.viewValue)
     }
@@ -169,6 +181,13 @@ export class F02002returnComponent implements OnInit {
     const formdata = new FormData();
     // console.log(this.F02002Data.length);
     let jsonarry: string[] = []
+    if(this.target.files[0] == undefined)
+    {
+      this.dialog.open(ConfirmComponent, {
+        data: { msgStr: "請選擇一個檔案" }
+      });
+      return
+    }
     for (const n of this.fileList) {
       this.formdata2.append(n.value, n.viewValue)
     }
@@ -224,12 +243,9 @@ export class F02002returnComponent implements OnInit {
     })
   }
 
-  @ViewChild('test') myInputVariable: ElementRef;
-  block(rid: string, re: string, value: any) {
+  // @ViewChild('test') myInputVariable: ElementRef;
+  block(rid: string, re: string) {
 
-    if (value.rescanReason == "" || value.rescanReason == null) {
-      this.myInputVariable.nativeElement.value = "";
-    }
 
     if (this.blockList.length == 0) {
       this.blockList.push(rid)
@@ -240,6 +256,8 @@ export class F02002returnComponent implements OnInit {
         if(re!='') {
           this.blockList.push(rid)
         } else {
+          // this.target.files[0].name==="";
+          // this.myInputVariable.nativeElement.value = "";
           this.fileList = this.fileList.filter(c => c.value != rid);
         }
         //
