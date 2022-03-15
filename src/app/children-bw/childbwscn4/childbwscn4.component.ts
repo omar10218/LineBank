@@ -6,13 +6,15 @@ import { Childbwscn4page1Component } from '../childbwscn4/childbwscn4page1/child
 import { Childbwscn4page2Component } from '../childbwscn4/childbwscn4page2/childbwscn4page2.component'
 import { Childbwscn4page3Component } from '../childbwscn4/childbwscn4page3/childbwscn4page3.component'
 import { Childbwscn4page4Component } from '../childbwscn4/childbwscn4page4/childbwscn4page4.component'
+import { Childbwscn4page5Component } from '../childbwscn4/childbwscn4page5/childbwscn4page5.component'
 
 
 enum Page {
   Page1,
   Page2,
   Page3,
-  Page4
+  Page4,
+  Page5
 }
 
 @Component({
@@ -39,6 +41,7 @@ export class Childbwscn4Component implements OnInit {
       [Page.Page2, Childbwscn4page2Component],
       [Page.Page3, Childbwscn4page3Component],
       [Page.Page4, Childbwscn4page4Component],
+      [Page.Page5, Childbwscn4page5Component],
 
     ]
   );
