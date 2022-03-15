@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { F02001Service } from '../f02001/f02001.service';
 import { F04004Service } from './f04004.service';
 
 
@@ -30,6 +31,7 @@ interface assign {
 export class F04004Component implements OnInit {
 
   constructor(private f04004Service: F04004Service,
+    private f02001Service: F02001Service,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -54,6 +56,9 @@ export class F04004Component implements OnInit {
   total = 1;
   pageSize = 10;
   pageIndex = 1;
+  newData: any[] = [];
+  newsetDataSource: any;
+  onesetDataSource: any[] = [];
   Dispatch()//搜尋派件人員
   {
     this.personnelCode = [];
@@ -83,6 +88,8 @@ export class F04004Component implements OnInit {
     this.checkboxArray = [];
     this.setDataSource = [];
     this.TransferCode = [];
+    this.onesetDataSource = [];
+    this.newData = [];
     this.Inquire(this.pageIndex,this.pageSize)
   }
 
@@ -118,6 +125,12 @@ export class F04004Component implements OnInit {
             const member = jsonObj['F_WobNum'];
             // this.TransferCode.push({ value: id, viewValue: name })
             this.setDataSource = data.rspBody.dataList;
+            for (var r of this.setDataSource) {
+              this.newsetDataSource = { bool: false, rid: r.F_WobNum, empName: r.empName, swcApplno: r.swcApplno, swcNationalId: r.swcNationalId, empNo: r.empNo, swcCompany: r.swcCompany, swcName: r.swcName }
+              this.onesetDataSource.push(this.newsetDataSource)
+            }
+            this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.onesetDataSource);
+
             this.checkboxArray.push({ value: member, completed: false, empNo: id })
           }
           this.i = 1;
@@ -181,20 +194,22 @@ export class F04004Component implements OnInit {
       });
     }
     else {
-      for (const obj of this.checkboxArray) {
-        for (const jsonObj of this.setDataSource) {
-          if (obj.completed == true) {
-            if (obj.value == jsonObj['F_WobNum']) {
-              this.assignArray.push({
-                F_WobNum: jsonObj['F_WobNum'],
-                swcApplno: jsonObj['swcApplno'] ,
-                empNo:jsonObj['empNo'],
-                swcNationalId:jsonObj['swcNationalId']
-              })
-            }
+      for (const obj of this.chkArray)
+      {
+        for (const jsonObj of this.setDataSource)
+        {
+          if (obj == jsonObj.swcApplno) {
+            this.assignArray.push({
+              F_WobNum: jsonObj['F_WobNum'],
+              swcApplno: jsonObj['swcApplno'],
+              empNo: jsonObj['empNo'],
+              swcNationalId: jsonObj['swcNationalId']
+            })
+
           }
         }
       }
+
       if(this.assignArray.length>0)
       {
         let url = 'f04/f04004action2'
@@ -208,6 +223,7 @@ export class F04004Component implements OnInit {
               this.Search();
               this.assignArray=[]
               // this.s="轉件成功";
+              this.chkArray = [];
               this.dialog.open(ConfirmComponent, {
                 data: { msgStr: data.rspMsg }
               });
@@ -254,10 +270,20 @@ export class F04004Component implements OnInit {
   onQueryParamsChange(params: NzTableQueryParams): void {
     if (this.i > 0)
      {
-      const { pageSize, pageIndex } = params;
-      this.pageSize = pageSize;
+      const { pageIndex } = params;
       this.pageIndex = pageIndex;
-      this.Inquire(pageIndex, pageSize);
+      this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.setDataSource);
+
     }
+  }
+  addchkArray(check: boolean, applno: string) {
+
+    if (check) {
+      this.chkArray.push(applno)
+    }
+    else {
+      this.chkArray.splice(this.chkArray.indexOf(applno), 1)
+    }
+
   }
 }
