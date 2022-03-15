@@ -504,7 +504,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
     if (sessionStorage.getItem('TRADE_NON_CCOTHER_MESSAGE4') == "Z" && sessionStorage.getItem('otherMessage4') == "") { save = false };
     if (sessionStorage.getItem('TRADE_NON_PURPOSEOTHER_MESSAGE5') == "Z" && sessionStorage.getItem('otherMessage5') == "") { save = false };
     if (save) {
-      const url = 'f01/childscn1action7';
+      const url = 'f01/childscn1action6';
       let jsonObject: any = {};
       jsonObject['applno'] = this.applno;
       jsonObject['mainIncome'] = sessionStorage.getItem('MAIN_INCOME');

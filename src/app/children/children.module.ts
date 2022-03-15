@@ -66,7 +66,6 @@ import { JcictableComponent } from './childscn6/childscn6page1/jcictable/jcictab
 import { Childscn23addComponent } from './childscn23/childscn23add/childscn23add.component';
 import { FormatNumberPipe, ToNumberPipe } from '../pipe/customFormatterPipe';
 import { Childscn8itemsComponent } from './childscn8/childscn8items/childscn8items.component';
-import { Childscn1editComponent } from './childscn1/childscn1edit/childscn1edit.component';
 import { Childscn24Component } from './childscn24/childscn24.component';
 import { Childscn25Component } from './childscn25/childscn25.component';
 import { Childscn26Component } from './childscn26/childscn26.component';
@@ -136,7 +135,6 @@ import { Childscn11page6Component } from './childscn11/childscn11page6/childscn1
     FormatNumberPipe,
     ToNumberPipe,
     Childscn8itemsComponent,
-    Childscn1editComponent,
     Childscn24Component,
     Childscn25Component,
     Childscn26Component,
