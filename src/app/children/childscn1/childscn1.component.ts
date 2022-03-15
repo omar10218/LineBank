@@ -9,7 +9,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import * as L from 'leaflet';
 import { DatePipe } from '@angular/common';
-import { Childscn1editComponent } from './childscn1edit/childscn1edit.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
@@ -514,8 +513,8 @@ export class Childscn1Component implements OnInit, OnDestroy {
         for (let index = 1; index <= this.CreditInterestPeriodSource.length; index++) {
           if (this.CreditInterestPeriodSource[index - 1].interestType == '02') {
             if (this.getSearch() != 'Y') {
-              if (!(await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject)).includes('找不到')) {
-                this.CreditInterestPeriodSource[index - 1].interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
+              if (!(await this.childscn1Service.getInterestBase('f01/childscn1action2', jsonObject)).includes('找不到')) {
+                this.CreditInterestPeriodSource[index - 1].interestBase = await this.childscn1Service.getInterestBase('f01/childscn1action2', jsonObject);
                 sessionStorage.setItem('interestBase' + index, this.CreditInterestPeriodSource[index - 1].interestBase);
               } else {
                 erroeStr = '加減碼查無利率，請通知相關人員!'
@@ -735,7 +734,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
       value.interestValue = '1';
       let jsonObject: any = {};
       jsonObject['applno'] = this.applno;
-      const baseUrl = 'f01/childscn1action3';
+      const baseUrl = 'f01/childscn1action2';
       if ((await this.childscn1Service.getInterestBase(baseUrl, jsonObject)).includes('找不到')) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: '加減碼查無利率，請通知相關人員!' }
@@ -925,32 +924,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
   }
 
   isNumber(value: any) { return /^-?[\d.]+(?:e-?\d+)?$/.test(value); }
-
-  //審核註記編輯
-  startEdit(creditaction: string, rowId: string, creditUser: string) {
-    if (creditUser == this.userId) {
-      const dialogRef = this.dialog.open(Childscn1editComponent, {
-        minHeight: '70vh',
-        width: '50%',
-        panelClass: 'mat-dialog-transparent',
-        data: {
-          creditaction: creditaction,
-          creditlevel: sessionStorage.getItem('stepName').split('t')[1],
-          applno: this.applno,
-          rowId: rowId
-        }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        this.getCreditmemo(this.pageIndex, this.pageSize);
-        this.insertHistory(result.value);
-      });
-    } else {
-      const childernDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: '請修改同User註記!' }
-      });
-      return false;
-    }
-  }
 
   //+逗號
   toCurrency(amount: string) {
@@ -1145,7 +1118,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   //取得徵審代碼  上層原因碼
   getADR_CODE() {
-    const url = 'f01/childscn1action4';
+    const url = 'f01/childscn1action3';
     let jsonObject: any = {};
     this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
       if (data.rspCode == "0000") {
@@ -1162,7 +1135,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   //取得徵審代碼   UP_CREDIT_CODE=上層原因碼
   getCREDIT(row: CREDIT_View) {
-    const url = 'f01/childscn1action4';
+    const url = 'f01/childscn1action3';
     let jsonObject: any = {};
     jsonObject['reasonCode'] = row.upCreditCode;
     this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
@@ -1182,7 +1155,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   //取已儲存 CREDIT_CODE 資料
   getCREDIT_Data() {
-    const url = 'f01/childscn1action6';
+    const url = 'f01/childscn1action5';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
@@ -1204,7 +1177,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   //儲存 CREDIT_CODE 資料  由案件完成及暫存使用
   saveCREDIT_Data() {
-    const url = 'f01/childscn1action5';
+    const url = 'f01/childscn1action4';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['rowId'] = this.CREDITrowId;
@@ -1257,7 +1230,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   //   if (this.TRADE_NON_CCOTHER_MESSAGE4 == "Z" && this.otherMessage4 == "") { save = false };
   //   if (this.TRADE_NON_PURPOSEOTHER_MESSAGE5 == "Z" && this.otherMessage5 == "") { save = false };
   //   if (save) {
-  //     const url = 'f01/childscn1action7';
+  //     const url = 'f01/childscn1action6';
   //     let jsonObject: any = {};
   //     jsonObject['applno'] = this.applno;
   //     jsonObject['mainIncome'] = this.MAIN_INCOME;
@@ -1280,7 +1253,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
   //取已儲存 CREDIT_CODE 資料
   getSUPPLY_AML() {
-    const url = 'f01/childscn1action8';
+    const url = 'f01/childscn1action7';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn1Service.getDate_Json(url, jsonObject).subscribe(data => {
@@ -1335,7 +1308,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     if (this.interestType == '02') {
-      value = await this.childscn1Service.getInterestBase('f01/childscn1action3', jsonObject);
+      value = await this.childscn1Service.getInterestBase('f01/childscn1action2', jsonObject);
     }
   }
   //Level轉換中文
