@@ -1,1 +1,59 @@
-<p>childbwscn4page5 works!</p>
+<div class="line_bank_card_no_padding">
+    <!-- 表格 -->
+    <nz-table nzShowSizeChanger [nzData]="CORE_DATASource"  [nzFrontPagination]="false" [nzSimple]="true"
+      [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
+      nzTitle="放款資料">
+      <thead>
+        <tr>
+          <th class="table-header">產品日期</th>
+          <th class="table-header">放款帳號</th>
+          <th class="table-header">第四層額度編號</th>
+          <th class="table-header">放款帳戶目前狀態</th>
+          <th class="table-header">放款帳戶合約金額</th>
+          <th class="table-header">放款帳戶目前餘額</th>
+          <th class="table-header">放款帳戶目前逾期天數</th>
+          <th class="table-header">放款帳戶目前逾期帳齡</th>
+          <th class="table-header">放款帳戶目前合約起日</th>
+          <th class="table-header">放款帳戶目前合約到期日</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of CORE_DATASource">
+          <td class="table-data">{{ data.PROD_CODE}}</td>
+          <td class="table-data">{{ data.ACC_NO }}</td>
+          <td class="table-data">{{ data.LIMIT_NO }}</td>
+          <td class="table-data">{{ data.STS_CD}}</td>
+          <td class="table-data">{{ data.RNG_VAL}}</td>
+          <td class="table-data">{{ data.INBAL_AMT}}</td>
+          <td class="table-data">{{ data.ODUEDAY_CNT}}</td>
+          <td class="table-data">{{ data.ACCT_AGE}}</td>
+          <td class="table-data">{{ data.MATST}}</td>
+          <td class="table-data">{{ data.MATDT}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+   
+  </div>
+  <div class="line_bank_card_no_padding">
+    <nz-table nzShowSizeChanger [nzData]="CORE_MAINLISTSource"  [nzFrontPagination]="false" [nzSimple]="true"
+    [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small"
+    nzTitle="消金產品">
+    <thead>
+      <tr>
+        <th class="table-header">目前本行分期信貸(餘額>0)之合約金額合計</th>
+        <th class="table-header">目前本行分期信貸之放款餘額合計</th>
+        <th class="table-header">目前本行分期信貸(有效)之額度</th>
+        <th class="table-header">目前本行分期信貸之餘額</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of CORE_MAINLISTSource">
+        <td class="table-data">{{ data.ISTM_LN_CTRT_LMT_SUM_AMT}}</td>
+        <td class="table-data">{{ data.ISTM_LN_BAL_AMT }}</td>
+        <td class="table-data">{{ data.RVVG_LN_CRDT_LINE_ACTV_AMT }}</td>
+        <td class="table-data">{{ data.RVVG_LN_BAL_AMT}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  </div>

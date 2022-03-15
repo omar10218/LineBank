@@ -259,9 +259,13 @@ export class F01010scn1Component implements OnInit {
       }
       else
       {
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: result.event }
-        })
+        if(result.event!='')
+        {
+          const childernDialogRef = this.dialog.open(ConfirmComponent, {
+            data: { msgStr: result.event }
+          })
+        }
+
       }
     });
   }
