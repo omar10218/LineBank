@@ -70,14 +70,14 @@ export class Childscn9page1Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.cuid = sessionStorage.getItem('nationalId');
-    console.log(this.cuid)
     this.search = sessionStorage.getItem('search');
     const url = 'f01/childscn9';
-    const formdata: FormData = new FormData();
-    formdata.append('applno', this.applno);
-    formdata.append('cuid', this.cuid);
-    formdata.append('code', 'CORE_CUS_INFO');
-    this.childscn9Service.getDate(url, formdata).subscribe(data => {
+    let jsonObject1: any = {};
+    const date = new Date()
+    jsonObject1['applno'] = this.applno;
+    jsonObject1['cuid'] = this.cuid;
+    jsonObject1['code'] = 'CORE_CUS_INFO';
+    this.childscn9Service.getDate(url, jsonObject1).subscribe(data => {
       if (data.rspBody.items.length > 0) {
         for (let i = 0; i < data.rspBody.items.length; i++) {
           this.dateCode.push({ value: data.rspBody.items[i].QUERYDATE, viewValue: data.rspBody.items[i].QUERYDATE })
@@ -96,7 +96,7 @@ export class Childscn9page1Component implements OnInit {
         this.cpNoCode1.push({ value: codeNo, viewValue: desc });
       }
     });
-   
+
 
 
     //取學歷
@@ -134,12 +134,12 @@ export class Childscn9page1Component implements OnInit {
   }
   //職業代碼2轉換中文
   getrole2(codeVal: string): string {
-  
+
     for (const data of this.cpNoCode2)
     {
       if (data.value == codeVal) {
         return data.viewValue;
-        
+
         break;
       }
 
@@ -148,7 +148,7 @@ export class Childscn9page1Component implements OnInit {
   }
   //職業代碼3轉換中文
   getrole3(codeVal: string): string {
-  
+
     for (const data of this.cpNoCode3) {
       if (data.value == codeVal) {
         return data.viewValue;
@@ -215,5 +215,5 @@ export class Childscn9page1Component implements OnInit {
     return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
   }
 
-  
+
 }
