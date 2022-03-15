@@ -425,6 +425,7 @@ export class F02001Component implements OnInit {
         this.quantity = data.rspBody.size;
         this.firstFlag = 2;
         this.sort = 'ascend';
+        console.log(this.newData)
       }
     })
   }
