@@ -33,6 +33,7 @@ import { Childbwscn13editComponent } from './childbwscn13/childbwscn13edit/child
 import { Childbwscn13showComponent } from './childbwscn13/childbwscn13show/childbwscn13show.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Childbwscn14Component } from './childbwscn14/childbwscn14.component';
+import { Childbwscn4page5Component } from './childbwscn4/childbwscn4page5/childbwscn4page5.component';
 // import { Childbwscn4page1Component } from '../childbwyscn4/childbwscn4page1/childbwscn4page1.component';
 
 
@@ -61,6 +62,7 @@ import { Childbwscn14Component } from './childbwscn14/childbwscn14.component';
     Childbwscn13editComponent,
     Childbwscn13showComponent,
     Childbwscn14Component,
+    Childbwscn4page5Component,
     // Childbwscn4page1Component
 
   ],
