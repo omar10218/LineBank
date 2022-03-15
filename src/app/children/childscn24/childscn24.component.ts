@@ -50,26 +50,44 @@ export class Childscn24Component implements OnInit {
   // 授信案件退回徵信
   public async confirm(): Promise<void> {
     let jsonObject: any = {};
+    let url = 'f01/childscn0action2';
     jsonObject['applno'] = this.applno;
     jsonObject['empno'] = this.empNo;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
     jsonObject['content'] = this.content;
-
     let msgStr: string = '';
+    console.log(jsonObject)
     if (this.stepName.substring(10) == 'L2') {
       this.block = true;
-      msgStr = await this.childsnc24Service.doDssBack(jsonObject);
-      this.block = false;
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
-      this.dialogRef.close({ event: 'success' });
+      // msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+      this.childsnc24Service.postJson(url, jsonObject).subscribe(data => {
+
+        if (data.rspCode === '0000' && data.rspMsg == 'success') {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: "退件完成" } });
+          setTimeout(() => {
+            this.dialog.closeAll();
+            this.dialogRef.close({ event: 'success' });
+          }, 1000);
+          this.block = false;
+
+        }
+        else {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } });
+        }
+      })
+
+      // this.block = false;
+      // const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
+      // const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
+      // this.dialogRef.close({ event: 'success' });
     }
   }
 
   // 主管案件退回徵信
   public async L0sendbackL3(): Promise<void> {
     let jsonObject: any = {};
+    let url = 'f01/childscn0action2';
     jsonObject['applno'] = this.applno;
     jsonObject['empno'] = this.empNo;
     jsonObject['level'] = this.stepName.substring(10);
@@ -79,17 +97,30 @@ export class Childscn24Component implements OnInit {
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L0') {
       this.block = true;
-      msgStr = await this.childsnc24Service.doDssBack(jsonObject);
-      this.block = false;
-      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-      this.dialogRef.close({ event: 'success' });
+      // msgStr = await this.childsnc24Service.doDssBack(jsonObject);
+      this.childsnc24Service.postJson(url, jsonObject).subscribe(data => {
+
+        if (data.rspCode === '0000' && data.rspMsg == 'success') {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: "退件完成" } });
+          setTimeout(() => {
+            this.dialog.closeAll();
+            this.dialogRef.close({ event: 'success' });
+          }, 1000);
+          this.block = false;
+
+        }
+        else {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } });
+        }
+      })
     }
   }
 
   // 主管案件退回授信
   public async L0sendbackL2(): Promise<void> {
     let jsonObject: any = {};
+    let url = 'f01/childscn0action2';
+
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['empno'] = this.empNo;
@@ -99,17 +130,29 @@ export class Childscn24Component implements OnInit {
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L0') {
       this.block = true;
-      msgStr = await this.childsnc24Service.doDssBack(jsonObject);
-      this.block = false;
-      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr:" 查無資料" } });
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-      this.dialogRef.close({ event: 'success' });
+      this.childsnc24Service.postJson(url, jsonObject).subscribe(data => {
+
+        if (data.rspCode === '0000' && data.rspMsg == 'success') {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: "退件完成" } });
+          setTimeout(() => {
+            this.dialog.closeAll();
+            this.dialogRef.close({ event: 'success' });
+          }, 1000);
+          this.block = false;
+
+        }
+        else {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } });
+        }
+      })
     }
   }
 
   // 授信覆核退回徵信
   public async L1sendbackL3(): Promise<void> {
     let jsonObject: any = {};
+    let url = 'f01/childscn0action2';
+
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L3';
@@ -118,18 +161,29 @@ export class Childscn24Component implements OnInit {
 
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L1') {
-      this.block = true;
-      msgStr = await this.childsnc24Service.doDssBack(jsonObject);
-      this.block = false;
-      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-      this.dialogRef.close({ event: 'success' });
+      this.childsnc24Service.postJson(url, jsonObject).subscribe(data => {
+
+        if (data.rspCode === '0000' && data.rspMsg == 'success') {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: "退件完成" } });
+          setTimeout(() => {
+            this.dialog.closeAll();
+            this.dialogRef.close({ event: 'success' });
+          }, 1000);
+          this.block = false;
+
+        }
+        else {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } });
+        }
+      })
     }
   }
 
   // 授信覆核退回授信
   public async L1sendbackL2(): Promise<void> {
     let jsonObject: any = {};
+    let url = 'f01/childscn0action2';
+
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.stepName.substring(10);
     jsonObject['reject'] = 'L2';
@@ -139,17 +193,29 @@ export class Childscn24Component implements OnInit {
     let msgStr: string = '';
     if (this.stepName.substring(10) == 'L1') {
       this.block = true;
-      msgStr = await this.childsnc24Service.doDssBack(jsonObject);
-      this.block = false;
-      const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-      this.dialogRef.close({ event: 'success' });
+      this.childsnc24Service.postJson(url, jsonObject).subscribe(data => {
+
+        if (data.rspCode === '0000' && data.rspMsg == 'success') {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: "退件完成" } });
+          setTimeout(() => {
+            this.dialog.closeAll();
+            this.dialogRef.close({ event: 'success' });
+          }, 1000);
+          this.block = false;
+
+        }
+        else {
+          this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } });
+        }
+      })
     }
   }
 
   // 處長&總經理退回徵信
   public async sendbackL3(): Promise<void> {
     let jsonObject: any = {};
+    let url = 'f01/childscn0action2';
+
     jsonObject['applno'] = this.applno;
     jsonObject['empno'] = this.empNo;
     jsonObject['level'] = this.level;
@@ -157,16 +223,28 @@ export class Childscn24Component implements OnInit {
     jsonObject['content'] = this.content;
     let msgStr: string = '';
     this.block = true;
-    msgStr = await this.childsnc24Service.doDssBack(jsonObject);
-    this.block = false;
-    const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
-    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-    this.dialogRef.close({ event: 'success' });
+    this.childsnc24Service.postJson(url, jsonObject).subscribe(data => {
+
+      if (data.rspCode === '0000' && data.rspMsg == 'success') {
+        this.dialog.open(ConfirmComponent, { data: { msgStr: "退件完成" } });
+        setTimeout(() => {
+          this.dialog.closeAll();
+          this.dialogRef.close({ event: 'success' });
+        }, 1000);
+        this.block = false;
+
+      }
+      else {
+        this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } });
+      }
+    })
   }
 
   // 處長&總經理退回授信
   public async sendbackL2(): Promise<void> {
     let jsonObject: any = {};
+    let url = 'f01/childscn0action2';
+
     jsonObject['applno'] = this.applno;
     jsonObject['level'] = this.level;
     jsonObject['empno'] = this.empNo;
@@ -174,24 +252,46 @@ export class Childscn24Component implements OnInit {
     jsonObject['content'] = this.content;
     let msgStr: string = '';
     this.block = true;
-    msgStr = await this.childsnc24Service.doDssBack(jsonObject);
-    this.block = false;
-    const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
-    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-    this.dialogRef.close({ event: 'success' });
+    this.childsnc24Service.postJson(url, jsonObject).subscribe(data => {
+
+      if (data.rspCode === '0000' && data.rspMsg == 'success') {
+        this.dialog.open(ConfirmComponent, { data: { msgStr: "退件完成" } });
+        setTimeout(() => {
+          this.dialog.closeAll();
+          this.dialogRef.close({ event: 'success' });
+        }, 1000);
+        this.block = false;
+
+      }
+      else {
+        this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } });
+      }
+    })
   }
   //合約主管複審退件
   public async contract(): Promise<void> {
     let jsonObject: any = {};
+    let url = 'f01/childscn0action2';
+
     jsonObject['applno'] = this.applno;
     jsonObject['empno'] = this.empNo;
     jsonObject['content'] = this.content;
     let msgStr: string = '';
     this.block = true;
-    msgStr = await this.childsnc24Service.return(jsonObject);
-    this.block = false;
-    const Dialog = this.dialog.open(ConfirmComponent, { data: { msgStr: " 查無資料" } });
-    const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-    this.dialogRef.close({ event: 'success' });
+    this.childsnc24Service.postJson(url, jsonObject).subscribe(data => {
+
+      if (data.rspCode === '0000' && data.rspMsg == 'success') {
+        this.dialog.open(ConfirmComponent, { data: { msgStr: "退件完成" } });
+        setTimeout(() => {
+          this.dialog.closeAll();
+          this.dialogRef.close({ event: 'success' });
+        }, 1000);
+        this.block = false;
+
+      }
+      else {
+        this.dialog.open(ConfirmComponent, { data: { msgStr: data.rspMsg } });
+      }
+    })
   }
 }
