@@ -4,6 +4,7 @@ import { Data } from '@angular/router';
 import { time } from 'console';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { F02001Service } from '../f02001/f02001.service';
 import { F04003Service } from './f04003.service';
 
 // Jay 案件重新指派
@@ -33,6 +34,7 @@ export class F04003Component implements OnInit {
 
   constructor(
     private f04003Service: F04003Service,
+    private f02001Service: F02001Service,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -62,6 +64,9 @@ export class F04003Component implements OnInit {
   total = 1;
   pageSize = 10;
   pageIndex = 1;
+  newData: any[] = [];
+  newsetDataSource: any;
+  onesetDataSource: any[] = [];
   Dispatch()//搜尋派件人員
   {
     this.personnelCode = [];
@@ -74,7 +79,7 @@ export class F04003Component implements OnInit {
         for (const jsonObj of data.rspBody) {
           const id = jsonObj['EMP_NO'];
           const name = jsonObj['EMP_NAME'];
-          this.personnelCode.push({ value: id, viewValue: id+name })
+          this.personnelCode.push({ value: id, viewValue: id + name })
         }
       }
       else {
@@ -86,19 +91,19 @@ export class F04003Component implements OnInit {
     })
 
   }
-  Search()
-  {
+  Search() {
     this.checkboxArray = [];
     this.setDataSource = [];
     this.TransferCode = [];
-    this.Inquire(this.pageIndex,this.pageSize)
+    this.onesetDataSource = [];
+    this.newData = [];
+    this.Inquire(this.pageIndex, this.pageSize)
   }
 
   Inquire(pageIndex: number, pageSize: number)//查詢
   {
 
-    if (this.Level != '' || this.personnel != '')
-    {
+    if (this.Level != '' || this.personnel != '') {
       this.i = 0;
       let url = 'f04/f04003action2'
       let personnelJson: any = {};
@@ -107,31 +112,33 @@ export class F04003Component implements OnInit {
       personnelJson['pageIndex'] = pageIndex;
       personnelJson['pageSize'] = pageSize;
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
-        this.total=  data.rspBody.totalPage;
-        if (data.rspBody.empList.length > 0)
-        {
-          for (const obj of data.rspBody.empList)
-           {
+
+        this.total = data.rspBody.totalPage;
+        if (data.rspBody.empList.length > 0) {
+          for (const obj of data.rspBody.empList) {
             const id = obj['EMP_NO'];
             const name = obj['EMP_NAME'];
-            this.TransferCode.push({ value: id, viewValue: id+name })
+            this.TransferCode.push({ value: id, viewValue: id + name })
           }
         }
 
-        if (data.rspBody.dataList.length > 0)
-        {
+        if (data.rspBody.dataList.length > 0) {
           for (const jsonObj of data.rspBody.dataList) {
             const id = jsonObj['empNo'];
             // const name = jsonObj.empList['empName'];
             const member = jsonObj['F_WobNum'];
             // this.TransferCode.push({ value: id, viewValue: name })
             this.setDataSource = data.rspBody.dataList;
+            for (var r of this.setDataSource) {
+              this.newsetDataSource = { bool: false, rid: r.F_WobNum, empName: r.empName, swcApplno: r.swcApplno, swcNationalId: r.swcNationalId, empNo: r.empNo, swcCompany: r.swcCompany, swcName: r.swcName }
+              this.onesetDataSource.push(this.newsetDataSource)
+            }
+            this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.onesetDataSource);
             this.checkboxArray.push({ value: member, completed: false, empNo: id })
           }
           this.i = 1;
         }
-        else
-        {
+        else {
           this.dialog.open(ConfirmComponent, {
             data: { msgStr: "查無案件" }
           });
@@ -170,17 +177,6 @@ export class F04003Component implements OnInit {
     }
   }
 
-  block(check: boolean, x: string) {
-    if (check) {
-      this.chkArray.push(x);
-
-    }
-    else {
-      this.chkArray.splice(this.chkArray.indexOf(x), 1)
-
-    }
-
-  }
   change()//轉件
   {
     if (this.Transfer == '') {
@@ -189,42 +185,47 @@ export class F04003Component implements OnInit {
       });
     }
     else {
-      for (const obj of this.checkboxArray) {
-        for (const jsonObj of this.setDataSource) {
-          if (obj.completed == true) {
-            if (obj.value == jsonObj['F_WobNum']) {
-              this.assignArray.push({
-                F_WobNum: jsonObj['F_WobNum'],
-                swcApplno: jsonObj['swcApplno'] ,
-                empNo:jsonObj['empNo'],
-                swcNationalId:jsonObj['swcNationalId']
-              })
-            }
+      // console.log(this.chkArray)
+      // console.log(this.newData)
+      for (const obj of this.chkArray)
+      {
+        for (const jsonObj of this.setDataSource)
+        {
+          if (obj == jsonObj.swcApplno) {
+            this.assignArray.push({
+              F_WobNum: jsonObj['F_WobNum'],
+              swcApplno: jsonObj['swcApplno'],
+              empNo: jsonObj['empNo'],
+              swcNationalId: jsonObj['swcNationalId']
+            })
+
           }
         }
       }
-      if(this.assignArray.length>0)
-      {
+
+      // console.log(this.assignArray)
+      if (this.assignArray.length > 0) {
         let url = 'f04/f04003action3'
         let changeJson: any = {};
         changeJson['level'] = this.Level;
         changeJson['roleNo'] = this.Transfer;
         changeJson['assign'] = this.assignArray;
-        if (this.assignArray.length > 0) {
-          this.f04003Service.Set(url, changeJson).subscribe(data => {
-            if (data.rspCode == '0000') {
-              this.Search();
-              this.assignArray=[]
-              // this.s="轉件成功";
-              this.dialog.open(ConfirmComponent, {
-                data: { msgStr: data.rspMsg }
-              });
-            }
-          })
-        }
+
+
+        this.f04003Service.Set(url, changeJson).subscribe(data => {
+          if (data.rspCode == '0000') {
+            this.Search();
+            this.assignArray = []
+            // this.s="轉件成功";
+            this.chkArray = [];
+            this.dialog.open(ConfirmComponent, {
+              data: { msgStr: data.rspMsg }
+            });
+          }
+        })
+
       }
-      else
-      {
+      else {
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "請勾選案件" }
         });
@@ -234,12 +235,10 @@ export class F04003Component implements OnInit {
     }
 
   }
-  test()
-  {
-    console.log( this.setDataSource)
+  test() {
+    console.log(this.assignArray)
   }
-  Select()
-  {
+  Select() {
     for (const obj of this.checkboxArray) {
       if (obj.empNo == this.Transfer) {
         obj.completed = false;
@@ -271,12 +270,23 @@ export class F04003Component implements OnInit {
     }
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
-    if (this.i > 0)
-     {
-      const { pageSize, pageIndex } = params;
-      this.pageSize = pageSize;
+    if (this.i > 0) {
+      const { pageIndex } = params;
+      // this.pageSize = pageSize;
       this.pageIndex = pageIndex;
-      this.Inquire(pageIndex, pageSize);
+      this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.setDataSource);
+
     }
+
+  }
+  addchkArray(check: boolean, applno: string) {
+
+    if (check) {
+      this.chkArray.push(applno)
+    }
+    else {
+      this.chkArray.splice(this.chkArray.indexOf(applno), 1)
+    }
+
   }
 }

@@ -51,7 +51,7 @@
     </div>
     <!-- <nz-table nzShowSizeChanger [nzData]="setDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="案件重新指派"
      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)"> -->
-     <nz-table nzShowSizeChanger [nzData]="setDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+     <nz-table  nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"
      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
     (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="案件重新指派">
       <thead>
@@ -68,9 +68,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of setDataSource;let i = index;">
+        <tr *ngFor="let data of newData;let i = index;">
           <td class="table-data">
-            <mat-checkbox color="primary" [(ngModel)]="checkboxArray[i].completed" [disabled]="Transfer==data.empNo? true:false"></mat-checkbox>
+            <mat-checkbox color="primary" [(ngModel)]="data.bool" (change)="addchkArray($event.checked,data.swcApplno)"  [disabled]="Transfer==data.empNo? true:false"></mat-checkbox>
           </td>
           <td class="table-data">{{ data.empNo }}</td>
           <td class="table-data">{{ data.empName }}</td>
