@@ -353,6 +353,7 @@ export class F01015Component implements OnInit {
   save() {
     let jsonObject: any = {};
     jsonObject['creditEmpno'] = this.useId
+    jsonObject['nationalId'] = this.nationalId
     jsonObject['personMainData'] = this.targetCustSource
     jsonObject['reasonCode'] = this.reasonValue //本次執行原因
     jsonObject['reasonDetail'] = this.reasonDetail //本次執行原因細項

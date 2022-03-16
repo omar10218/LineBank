@@ -129,9 +129,9 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
       else {
         this.suiManagerSource = null;
         this.total = 0;
-        const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "查無資料" }
-        })
+        // const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        //   data: { msgStr: "查無資料" }
+        // })
       }
     });
   }
