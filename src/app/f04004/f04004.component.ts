@@ -94,7 +94,7 @@ export class F04004Component implements OnInit {
 
   Inquire(pageIndex: number, pageSize: number)//查詢
   {
-
+    this.isAllCheck = false;
     if (this.Level != '' || this.personnel != '') {
       this.i = 0;
       let url = 'f04/f04004action4'
@@ -143,7 +143,7 @@ export class F04004Component implements OnInit {
 
   setAll(completed: boolean) //全選
   {
-
+    this.chkArray =[];
     if (this.Transfer == '') {
       this.isAllCheck = false;
       this.dialog.open(
@@ -152,9 +152,29 @@ export class F04004Component implements OnInit {
       });
       return;
     }
-    for (const obj of this.checkboxArray) {
-      if (obj.empNo != this.Transfer) {
-        obj.completed = completed;
+    if(completed ==true)
+    {
+      for (const obj of this.onesetDataSource)
+      {
+       if ( this.Transfer !=obj.empNo )
+       {
+         this.chkArray.push(obj.swcApplno)
+       }
+     }
+     for(var p of this.newData)
+     {
+      if ( this.Transfer !=p.empNo )
+      {
+
+        p.bool = completed;
+      }
+     }
+    }
+    else
+    {
+      for (const obj of this.newData)
+      {
+         obj.bool = completed;
       }
     }
   }
@@ -248,7 +268,26 @@ export class F04004Component implements OnInit {
       const { pageIndex } = params;
       this.pageIndex = pageIndex;
       this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.setDataSource);
-
+      if(this.chkArray.length>0)
+      {
+        for(var r of this.chkArray)
+        {
+          for( var a of this.newData)
+          {
+            if(r==a.swcApplno)
+            {
+              a.bool = true;
+            }
+          }
+        }
+      }
+      else
+      {
+        for( var a of this.newData)
+        {
+            a.bool = false;
+        }
+      }
     }
   }
   addchkArray(check: boolean, applno: string) {
