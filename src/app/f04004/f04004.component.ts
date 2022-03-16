@@ -116,7 +116,7 @@ export class F04004Component implements OnInit {
             this.TransferCode.push({ value: id, viewValue: id+name })
           }
         }
-
+        this.setDataSource = data.rspBody.dataList;
         if (data.rspBody.dataList.length > 0)
         {
           for (const jsonObj of data.rspBody.dataList) {
@@ -124,15 +124,17 @@ export class F04004Component implements OnInit {
             // const name = jsonObj.empList['empName'];
             const member = jsonObj['F_WobNum'];
             // this.TransferCode.push({ value: id, viewValue: name })
-            this.setDataSource = data.rspBody.dataList;
-            for (var r of this.setDataSource) {
-              this.newsetDataSource = { bool: false, rid: r.F_WobNum, empName: r.empName, swcApplno: r.swcApplno, swcNationalId: r.swcNationalId, empNo: r.empNo, swcCompany: r.swcCompany, swcName: r.swcName }
+
+
+              this.newsetDataSource = { bool: false, rid:jsonObj.F_WobNum, empName:jsonObj.empName, swcApplno: jsonObj.swcApplno, swcNationalId: jsonObj.swcNationalId, empNo: jsonObj.empNo, swcCompany: jsonObj.swcCompany, swcName: jsonObj.swcName }
               this.onesetDataSource.push(this.newsetDataSource)
-            }
-            this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.onesetDataSource);
+
+
 
             this.checkboxArray.push({ value: member, completed: false, empNo: id })
           }
+
+          this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.onesetDataSource);
           this.i = 1;
         }
         else
