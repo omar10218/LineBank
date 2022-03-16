@@ -10,9 +10,20 @@ import { CommonRes, Mapping, history } from './interface/base';
 })
 export class BaseService {
 
+  static userId: string;
+
+  public setUserId(value: string) {
+    BaseService.userId = value;
+  }
+
+  public getUserId(): string{
+    return BaseService.userId;
+  }
+
   constructor(protected httpClient: HttpClient) { }
 
   private async cleanSession(empNo: string, ticket: string): Promise<Observable<any>> {
+
     const formData = new FormData();
     formData.append("username", empNo);
     formData.append("ticket", ticket != null ? ticket : "");
@@ -21,7 +32,7 @@ export class BaseService {
   }
 
   public async logOutAction(): Promise<boolean> {
-    let empNo: string = this.getEmpNO();
+    let empNo: string = this.getUserId();
     let ticket: string = this.getToken();
     let isOk: boolean = false;
     await this.cleanSession(empNo, ticket).then((data: any) => {
@@ -34,10 +45,6 @@ export class BaseService {
 
   public getToken(): string {
     return localStorage.getItem('token');
-  }
-
-  public getEmpNO(): string {
-    return localStorage.getItem('empNo');
   }
 
   protected postHttpClient(baseUrl: string) {
@@ -71,13 +78,13 @@ export class BaseService {
   }
 
   protected postJsonObject(baseUrl: string, json: JSON) {
-    json['userId'] = this.getEmpNO();
+    json['userId'] = this.getUserId();
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, json);
   }
 
   //for file download
   protected postGetFile(baseUrl: string, json: JSON) {
-    json['userId'] = this.getEmpNO();
+    json['userId'] = this.getUserId();
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, json, { responseType: 'blob' as 'json' });
   }
 
@@ -132,12 +139,12 @@ export class BaseService {
 
   //Json使用
   private async saveOrEditWithJson(baseUrl: string, json: JSON) {
-    json['userId'] = this.getEmpNO();
+    json['userId'] = this.getUserId();
     return await this.postJsonObject(baseUrl, json).toPromise();
   }
 
   public async delWithJson(baseUrl: string, json: JSON) {
-    json['userId'] = this.getEmpNO();
+    json['userId'] = this.getUserId();
     return await this.postJsonObject(baseUrl, json).toPromise();
   }
 

@@ -19,9 +19,9 @@ export class MenuListService extends BaseService {
 
   public getMenuData(): Observable<any> {
     this.route.queryParams.subscribe(params => {
-      this.empNo = localStorage.getItem('empNo');
+      this.empNo = BaseService.userId;
     });
-    const baseURL = 'MenuListForLineBank?strEmpID=' + localStorage.getItem('empNo');
+    const baseURL = 'MenuListForLineBank?strEmpID=' + BaseService.userId;
     return this.postHttpClient(baseURL);
   }
 
