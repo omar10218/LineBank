@@ -102,7 +102,7 @@ export class F04003Component implements OnInit {
 
   Inquire(pageIndex: number, pageSize: number)//查詢
   {
-
+    this.isAllCheck = false;
     if (this.Level != '' || this.personnel != '') {
       this.i = 0;
       let url = 'f04/f04003action2'
@@ -112,8 +112,6 @@ export class F04003Component implements OnInit {
       personnelJson['pageIndex'] = pageIndex;
       personnelJson['pageSize'] = pageSize;
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
-        console.log('data')
-        console.log(data)
         this.total = data.rspBody.totalPage;
         if (data.rspBody.empList.length > 0) {
           for (const obj of data.rspBody.empList) {
@@ -138,8 +136,7 @@ export class F04003Component implements OnInit {
             this.checkboxArray.push({ value: member, completed: false, empNo: id })
           }
           this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.onesetDataSource);
-          console.log('newdata')
-          console.log(this.newData)
+
           this.i = 1;
         }
         else {
@@ -160,7 +157,7 @@ export class F04003Component implements OnInit {
 
   setAll(completed: boolean) //全選
   {
-
+    this.chkArray =[];
     if (this.Transfer == '') {
       this.isAllCheck = false;
       this.dialog.open(
@@ -169,9 +166,29 @@ export class F04003Component implements OnInit {
       });
       return;
     }
-    for (const obj of this.checkboxArray) {
-      if (obj.empNo != this.Transfer) {
-        obj.completed = completed;
+    if(completed ==true)
+    {
+      for (const obj of this.onesetDataSource)
+      {
+       if ( this.Transfer !=obj.empNo )
+       {
+         this.chkArray.push(obj.swcApplno)
+       }
+     }
+     for(var p of this.newData)
+     {
+      if ( this.Transfer !=p.empNo )
+      {
+
+        p.bool = completed;
+      }
+     }
+    }
+    else
+    {
+      for (const obj of this.newData)
+      {
+         obj.bool = completed;
       }
     }
   }
@@ -269,13 +286,32 @@ export class F04003Component implements OnInit {
   onQueryParamsChange(params: NzTableQueryParams): void {
     if (this.i > 0) {
       const { pageIndex } = params;
-      // this.pageSize = pageSize;
+
       this.pageIndex = pageIndex;
-      this.newData = [];
+
       this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.setDataSource);
 
+      if(this.chkArray.length>0)
+      {
+        for(var r of this.chkArray)
+        {
+          for( var a of this.newData)
+          {
+            if(r==a.swcApplno)
+            {
+              a.bool = true;
+            }
+          }
+        }
+      }
+      else
+      {
+        for( var a of this.newData)
+        {
+            a.bool = false;
+        }
+      }
     }
-
   }
   addchkArray(check: boolean, applno: string) {
 

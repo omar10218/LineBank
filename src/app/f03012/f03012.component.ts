@@ -29,11 +29,11 @@ interface checkBox {
 	styleUrls: ['./f03012.component.css', '../../assets/css/f03.css'],
 })
 
-export class F03012Component implements OnInit,AfterViewInit {
+export class F03012Component implements OnInit, AfterViewInit {
 	isAllCheck: boolean = false
 	chkArray: checkBox[] = []
 	selectedValue: string = 'default'
-	selectedValue1: string =""
+	selectedValue1: string = ""
 	total: any
 	pageSize = 10
 	pageIndex = 1
@@ -67,7 +67,7 @@ export class F03012Component implements OnInit,AfterViewInit {
 	}
 
 	ngOnInit(): void {
-		
+
 		this.getCompareTable()
 
 		// this.currentPage = {
@@ -86,9 +86,9 @@ export class F03012Component implements OnInit,AfterViewInit {
 
 	// 取得資料比對下拉項目
 	getCompareTable() {
-		this.selectedValue1=""
+		this.selectedValue1 = ""
 		this.f03012Service.getSysTypeCode('COMPARE_TABLE').subscribe(data => {
-			this.compareTableCode.push({value: '', viewValue: '請選擇' })
+			this.compareTableCode.push({ value: '', viewValue: '請選擇' })
 
 			for (const jsonObj of data.rspBody.mappingList) {
 				const codeNo = jsonObj.codeNo
@@ -107,7 +107,7 @@ export class F03012Component implements OnInit,AfterViewInit {
 	mappingCodeSource = new MatTableDataSource<any>()
 
 	ngAfterViewInit(): void {
-		this.selectedValue1=""
+		this.selectedValue1 = ""
 		this.getComePareDataSetList(this.pageIndex, this.pageSize)
 		this.paginator.page.subscribe((page: PageEvent) => {
 			this.currentPage = page
@@ -301,7 +301,7 @@ export class F03012Component implements OnInit,AfterViewInit {
 		const url = 'f03/f03012action4'
 		const formdata: FormData = new FormData()
 		formdata.append('compareTable', compareTable)
-
+		this.total = ''
 		this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
 			// msg = data.rspMsg;
 			// const items = data.rspBody.items.filter(item => item.compareType !== null && item.setValueHight !== null && item.setValueLow !== null)
@@ -384,7 +384,7 @@ export class F03012Component implements OnInit,AfterViewInit {
 			jsonObjects.push(jsonObject)
 			// obj = {};
 		}
-    console.log(jsonObjects)
+		console.log(jsonObjects)
 		this.f03012Service.submit(url, jsonObjects).subscribe(data => {
 			this.dialog.open(ConfirmComponent, {
 				data: { msgStr: data.rspMsg },
@@ -432,19 +432,16 @@ export class F03012Component implements OnInit,AfterViewInit {
 	numberOnly(i: string, id: string) {
 		var num = 0;
 		num = Number(i);
-		for(var t of this.compareDataSetSource.data)
-		{
+		for (var t of this.compareDataSetSource.data) {
 
-		  if(t.id==id)
-		  {
-		    if(num>1)
-		    {
-		      this.dialog.open(ConfirmComponent, {
-		        data: { msgStr: "最大值1" },
-		      })
-		      t.setValueLow='';
-		    }
-		  }
+			if (t.id == id) {
+				if (num > 1) {
+					this.dialog.open(ConfirmComponent, {
+						data: { msgStr: "最大值1" },
+					})
+					t.setValueLow = '';
+				}
+			}
 		}
 
 	}
@@ -454,19 +451,16 @@ export class F03012Component implements OnInit,AfterViewInit {
 		var num = 0;
 		num = Number(i);
 
-		for(var t of this.compareDataSetSource.data)
-		{
+		for (var t of this.compareDataSetSource.data) {
 
-		  if(t.id==id)
-		  {
-		    if(num>99)
-		    {
-		      this.dialog.open(ConfirmComponent, {
-		        data: { msgStr: "最大值99" },
-		      })
-		      t.setValueHight='';
-		    }
-		  }
+			if (t.id == id) {
+				if (num > 99) {
+					this.dialog.open(ConfirmComponent, {
+						data: { msgStr: "最大值99" },
+					})
+					t.setValueHight = '';
+				}
+			}
 		}
 
 
