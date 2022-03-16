@@ -12,16 +12,18 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component'
   styleUrls: ['./f03012add.component.css', '../../../assets/css/f03.css'],
 })
 export class F03012addComponent implements OnInit {
-  selectedValue1: string=""
-  selectedValue2: string=""
+  selectedValue1: string = ""
+  selectedValue2: string = ""
+  
   error: string
   myDiv: boolean //最高門檻是否啟動判斷
   //下拉
   selectedColumn: OptionsCode[] = []
   setValueHight: string
-  compareType: string=""
+  compareType: string = ""
   setValueLow: string
-
+  valueHigh: number;
+  valueLow: number;
   compareTableCode: OptionsCode[] = []
   compareColumnCode: OptionsCode[] = []
 
@@ -59,6 +61,8 @@ export class F03012addComponent implements OnInit {
     // 		})
     // 	}
     // })
+   this.valueHigh = this.convertStringToNumber(this.setValueHight);
+    this.valueLow = this.convertStringToNumber(this.setValueLow);
   }
   formControl = new FormControl('', [
     Validators.required
@@ -123,6 +127,7 @@ export class F03012addComponent implements OnInit {
   }
 
   add() {
+    
     let msg = ''
     this.submitted = true
     // if (!this.compareTableSetForm.valid) {
@@ -134,7 +139,7 @@ export class F03012addComponent implements OnInit {
     jsonObject['compareTable'] = this.selectedValue1
     jsonObject['compareColumn'] = this.selectedValue2
     jsonObject['compareType'] = this.compareType
-
+    
     if (this.compareType == '2') {
       if (Number(this.setValueLow) >= 1) {
         this.dialog.open(ConfirmComponent, {
@@ -150,15 +155,20 @@ export class F03012addComponent implements OnInit {
         });
         return;
       }
-      jsonObject['setValueLow'] = this.setValueLow != '' ? this.setValueLow.replace('.', '_') : "0";
+      jsonObject['setValueLow'] = this.setValueLow != '' ? this.setValueLow : "0";
+
     } else if (this.compareType == '1') {
       if ((this.setValueLow.includes('.'))) {
-         this.dialog.open(ConfirmComponent, {
+        this.dialog.open(ConfirmComponent, {
           data: { msgStr: "請填整數" }
         });
         return;
       }
-      else if (this.setValueHight < this.setValueLow) {
+
+      
+      else if (this.valueHigh <this.valueLow) {
+        console.log(this.valueHigh)
+        console.log(this.valueLow)
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: '設定最高門檻需大於設定最低門檻!!' }
         });
@@ -167,8 +177,9 @@ export class F03012addComponent implements OnInit {
       }
       else {
         jsonObject['setValueLow'] = this.setValueLow != '' ? this.setValueLow.replace('.', '_') : "0";
+        console.log(jsonObject['setValueLow'])
         jsonObject['setValueHight'] = this.setValueHight != '' ? this.setValueHight.replace('.', '_') : "0";
-       }
+      }
     }
 
     this.error = 'test'
@@ -222,10 +233,10 @@ export class F03012addComponent implements OnInit {
 
   }
 
-  	// 只允許輸入小數點
-	numberOnly(i:string) {
-    this.setValueLow  = i;
-    var num  = 0;
+  // 只允許輸入小數點
+  numberOnly(i: string) {
+    this.setValueLow = i;
+    var num = 0;
     num = Number(i);
     // if(num>1)
     // {
@@ -234,12 +245,11 @@ export class F03012addComponent implements OnInit {
     //     data: { msgStr: "最大值1" },
     //   })
     // }
-	}
+  }
   //最高
-  numberhingt(i:string)
-  {
-    this.setValueHight  = i;
-    var num  = 0;
+  numberhingt(i: string) {
+    this.setValueHight = i;
+    var num = 0;
     num = Number(i);
     // if(num>99)
     // {
@@ -267,5 +277,8 @@ export class F03012addComponent implements OnInit {
 
   }
 
-
+  convertStringToNumber(input: string) {
+    var numeric = Number(input);
+    return numeric;
+  }
 }

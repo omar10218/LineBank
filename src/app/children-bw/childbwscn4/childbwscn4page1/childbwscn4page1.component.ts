@@ -113,6 +113,7 @@ export class Childbwscn4page1Component implements OnInit {
     let jsonObject:any={}
     jsonObject['applno'] = this.applno;
     this.childscn9Service.getBlockingCode(jsonObject).subscribe(data=>{
+      alert('1')
       console.log(data)
       this.blockingCodeSource=data.rspBody.blockingCodeList
     })
