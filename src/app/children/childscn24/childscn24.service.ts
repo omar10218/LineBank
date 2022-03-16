@@ -13,12 +13,12 @@ export class Childscn24Service extends BaseService {
   doDssBack(jsonObject: any): any {
     const baseUrl = 'f01/childscn0action2';
     let targetUrl = `${baseUrl}`;
-    return this.saveOrEditMsgString(targetUrl, jsonObject);
+    return this.saveOrEditMsgJson(targetUrl, jsonObject);
   }
   return(jsonObject: any): any {
     const baseUrl = 'f04/f04004action1';
     let targetUrl = `${baseUrl}`;
-    return this.saveOrEditMsgString(targetUrl, jsonObject);
+    return this.saveOrEditMsgJson(targetUrl, jsonObject);
   }
   postJson(baseUrl: string,  json: JSON): Observable<any> {
     return this.postJsonObject(baseUrl, json);

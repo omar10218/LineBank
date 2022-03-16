@@ -15,7 +15,7 @@ export class F03016Service extends BaseService {
 
   update(baseUrl: string, jsonObject: any): any {
 
-    return this.saveOrEditMsgString(baseUrl, jsonObject);
+    return this.saveOrEditMsgJson(baseUrl, jsonObject);
 
   }
 }

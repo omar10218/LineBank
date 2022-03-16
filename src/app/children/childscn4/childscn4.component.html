@@ -4,7 +4,7 @@
   <!-- 最外層卡片包覆 -->
   <div class="line_bank_card_no_padding">
     <!-- 表格 -->
-    <nz-table nzShowSizeChanger [nzData]="caseStepSource" [nzFrontPagination]="false" [nzSimple]="true"
+    <nz-table nzShowSizeChanger [nzFrontPagination]="false" [nzPageSizeOptions]="true" [nzData]="newData" [nzSimple]="true"
       [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
       (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="案件歷程">
       <thead>
@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of caseStepSource;let i = index;">
+        <tr *ngFor="let data of newData;let i = index;">
           <td class="table-data">{{ i+1}}</td>
           <td class="table-data">{{ data.opId }}</td>
           <td class="table-data">{{ data.opDesc }}</td>
