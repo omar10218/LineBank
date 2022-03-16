@@ -24,7 +24,7 @@ export class F01006Service extends BaseService {
   addRestart(jsonObject: any): any {
     const baseUrl = 'f01/f01006action1';
     let targetUrl = `${baseUrl}`;
-    return this.saveOrEditMsgString(targetUrl, jsonObject);
+    return this.saveOrEditMsgJson(targetUrl, jsonObject);
   }
 
   getInterestData(jsonObject: any): any {
