@@ -153,7 +153,7 @@ export class F02002returnComponent implements OnInit {
       formdata.append('files', fileObj != null ? fileObj : new Blob);
     }
     formdata.append('jsonArray', jsonarry.toString());
-    formdata.append('userId', localStorage.getItem('empNo'));
+    formdata.append('userId', this.f02002Service.getUserId());
     formdata.append('applno', this.data.applno);
 
     this.f02002Service.setformdata(url, formdata).subscribe(data => {
@@ -200,7 +200,7 @@ export class F02002returnComponent implements OnInit {
       formdata.append('files', fileObj != null ? fileObj : new Blob);
     }
     formdata.append('jsonArray', jsonarry.toString());
-    formdata.append('userId', localStorage.getItem('empNo'));
+    formdata.append('userId', this.f02002Service.getUserId());
     formdata.append('applno', this.data.applno);
     const dialogRef = this.dialog.open(F02008return2Component, {
       minHeight: '50%',

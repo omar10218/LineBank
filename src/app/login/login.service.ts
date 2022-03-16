@@ -1,7 +1,7 @@
+import { BaseService } from 'src/app/base.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BaseService } from '../base.service';
 import { OptionsCode } from '../interface/base';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { Router } from '@angular/router';
@@ -18,6 +18,7 @@ export class LoginService extends BaseService {
     protected httpClient: HttpClient,
     private bnIdle: BnNgIdleService,
     private router: Router,
+    private baseService: BaseService
   ) { super(httpClient); }
 
   private routerGoUrl(): void {
@@ -71,6 +72,7 @@ export class LoginService extends BaseService {
         localStorage.setItem("loginKey", 'change');
         localStorage.removeItem('loginKey');
         localStorage.setItem("empNo", empNo);
+        this.baseService.setUserId(empNo);
       }
       isOk = data.rspCode == '0000';
     });
