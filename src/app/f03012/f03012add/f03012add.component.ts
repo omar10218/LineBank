@@ -14,14 +14,14 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component'
 export class F03012addComponent implements OnInit {
   selectedValue1: string = ""
   selectedValue2: string = ""
-  
+
   error: string
   myDiv: boolean //最高門檻是否啟動判斷
   //下拉
   selectedColumn: OptionsCode[] = []
-  setValueHight: string
+  setValueHight: string = ''
   compareType: string = ""
-  setValueLow: string
+  setValueLow: string = ''
   valueHigh: number;
   valueLow: number;
   compareTableCode: OptionsCode[] = []
@@ -127,7 +127,7 @@ export class F03012addComponent implements OnInit {
   }
 
   add() {
-    
+
     let msg = ''
     this.submitted = true
     // if (!this.compareTableSetForm.valid) {
@@ -139,8 +139,9 @@ export class F03012addComponent implements OnInit {
     jsonObject['compareTable'] = this.selectedValue1
     jsonObject['compareColumn'] = this.selectedValue2
     jsonObject['compareType'] = this.compareType
-    
-    if (this.compareType == '2') {
+
+    if (this.compareType == '2')
+    {
       if (Number(this.setValueLow) >= 1) {
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "不可以大於1" }
@@ -157,18 +158,16 @@ export class F03012addComponent implements OnInit {
       }
       jsonObject['setValueLow'] = this.setValueLow != '' ? this.setValueLow : "0";
 
-    } else if (this.compareType == '1') {
+    }
+    else if (this.compareType == '1')
+    {
       if ((this.setValueLow.includes('.'))) {
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "請填整數" }
         });
         return;
       }
-
-      
       else if (this.valueHigh <this.valueLow) {
-        console.log(this.valueHigh)
-        console.log(this.valueLow)
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: '設定最高門檻需大於設定最低門檻!!' }
         });
@@ -176,9 +175,8 @@ export class F03012addComponent implements OnInit {
         return
       }
       else {
-        jsonObject['setValueLow'] = this.setValueLow != '' ? this.setValueLow.replace('.', '_') : "0";
-        console.log(jsonObject['setValueLow'])
-        jsonObject['setValueHight'] = this.setValueHight != '' ? this.setValueHight.replace('.', '_') : "0";
+        jsonObject['setValueLow'] = this.setValueLow != " " && this.setValueLow != '' ? this.setValueLow.replace('.', '_') : "0";
+        jsonObject['setValueHight'] = this.setValueHight != '' && this.setValueLow != " "? this.setValueHight.replace('.', '_') : "0";
       }
     }
 
