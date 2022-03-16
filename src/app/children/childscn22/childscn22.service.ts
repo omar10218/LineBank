@@ -12,24 +12,24 @@ export class Childscn22Service extends BaseService {
   doDss1Search(jsonObject: any): any {
     const baseUrl = 'f01/childscn22action1';
     let targetUrl = `${baseUrl}`;
-    return this.saveOrEditMsgString(targetUrl, jsonObject);
+    return this.saveOrEditMsgJson(targetUrl, jsonObject);
   }
 
   doDss2Search(jsonObject: any): any {
     const baseUrl = 'f01/childscn22action2';
     let targetUrl = `${baseUrl}`;
-    return this.saveOrEditMsgString(targetUrl, jsonObject);
+    return this.saveOrEditMsgJson(targetUrl, jsonObject);
   }
 
   doDss4Search(jsonObject: any): any {
     const baseUrl = 'f01/childscn22action4';
     let targetUrl = `${baseUrl}`;
-    return this.saveOrEditMsgString(targetUrl, jsonObject);
+    return this.saveOrEditMsgJson(targetUrl, jsonObject);
   }
 
   doDss3Search(jsonObject: any): any {
     const baseUrl = 'f01/childscn22action1';
     let targetUrl = `${baseUrl}`;
-    return this.saveOrEditMsgString(targetUrl, jsonObject);
+    return this.saveOrEditMsgJson(targetUrl, jsonObject);
   }
 }

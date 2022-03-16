@@ -55,7 +55,7 @@ export class F03018Service extends BaseService {
   let targetUrl = baseUrl;
   return this.postJsonObject(targetUrl,json);
   }
-  
+
   getImpertmentParameter(jsonObject:JSON): Observable<any> {
     const baseUrl = 'f03/f03017';
     let targetUrl = `${baseUrl}`;
@@ -77,7 +77,7 @@ export class F03018Service extends BaseService {
   onesave(jsonObject: any): any {
     const baseUrl = 'f03/f03018action3';
     let targetUrl = `${baseUrl}`;
-    return this.saveOrEditMsgString(targetUrl, jsonObject);
+    return this.saveOrEditMsgJson(targetUrl, jsonObject);
   }
   postJson(baseUrl: string,  json: JSON): Observable<any> {
     return this.postJsonObject(baseUrl, json);

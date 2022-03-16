@@ -46,7 +46,7 @@ export class Childscn19Service extends BaseService {
   addSms(jsonObject: any): any {
     const baseUrl = 'f01/childscn19action6';
     let targetUrl = `${baseUrl}`;
-    return this.saveOrEditMsgString(targetUrl, jsonObject);
+    return this.saveOrEditMsgJson(targetUrl, jsonObject);
   }
   setrepair(baseUrl: string, json: JSON): Observable<any> {
     return this.postJsonObject(baseUrl, json);

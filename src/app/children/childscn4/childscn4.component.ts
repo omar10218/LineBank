@@ -23,10 +23,11 @@ export class Childscn4Component implements OnInit {
   caseStepSource: Data[] = [];
   total = 1;
   loading = true;
-  pageSize = 10;
+  pageSize = 50;
   pageIndex = 1;
 
   private applno: string;
+  newData: any[] = [];
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -45,20 +46,20 @@ export class Childscn4Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childscn4Service.getCaseStep( baseUrl, jsonObject ).subscribe(data => {
-      console.log("123")
-      console.log(data)
       this.loading = false;
       this.total = data.rspBody.size;
       this.caseStepSource = data.rspBody;
+      this.newData = this.childscn4Service.getTableDate(this.pageIndex, this.pageSize, this.caseStepSource);
     });
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
-    // this.getCaseStep(pageIndex, pageSize);
+    const { pageIndex } = params;
+    this.newData = this.childscn4Service.getTableDate(pageIndex, this.pageSize, this.caseStepSource);
   }
+
   sortChange(e: string) {
-    this.caseStepSource = e === 'ascend' ? this.caseStepSource.sort(
-      (a, b) => a.startDate.localeCompare(b.startDate)) : this.caseStepSource.sort((a, b) => b.startDate.localeCompare(a.startDate))
+    this.newData = e === 'ascend' ? this.newData.sort(
+      (a, b) => a.startDate.localeCompare(b.startDate)) : this.newData.sort((a, b) => b.newData.localeCompare(a.startDate))
   }
 }
