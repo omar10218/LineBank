@@ -47,9 +47,13 @@
       </div>
 
     </div> -->
+  </div>
+</form>
+<form [formGroup]="coreCustInfoForm">
+  <div class="line_bank_card_no_padding" style="min-height:170px">
     <div class="line_bank_form_header_title">Blocking code資訊</div>
-    <nz-table nzShowSizeChanger [nzData]="blockingCodeSource" [nzFrontPagination]="false" [nzSimple]="true"
-      nzSize="small" style="border-radius: 0px  0px  0px  0px;">
+    <nz-table nzShowSizeChanger [nzData]="blockingCodeSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
+      style="border-radius: 0px  0px  0px  0px;">
       <thead>
         <tr>
           <th class="table-header">代碼</th>
@@ -63,19 +67,14 @@
         </tr>
       </tbody>
     </nz-table>
-    <!-- <div nz-row>
-
-      <div nz-col nzFlex="1">
-        <div style="padding:10px"><span class="form-title">Blocking code資訊</span><input matInput #input
-            class="form-control" formControlName="BLOCKING_CODE" readonly></div>
-      </div>
-    </div> -->
+  
     <div nz-row>
-
+  
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="1"></div>
     </div>
+  
   </div>
 </form>
 
