@@ -122,14 +122,16 @@ export class F04003Component implements OnInit {
           }
         }
 
-        if (data.rspBody.dataList.length > 0) {
+        if (data.rspBody.dataList.length > 0)
+         {
+          this.setDataSource = data.rspBody.dataList;
           for (const jsonObj of data.rspBody.dataList)
           {
             const id = jsonObj['empNo'];
             // const name = jsonObj.empList['empName'];
             const member = jsonObj['F_WobNum'];
             // this.TransferCode.push({ value: id, viewValue: name })
-            this.setDataSource = data.rspBody.dataList;
+
             for (var r of this.setDataSource) {
               this.newsetDataSource = { bool: false, rid: r.F_WobNum, empName: r.empName, swcApplno: r.swcApplno, swcNationalId: r.swcNationalId, empNo: r.empNo, swcCompany: r.swcCompany, swcName: r.swcName }
               this.onesetDataSource.push(this.newsetDataSource)
@@ -270,6 +272,7 @@ export class F04003Component implements OnInit {
       const { pageIndex } = params;
       // this.pageSize = pageSize;
       this.pageIndex = pageIndex;
+      this.newData = [];
       this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.setDataSource);
 
     }
