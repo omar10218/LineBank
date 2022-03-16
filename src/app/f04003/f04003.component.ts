@@ -123,7 +123,8 @@ export class F04003Component implements OnInit {
         }
 
         if (data.rspBody.dataList.length > 0) {
-          for (const jsonObj of data.rspBody.dataList) {
+          for (const jsonObj of data.rspBody.dataList)
+          {
             const id = jsonObj['empNo'];
             // const name = jsonObj.empList['empName'];
             const member = jsonObj['F_WobNum'];
@@ -133,21 +134,16 @@ export class F04003Component implements OnInit {
               this.newsetDataSource = { bool: false, rid: r.F_WobNum, empName: r.empName, swcApplno: r.swcApplno, swcNationalId: r.swcNationalId, empNo: r.empNo, swcCompany: r.swcCompany, swcName: r.swcName }
               this.onesetDataSource.push(this.newsetDataSource)
             }
-            this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.onesetDataSource);
             this.checkboxArray.push({ value: member, completed: false, empNo: id })
           }
+          this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.onesetDataSource);
           this.i = 1;
         }
         else {
           this.dialog.open(ConfirmComponent, {
             data: { msgStr: "查無案件" }
           });
-          // if(this.s =='')
-          // {
 
-          // }
-
-          // this.s='';
         }
       })
     }
