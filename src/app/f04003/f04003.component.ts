@@ -112,7 +112,8 @@ export class F04003Component implements OnInit {
       personnelJson['pageIndex'] = pageIndex;
       personnelJson['pageSize'] = pageSize;
       this.f04003Service.Set(url, personnelJson).subscribe(data => {
-
+        console.log('data')
+        console.log(data)
         this.total = data.rspBody.totalPage;
         if (data.rspBody.empList.length > 0) {
           for (const obj of data.rspBody.empList) {
@@ -139,6 +140,8 @@ export class F04003Component implements OnInit {
             this.checkboxArray.push({ value: member, completed: false, empNo: id })
           }
           this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.onesetDataSource);
+          console.log('newdata')
+          console.log(this.newData)
           this.i = 1;
         }
         else {
