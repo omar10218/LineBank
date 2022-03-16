@@ -123,20 +123,18 @@ export class F04003Component implements OnInit {
           }
         }
 
-        if (data.rspBody.dataList.length > 0)
-         {
+        if (data.rspBody.dataList.length > 0) {
           this.setDataSource = data.rspBody.dataList;
-          for (const jsonObj of data.rspBody.dataList)
-          {
+          for (const jsonObj of data.rspBody.dataList) {
             const id = jsonObj['empNo'];
             // const name = jsonObj.empList['empName'];
             const member = jsonObj['F_WobNum'];
             // this.TransferCode.push({ value: id, viewValue: name })
 
-            for (var r of this.setDataSource) {
-              this.newsetDataSource = { bool: false, rid: r.F_WobNum, empName: r.empName, swcApplno: r.swcApplno, swcNationalId: r.swcNationalId, empNo: r.empNo, swcCompany: r.swcCompany, swcName: r.swcName }
-              this.onesetDataSource.push(this.newsetDataSource)
-            }
+
+            this.newsetDataSource = { bool: false, rid: jsonObj.F_WobNum, empName: jsonObj.empName, swcApplno: jsonObj.swcApplno, swcNationalId: jsonObj.swcNationalId, empNo: jsonObj.empNo, swcCompany: jsonObj.swcCompany, swcName: jsonObj.swcName }
+            this.onesetDataSource.push(this.newsetDataSource)
+
             this.checkboxArray.push({ value: member, completed: false, empNo: id })
           }
           this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.onesetDataSource);
@@ -188,10 +186,8 @@ export class F04003Component implements OnInit {
     else {
       // console.log(this.chkArray)
       // console.log(this.newData)
-      for (const obj of this.chkArray)
-      {
-        for (const jsonObj of this.setDataSource)
-        {
+      for (const obj of this.chkArray) {
+        for (const jsonObj of this.setDataSource) {
           if (obj == jsonObj.swcApplno) {
             this.assignArray.push({
               F_WobNum: jsonObj['F_WobNum'],
