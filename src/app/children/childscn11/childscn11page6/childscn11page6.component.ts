@@ -21,8 +21,11 @@ export class Childscn11page6Component implements OnInit {
 	pageSize = 10
 	pageIndex = 1
   custId: any             //客戶ID
+  applno: string;
 
   ngOnInit(): void {
+    this.applno = sessionStorage.getItem('applno');
+    console.log(this.applno)
     this.applnoData = this.data.data.rspBody;
     this.getData(this.pageIndex);
     this.check = sessionStorage.getItem('check');
@@ -67,7 +70,7 @@ export class Childscn11page6Component implements OnInit {
       sessionStorage.setItem('winClose', 'N');
       sessionStorage.setItem('search','N');
       sessionStorage.setItem('check','N');
-      sessionStorage.setItem('applno', col);
+      sessionStorage.setItem('applno', this.applno);
     // })
   }
    //取消
