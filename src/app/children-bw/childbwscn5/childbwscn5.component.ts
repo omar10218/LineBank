@@ -6,7 +6,7 @@ import { Childbwscn5Service } from '../childbwscn5/childbwscn5.service';
 @Component({
   selector: 'app-childbwscn5',
   templateUrl: './childbwscn5.component.html',
-  styleUrls: ['./childbwscn5.component.css','../../../assets/css/child.css']
+  styleUrls: ['./childbwscn5.component.css']
 })
 export class Childbwscn5Component implements OnInit {
 

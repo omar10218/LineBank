@@ -52,7 +52,7 @@ export class F03017editComponent implements OnInit {
 	currentSort: Sort
 	checked: boolean;
 	content = [];
-	
+
 	//建檔項目欄位值內容
 	checkBoxList: checkBox1[];
 
@@ -125,7 +125,7 @@ export class F03017editComponent implements OnInit {
 		this.useFlagValue=""
 		this.selectCustInfo()
 		this.route.queryParams.subscribe(params => {
-			this.no = localStorage.getItem('empNo')
+			this.no = this.f03017Service.getUserId()
 			// this.selectBlockList(this.pageIndex, this.pageSize)//一進去畫面就抓取資料表
 		})
 		//抓取資料表

@@ -58,10 +58,10 @@ export class Childscn5Component implements OnInit {
   preJobMonthValue: string;                  //前一份工作在職時長(月數)
   hiredDateCode: sysCode[] = [];           //目前工作年資下拉
   hiredDateValue: string;                  //目前工作年資
-  currJobYearCode: sysCode[] = []; 
+  currJobYearCode: sysCode[] = [];
   preJobYearCode: sysCode[] = [];       //前職工作年資(客戶填寫)
   x:string;
-  
+
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -120,11 +120,11 @@ export class Childscn5Component implements OnInit {
     'CU_M_TEL_OTHER': { 'required': '請填寫用戶名' }
   }
   ngOnInit(): void {
-    // this.companyWhitelistValue = ''; 
+    // this.companyWhitelistValue = '';
     this.search = sessionStorage.getItem('search');
     this.pag = sessionStorage.getItem('page');
     this.getBigcompany();
-    
+
 
     //取性別
     this.childscn5Service.getSysTypeCode('GENDER')
@@ -370,7 +370,7 @@ export class Childscn5Component implements OnInit {
     let jsonObject: any = {};
     content.push(
       {
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_CP_NAME_CA',
@@ -379,7 +379,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_LEVEL1_CA',
@@ -388,7 +388,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_LEVEL2_CA',
@@ -397,7 +397,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'JOB_CODE_CA',
@@ -406,7 +406,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'COMPANY_WHITELIST',
@@ -416,7 +416,7 @@ export class Childscn5Component implements OnInit {
       },
 
       {
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_M_TEL_OTHER',
@@ -425,7 +425,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CONTACT_OTHER',
@@ -434,7 +434,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_CP_TEL_EXT',
@@ -443,7 +443,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'PRV_COMP_NM',
@@ -452,7 +452,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'PRV_JOB_TITLE',
@@ -461,7 +461,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'PREV_JOB_YEAR',
@@ -471,7 +471,7 @@ export class Childscn5Component implements OnInit {
       },
       // {
       //   applno: this.applno,
-      //   userId: localStorage.getItem('empNo'),
+      //   userId: this.childscn5Service.getUserId(),
       //   tableName: 'EL_CUSTOMER_INFO',
       //   columnName: 'PRV_JOB_MONTH',
       //   originalValue: this.originalData.prvJobMonth,
@@ -483,7 +483,7 @@ export class Childscn5Component implements OnInit {
 
       {
         applno: this.applno,
-        userId: localStorage.getItem('empNo'),
+        userId: this.childscn5Service.getUserId(),
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'HIRED_DATE',
         originalValue: this.originalData.hiredDate,
@@ -492,7 +492,7 @@ export class Childscn5Component implements OnInit {
       },
       // {
       //   applno: this.applno,
-      //   userId: localStorage.getItem('empNo'),
+      //   userId: this.childscn5Service.getUserId(),
       //   tableName: 'EL_CUSTOMER_INFO',
       //   columnName: 'CURR_JOB_YEAR',
       //   originalValue: this.originalData.currJobYear,
@@ -501,7 +501,7 @@ export class Childscn5Component implements OnInit {
       // },
       // {
       //   applno: this.applno,
-      //   userId: localStorage.getItem('empNo'),
+      //   userId: this.childscn5Service.getUserId(),
       //   tableName: 'EL_CUSTOMER_INFO',
       //   columnName: 'CURR_JOB_MONTH',
       //   originalValue: this.originalData.currJobMonth,
@@ -510,7 +510,7 @@ export class Childscn5Component implements OnInit {
       // },
     )
     jsonObject['content'] = content;
-    
+
     this.childscn5Service.insertHistory(jsonObject).subscribe(data => {
       msg = data.rspMsg;
     });
@@ -538,7 +538,7 @@ export class Childscn5Component implements OnInit {
     jsonObject['hiredDate'] = this.hiredDateValue;
     // jsonObject['currJobYear'] = this.currJobYear;
     // jsonObject['currJobMonth'] = this.currJobMonth;
-   
+
 
     this.childscn5Service.update(jsonObject).subscribe(data => {
       console.log(data)
@@ -553,10 +553,10 @@ export class Childscn5Component implements OnInit {
       }
     });
     this.insertHistory()
-   
+
   }
 
- 
+
   //性別代碼轉換中文
   getGender(codeVal: string): string {
     for (const data of this.genderCode) {
@@ -579,7 +579,7 @@ export class Childscn5Component implements OnInit {
   }
   //現居裝況轉換中文
   getlivingstaus(codeVal: string): string {
-    
+
     for (const data of this.livingStatusCode) {
       if (data.value == codeVal) {
         return data.viewValue;
@@ -627,15 +627,15 @@ getcurrJobYear(codeVal: string): string {
   //   this.childscn5Service.getBigcompany(jsonObject).subscribe(data => {
   //     for (const row of data.rspBody.bigcompany) {
   //       if (row.CU_CP_TYPE1.includes(codeVal)) {
-  //       
+  //
   //         this.customerInfoForm.patchValue({ COMPANY_WHITELIST: row.CU_CP_TYPE1 })
 
   //         this.customerInfoForm.patchValue({ COMPANY_WHITELIST : this.companyWhitelistCode[codeVal]});
-          
+
   //       }
   //     }
   //   });
-  
+
   // }
   getcompanyWhitelist(codeVal: string){
     for (const row of this.companyWhitelistCode) {
@@ -645,9 +645,9 @@ getcurrJobYear(codeVal: string): string {
       }
     }
     return codeVal;
-      
-  
-  
+
+
+
   }
 
   getSearch() {
@@ -671,9 +671,9 @@ getcurrJobYear(codeVal: string): string {
     let jsonObject: any = {};
     this.applno = sessionStorage.getItem('applno');
     jsonObject['applno'] = this.applno;
-    
+
     this.childscn5Service.getBigcompany(jsonObject).subscribe(data => {
-      
+
       for (const jsonObj of data.rspBody.bigcompany) {
         const codeNo = jsonObj.CU_CP_TYPE1.split(".")[0]  ;
         const desc = jsonObj.CU_CP_TYPE1;
