@@ -16,7 +16,8 @@ export class F03012addComponent implements OnInit {
   selectedValue2: string = ""
   
   error: string
-  myDiv: boolean //最高門檻是否啟動判斷
+  low_disabled: boolean=true //最低門檻是否啟動判斷
+  hight_disabled: boolean=true //最高門檻是否啟動判斷
   //下拉
   selectedColumn: OptionsCode[] = []
   setValueHight: string
@@ -267,10 +268,12 @@ export class F03012addComponent implements OnInit {
   // 判斷比對方式來去鎖住最高門檻
   test123(a) {
     if (a == 2) {
-      return this.myDiv = true
+       this.low_disabled = false
+       this.hight_disabled = true
     }
     else {
-      return this.myDiv = false
+      this.low_disabled = false
+       this.hight_disabled = false
     }
   }
   ngAfterViewInit(): void {
