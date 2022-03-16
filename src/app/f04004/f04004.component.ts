@@ -129,12 +129,7 @@ export class F04004Component implements OnInit {
           this.dialog.open(ConfirmComponent, {
             data: { msgStr: "查無案件" }
           });
-          // if(this.s =='')
-          // {
 
-          // }
-
-          // this.s='';
         }
       })
     }
