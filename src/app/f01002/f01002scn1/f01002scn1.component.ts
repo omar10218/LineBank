@@ -178,7 +178,9 @@ export class F01002scn1Component implements OnInit, OnDestroy {
         cuid: this.cuid
       }
     });
-    this.router.navigate(['./F01002/F01002SCN1/CHILDSCN100']);
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigate(['./F01002/F01002SCN1/CHILDSCN100']);
+    });
   }
   // 退件
   sendBack() {
