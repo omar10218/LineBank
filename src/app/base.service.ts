@@ -56,20 +56,20 @@ export class BaseService {
   }
 
   protected postFormData(baseUrl: string, formdata: FormData) {
-    let newFormData : FormData = new FormData();
-    formdata.forEach((value, key) => {
-      newFormData.append(key, value);
-      if (typeof formdata.get(key) != 'object') {
-        let data = formdata.get(key);
-        if (data != null && String(data).indexOf('#') != -1) {
-          let content = String(data).replace(/#/g, '');
-          console.log(key + ' -> 有風險故replace: ' + content);
-          newFormData.delete(key);
-          newFormData.append(key, content);
-        }
-      }
-    });
-    return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, newFormData);
+    // let newFormData : FormData = new FormData();
+    // formdata.forEach((value, key) => {
+    //   newFormData.append(key, value);
+    //   if (typeof formdata.get(key) != 'object') {
+    //     let data = formdata.get(key);
+    //     if (data != null && String(data).indexOf('#') != -1) {
+    //       let content = String(data).replace(/#/g, '');
+    //       console.log(key + ' -> 有風險故replace: ' + content);
+    //       newFormData.delete(key);
+    //       newFormData.append(key, content);
+    //     }
+    //   }
+    // });
+    return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formdata);
   }
 
   public getSysTypeCode(codeType: string): Observable<Mapping> {
@@ -88,7 +88,7 @@ export class BaseService {
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, json, { responseType: 'blob' as 'json' });
   }
 
-  private test(json: JSON) {
+  private filterJsonAction(json: JSON) {
     Object.entries(json).forEach(([key, value]) => {
       if (value != null && value != '') {
         if (typeof value == 'object') {
@@ -124,7 +124,6 @@ export class BaseService {
             json[key] = String(json[key]).replace(/#/g, '');
             console.log(key + ' -> 有風險故replace: ' + json[key]);
           }
-
         }
       }
     });
