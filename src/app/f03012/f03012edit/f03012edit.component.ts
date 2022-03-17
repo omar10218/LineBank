@@ -133,6 +133,7 @@ export class F03012editComponent implements OnInit {
 		let baseUrl = 'f03/f03012action2'
 
 		if (this.compareType === '2') {
+		
 			if (Number(this.low) > 1) {
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: "不可以大於1" },
@@ -158,6 +159,7 @@ export class F03012editComponent implements OnInit {
 			this.f03012Service.resetfn();
 
 		} else if (this.compareType == '1') {
+
 			if ((this.low.includes('.'))) {
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: '請填整數!!' },
@@ -169,8 +171,22 @@ export class F03012editComponent implements OnInit {
 					data: { msgStr: '設定最高門檻需大於設定最低門檻!!' },
 				})
 				return
-			} else {
-				msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
+			}else if (this.hingt == this.low) {
+				this.dialog.open(ConfirmComponent, {
+					data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' },
+				})
+				return
+			}  else if (this.hingt ==''||this.hingt==null||this.low ==''||this.low==null) {
+				this.dialog.open(ConfirmComponent, {
+				  data: { msgStr: '欄位不可為空!!' }
+				});
+		
+				return
+			  }
+			else {
+				let updateLow=this.low!=""? this.low : "0";
+				let updateHeight=this.low!=""&&this.hingt!=""? this.hingt : "0";
+				msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, updateLow, updateHeight, this.compareType, this.oldCompareType)
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: msgStr },
 				})
@@ -253,10 +269,20 @@ export class F03012editComponent implements OnInit {
 		this.compareType = a
 
 		if (a == 2) {
+			this.low=''
+			this.hingt=''
 			return this.myDiv = true
 		}
 		else {
+			this.low=''
+			this.hingt=''
 			return this.myDiv = false
 		}
 	}
+	// test(a:string,b:string){
+	// 	a=this.low!=""? this.low : "0";
+	// 	b=this.low!=""&&this.hingt!=""? this.hingt : "0";
+	// 	console.log(a)
+	// 	console.log(b)
+	// }
 }

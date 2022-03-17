@@ -182,6 +182,13 @@ export class F03012addComponent implements OnInit {
 
         return
       }
+      else if (this.setValueHight ==''||this.setValueHight==null||this.setValueLow ==''||this.setValueLow==null) {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '欄位不可為空!!' }
+        });
+
+        return
+      }
       else {
         jsonObject['setValueLow'] = this.setValueLow != " " && this.setValueLow != '' ? this.setValueLow.replace('.', '_') : "0";
         jsonObject['setValueHight'] = this.setValueHight != '' && this.setValueLow != " "? this.setValueHight.replace('.', '_') : "0";
