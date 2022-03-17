@@ -117,8 +117,11 @@
               row.compareTable, row.compareColumn, row.compareType, row.setValueHight, row.setValueLow)">刪除</button>
 
           </td>
+      <button nz-button (click)="test123(row.setValueLow,row.setValueHight)" nzSize="'middle'" nzType="primary">test</button>
+
         </tr>
       </tbody>
+
     </nz-table>
     <div *ngIf="useFlag" style="padding:10px; text-align:center">
       <button nz-button (click)="submit()" nzSize="'middle'" nzType="primary">儲存勾選</button>

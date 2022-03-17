@@ -352,57 +352,72 @@ export class F03012Component implements OnInit, AfterViewInit {
 			jsonObject['compareTable'] = obj.compareTable
 			jsonObject['compareColumn'] = obj.compareColumn
 			jsonObject['compareType'] = obj.compareType
-			// jsonObject['setValueHight'] = obj.setValueHight
-			// jsonObject['setValueLow'] = obj.setValueLow
+
 			if (obj.compareType == '2') {
+
 				if (Number(obj.setValueLow) >= 1) {
 					this.dialog.open(ConfirmComponent, {
-					  data: { msgStr: "不可以大於1" }
+						data: { msgStr: "不可以大於1" }
 					});
-			
+
 					return;
-				  } if (!(obj.setValueLow.includes('.'))) {
+				} if (!(obj.setValueLow.includes('.'))) {
 					this.dialog.open(ConfirmComponent, {
-					  data: { msgStr: "請填小數點" }
+						data: { msgStr: "請填小數點" }
 					});
 					return;
-				  }
-				jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow: "0";
-			}
-			 else if (obj.compareType == '1') {
-				if ((obj.setValueLow.includes('.'))) {
-					this.dialog.open(ConfirmComponent, {
-						data: { msgStr: "請填整數" }
-					  });
-					  return;
 				}
-				else if (obj.setValueHight < obj.setValueLow) {
+				jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow : "0";
+			}
+			else if (obj.compareType == '1') {
+				if (obj.setValueLow != null || obj.setValueHight != null) {
+
+					if ((obj.setValueLow.includes('.'))) {
+						this.dialog.open(ConfirmComponent, {
+							data: { msgStr: "請填整數" }
+						});
+						return;
+					}
+					else if (obj.setValueHight < obj.setValueLow) {
+						this.dialog.open(ConfirmComponent, {
+							data: { msgStr: "設定最高門檻需大於設定最低門檻!!" },
+						})
+						return
+					} else if (obj.setValueHight == null || obj.setValueLow == null) {
+						this.dialog.open(ConfirmComponent, {
+							data: { msgStr: "欄位不可為空!!" },
+						})
+						return
+					}
+					else if (obj.setValueHight == obj.setValueLow) {
+						this.dialog.open(ConfirmComponent, {
+							data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' }
+						});
+
+						return
+					} else if (obj.setValueHight.length == 0 || obj.setValueLow.length == 0) {
+						this.dialog.open(ConfirmComponent, {
+							data: { msgStr: '欄位不可為空!!' }
+						});
+
+						return
+					} else {
+						jsonObject['setValueHight'] = obj.setValueHight != '' || obj.setValueLow != ''? obj.setValueHight.replace('.', '_') : "0";
+						jsonObject['setValueLow'] = obj.setValueLow != ''|| obj.setValueHight != ''  ? obj.setValueLow.replace('.', '_') : "0";
+					}
+				}else{
 					this.dialog.open(ConfirmComponent, {
-						data: { msgStr: "設定最高門檻需大於設定最低門檻!!" },
-					})
-					return
-				} else if (obj.setValueHight ==obj.setValueLow) {
-					this.dialog.open(ConfirmComponent, {
-					  data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' }
+						data: { msgStr: '欄位不可為空!!' }
 					});
-			
+
 					return
-				  }else if (obj.setValueHight ==''||obj.setValueHight==null||obj.setValueLow ==''||obj.setValueLow==null) {
-					this.dialog.open(ConfirmComponent, {
-					  data: { msgStr: '欄位不可為空!!' }
-					});
-			
-					return
-				  }else{
-					jsonObject['setValueHight'] = obj.setValueHight != '' ? obj.setValueHight : "0";
-					jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow : "0";
-				  }
+				}
 
 			}
 
 
 
-			if (obj.compareType == null || obj.setValueLow == null || obj.compareType == '' || obj.setValueLow == '') {
+			if (obj.compareType == null || obj.setValueHight == '' || obj.compareType == '' || obj.setValueLow == '') {
 
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: "有欄位為空值，儲存失敗" },
@@ -431,6 +446,7 @@ export class F03012Component implements OnInit, AfterViewInit {
 	test(option: number, value: 1): boolean {
 		return option === value
 	}
+
 	// 千分號標點符號(form顯示用)
 	data_number(p: number) {
 		this.x = '';
@@ -459,20 +475,43 @@ export class F03012Component implements OnInit, AfterViewInit {
 	toCurrency(amount: string) {
 		return amount != null ? amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
 	}
+	//檢核整數
 	numberOnly(i: string, id: string) {
 		var num = 0;
 		num = Number(i);
-		// for (var t of this.compareDataSetSource.data) {
+		for (var t of this.compareDataSetSource.data) {
 
-		// 	if (t.id == id) {
-		// 		if (num > 1) {
-		// 			this.dialog.open(ConfirmComponent, {
-		// 				data: { msgStr: "最大值1" },
-		// 			})
-		// 			t.setValueLow = '';
-		// 		}
-		// 	}
-		// }
+			if (t.id == id) {
+				if (num > 1) {
+					this.dialog.open(ConfirmComponent, {
+						data: { msgStr: "最大值1" },
+					})
+					t.setValueLow = '';
+				}
+			}
+		}
+
+	}
+
+
+	//檢核小數
+	checkPoint(i: string, id: string) {
+		var num = 0;
+		num = Number(i);
+		for (var t of this.compareDataSetSource.data) {
+			if (t.id == id) {
+				if (i.includes('.')) {
+					this.dialog.open(ConfirmComponent, {
+						data: { msgStr: "請填寫整數" },
+					})
+					t.setValueLow = '';
+				}
+			}
+		}
+	}
+
+	//檢核空白
+	checkSpace(i: string, id: string) {
 
 	}
 	//最高
@@ -494,6 +533,10 @@ export class F03012Component implements OnInit, AfterViewInit {
 		// }
 
 
+	}
+	test123(a: any, b: any) {
+		console.log(a)
+		console.log(b)
 	}
 
 }
