@@ -253,7 +253,7 @@ export class F01010Component implements OnInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == 'success') { window.location.reload(); }
+      if (msg != null && msg == 'success') {  }
     }, 1000);
   }
 

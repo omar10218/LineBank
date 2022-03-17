@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { F02001Service } from '../f02001/f02001.service';
 // Jay 複審案件查詢
 interface sysCode {
   value: string;
@@ -18,7 +19,10 @@ interface sysCode {
 
 export class F02003Component implements OnInit {
 
-  constructor(private f02003Service: F02003Service, public pipe: DatePipe, public dialog: MatDialog) { }
+  constructor(private f02003Service: F02003Service,
+     public pipe: DatePipe,
+      public dialog: MatDialog,
+      private f02001Service: F02001Service,) { }
 
   applno: string = ''; //案件編號
   nationalId: string = '';//身分證字號
@@ -39,11 +43,11 @@ export class F02003Component implements OnInit {
   firstFlag = 1;
   //test
   resultData = [];
-
-
+  order: string;
+  sortArry = ['ascend', 'descend']
   quantity: number;
-
-
+  sor: string;
+  newData: any[] = [];
   ngOnInit(): void {
     this.quantity = 0;
     this.review();
@@ -148,6 +152,7 @@ export class F02003Component implements OnInit {
     }
     this.f02003Service.inquiry(url,jsonObject).subscribe(data=>{
 
+      console.log(data)
       if(data.rspBody.size == 0)
       {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
@@ -156,6 +161,7 @@ export class F02003Component implements OnInit {
       else
       {
         this.resultData = data.rspBody.item
+        this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.resultData);
         this.quantity = data.rspBody.size
         this.total=data.rspBody.size
         this.firstFlag = 2;
@@ -175,7 +181,9 @@ export class F02003Component implements OnInit {
     this.apply_TIME = null;
     this.credit_TIME = null;
     this.resultData = [];
-
+    this.newData = [];
+    this.order = '';
+    this.sor = '';
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
      // 判斷是否為第一次進頁面
@@ -185,7 +193,8 @@ export class F02003Component implements OnInit {
         if (this.firstFlag != 1) {
         // const { pageSize, pageIndex } = params;
         this.pageIndex = pageIndex;
-        this.search(pageIndex, pageSize);}
+        this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.resultData);
+        }
         }
       }
   review() {
@@ -313,9 +322,25 @@ export class F02003Component implements OnInit {
     }
 
   }
-  sortChange(e: string) {
-    this.resultData = e === 'ascend' ? this.resultData.sort(
-      (a, b) => a.START_TIME.localeCompare(b.START_TIME)) : this.resultData.sort((a, b) => b.START_TIME.localeCompare(a.START_TIME))
+  sortChange(e: string, param: string) {
+
+    switch (param) {
+      case "APPLNO":
+        if (e === 'ascend') {
+          this.order = param;
+          this.sor = 'DESC';
+        }
+        else {
+          this.order = param;
+          this.sor = '';
+        }
+        this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLNO.localeCompare(b.APPLNO))
+        : this.resultData.sort((a,b) => b.APPLNO.localeCompare(a.APPLNO));
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
+        break;
+    }
+    // this.resultData = e === 'ascend' ? this.resultData.sort(
+    //   (a, b) => a.START_TIME.localeCompare(b.START_TIME)) : this.resultData.sort((a, b) => b.START_TIME.localeCompare(a.START_TIME))
 
   }
 }

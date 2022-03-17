@@ -91,6 +91,8 @@ export class F04003Component implements OnInit {
     })
 
   }
+
+  //查詢
   Search() {
     this.checkboxArray = [];
     this.setDataSource = [];
@@ -168,29 +170,15 @@ export class F04003Component implements OnInit {
     }
     if(completed ==true)
     {
-      for (const obj of this.onesetDataSource)
+      for (const obj of this.newData)
       {
        if ( this.Transfer !=obj.empNo )
        {
          this.chkArray.push(obj.swcApplno)
+         obj.bool = completed;
        }
      }
-     for(var p of this.newData)
-     {
-      if ( this.Transfer !=p.empNo )
-      {
-
-        p.bool = completed;
-      }
      }
-    }
-    else
-    {
-      for (const obj of this.newData)
-      {
-         obj.bool = completed;
-      }
-    }
   }
 
   change()//轉件
@@ -252,6 +240,8 @@ export class F04003Component implements OnInit {
   test() {
     console.log(this.assignArray)
   }
+
+
   Select() {
     for (const obj of this.checkboxArray) {
       if (obj.empNo == this.Transfer) {
@@ -283,36 +273,29 @@ export class F04003Component implements OnInit {
       return "S1 總經理"
     }
   }
+
+  //分頁
   onQueryParamsChange(params: NzTableQueryParams): void {
     if (this.i > 0) {
+      this.chkArray = [];
+      this.isAllCheck = false;
       const { pageIndex } = params;
 
       this.pageIndex = pageIndex;
-
-      this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.setDataSource);
-
-      if(this.chkArray.length>0)
+      for (const obj of this.newData)
       {
-        for(var r of this.chkArray)
-        {
-          for( var a of this.newData)
-          {
-            if(r==a.swcApplno)
-            {
-              a.bool = true;
-            }
-          }
-        }
-      }
-      else
-      {
-        for( var a of this.newData)
-        {
-            a.bool = false;
-        }
-      }
+       if ( this.Transfer !=obj.empNo )
+       {
+         obj.bool = false;
+       }
+     }
+
+      this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.onesetDataSource);
+
     }
   }
+
+  //checkbox勾選
   addchkArray(check: boolean, applno: string) {
 
     if (check) {

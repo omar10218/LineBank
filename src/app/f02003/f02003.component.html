@@ -69,15 +69,15 @@
     </div>
     <!-- 表格 -->
   </div>
-  <div class="line_bank_card_no_padding">
+  <div  class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{quantity}}件)</div>
-    <nz-table nzShowSizeChanger [nzData]="resultData" [nzFrontPagination]="false" [nzSimple]="true"
-      [nzScroll]="{ x: '2400px', y: '240px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
+    <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"
+      [nzScroll]="{ x: '2400px', y: '480px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
       [nzPageIndex]="pageIndex"    (nzQueryParams)="onQueryParamsChange($event)">
       <thead>
         <tr>
           <th nzLeft nzWidth="2%">序號</th>
-          <th nzLeft nzWidth="5%" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true"  [nzSortOrder]="'ascend'">案件編號</th>
+          <th nzLeft nzWidth="5%" (nzSortOrderChange)="sortChange($event,'APPLYEND_TIME')" [nzSortFn]="true"  [nzSortOrder]="'ascend'">案件編號</th>
           <th nzWidth="5%" >身分證字號</th>
           <th nzWidth="5%">客戶ＩＤ</th>
           <th nzWidth="5%">客戶姓名</th>
@@ -92,7 +92,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of resultData; let i = index ">
+        <tr *ngFor="let data of newData; let i = index ">
           <!--序號-->
           <td nzLeft>{{i+1}}</td>
           <!--案件編號-->

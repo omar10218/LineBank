@@ -271,7 +271,7 @@ export class Childscn24Component implements OnInit {
   //合約主管複審退件
   public async contract(): Promise<void> {
     let jsonObject: any = {};
-    let url = 'f01/childscn0action2';
+    let url = 'f01/f01008scn0action3';
 
     jsonObject['applno'] = this.applno;
     jsonObject['empno'] = this.empNo;
@@ -279,7 +279,6 @@ export class Childscn24Component implements OnInit {
     let msgStr: string = '';
     this.block = true;
     this.childsnc24Service.postJson(url, jsonObject).subscribe(data => {
-
       if (data.rspCode === '0000' && data.rspMsg == 'success') {
         this.dialog.open(ConfirmComponent, { data: { msgStr: "退件完成" } });
         setTimeout(() => {
