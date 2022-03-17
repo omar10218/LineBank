@@ -84,8 +84,9 @@ export class MenuListComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit() {
     if (this.menuListService.getUserId() == null || this.menuListService.getUserId() == '') {
-      let element: HTMLElement = document.getElementById('logoutBtn') as HTMLElement;
-      element.click();
+      this.router.navigate(['./logOut']).then(async () => {
+        window.location.reload();
+      });
     }
   }
 

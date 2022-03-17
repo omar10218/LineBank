@@ -10,7 +10,7 @@ import { CommonRes, Mapping, history } from './interface/base';
 })
 export class BaseService {
 
-  static userId: string;
+  static userId: string = localStorage.getItem("empNo");
 
   public setUserId(value: string) {
     BaseService.userId = value;

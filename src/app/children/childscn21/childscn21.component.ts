@@ -106,39 +106,4 @@ export class Childscn21Component implements OnInit {
       //   const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
     }
   }
-
-  // test 20220216
-  public async test(): Promise<void> {
-    let jsonObject: any = {};
-    jsonObject['applno'] = this.applno;
-    jsonObject['empno'] = this.empNo;
-    let msgStr: string = '';
-    this.block = true;
-    if (this.stepName == 'APPLCreditL3') {
-      msgStr = await this.childsnc22Service.doDss3Search(jsonObject);
-      this.block = false;
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-      setTimeout(() => {
-        this.dialog.closeAll();
-      }, 2000);
-      window.location.reload();
-    } else if (this.stepName == 'APPLCreditL2') {
-      msgStr = await this.childsnc22Service.doDss2Search(jsonObject);
-      this.block = false;
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-      setTimeout(() => {
-        this.dialog.closeAll();
-      }, 2000);
-      window.location.reload();
-    }
-    else if (this.stepName == 'BwCredit1') {
-      msgStr = await this.childsnc22Service.doDss4Search(jsonObject);
-      this.block = false;
-      const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msgStr } });
-      setTimeout(() => {
-        this.dialog.closeAll();
-      }, 2000);
-      window.location.reload();
-    }
-  }
 }
