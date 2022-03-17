@@ -168,9 +168,16 @@ export class F03012addComponent implements OnInit {
         });
         return;
       }
-      else if (this.valueHigh <this.valueLow) {
+      else if (this.setValueHight <this.setValueLow) {
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: '設定最高門檻需大於設定最低門檻!!' }
+        });
+
+        return
+      }
+      else if (this.setValueHight ==this.setValueLow) {
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' }
         });
 
         return

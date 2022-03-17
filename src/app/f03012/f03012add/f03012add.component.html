@@ -2,7 +2,7 @@
   <div class="line_bank_form_header_title">資料比對設定維護--新增</div>
   <form class="mat-dialog-content" #formControl="ngForm">
 
-    <div style="margin:10px" >
+    <div style="margin:10px">
       <div nz-row>
         <div nz-col nzSpan="12">
           <div style="padding:10px">
@@ -13,7 +13,8 @@
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="formControl.invalid && (selectedValue1=='' || selectedValue1== null)">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (selectedValue1=='' || selectedValue1== null)">
+              {{getErrorMessage()}}</mat-error>
           </div>
         </div>
         <div nz-col nzSpan="12">
@@ -25,7 +26,8 @@
                 {{code.viewValue}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="formControl.invalid  && (selectedValue2=='' || selectedValue2== null)">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid  && (selectedValue2=='' || selectedValue2== null)">
+              {{getErrorMessage()}}</mat-error>
           </div>
         </div>
       </div>
@@ -38,24 +40,34 @@
               <mat-option [value]=1>絕對值</mat-option>
               <mat-option [value]=2>相對值</mat-option>
             </mat-select>
-            <mat-error *ngIf="formControl.invalid && (compareType=='' || compareType== null)">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="formControl.invalid && (compareType=='' || compareType== null)">{{getErrorMessage()}}
+            </mat-error>
             <!-- <input formControlName="compareType" matInput [(ngModel)]="compareType"> -->
           </div>
         </div>
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">設定最低門檻</span>
-              <input  [(ngModel)]="setValueLow" placeholder="請輸入數字"  name="setValueLow" (keyup)="numberOnly(setValueLow)"  onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" [disabled]="low_disabled">
-
-            <mat-error *ngIf="formControl.invalid && (setValueLow=='' || setValueLow== null)">{{getErrorMessage()}}</mat-error>
+            <input [(ngModel)]="setValueLow" placeholder="請輸入數字" name="setValueLow" (keyup)="numberOnly(setValueLow)"
+              onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" [disabled]="low_disabled">
+            <div *ngIf="compareType=='1'||compareType=='2'">
+              <mat-error *ngIf="formControl.invalid && (setValueLow=='' || setValueLow== null)">{{getErrorMessage()}}
+              </mat-error>
+            </div>
           </div>
         </div>
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">設定最高高檻</span>
-              <input   type="text" placeholder="請輸入數字"  onkeyup="value=value.replace(/\D/g,'')" (keyup)="numberhingt(setValueHight)"  [(ngModel)]="setValueHight"    name="setValueHight"  [disabled]="hight_disabled" >
+            <input type="text" placeholder="請輸入數字" onkeyup="value=value.replace(/\D/g,'')"
+              (keyup)="numberhingt(setValueHight)" [(ngModel)]="setValueHight" name="setValueHight"
+              [disabled]="hight_disabled">
+            <div *ngIf="compareType=='1'">
 
-            <mat-error *ngIf="formControl.invalid && (setValueHight=='' || setValueHight== null)">{{getErrorMessage()}}</mat-error>
+              <mat-error *ngIf="formControl.invalid && (setValueHight=='' || setValueHight== null)">
+                {{getErrorMessage()}}
+              </mat-error>
+            </div>
           </div>
         </div>
 
