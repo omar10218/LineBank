@@ -49,7 +49,7 @@ export class Childscn22Component implements OnInit {
       setTimeout(() => {
         this.dialog.closeAll();
       }, 2000);
-      window.location.reload();
+      // window.location.reload();
     } else if (this.stepName == 'APPLCreditL2') {
       msgStr = await this.childsnc22Service.doDss2Search(jsonObject);
       this.block = false;
