@@ -76,8 +76,7 @@ export class F01008scn1Component implements OnInit {
     });
     this.block = true;
     dialogRef.afterClosed().subscribe(result => {
-      if (result != 'undefined' && result != undefined && result.value!=null)
-      {
+      if (result != 'undefined' && result != undefined && result.value != null) {
         if (this.level == 'D2') {
           this.afterResult = sessionStorage.getItem('afterResult');
           if (this.afterResult != '' && this.afterResult != 'null') {
@@ -87,26 +86,22 @@ export class F01008scn1Component implements OnInit {
             jsonObject['custId'] = this.custId;
             jsonObject['afterResult'] = this.afterResult;
             this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
-              if (data.rspCode === '0000')
-              {
+              if (data.rspCode === '0000') {
                 const childernDialogRef = this.dialog.open(ConfirmComponent, {
                   data: { msgStr: data.rspMsg }
                 })
-                if (data.rspMsg.includes('處理案件異常'))
-                 {
+                if (data.rspMsg.includes('處理案件異常')) {
 
-                 }
-                 else if(data.rspMsg.includes('該案客戶已取消'))
-                 {
-                   setTimeout(() => {
-                     childernDialogRef.close();
-                   }, 1000);
-                   setTimeout(() => {
-                     this.router.navigate(['./F01008']);
-                   }, 1500);
-                 }
-                 else
-                  {
+                }
+                else if (data.rspMsg.includes('該案客戶已取消')) {
+                  setTimeout(() => {
+                    childernDialogRef.close();
+                  }, 1000);
+                  setTimeout(() => {
+                    this.router.navigate(['./F01008']);
+                  }, 1500);
+                }
+                else {
                   setTimeout(() => {
                     childernDialogRef.close();
                   }, 1000);
@@ -115,8 +110,7 @@ export class F01008scn1Component implements OnInit {
                   }, 1500);
                 }
               }
-              else
-              {
+              else {
                 const childernDialogRef = this.dialog.open(ConfirmComponent, {
                   data: { msgStr: data.rspMsg }
 
@@ -162,8 +156,7 @@ export class F01008scn1Component implements OnInit {
                   }, 1500);
                 }
               }
-              else
-              {
+              else {
                 const childernDialogRef = this.dialog.open(ConfirmComponent, {
                   data: { msgStr: data.rspMsg }
 
@@ -189,8 +182,7 @@ export class F01008scn1Component implements OnInit {
         }
         this.block = false;
       }
-      else
-      {
+      else {
         this.block = false;
       }
     })
@@ -242,7 +234,10 @@ export class F01008scn1Component implements OnInit {
           let childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: data.rspMsg }
           });
-          window.location.reload();
+          let currentUrl = this.router.url;
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([currentUrl]);
+          });
         })
       }
     })

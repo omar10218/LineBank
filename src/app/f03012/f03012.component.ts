@@ -203,7 +203,6 @@ export class F03012Component implements OnInit, AfterViewInit {
 
 		setTimeout(() => {
 			const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } })
-			window.location.reload()
 		}, 1500)
 	}
 
@@ -359,7 +358,7 @@ export class F03012Component implements OnInit, AfterViewInit {
 					this.dialog.open(ConfirmComponent, {
 					  data: { msgStr: "不可以大於1" }
 					});
-			
+
 					return;
 				  } if (!(obj.setValueLow.includes('.'))) {
 					this.dialog.open(ConfirmComponent, {
@@ -385,13 +384,13 @@ export class F03012Component implements OnInit, AfterViewInit {
 					this.dialog.open(ConfirmComponent, {
 					  data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' }
 					});
-			
+
 					return
 				  }else if (obj.setValueHight ==''||obj.setValueHight==null||obj.setValueLow ==''||obj.setValueLow==null) {
 					this.dialog.open(ConfirmComponent, {
 					  data: { msgStr: '欄位不可為空!!' }
 					});
-			
+
 					return
 				  }else{
 					jsonObject['setValueHight'] = obj.setValueHight != '' ? obj.setValueHight : "0";

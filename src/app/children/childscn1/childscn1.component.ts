@@ -62,13 +62,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
         this.saveCREDIT_Data();
       }
     });
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.ngOnInit();
-        // when onSameUrlNavigation: 'reload'，會重新觸發 router event
-      }
-    });
   }
 
   CREDITSource$: Subscription;
