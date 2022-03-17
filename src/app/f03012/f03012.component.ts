@@ -59,7 +59,8 @@ export class F03012Component implements OnInit, AfterViewInit {
 	compareItems = [] //物件陣列
 	useFlag: boolean //用來控制元件是否顯示於頁面
 	isEdit: boolean = true
-	setValueLow
+	setValueLow:number
+	setValueHight:number
 	constructor(private f03012Service: F03012Service, public dialog: MatDialog, private alert: NzAlertModule) {
 		this.addreset$ = this.f03012Service.addreset$.subscribe((data) => {
 			this.getComePareDataSetList(this.pageIndex, this.pageSize);
@@ -356,7 +357,7 @@ export class F03012Component implements OnInit, AfterViewInit {
 
 				if (Number(obj.setValueLow) >= 1) {
 					this.dialog.open(ConfirmComponent, {
-						data: { msgStr: "不可以大於1" }
+						data: { msgStr: "「相對值」不可以大於1" }
 					});
 
 					return;
@@ -369,44 +370,47 @@ export class F03012Component implements OnInit, AfterViewInit {
 				jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow : "0";
 			}
 			else if (obj.compareType == '1') {
-				if (obj.setValueLow != null || obj.setValueHight != null) {
-
+				if (Number(obj.setValueLow) != null || Number(obj.setValueHight) != null) {
 					if ((obj.setValueLow.includes('.'))) {
 						this.dialog.open(ConfirmComponent, {
 							data: { msgStr: "請填整數" }
 						});
 						return;
 					}
-					else if (obj.setValueHight < obj.setValueLow) {
+					else if (Number(obj.setValueHight) < Number(obj.setValueLow)) {
+
 						this.dialog.open(ConfirmComponent, {
-							data: { msgStr: "設定最高門檻需大於設定最低門檻!!" },
+							data: { msgStr: "「絕對值」設定最高門檻需大於設定最低門檻!!" },
 						})
 						return
-					} else if (obj.setValueHight == null || obj.setValueLow == null) {
+					} else if (Number(obj.setValueHight) == null || Number(obj.setValueLow) == null) {
+
 						this.dialog.open(ConfirmComponent, {
-							data: { msgStr: "欄位不可為空!!" },
+							data: { msgStr: "「絕對值」欄位不可為空!!" },
 						})
 						return
 					}
-					else if (obj.setValueHight == obj.setValueLow) {
+					else if (Number(obj.setValueHight) == Number(obj.setValueLow)) {
+
 						this.dialog.open(ConfirmComponent, {
-							data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' }
+							data: { msgStr: '「絕對值」設定最高門檻不能等於設定最低門檻!!' }
 						});
 
 						return
 					} else if (obj.setValueHight.length == 0 || obj.setValueLow.length == 0) {
+
 						this.dialog.open(ConfirmComponent, {
-							data: { msgStr: '欄位不可為空!!' }
+							data: { msgStr: '「絕對值」欄位不可為空!!' }
 						});
 
 						return
 					} else {
-						jsonObject['setValueHight'] = obj.setValueHight != '' || obj.setValueLow != ''? obj.setValueHight.replace('.', '_') : "0";
-						jsonObject['setValueLow'] = obj.setValueLow != ''|| obj.setValueHight != ''  ? obj.setValueLow.replace('.', '_') : "0";
+						jsonObject['setValueHight'] = obj.setValueHight != '' || obj.setValueLow != '' ? obj.setValueHight.replace('.', '_') : "0";
+						jsonObject['setValueLow'] = obj.setValueLow != '' || obj.setValueHight != '' ? obj.setValueLow.replace('.', '_') : "0";
 					}
-				}else{
+				} else {
 					this.dialog.open(ConfirmComponent, {
-						data: { msgStr: '欄位不可為空!!' }
+						data: { msgStr: '「絕對值」欄位不可為空!!' }
 					});
 
 					return

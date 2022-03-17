@@ -166,12 +166,12 @@ export class F03012editComponent implements OnInit {
 				})
 
 				return;
-			} else if (this.hingt < this.low) {
+			} else if (Number(this.hingt) < Number(this.low)) {
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: '設定最高門檻需大於設定最低門檻!!' },
 				})
 				return
-			}else if (this.hingt == this.low) {
+			}else if (Number(this.hingt) == Number(this.low)) {
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' },
 				})

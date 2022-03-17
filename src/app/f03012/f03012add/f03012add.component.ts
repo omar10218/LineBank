@@ -161,37 +161,40 @@ export class F03012addComponent implements OnInit {
 
     }
     else if (this.compareType == '1')
-    {
-      if ((this.setValueLow.includes('.'))) {
-        this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "請填整數" }
-        });
-        return;
-      }
-      else if (this.setValueHight <this.setValueLow) {
-        this.dialog.open(ConfirmComponent, {
-          data: { msgStr: '設定最高門檻需大於設定最低門檻!!' }
-        });
+    if (this.setValueLow.length != 0 || this.setValueHight .length != 0){
 
-        return
-      }
-      else if (this.setValueHight ==this.setValueLow) {
-        this.dialog.open(ConfirmComponent, {
-          data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' }
-        });
-
-        return
-      }
-      else if (this.setValueHight ==''||this.setValueHight==null||this.setValueLow ==''||this.setValueLow==null) {
-        this.dialog.open(ConfirmComponent, {
-          data: { msgStr: '欄位不可為空!!' }
-        });
-
-        return
-      }
-      else {
-        jsonObject['setValueLow'] = this.setValueLow != " " && this.setValueLow != '' ? this.setValueLow.replace('.', '_') : "0";
-        jsonObject['setValueHight'] = this.setValueHight != '' && this.setValueLow != " "? this.setValueHight.replace('.', '_') : "0";
+      {
+        if ((this.setValueLow.includes('.'))) {
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: "請填整數" }
+          });
+          return;
+        }
+        else if (Number(this.setValueHight) <Number(this.setValueLow)) {
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '設定最高門檻需大於設定最低門檻!!' }
+          });
+  
+          return
+        }
+        else if (Number(this.setValueHight) ==Number(this.setValueLow)) {
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' }
+          });
+  
+          return
+        }
+        else if (this.setValueHight ==''||Number(this.setValueHight)==null||this.setValueLow ==''||Number(this.setValueLow)==null||this.setValueLow.length==0||this.setValueHight.length==0) {
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '欄位不可為空!!' }
+          });
+  
+          return
+        }
+        else {
+          jsonObject['setValueLow'] = this.setValueLow != " " && this.setValueLow != '' ? this.setValueLow : "0";
+          jsonObject['setValueHight'] = this.setValueHight != '' && this.setValueLow != " "? this.setValueHight : "0";
+        }
       }
     }
 
@@ -295,5 +298,9 @@ export class F03012addComponent implements OnInit {
   convertStringToNumber(input: string) {
     var numeric = Number(input);
     return numeric;
+  }
+  test(){
+    console.log(this.setValueHight)
+    console.log(this.setValueLow)
   }
 }
