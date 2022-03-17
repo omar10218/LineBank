@@ -115,7 +115,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
   }
 
   test() {
-    this.block = true;
+    this.router.navigate(['./F01002/F01002SCN1/CHILDSCN1']);
   }
 
   ngOnDestroy() {

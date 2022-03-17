@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { OptionsCode } from './../../interface/base';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Childscn1Service } from './childscn1.service';
-import { Data } from '@angular/router';
+import { Data, NavigationEnd, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
@@ -48,6 +48,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
     private childscn1Service: Childscn1Service,
     public dialog: MatDialog,
     private pipe: DatePipe,
+    private router: Router,
     private f01002scn1Service: F01002Scn1Service,
     private f01003scn1Service: F01003Scn1Service,
     private f01004scn1Service: F01004Scn1Service,
@@ -75,7 +76,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   cuCName: string;                              //姓名
   custId: string;                               //客戶ID
   nationalId: string;                           //身分證
-  contentList: string;                          //客戶註記名單
+  custContent: string;                          //客戶註記名單
   page: string         //頁面
   //客戶身分名單註記(待確認)
   prodCode: string;                             //申請產品
@@ -419,7 +420,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
         }
         sessionStorage.setItem('caApplicationAmount', this.toNumber(this.caApplicationAmount));
         this.purposeCode = data.rspBody.CreditAuditinfoList[0].purposeCode;
-        this.contentList = data.rspBody.CreditAuditinfoList[0].contentList;
+        this.custContent = data.rspBody.CreditAuditinfoList[0].custContent;
       }
 
       //AML

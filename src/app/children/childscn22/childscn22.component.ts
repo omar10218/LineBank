@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn22Service } from './childscn22.service';
@@ -14,7 +15,8 @@ export class Childscn22Component implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<Childscn22Component>,
     public dialog: MatDialog,
-    private childsnc22Service: Childscn22Service
+    private childsnc22Service: Childscn22Service,
+    private router: Router,
   ) { }
 
   applno: string;     // 案件編號
@@ -49,7 +51,10 @@ export class Childscn22Component implements OnInit {
       setTimeout(() => {
         this.dialog.closeAll();
       }, 2000);
-      window.location.reload();
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate([currentUrl]);
+      });
     } else if (this.stepName == 'APPLCreditL2') {
       msgStr = await this.childsnc22Service.doDss2Search(jsonObject);
       this.block = false;
@@ -57,7 +62,10 @@ export class Childscn22Component implements OnInit {
       setTimeout(() => {
         this.dialog.closeAll();
       }, 2000);
-      window.location.reload();
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate([currentUrl]);
+      });
     }
     else if (this.stepName == 'BwCredit1') {
       msgStr = await this.childsnc22Service.doDss4Search(jsonObject);
@@ -66,7 +74,10 @@ export class Childscn22Component implements OnInit {
       setTimeout(() => {
         this.dialog.closeAll();
       }, 2000);
-      window.location.reload();
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate([currentUrl]);
+      });
     }
   }
 }

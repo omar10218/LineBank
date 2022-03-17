@@ -203,7 +203,6 @@ export class F03012Component implements OnInit, AfterViewInit {
 
 		setTimeout(() => {
 			const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } })
-			window.location.reload()
 		}, 1500)
 	}
 

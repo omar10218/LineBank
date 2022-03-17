@@ -5,6 +5,7 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { F01006Service } from '../f01006.service';
 import { F01006Component } from '../f01006.component';
+import { Router } from '@angular/router';
 
 //20210928 alvin.lee 案件申覆
 
@@ -34,6 +35,7 @@ export class F01006restartComponent implements OnInit {
     public dialog: MatDialog,
     private f01006Service: F01006Service,
     public dialogRef: MatDialogRef<F01006restartComponent>,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
@@ -82,7 +84,10 @@ export class F01006restartComponent implements OnInit {
       });
       setTimeout(() => {
         this.dialog.closeAll();
-        window.location.reload();
+        let currentUrl = this.router.url;
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([currentUrl]);
+        });
       }, 2500);
     }
   }
