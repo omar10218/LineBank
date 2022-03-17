@@ -21,6 +21,7 @@
           <th class="table-header" style="text-align: center;">停用日期</th>
           <th class="table-header" style="text-align: center;">循環別</th>
           <th class="table-header" style="text-align: center;">是否可撤銷</th>
+          <th class="table-header" style="text-align: center;">是否已解凍</th>
           <th class="table-header" style="text-align: center;">案件編號</th>
           <th class="table-header" style="text-align: center;">專案代碼</th>
         </tr>
@@ -42,6 +43,7 @@
           <td class="table-data">{{ row.stopDate | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
           <td class="table-data">{{ row.cycleType }}</td>
           <td class="table-data">{{ row.cancelFlag }}</td>
+          <td class="table-data">{{ row.unfrozenFlag }}</td>
           <td class="table-data" [nzWidth]="'160px'">{{ row.applnoOld }}</td>
           <td class="table-data">{{ row.projectCode }}</td>
         </tr>
