@@ -48,7 +48,7 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">設定最低門檻</span>
-            <input [(ngModel)]="setValueLow" placeholder="請輸入數字" name="setValueLow" (keyup)="numberOnly(setValueLow)"
+            <input [(ngModel)]="setValueLow" maxlength="10" placeholder="請輸入數字" name="setValueLow" (keyup)="numberOnly(setValueLow)"
               onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" [disabled]="low_disabled">
             <div *ngIf="compareType=='1'||compareType=='2'">
               <mat-error *ngIf="formControl.invalid && (setValueLow=='' || setValueLow== null)">{{getErrorMessage()}}
@@ -59,7 +59,7 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">設定最高高檻</span>
-            <input type="text" placeholder="請輸入數字" onkeyup="value=value.replace(/\D/g,'')"
+            <input type="text" placeholder="請輸入數字" maxlength="10" onkeyup="value=value.replace(/\D/g,'')"
               (keyup)="numberhingt(setValueHight)" [(ngModel)]="setValueHight" name="setValueHight"
               [disabled]="hight_disabled">
             <div *ngIf="compareType=='1'">

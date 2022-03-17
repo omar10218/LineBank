@@ -37,13 +37,13 @@
     <div nz-col nzSpan="8">
       <div style="padding:10px">
         <span class="form-title">設定最低門檻</span>
-        <input type="text" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" (keyup)="numberOnly(low)"  [(ngModel)]="low" name="low"  required>
+        <input type="text" maxlength="10" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" (keyup)="numberOnly(low)"  [(ngModel)]="low" name="low"  required>
       </div>
     </div>
     <div nz-col nzSpan="8">
       <div style="padding:10px">
         <span class="form-title">設定最高高檻</span>
-        <input type="text" [disabled]="myDiv" onkeyup="value=value.replace(/\D/g,'')" (keyup)="numberhingt(hingt)"  [(ngModel)]="hingt" name="hingt"  required>
+        <input type="text" maxlength="10" [disabled]="myDiv" onkeyup="value=value.replace(/\D/g,'')" (keyup)="numberhingt(hingt)"  [(ngModel)]="hingt" name="hingt"  required>
 
       </div>
     </div>

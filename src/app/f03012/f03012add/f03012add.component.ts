@@ -143,7 +143,7 @@ export class F03012addComponent implements OnInit {
 
     if (this.compareType == '2')
     {
-      if (Number(this.setValueLow) >= 1) {
+      if (Number(this.setValueLow) > 1) {
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "不可以大於1" }
         });
