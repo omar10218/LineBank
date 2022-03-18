@@ -10,6 +10,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { environment } from 'src/environments/environment';
 import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { BaseService } from 'src/app/base.service';
 
 //Jay 歷史資料
 
@@ -48,7 +49,7 @@ export class Childscn16Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.nationalId = sessionStorage.getItem('nationalId');
     this.custId = sessionStorage.getItem('custId');
-    this.initial(this.pageIndex,this.pageSize);
+    this.initial(this.pageIndex, this.pageSize);
 
   }
   ngAfterViewInit() {
@@ -80,16 +81,24 @@ export class Childscn16Component implements OnInit {
       sessionStorage.setItem('applno', id);
       sessionStorage.setItem('nationalId', this.nationalId);
       sessionStorage.setItem('custId', this.custId);
-      sessionStorage.setItem('search','Y');
+      sessionStorage.setItem('search', 'Y');
       sessionStorage.setItem('queryDate', '');
       sessionStorage.setItem('winClose', 'Y');
 
+      sessionStorage.setItem('searchUserId', BaseService.userId);
+      sessionStorage.setItem('searchEmpName', BaseService.empName);
+      sessionStorage.setItem('searchEmpId', BaseService.empId);
+
       //開啟徵審主畫面
       const url = window.location.href.split("/#");
-      window.open( url[0] + "/#/F01002/F01002SCN1");
+      window.open(url[0] + "/#/F01002/F01002SCN1");
       sessionStorage.setItem('winClose', 'N');
-      sessionStorage.setItem('search','N');
+      sessionStorage.setItem('search', 'N');
       sessionStorage.setItem('applno', this.applno);
+
+      sessionStorage.removeItem('searchUserId');
+      sessionStorage.removeItem('searchEmpName');
+      sessionStorage.removeItem('searchEmpId');
     })
   }
   initial(pageIndex: number, pageSize: number)//初始查詢
@@ -113,10 +122,8 @@ export class Childscn16Component implements OnInit {
     this.ruleParamCondition = e === 'ascend' ? this.ruleParamCondition.sort(
       (a, b) => a.applnoOld.localeCompare(b.applnoOld)) : this.ruleParamCondition.sort((a, b) => b.applnoOld.localeCompare(a.applnoOld))
   }
-  limit()
-  {
-    for(const item of this.ruleParamCondition)
-    {
+  limit() {
+    for (const item of this.ruleParamCondition) {
       item.income = item.income != undefined ? (item.income + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.income;
       item.applicationAmount = item.applicationAmount != undefined ? (item.applicationAmount + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.applicationAmount;
       item.approveAmt = item.approveAmt != undefined ? (item.approveAmt + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',') : item.approveAmt;

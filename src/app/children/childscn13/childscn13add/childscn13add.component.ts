@@ -9,7 +9,7 @@ import { Childscn13Service } from '../childscn13.service';
 @Component({
   selector: 'app-childscn13add',
   templateUrl: './childscn13add.component.html',
-  styleUrls: ['./childscn13add.component.css','../../../../assets/css/child.css']
+  styleUrls: ['./childscn13add.component.css', '../../../../assets/css/child.css']
 })
 export class Childscn13addComponent implements OnInit {
 
@@ -48,22 +48,31 @@ export class Childscn13addComponent implements OnInit {
 
   getErrorMessage() {
     return this.formControl.hasError('required') ? '此欄位必填!' :
-    this.formControl.hasError('email') ? 'Not a valid email' :
-    '';
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
   }
 
   changeSelect() {
+
+    sessionStorage.setItem('searchUserId', BaseService.userId);
+    sessionStorage.setItem('searchEmpName', BaseService.empName);
+    sessionStorage.setItem('searchEmpId', BaseService.empId);
+
     this.webAddrUrl = this.webAddrValue.split('=')[1];
     window.open(this.webAddrUrl, "_blank");
+
+    sessionStorage.removeItem('searchUserId');
+    sessionStorage.removeItem('searchEmpName');
+    sessionStorage.removeItem('searchEmpId');
   }
 
   onAddImage(event: any) {
     if (this.files != null) {
       var mimeType = this.files.type;
-		  if (mimeType.match(/image\/*/) == null) {
-			  this.msg = "檔案非圖片類型!";
+      if (mimeType.match(/image\/*/) == null) {
+        this.msg = "檔案非圖片類型!";
         this.imageSrc = '';
-		  } else {
+      } else {
         this.msg = '';
         const reader = new FileReader();
         reader.readAsDataURL(this.files);
@@ -76,17 +85,17 @@ export class Childscn13addComponent implements OnInit {
     if (this.files != null) {
       var mimeType = this.files.type;
       if (mimeType.match(/image\/*/) == null) {
-			  this.msg = "檔案非圖片類型!";
+        this.msg = "檔案非圖片類型!";
       } else {
         const formdata = new FormData();
-        let urlStr: string = this.webAddrUrl.replace('://','你').replace(/\./g,'我').replace(/\//g,'他').replace(':','它').replace('?','問').replace('!','驚').replace(/=/g,'等');
+        let urlStr: string = this.webAddrUrl.replace('://', '你').replace(/\./g, '我').replace(/\//g, '他').replace(':', '它').replace('?', '問').replace('!', '驚').replace(/=/g, '等');
         formdata.append('applno', this.data.applno);
         formdata.append('web', this.webAddrValue.split('=')[0]);
         formdata.append('webAddr', urlStr);
         formdata.append('messageContent', this.webInfoContent);
         formdata.append('empno', BaseService.userId);
         formdata.append('file', this.files);
-        formdata.append('userId',BaseService.userId );
+        formdata.append('userId', BaseService.userId);
         const baseUrl = 'f01/childscn13action1';
         let msgStr: string = "";
         let codeStr: string = "";
@@ -97,16 +106,16 @@ export class Childscn13addComponent implements OnInit {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msgStr }
         });
-        if (msgStr === '新增成功' && codeStr === '0000') { this.dialogRef.close({ event:'success' }); }
+        if (msgStr === '新增成功' && codeStr === '0000') { this.dialogRef.close({ event: 'success' }); }
       }
     } else {
-      this.msg ='請至少選擇1個圖檔!';
+      this.msg = '請至少選擇1個圖檔!';
     }
   }
 
-    //關閉
-    onNoClick(): void {
-      this.dialogRef.close();
-    }
+  //關閉
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }

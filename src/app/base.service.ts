@@ -10,7 +10,7 @@ import { CommonRes, Mapping, history } from './interface/base';
 })
 export class BaseService {
 
-  static userId: string = localStorage.getItem('empNo'); //登入者員編
+  static userId: string; //登入者員編
   static empName: string; //登入者姓名
   static empId: string; //登入者身分證
 

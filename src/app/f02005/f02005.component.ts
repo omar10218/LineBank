@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { BaseService } from '../base.service';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F02005Service } from './f02005.service';
 
@@ -475,11 +476,20 @@ export class F02005Component implements OnInit {
         // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
         sessionStorage.setItem('page', '0');
         sessionStorage.setItem('stepName', '0');
+
+        sessionStorage.setItem('searchUserId',BaseService.userId);
+        sessionStorage.setItem('searchEmpName',BaseService.empName);
+        sessionStorage.setItem('searchEmpId',BaseService.empId);
+
         //開啟徵審主畫面
         const url = window.location.href.split("/#");
         window.open(url[0] + "/#/F01002/F01002SCN1");
         sessionStorage.setItem('winClose', 'N');
         sessionStorage.setItem('search', 'N');
+
+        sessionStorage.removeItem('searchUserId');
+        sessionStorage.removeItem('searchEmpName');
+        sessionStorage.removeItem('searchEmpId');
       } else {
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查詢案件紀錄異常" }

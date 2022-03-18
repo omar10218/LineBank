@@ -33,7 +33,7 @@ export class F01015Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   levelNo: any; //層級
-  limitTypeCode: sysCode[]=[]; //額度類別
+  limitTypeCode: sysCode[] = []; //額度類別
   YNCode: OptionsCode[] = []; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
@@ -61,7 +61,7 @@ export class F01015Component implements OnInit {
   mobile: string//行動電話
   executeValue: string = '';//執行措施策略值
   reasonValue: string = ''//執行原因值
-  reasonDetail: string= '' //執行細項值
+  reasonDetail: string = '' //執行細項值
   limitNo: string = ''//額度號值
   contact: string = ''//通知方式值
   contactContent: string//通知內容值
@@ -178,8 +178,8 @@ export class F01015Component implements OnInit {
         }
         else {
           console.log(data)
-          this.nationalId=data.rspBody.nationalId
-          this.custId=data.rspBody.items[0].customerId
+          this.nationalId = data.rspBody.nationalId
+          this.custId = data.rspBody.items[0].customerId
           this.targetCustSource = data.rspBody.items
           this.creditMainSource = data.rspBody.creditMainlist
           this.targetCustSource.sort((a, b) => {
@@ -436,19 +436,27 @@ export class F01015Component implements OnInit {
     // this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
 
 
-      sessionStorage.setItem('applno', col);
-      // sessionStorage.setItem('nationalId', this.cuid);
-      sessionStorage.setItem('custId', this.custId);
-      sessionStorage.setItem('search','Y');
-      sessionStorage.setItem('queryDate', '');
-      sessionStorage.setItem('winClose', 'Y');
+    sessionStorage.setItem('applno', col);
+    // sessionStorage.setItem('nationalId', this.cuid);
+    sessionStorage.setItem('custId', this.custId);
+    sessionStorage.setItem('search', 'Y');
+    sessionStorage.setItem('queryDate', '');
+    sessionStorage.setItem('winClose', 'Y');
+
+    sessionStorage.setItem('searchUserId', BaseService.userId);
+    sessionStorage.setItem('searchEmpName', BaseService.empName);
+    sessionStorage.setItem('searchEmpId', BaseService.empId);
 
     //   //開啟徵審主畫面
-      const url = window.location.href.split("/#");
-      window.open( url[0] + "/#/F01002/F01002SCN1");
-      sessionStorage.setItem('winClose', 'N');
-      sessionStorage.setItem('search','N');
-      sessionStorage.setItem('applno', col);
+    const url = window.location.href.split("/#");
+    window.open(url[0] + "/#/F01002/F01002SCN1");
+    sessionStorage.setItem('winClose', 'N');
+    sessionStorage.setItem('search', 'N');
+    sessionStorage.setItem('applno', col);
+
+    sessionStorage.removeItem('searchUserId');
+    sessionStorage.removeItem('searchEmpName');
+    sessionStorage.removeItem('searchEmpId');
     // })
   }
   //透過案編跳轉至複審
@@ -465,9 +473,9 @@ export class F01015Component implements OnInit {
 
   //額度號轉換中文
   limitTypeChange(string: string) {
-  //  this.limitTypeCode.forEach(element=>
-  //   element.value==string
-  //   )
+    //  this.limitTypeCode.forEach(element=>
+    //   element.value==string
+    //   )
 
     for (let row of this.limitTypeCode) {
       if (row.value == string) {

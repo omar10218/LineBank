@@ -573,6 +573,7 @@ export class Childscn23Component implements OnInit {
     // jsonObject['applno'] = '20210827E000';
     // jsonObject['dssType'] = "Dss1";
     if (this.getPage() == '2') {
+      jsonObject['dssType'] = '1';
       jsonObject['unsdebtAmt501Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_501EX_B);
       jsonObject['unsdebtAmt504Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_504EX_B);
       jsonObject['unsdebtAmtnew505Ex'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMTNEW_505EX_B);
@@ -588,6 +589,7 @@ export class Childscn23Component implements OnInit {
       jsonObject['mthpayKrm048'] = this.save_data_number(this.fmData_B.data[0].mthpay_KRM048_B);
       jsonObject['mthpayNonjcic'] = this.save_data_number2(this.fmData_B.data[0].mthpay_NONJCIC_B);
     } else if (this.getPage() == '3') {
+      jsonObject['dssType'] = '2';
       jsonObject['unsdebtAmt501Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_501EX_C);
       jsonObject['unsdebtAmt504Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMT_504EX_C);
       jsonObject['unsdebtAmtnew505Ex_C'] = this.save_data_number(this.fmData_B.data[0].unsdebt_AMTNEW_505EX_C);

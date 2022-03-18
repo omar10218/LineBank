@@ -6,6 +6,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { BaseService } from 'src/app/base.service';
 
 @Component({
   selector: 'app-childbwscn6',
@@ -70,12 +71,21 @@ export class Childbwscn6Component implements OnInit {
     sessionStorage.setItem('search', 'Y');
     sessionStorage.setItem('queryDate', '');
     sessionStorage.setItem('winClose', 'Y');
+
+    sessionStorage.setItem('searchUserId', BaseService.userId);
+    sessionStorage.setItem('searchEmpName', BaseService.empName);
+    sessionStorage.setItem('searchEmpId', BaseService.empId);
+
     //開啟徵審主畫面
     const url = window.location.href.split("/#");
     window.open(url[0] + "/#/F01009/F01009SCN1");
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');
     sessionStorage.setItem('applno', this.applno);
+
+    sessionStorage.removeItem('searchUserId');
+    sessionStorage.removeItem('searchEmpName');
+    sessionStorage.removeItem('searchEmpId');
     // const url = this.router.serializeUrl(
     //   this.router.createUrlTree(["./F01009/F01009SCN1"])
     // );

@@ -879,11 +879,6 @@ export class Childscn1Component implements OnInit, OnDestroy {
     sessionStorage.setItem('interestBase' + value.seq, value.interestBase != '' ? value.interestBase : '');
   }
 
-  open() {
-    const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/MAP");
-  }
-
   change(value: any, valueName: string, index: string) {
     if (valueName == 'resultLowestPayRate') {
       if (value.includes(".")) {
