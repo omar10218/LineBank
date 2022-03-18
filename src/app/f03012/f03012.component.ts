@@ -12,6 +12,7 @@ import { F03012editComponent } from './f03012edit/f03012edit.component'
 import { NzTableQueryParams } from 'ng-zorro-antd/table'
 import { NzAlertModule } from 'ng-zorro-antd/alert'
 import { Subscription } from 'rxjs'
+import { Router } from '@angular/router'
 
 interface checkBox {
 	id: number
@@ -61,7 +62,7 @@ export class F03012Component implements OnInit, AfterViewInit {
 	isEdit: boolean = true
 	setValueLow: number
 	setValueHight: number
-	constructor(private f03012Service: F03012Service, public dialog: MatDialog, private alert: NzAlertModule) {
+	constructor(private f03012Service: F03012Service, public dialog: MatDialog, private alert: NzAlertModule, private router: Router) {
 		this.addreset$ = this.f03012Service.addreset$.subscribe((data) => {
 			this.getComePareDataSetList(this.pageIndex, this.pageSize);
 		});
@@ -443,10 +444,11 @@ export class F03012Component implements OnInit, AfterViewInit {
 					data: { msgStr: "有欄位為空值，儲存失敗" },
 				})
 
-				return false
+				return 
+			}else{
+
+				jsonObjects.push(jsonObject)
 			}
-			jsonObjects.push(jsonObject)
-			// obj = {};
 		}
 		console.log(jsonObjects)
 		this.f03012Service.submit(url, jsonObjects).subscribe(data => {
@@ -454,7 +456,11 @@ export class F03012Component implements OnInit, AfterViewInit {
 				data: { msgStr: data.rspMsg },
 			})
 			this.changePage()
-			this.getComePareDataSetList(this.pageIndex, this.pageSize)
+			let currentUrl = this.router.url;
+			this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+			  this.router.navigate([currentUrl]);
+			});
+			// this.getComePareDataSetList(this.pageIndex, this.pageSize)
 		})
 	}
 	changePage() {
