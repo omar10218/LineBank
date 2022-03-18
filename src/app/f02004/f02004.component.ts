@@ -148,19 +148,14 @@ export class F02004Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params)
-    if (this.loanAccount == '' && this.drFlag == '') {
-    return
-    }
-    else {
+  
       if(this.i>0)
       {
         const { pageSize, pageIndex } = params
       
         this.getDrCreditMainData( pageIndex, pageSize);
-        alert('123')
       }
-    }
+    
   }
 
 
