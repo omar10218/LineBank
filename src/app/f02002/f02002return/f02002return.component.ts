@@ -182,7 +182,6 @@ export class F02002returnComponent implements OnInit {
     const formdata = new FormData();
     // console.log(this.F02002Data.length);
     let jsonarry: string[] = []
-    console.log(this.target)
     if(this.target == undefined)
     {
       this.dialog.open(ConfirmComponent, {
