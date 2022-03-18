@@ -247,33 +247,22 @@ export class F02002returnComponent implements OnInit {
   // @ViewChild('test') myInputVariable: ElementRef;
   block(rid: string, re: string) {
 
-
-    if (this.blockList.length == 0) {
+    console.log(this.blockList.length)
+    console.log(this.blockList)
+    console.log(this.fileList)
+    console.log(this.blockList.indexOf(rid), 1)
+    if (this.blockList.indexOf(rid) == -1)
+    {
       this.blockList.push(rid)
-    } else {
-      this.blockList.splice(this.blockList.indexOf(rid), 1)
-      // this.fileList.slice(this.fileList.indexOf('rid'))
-      if (this.blockList.indexOf(rid) == -1) {
-        if(re!='') {
-          this.blockList.push(rid)
-        } else {
-          // this.target.files[0].name==="";
-          // this.myInputVariable.nativeElement.value = "";
-          this.fileList = this.fileList.filter(c => c.value != rid);
-        }
-        //
-      }
-      // else {
-      //   console.log('3');
-      //   // this.blockList.splice(this.blockList.indexOf(rid), 1)
-      // }
     }
 
-    if (this.blockList.length == 0) {
-      this.bool = false;
-    }
-    else if (this.blockList.length != this.fileList.length){
+
+    if (this.blockList.length != this.fileList.length){
       this.bool = true;
+    }
+    else
+    {
+      this.bool = false;
     }
     // console.log(this.blockList.length)
     // console.log(this.fileList.length)
