@@ -165,7 +165,7 @@ export class F03012addComponent implements OnInit {
         });
         return;
       } else {
-        if (this.setValueLow.length < 4) {
+        if (this.setValueLow.length < 5) {
           jsonObject['setValueLow'] = this.setValueLow != '' ? Number(this.setValueLow).toString() : "0";
         }else{
 
