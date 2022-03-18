@@ -39,15 +39,6 @@
           </mat-select>
         </div>
       </div>
-      <div nz-col nzFlex="0.5">
-        <div style="padding:10px"><span class="form-title">審核結果</span>
-          <mat-select [(ngModel)]="credit" name="credit">
-            <mat-option *ngFor="let item of creditArry" [value]="item.value">
-              {{item.viewValue}}
-            </mat-option>
-          </mat-select>
-        </div>
-      </div>
       <div nz-col nzFlex="0.8">
         <div style="padding:10px"><span class="form-title">進件日期</span>
           <nz-range-picker [(ngModel)]="apply_TIME" name="apply_TIME"
@@ -84,7 +75,6 @@
           <th nzWidth="5%">覆審人員</th>
           <th nzWidth="5%">覆審主管</th>
           <th nzWidth="5%">進件類型</th>
-          <th nzWidth="5%">審核結果</th>
           <th nzWidth="5%">系統狀態</th>
           <th nzWidth="5%">進件日期時間</th>
           <th nzWidth="5%">核決日期</th>
@@ -109,8 +99,6 @@
           <td>{{data.L3EMPNO}}</td>
           <!--進件類型-->
           <td>{{data.INPUT_TYPE}}</td>
-          <!--審核結果-->
-          <td>{{data.CREDIT_RESULT}}</td>
           <!--系統狀態-->
           <td>{{data.OP_DESC}}</td>
           <!--進件日期時間-->
