@@ -147,7 +147,13 @@ export class F03012editComponent implements OnInit {
 				})
 				return;
 			}
-			msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
+			if(this.low.trim()==''){
+				this.dialog.open(ConfirmComponent, {
+					data: { msgStr: "欄位不可為空" },
+				})
+				return;
+			}
+			msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, Number(this.low).toString(), Number(this.hingt).toString(), this.compareType, this.oldCompareType)
 
 
 			this.dialog.open(ConfirmComponent, {
@@ -171,7 +177,13 @@ export class F03012editComponent implements OnInit {
 					data: { msgStr: '設定最高門檻需大於設定最低門檻!!' },
 				})
 				return
-			}else if (Number(this.hingt) == Number(this.low)) {
+			} else if (this.hingt.trim()==''||this.low.trim()=='') {
+				this.dialog.open(ConfirmComponent, {
+					data: { msgStr: '設定最高門檻需大於設定最低門檻!!' },
+				})
+				return
+			}
+			else if (Number(this.hingt) == Number(this.low)) {
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' },
 				})
@@ -184,8 +196,8 @@ export class F03012editComponent implements OnInit {
 				return
 			  }
 			else {
-				let updateLow=this.low!=""? this.low : "0";
-				let updateHeight=this.low!=""&&this.hingt!=""? this.hingt : "0";
+				let updateLow=this.low!=""? Number(this.low).toString() : "0";
+				let updateHeight=this.low!=""&&this.hingt!=""? Number(this.hingt).toString() : "0";
 				msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, updateLow, updateHeight, this.compareType, this.oldCompareType)
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: msgStr },

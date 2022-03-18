@@ -157,7 +157,13 @@ export class F03012addComponent implements OnInit {
         });
         return;
       }
-      jsonObject['setValueLow'] = this.setValueLow != '' ? this.setValueLow : "0";
+      if(this.setValueLow.trim()==''){
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "欄位不可為空" }
+        });
+        return;
+      }
+      jsonObject['setValueLow'] = this.setValueLow != '' ? Number(this.setValueLow).toString() : "0";
 
     }
     else if (this.compareType == '1')
@@ -184,6 +190,13 @@ export class F03012addComponent implements OnInit {
   
           return
         }
+        else if (this.setValueHight.trim()==''||this.setValueLow.trim()=='') {
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '欄位不可為空!!' }
+          });
+  
+          return
+        }
         else if (this.setValueHight ==''||Number(this.setValueHight)==null||this.setValueLow ==''||Number(this.setValueLow)==null||this.setValueLow.length==0||this.setValueHight.length==0) {
           this.dialog.open(ConfirmComponent, {
             data: { msgStr: '欄位不可為空!!' }
@@ -192,8 +205,8 @@ export class F03012addComponent implements OnInit {
           return
         }
         else {
-          jsonObject['setValueLow'] = this.setValueLow != " " && this.setValueLow != '' ? this.setValueLow : "0";
-          jsonObject['setValueHight'] = this.setValueHight != '' && this.setValueLow != " "? this.setValueHight : "0";
+          jsonObject['setValueLow'] = this.setValueLow != " " && this.setValueLow != '' ? Number(this.setValueLow).toString() : "0";
+          jsonObject['setValueHight'] = this.setValueHight != '' && this.setValueLow != " "? Number(this.setValueHight).toString() : "0";
         }
       }
     }

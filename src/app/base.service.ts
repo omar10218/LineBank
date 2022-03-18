@@ -68,16 +68,18 @@ export class BaseService {
   protected postFormData(baseUrl: string, formdata: FormData) {
     // let newFormData : FormData = new FormData();
     // formdata.forEach((value, key) => {
-    //   newFormData.append(key, value);
-    //   if (typeof formdata.get(key) != 'object') {
-    //     let data = formdata.get(key);
-    //     if (data != null && String(data).indexOf('#') != -1) {
-    //       let content = String(data).replace(/#/g, '');
-    //       console.log(key + ' -> 有風險故replace: ' + content);
-    //       newFormData.delete(key);
-    //       newFormData.append(key, content);
+    //   if (typeof formdata.get(key) == 'string') {
+    //     let dataValue: string = String(formdata.get(key));
+    //     if (dataValue != null && dataValue.length > 0 && dataValue != 'undefined') {
+    //       dataValue = this.unsafeCharToSpace(dataValue, '－');
+    //       dataValue = this.unsafeCharToSpace(dataValue, '＂');
+    //       dataValue = this.unsafeCharToSpace(dataValue, '＇');
+    //       dataValue = this.unsafeCharToSpace(dataValue, '-');
+    //       dataValue = this.unsafeCharToSpace(dataValue, '"');
+    //       dataValue = this.unsafeCharToSpace(dataValue, '\'');
     //     }
-    //   }
+    //     newFormData.append(key, dataValue);
+    //   } else { newFormData.append(key, value); }
     // });
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formdata);
   }
@@ -109,36 +111,52 @@ export class BaseService {
             console.log('=================================content start ====================================');
             let obj = content[key];
             console.log('content: ' + key + ' - ' + obj);
+            console.log(typeof obj);
             if (typeof obj == 'object') {
               for (key in obj) {
                 if (obj[key] != null && obj[key] != '') {
                   console.log('obj: ' + key + ' - ' + obj[key]);
-                  if (String(obj[key]).indexOf('#') != -1) {
-                    obj[key] = String(obj[key]).replace(/#/g, '');
-                    console.log(key + ' -> 有風險故replace: ' + obj[key]);
-                  }
+                  obj[key] = this.unsafeCharToSpace(String(obj[key]), '－');
+                  obj[key] = this.unsafeCharToSpace(String(obj[key]), '＂');
+                  obj[key] = this.unsafeCharToSpace(String(obj[key]), '＇');
+                  obj[key] = this.unsafeCharToSpace(String(obj[key]), '-');
+                  obj[key] = this.unsafeCharToSpace(String(obj[key]), '"');
+                  obj[key] = this.unsafeCharToSpace(String(obj[key]), '\'');
                 }
               }
-            } else {
-              if (String(obj).indexOf('#') != -1) {
-                content[key] = obj.replace(/#/g, '');
-                console.log(key + ' -> 有風險故replace: ' + content[key]);
-              }
+            } else if (typeof obj == 'string' && obj.length > 0) {
+              content[key] = this.unsafeCharToSpace(String(content[key]), '－');
+              content[key] = this.unsafeCharToSpace(String(content[key]), '＂');
+              content[key] = this.unsafeCharToSpace(String(content[key]), '＇');
+              content[key] = this.unsafeCharToSpace(String(content[key]), '-');
+              content[key] = this.unsafeCharToSpace(String(content[key]), '"');
+              content[key] = this.unsafeCharToSpace(String(content[key]), '\'');
             }
             console.log('=================================content end ====================================');
           }
           console.log('=================================object end ====================================');
         } else {
           console.log(key + ' - ' + value);
-          if (String(json[key]).indexOf('#') != -1) {
-            json[key] = String(json[key]).replace(/#/g, '');
-            console.log(key + ' -> 有風險故replace: ' + json[key]);
-          }
+          json[key] = this.unsafeCharToSpace(String(json[key]), '－');
+          json[key] = this.unsafeCharToSpace(String(json[key]), '＂');
+          json[key] = this.unsafeCharToSpace(String(json[key]), '＇');
+          json[key] = this.unsafeCharToSpace(String(json[key]), '-');
+          json[key] = this.unsafeCharToSpace(String(json[key]), '"');
+          json[key] = this.unsafeCharToSpace(String(json[key]), '\'');
         }
       }
     });
   }
 
+  private unsafeCharToSpace(str: string, target: string) {
+    let newStr = '';
+    if (str.indexOf(target) != -1) {
+      newStr = str.replace(new RegExp(target,'gm'), ' ');
+      console.log(str + ' -> 有風險故replace: ' + newStr);
+      str = newStr;
+    }
+    return str;
+  }
 
   //================下方是提供新增或編輯用的function========================================
 
