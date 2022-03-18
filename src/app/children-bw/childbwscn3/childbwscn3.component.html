@@ -162,13 +162,13 @@
           </button>
         </ng-template>
       </nz-tab>
-      <nz-tab [nzTitle]="BAM011">
+      <!-- <nz-tab [nzTitle]="BAM011">
         <ng-template #BAM011 let-visible="visible"><button nz-button [nzSize]="'small'"
             [ngClass]="hideBAM011 ? 'nohide' : 'hide'" (click)="show('BAM011')">
             BAM011<h style="display: block; font-size: 12px;">-</h>
           </button>
         </ng-template>
-      </nz-tab>
+      </nz-tab> -->
       <!-- <nz-tab [nzTitle]="BAM070">
         <ng-template #BAM070 let-visible="visible"><button nz-button [nzSize]="'small'"
             [ngClass]="hideBAM070 ? 'nohide' : 'hide'" (click)="show('BAM070')">
@@ -767,7 +767,7 @@
   <div [(hidden)]="hideBAM095" class="line_bank_card_no_padding">
     <!-- 表格 -->
     <nz-table nzShowSizeChanger [nzData]="BAM095Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total1"
-      [nzPageSize]="pageSize1" [nzPageIndex]="pageIndex1" (nzQueryParams)="onQueryParamsChange($event, 'BAM421')"
+      [nzPageSize]="pageSize1" [nzPageIndex]="pageIndex1" (nzQueryParams)="onQueryParamsChange($event, 'BAM095')"
       nzSize="small" nzTitle="BAM095 99年版授信額度,擔保品,金額,還款紀錄資訊" [nzScroll]="{ x: '1800px' }">
       <thead>
         <tr>
@@ -1563,7 +1563,7 @@
   </nz-table>
 </div>
 <!-- BAM011 -->
-<div [(hidden)]="hideBAM011" class="line_bank_card_no_padding">
+<!-- <div [(hidden)]="hideBAM011" class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="BAM011Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total21"
     [nzPageSize]="pageSize21" [nzPageIndex]="pageIndex21" (nzQueryParams)="onQueryParamsChange($event, 'BAM011')"
     nzSize="small" nzTitle="BAM011 最新延遲繳款及繳清延遲繳款資訊(多筆B33)">
@@ -1588,7 +1588,7 @@
       </tr>
     </tbody>
   </nz-table>
-</div>
+</div> -->
 <!-- BAM070 -->
 <!-- <div [(hidden)]="hideBAM070" class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="BAM070Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total22"

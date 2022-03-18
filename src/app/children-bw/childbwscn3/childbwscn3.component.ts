@@ -270,6 +270,8 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['code'] = code;
+    console.log(this.applno)
+    console.log(code)
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childbwscn3Service.getJCICSearch(jsonObject).subscribe(data => {
