@@ -462,7 +462,7 @@ export class F01008scn2Component implements OnInit {
     }
   }
   disabledDate(time) {
-    return time.getTime() < Date.now() - 8.64e7;
+    return time.getTime() < Date.now() ;
   }
 
   getStyle(value: string) {
