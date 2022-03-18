@@ -247,10 +247,6 @@ export class F02002returnComponent implements OnInit {
   // @ViewChild('test') myInputVariable: ElementRef;
   block(rid: string, re: string) {
 
-    console.log(this.blockList.length)
-    console.log(this.blockList)
-    console.log(this.fileList)
-    console.log(this.blockList.indexOf(rid), 1)
     if (this.blockList.indexOf(rid) == -1)
     {
       this.blockList.push(rid)
