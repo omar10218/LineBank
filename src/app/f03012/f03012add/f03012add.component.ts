@@ -163,7 +163,7 @@ export class F03012addComponent implements OnInit {
         });
         return;
       }
-      jsonObject['setValueLow'] = this.setValueLow != '' ? this.setValueLow : "0";
+      jsonObject['setValueLow'] = this.setValueLow != '' ? Number(this.setValueLow).toString() : "0";
 
     }
     else if (this.compareType == '1')
@@ -205,8 +205,8 @@ export class F03012addComponent implements OnInit {
           return
         }
         else {
-          jsonObject['setValueLow'] = this.setValueLow != " " && this.setValueLow != '' ? this.setValueLow : "0";
-          jsonObject['setValueHight'] = this.setValueHight != '' && this.setValueLow != " "? this.setValueHight : "0";
+          jsonObject['setValueLow'] = this.setValueLow != " " && this.setValueLow != '' ? Number(this.setValueLow).toString() : "0";
+          jsonObject['setValueHight'] = this.setValueHight != '' && this.setValueLow != " "? Number(this.setValueHight).toString() : "0";
         }
       }
     }

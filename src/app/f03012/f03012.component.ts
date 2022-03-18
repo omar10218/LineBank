@@ -558,8 +558,8 @@ export class F03012Component implements OnInit, AfterViewInit {
 
 	}
 	test123(a: any, b: any) {
-		console.log(a)
-		console.log(b)
+		console.log(Number(a))
+		console.log(Number(b))
 	}
 
 }

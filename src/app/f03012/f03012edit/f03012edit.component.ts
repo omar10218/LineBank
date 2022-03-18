@@ -153,7 +153,7 @@ export class F03012editComponent implements OnInit {
 				})
 				return;
 			}
-			msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
+			msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, Number(this.low).toString(), Number(this.hingt).toString(), this.compareType, this.oldCompareType)
 
 
 			this.dialog.open(ConfirmComponent, {
@@ -196,8 +196,8 @@ export class F03012editComponent implements OnInit {
 				return
 			  }
 			else {
-				let updateLow=this.low!=""? this.low : "0";
-				let updateHeight=this.low!=""&&this.hingt!=""? this.hingt : "0";
+				let updateLow=this.low!=""? Number(this.low).toString() : "0";
+				let updateHeight=this.low!=""&&this.hingt!=""? Number(this.hingt).toString() : "0";
 				msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, updateLow, updateHeight, this.compareType, this.oldCompareType)
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: msgStr },
