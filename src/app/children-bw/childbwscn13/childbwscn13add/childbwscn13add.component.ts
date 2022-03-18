@@ -53,8 +53,16 @@ export class Childbwscn13addComponent implements OnInit {
   }
 
   changeSelect() {
+    sessionStorage.setItem('searchUserId', BaseService.userId);
+    sessionStorage.setItem('searchEmpName', BaseService.empName);
+    sessionStorage.setItem('searchEmpId', BaseService.empId);
+
     this.webAddrUrl = this.webAddrValue.split('=')[1];
     window.open(this.webAddrUrl, "_blank");
+
+    sessionStorage.removeItem('searchUserId');
+    sessionStorage.removeItem('searchEmpName');
+    sessionStorage.removeItem('searchEmpId');
   }
 
   onAddImage(event: any) {

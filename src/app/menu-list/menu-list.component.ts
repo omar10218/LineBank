@@ -65,6 +65,9 @@ export class MenuListComponent implements OnInit, OnDestroy {
     fontSize: '15px',
   };
 
+  searchUserId: string = '';
+  searchEmpName: string = '';
+
   ngOnInit() {
     //Nick 設定同時只能登入一個帳號
     window.addEventListener("storage", (e) => { //監聽帳號
@@ -81,13 +84,26 @@ export class MenuListComponent implements OnInit, OnDestroy {
       () => {
         this.getCalloutList();
       }, 5 * 60 * 1000);
+
+    if (sessionStorage.getItem('searchUserId') && sessionStorage.getItem('searchEmpName')) {
+      this.searchUserId = sessionStorage.getItem('searchUserId');
+      this.searchEmpName = sessionStorage.getItem('searchEmpName');
+      this.menuListService.setUserId(this.searchUserId);
+      this.menuListService.setEmpName(this.searchEmpName);
+      this.options.text = this.searchUserId + this.searchEmpName + this.today;
+      sessionStorage.removeItem('searchUserId');
+      sessionStorage.removeItem('searchEmpName');
+      sessionStorage.removeItem('searchEmpId');
+    }
   }
 
   ngAfterViewInit() {
     if (BaseService.userId == null || BaseService.userId == '') {
-      this.router.navigate(['./logOut']).then(async () => {
-        window.location.reload();
-      });
+      if (this.searchUserId == '') {
+        this.router.navigate(['./logOut']).then(async () => {
+          window.location.reload();
+        });
+      }
     }
   }
 

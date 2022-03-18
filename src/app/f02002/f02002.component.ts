@@ -10,6 +10,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { F02002returnComponent } from './f02002return/f02002return.component';
+import { BaseService } from '../base.service';
 
 @Component({
   selector: 'app-f02002',
@@ -172,21 +173,22 @@ export class F02002Component implements OnInit {
           sessionStorage.setItem('winClose', 'Y');
           // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
           sessionStorage.setItem('page', '02');
+
+          sessionStorage.setItem('searchUserId', BaseService.userId);
+          sessionStorage.setItem('searchEmpName', BaseService.empName);
+          sessionStorage.setItem('searchEmpId', BaseService.empId);
+
+
           //開啟徵審主畫面
           const url = window.location.href.split("/#");
           window.open(url[0] + "/#/F01002/F01002SCN1"); //, "", "location=no"
           sessionStorage.setItem('winClose', 'N');
           sessionStorage.setItem('search', 'N');
-          // const url = this.router.serializeUrl(
-          //   this.router.createUrlTree(["./F01002/F01002SCN1"])
-          // );
-          // window.open(url);
-          // this.router.navigate(['./F01002/F01002SCN1']);
-          // const childernDialogRef = this.dialog.open(F01002scn1Component, {
-          //   minHeight: '30%',
-          //   width: '70%',
-          //   maxHeight: '65vh'
-          // });
+
+          sessionStorage.removeItem('searchUserId');
+          sessionStorage.removeItem('searchEmpName');
+          sessionStorage.removeItem('searchEmpId');
+
         });
       } else {
         this.dialog.open(ConfirmComponent, {
