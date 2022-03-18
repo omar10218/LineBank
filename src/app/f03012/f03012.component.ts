@@ -215,9 +215,12 @@ export class F03012Component implements OnInit, AfterViewInit {
 			minHeight: '70vh',
 			width: '50%',
 		})
+		
 		dialogRef.afterClosed().subscribe(result => {
 			if (result != null && (result.event == 'success' || result == '1')) {
+				
 				this.refreshTable()
+				this.dialog.closeAll()
 			}
 			// window.location.reload();
 		})

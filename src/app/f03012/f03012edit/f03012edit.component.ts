@@ -291,10 +291,10 @@ export class F03012editComponent implements OnInit {
 			return this.myDiv = false
 		}
 	}
-	// test(a:string,b:string){
-	// 	a=this.low!=""? this.low : "0";
-	// 	b=this.low!=""&&this.hingt!=""? this.hingt : "0";
-	// 	console.log(a)
-	// 	console.log(b)
-	// }
+	test(a:string,b:string){
+		a=this.low!=""? this.low : "0";
+		b=this.low!=""&&this.hingt!=""? this.hingt : "0";
+		console.log(a)
+		console.log(b)
+	}
 }
