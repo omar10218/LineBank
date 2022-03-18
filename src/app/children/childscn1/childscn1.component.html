@@ -26,10 +26,6 @@
                         disabled></div>
             </div>
             <div nz-col nzFlex="1">
-              <div style="padding:3px"><span class="form-title">客戶身分名單註記</span><input matInput #input
-                      class="form-control" [(ngModel)]="custContent" readonly disabled></div>
-            </div>
-            <div nz-col nzFlex="1">
                 <div style="padding:3px"><span class="form-title">申請產品</span><input matInput #input class="form-control"
                         [(ngModel)]="prodCode" [ngStyle]="getStyle(prodCode)" readonly disabled></div>
             </div>
@@ -59,11 +55,18 @@
                         value="待確認" readonly disabled></div>
             </div>
         </div>
+        <div nz-row style="padding:5px">
+          <div nz-col nzFlex="1">
+            <div style="padding:3px"><span class="form-title">客戶身分名單註記</span><textarea matInput
+                    class="form-control" [(ngModel)]="custContent" readonly disabled maxlength="200"
+                    style="background-color:#E6E6E6;border-radius:10px;border:none;width: 100%;"></textarea></div>
+          </div>
+        </div>
     </div>
 </span>
 
 <!-- Channel資訊 -->
-<div class="line_bank_card_no_padding_child" style="width:95%;margin:110px auto 0 auto" *ngIf="page!='07'">
+<div class="line_bank_card_no_padding_child" style="width:95%;margin:200px auto 0 auto" *ngIf="page!='07'">
     <div class="line_bank_form_header_title">Channel資訊</div>
     <div nz-row style="padding:5px">
         <div nz-col nzFlex="1">
