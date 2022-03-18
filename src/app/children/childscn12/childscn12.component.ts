@@ -119,6 +119,8 @@ export class Childscn12Component implements OnInit {
   private applno: string;
   private stepName: string;
   private search: string;
+  private page: string;
+
   EL_INCOME_Source = new MatTableDataSource<any>();//下方儲存table資料
   INCOME_DETAILS_List: INCOME_DETAILS[] = [];
   AddData: any;
@@ -134,6 +136,8 @@ export class Childscn12Component implements OnInit {
   checkTotal: number = 0;
   checkTotaltring: string;
   ngOnInit(): void {
+    this.page = sessionStorage.getItem('page');
+
     this.keylist.push("incomeAndTaxList"); //所得清單
     this.keylist.push("withholdingList");//扣繳憑單 X A6
     this.keylist.push("salaryTransferList"); //薪轉存褶
@@ -190,6 +194,10 @@ export class Childscn12Component implements OnInit {
   //檢查是否是徵信或授信
   getSearch() {
     return this.search;
+  }
+
+  getPage() {
+    return this.page;
   }
 
   //取得資料

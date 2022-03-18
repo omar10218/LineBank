@@ -142,10 +142,10 @@
     </nz-table>
   </div>
 
-  <div *ngIf="getStepName()" style="padding-left: 100px; padding-top: 20px;">
+  <div *ngIf="getPage() == '2' && getSearch()== 'N'" style="padding-left: 100px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save2()">儲存</button>
   </div>
-  <div *ngIf="!getStepName()" style="padding-left: 100px; padding-top: 20px;">
+  <div *ngIf="getPage() != '2' || (getPage() == '2' && getSearch()!= 'N')" style="padding-left: 100px; padding-top: 20px;">
     <button nz-button [nzSize]="'large'" nzType="primary" (click)="save2()" disabled>儲存</button>
   </div>
 
