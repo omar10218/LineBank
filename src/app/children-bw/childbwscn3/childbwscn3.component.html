@@ -57,13 +57,13 @@
           </button>
         </ng-template>
       </nz-tab>
-      <nz-tab [nzTitle]="STM022">
+      <!-- <nz-tab [nzTitle]="STM022">
         <ng-template #STM022 let-visible="visible"><button nz-button [nzSize]="'small'"
             [ngClass]="hideSTM022 ? 'nohide' : 'hide'" (click)="show('STM022')">
             非Z類被查詢<h style="display: block; font-size: 12px;">(STM022)</h>
           </button>
         </ng-template>
-      </nz-tab>
+      </nz-tab> -->
       <nz-tab [nzTitle]="STM008">
         <ng-template #STM008 let-visible="visible"><button nz-button [nzSize]="'small'"
             [ngClass]="hideSTM008 ? 'nohide' : 'hide'" (click)="show('STM008')">
@@ -71,13 +71,13 @@
           </button>
         </ng-template>
       </nz-tab>
-      <nz-tab [nzTitle]="STM025">
+      <!-- <nz-tab [nzTitle]="STM025">
         <ng-template #STM025 let-visible="visible"><button nz-button [nzSize]="'small'"
             [ngClass]="hideSTM025 ? 'nohide' : 'hide'" (click)="show('STM025')">
             當事人查詢<h style="display: block; font-size: 12px;">(STM025)</h>
           </button>
         </ng-template>
-      </nz-tab>
+      </nz-tab> -->
       <nz-tab [nzTitle]="VAM106">
         <ng-template #VAM106 let-visible="visible"><button nz-button [nzSize]="'small'"
             [ngClass]="hideVAM106 ? 'nohide' : 'hide'" (click)="show('VAM106')">
@@ -169,13 +169,13 @@
           </button>
         </ng-template>
       </nz-tab>
-      <nz-tab [nzTitle]="BAM070">
+      <!-- <nz-tab [nzTitle]="BAM070">
         <ng-template #BAM070 let-visible="visible"><button nz-button [nzSize]="'small'"
             [ngClass]="hideBAM070 ? 'nohide' : 'hide'" (click)="show('BAM070')">
             B66現金卡放款/還款<h style="display: block; font-size: 12px;">(BAM070)</h>
           </button>
         </ng-template>
-      </nz-tab>
+      </nz-tab> -->
       <nz-tab [nzTitle]="BAM031">
         <ng-template #BAM031 let-visible="visible"><button nz-button [nzSize]="'small'"
             [ngClass]="hideBAM031 ? 'nohide' : 'hide'" (click)="show('BAM031')">
@@ -768,7 +768,7 @@
     <!-- 表格 -->
     <nz-table nzShowSizeChanger [nzData]="BAM095Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total1"
       [nzPageSize]="pageSize1" [nzPageIndex]="pageIndex1" (nzQueryParams)="onQueryParamsChange($event, 'BAM421')"
-      nzSize="small" nzTitle="BAM095綜合授信、房貸業務分類及擔保品資訊(多筆B42)" [nzScroll]="{ x: '1800px' }">
+      nzSize="small" nzTitle="BAM095 99年版授信額度,擔保品,金額,還款紀錄資訊" [nzScroll]="{ x: '1800px' }">
       <thead>
         <tr>
           <th class="table-header" [nzWidth]="'90px'" [nzLeft]="true">資料年度</th>
@@ -903,7 +903,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="KRM048Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total3"
     [nzPageSize]="pageSize3" [nzPageIndex]="pageIndex3" (nzQueryParams)="onQueryParamsChange($event, 'KRM048')"
-    nzSize="small" nzTitle="KRM048信用卡戶帳款資訊(週報+12個月)(含雙幣卡)(多筆K34)" [nzScroll]="{ x: '1500px' }">
+    nzSize="small" nzTitle="KRM048信用卡戶帳款資訊(週報+12個月)(含雙幣卡)(多筆K34;愈額度合計時,其他文字性欄位空白,數值欄位值0;應繳金額以單元之實際金額表示)" [nzScroll]="{ x: '1500px' }">
     <thead>
       <tr>
         <th class="table-header" [nzWidth]="'90px'" [nzLeft]="true">週/月報別</th>
@@ -1037,8 +1037,7 @@
   </nz-table>
 </div>
 <!-- STM022 -->
-<div [(hidden)]="hideSTM022" class="line_bank_card_no_padding">
-  <!-- 表格 -->
+<!-- <div [(hidden)]="hideSTM022" class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="STM022Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total6"
     [nzPageSize]="pageSize6" [nzPageIndex]="pageIndex6" (nzQueryParams)="onQueryParamsChange($event, 'STM022')"
     nzSize="small" nzTitle="STM022近一年內不含查詢當日非Z類被查詢紀錄明細(多筆)">
@@ -1063,7 +1062,7 @@
       </tr>
     </tbody>
   </nz-table>
-</div>
+</div> -->
 <!-- STM008 -->
 <div [(hidden)]="hideSTM008" class="line_bank_card_no_padding">
   <!-- 表格 -->
@@ -1089,8 +1088,7 @@
   </nz-table>
 </div>
 <!-- STM025 -->
-<div [(hidden)]="hideSTM025" class="line_bank_card_no_padding">
-  <!-- 表格 -->
+<!-- <div [(hidden)]="hideSTM025" class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="STM025Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total8"
     [nzPageSize]="pageSize8" [nzPageIndex]="pageIndex8" (nzQueryParams)="onQueryParamsChange($event, 'STM025')"
     nzSize="small" nzTitle="STM025最近一年內當事人申請查詢紀錄明細(多筆)">
@@ -1121,13 +1119,13 @@
       </tr>
     </tbody>
   </nz-table>
-</div>
+</div> -->
 <!-- VAM106 -->
 <div [(hidden)]="hideVAM106" class="line_bank_card_no_padding">
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="VAM106Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total9"
     [nzPageSize]="pageSize9" [nzPageIndex]="pageIndex9" (nzQueryParams)="onQueryParamsChange($event, 'VAM106')"
-    nzSize="small" nzTitle="VAM106消債條例信用註記資訊(含個別協商)(多筆Z13，MAINCODE A(前協)、B(更生)、C(清算)、E(調解))、8(個別協商)">
+    nzSize="small" nzTitle="VAM106消債條例信用註記資訊(含個別協商)(多筆Z13，MAINCODE A(前協),B(更生),C(清算),E(調解),8(個別協商)1點)">
     <thead>
       <tr>
         <th class="table-header">統編/身分證號</th>
@@ -1157,7 +1155,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="VAM107Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total10"
     [nzPageSize]="pageSize10" [nzPageIndex]="pageIndex10" (nzQueryParams)="onQueryParamsChange($event, 'VAM107')"
-    nzSize="small" nzTitle="VAM107銀行公會消金案件債務協商補充註記(多筆Z13，MAINCODE7)">
+    nzSize="small" nzTitle="VAM107銀行公會消金案件債務協商補充註記 (多筆 Z13,MAINCODE 7)">
     <thead>
       <tr>
         <th class="table-header">統編/身分證號</th>
@@ -1187,7 +1185,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="VAM108Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total11"
     [nzPageSize]="pageSize11" [nzPageIndex]="pageIndex11" (nzQueryParams)="onQueryParamsChange($event, 'VAM108')"
-    nzSize="small" nzTitle="VAM108其它補充註記資訊(多筆Z13，非屬消債條例及銀行公會債務協商之註記資訊)">
+    nzSize="small" nzTitle="VAM108其他補充註記資訊 (多筆 Z13, 非屬消債條例及銀行公會債務協商之註記資訊)">
     <thead>
       <tr>
         <th class="table-header">統編/身分證號</th>
@@ -1217,7 +1215,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="VAM201Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total12"
     [nzPageSize]="pageSize12" [nzPageIndex]="pageIndex12" (nzQueryParams)="onQueryParamsChange($event, 'VAM201')"
-    nzSize="small" nzTitle="VAM201通報案件紀錄資訊-案件通報(多筆Z07)">
+    nzSize="small" nzTitle="VAM201通報案件紀錄資訊-案件通報 (多筆 Z07)">
     <thead>
       <tr>
         <th class="table-header">通報種類</th>
@@ -1261,7 +1259,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM501Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total13"
     [nzPageSize]="pageSize13" [nzPageIndex]="pageIndex13" (nzQueryParams)="onQueryParamsChange($event, 'BAM501')"
-    nzSize="small" nzTitle="BAM501應計入DBR22倍規範之無擔保債務餘額彙總(多筆B68)">
+    nzSize="small" nzTitle="BAM501應計入DBR22倍規範之無擔保債務餘額彙總 (多筆 B68)">
     <thead>
       <tr>
         <th class="table-header">行庫代號</th>
@@ -1289,7 +1287,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM502Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total14"
     [nzPageSize]="pageSize14" [nzPageIndex]="pageIndex14" (nzQueryParams)="onQueryParamsChange($event, 'BAM502')"
-    nzSize="small" nzTitle="BAM502應計入DBR22倍規範之無擔保放款明細(多筆B68)">
+    nzSize="small" nzTitle="BAM502應計入DBR22倍規範之無擔保放款明細 (多筆 B68)">
     <thead>
       <tr>
         <th class="table-header">信用保險註記</th>
@@ -1321,7 +1319,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM504Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total15"
     [nzPageSize]="pageSize15" [nzPageIndex]="pageIndex15" (nzQueryParams)="onQueryParamsChange($event, 'BAM504')"
-    nzSize="small" nzTitle="BAM504應計入DBR22倍規範之貸款餘額(應計入DBR22倍規範之貸款餘額(擔保放款餘額加上部分擔保、負擔保貸款餘額)扣除擔保品鑑估值之金額彙總)">
+    nzSize="small" nzTitle="BAM504應計入DBR22倍規範之貸款餘額 (應計入DBR22倍規範之貸款餘額(擔保放款餘額加上部分擔保、副擔保貸款餘額)扣除擔保品鑑估值之金額彙總)">
     <thead>
       <tr>
         <th class="table-header">資料年度</th>
@@ -1347,7 +1345,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM505Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total116"
     [nzPageSize]="pageSize16" [nzPageIndex]="pageIndex16" (nzQueryParams)="onQueryParamsChange($event, 'BAM505')"
-    nzSize="small" nzTitle="BAM505新增核准額度中應計入DBR22倍之金額明細(多筆B68)">
+    nzSize="small" nzTitle="BAM505新增核准額度中應計入DBR22倍之金額明細 (多筆 B68) ">
     <thead>
       <tr>
         <th class="table-header">日期</th>
@@ -1373,7 +1371,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM029Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total17"
     [nzPageSize]="pageSize17  " [nzPageIndex]="pageIndex17" (nzQueryParams)="onQueryParamsChange($event, 'BAM029')"
-    nzSize="small" nzTitle="BAM029新增額度(含應計入DBR22倍金額)及清償資訊(多筆B29)" [nzScroll]="{ x: '1500px' }">
+    nzSize="small" nzTitle="BAM029新增額度(含應計入DBR22倍金額)及清償資訊 (多筆 B29)" [nzScroll]="{ x: '1500px' }">
     <thead>
       <tr>
         <th class="table-header" [nzWidth]="'300px'" [nzLeft]="true">新增核准額度日期/清償日期/到期或解約日期</th>
@@ -1413,7 +1411,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM305Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total118"
     [nzPageSize]="pageSize18" [nzPageIndex]="pageIndex18" (nzQueryParams)="onQueryParamsChange($event, 'BAM305')"
-    nzSize="small" nzTitle="BAM305 99年版授信保證資料(共同債務)(多筆B33-B36)" [nzScroll]="{ x: '1500px' }">
+    nzSize="small" nzTitle="BAM305 99年版授信保證資料(共同債務) (多筆 B33-B36)" [nzScroll]="{ x: '1500px' }">
     <thead>
       <tr>
         <th class="table-header" [nzWidth]="'90px'" [nzLeft]="true">資料年度</th>
@@ -1465,7 +1463,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM306Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total19"
     [nzPageSize]="pageSize19" [nzPageIndex]="pageIndex19" (nzQueryParams)="onQueryParamsChange($event, 'BAM306')"
-    nzSize="small" nzTitle="BAM306 90年版授信保證資料(從債務)(多筆B33-B36)" [nzScroll]="{ x: '1500px' }">
+    nzSize="small" nzTitle="BAM306 99年版授信保證資料(從債務) (多筆 B33-B36)" [nzScroll]="{ x: '1500px' }">
     <thead>
       <tr>
         <th class="table-header" [nzWidth]="'90px'" [nzLeft]="true">資料年度</th>
@@ -1517,7 +1515,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM307Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total20"
     [nzPageSize]="pageSize20" [nzPageIndex]="pageIndex20" (nzQueryParams)="onQueryParamsChange($event, 'BAM307')"
-    nzSize="small" nzTitle="BAM307 90年版授信保證資料(其他)(多筆B33-B36)" [nzScroll]="{ x: '1500px' }">
+    nzSize="small" nzTitle="BAM307 99年版授信保證資料(其他) (多筆 B33-B36)" [nzScroll]="{ x: '1500px' }">
     <thead>
       <tr>
         <th class="table-header" [nzWidth]="'90px'" [nzLeft]="true">資料年度</th>
@@ -1566,7 +1564,6 @@
 </div>
 <!-- BAM011 -->
 <div [(hidden)]="hideBAM011" class="line_bank_card_no_padding">
-  <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM011Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total21"
     [nzPageSize]="pageSize21" [nzPageIndex]="pageIndex21" (nzQueryParams)="onQueryParamsChange($event, 'BAM011')"
     nzSize="small" nzTitle="BAM011 最新延遲繳款及繳清延遲繳款資訊(多筆B33)">
@@ -1593,11 +1590,10 @@
   </nz-table>
 </div>
 <!-- BAM070 -->
-<div [(hidden)]="hideBAM070" class="line_bank_card_no_padding">
-  <!-- 表格 -->
+<!-- <div [(hidden)]="hideBAM070" class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="BAM070Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total22"
     [nzPageSize]="pageSize22" [nzPageIndex]="pageIndex22" (nzQueryParams)="onQueryParamsChange($event, 'BAM070')"
-    nzSize="small" nzTitle="BAM070 現金卡日報放款餘額及還款紀錄資訊(新版)(多筆B66)">
+    nzSize="small" nzTitle="BAM070 現金卡日報放款餘額及還款紀錄資訊(新版) (多筆 B66)">
     <thead>
       <tr>
         <th class="table-header">資料日期</th>
@@ -1633,13 +1629,13 @@
       </tr>
     </tbody>
   </nz-table>
-</div>
+</div> -->
 <!-- BAM031 -->
 <div [(hidden)]="hideBAM031" class="line_bank_card_no_padding">
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM031Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total23"
     [nzPageSize]="pageSize23" [nzPageIndex]="pageIndex23" (nzQueryParams)="onQueryParamsChange($event, 'BAM031')"
-    nzSize="small" nzTitle="BAM031 每日授信餘額變動資訊(多筆)">
+    nzSize="small" nzTitle="BAM031 每日授信餘額變動資訊 (多筆)">
     <thead>
       <tr>
         <th class="table-header">交易日期</th>
