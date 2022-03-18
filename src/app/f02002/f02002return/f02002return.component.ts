@@ -135,7 +135,7 @@ export class F02002returnComponent implements OnInit {
     let url = 'f02/f02002action5';
     // console.log(this.F02002Data.length);
     let jsonarry: string[] = []
-    if(this.target.files[0] == undefined)
+    if(this.target == undefined)
     {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請選擇一個檔案" }
@@ -182,7 +182,7 @@ export class F02002returnComponent implements OnInit {
     const formdata = new FormData();
     // console.log(this.F02002Data.length);
     let jsonarry: string[] = []
-    if(this.target.files[0] == undefined)
+    if(this.target == undefined)
     {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請選擇一個檔案" }
