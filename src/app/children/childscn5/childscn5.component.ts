@@ -61,7 +61,7 @@ export class Childscn5Component implements OnInit {
   hiredDateValue: string;                  //目前工作年資
   currJobYearCode: sysCode[] = [];
   preJobYearCode: sysCode[] = [];       //前職工作年資(客戶填寫)
-  x:string;
+  x: string;
 
   constructor(
     private fb: FormBuilder,
@@ -167,7 +167,7 @@ export class Childscn5Component implements OnInit {
         }
       });
 
-   //目前工作年資
+    //目前工作年資
     this.childscn5Service.getSysTypeCode('HIRED_DATE').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
@@ -175,15 +175,15 @@ export class Childscn5Component implements OnInit {
         this.hiredDateCode.push({ value: codeNo, viewValue: desc })
       }
     });
- //目前工作年資(客戶填寫)
- this.childscn5Service.getSysTypeCode('HIRED_DATE').subscribe(data => {
-  for (const jsonObj of data.rspBody.mappingList) {
-    const codeNo = jsonObj.codeNo;
-    const desc = jsonObj.codeDesc;
-    this.currJobYearCode.push({ value: codeNo, viewValue: desc })
-  }
-});
-   //已居住年數
+    //目前工作年資(客戶填寫)
+    this.childscn5Service.getSysTypeCode('HIRED_DATE').subscribe(data => {
+      for (const jsonObj of data.rspBody.mappingList) {
+        const codeNo = jsonObj.codeNo;
+        const desc = jsonObj.codeDesc;
+        this.currJobYearCode.push({ value: codeNo, viewValue: desc })
+      }
+    });
+    //已居住年數
     this.childscn5Service.getSysTypeCode('RESIDENCE_YEAR').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
         const codeNo = jsonObj.codeNo;
@@ -194,8 +194,8 @@ export class Childscn5Component implements OnInit {
 
     // 取徵信認列行業Level1下拉
     let jsonObject: any = {};
-    this.cuLevel1CaCode.push({ value:"", viewValue: "請選擇" });
-      this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
+    this.cuLevel1CaCode.push({ value: "", viewValue: "請選擇" });
+    this.f03015Service.getReturn('f03/f03015action6', jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody.items) {
         const codeNo = jsonObj['INDUC_LEVEL1'];
         const desc = jsonObj['INDUC_LEVEL1_DESC'];
@@ -239,7 +239,6 @@ export class Childscn5Component implements OnInit {
     jsonObject['applno'] = this.applno;
     jsonObject['custId'] = this.cuid;
     this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
-      console.log(data)
       this.setmaterial = data.rspBody.compareCompanies;
       this.originalData = data.rspBody.items[0]
       this.cuLevel1 = data.rspBody.items[0].cuLevel1
@@ -253,10 +252,10 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ RESIDENCE_YEAR: this.getresidence(data.rspBody.items[0].residenceYear) })
       this.customerInfoForm.patchValue({ CU_BIRTHDAY: data.rspBody.items[0].cuBirthday })
       this.customerInfoForm.patchValue({ CU_MARRIED_STATUS: data.rspBody.items[0].cuMarriedStatus })
-      if(data.rspBody.items[0].livingStatus!=null){
-        this.customerInfoForm.patchValue({ LIVING_STATUS:  data.rspBody.items[0].livingStatus+this.getlivingstaus(data.rspBody.items[0].livingStatus) })
+      if (data.rspBody.items[0].livingStatus != null) {
+        this.customerInfoForm.patchValue({ LIVING_STATUS: data.rspBody.items[0].livingStatus + this.getlivingstaus(data.rspBody.items[0].livingStatus) })
       }
-      if( data.rspBody.items[0].cuEducation!=null){
+      if (data.rspBody.items[0].cuEducation != null) {
         this.customerInfoForm.patchValue({ CU_EDUCATION: data.rspBody.items[0].cuEducation + this.geteducation(data.rspBody.items[0].cuEducation) })
       }
       this.customerInfoForm.patchValue({ CU_TITLE: data.rspBody.items[0].cuTitle })
@@ -274,8 +273,8 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ CU_CP_NAME: data.rspBody.items[0].cuCpName })
       this.customerInfoForm.patchValue({ CU_CP_NAME_CA: data.rspBody.items[0].cuCpNameCa })
       this.customerInfoForm.patchValue({ CU_CP_NO: data.rspBody.items[0].cuCpNo })
-      if(data.rspBody.items[0].currJobYear!=null){
-        this.customerInfoForm.patchValue({ CURR_JOB_YEAR:data.rspBody.items[0].currJobYear+"-"+this.getcurrJobYear( data.rspBody.items[0].currJobYear) })
+      if (data.rspBody.items[0].currJobYear != null) {
+        this.customerInfoForm.patchValue({ CURR_JOB_YEAR: data.rspBody.items[0].currJobYear + "-" + this.getcurrJobYear(data.rspBody.items[0].currJobYear) })
 
       }
       this.customerInfoForm.patchValue({ CURR_JOB_MONTH: data.rspBody.items[0].currJobMonth })
@@ -285,11 +284,13 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ CU_M_TEL: data.rspBody.items[0].cuMTel })
       this.customerInfoForm.patchValue({ CU_M_TEL_OTHER: data.rspBody.items[0].cuMTelOther })
       this.customerInfoForm.patchValue({ CONTACT_OTHER: data.rspBody.items[0].contactOther })
-      this.customerInfoForm.patchValue({ INDU_CODE: data.rspBody.items[0].cuLevel1 + data.rspBody.items[0].cuLevel2 + data.rspBody.items[0].jobCode }) //取得行職業代碼
-      this.customerInfoForm.patchValue({
-        CU_LEVEL1: data.rspBody.items[0].cuLevel1 +
-          data.rspBody.items[0].cuLevel2
-      })
+      //20220318 修改
+      let cuLevel1 = data.rspBody.items[0].cuLevel1 != null ? data.rspBody.items[0].cuLevel1 : "";
+      let cuLevel2 = data.rspBody.items[0].cuLevel2 != null ? data.rspBody.items[0].cuLevel2 : "";
+      let jobCode = data.rspBody.items[0].jobCode != null ? data.rspBody.items[0].jobCode : "";
+      this.customerInfoForm.patchValue({ INDU_CODE: cuLevel1 + cuLevel2 + jobCode }) //取得行職業代碼
+
+      // this.customerInfoForm.patchValue({ CU_LEVEL1: data.rspBody.items[0].cuLevel1 + data.rspBody.items[0].cuLevel2 })
       // this.customerInfoForm.patchValue({ CU_LEVEL2: data.rspBody.items[0].cuLevel2 })
       // this.customerInfoForm.patchValue({ JOB_CODE: data.rspBody.items[0].jobCode })
       this.customerInfoForm.patchValue({ CU_LEVEL1_CA: data.rspBody.items[0].cuLevel1Ca })
@@ -298,15 +299,23 @@ export class Childscn5Component implements OnInit {
       this.customerInfoForm.patchValue({ COMPANY_WHITELIST: data.rspBody.items[0].companyWhitelist })
       this.customerInfoForm.patchValue({ PRE_COMP_NM: data.rspBody.items[0].prvCompNm })
       this.customerInfoForm.patchValue({ PRE_JOB_TITLE: data.rspBody.items[0].prvJobTitle })
-      this.customerInfoForm.patchValue({ PRE_JOB_YEAR: data.rspBody.items[0].prevJobYear  })
+      this.customerInfoForm.patchValue({ PRE_JOB_YEAR: data.rspBody.items[0].prevJobYear })
       this.customerInfoForm.patchValue({ PRE_JOB_MONTH: data.rspBody.items[0].prvJobMonth })
 
-      jsonObject['inducCode'] = data.rspBody.items[0].cuLevel1 + data.rspBody.items[0].cuLevel2 + data.rspBody.items[0].jobCode;
-      this.childscn5Service.getCuListSearch(jsonObject).subscribe(data => {
-        this.customerInfoForm.patchValue({ CU_TYPE: data.rspBody.eroxyIncomeList[0].inducLevel1Desc + ">" + data.rspBody.eroxyIncomeList[0].inducLevel2Desc })//取得行業別
-        this.customerInfoForm.patchValue({ JOB_CODE: data.rspBody.eroxyIncomeList[0].jobCodeDesc })//職稱
-        this.cuType = data.rspBody.eroxyIncomeList[0].inducLevel1Desc + data.rspBody.eroxyIncomeList[0].inducLevel2Desc
-        this.trans(this.cuType)
+      jsonObject['inducCode'] = cuLevel1 + cuLevel2 + jobCode;
+      this.childscn5Service.getCuListSearch(jsonObject).subscribe(data1 => {
+         if (data1.rspBody.eroxyIncomeList.length > 0) {
+          let inducLevel1Desc = data1.rspBody.eroxyIncomeList[0].inducLevel1Desc != null ? data1.rspBody.eroxyIncomeList[0].inducLevel1Desc : "";
+          let inducLevel2Desc = data1.rspBody.eroxyIncomeList[0].inducLevel2Desc != null ? data1.rspBody.eroxyIncomeList[0].inducLevel2Desc : "";
+          this.customerInfoForm.patchValue({ CU_TYPE: inducLevel1Desc + ">" + inducLevel2Desc })//取得行業別
+          this.customerInfoForm.patchValue({ JOB_CODE: data1.rspBody.eroxyIncomeList[0].jobCodeDesc })//職稱
+          this.cuType = inducLevel1Desc + inducLevel2Desc;
+          this.trans(this.cuType)
+         }
+
+
+
+
         // this.jobCode = data.rspBody.eroxyIncomeList[0].jobCodeDesc
       })
     });
@@ -531,21 +540,20 @@ export class Childscn5Component implements OnInit {
     jsonObject['contactOther'] = this.contactOther;
     jsonObject['preCompNm'] = this.preCompNm;
     jsonObject['preJobTitle'] = this.preJobTitle;
-    if(this.preJobYear!=null){
-      jsonObject['preJobYear'] = this.preJobYear.substring(0,2);
+    if (this.preJobYear != null) {
+      jsonObject['preJobYear'] = this.preJobYear.substring(0, 2);
     }
     // jsonObject['preJobMonth'] = this.preJobMonthValue;
-    jsonObject['cuCpTelExt'] =this.cuCpTelExt;
+    jsonObject['cuCpTelExt'] = this.cuCpTelExt;
     jsonObject['hiredDate'] = this.hiredDateValue;
     // jsonObject['currJobYear'] = this.currJobYear;
     // jsonObject['currJobMonth'] = this.currJobMonth;
 
 
     this.childscn5Service.update(jsonObject).subscribe(data => {
-      console.log(data)
       msg = data.rspMsg;
 
-      if ('success' == msg||'0000'==data.rspCode) {
+      if ('success' == msg || '0000' == data.rspCode) {
         msg = '基本資料儲存成功!'
         setTimeout(() => {
           const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
@@ -610,35 +618,18 @@ export class Childscn5Component implements OnInit {
     }
     return codeVal;
   }
-//目前工作年資(客戶填寫)
-getcurrJobYear(codeVal: string): string {
-  for (const data of this.currJobYearCode) {
-    if (data.value == codeVal) {
-      return data.viewValue;
-      break;
+  //目前工作年資(客戶填寫)
+  getcurrJobYear(codeVal: string): string {
+    for (const data of this.currJobYearCode) {
+      if (data.value == codeVal) {
+        return data.viewValue;
+        break;
+      }
     }
+    return codeVal;
   }
-  return codeVal;
-}
-  //白名單轉換中文
-  // getcompanyWhitelist(codeVal: string){
-  //   let jsonObject: any = {};
-  //   this.applno = sessionStorage.getItem('applno');
-  //   jsonObject['applno'] = this.applno;
-  //   this.childscn5Service.getBigcompany(jsonObject).subscribe(data => {
-  //     for (const row of data.rspBody.bigcompany) {
-  //       if (row.CU_CP_TYPE1.includes(codeVal)) {
-  //
-  //         this.customerInfoForm.patchValue({ COMPANY_WHITELIST: row.CU_CP_TYPE1 })
 
-  //         this.customerInfoForm.patchValue({ COMPANY_WHITELIST : this.companyWhitelistCode[codeVal]});
-
-  //       }
-  //     }
-  //   });
-
-  // }
-  getcompanyWhitelist(codeVal: string){
+  getcompanyWhitelist(codeVal: string) {
     for (const row of this.companyWhitelistCode) {
       if (row.value == codeVal) {
         return row.viewValue;
@@ -676,18 +667,20 @@ getcurrJobYear(codeVal: string): string {
     this.childscn5Service.getBigcompany(jsonObject).subscribe(data => {
 
       for (const jsonObj of data.rspBody.bigcompany) {
-        const codeNo = jsonObj.CU_CP_TYPE1.split(".")[0]  ;
-        const desc = jsonObj.CU_CP_TYPE1;
-        this.companyWhitelistCode.push({ value: codeNo, viewValue: desc, })
+        if (jsonObj != null) {
+          const codeNo = jsonObj.CU_CP_TYPE1.split(".")[0];
+          const desc = jsonObj.CU_CP_TYPE1;
+          this.companyWhitelistCode.push({ value: codeNo, viewValue: desc })
+        }
       }
       const codeNozz = 'ZZ';
-      const desczz ='ZZ.非白名單'
-      this.companyWhitelistCode.push({  value: codeNozz,viewValue:desczz,})
+      const desczz = 'ZZ.非白名單'
+      this.companyWhitelistCode.push({ value: codeNozz, viewValue: desczz, })
 
     });
   }
-  limit(x: string,name: string ) {
-    x[name] = x[name].replace(/[^/d.]/g,"");
+  limit(x: string, name: string) {
+    x[name] = x[name].replace(/[^/d.]/g, "");
     x = x.replace(/\D/g, '')
 
   }
