@@ -59,8 +59,8 @@ export class F03012Component implements OnInit, AfterViewInit {
 	compareItems = [] //物件陣列
 	useFlag: boolean //用來控制元件是否顯示於頁面
 	isEdit: boolean = true
-	setValueLow:number
-	setValueHight:number
+	setValueLow: number
+	setValueHight: number
 	constructor(private f03012Service: F03012Service, public dialog: MatDialog, private alert: NzAlertModule) {
 		this.addreset$ = this.f03012Service.addreset$.subscribe((data) => {
 			this.getComePareDataSetList(this.pageIndex, this.pageSize);
@@ -355,52 +355,59 @@ export class F03012Component implements OnInit, AfterViewInit {
 
 			if (obj.compareType == '2') {
 
+				//檢核是否大於1
 				if (Number(obj.setValueLow) >= 1) {
 					this.dialog.open(ConfirmComponent, {
 						data: { msgStr: "「相對值」不可以大於1" }
 					});
-
 					return;
+					//檢核是否有小數
 				} if (!(obj.setValueLow.includes('.'))) {
 					this.dialog.open(ConfirmComponent, {
 						data: { msgStr: "請填小數點" }
 					});
 					return;
-				}if(obj.setValueLow.trim()==''){
+					//檢核是否有空值
+				} if (obj.setValueLow.trim() == '') {
 					this.dialog.open(ConfirmComponent, {
 						data: { msgStr: "「相對值」欄位不可為空" }
 					});
 				}
-				jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow : "0";
+				jsonObject['setValueLow'] = obj.setValueLow != '' ? Number(obj.setValueLow).toString() : "0";
 			}
+
 			else if (obj.compareType == '1') {
 				if (Number(obj.setValueLow) != null || Number(obj.setValueHight) != null) {
-					
+					//檢核是否為整數
 					if ((obj.setValueLow.includes('.'))) {
 						this.dialog.open(ConfirmComponent, {
 							data: { msgStr: "請填整數" }
 						});
 						return;
 					}
+					//檢核最高有無大於最低
 					else if (Number(obj.setValueHight) < Number(obj.setValueLow)) {
 
 						this.dialog.open(ConfirmComponent, {
 							data: { msgStr: "「絕對值」設定最高門檻需大於設定最低門檻!!" },
 						})
 						return
+						//檢核是否有空值
 					} else if (Number(obj.setValueHight) == null || Number(obj.setValueLow) == null) {
 
 						this.dialog.open(ConfirmComponent, {
 							data: { msgStr: "「絕對值」欄位不可為空!!" },
 						})
 						return
-					}else if (obj.setValueHight.trim() == '' || obj.setValueLow.trim() == '') {
+						//檢核是否有空值
+					} else if (obj.setValueHight.trim() == '' || obj.setValueLow.trim() == '') {
 
 						this.dialog.open(ConfirmComponent, {
 							data: { msgStr: "「絕對值」欄位不可為空!!" },
 						})
 						return
 					}
+					//檢核最高有無等於最低
 					else if (Number(obj.setValueHight) == Number(obj.setValueLow)) {
 
 						this.dialog.open(ConfirmComponent, {
@@ -408,6 +415,7 @@ export class F03012Component implements OnInit, AfterViewInit {
 						});
 
 						return
+						//檢核是否有空值
 					} else if (obj.setValueHight.length == 0 || obj.setValueLow.length == 0) {
 
 						this.dialog.open(ConfirmComponent, {
@@ -416,8 +424,8 @@ export class F03012Component implements OnInit, AfterViewInit {
 
 						return
 					} else {
-						jsonObject['setValueHight'] = obj.setValueHight != '' || obj.setValueLow != '' ? obj.setValueHight : "0";
-						jsonObject['setValueLow'] = obj.setValueLow != '' || obj.setValueHight != '' ? obj.setValueLow : "0";
+						jsonObject['setValueHight'] = obj.setValueHight != '' || obj.setValueLow != '' ? Number(obj.setValueHight).toString() : "0";
+						jsonObject['setValueLow'] = obj.setValueLow != '' || obj.setValueHight != '' ? Number(obj.setValueLow).toString() : "0";
 					}
 				} else {
 					this.dialog.open(ConfirmComponent, {
@@ -429,8 +437,6 @@ export class F03012Component implements OnInit, AfterViewInit {
 
 			}
 
-
-
 			if (obj.compareType == null || obj.setValueHight == '' || obj.compareType == '' || obj.setValueLow == '') {
 
 				this.dialog.open(ConfirmComponent, {
@@ -439,7 +445,6 @@ export class F03012Component implements OnInit, AfterViewInit {
 
 				return false
 			}
-
 			jsonObjects.push(jsonObject)
 			// obj = {};
 		}
@@ -525,8 +530,12 @@ export class F03012Component implements OnInit, AfterViewInit {
 	}
 
 	//檢核空白
-	checkSpace(i: string, id: string) {
-
+	checkSpace(i: string) {
+		if (i.trim() == '') {
+			this.dialog.open(ConfirmComponent, {
+				data: { msgStr: "「相對值」欄位不可為空" }
+			});
+		}
 	}
 	//最高
 	numberhingt(i: string, id: string) {
