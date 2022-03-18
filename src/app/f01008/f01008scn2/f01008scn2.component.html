@@ -312,11 +312,11 @@
   </nz-table>
 </div>
 <div class="line_bank_card_no_padding">
-  <nz-table nzSize="small" [nzData]="macrSource" nzTemplateMode>
+  <!-- <nz-table nzSize="small" [nzData]="macrSource" nzTemplateMode>
     <thead>
       <th class="table-header-sub" style="width:10%;border-radius: 5px 0px 0px 0px;">Date</th>
       <th class="table-header-sub" style="width:10%">User</th>
-      <th class="table-header-sub" style="width:10%;border-radius: 0px 5px 0px 0px;">Action</th>
+      <th class="table-header-sub" style="max-width: 200px;">>">Action</th>
       <th class="table-header-sub" style="width:10%">Level</th>
     <tbody>
       <tr *ngFor="let data of macrSource;">
@@ -326,5 +326,26 @@
         <td class="table-data">{{ changeLevel(data.CREDITLEVEL) }}</td>
       </tr>
     </tbody>
-  </nz-table>
+  </nz-table> -->
+  <nz-table nzShowSizeChanger [nzData]="macrSource" [nzFrontPagination]="false" [nzSimple]="true"
+
+                (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="審核意見">
+                <thead>
+                    <tr>
+                        <th class="table-header">Date</th>
+                        <th class="table-header">User</th>
+                        <th class="table-header" style="max-width: 200px;">Action</th>
+                        <th class="table-header">Level</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of macrSource">
+                        <td class="table-data">{{ data.CREDITDATE | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                        <td class="table-data">{{ data.CREDITUSER }}</td>
+                        <td class="table-data" style="max-width: 200px;">{{ data.CREDITACTION }}</td>
+                        <td class="table-data">{{ changeLevel(data.CREDITLEVEL) }}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
 </div>
