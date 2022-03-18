@@ -157,6 +157,12 @@ export class F03012addComponent implements OnInit {
         });
         return;
       }
+      if(this.setValueLow.trim()==''){
+        this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "欄位不可為空" }
+        });
+        return;
+      }
       jsonObject['setValueLow'] = this.setValueLow != '' ? this.setValueLow : "0";
 
     }
@@ -180,6 +186,13 @@ export class F03012addComponent implements OnInit {
         else if (Number(this.setValueHight) ==Number(this.setValueLow)) {
           this.dialog.open(ConfirmComponent, {
             data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' }
+          });
+  
+          return
+        }
+        else if (this.setValueHight.trim()==''||this.setValueLow.trim()=='') {
+          this.dialog.open(ConfirmComponent, {
+            data: { msgStr: '欄位不可為空!!' }
           });
   
           return

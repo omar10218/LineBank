@@ -147,6 +147,12 @@ export class F03012editComponent implements OnInit {
 				})
 				return;
 			}
+			if(this.low.trim()==''){
+				this.dialog.open(ConfirmComponent, {
+					data: { msgStr: "欄位不可為空" },
+				})
+				return;
+			}
 			msgStr = await this.f03012Service.update(baseUrl, this.data, this.oldCompareTable, this.oldCompareColumn, this.oldSetValueLow, this.oldSetValueHight, this.low, this.hingt, this.compareType, this.oldCompareType)
 
 
@@ -171,7 +177,13 @@ export class F03012editComponent implements OnInit {
 					data: { msgStr: '設定最高門檻需大於設定最低門檻!!' },
 				})
 				return
-			}else if (Number(this.hingt) == Number(this.low)) {
+			} else if (this.hingt.trim()==''||this.low.trim()=='') {
+				this.dialog.open(ConfirmComponent, {
+					data: { msgStr: '設定最高門檻需大於設定最低門檻!!' },
+				})
+				return
+			}
+			else if (Number(this.hingt) == Number(this.low)) {
 				this.dialog.open(ConfirmComponent, {
 					data: { msgStr: '設定最高門檻不能等於設定最低門檻!!' },
 				})

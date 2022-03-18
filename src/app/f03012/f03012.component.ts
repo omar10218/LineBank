@@ -366,11 +366,16 @@ export class F03012Component implements OnInit, AfterViewInit {
 						data: { msgStr: "請填小數點" }
 					});
 					return;
+				}if(obj.setValueLow.trim()==''){
+					this.dialog.open(ConfirmComponent, {
+						data: { msgStr: "「相對值」欄位不可為空" }
+					});
 				}
 				jsonObject['setValueLow'] = obj.setValueLow != '' ? obj.setValueLow : "0";
 			}
 			else if (obj.compareType == '1') {
 				if (Number(obj.setValueLow) != null || Number(obj.setValueHight) != null) {
+					
 					if ((obj.setValueLow.includes('.'))) {
 						this.dialog.open(ConfirmComponent, {
 							data: { msgStr: "請填整數" }
@@ -384,6 +389,12 @@ export class F03012Component implements OnInit, AfterViewInit {
 						})
 						return
 					} else if (Number(obj.setValueHight) == null || Number(obj.setValueLow) == null) {
+
+						this.dialog.open(ConfirmComponent, {
+							data: { msgStr: "「絕對值」欄位不可為空!!" },
+						})
+						return
+					}else if (obj.setValueHight.trim() == '' || obj.setValueLow.trim() == '') {
 
 						this.dialog.open(ConfirmComponent, {
 							data: { msgStr: "「絕對值」欄位不可為空!!" },
@@ -405,8 +416,8 @@ export class F03012Component implements OnInit, AfterViewInit {
 
 						return
 					} else {
-						jsonObject['setValueHight'] = obj.setValueHight != '' || obj.setValueLow != '' ? obj.setValueHight.replace('.', '_') : "0";
-						jsonObject['setValueLow'] = obj.setValueLow != '' || obj.setValueHight != '' ? obj.setValueLow.replace('.', '_') : "0";
+						jsonObject['setValueHight'] = obj.setValueHight != '' || obj.setValueLow != '' ? obj.setValueHight : "0";
+						jsonObject['setValueLow'] = obj.setValueLow != '' || obj.setValueHight != '' ? obj.setValueLow : "0";
 					}
 				} else {
 					this.dialog.open(ConfirmComponent, {
