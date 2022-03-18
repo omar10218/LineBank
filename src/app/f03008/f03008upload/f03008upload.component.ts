@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { F03008Service } from '../f03008.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { BaseService } from 'src/app/base.service';
 
 //Nick 貸後管理異常名單維護-上傳Excel
 @Component({
@@ -28,7 +29,7 @@ export class F03008uploadComponent implements OnInit {
   fileToUpload: File | null = null;
   msg: string = "請選擇檔案"
 
-  empNo: string = localStorage.getItem("empNo");
+  empNo: string = BaseService.userId;
   JsonBool = false;
   ExcelSource: any;
 

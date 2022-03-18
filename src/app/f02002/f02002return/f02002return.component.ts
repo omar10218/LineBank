@@ -1,3 +1,4 @@
+import { BaseService } from 'src/app/base.service';
 import { Key, logging } from 'protractor';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
@@ -153,7 +154,7 @@ export class F02002returnComponent implements OnInit {
       formdata.append('files', fileObj != null ? fileObj : new Blob);
     }
     formdata.append('jsonArray', jsonarry.toString());
-    formdata.append('userId', this.f02002Service.getUserId());
+    formdata.append('userId', BaseService.userId);
     formdata.append('applno', this.data.applno);
 
     this.f02002Service.setformdata(url, formdata).subscribe(data => {
@@ -200,7 +201,7 @@ export class F02002returnComponent implements OnInit {
       formdata.append('files', fileObj != null ? fileObj : new Blob);
     }
     formdata.append('jsonArray', jsonarry.toString());
-    formdata.append('userId', this.f02002Service.getUserId());
+    formdata.append('userId', BaseService.userId);
     formdata.append('applno', this.data.applno);
     const dialogRef = this.dialog.open(F02008return2Component, {
       minHeight: '50%',

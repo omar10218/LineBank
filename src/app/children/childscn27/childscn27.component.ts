@@ -4,6 +4,7 @@ import { Childscn27Service } from './childscn27.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { DatePipe } from '@angular/common';
+import { BaseService } from 'src/app/base.service';
 
 interface sysCode {
   value: string;
@@ -95,7 +96,7 @@ export class Childscn27Component implements OnInit {
       const baseUrl = 'f01/childscn27action1';
       let jsonObject: any = {};
       jsonObject['applno'] = this.applno;
-      jsonObject['empno'] = localStorage.getItem("empNo");
+      jsonObject['empno'] = BaseService.userId;
       jsonObject['mobile'] = this.mobile;
       jsonObject['realSmsTime'] = this.pipe.transform(this.realSmsTime, 'yyyyMMdd') + this.pipe.transform(this.mytime, 'HHmm');
       jsonObject['smsSet'] = this.smsSet;

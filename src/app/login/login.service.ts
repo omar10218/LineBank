@@ -67,12 +67,11 @@ export class LoginService extends BaseService {
     await this.checkEmpNoPromise(empNo, empPwd, ticket).then((data: any) => {
       if (data.rspCode == '0000') {
         tokenStr = data.rspBody.token;
-        localStorage.setItem("empName", data.rspBody.empName);
-        localStorage.setItem("empId", data.rspBody.empId);
         localStorage.setItem("loginKey", 'change');
         localStorage.removeItem('loginKey');
-        localStorage.setItem("empNo", empNo);
         this.baseService.setUserId(empNo);
+        this.baseService.setEmpName(data.rspBody.empName);
+        this.baseService.setEmpId(data.rspBody.empId);
       }
       isOk = data.rspCode == '0000';
     });

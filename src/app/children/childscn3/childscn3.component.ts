@@ -7,6 +7,7 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 
 import { Childscn3Service } from './childscn3.service';
+import { BaseService } from 'src/app/base.service';
 
 interface checkBox {
   value: string;
@@ -59,7 +60,7 @@ export class Childscn3Component implements OnInit {
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
-    this.no = localStorage.getItem("empNo");
+    this.no = BaseService.userId;
     // this.search = sessionStorage.getItem('search');
     this.pag = sessionStorage.getItem('page');
     this.getTable()//抓取資料表

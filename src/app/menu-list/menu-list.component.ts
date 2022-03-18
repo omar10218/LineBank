@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { NgxWatermarkOptions } from 'ngx-watermark';
 import { DatePipe } from '@angular/common';
 import { Childscn6Service } from '../children/childscn6/childscn6.service';
+import { BaseService } from '../base.service';
 
 //Nick icon/時間登出/照會提醒
 @Component({
@@ -18,7 +19,7 @@ import { Childscn6Service } from '../children/childscn6/childscn6.service';
   styleUrls: ['./menu-list.component.css']
 })
 export class MenuListComponent implements OnInit, OnDestroy {
-  empNo: string = localStorage.getItem("empNo");
+  empNo: string = BaseService.userId;
   constructor(
     private router: Router,
     private menuListService: MenuListService,
@@ -54,7 +55,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
   waterShow = false;
   today: string = this.pipe.transform(new Date(), 'yyyyMMdd HH:mm:ss');
   options: NgxWatermarkOptions = {
-    text: this.menuListService.getUserId() + localStorage.getItem('empName') + this.today,
+    text: BaseService.userId + BaseService.empName + this.today,
     width: 300,
     height: 150,
     fontFamily: 'Kanit',
@@ -83,7 +84,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    if (this.menuListService.getUserId() == null || this.menuListService.getUserId() == '') {
+    if (BaseService.userId == null || BaseService.userId == '') {
       this.router.navigate(['./logOut']).then(async () => {
         window.location.reload();
       });
@@ -108,7 +109,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
   //取照會提醒
   getCalloutList() {
     let jsonObject: any = {};
-    jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
+    jsonObject['swcL3EmpNo'] = BaseService.userId;
     this.f01002Service.getCalloutList(jsonObject).subscribe(data => {
       this.total = data.rspBody.size;
       this.applno = data.rspBody.items;

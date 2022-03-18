@@ -14,7 +14,7 @@ export class F01011Service extends BaseService {
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('empNo', empNo);
-    formData.append('userId',localStorage.getItem("empNo") );
+    formData.append('userId',BaseService.userId );
     return this.httpClient.post<any>(environment.allowOrigin + '/' + baseUrl, formData);
   }
 }

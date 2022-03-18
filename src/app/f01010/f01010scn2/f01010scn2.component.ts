@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01010Service } from '../f01010.service';
 
@@ -34,7 +35,7 @@ export class F01010scn2Component implements OnInit {
     jsonObject['applno'] = this.data.applno;
     jsonObject['level'] =  this.data.level;
     jsonObject['content'] = this.content;
-    jsonObject['empno'] = localStorage.getItem("empNo");
+    jsonObject['empno'] = BaseService.userId;
     this.f01010Service.postJson(url,jsonObject).subscribe(data=>
       {
 

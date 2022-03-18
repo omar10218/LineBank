@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Data } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { BaseService } from '../base.service';
 
 interface sysCode {
  value:string
@@ -30,7 +31,7 @@ export class F03018Component implements OnInit {
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<F03015confirmComponent>,
     private datePipe: DatePipe,
-  
+
     // this.myDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd-HH:mm:SS');
   ) {
     this.editreset$ = this.f03018Service.editreset$.subscribe((data) => {
@@ -62,10 +63,10 @@ export class F03018Component implements OnInit {
   pageSize = 50;
   pageIndex = 1;
   firstFlag = 1;
-	editreset$:Subscription //rxjs訂閱者 
+	editreset$:Subscription //rxjs訂閱者
 
   ngOnInit(): void {
-    this.empNo = localStorage.getItem("empNo");
+    this.empNo = BaseService.userId;
 
     //分類1下拉選單
 

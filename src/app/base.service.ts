@@ -10,14 +10,24 @@ import { CommonRes, Mapping, history } from './interface/base';
 })
 export class BaseService {
 
-  static userId: string = localStorage.getItem("empNo");
+  static userId: string; //登入者員編
+  static empName: string; //登入者姓名
+  static empId: string; //登入者身分證
 
   public setUserId(value: string) {
     BaseService.userId = value;
   }
 
-  public getUserId(): string{
+  private getUserId(): string{
     return BaseService.userId;
+  }
+
+  public setEmpName(value: string) {
+    BaseService.empName = value;
+  }
+
+  public setEmpId(value: string) {
+    BaseService.empId = value;
   }
 
   constructor(protected httpClient: HttpClient) { }

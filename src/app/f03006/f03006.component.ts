@@ -12,6 +12,7 @@ import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n'
 import { NzTableQueryParams } from 'ng-zorro-antd/table'
 import { F03006amtComponent } from './f03006amt/f03006amt.component'
 import { F03006prjComponent } from './f03006prj/f03006prj.component'
+import { BaseService } from '../base.service'
 
 //角色checkBox框架
 interface checkBox {
@@ -68,7 +69,7 @@ export class F03006Component implements OnInit {
   hide = true;
 
   ngOnInit(): void {
-    if (localStorage.getItem("empNo") == 'root') { this.Maintainer = true }
+    if (BaseService.userId == 'root') { this.Maintainer = true }
     this.getEmployeeList(this.pageIndex, this.pageSize)
 
     const baseUrl = 'f03/f03006' //代理人

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
+import { BaseService } from 'src/app/base.service';
 import { Childscn22Service } from 'src/app/children/childscn22/childscn22.service';
 import { OptionsCode } from 'src/app/interface/base';
 import { Childbwscn14Service } from './childbwscn14.service';
@@ -21,7 +22,7 @@ export class Childbwscn14Component implements OnInit {
   }
 
   private applno: string;
-  empNo: string = localStorage.getItem("empNo");//測試用
+  empNo: string = BaseService.userId;//測試用
   nowDateTime: Date;
   PERSONSource = [];//table資料
   limitTypeCode: OptionsCode[] = [];

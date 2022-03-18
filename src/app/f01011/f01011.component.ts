@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { BaseService } from '../base.service';
 
 @Component({
   selector: 'app-f01011',
@@ -25,7 +26,7 @@ export class F01011Component implements OnInit {
   isExcelFile: boolean;
   fileToUpload: File | null = null;
 
-  empNo: string = localStorage.getItem("empNo");
+  empNo: string = BaseService.userId;
   JsonBool = false;
   ExcelSource: any;
 

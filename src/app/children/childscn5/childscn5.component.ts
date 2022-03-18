@@ -1,3 +1,4 @@
+import { BaseService } from 'src/app/base.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -370,7 +371,7 @@ export class Childscn5Component implements OnInit {
     let jsonObject: any = {};
     content.push(
       {
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_CP_NAME_CA',
@@ -379,7 +380,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_LEVEL1_CA',
@@ -388,7 +389,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_LEVEL2_CA',
@@ -397,7 +398,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'JOB_CODE_CA',
@@ -406,7 +407,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'COMPANY_WHITELIST',
@@ -416,7 +417,7 @@ export class Childscn5Component implements OnInit {
       },
 
       {
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_M_TEL_OTHER',
@@ -425,7 +426,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CONTACT_OTHER',
@@ -434,7 +435,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'CU_CP_TEL_EXT',
@@ -443,7 +444,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'PRV_COMP_NM',
@@ -452,7 +453,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'PRV_JOB_TITLE',
@@ -461,7 +462,7 @@ export class Childscn5Component implements OnInit {
         transAPname: '基本資料',
       },
       {
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         applno: this.applno,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'PREV_JOB_YEAR',
@@ -471,7 +472,7 @@ export class Childscn5Component implements OnInit {
       },
       // {
       //   applno: this.applno,
-      //   userId: this.childscn5Service.getUserId(),
+      //   userId: BaseService.userId,
       //   tableName: 'EL_CUSTOMER_INFO',
       //   columnName: 'PRV_JOB_MONTH',
       //   originalValue: this.originalData.prvJobMonth,
@@ -483,7 +484,7 @@ export class Childscn5Component implements OnInit {
 
       {
         applno: this.applno,
-        userId: this.childscn5Service.getUserId(),
+        userId: BaseService.userId,
         tableName: 'EL_CUSTOMER_INFO',
         columnName: 'HIRED_DATE',
         originalValue: this.originalData.hiredDate,
@@ -492,7 +493,7 @@ export class Childscn5Component implements OnInit {
       },
       // {
       //   applno: this.applno,
-      //   userId: this.childscn5Service.getUserId(),
+      //   userId: BaseService.userId,
       //   tableName: 'EL_CUSTOMER_INFO',
       //   columnName: 'CURR_JOB_YEAR',
       //   originalValue: this.originalData.currJobYear,
@@ -501,7 +502,7 @@ export class Childscn5Component implements OnInit {
       // },
       // {
       //   applno: this.applno,
-      //   userId: this.childscn5Service.getUserId(),
+      //   userId: BaseService.userId,
       //   tableName: 'EL_CUSTOMER_INFO',
       //   columnName: 'CURR_JOB_MONTH',
       //   originalValue: this.originalData.currJobMonth,

@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { ActivatedRoute, Data, Router } from '@angular/router'
 import { NzTableQueryParams } from 'ng-zorro-antd/table'
 import { element } from 'protractor'
+import { BaseService } from 'src/app/base.service'
 import { ChildrenService } from 'src/app/children/children.service'
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component'
 import { F03015Service } from 'src/app/f03015/f03015.service'
@@ -125,7 +126,7 @@ export class F03017editComponent implements OnInit {
 		this.useFlagValue=""
 		this.selectCustInfo()
 		this.route.queryParams.subscribe(params => {
-			this.no = this.f03017Service.getUserId()
+			this.no = BaseService.userId
 			// this.selectBlockList(this.pageIndex, this.pageSize)//一進去畫面就抓取資料表
 		})
 		//抓取資料表

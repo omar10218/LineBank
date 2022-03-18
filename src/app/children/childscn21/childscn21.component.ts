@@ -6,6 +6,7 @@ import { OptionsCode } from 'src/app/interface/base';
 import { Childscn22Service } from '../childscn22/childscn22.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { MatDialog } from '@angular/material/dialog';
+import { BaseService } from 'src/app/base.service';
 
 //Nick 額度資訊
 @Component({
@@ -22,7 +23,7 @@ export class Childscn21Component implements OnInit {
   ) { this.nzI18nService.setLocale(zh_TW) }
 
   private applno: string;
-  empNo: string = localStorage.getItem("empNo");//測試用
+  empNo: string = BaseService.userId;//測試用
   stepName: string = sessionStorage.getItem('stepName');//測試用
   nowDateTime: Date;
   PERSONSource = [];//table資料

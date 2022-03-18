@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01015Service } from 'src/app/f01015/f01015.service';
 import { OptionsCode } from 'src/app/interface/base';
@@ -36,7 +37,7 @@ export class F01016scn1Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   levelNo: any; //層級
-  limitTypeCode: sysCode[] = []; //額度類別	
+  limitTypeCode: sysCode[] = []; //額度類別
   YNCode: OptionsCode[] = []; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
@@ -152,7 +153,7 @@ export class F01016scn1Component implements OnInit {
         this.limitTypeCode.push({ value: codeNo, viewValue: desc })
       }
     });
-    this.useId = localStorage.getItem("empNo") //進入員編
+    this.useId = BaseService.userId //進入員編
     this.getYNresult();
     this.getReason();
   }

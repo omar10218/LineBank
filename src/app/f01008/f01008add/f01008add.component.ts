@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { F01008Service } from '../f01008.service';
@@ -41,7 +42,7 @@ export class F01008addComponent implements OnInit {
     this.TEL_CONDITION_Code = this.f01008Service.getTEL_CONDITION();//電話狀況下拉選單
     this.applno = sessionStorage.getItem('applno');
     // this.applno = "20211125A00002";
-    this.empNo = localStorage.getItem("empNo");
+    this.empNo = BaseService.userId;
   }
   save()//新增
   {

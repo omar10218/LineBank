@@ -9,6 +9,7 @@ import { ChildrenService } from '../children.service';
 import { Childscn5Service } from '../childscn5/childscn5.service';
 import { Childscn19Service } from './childscn19.service';
 import { Router } from '@angular/router';
+import { BaseService } from 'src/app/base.service';
 //alvin.lee 20210915 補件/發簡訊
 //Nick SMS簡訊
 interface sysCode {
@@ -194,7 +195,7 @@ export class Childscn19Component implements OnInit {
       const baseUrl = 'f01/childscn27action1';
       let jsonObject: any = {};
       jsonObject['applno'] = this.applno;
-      jsonObject['empno'] = localStorage.getItem("empNo");
+      jsonObject['empno'] = BaseService.userId;
       jsonObject['mobile'] = this.mobile;
       jsonObject['realSmsTime'] = this.pipe.transform(this.realSmsTime, 'yyyyMMdd') + this.pipe.transform(this.mytime, 'HHmm');
       jsonObject['smsSet'] = this.smsSet;

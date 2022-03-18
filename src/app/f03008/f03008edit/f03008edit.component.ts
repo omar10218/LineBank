@@ -4,6 +4,7 @@ import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { F03008Service } from '../f03008.service';
 import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
+import { BaseService } from 'src/app/base.service';
 
 @Component({
   selector: 'app-f03008edit',
@@ -24,7 +25,7 @@ export class F03008editComponent   {
     }
 
   YNselect: OptionsCode[] = [{ value: 'Y', viewValue: '是' }, { value: 'N', viewValue: '否' }];
-  empNo: string = localStorage.getItem("empNo");
+  empNo: string = BaseService.userId;
 
   ngOnInit(): void {
   }

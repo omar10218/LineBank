@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { MatDialog } from '@angular/material/dialog';
+import { BaseService } from '../base.service';
 
 @Component({
   selector: 'app-f01009',
@@ -24,7 +25,7 @@ export class F01009Component implements OnInit, AfterViewInit {
   pageIndex = 1;
   total: number;
   fds: string = "";
-  empNo: string = localStorage.getItem("empNo");      // 當前員編
+  empNo: string = BaseService.userId;      // 當前員編
   //ngModel區
   swcApplno: string;
   swcNationalId: string;
@@ -147,7 +148,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     if (this.agentEmpNo != '') {
       this.empNo = this.agentEmpNo;
     } else {
-      this.empNo = localStorage.getItem("empNo");
+      this.empNo = BaseService.userId;
     }
     this.changePage();
     this.getCaseList();
@@ -203,7 +204,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
-    if (swcNationalId == localStorage.getItem('empId')) {
+    if (swcNationalId == BaseService.empId) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "案件身分證不可與登入者身分證相同!" }
       });
@@ -275,7 +276,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.caseType = '';
     this.swcInputType = '';
     this.swcCusFlag = '';
-    this.empNo = localStorage.getItem("empNo");
+    this.empNo = BaseService.userId;
     this.getCaseList();
   }
 }

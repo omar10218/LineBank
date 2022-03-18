@@ -11,6 +11,7 @@ import { Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
 import { Subscription } from 'rxjs';
+import { BaseService } from 'src/app/base.service';
 
 
 
@@ -146,7 +147,7 @@ export class Childscn8Component implements OnInit, OnDestroy {
     this.applno = sessionStorage.getItem('applno');
     this.getCALLOUTFunction(this.pageIndex, this.pageSize);//載入頁面
     this.search = sessionStorage.getItem('search');
-    this.empNo = localStorage.getItem("empNo");
+    this.empNo = BaseService.userId;
     this.page = sessionStorage.getItem('page');
 
     this.HOURS_Code = this.childscn8Service.getHOURS();//時下拉選單

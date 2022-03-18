@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn18Service } from './childscn18.service';
 
@@ -30,7 +31,7 @@ export class Childscn18Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.swcID = sessionStorage.getItem('nationalId');
     this.custID = sessionStorage.getItem('custId');
-    this.empNo = localStorage.getItem("empNo");
+    this.empNo = BaseService.userId;
     this.level = sessionStorage.getItem('stepName');
   }
 

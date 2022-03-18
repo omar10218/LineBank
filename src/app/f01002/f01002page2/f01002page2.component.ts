@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { HandleSubscribeService } from 'src/app/services/handle-subscribe.service';
@@ -78,7 +79,7 @@ export class F01002page2Component implements OnInit {
     });
 
     // this.search = sessionStorage.getItem('search');
-    // this.empNo = localStorage.getItem("empNo");
+    // this.empNo = BaseService.userId;
     this.getCalloutList(this.pageIndex, this.pageSize);
   }
 
@@ -93,7 +94,7 @@ export class F01002page2Component implements OnInit {
   // 照會提醒清單
   getCalloutList(pageIndex: number, pageSize: number) {
     let jsonObject: any = {};
-    jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
+    jsonObject['swcL3EmpNo'] = BaseService.userId;
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.loading = false;

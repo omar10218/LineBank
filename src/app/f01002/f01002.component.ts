@@ -10,6 +10,7 @@ import { F01002page1Component } from './f01002page1/f01002page1.component';
 import { F01002page2Component } from './f01002page2/f01002page2.component';
 import { HandleSubscribeService } from '../services/handle-subscribe.service';
 import { Subscription } from 'rxjs';
+import { BaseService } from '../base.service';
 
 enum Page {
   Page1,
@@ -86,7 +87,7 @@ export class F01002Component implements OnInit, AfterViewInit, OnDestroy {
 
   getCalloutList() {
     let jsonObject: any = {};
-    jsonObject['swcL3EmpNo'] = localStorage.getItem("empNo");
+    jsonObject['swcL3EmpNo'] = BaseService.userId;
     this.f01002Service.getCalloutList(jsonObject).subscribe(data => {
      console.log(data)
       this.total = data.rspBody.size;

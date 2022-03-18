@@ -5,6 +5,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { BaseService } from 'src/app/base.service';
 import { Childscn19Component } from 'src/app/children/childscn19/childscn19.component';
 import { Childscn30Component } from 'src/app/children/childscn30/childscn30.component';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
@@ -28,7 +29,7 @@ export class F01005page1Component implements OnInit {
   @ViewChild('absBox') absBox: ElementRef // 抓取table id
   currentPage: PageEvent;                             // 分頁
   currentSort: Sort;                                  // 排序
-  empNo: string = localStorage.getItem("empNo");      // 當前員編
+  empNo: string = BaseService.userId;      // 當前員編
   swcNationalId: string;                              // 身分證字號
   swcCustId: string;                                  // 客戶ID
   swcApplno: string;                                  // 案件編號
@@ -124,7 +125,7 @@ export class F01005page1Component implements OnInit {
     if (this.agentEmpNo != '') {
       this.empNo = this.agentEmpNo;
     } else {
-      this.empNo = localStorage.getItem("empNo");
+      this.empNo = BaseService.userId;
     }
     this.changePage();
     this.getCaseList();
@@ -136,7 +137,7 @@ export class F01005page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
-    if (swcNationalId == localStorage.getItem('empId')) {
+    if (swcNationalId == BaseService.empId) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "案件身分證不可與登入者身分證相同!" }
       });
@@ -215,7 +216,7 @@ export class F01005page1Component implements OnInit {
       }
     });
   }
-  
+
   // 將案件類型轉成中文
   getOptionCaseType(codeVal: string): string {
     for (const data of this.caseTypeCode) {
@@ -232,7 +233,7 @@ export class F01005page1Component implements OnInit {
     this.swcApplno = '';
     this.swcNationalId = '';
     this.swcCustId = '';
-    this.empNo = localStorage.getItem("empNo");
+    this.empNo = BaseService.userId;
     this.getCaseList();
   }
 

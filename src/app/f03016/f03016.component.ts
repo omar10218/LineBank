@@ -10,6 +10,7 @@ import { ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { DatePipe } from '@angular/common';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { BaseService } from '../base.service';
 
 interface sysCode {
   value: string;
@@ -38,7 +39,7 @@ export class F03016Component implements OnInit {
   columnName: string = '';
   originalValue: string;
   currentValue: string;
-  transEmpNo: string = localStorage.getItem("empNo");;
+  transEmpNo: string = BaseService.userId;;
   transDate: string;
   ChangeSource: any;
   @ViewChild('paginator', { static: true }) paginator: MatPaginator;

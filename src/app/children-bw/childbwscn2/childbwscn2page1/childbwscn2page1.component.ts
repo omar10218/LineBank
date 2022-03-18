@@ -8,6 +8,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
+import { BaseService } from 'src/app/base.service';
 
 //Nick 決策結果
 interface sysCode {
@@ -136,7 +137,7 @@ export class childbwscn2page1Component implements OnInit {
     this.getDSS11();
     this.applno = sessionStorage.getItem('applno');
     this.nationalId = sessionStorage.getItem('nationalId');
-    this.userId = localStorage.getItem("empNo");
+    this.userId = BaseService.userId;
     this.custId = sessionStorage.getItem('custId');
     this.search = sessionStorage.getItem('search');
     this.page = sessionStorage.getItem('page');

@@ -11,6 +11,7 @@ import { F01008scn2editComponent } from './f01008scn2edit/f01008scn2edit.compone
 import { Childscn26Component } from 'src/app/children/childscn26/childscn26.component';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { OptionsCode } from 'src/app/interface/base';
+import { BaseService } from 'src/app/base.service';
 
 interface sysCode {
   value: string;
@@ -108,7 +109,7 @@ export class F01008scn2Component implements OnInit {
     sessionStorage.setItem('afterResult', '');
     this.applno = sessionStorage.getItem('applno');
     // this.applno = "20211125A00002";
-    this.empNo = localStorage.getItem("empNo");
+    this.empNo = BaseService.userId;
     this.level = sessionStorage.getItem('stepName').split('t')[1];
     this.set();//初始查詢
     this.tYPE.push({ value: '1', viewValue: '公司電話' })

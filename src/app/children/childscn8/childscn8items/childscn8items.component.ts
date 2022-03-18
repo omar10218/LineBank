@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
 import { OptionsCode } from 'src/app/interface/base';
@@ -189,7 +190,7 @@ export class Childscn8itemsComponent implements OnInit {
     const baseUrl = 'f01/childscn8action5';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['empNo'] = localStorage.getItem("empNo");
+    jsonObject['empNo'] = BaseService.userId;
     jsonObject['checkItem'] = checkItem;
     jsonObject['checkData'] = checkData;
     jsonObject['replyCondition'] = replyCondition;

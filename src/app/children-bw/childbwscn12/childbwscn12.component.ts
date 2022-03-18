@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childbwscn12Service } from './childbwscn12.service';
 @Component({
@@ -33,7 +34,7 @@ export class Childbwscn12Component implements OnInit {
   ngOnInit(): void {
     this.swcID = this.data.cuid;
     this.swcApplno = this.data.applno;
-    this.empNo = localStorage.getItem("empNo");
+    this.empNo = BaseService.userId;
     this.swcCustId = sessionStorage.getItem('swcCustId');
     this.page = this.data.page;
   }

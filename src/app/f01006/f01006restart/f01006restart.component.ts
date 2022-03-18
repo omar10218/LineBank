@@ -6,6 +6,7 @@ import { OptionsCode } from 'src/app/interface/base';
 import { F01006Service } from '../f01006.service';
 import { F01006Component } from '../f01006.component';
 import { Router } from '@angular/router';
+import { BaseService } from 'src/app/base.service';
 
 //20210928 alvin.lee 案件申覆
 
@@ -18,7 +19,7 @@ export class F01006restartComponent implements OnInit {
   reasonCode: OptionsCode[] = []; //申覆原因下拉
   reason: string;                 //申覆原因
   content: string;                //申覆說明
-  empNo: string = localStorage.getItem("empNo");
+  empNo: string = BaseService.userId;
   interestData = [];
   seq: string;
   period: string;

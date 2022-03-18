@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
+import { BaseService } from '../base.service';
 import { Childscn19Component } from '../children/childscn19/childscn19.component';
 import { Childscn30Component } from '../children/childscn30/childscn30.component';
 import { F01003Service } from './f01003.service';
@@ -29,7 +30,7 @@ export class F01003Component implements OnInit, AfterViewInit {
   @ViewChild('absBox') absBox: ElementRef // 抓取table id
   currentPage: PageEvent;                             // 分頁
   currentSort: Sort;                                  // 排序
-  empNo: string = localStorage.getItem("empNo");      // 當前員編
+  empNo: string = BaseService.userId;      // 當前員編
   swcNationalId: string;                              // 身分證字號
   swcApplno: string;                                  // 案件編號
   swcCustId: string;                                  // 客戶ID
@@ -123,7 +124,7 @@ export class F01003Component implements OnInit, AfterViewInit {
     if (this.agentEmpNo != '') {
       this.empNo = this.agentEmpNo;
     } else {
-      this.empNo = localStorage.getItem("empNo");
+      this.empNo = BaseService.userId;
     }
     this.changePage();
     this.getCaseList();
@@ -144,7 +145,7 @@ data_number(p: number) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
-    if (swcNationalId == localStorage.getItem('empId') ) {
+    if (swcNationalId == BaseService.empId ) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "案件身分證不可與登入者身分證相同!" }
       });
@@ -261,7 +262,7 @@ data_number(p: number) {
     this.swcNationalId = '';
     this.swcCustId = '';
     this.caseType = '';
-    this.empNo = localStorage.getItem("empNo");
+    this.empNo = BaseService.userId;
     this.getCaseList();
   }
 }

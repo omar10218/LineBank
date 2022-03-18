@@ -2,6 +2,7 @@ import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn13Service } from '../childscn13.service';
 
@@ -73,19 +74,19 @@ export class Childscn13editComponent implements OnInit {
         formdata.append('web', this.data.webAddrValue.split('=')[0]);
         formdata.append('webAddr', urlStr);
         formdata.append('messageContent', this.data.webInfoContent);
-        formdata.append('empno',localStorage.getItem("empNo"));
+        formdata.append('empno',BaseService.userId);
         formdata.append('rowid', this.data.rowId);
         formdata.append('file', this.files);
-        formdata.append('userId',localStorage.getItem("empNo") );
+        formdata.append('userId',BaseService.userId );
       }
     } else {
       formdata.append('applno', this.applno);
       formdata.append('web', this.data.webAddrValue.split('=')[0]);
       formdata.append('webAddr', urlStr);
       formdata.append('messageContent', this.data.webInfoContent);
-      formdata.append('empno', localStorage.getItem("empNo"));
+      formdata.append('empno', BaseService.userId);
       formdata.append('rowid', this.rowId);
-      formdata.append('userId',localStorage.getItem("empNo") );
+      formdata.append('userId',BaseService.userId );
     }
 
     await this.childscn13Service.childscn13Action(baseUrl, formdata).then((data: any) => {

@@ -7,6 +7,7 @@ import { F03008editComponent } from './f03008edit/f03008edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { F03008deleteComponent } from './f03008delete/f03008delete.component';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { BaseService } from '../base.service';
 
 //Nick 貸後管理異常名單維護
 @Component({
@@ -28,7 +29,7 @@ export class F03008Component implements OnInit {
   pageSize = 50;
 
   dialogRef: any;
-  empNo: string = localStorage.getItem("empNo");
+  empNo: string = BaseService.userId;
 
   ABNORMAL_NID: string = '';
   dataSource = new MatTableDataSource<any>();

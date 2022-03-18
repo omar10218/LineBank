@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn22Service } from './childscn22.service';
 
@@ -23,7 +24,7 @@ export class Childscn22Component implements OnInit {
   cuid: string;       // 身分證字號
   stepName: string;   // 目前關卡
   page: string;   // 分頁
-  empNo: string = localStorage.getItem("empNo");
+  empNo: string = BaseService.userId;
 
   block: boolean = false;
 

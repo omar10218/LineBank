@@ -5,6 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Data } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { ChildrenService } from '../children.service';
 import { Childscn20Service } from './childscn20.service';
@@ -92,12 +93,12 @@ rid:[]=[]
     console.log(this.data)
     this.route.queryParams.subscribe(params => {
       this.applno = sessionStorage.getItem('applno');//案件代碼
-      this.no = localStorage.getItem("empNo");
+      this.no = BaseService.userId;
       this.selectBlockList(this.pageIndex, this.pageSize)//一進去畫面就抓取資料表
     });
 
-  
-   
+
+
 
     //抓取資料表
     this.blockListForm.patchValue({ 'REPORT_UNIT': this.no })
@@ -106,7 +107,7 @@ rid:[]=[]
     //取Customer_info資料
     this.selectCustInfo();
 
-    
+
 
     //取下拉選單資料
     this.childscn20Service.getSysTypeCode('BK_REASON')//通報原因下拉選單
@@ -164,7 +165,7 @@ rid:[]=[]
         this.dialog.open(ConfirmComponent, { data: { msgStr: "勾選欄位不可為空!" } });
         return;
       }
-    
+
       this.jsonObject['BK_COLUMN'] = this.chkArray;
       this.jsonObject['BK_CONTENT'] = this.contentArray;
       this.jsonObject['applno'] = this.applno;
@@ -173,8 +174,8 @@ rid:[]=[]
       this.jsonObject['REPORT_REASON2'] = this.blockListForm.value.REPORT_REASON2;
       this.jsonObject['REPORT_REASON3'] = this.blockListForm.value.REPORT_REASON3;
       this.jsonObject['REPORT_CONTENT'] = this.blockListForm.value.REPORT_CONTENT;
-      this.jsonObject['USE_FLAG'] = this.blockListForm.value.USE_FLAG;    
-     
+      this.jsonObject['USE_FLAG'] = this.blockListForm.value.USE_FLAG;
+
       console.log(this.jsonObject);
 
       const url = 'f01/childscn20action3';
@@ -207,7 +208,7 @@ rid:[]=[]
       this.blockListForm.patchValue({ 'CU_CP_TEL': data.rspBody.list[0].cuCpTel })
       this.blockListForm.patchValue({ 'CU_M_TEL': data.rspBody.list[0].cuMTel })
       this.blockListForm.patchValue({ 'RID': data.rspBody.list[0].rid })
-  
+
     })
   }
 
@@ -224,10 +225,10 @@ rid:[]=[]
       console.log(data)
       this.blockListDataSource = data.rspBody.list;
      console.log(this.blockListDataSource)
-     
+
       for(const items of this.blockListDataSource){
         if(items.bkColumn=="CU_CNAME")
-       
+
         switch(items.bkColumn){
           case "CU_CNAME":
             items.bkColumn="姓名"
@@ -257,7 +258,7 @@ rid:[]=[]
             items.bkColumn="手機號碼"
             break;
         }
-  
+
       }
       this.total = data.rspBody.size;
       this.loading = false;

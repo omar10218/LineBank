@@ -339,7 +339,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
 
     this.applno = sessionStorage.getItem('applno');
     this.search = sessionStorage.getItem('search');
-    this.userId = localStorage.getItem("empNo");
+    this.userId = BaseService.userId;
     this.page = sessionStorage.getItem("page");
     this.level = sessionStorage.getItem('stepName').split('t')[1];
 

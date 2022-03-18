@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { HandleSubscribeService } from 'src/app/services/handle-subscribe.service';
 import { F01005Service } from '../f01005.service';
@@ -35,7 +36,7 @@ export class F01005page2Component implements OnInit {
 
   ngOnInit(): void {
     this.getCalloutList(this.pageIndex, this.pageSize);
-    this.empNo=localStorage.getItem("empNo")
+    this.empNo=BaseService.userId
   }
 
   onclick() {

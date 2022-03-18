@@ -2,6 +2,7 @@ import { MaxSizeValidator } from '@angular-material-components/file-input';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn13Service } from '../childscn13.service';
 
@@ -83,9 +84,9 @@ export class Childscn13addComponent implements OnInit {
         formdata.append('web', this.webAddrValue.split('=')[0]);
         formdata.append('webAddr', urlStr);
         formdata.append('messageContent', this.webInfoContent);
-        formdata.append('empno', localStorage.getItem("empNo"));
+        formdata.append('empno', BaseService.userId);
         formdata.append('file', this.files);
-        formdata.append('userId',localStorage.getItem("empNo") );
+        formdata.append('userId',BaseService.userId );
         const baseUrl = 'f01/childscn13action1';
         let msgStr: string = "";
         let codeStr: string = "";

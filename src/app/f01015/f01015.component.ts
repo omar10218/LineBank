@@ -10,6 +10,7 @@ import { F01015Service } from './f01015.service';
 import { FormControl, Validators } from '@angular/forms';
 import { MappingCode } from '../mappingcode.model';
 import { element } from 'protractor';
+import { BaseService } from '../base.service';
 
 interface sysCode {
   value: string;
@@ -32,7 +33,7 @@ export class F01015Component implements OnInit {
   pageSize = 10;
   pageIndex = 1;
   levelNo: any; //層級
-  limitTypeCode: sysCode[]=[]; //額度類別	
+  limitTypeCode: sysCode[]=[]; //額度類別
   YNCode: OptionsCode[] = []; //通知客戶
   reasonCode: sysCode[] = []; //執行原因
   reasonDetailCode: sysCode[] = []; //執行細項
@@ -135,7 +136,7 @@ export class F01015Component implements OnInit {
     // } else {
 
     // }
-    this.useId = localStorage.getItem("empNo") //進入員編
+    this.useId = BaseService.userId //進入員編
     this.getYNresult();
     this.getReason();
     // this.reasonValue = '';
@@ -467,7 +468,7 @@ export class F01015Component implements OnInit {
   //  this.limitTypeCode.forEach(element=>
   //   element.value==string
   //   )
-  
+
     for (let row of this.limitTypeCode) {
       if (row.value == string) {
         return row.viewValue

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childscn24Service } from './childscn24.service';
 
@@ -30,7 +31,7 @@ export class Childscn24Component implements OnInit {
     this.applno = sessionStorage.getItem('applno');
     this.level = this.data.level;
     this.stepName = sessionStorage.getItem('stepName');
-    this.empNo = localStorage.getItem("empNo");
+    this.empNo = BaseService.userId;
   }
 
   cancel(): void {

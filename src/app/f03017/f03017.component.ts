@@ -13,6 +13,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table'
 import { getMaxListeners } from 'process'
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component'
 import { Subscription } from 'rxjs'
+import { BaseService } from '../base.service'
 interface sysCode {
   value: string
   viewValue: string
@@ -86,7 +87,7 @@ export class F03017Component implements OnInit {
   formControl = new FormControl('', [Validators.required])
 
   ngOnInit(): void {
-    this.useId = localStorage.getItem("empNo")
+    this.useId = BaseService.userId
     this.bkColumnValue = ''
     this.currentPage = {
       pageIndex: 0,

@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { BaseService } from '../base.service';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { OptionsCode } from '../interface/base';
 import { F01012Service } from './f01012.service'
@@ -25,7 +26,7 @@ export class F01012Component implements OnInit {
 
   total: number;
   @ViewChild('absBox') absBox: ElementRef
-  empNo: string = localStorage.getItem("empNo");
+  empNo: string = BaseService.userId;
   swcNationalId: string;                              // 身分證字號
   swcApplno: string;                                  // 案件編號
   swcCustId: string;                                  // 客戶ID
@@ -107,7 +108,7 @@ export class F01012Component implements OnInit {
     if (this.agentEmpNo != '') {
       this.empNo = this.agentEmpNo;
     } else {
-      this.empNo = localStorage.getItem("empNo");
+      this.empNo = BaseService.userId;
     }
     this.changePage();
     this.getCaseList();
@@ -118,7 +119,7 @@ export class F01012Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
-    if (swcNationalId == localStorage.getItem('empId')) {
+    if (swcNationalId == BaseService.empId) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "案件身分證不可與登入者身分證相同!" }
       });
@@ -194,7 +195,7 @@ export class F01012Component implements OnInit {
     this.swcNationalId = '';
     this.swcCustId = '';
     this.caseType = '';
-    this.empNo = localStorage.getItem("empNo");
+    this.empNo = BaseService.userId;
     this.getCaseList();
   }
   // 千分號標點符號(form顯示用)

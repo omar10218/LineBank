@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { Childbwscn1Service } from './childbwscn1.service';
 import { Childbwscn1editComponent } from './childbwscn1edit/childbwscn1edit.component';
+import { BaseService } from 'src/app/base.service';
 
 //bwCreditMainList 覆審資訊
 interface bwCreditMainList_View {
@@ -79,7 +80,7 @@ export class Childbwscn1Component implements OnInit {
     this.page = sessionStorage.getItem('page');
     this.applno = sessionStorage.getItem('applno');
     this.nationalId = sessionStorage.getItem('swcNationalId');
-    this.userId = localStorage.getItem("empNo");
+    this.userId = BaseService.userId;
     this.custId = sessionStorage.getItem('swcCustId');
     sessionStorage.setItem('BW_creditResult', "");
     sessionStorage.setItem('size', "0");
