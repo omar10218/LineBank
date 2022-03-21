@@ -253,8 +253,12 @@ export class F02003Component implements OnInit {
         sessionStorage.setItem('searchEmpId',BaseService.empId);
 
         //開啟徵審主畫面
-        const url = window.location.href.split("/#");
-        window.open(url[0] + "/#/F01009/F01009SCN1");
+        const url = window.location.href;
+        const parser = new DOMParser();
+        let urlString:string = parser.parseFromString(url, "text/html").documentElement.textContent;
+        let safeUrl:string  = urlString.split("/#")[0] + "/#/F01009/F01009SCN1";
+        window.open(parser.parseFromString(safeUrl, "text/html").documentElement.textContent);
+
         sessionStorage.setItem('winClose', 'N');//window.open開啟B視窗後 將原本A視窗session值做調整
         sessionStorage.setItem('search', 'N');
 

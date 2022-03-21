@@ -179,8 +179,12 @@ export class F02002Component implements OnInit {
 
 
           //開啟徵審主畫面
-          const url = window.location.href.split("/#");
-          window.open(url[0] + "/#/F01002/F01002SCN1"); //, "", "location=no"
+          const url = window.location.href;
+          const parser = new DOMParser();
+          let urlString:string = parser.parseFromString(url, "text/html").documentElement.textContent;
+          let safeUrl:string  = urlString.split("/#")[0] + "/#/F01002/F01002SCN1";
+          window.open(parser.parseFromString(safeUrl, "text/html").documentElement.textContent);
+
           sessionStorage.setItem('winClose', 'N');
           sessionStorage.setItem('search', 'N');
 
