@@ -488,8 +488,7 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].mthpay_NONJCIC = this.data_number2(this.fmData_B.data[0].mthpay_NONJCIC);
         this.fmData_B.data[0].mthpay_SUM_0 = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0);
 
-
-
+        this.fmData_B.data[0].dti_1CK_B = this.data_number2(this.fmData_B.data[0].dti_1CK_B);
         this.getDBR_DTI_C(true);
       }
       else {
@@ -646,14 +645,17 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].mthpay_NONJCIC_C = this.data_number2(data.rspBody[0].mthpay_NONJCIC_C);
 
         //以下 資料加千分位
-        this.fmData_B.data[0].unsdebt_SUM_0CK_C = this.data_number2(this.fmData_B.data[0].unsdebt_SUM_0CK_C);
-        this.fmData_B.data[0].mthpay_SUM_0CK_C = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0CK_C);
-        this.fmData_B.data[0].dbr_0XCK_C = this.data_number2(this.fmData_B.data[0].dbr_0XCK_C);
-        this.fmData_B.data[0].dbr_0CK_C = this.data_number2(this.fmData_B.data[0].dbr_0CK_C);
-        this.fmData_B.data[0].dbr_1CK_C = this.data_number2(this.fmData_B.data[0].dbr_1CK_C);
-        this.fmData_B.data[0].approve_AMT = this.data_number2(this.fmData_B.data[0].approve_AMT);
+        this.fmData_B.data[0].unsdebt_SUM_0CK_C = this.data_number2(data.rspBody[0].unsdebt_SUM_0CK_C);
+        this.fmData_B.data[0].mthpay_SUM_0CK_C = this.data_number2(data.rspBody[0].mthpay_SUM_0CK_C);
+        this.fmData_B.data[0].dbr_0XCK_C = this.data_number2(data.rspBody[0].dbr_0XCK_C);
+        this.fmData_B.data[0].dbr_0CK_C = this.data_number2(data.rspBody[0].dbr_0CK_C);
+        this.fmData_B.data[0].dbr_1CK_C = this.data_number2(data.rspBody[0].dbr_1CK_C);
+        this.fmData_B.data[0].approve_AMT = this.data_number2(data.rspBody[0].approve_AMT);
 
-
+        this.fmData_B.data[0].dti_0XCK_C = this.data_number2(data.rspBody[0].dti_0XCK_C);
+        this.fmData_B.data[0].dti_0CK_C = this.data_number2(data.rspBody[0].dti_0CK_C);
+        // this.fmData_B.data[0].dti_1 = this.data_number2(data.rspBody[0].dti_1);
+        this.fmData_B.data[0].dti_1CK_C = this.data_number2(data.rspBody[0].dti_1CK_C);
       }
     });
   }
