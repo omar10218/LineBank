@@ -26,7 +26,8 @@ export class TokenInterceptor implements HttpInterceptor {
         'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS',
         'Access-Control-Max-Age': '86400',
         'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With',
-        'Access-Control-Expose-Headers': 'ticket'
+        'Access-Control-Expose-Headers': 'ticket',
+        'X-Frame-Options': 'DENY'
       }
     });
 
