@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   imgSrc = this.SrcEyeOff;
 
   no: string = '';
-  pwd: string = '';
+  lineBankWord: string = '';
   private from: string = environment.from;
 
   constructor(
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
 
     let chkTicket: string = (this.ticket != null && this.ticket.length > 0) ? this.ticket : '';
     if ('local' == this.from || 'rstn' == this.from || 'dev' == this.from) { chkTicket = ''; }
-    if (await this.loginService.initData(this.no, this.pwd, chkTicket)) {
+    if (await this.loginService.initData(this.no, this.lineBankWord, chkTicket)) {
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();
     } else {
