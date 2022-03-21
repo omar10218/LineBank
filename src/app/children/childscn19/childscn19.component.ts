@@ -78,6 +78,7 @@ export class Childscn19Component implements OnInit {
     this.cuid = sessionStorage.getItem('nationalId');
     this.checkpoint = sessionStorage.getItem('checkpoint');
     this.page = sessionStorage.getItem('page');
+    console.log(this.page)
     // this.queryCusMobile();
     //取sms樣板下拉
     this.childscn19Service.getSysTypeCode('SMS_SET').subscribe(data => {
@@ -268,6 +269,7 @@ export class Childscn19Component implements OnInit {
         this.send = true;
       }
       this.rescanDataSource = data.rspBody.items;
+      console.log(this.rescanDataSource)
       // for(var i of data.rspBody.items)
       // {
       //   if(i.IMAGE_DATE != null)
