@@ -71,7 +71,7 @@ export class F03012Component implements OnInit, AfterViewInit {
 	ngOnInit(): void {
 
 		this.getCompareTable()
-
+		this.getComePareDataSetList(this.pageIndex, this.pageSize)
 		// this.currentPage = {
 		//   pageIndex: 1,
 		//   pageSize: 3,
@@ -114,6 +114,7 @@ export class F03012Component implements OnInit, AfterViewInit {
 		this.paginator.page.subscribe((page: PageEvent) => {
 			this.currentPage = page
 			this.getComePareDataSetList(this.pageIndex, this.pageSize)
+			console.log(this.getComePareDataSetList(this.pageIndex, this.pageSize))
 		})
 	}
 
@@ -130,8 +131,9 @@ export class F03012Component implements OnInit, AfterViewInit {
 		let jsonObject: any = {}
 		jsonObject['page'] = pageIndex
 		jsonObject['per_page'] = pageSize
-
+	 
 		this.f03012Service.getComePareDataSetList(baseUrl, jsonObject).subscribe(data => {
+			console.log(data)
 			// 取得items裡面的單一值
 			// console.log(data)
 			// for(const j of data.rspBody.items)
@@ -187,6 +189,8 @@ export class F03012Component implements OnInit, AfterViewInit {
 
 	// 刪除
 	delete(compareTable: string, compareColumn: string, compareType: string, setValueHight: string, setValueLow: string) {
+		let pageSize = 10
+		let pageIndex = 1
 		let msg = ''
 		const url = 'f03/f03012action3'
 		const formdata: FormData = new FormData()
@@ -202,10 +206,14 @@ export class F03012Component implements OnInit, AfterViewInit {
 		this.f03012Service.saveComePareDataSetList(url, formdata).subscribe(data => {
 			msg = data.rspMsg
 		})
+		this.getComePareDataSetList(pageIndex, pageSize)
+	
 
 		setTimeout(() => {
 			const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } })
 		}, 1500)
+		this.getComePareDataSetList(pageIndex, pageSize)
+
 	}
 
 	// 新增
@@ -215,10 +223,10 @@ export class F03012Component implements OnInit, AfterViewInit {
 			minHeight: '70vh',
 			width: '50%',
 		})
-		
+
 		dialogRef.afterClosed().subscribe(result => {
 			if (result != null && (result.event == 'success' || result == '1')) {
-				
+
 				this.refreshTable()
 				this.dialog.closeAll()
 			}
@@ -376,6 +384,7 @@ export class F03012Component implements OnInit, AfterViewInit {
 					this.dialog.open(ConfirmComponent, {
 						data: { msgStr: "「相對值」欄位不可為空" }
 					});
+					return
 				}
 				jsonObject['setValueLow'] = obj.setValueLow != '' ? Number(obj.setValueLow).toString() : "0";
 			}
@@ -447,8 +456,8 @@ export class F03012Component implements OnInit, AfterViewInit {
 					data: { msgStr: "有欄位為空值，儲存失敗" },
 				})
 
-				return 
-			}else{
+				return
+			} else {
 
 				jsonObjects.push(jsonObject)
 			}
@@ -461,7 +470,7 @@ export class F03012Component implements OnInit, AfterViewInit {
 			this.changePage()
 			let currentUrl = this.router.url;
 			this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-			  this.router.navigate([currentUrl]);
+				this.router.navigate([currentUrl]);
 			});
 			// this.getComePareDataSetList(this.pageIndex, this.pageSize)
 		})

@@ -108,12 +108,11 @@ export class Childscn19Component implements OnInit {
         this.rescanTypeCode.push({ value: codeNo, viewValue: desc })
       }
     });
+
     this.getRescanList();         //取該案件補件資訊
-    // if (this.flag == 'Y') {
-    // this.getSmsData()
-    // } else {
+
     this.getSmsList(); //取該案件簡訊發送資訊
-    // }
+
   }
 
   //新增補件資訊
@@ -218,26 +217,13 @@ export class Childscn19Component implements OnInit {
     }
   }
 
-  // //從客戶資訊查詢客戶手機
-  // queryCusMobile() {
-  //   let jsonObject: any = {};
-  //   jsonObject['applno'] = this.applno;
-  //   jsonObject['custId'] = this.cuid;
-  //   this.childscn5Service.getCustomerInfoSearch(jsonObject).subscribe(data => {
-  //     this.mobile = data.rspBody.items[0].cuMTel;
-  //   });
-  // }
 
   //取該案件補件資訊
   getRescanList() {
     this.ii = [];
     this.send = true;
     let jsonObject: any = {};
-    // if (this.flag == 'Y') {
-    // jsonObject['applno'] = this.swcApplno;
-    // } else {
     jsonObject['applno'] = this.applno;
-    // }
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
       this.remarkContent = '';
       if (data.rspBody.items.length > 0) {
@@ -268,23 +254,7 @@ export class Childscn19Component implements OnInit {
         this.send = true;
       }
       this.rescanDataSource = data.rspBody.items;
-      // for(var i of data.rspBody.items)
-      // {
-      //   if(i.IMAGE_DATE != null)
-      //   {
-      //     this.ii.push(i.IMAGE_DATE)
-      //   }
-      // }
-      // if(data.rspBody.items.length==this.ii.length)
-      // {
-      //    this.boo = true;
-      // }
-      // else
-      // {
-      //   this.boo= false;
-      // }
-      // console.log(this.boo)
-      // console.log(this.send)
+
     })
   };
 
@@ -300,26 +270,8 @@ export class Childscn19Component implements OnInit {
         this.mobile = data.rspBody.phone;
       }
     });
-    // this.childscn19Service.getSmsSearch(applno).subscribe(data => {
-    //   this.smsDataSource = data.rspBody.items;
-    // })
+
   };
-
-
-  // getSmsData() {
-  //   const baseUrl = 'f01/childscn19action4';
-  //   let jsonObject: any = {};
-  //   jsonObject['applno'] = this.swcApplno;
-  //   this.childscn19Service.postJson(baseUrl, jsonObject).subscribe(data => {
-  //     this.smsDataSource = data.rspBody.items;
-  //     if (this.mobile == null || this.mobile == "") {
-  //       this.mobile = data.rspBody.phone;
-  //     }
-  //   });
-  // this.childscn19Service.getSmsSearch(applno).subscribe(data => {
-  //   this.smsDataSource = data.rspBody.items;
-  // })
-  // };
 
   //刪除該案件補件資訊
   public async delRescan(ID: string): Promise<void> {
@@ -338,9 +290,7 @@ export class Childscn19Component implements OnInit {
     for (const jsonObj of this.sms_M_Code.data) {
       this.content = jsonObj.codeNo == smsSet ? jsonObj.codeTag : this.content;
     }
-    // this.childscn19Service.getSmsContent(smsSet).subscribe(data => {
-    //   this.content = data.rspBody[0].codeTag;
-    // })
+
   };
 
   // 離開該彈窗
@@ -371,9 +321,6 @@ export class Childscn19Component implements OnInit {
               data: { msgStr: data.rspMsg }
             });
           })
-          // const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          //   data: { msgStr: data.rspMsg }
-          // });
           this.block = false;
           if (this.page == '1') {
             this.router.navigate(['./F01001']);
@@ -416,6 +363,14 @@ export class Childscn19Component implements OnInit {
 
   getPage(): string {
     return this.page;
+  }
+   //轉換中文
+   changeLevel(code: string) {
+    if (code == 'N') {
+      return "未補"
+    } else if (code == 'Y') {
+      return "已補"
+   }
   }
 }
 

@@ -43,8 +43,7 @@ export class F02002Component implements OnInit {
   ngOnInit(): void {
     const baseUrl = 'f02/f02002';
     this.f02002Service.getRescanEmpno(baseUrl).subscribe(data => {
-      console.log("================================")
-      console.log(data)
+
       if (data.rspBody.length > 0) {
         for (let i = 0; i < data.rspBody.length; i++) {
           if (data.rspBody[i].RESCANEMPNO != null) {
@@ -127,7 +126,7 @@ export class F02002Component implements OnInit {
     this.nationalId = '';
     this.custId = '';
     this.rescanEmpno = '';
-    this.total = 1;
+    this.total = 0;
     this.pageSize = 10;
     this.pageIndex = 1;
     this.rescanData = null;
@@ -180,8 +179,12 @@ export class F02002Component implements OnInit {
 
 
           //開啟徵審主畫面
-          const url = window.location.href.split("/#");
-          window.open(url[0] + "/#/F01002/F01002SCN1"); //, "", "location=no"
+          const url = window.location.href;
+          const parser = new DOMParser();
+          let urlString:string = parser.parseFromString(url, "text/html").documentElement.textContent;
+          let safeUrl:string  = urlString.split("/#")[0] + "/#/F01002/F01002SCN1";
+          window.open(parser.parseFromString(safeUrl, "text/html").documentElement.textContent);
+
           sessionStorage.setItem('winClose', 'N');
           sessionStorage.setItem('search', 'N');
 
