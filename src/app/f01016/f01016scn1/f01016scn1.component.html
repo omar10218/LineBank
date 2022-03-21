@@ -58,14 +58,14 @@
                     <td class="table-data" style="text-align:right;">{{toCurrency(row.usedLimit)}}</td>
                     <td class="table-data" style="text-align:right;">{{toCurrency(row.reserveLimit)}}</td>
                     <td class="table-data" style="text-align:right;">{{toCurrency(row.activeLimit)}}</td>
-                    <td class="table-data" [ngClass]="row.stopFlag==='Y'?'red':'green'" style="text-align:center;">
-                        {{toCurrency(row.stopFlag)}}</td>
-                    <td class="table-data" [ngClass]="row.stopFlag==='Y'?'green':'red'" style="text-align: center;">
+                    <td class="table-data" [ngClass]="row.unfrozenFlag==='Y'?'red':'green'" style="text-align:center;">
+                        {{row.unfrozenFlag}}</td>
+                    <td class="table-data" [ngClass]="row.stopFlag==='Y'?'red':'green'" style="text-align: center;">
                         {{row.stopFlag}}</td>
-                    <td class="table-data">{{row.stopDate}}</td>
-                    <td class="table-data" [ngClass]="row.cycleType==='Y'?'green':'red'" style="text-align: center;">
+                    <td class="table-data">{{row.stopDate| date: 'yyyy/MM/dd '}}</td>
+                    <td class="table-data"   style="text-align: center;">
                         {{row.cycleType}}</td>
-                    <td class="table-data" [ngClass]="row.cancelFlag==='Y'?'green':'red'" style="text-align: center;">
+                    <td class="table-data"   style="text-align: center;">
                         {{row.cancelFlag}}</td>
                 </tr>
             </tbody>
