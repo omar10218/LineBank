@@ -27,7 +27,7 @@ export class F03012addComponent implements OnInit {
   valueLow: number;
   compareTableCode: OptionsCode[] = []
   compareColumnCode: OptionsCode[] = []
-
+  maxlength: number;
   submitted = false
   // compareTableSetForm: FormGroup = this.fb.group({
   // 	compareTable: ['', [Validators.required]],
@@ -167,12 +167,12 @@ export class F03012addComponent implements OnInit {
       } else {
         if (this.setValueLow.length < 5) {
           jsonObject['setValueLow'] = this.setValueLow != '' ? Number(this.setValueLow).toString() : "0";
-        }else{
+        } else {
 
           this.dialog.open(ConfirmComponent, {
             data: { msgStr: "格式不符請重新輸入!" }
           });
-          return this.setValueLow=''
+          return this.setValueLow = ''
         }
       }
 
@@ -232,14 +232,13 @@ export class F03012addComponent implements OnInit {
       });
       // this.getData()
       this.error = data.rspMsg
-      if (data.rspMsg == 'success')
-       { 
+      if (data.rspMsg == 'success') {
         this.dialogRef.close({ event: 'success' }
         );
-      
-       }
-      this.f03012Service.resetfn(); 
-      
+
+      }
+      this.f03012Service.resetfn();
+
       // 儲存成功後通知f03012頁面啟動呼叫table function
       // if (data.rspMsg == '成功新增') {
 
@@ -317,10 +316,14 @@ export class F03012addComponent implements OnInit {
     if (a == 2) {
       this.low_disabled = false
       this.hight_disabled = true
+      this.maxlength =4
+
     }
     else {
       this.low_disabled = false
       this.hight_disabled = false
+      this.maxlength = 10
+
     }
   }
   ngAfterViewInit(): void {
@@ -331,9 +334,17 @@ export class F03012addComponent implements OnInit {
     var numeric = Number(input);
     return numeric;
   }
-  // test() {
-  //   console.log(this.setValueHight)
-  //   console.log(this.setValueLow)
-  //   console.log(this.setValueLow.concat('0'))
+  // test(compareType) {
+  //   this.compareType=compareType
+  //   console.log(compareType)
+  //   // console.log(this.setValueHight)
+  //   // console.log(this.setValueLow)
+  //   // console.log(this.setValueLow.concat('0'))
+  //   if (compareType == "2") {
+  //     this.maxlength = 10
+  //   } else if (compareType == "1") {
+  //     this.maxlength = 4
+  //   }
   // }
+
 }
