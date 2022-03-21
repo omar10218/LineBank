@@ -65,7 +65,7 @@ export class F03006Component implements OnInit {
   empAmtSource = new MatTableDataSource<RoleItem>() //產品Table
 
   Maintainer = false;
-  password = "";
+  f03006word = "";
   hide = true;
 
   ngOnInit(): void {
@@ -382,7 +382,7 @@ export class F03006Component implements OnInit {
       });
       return;
     }
-    if (this.password == null || this.password == undefined || this.password == '') {
+    if (this.f03006word == null || this.f03006word == undefined || this.f03006word == '') {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: '請輸入修改密碼' }
       });
@@ -392,10 +392,10 @@ export class F03006Component implements OnInit {
     let baseUrl = 'f03/f03006action10';
     let jsonObject: any = {};
     jsonObject['empNo'] = this.empNoValue;
-    jsonObject['empPassword'] = this.password;
+    jsonObject['empPassword'] = this.f03006word;
     this.f03006Service.saveReason(baseUrl, jsonObject).then((data: any) => {
       msgStr = data.rspMsg;
-      if (data.rspCode == '0000') { this.password = ''; this.empNoValue = ''; }
+      if (data.rspCode == '0000') { this.f03006word = ''; this.empNoValue = ''; }
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: msgStr }
       });
