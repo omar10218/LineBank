@@ -17,6 +17,7 @@ export class Childscn30Component implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
   rescanDataSource = []; //補件資訊檔
+  rescanData = []; //補件資訊檔Y
   smsDataSource = [];    //簡訊資訊檔
   emailDataSource = [];  //email發送檔
   ii = [];
@@ -37,6 +38,11 @@ export class Childscn30Component implements OnInit {
     jsonObject['applno'] = this.swcApplno;
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
       this.rescanDataSource = data.rspBody.items;
+      for(const data of this.rescanDataSource){
+        if(data.RESCAN_FLAG == 'Y'){
+          this.rescanData.push(data);
+        }
+      }
     })
   };
   getSmsList() {
