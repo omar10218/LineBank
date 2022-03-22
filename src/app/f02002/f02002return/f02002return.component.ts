@@ -65,7 +65,7 @@ export class F02002returnComponent implements OnInit {
   typeString: string = '';//補件類型
   type: sysCode[] = [];//補件類型陣列
   quantity: number;
-  fileList: fil[] = [];
+  fileList = [];
   formdata: FormData;
   formdata2: FormData = new FormData();
   list: te[] = [];
