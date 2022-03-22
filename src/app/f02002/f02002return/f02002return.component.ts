@@ -116,7 +116,14 @@ export class F02002returnComponent implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.data.applno;
     this.f02002Service.postJson(url, jsonObject).subscribe(data => {
-      this.F02002Data = data.rspBody;
+      for(var k of data.rspBody)
+      {
+        if(k.IMAGE_NAME==null)
+        {
+          this.F02002Data.push(k)
+        }
+      }
+      // this.F02002Data = data.rspBody;
       this.quantity = data.rspBody.length
 
       for (const i of data.rspBody) {
