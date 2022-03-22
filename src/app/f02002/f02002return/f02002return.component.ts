@@ -130,6 +130,7 @@ export class F02002returnComponent implements OnInit {
 
   store()//儲存
   {
+
     const formdata = new FormData();
     // const formdata: FormData = new FormData();
     let url = 'f02/f02002action5';
@@ -142,6 +143,7 @@ export class F02002returnComponent implements OnInit {
       });
       return
     }
+
     for (const n of this.fileList) {
       this.formdata2.append(n.value, n.viewValue)
     }
@@ -189,10 +191,15 @@ export class F02002returnComponent implements OnInit {
       });
       return
     }
-    for (const n of this.fileList) {
-      this.formdata2.append(n.value, n.viewValue)
+    if(this.fileList.length>0)
+    {
+      for (const n of this.fileList) {
+        this.formdata2.append(n.value, n.viewValue)
+      }
     }
-    for (const it of this.F02002Data) {
+
+    for (const it of this.F02002Data)
+     {
       this.list = [];
       const fileObj = this.formdata2.get(it.ROW_ID);
       this.list.push({ rowId: it.ROW_ID, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT });
@@ -281,7 +288,7 @@ export class F02002returnComponent implements OnInit {
 
   test() //測試用
   {
-
+    console.log(this.fileList.length)
     console.log(this.bool)
     // alert( this.fileToUpload)
     // console.log( this.fileList)

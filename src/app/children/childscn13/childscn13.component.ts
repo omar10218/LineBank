@@ -44,14 +44,15 @@ export class Childscn13Component implements OnInit {
   imageSrc:string;
   //test='assets\images\outline_photo_black_48dp.png';
 
-  webInfoSource: readonly Data[] = [];
-  webInfoSource2:webInfoData[]=[];
+  webInfoSource:webInfoData[]=[];
   total = 1;
   pageIndex = 1;
   pageSize = 50;
   webAddrOption: MappingCode[];
 
   image: any;
+
+  newData: any[] = [];
 
   ngOnInit(): void {
     this.applno = sessionStorage.getItem('applno');
@@ -85,16 +86,17 @@ export class Childscn13Component implements OnInit {
     jsonObject['per_page'] = pageSize;
     this.childscn13Service.getWebInfo( baseurl, jsonObject ).subscribe(data => {
       this.total = data.rspBody.size;
-      this.webInfoSource = data.rspBody.items;
-      this.webInfoSource2= data.rspBody.items;
-      this.webInfoSource2.forEach(c=>c.ImgSrc=this.imageSrcB);
+      this.webInfoSource= data.rspBody.items;
+      this.newData = this.childscn13Service.getTableDate(this.pageIndex, this.pageSize, this.webInfoSource);
+      this.newData.forEach(c=>c.ImgSrc=this.imageSrcB);
       this.webAddrOption = data.rspBody.webAddr;
     });
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    const { pageSize, pageIndex } = params;
-    this.getWebInfo( pageIndex, pageSize);
+    const { pageIndex } = params;
+    this.newData = this.childscn13Service.getTableDate(pageIndex, this.pageSize, this.webInfoSource);
+    this.newData.forEach(c=>c.ImgSrc=this.imageSrcB);
   }
 
   openView(web_img: any) {
@@ -178,11 +180,11 @@ export class Childscn13Component implements OnInit {
 
   //滑鼠移進切換圖示
   mouseover(rowId:string){
-   this.webInfoSource2.find(c=>c.rowId==rowId).ImgSrc=this.imageSrcW;
+   this.webInfoSource.find(c=>c.rowId==rowId).ImgSrc=this.imageSrcW;
   }
     //滑鼠移出切換圖示
   mouseout(rowId:string){
-    this.webInfoSource2.find(c=>c.rowId==rowId).ImgSrc=this.imageSrcB;
+    this.webInfoSource.find(c=>c.rowId==rowId).ImgSrc=this.imageSrcB;
 
   }
 
