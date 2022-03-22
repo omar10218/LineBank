@@ -447,9 +447,10 @@ export class F01015Component implements OnInit {
     sessionStorage.setItem('searchEmpName', BaseService.empName);
     sessionStorage.setItem('searchEmpId', BaseService.empId);
 
-    //   //開啟徵審主畫面
-    const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F01002/F01002SCN1");
+    //開啟徵審主畫面
+    let safeUrl = this.f01015Service.getNowUrlPath("/#/F01002/F01002SCN1");
+    window.open(safeUrl);
+
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');
     sessionStorage.setItem('applno', col);

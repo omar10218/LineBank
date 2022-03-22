@@ -190,9 +190,6 @@ export class BaseService {
     await this.saveOrEditWithFormData(baseUrl, formdata).then((data: CommonRes) => {
       rspCode = data.rspCode;
       rspMsg = data.rspMsg;
-    })
-    .catch((error) => {
-      console.log("Promise rejected with " + JSON.stringify(error));
     });
     return await this.getMsgStr(rspCode, rspMsg);
   }
@@ -204,9 +201,6 @@ export class BaseService {
     await this.saveOrEditWithJson(baseUrl, json).then((data: CommonRes) => {
       rspCode = data.rspCode;
       rspMsg = data.rspMsg;
-    })
-    .catch((error) => {
-      console.log("Promise rejected with " + JSON.stringify(error));
     });
     return await this.getMsgStr(rspCode, rspMsg);
   }
@@ -285,7 +279,7 @@ export class BaseService {
     return await this.postJsonObject(baseUrl, jsonObject).toPromise();
   }
 
-  getTableDate(pageIndex: number, pageSize: number, data: any):any{
+  getTableDate(pageIndex: number, pageSize: number, data: any):any {
     let start: number = (pageIndex - 1) * pageSize;
     let count:number = 0;
     let newData = [];
@@ -297,5 +291,15 @@ export class BaseService {
       }
     }
     return newData;
+  }
+
+  public getNowUrlPath(suffixUrl: string): string {
+    let safeUrl: string = null;
+    if ('local' == environment.from) {
+      safeUrl = environment.allowOrigin.replace('8080/Web', '4200');
+    } else {
+      safeUrl = environment.allowOrigin.replace('/Web', '/LineBank');
+    }
+    return safeUrl + suffixUrl;
   }
 }

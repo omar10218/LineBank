@@ -7,6 +7,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { BaseService } from 'src/app/base.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-childbwscn6',
@@ -77,11 +78,8 @@ export class Childbwscn6Component implements OnInit {
     sessionStorage.setItem('searchEmpId', BaseService.empId);
 
     //開啟徵審主畫面
-    const url = window.location.href;
-    const parser = new DOMParser();
-    let urlString:string = parser.parseFromString(url, "text/html").documentElement.textContent;
-    let safeUrl:string  = urlString.split("/#")[0] + "/#/F01009/F01009SCN1";
-    window.open(parser.parseFromString(safeUrl, "text/html").documentElement.textContent);
+    let safeUrl = this.childbwscn6Service.getNowUrlPath("/#/F01009/F01009SCN1");
+    window.open(safeUrl);
 
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');
@@ -90,9 +88,5 @@ export class Childbwscn6Component implements OnInit {
     sessionStorage.removeItem('searchUserId');
     sessionStorage.removeItem('searchEmpName');
     sessionStorage.removeItem('searchEmpId');
-    // const url = this.router.serializeUrl(
-    //   this.router.createUrlTree(["./F01009/F01009SCN1"])
-    // );
-    // window.open(url);
   }
 }
