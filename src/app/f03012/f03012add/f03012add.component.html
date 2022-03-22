@@ -35,7 +35,7 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">比對方式</span>
-            <mat-select [(ngModel)]="compareType" required name="compareType" (ngModelChange)="test123($event)">
+            <mat-select [(ngModel)]="compareType" required name="compareType" (ngModelChange)="test123($event)" >
               <mat-option value="">請選擇</mat-option>
               <mat-option [value]=1>絕對值</mat-option>
               <mat-option [value]=2>相對值</mat-option>
@@ -48,8 +48,11 @@
         <div nz-col nzSpan="8">
           <div style="padding:10px">
             <span class="form-title">設定最低門檻</span>
-            <input [(ngModel)]="setValueLow" maxlength="10" placeholder="請輸入數字" name="setValueLow" (keyup)="numberOnly(setValueLow)"
-              onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" [disabled]="low_disabled">
+           
+           
+
+              <input [(ngModel)]="setValueLow" [maxlength]="maxlength" placeholder="請輸入數字"
+                name="setValueLow" (keyup)="numberOnly(setValueLow)" [disabled]="low_disabled">
             <div *ngIf="compareType=='1'||compareType=='2'">
               <mat-error *ngIf="formControl.invalid && (setValueLow=='' || setValueLow== null)">{{getErrorMessage()}}
               </mat-error>
@@ -76,7 +79,7 @@
           <button nz-button nzSize="middle" nzType="primary" (click)="add()">新增</button>
           &nbsp;&nbsp;
           <button nz-button nzSize="middle" nzDanger (click)="clear()">取消</button>
-
+          
         </div>
       </div>
     </div>
