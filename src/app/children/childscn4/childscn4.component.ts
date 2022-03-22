@@ -11,7 +11,7 @@ import { Childscn4Service } from './childscn4.service';
 @Component({
   selector: 'app-childscn4',
   templateUrl: './childscn4.component.html',
-  styleUrls: ['./childscn4.component.css','../../../assets/css/child.css']
+  styleUrls: ['./childscn4.component.css', '../../../assets/css/child.css']
 })
 export class Childscn4Component implements OnInit {
 
@@ -35,19 +35,19 @@ export class Childscn4Component implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.getCaseStep( this.pageIndex, this.pageSize );
+    this.getCaseStep(this.pageIndex, this.pageSize);
   }
 
-  getCaseStep( pageIndex: number, pageSize: number )//查詢
+  getCaseStep(pageIndex: number, pageSize: number)//查詢
   {
     const baseUrl = 'f01/childscn4';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
-    this.childscn4Service.getCaseStep( baseUrl, jsonObject ).subscribe(data => {
+    this.childscn4Service.getCaseStep(baseUrl, jsonObject).subscribe(data => {
       this.loading = false;
-      this.total = data.rspBody.size;
+      this.total = data.rspBody.length;
       this.caseStepSource = data.rspBody;
       this.newData = this.childscn4Service.getTableDate(this.pageIndex, this.pageSize, this.caseStepSource);
     });
@@ -59,7 +59,9 @@ export class Childscn4Component implements OnInit {
   }
 
   sortChange(e: string) {
-    this.newData = e === 'ascend' ? this.newData.sort(
-      (a, b) => a.startDate.localeCompare(b.startDate)) : this.newData.sort((a, b) => b.newData.localeCompare(a.startDate))
+    console.log(e);
+    this.caseStepSource = e === 'ascend' ? this.caseStepSource.sort((a,b) => a.startDate.localeCompare(b.startDate))
+        : this.caseStepSource.sort((a,b) => b.startDate.localeCompare(a.startDate));
+    this.newData = this.childscn4Service.getTableDate(this.pageIndex, this.pageSize, this.caseStepSource);
   }
 }
