@@ -114,7 +114,6 @@ export class F01008scn4page1Component implements OnInit {
     this.f01008scn4Service.postJson(url, jsonObject).subscribe(data => {
       if (data.rspBody.length > 0) {
         this.fmData_M.data = data.rspBody
-
         this.fmData_M.data[0].unsdebt_AMT_501EX = this.toINT(this.fmData_M.data[0].unsdebt_AMT_501EX);
         this.fmData_M.data[0].unsdebt_AMT_504EX = this.toINT(this.fmData_M.data[0].unsdebt_AMT_504EX);
         this.fmData_M.data[0].unsdebt_AMTNEW_505EX = this.toINT(this.fmData_M.data[0].unsdebt_AMTNEW_505EX);
@@ -125,7 +124,6 @@ export class F01008scn4page1Component implements OnInit {
         this.fmData_M.data[0].unsdebt_824_CCRBAL = this.toINT(this.fmData_M.data[0].unsdebt_824_CCRBAL);
         this.fmData_M.data[0].unsdebt_NONJCIC = this.toINT(this.fmData_M.data[0].unsdebt_NONJCIC);
         this.fmData_M.data[0].unsdebt_PAYAMT_029EX = this.toINT(this.fmData_M.data[0].unsdebt_PAYAMT_029EX);
-
 
         this.fmData_M.data[0].unsdebt_AMT_501EX_B = this.toINT(this.fmData_M.data[0].unsdebt_AMT_501EX_B == null ? this.fmData_M.data[0].unsdebt_AMT_501EX : this.fmData_M.data[0].unsdebt_AMT_501EX_B);
         this.fmData_M.data[0].unsdebt_AMT_504EX_B = this.toINT(this.fmData_M.data[0].unsdebt_AMT_504EX_B == null ? this.fmData_M.data[0].unsdebt_AMT_504EX : this.fmData_M.data[0].unsdebt_AMT_504EX_B);
@@ -148,6 +146,10 @@ export class F01008scn4page1Component implements OnInit {
         this.fmData_M.data[0].unsdebt_824_CCRBAL_B = this.data_number2(this.fmData_M.data[0].unsdebt_824_CCRBAL_B);
         this.fmData_M.data[0].unsdebt_NONJCIC_B = this.data_number2(this.fmData_M.data[0].unsdebt_NONJCIC_B);
         this.fmData_M.data[0].unsdebt_PAYAMT_029EX_B = this.data_number2(this.fmData_M.data[0].unsdebt_PAYAMT_029EX_B);
+
+        if (Number(this.fmData_M.data[0].dti_1CK_C) == 0) {
+          this.removeM();
+        }
 
         //以下 資料加千分位
         this.fmData_M.data[0].unsdebt_AMT_501EX = this.data_number2(this.fmData_M.data[0].unsdebt_AMT_501EX);
@@ -176,6 +178,20 @@ export class F01008scn4page1Component implements OnInit {
       }
 
     });
+  }
+
+  //如果mak無資料時不顯示這些欄位
+  removeM() {
+    this.fmData_M.data[0].unsdebt_AMT_501EX_B = '';
+    this.fmData_M.data[0].unsdebt_AMT_504EX_B = '';
+    this.fmData_M.data[0].unsdebt_AMTNEW_505EX_B = '';
+    this.fmData_M.data[0].unsdebt_AMTNEW_029EX_B = '';
+    this.fmData_M.data[0].unsdebt_824_RLLIMIT_B = '';
+    this.fmData_M.data[0].unsdebt_824_RLBAL_B = '';
+    this.fmData_M.data[0].unsdebt_824_ILBAL_B = '';
+    this.fmData_M.data[0].unsdebt_824_CCRBAL_B = '';
+    this.fmData_M.data[0].unsdebt_NONJCIC_B = '';
+    this.fmData_M.data[0].unsdebt_PAYAMT_029EX_B = '';
   }
 
   //儲存 DBR收支表資料 產生合約前回查
