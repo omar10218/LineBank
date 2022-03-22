@@ -143,9 +143,11 @@ export class F02002returnComponent implements OnInit {
       });
       return
     }
-
-    for (const n of this.fileList) {
-      this.formdata2.append(n.value, n.viewValue)
+    if(this.fileList.length>0)
+    {
+      for (const n of this.fileList) {
+        this.formdata2.append(n.value, n.viewValue)
+      }
     }
     for (const it of this.F02002Data) {
       this.list = [];
