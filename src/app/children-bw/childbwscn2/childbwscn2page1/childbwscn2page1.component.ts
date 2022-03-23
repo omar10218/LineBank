@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { OptionsCode } from 'src/app/interface/base';
 import { BaseService } from 'src/app/base.service';
+import { DatePipe } from '@angular/common';
 
 //Nick 決策結果
 interface sysCode {
@@ -26,6 +27,7 @@ export class childbwscn2page1Component implements OnInit {
     private fb: FormBuilder,
     private Childbwscn2Service: Childbwscn2Service,
     private nzI18nService: NzI18nService,
+    private pipe: DatePipe,
     public dialog: MatDialog,) {
     this.nzI18nService.setLocale(zh_TW)
   }
@@ -62,6 +64,7 @@ export class childbwscn2page1Component implements OnInit {
   limit: string = '';//額度
   preempt: string;//預佔額度
   //審核結果選項
+  ThisTime:string;//本次查詢時間
   BW_creditResult_Code: OptionsCode[] = [{ value: 'FRZ', viewValue: 'FRZ' }, { value: 'DWN', viewValue: 'DWN' }, { value: 'HLD', viewValue: 'HLD' }
     , { value: 'NEX', viewValue: 'NEX' }, { value: 'N00', viewValue: 'N00' }, { value: 'XXX', viewValue: 'XXX' }, { value: '000', viewValue: '000' }];
 
@@ -152,8 +155,14 @@ export class childbwscn2page1Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.Childbwscn2Service.getDate_Json(url, jsonObject).subscribe(data => {
+      // console.log(data)
+      if (data.rspBody.bwDss4List != null && data.rspBody.bwDss4List.length > 0)
+      {
 
-      if (data.rspBody.bwDss4List != null && data.rspBody.bwDss4List.length > 0) {
+        this.ThisTime = this.pipe.transform(new Date(data.rspBody.bwDss4List[0].queryDate), 'yyyy-MM-dd HH:mm:ss')//本次執行審查使用JCIC日期時間
+        // console.log('1111111111111111111111')
+        // console.log( this.pipe.transform(new Date(data.rspBody.bwDss4List[0].queryDate), 'yyyy-MM-dd HH:mm:ss'))
+        // console.log( Date.parse(this.ThisTime))
 
         //系統決策
         this.dss1Form1.patchValue({ RVPRCSCD: data.rspBody.bwDss4List[0].rvprcscd })//系統流程
