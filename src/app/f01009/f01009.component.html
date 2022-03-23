@@ -145,7 +145,7 @@
   <div #absBox class="abs-box">
     <div nz-col nzSpan="24">
       <div class="line_bank_card_no_padding">
-        <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+        <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"
           [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
           [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)">
           <thead style="max-height: 100vh;">
@@ -169,7 +169,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of cusinfoDataSource">
+            <tr *ngFor="let data of newData">
               <td class="table-data" [nzLeft]="true" style="text-align: center;">
                 <button nz-button [nzSize]="'middle'" nzType="link" *ngIf="data.swcReadyForReview=='N'"
                   [disabled]="true">

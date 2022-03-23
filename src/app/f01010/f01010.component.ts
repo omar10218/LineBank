@@ -26,7 +26,7 @@ export class F01010Component implements OnInit {
   total: number;
   fds: string = "";
   empNo: string = BaseService.userId;      // 當前員編
-
+  newData = [];
   //ngModel區
   swcApplno: string;
   swcNationalId: string;
@@ -171,6 +171,7 @@ export class F01010Component implements OnInit {
       if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
+        this.newData = this.f01010Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
       }
       else {
         this.cusinfoDataSource = null;
@@ -186,6 +187,7 @@ export class F01010Component implements OnInit {
   sortChange(e: string) {
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+      this.newData = this.f01010Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
   }
 
   // 參數
@@ -193,6 +195,7 @@ export class F01010Component implements OnInit {
     const { pageIndex } = params;
     if (this.pageIndex !== pageIndex) {
       this.pageIndex = pageIndex;
+      this.newData = this.f01010Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
       this.getCaseList();
     }
   }

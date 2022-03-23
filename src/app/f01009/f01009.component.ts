@@ -21,6 +21,7 @@ export class F01009Component implements OnInit, AfterViewInit {
   ) { }
   @ViewChild('absBox') absBox: ElementRef             // 抓取table id
   cusinfoDataSource = [];
+  newData = [];
   readonly pageSize = 50;
   pageIndex = 1;
   total: number;
@@ -172,6 +173,7 @@ export class F01009Component implements OnInit, AfterViewInit {
       if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
+        this.newData = this.f01009Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         this.stepName = data.rspBody.items[0].F_StepName;
       }
       else {
@@ -187,7 +189,8 @@ export class F01009Component implements OnInit, AfterViewInit {
   // 排序
   sortChange(e: string) {
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
-      (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+      (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno));
+      this.newData = this.f01009Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
   }
 
   // 參數
@@ -195,7 +198,8 @@ export class F01009Component implements OnInit, AfterViewInit {
     const { pageIndex } = params;
     if (this.pageIndex !== pageIndex) {
       this.pageIndex = pageIndex;
-      this.getCaseList();
+      this.newData = this.f01009Service.getTableDate(pageIndex, this.pageSize, this.cusinfoDataSource);
+      // this.getCaseList();
     }
   }
 
@@ -279,4 +283,5 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.empNo = BaseService.userId;
     this.getCaseList();
   }
+  
 }
