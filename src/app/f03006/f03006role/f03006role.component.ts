@@ -41,7 +41,7 @@ export class F03006roleComponent {
       if (obj.completed) { valArray.push(obj.value); }
     }
     let jsonObject: any = {};
-    let roleNo: string = valArray.toString().replace(/,/g,'_');
+    let roleNo: string = valArray.toString()
     jsonObject['empNo'] = this.data.empNo;
     jsonObject['roleNo'] = roleNo;
     let msgStr = '';
