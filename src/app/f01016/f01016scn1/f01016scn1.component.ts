@@ -442,16 +442,18 @@ export class F01016scn1Component implements OnInit {
     sessionStorage.setItem('searchEmpId', BaseService.empId);
     // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
     sessionStorage.setItem('page', '2');
-    const url = window.location.href.split("/#");
-    window.open(url[0] + '/#/F01009/F01009SCN1/');
-  // this.router.navigate(['./F01009/F01009SCN1/CHILDBWSCN1']);
-  sessionStorage.setItem('winClose', 'N');
-  sessionStorage.setItem('search', 'N');
-  sessionStorage.setItem('check', 'N');
-  sessionStorage.setItem('applno', this.applno);
-  sessionStorage.removeItem('searchUserId');
-  sessionStorage.removeItem('searchEmpName');
-  sessionStorage.removeItem('searchEmpId');
+
+    //開啟徵審主畫面
+    let safeUrl = this.f01015Service.getNowUrlPath("/#/F01009/F01009SCN1");
+    window.open(safeUrl);
+
+    sessionStorage.setItem('winClose', 'N');
+    sessionStorage.setItem('search', 'N');
+    sessionStorage.setItem('check', 'N');
+    sessionStorage.setItem('applno', this.applno);
+    sessionStorage.removeItem('searchUserId');
+    sessionStorage.removeItem('searchEmpName');
+    sessionStorage.removeItem('searchEmpId');
   }
   //額度號轉換中文
   limitTypeChange(string: string) {

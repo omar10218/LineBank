@@ -91,3 +91,16 @@ table {
   color:black;
   background-color:#FF0000;
 }
+.table-header-new{
+  background-color:#ededed;
+  color:#000000;
+  margin-bottom: 1px; 
+  font-size: 14px;
+}
+.table-data-new{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:rgb(0, 0, 0);
+  margin-bottom: 0px;
+  font-size: 12px;
+}

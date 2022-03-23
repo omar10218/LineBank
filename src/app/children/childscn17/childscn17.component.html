@@ -4,20 +4,20 @@
     nzTitle="申覆資料檔">
     <thead>
       <tr>
-        <th class="table-header">No</th>
-        <th class="table-header">申覆原因</th>
-        <th class="table-header">申覆說明</th>
-        <th class="table-header">申覆人員</th>
-        <th class="table-header">申覆時間</th>
+        <th class="table-header" style="text-align: center;">No</th>
+        <th class="table-header" style="width:200px;text-align: center;">申覆原因</th>
+        <th class="table-header" style="width:400px;text-align: center;">申覆說明</th>
+        <th class="table-header" style="text-align: center;">申覆人員</th>
+        <th class="table-header" style="text-align: center;">申覆時間</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of restartDataSource;let i = index">
         <td class="table-data" [nzAlign]="'center'">{{ i+1 }}</td>
-        <td class="table-data">{{ data.REASON_DESC }}</td>
-        <td class="table-data">{{ data.RESTART_CONTENT }}</td>
-        <td class="table-data">{{ data.RESTART_EMPNO }}</td>
-        <td class="table-data">{{ data.RESTART_DATE }}</td>
+        <td class="table-data" [nzAlign]="'center'">{{ data.REASON_DESC }}</td>
+        <td class="table-data" style="padding: 5px;" [nzAlign]="'center'">{{ data.RESTART_CONTENT }}</td>
+        <td class="table-data" [nzAlign]="'center'">{{ data.RESTART_EMPNO }}</td>
+        <td class="table-data" [nzAlign]="'center'">{{ data.RESTART_DATE }}</td>
       </tr>
     </tbody>
   </nz-table>

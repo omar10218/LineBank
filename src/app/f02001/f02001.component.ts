@@ -212,11 +212,8 @@ export class F02001Component implements OnInit {
         sessionStorage.setItem('searchEmpId',BaseService.empId);
 
         //開啟徵審主畫面
-        const url = window.location.href;
-        const parser = new DOMParser();
-        let urlString:string = parser.parseFromString(url, "text/html").documentElement.textContent;
-        let safeUrl:string  = urlString.split("/#")[0] + "/#/F01002/F01002SCN1";
-        window.open(parser.parseFromString(safeUrl, "text/html").documentElement.textContent);
+        let safeUrl = this.f02001Service.getNowUrlPath("/#/F01002/F01002SCN1");
+        window.open(safeUrl);
 
         sessionStorage.setItem('winClose', 'N');
         sessionStorage.setItem('search', 'N');

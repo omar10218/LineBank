@@ -99,52 +99,11 @@ export class F01015Component implements OnInit {
         this.limitTypeCode.push({ value: codeNo, viewValue: desc })
       }
     });
-    // this.applno = sessionStorage.applno; //案編
-    // if (this.applno != null) {
-    //   this.getTargetCustList();
-    // }
-    // this.reasonValue = sessionStorage.reasonCode; //主管帶執行原因
-    // this.executeValue = sessionStorage.executeType; //主管帶執行策略
-    // this.creditEmpno = sessionStorage.creditEmpno; //主管帶本次執行員編
-    // this.reasonDetail = sessionStorage.reasonDetail; //主管帶執行細項
-    // this.YNValue = sessionStorage.contactYn; //主管帶通知客戶
-    // this.limitNo = sessionStorage.limitNo; //主管帶額度號
-    // this.contact = sessionStorage.contactType; //主管帶通知方式
-    // this.contactContent = sessionStorage.contactContent; //主管帶通知內容
-    // this.creditMemo = sessionStorage.creditMemo; //主管帶creditMemo
-    // this.mobile = sessionStorage.mobile; //mobile
-    // if (this.executeValue == 'DWN') {
-    //   this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
-    // }
-    // this.page = sessionStorage.getItem("page");
 
-    // if (this.page == '16') {
-
-    //   // this.creditTime = this.datePipe.transform(new Date(sessionStorage.creditTime), 'yyyy-MM-dd HH:mm');    //主管帶本次執行時間
-    //   this.creditTime = sessionStorage.creditTime
-    //   this.changereasonDetail()
-    //   this.custId = sessionStorage.customerId; //主管帶customer_ID
-    //   this.getTargetCustList();
-    //   console.log(this.getlimitCode(this.executeValue)
-    //   )
-    //     ;
-    //   if (sessionStorage.nationalId == 'null') {    //主管帶身分證
-    //     this.nationalId = '';
-    //   } else {
-    //     this.nationalId = sessionStorage.nationalId
-    //   }
-    // } else {
-
-    // }
     this.useId = BaseService.userId //進入員編
     this.getYNresult();
     this.getReason();
-    // this.reasonValue = '';
-    // this.reasonDetail = '';
-    // this.executeValue = '';
-    // this.YNValue = '';
-    // this.limitNo = '';
-    // this.contact = '';
+
   }
 
   formControl = new FormControl('', [Validators.required]);
@@ -212,7 +171,6 @@ export class F01015Component implements OnInit {
     if (value == 'FRZ' || value == 'DWN') {
       this.f01015Service.getImpertmentParameter(jsonObject).subscribe(data => {
         console.log(data)
-        this.limitCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.limitNoList) {
           const codeNo = jsonObj;
           const desc = jsonObj;
@@ -233,15 +191,7 @@ export class F01015Component implements OnInit {
           this.limitCode.push({ value: codeNo, viewValue: desc })
         }
         console.log(this.limitCode)
-        // for (const row of this.targetCustSource) {
-        //   for (const data of this.limit) {
-        //     if (row.limitNo == data.value) {
 
-        //       this.limitCode.push({ value: data.value, viewValue: data.value });
-        //     }
-        //     console.log(this.limitCode)
-        //   }
-        // }
       })
       this.limitCode = []
 
@@ -447,9 +397,10 @@ export class F01015Component implements OnInit {
     sessionStorage.setItem('searchEmpName', BaseService.empName);
     sessionStorage.setItem('searchEmpId', BaseService.empId);
 
-    //   //開啟徵審主畫面
-    const url = window.location.href.split("/#");
-    window.open(url[0] + "/#/F01002/F01002SCN1");
+    //開啟徵審主畫面
+    let safeUrl = this.f01015Service.getNowUrlPath("/#/F01002/F01002SCN1");
+    window.open(safeUrl);
+
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');
     sessionStorage.setItem('applno', col);
@@ -459,6 +410,7 @@ export class F01015Component implements OnInit {
     sessionStorage.removeItem('searchEmpId');
     // })
   }
+
   //透過案編跳轉至複審
   toCalloutPage(applno: string) {
     sessionStorage.setItem('applno', applno);
@@ -473,10 +425,10 @@ export class F01015Component implements OnInit {
     // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
     sessionStorage.setItem('page', '2');
 
-      //   //開啟徵審主畫面
-      const url = window.location.href.split("/#");
-      window.open(url[0] + '/#/F01009/F01009SCN1/');
-    // this.router.navigate(['./F01009/F01009SCN1/CHILDBWSCN1']);
+    //開啟徵審主畫面
+    let safeUrl = this.f01015Service.getNowUrlPath("/#/F01009/F01009SCN1");
+    window.open(safeUrl);
+
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');
     sessionStorage.setItem('check', 'N');

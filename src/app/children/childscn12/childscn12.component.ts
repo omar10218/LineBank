@@ -446,6 +446,7 @@ export class Childscn12Component implements OnInit {
       jsonObject['mark'] = this.EL_INCOME_Source.data[6].mark
       this.childscn12Service.postJson(baseUrl, jsonObject).subscribe(data => {
         msg = data.rspMsg == "success" ? "儲存成功!" : "儲存失敗";
+        if (data.rspMsg.indexOf('未通過資安風險驗證：') != -1) { msg = data.rspMsg; }
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: msg }
         });
