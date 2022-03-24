@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { environment } from './../environments/environment';
 import { CommonRes, Mapping, history } from './interface/base';
 
+declare let tip: string;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +20,7 @@ export class BaseService {
     BaseService.userId = value;
   }
 
-  private getUserId(): string{
+  private getUserId(): string {
     return BaseService.userId;
   }
 
@@ -37,6 +39,8 @@ export class BaseService {
     const formData = new FormData();
     formData.append("username", empNo);
     formData.append("ticket", ticket != null ? ticket : "");
+    formData.append("ip", tip != null ? tip : "");
+    formData.append("action", "logout");
     const baseURL = 'logOut';
     return await this.postFormData(baseURL, formData).toPromise();
   }
@@ -151,7 +155,7 @@ export class BaseService {
   private unsafeCharToSpace(str: string, target: string) {
     let newStr = '';
     if (str.indexOf(target) != -1) {
-      newStr = str.replace(new RegExp(target,'gm'), ' ');
+      newStr = str.replace(new RegExp(target, 'gm'), ' ');
       console.log(str + ' -> 有風險故replace: ' + newStr);
       str = newStr;
     }
@@ -262,7 +266,7 @@ export class BaseService {
     let msg = '';
     let jsonObject: any = {};
     for (let index = 0; index < value.length; index++) {
-      if ( !(value[index].value == null || value[index].value == '' || value[index].value == 'null' )) {
+      if (!(value[index].value == null || value[index].value == '' || value[index].value == 'null')) {
         content.push(
           {
             applno: applno,
@@ -279,9 +283,9 @@ export class BaseService {
     return await this.postJsonObject(baseUrl, jsonObject).toPromise();
   }
 
-  getTableDate(pageIndex: number, pageSize: number, data: any):any {
+  getTableDate(pageIndex: number, pageSize: number, data: any): any {
     let start: number = (pageIndex - 1) * pageSize;
-    let count:number = 0;
+    let count: number = 0;
     let newData = [];
     for (let index = start; index < data.length; index++) {
       newData.push(data[index]);
