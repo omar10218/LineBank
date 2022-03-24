@@ -89,17 +89,15 @@ export class F02002returnComponent implements OnInit {
     this.dialogRef.close({ event: 'success' });
   }
 
-  public async  onChange(evt, rid: string,) {
+  public async onChange(evt: { target: DataTransfer; }, rid: string,) {
     this.target = <DataTransfer>(evt.target);
     if(this.target.files.length==0)
     {
-      const index = this.fileList.findIndex(e => e.value ===rid);
-      if(index !==-1)
+      let index = await this.removeFile(rid);
+      if(index !== -1)
       {
         this.fileList.splice(index,1)
-
       }
-
     }
     else
     {
@@ -109,7 +107,6 @@ export class F02002returnComponent implements OnInit {
 
       }
       // console.log(this.target.files[0])
-      var rid = rid;
       this.fileToUpload = this.target.files.item(0);
       if (this.isValidFile)
        {
@@ -127,10 +124,17 @@ export class F02002returnComponent implements OnInit {
     }
     this.verify();
   }
-  package(rid:string)
+
+  public async package(rid:string) :Promise<boolean>
   {
     this.fileList = this.fileList.filter(e => e.value != rid);
-    return true
+    return true;
+  }
+
+  public async removeFile(rid:string) :Promise<number>
+  {
+    const index: number = this.fileList.findIndex(e => e.value ===rid);
+    return index
   }
 
   set()//查詢

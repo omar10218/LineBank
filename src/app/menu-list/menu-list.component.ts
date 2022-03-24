@@ -69,6 +69,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
   searchEmpName: string = '';
 
   ngOnInit() {
+    this.menuListService.addMenu(localStorage.getItem("empNo"));
     //Nick 設定同時只能登入一個帳號
     window.addEventListener("storage", (e) => { //監聽帳號
       if (localStorage.getItem('oldToken') != null) {
@@ -98,9 +99,13 @@ export class MenuListComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    if (BaseService.userId == null || BaseService.userId == '') {
-      if (this.searchUserId == '') { window.location.href = environment.allowOrigin + '/sso'; }
-    }
+    // if (environment.from != 'local') {
+    //   if (BaseService.userId == null || BaseService.userId == '') {
+    //     if (this.searchUserId == '') { window.location.href = environment.allowOrigin + '/sso'; }
+    //   }
+    // } else {
+    //   this.menuListService.setUserId(localStorage.getItem("empNo"));
+    // }
   }
 
   ngOnDestroy() {
