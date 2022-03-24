@@ -6,9 +6,6 @@ import { OptionsCode } from '../interface/base';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { AES, mode, pad, enc } from 'crypto-js';
-
-declare let tip: string;
 
 @Injectable({
   providedIn: 'root'
@@ -55,30 +52,19 @@ export class LoginService extends BaseService {
     }
   }
 
-  private async checkEmpNoPromise(empNo: string, lineBankWord: string, ticket: string): Promise<Observable<any>> {
+  private async checkEmpNoPromise(empNo: string, empPwd: string, ticket: string): Promise<Observable<any>> {
     const formData = new FormData();
     formData.append("username", empNo);
-    if (lineBankWord != null && lineBankWord != '' && lineBankWord != undefined) {
-      let Key = enc.Utf8.parse("MpWsyseHtJywNON8");
-      let aesWord: any = AES.encrypt(lineBankWord, Key, {
-        mode: mode.ECB,
-        padding: pad.Pkcs7
-      }).ciphertext.toString();
-      formData.append("empword", aesWord);
-    }
-    else {
-      formData.append("empword", lineBankWord);
-    }
+    formData.append("password", empPwd);
     formData.append("ticket", ticket);
-    formData.append("ip", tip != null ? tip : "");
     const baseURL = 'login';
     return await this.postFormData(baseURL, formData).toPromise();
   }
 
-  public async initData(empNo: string, lineBankWord: string, ticket: string): Promise<boolean> {
+  public async initData(empNo: string, empPwd: string, ticket: string): Promise<boolean> {
     let isOk: boolean = false;
     let tokenStr: string = '';
-    await this.checkEmpNoPromise(empNo, lineBankWord, ticket).then((data: any) => {
+    await this.checkEmpNoPromise(empNo, empPwd, ticket).then((data: any) => {
       if (data.rspCode == '0000') {
         tokenStr = data.rspBody.token;
         localStorage.setItem("loginKey", 'change');
@@ -99,9 +85,4 @@ export class LoginService extends BaseService {
     }
     return isOk;
   }
-
-  posSSO_FLAG(baseUrl: string): Observable<any> {
-    return this.postHttpClient(baseUrl);
-  }
-
 }

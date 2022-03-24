@@ -8,6 +8,8 @@ import { AuthService } from '../auth/auth.service';
 import { environment } from 'src/environments/environment';
 import { Childscn6Service } from '../children/childscn6/childscn6.service';
 
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,7 +27,6 @@ export class LoginComponent implements OnInit {
   no: string = '';
   lineBankWord: string = '';
   private from: string = environment.from;
-  private SSO_FLAG = '';
 
   constructor(
     private authService: AuthService,
@@ -40,10 +41,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.no = this.route.snapshot.queryParamMap.get('name');
     this.ticket = this.route.snapshot.queryParamMap.get('ticket');
-    let baseUrl = 'checkReplaceSSo';
-    this.loginService.posSSO_FLAG(baseUrl).subscribe(data => {
-      this.SSO_FLAG = data.ssoFlag;
-    });
   }
 
   ngAfterViewInit() {
@@ -54,14 +51,23 @@ export class LoginComponent implements OnInit {
   }
 
   async onClickMe(): Promise<void> {
+    // this.bnIdle = new BnNgIdleService();
+    //------------------------------------------------------------------
+    // let publicKey = this.jsEncrypt.getKey().getPublicBaseKeyB64();
+    // let privateKey = this.jsEncrypt.getKey().getPrivateBaseKeyB64();
+    // console.log("pub=====>"+publicKey);
+    // console.log("pri=====>"+privateKey);
+    // this.jsEncrypt.setPublicKey(publicKey);
+    // this.hash = sha256('19830330');
+    // const enc = this.jsEncrypt.encrypt("19830330");
+    // console.log("enc=====>"+enc);
+    // this.jsEncrypt.setPrivateKey(privateKey);
+    // const dec = this.jsEncrypt.decrypt(enc.toString());
+    // console.log("dec=====>"+dec);
+    //------------------------------------------------------------------
+
     let chkTicket: string = (this.ticket != null && this.ticket.length > 0) ? this.ticket : '';
     if ('local' == this.from || 'rstn' == this.from || 'dev' == this.from) { chkTicket = ''; }
-    else {
-      if (this.SSO_FLAG != 'Y' && chkTicket == '') {
-        alert('請由SSO登入本系統');
-        return;
-      }
-    }
     if (await this.loginService.initData(this.no, this.lineBankWord, chkTicket)) {
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();
