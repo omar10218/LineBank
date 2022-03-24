@@ -38,6 +38,17 @@ export class Childscn13editComponent implements OnInit {
     });
   }
 
+  formControl = new FormControl('', [
+    Validators.required
+    // Validators.email,
+  ]);
+
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
+
   changeSelect() {
     this.data.webAddrUrl = this.data.webAddrValue.split('=')[1];
   }
