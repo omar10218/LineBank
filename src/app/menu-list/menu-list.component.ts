@@ -99,11 +99,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit() {
     if (BaseService.userId == null || BaseService.userId == '') {
-      if (this.searchUserId == '') {
-        this.router.navigate(['./logOut']).then(async () => {
-          window.location.reload();
-        });
-      }
+      if (this.searchUserId == '') { window.location.href = environment.allowOrigin + '/sso'; }
     }
   }
 
