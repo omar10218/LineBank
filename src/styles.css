@@ -180,3 +180,18 @@ box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.19);
   color: rgba(87,87,87);
   margin-bottom: 0px;
 }
+/* 表格表頭樣式 黑色*/
+.table-header-black{
+  background-color:#ededed;
+  color:#000000;
+  margin-bottom: 1px;
+  font-size: 14px;
+}
+/* 表格內容樣式 黑色*/
+.table-data-black{
+  background-color:white;
+  border: 1px solid #e8e8e8;
+  color:#000000;
+  margin-bottom: 0px;
+  font-size: 5px;
+}
