@@ -113,7 +113,7 @@ export class F02002returnComponent implements OnInit {
       this.fileToUpload = this.target.files.item(0);
       if (this.isValidFile)
        {
-        var p = await this.tt(rid)
+        var p = await this.package(rid)
         if(p==true)
         {
           this.fileList.push({ value: rid, viewValue: this.fileToUpload });
@@ -125,10 +125,9 @@ export class F02002returnComponent implements OnInit {
       }
 
     }
-    console.log(this.fileList)
     this.verify();
   }
-  tt(rid:string)
+  package(rid:string)
   {
     this.fileList = this.fileList.filter(e => e.value != rid);
     return true
