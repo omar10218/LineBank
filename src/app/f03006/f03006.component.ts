@@ -13,6 +13,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table'
 import { F03006amtComponent } from './f03006amt/f03006amt.component'
 import { F03006prjComponent } from './f03006prj/f03006prj.component'
 import { BaseService } from '../base.service'
+import { AES, mode, pad, enc } from 'crypto-js';
 
 //角色checkBox框架
 interface checkBox {
@@ -388,11 +389,18 @@ export class F03006Component implements OnInit {
       });
       return;
     }
+
+    let Key = enc.Utf8.parse("MpWsyseHtJywNON8");
+    let aesWord: any = AES.encrypt(this.f03006word, Key, {
+      mode: mode.ECB,
+      padding: pad.Pkcs7
+    }).ciphertext.toString();
+
     let msgStr: string = "";
     let baseUrl = 'f03/f03006action10';
     let jsonObject: any = {};
     jsonObject['empNo'] = this.empNoValue;
-    jsonObject['empPassword'] = this.f03006word;
+    jsonObject['empword'] = aesWord;
     this.f03006Service.saveReason(baseUrl, jsonObject).then((data: any) => {
       msgStr = data.rspMsg;
       if (data.rspCode == '0000') { this.f03006word = ''; this.empNoValue = ''; }
