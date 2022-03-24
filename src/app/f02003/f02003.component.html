@@ -77,6 +77,7 @@
           <th nzWidth="5%">進件類型</th>
           <th nzWidth="5%">系統狀態</th>
           <th nzWidth="5%">進件日期時間</th>
+          <th nzWidth="5%">覆審結束日期時間</th>
           <th nzWidth="5%">核決日期</th>
           <th nzWidth="5%">符合貸後異常名單</th>
         </tr>
@@ -103,6 +104,8 @@
           <td>{{data.OP_DESC}}</td>
           <!--進件日期時間-->
           <td>{{data.START_TIME | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+           <!--覆審結束日期時間-->
+           <td>{{data.CREDIT_END_TIME}}</td>
           <!--核決日期-->
           <td>{{data.CREDIT_TIME}}</td>
           <!--符合貸後異常名單-->

@@ -11,14 +11,14 @@
       <nz-tab [nzTitle]="showAll">
         <ng-template #showAll let-visible="visible">
           <button nz-button [nzSize]="'small'" [ngClass]="hideAll ? 'nohide' : 'hide'" class="hide" (click)="all()">全部顯示
-            <h style="display: block; font-size: 12px;">-</h> 
+            <h style="display: block; font-size: 12px;">-</h>
           </button>
         </ng-template>
       </nz-tab>
       <nz-tab [nzTitle]="JCICMASTER">
         <ng-template #JCICMASTER let-visible="visible">
           <button nz-button [nzSize]="'small'" [ngClass]="hideJCICMASTER ? 'nohide' : 'hide'"
-          (click)="show('JCICMASTER')">JCICMASTER<h style="display: block; font-size: 14px;">-</h>
+            (click)="show('JCICMASTER')">JCICMASTER<h style="display: block; font-size: 14px;">-</h>
           </button>
         </ng-template>
       </nz-tab>
@@ -50,13 +50,13 @@
           </button>
         </ng-template>
       </nz-tab>
-      <nz-tab [nzTitle]="JAS002">
+      <!-- <nz-tab [nzTitle]="JAS002">
         <ng-template #JAS002 let-visible="visible"><button nz-button [nzSize]="'small'"
             [ngClass]="hideJAS002 ? 'nohide' : 'hide'" (click)="show('JAS002')">
             信用異常紀錄<h style="display: block; font-size: 12px;">(JAS002)</h>
           </button>
         </ng-template>
-      </nz-tab>
+      </nz-tab> -->
       <!-- <nz-tab [nzTitle]="STM022">
         <ng-template #STM022 let-visible="visible"><button nz-button [nzSize]="'small'"
             [ngClass]="hideSTM022 ? 'nohide' : 'hide'" (click)="show('STM022')">
@@ -199,13 +199,12 @@
       </nz-tab>
     </nz-tabset>
   </div>
-  <br><br>
+  <br>
 
   <div style="padding-left: 40px; padding-top:40px;">
     <div nz-row>
       <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">查詢日期</span><input matInput #input class="form-control"
-            [(ngModel)]="queryDate" readonly disabled></div>
+        <div style="padding:3px"><span class="form-title">查詢日期:{{queryDate}}</span></div>
       </div>
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="1"></div>
@@ -215,664 +214,751 @@
     </div>
   </div>
   <!-- JCICMASTEE -->
-  <div [id]="!hideJCICMASTER ? 'JCICMASTER' : '' " [(hidden)]="hideJCICMASTER" class="line_bank_card_no_padding">
-    <!-- AAS003 -->
-    <nz-table nzSize="small" nzTitle="AAS003自然人姓名,身分證補發,通報,補充註記">
-      <ng-container >
-        <tr>
-          <th class="table-header-new">身分證號</th>
-          <th class="table-header-new ">中文姓名</th>
-          <th class="table-header-new ">身分證註銷或一年內掛失紀錄</th>
-          <th class="table-header-new ">通報案件紀錄</th>
-          <th class="table-header-new">是否有補充註記</th>
-          <th class="table-header-new">補充註記</th>
-          <th class="table-header-new ">通報案件紀錄</th>
-          <th class="table-header-new ">在台無戶籍人士身分證號對照索引註記</th>
-        </tr>
-        <tr *ngFor="let data of AAS003.slice(0,1)" style="height:25px">
-          <td class="table-data-new">{{ data.IDN ? data.IDN : " " }}</td>
-          <td class="table-data-new">{{ data.PNAME ? data.PNAME : "" }}</td>
-          <td class="table-data-new">{{ data.IS_LOST ? data.IS_LOST : "" }}</td>
-          <td class="table-data-new">{{ data.IS_WANTED ? data.IS_WANTED : "" }}</td>
-          <td class="table-data-new">{{ data.IS_NOTE ? data.IS_NOTE : "" }}</td>
-          <td class="table-data-new">{{ data.NOTELIST ? data.NOTELIST : ""}}</td>
-          <td class="table-data-new">{{ data.WANTEDLIST ? data.WANTEDLIST : ""}}</td>
-          <td class="table-data-new">{{ data.FOREIGNER_MARK ? data.FOREIGNER_MARK : "" }}</td>
-        </tr>
-      </ng-container>
-    </nz-table>
-    <br>
-    
-  </div>
-  <div [id]="!hideJCICMASTER ? 'JCICMASTER' : '' " [(hidden)]="hideJCICMASTER" class="line_bank_card_no_padding">
-    <nz-table nzSize="small" nzTitle="BAI001授信資料日期">
-      <ng-container *ngFor="let data of BAI001.slice(0,1)">
-        <tr>
-          <th class="table-header-new">資料日期</th>
-        </tr>
-        <tr>
-          <td class="table-data-new">{{  data.DATA_DATE  }}</td>
-        </tr>
-      </ng-container>
-    </nz-table>
-    <br>
-  </div>
-  <!-- JAS002 -->
-  <div [(hidden)]="hideJAS002" class="line_bank_card_no_padding">
-    <!-- 表格 -->
-    <nz-table nzShowSizeChanger [nzData]="JAS002Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total5"
-      [nzPageSize]="pageSize5" [nzPageIndex]="pageIndex5" (nzQueryParams)="onQueryParamsChange($event, 'JAS002')"
-      nzSize="small" nzTitle="JAS002 信用異常紀錄 (B, D, K)">
-      <thead>
-        <tr>
-          <th class="table-header-new">授信異常 YN</th>
-          <th class="table-header-new">最近授信異常日期</th>
-          <th class="table-header-new">退票異常 YN</th>
-          <th class="table-header-new">最近退票異常日期</th>
-          <th class="table-header-new">拒絕往來記錄 YN</th>
-          <th class="table-header-new">拒絕往來日期</th>
-          <th class="table-header-new">強制停卡異常 YN</th>
-          <th class="table-header-new">最近強制停卡日期</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of JAS002Source">
-          <td class="table-data-new">{{ data.EVER_DELINQUENT }}</td>
-          <td class="table-data-new">{{ data.DELINQUENT_DATE }}</td>
-          <td class="table-data-new">{{ data.EVER_BAD_CHECK }}</td>
-          <td class="table-data-new">{{ data.BAD_CHECK_DATE }}</td>
-          <td class="table-data-new">{{ data.EVER_REJECT }}</td>
-          <td class="table-data-new">{{ data.REJECT_DATE }}</td>
-          <td class="table-data-new">{{ data.EVER_STOP_CARD }}</td>
-          <td class="table-data-new">{{ data.STOP_CARD_DATE }}</td>
-        </tr>
-      </tbody>
-    </nz-table>
-  </div>
-  <!-- 聯徵彙整資訊 -->
-  <div [(hidden)]="hideJCIC" class="line_bank_card_no_padding">
-    <!-- KRM046信用卡證卡持有 -->
-    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="KRM046信用卡證卡持有">
-      <thead>
-        <tr>
-          <th class="table-header-new" style="width:20%">持有往來</th>
-          <th class="table-header-new" colspan="4" style="width:50%">正卡</th>
-        </tr>
-        <tr>
-          <th class="table-header-new" style="width:20%"></th>
-          <th class="table-header-new" style="width:20%">銀行家數</th>
-          <th class="table-header-new" style="width:20%">總卡數</th>
-          <th class="table-header-new" style="width:20%">活卡最早往來年數</th>
-          <th class="table-header-new" style="width:20%">活卡最早往來月數</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-header-new"></td>
-          <td class="table-data-new">{{ listSource.ccLatvBank }}</td>
-          <td class="table-data-new">{{ listSource.ccLatvCnt }}</td>
-          <td class="table-data-new">{{ listSource.ccLatvMaxyob }}</td>
-          <td class="table-data-new">{{ listSource.ccLatvMaxmob }}</td>
-        </tr>
-      </tbody>
-    </nz-table>
-    <!-- KRM046信用卡證卡持有 -->
-    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="KRM048信用卡帳務額度資訊">
-      <thead>
-        <tr>
-          <th class="table-header-new" style="width:14%"></th>
-          <th class="table-header-new" style="width:14%">目前額度合計</th>
-          <th class="table-header-new" style="width:14%">家數</th>
-          <th class="table-header-new" style="width:14%">每家額度平均</th>
-          <th class="table-header-new" style="width:14%">最大額度</th>
-          <th class="table-header-new" style="width:14%">最小額度</th>
-          <th class="table-header-new" style="width:16%"> 近12個月內將額家數</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-header-new">永久額度</td>
-          <td class="table-data-new">{{ listSource.permLimitAdj01aj }}</td>
-          <td class="table-data-new">{{ listSource.issue01aj }}</td>
-          <td class="table-data-new">{{toCurrency( listSource.permLimitAvg01aj) }}</td>
-          <td class="table-data-new">{{toCurrency( listSource.permLimitMax01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.permLimitMin01aj) }}</td>
-          <td class="table-data-new">{{ listSource.ccPermlimitDwncntL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">預借額度</td>
-          <td class="table-data-new">{{ toCurrency(listSource.cashLimitAdj01aj) }}</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new">{{ listSource.ccCashlimitDwncntL12 }}</td>
-        </tr>
-      </tbody>
-    </nz-table>
-    <!-- 第一欄位 -->
-    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
-      <thead>
-        <tr>
-          <th class="table-header-new">使用行為</th>
-          <th class="table-header-new" colspan="2">目前(近一個月)</th>
-          <th class="table-header-new" colspan="2">近十二個月內</th>
-        </tr>
-        <tr>
-          <th class="table-header-new" style="width:20%"></th>
-          <th class="table-header-new" style="width:20%">動用筆數</th>
-          <th class="table-header-new" style="width:20%">餘額</th>
-          <th class="table-header-new" style="width:20%">動用月份數</th>
-          <th class="table-header-new" style="width:20%">平均每月餘額</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-header-new">本期應付帳款</td>
-          <td class="table-data-new">{{ toCurrency(listSource.issueAtv01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.payable01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccPayableMthL12) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccPayableAvgL12) }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">上期循環信用</td>
-          <td class="table-data-new">{{ listSource.revolBalCnt01aj }}</td>
-          <td class="table-data-new">{{ listSource.revolBal01aj }}</td>
-          <td class="table-data-new">{{ listSource.ccRevolMthL12 }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccRevolAvgL06) }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">當期預借現金</td>
-          <td class="table-data-new">{{ listSource.cashLentCnt01aj }}</td>
-          <td class="table-data-new">{{ listSource.cashLent01aj }}</td>
-          <td class="table-data-new">{{ listSource.ccCashlentMthL12 }}</td>
-          <td class="table-data-new">{{ listSource.ccCashlentAvgL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">未到期分期賞還待付金額</td>
-          <td class="table-data-new">{{toCurrency( listSource.preOwedCnt01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.preOwed01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccPreowedMthL12) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccPreowedAvgL12) }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">預借分期</td>
-          <td class="table-data-new">{{ toCurrency(listSource.preCashedCnt01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.preCashed01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccPrecashedMthL12) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccPrecashedAvgL12) }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">帳單分期</td>
-          <td class="table-data-new">{{ toCurrency(listSource.preBilledCnt01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.preBilled01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccPrebilledMthL12) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccPrebilledAvgL12) }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">消費分期</td>
-          <td class="table-data-new">{{ toCurrency(listSource.preSpentCnt01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.preSpent01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccPrespentMthL12) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccPrespentAvgL12) }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">預借行為(當期+未到期)</td>
-          <td class="table-data-new">{{ toCurrency(listSource.cashOsCnt01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.cashOs01aj) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccCashosMthL12) }}</td>
-          <td class="table-data-new">{{ toCurrency(listSource.ccCashosAvgL12) }}</td>
-        </tr>
-      </tbody>
+  <div [id]="!hideJCICMASTER ? 'JCICMASTER' : '' " [(hidden)]="hideJCICMASTER" class="line_bank_card_no_padding" style="background-color:transparent;">
+    <div nz-row>
+      <div nz-col nzSpan="11">
 
-    </nz-table>
-    <!-- 第二欄位 -->
-    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
-      <thead>
-        <tr>
-          <th class="table-header-new" style="width:17%">繳費比率</th>
-          <th class="table-header-new" *ngFor="let index of [1,2,3,4,5,6,7,8,9,10,11,12]">第{{ index }}期</th>
-        </tr>
+        <nz-table nzSize="small" nzTitle="AAS003 自然人姓名,身分證補發,通報,補充註記">
+          <ng-container *ngFor="let data of AAS003.slice(0,1)">
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">身分證號</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.IDN ? data.IDN : ' ' }}</td>
 
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-header-new">上期應付帳款</td>
-          <td class="table-data-new">{{ listSource.lastPaya01aj }}</td>
-          <td class="table-data-new">{{ listSource.lastPaya02 }}</td>
-          <td class="table-data-new">{{ listSource.lastPaya03 }}</td>
-          <td class="table-data-new">{{ listSource.lastPaya04 }}</td>
-          <td class="table-data-new">{{ listSource.lastPaya05 }}</td>
-          <td class="table-data-new">{{ listSource.lastPaya06 }}</td>
-          <td class="table-data-new">{{ listSource.lastPaya07 }}</td>
-          <td class="table-data-new">{{ listSource.lastPaya08 }}</td>
-          <td class="table-data-new">{{ listSource.lastPaya09 }}</td>
-          <td class="table-data-new">{{ listSource.lastPaya10 }}</td>
-          <td class="table-data-new">{{ listSource.lastPaya11 }}</td>
-          <td class="table-data-new">{{ listSource.lastPaya12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">上期應付帳款繳款率</td>
-          <td class="table-data-new">{{ listSource.paymentRt01aj }}</td>
-          <td class="table-data-new">{{ listSource.paymentRt02 }}</td>
-          <td class="table-data-new">{{ listSource.paymentRt03 }}</td>
-          <td class="table-data-new">{{ listSource.paymentRt04 }}</td>
-          <td class="table-data-new">{{ listSource.paymentRt05 }}</td>
-          <td class="table-data-new">{{ listSource.paymentRt06 }}</td>
-          <td class="table-data-new">{{ listSource.paymentRt07 }}</td>
-          <td class="table-data-new">{{ listSource.paymentRt08 }}</td>
-          <td class="table-data-new">{{ listSource.paymentRt09 }}</td>
-          <td class="table-data-new">{{ listSource.paymentRt10 }}</td>
-          <td class="table-data-new">{{ listSource.paymentRt11 }}</td>
-          <td class="table-data-new">{{ listSource.paymentRt12 }}</td>
-        </tr>
-      </tbody>
-    </nz-table>
-    <!-- 第三欄位 -->
-    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
-      <thead>
-        <tr>
-          <th class="table-header-new">額度使用率(分母為有動用之額度)</th>
-          <th class="table-header-new">目前(近一個月內)</th>
-          <th class="table-header-new">近六個月內</th>
-          <th class="table-header-new">近十二個月內</th>
-          <th class="table-header-new">額度使用率(分母為所有額度)</th>
-          <th class="table-header-new">目前(近一個月內)</th>
-          <th class="table-header-new">近六個月內</th>
-          <th class="table-header-new">近十二個月內</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-header-new">循環信用佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtall01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL12 }}</td>
-          <td class="table-header-new">循環信用佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtall01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">循環預借未到期佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevcapreRt01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevcapreRtL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevcapreRtL12 }}</td>
-          <td class="table-header-new">循環預借未到期佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtall01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccRevRtallL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">本期應付未到期佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRt01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRtL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRtL12 }}</td>
-          <td class="table-header-new">本期應付未到期佔額比</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRtall01aj }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRtallL06 }}</td>
-          <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
-            listSource.ccPayablepreRtallL12 }}</td>
-        </tr>
-      </tbody>
-    </nz-table>
-    <!-- 第四欄位 -->
-    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
-      <thead>
-        <tr>
-          <th class="table-header-new" colspan="1">逾期行為</th>
-          <th class="table-header-new" colspan="2">目前(近一個月內)</th>
-          <th class="table-header-new" colspan="2">近六個月內</th>
-          <th class="table-header-new" colspan="2">近十二個月內</th>
-        </tr>
-        <tr>
-          <th class="table-header-new" style="width:10%"></th>
-          <th class="table-header-new" style="width:15%">筆數</th>
-          <th class="table-header-new" style="width:15%">該期應繳金額合計</th>
-          <th class="table-header-new" style="width:15%">月份數</th>
-          <th class="table-header-new" style="width:15%">該期應繳金額月平均</th>
-          <th class="table-header-new" style="width:15%">月份數</th>
-          <th class="table-header-new" style="width:15%">該期應繳金額月平均</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-header-new">N,0無延期</td>
-          <td class="table-data-new">{{ listSource.paycode0Cnt01aj }}</td>
-          <td class="table-data-new">{{ listSource.paycode0Os01aj }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode0MthL06 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode0OsavgL06 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode0MthL12 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode0OsavgL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">1,延期未滿1個月</td>
-          <td class="table-data-new">{{ listSource.paycode1Cnt01aj }}</td>
-          <td class="table-data-new">{{ listSource.paycode1Os01aj }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode1MthL06 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode1OsavgL06 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode1MthL12 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode1OsavgL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">2,延期未滿2個月</td>
-          <td class="table-data-new">{{ listSource.paycode2Cnt01aj }}</td>
-          <td class="table-data-new">{{ listSource.paycode2Os01aj }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode2MthL06 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode2OsavgL06 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode2MthL12 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode2OsavgL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">3,延期未滿3個月</td>
-          <td class="table-data-new">{{ listSource.paycode3Cnt01aj }}</td>
-          <td class="table-data-new">{{ listSource.paycode3Os01aj }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode3MthL06 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode3OsavgL06 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode3MthL12 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode3OsavgL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">4~7,<br>延期3個月以上</td>
-          <td class="table-data-new">{{ listSource.paycode4567Cnt01aj }}</td>
-          <td class="table-data-new">{{ listSource.paycode4567Os01aj }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode4567MthL06 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode4567OsavgL06 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode4567MthL12 }}</td>
-          <td class="table-data-new">{{ listSource.ccPaycode4567OsavgL12 }}</td>
-        </tr>
-      </tbody>
-    </nz-table>
-    <!-- 第五欄位 -->
-    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
-      <thead>
-        <tr>
-          <th class="table-header-new" colspan="6">JCIC授信往來</th>
-          <th class="table-header-new" colspan="2">近12個月新增</th>
-        </tr>
-        <tr>
-          <th class="table-header-new" style="width:9%"></th>
-          <th class="table-header-new" style="width:13%">來往銀行家數</th>
-          <th class="table-header-new" style="width:13%">資料筆數</th>
-          <th class="table-header-new" style="width:13%">放款餘額合計</th>
-          <th class="table-header-new" style="width:13%">餘額合計</th>
-          <th class="table-header-new" style="width:13%">佔額比</th>
-          <th class="table-header-new" style="width:13%">筆數</th>
-          <th class="table-header-new" style="width:13%">額度</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-header-new">授信往來</td>
-          <td class="table-data-new">{{ listSource.lnBk }}</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new">{{ listSource.lnBal }}</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-        </tr>
-        <tr>
-          <td class="table-header-new">無擔保單放款<br>(含現金卡)</td>
-          <td class="table-data-new">{{ listSource.lnUnsBk }}</td>
-          <td class="table-data-new">{{ listSource.lnUnsCnt }}</td>
-          <td class="table-data-new">{{ listSource.lnUnsBal }}</td>
-          <td class="table-data-new">{{ listSource.lnUnsLimit }}</td>
-          <td class="table-data-new">{{ listSource.lnUnsRt }}</td>
-          <td class="table-data-new">{{ listSource.lnUnsNewcntL12 }}</td>
-          <td class="table-data-new">{{ listSource.lnUnsNewcntamtL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">現金卡</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new">{{ listSource.lnYBal }}</td>
-          <td class="table-data-new">{{ listSource.lnYLimit }}</td>
-          <td class="table-data-new">{{ listSource.lnYRt }}</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-        </tr>
-        <tr>
-          <td class="table-header-new">房貸</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new">{{ listSource.lnSecMortBal }}</td>
-          <td class="table-data-new">{{ listSource.lnSecMortLimit }}</td>
-          <td class="table-data-new">{{ listSource.lnSecMortRt }}</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-        </tr>
-        <tr>
-          <td class="table-header-new">車貸</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new">{{ listSource.lnSecCarBal }}</td>
-          <td class="table-data-new">{{ listSource.lnSecCarLimit }}</td>
-          <td class="table-data-new">{{ listSource.lnSecCarRt }}</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-        </tr>
-        <tr>
-          <td class="table-header-new">其他動產</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new">{{ listSource.lnSecOthrBal }}</td>
-          <td class="table-data-new">{{ listSource.lnSecOthrLimit }}</td>
-          <td class="table-data-new">{{ listSource.lnSecOthrRt }}</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-        </tr>
-        <tr>
-          <td class="table-header-new">學生貸款</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new">{{ listSource.lnZStuBal }}</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new" id="prohibit"></td>
-        </tr>
-      </tbody>
-    </nz-table>
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">中文姓名</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.PNAME ? data.PNAME : ' ' }}</td>
 
-    <!-- 第六欄位 -->
-    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
-      <thead>
-        <tr>
-          <th class="table-header-new">JCIC授信繳款</th>
-          <th class="table-header-new">近一個月內</th>
-          <th class="table-header-new">近六個月內</th>
-          <th class="table-header-new">近十二個月內</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-header-new">最差還款記錄</td>
-          <td class="table-data-new">{{ listSource.lnPaycodeMax01 }}</td>
-          <td class="table-data-new">{{ listSource.lnPaycodeMaxL06 }}</td>
-          <td class="table-data-new">{{ listSource.lnPaycodeMaxL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">M1+逾期月數</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new">{{ listSource.lnM1plusL06 }}</td>
-          <td class="table-data-new">{{ listSource.lnM1plusL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">M2+逾期月數</td>
-          <td class="table-data-new" id="prohibit"></td>
-          <td class="table-data-new">{{ listSource.lnM2plusL06 }}</td>
-          <td class="table-data-new">{{ listSource.lnM2plusL12 }}</td>
-        </tr>
-      </tbody>
-    </nz-table>
-    <!-- 第七欄位 -->
-    <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
-      [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
-      <thead>
-        <tr>
-          <th class="table-header-new" colspan="3">被查詢紀錄(不含本行)銀行家數</th>
-          <th class="table-header-new" colspan="3">當事人自查次數</th>
-        </tr>
-        <tr>
-          <th class="table-header-new" style="width:15%"></th>
-          <th class="table-header-new" style="width:17%">近三個月內</th>
-          <th class="table-header-new" style="width:17%">近十二個月內</th>
-          <th class="table-header-new" style="width:17%">查詢原因(REASON1&2)</th>
-          <th class="table-header-new" style="width:17%">近三個月內</th>
-          <th class="table-header-new" style="width:17%">近十二個月內</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="table-header-new">新業務查詢</td>
-          <td class="table-data-new">{{ listSource.inqNewbBankL03 }}</td>
-          <td class="table-data-new">{{ listSource.inqNewbBankL12 }}</td>
-          <td class="table-header-new">排除求職之查詢記錄</td>
-          <td class="table-data-new">{{ listSource.inqPersonExdL03 }}</td>
-          <td class="table-data-new">{{ listSource.inqPersonExdL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">部門債逾於催資產管理</td>
-          <td class="table-data-new">{{ listSource.inqColBankL03 }}</td>
-          <td class="table-data-new">{{ listSource.inqColBankL12 }}</td>
-          <td class="table-header-new">
-            X1債清條例債權人清冊<br> X2消費金融無擔保債務展延方案專用債權人清冊
-            <br> Y銀行公會消金債務協商專用
-          </td>
-          <td class="table-data-new">{{ listSource.lnPaycodeMax01 }}</td>
-          <td class="table-data-new">{{ listSource.inqPersonXyL12 }}</td>
-        </tr>
-        <tr>
-          <td class="table-header-new">原業務查詢</td>
-          <td class="table-data-new">{{ listSource.inqOribBankL03 }}</td>
-          <td class="table-data-new">{{ listSource.inqOribBankL12 }}</td>
-          <td class="table-header-new">金融往來相關</td>
-          <td class="table-data-new">{{ listSource.lnPaycodeMax01 }}</td>
-          <td class="table-data-new">{{ listSource.inqPersonFinL12 }}</td>
-        </tr>
-      </tbody>
-    </nz-table>
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">身分證註銷或一年內掛失紀錄</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.IS_LOST ? data.IS_LOST : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">通報案件紀錄</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.IS_WANTED ? data.IS_WANTED : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">是否有補充註記</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.IS_NOTE ? data.IS_NOTE : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">補充註記</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.NOTELIST ? data.NOTELIST : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">通報案件紀錄</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.WANTEDLIST ? data.WANTEDLIST : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">在台無戶籍人士身分證號對照索引註記</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.FOREIGNER_MARK ? data.FOREIGNER_MARK : ' ' }}</td>
+
+              </div>
+             
+            </tr>
+          </ng-container>
+        </nz-table>
+      </div>
+      <div nz-col nzSpan="2">
+      </div>
+      <div nz-col nzSpan="11">
+        <nz-table nzShowSizeChanger [nzData]="JAS002Source" [nzFrontPagination]="false" [nzSimple]="true"
+          [nzTotal]="total5" [nzPageSize]="pageSize5" [nzPageIndex]="pageIndex5"
+          (nzQueryParams)="onQueryParamsChange($event, 'JAS002')" nzSize="small" nzTitle="JAS002 信用異常紀錄 (B, D, K)">
+          <ng-container *ngFor="let data of AAS003.slice(0,1)">
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">授信異常 YN</th>
+                <td nz-col nzFlex="1" class="table-data">{{data.EVER_DELINQUENT ? data.EVER_DELINQUENT : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">最近授信異常日期</th>
+                <td nz-col nzFlex="1" class="table-data">{{data.DELINQUENT_DATE ? data.DELINQUENT_DATE : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">退票異常 YN</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.EVER_BAD_CHECK ? data.EVER_BAD_CHECK : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">最近退票異常日期</th>
+                <td nz-col nzFlex="1" class="table-data">{{data.BAD_CHECK_DATE ?data.BAD_CHECK_DATE : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">拒絕往來記錄 YN</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.EVER_REJECT ? data.EVER_REJECT : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">拒絕往來日期</th>
+                <td nz-col nzFlex="1" class="table-data">{{data.REJECT_DATE ?data.REJECT_DATE : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">強制停卡異常 YN</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.EVER_STOP_CARD ? data.EVER_STOP_CARD : ' ' }}</td>
+
+              </div>
+            </tr>
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">最近強制停卡日期</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.STOP_CARD_DATE ? data.STOP_CARD_DATE : ' ' }}</td>
+
+              </div>
+            </tr>
+          </ng-container>
+          <div class="line_bank_form_header_title" style="border-radius:0px  ;font-weight: bold;margin-top: 0px;">
+            BAI001 授信資料日期
+          </div>
+          <ng-container *ngFor="let data of BAI001.slice(0,1)">
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">授信資料日期</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.DATA_DATE| date: 'yyyy/MM/dd ' : ' ' }}</td>
+
+              </div>
+            </tr>
+          
+          </ng-container>
+        </nz-table>
+      </div>
+      <br>
+     
+    </div>
   </div>
 
-  <!-- BAM095 -->
-  <div [(hidden)]="hideBAM095" class="line_bank_card_no_padding">
-    <!-- 表格 -->
-    <nz-table nzShowSizeChanger [nzData]="BAM095Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total1"
-      [nzPageSize]="pageSize1" [nzPageIndex]="pageIndex1" (nzQueryParams)="onQueryParamsChange($event, 'BAM095')"
-      nzSize="small" nzTitle="BAM095 99年版授信額度,擔保品,金額,還款紀錄資訊" [nzScroll]="{ x: '1800px' }">
-      <thead>
-        <tr>
-          <th class="table-header-new" [nzWidth]="'90px'" [nzLeft]="true">資料年度</th>
-          <th class="table-header-new" [nzWidth]="'90px'">資料月份</th>
-          <th class="table-header-new" [nzWidth]="'90px'">行庫代號</th>
-          <th class="table-header-new" [nzWidth]="'90px'">行庫名稱</th>
-          <th class="table-header-new" [nzWidth]="'90px'">科目別</th>
-          <th class="table-header-new" [nzWidth]="'90px'">科目別註記</th>
-          <th class="table-header-new" [nzWidth]="'90px'">用途別</th>
-          <th class="table-header-new" [nzWidth]="'150px'">綜合額度金額(千元)</th>
-          <th class="table-header-new" [nzWidth]="'150px'">分項額度金額(千元)</th>
-          <th class="table-header-new" [nzWidth]="'170px'">未逾期金額(千元)</th>
-          <th class="table-header-new" [nzWidth]="'150px'">逾期未還金額(千元)</th>
-          <th class="table-header-new" [nzWidth]="'120px'">12期還款記錄</th>
-          <th class="table-header-new" [nzWidth]="'90px'">擔保品類別</th>
-          <th class="table-header-new" [nzWidth]="'170px'">政府專案貸款分類代碼</th>
-          <th class="table-header-new" [nzWidth]="'300px'">共同借款註記(* 表有共同借款)</th>
-          <th class="table-header-new" [nzWidth]="'300px'">聯貸註記(A 表國內, B 表國際聯貸)</th>
-          <th class="table-header-new" [nzWidth]="'90px'">聯貸日期</th>
-          <th class="table-header-new" [nzWidth]="'90px'">參貸比例</th>
-          <th class="table-header-new" [nzWidth]="'300px'">資金流向註記(* 表流向非法人組織)</th>
-          <th class="table-header-new" [nzWidth]="'180px'">資金流向非法人組織 統編</th>
-          <th class="table-header-new" [nzWidth]="'180px'">資金流向非法人組織 名稱</th>
-          <th class="table-header-new" [nzWidth]="'300px'">額度特別註記(* 表最高階額度所有者ID不同)</th>
-          <th class="table-header-new" [nzWidth]="'120px'">本階額度代碼</th>
-          <th class="table-header-new" [nzWidth]="'170px'">最高階額度代碼</th>
-          <th class="table-header-new" [nzWidth]="'200px'">最高階額度所屬公司統編</th>
-          <th class="table-header-new" [nzWidth]="'200px'">最高階額度所屬公司名稱</th>
-          <th class="table-header-new" [nzWidth]="'300px'">Ｙ科目之額度註記(* 表有現金卡日報資料)</th>
-          <th class="table-header-new" [nzWidth]="'300px'">現金卡日報Ｙ科目之可動用額度(千元)</th>
-          <th class="table-header-new" [nzWidth]="'200px'">授信1千元之原始金額</th>
-          <th class="table-header-new" [nzWidth]="'150px'">債權證券化資料年</th>
-          <th class="table-header-new" [nzWidth]="'150px'">債權證券化資料月</th>
-          <th class="table-header-new" [nzWidth]="'200px'">債權證券化受託機構統一編號</th>
-          <th class="table-header-new" [nzWidth]="'200px'">債權證券化受託機構名稱</th>
-          <th class="table-header-new" [nzWidth]="'90px'">幣別代號</th>
-          <th class="table-header-new" [nzWidth]="'130px'">循環信用註記</th>
-          <th class="table-header-new" [nzWidth]="'130px'">額度可否撤銷</th>
-          <th class="table-header-new" [nzWidth]="'170px'">保留欄位</th>
+  <br>
 
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of BAM095Source">
-          <td class="table-data-new" [nzLeft]="true">{{ data.DATA_YYY }}</td>
-          <td class="table-data-new">{{ data.DATA_MM }}</td>
-          <td class="table-data-new">{{ data.BANK_CODE }}</td>
-          <td class="table-data-new">{{ data.BANK_NAME }}</td>
-          <td class="table-data-new">{{ data.ACCOUNT_CODE }}</td>
-          <td class="table-data-new">{{ data.ACCOUNT_CODE2 }}</td>
-          <td class="table-data-new">{{ data.PURPOSE_CODE }}</td>
-          <td class="table-data-new">{{ toCurrency(data.CONTRACT_AMT1) }}</td>
-          <td class="table-data-new">{{ toCurrency(data.CONTRACT_AMT) }}</td>
-          <td class="table-data-new">{{ toCurrency(data.LOAN_AMT) }}</td>
-          <td class="table-data-new">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
-          <td class="table-data-new">{{ data.PAY_CODE_12 }}</td>
-          <td class="table-data-new">{{ data.IS_KIND }}</td>
-          <td class="table-data-new">{{ data.PROJECT_CODE }}</td>
-          <td class="table-data-new">{{ data.CO_LOAN }}</td>
-          <td class="table-data-new">{{ data.UN_MARK }}</td>
-          <td class="table-data-new">{{ data.U_YYYMMDD }}</td>
-          <td class="table-data-new">{{ data.U_RATE }}</td>
-          <td class="table-data-new">{{ data.IB_MARK }}</td>
-          <td class="table-data-new">{{ data.IAB_BAN }}</td>
-          <td class="table-data-new">{{ data.IAB_NAME }}</td>
-          <td class="table-data-new">{{ data.CONTRACT_MARK }}</td>
-          <td class="table-data-new">{{ data.CONTRACT_CODE }}</td>
-          <td class="table-data-new">{{ data.CONTRACT_CODE1 }}</td>
-          <td class="table-data-new">{{ data.CON_BAN }}</td>
-          <td class="table-data-new">{{ data.CON_NAME }}</td>
-          <td class="table-data-new">{{ data.ACT_Y_MARK }}</td>
-          <td class="table-data-new">{{ data.CONTRACT_AMT_Y }}</td>
-          <td class="table-data-new">{{ data.AC_AMT }}</td>
-          <td class="table-data-new">{{ data.ASST_DATA_YYY }}</td>
-          <td class="table-data-new">{{ data.ASST_DATA_MM }}</td>
-          <td class="table-data-new">{{ data.ASST_IDN_BAN }}</td>
-          <td class="table-data-new">{{ data.ASST_NAME }}</td>
-          <td class="table-data-new">{{ data.CURRENCY_CODE_3 }}</td>
-          <td class="table-data-new">{{ data.CYCLE_FLAG }}</td>
-          <td class="table-data-new">{{ data.OFF_FLAG }}</td>
-          <td class="table-data-new">{{ data.FILLER }}</td>
-
-        </tr>
-      </tbody>
-    </nz-table>
-  </div>
 </div>
+<div [id]="!hideJCICMASTER ? 'JCICMASTER' : '' " [(hidden)]="hideJCICMASTER" class="line_bank_card_no_padding">
+
+</div>
+
+
+<!-- JAS002 -->
+<div [(hidden)]="hideJAS002" class="line_bank_card_no_padding">
+  <!-- 表格 -->
+
+</div>
+<!-- 聯徵彙整資訊 -->
+<div [(hidden)]="hideJCIC" class="line_bank_card_no_padding">
+  <!-- KRM046信用卡證卡持有 -->
+  <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+    [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="KRM046 信用卡證卡持有">
+    <thead>
+      <tr>
+        <th class="table-header-new" style="width:20%">持有往來</th>
+        <th class="table-header-new" colspan="4" style="width:50%">正卡</th>
+      </tr>
+      <tr>
+        <th class="table-header-new" style="width:20%"></th>
+        <th class="table-header-new" style="width:20%">銀行家數</th>
+        <th class="table-header-new" style="width:20%">總卡數</th>
+        <th class="table-header-new" style="width:20%">活卡最早往來年數</th>
+        <th class="table-header-new" style="width:20%">活卡最早往來月數</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="table-header-new"></td>
+        <td class="table-data-new">{{ listSource.ccLatvBank }}</td>
+        <td class="table-data-new">{{ listSource.ccLatvCnt }}</td>
+        <td class="table-data-new">{{ listSource.ccLatvMaxyob }}</td>
+        <td class="table-data-new">{{ listSource.ccLatvMaxmob }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <!-- KRM046信用卡證卡持有 -->
+  <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+    [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="KRM048 信用卡帳務額度資訊">
+    <thead>
+      <tr>
+        <th class="table-header-new" style="width:14%"></th>
+        <th class="table-header-new" style="width:14%">目前額度合計</th>
+        <th class="table-header-new" style="width:14%">家數</th>
+        <th class="table-header-new" style="width:14%">每家額度平均</th>
+        <th class="table-header-new" style="width:14%">最大額度</th>
+        <th class="table-header-new" style="width:14%">最小額度</th>
+        <th class="table-header-new" style="width:16%"> 近12個月內將額家數</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="table-header-new">永久額度</td>
+        <td class="table-data-new">{{ listSource.permLimitAdj01aj }}</td>
+        <td class="table-data-new">{{ listSource.issue01aj }}</td>
+        <td class="table-data-new">{{toCurrency( listSource.permLimitAvg01aj) }}</td>
+        <td class="table-data-new">{{toCurrency( listSource.permLimitMax01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.permLimitMin01aj) }}</td>
+        <td class="table-data-new">{{ listSource.ccPermlimitDwncntL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">預借額度</td>
+        <td class="table-data-new">{{ toCurrency(listSource.cashLimitAdj01aj) }}</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new">{{ listSource.ccCashlimitDwncntL12 }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <!-- 第一欄位 -->
+  <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+    [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
+    <thead>
+      <tr>
+        <th class="table-header-new">使用行為</th>
+        <th class="table-header-new" colspan="2">目前(近一個月)</th>
+        <th class="table-header-new" colspan="2">近十二個月內</th>
+      </tr>
+      <tr>
+        <th class="table-header-new" style="width:20%"></th>
+        <th class="table-header-new" style="width:20%">動用筆數</th>
+        <th class="table-header-new" style="width:20%">餘額</th>
+        <th class="table-header-new" style="width:20%">動用月份數</th>
+        <th class="table-header-new" style="width:20%">平均每月餘額</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="table-header-new">本期應付帳款</td>
+        <td class="table-data-new">{{ toCurrency(listSource.issueAtv01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.payable01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccPayableMthL12) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccPayableAvgL12) }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">上期循環信用</td>
+        <td class="table-data-new">{{ listSource.revolBalCnt01aj }}</td>
+        <td class="table-data-new">{{ listSource.revolBal01aj }}</td>
+        <td class="table-data-new">{{ listSource.ccRevolMthL12 }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccRevolAvgL06) }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">當期預借現金</td>
+        <td class="table-data-new">{{ listSource.cashLentCnt01aj }}</td>
+        <td class="table-data-new">{{ listSource.cashLent01aj }}</td>
+        <td class="table-data-new">{{ listSource.ccCashlentMthL12 }}</td>
+        <td class="table-data-new">{{ listSource.ccCashlentAvgL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">未到期分期賞還待付金額</td>
+        <td class="table-data-new">{{toCurrency( listSource.preOwedCnt01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.preOwed01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccPreowedMthL12) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccPreowedAvgL12) }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">預借分期</td>
+        <td class="table-data-new">{{ toCurrency(listSource.preCashedCnt01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.preCashed01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccPrecashedMthL12) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccPrecashedAvgL12) }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">帳單分期</td>
+        <td class="table-data-new">{{ toCurrency(listSource.preBilledCnt01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.preBilled01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccPrebilledMthL12) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccPrebilledAvgL12) }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">消費分期</td>
+        <td class="table-data-new">{{ toCurrency(listSource.preSpentCnt01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.preSpent01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccPrespentMthL12) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccPrespentAvgL12) }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">預借行為(當期+未到期)</td>
+        <td class="table-data-new">{{ toCurrency(listSource.cashOsCnt01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.cashOs01aj) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccCashosMthL12) }}</td>
+        <td class="table-data-new">{{ toCurrency(listSource.ccCashosAvgL12) }}</td>
+      </tr>
+    </tbody>
+
+  </nz-table>
+  <!-- 第二欄位 -->
+  <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+    [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
+    <thead>
+      <tr>
+        <th class="table-header-new" style="width:17%">繳費比率</th>
+        <th class="table-header-new" *ngFor="let index of [1,2,3,4,5,6,7,8,9,10,11,12]">第{{ index }}期</th>
+      </tr>
+
+    </thead>
+    <tbody>
+      <tr>
+        <td class="table-header-new">上期應付帳款</td>
+        <td class="table-data-new">{{ listSource.lastPaya01aj }}</td>
+        <td class="table-data-new">{{ listSource.lastPaya02 }}</td>
+        <td class="table-data-new">{{ listSource.lastPaya03 }}</td>
+        <td class="table-data-new">{{ listSource.lastPaya04 }}</td>
+        <td class="table-data-new">{{ listSource.lastPaya05 }}</td>
+        <td class="table-data-new">{{ listSource.lastPaya06 }}</td>
+        <td class="table-data-new">{{ listSource.lastPaya07 }}</td>
+        <td class="table-data-new">{{ listSource.lastPaya08 }}</td>
+        <td class="table-data-new">{{ listSource.lastPaya09 }}</td>
+        <td class="table-data-new">{{ listSource.lastPaya10 }}</td>
+        <td class="table-data-new">{{ listSource.lastPaya11 }}</td>
+        <td class="table-data-new">{{ listSource.lastPaya12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">上期應付帳款繳款率</td>
+        <td class="table-data-new">{{ listSource.paymentRt01aj }}</td>
+        <td class="table-data-new">{{ listSource.paymentRt02 }}</td>
+        <td class="table-data-new">{{ listSource.paymentRt03 }}</td>
+        <td class="table-data-new">{{ listSource.paymentRt04 }}</td>
+        <td class="table-data-new">{{ listSource.paymentRt05 }}</td>
+        <td class="table-data-new">{{ listSource.paymentRt06 }}</td>
+        <td class="table-data-new">{{ listSource.paymentRt07 }}</td>
+        <td class="table-data-new">{{ listSource.paymentRt08 }}</td>
+        <td class="table-data-new">{{ listSource.paymentRt09 }}</td>
+        <td class="table-data-new">{{ listSource.paymentRt10 }}</td>
+        <td class="table-data-new">{{ listSource.paymentRt11 }}</td>
+        <td class="table-data-new">{{ listSource.paymentRt12 }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <!-- 第三欄位 -->
+  <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+    [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
+    <thead>
+      <tr>
+        <th class="table-header-new">額度使用率(分母為有動用之額度)</th>
+        <th class="table-header-new">目前(近一個月內)</th>
+        <th class="table-header-new">近六個月內</th>
+        <th class="table-header-new">近十二個月內</th>
+        <th class="table-header-new">額度使用率(分母為所有額度)</th>
+        <th class="table-header-new">目前(近一個月內)</th>
+        <th class="table-header-new">近六個月內</th>
+        <th class="table-header-new">近十二個月內</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="table-header-new">循環信用佔額比</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevRtall01aj }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevRtallL06 }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevRtallL12 }}</td>
+        <td class="table-header-new">循環信用佔額比</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevRtall01aj }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevRtallL06 }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevRtallL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">循環預借未到期佔額比</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevcapreRt01aj }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevcapreRtL06 }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevcapreRtL12 }}</td>
+        <td class="table-header-new">循環預借未到期佔額比</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevRtall01aj }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevRtallL06 }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccRevRtallL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">本期應付未到期佔額比</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccPayablepreRt01aj }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccPayablepreRtL06 }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccPayablepreRtL12 }}</td>
+        <td class="table-header-new">本期應付未到期佔額比</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccPayablepreRtall01aj }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccPayablepreRtallL06 }}</td>
+        <td [ngClass]="{'red':listSource.ccRevRtall01aj >=80,'black':listSource.ccRevRtall01aj >=100}">{{
+          listSource.ccPayablepreRtallL12 }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <!-- 第四欄位 -->
+  <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+    [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
+    <thead>
+      <tr>
+        <th class="table-header-new" colspan="1">逾期行為</th>
+        <th class="table-header-new" colspan="2">目前(近一個月內)</th>
+        <th class="table-header-new" colspan="2">近六個月內</th>
+        <th class="table-header-new" colspan="2">近十二個月內</th>
+      </tr>
+      <tr>
+        <th class="table-header-new" style="width:10%"></th>
+        <th class="table-header-new" style="width:15%">筆數</th>
+        <th class="table-header-new" style="width:15%">該期應繳金額合計</th>
+        <th class="table-header-new" style="width:15%">月份數</th>
+        <th class="table-header-new" style="width:15%">該期應繳金額月平均</th>
+        <th class="table-header-new" style="width:15%">月份數</th>
+        <th class="table-header-new" style="width:15%">該期應繳金額月平均</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="table-header-new">N,0無延期</td>
+        <td class="table-data-new">{{ listSource.paycode0Cnt01aj }}</td>
+        <td class="table-data-new">{{ listSource.paycode0Os01aj }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode0MthL06 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode0OsavgL06 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode0MthL12 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode0OsavgL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">1,延期未滿1個月</td>
+        <td class="table-data-new">{{ listSource.paycode1Cnt01aj }}</td>
+        <td class="table-data-new">{{ listSource.paycode1Os01aj }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode1MthL06 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode1OsavgL06 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode1MthL12 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode1OsavgL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">2,延期未滿2個月</td>
+        <td class="table-data-new">{{ listSource.paycode2Cnt01aj }}</td>
+        <td class="table-data-new">{{ listSource.paycode2Os01aj }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode2MthL06 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode2OsavgL06 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode2MthL12 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode2OsavgL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">3,延期未滿3個月</td>
+        <td class="table-data-new">{{ listSource.paycode3Cnt01aj }}</td>
+        <td class="table-data-new">{{ listSource.paycode3Os01aj }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode3MthL06 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode3OsavgL06 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode3MthL12 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode3OsavgL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">4~7,<br>延期3個月以上</td>
+        <td class="table-data-new">{{ listSource.paycode4567Cnt01aj }}</td>
+        <td class="table-data-new">{{ listSource.paycode4567Os01aj }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode4567MthL06 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode4567OsavgL06 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode4567MthL12 }}</td>
+        <td class="table-data-new">{{ listSource.ccPaycode4567OsavgL12 }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <!-- 第五欄位 -->
+  <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+    [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
+    <thead>
+      <tr>
+        <th class="table-header-new" colspan="6">JCIC授信往來</th>
+        <th class="table-header-new" colspan="2">近12個月新增</th>
+      </tr>
+      <tr>
+        <th class="table-header-new" style="width:9%"></th>
+        <th class="table-header-new" style="width:13%">來往銀行家數</th>
+        <th class="table-header-new" style="width:13%">資料筆數</th>
+        <th class="table-header-new" style="width:13%">放款餘額合計</th>
+        <th class="table-header-new" style="width:13%">餘額合計</th>
+        <th class="table-header-new" style="width:13%">佔額比</th>
+        <th class="table-header-new" style="width:13%">筆數</th>
+        <th class="table-header-new" style="width:13%">額度</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="table-header-new">授信往來</td>
+        <td class="table-data-new">{{ listSource.lnBk }}</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new">{{ listSource.lnBal }}</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+      </tr>
+      <tr>
+        <td class="table-header-new">無擔保單放款<br>(含現金卡)</td>
+        <td class="table-data-new">{{ listSource.lnUnsBk }}</td>
+        <td class="table-data-new">{{ listSource.lnUnsCnt }}</td>
+        <td class="table-data-new">{{ listSource.lnUnsBal }}</td>
+        <td class="table-data-new">{{ listSource.lnUnsLimit }}</td>
+        <td class="table-data-new">{{ listSource.lnUnsRt }}</td>
+        <td class="table-data-new">{{ listSource.lnUnsNewcntL12 }}</td>
+        <td class="table-data-new">{{ listSource.lnUnsNewcntamtL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">現金卡</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new">{{ listSource.lnYBal }}</td>
+        <td class="table-data-new">{{ listSource.lnYLimit }}</td>
+        <td class="table-data-new">{{ listSource.lnYRt }}</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+      </tr>
+      <tr>
+        <td class="table-header-new">房貸</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new">{{ listSource.lnSecMortBal }}</td>
+        <td class="table-data-new">{{ listSource.lnSecMortLimit }}</td>
+        <td class="table-data-new">{{ listSource.lnSecMortRt }}</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+      </tr>
+      <tr>
+        <td class="table-header-new">車貸</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new">{{ listSource.lnSecCarBal }}</td>
+        <td class="table-data-new">{{ listSource.lnSecCarLimit }}</td>
+        <td class="table-data-new">{{ listSource.lnSecCarRt }}</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+      </tr>
+      <tr>
+        <td class="table-header-new">其他動產</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new">{{ listSource.lnSecOthrBal }}</td>
+        <td class="table-data-new">{{ listSource.lnSecOthrLimit }}</td>
+        <td class="table-data-new">{{ listSource.lnSecOthrRt }}</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+      </tr>
+      <tr>
+        <td class="table-header-new">學生貸款</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new">{{ listSource.lnZStuBal }}</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new" id="prohibit"></td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <!-- 第六欄位 -->
+  <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+    [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
+    <thead>
+      <tr>
+        <th class="table-header-new">JCIC授信繳款</th>
+        <th class="table-header-new">近一個月內</th>
+        <th class="table-header-new">近六個月內</th>
+        <th class="table-header-new">近十二個月內</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="table-header-new">最差還款記錄</td>
+        <td class="table-data-new">{{ listSource.lnPaycodeMax01 }}</td>
+        <td class="table-data-new">{{ listSource.lnPaycodeMaxL06 }}</td>
+        <td class="table-data-new">{{ listSource.lnPaycodeMaxL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">M1+逾期月數</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new">{{ listSource.lnM1plusL06 }}</td>
+        <td class="table-data-new">{{ listSource.lnM1plusL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">M2+逾期月數</td>
+        <td class="table-data-new" id="prohibit"></td>
+        <td class="table-data-new">{{ listSource.lnM2plusL06 }}</td>
+        <td class="table-data-new">{{ listSource.lnM2plusL12 }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <!-- 第七欄位 -->
+  <nz-table nzShowSizeChanger [nzData]="listSource" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total"
+    [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" nzSize="small" nzTitle="  ">
+    <thead>
+      <tr>
+        <th class="table-header-new" colspan="3">被查詢紀錄(不含本行)銀行家數</th>
+        <th class="table-header-new" colspan="3">當事人自查次數</th>
+      </tr>
+      <tr>
+        <th class="table-header-new" style="width:15%"></th>
+        <th class="table-header-new" style="width:17%">近三個月內</th>
+        <th class="table-header-new" style="width:17%">近十二個月內</th>
+        <th class="table-header-new" style="width:17%">查詢原因(REASON1&2)</th>
+        <th class="table-header-new" style="width:17%">近三個月內</th>
+        <th class="table-header-new" style="width:17%">近十二個月內</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="table-header-new">新業務查詢</td>
+        <td class="table-data-new">{{ listSource.inqNewbBankL03 }}</td>
+        <td class="table-data-new">{{ listSource.inqNewbBankL12 }}</td>
+        <td class="table-header-new">排除求職之查詢記錄</td>
+        <td class="table-data-new">{{ listSource.inqPersonExdL03 }}</td>
+        <td class="table-data-new">{{ listSource.inqPersonExdL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">部門債逾於催資產管理</td>
+        <td class="table-data-new">{{ listSource.inqColBankL03 }}</td>
+        <td class="table-data-new">{{ listSource.inqColBankL12 }}</td>
+        <td class="table-header-new">
+          X1債清條例債權人清冊<br> X2消費金融無擔保債務展延方案專用債權人清冊
+          <br> Y銀行公會消金債務協商專用
+        </td>
+        <td class="table-data-new">{{ listSource.lnPaycodeMax01 }}</td>
+        <td class="table-data-new">{{ listSource.inqPersonXyL12 }}</td>
+      </tr>
+      <tr>
+        <td class="table-header-new">原業務查詢</td>
+        <td class="table-data-new">{{ listSource.inqOribBankL03 }}</td>
+        <td class="table-data-new">{{ listSource.inqOribBankL12 }}</td>
+        <td class="table-header-new">金融往來相關</td>
+        <td class="table-data-new">{{ listSource.lnPaycodeMax01 }}</td>
+        <td class="table-data-new">{{ listSource.inqPersonFinL12 }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<!-- BAM095 -->
+<div [(hidden)]="hideBAM095" class="line_bank_card_no_padding">
+  <!-- 表格 -->
+  <nz-table nzShowSizeChanger [nzData]="BAM095Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total1"
+    [nzPageSize]="pageSize1" [nzPageIndex]="pageIndex1" (nzQueryParams)="onQueryParamsChange($event, 'BAM095')"
+    nzSize="small" nzTitle="BAM095 99年版授信額度,擔保品,金額,還款紀錄資訊" [nzScroll]="{ x: '1800px' }">
+    <thead>
+      <tr>
+        <th class="table-header-new" [nzWidth]="'90px'" [nzLeft]="true">資料年度</th>
+        <th class="table-header-new" [nzWidth]="'90px'">資料月份</th>
+        <th class="table-header-new" [nzWidth]="'90px'">行庫代號</th>
+        <th class="table-header-new" [nzWidth]="'90px'">行庫名稱</th>
+        <th class="table-header-new" [nzWidth]="'90px'">科目別</th>
+        <th class="table-header-new" [nzWidth]="'90px'">科目別註記</th>
+        <th class="table-header-new" [nzWidth]="'90px'">用途別</th>
+        <th class="table-header-new" [nzWidth]="'150px'">綜合額度金額(千元)</th>
+        <th class="table-header-new" [nzWidth]="'150px'">分項額度金額(千元)</th>
+        <th class="table-header-new" [nzWidth]="'170px'">未逾期金額(千元)</th>
+        <th class="table-header-new" [nzWidth]="'150px'">逾期未還金額(千元)</th>
+        <th class="table-header-new" [nzWidth]="'120px'">12期還款記錄</th>
+        <th class="table-header-new" [nzWidth]="'90px'">擔保品類別</th>
+        <th class="table-header-new" [nzWidth]="'170px'">政府專案貸款分類代碼</th>
+        <th class="table-header-new" [nzWidth]="'300px'">共同借款註記(* 表有共同借款)</th>
+        <th class="table-header-new" [nzWidth]="'300px'">聯貸註記</th>
+        <th class="table-header-new" [nzWidth]="'90px'">聯貸日期</th>
+        <th class="table-header-new" [nzWidth]="'90px'">參貸比例</th>
+        <th class="table-header-new" [nzWidth]="'300px'">資金流向註記(* 表流向非法人組織)</th>
+        <th class="table-header-new" [nzWidth]="'180px'">資金流向非法人組織 統編</th>
+        <th class="table-header-new" [nzWidth]="'180px'">資金流向非法人組織 名稱</th>
+        <th class="table-header-new" [nzWidth]="'300px'">額度特別註記(* 表最高階額度所有者ID不同)</th>
+        <th class="table-header-new" [nzWidth]="'120px'">本階額度代碼</th>
+        <th class="table-header-new" [nzWidth]="'170px'">最高階額度代碼</th>
+        <th class="table-header-new" [nzWidth]="'200px'">最高階額度所屬公司統編</th>
+        <th class="table-header-new" [nzWidth]="'200px'">最高階額度所屬公司名稱</th>
+        <th class="table-header-new" [nzWidth]="'300px'">Ｙ科目之額度註記(* 表有現金卡日報資料)</th>
+        <th class="table-header-new" [nzWidth]="'300px'">現金卡日報Ｙ科目之可動用額度(千元)</th>
+        <th class="table-header-new" [nzWidth]="'200px'">授信1千元之原始金額</th>
+        <th class="table-header-new" [nzWidth]="'150px'">債權證券化資料年</th>
+        <th class="table-header-new" [nzWidth]="'150px'">債權證券化資料月</th>
+        <th class="table-header-new" [nzWidth]="'200px'">債權證券化受託機構統一編號</th>
+        <th class="table-header-new" [nzWidth]="'200px'">債權證券化受託機構名稱</th>
+        <th class="table-header-new" [nzWidth]="'90px'">幣別代號</th>
+        <th class="table-header-new" [nzWidth]="'130px'">循環信用註記</th>
+        <th class="table-header-new" [nzWidth]="'130px'">額度可否撤銷</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of BAM095Source">
+        <td class="table-data-new" [nzLeft]="true">{{ data.DATA_YYY }}</td>
+        <td class="table-data-new">{{ data.DATA_MM }}</td>
+        <td class="table-data-new">{{ data.BANK_CODE }}</td>
+        <td class="table-data-new">{{ data.BANK_NAME }}</td>
+        <td class="table-data-new">{{ data.ACCOUNT_CODE }}</td>
+        <td class="table-data-new">{{ data.ACCOUNT_CODE2 }}</td>
+        <td class="table-data-new">{{ data.PURPOSE_CODE }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.CONTRACT_AMT1) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.LOAN_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
+        <td class="table-data-new">{{ data.PAY_CODE_12 }}</td>
+        <td class="table-data-new">{{ data.IS_KIND }}</td>
+        <td class="table-data-new">{{ data.PROJECT_CODE }}</td>
+        <td class="table-data-new">{{ data.CO_LOAN }}</td>
+        <td class="table-data-new">{{ data.UN_MARK }}</td>
+        <td class="table-data-new">{{ data.U_YYYMMDD }}</td>
+        <td class="table-data-new">{{ data.U_RATE }}</td>
+        <td class="table-data-new">{{ data.IB_MARK }}</td>
+        <td class="table-data-new">{{ data.IAB_BAN }}</td>
+        <td class="table-data-new">{{ data.IAB_NAME }}</td>
+        <td class="table-data-new">{{ data.CONTRACT_MARK }}</td>
+        <td class="table-data-new">{{ data.CONTRACT_CODE }}</td>
+        <td class="table-data-new">{{ data.CONTRACT_CODE1 }}</td>
+        <td class="table-data-new">{{ data.CON_BAN }}</td>
+        <td class="table-data-new">{{ data.CON_NAME }}</td>
+        <td class="table-data-new">{{ data.ACT_Y_MARK }}</td>
+        <td class="table-data-new">{{ data.CONTRACT_AMT_Y }}</td>
+        <td class="table-data-new">{{ data.AC_AMT }}</td>
+        <td class="table-data-new">{{ data.ASST_DATA_YYY }}</td>
+        <td class="table-data-new">{{ data.ASST_DATA_MM }}</td>
+        <td class="table-data-new">{{ data.ASST_IDN_BAN }}</td>
+        <td class="table-data-new">{{ data.ASST_NAME }}</td>
+        <td class="table-data-new">{{ data.CURRENCY_CODE_3 }}</td>
+        <td class="table-data-new">{{ data.CYCLE_FLAG }}</td>
+        <td class="table-data-new">{{ data.OFF_FLAG }}</td>
+
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
 <!-- BAM101 -->
 <div [(hidden)]="hideBAM101" class="line_bank_card_no_padding">
   <!-- 表格 -->
@@ -900,17 +986,17 @@
       <tr *ngFor="let data of BAM101Source">
         <td class="table-data-new" [nzLeft]="true">{{ data.DATA_YYY }}</td>
         <td class="table-data-new">{{ data.DATA_MM }}</td>
-        <td class="table-data-new">{{ toCurrency(data.WECDU_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.HIGZ_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.MNSTRK_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.J_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.PQX_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.F_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.L_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.NORMAL_LOAN_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.COLLECTION_AMT) }}</td>
-        <td class="table-data-new" [nzRight]="true">{{ toCurrency(data.BAD_DEBT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.WECDU_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.HIGZ_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.MNSTRK_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.J_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.PQX_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.F_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.L_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.NORMAL_LOAN_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.COLLECTION_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right" [nzRight]="true">{{ toCurrency(data.BAD_DEBT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -923,7 +1009,7 @@
     nzSize="small" nzTitle="KRM048 信用卡戶帳款資訊(週報+12個月)(含雙幣卡) " [nzScroll]="{ x: '1500px' }">
     <thead>
       <tr>
-       
+
         <th class="table-header-new" [nzWidth]="'90px'">繳款人ID</th>
         <th class="table-header-new" [nzWidth]="'200px'">結帳日或資料基準日</th>
         <th class="table-header-new" [nzWidth]="'150px'">發卡機構代號</th>
@@ -947,27 +1033,27 @@
         <th class="table-header-new" [nzWidth]="'90px'">消費分期</th>
         <th class="table-header-new" [nzWidth]="'150px'">預借現金分期</th>
         <th class="table-header-new" [nzWidth]="'90px'">帳單分期</th>
+        <th class="table-header-new" [nzWidth]="'90px'" >週/月報別</th>
+        <th class="table-header-new" [nzWidth]="'200px'" >週報已更新(*)註記</th>
         <th class="table-header-new" [nzWidth]="'150px'" [nzRight]="true">雙幣卡外幣別</th>
-        <th class="table-header-new" [nzWidth]="'90px'" [nzLeft]="true">週/月報別</th>
-        <th class="table-header-new" [nzWidth]="'200px'" [nzLeft]="true">週報已更新(*)註記</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of KRM048Source">
-      
+
         <td class="table-data-new">{{ data.IDN_BAN }}</td>
         <td class="table-data-new">{{ data.BILL_DATE }}</td>
         <td class="table-data-new">{{ data.ISSUE }}</td>
         <td class="table-data-new">{{ data.ISSUE_NAME }}</td>
         <td class="table-data-new">{{ data.BILL_MARK }}</td>
         <td class="table-data-new">{{ data.CARD_TYPE }}</td>
-        <td class="table-data-new">{{ toCurrency(data.PERM_LIMIT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.TEMP_LIMIT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.CASH_LIMIT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.PAYABLE) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.CASH_LENT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.LAST_PAYA) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.REVOL_BAL) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.PERM_LIMIT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.TEMP_LIMIT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.CASH_LIMIT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.PAYABLE) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.CASH_LENT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.LAST_PAYA) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.REVOL_BAL) }}</td>
         <td class="table-data-new">{{ data.PAY_STAT }}</td>
         <td class="table-data-new">{{ data.PAY_CODE }}</td>
         <td class="table-data-new">{{ data.REVOL_RATE }}</td>
@@ -978,8 +1064,8 @@
         <td class="table-data-new">{{ data.PRE_SPENT }}</td>
         <td class="table-data-new">{{ data.PRE_CASHED }}</td>
         <td class="table-data-new">{{ data.PRE_BILLED }}</td>
-        <td class="table-data-new" [nzRight]="true">{{ data.FCUR_CODE }}</td>
-        <td class="table-data-new" [nzLeft]="true">{{ data.M_W }}</td>
+        <td class="table-data-new" >{{ data.FCUR_CODE }}</td>
+        <td class="table-data-new" >{{ data.M_W }}</td>
         <td class="table-data-new" [nzLeft]="true">{{ data.RENEWED }}</td>
       </tr>
     </tbody>
@@ -990,7 +1076,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="KRM046Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total4"
     [nzPageSize]="pageSize4" [nzPageIndex]="pageIndex4" (nzQueryParams)="onQueryParamsChange($event, 'KRM046')"
-    nzSize="small" nzTitle="KRM046信用卡正附卡資訊(本人信用卡)(含雙幣卡)" [nzScroll]="{ x: '1500px' }">
+    nzSize="small" nzTitle="KRM046 信用卡正附卡資訊(本人信用卡)(含雙幣卡)" [nzScroll]="{ x: '1500px' }">
     <thead>
       <tr>
         <th class="table-header-new" [nzWidth]="'90px'" [nzLeft]="true">受查戶</th>
@@ -1031,7 +1117,7 @@
         <td class="table-data-new">{{ data.CARD_BRAND }}</td>
         <td class="table-data-new">{{ data.CARD_TYPE }}</td>
         <td class="table-data-new">{{ data.START_DATE }}</td>
-        <td class="table-data-new">{{ toCurrency(data.LIMIT )}}</td>
+        <td class="table-data-new" nzAlign="right">{{ numberArrange(data.LIMIT )}}</td>
         <td class="table-data-new">{{ data.YN_SHARE_LIMIT }}</td>
         <td class="table-data-new">{{ data.YN_PHYSICAL }}</td>
         <td class="table-data-new">{{ data.ACT_MARK }}</td>
@@ -1044,7 +1130,7 @@
         <td class="table-data-new">{{ data.M_CNAME }}</td>
         <td class="table-data-new">{{ data.RELA }}</td>
         <td class="table-data-new">{{ data.RELA_NAME }}</td>
-        <td class="table-data-new">{{ toCurrency(data.RISK) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ numberArrange(data.RISK) }}</td>
         <td class="table-data-new">{{ data.CLEAR_DATE }}</td>
         <td class="table-data-new">{{ data.GUAR_ID }}</td>
         <td class="table-data-new">{{ data.GUAR_CNAME }}</td>
@@ -1086,24 +1172,22 @@
 <div [(hidden)]="hideSTM007" class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="STM007Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total24"
     [nzPageSize]="pageSize24" [nzPageIndex]="pageIndex24" (nzQueryParams)="onQueryParamsChange($event, 'STM007')"
-    nzSize="small" nzTitle="STM007最近三個月內非Z類產品被查詢紀錄">
+    nzSize="small" nzTitle="STM007 最近三個月內非Z類產品被查詢紀錄">
     <thead>
       <tr>
-        <th class="table-header-new">收件編號</th>
-        <th class="table-header-new">查詢日期</th>
+        
         <th class="table-header-new">身分證字號</th>
         <th class="table-header-new">JCIC查詢日期</th>
         <th class="table-header-new">查詢單位代號</th>
         <th class="table-header-new">查詢單位名稱</th>
-        <th class="table-header-new">查詢項目串列B:授信D:票信K:信用卡等</th>
+        <th class="table-header-new">查詢項目</th>
         <th class="table-header-new">查詢理由碼</th>
-        <th class="table-header-new">查詢理由碼(中文註解)   1:新業務申請 2:原業務往來 3:新存款開戶4:原存款戶</th>
+        <th class="table-header-new">查詢理由碼 </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of STM007Source">
-        <td class="table-data-new">{{ data.APPLNO }}</td>
-        <td class="table-data-new">{{ data.QUERY_DATE }}</td>
+      
         <td class="table-data-new">{{ data.NATIONAL_ID }}</td>
         <td class="table-data-new">{{ data.JCIC_QUERY_DATE }}</td>
         <td class="table-data-new">{{ data.BANK_CODE }}</td>
@@ -1120,13 +1204,13 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="STM008Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total7"
     [nzPageSize]="pageSize7" [nzPageIndex]="pageIndex7" (nzQueryParams)="onQueryParamsChange($event, 'STM008')"
-    nzSize="small" nzTitle="STM008當日非Z類產品被查詢紀錄">
+    nzSize="small" nzTitle="STM008 當日非Z類產品被查詢紀錄">
     <thead>
       <tr>
         <th class="table-header-new">查詢單位代號</th>
         <th class="table-header-new">查詢單位名稱</th>
         <th class="table-header-new">查詢理由碼</th>
-        <th class="table-header-new">查詢理由碼(中文註解)</th>
+        <th class="table-header-new">查詢理由碼</th>
       </tr>
     </thead>
     <tbody>
@@ -1144,18 +1228,17 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="STM015Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total25"
     [nzPageSize]="pageSize25" [nzPageIndex]="pageIndex25" (nzQueryParams)="onQueryParamsChange($event, 'STM015')"
-    nzSize="small" nzTitle="STM015三個月當事人申請查詢紀錄-新版">
+    nzSize="small" nzTitle="STM015 三個月當事人申請查詢紀錄-新版">
     <thead>
       <tr>
-        <th class="table-header-new">收件編號</th>
-        <th class="table-header-new">查詢日期 </th>
-        <th class="table-header-new">身分證字號</th> 
+    
+        <th class="table-header-new">身分證字號</th>
         <th class="table-header-new">查詢日期</th>
-        <th class="table-header-new">申請方式1:親臨2:郵寄</th>
-        <th class="table-header-new">是否本人親臨Y:本人N:委託</th>
-        <th class="table-header-new">申請原因代碼1(對照表)</th>
+        <th class="table-header-new">申請方式</th>
+        <th class="table-header-new">是否本人親臨</th>
+        <th class="table-header-new">申請原因代碼1</th>
         <th class="table-header-new">申請原因1</th>
-        <th class="table-header-new">申請原因代碼2(對照表)</th>
+        <th class="table-header-new">申請原因代碼2</th>
         <th class="table-header-new">申請原因2</th>
         <th class="table-header-new">受託人身分證號</th>
         <th class="table-header-new">受託人姓名</th>
@@ -1165,8 +1248,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of STM015Source">
-        <td class="table-data-new">{{ data.APPLNO }}</td>
-        <td class="table-data-new">{{ data.QUERY_DATE }}</td>
+       
         <td class="table-data-new">{{ data.NATIONAL_ID }}</td>
         <td class="table-data-new">{{ data.JCIC_QUERY_DATE }}</td>
         <td class="table-data-new">{{ data.APPLY_WAY }}</td>
@@ -1221,7 +1303,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="VAM106Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total9"
     [nzPageSize]="pageSize9" [nzPageIndex]="pageIndex9" (nzQueryParams)="onQueryParamsChange($event, 'VAM106')"
-    nzSize="small" nzTitle="VAM106消債條例信用註記資訊(含個別協商)">
+    nzSize="small" nzTitle="VAM106 消債條例信用註記資訊(含個別協商)">
     <thead>
       <tr>
         <th class="table-header-new">統編/身分證號</th>
@@ -1251,7 +1333,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="VAM107Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total10"
     [nzPageSize]="pageSize10" [nzPageIndex]="pageIndex10" (nzQueryParams)="onQueryParamsChange($event, 'VAM107')"
-    nzSize="small" nzTitle="VAM107銀行公會消金案件債務協商補充註記">
+    nzSize="small" nzTitle="VAM107 銀行公會消金案件債務協商補充註記">
     <thead>
       <tr>
         <th class="table-header-new">統編/身分證號</th>
@@ -1281,7 +1363,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="VAM108Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total11"
     [nzPageSize]="pageSize11" [nzPageIndex]="pageIndex11" (nzQueryParams)="onQueryParamsChange($event, 'VAM108')"
-    nzSize="small" nzTitle="VAM108其他補充註記資訊">
+    nzSize="small" nzTitle="VAM 108其他補充註記資訊">
     <thead>
       <tr>
         <th class="table-header-new">統編/身分證號</th>
@@ -1311,7 +1393,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="VAM201Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total12"
     [nzPageSize]="pageSize12" [nzPageIndex]="pageIndex12" (nzQueryParams)="onQueryParamsChange($event, 'VAM201')"
-    nzSize="small" nzTitle="VAM201通報案件紀錄資訊-案件通報">
+    nzSize="small" nzTitle="VAM201 通報案件紀錄資訊-案件通報">
     <thead>
       <tr>
         <th class="table-header-new">通報種類</th>
@@ -1355,7 +1437,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM501Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total13"
     [nzPageSize]="pageSize13" [nzPageIndex]="pageIndex13" (nzQueryParams)="onQueryParamsChange($event, 'BAM501')"
-    nzSize="small" nzTitle="BAM501應計入DBR22倍規範之無擔保債務餘額彙總">
+    nzSize="small" nzTitle="BAM501 應計入DBR22倍規範之無擔保債務餘額彙總">
     <thead>
       <tr>
         <th class="table-header-new">行庫代號</th>
@@ -1370,10 +1452,10 @@
       <tr *ngFor="let data of BAM501Source">
         <td class="table-data-new">{{ data.MAIN_CODE }}</td>
         <td class="table-data-new">{{ data.BANK_NAME }}</td>
-        <td class="table-data-new">{{ toCurrency(data.B_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.Y_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.C1_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.C2_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.B_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.Y_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.C1_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.C2_AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1383,7 +1465,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM502Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total14"
     [nzPageSize]="pageSize14" [nzPageIndex]="pageIndex14" (nzQueryParams)="onQueryParamsChange($event, 'BAM502')"
-    nzSize="small" nzTitle="BAM502應計入DBR22倍規範之無擔保放款明細">
+    nzSize="small" nzTitle="BAM502 應計入DBR22倍規範之無擔保放款明細">
     <thead>
       <tr>
         <th class="table-header-new">信用保險註記</th>
@@ -1404,8 +1486,8 @@
         <td class="table-data-new">{{ data.ACCOUNT_CODE }}</td>
         <td class="table-data-new">{{ data.ACCOUNT_CODE2 }}</td>
         <td class="table-data-new">{{ data.PURPOSE_CODE }}</td>
-        <td class="table-data-new">{{ toCurrency(data.LOAN_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.LOAN_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1415,7 +1497,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM504Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total15"
     [nzPageSize]="pageSize15" [nzPageIndex]="pageIndex15" (nzQueryParams)="onQueryParamsChange($event, 'BAM504')"
-    nzSize="small" nzTitle="BAM504應計入DBR22倍規範之貸款餘額 (應計入DBR22倍規範之貸款餘額(擔保放款餘額加上部分擔保、副擔保貸款餘額)扣除擔保品鑑估值之金額彙總)">
+    nzSize="small" nzTitle="BAM504 應計入DBR22倍規範之貸款餘額 (應計入DBR22倍規範之貸款餘額(擔保放款餘額加上部分擔保、副擔保貸款餘額)扣除擔保品鑑估值之金額彙總)">
     <thead>
       <tr>
         <th class="table-header-new">資料年度</th>
@@ -1431,7 +1513,7 @@
         <td class="table-data-new">{{ data.DATA_MM }}</td>
         <td class="table-data-new">{{ data.BANK_CODE }}</td>
         <td class="table-data-new">{{ data.BANK_NAME }}</td>
-        <td class="table-data-new">{{ toCurrency(data.AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1441,7 +1523,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM505Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total116"
     [nzPageSize]="pageSize16" [nzPageIndex]="pageIndex16" (nzQueryParams)="onQueryParamsChange($event, 'BAM505')"
-    nzSize="small" nzTitle="BAM505新增核准額度中應計入DBR22倍之金額明細">
+    nzSize="small" nzTitle="BAM505 新增核准額度中應計入DBR22倍之金額明細">
     <thead>
       <tr>
         <th class="table-header-new">日期</th>
@@ -1456,8 +1538,8 @@
         <td class="table-data-new">{{ data.DATA_DATE }}</td>
         <td class="table-data-new">{{ data.BANK_CODE }}</td>
         <td class="table-data-new">{{ data.BANK_NAME }}</td>
-        <td class="table-data-new">{{ toCurrency(data.CONTRACT_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.DBR22_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.DBR22_AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1467,7 +1549,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM029Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total17"
     [nzPageSize]="pageSize17  " [nzPageIndex]="pageIndex17" (nzQueryParams)="onQueryParamsChange($event, 'BAM029')"
-    nzSize="small" nzTitle="BAM029新增額度(含應計入DBR22倍金額)及清償資訊" [nzScroll]="{ x: '1500px' }">
+    nzSize="small" nzTitle="BAM029 新增額度(含應計入DBR22倍金額)及清償資訊" [nzScroll]="{ x: '1500px' }">
     <thead>
       <tr>
         <th class="table-header-new" [nzWidth]="'300px'" [nzLeft]="true">新增核准額度日期/清償日期/到期或解約日期</th>
@@ -1492,12 +1574,12 @@
         <td class="table-data-new">{{ data.XACT_CODE }}</td>
         <td class="table-data-new">{{ data.ACCOUNT_CODE }}</td>
         <td class="table-data-new">{{ data.ACCOUNT_CODE2 }}</td>
-        <td class="table-data-new">{{ toCurrency (data.LASTMON_LOAN_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.LASTMON_PASS_DUE_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.NEW_CONTRACT_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.NEW_LOAN_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.NEW_PAY_LOAN_AMT) }}</td>
-        <td class="table-data-new" [nzRight]="true">{{ toCurrency(data.NEW_DBR22_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency (data.LASTMON_LOAN_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.LASTMON_PASS_DUE_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.NEW_CONTRACT_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.NEW_LOAN_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.NEW_PAY_LOAN_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right" [nzRight]="true">{{ toCurrency(data.NEW_DBR22_AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1543,10 +1625,10 @@
         <td class="table-data-new">{{ data.M_ID }}</td>
         <td class="table-data-new">{{ data.M_ID_NAME }}</td>
         <td class="table-data-new">{{ data.REL_CODE }}</td>
-        <td class="table-data-new">{{ toCurrency(data.CONTRACT_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.LOAN_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
-        <td class="table-data-new">{{ data.ASST_DATA_YYY }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.LOAN_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
+        <td class="table-data-new" >{{ data.ASST_DATA_YYY }}</td>
         <td class="table-data-new">{{ data.ASST_DATA_MM }}</td>
         <td class="table-data-new">{{ data.ASST_IDN_BAN }}</td>
         <td class="table-data-new" [nzRight]="true">{{ data.ASST_NAME }}</td>
@@ -1595,9 +1677,9 @@
         <td class="table-data-new">{{ data.M_ID }}</td>
         <td class="table-data-new">{{ data.M_ID_NAME }}</td>
         <td class="table-data-new">{{ data.REL_CODE }}</td>
-        <td class="table-data-new">{{ toCurrency(data.CONTRACT_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.LOAN_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.LOAN_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
         <td class="table-data-new">{{ data.ASST_DATA_YYY }}</td>
         <td class="table-data-new">{{ data.ASST_DATA_MM }}</td>
         <td class="table-data-new">{{ data.ASST_IDN_BAN }}</td>
@@ -1647,9 +1729,9 @@
         <td class="table-data-new">{{ data.M_ID }}</td>
         <td class="table-data-new">{{ data.M_ID_NAME }}</td>
         <td class="table-data-new">{{ data.REL_CODE }}</td>
-        <td class="table-data-new">{{ toCurrency(data.CONTRACT_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.LOAN_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.LOAN_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
         <td class="table-data-new">{{ data.ASST_DATA_YYY }}</td>
         <td class="table-data-new">{{ data.ASST_DATA_MM }}</td>
         <td class="table-data-new">{{ data.ASST_IDN_BAN }}</td>
@@ -1716,12 +1798,12 @@
         <td class="table-data-new">{{ data.ACCOUNT_NAME }}</td>
         <td class="table-data-new">{{ data.ACCOUNT_CODE2 }}</td>
         <td class="table-data-new">{{ data.ACCOUNT_NAME2 }}</td>
-        <td class="table-data-new">{{ toCurrency(data.CONTRACT_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.LOAN_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.CONTRACT_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.LOAN_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.PASS_DUE_AMT) }}</td>
         <td class="table-data-new">{{ data.PAY_CODE }}</td>
         <td class="table-data-new">{{ data.PAY_NAME }}</td>
-        <td class="table-data-new">{{ toCurrency(data.AC_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.AC_AMT) }}</td>
       </tr>
     </tbody>
   </nz-table>
@@ -1731,7 +1813,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM031Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total23"
     [nzPageSize]="pageSize23" [nzPageIndex]="pageIndex23" (nzQueryParams)="onQueryParamsChange($event, 'BAM031')"
-    nzSize="small" nzTitle="BAM031每日授信餘額變動資訊">
+    nzSize="small" nzTitle="BAM031 每日授信餘額變動資訊">
     <thead>
       <tr>
         <th class="table-header-new">交易日期</th>
@@ -1739,13 +1821,13 @@
         <th class="table-header-new">行庫名稱</th>
         <th class="table-header-new">餘額增加金額（千元）</th>
         <th class="table-header-new">最新授信餘額（千元）</th>
-        <th class="table-header-new">授信科目(對照表)</th>
+        <th class="table-header-new">授信科目</th>
         <th class="table-header-new">科目別註記</th>
         <th class="table-header-new">授信科目名稱</th>
-        <th class="table-header-new">用途別(對照表)</th>
-        <th class="table-header-new">本筆交易後之還款紀錄(對照表)</th>
-        <th class="table-header-new">個人消費性貸款註記Y:是，N:否，X:非個人貸款</th>
-        <th class="table-header-new">債權結案註記(對照表)</th>
+        <th class="table-header-new">用途別</th>
+        <th class="table-header-new">本筆交易後之還款紀錄</th>
+        <th class="table-header-new">個人消費性貸款註記</th>
+        <th class="table-header-new">債權結案註記</th>
       </tr>
     </thead>
     <tbody>
@@ -1753,8 +1835,8 @@
         <td class="table-data-new">{{ data.TRAN_DATE }}</td>
         <td class="table-data-new">{{ data.BANK_CODE }}</td>
         <td class="table-data-new">{{ data.BANK_NAME }}</td>
-        <td class="table-data-new">{{ toCurrency(data.PAY_AMT) }}</td>
-        <td class="table-data-new">{{ toCurrency(data.BAL_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.PAY_AMT) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.BAL_AMT) }}</td>
         <td class="table-data-new">{{ data.ACCOUNT_CODE }}</td>
         <td class="table-data-new">{{ data.ACCOUNT_CODE2 }}</td>
         <td class="table-data-new">{{ data.ACCOUNT_NAME }}</td>

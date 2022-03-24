@@ -161,6 +161,7 @@ export class F02003Component implements OnInit {
       }
       else
       {
+
         this.resultData = data.rspBody.item
         this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.resultData);
         this.quantity = data.rspBody.size

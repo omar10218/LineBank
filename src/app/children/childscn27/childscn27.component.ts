@@ -40,6 +40,10 @@ export class Childscn27Component implements OnInit {
   stepName: string;
   page: string;
 
+  disabledHours(): number[] {
+    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 21, 22, 23];
+  }
+
 
   ngOnInit(): void {
     this.page = sessionStorage.getItem('page');
@@ -114,6 +118,7 @@ export class Childscn27Component implements OnInit {
           this.realSmsTime = null;
           this.mytime = null;
           this.content = null;
+          this.smsSet = null;
         }
       });
     }
