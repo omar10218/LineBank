@@ -93,7 +93,6 @@ export class F02002returnComponent implements OnInit {
     this.target = <DataTransfer>(evt.target);
     if(this.target.files.length==0)
     {
-      alert('2')
       const index = this.fileList.findIndex(e => e.value ===rid);
       if(index !==-1)
       {
