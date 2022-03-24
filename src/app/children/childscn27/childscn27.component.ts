@@ -118,6 +118,7 @@ export class Childscn27Component implements OnInit {
           this.realSmsTime = null;
           this.mytime = null;
           this.content = null;
+          this.smsSet = null;
         }
       });
     }

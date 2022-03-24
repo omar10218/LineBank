@@ -91,7 +91,14 @@ export class Childscn8addComponent implements OnInit {
         return;
       }
     }
-
+    let PhoneData = this.data.PHONE.toString();
+    PhoneData = PhoneData != null ? PhoneData.replace(/[^\d]/g, '') : PhoneData;
+    if (PhoneData.length != this.data.PHONE.toString().length) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '手機/市話只能輸入數字' }
+      });
+      return;
+    }
     let msgStr: string = "";
     let codeStr: string = "";
     const baseUrl = 'f01/childscn8action1';
