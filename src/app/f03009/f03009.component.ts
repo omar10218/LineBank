@@ -85,7 +85,7 @@ export class F03009Component implements OnInit {
     for (const obj of this.chkArray) {
       if (obj.completed) { valArray.push(obj.value); }
     }
-    let mdNo: string = valArray.toString().replace(/,/g,'_');
+    let mdNo: string = valArray.toString();
     const baseUrl = 'f03/f03009action2';
     let jsonObject: any = {};
     jsonObject['tvNo'] = this.selectedValue;

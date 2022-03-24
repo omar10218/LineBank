@@ -62,7 +62,7 @@ export class F03007Component implements OnInit, AfterViewInit {
       if (obj.completed)
       { valArray.push(obj.value); }
     }
-    let fnNo: string = valArray.toString().replace(/,/g,'_').replace(/-/g,'一');
+    let fnNo: string = valArray.toString();
     let jsonObject: any = {};
     jsonObject['roleNo'] = this.selectedValue;
     jsonObject['fnNo'] = fnNo;

@@ -36,9 +36,7 @@ export class F03006Service extends BaseService {
     jsonObject['empName'] = data.EMP_NAME;//員工姓名
     jsonObject['empId'] = data.EMP_ID;//員工ID
     jsonObject['agentEmp'] = data.AGENT_EMP;//代理人
-    let mail: string = data.EMAIL;
-    let email = mail.replace('@','鼠').replace(/\./g,'點');
-    jsonObject['email'] = email;//email
+    jsonObject['email'] = data.EMAIL;//email
     jsonObject['onJob'] = data.ON_JOB;//是否在職
     jsonObject['assignStop'] = data.ASSIGN_STOP;//是否停派
     if (data.LEAVE_STARTDATE != null && data.LEAVE_STARTDATE != "") {

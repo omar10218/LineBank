@@ -91,7 +91,6 @@ export class F01008scn4page1Component implements OnInit {
       return '0'
     }
     x = x.replace(/[^\d-]/g, '');
-    x = x.replace('-', '_');
     return x
   }
 

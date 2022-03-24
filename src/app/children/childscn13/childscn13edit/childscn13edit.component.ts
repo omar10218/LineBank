@@ -38,6 +38,17 @@ export class Childscn13editComponent implements OnInit {
     });
   }
 
+  formControl = new FormControl('', [
+    Validators.required
+    // Validators.email,
+  ]);
+
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? '此欄位必填!' :
+      this.formControl.hasError('email') ? 'Not a valid email' :
+        '';
+  }
+
   changeSelect() {
     this.data.webAddrUrl = this.data.webAddrValue.split('=')[1];
   }
@@ -62,7 +73,6 @@ export class Childscn13editComponent implements OnInit {
     let codeStr: string = "";
     const formdata = new FormData();
     const baseUrl = 'f01/childscn13action2';
-    let urlStr: string = this.data.webAddrUrl.replace('://','你').replace(/\./g,'我').replace(/\//g,'他').replace(':','它').replace('?','問').replace('!','驚').replace(/=/g,'等');
     if (this.files != null) {
       var mimeType = this.files.type;
       if (mimeType.match(/image\/*/) == null) {
@@ -72,7 +82,7 @@ export class Childscn13editComponent implements OnInit {
       } else {
         formdata.append('applno', this.applno);
         formdata.append('web', this.data.webAddrValue.split('=')[0]);
-        formdata.append('webAddr', urlStr);
+        formdata.append('webAddr', this.data.webAddrUrl);
         formdata.append('messageContent', this.data.webInfoContent);
         formdata.append('empno',BaseService.userId);
         formdata.append('rowid', this.data.rowId);
@@ -82,7 +92,7 @@ export class Childscn13editComponent implements OnInit {
     } else {
       formdata.append('applno', this.applno);
       formdata.append('web', this.data.webAddrValue.split('=')[0]);
-      formdata.append('webAddr', urlStr);
+      formdata.append('webAddr', this.data.webAddrUrl);
       formdata.append('messageContent', this.data.webInfoContent);
       formdata.append('empno', BaseService.userId);
       formdata.append('rowid', this.rowId);
