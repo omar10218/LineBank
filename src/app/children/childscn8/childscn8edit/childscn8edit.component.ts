@@ -79,16 +79,24 @@ export class Childscn8editComponent implements OnInit {
         });
         return;
       }
-       //判斷日期時間是否在現在以前
-       var date = this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyy-MM-dd ') + this.data.HOURS + ':' + this.data.MINUTES + ":00";
-       var newDate = date.replace(/-/g, '/'); // 變成"2012/01/01 12:30:10";
-       var keyDate = new Date(newDate)
-       if (keyDate.getTime() < Date.now()) {
-         const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-           data: { msgStr: "請輸入正確日期時間" }
-         });
-         return;
-       }
+      //判斷日期時間是否在現在以前
+      var date = this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyy-MM-dd ') + this.data.HOURS + ':' + this.data.MINUTES + ":00";
+      var newDate = date.replace(/-/g, '/'); // 變成"2012/01/01 12:30:10";
+      var keyDate = new Date(newDate)
+      if (keyDate.getTime() < Date.now()) {
+        const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "請輸入正確日期時間" }
+        });
+        return;
+      }
+    }
+    let PhoneData = this.data.PHONE.toString();
+    PhoneData = PhoneData != null ? PhoneData.replace(/[^\d]/g, '') : PhoneData;
+    if (PhoneData.length != this.data.PHONE.toString().length) {
+      const childernDialogRef = this.dialog.open(ConfirmComponent, {
+        data: { msgStr: '手機/市話只能輸入數字' }
+      });
+      return;
     }
     let msgStr: string = "";
     let codeStr: string = "";
