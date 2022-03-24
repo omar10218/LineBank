@@ -13,7 +13,7 @@
             </div>
             <div nz-col nzSpan="5">
                 <div style="padding:10px"><span class="form-title">預計發送時間</span>
-                    <nz-time-picker style="width: 100%;" [(ngModel)]="mytime" nzFormat="HH:mm" [nzMinuteStep]="5" [nzDisabled]="realSmsTime == null" [nzNowText]="' '"></nz-time-picker>
+                    <nz-time-picker [nzDisabledHours]="disabledHours" style="width: 100%;" [(ngModel)]="mytime" nzFormat="HH:mm" [nzMinuteStep]="5" [nzDisabled]="realSmsTime == null" [nzNowText]="' '"></nz-time-picker>
                 </div>
             </div>
             <div nz-col nzSpan="7">
