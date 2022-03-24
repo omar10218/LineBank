@@ -38,6 +38,10 @@ export class Childscn19Component implements OnInit {
     this.nzI18nService.setLocale(zh_TW) //元件簡體字轉繁體字
   }
 
+  disabledHours(): number[] {
+    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 21, 22, 23];
+  }
+
   private applno: string;                           //案編
   private cuid: string;                             //客編
   restartDate: Date;                                //待補文件日期
