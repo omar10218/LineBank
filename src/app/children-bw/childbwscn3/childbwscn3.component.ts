@@ -439,6 +439,10 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   toCurrency(amount: string) {
     return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
   }
+  numberArrange(amount: string){
+  
+    return amount != null ? amount.substr(3) : amount;
+  }
   ngOnDestroy() {
     this.menuListService.setWaterMarkSource({
       show: false
