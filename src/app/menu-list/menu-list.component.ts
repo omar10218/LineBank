@@ -67,9 +67,15 @@ export class MenuListComponent implements OnInit, OnDestroy {
 
   searchUserId: string = '';
   searchEmpName: string = '';
+  empName: string;
 
   ngOnInit() {
-    this.menuListService.addMenu(localStorage.getItem("empNo"));
+    this.empNo = localStorage.getItem("empNo");
+    this.empName = localStorage.getItem("empName");
+    this.menuListService.setUserId(this.empNo);
+    this.menuListService.setEmpName(this.empName);
+    this.menuListService.addMenu(this.empNo);
+    this.options.text = this.empNo + this.empName + this.today;
     //Nick 設定同時只能登入一個帳號
     window.addEventListener("storage", (e) => { //監聽帳號
       if (localStorage.getItem('oldToken') != null) {
