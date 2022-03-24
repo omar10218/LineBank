@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     let chkTicket: string = (this.ticket != null && this.ticket.length > 0) ? this.ticket : '';
     if ('local' == this.from || 'rstn' == this.from || 'dev' == this.from) { chkTicket = ''; }
     else {
-      if (this.SSO_FLAG != 'Y') {
+      if (this.SSO_FLAG != 'Y' && chkTicket == '') {
         alert('請由SSO登入本系統');
         return;
       }
