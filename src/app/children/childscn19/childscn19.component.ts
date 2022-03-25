@@ -65,6 +65,7 @@ export class Childscn19Component implements OnInit {
   sms_M_Code = new MatTableDataSource<any>();    //sms mappingcode
   Number: string;
   swcApplno: string;
+  newdata= [];//授信補件
   ii = [];
   // flag = this.data.flag;
   // boo :boolean = true ;
@@ -259,6 +260,16 @@ export class Childscn19Component implements OnInit {
         this.send = true;
       }
       this.rescanDataSource = data.rspBody.items;
+      if(this.rescanDataSource !=null)
+      {
+        for(var t of data.rspBody.items)
+        {
+          if(t.RESCAN_FLAG=='Y')
+          {
+            this.newdata.push(t)
+          }
+        }
+      }
 
     })
   };

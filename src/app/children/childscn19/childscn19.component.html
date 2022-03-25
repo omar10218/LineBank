@@ -80,14 +80,14 @@
                     <th class="table-header">徵審註記</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="this.page=='2'">
                 <tr *ngFor="let data of rescanDataSource">
                     <!-- [(hidden)]="flag" -->
-                    <td  *ngIf="this.page ==2 || this.page==1" class="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"
+                    <td  *ngIf="this.page =='2' || this.page=='1'" class="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"
                             [disabled]="data.IMAGE_NAME != null ? true:false "
                             (click)="delRescan(data.ROW_ID)">刪除</button>
                           </td>
-                    <td *ngIf="this.page !=2 && this.page!=1" class="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"
+                    <td *ngIf="this.page !='2' && this.page!='1'" class="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"
                             [disabled]=true
                             (click)="delRescan(data.ROW_ID)">刪除</button>
                     </td>
@@ -98,6 +98,20 @@
                     <td class="table-data">{{ data.RESCAN_CONTENT }}</td>
                 </tr>
             </tbody>
+            <tbody *ngIf="this.page!='2'">
+              <tr *ngFor="let data of newdata">
+                  <!-- [(hidden)]="flag" -->
+                  <td  lass="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"
+                          [disabled]=true
+                          (click)="delRescan(data.ROW_ID)">刪除</button>
+                  </td>
+
+                  <td class="table-data">{{ data.RESTART_DATE|date: 'yyyy-MM-dd' }}</td>
+                  <td class="table-data">{{ data.RESCAN_TYPE }}</td>
+                  <td class="table-data">{{ data.RESCAN_ITEM }}</td>
+                  <td class="table-data">{{ data.RESCAN_CONTENT }}</td>
+              </tr>
+          </tbody>
         </nz-table>
 
         <!-- SMS功能 -->
