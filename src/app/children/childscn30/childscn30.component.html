@@ -1,8 +1,8 @@
 <div class="line_bank_card_no_padding" style="margin:20px 0px;width:100%">
-    <div>
+    <div #rescan>
         <!-- 補件資訊檔 -->
-        <nz-table nzShowSizeChanger [nzData]="rescanData" [nzFrontPagination]="false" [nzSimple]="true"
-            nzSize="small" nzTitle="補件資訊">
+        <nz-table nzShowSizeChanger [nzData]="rescanDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+            nzSize="small" nzTitle="補件資訊" [nzScroll]="{ x: '1500px', y:'100px'}" >
             <thead>
                 <tr>
                     <th class="table-header">待補文件日期</th>
@@ -23,7 +23,7 @@
     </div>
     <!-- 簡訊發送檔 -->
     <nz-table nzShowSizeChanger [nzData]="smsDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
-        nzTitle="簡訊發送檔">
+        nzTitle="簡訊發送檔" [nzScroll]="{ x: '1500px', y:'200px'}">
         <thead>
             <tr>
                 <th class="table-header">SMS通知手機號碼</th>
@@ -42,13 +42,14 @@
         </tbody>
     </nz-table>
     <!-- 簡訊發送檔 -->
-    <nz-table nzShowSizeChanger [nzData]="emailDataSource" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="Email發送檔">
+    <nz-table nzShowSizeChanger [nzData]="emailDataSource"[nzScroll]="{ x: '1500px', y:'300px'}"
+     [nzFrontPagination]="false" [nzSimple]="true" nzSize="small" nzTitle="Email發送檔">
         <thead>
             <tr>
                 <th class="table-header">Email</th>
-                <th class="table-header">主旨</th>
+                <th class="table-header" style="width:200px">主旨</th>
                 <th class="table-header">內容</th>
-                <th class="table-header">發送時間</th>
+                <th class="table-header" style="width:100px">發送時間</th>
             </tr>
         </thead>
         <tbody>
