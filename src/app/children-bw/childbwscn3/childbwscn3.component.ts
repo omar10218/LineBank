@@ -174,7 +174,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   pageSize15 = 50;
 
   BAM505Source: readonly Data[] = [];
-  total116 = 1;
+  total16 = 1;
   pageIndex16 = 1;
   pageSize16 = 50;
 
@@ -184,7 +184,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   pageSize17 = 50;
 
   BAM305Source: readonly Data[] = [];
-  total118 = 1;
+  total18 = 1;
   pageIndex18 = 1;
   pageSize18 = 50;
 
@@ -288,30 +288,30 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     jsonObject['per_page'] = pageSize;
     this.childbwscn3Service.getJCICSearch(jsonObject).subscribe(data => {
       if (code == 'BAM095') { this.total1 = data.rspBody.size; this.BAM095Source = data.rspBody.items; }
-      if (code == 'BAM101') { this.total1 = data.rspBody.size; this.BAM101Source = data.rspBody.items; }
-      if (code == 'KRM048') { this.total1 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
-      if (code == 'KRM046') { this.total1 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
-      if (code == 'JAS002') { this.total1 = data.rspBody.size; this.JAS002Source = data.rspBody.items; }
-      if (code == 'STM022') { this.total1 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
-      if (code == 'STM008') { this.total1 = data.rspBody.size; this.STM007Source = data.rspBody.items; }
-      if (code == 'STM007') { this.total1 = data.rspBody.size; this.STM015Source = data.rspBody.items; }
-      if (code == 'STM015') { this.total1 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
-      if (code == 'STM025') { this.total1 = data.rspBody.size; this.STM025Source = data.rspBody.items; }
-      if (code == 'VAM106') { this.total1 = data.rspBody.size; this.VAM106Source = data.rspBody.items; }
-      if (code == 'VAM107') { this.total1 = data.rspBody.size; this.VAM107Source = data.rspBody.items; }
-      if (code == 'VAM108') { this.total1 = data.rspBody.size; this.VAM108Source = data.rspBody.items; }
-      if (code == 'VAM201') { this.total1 = data.rspBody.size; this.VAM201Source = data.rspBody.items; }
-      if (code == 'BAM501') { this.total1 = data.rspBody.size; this.BAM501Source = data.rspBody.items; }
-      if (code == 'BAM502') { this.total1 = data.rspBody.size; this.BAM502Source = data.rspBody.items; }
-      if (code == 'BAM504') { this.total1 = data.rspBody.size; this.BAM504Source = data.rspBody.items; }
-      if (code == 'BAM505') { this.total1 = data.rspBody.size; this.BAM505Source = data.rspBody.items; }
-      if (code == 'BAM029') { this.total1 = data.rspBody.size; this.BAM029Source = data.rspBody.items; }
-      if (code == 'BAM305') { this.total1 = data.rspBody.size; this.BAM305Source = data.rspBody.items; }
-      if (code == 'BAM306') { this.total1 = data.rspBody.size; this.BAM306Source = data.rspBody.items; }
-      if (code == 'BAM307') { this.total1 = data.rspBody.size; this.BAM307Source = data.rspBody.items; }
-      if (code == 'BAM011') { this.total1 = data.rspBody.size; this.BAM011Source = data.rspBody.items; }
-      if (code == 'BAM070') { this.total1 = data.rspBody.size; this.BAM070Source = data.rspBody.items; }
-      if (code == 'BAM031') { this.total1 = data.rspBody.size; this.BAM031Source = data.rspBody.items; }
+      if (code == 'BAM101') { this.total2 = data.rspBody.size; this.BAM101Source = data.rspBody.items; }
+      if (code == 'KRM048') { this.total3 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
+      if (code == 'KRM046') { this.total4 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
+      if (code == 'JAS002') { this.total5 = data.rspBody.size; this.JAS002Source = data.rspBody.items; }
+      if (code == 'STM022') { this.total6 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
+      if (code == 'STM008') { this.total7 = data.rspBody.size; this.STM007Source = data.rspBody.items; }
+      if (code == 'STM007') { this.total24 = data.rspBody.size; this.STM015Source = data.rspBody.items; }
+      if (code == 'STM015') { this.total25 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
+      if (code == 'STM025') { this.total8 = data.rspBody.size; this.STM025Source = data.rspBody.items; }
+      if (code == 'VAM106') { this.total9 = data.rspBody.size; this.VAM106Source = data.rspBody.items; }
+      if (code == 'VAM107') { this.total10 = data.rspBody.size; this.VAM107Source = data.rspBody.items; }
+      if (code == 'VAM108') { this.total11 = data.rspBody.size; this.VAM108Source = data.rspBody.items; }
+      if (code == 'VAM201') { this.total12 = data.rspBody.size; this.VAM201Source = data.rspBody.items; }
+      if (code == 'BAM501') { this.total13 = data.rspBody.size; this.BAM501Source = data.rspBody.items; }
+      if (code == 'BAM502') { this.total14 = data.rspBody.size; this.BAM502Source = data.rspBody.items; }
+      if (code == 'BAM504') { this.total15 = data.rspBody.size; this.BAM504Source = data.rspBody.items; }
+      if (code == 'BAM505') { this.total16 = data.rspBody.size; this.BAM505Source = data.rspBody.items; }
+      if (code == 'BAM029') { this.total17 = data.rspBody.size; this.BAM029Source = data.rspBody.items; }
+      if (code == 'BAM305') { this.total18 = data.rspBody.size; this.BAM305Source = data.rspBody.items; }
+      if (code == 'BAM306') { this.total19 = data.rspBody.size; this.BAM306Source = data.rspBody.items; }
+      if (code == 'BAM307') { this.total20 = data.rspBody.size; this.BAM307Source = data.rspBody.items; }
+      if (code == 'BAM011') { this.total21 = data.rspBody.size; this.BAM011Source = data.rspBody.items; }
+      if (code == 'BAM070') { this.total22 = data.rspBody.size; this.BAM070Source = data.rspBody.items; }
+      if (code == 'BAM031') { this.total23 = data.rspBody.size; this.BAM031Source = data.rspBody.items; }
     });
   }
 
