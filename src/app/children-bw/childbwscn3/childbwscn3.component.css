@@ -104,3 +104,6 @@ table {
   margin-bottom: 0px;
   font-size: 12px;
 }
+:host::ng-deep.ant-table-pagination.ant-pagination{
+  margin:5px 0;
+}
