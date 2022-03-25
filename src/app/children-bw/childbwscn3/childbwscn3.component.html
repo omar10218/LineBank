@@ -204,7 +204,7 @@
   <div style="padding-left: 40px; padding-top:40px;">
     <div nz-row>
       <div nz-col nzFlex="1">
-        <div style="padding:3px"><span class="form-title">查詢日期:{{queryDate}}</span></div>
+        <span style="padding-left: 30px;">查詢日期時間 : {{queryDate}}</span>
       </div>
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="1"></div>
@@ -214,7 +214,7 @@
     </div>
   </div>
   <!-- JCICMASTEE -->
-  <div [id]="!hideJCICMASTER ? 'JCICMASTER' : '' " [(hidden)]="hideJCICMASTER" class="line_bank_card_no_padding" style="background-color:transparent;">
+  <div [id]="!hideJCICMASTER ? 'JCICMASTER' : '' " [(hidden)]="hideJCICMASTER" class="line_bank_card_no_padding" style="background-color:transparent;box-shadow: none;">
     <div nz-row>
       <div nz-col nzSpan="11">
 
@@ -277,6 +277,19 @@
               </div>
              
             </tr>
+          </ng-container>
+          <div class="line_bank_form_header_title" style="border-radius:0px  ;font-weight: bold;margin-top: 0px;height: 40px;padding-top:8px;font-weight: bold;">
+            BAI001 授信資料日期
+          </div>
+          <ng-container *ngFor="let data of BAI001.slice(0,1)">
+            <tr>
+              <div nz-row>
+                <th nz-col nzFlex="1" class="table-header">授信資料日期</th>
+                <td nz-col nzFlex="1" class="table-data">{{ data.DATA_DATE }}</td>
+
+              </div>
+            </tr>
+          
           </ng-container>
         </nz-table>
       </div>
@@ -344,19 +357,7 @@
               </div>
             </tr>
           </ng-container>
-          <div class="line_bank_form_header_title" style="border-radius:0px  ;font-weight: bold;margin-top: 0px;">
-            BAI001 授信資料日期
-          </div>
-          <ng-container *ngFor="let data of BAI001.slice(0,1)">
-            <tr>
-              <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">授信資料日期</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.DATA_DATE| date: 'yyyy/MM/dd ' : ' ' }}</td>
-
-              </div>
-            </tr>
-          
-          </ng-container>
+       
         </nz-table>
       </div>
       <br>
@@ -364,12 +365,9 @@
     </div>
   </div>
 
-  <br>
 
 </div>
-<div [id]="!hideJCICMASTER ? 'JCICMASTER' : '' " [(hidden)]="hideJCICMASTER" class="line_bank_card_no_padding">
 
-</div>
 
 
 <!-- JAS002 -->
@@ -1117,7 +1115,7 @@
         <td class="table-data-new">{{ data.CARD_BRAND }}</td>
         <td class="table-data-new">{{ data.CARD_TYPE }}</td>
         <td class="table-data-new">{{ data.START_DATE }}</td>
-        <td class="table-data-new" nzAlign="right">{{ numberArrange(data.LIMIT )}}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.LIMIT )}}</td>
         <td class="table-data-new">{{ data.YN_SHARE_LIMIT }}</td>
         <td class="table-data-new">{{ data.YN_PHYSICAL }}</td>
         <td class="table-data-new">{{ data.ACT_MARK }}</td>
@@ -1130,7 +1128,7 @@
         <td class="table-data-new">{{ data.M_CNAME }}</td>
         <td class="table-data-new">{{ data.RELA }}</td>
         <td class="table-data-new">{{ data.RELA_NAME }}</td>
-        <td class="table-data-new" nzAlign="right">{{ numberArrange(data.RISK) }}</td>
+        <td class="table-data-new" nzAlign="right">{{ toCurrency(data.RISK) }}</td>
         <td class="table-data-new">{{ data.CLEAR_DATE }}</td>
         <td class="table-data-new">{{ data.GUAR_ID }}</td>
         <td class="table-data-new">{{ data.GUAR_CNAME }}</td>
@@ -1176,8 +1174,7 @@
     <thead>
       <tr>
         
-        <th class="table-header-new">身分證字號</th>
-        <th class="table-header-new">JCIC查詢日期</th>
+        <th class="table-header-new">查詢日期</th>
         <th class="table-header-new">查詢單位代號</th>
         <th class="table-header-new">查詢單位名稱</th>
         <th class="table-header-new">查詢項目</th>
@@ -1188,7 +1185,6 @@
     <tbody>
       <tr *ngFor="let data of STM007Source">
       
-        <td class="table-data-new">{{ data.NATIONAL_ID }}</td>
         <td class="table-data-new">{{ data.JCIC_QUERY_DATE }}</td>
         <td class="table-data-new">{{ data.BANK_CODE }}</td>
         <td class="table-data-new">{{ data.BANK_NAME }}</td>
@@ -1242,8 +1238,7 @@
         <th class="table-header-new">申請原因2</th>
         <th class="table-header-new">受託人身分證號</th>
         <th class="table-header-new">受託人姓名</th>
-        <th class="table-header-new">主要上層TABLE</th>
-        <th class="table-header-new">第幾次查詢該項目</th>
+
       </tr>
     </thead>
     <tbody>
@@ -1259,8 +1254,7 @@
         <td class="table-data-new">{{ data.REASON_NAME2 }}</td>
         <td class="table-data-new">{{ data.APPLICANT }}</td>
         <td class="table-data-new">{{ data.NAME }}</td>
-        <td class="table-data-new">{{ data.MASTER_ID }}</td>
-        <td class="table-data-new">{{ data.JCIC_INQR_SEQ_NBR }}</td>
+     
       </tr>
     </tbody>
   </nz-table>
@@ -1363,7 +1357,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="VAM108Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total11"
     [nzPageSize]="pageSize11" [nzPageIndex]="pageIndex11" (nzQueryParams)="onQueryParamsChange($event, 'VAM108')"
-    nzSize="small" nzTitle="VAM 108其他補充註記資訊">
+    nzSize="small" nzTitle="VAM108 其他補充註記資訊">
     <thead>
       <tr>
         <th class="table-header-new">統編/身分證號</th>

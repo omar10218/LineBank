@@ -78,6 +78,7 @@ export class F02002returnComponent implements OnInit {
     Validators.required
   ]);
   target: DataTransfer
+
   //欄位驗證
   getErrorMessage() {
     return this.formControl.hasError('required') ? '此欄位必填!' :
@@ -93,7 +94,7 @@ export class F02002returnComponent implements OnInit {
     this.target = <DataTransfer>(evt.target);
     if(this.target.files.length==0)
     {
-      let index = await this.removeFile(rid);
+      let index = await this.package(rid,'2');
       if(index !== -1)
       {
         this.fileList.splice(index,1)
@@ -110,8 +111,8 @@ export class F02002returnComponent implements OnInit {
       this.fileToUpload = this.target.files.item(0);
       if (this.isValidFile)
        {
-        var p = await this.package(rid)
-        if(p==true)
+        var p = await this.package(rid,'1')
+        if(p==1)
         {
           this.fileList.push({ value: rid, viewValue: this.fileToUpload });
         }
@@ -122,19 +123,22 @@ export class F02002returnComponent implements OnInit {
       }
 
     }
+    this.onChangelength = this.fileList.length;
     this.verify();
   }
 
-  public async package(rid:string) :Promise<boolean>
+  public async package(rid:string,id:string) :Promise<number>
   {
-    this.fileList = this.fileList.filter(e => e.value != rid);
-    return true;
-  }
-
-  public async removeFile(rid:string) :Promise<number>
-  {
-    const index: number = this.fileList.findIndex(e => e.value ===rid);
+    if(id=='1')
+    {
+      this.fileList = this.fileList.filter(e => e.value != rid);
+      return 1;
+    }
+    else
+    {
+      const index: number = this.fileList.findIndex(e => e.value ===rid);
     return index
+    }
   }
 
   set()//查詢
