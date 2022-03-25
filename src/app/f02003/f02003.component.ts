@@ -186,6 +186,7 @@ export class F02003Component implements OnInit {
     this.newData = [];
     this.order = '';
     this.sor = '';
+    this.quantity = 0;
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
      // 判斷是否為第一次進頁面
