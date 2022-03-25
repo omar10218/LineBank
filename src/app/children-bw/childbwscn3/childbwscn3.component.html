@@ -204,7 +204,7 @@
   <div style="padding-left: 40px; padding-top:40px;">
     <div nz-row>
       <div nz-col nzFlex="1">
-        <span style="padding-left: 30px;">查詢日期時間 : {{queryDate}}</span>
+        <span style="padding-left: 10px;">查詢日期時間 : {{queryDate}}</span>
       </div>
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="1"></div>
@@ -222,70 +222,70 @@
           <ng-container *ngFor="let data of AAS003.slice(0,1)">
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">身分證號</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.IDN ? data.IDN : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">身分證號</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.IDN ? data.IDN : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">中文姓名</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.PNAME ? data.PNAME : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">中文姓名</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.PNAME ? data.PNAME : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">身分證註銷或一年內掛失紀錄</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.IS_LOST ? data.IS_LOST : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">身分證註銷或一年內掛失紀錄</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.IS_LOST ? data.IS_LOST : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">通報案件紀錄</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.IS_WANTED ? data.IS_WANTED : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">通報案件紀錄</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.IS_WANTED ? data.IS_WANTED : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">是否有補充註記</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.IS_NOTE ? data.IS_NOTE : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">是否有補充註記</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.IS_NOTE ? data.IS_NOTE : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">補充註記</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.NOTELIST ? data.NOTELIST : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">補充註記</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.NOTELIST ? data.NOTELIST : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">通報案件紀錄</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.WANTEDLIST ? data.WANTEDLIST : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">通報案件紀錄</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.WANTEDLIST ? data.WANTEDLIST : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">在台無戶籍人士身分證號對照索引註記</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.FOREIGNER_MARK ? data.FOREIGNER_MARK : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">在台無戶籍人士身分證號對照索引註記</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.FOREIGNER_MARK ? data.FOREIGNER_MARK : ' ' }}</td>
 
               </div>
              
             </tr>
           </ng-container>
-          <div class="line_bank_form_header_title" style="border-radius:0px  ;font-weight: bold;margin-top: 0px;height: 40px;padding-top:8px;font-weight: bold;">
+          <div class="line_bank_form_header_title" style="border-radius:0px  ;font-weight: bold;margin-top: 0px;height: 40px;padding-top:7px;font-weight: bold;font-size: 18px;">
             BAI001 授信資料日期
           </div>
           <ng-container *ngFor="let data of BAI001.slice(0,1)">
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">授信資料日期</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.DATA_DATE }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">授信資料日期</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.DATA_DATE }}</td>
 
               </div>
             </tr>
@@ -302,57 +302,57 @@
           <ng-container *ngFor="let data of AAS003.slice(0,1)">
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">授信異常 YN</th>
-                <td nz-col nzFlex="1" class="table-data">{{data.EVER_DELINQUENT ? data.EVER_DELINQUENT : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">授信異常 YN</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{data.EVER_DELINQUENT ? data.EVER_DELINQUENT : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">最近授信異常日期</th>
-                <td nz-col nzFlex="1" class="table-data">{{data.DELINQUENT_DATE ? data.DELINQUENT_DATE : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">最近授信異常日期</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{data.DELINQUENT_DATE ? data.DELINQUENT_DATE : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">退票異常 YN</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.EVER_BAD_CHECK ? data.EVER_BAD_CHECK : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">退票異常 YN</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.EVER_BAD_CHECK ? data.EVER_BAD_CHECK : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">最近退票異常日期</th>
-                <td nz-col nzFlex="1" class="table-data">{{data.BAD_CHECK_DATE ?data.BAD_CHECK_DATE : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">最近退票異常日期</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{data.BAD_CHECK_DATE ?data.BAD_CHECK_DATE : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">拒絕往來記錄 YN</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.EVER_REJECT ? data.EVER_REJECT : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">拒絕往來記錄 YN</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.EVER_REJECT ? data.EVER_REJECT : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">拒絕往來日期</th>
-                <td nz-col nzFlex="1" class="table-data">{{data.REJECT_DATE ?data.REJECT_DATE : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">拒絕往來日期</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{data.REJECT_DATE ?data.REJECT_DATE : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">強制停卡異常 YN</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.EVER_STOP_CARD ? data.EVER_STOP_CARD : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">強制停卡異常 YN</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.EVER_STOP_CARD ? data.EVER_STOP_CARD : ' ' }}</td>
 
               </div>
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header">最近強制停卡日期</th>
-                <td nz-col nzFlex="1" class="table-data">{{ data.STOP_CARD_DATE ? data.STOP_CARD_DATE : ' ' }}</td>
+                <th nz-col nzFlex="1" class="table-header-new">最近強制停卡日期</th>
+                <td nz-col nzFlex="1" class="table-data-new">{{ data.STOP_CARD_DATE ? data.STOP_CARD_DATE : ' ' }}</td>
 
               </div>
             </tr>
@@ -871,7 +871,7 @@
   <!-- 表格 -->
   <nz-table nzShowSizeChanger [nzData]="BAM095Source" [nzFrontPagination]="false" [nzSimple]="true" [nzTotal]="total1"
     [nzPageSize]="pageSize1" [nzPageIndex]="pageIndex1" (nzQueryParams)="onQueryParamsChange($event, 'BAM095')"
-    nzSize="small" nzTitle="BAM095 99年版授信額度,擔保品,金額,還款紀錄資訊" [nzScroll]="{ x: '1800px' }">
+    nzSize="small" nzTitle="BAM095 99年版授信額度,擔保品,金額,還款紀錄資訊" [nzScroll]="{ x: '1500px' }">
     <thead>
       <tr>
         <th class="table-header-new" [nzWidth]="'90px'" [nzLeft]="true">資料年度</th>
@@ -1084,7 +1084,7 @@
         <th class="table-header-new" [nzWidth]="'90px'">卡名代號</th>
         <th class="table-header-new" [nzWidth]="'90px'">標章代號</th>
         <th class="table-header-new" [nzWidth]="'90px'">發卡日期</th>
-        <th class="table-header-new" [nzWidth]="'120px'">額度（千元）</th>
+        <th class="table-header-new" [nzWidth]="'120px'">額度(千元)</th>
         <th class="table-header-new" [nzWidth]="'150px'">是否綜合額度</th>
         <th class="table-header-new" [nzWidth]="'130px'">是否實體卡</th>
         <th class="table-header-new" [nzWidth]="'90px'">開卡註記</th>
@@ -1179,7 +1179,7 @@
         <th class="table-header-new">查詢單位名稱</th>
         <th class="table-header-new">查詢項目</th>
         <th class="table-header-new">查詢理由碼</th>
-        <th class="table-header-new">查詢理由碼 </th>
+        <th class="table-header-new">查詢理由碼(中文註解) </th>
       </tr>
     </thead>
     <tbody>
@@ -1206,7 +1206,7 @@
         <th class="table-header-new">查詢單位代號</th>
         <th class="table-header-new">查詢單位名稱</th>
         <th class="table-header-new">查詢理由碼</th>
-        <th class="table-header-new">查詢理由碼</th>
+        <th class="table-header-new">查詢理由碼(中文註解)</th>
       </tr>
     </thead>
     <tbody>
@@ -1228,7 +1228,6 @@
     <thead>
       <tr>
     
-        <th class="table-header-new">身分證字號</th>
         <th class="table-header-new">查詢日期</th>
         <th class="table-header-new">申請方式</th>
         <th class="table-header-new">是否本人親臨</th>
@@ -1244,7 +1243,6 @@
     <tbody>
       <tr *ngFor="let data of STM015Source">
        
-        <td class="table-data-new">{{ data.NATIONAL_ID }}</td>
         <td class="table-data-new">{{ data.JCIC_QUERY_DATE }}</td>
         <td class="table-data-new">{{ data.APPLY_WAY }}</td>
         <td class="table-data-new">{{ data.IS_SELF }}</td>
