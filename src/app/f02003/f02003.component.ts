@@ -152,9 +152,15 @@ export class F02003Component implements OnInit {
 
     }
     this.f02003Service.inquiry(url,jsonObject).subscribe(data=>{
+      this.newData =[];
+      this.quantity = 0;
+      if(data.rspMsg =='error')
+      {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: "筆數大於五百請增加查詢條件，重新查詢" }})
 
-      console.log(data)
-      if(data.rspBody.size == 0)
+      }
+      else if(data.rspBody.size == 0)
       {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }})
