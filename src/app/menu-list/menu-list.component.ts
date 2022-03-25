@@ -180,5 +180,3 @@ export class MenuListComponent implements OnInit, OnDestroy {
     });
   }
 }
-
-//測試STG BRANCH
