@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { F02002Service } from '../f02002.service'
 import { F02008return2Component } from '../f02002return/f02008return2/f02008return2.component'
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
+import { retry } from 'rxjs/operators';
 interface sysCode {
   value: string;
   viewValue: string;
@@ -77,6 +78,7 @@ export class F02002returnComponent implements OnInit {
     Validators.required
   ]);
   target: DataTransfer
+
   //欄位驗證
   getErrorMessage() {
     return this.formControl.hasError('required') ? '此欄位必填!' :
@@ -88,28 +90,57 @@ export class F02002returnComponent implements OnInit {
     this.dialogRef.close({ event: 'success' });
   }
 
-  onChange(evt, rid: string,) {
+  public async onChange(evt: { target: DataTransfer; }, rid: string,) {
     this.target = <DataTransfer>(evt.target);
-    if(this.target.files[0] != undefined)
+    if(this.target.files.length==0)
     {
-      this.isValidFile = !!this.target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
+      let index = await this.package(rid,'2');
+      if(index !== -1)
+      {
+        this.fileList.splice(index,1)
+      }
+    }
+    else
+    {
+      if(this.target.files[0] != undefined)
+      {
+        this.isValidFile = !!this.target.files[0].name.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG|.xls|.xlsx|.doc|.docx|.XLS|.DOC|.DOCX)/);
+
+      }
+      // console.log(this.target.files[0])
+      this.fileToUpload = this.target.files.item(0);
+      if (this.isValidFile)
+       {
+        var p = await this.package(rid,'1')
+        if(p==1)
+        {
+          this.fileList.push({ value: rid, viewValue: this.fileToUpload });
+        }
+      }
+      else {
+        this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法檔，請檢查檔案格式重新上傳" });
+        alert(this.uploadForm.value.ERROR_MESSAGE);
+      }
 
     }
-    // console.log(this.target.files[0])
-    var rid = rid;
-    this.fileToUpload = this.target.files.item(0);
-    if (this.isValidFile)
-     {
-      this.fileList = this.fileList.filter(e => e.value != rid);
-      this.fileList.push({ value: rid, viewValue: this.fileToUpload });
-      this.verify();
-    }
-    else {
-      this.uploadForm.patchValue({ ERROR_MESSAGE: "非合法檔，請檢查檔案格式重新上傳" });
-      alert(this.uploadForm.value.ERROR_MESSAGE);
-    }
     this.onChangelength = this.fileList.length;
+    this.verify();
   }
+
+  public async package(rid:string,id:string) :Promise<number>
+  {
+    if(id=='1')
+    {
+      this.fileList = this.fileList.filter(e => e.value != rid);
+      return 1;
+    }
+    else
+    {
+      const index: number = this.fileList.findIndex(e => e.value ===rid);
+    return index
+    }
+  }
+
   set()//查詢
   {
     let url = 'f02/f02002action3'
@@ -290,6 +321,10 @@ export class F02002returnComponent implements OnInit {
     // console.log(this.fileList.length)
     if (this.blockList.length == this.fileList.length) {
       this.bool = false;
+    }
+    else
+    {
+      this.bool=true;
     }
 
     return false;
