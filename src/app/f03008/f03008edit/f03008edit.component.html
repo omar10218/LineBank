@@ -60,7 +60,7 @@
             </div>
           </div>
         </div>
-        <div nz-col  nzFlex="1">
+        <div nz-col nzFlex="1">
           <div class="form" style="padding:5px">
             <div><span class="form-title-actions">異動員編</span>
               <input matInput #input class="form-control" [(ngModel)]="data.changeEmpno" name="changeEmpno" disabled>
@@ -73,14 +73,6 @@
 
 
       <div nz-row>
-        <div nz-col nzFlex="1">
-          <div class="form" style="padding:5px">
-            <div><span class="form-title-actions">異常ID</span>
-              <input matInput #input class="form-control" [(ngModel)]="data.abnormalNid" name="abnormalNid" disabled>
-              <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            </div>
-          </div>
-        </div>
         <div nz-col nzFlex="1">
           <div class="form" style="padding:5px">
             <div>
@@ -109,13 +101,7 @@
           </div>
         </div>
 
-
-
-      </div>
-
-
-      <div nz-row>
-        <div nz-col nzSpan="6">
+        <div nz-col nzFlex="1">
           <div class="form" style="padding:5px">
             <div><span class="form-title-actions">是否比對</span>
               <mat-select [(ngModel)]="data.onCheck" name="onCheck" style="width:145px;height:31px">
@@ -127,6 +113,11 @@
             </div>
           </div>
         </div>
+
+      </div>
+
+
+      <div nz-row>
         <div nz-col nzSpan="6">
           <div style="padding:3px">
             <span class="form-title" style="margin:0px">上傳時間</span>
@@ -142,11 +133,7 @@
           </div>
         </div>
         <div nz-col nzSpan="6"></div>
-
       </div>
-
-
-
 
       <div mat-dialog-actions style="margin:0 auto;width:12vw;">
         <button nz-button [nzSize]="'middle'" nzType="primary" [disabled]="!formControl.valid" style="margin:0px 5px"
