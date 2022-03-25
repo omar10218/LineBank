@@ -35,6 +35,10 @@ export class MenuListComponent implements OnInit, OnDestroy {
     this.WaterMarkSource$ = this.menuListService.WaterMarkSource$.subscribe((data) => {
       this.waterShow = data.show;
     });
+
+    this.urlT$ = this.menuListService.url$.subscribe((data) => {
+      this.url.push(data.url);
+    });
   }
 
   total: string;
@@ -68,6 +72,9 @@ export class MenuListComponent implements OnInit, OnDestroy {
   searchUserId: string = '';
   searchEmpName: string = '';
   empName: string;
+
+  url: Window[] = [];
+  urlT$: Subscription;
 
   ngOnInit() {
     this.empNo = localStorage.getItem("empNo");
@@ -152,6 +159,10 @@ export class MenuListComponent implements OnInit, OnDestroy {
   }
 
   private commonLogOut(): void {
+    for (let index = 0; index < this.url.length; index++) {
+      this.url[index].close();
+    }
+
     if (this.menuListService.logOutAction()) {
       // window.localStorage.clear();
       localStorage.removeItem('empId');

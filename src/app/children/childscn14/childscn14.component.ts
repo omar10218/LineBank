@@ -4,6 +4,7 @@ import { Data } from '@angular/router';
 
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
+import { MenuListService } from 'src/app/menu-list/menu-list.service';
 import { Childscn1Service } from '../childscn1/childscn1.service';
 import { Childscn6Service } from '../childscn6/childscn6.service';
 import { Childscn14Service } from './childscn14.service';
@@ -23,6 +24,7 @@ export class Childscn14Component implements OnInit {
     private childscn14Service: Childscn14Service,
     private childscn1Service: Childscn1Service,
     public dialog: MatDialog,
+    private menuListService: MenuListService
   ) { }
 
   @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
@@ -165,4 +167,10 @@ export class Childscn14Component implements OnInit {
     });
   }
 
+  openUrl(value: string){
+    let url = window.open(this.host + ':18443/LineBankViewOne/system/viewer.html?docKey=' + value + '&cuId=' + this.cuid + '&cuNm=' + this.cuNm);
+    this.menuListService.setUrl({
+      url: url
+    });
+  }
 }

@@ -49,4 +49,12 @@ export class MenuListService extends BaseService {
   setWaterMarkSource(data): void {
     this.WaterMarkSource.next(data);
   }
+
+   //url
+   private url = new Subject<any>();
+   url$ = this.url.asObservable();
+
+   setUrl(data): void {
+     this.url.next(data);
+   }
 }
