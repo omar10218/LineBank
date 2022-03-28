@@ -119,17 +119,17 @@
         <!-- <div [ngStyle]="{'display': flag == 'Y' ? 'none' : '0'}"> -->
             <div class="line_bank_form_header_title" style="border-radius:0px;">SMS訊息</div>
             <div nz-row>
-                <div nz-col nzSpan="5">
+                <!-- <div nz-col nzSpan="5">
                     <div style="padding:10px"><span class="form-title">預計發送日期</span>
                         <nz-date-picker [(ngModel)]="realSmsTime" name="realSmsTime"></nz-date-picker>
                     </div>
-                </div>
-                <div nz-col nzSpan="5">
+                </div> -->
+                <!-- <div nz-col nzSpan="5">
                     <div style="padding:10px"><span class="form-title">預計發送時間</span>
                         <nz-time-picker [nzDisabledHours]="disabledHours" [(ngModel)]="mytime" nzFormat="HH:mm" [nzMinuteStep]="5"
                             [nzDisabled]="realSmsTime == null" [nzNowText]="' '"></nz-time-picker>
                     </div>
-                </div>
+                </div> -->
                 <div nz-col nzSpan="7">
                     <div style="padding:10px"><span class="form-title">發送手機</span>
                         <input style="display: block; background-color: #ffffff;" [(ngModel)]="this.mobile"
