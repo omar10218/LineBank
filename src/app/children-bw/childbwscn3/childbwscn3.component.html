@@ -206,9 +206,7 @@
       <div nz-col nzFlex="1">
         <span style="padding-left: 10px;">查詢日期時間 : {{queryDate}}</span>
       </div>
-      <div nz-col nzFlex="1"></div>
-      <div nz-col nzFlex="1"></div>
-      <div nz-col nzFlex="1"></div>
+      
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="1"></div>
     </div>
@@ -301,7 +299,7 @@
           <ng-container *ngFor="let data of JAS002.slice(0,1)">
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header-new">授信異常 </th>
+                <th nz-col nzFlex="1" class="table-header-new">授信異常</th>
                 <td nz-col nzFlex="1" class="table-data-new">{{data.EVER_DELINQUENT ? data.EVER_DELINQUENT : ' ' }}</td>
 
               </div>
@@ -315,7 +313,7 @@
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header-new">退票異常 </th>
+                <th nz-col nzFlex="1" class="table-header-new">退票異常</th>
                 <td nz-col nzFlex="1" class="table-data-new">{{ data.EVER_BAD_CHECK ? data.EVER_BAD_CHECK : ' ' }}</td>
 
               </div>
@@ -329,7 +327,7 @@
             </tr>
             <tr>
               <div nz-row>
-                <th nz-col nzFlex="1" class="table-header-new">拒絕往來記錄 </th>
+                <th nz-col nzFlex="1" class="table-header-new">拒絕往來記錄</th>
                 <td nz-col nzFlex="1" class="table-data-new">{{ data.EVER_REJECT ? data.EVER_REJECT : ' ' }}</td>
 
               </div>
@@ -354,8 +352,10 @@
                 <td nz-col nzFlex="1" class="table-data-new">{{ data.STOP_CARD_DATE ? data.STOP_CARD_DATE : ' ' }}</td>
 
               </div>
+
             </tr>
           </ng-container>
+         
 
         </nz-table>
       </div>
