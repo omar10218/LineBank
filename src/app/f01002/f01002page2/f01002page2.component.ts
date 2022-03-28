@@ -31,6 +31,7 @@ interface callout {
 })
 
 export class F01002page2Component implements OnInit {
+  intervalRef: any;
   applno: string;
   callOutDataSource = [];           // 照會提醒清單
   rspBodyList: callout[] = [];      //table資料
@@ -81,6 +82,10 @@ export class F01002page2Component implements OnInit {
     // this.search = sessionStorage.getItem('search');
     // this.empNo = BaseService.userId;
     this.getCalloutList(this.pageIndex, this.pageSize);
+    this.intervalRef = setInterval(
+      () => {
+        this.getCalloutList(this.pageIndex, this.pageSize);
+      }, 5 * 60 * 1000);
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
