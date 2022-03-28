@@ -1,6 +1,6 @@
 <div class="line_bank_bankground_color">
   <br>
-  <div class="line_bank_card_no_padding">
+  <div class="line_bank_card_no_padding" >
     <div nz-row>
       <div nz-col nzFlex="1.3">
         <div style="padding:10px"><span class="form-title">案件編號</span><input style="display: block;"
@@ -124,16 +124,16 @@
   </div>
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{quantity}}件)</div>
-    <nz-table nzShowSizeChanger [nzData]="resultData" [nzFrontPagination]="false" [nzSimple]="true"
+    <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"
       [nzScroll]="{ x: '4000px', y: '400px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
       [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)" >
       <thead >
         <tr>
           <th nzLeft nzWidth="80px">序號</th>
           <th nzLeft nzWidth="100px">累進</th>
-          <th nzLeft nzWidth="130px" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true" [nzSortDirections]="sortArry">進件日期時間</th>
+          <th nzLeft nzWidth="130px" (nzSortOrderChange)="sortChange($event,'APPLYEND_TIME')" [nzSortFn]="false" >進件日期時間</th>
           <th nzLeft nzWidth="110px">客群標籤</th>
-          <th nzLeft nzWidth="150px"(nzSortOrderChange)="Serial($event)" [nzSortFn]="true"  [nzSortDirections]="sortArry">案件編號</th>
+          <th nzLeft nzWidth="150px"(nzSortOrderChange)="sortChange($event,'APPLNO')" [nzSortFn]="false" >案件編號</th>
           <th nzWidth="110px">身分證字號</th>
           <th nzWidth="110px">客戶ID</th>
           <th nzWidth="110px">客戶姓名</th>
@@ -163,7 +163,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of resultData;let i = index">
+        <tr *ngFor="let data of newData;let i = index">
            <!--序號-->
           <td nzLeft >{{i+1}}</td>
           <!--累計進件數-->
