@@ -293,9 +293,9 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
       if (code == 'KRM046') { this.total4 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
       if (code == 'JAS002') { this.total5 = data.rspBody.size; this.JAS002Source = data.rspBody.items; }
       if (code == 'STM022') { this.total6 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
-      if (code == 'STM008') { this.total7 = data.rspBody.size; this.STM007Source = data.rspBody.items; }
-      if (code == 'STM007') { this.total24 = data.rspBody.size; this.STM015Source = data.rspBody.items; }
-      if (code == 'STM015') { this.total25 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
+      if (code == 'STM008') { this.total7 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
+      if (code == 'STM007') { this.total24 = data.rspBody.size; this.STM007Source = data.rspBody.items; }
+      if (code == 'STM015') { this.total25 = data.rspBody.size; this.STM015Source = data.rspBody.items; }
       if (code == 'STM025') { this.total8 = data.rspBody.size; this.STM025Source = data.rspBody.items; }
       if (code == 'VAM106') { this.total9 = data.rspBody.size; this.VAM106Source = data.rspBody.items; }
       if (code == 'VAM107') { this.total10 = data.rspBody.size; this.VAM107Source = data.rspBody.items; }
