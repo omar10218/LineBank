@@ -68,10 +68,10 @@ export class Childscn8Component implements OnInit, OnDestroy {
       if (!data.show) { this.getCALLOUTFunction(this.pageIndex, this.pageSize); this.showAdd = false; }
     });
     this.JCICAddSource$ = this.f01002scn1Service.JCICSource$.subscribe((data) => {
-      if (!data.show) { this.getCALLOUTFunction(this.pageIndex, this.pageSize); this.showEdit = false;}
+      if (!data.show) { this.getCALLOUTFunction(this.pageIndex, this.pageSize); this.showEdit = false; }
     });
     this.JCICAddSource$ = this.f01002scn1Service.JCICItemsSource$.subscribe((data) => {
-      if (!data.show) { this.getCALLOUTFunction(this.pageIndex, this.pageSize);this.showItems = false;}
+      if (!data.show) { this.getCALLOUTFunction(this.pageIndex, this.pageSize); this.showItems = false; }
     });
   }
 
@@ -213,8 +213,7 @@ export class Childscn8Component implements OnInit, OnDestroy {
 
   //編輯
   startEdit(CON_TYPE: string, PHONE: string, TEL_CONDITION: string, TEL_CHECK: string, CON_MEMO: string, CALLOUT_DATE: string, ID: string, CALLOUT_SETTIME: string, CALLOUT_YN: string) {
-    if (this.showEdit == false)
-    {
+    if (this.showEdit == false) {
       this.showEdit = !this.showEdit;
       this.f01002scn1Service.setJCICSource({
         show: this.showEdit,
@@ -334,15 +333,18 @@ export class Childscn8Component implements OnInit, OnDestroy {
             //回答狀況 載入時 多選另外處理
             if (calloutItemsData.checkItem == "14" && calloutItemsData.replyCondition != null) {
               let REPLY_CONDITION14 = calloutItemsData.replyCondition.split("_");
-              for (const data of REPLY_CONDITION14) {
-                for (const datacode of this.REPLY_CONDITION14code) {
+              for (const datacode of this.REPLY_CONDITION14code) {
+                datacode.checked = false;
+                for (const data of REPLY_CONDITION14) {
                   datacode.checked = data == datacode.value ? true : datacode.checked;
                 }
               }
-            } else if (calloutItemsData.checkItem == "17" && calloutItemsData.replyCondition != null) {
+            }
+            if (calloutItemsData.checkItem == "17" && calloutItemsData.replyCondition != null) {
               let REPLY_CONDITION17 = calloutItemsData.replyCondition.split("_");
-              for (const data of REPLY_CONDITION17) {
-                for (const datacode of this.REPLY_CONDITION17code) {
+              for (const datacode of this.REPLY_CONDITION17code) {
+                datacode.checked = false;
+                for (const data of REPLY_CONDITION17) {
                   datacode.checked = data == datacode.value ? true : datacode.checked;
                 }
               }

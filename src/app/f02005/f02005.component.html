@@ -151,7 +151,7 @@
   </div>
   <div class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">歷史案件查詢資料結果:(案件數:{{quantity}}件)</div>
-    <nz-table nzShowSizeChanger #basicTable [nzData]="resultData" [nzSimple]="true" [nzFrontPagination]="false" [nzPageSizeOptions]="true"
+    <nz-table nzShowSizeChanger #basicTable [nzData]="newData" [nzSimple]="true" [nzFrontPagination]="false" [nzPageSizeOptions]="true"
       [nzScroll]="{ x: '4000px', y: '400px' }" [nzLoading]="false" [nzPageSize]="pageSize" [nzTotal]="total"
       [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
       <thead>
@@ -185,7 +185,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of basicTable.data;let i = index">
+        <tr *ngFor="let data of newData;let i = index">
           <!--序號-->
           <td nzLeft>{{i+1}}</td>
           <!--案件編號-->

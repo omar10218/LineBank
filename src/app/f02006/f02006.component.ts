@@ -100,7 +100,7 @@ export class F02006Component implements OnInit {
     }
 
     this.f02006Service.f02006set(url, jsonObject).subscribe(data => {
-      console.log(data);
+
       if (data.rspBody.size == 0) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
@@ -151,6 +151,7 @@ export class F02006Component implements OnInit {
   }
   Clear()//清除
   {
+    this.newData=[];
     this.resultData = [];
     this.Pieces = 0;
     this.applno = '';
@@ -160,7 +161,8 @@ export class F02006Component implements OnInit {
     this.Querydate = null;
     this.newData = [];
     this.total=0;
-
+    this.firstFlag = 1;
+    this.searchEmpno ='';
 
   }
   dateNull(t: [Date, Date]) {
@@ -179,10 +181,15 @@ export class F02006Component implements OnInit {
     }
     else
     {
+      this.changePage();
       this.set();
     }
   }
 
+  changePage() {
+    this.pageIndex = 1;
+
+  }
   // 將案件類型轉成中文
   getType(codeVal: string): string {
     for (const data of this.isRpmCode) {
