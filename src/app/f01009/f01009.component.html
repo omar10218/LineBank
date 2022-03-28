@@ -147,8 +147,8 @@
       <div class="line_bank_card_no_padding">
         <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"
           [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
-          [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)">
-          <thead style="max-height: 100vh;">
+          [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)" >
+          <thead style="max-height: 100vh;" id="matTable">
             <tr>
               <th class="table-header" (nzSortOrderChange)="sortChange($event)" [nzSortFn]="true" [nzLeft]="true"
                 nzWidth="160px">案件編號</th>
@@ -207,6 +207,7 @@
             </tr>
           </tbody>
         </nz-table>
+       
       </div>
     </div>
   </div>

@@ -299,7 +299,7 @@
         <nz-table nzShowSizeChanger [nzData]="JAS002Source" [nzFrontPagination]="false" [nzSimple]="true"
           [nzTotal]="total5" [nzPageSize]="pageSize5" [nzPageIndex]="pageIndex5"
           (nzQueryParams)="onQueryParamsChange($event, 'JAS002')" nzSize="small" nzTitle="JAS002 信用異常紀錄 (B, D, K)">
-          <ng-container *ngFor="let data of AAS003.slice(0,1)">
+          <ng-container *ngFor="let data of JAS002.slice(0,1)">
             <tr>
               <div nz-row>
                 <th nz-col nzFlex="1" class="table-header-new">授信異常 YN</th>
@@ -370,11 +370,7 @@
 
 
 
-<!-- JAS002 -->
-<div [(hidden)]="hideJAS002" class="line_bank_card_no_padding">
-  <!-- 表格 -->
 
-</div>
 <!-- 聯徵彙整資訊 -->
 <div [(hidden)]="hideJCIC" class="line_bank_card_no_padding">
   <!-- KRM046信用卡證卡持有 -->
@@ -1062,9 +1058,9 @@
         <td class="table-data-new">{{ data.PRE_SPENT }}</td>
         <td class="table-data-new">{{ data.PRE_CASHED }}</td>
         <td class="table-data-new">{{ data.PRE_BILLED }}</td>
-        <td class="table-data-new" >{{ data.FCUR_CODE }}</td>
         <td class="table-data-new" >{{ data.M_W }}</td>
-        <td class="table-data-new" [nzLeft]="true">{{ data.RENEWED }}</td>
+        <td class="table-data-new" >{{ data.RENEWED }}</td>
+        <td class="table-data-new"  [nzLeft]="true">{{ data.FCUR_CODE }}</td>
       </tr>
     </tbody>
   </nz-table>

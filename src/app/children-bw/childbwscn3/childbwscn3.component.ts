@@ -270,11 +270,12 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   getJcicMultiple() {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['code'] = 'AAS003,BAI001';
+    jsonObject['code'] = 'AAS003,BAI001,JAS002';
     this.childbwscn3Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
       console.log(data)
       if (data.rspBody[0].AAS003.length == 0) { this.AAS003.push(''); } else { this.AAS003 = data.rspBody[0].AAS003; };
       if (data.rspBody[0].BAI001.length == 0) { this.BAI001.push(''); } else { this.BAI001 = data.rspBody[0].BAI001; };
+      if (data.rspBody[0].BAI001.length == 0) { this.JAS002.push(''); } else { this.JAS002 = data.rspBody[0].JAS002; };
     });
   }
 
@@ -282,8 +283,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['code'] = code;
-    console.log(this.applno)
-    console.log(code)
+ 
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childbwscn3Service.getJCICSearch(jsonObject).subscribe(data => {
@@ -316,6 +316,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams, code: string): void {
+
     const { pageSize, pageIndex } = params;
     this.getJCIC(pageIndex, pageSize, code);
   }

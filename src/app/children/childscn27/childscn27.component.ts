@@ -64,15 +64,16 @@ export class Childscn27Component implements OnInit {
   //發送簡訊
   async addSms() {
     this.messageContent = this.content;
-    if (this.realSmsTime == null) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請輸入日期" }
-      });
-    } else if (this.realSmsTime != null && this.mytime == null) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請輸入時間" }
-      });
-    } else if (this.mobile == null || this.mobile == "" || this.mobile.length != 10) {
+    // if (this.realSmsTime == null) {
+    //   const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+    //     data: { msgStr: "請輸入日期" }
+    //   });
+    // } else if (this.realSmsTime != null && this.mytime == null) {
+    //   const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+    //     data: { msgStr: "請輸入時間" }
+    //   });
+    // } else 
+    if (this.mobile == null || this.mobile == "" || this.mobile.length != 10) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入手機號碼" }
       });
