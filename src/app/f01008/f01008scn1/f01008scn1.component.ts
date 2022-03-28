@@ -234,10 +234,11 @@ export class F01008scn1Component implements OnInit {
           let childernDialogRef = this.dialog.open(ConfirmComponent, {
             data: { msgStr: data.rspMsg }
           });
-          let currentUrl = this.router.url;
-          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate([currentUrl]);
-          });
+          window.location.reload();
+          // let currentUrl = this.router.url;
+          // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          //   this.router.navigate([currentUrl]);
+          // });
         })
       }
     })

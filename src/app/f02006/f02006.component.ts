@@ -1,7 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { F02001Service } from '../f02001/f02001.service';
 import { F02006Service } from '../f02006/f02006.service'
 
 interface sysCode {
@@ -21,6 +23,7 @@ export class F02006Component implements OnInit {
     private f02006Service: F02006Service,
     public pipe: DatePipe,
     public dialog: MatDialog,
+    private f02001Service: F02001Service,
   ) { }
 
   ngOnInit(): void {
@@ -41,16 +44,16 @@ export class F02006Component implements OnInit {
   searchEmpno: string = '';//查詢員編
   Querydate: [Date, Date];
   resultData = [];
+  newData =[];
   total = 0;
   pageIndex = 1;
+  firstFlag = 1;
   pageSize = 50;
   Pieces = 0;//件數
   isRpmCode: sysCode[] = [];
   set() {
     let url = 'f02/f02006action1';
     let jsonObject: any = {};
-    jsonObject['page'] = this.pageIndex;
-    jsonObject['per_page'] = this.pageSize;
     jsonObject['applno'] = this.applno;//案件編號
     jsonObject['nationalID'] = this.nationalID;//身分證字號
     jsonObject['custCname'] = this.custCname;//客戶姓名
@@ -105,8 +108,10 @@ export class F02006Component implements OnInit {
       }
       else {
         this.resultData = data.rspBody.item;
-        this.Pieces = data.rspBody.size;
-        this.total = data.rspBody.size;
+        this.Pieces =  data.rspBody.item.length;
+        this.total =  data.rspBody.item.length;
+        this.firstFlag = 2;
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
       }
 
     })
@@ -120,6 +125,17 @@ export class F02006Component implements OnInit {
     }
     else {
       return true;
+    }
+  }
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    // 判斷是否為第一次進頁面
+    const { pageIndex } = params;
+    if (this.pageIndex !== pageIndex) {
+      if (this.firstFlag != 1) {
+        this.pageIndex = pageIndex;
+        this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.resultData);
+        // this.selectData(pageIndex, this.pageSize, this.order, this.sor);
+      }
     }
   }
   dealwithData90(stime: any) {
@@ -142,6 +158,9 @@ export class F02006Component implements OnInit {
     this.custCname = '';// 客戶姓名
     this.isRpm = '';//RPM代碼
     this.Querydate = null;
+    this.newData = [];
+    this.total=0;
+
 
   }
   dateNull(t: [Date, Date]) {

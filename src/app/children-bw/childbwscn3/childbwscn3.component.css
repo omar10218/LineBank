@@ -92,15 +92,20 @@ table {
   background-color:#FF0000;
 }
 .table-header-new{
-  background-color:#ededed;
+  background-color:#fafafa;
   color:#000000;
   margin-bottom: 1px; 
+  font-weight: 500;
   font-size: 14px;
 }
 .table-data-new{
   background-color:white;
   border: 1px solid #e8e8e8;
   color:rgb(0, 0, 0);
+  font-weight: 500;
   margin-bottom: 0px;
   font-size: 12px;
+}
+:host::ng-deep.ant-table-pagination.ant-pagination{
+  margin:5px 0;
 }

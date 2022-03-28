@@ -131,7 +131,7 @@ export class F03012Component implements OnInit, AfterViewInit {
 		let jsonObject: any = {}
 		jsonObject['page'] = pageIndex
 		jsonObject['per_page'] = pageSize
-	 
+
 		this.f03012Service.getComePareDataSetList(baseUrl, jsonObject).subscribe(data => {
 			console.log(data)
 			// 取得items裡面的單一值
@@ -207,7 +207,7 @@ export class F03012Component implements OnInit, AfterViewInit {
 			msg = data.rspMsg
 		})
 		this.getComePareDataSetList(pageIndex, pageSize)
-	
+
 
 		setTimeout(() => {
 			const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } })
@@ -467,11 +467,12 @@ export class F03012Component implements OnInit, AfterViewInit {
 			this.dialog.open(ConfirmComponent, {
 				data: { msgStr: data.rspMsg },
 			})
-			this.changePage()
-			let currentUrl = this.router.url;
-			this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-				this.router.navigate([currentUrl]);
-			});
+			this.changePage();
+      window.location.reload();
+			// let currentUrl = this.router.url;
+			// this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+			// 	this.router.navigate([currentUrl]);
+			// });
 			// this.getComePareDataSetList(this.pageIndex, this.pageSize)
 		})
 	}

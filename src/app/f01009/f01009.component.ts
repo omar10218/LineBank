@@ -159,7 +159,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL4EmpNo'] = this.empNo;
+    jsonObject['swcL4EmpNo'] = BaseService.userId;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
@@ -283,5 +283,5 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.empNo = BaseService.userId;
     this.getCaseList();
   }
-  
+
 }

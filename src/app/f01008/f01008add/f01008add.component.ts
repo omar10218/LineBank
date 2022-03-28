@@ -47,6 +47,33 @@ export class F01008addComponent implements OnInit {
   save()//新增
   {
 
+    // if (this.data.CALLOUT_DATE == null || this.data.CALLOUT_DATE == "") {
+    //   this.data.HOURS = ""
+    //   this.data.MINUTES = ""
+    // } else {
+    //   if (this.data.HOURS == "" || this.data.HOURS == null) {
+    //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+    //       data: { msgStr: "請輸入時間欄位" }
+    //     });
+    //     return;
+    //   }
+    //   if (this.data.MINUTES == "" || this.data.MINUTES == null) {
+    //     const childernDialogRef = this.dialog.open(ConfirmComponent, {
+    //       data: { msgStr: "請輸入時間欄位" }
+    //     });
+    //     return;
+    //   }
+    //   //判斷日期時間是否在現在以前
+    //   var date = this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyy-MM-dd ') + this.data.HOURS + ':' + this.data.MINUTES + ":00";
+    //   var newDate = date.replace(/-/g, '/'); // 變成"2012/01/01 12:30:10";
+    //   var keyDate = new Date(newDate)
+    //   if (keyDate.getTime() < Date.now()) {
+    //     const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+    //       data: { msgStr: "請輸入正確日期時間" }
+    //     });
+    //     return;
+    //   }
+    // }
     if (this.data.CALLOUT_DATE == null || this.data.CALLOUT_DATE == "") {
       this.data.HOURS = ""
       this.data.MINUTES = ""
@@ -63,16 +90,16 @@ export class F01008addComponent implements OnInit {
         });
         return;
       }
-      //判斷日期時間是否在現在以前
-      var date = this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyy-MM-dd ') + this.data.HOURS + ':' + this.data.MINUTES + ":00";
-      var newDate = date.replace(/-/g, '/'); // 變成"2012/01/01 12:30:10";
-      var keyDate = new Date(newDate)
-      if (keyDate.getTime() < Date.now()) {
-        const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "請輸入正確日期時間" }
-        });
-        return;
-      }
+       //判斷日期時間是否在現在以前
+       var date = this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyy-MM-dd ') + this.data.HOURS + ':' + this.data.MINUTES + ":00";
+       var newDate = date.replace(/-/g, '/'); // 變成"2012/01/01 12:30:10";
+       var keyDate = new Date(newDate)
+       if (keyDate.getTime() < Date.now()) {
+         const confirmDialogRef = this.dialog.open(ConfirmComponent, {
+           data: { msgStr: "請輸入正確日期時間" }
+         });
+         return;
+       }
     }
 
     if (this.datepipe.transform(this.data.CALLOUT_DATE, 'yyyyMMdd') == this.datepipe.transform(new Date(), 'yyyyMMdd')) {

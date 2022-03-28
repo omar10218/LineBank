@@ -48,14 +48,18 @@ export class F01011Component implements OnInit {
       this.f01011Service.uploadExcel(baseUrl, this.fileToUpload, this.empNo).subscribe(data => {
         let msg = "";
         let errorMsg = "";
-        if (data.rspBody.length > 0) {
-          msg = "\n 錯誤清單：\n";
-          for (let i = 0; i < data.rspBody.length; i++) {
-            errorMsg += "第" + data.rspBody[i].index + "筆,身分證字號：" + data.rspBody[i].nationalId + ",客戶ID：" + data.rspBody[i].custId + " 匯入失敗, 錯誤訊息：" + data.rspBody[i].errorMsg + "\n";
-          }
-          msg = msg + errorMsg;
-        } else {
+        if (data.rspCode == "C1001" || data.rspCode == "C1002") {
           msg = data.rspMsg;
+        } else {
+          if (data.rspBody.length > 0) {
+            msg = "\n 錯誤清單：\n";
+            for (let i = 0; i < data.rspBody.length; i++) {
+              errorMsg += "第" + data.rspBody[i].index + "筆,身分證字號：" + data.rspBody[i].nationalId + ",客戶ID：" + data.rspBody[i].custId + " 匯入失敗, 錯誤訊息：" + data.rspBody[i].errorMsg + "\n";
+            }
+            msg = msg + errorMsg;
+          } else {
+            msg = data.rspMsg;
+          }
         }
         this.block = false;
         this.uploadForm.patchValue({ ERROR_MESSAGE: msg });

@@ -61,7 +61,7 @@
     <!-- 表格 -->
     <div class="line_bank_form_header_title">客戶LOG資料查詢:(案件數：{{Pieces}}件)</div>
     <nz-table nzShowSizeChanger  [nzFrontPagination]="false" [nzSimple]="true"
-      [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" [nzData]="resultData"
+      [nzTotal]="total" [nzPageSize]="pageSize" (nzQueryParams)="onQueryParamsChange($event)" [nzPageIndex]="pageIndex" [nzData]="newData"
        nzSize="small"  >
       <thead>
         <tr>
@@ -75,7 +75,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of resultData;let i = index">
+        <tr *ngFor="let data of newData;let i = index">
           <td class="table-data">{{i+1}}</td>
           <td class="table-data">{{data.APPLNO}}</td>
           <td class="table-data">{{data.NATIONAL_ID}}</td>

@@ -173,7 +173,7 @@
           {{compare[55].setValueHight}} </td>
       </tr>
       <tr>
-        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_P_ADDR_CODE||CU_P_ADDR1||CU_P_ADDR2')"  [disabled]="compare[31].count=='0'">{{compare[31].compareColumn}}</button></th>
+        <th class="table-header-y"><button nz-button nzType="link" (click)="Inquire('CU_H_ADDR_CODE||CU_H_ADDR1||CU_H_ADDR2')"  [disabled]="compare[31].count=='0'">{{compare[31].compareColumn}}</button></th>
         <td style="border:1px solid #e8e8e8" [ngClass]="{'table-data-text':compare[31].result === 'G', 'table-data-text-y' : compare[31].result === 'Y',  'height' : compare[31].result === 'R',  'table-data-z' : compare[31].result === ''}">{{compare[31].count}}</td>
         <td class="table-data-text-compare">
           {{test(compare[31].compareType)}}

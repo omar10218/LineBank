@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { HandleSubscribeService } from '../services/handle-subscribe.service';
 import { environment } from 'src/environments/environment';
 import { NgxWatermarkOptions } from 'ngx-watermark';
-import { DatePipe } from '@angular/common';
+import { DatePipe, LocationStrategy } from '@angular/common';
 import { Childscn6Service } from '../children/childscn6/childscn6.service';
 import { BaseService } from '../base.service';
 
@@ -27,6 +27,7 @@ export class MenuListComponent implements OnInit, OnDestroy {
     private f01002Service: F01002Service,
     private handleSubscribeS: HandleSubscribeService,
     private pipe: DatePipe,
+    private location: LocationStrategy
   ) {
     this.calloutSource$ = this.handleSubscribeS.calloutSource$.subscribe(() => {
       this.getCalloutList();
@@ -34,6 +35,15 @@ export class MenuListComponent implements OnInit, OnDestroy {
 
     this.WaterMarkSource$ = this.menuListService.WaterMarkSource$.subscribe((data) => {
       this.waterShow = data.show;
+    });
+
+    this.urlT$ = this.menuListService.url$.subscribe((data) => {
+      this.url.push(data.url);
+    });
+
+    history.pushState(null, null, window.location.href);
+    this.location.onPopState(() => {
+      history.pushState(null, null, window.location.href);
     });
   }
 
@@ -67,8 +77,18 @@ export class MenuListComponent implements OnInit, OnDestroy {
 
   searchUserId: string = '';
   searchEmpName: string = '';
+  empName: string;
+
+  url: Window[] = [];
+  urlT$: Subscription;
 
   ngOnInit() {
+    this.empNo = localStorage.getItem("empNo");
+    this.empName = localStorage.getItem("empName");
+    this.menuListService.setUserId(this.empNo);
+    this.menuListService.setEmpName(this.empName);
+    this.menuListService.addMenu(this.empNo);
+    this.options.text = this.empNo + this.empName + this.today;
     //Nick 設定同時只能登入一個帳號
     window.addEventListener("storage", (e) => { //監聽帳號
       if (localStorage.getItem('oldToken') != null) {
@@ -98,13 +118,13 @@ export class MenuListComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    if (BaseService.userId == null || BaseService.userId == '') {
-      if (this.searchUserId == '') {
-        this.router.navigate(['./logOut']).then(async () => {
-          window.location.reload();
-        });
-      }
-    }
+    // if (environment.from != 'local') {
+    //   if (BaseService.userId == null || BaseService.userId == '') {
+    //     if (this.searchUserId == '') { window.location.href = environment.allowOrigin + '/sso'; }
+    //   }
+    // } else {
+    //   this.menuListService.setUserId(localStorage.getItem("empNo"));
+    // }
   }
 
   ngOnDestroy() {
@@ -145,6 +165,10 @@ export class MenuListComponent implements OnInit, OnDestroy {
   }
 
   private commonLogOut(): void {
+    for (let index = 0; index < this.url.length; index++) {
+      this.url[index].close();
+    }
+
     if (this.menuListService.logOutAction()) {
       // window.localStorage.clear();
       localStorage.removeItem('empId');

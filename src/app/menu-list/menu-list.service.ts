@@ -14,19 +14,15 @@ export class MenuListService extends BaseService {
 
   constructor (protected httpClient: HttpClient, private route: ActivatedRoute){
     super(httpClient);
-    this.addMenu();
   }
 
-  public getMenuData(): Observable<any> {
-    this.route.queryParams.subscribe(params => {
-      this.empNo = BaseService.userId;
-    });
-    const baseURL = 'MenuListForLineBank?strEmpID=' + BaseService.userId;
+  public getMenuData(empNo: string): Observable<any> {
+    const baseURL = 'MenuListForLineBank?strEmpID=' + empNo;
     return this.postHttpClient(baseURL);
   }
 
-  addMenu(): void {
-    this.getMenuData().subscribe(data => {
+  addMenu(empNo: string): void {
+    this.getMenuData(empNo).subscribe(data => {
       for (const jsonObj of data.rspBody) {
         const title = jsonObj['title'];                // 功能主標題
         const dataMap = jsonObj['dataMap'];
@@ -53,4 +49,12 @@ export class MenuListService extends BaseService {
   setWaterMarkSource(data): void {
     this.WaterMarkSource.next(data);
   }
+
+   //url
+   private url = new Subject<any>();
+   url$ = this.url.asObservable();
+
+   setUrl(data): void {
+     this.url.next(data);
+   }
 }
