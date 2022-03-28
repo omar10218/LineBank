@@ -375,7 +375,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
         for (const jsonObj of data.rspBody.mappingList) {
           const codeNo = jsonObj.codeNo;
           const desc = jsonObj.codeDesc;
-          this.periodTypeCode.push({ value: codeNo, viewValue: desc })
+          if (desc == '月') {
+            this.periodTypeCode.push({ value: codeNo, viewValue: desc })
+          }
         }
         // this.periodType = '1';
       });
