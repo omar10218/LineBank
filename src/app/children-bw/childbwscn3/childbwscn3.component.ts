@@ -268,7 +268,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     jsonObject['code'] = 'AAS003,BAI001,JAS002';
     this.childbwscn3Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
       console.log(data)
-      if(data.rspBody[0]={}){
+      if(data.rspBody[0]=={}){
         this.AAS003.push('');
         this.BAI001.push('');
         this.JAS002.push('');
@@ -292,9 +292,9 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
       if (code == 'KRM048') { this.total3 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
       if (code == 'KRM046') { this.total4 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
       if (code == 'STM022') { this.total6 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
-      if (code == 'STM008') { this.total7 = data.rspBody.size; this.STM007Source = data.rspBody.items; }
-      if (code == 'STM007') { this.total24 = data.rspBody.size; this.STM015Source = data.rspBody.items; }
-      if (code == 'STM015') { this.total25 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
+      if (code == 'STM008') { this.total7 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
+      if (code == 'STM007') { this.total24 = data.rspBody.size; this.STM007Source = data.rspBody.items; }
+      if (code == 'STM015') { this.total25 = data.rspBody.size; this.STM015Source = data.rspBody.items; }
       if (code == 'STM025') { this.total8 = data.rspBody.size; this.STM025Source = data.rspBody.items; }
       if (code == 'VAM106') { this.total9 = data.rspBody.size; this.VAM106Source = data.rspBody.items; }
       if (code == 'VAM107') { this.total10 = data.rspBody.size; this.VAM107Source = data.rspBody.items; }
