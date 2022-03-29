@@ -229,7 +229,7 @@ export class F02005Component implements OnInit {
 
   selectData(pageIndex: number, pageSize: number,na:string,sort:string) {
 
-    console.log(pageIndex)
+
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
     let url = "f02/f02001action3";
@@ -396,7 +396,7 @@ export class F02005Component implements OnInit {
         this.quantity = data.rspBody.size;
         this.firstFlag = 2;
         this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
-        console.log(this.newData)
+
 
       }
 
@@ -468,7 +468,7 @@ export class F02005Component implements OnInit {
     jsonObject['cuCname'] = cuCname;//客戶姓名CU_CNAME
     let apiurl = 'f02/f02005action6';
     this.f02005Service.postJson(apiurl, jsonObject).subscribe(data => {
-      console.log(data)
+
       if (data.rspMsg == "success" )
       {
         sessionStorage.setItem('applno', id);

@@ -80,7 +80,6 @@ export class F02004Component implements OnInit {
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.f02004Service.f02002(baseUrl, jsonObject).subscribe(data => {
-      console.log(data)
       this.loading = false;
       if (data.rspBody.size == 0)
       {
@@ -148,14 +147,14 @@ export class F02004Component implements OnInit {
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-  
+
       if(this.i>0)
       {
         const { pageSize, pageIndex } = params
-      
+
         this.getDrCreditMainData( pageIndex, pageSize);
       }
-    
+
   }
 
 
