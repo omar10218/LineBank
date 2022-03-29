@@ -149,7 +149,7 @@ export class Childscn1Component implements OnInit, OnDestroy {
   //審核結果
   creditResult: string;
   //選擇加簽20220118
-  addSignature: OptionsCode[] = [{ value: '', viewValue: '' }, { value: 'S1', viewValue: '總經理' }, { value: 'S2', viewValue: '風管處處長' }];
+  addSignature: OptionsCode[] = [{ value: '', viewValue: '' }, { value: 'L0', viewValue: '部主管' }, { value: 'S1', viewValue: '總經理' }, { value: 'S2', viewValue: '風管處處長' }];
   addSignatureValue: string;
 
   creditResultCode: OptionsCode[] = [];//核決結果下拉選單
@@ -375,7 +375,9 @@ export class Childscn1Component implements OnInit, OnDestroy {
         for (const jsonObj of data.rspBody.mappingList) {
           const codeNo = jsonObj.codeNo;
           const desc = jsonObj.codeDesc;
-          this.periodTypeCode.push({ value: codeNo, viewValue: desc })
+          if (desc == '月') {
+            this.periodTypeCode.push({ value: codeNo, viewValue: desc })
+          }
         }
         // this.periodType = '1';
       });
