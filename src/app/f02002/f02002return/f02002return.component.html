@@ -19,7 +19,7 @@
           <td class="table-data">{{data.RESTART_DATE|date: 'yyyy-MM-dd '}}</td>
           <td class="table-data">{{data.RESCAN_TYPE}}</td>
           <td class="table-data">{{data.RESCAN_ITEM}}</td>
-          <td class="table-data" >{{data.RESCAN_CONTENT}}</td>
+          <td class="table-data" style="max-width: 235px">{{data.RESCAN_CONTENT}}</td>
           <td class="table-data">
             <div style="padding:10px">
               <mat-select [(ngModel)]="data.rescanReason" name="data.rescanReason"    (ngModelChange)="block(data.ROW_ID,data.rescanReason)"
