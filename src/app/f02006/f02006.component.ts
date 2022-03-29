@@ -58,6 +58,8 @@ export class F02006Component implements OnInit {
     jsonObject['nationalID'] = this.nationalID;//身分證字號
     jsonObject['custCname'] = this.custCname;//客戶姓名
     jsonObject['isRpm'] = this.isRpm;//RPM
+    jsonObject['isRpm'] = this.isRpm;//RPM
+    jsonObject['searchEmpno'] = this.searchEmpno;//員編
     if (this.nationalID != '') {
       if (this.Querydate != null) {
         if (this.dealwithData365(this.Querydate)) {

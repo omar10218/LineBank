@@ -88,6 +88,7 @@ export class F02005Component implements OnInit {
     });
 
   }
+
   getStatusDesc()
   {
     this.f02005Service.getSysTypeCode('STATUS_CODE').subscribe(data => {
