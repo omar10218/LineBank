@@ -204,7 +204,7 @@ export class F01002page1Component implements OnInit, AfterViewInit {
   openNotifyMsg(swcApplno: string) {
     const dialogRef = this.dialog.open(Childscn30Component, {
       panelClass: 'mat-dialog-transparent',
-      minHeight: '60vh',
+      height: '90%',
       width: '90%',
       data: {
         swcApplno: swcApplno,
