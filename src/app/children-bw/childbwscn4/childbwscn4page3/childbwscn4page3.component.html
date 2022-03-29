@@ -68,8 +68,8 @@
         <td class="table-data">{{ data.LOAN_ACC}}</td>
         <td class="table-data">{{ data.ACC_STATUS }}</td>
         <td class="table-data">{{ data.RATE }}</td>
-        <td class="table-data">{{ data.APPR_AMOUNT }}</td>
-        <td class="table-data">{{ data.LOAN_BAL }}</td>
+        <td class="table-data" style="text-align: right;">{{toCurrency( data.APPR_AMOUNT) }}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.LOAN_BAL) }}</td>
         <td class="table-data">{{ data.PERCENTAGE }}</td>
         <td class="table-data">{{ data.CLOSED_DATE | date: 'yyyy-MM-dd HH：mm：ss' }}</td>
         <td class="table-data">{{ data.TRANS_MONTHS }}</td>
@@ -112,10 +112,10 @@
         <td class="table-data">{{ data.LOAN_ACC}}</td>
         <td class="table-data">{{ data.ACC_STATUS }}</td>
         <td class="table-data">{{ data.RATE }}</td>
-        <td class="table-data">{{ data.APPR_CREDIT }}</td>
-        <td class="table-data">{{ data.LOAN_BAL }}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.APPR_CREDIT) }}</td>
+        <td class="table-data " style="text-align: right;">{{ toCurrency(data.LOAN_BAL) }}</td>
         <td class="table-data">{{ data.PERCENTAGE }}</td>
-        <td class="table-data">{{ data.AVAIL_BAL}}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.AVAIL_BAL)}}</td>
         <td class="table-data">{{ data.CLOSED_DATE | date: 'yyyy-MM-dd HH：mm：ss'}}</td>
         <td class="table-data">{{ data.TRANS_MONTHS }}</td>
         <td class="table-data">{{ data.IS_AVAILABLE }}</td>
