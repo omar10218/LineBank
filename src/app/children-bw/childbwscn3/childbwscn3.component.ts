@@ -268,6 +268,11 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     jsonObject['code'] = 'AAS003,BAI001,JAS002';
     this.childbwscn3Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
       console.log(data)
+      if(data.rspBody[0]={}){
+        this.AAS003.push('');
+        this.BAI001.push('');
+        this.JAS002.push('');
+      }
       if (data.rspBody[0].AAS003.length == 0) { this.AAS003.push(''); } else { this.AAS003 = data.rspBody[0].AAS003; };
       if (data.rspBody[0].BAI001.length == 0) { this.BAI001.push(''); } else { this.BAI001 = data.rspBody[0].BAI001; };
       if (data.rspBody[0].JAS002.length == 0) { this.JAS002.push(''); } else { this.JAS002 = data.rspBody[0].JAS002; };
