@@ -62,17 +62,17 @@
         <td class="table-data"  >{{ data.TRANS_TYPE }}</td>
         <td class="table-data" nzWidth="150px">{{ data.TRANS_BANK }}</td>
         <td class="table-data" nzWidth="150px">{{ data.TRANS_ACC_NO }}</td>
-        <td class="table-data">{{ toCurrency(data.WITHDRAWAL) }}</td>
-        <td class="table-data">{{ toCurrency(data.DEPOSIT) }}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.WITHDRAWAL) }}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.DEPOSIT) }}</td>
         <td class="table-data">{{ data.TRANS_FEE }}</td>
-        <td class="table-data"  nzWidth="150px">{{ toCurrency(data.BALANCE) }}</td>
+        <td class="table-data"  nzWidth="150px" style="text-align: right;">{{ toCurrency(data.BALANCE) }}</td>
         <td class="table-data"  nzWidth="150px">{{ data.REMARK }}</td>
-        <td class="table-data" nzWidth="250px">{{ toCurrency(data.TARGET_AMOUNT) }}</td>
+        <td class="table-data" nzWidth="250px" style="text-align: right;">{{ toCurrency(data.TARGET_AMOUNT) }}</td>
         <td class="table-data"  nzWidth="150px">{{ data.TARGET_MONTHS }}</td>
         <td class="table-data"  nzWidth="150px">{{ data.REACH_MONTHS }}</td>
         <td class="table-data"  nzWidth="150px">{{ data.SAVING_RATE }}</td>
-        <td class="table-data"  nzWidth="150px">{{ toCurrency(data.SAVE_AMOUNT) }}</td>
-        <td class="table-data"  nzWidth="150px">{{ toCurrency(data.TT_AMOUNT) }}</td>
+        <td class="table-data"  nzWidth="150px" style="text-align: right;">{{ toCurrency(data.SAVE_AMOUNT) }}</td>
+        <td class="table-data"  nzWidth="150px" style="text-align: right;">{{ toCurrency(data.TT_AMOUNT) }}</td>
         <td class="table-data"  nzWidth="150px">{{ data.ACHIEVEMENT }}</td>
       </tr>
     </tbody>
