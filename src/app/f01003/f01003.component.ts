@@ -39,11 +39,12 @@ export class F01003Component implements OnInit, AfterViewInit {
   agentEmpNo: string;                                 // 代理人
   agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
   cusinfoDataSource = [];                             // 案件清單
+  newData = [];                                       // 處理排序後的清單
   fds: string = "";                                   // fds
   stepName: string;                                   // 目前關卡名
   pageSize = 50;
   pageIndex = 1;
-	x: string;
+  x: string;
   sort: string;
 
   // 計算剩餘table資料長度
@@ -92,35 +93,35 @@ export class F01003Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL2EmpNo'] = BaseService.userId;
+    jsonObject['swcL2EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
     jsonObject['caseType'] = this.caseType;
     this.f01003Service.getCaseList(jsonObject).subscribe(data => {
-      if (data.rspBody.size > 0)
-      {
+      if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
+        this.newData = this.f01003Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         this.stepName = data.rspBody.items[0].F_StepName;
-        this.cusinfoDataSource.forEach(element => {
+        this.newData.forEach(element => {
           if (element.F_StartTime != null && element.F_StartTime != '') {
             element.F_StartTime = formatDate(element.F_StartTime, 'yyyy-MM-dd HH:mm:ss', 'zh-Hant-TW', '-0600').toString();
           }
         });
       }
-      else
-      {
-        this.cusinfoDataSource = null;
+      else {
+        this.newData = null;
         this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "查無資料" }})
+          data: { msgStr: "查無資料" }
+        })
       }
     });
   }
 
- //代入條件查詢
- select() {
+  //代入條件查詢
+  select() {
     if (this.agentEmpNo != '') {
       this.empNo = this.agentEmpNo;
     } else {
@@ -131,21 +132,21 @@ export class F01003Component implements OnInit, AfterViewInit {
 
   }
 
-// 千分號標點符號(form顯示用)
-data_number(p: number) {
-  this.x = '';
-  this.x = (p + "")
-  if (this.x != null) {
-    this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  // 千分號標點符號(form顯示用)
+  data_number(p: number) {
+    this.x = '';
+    this.x = (p + "")
+    if (this.x != null) {
+      this.x = this.x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return this.x
   }
-  return this.x
-}
   // 案件子頁籤
   getLockCase(swcApplno: string, swcNationalId: string, swcCustId: string) {
     let jsonObject: any = {};
     jsonObject['swcApplno'] = swcApplno;
 
-    if (swcNationalId == BaseService.empId ) {
+    if (swcNationalId == BaseService.empId) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "案件身分證不可與登入者身分證相同!" }
       });
@@ -191,17 +192,21 @@ data_number(p: number) {
     }, 2500)
   }
 
+  // 參數
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageIndex } = params;
     if (this.pageIndex !== pageIndex) {
       this.pageIndex = pageIndex;
-      this.getCaseList();
+      this.newData = this.f01003Service.getTableDate(pageIndex, this.pageSize, this.cusinfoDataSource);
+      // this.getCaseList();
+      const matTable = document.getElementById('matTable');
+      matTable.scrollIntoView();
     }
   }
 
   changePage() {
     this.pageIndex = 1;
-    this.pageSize = 10;
+    this.total = 1;
   }
 
   // 打開通知彈窗
@@ -235,22 +240,27 @@ data_number(p: number) {
       case "swcApplyNum":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
           (a, b) => a.swcApplyNum.localeCompare(b.swcApplyNum)) : this.cusinfoDataSource.sort((a, b) => b.swcApplyNum.localeCompare(a.swcApplyNum))
+        this.newData = this.f01003Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         break;
       case "F_StartTime":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
           (a, b) => a.F_StartTime.localeCompare(b.F_StartTime)) : this.cusinfoDataSource.sort((a, b) => b.F_StartTime.localeCompare(a.F_StartTime))
+        this.newData = this.f01003Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         break;
       case "swcCustTag":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
           (a, b) => a.swcCustTag.localeCompare(b.swcCustTag)) : this.cusinfoDataSource.sort((a, b) => b.swcCustTag.localeCompare(a.swcCustTag))
+        this.newData = this.f01003Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         break;
       case "swcApplno":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
           (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+        this.newData = this.f01003Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         break;
       case "swcRiskGrade":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
           (a, b) => a.swcRiskGrade.localeCompare(b.swcRiskGrade)) : this.cusinfoDataSource.sort((a, b) => b.swcRiskGrade.localeCompare(a.swcRiskGrade))
+        this.newData = this.f01003Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         break;
     }
   }
