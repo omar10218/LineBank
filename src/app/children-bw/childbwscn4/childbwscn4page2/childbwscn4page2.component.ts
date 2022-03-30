@@ -45,8 +45,8 @@ export class Childbwscn4page2Component implements OnInit {
   ngAfterViewInit() {
     this.getCoreCusInfo('DEPOSIT', this.pageIndex, this.pageSize);
     // this.getCoreCusInfo('SAVING_TRANS_DETAIL', this.pageIndex, this.pageSize);
-    this.getCoreCusInfo('DM_DEP_TRANS_DETAIL', this.pageIndex, this.pageSize);
-    this.getCoreCusInfo('TIME_DEP_TRANS_DETAIL', this.pageIndex, this.pageSize);
+    // this.getCoreCusInfo('DM_DEP_TRANS_DETAIL', this.pageIndex, this.pageSize);
+    // this.getCoreCusInfo('TIME_DEP_TRANS_DETAIL', this.pageIndex, this.pageSize);
     this.getCoreCusInfo('DEPOSIT_STATIS_DATA', this.pageIndex, this.pageSize);
   }
   getCoreCusInfo(code: string, pageIndex: number, pageSize: number) {
