@@ -140,7 +140,7 @@ export class Childscn11page2Component implements OnInit {
         sessionStorage.setItem('check','Y');
         const dialogRef = this.dialog.open(Childscn11page6Component, {
           panelClass: 'mat-dialog-transparent',
-          minHeight: '70vh',
+          maxHeight: '90vh',
           width: '40%',
           data: {
             data: data

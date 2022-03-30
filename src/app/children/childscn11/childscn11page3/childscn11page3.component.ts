@@ -152,7 +152,7 @@ export class Childscn11page3Component implements OnInit {
         console.log(data)
         const dialogRef = this.dialog.open(Childscn11page6Component, {
           panelClass: 'mat-dialog-transparent',
-          minHeight: '70vh',
+          maxHeight: '90vh',
           width: '40%',
           data: {
             data: data

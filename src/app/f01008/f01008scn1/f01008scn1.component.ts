@@ -186,10 +186,6 @@ export class F01008scn1Component implements OnInit {
         this.block = false;
       }
     })
-
-
-
-
   }
 
   getSearch(): String {
@@ -306,5 +302,9 @@ export class F01008scn1Component implements OnInit {
       left: 0,
       behavior: 'smooth'
     });
+  }
+
+  leave() {
+    window.close();
   }
 }
