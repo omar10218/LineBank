@@ -198,7 +198,6 @@ export class F02002returnComponent implements OnInit {
     formdata.append('jsonArray', jsonarry.toString());
     formdata.append('userId', BaseService.userId);
     formdata.append('applno', this.data.applno);
-
     this.f02002Service.setformdata(url, formdata).subscribe(data => {
       // console.log(data)
       if (data.rspCode === '0000') {
