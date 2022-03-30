@@ -208,11 +208,9 @@ export class F02007Component implements OnInit {
         //開啟徵審主畫面
         let safeUrl = this.f02007Service.getNowUrlPath("/#/F01002/F01002SCN1/CHILDSCN5");
         let url = window.open(safeUrl);
-        if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
-          this.menuListService.setUrl({
-            url: url
-          });
-        }
+        this.menuListService.setUrl({
+          url: url
+        });
 
         sessionStorage.setItem('winClose', 'N');
         sessionStorage.setItem('search', 'N');

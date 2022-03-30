@@ -183,11 +183,9 @@ export class F02002Component implements OnInit {
           //開啟徵審主畫面
           let safeUrl = this.f02002Service.getNowUrlPath("/#/F01002/F01002SCN1");
           let url = window.open(safeUrl);
-          if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
-            this.menuListService.setUrl({
-              url: url
-            });
-          }
+          this.menuListService.setUrl({
+            url: url
+          });
 
           sessionStorage.setItem('winClose', 'N');
           sessionStorage.setItem('search', 'N');

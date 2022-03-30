@@ -68,7 +68,7 @@ export class F01016scn1Component implements OnInit {
   executeValue: string = '';//執行措施策略值
   reasonValue: string = ''//執行原因值
   reasonDetail: string //執行細項值
-  limitNo: string=''//額度號值
+  limitNo: string = ''//額度號值
   contact: string = ''//通知方式值
   contactContent: string//通知內容值
   reserveLimit: string //預佔額度
@@ -120,9 +120,9 @@ export class F01016scn1Component implements OnInit {
     this.contact = sessionStorage.contactType; //主管帶通知方式
     this.contactContent = sessionStorage.contactContent != "null" ? sessionStorage.contactContent : " ";//主管帶通知內容
     this.creditMemo = sessionStorage.creditMemo; //主管帶creditMemo
-    this.mobile = sessionStorage.mobile!= "null" ? sessionStorage.mobile : " ";; //mobile
+    this.mobile = sessionStorage.mobile != "null" ? sessionStorage.mobile : " ";; //mobile
     if (this.executeValue == 'DWN') {
-    this.limitNo = '';
+      this.limitNo = '';
       this.reserveLimit = sessionStorage.reserveLimit; //主管帶預佔額度
       this.limitNo = sessionStorage.limitNo; //主管帶額度號
 
@@ -130,7 +130,7 @@ export class F01016scn1Component implements OnInit {
     this.page = sessionStorage.getItem("page");
 
     if (this.page == '16') {
-    this.limitNo = '';
+      this.limitNo = '';
 
       this.limitNo = sessionStorage.limitNo; //主管帶額度號
 
@@ -448,11 +448,9 @@ export class F01016scn1Component implements OnInit {
     //開啟徵審主畫面
     let safeUrl = this.f01015Service.getNowUrlPath("/#/F01009/F01009SCN1");
     let url = window.open(safeUrl);
-      if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
-        this.menuListService.setUrl({
-          url: url
-        });
-      }
+    this.menuListService.setUrl({
+      url: url
+    });
 
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');

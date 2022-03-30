@@ -170,10 +170,8 @@ export class Childscn14Component implements OnInit {
 
   openUrl(value: string) {
     let url = window.open(this.host + ':18443/LineBankViewOne/system/viewer.html?docKey=' + value + '&cuId=' + this.cuid + '&cuNm=' + this.cuNm);
-    if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
-      this.menuListService.setUrl({
-        url: url
-      });
-    }
+    this.menuListService.setUrl({
+      url: url
+    });
   }
 }

@@ -83,11 +83,9 @@ export class Childbwscn6Component implements OnInit {
     //開啟徵審主畫面
     let safeUrl = this.childbwscn6Service.getNowUrlPath("/#/F01009/F01009SCN1");
     let url = window.open(safeUrl);
-    if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
-      this.menuListService.setUrl({
-        url: url
-      });
-    }
+    this.menuListService.setUrl({
+      url: url
+    });
 
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');

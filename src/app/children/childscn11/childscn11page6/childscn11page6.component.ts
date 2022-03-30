@@ -62,7 +62,7 @@ export class Childscn11page6Component implements OnInit {
     // this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
 
 
-    sessionStorage.setItem('applno',  this.applno);
+    sessionStorage.setItem('applno', this.applno);
     sessionStorage.setItem('nationalId', this.cuid);
     sessionStorage.setItem('custId', this.custId);
     sessionStorage.setItem('search', 'Y');
@@ -77,11 +77,9 @@ export class Childscn11page6Component implements OnInit {
     //   //開啟徵審主畫面
     let safeUrl = this.childscn11Service.getNowUrlPath("/#/F01002/F01002SCN1");
     let url = window.open(safeUrl);
-    if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
-      this.menuListService.setUrl({
-        url: url
-      });
-    }
+    this.menuListService.setUrl({
+      url: url
+    });
 
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');

@@ -35,12 +35,12 @@ export class F02005Component implements OnInit {
   cust_FLAG_Value: string = '';//客群標籤值
   risk_GRADE: sysCode[] = [];//風險等級分群
   risk_GRADE_Value: string = '';//風險等級分群值
-  mobilePhone: string ='';//手機
-  residencePhone: string='';//住宅電話
-  workPhone: string='';//公司電話
-  Email: string='';//信箱
-  IpAddress: string='';
-  company: string='';//公司名稱
+  mobilePhone: string = '';//手機
+  residencePhone: string = '';//住宅電話
+  workPhone: string = '';//公司電話
+  Email: string = '';//信箱
+  IpAddress: string = '';
+  company: string = '';//公司名稱
   apply_TIME: [Date, Date];//甄審進件日期
   proof_DOCUMENT_TIME: [Date, Date];//上傳財力日期
   sign_UP_TIME: [Date, Date];//簽約完成日期
@@ -48,8 +48,8 @@ export class F02005Component implements OnInit {
   statusDescSecondValue: string = '';//案件狀態值第二層
   l3EMPNOList: sysCode[] = [];//徵信員員編陣列
   quantity: number;
-  pageSize=50;
-  pageIndex =1;
+  pageSize = 50;
+  pageIndex = 1;
   jsonObject: any = {};
   resultData = [];
   newData: any[] = [];
@@ -57,8 +57,8 @@ export class F02005Component implements OnInit {
   firstFlag = 1;
   sortArry = ['ascend', 'descend']
   sort: string;
-  order:string;
-  sor:string;
+  order: string;
+  sor: string;
   x: string;
   statusDetailCode: sysCode[] = [];
   constructor(
@@ -91,8 +91,7 @@ export class F02005Component implements OnInit {
 
   }
 
-  getStatusDesc()
-  {
+  getStatusDesc() {
     this.f02005Service.getSysTypeCode('STATUS_CODE').subscribe(data => {
 
       this.status_DESC.push({ value: '', viewValue: '請選擇' })
@@ -104,7 +103,7 @@ export class F02005Component implements OnInit {
     });
   }
   getCustFlag()//客群標籤
-   {
+  {
     this.f02005Service.getSysTypeCode('CUST_TAG').subscribe(data => {
       this.cust_FLAG.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody.mappingList) {
@@ -187,33 +186,33 @@ export class F02005Component implements OnInit {
     this.newData = [];
     this.applno = '';
     this.national_ID = '';
-    this.cust_ID = '' ;
+    this.cust_ID = '';
     this.cust_CNAME = '';
     this.mobilePhone = '';
-    this.residencePhone = '' ;
+    this.residencePhone = '';
     this.status_DESC_Value = '';
-    this.cust_FLAG_Value = '' ;
-    this.risk_GRADE_Value = '' ;
+    this.cust_FLAG_Value = '';
+    this.risk_GRADE_Value = '';
     this.l3EMPNO = '';
     this.credit_RESULT_Value = '';
-    this.workPhone = '' ;
-    this.Email = '' ;
-    this.IpAddress ='';
+    this.workPhone = '';
+    this.Email = '';
+    this.IpAddress = '';
     this.company = '';
-    this.apply_TIME = null ;
-    this.proof_DOCUMENT_TIME = null ;
+    this.apply_TIME = null;
+    this.proof_DOCUMENT_TIME = null;
     this.sign_UP_TIME = null;
     this.resultData = [];
     this.firstFlag = 1;
     this.quantity = 0;
-    this.statusDescSecondValue='';
+    this.statusDescSecondValue = '';
     this.order = '';
     this.sor = '';
 
   }
   select() {
     if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == '' && this.mobilePhone == '' && this.residencePhone == '' && this.status_DESC_Value == ''
-      && this.cust_FLAG_Value == '' && this.risk_GRADE_Value == '' && this.l3EMPNO == '' && this.statusDescSecondValue ==''&& this.credit_RESULT_Value == '' && this.workPhone == '' && this.Email == '' && this.IpAddress == '' && this.company == ''
+      && this.cust_FLAG_Value == '' && this.risk_GRADE_Value == '' && this.l3EMPNO == '' && this.statusDescSecondValue == '' && this.credit_RESULT_Value == '' && this.workPhone == '' && this.Email == '' && this.IpAddress == '' && this.company == ''
       && this.apply_TIME == null && this.proof_DOCUMENT_TIME == null && this.sign_UP_TIME == null) {
       this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請至少選擇一項條件" }
@@ -221,7 +220,7 @@ export class F02005Component implements OnInit {
     }
     else {
       this.changePage();
-      this.selectData(this.pageIndex, this.pageSize,'','');
+      this.selectData(this.pageIndex, this.pageSize, '', '');
     }
   }
 
@@ -229,7 +228,7 @@ export class F02005Component implements OnInit {
     this.pageIndex = 1;
   }
 
-  selectData(pageIndex: number, pageSize: number,na:string,sort:string) {
+  selectData(pageIndex: number, pageSize: number, na: string, sort: string) {
 
 
     this.jsonObject['page'] = pageIndex;
@@ -247,17 +246,15 @@ export class F02005Component implements OnInit {
     this.jsonObject['riskGrade'] = this.risk_GRADE_Value;//風險等級分群
     this.jsonObject['cuCpTel'] = this.workPhone;//公司電話
     this.jsonObject['cuCpName'] = this.company;//公司名稱
-    this.jsonObject['cuMTel']=this.mobilePhone;//手機
+    this.jsonObject['cuMTel'] = this.mobilePhone;//手機
     this.jsonObject['hTel'] = this.residencePhone;//住宅電話
     this.jsonObject['cuIpAddr'] = this.IpAddress;//IpAddress
     this.jsonObject['cuEmail'] = this.Email;//Email
-    if(na=='')
-    {
+    if (na == '') {
       this.jsonObject['orderByValue'] = na;
       this.jsonObject['sortValue'] = sort;
     }
-    else
-    {
+    else {
       this.jsonObject['orderByValue'] = na;
       this.jsonObject['sortValue'] = sort;
     }
@@ -382,8 +379,7 @@ export class F02005Component implements OnInit {
     }
 
     this.f02005Service.inquiry(url, this.jsonObject).subscribe(data => {
-      if (data.rspBody.size == 0)
-      {
+      if (data.rspBody.size == 0) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         })
@@ -444,22 +440,22 @@ export class F02005Component implements OnInit {
           this.order = param;
           this.sor = '';
         }
-        this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLNO.localeCompare(b.APPLNO))
-        : this.resultData.sort((a,b) => b.APPLNO.localeCompare(a.APPLNO));
+        this.resultData = e === 'ascend' ? this.resultData.sort((a, b) => a.APPLNO.localeCompare(b.APPLNO))
+          : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO));
         this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         break;
     }
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
-     // 判斷是否為第一次進頁面
-     const { pageIndex } = params;
-     if (this.pageIndex !== pageIndex) {
-       if (this.firstFlag != 1) {
-         this.pageIndex = pageIndex;
-         this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.resultData);
-         // this.selectData(pageIndex, this.pageSize, this.order, this.sor);
-       }
-     }
+    // 判斷是否為第一次進頁面
+    const { pageIndex } = params;
+    if (this.pageIndex !== pageIndex) {
+      if (this.firstFlag != 1) {
+        this.pageIndex = pageIndex;
+        this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.resultData);
+        // this.selectData(pageIndex, this.pageSize, this.order, this.sor);
+      }
+    }
   }
   Detail(id: string, nationalId: string, cuCname: string, custId: string)//明細
   {
@@ -471,8 +467,7 @@ export class F02005Component implements OnInit {
     let apiurl = 'f02/f02005action6';
     this.f02005Service.postJson(apiurl, jsonObject).subscribe(data => {
 
-      if (data.rspMsg == "success" )
-      {
+      if (data.rspMsg == "success") {
         sessionStorage.setItem('applno', id);
         sessionStorage.setItem('nationalId', nationalId);
         sessionStorage.setItem('custId', custId);
@@ -483,18 +478,16 @@ export class F02005Component implements OnInit {
         sessionStorage.setItem('page', '0');
         sessionStorage.setItem('stepName', '0');
 
-        sessionStorage.setItem('searchUserId',BaseService.userId);
-        sessionStorage.setItem('searchEmpName',BaseService.empName);
-        sessionStorage.setItem('searchEmpId',BaseService.empId);
+        sessionStorage.setItem('searchUserId', BaseService.userId);
+        sessionStorage.setItem('searchEmpName', BaseService.empName);
+        sessionStorage.setItem('searchEmpId', BaseService.empId);
 
         //開啟徵審主畫面
         let safeUrl = this.f02005Service.getNowUrlPath("/#/F01002/F01002SCN1");
         let url = window.open(safeUrl);
-        if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
-          this.menuListService.setUrl({
-            url: url
-          });
-        }
+        this.menuListService.setUrl({
+          url: url
+        });
 
         sessionStorage.setItem('winClose', 'N');
         sessionStorage.setItem('search', 'N');
@@ -509,8 +502,8 @@ export class F02005Component implements OnInit {
       }
     })
   }
-   // 轉成中文
-   getType(codeVal: string): string {
+  // 轉成中文
+  getType(codeVal: string): string {
     for (const data of this.statusDetailCode) {
       if (data.value == codeVal) {
         return data.viewValue;

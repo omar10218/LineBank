@@ -400,13 +400,10 @@ export class F01015Component implements OnInit {
 
     //開啟徵審主畫面
     let safeUrl = this.f01015Service.getNowUrlPath("/#/F01002/F01002SCN1");
-    window.open(safeUrl);
     let url = window.open(safeUrl);
-      if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
-        this.menuListService.setUrl({
-          url: url
-        });
-      }
+    this.menuListService.setUrl({
+      url: url
+    });
 
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');
@@ -435,11 +432,9 @@ export class F01015Component implements OnInit {
     //開啟徵審主畫面
     let safeUrl = this.f01015Service.getNowUrlPath("/#/F01009/F01009SCN1");
     let url = window.open(safeUrl);
-      if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
-        this.menuListService.setUrl({
-          url: url
-        });
-      }
+    this.menuListService.setUrl({
+      url: url
+    });
 
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');
