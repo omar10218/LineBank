@@ -6,6 +6,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { BaseService } from '../base.service';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F02008Service } from './f02008.service';
+import { MenuListService } from '../menu-list/menu-list.service';
 
 @Component({
   selector: 'app-f02008',
@@ -18,6 +19,7 @@ export class F02008Component implements OnInit {
     public dialog: MatDialog,
     public pipe: DatePipe,
     private f02008Service: F02008Service,
+    private menuListService: MenuListService,
   ) { }
 
   applno: string = '';
@@ -188,13 +190,13 @@ export class F02008Component implements OnInit {
   sortChange(e: string, param: string) {
     switch (param) {
       case "APPLNO":
-        this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLNO.localeCompare(b.APPLNO))
-        : this.resultData.sort((a,b) => b.APPLNO.localeCompare(a.APPLNO));
+        this.resultData = e === 'ascend' ? this.resultData.sort((a, b) => a.APPLNO.localeCompare(b.APPLNO))
+          : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO));
         this.newData = this.f02008Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         break;
       case "APPLYEND_TIME":
-        this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLYEND_TIME.localeCompare(b.APPLYEND_TIME))
-        : this.resultData.sort((a,b) => b.APPLYEND_TIME.localeCompare(a.APPLYEND_TIME));
+        this.resultData = e === 'ascend' ? this.resultData.sort((a, b) => a.APPLYEND_TIME.localeCompare(b.APPLYEND_TIME))
+          : this.resultData.sort((a, b) => b.APPLYEND_TIME.localeCompare(a.APPLYEND_TIME));
         this.newData = this.f02008Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         break;
     }
@@ -252,13 +254,18 @@ export class F02008Component implements OnInit {
         sessionStorage.setItem('page', '0');
         sessionStorage.setItem('stepName', '0');
 
-        sessionStorage.setItem('searchUserId',BaseService.userId);
-        sessionStorage.setItem('searchEmpName',BaseService.empName);
-        sessionStorage.setItem('searchEmpId',BaseService.empId);
+        sessionStorage.setItem('searchUserId', BaseService.userId);
+        sessionStorage.setItem('searchEmpName', BaseService.empName);
+        sessionStorage.setItem('searchEmpId', BaseService.empId);
 
         //開啟徵審主畫面
         let safeUrl = this.f02008Service.getNowUrlPath("/#/F01008/F01008SCN1");
-        window.open(safeUrl);
+        let url = window.open(safeUrl);
+        if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
+          this.menuListService.setUrl({
+            url: url
+          });
+        }
 
         sessionStorage.setItem('winClose', 'N');
         sessionStorage.setItem('search', 'N');

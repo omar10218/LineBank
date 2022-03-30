@@ -8,6 +8,7 @@ import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { BaseService } from 'src/app/base.service';
 import { environment } from 'src/environments/environment';
+import { MenuListService } from 'src/app/menu-list/menu-list.service';
 
 @Component({
   selector: 'app-childbwscn6',
@@ -19,7 +20,9 @@ export class Childbwscn6Component implements OnInit {
   constructor(
     private router: Router,
     public childbwscn6Service: Childbwscn6Service,
-    public dialog: MatDialog,) { }
+    public dialog: MatDialog,
+    private menuListService: MenuListService,
+  ) { }
   applno: string;
   jsonObject: any = {};
   data: any;//裝一開始的資料表
@@ -79,7 +82,12 @@ export class Childbwscn6Component implements OnInit {
 
     //開啟徵審主畫面
     let safeUrl = this.childbwscn6Service.getNowUrlPath("/#/F01009/F01009SCN1");
-    window.open(safeUrl);
+    let url = window.open(safeUrl);
+    if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
+      this.menuListService.setUrl({
+        url: url
+      });
+    }
 
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');

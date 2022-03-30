@@ -7,6 +7,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { BaseService } from '../base.service';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F02001Service } from '../f02001/f02001.service';
+import { MenuListService } from '../menu-list/menu-list.service';
 import { F02005Service } from './f02005.service';
 
 // Jay 歷史案件查詢
@@ -67,6 +68,7 @@ export class F02005Component implements OnInit {
     public nzI18nService: NzI18nService,
     public dialog: MatDialog,
     private f02001Service: F02001Service,
+    private menuListService: MenuListService,
   ) {
     this.nzI18nService.setLocale(zh_TW)
   }
@@ -487,7 +489,12 @@ export class F02005Component implements OnInit {
 
         //開啟徵審主畫面
         let safeUrl = this.f02005Service.getNowUrlPath("/#/F01002/F01002SCN1");
-        window.open(safeUrl);
+        let url = window.open(safeUrl);
+        if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
+          this.menuListService.setUrl({
+            url: url
+          });
+        }
 
         sessionStorage.setItem('winClose', 'N');
         sessionStorage.setItem('search', 'N');

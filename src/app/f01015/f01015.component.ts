@@ -11,6 +11,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MappingCode } from '../mappingcode.model';
 import { element } from 'protractor';
 import { BaseService } from '../base.service';
+import { MenuListService } from '../menu-list/menu-list.service';
 
 interface sysCode {
   value: string;
@@ -84,7 +85,7 @@ export class F01015Component implements OnInit {
     public dialog: MatDialog,
     private datePipe: DatePipe,
     private router: Router,
-
+    private menuListService: MenuListService,
   ) { }
 
   ngOnInit(): void {
@@ -400,6 +401,12 @@ export class F01015Component implements OnInit {
     //開啟徵審主畫面
     let safeUrl = this.f01015Service.getNowUrlPath("/#/F01002/F01002SCN1");
     window.open(safeUrl);
+    let url = window.open(safeUrl);
+      if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
+        this.menuListService.setUrl({
+          url: url
+        });
+      }
 
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');
@@ -427,7 +434,12 @@ export class F01015Component implements OnInit {
 
     //開啟徵審主畫面
     let safeUrl = this.f01015Service.getNowUrlPath("/#/F01009/F01009SCN1");
-    window.open(safeUrl);
+    let url = window.open(safeUrl);
+      if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
+        this.menuListService.setUrl({
+          url: url
+        });
+      }
 
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');

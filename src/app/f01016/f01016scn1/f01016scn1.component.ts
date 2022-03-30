@@ -7,6 +7,7 @@ import { BaseService } from 'src/app/base.service';
 import { ConfirmComponent } from 'src/app/common-lib/confirm/confirm.component';
 import { F01015Service } from 'src/app/f01015/f01015.service';
 import { OptionsCode } from 'src/app/interface/base';
+import { MenuListService } from 'src/app/menu-list/menu-list.service';
 
 interface sysCode {
   value: string;
@@ -24,6 +25,7 @@ export class F01016scn1Component implements OnInit {
     public dialog: MatDialog,
     private datePipe: DatePipe,
     private router: Router,
+    private menuListService: MenuListService,
   ) { }
 
   nationalId: string; //身分證字號
@@ -445,7 +447,12 @@ export class F01016scn1Component implements OnInit {
 
     //開啟徵審主畫面
     let safeUrl = this.f01015Service.getNowUrlPath("/#/F01009/F01009SCN1");
-    window.open(safeUrl);
+    let url = window.open(safeUrl);
+      if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
+        this.menuListService.setUrl({
+          url: url
+        });
+      }
 
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');

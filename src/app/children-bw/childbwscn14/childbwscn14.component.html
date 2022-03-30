@@ -10,7 +10,7 @@
           <th class="table-header" style="text-align: center;">額度號</th>
           <th class="table-header" style="text-align: center;">上層額度號</th>
           <th class="table-header" style="text-align: center;" [nzWidth]="'200px'">額度類別代碼</th>
-          <th class="table-header" style="text-align: center;">額度狀態</th>
+          <!-- <th class="table-header" style="text-align: center;">額度狀態</th> -->
           <th class="table-header" style="text-align: center;">額度起日</th>
           <th class="table-header" style="text-align: center;">額度訖日</th>
           <th class="table-header" style="text-align: center;">核准額度</th>
@@ -31,8 +31,9 @@
           <td class="table-data">{{ row.levelNo }}</td>
           <td class="table-data">{{ row.limitNo }}</td>
           <td class="table-data">{{ row.upLevel }}</td>
-          <td class="table-data">{{ row.limitTypeCode }}-{{transCode(row.limitTypeCode)}}</td>
-          <td class="table-data">{{ row.statusFlag }}</td>
+          <td class="table-data">{{transCode(row.limitTypeCode)}}</td>
+          <!-- <td class="table-data">{{ row.limitTypeCode }}-{{transCode(row.limitTypeCode)}}</td> -->
+          <!-- <td class="table-data">{{ row.statusFlag }}</td> -->
           <td class="table-data">{{ row.limitStartDate | date:"yyyy-MM-dd" }}</td>
           <td class="table-data">{{ row.limitEndDate | date:"yyyy-MM-dd" }}</td>
           <td class="table-data" style="text-align:'right'">{{ this.toCurrency(row.creditLimit.toString()) }}</td>
