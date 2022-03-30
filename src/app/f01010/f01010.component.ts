@@ -19,14 +19,14 @@ export class F01010Component implements OnInit {
     private router: Router,
     public dialog: MatDialog
   ) { }
-  @ViewChild('absBox') absBox: ElementRef             // 抓取table id
+  @ViewChild('absBox') absBox: ElementRef// 抓取table id
   cusinfoDataSource = [];
   readonly pageSize = 50;
   pageIndex = 1;
   total: number;
   fds: string = "";
-  empNo: string = BaseService.userId;      // 當前員編
-  newData = [];
+  empNo: string = BaseService.userId; // 當前員編
+  newData = [];                       // 處理排序後的清單
   //ngModel區
   swcApplno: string;
   swcNationalId: string;
@@ -142,6 +142,7 @@ export class F01010Component implements OnInit {
   ngAfterViewInit() {
     this.getCaseList();
   }
+
   // 代入條件查詢
   select() {
     if (this.agentEmpNo != '') {
@@ -157,7 +158,7 @@ export class F01010Component implements OnInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL3EmpNo'] = BaseService.userId;
+    jsonObject['swcL3EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
@@ -174,7 +175,7 @@ export class F01010Component implements OnInit {
         this.newData = this.f01010Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
       }
       else {
-        this.cusinfoDataSource = null;
+        this.newData = null;
         this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
@@ -187,7 +188,7 @@ export class F01010Component implements OnInit {
   sortChange(e: string) {
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
-      this.newData = this.f01010Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
+    this.newData = this.f01010Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
   }
 
   // 參數
@@ -196,7 +197,9 @@ export class F01010Component implements OnInit {
     if (this.pageIndex !== pageIndex) {
       this.pageIndex = pageIndex;
       this.newData = this.f01010Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
-      this.getCaseList();
+      // this.getCaseList();
+      const matTable = document.getElementById('matTable');
+      matTable.scrollIntoView();
     }
   }
   // 案件子頁籤
@@ -257,7 +260,7 @@ export class F01010Component implements OnInit {
     });
     setTimeout(() => {
       const DialogRef = this.dialog.open(ConfirmComponent, { data: { msgStr: msg } });
-      if (msg != null && msg == 'success') {  }
+      if (msg != null && msg == 'success') { }
     }, 1000);
   }
 

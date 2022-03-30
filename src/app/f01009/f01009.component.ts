@@ -162,7 +162,7 @@ export class F01009Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL4EmpNo'] = BaseService.userId;
+    jsonObject['swcL4EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
@@ -180,7 +180,7 @@ export class F01009Component implements OnInit, AfterViewInit {
         this.stepName = data.rspBody.items[0].F_StepName;
       }
       else {
-        this.cusinfoDataSource = null;
+        this.newData = null;
         this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
