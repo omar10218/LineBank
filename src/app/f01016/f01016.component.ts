@@ -110,7 +110,6 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     jsonObject['custID'] = this.custID;
 
     this.f01016Service.getCaseList(jsonObject).subscribe(data => {
-      console.log(data)
       if (data.rspBody.items.length > 0) {
         this.total = data.rspBody.items.length;
         this.suiManagerSource = data.rspBody.items;
@@ -142,7 +141,6 @@ export class F01016Component implements OnInit, AfterViewInit, OnDestroy {
     let jsonObject: any = {};
     this.reasonCode.push({ value: '', viewValue: '請選擇' })
     this.f01016Service.getReturn('f01/f01015', jsonObject).subscribe(data => {
-    console.log(data)
       for (const jsonObj of data.rspBody.adrCodelist) {
         const codeNo = jsonObj.reasonCode;
         const desc = jsonObj.reasonDesc;

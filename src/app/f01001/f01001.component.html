@@ -72,9 +72,9 @@
     <div #absBox class="abs-box">
       <div nz-col nzSpan="24">
         <div class="line_bank_card_no_padding">
-          <nz-table nzShowSizeChanger [nzData]="cusinfoDataSource" [nzFrontPagination]="false" [nzSimple]="true"
+          <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"
             [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" #middleTable nzSize="small"
-            [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)">
+            [nzScroll]="{ x: '1500px', y:tableHeight}" (nzQueryParams)="onQueryParamsChange($event)" id="matTable">
             <thead style="max-height: 100vh;">
               <tr>
                 <th class="table-header" [nzWidth]="'60px'" nzLeft>No</th>
@@ -98,7 +98,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let data of cusinfoDataSource; let i =index">
+              <tr *ngFor="let data of newData; let i =index">
                 <td class="table-data" [nzAlign]="'center'" nzLeft>{{ i+1 }}</td>
                 <td *ngIf="data.swcCreditLevel == 'T';else template" class="table-data" nzLeft>暫存件</td>
                 <ng-template #template>

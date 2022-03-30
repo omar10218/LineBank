@@ -7,6 +7,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { BaseService } from '../base.service';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F02001Service } from '../f02001/f02001.service';
+import { MenuListService } from '../menu-list/menu-list.service';
 import { F02007Service } from './f02007.service';
 
 // Nick 案件查詢
@@ -48,14 +49,14 @@ export class F02007Component implements OnInit {
   resultData = [];
   newData: any[] = [];
   total: number;
-  quantity:number;
+  quantity: number;
   loading = false;
   pageSize: number;
   pageIndex: number;
   order: string;
   sor: string;
   firstFlag = 1;
-  sortArry=['ascend', 'descend']
+  sortArry = ['ascend', 'descend']
   x: string;
   statusDetailCode: sysCode[] = [];
   constructor(private router: Router,
@@ -64,6 +65,7 @@ export class F02007Component implements OnInit {
     public nzI18nService: NzI18nService,
     public dialog: MatDialog,
     private f02001Service: F02001Service,
+    private menuListService: MenuListService,
   ) {
     this.nzI18nService.setLocale(zh_TW)
   }
@@ -170,16 +172,16 @@ export class F02007Component implements OnInit {
   getRiskGrade() {
     this.f02007Service.getSysTypeCode('RISK_GRADE').subscribe(data => {
       this.risk_GRADE.push({ value: '', viewValue: '請選擇' })
-      this.risk_GRADE.push({value: 'R1', viewValue: 'R1' })
-      this.risk_GRADE.push({value: 'R2', viewValue: 'R2' })
-      this.risk_GRADE.push({value: 'R3', viewValue: 'R3' })
-      this.risk_GRADE.push({value: 'R4', viewValue: 'R4' })
-      this.risk_GRADE.push({value: 'R5', viewValue: 'R5' })
+      this.risk_GRADE.push({ value: 'R1', viewValue: 'R1' })
+      this.risk_GRADE.push({ value: 'R2', viewValue: 'R2' })
+      this.risk_GRADE.push({ value: 'R3', viewValue: 'R3' })
+      this.risk_GRADE.push({ value: 'R4', viewValue: 'R4' })
+      this.risk_GRADE.push({ value: 'R5', viewValue: 'R5' })
     });
   }
 
 
-  Detail(id: string, nationalId: string,cuCname:string, custId: string)//明細
+  Detail(id: string, nationalId: string, cuCname: string, custId: string)//明細
   {
     let jsonObject: any = {};
     jsonObject['applno'] = id;
@@ -188,7 +190,7 @@ export class F02007Component implements OnInit {
     jsonObject['cuCname'] = cuCname;//客戶姓名CU_CNAME
     let apiurl = 'f02/f02001action2';
     this.f02007Service.postJson(apiurl, jsonObject).subscribe(data => {
-      if(data.rspMsg=="success"&& data.rspBody=="儲存成功!"){
+      if (data.rspMsg == "success" && data.rspBody == "儲存成功!") {
         sessionStorage.setItem('applno', id);
         sessionStorage.setItem('nationalId', nationalId);
         sessionStorage.setItem('custId', custId);
@@ -199,13 +201,16 @@ export class F02007Component implements OnInit {
         sessionStorage.setItem('page', '07');
         sessionStorage.setItem('stepName', '0');
 
-        sessionStorage.setItem('searchUserId',BaseService.userId);
-        sessionStorage.setItem('searchEmpName',BaseService.empName);
-        sessionStorage.setItem('searchEmpId',BaseService.empId);
+        sessionStorage.setItem('searchUserId', BaseService.userId);
+        sessionStorage.setItem('searchEmpName', BaseService.empName);
+        sessionStorage.setItem('searchEmpId', BaseService.empId);
 
         //開啟徵審主畫面
         let safeUrl = this.f02007Service.getNowUrlPath("/#/F01002/F01002SCN1/CHILDSCN5");
-        window.open(safeUrl);
+        let url = window.open(safeUrl);
+        this.menuListService.setUrl({
+          url: url
+        });
 
         sessionStorage.setItem('winClose', 'N');
         sessionStorage.setItem('search', 'N');
@@ -213,7 +218,7 @@ export class F02007Component implements OnInit {
         sessionStorage.removeItem('searchUserId');
         sessionStorage.removeItem('searchEmpName');
         sessionStorage.removeItem('searchEmpId');
-      }else{
+      } else {
         this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查詢案件紀錄異常" }
         });
@@ -404,15 +409,14 @@ export class F02007Component implements OnInit {
     }
 
     this.f02007Service.inquiry(url, this.jsonObject).subscribe(data => {
-      if(data.rspBody.size == 0)
-      {
+      if (data.rspBody.size == 0) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
-          data: { msgStr: "查無資料" }})
-          this.resultData = [];
+          data: { msgStr: "查無資料" }
+        })
+        this.resultData = [];
 
       }
-      else
-      {
+      else {
         this.resultData = data.rspBody.item;
         this.total = data.rspBody.size;
         this.quantity = data.rspBody.size;
@@ -507,8 +511,8 @@ export class F02007Component implements OnInit {
           this.order = param;
           this.sor = '';
         }
-        this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLNO.localeCompare(b.APPLNO))
-        : this.resultData.sort((a,b) => b.APPLNO.localeCompare(a.APPLNO));
+        this.resultData = e === 'ascend' ? this.resultData.sort((a, b) => a.APPLNO.localeCompare(b.APPLNO))
+          : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO));
         this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         break;
       case "APPLYEND_TIME":
@@ -520,8 +524,8 @@ export class F02007Component implements OnInit {
           this.order = param;
           this.sor = '';
         }
-        this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLYEND_TIME.localeCompare(b.APPLYEND_TIME))
-        : this.resultData.sort((a,b) => b.APPLYEND_TIME.localeCompare(a.APPLYEND_TIME));
+        this.resultData = e === 'ascend' ? this.resultData.sort((a, b) => a.APPLYEND_TIME.localeCompare(b.APPLYEND_TIME))
+          : this.resultData.sort((a, b) => b.APPLYEND_TIME.localeCompare(a.APPLYEND_TIME));
         this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         break;
     }
@@ -546,7 +550,7 @@ export class F02007Component implements OnInit {
     }
   }
   data_number(p: number)//千分號
-   {
+  {
     this.x = '';
     this.x = (p + "")
     if (this.x != null) {
@@ -554,15 +558,15 @@ export class F02007Component implements OnInit {
     }
     return this.x
   }
- // 轉成中文
- getType(codeVal: string): string {
-  for (const data of this.statusDetailCode) {
-    if (data.value == codeVal) {
-      return data.viewValue;
-      break;
+  // 轉成中文
+  getType(codeVal: string): string {
+    for (const data of this.statusDetailCode) {
+      if (data.value == codeVal) {
+        return data.viewValue;
+        break;
+      }
     }
+    return codeVal;
   }
-  return codeVal;
-}
 
 }

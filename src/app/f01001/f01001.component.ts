@@ -34,6 +34,7 @@ export class F01001Component implements OnInit, AfterViewInit {
   agentEmpNo: string;                                 // 代理人
   agentEmpNoCode: OptionsCode[] = [];                 // 代理人下拉
   cusinfoDataSource = [];                             // 案件清單
+  newData = [];                                       // 處理排序後的清單
   fds: string = "";                                   // fds
   stepName: string;                                   // 目前關卡名
   readonly pageSize = 50;
@@ -88,7 +89,7 @@ export class F01001Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL4EmpNo'] = BaseService.userId;
+    jsonObject['swcL4EmpNo'] = this.empNo;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
@@ -97,15 +98,16 @@ export class F01001Component implements OnInit, AfterViewInit {
       if (data.rspBody.size > 0) {
         this.total = data.rspBody.size;
         this.cusinfoDataSource = data.rspBody.items;
+        this.newData = this.f01001Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         this.stepName = data.rspBody.items[0].F_StepName;
-        this.cusinfoDataSource.forEach(element => {
+        this.newData.forEach(element => {
           if (element.F_StartTime != null && element.F_StartTime != '') {
             element.F_StartTime = formatDate(element.F_StartTime, 'yyyy-MM-dd HH:mm:ss', 'zh-Hant-TW', '-0600').toString();
           }
         });
       }
       else {
-        this.cusinfoDataSource = null;
+        this.newData = null;
         this.total = 0;
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
@@ -190,7 +192,9 @@ export class F01001Component implements OnInit, AfterViewInit {
     const { pageIndex } = params;
     if (this.pageIndex !== pageIndex) {
       this.pageIndex = pageIndex;
-      this.getCaseList();
+      // this.getCaseList();
+      const matTable = document.getElementById('matTable');
+      matTable.scrollIntoView();
     }
   }
 
@@ -199,7 +203,7 @@ export class F01001Component implements OnInit, AfterViewInit {
     this.total = 1;
   }
 
- // 打開通知彈窗
+  // 打開通知彈窗
   openNotifyMsg(swcApplno: string) {
     const dialogRef = this.dialog.open(Childscn30Component, {
       panelClass: 'mat-dialog-transparent',
@@ -229,23 +233,28 @@ export class F01001Component implements OnInit, AfterViewInit {
     switch (param) {
       case "swcApplyNum":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
-          (a, b) => a.swcApplyNum.localeCompare(b.swcApplyNum)) : this.cusinfoDataSource.sort((a, b) => b.swcApplyNum.localeCompare(a.swcApplyNum))
+          (a, b) => a.swcApplyNum.localeCompare(b.swcApplyNum)) : this.cusinfoDataSource.sort((a, b) => b.swcApplyNum.localeCompare(a.swcApplyNum));
+        this.newData = this.f01001Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         break;
       case "F_StartTime":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
           (a, b) => a.F_StartTime.localeCompare(b.F_StartTime)) : this.cusinfoDataSource.sort((a, b) => b.F_StartTime.localeCompare(a.F_StartTime))
+        this.newData = this.f01001Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         break;
       case "swcCustTag":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
           (a, b) => a.swcCustTag.localeCompare(b.swcCustTag)) : this.cusinfoDataSource.sort((a, b) => b.swcCustTag.localeCompare(a.swcCustTag))
+        this.newData = this.f01001Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         break;
       case "swcApplno":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
           (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno))
+        this.newData = this.f01001Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         break;
       case "swcRiskGrade":
         this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
           (a, b) => a.swcRiskGrade.localeCompare(b.swcRiskGrade)) : this.cusinfoDataSource.sort((a, b) => b.swcRiskGrade.localeCompare(a.swcRiskGrade))
+        this.newData = this.f01001Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
         break;
     }
   }
