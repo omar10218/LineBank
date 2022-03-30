@@ -123,11 +123,7 @@ export class Childscn19Component implements OnInit {
   //新增補件資訊
   public async rescan(): Promise<void> {
 
-    if (this.restartDate == null) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請輸入日期" }
-      });
-    } else if (this.rescanType == null || this.rescanType == '') {
+   if (this.rescanType == null || this.rescanType == '') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入補件原因" }
       });
@@ -141,7 +137,7 @@ export class Childscn19Component implements OnInit {
       jsonObject['rescanType'] = this.rescanType;
       jsonObject['rescanContent'] = this.rescanContent;
       jsonObject['rescanItem'] = this.rescanItem;
-      jsonObject['restartDate'] = this.pipe.transform(new Date(this.restartDate), 'yyyyMMdd');
+      // jsonObject['restartDate'] = this.pipe.transform(new Date(), 'yyyy-MM-dd-HH:mm');
       let msgStr: string = "";
       msgStr = await this.childscn19Service.addRescan(jsonObject);
       if (msgStr == 'success') {
@@ -172,7 +168,7 @@ export class Childscn19Component implements OnInit {
       // const confirmDialogRef = this.dialog.open(ConfirmComponent, {
       //   data: { msgStr: "請輸入時間" }
       // });
-    // } else 
+    // } else
     if (this.mobile == null || this.mobile == "" || this.mobile.length != 10) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入手機號碼" }
