@@ -34,8 +34,8 @@ export class F02002Component implements OnInit {
 
   date: [Date, Date];
   dateFormat = 'yyyy/MM/dd';
-
-  rescanData: Data[] = [];
+  Newdata = []
+  rescanData:any []= [];
   total = 0;
   pageIndex = 1;
   pageSize = 50;
@@ -57,6 +57,7 @@ export class F02002Component implements OnInit {
   }
 
   getRescanData(pageIndex: number, pageSize: number) {
+    this.rescanData = [];
     const baseUrl = 'f02/f02002action1';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
@@ -74,13 +75,22 @@ export class F02002Component implements OnInit {
     }
     this.f02002Service.f02002(baseUrl, jsonObject).subscribe(data => {
       console.log(data)
+      this.Newdata = data.rspBody.items;
       if (data.rspBody.size == 0) {
         const childernDialogRef = this.dialog.open(ConfirmComponent, {
           data: { msgStr: "查無資料" }
         });
       } else {
-        this.Pieces = data.rspBody.size;
-        this.rescanData = data.rspBody.items;
+
+
+        for(var t of  data.rspBody.items)
+        {
+          if(t.RESCAN_FLAG =='N')
+          {
+            this.rescanData.push(t)
+          }
+        }
+        this.Pieces = this.rescanData.length;
       }
     });
   }
@@ -129,9 +139,10 @@ export class F02002Component implements OnInit {
     this.total = 0;
     this.pageSize = 10;
     this.pageIndex = 1;
-    this.rescanData = null;
+    this.rescanData = [];
     this.date = null;
     this.Pieces = 0;
+    this.Newdata=[];
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -161,7 +172,7 @@ export class F02002Component implements OnInit {
           sessionStorage.setItem('nationalId', nationalId);
           sessionStorage.setItem('custId', custId);
           sessionStorage.setItem('search', 'Y');
-          console.log(sessionStorage.setItem('fds', ''))
+
           // if (data.rspBody.length > 0) {
           //   sessionStorage.setItem('fds', data.rspBody[0].fds != 'undefined' ? data.rspBody[0].fds : '');
           // } else {

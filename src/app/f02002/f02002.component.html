@@ -55,7 +55,7 @@
   <div class="line_bank_card_no_padding">
     <!-- 表格 -->
     <div class="line_bank_form_header_title">補件資訊查詢:(案件數：{{ Pieces }} 件)</div>
-    <nz-table nzShowSizeChanger [nzData]="rescanData" [nzFrontPagination]="false" [nzSimple]="true"
+    <nz-table nzShowSizeChanger [nzData]="Newdata" [nzFrontPagination]="false" [nzSimple]="true"
       [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
       (nzQueryParams)="onQueryParamsChange($event)" nzSize="small"  >
       <thead>

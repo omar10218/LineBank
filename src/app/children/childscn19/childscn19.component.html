@@ -84,7 +84,7 @@
                 <tr *ngFor="let data of rescanDataSource">
                     <!-- [(hidden)]="flag" -->
                     <td  *ngIf="this.page =='2' || this.page=='1'" class="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"
-                            [disabled]="data.IMAGE_NAME != null ? true:false "
+                            [disabled]="data.RESCAN_FLAG != 'N' ? true:false "
                             (click)="delRescan(data.ROW_ID)">刪除</button>
                           </td>
                     <td *ngIf="this.page !='2' && this.page!='1'" class="table-data" style="text-align:center"><button nz-button nzDanger [nzSize]="'small'"

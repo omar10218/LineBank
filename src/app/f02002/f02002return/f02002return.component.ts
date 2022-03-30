@@ -147,9 +147,13 @@ export class F02002returnComponent implements OnInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.data.applno;
     this.f02002Service.postJson(url, jsonObject).subscribe(data => {
+
+      // this.F02002Data=data.rspBody
+      console.log(data)
+
       for(var k of data.rspBody)
       {
-        if(k.IMAGE_NAME==null)
+        if(k.RESCAN_FLAG=='N')
         {
           this.F02002Data.push(k)
         }
@@ -218,76 +222,68 @@ export class F02002returnComponent implements OnInit {
 
   SendBack(result: string)//送回案件
   {
+      const formdata = new FormData();
+      // console.log(this.F02002Data.length);
+      let jsonarry: string[] = []
 
+      if(this.fileList.length>0)
+      {
+        for (const n of this.fileList) {
+          this.formdata2.append(n.value, n.viewValue)
+        }
+      }
 
-    const formdata = new FormData();
-    // console.log(this.F02002Data.length);
-    let jsonarry: string[] = []
-    if(this.target == undefined)
-    {
-      this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請選擇一個檔案" }
+      for (const it of this.F02002Data)
+       {
+        this.list = [];
+        const fileObj = this.formdata2.get(it.ROW_ID);
+        this.list.push({ rowId: it.ROW_ID, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT });
+        this.jsonstr = JSON.stringify(this.list);
+        jsonarry.push(this.jsonstr);
+        formdata.append('files', fileObj != null ? fileObj : new Blob);
+      }
+      formdata.append('jsonArray', jsonarry.toString());
+      formdata.append('userId', BaseService.userId);
+      formdata.append('applno', this.data.applno);
+      const dialogRef = this.dialog.open(F02008return2Component, {
+        minHeight: '50%',
+        width: '30%',
+        panelClass: 'mat-dialog-transparent',
+        data: {
+          value: result
+        }
       });
-      return
-    }
-    if(this.fileList.length>0)
-    {
-      for (const n of this.fileList) {
-        this.formdata2.append(n.value, n.viewValue)
-      }
-    }
+      let ul = 'f02/f02002action4';
+      let url = 'f02/f02002action5';
 
-    for (const it of this.F02002Data)
-     {
-      this.list = [];
-      const fileObj = this.formdata2.get(it.ROW_ID);
-      this.list.push({ rowId: it.ROW_ID, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT });
-      this.jsonstr = JSON.stringify(this.list);
-      jsonarry.push(this.jsonstr);
-      formdata.append('files', fileObj != null ? fileObj : new Blob);
-    }
-    formdata.append('jsonArray', jsonarry.toString());
-    formdata.append('userId', BaseService.userId);
-    formdata.append('applno', this.data.applno);
-    const dialogRef = this.dialog.open(F02008return2Component, {
-      minHeight: '50%',
-      width: '30%',
-      panelClass: 'mat-dialog-transparent',
-      data: {
-        value: result
-      }
-    });
-    let ul = 'f02/f02002action4';
-    let url = 'f02/f02002action5';
+      dialogRef.afterClosed().subscribe(result => {
+        if (result.value == 'confirm') {
+          this.f02002Service.setformdata(url, formdata).subscribe(data => {
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.value == 'confirm') {
-        this.f02002Service.setformdata(url, formdata).subscribe(data => {
+            if (data.rspCode === '0000') {
+              this.f02002Service.setformdata(ul, formdata).subscribe(data => {
+                if (data.rspCode === '0000') {
+                  this.dialogRef.close({ event: 'success' });
+                  this.dialog.open(ConfirmComponent, {
+                    data: { msgStr: data.rspMsg }
+                  });
+                }
+                else {
+                  this.dialog.open(ConfirmComponent, {
+                    data: { msgStr: data.rspMsg }
+                  });
+                }
+              })
+            }
+            else {
+              this.dialog.open(ConfirmComponent, {
+                data: { msgStr: data.rspMsg }
+              });
+            }
 
-          if (data.rspCode === '0000') {
-            this.f02002Service.setformdata(ul, formdata).subscribe(data => {
-              if (data.rspCode === '0000') {
-                this.dialogRef.close({ event: 'success' });
-                this.dialog.open(ConfirmComponent, {
-                  data: { msgStr: data.rspMsg }
-                });
-              }
-              else {
-                this.dialog.open(ConfirmComponent, {
-                  data: { msgStr: data.rspMsg }
-                });
-              }
-            })
-          }
-          else {
-            this.dialog.open(ConfirmComponent, {
-              data: { msgStr: data.rspMsg }
-            });
-          }
-
-        })
-      }
-    })
+          })
+        }
+      })
   }
 
   // @ViewChild('test') myInputVariable: ElementRef;
