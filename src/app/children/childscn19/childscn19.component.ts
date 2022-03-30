@@ -71,6 +71,7 @@ export class Childscn19Component implements OnInit {
   // boo :boolean = true ;
   block: boolean = false;
   send: boolean = true;//案件送出判斷是否鎖起來
+  variable=0;
   page: string;
   checkpoint: string;
   ngOnInit(): void {
@@ -222,7 +223,7 @@ export class Childscn19Component implements OnInit {
 
 
   //取該案件補件資訊
-  getRescanList() {
+ getRescanList() {
     this.ii = [];
     this.send = true;
     let jsonObject: any = {};
@@ -231,17 +232,19 @@ export class Childscn19Component implements OnInit {
       console.log(data)
       this.remarkContent = '';
       if (data.rspBody.items.length > 0) {
-        for (var i of data.rspBody.items) {
+        for (var i of data.rspBody.items)
+        {
           if (i.IMAGE_DATE != null) {
             this.ii.push(i.IMAGE_DATE)
           }
+
+          if (i.RESCAN_FLAG == 'N')
+          {
+           this.send = false;
+          }
         }
-        if (data.rspBody.items.length != this.ii.length) {
-          this.send = false;
-        }
-        else {
-          this.send = true;
-        }
+
+
 
         for (let index = 0; index < data.rspBody.items.length; index++) {
           if (data.rspBody.items[index].RESCAN_FLAG == 'N') {
@@ -271,6 +274,7 @@ export class Childscn19Component implements OnInit {
 
     })
   };
+
 
 
   //取該案件簡訊發送資訊/從客戶資訊查詢客戶手機

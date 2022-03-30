@@ -149,7 +149,7 @@ export class F02002returnComponent implements OnInit {
     this.f02002Service.postJson(url, jsonObject).subscribe(data => {
 
       // this.F02002Data=data.rspBody
-      console.log(data)
+
 
       for(var k of data.rspBody)
       {
