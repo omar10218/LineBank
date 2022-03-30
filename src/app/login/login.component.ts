@@ -67,8 +67,8 @@ export class LoginComponent implements OnInit {
       this.loginService.setBnIdle();
     } else {
       alert('帳號或密碼有誤!');
-      if ('uat' == this.from || 'prod' == this.from) {
-        window.location.href = environment.allowOrigin + '/sso';
+      if (('uat' == this.from || 'prod' == this.from) && this.SSO_FLAG != 'Y') {
+        window.location.href = 'https://sso.lbtwsys.com:8443/cas/logout?service=' + environment.allowOrigin + '/sso';
       } else {
         window.location.reload();
       }

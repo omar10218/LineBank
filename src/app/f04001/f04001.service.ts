@@ -10,21 +10,14 @@ export class F04001Service extends BaseService {
 
   constructor(protected httpClient: HttpClient) { super(httpClient); }
 
-  saveFlowStep(baseUrl: string, step: string, formData: string[]): Observable<any> {
-    let jsonObject: any = {};
-
-    jsonObject['step'] = step;
-    jsonObject['applnoList'] = formData;
+  saveFlowStep(jsonObject: JSON): Observable<any> {
+    const baseUrl = 'f04/f04001fn2';
+    
 
     return this.postJsonObject(baseUrl, jsonObject);
   }
-  getLockApplno(baseUrl: string, pageIndex: number, pageSize: number, step: string): Observable<any> {
-    let jsonObject: any = {};
-
-    jsonObject['page'] = pageIndex+1;
-    jsonObject['per_page'] = pageSize;
-    jsonObject['step'] = step;
-
+  getLockApplno(jsonObject: JSON): Observable<any> {
+    const baseUrl = 'f04/f04001fn1';
     return this.postJsonObject(baseUrl, jsonObject);
   }
 
