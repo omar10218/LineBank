@@ -24,8 +24,8 @@ export class Childbwscn4page2Component implements OnInit {
   private cuid: string;
   DEPOSITSource: Data[] = [];
   SAVING_TRANS_DETAILSource: Data[] = [];
-  DM_DEP_TRANS_DETAILSource: Data[] = [];
-  TIME_DEP_TRANS_DETAILSource: Data[] = [];
+  // DM_DEP_TRANS_DETAILSource: Data[] = [];
+  // TIME_DEP_TRANS_DETAILSource: Data[] = [];
   DEPOSIT_STATIS_DATASource: Data[] = [];
   total = 1;
   loading = false;
@@ -44,7 +44,7 @@ export class Childbwscn4page2Component implements OnInit {
 
   ngAfterViewInit() {
     this.getCoreCusInfo('DEPOSIT', this.pageIndex, this.pageSize);
-    // this.getCoreCusInfo('SAVING_TRANS_DETAIL', this.pageIndex, this.pageSize);
+    this.getCoreCusInfo('SAVING_TRANS_DETAIL', this.pageIndex, this.pageSize);
     // this.getCoreCusInfo('DM_DEP_TRANS_DETAIL', this.pageIndex, this.pageSize);
     // this.getCoreCusInfo('TIME_DEP_TRANS_DETAIL', this.pageIndex, this.pageSize);
     this.getCoreCusInfo('DEPOSIT_STATIS_DATA', this.pageIndex, this.pageSize);
@@ -62,9 +62,9 @@ export class Childbwscn4page2Component implements OnInit {
     console.log(data)
       this.totalCount = data.rspBody.size;
       if (code == 'DEPOSIT') { this.DEPOSITSource = data.rspBody.items; }
-      // if (code == 'SAVING_TRANS_DETAIL') { this.SAVING_TRANS_DETAILSource = data.rspBody.items; }
-      if (code == 'DM_DEP_TRANS_DETAIL') { this.DM_DEP_TRANS_DETAILSource = data.rspBody.items; }
-      if (code == 'TIME_DEP_TRANS_DETAIL') { this.TIME_DEP_TRANS_DETAILSource = data.rspBody.items; }
+      if (code == 'SAVING_TRANS_DETAIL') { this.SAVING_TRANS_DETAILSource = data.rspBody.items; }
+      // if (code == 'DM_DEP_TRANS_DETAIL') { this.DM_DEP_TRANS_DETAILSource = data.rspBody.items; }
+      // if (code == 'TIME_DEP_TRANS_DETAIL') { this.TIME_DEP_TRANS_DETAILSource = data.rspBody.items; }
       if (code == 'DEPOSIT_STATIS_DATA') { this.DEPOSIT_STATIS_DATASource = data.rspBody.items; }
       console.log( data.rspBody.items)
     });
