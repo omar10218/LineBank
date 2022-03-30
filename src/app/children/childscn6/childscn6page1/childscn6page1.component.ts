@@ -156,6 +156,19 @@ export class Childscn6page1Component implements OnInit, AfterViewInit {
     jsonObject['code'] = 'AAS003,JAS002,APS001,ACI001,BAI001,KRI001,BAI004,KRI002,BAS008,BAS006,STS007';
     // jsonObject['queryDate'] = this.queryDate;
     this.childscn6Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
+      if(data.rspBody[0]={}){
+        this.AAS003.push('');
+        this.APS001.push('');
+        this.JAS002.push('');
+        this.ACI001.push('');
+        this.BAI001.push('');
+        this.KRI001.push('');
+        this.BAI004.push('');
+        this.KRI002.push('');
+        this.BAS008.push('');
+        this.BAS006.push('');
+        this.STS007.push('');
+      }
       if ( data.rspBody[0].AAS003.length == 0 ) { this.AAS003.push(''); } else { this.AAS003 = data.rspBody[0].AAS003; };
       if ( data.rspBody[0].JAS002.length == 0 ) { this.JAS002.push(''); } else { this.JAS002 = data.rspBody[0].JAS002; };
       if ( data.rspBody[0].APS001.length == 0 ) { this.APS001.push(''); } else { this.APS001 = data.rspBody[0].APS001; };

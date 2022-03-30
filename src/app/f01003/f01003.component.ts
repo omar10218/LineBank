@@ -92,7 +92,7 @@ export class F01003Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL2EmpNo'] = this.empNo;
+    jsonObject['swcL2EmpNo'] = BaseService.userId;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
@@ -208,7 +208,7 @@ data_number(p: number) {
   openNotifyMsg(swcApplno: string) {
     const dialogRef = this.dialog.open(Childscn30Component, {
       panelClass: 'mat-dialog-transparent',
-      minHeight: '60vh',
+      height: '90%',
       width: '90%',
       data: {
         swcApplno: swcApplno,

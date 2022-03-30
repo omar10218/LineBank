@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Childscn19Component } from '../childscn19/childscn19.component';
 import { Childscn19Service } from '../childscn19/childscn19.service';
@@ -7,7 +7,7 @@ import { Childscn28Service } from '../childscn28/childscn28.service';
 @Component({
   selector: 'app-childscn30',
   templateUrl: './childscn30.component.html',
-  styleUrls: ['./childscn30.component.css']
+  styleUrls: ['./childscn30.component.css','../../../assets/css/child.css']
 })
 export class Childscn30Component implements OnInit {
 

@@ -63,7 +63,7 @@ export class F01002scn1Component implements OnInit, OnDestroy {
   private routerCase: string;
   fds: string
   private winClose: string = '';
-  private page: string;//判斷哪一頁進入用
+  page: string;//判斷哪一頁進入用
 
   addData: any;
   editData: any;

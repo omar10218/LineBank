@@ -23,8 +23,8 @@
           <td class="table-data">{{ data.ACC_NO }}</td>
           <td class="table-data">{{ data.LIMIT_NO }}</td>
           <td class="table-data">{{ data.STS_CD}}</td>
-          <td class="table-data">{{ data.RNG_VAL}}</td>
-          <td class="table-data">{{ data.INBAL_AMT}}</td>
+          <td class="table-data" style="text-align: right;">{{ toCurrency(data.RNG_VAL)}}</td>
+          <td class="table-data" style="text-align: right;">{{ toCurrency(data.INBAL_AMT)}}</td>
           <td class="table-data">{{ data.ODUEDAY_CNT}}</td>
           <td class="table-data">{{ data.ACCT_AGE}}</td>
           <td class="table-data">{{ data.MATST}}</td>
@@ -43,16 +43,16 @@
         <th class="table-header">目前本行分期信貸(餘額>0)之合約金額合計</th>
         <th class="table-header">目前本行分期信貸之放款餘額合計</th>
         <th class="table-header">目前本行分期信貸(有效)之額度</th>
-        <th class="table-header">目前本行分期信貸之餘額</th>
+        <th class="table-header" >目前本行分期信貸之餘額</th>
 
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of CORE_MAINLISTSource">
-        <td class="table-data">{{ data.ISTM_LN_CTRT_LMT_SUM_AMT}}</td>
-        <td class="table-data">{{ data.ISTM_LN_BAL_AMT }}</td>
-        <td class="table-data">{{ data.RVVG_LN_CRDT_LINE_ACTV_AMT }}</td>
-        <td class="table-data">{{ data.RVVG_LN_BAL_AMT}}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.ISTM_LN_CTRT_LMT_SUM_AMT)}}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.ISTM_LN_BAL_AMT) }}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.RVVG_LN_CRDT_LINE_ACTV_AMT) }}</td>
+        <td class="table-data" style="text-align: right;">{{ toCurrency(data.RVVG_LN_BAL_AMT)}}</td>
       </tr>
     </tbody>
   </nz-table>

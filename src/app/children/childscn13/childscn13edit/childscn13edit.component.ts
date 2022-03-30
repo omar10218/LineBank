@@ -56,7 +56,7 @@ export class Childscn13editComponent implements OnInit {
   onAddImage(event: any) {
     if (this.files != null) {
       var mimeType = this.files.type;
-      if (mimeType.match(/image\/*/) == null) {
+      if (mimeType.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG)/) == null) {
         this.msg = "檔案非圖片類型!";
         this.imageSrc = '';
       } else {
@@ -75,10 +75,9 @@ export class Childscn13editComponent implements OnInit {
     const baseUrl = 'f01/childscn13action2';
     if (this.files != null) {
       var mimeType = this.files.type;
-      if (mimeType.match(/image\/*/) == null) {
+      if (mimeType.match(/(.jpg|.jpeg|.png|.JPG|.JPEG|.PNG)/) == null) {
         this.msg = "檔案非圖片類型!";
         return;
-
       } else {
         formdata.append('applno', this.applno);
         formdata.append('web', this.data.webAddrValue.split('=')[0]);

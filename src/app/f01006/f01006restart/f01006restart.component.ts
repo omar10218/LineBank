@@ -85,10 +85,11 @@ export class F01006restartComponent implements OnInit {
       });
       setTimeout(() => {
         this.dialog.closeAll();
-        let currentUrl = this.router.url;
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate([currentUrl]);
-        });
+        window.location.reload();
+        // let currentUrl = this.router.url;
+        // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        //   this.router.navigate([currentUrl]);
+        // });
       }, 2500);
     }
   }

@@ -120,7 +120,7 @@
 
 
   <div style="padding-left:25%;;">
-    <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_M()">產生合約前回查儲存</button>
+    <button nz-button [nzSize]="'large'" nzType="primary" (click)="save_M()" [disabled]="getSearch() == 'Y'">產生合約前回查儲存</button>
   </div>
   <div class="line_bank_card_no_padding" style="width:50%;">
     <nz-table nzShowSizeChanger [nzData]="fmData_M.data" [nzFrontPagination]="false" [nzSimple]="true" nzSize="small"
@@ -220,7 +220,7 @@
         </tr>
         <tr *ngIf="fmData_M.data.length>0">
           <td></td>
-          <td id="td_height">(E)本行無擔保負債_循環信貸額度</td>
+          <td id="td_height">(E_1)本行無擔保負債_循環信貸餘額</td>
           <td class="data_right">
             {{fmData_M.data[0].unsdebt_824_RLBAL}}
           </td>

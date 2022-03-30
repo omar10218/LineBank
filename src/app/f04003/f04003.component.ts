@@ -215,7 +215,9 @@ export class F04003Component implements OnInit {
 
 
         this.f04003Service.Set(url, changeJson).subscribe(data => {
-          if (data.rspCode == '0000') {
+          console.log(data)
+          if (data.rspCode == '0000')
+          {
             this.Search();
             this.assignArray = []
             // this.s="轉件成功";
@@ -224,6 +226,7 @@ export class F04003Component implements OnInit {
               data: { msgStr: data.rspMsg }
             });
           }
+
         })
 
       }

@@ -142,6 +142,7 @@ export class F01009Component implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.getCaseList();
+
   }
 
   //代入條件查詢
@@ -155,11 +156,13 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.getCaseList();
   }
 
+
+
   getCaseList() {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['swcL4EmpNo'] = this.empNo;
+    jsonObject['swcL4EmpNo'] = BaseService.userId;
     jsonObject['swcNationalId'] = this.swcNationalId;
     jsonObject['swcCustId'] = this.swcCustId;
     jsonObject['swcApplno'] = this.swcApplno;
@@ -190,7 +193,7 @@ export class F01009Component implements OnInit, AfterViewInit {
   sortChange(e: string) {
     this.cusinfoDataSource = e === 'ascend' ? this.cusinfoDataSource.sort(
       (a, b) => a.swcApplno.localeCompare(b.swcApplno)) : this.cusinfoDataSource.sort((a, b) => b.swcApplno.localeCompare(a.swcApplno));
-      this.newData = this.f01009Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
+    this.newData = this.f01009Service.getTableDate(this.pageIndex, this.pageSize, this.cusinfoDataSource);
   }
 
   // 參數
@@ -200,6 +203,8 @@ export class F01009Component implements OnInit, AfterViewInit {
       this.pageIndex = pageIndex;
       this.newData = this.f01009Service.getTableDate(pageIndex, this.pageSize, this.cusinfoDataSource);
       // this.getCaseList();
+      const matTable = document.getElementById('matTable');
+        matTable.scrollIntoView();
     }
   }
 
@@ -283,5 +288,5 @@ export class F01009Component implements OnInit, AfterViewInit {
     this.empNo = BaseService.userId;
     this.getCaseList();
   }
-  
+
 }

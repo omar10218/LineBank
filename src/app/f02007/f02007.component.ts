@@ -6,6 +6,7 @@ import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { BaseService } from '../base.service';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { F02001Service } from '../f02001/f02001.service';
 import { F02007Service } from './f02007.service';
 
 // Nick 案件查詢
@@ -45,11 +46,14 @@ export class F02007Component implements OnInit {
   credit_TIME: [Date, Date];//准駁日期時間
   jsonObject: any = {};
   resultData = [];
+  newData: any[] = [];
   total: number;
   quantity:number;
   loading = false;
   pageSize: number;
   pageIndex: number;
+  order: string;
+  sor: string;
   firstFlag = 1;
   sortArry=['ascend', 'descend']
   x: string;
@@ -59,6 +63,7 @@ export class F02007Component implements OnInit {
     public pipe: DatePipe,
     public nzI18nService: NzI18nService,
     public dialog: MatDialog,
+    private f02001Service: F02001Service,
   ) {
     this.nzI18nService.setLocale(zh_TW)
   }
@@ -88,9 +93,9 @@ export class F02007Component implements OnInit {
   onQueryParamsChange(params: NzTableQueryParams): void {
     const { pageIndex } = params;
     if (this.pageIndex !== pageIndex) {
-      if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
-        const { pageSize, pageIndex } = params;
-        this.selectData(pageIndex, pageSize);
+      if (this.firstFlag != 1) {
+        this.pageIndex = pageIndex;
+        this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.resultData);
       }
     }
   }
@@ -191,7 +196,7 @@ export class F02007Component implements OnInit {
         sessionStorage.setItem('queryDate', '');
         sessionStorage.setItem('winClose', 'Y');
         // 1文審 2徵信 3授信 4主管 5Fraud 7授信複合 8徵審後落人 9複審人員 10複審主管 0申請查詢 02補件資訊查詢 03複審案件查詢 05歷史案件查詢 07客戶案件查詢
-        sessionStorage.setItem('page', '0');
+        sessionStorage.setItem('page', '07');
         sessionStorage.setItem('stepName', '0');
 
         sessionStorage.setItem('searchUserId',BaseService.userId);
@@ -199,7 +204,7 @@ export class F02007Component implements OnInit {
         sessionStorage.setItem('searchEmpId',BaseService.empId);
 
         //開啟徵審主畫面
-        let safeUrl = this.f02007Service.getNowUrlPath("/#/F01002/F01002SCN1");
+        let safeUrl = this.f02007Service.getNowUrlPath("/#/F01002/F01002SCN1/CHILDSCN5");
         window.open(safeUrl);
 
         sessionStorage.setItem('winClose', 'N');
@@ -412,6 +417,8 @@ export class F02007Component implements OnInit {
         this.total = data.rspBody.size;
         this.quantity = data.rspBody.size;
         this.firstFlag = 2;
+        this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.resultData);
+
       }
 
     }
@@ -468,6 +475,7 @@ export class F02007Component implements OnInit {
     this.resultData = [];
     this.jsonObject = {};
     this.quantity = 0;
+    this.newData = [];
   }
 
   // test()//測試
@@ -488,14 +496,35 @@ export class F02007Component implements OnInit {
       this.selectData(this.pageIndex, this.pageSize);
     }
   }
-  sortChange(e: string) {
-    this.resultData = e === 'ascend' ? this.resultData.sort(
-      (a, b) => a.APPLY_TIME.localeCompare(b.APPLY_TIME)) : this.resultData.sort((a, b) => b.APPLY_TIME.localeCompare(a.APPLY_TIME))
-  }
-  Serial(e: string)//序號排序
-  {
-    this.resultData = e === 'ascend' ? this.resultData.sort(
-      (a, b) => a.APPLNO.localeCompare(b.APPLNO)) : this.resultData.sort((a, b) => b.APPLNO.localeCompare(a.APPLNO))
+  sortChange(e: string, param: string) {
+    switch (param) {
+      case "APPLNO":
+        if (e === 'ascend') {
+          this.order = param;
+          this.sor = 'DESC';
+        }
+        else {
+          this.order = param;
+          this.sor = '';
+        }
+        this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLNO.localeCompare(b.APPLNO))
+        : this.resultData.sort((a,b) => b.APPLNO.localeCompare(a.APPLNO));
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
+        break;
+      case "APPLYEND_TIME":
+        if (e === 'ascend') {
+          this.order = param;
+          this.sor = 'DESC';
+        }
+        else {
+          this.order = param;
+          this.sor = '';
+        }
+        this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLYEND_TIME.localeCompare(b.APPLYEND_TIME))
+        : this.resultData.sort((a,b) => b.APPLYEND_TIME.localeCompare(a.APPLYEND_TIME));
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
+        break;
+    }
   }
   dateNull(t: [Date, Date], name: string) {
 

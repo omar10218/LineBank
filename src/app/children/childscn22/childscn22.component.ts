@@ -52,10 +52,11 @@ export class Childscn22Component implements OnInit {
       setTimeout(() => {
         this.dialog.closeAll();
       }, 2000);
-      let currentUrl = this.router.url;
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate([currentUrl]);
-      });
+      window.location.reload();
+      // let currentUrl = this.router.url;
+      // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      //   this.router.navigate([currentUrl]);
+      // });
     } else if (this.stepName == 'APPLCreditL2') {
       msgStr = await this.childsnc22Service.doDss2Search(jsonObject);
       this.block = false;
@@ -63,10 +64,11 @@ export class Childscn22Component implements OnInit {
       setTimeout(() => {
         this.dialog.closeAll();
       }, 2000);
-      let currentUrl = this.router.url;
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate([currentUrl]);
-      });
+      window.location.reload();
+      // let currentUrl = this.router.url;
+      // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      //   this.router.navigate([currentUrl]);
+      // });
     }
     else if (this.stepName == 'BwCredit1') {
       msgStr = await this.childsnc22Service.doDss4Search(jsonObject);
@@ -75,10 +77,11 @@ export class Childscn22Component implements OnInit {
       setTimeout(() => {
         this.dialog.closeAll();
       }, 2000);
-      let currentUrl = this.router.url;
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate([currentUrl]);
-      });
+      window.location.reload();
+      // let currentUrl = this.router.url;
+      // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      //   this.router.navigate([currentUrl]);
+      // });
     }
   }
 }

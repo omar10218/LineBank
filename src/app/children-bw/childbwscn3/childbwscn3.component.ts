@@ -77,7 +77,6 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   hideBAM011 = false;
   hideBAM070 = false;
   hideBAM031 = false;
-  hideJAS002 = false;
 
   private applno: string;
   private cuid: string;
@@ -108,11 +107,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   pageIndex4 = 1;
   pageSize4 = 50;
 
-  JAS002Source: readonly Data[] = [];
-  total5 = 1;
-  pageIndex5 = 1;
-  pageSize5 = 50;
-
+ 
   STM022Source: readonly Data[] = [];
   total6 = 1;
   pageIndex6 = 1;
@@ -174,7 +169,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   pageSize15 = 50;
 
   BAM505Source: readonly Data[] = [];
-  total116 = 1;
+  total16 = 1;
   pageIndex16 = 1;
   pageSize16 = 50;
 
@@ -184,7 +179,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   pageSize17 = 50;
 
   BAM305Source: readonly Data[] = [];
-  total118 = 1;
+  total18 = 1;
   pageIndex18 = 1;
   pageSize18 = 50;
 
@@ -270,11 +265,17 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   getJcicMultiple() {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
-    jsonObject['code'] = 'AAS003,BAI001';
+    jsonObject['code'] = 'AAS003,BAI001,JAS002';
     this.childbwscn3Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
       console.log(data)
+      if(data.rspBody[0]=={}){
+        this.AAS003.push('');
+        this.BAI001.push('');
+        this.JAS002.push('');
+      }
       if (data.rspBody[0].AAS003.length == 0) { this.AAS003.push(''); } else { this.AAS003 = data.rspBody[0].AAS003; };
       if (data.rspBody[0].BAI001.length == 0) { this.BAI001.push(''); } else { this.BAI001 = data.rspBody[0].BAI001; };
+      if (data.rspBody[0].JAS002.length == 0) { this.JAS002.push(''); } else { this.JAS002 = data.rspBody[0].JAS002; };
     });
   }
 
@@ -282,40 +283,39 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['code'] = code;
-    console.log(this.applno)
-    console.log(code)
+ 
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childbwscn3Service.getJCICSearch(jsonObject).subscribe(data => {
       if (code == 'BAM095') { this.total1 = data.rspBody.size; this.BAM095Source = data.rspBody.items; }
-      if (code == 'BAM101') { this.total1 = data.rspBody.size; this.BAM101Source = data.rspBody.items; }
-      if (code == 'KRM048') { this.total1 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
-      if (code == 'KRM046') { this.total1 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
-      if (code == 'JAS002') { this.total1 = data.rspBody.size; this.JAS002Source = data.rspBody.items; }
-      if (code == 'STM022') { this.total1 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
-      if (code == 'STM008') { this.total1 = data.rspBody.size; this.STM007Source = data.rspBody.items; }
-      if (code == 'STM007') { this.total1 = data.rspBody.size; this.STM015Source = data.rspBody.items; }
-      if (code == 'STM015') { this.total1 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
-      if (code == 'STM025') { this.total1 = data.rspBody.size; this.STM025Source = data.rspBody.items; }
-      if (code == 'VAM106') { this.total1 = data.rspBody.size; this.VAM106Source = data.rspBody.items; }
-      if (code == 'VAM107') { this.total1 = data.rspBody.size; this.VAM107Source = data.rspBody.items; }
-      if (code == 'VAM108') { this.total1 = data.rspBody.size; this.VAM108Source = data.rspBody.items; }
-      if (code == 'VAM201') { this.total1 = data.rspBody.size; this.VAM201Source = data.rspBody.items; }
-      if (code == 'BAM501') { this.total1 = data.rspBody.size; this.BAM501Source = data.rspBody.items; }
-      if (code == 'BAM502') { this.total1 = data.rspBody.size; this.BAM502Source = data.rspBody.items; }
-      if (code == 'BAM504') { this.total1 = data.rspBody.size; this.BAM504Source = data.rspBody.items; }
-      if (code == 'BAM505') { this.total1 = data.rspBody.size; this.BAM505Source = data.rspBody.items; }
-      if (code == 'BAM029') { this.total1 = data.rspBody.size; this.BAM029Source = data.rspBody.items; }
-      if (code == 'BAM305') { this.total1 = data.rspBody.size; this.BAM305Source = data.rspBody.items; }
-      if (code == 'BAM306') { this.total1 = data.rspBody.size; this.BAM306Source = data.rspBody.items; }
-      if (code == 'BAM307') { this.total1 = data.rspBody.size; this.BAM307Source = data.rspBody.items; }
-      if (code == 'BAM011') { this.total1 = data.rspBody.size; this.BAM011Source = data.rspBody.items; }
-      if (code == 'BAM070') { this.total1 = data.rspBody.size; this.BAM070Source = data.rspBody.items; }
-      if (code == 'BAM031') { this.total1 = data.rspBody.size; this.BAM031Source = data.rspBody.items; }
+      if (code == 'BAM101') { this.total2 = data.rspBody.size; this.BAM101Source = data.rspBody.items; }
+      if (code == 'KRM048') { this.total3 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
+      if (code == 'KRM046') { this.total4 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
+      if (code == 'STM022') { this.total6 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
+      if (code == 'STM008') { this.total7 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
+      if (code == 'STM007') { this.total24 = data.rspBody.size; this.STM007Source = data.rspBody.items; }
+      if (code == 'STM015') { this.total25 = data.rspBody.size; this.STM015Source = data.rspBody.items; }
+      if (code == 'STM025') { this.total8 = data.rspBody.size; this.STM025Source = data.rspBody.items; }
+      if (code == 'VAM106') { this.total9 = data.rspBody.size; this.VAM106Source = data.rspBody.items; }
+      if (code == 'VAM107') { this.total10 = data.rspBody.size; this.VAM107Source = data.rspBody.items; }
+      if (code == 'VAM108') { this.total11 = data.rspBody.size; this.VAM108Source = data.rspBody.items; }
+      if (code == 'VAM201') { this.total12 = data.rspBody.size; this.VAM201Source = data.rspBody.items; }
+      if (code == 'BAM501') { this.total13 = data.rspBody.size; this.BAM501Source = data.rspBody.items; }
+      if (code == 'BAM502') { this.total14 = data.rspBody.size; this.BAM502Source = data.rspBody.items; }
+      if (code == 'BAM504') { this.total15 = data.rspBody.size; this.BAM504Source = data.rspBody.items; }
+      if (code == 'BAM505') { this.total16 = data.rspBody.size; this.BAM505Source = data.rspBody.items; }
+      if (code == 'BAM029') { this.total17 = data.rspBody.size; this.BAM029Source = data.rspBody.items; }
+      if (code == 'BAM305') { this.total18 = data.rspBody.size; this.BAM305Source = data.rspBody.items; }
+      if (code == 'BAM306') { this.total19 = data.rspBody.size; this.BAM306Source = data.rspBody.items; }
+      if (code == 'BAM307') { this.total20 = data.rspBody.size; this.BAM307Source = data.rspBody.items; }
+      if (code == 'BAM011') { this.total21 = data.rspBody.size; this.BAM011Source = data.rspBody.items; }
+      if (code == 'BAM070') { this.total22 = data.rspBody.size; this.BAM070Source = data.rspBody.items; }
+      if (code == 'BAM031') { this.total23 = data.rspBody.size; this.BAM031Source = data.rspBody.items; }
     });
   }
 
   onQueryParamsChange(params: NzTableQueryParams, code: string): void {
+
     const { pageSize, pageIndex } = params;
     this.getJCIC(pageIndex, pageSize, code);
   }
@@ -345,7 +345,6 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     this.hideSTM007 = true;
     this.hideSTM015 = true;
     this.hideSTM025 = true;
-    this.hideJAS002 = true;
     this.hideBAM031 = true;
   }
 
@@ -375,7 +374,6 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     this.hideBAM011 = false;
     this.hideBAM070 = false;
     this.hideBAM031 = false;
-    this.hideJAS002 = false;
   }
 
   exist() {
@@ -405,7 +403,6 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
       if (this.list[index] == "STM015") { this.hideSTM015 = !this.hideSTM015; }
       if (this.list[index] == "STM008") { this.hideSTM008 = !this.hideSTM008; }
       if (this.list[index] == "STM025") { this.hideSTM025 = !this.hideSTM025; }
-      if (this.list[index] == "JAS002") { this.hideJAS002 = !this.hideJAS002; }
       if (this.list[index] == "BAM031") { this.hideBAM031 = !this.hideBAM031; }
     }
   }
@@ -437,12 +434,19 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     this.list = [];
   }
   toCurrency(amount: string) {
-    return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
+    let number_amount =Number(amount) 
+    let string_amount=Number(amount).toString()
+    return amount != null ? string_amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : number_amount;
   }
-  numberArrange(amount: string){
-  
-    return amount != null ? amount.substr(3) : amount;
-  }
+  // numberArrange(amount: string){
+  // let new_amount=Number(amount)
+  // if(amount.substring(0,1)=='0'){
+  //   return Number(amount)
+  // }else{
+
+  // }
+  //   return amount != null ? amount.substr(3) : amount;
+  // }
   ngOnDestroy() {
     this.menuListService.setWaterMarkSource({
       show: false

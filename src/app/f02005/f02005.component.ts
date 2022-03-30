@@ -6,6 +6,7 @@ import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { BaseService } from '../base.service';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
+import { F02001Service } from '../f02001/f02001.service';
 import { F02005Service } from './f02005.service';
 
 // Jay 歷史案件查詢
@@ -45,11 +46,12 @@ export class F02005Component implements OnInit {
   statusDescSecond: sysCode[] = [];//案件狀態第二層
   statusDescSecondValue: string = '';//案件狀態值第二層
   l3EMPNOList: sysCode[] = [];//徵信員員編陣列
-  quantity: string;
+  quantity: number;
   pageSize=50;
   pageIndex =1;
   jsonObject: any = {};
   resultData = [];
+  newData: any[] = [];
   total: number;
   firstFlag = 1;
   sortArry = ['ascend', 'descend']
@@ -64,6 +66,7 @@ export class F02005Component implements OnInit {
     public pipe: DatePipe,
     public nzI18nService: NzI18nService,
     public dialog: MatDialog,
+    private f02001Service: F02001Service,
   ) {
     this.nzI18nService.setLocale(zh_TW)
   }
@@ -74,7 +77,7 @@ export class F02005Component implements OnInit {
     this.getl3EMPNO();
     this.getCustFlag();
     this.getRiskGrade();
-
+    this.quantity = 0;
     // 查詢案件分類
     this.f02005Service.getSysTypeCode('STATUS_DETAIL').subscribe(data => {
       for (const jsonObj of data.rspBody.mappingList) {
@@ -85,6 +88,7 @@ export class F02005Component implements OnInit {
     });
 
   }
+
   getStatusDesc()
   {
     this.f02005Service.getSysTypeCode('STATUS_CODE').subscribe(data => {
@@ -121,11 +125,13 @@ export class F02005Component implements OnInit {
   }
   //狀態第二層
   changeStatsCode(codeTag: string) {
-    this.statusDescSecondValue='';
     this.statusDescSecond = [];
     let jsonObject: any = {};
     jsonObject['statusDesc'] = codeTag;
-    this.f02005Service.changeStatsCode(jsonObject).subscribe(data => {
+    if (this.status_DESC_Value == '') {
+      this.statusDescSecondValue = '';
+    }
+    this.f02001Service.changeStatsCode(jsonObject).subscribe(data => {
       this.statusDescSecond.push({ value: '', viewValue: '請選擇' })
       for (const jsonObj of data.rspBody) {
         const value = jsonObj['codeNo'];
@@ -176,6 +182,7 @@ export class F02005Component implements OnInit {
   }
   Clear()//清除
   {
+    this.newData = [];
     this.applno = '';
     this.national_ID = '';
     this.cust_ID = '' ;
@@ -196,8 +203,11 @@ export class F02005Component implements OnInit {
     this.sign_UP_TIME = null;
     this.resultData = [];
     this.firstFlag = 1;
+    this.quantity = 0;
     this.statusDescSecondValue='';
-    this.quantity='';
+    this.order = '';
+    this.sor = '';
+
   }
   select() {
     if (this.applno == '' && this.national_ID == '' && this.cust_ID == '' && this.cust_CNAME == '' && this.mobilePhone == '' && this.residencePhone == '' && this.status_DESC_Value == ''
@@ -208,10 +218,17 @@ export class F02005Component implements OnInit {
       });
     }
     else {
+      this.changePage();
       this.selectData(this.pageIndex, this.pageSize,'','');
     }
   }
+
+  changePage() {
+    this.pageIndex = 1;
+  }
+
   selectData(pageIndex: number, pageSize: number,na:string,sort:string) {
+
 
     this.jsonObject['page'] = pageIndex;
     this.jsonObject['per_page'] = pageSize;
@@ -229,7 +246,7 @@ export class F02005Component implements OnInit {
     this.jsonObject['cuCpTel'] = this.workPhone;//公司電話
     this.jsonObject['cuCpName'] = this.company;//公司名稱
     this.jsonObject['cuMTel']=this.mobilePhone;//手機
-    this.jsonObject['HTel'] = this.residencePhone;//住宅電話
+    this.jsonObject['hTel'] = this.residencePhone;//住宅電話
     this.jsonObject['cuIpAddr'] = this.IpAddress;//IpAddress
     this.jsonObject['cuEmail'] = this.Email;//Email
     if(na=='')
@@ -315,9 +332,6 @@ export class F02005Component implements OnInit {
           this.jsonObject['applyEndTimeEnd'] = this.pipe.transform(new Date(this.apply_TIME[1]), 'yyyyMMdd');
         }
         else {
-          const childernDialogRef = this.dialog.open(ConfirmComponent, {
-            data: { msgStr: "進件日期查詢區間最多三個內!" }
-          });
           return;
         }
 
@@ -372,15 +386,18 @@ export class F02005Component implements OnInit {
           data: { msgStr: "查無資料" }
         })
         this.resultData = [];
-
+        this.newData = [];
+        this.quantity = 0;
       }
       else {
-        console.log(data)
+
         this.resultData = data.rspBody.item;
         this.total = data.rspBody.size;
         this.quantity = data.rspBody.size;
         this.firstFlag = 2;
-        this.sort = 'ascend';
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
+
+
       }
 
     }
@@ -417,43 +434,30 @@ export class F02005Component implements OnInit {
   sortChange(e: string, param: string) {
     switch (param) {
       case "APPLNO":
-        if(e==='ascend')
-        {
-          this.order=param;
-          this.sor='DESC';
+        if (e === 'ascend') {
+          this.order = param;
+          this.sor = 'DESC';
         }
-        else
-        {
-          this.order=param;
-          this.sor='';
+        else {
+          this.order = param;
+          this.sor = '';
         }
-
-         e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
-        break;
-      case "APPLYEND_TIME":
-        if(e==='ascend')
-        {
-          this.order=param;
-          this.sor='DESC';
-        }
-        else
-        {
-          this.order=param;
-          this.sor='';
-        }
-        e === 'ascend' ? this.selectData(this.pageIndex, this.pageSize,param,'DESC'):this.selectData(this.pageIndex, this.pageSize,param,'');
+        this.resultData = e === 'ascend' ? this.resultData.sort((a,b) => a.APPLNO.localeCompare(b.APPLNO))
+        : this.resultData.sort((a,b) => b.APPLNO.localeCompare(a.APPLNO));
+        this.newData = this.f02001Service.getTableDate(this.pageIndex, this.pageSize, this.resultData);
         break;
     }
   }
   onQueryParamsChange(params: NzTableQueryParams): void {
-
-    if (this.firstFlag != 1) { // 判斷是否為第一次進頁面
-      const { pageIndex } = params;
-      if (this.pageIndex !== pageIndex)
-      {
-        this.pageIndex = pageIndex;
-        this.selectData(pageIndex, this.pageSize,this.order,this.sor);}
-      }
+     // 判斷是否為第一次進頁面
+     const { pageIndex } = params;
+     if (this.pageIndex !== pageIndex) {
+       if (this.firstFlag != 1) {
+         this.pageIndex = pageIndex;
+         this.newData = this.f02001Service.getTableDate(pageIndex, this.pageSize, this.resultData);
+         // this.selectData(pageIndex, this.pageSize, this.order, this.sor);
+       }
+     }
   }
   Detail(id: string, nationalId: string, cuCname: string, custId: string)//明細
   {
@@ -464,7 +468,7 @@ export class F02005Component implements OnInit {
     jsonObject['cuCname'] = cuCname;//客戶姓名CU_CNAME
     let apiurl = 'f02/f02005action6';
     this.f02005Service.postJson(apiurl, jsonObject).subscribe(data => {
-      console.log(data)
+
       if (data.rspMsg == "success" )
       {
         sessionStorage.setItem('applno', id);

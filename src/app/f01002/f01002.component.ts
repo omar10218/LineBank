@@ -25,7 +25,7 @@ enum Page {
 
 export class F01002Component implements OnInit, AfterViewInit, OnDestroy {
   total: string;
-
+  intervalRef: any;
   constructor(
     private componenFactoryResolver: ComponentFactoryResolver,
     private router: Router,
@@ -73,6 +73,10 @@ export class F01002Component implements OnInit, AfterViewInit, OnDestroy {
       this.nowPage = Page.Page2;
       sessionStorage.setItem('bell','');
     }
+    this.intervalRef = setInterval(
+      () => {
+        this.getCalloutList();
+      }, 5 * 60 * 1000);
 
   }
 

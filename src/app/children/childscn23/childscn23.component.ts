@@ -65,7 +65,7 @@ export class Childscn23Component implements OnInit {
   isAllCheck: boolean = false;
   checkboxArray: checkBox[] = [];
   private stepName: string;
-  private page: string;
+  page: string;
   fmData_B = new MatTableDataSource<any>();//DBR收支表資料 徵信
   fmData_C = new MatTableDataSource<any>();//DBR收支表資料 授信
   fmData_M = new MatTableDataSource<any>();//DBR收支表資料 產生合約前回查

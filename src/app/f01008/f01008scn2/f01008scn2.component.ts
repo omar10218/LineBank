@@ -146,9 +146,10 @@ export class F01008scn2Component implements OnInit {
           }
         }
       });
-    this.ResultCode.push({ value: '', viewValue: '請選擇' })
-    this.ResultCode.push({ value: 'A', viewValue: '核准' })
-    this.ResultCode.push({ value: 'D', viewValue: '婉拒' })
+    this.ResultCode.push({ value: '', viewValue: '請選擇' });
+    this.ResultCode.push({ value: 'A', viewValue: '核准' });
+    this.ResultCode.push({ value: 'D', viewValue: '婉拒' });
+    this.ResultCode.push({ value: 'V', viewValue: '撤銷' });
     this.getSearch();
 
   }
@@ -213,17 +214,12 @@ export class F01008scn2Component implements OnInit {
         CALLOUT_EMPNO: this.empNo,//徵信員編
       });
     }
+  }
 
+  getSearch(): String {
+    return this.search;
   }
-  getSearch() //判斷是否鎖按鈕
-  {
-    if(this.lv =='D2')
-    {
-      return 'Y'
-    }
-    // return this.search;
-    return 'N';
-  }
+
   set() //查詢
   {
     let jsonObject: any = {};
@@ -378,6 +374,9 @@ export class F01008scn2Component implements OnInit {
     this.block = true;
     this.f01008Service.f01008scn2(jsonObject, url).subscribe(data => {
       if (data.rspCode === '0000' || data.rspMsg === '儲存成功') {
+        const childernDialogRef = this.dialog.open(ConfirmComponent, {
+          data: { msgStr: data.rspMsg }
+        });
         this.ma = '';
         this.block = false;
         this.refresh();

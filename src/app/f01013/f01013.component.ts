@@ -83,7 +83,7 @@ export class F01013Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['page'] = this.pageIndex;
     jsonObject['per_page'] = this.pageSize;
-    jsonObject['empNo'] = this.empNo;
+    jsonObject['empNo'] = BaseService.userId;
     jsonObject['stepName'] = 'swcS2EmpNo';
     jsonObject['opid'] = '2620';
     jsonObject['swcNationalId'] = this.swcNationalId;
