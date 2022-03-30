@@ -47,6 +47,12 @@ export class MenuListComponent implements OnInit, OnDestroy {
     });
   }
 
+  @HostListener("window:beforeunload", ["$event"]) beforeUnloadHandler(event: Event) {
+    for (let index = 0; index < this.url.length; index++) {
+      this.url[index].close();
+    }
+  }
+
   total: string;
   applno = [];
   calloutSource$: Subscription;

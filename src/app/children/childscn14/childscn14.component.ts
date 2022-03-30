@@ -4,6 +4,7 @@ import { Data } from '@angular/router';
 
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { DynamicDirective } from 'src/app/common-lib/directive/dynamic.directive';
+import { F01002Scn1Service } from 'src/app/f01002/f01002scn1/f01002scn1.service';
 import { MenuListService } from 'src/app/menu-list/menu-list.service';
 import { Childscn1Service } from '../childscn1/childscn1.service';
 import { Childscn6Service } from '../childscn6/childscn6.service';
@@ -22,9 +23,8 @@ export class Childscn14Component implements OnInit {
     // private componenFactoryResolver: ComponentFactoryResolver,
     private childscn6Service: Childscn6Service,
     private childscn14Service: Childscn14Service,
-    private childscn1Service: Childscn1Service,
     public dialog: MatDialog,
-    private menuListService: MenuListService
+    private menuListService: MenuListService,
   ) { }
 
   @ViewChild(DynamicDirective) appDynamic: DynamicDirective;
@@ -77,7 +77,7 @@ export class Childscn14Component implements OnInit {
     return host;
   }
 
-  getImageDetail(pageIndex: number, pageSize: number ) {
+  getImageDetail(pageIndex: number, pageSize: number) {
     const baseUrl = 'f01/childscn14action1';
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
@@ -109,13 +109,14 @@ export class Childscn14Component implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null && result.event == 'success') {
-        this.getImageDetail(this.pageIndex, this.pageSize); }
+        this.getImageDetail(this.pageIndex, this.pageSize);
+      }
     });
   }
 
   //刪除影像
   async deleteFile(uploadId: string, docKey: string) {
-    if(this.cuid != uploadId) {
+    if (this.cuid != uploadId) {
       const deleteDialogRef = this.dialog.open(Childscn14page1Component, {
         data: { msgStr: "無法刪除非本人上傳之圖檔" }
       });
@@ -156,7 +157,7 @@ export class Childscn14Component implements OnInit {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
       }
       const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], {type: data.rspBody.type});
+      const blob = new Blob([byteArray], { type: data.rspBody.type });
 
       let downloadURL = window.URL.createObjectURL(blob);
       let link = document.createElement('a');
@@ -167,10 +168,12 @@ export class Childscn14Component implements OnInit {
     });
   }
 
-  openUrl(value: string){
+  openUrl(value: string) {
     let url = window.open(this.host + ':18443/LineBankViewOne/system/viewer.html?docKey=' + value + '&cuId=' + this.cuid + '&cuNm=' + this.cuNm);
-    this.menuListService.setUrl({
-      url: url
-    });
+    if (url.localStorage.tttttt != null && url.localStorage.tttttt != "") {
+      this.menuListService.setUrl({
+        url: url
+      });
+    }
   }
 }
