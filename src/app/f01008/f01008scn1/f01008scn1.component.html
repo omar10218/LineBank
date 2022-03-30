@@ -1,16 +1,26 @@
 <app-block *ngIf="block"></app-block>
 <div class="line_bank_bankground_color">
   <br>
-  <div  style="position:fixed;top:48px;width:100%;z-index:100">
+  <div  style="position:fixed;top:48px;width:100%;z-index:100" *ngIf="level !='D1' ">
     <ng-container *ngIf="getSearch() == 'N'">
       <div style="padding:0 10px;background-color:white">
         <mat-grid-list cols="9" rowHeight="3:0.5" style="background-color:white;margin:0px -8px -20px -8px;padding:0px">
           <mat-grid-tile><span style="font-size: 10px;" (click)="save('是否案件完成')">案件完成</span></mat-grid-tile>
-          <mat-grid-tile><span style="font-size: 10px;" *ngIf="level =='D1' "(click)="return()">退件</span></mat-grid-tile>
           <mat-grid-tile *ngIf="jcicNumb < 3 && level =='D2' "><span style="font-size: 10px;"
               (click)="reSearch('是否立即重查JCIC')">立即重查JCIC</span></mat-grid-tile>
           <mat-grid-tile *ngIf="level =='D2'"><span style="font-size: 10px;" (click)="reScan('是否重算')">重算</span></mat-grid-tile>
           <mat-grid-tile *ngIf="level =='D2'"><span style="font-size: 10px;" (click)="temporarily()">暫存</span></mat-grid-tile>
+
+        </mat-grid-list>
+      </div>
+    </ng-container>
+  </div>
+  <div  style="position:fixed;top:48px;width:100%;z-index:100" *ngIf="level =='D1'">
+    <ng-container *ngIf="getSearch() == 'N'">
+      <div style="padding:0 10px;background-color:white" >
+        <mat-grid-list cols="9" rowHeight="3:0.5" style="background-color:white;margin:0px -8px -20px -8px;padding:0px">
+          <mat-grid-tile><span style="font-size: 10px;" (click)="save('是否案件完成')">案件完成</span></mat-grid-tile>
+          <mat-grid-tile><span style="font-size: 10px;" (click)="return()">退件</span></mat-grid-tile>
 
         </mat-grid-list>
       </div>
