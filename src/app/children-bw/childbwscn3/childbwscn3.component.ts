@@ -6,6 +6,7 @@ import { ChildrenService } from '../../children/children.service';
 import { DatePipe } from '@angular/common';
 import { MenuListService } from 'src/app/menu-list/menu-list.service';
 
+
 //Jay 複審行外資訊
 @Component({
   selector: 'app-childbwscn3',
@@ -97,7 +98,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   pageIndex2 = 1;
   pageSize2 = 50;
 
-  KRM048Source: readonly Data[] = [];
+  KRM048Source:  readonly Data[] = [];
   total3 = 1;
   pageIndex3 = 1;
   pageSize3 = 50;
@@ -107,7 +108,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   pageIndex4 = 1;
   pageSize4 = 50;
 
- 
+
   STM022Source: readonly Data[] = [];
   total6 = 1;
   pageIndex6 = 1;
@@ -117,7 +118,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
   total24 = 1;
   pageIndex24 = 1;
   pageSize24 = 50
-  ;
+    ;
   STM015Source: readonly Data[] = [];
   total25 = 1;
   pageIndex25 = 1;
@@ -268,7 +269,7 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     jsonObject['code'] = 'AAS003,BAI001,JAS002';
     this.childbwscn3Service.getMASTERJCICSearch(jsonObject).subscribe(data => {
       console.log(data)
-      if(data.rspBody[0]=={}){
+      if (data.rspBody[0] == {}) {
         this.AAS003.push('');
         this.BAI001.push('');
         this.JAS002.push('');
@@ -283,13 +284,17 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     jsonObject['code'] = code;
- 
+
     jsonObject['page'] = pageIndex;
     jsonObject['per_page'] = pageSize;
     this.childbwscn3Service.getJCICSearch(jsonObject).subscribe(data => {
       if (code == 'BAM095') { this.total1 = data.rspBody.size; this.BAM095Source = data.rspBody.items; }
       if (code == 'BAM101') { this.total2 = data.rspBody.size; this.BAM101Source = data.rspBody.items; }
-      if (code == 'KRM048') { this.total3 = data.rspBody.size; this.KRM048Source = data.rspBody.items; }
+      if (code == 'KRM048') {
+        this.total3 = data.rspBody.size; this.KRM048Source = data.rspBody.items;
+        // this.sortData()
+
+      }
       if (code == 'KRM046') { this.total4 = data.rspBody.size; this.KRM046Source = data.rspBody.items; }
       if (code == 'STM022') { this.total6 = data.rspBody.size; this.STM022Source = data.rspBody.items; }
       if (code == 'STM008') { this.total7 = data.rspBody.size; this.STM008Source = data.rspBody.items; }
@@ -434,8 +439,8 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
     this.list = [];
   }
   toCurrency(amount: string) {
-    let number_amount =Number(amount) 
-    let string_amount=Number(amount).toString()
+    let number_amount = Number(amount)
+    let string_amount = Number(amount).toString()
     return amount != null ? string_amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : number_amount;
   }
   // numberArrange(amount: string){
@@ -452,5 +457,23 @@ export class Childbwscn3Component implements OnInit, AfterViewInit {
       show: false
     })
   }
+  // sortData() {
+  //   const test = []
+  //   for (let data of this.KRM048Source) {
+  //     if (data.ISSUE == 'TOT') {
+  //       let x = Number(data.BILL_DATE);
+  //       let y = x.toString();
+  //       let z = y + '00'
+  //       console.log(z)
+  //       test.push(z)
+
+  //     } else if (data.ISSUE != 'TOT') {
+  //       test.push(data.BILL_DATE)
+  //       console.log(test)
+  //     }
+  //     test.reverse()
+  //     console.log(test.reverse())
+  //   }
+  // }
 
 }

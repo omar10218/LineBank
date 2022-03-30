@@ -59,7 +59,7 @@ export class Childscn11page6Component implements OnInit {
     // this.childscn11Service.selectCustomer(url, jsonObject).subscribe(data => {
 
 
-    sessionStorage.setItem('applno', col);
+    sessionStorage.setItem('applno',  this.applno);
     sessionStorage.setItem('nationalId', this.cuid);
     sessionStorage.setItem('custId', this.custId);
     sessionStorage.setItem('search', 'Y');
