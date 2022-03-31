@@ -160,9 +160,11 @@ export class F02002returnComponent implements OnInit {
       }
       // this.F02002Data = data.rspBody;
       this.quantity = data.rspBody.length
-      console.log(this.F02002Data)
+
       for (const i of data.rspBody) {
-        if (i.IMAGE_NAME != null) {
+
+        if (i.IMAGE_NAME != null && i.IMAGE_NAME != undefined) {
+
           this.quantity = this.quantity - 1
         }
       }
@@ -216,7 +218,7 @@ export class F02002returnComponent implements OnInit {
         });
       }
     });
-    // this.dialogRef.close({ event: 'success' });
+    this.dialogRef.close({ event: 'success' });
   }
 
 
