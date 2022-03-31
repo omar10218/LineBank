@@ -9,6 +9,7 @@
       (nzQueryParams)="onQueryParamsChange($event)" nzSize="small" nzTitle="案件歷程">
       <thead>
         <tr>
+          <th class="table-header">NO</th>
           <th class="table-header">狀態碼</th>
           <th class="table-header">狀態說明</th>
           <th class="table-header">狀態結果</th>
@@ -17,7 +18,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of caseStepSource">
+        <tr *ngFor="let data of caseStepSource;let i = index">
+          <td class="table-data">{{ i+1}}</td>
           <td class="table-data">{{ data.opId }}</td>
           <td class="table-data">{{ data.opDesc }}</td>
           <td class="table-data">{{ data.stepType }}</td>
