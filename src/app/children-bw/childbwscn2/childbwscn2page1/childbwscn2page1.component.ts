@@ -179,7 +179,7 @@ export class childbwscn2page1Component implements OnInit {
         this.dss1Form1.patchValue({ RV_NEXTDT_QRYITEM: data.rspBody.bwDss4List[0].rvNextdtQryitem })//預計下次審查日期之發查範圍
         this.dss1Form1.patchValue({ RV_MINPAYRT: data.rspBody.bwDss4List[0].rvMinpayrt })//本次貸後管理後-調整每月最低還款比例
         this.dss1Form1.patchValue({ RV_DISB_BTCR_YN: data.rspBody.bwDss4List[0].rvDisbBtcrYn })//本次貸後管理後-調整結帳日至還款日間客戶可申請動撥Y
-        this.dss1Form1.patchValue({ RV_RL_DISB_THRHLD: data.rspBody.bwDss4List[0].rvRlDisbThrhld })//本次貸後管理後-調整循環信貸簡易檢核動撥金額門檻
+        this.dss1Form1.patchValue({ RV_RL_DISB_THRHLD: this.toCurrency(data.rspBody.bwDss4List[0].rvRlDisbThrhld) })//本次貸後管理後-調整循環信貸簡易檢核動撥金額門檻
         //貸後-風險模型資訊
         this.dss1Form1.patchValue({ RISKMDGRAD_DIFF: data.rspBody.bwDss4List[0].riskmdgradDiff })//與上次風險模型等級差距
         this.dss1Form1.patchValue({ RV_RISKMDSUB: data.rspBody.bwDss4List[0].rvRiskmdsub })//本次貸後管理風險模型
@@ -197,17 +197,17 @@ export class childbwscn2page1Component implements OnInit {
         this.dss1Form1.patchValue({ VAM106_ABNRMAL: data.rspBody.bwDss4List[0].vam106Abnrmal })//信用異常註記VAM106
         this.dss1Form1.patchValue({ VAM107_ABNRMAL: data.rspBody.bwDss4List[0].vam107Abnrmal })//信用異常註記VAM107
         this.dss1Form1.patchValue({ VAM108_ABNRMAL: data.rspBody.bwDss4List[0].vam108Abnrmal })//信用異常註記VAM108
-        this.dss1Form1.patchValue({ BAM305_PASSDUEAMT: data.rspBody.bwDss4List[0].bam305Passdueamt })//保證債務逾期金額
-        this.dss1Form1.patchValue({ BAM306_PASSDUEAMT: data.rspBody.bwDss4List[0].bam306Passdueamt })//保證債務逾期金額
-        this.dss1Form1.patchValue({ BAM307_PASSDUEAMT: data.rspBody.bwDss4List[0].bam307Passdueamt })//保證債務逾期金額
+        this.dss1Form1.patchValue({ BAM305_PASSDUEAMT: this.toCurrency(data.rspBody.bwDss4List[0].bam305Passdueamt) })//保證債務逾期金額
+        this.dss1Form1.patchValue({ BAM306_PASSDUEAMT: this.toCurrency(data.rspBody.bwDss4List[0].bam306Passdueamt) })//保證債務逾期金額
+        this.dss1Form1.patchValue({ BAM307_PASSDUEAMT: this.toCurrency(data.rspBody.bwDss4List[0].bam307Passdueamt) })//保證債務逾期金額
         this.dss1Form1.patchValue({ UNSDEBT_AMT_501EX: data.rspBody.bwDss4List[0].unsdebtAmt501ex })//無擔保負債(不含本行)_BAM501月報
         this.dss1Form1.patchValue({ UNSDEBT_AMT_504EX: data.rspBody.bwDss4List[0].unsdebtAmt504ex })//無擔保負債(不含本行)_BAM504扣除鑑價值
-        this.dss1Form1.patchValue({ UNSDEBT_AMTNEW_505EX: data.rspBody.bwDss4List[0].unsdebtAmtnew505ex })//無擔保負債(不含本行)_BAM505新增核准額度
-        this.dss1Form1.patchValue({ UNSDEBT_AMTNEW_029EX: data.rspBody.bwDss4List[0].unsdebtAmtnew029ex })//無擔保負債(不含本行)_BAM029新增核准額度
-        this.dss1Form1.patchValue({ UNSDEBT_824_RLLIMIT: data.rspBody.bwDss4List[0].unsdebt824Rllimit })//本行無擔保負債_循環信貸額度
-        this.dss1Form1.patchValue({ UNSDEBT_824_ILBAL: data.rspBody.bwDss4List[0].unsdebt824Ilbal })//本行無擔保負債_分期信貸放款餘額
+        this.dss1Form1.patchValue({ UNSDEBT_AMTNEW_505EX: this.toCurrency(data.rspBody.bwDss4List[0].unsdebtAmtnew505ex) })//無擔保負債(不含本行)_BAM505新增核准額度
+        this.dss1Form1.patchValue({ UNSDEBT_AMTNEW_029EX: this.toCurrency(data.rspBody.bwDss4List[0].unsdebtAmtnew029ex) })//無擔保負債(不含本行)_BAM029新增核准額度
+        this.dss1Form1.patchValue({ UNSDEBT_824_RLLIMIT: this.toCurrency(data.rspBody.bwDss4List[0].unsdebt824Rllimit) })//本行無擔保負債_循環信貸額度
+        this.dss1Form1.patchValue({ UNSDEBT_824_ILBAL: this.toCurrency(data.rspBody.bwDss4List[0].unsdebt824Ilbal) })//本行無擔保負債_分期信貸放款餘額
         this.dss1Form1.patchValue({ UNSDEBT_824_CCRBAL: data.rspBody.bwDss4List[0].unsdebt824Ccrbal })//本行無擔保負債_信用卡循環預借未到期 (預留
-        this.dss1Form1.patchValue({ UNSDEBT_PAYAMT_029EX: data.rspBody.bwDss4List[0].unsdebtPayamt029ex })//(減項) 無擔保負債(不含本行)_BAM029清償金額
+        this.dss1Form1.patchValue({ UNSDEBT_PAYAMT_029EX: this.toCurrency(data.rspBody.bwDss4List[0].unsdebtPayamt029ex) })//(減項) 無擔保負債(不含本行)_BAM029清償金額
         this.dss1Form1.patchValue({ DBR: data.rspBody.bwDss4List[0].dbr })//無擔保倍數
 
       }
@@ -469,5 +469,8 @@ export class childbwscn2page1Component implements OnInit {
     // }
 
     return s
+  }
+  toCurrency(amount: string) {
+    return amount != null ? amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : amount;
   }
 }
