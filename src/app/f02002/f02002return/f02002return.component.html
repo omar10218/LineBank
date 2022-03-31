@@ -43,7 +43,7 @@
       <button nz-button [nzSize]="'middle'" nzDanger style="margin:0px 5px" (click)="cancel()">離開</button>
       <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="store()"
         [disabled]="this.quantity == 1 ? true:false" >儲存</button> -->
-      <button nz-button [disabled]="(quantity == onChangelength || bool) ? true:false" [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="store()"
+      <button nz-button [disabled]="quantity == onChangelength || bool ? true:false" [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="store()"
          >儲存</button>
       <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" [disabled]="bool"
         (click)="SendBack('是否案件完成')">送回案件清單</button>

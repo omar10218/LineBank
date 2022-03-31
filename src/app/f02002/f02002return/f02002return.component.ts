@@ -150,7 +150,6 @@ export class F02002returnComponent implements OnInit {
 
       // this.F02002Data=data.rspBody
 
-
       for(var k of data.rspBody)
       {
         if(k.RESCAN_FLAG=='N')
@@ -159,12 +158,13 @@ export class F02002returnComponent implements OnInit {
         }
       }
       // this.F02002Data = data.rspBody;
-      this.quantity = data.rspBody.length
+      this.quantity = this.F02002Data.length
 
-      for (const i of data.rspBody) {
+      for (var i of this.F02002Data)
+      {
 
-        if (i.IMAGE_NAME != null && i.IMAGE_NAME != undefined) {
-
+        if (i.IMAGE_NAME != undefined)
+        {
           this.quantity = this.quantity - 1
         }
       }
@@ -331,8 +331,8 @@ export class F02002returnComponent implements OnInit {
   {
     console.log(this.fileList.length)
     console.log(this.bool)
-    // alert( this.fileToUpload)
-    // console.log( this.fileList)
-    // console.log( this.fileList.length)
+    console.log(this.blockList.length)
+    console.log( this.quantity)
+    console.log( this.onChangelength)
   }
 }
