@@ -78,8 +78,10 @@ export class F03006Component implements OnInit {
     this.f03006Service.getEmployeeSysTypeCode(baseUrl, jsonObject).subscribe(data => {
       for (const jsonObj of data.rspBody.empList) {
         const codeNo = jsonObj.empNo
-        const desc = jsonObj.empNo
-        this.agent_empCode.push({ value: codeNo, viewValue: desc })
+        const desc = jsonObj.empNo + jsonObj.empName
+        if (jsonObj.empNo != 'root') {
+          this.agent_empCode.push({ value: codeNo, viewValue: desc })
+        }
       }
 
       for (const jsonObj of data.rspBody.levelTypeList) {

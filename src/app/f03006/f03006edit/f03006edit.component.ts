@@ -17,9 +17,11 @@ export class F03006editComponent {
   dateType: OptionsCode[];//日期型態下拉選單
   levelStartDateValue: Date;
   levelEndDateValue: Date;
-  date1:string;
-  date2:string;
-  check:boolean;
+  date1: string;
+  date2: string;
+  check: boolean;
+  emplist;
+  emp;
   constructor(public dialogRef: MatDialogRef<F03006editComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -30,6 +32,7 @@ export class F03006editComponent {
 
   ngOnInit(): void {
     //取得初始下拉選單
+    this.emplist = this.data.agent_empCode;
     this.dateType = this.data.levelStartDateTypeCode;
     this.changeDATE_TYPE('Start');//請假起日型態
     this.changeDATE_TYPE('End');//請假迄日型態
@@ -41,9 +44,12 @@ export class F03006editComponent {
       .subscribe(data => {
         this.data.agent_empCode.push({ value: '', viewValue: '請選擇' })
         for (const jsonObj of data.rspBody.empList) {
-          const codeNo = jsonObj.empNo;
-          const desc = jsonObj.empNo;
-          this.data.agent_empCode.push({ value: codeNo, viewValue: desc })//取同等級代理人
+          this.emp = this.emplist.filter(e => e.value == jsonObj.empNo)
+          if (this.emp != null && this.emp.length > 0) {
+            const codeNo = this.emp[0].value;
+            const desc = this.emp[0].viewValue;
+            this.data.agent_empCode.push({ value: codeNo, viewValue: desc })//取同等級代理人
+          }
         }
       });
 
@@ -64,23 +70,23 @@ export class F03006editComponent {
   //有日期才可選日期型態
   changeDATE_TYPE(key: string) {
 
-    if(key=='Start')
-    {
-      this.date1=this.datepipe.transform(new Date(this.data.LEAVE_STARTDATE),'yyyy-MM-dd');
+    if (key == 'Start') {
+      if (this.data.LEAVE_STARTDATE != null) {
+        this.date1 = this.datepipe.transform(new Date(this.data.LEAVE_STARTDATE), 'yyyy-MM-dd');
+      }
     }
-    else
-    {
-      this.date2=this.datepipe.transform(new Date(this.data.LEAVE_ENDDATE),'yyyy-MM-dd');
+    else {
+      if (this.data.LEAVE_STARTDATE != null) {
+        this.date2 = this.datepipe.transform(new Date(this.data.LEAVE_ENDDATE), 'yyyy-MM-dd');
+      }
     }
 
-    if(this.date1==this.date2)
-    {
-      this.check=true;
-      this.data.LEAVE_ENDDATE_TYPE=this.data.LEAVE_STARTDATE_TYPE ;
+    if (this.date1 == this.date2) {
+      this.check = true;
+      this.data.LEAVE_ENDDATE_TYPE = this.data.LEAVE_STARTDATE_TYPE;
     }
-    else
-    {
-      this.check =false;
+    else {
+      this.check = false;
     }
 
 
@@ -91,11 +97,9 @@ export class F03006editComponent {
       this.data.levelEndDateTypeCode = this.data.LEAVE_ENDDATE == null ? [] : this.dateType;
     }
   }
-  reason()
-  {
-    if(this.check)
-    {
-      this.data.LEAVE_ENDDATE_TYPE=this.data.LEAVE_STARTDATE_TYPE ;
+  reason() {
+    if (this.check) {
+      this.data.LEAVE_ENDDATE_TYPE = this.data.LEAVE_STARTDATE_TYPE;
     }
   }
 
@@ -105,7 +109,7 @@ export class F03006editComponent {
   }
 
   //檢查身分證
-  checkIDCard(ID :string) {
+  checkIDCard(ID: string) {
     var value = ID.trim().toUpperCase();
     var a = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'W', 'Z', 'I', 'O');
     var b = new Array(1, 9, 8, 7, 6, 5, 4, 3, 2, 1);
@@ -154,8 +158,8 @@ export class F03006editComponent {
   public async stopEdit(): Promise<void> {
     //資料驗證
     //避免儲存undefined
-    this.data.AGENT_EMP= this.data.AGENT_EMP==undefined?"":this.data.AGENT_EMP
-    this.data.ASSIGN_PROJECTNO= this.data.ASSIGN_PROJECTNO==undefined?"":this.data.ASSIGN_PROJECTNO
+    this.data.AGENT_EMP = this.data.AGENT_EMP == undefined ? "" : this.data.AGENT_EMP
+    this.data.ASSIGN_PROJECTNO = this.data.ASSIGN_PROJECTNO == undefined ? "" : this.data.ASSIGN_PROJECTNO
 
     if (!this.checkIDCard(this.data.EMP_ID)) {
       const childernDialogRef = this.dialog.open(ConfirmComponent, {
