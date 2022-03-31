@@ -4,14 +4,14 @@
 <div class="line_bank_card_no_padding">
   <nz-table nzShowSizeChanger [nzData]="PROD_DETAILSource" [nzFrontPagination]="false" [nzSimple]="true"
     (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize"
-    [nzPageIndex]="pageIndex" nzSize="small" [nzScroll]="{ x: '2000px', y: '240px' }" nzTitle="產品明細">
+    [nzPageIndex]="pageIndex" nzSize="small" [nzScroll]="{ x: '1500px', y: '240px' }" nzTitle="產品明細">
     <thead>
       <tr>
-        <th class="table-header" nzWidth="100px">產品</th>
-        <th class="table-header" nzWidth="100px">目前狀態正常帳戶數</th>
-        <th class="table-header" nzWidth="100px">目前逾期狀態（各產品最嚴重）</th>
-        <th class="table-header" nzWidth="100px">最早轉催日期</th>
-        <th class="table-header" nzWidth="100px">最早轉呆日期</th>
+        <th class="table-header" >產品</th>
+        <th class="table-header" >目前狀態正常帳戶數</th>
+        <th class="table-header" >目前逾期狀態（各產品最嚴重）</th>
+        <th class="table-header" >最早轉催日期</th>
+        <th class="table-header" >最早轉呆日期</th>
         <!-- <th class="table-header" nzWidth="100px">最早行內協議成立日期</th>
         <th class="table-header" nzWidth="100px">最早前置協商/調解申請日期</th>
         <th class="table-header" nzWidth="100px">最早前置協商/調解成立日期</th>
