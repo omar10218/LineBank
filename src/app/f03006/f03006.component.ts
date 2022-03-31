@@ -70,7 +70,7 @@ export class F03006Component implements OnInit {
   hide = true;
 
   ngOnInit(): void {
-    if (BaseService.userId == 'root') { this.Maintainer = true }
+    if (BaseService.userId == 'ROOT') { this.Maintainer = true }
     this.getEmployeeList(this.pageIndex, this.pageSize)
 
     const baseUrl = 'f03/f03006' //代理人
@@ -79,7 +79,7 @@ export class F03006Component implements OnInit {
       for (const jsonObj of data.rspBody.empList) {
         const codeNo = jsonObj.empNo
         const desc = jsonObj.empNo + jsonObj.empName
-        if (jsonObj.empNo != 'root') {
+        if (jsonObj.empNo != 'ROOT') {
           this.agent_empCode.push({ value: codeNo, viewValue: desc })
         }
       }
