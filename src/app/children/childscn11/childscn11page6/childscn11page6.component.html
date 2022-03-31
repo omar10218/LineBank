@@ -18,7 +18,7 @@
         <td class="table-data" style="text-align: center;">{{ i+1 }}</td>
         <td class="table-data" style="text-align: center;">{{ row.OP_DESC }}</td>
         <td class="table-data" style="text-align: center;">{{ row.CODE_DESC }}</td>
-        <td class="table-data" style="text-align: center;"><button nz-button nzType="link" (click)="Inquire(row)">{{ row.APPLNO }}</button></td>
+        <td class="table-data" style="text-align: center;"><button nz-button nzType="link" (click)="Inquire(row.APPLNO)">{{ row.APPLNO }}</button></td>
 
       </tr>
 
