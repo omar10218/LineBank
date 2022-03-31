@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
         return;
       }
     }
+    this.no = this.no != null ? this.no.toUpperCase() : this.no;
     if (await this.loginService.initData(this.no, this.lineBankWord, chkTicket)) {
       this.router.navigate(['./home'], { queryParams: { empNo: this.no } });
       this.loginService.setBnIdle();
