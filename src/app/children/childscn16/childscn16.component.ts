@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { Data, Router } from '@angular/router';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { BaseService } from 'src/app/base.service';
+import { MenuListService } from 'src/app/menu-list/menu-list.service';
 
 //Jay 歷史資料
 
@@ -26,7 +27,9 @@ export class Childscn16Component implements OnInit {
     private childscn16Service: Childscn16Service,
     private pipe: DatePipe,
     public childService: ChildrenService,
-    public dialog: MatDialog,) { }
+    public dialog: MatDialog,
+    private menuListService: MenuListService,
+  ) { }
   applno: string;
   jsonObject: any = {};
   data: any;//裝一開始的資料表
@@ -91,7 +94,10 @@ export class Childscn16Component implements OnInit {
 
       //開啟徵審主畫面
       let safeUrl = this.childscn16Service.getNowUrlPath("/#/F01002/F01002SCN1");
-      window.open(safeUrl);
+      let url = window.open(safeUrl);
+      this.menuListService.setUrl({
+        url: url
+      });
 
       sessionStorage.setItem('winClose', 'N');
       sessionStorage.setItem('search', 'N');

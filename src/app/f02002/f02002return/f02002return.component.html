@@ -19,10 +19,10 @@
           <td class="table-data">{{data.RESTART_DATE|date: 'yyyy-MM-dd '}}</td>
           <td class="table-data">{{data.RESCAN_TYPE}}</td>
           <td class="table-data">{{data.RESCAN_ITEM}}</td>
-          <td class="table-data" style="max-width: 235px">{{data.RESCAN_CONTENT}}</td>
+          <td class="table-data" style="max-width: 235px" >{{data.RESCAN_CONTENT}}</td>
           <td class="table-data">
             <div style="padding:10px">
-              <mat-select [(ngModel)]="data.rescanReason" name="data.rescanReason"    (ngModelChange)="block(data.ROW_ID,data.rescanReason)"
+              <mat-select [(ngModel)]="data.RESCANREASON" name="data.RESCANREASON"    (ngModelChange)="block(data.ROW_ID,data.RESCANREASON)"
                 [disabled]="data.IMAGE_NAME ==null? false:true " placeholder="請選擇">
                 <mat-option *ngFor="let code of type" [value]="code.value">
                   {{code.viewValue}}
@@ -30,11 +30,11 @@
               </mat-select>
             </div>
           </td>
-          <td class="table-data" *ngIf="data.IMAGE_NAME == null || data.IMAGE_NAME == ''"><input #test type="file" name="file" id="file"  [disabled]="data.rescanReason == ''? true:false"
+          <td class="table-data" *ngIf="data.IMAGE_NAME == null || data.IMAGE_NAME == ''"><input #test type="file" name="file" id="file"  [disabled]="data.RESCANREASON == ''? true:false"
               (change)="onChange($event,data.ROW_ID)" /></td>
           <!-- <td class="table-data" *ngIf="expression"><input type="text" [(ngModel)]="docType" name="docType" /></td> -->
           <td class="table-data" *ngIf="!(data.IMAGE_NAME == null || data.IMAGE_NAME == '')"><label>{{data.IMAGE_NAME}}</label></td>
-          <td class="table-data"><input type="text" [(ngModel)]="data.IMAGE_CONTENT" name="data.IMAGE_CONTENT" maxlength="100"></td>
+          <td class="table-data"><input type="text" [(ngModel)]="data.IMAGE_CONTENT" name="data.IMAGE_CONTENT" maxlength="100" [disabled]="data.IMAGE_DATE ==null? false:true "></td>
         </tr>
       </tbody>
 

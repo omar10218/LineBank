@@ -7,6 +7,7 @@ import { NzI18nService, zh_TW } from 'ng-zorro-antd/i18n';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ConfirmComponent } from '../common-lib/confirm/confirm.component';
 import { F02001Service } from './f02001.service';
+import { MenuListService } from '../menu-list/menu-list.service';
 
 // Jay 案件查詢
 interface sysCode {
@@ -27,6 +28,7 @@ export class F02001Component implements OnInit {
     public pipe: DatePipe,
     public nzI18nService: NzI18nService,
     public dialog: MatDialog,
+    private menuListService: MenuListService
   ) {
     this.nzI18nService.setLocale(zh_TW)
   }
@@ -213,7 +215,10 @@ export class F02001Component implements OnInit {
 
         //開啟徵審主畫面
         let safeUrl = this.f02001Service.getNowUrlPath("/#/F01002/F01002SCN1");
-        window.open(safeUrl);
+        let url = window.open(safeUrl);
+        this.menuListService.setUrl({
+          url: url
+        });
 
         sessionStorage.setItem('winClose', 'N');
         sessionStorage.setItem('search', 'N');

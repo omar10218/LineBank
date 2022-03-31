@@ -71,6 +71,7 @@ export class Childscn19Component implements OnInit {
   // boo :boolean = true ;
   block: boolean = false;
   send: boolean = true;//案件送出判斷是否鎖起來
+  variable=0;
   page: string;
   checkpoint: string;
   ngOnInit(): void {
@@ -123,11 +124,7 @@ export class Childscn19Component implements OnInit {
   //新增補件資訊
   public async rescan(): Promise<void> {
 
-    if (this.restartDate == null) {
-      const confirmDialogRef = this.dialog.open(ConfirmComponent, {
-        data: { msgStr: "請輸入日期" }
-      });
-    } else if (this.rescanType == null || this.rescanType == '') {
+   if (this.rescanType == null || this.rescanType == '') {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入補件原因" }
       });
@@ -141,7 +138,7 @@ export class Childscn19Component implements OnInit {
       jsonObject['rescanType'] = this.rescanType;
       jsonObject['rescanContent'] = this.rescanContent;
       jsonObject['rescanItem'] = this.rescanItem;
-      jsonObject['restartDate'] = this.pipe.transform(new Date(this.restartDate), 'yyyyMMdd');
+      // jsonObject['restartDate'] = this.pipe.transform(new Date(), 'yyyy-MM-dd-HH:mm');
       let msgStr: string = "";
       msgStr = await this.childscn19Service.addRescan(jsonObject);
       if (msgStr == 'success') {
@@ -172,7 +169,7 @@ export class Childscn19Component implements OnInit {
       // const confirmDialogRef = this.dialog.open(ConfirmComponent, {
       //   data: { msgStr: "請輸入時間" }
       // });
-    // } else 
+    // } else
     if (this.mobile == null || this.mobile == "" || this.mobile.length != 10) {
       const confirmDialogRef = this.dialog.open(ConfirmComponent, {
         data: { msgStr: "請輸入手機號碼" }
@@ -226,28 +223,31 @@ export class Childscn19Component implements OnInit {
 
 
   //取該案件補件資訊
-  getRescanList() {
+ getRescanList() {
     this.ii = [];
     this.send = true;
     let jsonObject: any = {};
     jsonObject['applno'] = this.applno;
     this.childscn19Service.getRescanSearch(jsonObject).subscribe(data => {
+      console.log(data)
       this.remarkContent = '';
       if (data.rspBody.items.length > 0) {
-        for (var i of data.rspBody.items) {
+        for (var i of data.rspBody.items)
+        {
           if (i.IMAGE_DATE != null) {
             this.ii.push(i.IMAGE_DATE)
           }
-        }
-        if (data.rspBody.items.length != this.ii.length) {
-          this.send = false;
-        }
-        else {
-          this.send = true;
+
+          if (i.RESCAN_FLAG == 'N')
+          {
+           this.send = false;
+          }
         }
 
+
+
         for (let index = 0; index < data.rspBody.items.length; index++) {
-          if (data.rspBody.items[index].IMAGE_DATE == undefined) {
+          if (data.rspBody.items[index].RESCAN_FLAG == 'N') {
             if (index == data.rspBody.items.length - 1) {
               this.remarkContent = this.remarkContent + data.rspBody.items[index].RESCAN_ITEM + '(' + data.rspBody.items[index].RESCAN_TYPE + ')。';
             } else {
@@ -274,6 +274,7 @@ export class Childscn19Component implements OnInit {
 
     })
   };
+
 
 
   //取該案件簡訊發送資訊/從客戶資訊查詢客戶手機

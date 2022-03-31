@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { BaseService } from 'src/app/base.service';
+import { MenuListService } from 'src/app/menu-list/menu-list.service';
 import { Childscn11Service } from '../childscn11.service';
 
 @Component({
@@ -14,7 +15,9 @@ export class Childscn11page6Component implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<Childscn11page6Component>,
     private childscn11Service: Childscn11Service,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    private menuListService: MenuListService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) { }
 
   private check: string;
   applnoData: any[] = [];
@@ -73,7 +76,10 @@ export class Childscn11page6Component implements OnInit {
 
     //   //開啟徵審主畫面
     let safeUrl = this.childscn11Service.getNowUrlPath("/#/F01002/F01002SCN1");
-    window.open(safeUrl);
+    let url = window.open(safeUrl);
+    this.menuListService.setUrl({
+      url: url
+    });
 
     sessionStorage.setItem('winClose', 'N');
     sessionStorage.setItem('search', 'N');

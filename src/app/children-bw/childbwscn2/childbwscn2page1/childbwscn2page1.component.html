@@ -31,7 +31,7 @@
       </div>
     </div>
   </span>
-  <div style="padding-left: 40px; padding-top:10px;">
+  <div style="padding-left: 40px; padding-top:30px;">
     <div nz-row>
       <div nz-col nzFlex="1">
         <span >查詢日期時間 : {{ThisTime}}</span>
@@ -39,8 +39,7 @@
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="1"></div>
       <div nz-col nzFlex="1"></div>
-      <div nz-col nzFlex="1"></div>
-      <div nz-col nzFlex="1"></div>
+    
     </div>
   </div>
   <div class="line_bank_card_no_padding_child">    <!-- 系統決策 -->
@@ -138,7 +137,7 @@
         <div nz-col nzSpan="4">
           <div style="padding:3px">
             <span class="form-title">本次貸後管理後-調整循環信貸<br>簡易檢核動撥金額門檻</span>
-            <input style="display: block;" formControlName="RV_RL_DISB_THRHLD" readonly>
+            <input style="display: block;text-align: right;" formControlName="RV_RL_DISB_THRHLD" readonly>
           </div>
         </div>
       </div>
@@ -364,19 +363,19 @@
         <div nz-col nzSpan="6">
           <div style="padding:3px">
             <span class="form-title">保證債務逾期金額</span>
-            <input style="display: block;" formControlName="BAM305_PASSDUEAMT" readonly>
+            <input style="display: block;text-align: right;" formControlName="BAM305_PASSDUEAMT" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
           <div style="padding:3px">
             <span class="form-title">保證債務逾期金額</span>
-            <input style="display: block;" formControlName="BAM306_PASSDUEAMT" readonly>
+            <input style="display: block;text-align: right;" formControlName="BAM306_PASSDUEAMT" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
           <div style="padding:3px">
             <span class="form-title">保證債務逾期金額</span>
-            <input style="display: block;" formControlName="BAM307_PASSDUEAMT" readonly>
+            <input style="display: block;text-align: right;" formControlName="BAM307_PASSDUEAMT" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
@@ -396,19 +395,19 @@
         <div nz-col nzSpan="6">
           <div style="padding:3px">
             <span class="form-title">無擔保負債(不含本行)_BAM505新增核准額度</span>
-            <input style="display: block;" formControlName="UNSDEBT_AMTNEW_505EX" readonly>
+            <input style="display: block;text-align: right;" formControlName="UNSDEBT_AMTNEW_505EX" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
           <div style="padding:3px">
             <span class="form-title">無擔保負債(不含本行)_BAM029新增核准額度</span>
-            <input style="display: block;" formControlName="UNSDEBT_AMTNEW_029EX" readonly>
+            <input style="display: block;text-align: right;" formControlName="UNSDEBT_AMTNEW_029EX" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
           <div style="padding:3px">
             <span class="form-title">本行無擔保負債_循環信貸額度</span>
-            <input style="display: block;" formControlName="UNSDEBT_824_RLLIMIT" readonly>
+            <input style="display: block;text-align: right;" formControlName="UNSDEBT_824_RLLIMIT" readonly>
           </div>
         </div>
       </div>
@@ -416,7 +415,7 @@
         <div nz-col nzSpan="6">
           <div style="padding:3px">
             <span class="form-title">本行無擔保負債_分期信貸放款餘額</span>
-            <input style="display: block;" formControlName="UNSDEBT_824_ILBAL" readonly>
+            <input style="display: block;text-align: right;" formControlName="UNSDEBT_824_ILBAL" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
@@ -428,7 +427,7 @@
         <div nz-col nzSpan="6">
           <div style="padding:3px">
             <span class="form-title">(減項) 無擔保負債(不含本行)_BAM029清償金額</span>
-            <input style="display: block;" formControlName="UNSDEBT_PAYAMT_029EX" readonly>
+            <input style="display: block;text-align: right;" formControlName="UNSDEBT_PAYAMT_029EX" readonly>
           </div>
         </div>
         <div nz-col nzSpan="6">
@@ -443,24 +442,24 @@
       <div class="EL_DSS_form_header_title3">額度策略</div>
       <nz-table nzShowSizeChanger [nzData]="BW_DSS4_CFC_LIMIT.data" [nzFrontPagination]="false" [nzSimple]="true"
         nzSize="small">
-        <thead>
-          <tr>
-            <th class="table-header" style="width: 2%;">額度編號</th>
-            <th class="table-header" style="width: 3%;">額度類別代碼</th>
-            <th class="table-header" style="width: 2.5%;">額度</th>
-            <th class="table-header" style="width: 3%;">額度起日</th>
-            <th class="table-header" style="width: 3%;">額度迄日</th>
-            <th class="table-header" style="width: 2%;">系統流程</th>
-            <th class="table-header" style="width: 2%;">貸後管理狀態</th>
-            <th class="table-header" style="width: 2%;">說明</th>
-            <th class="table-header" style="width: 2%;">執行原因</th>
-            <th class="table-header" style="width: 3%;">執行原因細項</th>
-            <th class="table-header" style="width: 2%;">起日</th>
-            <th class="table-header" style="width: 2%;">迄日</th>
-            <th class="table-header" style="width: 2%;">預佔額度</th>
-            <th class="table-header" style="width: 2.5%;">調降後額度</th>
-            <th class="table-header" style="width: 10%;">通知客戶註記</th>
-            <th class="table-header" style="width: 10%;">循環信貸特定客戶提供可循環轉分期註記</th>
+        <thead >
+          <tr >
+            <th class="table-header" style="width: 4%;color: black">額度編號</th>
+            <th class="table-header" style="width: 4%;color: black">額度類別代碼</th>
+            <th class="table-header" style="width: 3%;color: black">額度</th>
+            <th class="table-header" style="width: 3%;color: black">額度起日</th>
+            <th class="table-header" style="width: 3%;color: black">額度迄日</th>
+            <th class="table-header" style="width: 2%;color: black">系統流程</th>
+            <th class="table-header" style="width: 2%;color: black">貸後管理狀態</th>
+            <th class="table-header" style="width: 5%;color: black">說明</th>
+            <th class="table-header" style="width: 5%;color: black">執行原因</th>
+            <th class="table-header" style="width: 5%;color: black">執行原因細項</th>
+            <th class="table-header" style="width: 3%;color: black">起日</th>
+            <th class="table-header" style="width: 3%;color: black">迄日</th>
+            <th class="table-header" style="width: 3%;color: black">預佔額度</th>
+            <th class="table-header" style="width: 3%;color: black">調降後額度</th>
+            <th class="table-header" style="width: 6%;color: black">通知客戶註記</th>
+            <th class="table-header" style="width: 6%;color: black">循環信貸特定客戶提供可循環轉分期註記</th>
           </tr>
         </thead>
         <tbody>
