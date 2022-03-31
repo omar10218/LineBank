@@ -239,7 +239,7 @@ export class F02002returnComponent implements OnInit {
        {
         this.list = [];
         const fileObj = this.formdata2.get(it.ROW_ID);
-        this.list.push({ rowId: it.ROW_ID, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT });
+        this.list.push({ rowId: it.ROW_ID, rescanReason: it.RESCANREASON, imageContent: it.IMAGE_CONTENT });
         this.jsonstr = JSON.stringify(this.list);
         jsonarry.push(this.jsonstr);
         formdata.append('files', fileObj != null ? fileObj : new Blob);
