@@ -74,6 +74,24 @@ export class F01008scn4page1Component implements OnInit {
     return x
   }
 
+   //去除符號中文 可負號.
+   data_number3(x: string) {
+    this.toINT(x);
+    if (x != null) {
+      if (x.indexOf('-') == 0 && x.length > 1) {
+        x = x.replace(/[^\d.]/g, '');
+        x = parseInt(x.toString()).toString() == 'NaN' ? '' : parseInt(x.toString()).toString();//去掉數字前面的0
+        x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        x = '-' + x;
+      } else {
+        x = x.replace(/[^\d-.]/g, '');
+        x = parseInt(x.toString()).toString() == 'NaN' ? '' : parseInt(x.toString()).toString();//去掉數字前面的0
+        x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+    }
+    return x
+  }
+
   //去除符號/中文 可負號 儲存用
   save_data_number(x: string) {
     //不可空白null 自動補0
@@ -163,15 +181,16 @@ export class F01008scn4page1Component implements OnInit {
         this.fmData_M.data[0].unsdebt_PAYAMT_029EX = this.data_number2(this.fmData_M.data[0].unsdebt_PAYAMT_029EX);
 
 
-        this.fmData_M.data[0].unsdebt_SUM_0 = this.data_number2(this.fmData_M.data[0].unsdebt_SUM_0);
+        this.fmData_M.data[0].unsdebt_SUM_0 = this.data_number3(this.fmData_M.data[0].unsdebt_SUM_0);
+        this.fmData_M.data[0].unsdebt_SUM_0CK = this.data_number3(this.fmData_M.data[0].unsdebt_SUM_0CK);
         this.fmData_M.data[0].unsdebt_SUM_0CK_B = this.data_number2(this.fmData_M.data[0].unsdebt_SUM_0CK_B);
-        this.fmData_M.data[0].annual_INCOME = this.data_number2(this.fmData_M.data[0].annual_INCOME);
-        this.fmData_M.data[0].income = this.data_number2(this.fmData_M.data[0].income);
-        this.fmData_M.data[0].approve_AMT = this.data_number2(this.fmData_M.data[0].approve_AMT);
-        this.fmData_M.data[0].dbr_0 = this.data_number2(this.fmData_M.data[0].dbr_0);
-        this.fmData_M.data[0].dbr_0CK = this.data_number2(this.fmData_M.data[0].dbr_0CK);
-        this.fmData_M.data[0].dbr_2 = this.data_number2(this.fmData_M.data[0].dbr_2);
-        this.fmData_M.data[0].dbr_2CK = this.data_number2(this.fmData_M.data[0].dbr_2CK);
+        this.fmData_M.data[0].annual_INCOME = this.data_number3(this.fmData_M.data[0].annual_INCOME);
+        this.fmData_M.data[0].income = this.data_number3(this.fmData_M.data[0].income);
+        this.fmData_M.data[0].approve_AMT = this.data_number3(this.fmData_M.data[0].approve_AMT);
+        this.fmData_M.data[0].dbr_0 = this.data_number3(this.fmData_M.data[0].dbr_0);
+        this.fmData_M.data[0].dbr_0CK = this.data_number3(this.fmData_M.data[0].dbr_0CK);
+        this.fmData_M.data[0].dbr_2 = this.data_number3(this.fmData_M.data[0].dbr_2);
+        this.fmData_M.data[0].dbr_2CK = this.data_number3(this.fmData_M.data[0].dbr_2CK);
 
 
       }
