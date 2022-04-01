@@ -45,7 +45,7 @@
         [disabled]="this.quantity == 1 ? true:false" >儲存</button> -->
       <button nz-button [disabled]="quantity == onChangelength || bool ? true:false" [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="store()"
          >儲存</button>
-      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" [disabled]="bool"
+      <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" [disabled]="bo"
         (click)="SendBack('是否案件完成')">送回案件清單</button>
       <!-- <button nz-button [nzSize]="'middle'" nzType="primary" style="margin:0px 5px" (click)="test()">測試</button> -->
     </div>
