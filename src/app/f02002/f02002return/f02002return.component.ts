@@ -49,7 +49,7 @@ export class F02002returnComponent implements OnInit {
 
     })
     this.bool = false;
-
+    this.bo =true;
 
   }
   i = 1;
@@ -74,6 +74,7 @@ export class F02002returnComponent implements OnInit {
   jsonstr: string;
   blockList = [];
   bool: boolean;
+  bo:boolean;
   formControl = new FormControl('', [
     Validators.required
   ]);
@@ -91,6 +92,7 @@ export class F02002returnComponent implements OnInit {
   }
 
   public async onChange(evt: { target: DataTransfer; }, rid: string,) {
+
     this.target = <DataTransfer>(evt.target);
     if(this.target.files.length==0)
     {
@@ -166,6 +168,10 @@ export class F02002returnComponent implements OnInit {
         if (i.IMAGE_NAME != undefined)
         {
           this.quantity = this.quantity - 1
+        }
+        if(i.RESCANREASON != null)
+        {
+          this.bo=false;
         }
       }
       // console.log(data.rspBody.length)
@@ -296,13 +302,14 @@ export class F02002returnComponent implements OnInit {
       this.blockList.push(rid)
     }
 
+    if (this.blockList.length != this.fileList.length)
+    {
 
-    if (this.blockList.length != this.fileList.length){
       this.bool = true;
     }
     else
     {
-      this.bool = false;
+      this.bo= false;
     }
     // console.log(this.blockList.length)
     // console.log(this.fileList.length)
@@ -317,10 +324,11 @@ export class F02002returnComponent implements OnInit {
     // console.log(this.blockList.length)
     // console.log(this.fileList.length)
     if (this.blockList.length == this.fileList.length) {
+      this.bo=false;
       this.bool = false;
     }
     else
-    {
+    {   this.bo=true;
       this.bool=true;
     }
 
