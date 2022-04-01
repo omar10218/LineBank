@@ -150,7 +150,6 @@ export class F02002returnComponent implements OnInit {
 
       // this.F02002Data=data.rspBody
 
-
       for(var k of data.rspBody)
       {
         if(k.RESCAN_FLAG=='N')
@@ -159,10 +158,13 @@ export class F02002returnComponent implements OnInit {
         }
       }
       // this.F02002Data = data.rspBody;
-      this.quantity = data.rspBody.length
-      console.log(this.F02002Data)
-      for (const i of data.rspBody) {
-        if (i.IMAGE_NAME != null) {
+      this.quantity = this.F02002Data.length
+
+      for (var i of this.F02002Data)
+      {
+
+        if (i.IMAGE_NAME != undefined)
+        {
           this.quantity = this.quantity - 1
         }
       }
@@ -216,7 +218,7 @@ export class F02002returnComponent implements OnInit {
         });
       }
     });
-    // this.dialogRef.close({ event: 'success' });
+    this.dialogRef.close({ event: 'success' });
   }
 
 
@@ -237,7 +239,7 @@ export class F02002returnComponent implements OnInit {
        {
         this.list = [];
         const fileObj = this.formdata2.get(it.ROW_ID);
-        this.list.push({ rowId: it.ROW_ID, rescanReason: it.rescanReason, imageContent: it.IMAGE_CONTENT });
+        this.list.push({ rowId: it.ROW_ID, rescanReason: it.RESCANREASON, imageContent: it.IMAGE_CONTENT });
         this.jsonstr = JSON.stringify(this.list);
         jsonarry.push(this.jsonstr);
         formdata.append('files', fileObj != null ? fileObj : new Blob);
@@ -329,8 +331,8 @@ export class F02002returnComponent implements OnInit {
   {
     console.log(this.fileList.length)
     console.log(this.bool)
-    // alert( this.fileToUpload)
-    // console.log( this.fileList)
-    // console.log( this.fileList.length)
+    console.log(this.blockList.length)
+    console.log( this.quantity)
+    console.log( this.onChangelength)
   }
 }
