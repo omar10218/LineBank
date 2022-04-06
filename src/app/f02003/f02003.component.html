@@ -69,7 +69,7 @@
   <div  class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{quantity}}件)</div>
     <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"
-      [nzScroll]="{ x: '800px', y: '480px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
+      [nzScroll]="{ x: '800px', y: '1500px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
       [nzPageIndex]="pageIndex"    (nzQueryParams)="onQueryParamsChange($event)">
       <thead >
         <tr>
@@ -80,8 +80,8 @@
           <th nzWidth="25px">客戶姓名</th>
           <th nzWidth="30px">覆審人員</th>
           <th nzWidth="30px">覆審主管</th>
-          <th nzWidth="20px">進件類型</th>
-          <th nzWidth="30px">系統狀態</th>
+          <th nzWidth="25px">進件類型</th>
+          <th nzWidth="25px">系統狀態</th>
           <th nzWidth="30px">進件日期時間</th>
           <th nzWidth="30px">覆審結束日期時間</th>
           <th nzWidth="30px">核決日期</th>
