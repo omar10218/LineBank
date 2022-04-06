@@ -39,38 +39,41 @@
           </mat-select>
         </div>
       </div>
-      <div nz-col nzFlex="0.8">
+    </div>
+    <div nz-row style="padding:10px">
+      <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">進件日期</span>
-          <nz-range-picker [(ngModel)]="apply_TIME" name="apply_TIME"
+          <nz-range-picker [(ngModel)]="apply_TIME" name="apply_TIME" style="width: 100%;"
             (ngModelChange)="dateNull(apply_TIME,'apply_TIME')"></nz-range-picker>
         </div>
       </div>
-      <div nz-col nzFlex="0.8">
+      <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">核決日期</span>
-          <nz-range-picker [(ngModel)]="credit_TIME" name="credit_TIME"
+          <nz-range-picker [(ngModel)]="credit_TIME" name="credit_TIME" style="width: 100%;"
             (ngModelChange)="dateNull(credit_TIME,'credit_TIME')"></nz-range-picker>
         </div>
       </div>
     </div>
     <div style="padding:10px;text-align:center">
       <!-- (click)="add()" -->
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="conditionCheck()">查詢資料</button>&nbsp;
-      <button nz-button [nzSize]="'large'" nzType="primary" (click)="clear()">清除資料</button>&nbsp;
+      <button nz-button [nzSize]="'middle'" nzType="primary" (click)="conditionCheck()">查詢資料</button>&nbsp;
+      <button nz-button [nzSize]="'middle'"  nzDanger (click)="clear()">清除資料</button>&nbsp;
       <!-- <button nz-button [nzSize]="'large'" nzType="primary" (click)="test()" >離開</button>&nbsp; -->
     </div>
     <!-- 表格 -->
   </div>
+
   <div  class="line_bank_card_no_padding">
     <div class="line_bank_form_header_title">案件查詢資料結果:(案件數:{{quantity}}件)</div>
     <nz-table nzShowSizeChanger [nzData]="newData" [nzFrontPagination]="false" [nzSimple]="true"
       [nzScroll]="{ x: '2400px', y: '480px' }" [nzLoading]="false" [nzTotal]="total" [nzPageSize]="pageSize"
       [nzPageIndex]="pageIndex"    (nzQueryParams)="onQueryParamsChange($event)">
-      <thead>
+      <thead >
         <tr>
-          <th nzLeft nzWidth="2%">序號</th>
+          <th nzLeft nzWidth="2%" >序號</th>
           <th nzLeft nzWidth="5%" (nzSortOrderChange)="sortChange($event,'APPLNO')" [nzSortFn]="true"  [nzSortOrder]="'ascend'">案件編號</th>
           <th nzWidth="5%" >身分證字號</th>
-          <th nzWidth="5%">客戶ＩＤ</th>
+          <th nzWidth="5%">客戶ID</th>
           <th nzWidth="5%">客戶姓名</th>
           <th nzWidth="5%">覆審人員</th>
           <th nzWidth="5%">覆審主管</th>
@@ -85,7 +88,7 @@
       <tbody>
         <tr *ngFor="let data of newData; let i = index ">
           <!--序號-->
-          <td nzLeft>{{i+1}}</td>
+          <td nzLeft style="text-align: center;">{{i+1}}</td>
           <!--案件編號-->
           <td nzLeft><button nz-button [nzSize]="'middle'" nzType="link" (click)="Detail(data.APPLNO,data.NATIONAL_ID, data.CUST_ID,data.CU_CNAME)">{{data.APPLNO}}</button></td>
           <!--身分證字號-->
