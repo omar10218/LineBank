@@ -41,15 +41,15 @@
       </div>
     </div>
     <div nz-row style="padding:10px">
-      <div nz-col nzSpan="4">
+      <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">進件日期</span>
-          <nz-range-picker [(ngModel)]="apply_TIME" name="apply_TIME"
+          <nz-range-picker [(ngModel)]="apply_TIME" name="apply_TIME" style="width: 100%;"
             (ngModelChange)="dateNull(apply_TIME,'apply_TIME')"></nz-range-picker>
         </div>
       </div>
       <div nz-col nzSpan="8">
         <div style="padding:10px"><span class="form-title">核決日期</span>
-          <nz-range-picker [(ngModel)]="credit_TIME" name="credit_TIME"
+          <nz-range-picker [(ngModel)]="credit_TIME" name="credit_TIME" style="width: 100%;"
             (ngModelChange)="dateNull(credit_TIME,'credit_TIME')"></nz-range-picker>
         </div>
       </div>
