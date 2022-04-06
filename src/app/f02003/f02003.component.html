@@ -75,8 +75,8 @@
         <tr>
           <th nzLeft nzWidth="10px" >序號</th>
           <th nzLeft nzWidth="30px" (nzSortOrderChange)="sortChange($event,'APPLNO')" [nzSortFn]="true"  [nzSortOrder]="'ascend'">案件編號</th>
-          <th nzWidth="20px" >身分證字號</th>
-          <th nzWidth="20px">客戶ID</th>
+          <th nzWidth="20px">身分證字號</th>
+          <th nzWidth="15 px">客戶ID</th>
           <th nzWidth="25px">客戶姓名</th>
           <th nzWidth="30px">覆審人員</th>
           <th nzWidth="30px">覆審主管</th>
@@ -93,7 +93,7 @@
           <!--序號-->
           <td nzLeft style="text-align: center;">{{i+1}}</td>
           <!--案件編號-->
-          <td nzLeft><button nz-button [nzSize]="'middle'" nzType="link" (click)="Detail(data.APPLNO,data.NATIONAL_ID, data.CUST_ID,data.CU_CNAME)">{{data.APPLNO}}</button></td>
+          <td nzLeft><button nz-button [nzSize]="'middle'"nzType="link" (click)="Detail(data.APPLNO,data.NATIONAL_ID, data.CUST_ID,data.CU_CNAME)">{{data.APPLNO}}</button></td>
           <!--身分證字號-->
           <td>{{data.NATIONAL_ID}}</td>
           <!--客戶ＩＤ-->
