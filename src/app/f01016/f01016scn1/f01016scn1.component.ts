@@ -59,9 +59,9 @@ export class F01016scn1Component implements OnInit {
   ];//主管核決
   executeCode: sysCode[] = [
     { value: '', viewValue: '請選擇' },
-    { value: 'FRZ', viewValue: 'FRZ' },
-    { value: 'DWN', viewValue: 'DWN' },
-    { value: 'HLD', viewValue: 'HLD' }
+    { value: 'FRZ', viewValue: 'FRZ-凍結' },
+    { value: 'DWN', viewValue: 'DWN-降額' },
+    { value: 'HLD', viewValue: 'HLD-解凍' }
   ];//執行策略
   YNValue: string = '';//通知客戶值
   mobile: string//行動電話
@@ -318,7 +318,7 @@ export class F01016scn1Component implements OnInit {
     if (this.reasonValue == 'A' || this.reasonValue == 'C') {
       return this.executeCode = [
         { value: '', viewValue: '請選擇' },
-        { value: 'FRZ', viewValue: 'FRZ' },
+        { value: 'FRZ', viewValue: 'FRZ-凍結' },
 
       ];
 
@@ -326,13 +326,13 @@ export class F01016scn1Component implements OnInit {
     else if (this.reasonValue == 'B' || this.reasonValue == 'D') {
       return this.executeCode = [
         { value: '', viewValue: '請選擇' },
-        { value: 'HLD', viewValue: 'HLD' },
+        { value: 'HLD', viewValue: 'HLD-解凍' },
 
       ];
     } else {
       return this.executeCode = [
         { value: '', viewValue: '請選擇' },
-        { value: 'DWN', viewValue: 'DWN' },
+        { value: 'DWN', viewValue: 'DWN-降額' },
 
       ];
     }
