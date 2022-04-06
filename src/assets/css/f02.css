@@ -121,7 +121,7 @@ input{
 }
 :host::ng-deep.ant-table-tbody>tr>td{
   padding:0px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .button-group{
   padding:10px;
