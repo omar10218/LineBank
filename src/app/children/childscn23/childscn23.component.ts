@@ -466,19 +466,19 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].unsdebt_824_CCRBAL = this.data_number2(this.fmData_B.data[0].unsdebt_824_CCRBAL);
         this.fmData_B.data[0].unsdebt_NONJCIC = this.data_number2(this.fmData_B.data[0].unsdebt_NONJCIC);
         this.fmData_B.data[0].unsdebt_PAYAMT_029EX = this.data_number2(this.fmData_B.data[0].unsdebt_PAYAMT_029EX);
-        this.fmData_B.data[0].unsdebt_SUM_0 = this.data_number2(this.fmData_B.data[0].unsdebt_SUM_0);
-        this.fmData_B.data[0].unsdebt_SUM_0CK_B = this.data_number2(this.fmData_B.data[0].unsdebt_SUM_0CK_B);
-        this.fmData_B.data[0].annual_INCOME = this.data_number2(this.fmData_B.data[0].annual_INCOME);
-        this.fmData_B.data[0].income = this.data_number2(this.fmData_B.data[0].income);
-        this.fmData_B.data[0].dbr_0X = this.data_number2(this.fmData_B.data[0].dbr_0X);
-        this.fmData_B.data[0].dbr_0XCK_B = this.data_number2(this.fmData_B.data[0].dbr_0XCK_B);
-        this.fmData_B.data[0].dbr_0 = this.data_number2(this.fmData_B.data[0].dbr_0);
-        this.fmData_B.data[0].dbr_0CK_B = this.data_number2(this.fmData_B.data[0].dbr_0CK_B);
-        this.fmData_B.data[0].dbr_1 = this.data_number2(this.fmData_B.data[0].dbr_1);
-        this.fmData_B.data[0].dbr_1CK_B = this.data_number2(this.fmData_B.data[0].dbr_1CK_B);
-        this.fmData_B.data[0].approve_AMT = this.data_number2(this.fmData_B.data[0].approve_AMT);
-        this.fmData_B.data[0].mthpay_SUM_0CK_B = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0CK_B);
-        this.fmData_B.data[0].mthpay_SUM_0CK_C = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0CK_C);
+        this.fmData_B.data[0].unsdebt_SUM_0 = this.data_number3(this.fmData_B.data[0].unsdebt_SUM_0);
+        this.fmData_B.data[0].unsdebt_SUM_0CK_B = this.data_number3(this.fmData_B.data[0].unsdebt_SUM_0CK_B);
+        this.fmData_B.data[0].annual_INCOME = this.data_number3(this.fmData_B.data[0].annual_INCOME);
+        this.fmData_B.data[0].income = this.data_number3(this.fmData_B.data[0].income);
+        this.fmData_B.data[0].dbr_0X = this.data_number3(this.fmData_B.data[0].dbr_0X);
+        this.fmData_B.data[0].dbr_0XCK_B = this.data_number3(this.fmData_B.data[0].dbr_0XCK_B);
+        this.fmData_B.data[0].dbr_0 = this.data_number3(this.fmData_B.data[0].dbr_0);
+        this.fmData_B.data[0].dbr_0CK_B = this.data_number3(this.fmData_B.data[0].dbr_0CK_B);
+        this.fmData_B.data[0].dbr_1 = this.data_number3(this.fmData_B.data[0].dbr_1);
+        this.fmData_B.data[0].dbr_1CK_B = this.data_number3(this.fmData_B.data[0].dbr_1CK_B);
+        this.fmData_B.data[0].approve_AMT = this.data_number3(this.fmData_B.data[0].approve_AMT);
+        this.fmData_B.data[0].mthpay_SUM_0CK_B = this.data_number3(this.fmData_B.data[0].mthpay_SUM_0CK_B);
+        this.fmData_B.data[0].mthpay_SUM_0CK_C = this.data_number3(this.fmData_B.data[0].mthpay_SUM_0CK_C);
 
 
 
@@ -486,9 +486,10 @@ export class Childscn23Component implements OnInit {
         this.fmData_B.data[0].mthpay_BAM029 = this.data_number2(this.fmData_B.data[0].mthpay_BAM029);
         this.fmData_B.data[0].mthpay_KRM048 = this.data_number2(this.fmData_B.data[0].mthpay_KRM048);
         this.fmData_B.data[0].mthpay_NONJCIC = this.data_number2(this.fmData_B.data[0].mthpay_NONJCIC);
-        this.fmData_B.data[0].mthpay_SUM_0 = this.data_number2(this.fmData_B.data[0].mthpay_SUM_0);
+        this.fmData_B.data[0].mthpay_SUM_0 = this.data_number3(this.fmData_B.data[0].mthpay_SUM_0);
 
         this.fmData_B.data[0].dti_1CK_B = this.data_number2(this.fmData_B.data[0].dti_1CK_B);
+
         this.getDBR_DTI_C(true);
       }
       else {
@@ -525,6 +526,24 @@ export class Childscn23Component implements OnInit {
     }
     return x
   }
+
+    //去除符號中文 可負號
+    data_number3(x: string) {
+      this.toINT(x);
+      if (x != null) {
+        if (x.indexOf('-') == 0 && x.length > 1) {
+          x = x.replace(/[^\d.]/g, '');
+          x = parseInt(x.toString()).toString() == 'NaN' ? '' : parseInt(x.toString()).toString();//去掉數字前面的0
+          x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          x = '-' + x;
+        } else {
+          x = x.replace(/[^\d-.]/g, '');
+          x = parseInt(x.toString()).toString() == 'NaN' ? '' : parseInt(x.toString()).toString();//去掉數字前面的0
+          x = x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+      }
+      return x
+    }
 
   //去除符號/中文 可負號 儲存用
   save_data_number(x: string) {
@@ -645,11 +664,11 @@ export class Childscn23Component implements OnInit {
           this.fmData_B.data[0].mthpay_NONJCIC_C = this.data_number2(data.rspBody[0].mthpay_NONJCIC_C);
 
           //以下 資料加千分位
-          this.fmData_B.data[0].unsdebt_SUM_0CK_C = this.data_number2(data.rspBody[0].unsdebt_SUM_0CK_C);
-          this.fmData_B.data[0].mthpay_SUM_0CK_C = this.data_number2(data.rspBody[0].mthpay_SUM_0CK_C);
-          this.fmData_B.data[0].dbr_0XCK_C = this.data_number2(data.rspBody[0].dbr_0XCK_C);
-          this.fmData_B.data[0].dbr_0CK_C = this.data_number2(data.rspBody[0].dbr_0CK_C);
-          this.fmData_B.data[0].dbr_1CK_C = this.data_number2(data.rspBody[0].dbr_1CK_C);
+          this.fmData_B.data[0].unsdebt_SUM_0CK_C = this.data_number3(data.rspBody[0].unsdebt_SUM_0CK_C);
+          this.fmData_B.data[0].mthpay_SUM_0CK_C = this.data_number3(data.rspBody[0].mthpay_SUM_0CK_C);
+          this.fmData_B.data[0].dbr_0XCK_C = this.data_number3(data.rspBody[0].dbr_0XCK_C);
+          this.fmData_B.data[0].dbr_0CK_C = this.data_number3(data.rspBody[0].dbr_0CK_C);
+          this.fmData_B.data[0].dbr_1CK_C = this.data_number3(data.rspBody[0].dbr_1CK_C);
           this.fmData_B.data[0].approve_AMT = this.data_number2(data.rspBody[0].approve_AMT);
 
           this.fmData_B.data[0].dti_0XCK_C = this.data_number2(data.rspBody[0].dti_0XCK_C);
